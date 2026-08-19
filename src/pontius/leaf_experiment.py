@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import time
-from dataclasses import asdict
+from dataclasses import asdict, dataclass
 from math import sqrt
 from pathlib import Path
 from typing import Any
@@ -26,9 +26,22 @@ from .evaluation import (
 )
 from .game import Action, ExtensiveFormGame
 from .kuhn import KuhnPoker
+from .policy import interpolate_policy
 from .reporting import environment_metadata, json_policy
 
 SOLVERS = {"cfr", "lcfr", "cfr_plus", "dcfr"}
+
+
+@dataclass(frozen=True, slots=True)
+class PreparedBlueprint:
+    game_name: str
+    solver_name: str
+    iterations: int
+    game: KuhnPoker
+    policy: Policy
+    evaluation: EvaluationResult
+    solver_seconds: float
+    evaluation_seconds: float
 
 
 def _parse_game(game_name: str) -> KuhnPoker:
@@ -40,13 +53,37 @@ def _parse_game(game_name: str) -> KuhnPoker:
     return KuhnPoker(num_players)
 
 
-def _merge_policy(blueprint: Policy, overlay: Policy) -> Policy:
-    merged = {
-        key: dict(distribution) for key, distribution in blueprint.items()
-    }
-    for key, distribution in overlay.items():
-        merged[key] = dict(distribution)
-    return merged
+def prepare_blueprint(
+    game_name: str,
+    solver_name: str,
+    iterations: int,
+) -> PreparedBlueprint:
+    """Train and exactly evaluate a reusable experiment blueprint."""
+
+    game = _parse_game(game_name)
+    if solver_name not in SOLVERS:
+        raise ValueError(f"unsupported blueprint solver {solver_name!r}")
+    if iterations <= 0:
+        raise ValueError("blueprint iterations must be positive")
+
+    solver = TabularCFR(game, variant=solver_name)  # type: ignore[arg-type]
+    solver_start = time.perf_counter()
+    solver.run(iterations)
+    solver_seconds = time.perf_counter() - solver_start
+    policy = solver.average_strategy()
+    evaluation_start = time.perf_counter()
+    evaluation = evaluate_profile(game, policy)
+    evaluation_seconds = time.perf_counter() - evaluation_start
+    return PreparedBlueprint(
+        game_name=game_name,
+        solver_name=solver_name,
+        iterations=iterations,
+        game=game,
+        policy=policy,
+        evaluation=evaluation,
+        solver_seconds=solver_seconds,
+        evaluation_seconds=evaluation_seconds,
+    )
 
 
 def _resolved_information_sets(
@@ -117,12 +154,37 @@ def _effect(
 def _evaluation_record(
     evaluation: EvaluationResult,
     policy: Policy,
+    blueprint: Policy,
     blueprint_nash_conv: float,
+    information_sets: dict[str, tuple[Action, ...]],
 ) -> dict[str, Any]:
     return {
         **asdict(evaluation),
         "nash_conv_delta_from_blueprint": evaluation.nash_conv - blueprint_nash_conv,
+        "nash_conv_improvement_over_blueprint": (
+            blueprint_nash_conv - evaluation.nash_conv
+        ),
+        "resolved_policy_distance_from_blueprint": _policy_distance(
+            policy,
+            blueprint,
+            information_sets,
+        ),
         "policy": json_policy(policy),
+    }
+
+
+def _oracle_no_op_selection(
+    candidate: EvaluationResult,
+    blueprint: EvaluationResult,
+) -> dict[str, Any]:
+    candidate_selected = candidate.nash_conv < blueprint.nash_conv
+    return {
+        "candidate_selected": candidate_selected,
+        "selected": "candidate" if candidate_selected else "blueprint",
+        "candidate_nash_conv_delta": candidate.nash_conv - blueprint.nash_conv,
+        "selected_nash_conv": (
+            candidate.nash_conv if candidate_selected else blueprint.nash_conv
+        ),
     }
 
 
@@ -132,9 +194,15 @@ def _run_search(
     iterations: int,
     blueprint: Policy,
     warm_start_regret_mass: float | None,
+    in_search_blueprint_weight: float,
 ) -> tuple[TabularCFR, float, float]:
     initialization_start = time.perf_counter()
-    solver = TabularCFR(game, variant=solver_name)  # type: ignore[arg-type]
+    solver = TabularCFR(
+        game,
+        variant=solver_name,  # type: ignore[arg-type]
+        blueprint_policy=blueprint,
+        blueprint_weight=in_search_blueprint_weight,
+    )
     if warm_start_regret_mass is not None:
         solver.warm_start(blueprint, warm_start_regret_mass)
     initialization_seconds = time.perf_counter() - initialization_start
@@ -144,7 +212,12 @@ def _run_search(
     return solver, initialization_seconds, iteration_seconds
 
 
-def run_leaf_experiment(config: dict[str, Any]) -> dict[str, Any]:
+def run_leaf_experiment(
+    config: dict[str, Any],
+    *,
+    prepared_blueprint: PreparedBlueprint | None = None,
+    environment: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Run exact-control and perturbed-leaf searches as a deterministic pair.
 
     Both arms share the blueprint, traversal rule, budget, and optional regret
@@ -165,8 +238,12 @@ def run_leaf_experiment(config: dict[str, Any]) -> dict[str, Any]:
     warm_start_regret_mass = (
         None if raw_warm_start is None else float(raw_warm_start)
     )
+    in_search_blueprint_weight = float(
+        config.get("in_search_blueprint_weight", 0.0)
+    )
+    output_candidate_weight = float(config.get("output_candidate_weight", 1.0))
 
-    game = _parse_game(game_name)
+    _parse_game(game_name)
     if blueprint_solver_name not in SOLVERS:
         raise ValueError(f"unsupported blueprint solver {blueprint_solver_name!r}")
     if search_solver_name not in SOLVERS:
@@ -179,17 +256,29 @@ def run_leaf_experiment(config: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("leaf_error_scale cannot be negative")
     if warm_start_regret_mass is not None and warm_start_regret_mass <= 0.0:
         raise ValueError("warm_start_regret_mass must be positive or null")
+    if not 0.0 <= in_search_blueprint_weight <= 1.0:
+        raise ValueError("in_search_blueprint_weight must be between zero and one")
+    if not 0.0 <= output_candidate_weight <= 1.0:
+        raise ValueError("output_candidate_weight must be between zero and one")
 
     experiment_start = time.perf_counter()
+    blueprint_prepared_in_run = prepared_blueprint is None
+    if prepared_blueprint is None:
+        prepared_blueprint = prepare_blueprint(
+            game_name,
+            blueprint_solver_name,
+            blueprint_iterations,
+        )
+    elif (
+        prepared_blueprint.game_name != game_name
+        or prepared_blueprint.solver_name != blueprint_solver_name
+        or prepared_blueprint.iterations != blueprint_iterations
+    ):
+        raise ValueError("prepared blueprint does not match experiment configuration")
 
-    blueprint_solver = TabularCFR(
-        game,
-        variant=blueprint_solver_name,  # type: ignore[arg-type]
-    )
-    blueprint_start = time.perf_counter()
-    blueprint_solver.run(blueprint_iterations)
-    blueprint_seconds = time.perf_counter() - blueprint_start
-    blueprint = blueprint_solver.average_strategy()
+    game = prepared_blueprint.game
+    blueprint = prepared_blueprint.policy
+    blueprint_evaluation = prepared_blueprint.evaluation
 
     exact_leaves = PolicyContinuationValues(game.num_players, blueprint)
     exact_game = DepthLimitedGame(game, depth_limit, exact_leaves)
@@ -217,6 +306,7 @@ def run_leaf_experiment(config: dict[str, Any]) -> dict[str, Any]:
         search_iterations,
         blueprint,
         warm_start_regret_mass,
+        in_search_blueprint_weight,
     )
     (
         treatment_solver,
@@ -228,24 +318,46 @@ def run_leaf_experiment(config: dict[str, Any]) -> dict[str, Any]:
         search_iterations,
         blueprint,
         warm_start_regret_mass,
+        in_search_blueprint_weight,
     )
 
-    control_average = _merge_policy(blueprint, control_solver.average_strategy())
-    control_current = _merge_policy(blueprint, control_solver.current_strategy())
-    treatment_average = _merge_policy(blueprint, treatment_solver.average_strategy())
-    treatment_current = _merge_policy(blueprint, treatment_solver.current_strategy())
+    policy_construction_start = time.perf_counter()
     information_sets = _resolved_information_sets(exact_game)
+    control_average = interpolate_policy(
+        blueprint,
+        control_solver.average_strategy(),
+        information_sets,
+        output_candidate_weight,
+    )
+    control_current = interpolate_policy(
+        blueprint,
+        control_solver.current_strategy(),
+        information_sets,
+        output_candidate_weight,
+    )
+    treatment_average = interpolate_policy(
+        blueprint,
+        treatment_solver.average_strategy(),
+        information_sets,
+        output_candidate_weight,
+    )
+    treatment_current = interpolate_policy(
+        blueprint,
+        treatment_solver.current_strategy(),
+        information_sets,
+        output_candidate_weight,
+    )
+    policy_construction_seconds = time.perf_counter() - policy_construction_start
 
     evaluation_start = time.perf_counter()
-    blueprint_evaluation = evaluate_profile(game, blueprint)
     control_average_evaluation = evaluate_profile(game, control_average)
     control_current_evaluation = evaluate_profile(game, control_current)
     treatment_average_evaluation = evaluate_profile(game, treatment_average)
     treatment_current_evaluation = evaluate_profile(game, treatment_current)
-    evaluation_seconds = time.perf_counter() - evaluation_start
+    candidate_evaluation_seconds = time.perf_counter() - evaluation_start
 
     result = {
-        "schema_version": 1,
+        "schema_version": 2,
         "experiment_type": "paired_leaf_error",
         "config": {
             "game": game_name,
@@ -258,10 +370,14 @@ def run_leaf_experiment(config: dict[str, Any]) -> dict[str, Any]:
             "leaf_error_seed": leaf_error_seed,
             "zero_sum_errors": zero_sum_errors,
             "warm_start_regret_mass": warm_start_regret_mass,
+            "in_search_blueprint_weight": in_search_blueprint_weight,
+            "output_candidate_weight": output_candidate_weight,
         },
-        "environment": environment_metadata(),
+        "environment": environment_metadata() if environment is None else environment,
         "timing": {
-            "blueprint_solver_seconds": blueprint_seconds,
+            "blueprint_prepared_in_run": blueprint_prepared_in_run,
+            "blueprint_solver_seconds": prepared_blueprint.solver_seconds,
+            "blueprint_evaluation_seconds": prepared_blueprint.evaluation_seconds,
             "leaf_materialization_seconds": leaf_materialization_seconds,
             "exact_control_initialization_seconds": control_initialization_seconds,
             "exact_control_iteration_seconds": control_iteration_seconds,
@@ -273,8 +389,8 @@ def run_leaf_experiment(config: dict[str, Any]) -> dict[str, Any]:
             "perturbed_search_seconds": (
                 treatment_initialization_seconds + treatment_iteration_seconds
             ),
-            "full_game_evaluation_seconds": evaluation_seconds,
-            "wall_seconds": time.perf_counter() - experiment_start,
+            "policy_construction_seconds": policy_construction_seconds,
+            "full_game_candidate_evaluation_seconds": candidate_evaluation_seconds,
         },
         "leaf_protocol": {
             "continuation_policy": "blueprint_average",
@@ -282,6 +398,20 @@ def run_leaf_experiment(config: dict[str, Any]) -> dict[str, Any]:
             "perturbation_granularity": "concrete_private-history leaf",
             "error_weighting": "uniform_over_enumerated_leaves",
             "policy_distance_weighting": "uniform_over_resolved_information_sets",
+        },
+        "strategy_protocol": {
+            "in_search_constraint": (
+                "blueprint_weight * blueprint + "
+                "(1 - blueprint_weight) * CFR_candidate"
+            ),
+            "output_constraint": (
+                "(1 - candidate_weight) * blueprint + "
+                "candidate_weight * searched_policy"
+            ),
+            "maximum_unanchored_candidate_component": (
+                output_candidate_weight * (1.0 - in_search_blueprint_weight)
+            ),
+            "oracle_no_op_uses_unavailable_full_game_nash_conv": True,
         },
         "leaf_error": asdict(leaf_error),
         "blueprint": {
@@ -293,12 +423,16 @@ def run_leaf_experiment(config: dict[str, Any]) -> dict[str, Any]:
             "average": _evaluation_record(
                 control_average_evaluation,
                 control_average,
+                blueprint,
                 blueprint_evaluation.nash_conv,
+                information_sets,
             ),
             "current": _evaluation_record(
                 control_current_evaluation,
                 control_current,
+                blueprint,
                 blueprint_evaluation.nash_conv,
+                information_sets,
             ),
         },
         "perturbed": {
@@ -306,12 +440,16 @@ def run_leaf_experiment(config: dict[str, Any]) -> dict[str, Any]:
             "average": _evaluation_record(
                 treatment_average_evaluation,
                 treatment_average,
+                blueprint,
                 blueprint_evaluation.nash_conv,
+                information_sets,
             ),
             "current": _evaluation_record(
                 treatment_current_evaluation,
                 treatment_current,
+                blueprint,
                 blueprint_evaluation.nash_conv,
+                information_sets,
             ),
         },
         "causal_effect": {
@@ -331,7 +469,30 @@ def run_leaf_experiment(config: dict[str, Any]) -> dict[str, Any]:
                 information_sets,
             ),
         },
+        "oracle_no_op_selection": {
+            "warning": (
+                "diagnostic upper bound only; full-game NashConv is not "
+                "available to an online agent"
+            ),
+            "exact_control_average": _oracle_no_op_selection(
+                control_average_evaluation,
+                blueprint_evaluation,
+            ),
+            "exact_control_current": _oracle_no_op_selection(
+                control_current_evaluation,
+                blueprint_evaluation,
+            ),
+            "perturbed_average": _oracle_no_op_selection(
+                treatment_average_evaluation,
+                blueprint_evaluation,
+            ),
+            "perturbed_current": _oracle_no_op_selection(
+                treatment_current_evaluation,
+                blueprint_evaluation,
+            ),
+        },
     }
+    result["timing"]["wall_seconds"] = time.perf_counter() - experiment_start
     return result
 
 
@@ -347,6 +508,8 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--leaf-error-scale", type=float)
     parser.add_argument("--leaf-error-seed", type=int)
     parser.add_argument("--warm-start-regret-mass", type=float)
+    parser.add_argument("--in-search-blueprint-weight", type=float)
+    parser.add_argument("--output-candidate-weight", type=float)
     parser.add_argument("--output", type=Path)
     return parser.parse_args()
 
@@ -366,6 +529,8 @@ def main() -> None:
         "leaf_error_scale",
         "leaf_error_seed",
         "warm_start_regret_mass",
+        "in_search_blueprint_weight",
+        "output_candidate_weight",
     ):
         value = getattr(args, name)
         if value is not None:

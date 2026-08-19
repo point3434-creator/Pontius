@@ -181,3 +181,69 @@ Before spending on neural leaves, test a variant-neutral blueprint trust region,
 residual/output interpolation, and a no-op acceptance option. Then add
 reach-weighted and structured leaf errors. The tracked reproduction config is
 `experiments/configs/leaf-kuhn2-initial-matrix.json`.
+
+## EXP-0006: Blueprint-anchored depth-two search
+
+**Date:** 2026-08-19
+
+**Status:** Observed provisional advance; exact toy game only.
+
+**Configuration:** two-player Kuhn; depth two, leaving six concrete
+`check/bet` continuation leaves; 100 search iterations; precomputed blueprint
+continuations; average policy unless stated. In-search anchoring constrains
+behavior to `b * blueprint + (1 - b) * CFR candidate`. Output interpolation
+blends only after an unanchored search. All candidates are evaluated in the
+original full game, with blueprint/no-op retained.
+
+### Blueprint strength and constraint location
+
+| Blueprint iterations | Blueprint NashConv | Best output-only result | Best in-search result |
+|---:|---:|---|---|
+| 20 | 2.17100e-2 | Δ `-1.36555e-2`, output weight 1.0 | Δ `-1.77027e-2`, CFR+ anchor 0.50 |
+| 100 | 2.17805e-3 | Δ `-1.97342e-4`, output weight 0.03 | Δ `-1.73541e-3`, CFR+ anchor 0.97 |
+| 1,000 | 1.87060e-4 | no-op; every tested nonzero output weight worsened | Δ `-1.69448e-4`, LCFR anchor 0.99 |
+
+Depth matters: unlike the one-action hybrid in EXP-0005, depth two includes an
+opponent decision and can improve full-game NashConv. On the strong blueprint,
+post-search interpolation merely hid an unsuitable unanchored policy; anchoring
+the traversal itself produced a useful candidate.
+
+### Exact leaves, strong blueprint, four update rules
+
+The table selects each solver's best average among anchor weights 0.97, 0.99,
+and 0.995. Times include solver initialization and 100 reference-Python
+iterations, with leaves already materialized.
+
+| Solver | Anchor | Average Δ NashConv | Current Δ NashConv | Search ms |
+|---|---:|---:|---:|---:|
+| CFR | 0.995 | -1.07842e-4 | +7.04390e-4 | 39.05 |
+| CFR+ | 0.995 | -1.49818e-4 | +1.90342e-4 | 39.59 |
+| DCFR | 0.990 | -1.57558e-4 | +4.43275e-4 | 39.99 |
+| LCFR | 0.990 | **-1.69448e-4** | +1.55462e-4 | 39.54 |
+
+Every current policy failed even though every selected average improved. LCFR
+wins this exact-leaf slice, not the general solver decision.
+
+### Leaf-error envelope
+
+For a fixed CFR+ anchor of 0.995, ten deterministic error seeds produced:
+
+| Realized leaf RMSE | Mean treatment Δ NashConv | Worst-seed Δ NashConv | Seeds improving blueprint |
+|---:|---:|---:|---:|
+| 4.62190e-5 | -1.53102e-4 | -1.35684e-4 | 10/10 |
+| 1.38657e-4 | -1.46015e-4 | -1.25881e-4 | 10/10 |
+| 4.62190e-4 | -6.40210e-5 | +5.21862e-6 | 9/10 |
+| 1.38657e-3 | +3.22274e-4 | +5.91303e-4 | 2/10 |
+
+At RMSE `4.62190e-4`, CFR+ anchor 0.99 had the best mean of the tested
+solver/anchor pairs (`-6.94220e-5`), while LCFR 0.99 and DCFR 0.99 each improved
+9/10 seeds with smaller worst failures. No candidate passed every seed. At RMSE
+`1.38657e-3`, no-op was the correct mean decision.
+
+**Verdict:** in-search anchoring creates a real but narrow strategy-quality
+window. Advance anchored average policy as a control, not as a safety claim.
+The result makes calibrated leaf uncertainty and no-op selection more valuable,
+not less: computation should be spent only when the predicted improvement
+margin exceeds leaf-error risk. Next add reach-weighted, correlated, biased, and
+localized errors, then test a frozen selection rule on held-out multiplayer
+games.

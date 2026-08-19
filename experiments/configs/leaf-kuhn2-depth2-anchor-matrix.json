@@ -1,0 +1,21 @@
+{
+  "axes": {
+    "blueprint_iterations": [20, 100, 1000],
+    "in_search_blueprint_weight": [0.0, 0.5, 0.75, 0.9, 0.97, 0.99, 1.0],
+    "leaf_error_scale": [0.0, 0.003, 0.01, 0.03, 0.1],
+    "leaf_error_seed": [0, 1, 2, 3, 4]
+  },
+  "base": {
+    "blueprint_solver": "lcfr",
+    "depth_limit": 2,
+    "game": "kuhn2",
+    "output_candidate_weight": 1.0,
+    "search_iterations": 100,
+    "search_solver": "cfr_plus",
+    "warm_start_regret_mass": null,
+    "zero_sum_errors": true
+  },
+  "max_runs": 600,
+  "replicate_axes": ["leaf_error_seed"],
+  "store_full_runs": false
+}

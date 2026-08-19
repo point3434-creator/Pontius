@@ -44,6 +44,17 @@ over configured replicate axes. Leaves are precomputed, so reported search
 times are warm-leaf-cache traversal times. Raw JSON under `experiments/results`
 is intentionally ignored until promoted as a checkpoint artifact.
 
+Anchored-search reproduction configs are:
+
+- `experiments/configs/leaf-kuhn2-depth2-output-matrix.json`
+- `experiments/configs/leaf-kuhn2-depth2-anchor-matrix.json`
+- `experiments/configs/leaf-kuhn2-depth2-fine-anchor-matrix.json`
+- `experiments/configs/leaf-kuhn2-depth2-anchored-solvers-matrix.json`
+
+The matrix runner trains and exactly evaluates each distinct blueprint once,
+then reuses it across perturbation and solver axes. `prepared_blueprints` in the
+artifact records the number of cached blueprints.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

@@ -85,6 +85,58 @@ class CFRTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             solver.warm_start({}, regret_mass=1.0)
 
+    def test_full_blueprint_anchor_never_leaves_the_blueprint(self) -> None:
+        game = KuhnPoker()
+        blueprint_solver = TabularCFR(game, "lcfr")
+        blueprint_solver.run(50)
+        blueprint = blueprint_solver.average_strategy()
+        solver = TabularCFR(
+            game,
+            "cfr_plus",
+            blueprint_policy=blueprint,
+            blueprint_weight=1.0,
+        )
+        solver.run(20)
+
+        for policy in (solver.current_strategy(), solver.average_strategy()):
+            for player in range(game.num_players):
+                for key, actions in collect_information_sets(game, player).items():
+                    expected = policy_distribution(blueprint, key, actions)
+                    for action in actions:
+                        self.assertAlmostEqual(policy[key][action], expected[action])
+
+    def test_partial_anchor_bounds_current_and_average_policy_distance(self) -> None:
+        game = KuhnPoker()
+        blueprint_solver = TabularCFR(game, "lcfr")
+        blueprint_solver.run(50)
+        blueprint = blueprint_solver.average_strategy()
+        blueprint_weight = 0.75
+        solver = TabularCFR(
+            game,
+            "dcfr",
+            blueprint_policy=blueprint,
+            blueprint_weight=blueprint_weight,
+        )
+        solver.run(50)
+
+        for policy in (solver.current_strategy(), solver.average_strategy()):
+            for player in range(game.num_players):
+                for key, actions in collect_information_sets(game, player).items():
+                    expected = policy_distribution(blueprint, key, actions)
+                    distance = 0.5 * sum(
+                        abs(policy[key][action] - expected[action])
+                        for action in actions
+                    )
+                    self.assertLessEqual(distance, 1.0 - blueprint_weight + 1e-12)
+
+    def test_invalid_blueprint_anchor_is_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            TabularCFR(KuhnPoker(), blueprint_policy={}, blueprint_weight=-0.1)
+        with self.assertRaises(ValueError):
+            TabularCFR(KuhnPoker(), blueprint_policy={}, blueprint_weight=1.1)
+        with self.assertRaises(ValueError):
+            TabularCFR(KuhnPoker(), blueprint_weight=0.5)
+
     def test_three_player_cfr_produces_a_zero_sum_profile(self) -> None:
         game = KuhnPoker(3)
         solver = TabularCFR(game, "lcfr")

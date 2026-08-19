@@ -34,10 +34,30 @@ class TabularCFR:
     the acting player's own reach.
     """
 
-    def __init__(self, game: ExtensiveFormGame, variant: SolverVariant = "cfr") -> None:
+    def __init__(
+        self,
+        game: ExtensiveFormGame,
+        variant: SolverVariant = "cfr",
+        *,
+        blueprint_policy: Policy | None = None,
+        blueprint_weight: float = 0.0,
+    ) -> None:
+        if not 0.0 <= blueprint_weight <= 1.0:
+            raise ValueError("blueprint_weight must be between zero and one")
+        if blueprint_weight > 0.0 and blueprint_policy is None:
+            raise ValueError("a positive blueprint_weight requires blueprint_policy")
         self.game = game
         self.update_rule = update_rule(variant)
         self.variant = self.update_rule.name
+        self.blueprint_policy = (
+            None
+            if blueprint_policy is None
+            else {
+                key: dict(distribution)
+                for key, distribution in blueprint_policy.items()
+            }
+        )
+        self.blueprint_weight = blueprint_weight
         self.iteration = 0
         self.information_sets: dict[str, InformationSetData] = {}
 
@@ -80,12 +100,43 @@ class TabularCFR:
             return {action: probability for action in data.actions}
         return {action: positive[action] / total for action in data.actions}
 
+    def _strategies(
+        self,
+        key: str,
+        data: InformationSetData,
+    ) -> tuple[dict[Action, float], dict[Action, float]]:
+        """Return the candidate and deployed behavior at an information set.
+
+        With blueprint weight ``b``, CFR optimizes the candidate component
+        ``q`` while traversal uses ``b * blueprint + (1-b) * q``. This is a
+        fixed affine trust region around the blueprint. It is an experimental
+        restriction, not a multiplayer safety guarantee.
+        """
+
+        candidate = self._regret_matching(data)
+        if self.blueprint_weight == 0.0:
+            return candidate, candidate
+        assert self.blueprint_policy is not None
+        blueprint = policy_distribution(self.blueprint_policy, key, data.actions)
+        candidate_weight = 1.0 - self.blueprint_weight
+        behavior = {
+            action: (
+                self.blueprint_weight * blueprint[action]
+                + candidate_weight * candidate[action]
+            )
+            for action in data.actions
+        }
+        return candidate, behavior
+
     def step(self) -> None:
         """Run one alternating update for every player."""
 
         self.iteration += 1
         for traverser in range(self.game.num_players):
-            strategy_cache: dict[str, dict[Action, float]] = {}
+            strategy_cache: dict[
+                str,
+                tuple[dict[Action, float], dict[Action, float]],
+            ] = {}
             average_seen: set[str] = set()
             regret_deltas: dict[str, dict[Action, float]] = {}
             self._traverse(
@@ -137,7 +188,10 @@ class TabularCFR:
         traverser: int,
         reach: tuple[float, ...],
         chance_reach: float,
-        strategy_cache: dict[str, dict[Action, float]],
+        strategy_cache: dict[
+            str,
+            tuple[dict[Action, float], dict[Action, float]],
+        ],
         average_seen: set[str],
         regret_deltas: dict[str, dict[Action, float]],
     ) -> float:
@@ -165,7 +219,10 @@ class TabularCFR:
         actions = tuple(state.legal_actions())
         key = state.information_state_key(player)
         data = self._data(key, actions)
-        strategy = strategy_cache.setdefault(key, self._regret_matching(data))
+        candidate_strategy, strategy = strategy_cache.setdefault(
+            key,
+            self._strategies(key, data),
+        )
 
         if player == traverser and key not in average_seen:
             average_seen.add(key)
@@ -199,16 +256,21 @@ class TabularCFR:
             action_deltas = regret_deltas.setdefault(
                 key, {action: 0.0 for action in actions}
             )
+            candidate_node_value = sum(
+                candidate_strategy[action] * action_values[action]
+                for action in actions
+            )
+            candidate_weight = 1.0 - self.blueprint_weight
             for action in actions:
-                action_deltas[action] += counterfactual_reach * (
-                    action_values[action] - node_value
+                action_deltas[action] += counterfactual_reach * candidate_weight * (
+                    action_values[action] - candidate_node_value
                 )
 
         return node_value
 
     def current_strategy(self) -> Policy:
         return {
-            key: self._regret_matching(data)
+            key: self._strategies(key, data)[1]
             for key, data in sorted(self.information_sets.items())
         }
 
@@ -217,7 +279,7 @@ class TabularCFR:
         for key, data in sorted(self.information_sets.items()):
             total = sum(data.strategy_sum.values())
             if total <= 0.0:
-                policy[key] = self._regret_matching(data)
+                policy[key] = self._strategies(key, data)[1]
             else:
                 policy[key] = {
                     action: data.strategy_sum[action] / total for action in data.actions

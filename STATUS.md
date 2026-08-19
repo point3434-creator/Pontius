@@ -39,30 +39,40 @@ Checkpoint 2: solver comparison laboratory.
   a stated number of strategic actions without modifying the full-game
   evaluator. Deterministic zero-sum leaf perturbations report realized errors.
 - Paired exact-control/treatment experiments and a replicated matrix runner map
-  leaf error to full-game NashConv and policy change. Forty-four automated tests
-  pass.
+  leaf error to full-game NashConv and policy change.
 - EXP-0005 rejected naïve unanchored shallow replacement: with exact leaves it
   worsened a strong two-player blueprint by about 0.087 NashConv. A mass-10
   pseudo-regret prior attenuated the effect but behaved very differently across
   update rules and never improved the blueprint.
+- A solver-level affine blueprint anchor and an independent output trust region
+  now have explicit no-op and total-variation invariants. Prepared blueprints
+  are reused across matrix runs. Fifty-three automated tests pass.
+- EXP-0006 found that depth-two anchored average policies can improve weak,
+  medium, and strong two-player blueprints. Anchored LCFR was best with exact
+  leaves in the tested strong-blueprint slice; moderate noise changed the
+  ranking, and every current policy failed.
+- A CFR+ 0.995 anchor improved all ten independent-error seeds through realized
+  RMSE `1.38657e-4`, failed one seed at RMSE `4.62190e-4`, and lost to no-op on
+  mean at RMSE `1.38657e-3`. This is a provisional error envelope, not a neural
+  target or multiplayer claim.
 
 ## In progress
 
-- Designing a variant-neutral blueprint anchor, residual update, and explicit
-  no-op acceptance path before attempting deeper resolving.
 - Extending leaf errors from independent concrete histories to reach-weighted,
   correlated, biased, localized, and time-varying regimes.
+- Distinguishing prefix-policy improvement from a complete resolver applied at
+  every public state, before interpreting full-game strength.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Compare output interpolation and in-search anchoring against the blueprint,
-   with the no-op action included and exact-leaf safety as the first gate.
-2. Add blueprint-reach and counterfactual-reach-weighted error metrics plus
+1. Add blueprint-reach and counterfactual-reach-weighted error metrics plus
    correlated, biased, and localized perturbations.
-3. Repeat paired experiments across blueprint strength, search depth, and
-   three-player Kuhn before choosing an online update rule.
+2. Freeze an uncertainty-to-anchor/no-op rule on two-player cases and falsify it
+   on three-player Kuhn, different depths, and held-out blueprint strengths.
+3. Define and evaluate a complete small-game continual-resolving policy rather
+   than only a searched prefix merged into blueprint continuation.
 
 ## Current blockers
 
@@ -77,4 +87,4 @@ None.
 
 ## Last updated
 
-2026-08-18, after EXP-0005 rejected naïve unanchored shallow replacement.
+2026-08-19, after EXP-0006 provisionally advanced anchored average search.

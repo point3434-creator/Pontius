@@ -23,7 +23,9 @@ class LeafMatrixTests(unittest.TestCase):
             }
         )
 
+        self.assertEqual(result["schema_version"], 2)
         self.assertEqual(result["run_count"], 4)
+        self.assertEqual(result["prepared_blueprints"], 1)
         self.assertEqual(len(result["runs"]), 4)
         self.assertEqual(len(result["summaries"]), 2)
         self.assertTrue(all(summary["replicates"] == 2 for summary in result["summaries"]))
@@ -43,6 +45,9 @@ class LeafMatrixTests(unittest.TestCase):
             }
         )
         self.assertEqual(len(result["full_runs"]), 1)
+        self.assertFalse(
+            result["full_runs"][0]["timing"]["blueprint_prepared_in_run"]
+        )
 
     def test_invalid_matrix_is_rejected_before_running(self) -> None:
         with self.assertRaises(ValueError):

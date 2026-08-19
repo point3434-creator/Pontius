@@ -14,3 +14,4 @@
 | R10 | Agreement bias hides flaws | Decisions contain no opposing evidence | Mandatory dissent format and falsifying experiment for consequential choices |
 | R11 | Inaccessible Pluribus prevents headline comparison | Internal league becomes sole evidence | Maintain a Pluribus-style control, independent responders, and precise limited claims |
 | R12 | Shallow resolving damages a strong blueprint even with exact leaves | Exact-control NashConv exceeds blueprint NashConv | Require paired exact-control gate, variant-neutral anchoring, and an explicit blueprint/no-op fallback before neural scaling |
+| R13 | Anchor and no-op thresholds overfit independent errors in a tiny game | Selected coefficient reverses under correlated errors or a new player count | Freeze selection rules before held-out games; require reach-weighted structured-error and multiplayer gates |

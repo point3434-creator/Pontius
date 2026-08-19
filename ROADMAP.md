@@ -29,8 +29,9 @@ reproducible from configuration and code revision.
 **Status:** In progress. CFR, LCFR, CFR+, and DCFR share one traversal and the
 initial fixed-game comparison is recorded in EXP-0004. Paired leaf perturbation
 and explicit pseudo-regret warm starts are implemented; EXP-0005 rejected naïve
-unanchored shallow replacement. Blueprint anchoring, structured errors, tree
-mutation, and external-sampling gates remain.
+unanchored shallow replacement. EXP-0006 provisionally advanced an affine
+blueprint anchor for average policies. Structured/reach-weighted errors, held-out
+multiplayer validation, tree mutation, and external-sampling gates remain.
 
 **Target:** months 2-4.
 

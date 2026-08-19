@@ -11,7 +11,7 @@ from pathlib import Path
 from statistics import mean, stdev
 from typing import Any
 
-from .leaf_experiment import run_leaf_experiment
+from .leaf_experiment import PreparedBlueprint, prepare_blueprint, run_leaf_experiment
 from .reporting import environment_metadata
 
 CONFIG_FIELDS = {
@@ -25,6 +25,8 @@ CONFIG_FIELDS = {
     "leaf_error_seed",
     "zero_sum_errors",
     "warm_start_regret_mass",
+    "in_search_blueprint_weight",
+    "output_candidate_weight",
 }
 
 
@@ -45,6 +47,44 @@ def _compact_run(result: dict[str, Any]) -> dict[str, Any]:
             "perturbed_average_nash_conv_delta_from_blueprint": result[
                 "perturbed"
             ]["average"]["nash_conv_delta_from_blueprint"],
+            "exact_current_nash_conv_delta_from_blueprint": result[
+                "exact_control"
+            ]["current"]["nash_conv_delta_from_blueprint"],
+            "perturbed_current_nash_conv_delta_from_blueprint": result[
+                "perturbed"
+            ]["current"]["nash_conv_delta_from_blueprint"],
+            "exact_average_mean_policy_tv_from_blueprint": result[
+                "exact_control"
+            ]["average"]["resolved_policy_distance_from_blueprint"][
+                "mean_information_set_total_variation"
+            ],
+            "perturbed_average_mean_policy_tv_from_blueprint": result[
+                "perturbed"
+            ]["average"]["resolved_policy_distance_from_blueprint"][
+                "mean_information_set_total_variation"
+            ],
+            "exact_current_mean_policy_tv_from_blueprint": result[
+                "exact_control"
+            ]["current"]["resolved_policy_distance_from_blueprint"][
+                "mean_information_set_total_variation"
+            ],
+            "perturbed_current_mean_policy_tv_from_blueprint": result[
+                "perturbed"
+            ]["current"]["resolved_policy_distance_from_blueprint"][
+                "mean_information_set_total_variation"
+            ],
+            "exact_average_oracle_candidate_selected": result[
+                "oracle_no_op_selection"
+            ]["exact_control_average"]["candidate_selected"],
+            "perturbed_average_oracle_candidate_selected": result[
+                "oracle_no_op_selection"
+            ]["perturbed_average"]["candidate_selected"],
+            "exact_current_oracle_candidate_selected": result[
+                "oracle_no_op_selection"
+            ]["exact_control_current"]["candidate_selected"],
+            "perturbed_current_oracle_candidate_selected": result[
+                "oracle_no_op_selection"
+            ]["perturbed_current"]["candidate_selected"],
             "average_nash_conv_delta": average_effect["nash_conv_delta"],
             "average_absolute_nash_conv_delta": average_effect[
                 "absolute_nash_conv_delta"
@@ -139,19 +179,36 @@ def run_leaf_matrix(matrix_config: dict[str, Any]) -> dict[str, Any]:
         raise ValueError(f"matrix contains {run_count} runs; max_runs is {max_runs}")
 
     started = time.perf_counter()
+    shared_environment = environment_metadata()
     axis_names = tuple(axes)
     compact_runs: list[dict[str, Any]] = []
     full_runs: list[dict[str, Any]] = []
+    blueprints: dict[tuple[str, str, int], PreparedBlueprint] = {}
     for combination in product(*(axes[name] for name in axis_names)):
         config = dict(base)
         config.update(zip(axis_names, combination, strict=True))
-        result = run_leaf_experiment(config)
+        blueprint_key = (
+            str(config.get("game", "kuhn2")),
+            str(config.get("blueprint_solver", "lcfr")),
+            int(config.get("blueprint_iterations", 1_000)),
+        )
+        prepared = blueprints.get(blueprint_key)
+        if prepared is None:
+            prepared = prepare_blueprint(*blueprint_key)
+            blueprints[blueprint_key] = prepared
+        result = run_leaf_experiment(
+            config,
+            prepared_blueprint=prepared,
+            environment=shared_environment,
+        )
         compact_runs.append(_compact_run(result))
         if store_full_runs:
             full_runs.append(result)
 
+    summaries = _summarize(compact_runs, replicate_axes)
+    wall_seconds = time.perf_counter() - started
     output = {
-        "schema_version": 1,
+        "schema_version": 2,
         "experiment_type": "paired_leaf_error_matrix",
         "matrix_config": {
             "base": base,
@@ -160,11 +217,12 @@ def run_leaf_matrix(matrix_config: dict[str, Any]) -> dict[str, Any]:
             "store_full_runs": store_full_runs,
             "max_runs": max_runs,
         },
-        "environment": environment_metadata(),
+        "environment": shared_environment,
+        "prepared_blueprints": len(blueprints),
         "run_count": run_count,
-        "wall_seconds": time.perf_counter() - started,
+        "wall_seconds": wall_seconds,
         "runs": compact_runs,
-        "summaries": _summarize(compact_runs, replicate_axes),
+        "summaries": summaries,
     }
     if store_full_runs:
         output["full_runs"] = full_runs

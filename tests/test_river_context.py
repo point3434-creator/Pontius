@@ -40,6 +40,61 @@ class RiverContextTests(unittest.TestCase):
             self.assertTrue(all(probability > 0.0 for probability in marginal1.values()))
             self.assertLessEqual(solve_river_game(game).nash_conv, 1e-8)
 
+    def test_sequential_generation_is_exact_and_exposes_raise_features(self) -> None:
+        contexts = generate_river_contexts(
+            groups=1,
+            seed=3,
+            hands_per_player=2,
+            families=("balanced", "correlated"),
+            sequential_raise=True,
+        )
+
+        self.assertEqual(len(contexts), 2)
+        self.assertEqual(
+            len({context.game.structural_digest for context in contexts}),
+            1,
+        )
+        for context in contexts:
+            game = context.game
+            self.assertIsNotNone(game.raise_to)
+            assert game.raise_to is not None
+            self.assertGreaterEqual(game.raise_to, 2.0 * game.bet_size)
+            self.assertLessEqual(game.raise_to, min(game.stacks))
+            features = river_context_features(context)
+            serialized = serialize_river_context(context)
+            self.assertEqual(features["has_raise"], 1)
+            self.assertEqual(features["raise_to"], game.raise_to)
+            self.assertEqual(features["payoff_span"], game.payoff_span)
+            self.assertEqual(serialized["raise_to"], game.raise_to)
+            solution = solve_river_game(game)
+            self.assertLessEqual(solution.nash_conv, 1e-8)
+            self.assertEqual(solution.player0_pure_policies, 16)
+            self.assertEqual(solution.player1_pure_policies, 9)
+
+    def test_sequential_context_is_paired_with_the_same_one_bet_range(self) -> None:
+        one_bet = generate_river_contexts(
+            groups=1,
+            seed=17,
+            families=("blocker_stress",),
+        )[0]
+        sequential = generate_river_contexts(
+            groups=1,
+            seed=17,
+            families=("blocker_stress",),
+            sequential_raise=True,
+        )[0]
+
+        self.assertEqual(one_bet.context_id, sequential.context_id)
+        self.assertEqual(one_bet.game.board, sequential.game.board)
+        self.assertEqual(one_bet.game.pot, sequential.game.pot)
+        self.assertEqual(one_bet.game.bet_size, sequential.game.bet_size)
+        self.assertEqual(
+            one_bet.game.joint_distribution(),
+            sequential.game.joint_distribution(),
+        )
+        self.assertIsNone(one_bet.game.raise_to)
+        self.assertIsNotNone(sequential.game.raise_to)
+
     def test_features_and_serialization_preserve_range_provenance(self) -> None:
         context = generate_river_contexts(
             groups=1,
@@ -67,6 +122,8 @@ class RiverContextTests(unittest.TestCase):
             generate_river_contexts(groups=1, families=("imaginary",))
         with self.assertRaisesRegex(ValueError, "splits"):
             generate_river_contexts(groups=1, splits=("future",))
+        with self.assertRaisesRegex(TypeError, "boolean"):
+            generate_river_contexts(groups=1, sequential_raise=1)  # type: ignore[arg-type]
 
     def test_split_filter_does_not_materialize_reserved_contexts(self) -> None:
         contexts = generate_river_contexts(

@@ -67,6 +67,49 @@ class RiverOpportunityTests(unittest.TestCase):
         self.assertNotIn("policy", context["oracle_labels"])
         self.assertEqual(len(self.result["summary"]), 8)
 
+    def test_sequential_trace_counts_the_larger_tree_and_keeps_local_regret_a_label(
+        self,
+    ) -> None:
+        result = run_river_opportunity_experiment(
+            {
+                "groups": 1,
+                "seed": 5,
+                "hands_per_player": 2,
+                "families": ["balanced"],
+                "solvers": ["cfr"],
+                "checkpoints": [0, 1, 2],
+                "sequential_raise": True,
+            }
+        )
+
+        context = result["contexts"][0]
+        expected_states = 1 + 8 * len(context["joint_range"])
+        self.assertTrue(result["config"]["sequential_raise"])
+        self.assertIsNotNone(context["raise_to"])
+        for record in result["records"]:
+            self.assertEqual(
+                record["online_features"]["tree_states_per_full_traversal"],
+                expected_states,
+            )
+            self.assertNotIn(
+                "local_one_step_positive_regret",
+                record["online_features"],
+            )
+            self.assertIn(
+                "local_one_step_positive_regret",
+                record["labels"],
+            )
+        self.assertTrue(
+            any(
+                abs(
+                    record["labels"]["local_one_step_positive_regret"]
+                    - record["labels"]["nash_conv"]
+                )
+                > 1e-10
+                for record in result["records"]
+            )
+        )
+
     def test_pooled_oracle_can_move_an_easy_context_budget(self) -> None:
         def row(checkpoint: int, exploitability: float) -> dict:
             return {
@@ -92,6 +135,18 @@ class RiverOpportunityTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "checkpoints"):
             run_river_opportunity_experiment(
                 {"groups": 1, "solvers": ["cfr"], "checkpoints": [1, 2]}
+            )
+        with self.assertRaisesRegex(TypeError, "boolean"):
+            run_river_opportunity_experiment(
+                {"groups": 1, "sequential_raise": "yes"}
+            )
+        with self.assertRaisesRegex(ValueError, "at most five"):
+            run_river_opportunity_experiment(
+                {
+                    "groups": 1,
+                    "hands_per_player": 6,
+                    "sequential_raise": True,
+                }
             )
 
 

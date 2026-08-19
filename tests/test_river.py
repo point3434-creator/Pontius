@@ -15,6 +15,7 @@ from pontius.river import (
     CALL,
     CHECK,
     FOLD,
+    RAISE,
     RiverDeal,
     RiverHoldem,
     evaluate_five,
@@ -146,6 +147,51 @@ class RiverHoldemTests(unittest.TestCase):
         self.assertAlmostEqual(utilities[0], 7.5)
         self.assertAlmostEqual(utilities[1], -7.5)
 
+    def test_fixed_raise_tree_has_exact_sunk_cost_and_showdown_payoffs(self) -> None:
+        deal = RiverDeal(make_hole("Ts", "Ks"), make_hole("Ah", "3h"))
+        game = RiverHoldem.from_joint_weights(
+            board=_board(),
+            pot=10.0,
+            stacks=(30.0, 30.0),
+            bet_size=5.0,
+            raise_to=15.0,
+            joint_weights={deal: 1.0},
+        )
+        dealt = game.initial_state().apply_action(deal)
+        facing_bet = dealt.apply_action(BET)
+
+        self.assertEqual(facing_bet.legal_actions(), (FOLD, CALL, RAISE))
+        facing_raise = facing_bet.apply_action(RAISE)
+        self.assertEqual(facing_raise.legal_actions(), (FOLD, CALL))
+        self.assertEqual(facing_raise.apply_action(FOLD).returns(), (-10.0, 10.0))
+        self.assertEqual(facing_raise.apply_action(CALL).returns(), (20.0, -20.0))
+        self.assertEqual(game.payoff_span, 40.0)
+
+    def test_post_raise_information_key_hides_opponent_and_remembers_bet(self) -> None:
+        own_hand = make_hole("Ts", "Ks")
+        first = RiverDeal(own_hand, make_hole("Ah", "3h"))
+        second = RiverDeal(own_hand, make_hole("Ac", "Ad"))
+        game = RiverHoldem.from_joint_weights(
+            board=_board(),
+            pot=10.0,
+            stacks=(30.0, 30.0),
+            bet_size=5.0,
+            raise_to=15.0,
+            joint_weights={first: 0.5, second: 0.5},
+        )
+
+        keys = {
+            game.initial_state()
+            .apply_action(deal)
+            .apply_action(BET)
+            .apply_action(RAISE)
+            .information_state_key(0)
+            for deal in (first, second)
+        }
+
+        self.assertEqual(len(keys), 1)
+        self.assertIn("history=p0:bet/p1:raise", next(iter(keys)))
+
     def test_information_keys_ignore_ranges_but_provenance_does_not(self) -> None:
         game_nuts, game_bluff, nuts, bluff, _ = _blocker_pair()
         nuts_key = (
@@ -248,6 +294,67 @@ class RiverHoldemTests(unittest.TestCase):
         self.assertEqual(solution.player0_pure_policies, 4)
         self.assertEqual(solution.player1_pure_policies, 2)
 
+    def test_sequential_oracle_realizes_mixed_plans_with_perfect_recall(self) -> None:
+        target_hand = make_hole("Ah", "3h")
+        game = RiverHoldem.from_joint_weights(
+            board=_board(),
+            pot=10.0,
+            stacks=(30.0, 30.0),
+            bet_size=5.0,
+            raise_to=15.0,
+            joint_weights={
+                RiverDeal(make_hole("Ts", "Ks"), target_hand): 0.5,
+                RiverDeal(make_hole("4s", "5s"), target_hand): 0.5,
+            },
+        )
+
+        solution = solve_river_game(game)
+        evaluation = evaluate_profile(game, solution.policy)
+
+        self.assertAlmostEqual(solution.value_player0, 5.0 / 3.0)
+        self.assertLessEqual(solution.nash_conv, 1e-8)
+        self.assertEqual(solution.player0_information_sets, 4)
+        self.assertEqual(solution.player1_information_sets, 1)
+        self.assertEqual(solution.player0_pure_policies, 16)
+        self.assertEqual(solution.player1_pure_policies, 3)
+        with self.assertRaisesRegex(ValueError, "48 matrix entries"):
+            solve_river_game(game, max_matrix_entries=47)
+        for player in range(2):
+            dynamic_value, _ = best_response(game, solution.policy, player)
+            enumerated_value, _ = best_response_enumerated(
+                game,
+                solution.policy,
+                player,
+            )
+            self.assertAlmostEqual(dynamic_value, enumerated_value)
+            self.assertAlmostEqual(dynamic_value, evaluation.best_response_values[player])
+
+    def test_sequential_tree_breaks_local_regret_equals_nash_conv_identity(
+        self,
+    ) -> None:
+        target_hand = make_hole("Ah", "3h")
+        game = RiverHoldem.from_joint_weights(
+            board=_board(),
+            pot=10.0,
+            stacks=(30.0, 30.0),
+            bet_size=5.0,
+            raise_to=15.0,
+            joint_weights={
+                RiverDeal(make_hole("Ts", "Ks"), target_hand): 0.5,
+                RiverDeal(make_hole("4s", "5s"), target_hand): 0.5,
+            },
+        )
+
+        evaluation = evaluate_profile(game, {})
+        local_regret = counterfactual_regret_profile(game, {})
+
+        self.assertAlmostEqual(evaluation.nash_conv, 35.0 / 6.0)
+        self.assertAlmostEqual(local_regret.total_positive_regret, 20.0 / 3.0)
+        self.assertNotAlmostEqual(
+            local_regret.total_positive_regret,
+            evaluation.nash_conv,
+        )
+
     def test_local_counterfactual_regret_equals_nash_conv_in_this_shallow_tree(
         self,
     ) -> None:
@@ -292,6 +399,25 @@ class RiverHoldemTests(unittest.TestCase):
                         make_hole("Kh", "Kd"),
                     ): 1.0
                 },
+            )
+        valid_deal = RiverDeal(make_hole("As", "Ad"), make_hole("Kh", "Kd"))
+        with self.assertRaisesRegex(ValueError, "at least twice"):
+            RiverHoldem.from_joint_weights(
+                board=_board(),
+                pot=10.0,
+                stacks=(30.0, 30.0),
+                bet_size=5.0,
+                raise_to=9.0,
+                joint_weights={valid_deal: 1.0},
+            )
+        with self.assertRaisesRegex(ValueError, "remaining stack"):
+            RiverHoldem.from_joint_weights(
+                board=_board(),
+                pot=10.0,
+                stacks=(12.0, 30.0),
+                bet_size=5.0,
+                raise_to=15.0,
+                joint_weights={valid_deal: 1.0},
             )
 
 

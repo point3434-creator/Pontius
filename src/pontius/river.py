@@ -1,10 +1,11 @@
 """Exact, range-sensitive heads-up no-limit river microgame.
 
-The game intentionally has one betting decision: player 0 may check or make a
-fixed bet, after which player 1 may fold or call.  Its small tree is suitable
-for exact best-response and normal-form oracles while retaining the poker
-features that matter for range work: real cards, exact card removal, joint
-ranges, private information, and showdown hand strength.
+The base game has one betting decision: player 0 may check or make a fixed bet,
+after which player 1 may fold or call.  An optional fixed legal raise-to amount
+adds a player-1 raise and a final player-0 fold/call decision.  The resulting
+small trees are suitable for exact best-response and normal-form oracles while
+retaining the poker features that matter for range work: real cards, exact card
+removal, joint ranges, private information, and showdown hand strength.
 
 The joint deal distribution is part of game provenance, but not part of an
 information-state key.  This separation lets the laboratory measure policy or
@@ -29,6 +30,7 @@ CHECK = "check"
 BET = "bet"
 FOLD = "fold"
 CALL = "call"
+RAISE = "raise"
 
 RANKS = "23456789TJQKA"
 SUITS = "cdhs"
@@ -265,13 +267,14 @@ def distribution_total_variation(
 
 @dataclass(frozen=True, slots=True)
 class RiverHoldem:
-    """Exact heads-up river game with a fixed bet size and joint range."""
+    """Exact heads-up river game with fixed bet/optional raise and joint range."""
 
     board: tuple[Card, ...]
     pot: float
     stacks: tuple[float, float]
     bet_size: float
     deals: tuple[tuple[RiverDeal, float], ...]
+    raise_to: float | None = None
     num_players: int = 2
 
     def __post_init__(self) -> None:
@@ -285,6 +288,7 @@ class RiverHoldem:
         pot = float(self.pot)
         stacks = tuple(float(stack) for stack in self.stacks)
         bet_size = float(self.bet_size)
+        raise_to = None if self.raise_to is None else float(self.raise_to)
         if not isfinite(pot) or pot <= 0.0:
             raise ValueError("pot must be positive and finite")
         if len(stacks) != 2 or any(not isfinite(stack) or stack < 0.0 for stack in stacks):
@@ -293,6 +297,11 @@ class RiverHoldem:
             raise ValueError("bet size must be positive and finite")
         if bet_size > min(stacks):
             raise ValueError("bet size cannot exceed either remaining stack")
+        if raise_to is not None:
+            if not isfinite(raise_to) or raise_to < 2.0 * bet_size:
+                raise ValueError("raise-to must be finite and at least twice the bet")
+            if raise_to > min(stacks):
+                raise ValueError("raise-to cannot exceed either remaining stack")
 
         raw_weights: dict[RiverDeal, float] = {}
         for deal, probability in self.deals:
@@ -304,6 +313,7 @@ class RiverHoldem:
         object.__setattr__(self, "stacks", stacks)
         object.__setattr__(self, "bet_size", bet_size)
         object.__setattr__(self, "deals", normalized)
+        object.__setattr__(self, "raise_to", raise_to)
 
     @classmethod
     def from_joint_weights(
@@ -314,12 +324,20 @@ class RiverHoldem:
         stacks: tuple[float, float],
         bet_size: float,
         joint_weights: Mapping[RiverDeal, float],
+        raise_to: float | None = None,
     ) -> RiverHoldem:
         """Build a game from an explicit joint distribution over deals."""
 
         canonical_board = tuple(sorted(board))
         deals = _normalized_joint_weights(canonical_board, joint_weights)
-        return cls(canonical_board, pot, stacks, bet_size, deals)
+        return cls(
+            board=canonical_board,
+            pot=pot,
+            stacks=stacks,
+            bet_size=bet_size,
+            deals=deals,
+            raise_to=raise_to,
+        )
 
     @classmethod
     def from_independent_ranges(
@@ -331,6 +349,7 @@ class RiverHoldem:
         bet_size: float,
         player0_weights: Mapping[HoleCards, float],
         player1_weights: Mapping[HoleCards, float],
+        raise_to: float | None = None,
     ) -> RiverHoldem:
         """Multiply marginal weights, remove blocked deals, and renormalize."""
 
@@ -359,6 +378,7 @@ class RiverHoldem:
             stacks=stacks,
             bet_size=bet_size,
             joint_weights=joint_weights,
+            raise_to=raise_to,
         )
 
     def initial_state(self) -> RiverState:
@@ -404,16 +424,17 @@ class RiverHoldem:
 
     @property
     def structural_digest(self) -> str:
-        payload = "|".join(
-            (
-                "river-v1",
-                ",".join(format_card(card) for card in self.board),
-                self.pot.hex(),
-                self.stacks[0].hex(),
-                self.stacks[1].hex(),
-                self.bet_size.hex(),
-            )
+        fields = (
+            "river-v1" if self.raise_to is None else "river-raise-v1",
+            ",".join(format_card(card) for card in self.board),
+            self.pot.hex(),
+            self.stacks[0].hex(),
+            self.stacks[1].hex(),
+            self.bet_size.hex(),
         )
+        if self.raise_to is not None:
+            fields = (*fields, self.raise_to.hex())
+        payload = "|".join(fields)
         return sha256(payload.encode("ascii")).hexdigest()
 
     @property
@@ -448,7 +469,10 @@ class RiverHoldem:
     def payoff_span(self) -> float:
         """Maximum minus minimum terminal utility for either player."""
 
-        return self.pot + 2.0 * self.bet_size
+        maximum_contribution = (
+            self.bet_size if self.raise_to is None else self.raise_to
+        )
+        return self.pot + 2.0 * maximum_contribution
 
     def fixed_policy_value_bound(self, other: RiverHoldem) -> float:
         """Bound value movement for one fixed policy under a range change.
@@ -489,13 +513,19 @@ class RiverState:
             return 0
         if self.history == ((0, BET),):
             return 1
+        if self.history == ((0, BET), (1, RAISE)):
+            return 0
         raise ValueError(f"invalid nonterminal river history {self.history!r}")
 
     def legal_actions(self) -> tuple[str, ...]:
         player = self.current_player
-        if player == 0:
+        if player == 0 and not self.history:
             return (CHECK, BET)
         if player == 1:
+            if self.game.raise_to is None:
+                return (FOLD, CALL)
+            return (FOLD, CALL, RAISE)
+        if player == 0:
             return (FOLD, CALL)
         return ()
 
@@ -545,7 +575,11 @@ class RiverState:
         if self.current_player != TERMINAL_PLAYER or self.deal is None:
             raise ValueError("returns are available only at terminal states")
         if self.history[-1][1] == FOLD:
-            utility0 = self.game.pot / 2.0
+            utility0 = (
+                self.game.pot / 2.0
+                if self.history[-1][0] == 1
+                else -(self.game.pot / 2.0 + self.game.bet_size)
+            )
             return (utility0, -utility0)
 
         rank0 = evaluate_seven((*self.game.board, *self.deal.player0))
@@ -554,6 +588,10 @@ class RiverState:
             return (0.0, 0.0)
         showdown_stake = self.game.pot / 2.0
         if self.history[-1][1] == CALL:
-            showdown_stake += self.game.bet_size
+            showdown_stake += (
+                self.game.bet_size
+                if len(self.history) == 2
+                else self.game.raise_to or 0.0
+            )
         utility0 = showdown_stake if rank0 > rank1 else -showdown_stake
         return (utility0, -utility0)

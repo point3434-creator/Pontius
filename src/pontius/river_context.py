@@ -110,6 +110,7 @@ def _make_family_game(
     pot: float,
     stacks: tuple[float, float],
     bet_size: float,
+    raise_to: float | None,
     family: str,
     hands_per_player: int,
     rng: random.Random,
@@ -148,6 +149,7 @@ def _make_family_game(
             pot=pot,
             stacks=stacks,
             bet_size=bet_size,
+            raise_to=raise_to,
             player0_weights=weights0,
             player1_weights=weights1,
         )
@@ -166,6 +168,7 @@ def _make_family_game(
         pot=pot,
         stacks=stacks,
         bet_size=bet_size,
+        raise_to=raise_to,
         joint_weights=joint_weights,
     )
 
@@ -177,11 +180,14 @@ def generate_river_contexts(
     hands_per_player: int = 4,
     families: tuple[str, ...] = CONTEXT_FAMILIES,
     splits: tuple[str, ...] = CONTEXT_SPLITS,
+    sequential_raise: bool = False,
 ) -> tuple[RiverContext, ...]:
     """Generate grouped contexts; all variants of a board share one split."""
 
     if groups <= 0:
         raise ValueError("groups must be positive")
+    if not isinstance(sequential_raise, bool):
+        raise TypeError("sequential_raise must be a boolean")
     if not 2 <= hands_per_player <= 8:
         raise ValueError("hands_per_player must be between two and eight")
     if not families or len(set(families)) != len(families):
@@ -203,7 +209,12 @@ def generate_river_contexts(
         pot = float(group_rng.choice((8, 12, 20, 32)))
         bet_fraction = group_rng.choice((0.25, 0.5, 0.75, 1.0, 1.5))
         bet_size = pot * bet_fraction
-        effective_stack = max(2.0 * pot, bet_size)
+        raise_to = (
+            bet_size * group_rng.choice((2.0, 3.0))
+            if sequential_raise
+            else None
+        )
+        effective_stack = max(2.0 * pot, raise_to or bet_size)
         stacks = (effective_stack, effective_stack)
         split = _group_split(seed, group_index)
         if split not in splits:
@@ -215,6 +226,7 @@ def generate_river_contexts(
                 pot=pot,
                 stacks=stacks,
                 bet_size=bet_size,
+                raise_to=raise_to,
                 family=family,
                 hands_per_player=hands_per_player,
                 rng=random.Random(family_seed),
@@ -276,6 +288,10 @@ def river_context_features(context: RiverContext) -> dict[str, float | int | str
         "pot": game.pot,
         "bet_size": game.bet_size,
         "bet_to_pot": game.bet_size / game.pot,
+        "has_raise": int(game.raise_to is not None),
+        "raise_to": game.raise_to or 0.0,
+        "raise_to_pot": (game.raise_to or 0.0) / game.pot,
+        "payoff_span": game.payoff_span,
         "effective_stack_to_pot": min(game.stacks) / game.pot,
         "joint_deals": len(joint),
         "player0_hands": len(marginal0),
@@ -313,6 +329,7 @@ def serialize_river_context(context: RiverContext) -> dict[str, object]:
         "pot": game.pot,
         "stacks": list(game.stacks),
         "bet_size": game.bet_size,
+        "raise_to": game.raise_to,
         "joint_range": [
             {
                 "player0": [format_card(card) for card in deal.player0],

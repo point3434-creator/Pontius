@@ -52,10 +52,57 @@ def _spearman(first: list[float], second: list[float]) -> float | None:
     return _pearson(_ranks(first), _ranks(second))
 
 
-def _normalized_future_target(record: dict[str, Any]) -> float:
+def _payoff_span(record: dict[str, Any]) -> float:
     features = record["online_features"]
-    payoff_span = float(features["pot"]) + 2.0 * float(features["bet_size"])
-    return float(record["labels"]["future_best_additional_reduction"]) / payoff_span
+    return float(
+        features.get(
+            "payoff_span",
+            float(features["pot"]) + 2.0 * float(features["bet_size"]),
+        )
+    )
+
+
+def _normalized_future_target(record: dict[str, Any]) -> float:
+    return (
+        float(record["labels"]["future_best_additional_reduction"])
+        / _payoff_span(record)
+    )
+
+
+def _local_regret_diagnostics(records: list[dict[str, Any]]) -> dict[str, Any]:
+    labeled = [
+        record
+        for record in records
+        if "local_one_step_positive_regret" in record["labels"]
+    ]
+    if not labeled:
+        return {
+            "available": False,
+            "records": 0,
+        }
+    gaps = [
+        float(record["labels"]["local_one_step_positive_regret"])
+        - float(record["labels"]["nash_conv"])
+        for record in labeled
+    ]
+    normalized_absolute_gaps = [
+        abs(gap) / _payoff_span(record)
+        for gap, record in zip(gaps, labeled, strict=True)
+    ]
+    nonidentity = [
+        abs(gap) > 1e-10 * max(1.0, _payoff_span(record))
+        for gap, record in zip(gaps, labeled, strict=True)
+    ]
+    return {
+        "available": True,
+        "records": len(labeled),
+        "nonidentity_records": sum(nonidentity),
+        "nonidentity_rate": sum(nonidentity) / len(labeled),
+        "minimum_signed_gap": min(gaps),
+        "maximum_signed_gap": max(gaps),
+        "mean_absolute_normalized_gap": mean(normalized_absolute_gaps),
+        "maximum_absolute_normalized_gap": max(normalized_absolute_gaps),
+    }
 
 
 def _solver_path_diagnostics(
@@ -210,6 +257,7 @@ def analyze_river_trace(
         raise ValueError(f"unknown primary feature {primary_feature!r}")
     solvers = tuple(str(solver) for solver in artifact["config"]["solvers"])
     checkpoints = tuple(int(value) for value in artifact["config"]["checkpoints"])
+    sequential_raise = artifact["config"].get("sequential_raise", False) is True
     if primary_checkpoint not in checkpoints:
         raise ValueError("primary checkpoint is absent from the trace")
 
@@ -237,6 +285,7 @@ def analyze_river_trace(
                 float(labels["solve_milliseconds"]) for labels in teacher_labels
             ),
         },
+        "local_regret_vs_nash_conv": _local_regret_diagnostics(records),
         "solver_path_diagnostics": [
             _solver_path_diagnostics(records, solver) for solver in solvers
         ],
@@ -276,8 +325,14 @@ def analyze_river_trace(
             "Future reduction and exact exploitability are diagnostic labels only.",
             "The primary feature is variant-discounted accumulated solver regret, "
             "not a fresh exact counterfactual-regret calculation.",
-            "Each player acts at most once in this binary-action tree, making local "
-            "regret unusually close to complete best-response opportunity.",
+            (
+                "The opener acts twice on bet-raise paths, so local one-step regret "
+                "is no longer identical to complete best-response opportunity; the "
+                "tree is still a small fixed-action river abstraction."
+                if sequential_raise
+                else "Each player acts at most once in this binary-action tree, making "
+                "local regret unusually close to complete best-response opportunity."
+            ),
             "Pooled allocation sees future labels and can transfer work across "
             "contexts; it is not deployable.",
         ],

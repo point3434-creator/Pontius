@@ -12,8 +12,14 @@ from statistics import mean, median
 from typing import Any
 
 from .cfr import TabularCFR
-from .evaluation import Policy, collect_information_sets, evaluate_profile, policy_distribution
-from .game import Action
+from .evaluation import (
+    Policy,
+    collect_information_sets,
+    counterfactual_regret_profile,
+    evaluate_profile,
+    policy_distribution,
+)
+from .game import Action, CHANCE_PLAYER, TERMINAL_PLAYER, GameState
 from .reporting import environment_metadata, json_policy
 from .river_context import (
     CONTEXT_FAMILIES,
@@ -36,6 +42,23 @@ FORBIDDEN_ONLINE_FEATURE_FRAGMENTS = (
     "label",
 )
 TOLERANCE = 1e-12
+
+
+def _full_tree_state_count(state: GameState) -> int:
+    """Count states visited by one exhaustive traversal, including terminals."""
+
+    player = state.current_player
+    if player == TERMINAL_PLAYER:
+        return 1
+    actions = (
+        tuple(action for action, _ in state.chance_outcomes())
+        if player == CHANCE_PLAYER
+        else tuple(state.legal_actions())
+    )
+    return 1 + sum(
+        _full_tree_state_count(state.apply_action(action))
+        for action in actions
+    )
 
 
 def _policy_entropy(
@@ -399,6 +422,10 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
     groups = int(config.get("groups", 8))
     seed = int(config.get("seed", 0))
     hands_per_player = int(config.get("hands_per_player", 4))
+    sequential_raise_value = config.get("sequential_raise", False)
+    if not isinstance(sequential_raise_value, bool):
+        raise TypeError("sequential_raise must be a boolean")
+    sequential_raise = sequential_raise_value
     families = tuple(str(family) for family in config.get("families", CONTEXT_FAMILIES))
     included_splits = tuple(
         str(split) for split in config.get("included_splits", CONTEXT_SPLITS)
@@ -450,6 +477,10 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("allocation budgets must be sorted, unique, positive checkpoints")
     if allocation_context_limit <= 0:
         raise ValueError("allocation_context_limit must be positive")
+    if sequential_raise and hands_per_player > 5:
+        raise ValueError(
+            "sequential exact oracle supports at most five hands per player"
+        )
 
     experiment_start = time.perf_counter()
     generation_start = time.perf_counter()
@@ -459,6 +490,7 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
         hands_per_player=hands_per_player,
         families=families,
         splits=included_splits,
+        sequential_raise=sequential_raise,
     )
     generation_seconds = time.perf_counter() - generation_start
     if not contexts:
@@ -496,7 +528,7 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
             if overlap:
                 raise ValueError(f"information keys shared across players: {overlap!r}")
             information_sets.update(player_sets)
-        tree_states = 1 + 5 * len(context.game.deals)
+        tree_states = _full_tree_state_count(context.game.initial_state())
         context_features = river_context_features(context)
 
         for variant in solvers:
@@ -537,6 +569,10 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
 
                 evaluation_start = time.perf_counter()
                 evaluation = evaluate_profile(context.game, average_policy)
+                local_regret = counterfactual_regret_profile(
+                    context.game,
+                    average_policy,
+                )
                 evaluation_seconds = time.perf_counter() - evaluation_start
                 evaluation_seconds_total += evaluation_seconds
                 record: dict[str, Any] = {
@@ -551,6 +587,9 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
                     "labels": {
                         "exploitability": evaluation.exploitability,
                         "nash_conv": evaluation.nash_conv,
+                        "local_one_step_positive_regret": (
+                            local_regret.total_positive_regret
+                        ),
                         "utility_player0": evaluation.utilities[0],
                         "absolute_value_error": abs(
                             evaluation.utilities[0] - oracle.value_player0
@@ -585,6 +624,7 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
             "groups": groups,
             "seed": seed,
             "hands_per_player": hands_per_player,
+            "sequential_raise": sequential_raise,
             "families": list(families),
             "included_splits": list(included_splits),
             "solvers": list(solvers),

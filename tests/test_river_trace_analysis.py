@@ -33,11 +33,58 @@ class RiverTraceAnalysisTests(unittest.TestCase):
         self.assertTrue(
             any("acts at most once" in warning for warning in result["interpretation_warnings"])
         )
+        self.assertTrue(result["local_regret_vs_nash_conv"]["available"])
+        self.assertEqual(result["local_regret_vs_nash_conv"]["nonidentity_records"], 0)
+
+    def test_sequential_analysis_reports_that_local_regret_identity_is_broken(
+        self,
+    ) -> None:
+        artifact = run_river_opportunity_experiment(
+            {
+                "groups": 1,
+                "seed": 5,
+                "hands_per_player": 2,
+                "families": ["balanced"],
+                "solvers": ["cfr"],
+                "checkpoints": [0, 1, 2, 4],
+                "sequential_raise": True,
+            }
+        )
+
+        result = analyze_river_trace(artifact, primary_checkpoint=1, folds=2)
+
+        self.assertTrue(
+            any(
+                "opener acts twice" in warning
+                for warning in result["interpretation_warnings"]
+            )
+        )
+        self.assertGreater(
+            result["local_regret_vs_nash_conv"]["nonidentity_records"],
+            0,
+        )
 
     def test_analysis_reads_labels_but_does_not_mutate_source(self) -> None:
         source = copy.deepcopy(self.artifact)
         analyze_river_trace(source, folds=2)
         self.assertEqual(source, self.artifact)
+
+    def test_analysis_remains_compatible_with_pre_diagnostic_artifacts(self) -> None:
+        legacy = copy.deepcopy(self.artifact)
+        legacy["config"].pop("sequential_raise")
+        for record in legacy["records"]:
+            record["online_features"].pop("payoff_span")
+            record["labels"].pop("local_one_step_positive_regret")
+
+        result = analyze_river_trace(legacy, folds=2)
+
+        self.assertFalse(result["local_regret_vs_nash_conv"]["available"])
+        self.assertTrue(
+            any(
+                "acts at most once" in warning
+                for warning in result["interpretation_warnings"]
+            )
+        )
 
     def test_invalid_artifact_feature_and_folds_are_rejected(self) -> None:
         with self.assertRaisesRegex(ValueError, "not an exact river"):

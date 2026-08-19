@@ -294,6 +294,59 @@ class RiverHoldemTests(unittest.TestCase):
         self.assertEqual(solution.player0_pure_policies, 4)
         self.assertEqual(solution.player1_pure_policies, 2)
 
+    def test_river_oracle_and_metrics_are_invariant_to_stake_rescaling(self) -> None:
+        target_hand = make_hole("Ah", "3h")
+        deals = {
+            RiverDeal(make_hole("Ts", "Ks"), target_hand): 0.5,
+            RiverDeal(make_hole("4s", "5s"), target_hand): 0.5,
+        }
+
+        def policy_without_structure(policy: dict) -> dict:
+            return {
+                f"p{key.split('|p', 1)[1]}": distribution
+                for key, distribution in policy.items()
+            }
+
+        outcomes = {}
+        for scale in (0.5, 1.0, 2.0, 4.0):
+            game = RiverHoldem.from_joint_weights(
+                board=_board(),
+                pot=10.0 * scale,
+                stacks=(30.0 * scale, 30.0 * scale),
+                bet_size=5.0 * scale,
+                raise_to=15.0 * scale,
+                joint_weights=deals,
+            )
+            solution = solve_river_game(game)
+            outcomes[scale] = (game, solution, evaluate_profile(game, {}))
+
+        base_game, base_solution, base_uniform = outcomes[1.0]
+        base_policy = policy_without_structure(base_solution.policy)
+        base_normalized_nash_conv = base_uniform.nash_conv / base_game.payoff_span
+        for scale, (game, solution, uniform) in outcomes.items():
+            self.assertAlmostEqual(game.payoff_span, scale * base_game.payoff_span)
+            self.assertAlmostEqual(
+                solution.value_player0,
+                scale * base_solution.value_player0,
+                places=11,
+            )
+            scaled_policy = policy_without_structure(solution.policy)
+            self.assertEqual(scaled_policy.keys(), base_policy.keys())
+            for key, distribution in scaled_policy.items():
+                self.assertEqual(distribution.keys(), base_policy[key].keys())
+                for action, probability in distribution.items():
+                    self.assertAlmostEqual(probability, base_policy[key][action], places=11)
+            self.assertAlmostEqual(
+                uniform.nash_conv,
+                scale * base_uniform.nash_conv,
+                places=11,
+            )
+            self.assertAlmostEqual(
+                uniform.nash_conv / game.payoff_span,
+                base_normalized_nash_conv,
+                places=13,
+            )
+
     def test_sequential_oracle_realizes_mixed_plans_with_perfect_recall(self) -> None:
         target_hand = make_hole("Ah", "3h")
         game = RiverHoldem.from_joint_weights(

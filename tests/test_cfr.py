@@ -1,10 +1,50 @@
 from __future__ import annotations
 
 import unittest
+from dataclasses import dataclass
 
 from pontius.cfr import TabularCFR
 from pontius.evaluation import collect_information_sets, evaluate_profile, policy_distribution
+from pontius.game import Action, GameState
 from pontius.kuhn import KuhnPoker
+
+
+@dataclass(frozen=True, slots=True)
+class _ScaledState:
+    base: GameState
+    scale: float
+
+    @property
+    def current_player(self) -> int:
+        return self.base.current_player
+
+    def legal_actions(self):
+        return self.base.legal_actions()
+
+    def chance_outcomes(self):
+        return self.base.chance_outcomes()
+
+    def apply_action(self, action: Action) -> _ScaledState:
+        return _ScaledState(self.base.apply_action(action), self.scale)
+
+    def information_state_key(self, player: int) -> str:
+        return self.base.information_state_key(player)
+
+    def returns(self) -> tuple[float, ...]:
+        return tuple(self.scale * value for value in self.base.returns())
+
+
+@dataclass(frozen=True, slots=True)
+class _ScaledKuhn:
+    scale: float
+    num_players: int = 2
+
+    @property
+    def payoff_span(self) -> float:
+        return 4.0 * self.scale
+
+    def initial_state(self) -> _ScaledState:
+        return _ScaledState(KuhnPoker(self.num_players).initial_state(), self.scale)
 
 
 class CFRTests(unittest.TestCase):
@@ -47,6 +87,34 @@ class CFRTests(unittest.TestCase):
         evaluation = evaluate_profile(game, solver.average_strategy())
         self.assertAlmostEqual(evaluation.utilities[0], -1.0 / 18.0, delta=0.01)
         self.assertLess(evaluation.nash_conv, 0.04)
+
+    def test_dcfr_is_invariant_to_positive_payoff_rescaling(self) -> None:
+        outcomes = {}
+        for scale in (0.5, 1.0, 2.0, 4.0):
+            game = _ScaledKuhn(scale)
+            solver = TabularCFR(game, "dcfr")
+            solver.run(256)
+            policy = solver.average_strategy()
+            outcomes[scale] = (game, policy, evaluate_profile(game, policy))
+
+        base_game, base_policy, base_evaluation = outcomes[1.0]
+        base_normalized = base_evaluation.nash_conv / base_game.payoff_span
+        for scale, (game, policy, evaluation) in outcomes.items():
+            self.assertEqual(policy.keys(), base_policy.keys())
+            for key, distribution in policy.items():
+                self.assertEqual(distribution.keys(), base_policy[key].keys())
+                for action, probability in distribution.items():
+                    self.assertAlmostEqual(probability, base_policy[key][action], places=14)
+            self.assertAlmostEqual(
+                evaluation.nash_conv,
+                scale * base_evaluation.nash_conv,
+                places=12,
+            )
+            self.assertAlmostEqual(
+                evaluation.nash_conv / game.payoff_span,
+                base_normalized,
+                places=14,
+            )
 
     def test_unknown_variant_is_rejected(self) -> None:
         with self.assertRaises(ValueError):

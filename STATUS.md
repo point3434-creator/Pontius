@@ -464,7 +464,14 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   raises raw reduction from `8.81632` to `14.80649` while adding 6.44% Python
   time, improving raw reduction/ms 57.79%. It is a teacher, not a deployable
   gate.
-- Two hundred sixty automated tests pass.
+- Payoff-scale and selector property audits now guard the measurement path.
+  DCFR strategy, exact river strategy, payoff-normalized NashConv, and causal
+  selector decisions remain invariant at 0.5x, 1x, 2x, and 4x utility scales.
+  The real 132-target artifact also retains fixed `b3r2`, normalized reduction
+  `0.39752103705623065`, and its failed-screen status after every scale transform
+  and a seeded input permutation. This validates the rejection; it does not
+  reopen adaptive width.
+- Two hundred sixty-six automated tests pass.
 
 ## In progress
 
@@ -499,6 +506,6 @@ None.
 
 ## Last updated
 
-2026-08-19, after the frozen compact causal screen selected fixed full search,
-failed normalized and board-group transfer, cancelled adaptive-width
-replication, and redirected the next gate toward exact candidate acceptance.
+2026-08-19, after payoff-scale and selector invariance audits validated the
+measurement path and confirmed that the frozen compact-screen rejection is not
+an artifact of chip units, record order, group names, unused labels, or ties.

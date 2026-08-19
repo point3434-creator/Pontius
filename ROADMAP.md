@@ -172,7 +172,10 @@ replication and branch-lane specialization are cancelled without retuning.
 Exact-label full-candidate rejection nevertheless improves Python reference
 quality/ms by 57.79%, making policy-delta recertification—not width prediction—
 the next exact control. No deployable exact no-op or multiplayer safety claim
-follows.
+follows. Payoff-scale and selector property audits now confirm that the failed
+width decision and normalized measurement are invariant across 0.5x-4x stakes,
+input ordering, group names, unused labels, and declared ties. These are
+measurement guardrails, not new evidence for adaptive width.
 
 **Target:** months 4-6.5.
 

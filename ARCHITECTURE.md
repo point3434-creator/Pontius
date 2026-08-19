@@ -66,6 +66,13 @@ fixed deadline can therefore pay for work that cannot improve its returned
 policy. Future implementations must expose phase-level cancellation points and
 distinguish quality-producing separation from future-option pricing.
 
+Phase v2 makes that distinction executable. Candidate-ready time ends after
+one behavioral-policy safety separation and before current-round pricing.
+Duplicate response and realization audits remain available as reference flags
+but are not charged to v2; exact teacher comparisons remain outside candidate
+construction. Terminal cancellation returns the safe incumbent without
+creating a column that only a later master could consume.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

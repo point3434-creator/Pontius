@@ -165,21 +165,30 @@ Checkpoint 2: solver comparison laboratory.
   update-five scoring is not consumed until update six; two weak CFR cases
   account for 96.13% of the gain. Phase-aware cancellation and immediate cheap
   re-solves are now the next efficiency hypothesis.
-- One hundred thirty-six automated tests pass.
+- Candidate-ready timing and terminal pricing cancellation are now explicit.
+  One-pass response generation and optional realization auditing preserve the
+  exact strategy sequence while removing duplicate charged traversal.
+- Across all 40 revealed development boundaries, six candidate-ready solves
+  capture 92.3114% of exact sum-margin at 5.440 mean milliseconds and
+  `4.63568e-4` margin/ms. The weaker subset still beats its corresponding frozen
+  CFR rate by about 35%.
+- `constrained-generation-phase-v2` is frozen before a new 48-boundary holdout
+  crossing all four blueprint solvers at unseen iterations 75, 700, and 5,000.
+- One hundred thirty-nine automated tests pass.
 
 ## In progress
 
-- Designing phase-aware constrained generation that does not perform terminal
-  pricing work which cannot improve the returned incumbent.
+- Evaluating frozen phase-v2 generation and both frozen CFR checkpoints on the
+  same fresh 48-boundary holdout.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Expose phase-level candidate and future-option timing/cancellation points.
-2. Test immediate master re-solve and shared separation/pricing caches, then
-   freeze the best target-free time rule before new regimes.
+1. Run and adjudicate the preregistered phase-v2 holdout without retuning.
+2. If it passes, fit a conservative non-oracle phase-cost scheduler at explicit
+   wall-clock budgets; otherwise retain generation as an offline teacher.
 3. Inject controlled frontier-value error and uncertainty bounds only after a
    target-free solver passes its efficiency gate; then test any multiplayer
    relaxation or neural frontier target.
@@ -197,4 +206,4 @@ None.
 
 ## Last updated
 
-2026-08-19, after constrained-generation v1 missed its frozen holdout rate gate.
+2026-08-19, after freezing nonduplicated candidate-ready generation v2.

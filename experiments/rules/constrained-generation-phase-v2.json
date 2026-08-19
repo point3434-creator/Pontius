@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "rule_name": "constrained-generation-phase-v2",
+  "status": "frozen-before-fresh-holdout",
+  "frozen_at": "2026-08-19",
+  "development_evidence": {
+    "matrices": [
+      "constrained-generation-kuhn2-phase-v2-screen-development.json",
+      "constrained-generation-kuhn2-phase-v2-revealed-development.json"
+    ],
+    "status": "all 40 boundaries revealed before v2 freeze",
+    "blueprint_regimes": [
+      "lcfr/cfr_plus at 20 and 1000 iterations",
+      "cfr/dcfr at 50, 300, and 10000 iterations"
+    ],
+    "selection_target": "aggregate certified sum-frontier-margin per candidate-ready millisecond"
+  },
+  "solver": {
+    "initial_column": "complete behavioral blueprint",
+    "restricted_master_objective": "maximize sum of nonnegative guaranteed frontier margins",
+    "response_separation": "one dynamic opponent counterfactual best response",
+    "resolver_pricing": "LP-dual-weighted dynamic resolver best response",
+    "maximum_master_solves": 6,
+    "checkpoint_phase": "after master solve, behavioral conversion, and safety separation; before current pricing",
+    "terminal_pricing": false,
+    "duplicate_response_reverification": false,
+    "duplicate_realization_reverification": false,
+    "candidate_gate": "total positive frontier violation <= 1e-10",
+    "incumbent_ranking": "largest signed sum frontier margin",
+    "replacement_threshold": "strictly greater than incumbent by 1e-10",
+    "fallback": "blueprint"
+  },
+  "development_result": {
+    "boundaries": 40,
+    "aggregate_sum_margin_capture": 0.923113693075052,
+    "aggregate_hidden_br_capture_diagnostic": 0.8126209875411053,
+    "mean_candidate_ready_milliseconds": 5.4404575020271295,
+    "aggregate_sum_margin_per_candidate_ready_millisecond": 0.0004635680731024596,
+    "screen_subset_rate": 0.0003970463363195187,
+    "revealed_subset_rate": 0.0005063664719322597
+  },
+  "fresh_holdout": {
+    "blueprint_solvers": ["cfr", "lcfr", "cfr_plus", "dcfr"],
+    "blueprint_iterations": [75, 700, 5000],
+    "public_boundaries": 48,
+    "generation_matrix": "constrained-generation-kuhn2-phase-v2-holdout.json",
+    "cfr_matrix": "safe-solver-gap-kuhn2-phase-v2-holdout.json",
+    "untouched_when_frozen": true
+  },
+  "holdout_gates": {
+    "maximum_selected_frontier_violation": 1e-10,
+    "maximum_exact_objective_overshoot": 1e-8,
+    "minimum_aggregate_sum_margin_capture": 0.75,
+    "minimum_rate_fraction_of_development": 0.5,
+    "must_beat_frozen_cfr_checkpoint_3_rate": true,
+    "must_beat_best_cfr_checkpoint_1_or_3_rate": true,
+    "no_post_reveal_retuning": true
+  },
+  "scope": {
+    "exact_two_player_kuhn_teacher": true,
+    "runtime_deployable": false,
+    "multiplayer_claim": false,
+    "one_exact_safety_separation_required_per_candidate": true
+  }
+}

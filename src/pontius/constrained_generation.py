@@ -72,20 +72,24 @@ class GenerationUpdateRecord:
     candidate_hidden_br_regret: float
     incumbent_hidden_br_regret: float
     master_duality_gap: float
-    realization_equivalence_max_error: float
+    realization_equivalence_max_error: float | None
     effective_column_dual: float
     best_pricing_score: float | None
     best_reduced_cost: float | None
     added_column: str | None
     added_response_constraints: int
     converged: bool
+    pricing_performed: bool
     master_build_seconds: float
     master_solve_seconds: float
     policy_conversion_seconds: float
     separation_seconds: float
     pricing_seconds: float
     hidden_diagnostic_seconds: float
+    cumulative_candidate_compute_seconds: float
     cumulative_decision_compute_seconds: float
+    candidate_incumbent_sum_margin_per_millisecond: float | None
+    candidate_incumbent_hidden_br_reduction_per_millisecond: float | None
     incumbent_sum_margin_per_millisecond: float | None
     incumbent_hidden_br_reduction_per_millisecond: float | None
 
@@ -221,6 +225,7 @@ def _best_response_plan(
     frontier: CounterfactualFrontier,
     resolver_policy: Policy,
     tolerance: float,
+    verify_entrywise: bool,
 ) -> tuple[_ResponsePlan, dict[str, float]]:
     _, selected = best_response(
         subgame,
@@ -243,16 +248,17 @@ def _best_response_plan(
     }
     plan = _ResponsePlan(signature=signature, policy=policy)
     values = _frontier_values(frontier, resolver_policy, policy)
-    independently_verified = counterfactual_best_response_values(
-        frontier,
-        resolver_policy,
-    )
-    error = max(
-        abs(values[key] - independently_verified[key])
-        for key in frontier.blueprint_values
-    )
-    if error > 100.0 * tolerance:
-        raise AssertionError("generated response is not entry-wise optimal")
+    if verify_entrywise:
+        independently_verified = counterfactual_best_response_values(
+            frontier,
+            resolver_policy,
+        )
+        error = max(
+            abs(values[key] - independently_verified[key])
+            for key in frontier.blueprint_values
+        )
+        if error > 100.0 * tolerance:
+            raise AssertionError("generated response is not entry-wise optimal")
     return plan, values
 
 
@@ -552,6 +558,9 @@ def solve_sum_margin_with_generation(
     max_updates: int = 100,
     max_pure_plans: int = 1_000_000,
     tolerance: float = 1e-10,
+    verify_generated_responses: bool = True,
+    verify_realization_equivalence: bool = True,
+    price_after_last_update: bool = True,
 ) -> ConstraintGenerationResult:
     """Solve safe sum-margin by generating response rows and strategy columns.
 
@@ -622,6 +631,7 @@ def solve_sum_margin_with_generation(
         frontier,
         blueprint,
         tolerance,
+        verify_generated_responses,
     )
     responses = {initial_response.signature: initial_response}
     active_constraints = [
@@ -683,14 +693,18 @@ def solve_sum_margin_with_generation(
             blueprint,
             tolerance,
         )
-        equivalence_error = _realization_equivalence_error(
-            frontier,
-            columns,
-            weights,
-            candidate_policy,
-            responses,
-            active_constraints,
-            cache,
+        equivalence_error = (
+            _realization_equivalence_error(
+                frontier,
+                columns,
+                weights,
+                candidate_policy,
+                responses,
+                active_constraints,
+                cache,
+            )
+            if verify_realization_equivalence
+            else None
         )
         policy_conversion_seconds = time.perf_counter() - conversion_start
         total_conversion += policy_conversion_seconds
@@ -701,6 +715,7 @@ def solve_sum_margin_with_generation(
             frontier,
             candidate_policy,
             tolerance,
+            verify_generated_responses,
         )
         blueprint_values = frontier.blueprint_values
         actual_margins = {
@@ -756,29 +771,44 @@ def solve_sum_margin_with_generation(
             incumbent_sum_margin = actual_sum_margin
             incumbent_hidden_gain = candidate_hidden_gain
 
-        pricing_start = time.perf_counter()
+        cumulative_candidate_seconds = (
+            setup_seconds
+            + total_master_build
+            + total_master_solve
+            + total_conversion
+            + total_separation
+            + total_pricing
+        )
+        pricing_performed = price_after_last_update or update < max_updates
         equality_duals = solution.dual_variables[:2]
         effective_column_dual = equality_duals[0] - equality_duals[1]
         response_duals = solution.dual_variables[2:]
         if len(response_duals) != len(active_constraints):
             raise AssertionError("master dual count does not match response rows")
-        priced_column, best_pricing_score, best_reduced_cost = _price_column(
-            subgame,
-            frontier,
-            active_pure_signatures,
-            len(columns) - 1,
-            active_constraints,
-            responses,
-            response_duals,
-            effective_column_dual,
-            tolerance,
-        )
+        if pricing_performed:
+            pricing_start = time.perf_counter()
+            priced_column, best_pricing_score, best_reduced_cost = _price_column(
+                subgame,
+                frontier,
+                active_pure_signatures,
+                len(columns) - 1,
+                active_constraints,
+                responses,
+                response_duals,
+                effective_column_dual,
+                tolerance,
+            )
+            pricing_seconds = time.perf_counter() - pricing_start
+        else:
+            priced_column = None
+            best_pricing_score = None
+            best_reduced_cost = None
+            pricing_seconds = 0.0
         add_column = (
             priced_column
             if best_reduced_cost is not None and best_reduced_cost > tolerance
             else None
         )
-        pricing_seconds = time.perf_counter() - pricing_start
         total_pricing += pricing_seconds
 
         for constraint in missing_constraints:
@@ -791,7 +821,11 @@ def solve_sum_margin_with_generation(
             if add_column.pure_signature is None:
                 raise AssertionError("generated pure column omitted its signature")
             active_pure_signatures.add(add_column.pure_signature)
-        converged = not missing_constraints and add_column is None
+        converged = (
+            pricing_performed
+            and not missing_constraints
+            and add_column is None
+        )
 
         cumulative_decision_seconds = (
             setup_seconds
@@ -847,13 +881,29 @@ def solve_sum_margin_with_generation(
                 added_column=None if add_column is None else add_column.label,
                 added_response_constraints=len(missing_constraints),
                 converged=converged,
+                pricing_performed=pricing_performed,
                 master_build_seconds=master_build_seconds,
                 master_solve_seconds=master_solve_seconds,
                 policy_conversion_seconds=policy_conversion_seconds,
                 separation_seconds=separation_seconds,
                 pricing_seconds=pricing_seconds,
                 hidden_diagnostic_seconds=hidden_diagnostic_seconds,
+                cumulative_candidate_compute_seconds=(
+                    cumulative_candidate_seconds
+                ),
                 cumulative_decision_compute_seconds=cumulative_decision_seconds,
+                candidate_incumbent_sum_margin_per_millisecond=(
+                    incumbent_sum_margin
+                    / (1_000.0 * cumulative_candidate_seconds)
+                    if cumulative_candidate_seconds > 0.0
+                    else None
+                ),
+                candidate_incumbent_hidden_br_reduction_per_millisecond=(
+                    incumbent_hidden_gain
+                    / (1_000.0 * cumulative_candidate_seconds)
+                    if cumulative_candidate_seconds > 0.0
+                    else None
+                ),
                 incumbent_sum_margin_per_millisecond=(
                     incumbent_sum_margin / (1_000.0 * cumulative_decision_seconds)
                     if cumulative_decision_seconds > 0.0
@@ -872,7 +922,7 @@ def solve_sum_margin_with_generation(
                 raise AssertionError(
                     "generated optimum disagrees with exact normal-form oracle"
                 )
-            if equivalence_error > allowed:
+            if equivalence_error is not None and equivalence_error > allowed:
                 raise AssertionError("generated mixture realization error is too large")
             break
 

@@ -1,0 +1,18 @@
+{
+  "base": {
+    "game": "kuhn2",
+    "max_updates": 20,
+    "max_pure_plans": 1000000,
+    "tolerance": 1e-10,
+    "verify_generated_responses": false,
+    "verify_realization_equivalence": false,
+    "price_after_last_update": true
+  },
+  "axes": {
+    "blueprint_solver": ["lcfr", "cfr_plus"],
+    "blueprint_iterations": [20, 1000]
+  },
+  "max_runs": 8,
+  "store_full_runs": false,
+  "store_records": true
+}

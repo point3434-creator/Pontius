@@ -68,6 +68,12 @@ but its rate is 17.30% below frozen CFR. V1 is rejected. Phase-aware deadlines,
 immediate column consumption, and shared traversal are the next direct-solver
 gate before frontier approximation.
 
+The nonduplicated candidate-ready phase now preserves identical strategies
+while raising pooled revealed-development quality per millisecond materially.
+A six-candidate v2 rule is frozen on new solver/strength combinations; it must
+beat the better of one- and three-iteration CFR controls before phase-aware
+generation advances.
+
 **Target:** months 2-4.
 
 **Build:** CFR+, DCFR, external-sampling MCCFR, current/average/snapshot output,

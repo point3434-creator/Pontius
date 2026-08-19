@@ -913,3 +913,32 @@ the returned policy, and freeze on genuinely new evaluation regimes.
 `python -m pontius.constrained_generation_matrix` and
 `safe-solver-gap-kuhn2-constrained-v1-holdout-matrix.json` with
 `python -m pontius.safe_solver_gap_matrix`.
+
+## EXP-0015 preregistration: Candidate-ready generation v2
+
+**Date:** 2026-08-19
+
+**Status:** Frozen before a fresh 48-boundary holdout.
+
+V1 exposed two kinds of future-only or duplicated work. V2 timestamps a
+candidate after master solve, behavioral conversion, and one exact safety
+separation, before current pricing. It removes a second execution of the same
+response oracle and an active-row realization audit; exact teachers still
+check the resulting strategies outside candidate timing. The sixth candidate
+performs no terminal pricing.
+
+| Revealed development set | Sum capture | Hidden capture | Mean ms | Sum margin/ms |
+|---|---:|---:|---:|---:|
+| LCFR/CFR+ | 86.1473% | 74.4648% | 5.325 | `3.97046e-4` |
+| CFR/DCFR | 95.7683% | 86.2449% | 5.518 | `5.06366e-4` |
+| Pooled | 92.3114% | 81.2621% | 5.440 | `4.63568e-4` |
+
+Candidate strategies and exact objective capture are unchanged. Only redundant
+audits and pricing that cannot affect the checkpoint are removed. The pooled
+six-candidate checkpoint is the development quality/ms maximum.
+
+The fresh holdout crosses CFR, LCFR, CFR+, and DCFR blueprints at iterations
+75, 700, and 5,000. V2 must beat not only frozen CFR checkpoint three but the
+better of CFR checkpoints one and three on the same cases. Its frozen digest is
+`ffee077d5af33d13ed1e4819f3af8834187407d77aa950fa5b6f001dfa1ccb4e`.
+No holdout result has been read at this point.

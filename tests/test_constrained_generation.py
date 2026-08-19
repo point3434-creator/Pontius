@@ -36,6 +36,12 @@ class ConstrainedGenerationTests(unittest.TestCase):
         self.assertTrue(
             any(update.added_response_constraints for update in result.updates)
         )
+        for update in result.updates:
+            self.assertAlmostEqual(
+                update.cumulative_candidate_compute_seconds
+                + update.pricing_seconds,
+                update.cumulative_decision_compute_seconds,
+            )
 
     def test_every_public_boundary_matches_the_normal_form_teacher(self) -> None:
         for history in public_histories(self.blueprint.game):
@@ -79,6 +85,54 @@ class ConstrainedGenerationTests(unittest.TestCase):
         self.assertEqual(result.updates[0].candidate_support_size, 1)
         self.assertIsNotNone(result.updates[0].added_column)
         self.assertEqual(result.policy, self.blueprint.policy)
+
+    def test_phase_aware_terminal_checkpoint_skips_future_only_pricing(self) -> None:
+        result = solve_sum_margin_with_generation(
+            self.blueprint.game,
+            self.blueprint.policy,
+            (),
+            resolver_player=0,
+            max_updates=1,
+            verify_generated_responses=False,
+            verify_realization_equivalence=False,
+            price_after_last_update=False,
+        )
+        update = result.updates[0]
+
+        self.assertFalse(result.converged)
+        self.assertFalse(update.pricing_performed)
+        self.assertEqual(update.pricing_seconds, 0.0)
+        self.assertIsNone(update.best_pricing_score)
+        self.assertIsNone(update.best_reduced_cost)
+        self.assertIsNone(update.added_column)
+        self.assertIsNone(update.realization_equivalence_max_error)
+        self.assertEqual(result.final_columns, 1)
+        self.assertEqual(
+            update.cumulative_candidate_compute_seconds,
+            update.cumulative_decision_compute_seconds,
+        )
+
+    def test_one_pass_response_oracle_still_matches_exact_teacher(self) -> None:
+        result = solve_sum_margin_with_generation(
+            self.blueprint.game,
+            self.blueprint.policy,
+            (),
+            resolver_player=0,
+            verify_generated_responses=False,
+            verify_realization_equivalence=False,
+        )
+
+        self.assertTrue(result.converged)
+        self.assertAlmostEqual(
+            result.incumbent_sum_margin,
+            result.exact_sum_margin_optimum,
+        )
+        self.assertTrue(
+            all(
+                update.realization_equivalence_max_error is None
+                for update in result.updates
+            )
+        )
 
     def test_safe_generated_replacement_cannot_increase_exploitability(self) -> None:
         result = solve_sum_margin_with_generation(

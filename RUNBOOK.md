@@ -205,6 +205,20 @@ complete-game diagnostic. It includes frontier setup, master construction and
 solve, behavioral conversion, response separation, and dynamic resolver
 pricing.
 
+Phase-v2 development and its frozen fresh holdout use:
+
+```powershell
+& $python -m pontius.constrained_generation_matrix --config experiments/configs/constrained-generation-kuhn2-phase-v2-screen-development.json --output experiments/results/constrained-generation-kuhn2-phase-v2-screen-development.json
+& $python -m pontius.constrained_generation_matrix --config experiments/configs/constrained-generation-kuhn2-phase-v2-revealed-development.json --output experiments/results/constrained-generation-kuhn2-phase-v2-revealed-development.json
+& $python -m pontius.constrained_generation_matrix --config experiments/configs/constrained-generation-kuhn2-phase-v2-holdout.json --output experiments/results/constrained-generation-kuhn2-phase-v2-holdout.json
+& $python -m pontius.safe_solver_gap_matrix --config experiments/configs/safe-solver-gap-kuhn2-phase-v2-holdout.json --output experiments/results/safe-solver-gap-kuhn2-phase-v2-holdout.json
+```
+
+The frozen v2 checkpoint uses `cumulative_candidate_compute_seconds`: it stops
+after safety separation and before current pricing. The matrix also reports an
+explicitly optimistic deadline upper bound using realized phase times; do not
+describe that oracle phase-fit diagnostic as a deployable scheduler.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

@@ -6,7 +6,7 @@ import argparse
 import json
 import time
 from itertools import product
-from math import prod
+from math import isfinite, prod
 from pathlib import Path
 from statistics import mean
 from typing import Any
@@ -96,6 +96,9 @@ def _safe_ratio(numerator: float, denominator: float) -> float | None:
 
 def _anytime_summary(
     records: list[dict[str, Any]],
+    *,
+    timing_field: str = "cumulative_decision_compute_seconds",
+    checkpoint_phase: str = "after_pricing",
 ) -> list[dict[str, Any]]:
     grouped: dict[str, list[dict[str, Any]]] = {}
     for record in records:
@@ -123,11 +126,12 @@ def _anytime_summary(
             row["exact_hidden_br_optimum"] for row in selected
         )
         milliseconds = sum(
-            1_000.0 * row["cumulative_decision_compute_seconds"]
+            1_000.0 * row[timing_field]
             for row in selected
         )
         summaries.append(
             {
+                "checkpoint_phase": checkpoint_phase,
                 "update_budget": budget,
                 "cases": len(selected),
                 "converged_cases": sum(
@@ -152,8 +156,14 @@ def _anytime_summary(
                 ),
                 "mean_decision_compute_milliseconds": milliseconds
                 / len(selected),
+                "mean_checkpoint_compute_milliseconds": milliseconds
+                / len(selected),
                 "maximum_decision_compute_milliseconds": max(
-                    1_000.0 * row["cumulative_decision_compute_seconds"]
+                    1_000.0 * row[timing_field]
+                    for row in selected
+                ),
+                "maximum_checkpoint_compute_milliseconds": max(
+                    1_000.0 * row[timing_field]
                     for row in selected
                 ),
                 "aggregate_sum_margin_per_decision_millisecond": _safe_ratio(
@@ -164,7 +174,12 @@ def _anytime_summary(
                     _safe_ratio(hidden_score, milliseconds)
                 ),
                 "mean_columns": mean(
-                    row["columns_after_update"] for row in selected
+                    (
+                        row["columns_before_update"]
+                        if checkpoint_phase == "candidate_ready"
+                        else row["columns_after_update"]
+                    )
+                    for row in selected
                 ),
                 "mean_response_constraints": mean(
                     row["response_constraints_after_update"]
@@ -213,6 +228,90 @@ def _best_budget(summaries: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
+def _deadline_summary(
+    records: list[dict[str, Any]],
+    deadlines: tuple[float, ...],
+) -> list[dict[str, Any]]:
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for record in records:
+        grouped.setdefault(record["boundary_id"], []).append(record)
+    for rows in grouped.values():
+        rows.sort(key=lambda row: row["update"])
+    summaries: list[dict[str, Any]] = []
+    for deadline in deadlines:
+        selected: list[dict[str, Any] | None] = []
+        for rows in grouped.values():
+            ready = [
+                row
+                for row in rows
+                if 1_000.0 * row["cumulative_candidate_compute_seconds"]
+                <= deadline
+            ]
+            selected.append(ready[-1] if ready else None)
+        sum_score = sum(
+            0.0 if row is None else row["incumbent_sum_margin"]
+            for row in selected
+        )
+        hidden_score = sum(
+            0.0 if row is None else row["incumbent_hidden_br_reduction"]
+            for row in selected
+        )
+        sum_optimum = sum(
+            rows[0]["exact_sum_margin_optimum"] for rows in grouped.values()
+        )
+        hidden_optimum = sum(
+            rows[0]["exact_hidden_br_optimum"] for rows in grouped.values()
+        )
+        used_milliseconds = [
+            0.0
+            if row is None
+            else 1_000.0 * row["cumulative_candidate_compute_seconds"]
+            for row in selected
+        ]
+        sorted_used = sorted(used_milliseconds)
+        p95_index = max(0, (95 * len(sorted_used) + 99) // 100 - 1)
+        total_available = deadline * len(selected)
+        total_used = sum(used_milliseconds)
+        summaries.append(
+            {
+                "scheduler": "oracle phase-fit upper bound",
+                "deadline_milliseconds": deadline,
+                "cases": len(selected),
+                "candidate_ready_cases": sum(row is not None for row in selected),
+                "positive_incumbent_cases": sum(
+                    row is not None and row["incumbent_sum_margin"] > 1e-12
+                    for row in selected
+                ),
+                "mean_selected_update": mean(
+                    0 if row is None else row["update"] for row in selected
+                ),
+                "aggregate_sum_margin_capture": _safe_ratio(
+                    sum_score,
+                    sum_optimum,
+                ),
+                "aggregate_hidden_br_capture_diagnostic": _safe_ratio(
+                    hidden_score,
+                    hidden_optimum,
+                ),
+                "mean_compute_used_milliseconds": total_used / len(selected),
+                "p95_compute_used_milliseconds": sorted_used[p95_index],
+                "compute_utilization_fraction": _safe_ratio(
+                    total_used,
+                    total_available,
+                ),
+                "aggregate_sum_margin_per_used_millisecond": _safe_ratio(
+                    sum_score,
+                    total_used,
+                ),
+                "aggregate_sum_margin_per_available_millisecond": _safe_ratio(
+                    sum_score,
+                    total_available,
+                ),
+            }
+        )
+    return summaries
+
+
 def run_constrained_generation_matrix(
     matrix_config: dict[str, Any],
 ) -> dict[str, Any]:
@@ -221,6 +320,10 @@ def run_constrained_generation_matrix(
     max_runs = int(matrix_config.get("max_runs", 10_000))
     store_full_runs = bool(matrix_config.get("store_full_runs", False))
     store_records = bool(matrix_config.get("store_records", True))
+    raw_deadlines = matrix_config.get(
+        "deadline_milliseconds",
+        [2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0, 15.0, 20.0],
+    )
     unknown = (set(base) | set(axes)) - CONFIG_FIELDS
     if unknown:
         raise ValueError(
@@ -228,6 +331,14 @@ def run_constrained_generation_matrix(
         )
     if not axes:
         raise ValueError("matrix axes cannot be empty")
+    if not isinstance(raw_deadlines, list) or not raw_deadlines:
+        raise ValueError("deadline_milliseconds must be a nonempty list")
+    deadlines = tuple(float(value) for value in raw_deadlines)
+    if (
+        any(not isfinite(value) or value <= 0.0 for value in deadlines)
+        or len(set(deadlines)) != len(deadlines)
+    ):
+        raise ValueError("deadlines must be finite, positive, and unique")
     if any(not isinstance(values, list) or not values for values in axes.values()):
         raise ValueError("every matrix axis must be a nonempty list")
     run_count = prod(len(values) for values in axes.values())
@@ -275,6 +386,11 @@ def run_constrained_generation_matrix(
             full_runs.append(run)
 
     summaries = _anytime_summary(records)
+    candidate_summaries = _anytime_summary(
+        records,
+        timing_field="cumulative_candidate_compute_seconds",
+        checkpoint_phase="candidate_ready",
+    )
     result = {
         "schema_version": 1,
         "experiment_type": "dynamic_constrained_generation_matrix",
@@ -284,6 +400,7 @@ def run_constrained_generation_matrix(
             "max_runs": max_runs,
             "store_full_runs": store_full_runs,
             "store_records": store_records,
+            "deadline_milliseconds": list(deadlines),
         },
         "environment": environment,
         "prepared_blueprints": len(blueprints),
@@ -293,6 +410,16 @@ def run_constrained_generation_matrix(
         "wall_seconds": time.perf_counter() - started,
         "anytime_summary": summaries,
         "best_update_budget": _best_budget(summaries),
+        "candidate_anytime_summary": candidate_summaries,
+        "best_candidate_checkpoint": _best_budget(candidate_summaries),
+        "deadline_summary": _deadline_summary(records, deadlines),
+        "deadline_protocol": {
+            "status": "optimistic upper bound",
+            "selection": "latest completed candidate phase within each deadline",
+            "fallback": "immediate blueprint when no candidate phase fits",
+            "future_work_charged": False,
+            "realized_phase_time_used_for_selection": True,
+        },
         "runs": compact_runs,
     }
     if store_records:

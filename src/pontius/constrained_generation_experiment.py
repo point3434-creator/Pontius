@@ -22,6 +22,9 @@ CONFIG_FIELDS = {
     "max_updates",
     "max_pure_plans",
     "tolerance",
+    "verify_generated_responses",
+    "verify_realization_equivalence",
+    "price_after_last_update",
 }
 
 
@@ -42,6 +45,21 @@ def run_constrained_generation_experiment(
     max_updates = int(config.get("max_updates", 20))
     max_pure_plans = int(config.get("max_pure_plans", 1_000_000))
     tolerance = float(config.get("tolerance", 1e-10))
+    raw_verify_responses = config.get("verify_generated_responses", True)
+    raw_verify_realization = config.get("verify_realization_equivalence", True)
+    raw_terminal_pricing = config.get("price_after_last_update", True)
+    if not all(
+        isinstance(value, bool)
+        for value in (
+            raw_verify_responses,
+            raw_verify_realization,
+            raw_terminal_pricing,
+        )
+    ):
+        raise ValueError("phase controls must be boolean")
+    verify_generated_responses = raw_verify_responses
+    verify_realization_equivalence = raw_verify_realization
+    price_after_last_update = raw_terminal_pricing
     if game_name != "kuhn2":
         raise ValueError("constrained-generation experiment currently requires kuhn2")
     if blueprint_solver not in SOLVERS:
@@ -90,6 +108,9 @@ def run_constrained_generation_experiment(
             max_updates=max_updates,
             max_pure_plans=max_pure_plans,
             tolerance=tolerance,
+            verify_generated_responses=verify_generated_responses,
+            verify_realization_equivalence=verify_realization_equivalence,
+            price_after_last_update=price_after_last_update,
         )
         boundaries.append(
             {
@@ -141,6 +162,9 @@ def run_constrained_generation_experiment(
             "max_updates": max_updates,
             "max_pure_plans": max_pure_plans,
             "tolerance": tolerance,
+            "verify_generated_responses": verify_generated_responses,
+            "verify_realization_equivalence": verify_realization_equivalence,
+            "price_after_last_update": price_after_last_update,
         },
         "environment": environment_metadata() if environment is None else environment,
         "blueprint": {
@@ -154,6 +178,12 @@ def run_constrained_generation_experiment(
         "protocol": {
             "initial_column": "complete behavioral blueprint",
             "row_oracle": "dynamic opponent counterfactual best response",
+            "row_oracle_reverified_with_duplicate_traversal": (
+                verify_generated_responses
+            ),
+            "mixture_realization_reverified_on_active_rows": (
+                verify_realization_equivalence
+            ),
             "column_oracle": "LP-dual-weighted dynamic resolver best response",
             "incumbent": "safe maximum observed target-free sum margin",
             "full_game_target_used_for_construction": False,
@@ -168,6 +198,7 @@ def run_constrained_generation_experiment(
                 "response separation",
                 "resolver pricing",
             ],
+            "candidate_checkpoint_excludes_current_pricing": True,
         },
         "timing": {
             "wall_seconds": time.perf_counter() - wall_start,

@@ -158,6 +158,29 @@ hidden arm does and is diagnostic only; its root-forward result is a greedy
 control, not a deployable resolver or a global continual optimum. Raw JSON is
 ignored until promoted as a checkpoint artifact.
 
+## CFR-to-oracle solver gaps
+
+Run the held-in solver/prior/checkpoint screen with:
+
+```powershell
+$python = "C:\Users\point\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+$env:PYTHONPATH = "src"
+& $python -m pontius.safe_solver_gap_matrix --config experiments/configs/safe-solver-gap-kuhn2-screen-matrix.json --output experiments/results/safe-solver-gap-kuhn2-screen-matrix.json
+```
+
+The progressive incumbent begins at the blueprint and retains only an exactly
+frontier-safe snapshot with a larger target-free sum margin. Candidate timing
+includes frontier construction, cumulative solver work, and the certificate
+used for selection. Complete-game best responses are hidden diagnostics and
+excluded from candidate timing.
+
+`experiments/rules/safe-solver-incumbent-v1.json` freezes the screen winner.
+After that rule is committed, its untouched holdout is run with:
+
+```powershell
+& $python -m pontius.safe_solver_gap_matrix --config experiments/configs/safe-solver-gap-kuhn2-v1-holdout-matrix.json --output experiments/results/safe-solver-gap-kuhn2-v1-holdout-matrix.json
+```
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

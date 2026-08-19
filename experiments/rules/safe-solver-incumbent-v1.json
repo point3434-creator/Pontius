@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "rule_name": "safe-solver-incumbent-v1",
+  "status": "frozen-before-holdout",
+  "frozen_at": "2026-08-19",
+  "selection_evidence": {
+    "matrix": "safe-solver-gap-kuhn2-screen-matrix.json",
+    "blueprint_solvers": ["lcfr", "cfr_plus"],
+    "blueprint_iterations": [20, 1000],
+    "selection_target": "aggregate certified sum-frontier-margin per decision millisecond"
+  },
+  "solver": {
+    "variant": "dcfr",
+    "initialization_source": "blueprint",
+    "warm_start_regret_mass": 10.0,
+    "checkpoints": [1, 3],
+    "candidate_outputs": ["average", "current"]
+  },
+  "selection": {
+    "initial_policy": "blueprint",
+    "candidate_gate": "total positive frontier violation <= 1e-10",
+    "ranking": "largest signed sum frontier margin",
+    "replacement_threshold": "strictly greater than incumbent by 1e-10",
+    "fallback": "blueprint"
+  },
+  "screen_result": {
+    "boundaries": 16,
+    "selected_boundaries": 3,
+    "aggregate_sum_margin_capture": 0.3406881876257366,
+    "aggregate_hidden_br_capture_diagnostic": 0.22151568796637272,
+    "mean_decision_compute_milliseconds": 2.839,
+    "aggregate_sum_margin_per_decision_millisecond": 0.0002945012214506173
+  },
+  "holdout": {
+    "blueprint_solvers": ["lcfr", "cfr_plus"],
+    "blueprint_iterations": [100, 3000],
+    "untouched_when_frozen": true
+  },
+  "scope": {
+    "exact_two_player_kuhn_teacher": true,
+    "runtime_deployable": false,
+    "multiplayer_claim": false
+  }
+}

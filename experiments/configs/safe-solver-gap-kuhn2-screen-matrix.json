@@ -1,0 +1,50 @@
+{
+  "base": {
+    "game": "kuhn2",
+    "search_solvers": ["cfr", "lcfr", "cfr_plus", "dcfr"],
+    "checkpoints": [1, 3, 10, 30, 100, 300, 1000],
+    "output_policies": ["average", "current"],
+    "initializations": [
+      {
+        "name": "cold",
+        "source": "none"
+      },
+      {
+        "name": "blueprint_1",
+        "source": "blueprint",
+        "regret_mass": 1.0
+      },
+      {
+        "name": "blueprint_10",
+        "source": "blueprint",
+        "regret_mass": 10.0
+      },
+      {
+        "name": "blueprint_100",
+        "source": "blueprint",
+        "regret_mass": 100.0
+      },
+      {
+        "name": "blueprint_1000",
+        "source": "blueprint",
+        "regret_mass": 1000.0
+      },
+      {
+        "name": "sum_oracle_1000",
+        "source": "sum_margin_oracle",
+        "regret_mass": 1000.0,
+        "deployable": false
+      }
+    ],
+    "strict_frontier_tolerance": 1e-10,
+    "oracle_tolerance": 1e-10,
+    "max_pure_plans": 1000000
+  },
+  "axes": {
+    "blueprint_solver": ["lcfr", "cfr_plus"],
+    "blueprint_iterations": [20, 1000]
+  },
+  "max_runs": 8,
+  "store_full_runs": false,
+  "store_records": true
+}

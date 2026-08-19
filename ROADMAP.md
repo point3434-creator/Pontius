@@ -50,8 +50,12 @@ strict gate is safe but conservative and unscalable. EXP-0012 independently
 solves the frontier-constrained normal form and rejects max-min degeneracy.
 Target-free sum-margin captures 96.99% of the hidden best-response greedy
 control's improvement in aggregate on the eight-case Kuhn2 matrix. Measuring
-finite-CFR regret to this exact objective is the next gate before approximate
-frontiers or multiplayer.
+finite-CFR regret shows that cold gadget policies remain unsafe at many
+boundaries even after 1,000 iterations. Blueprint warm starts and monotone
+certified retention are now the control architecture. A three-iteration DCFR,
+mass-10 incumbent rule is frozen before its declared holdout; that transfer
+test is the next gate before objective-aware solvers, approximate frontiers, or
+multiplayer.
 
 **Target:** months 2-4.
 

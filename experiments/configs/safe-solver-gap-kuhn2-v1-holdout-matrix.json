@@ -1,0 +1,25 @@
+{
+  "base": {
+    "game": "kuhn2",
+    "search_solvers": ["dcfr"],
+    "checkpoints": [1, 3],
+    "output_policies": ["average", "current"],
+    "initializations": [
+      {
+        "name": "blueprint_10",
+        "source": "blueprint",
+        "regret_mass": 10.0
+      }
+    ],
+    "strict_frontier_tolerance": 1e-10,
+    "oracle_tolerance": 1e-10,
+    "max_pure_plans": 1000000
+  },
+  "axes": {
+    "blueprint_solver": ["lcfr", "cfr_plus"],
+    "blueprint_iterations": [100, 3000]
+  },
+  "max_runs": 8,
+  "store_full_runs": false,
+  "store_records": true
+}

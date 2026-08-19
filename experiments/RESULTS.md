@@ -729,3 +729,52 @@ tie-breaking, or objective realization is the next bottleneck.
 **Reproduction:** run `safe-oracle-kuhn2-objectives-matrix.json` under
 `experiments/configs/` with `python -m pontius.safe_oracle_matrix`. Raw JSON
 remains locally generated and ignored.
+
+## EXP-0013 screening: CFR-to-safe-objective regret
+
+**Date:** 2026-08-19
+
+**Status:** Screening complete; v1 rule frozen before holdout.
+
+The progressive solver-gap runner compares every finite gadget snapshot with
+the exact sum-margin and hidden conditional best-response optima at the same
+public boundary. Unsafe snapshots are scored as blueprint no-op. A target-free
+incumbent begins at the blueprint and retains the certified average or current
+snapshot with the largest summed frontier margin seen so far.
+
+The held-in screen uses LCFR and CFR+ blueprints at 20 and 1,000 iterations:
+16 public boundaries total. It crosses CFR, LCFR, CFR+, and DCFR; cold starts
+and blueprint pseudo-regret masses 1, 10, 100, and 1,000; average/current
+outputs; and checkpoints 1 through 1,000. An exact sum-oracle initialization is
+a non-deployable equilibrium-selection control. There are 5,376 scored
+snapshots and 2,688 monotone-incumbent checkpoints.
+
+Cold average-policy convergence is far too slow for a safety rule. At 100
+iterations, exact strict safety is reached at only 1/16 CFR, 2/16 LCFR, 4/16
+CFR+, and 4/16 DCFR boundaries. At 1,000 iterations those counts are only 5,
+6, 7, and 8 of 16. The mean positive violation remains nonzero for every cold
+solver. Near-equilibrium blueprints make the required residual much smaller
+than the gadget's ordinary convergence scale.
+
+The best target-free quality-per-millisecond incumbent configuration is DCFR,
+blueprint pseudo-regret mass 10, and checkpoint 3. It selects improvement at
+3/16 boundaries, captures 34.0688% of exact sum-margin headroom, and captures
+22.1516% of the hidden BR improvement diagnostically. Mean reference decision
+compute is 2.839 ms; aggregate sum-margin per millisecond is `2.94501e-4`.
+
+More compute recovers quality, but not cheaply. At checkpoint 1,000 the best
+sum-margin capture is 88.6423% from LCFR with blueprint mass 100; hidden capture
+is 83.7669% and mean decision compute is 245.882 ms. Solver and prior rankings
+change by budget. The exact sum-oracle initialization control retains 100% of
+sum-margin and 95.1417% of hidden improvement from its first snapshot onward,
+confirming that ordinary gadget equilibrium selection—not merely feasibility—
+accounts for part of the remaining gap.
+
+`safe-solver-incumbent-v1.json` freezes the screen winner before reading the
+LCFR/CFR+ 100- and 3,000-iteration holdouts. Its canonical document digest is
+`403980953b1cfbb4c5cdb50a5ffcdd892f30bdaa9abfe87292ffe9504c147450`.
+
+**Pre-holdout verdict:** cold CFR-family resolving is rejected at online-scale
+budgets. Blueprint warm starts plus monotone certified retention advance as the
+correct control architecture. Whether the three-iteration DCFR rule transfers
+is intentionally unanswered in this commit.

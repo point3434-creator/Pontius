@@ -127,22 +127,32 @@ Checkpoint 2: solver comparison laboratory.
   improvement in aggregate, with 94.9296% worst-case capture and zero
   residual-adjusted bound failures. The hidden control remains diagnostic and
   its root-forward composition is not a global optimum claim.
-- One hundred eighteen automated tests pass.
+- Progressive CFR trajectories now report exact feasibility, target-free
+  sum-margin regret, hidden conditional BR regret, average/current outputs, and
+  a monotone certified incumbent at every checkpoint.
+- EXP-0013 screening rejects cold gadget solving at online-scale budgets. Even
+  after 1,000 iterations, cold average policies are exactly safe at only 5/16
+  CFR, 6/16 LCFR, 7/16 CFR+, and 8/16 DCFR public boundaries.
+- The target-free screen winner is DCFR with blueprint pseudo-regret mass 10
+  and three iterations. It captures 34.0688% of exact sum-margin headroom at
+  2.839 mean reference milliseconds and is frozen as
+  `safe-solver-incumbent-v1` before holdout evaluation.
+- One hundred twenty-six automated tests pass.
 
 ## In progress
 
-- Measuring finite CFR candidates against exact frontier-sum and hidden
-  conditional best-response regret.
+- Evaluating the frozen safe-solver incumbent on untouched 100- and
+  3,000-iteration blueprint holdouts.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Compare CFR gadget convergence and one-sided stopping against the exact
-   sum-margin oracle at every public boundary and budget.
-2. Test objective-aware tie-breaking, regularization, and warm starts against
-   plain LCFR/CFR+ on frontier-sum regret per millisecond.
+1. Run the committed `safe-solver-incumbent-v1` rule on its untouched holdout
+   and accept or reject transfer without retuning.
+2. Use the measured residual/objective decomposition to design a constrained
+   objective-aware solver rather than tuning feasibility-only CFR indefinitely.
 3. Inject controlled frontier-value error and uncertainty bounds before
    declaring any multiplayer relaxation or neural frontier target.
 
@@ -159,5 +169,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after EXP-0012 rejected max-min degeneracy and advanced exact
-target-free sum-margin as the safe-strategy teacher objective.
+2026-08-19, after EXP-0013 screening froze the three-iteration DCFR
+blueprint-warm incumbent rule before its declared holdout.

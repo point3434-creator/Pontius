@@ -401,30 +401,54 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 - Factorized likelihood updates remain dense at 80.314% of wide nodes. Support-
   change selector flips increase from 1.042 to 3.935 on average, so action
   instability grows faster than the dependency fraction.
-- Two hundred forty automated tests pass.
+- Full-action selective expansion now keeps every 3x2 parent action selectable,
+  substitutes exact blueprint continuation values only below unexpanded
+  branches, and preserves the blueprint exactly at untouched information sets.
+  Full expansion follows the ordinary DCFR trajectory bit-for-bit in tests.
+- The first development pilot spans one board, four range families, twelve
+  support-preserving targets, four nested masks, three warm strengths, five
+  equal-work budgets, and 720 full-universe candidate evaluations. Every
+  structural and policy-completion gate passes.
+- Partial masks use 38.081%, 58.721%, and 79.360% of full deterministic tree
+  states. At `0.1 * payoff_span` warm mass and sixteen full-tree-equivalent
+  iterations, however, only the 3x1 partial mask is positive on mean, and the
+  full 3x2 mask is decisively best: mean NashConv reduction `0.104489` and
+  `7.8824` reduction per million state visits.
+- Blind deployment remains unsafe. The best fixed pilot arm harms 4/12 targets,
+  and the weakest warm prior permits a maximum NashConv increase of `19.1732`.
+  No exact-label no-op gate or warm parameter is promoted.
+- Holding warm strength and work fixed, every mask wins at least one target.
+  The exact best-mask/no-op ceiling totals `1.86440` NashConv reduction versus
+  `1.67320` for full-mask/no-op, an 11.43% optimistic uplift. It justifies a
+  causal opportunity dataset, not a scheduler claim.
+- The 512-iteration blueprint is not uniformly strong: source NashConv reaches
+  `0.0158651` in the correlated family. The next matrix must stop at a declared
+  exact source-quality threshold rather than assuming one iteration count is
+  comparable across range families.
+- Two hundred fifty automated tests pass.
 
 ## In progress
 
-- Designing a full-universe action-mask laboratory that measures the exact
-  strategy-quality numerator earned by the extra bet and raise sizes.
-- Preserving complete off-tree blueprint behavior so restricted and adaptive
-  action candidates are always evaluated against best responses in the same
-  3x2 reference game.
-- Designing branch-major action lanes and shared deal features, contingent on
-  the quality experiment showing that the added sizes earn their 2.7x work cost.
+- Designing the group-separated selective-expansion opportunity matrix with
+  uniform source-blueprint quality and one fixed normalized warm regime.
+- Separating mask-independent causal features and paid-probe features from
+  exact future mask/no-op labels before fitting any transparent allocator.
+- Deferring branch-major C++ specialization until a partial or adaptive policy
+  reaches the full-universe quality/work frontier outside the one-board pilot.
 - Representing Bayesian action conditioning as structured dense or low-rank
   range updates rather than expanding every factorized update into joint deals.
 
 ## Next three tasks
 
-1. Build one strong 3x2 blueprint and a nested action-mask wrapper whose
-   off-tree information sets retain that blueprint exactly.
-2. Compare fixed, nested, and adaptive action sets under equal state and time
-   budgets using full-3x2 NashConv reduction, root harm, and quality per
-   millisecond—not restricted-game convergence.
-3. If extra sizes pass that value test, implement branch-major/shared-feature
-   flat kernels and then compare accept/no-op, exact recertification, affected-
-   cone repair, warm traversal, and cold traversal at equal charged time.
+1. Freeze fresh development board groups, blueprint convergence checkpoints,
+   one warm regime, equal-work budgets, causal feature allowlists, and explicit
+   mask-opportunity falsification gates before generating the larger matrix.
+2. Measure fixed masks, full-mask/no-op, best-mask/no-op ceilings, and one paid
+   post-probe transparent heuristic without using exact future labels for
+   selection.
+3. Only if adaptive branching reaches the quality/work frontier, implement
+   branch-major/shared-feature flat kernels and compare accept/no-op, exact
+   recertification, affected-cone repair, warm traversal, and cold traversal.
 
 ## Current blockers
 
@@ -439,6 +463,6 @@ None.
 
 ## Last updated
 
-2026-08-19, after the exact three-bet/two-raise game and unchanged dependency
-tape passed their frozen payoff, branching, sparse-locality, and dense-routing
-transfer gates.
+2026-08-19, after the full-action selective-expansion semantics passed their
+invariants and the one-board pilot found real oracle mask opportunity but no
+fixed partial-mask win.

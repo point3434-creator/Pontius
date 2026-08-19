@@ -155,9 +155,15 @@ The flat generic tape matches all exact controls within `7.11e-15`; sparse
 two-deal updates dirty 15%-17% of nodes while factorized-dense updates dirty
 82%. The unchanged tape also passes the three-bet/two-raise transfer gate within
 `1.42e-14`. Sparse percentages remain 15%-16%, but absolute work grows about
-2.7x. C3 now measures whether the added actions earn that cost in exact full-
-universe strategy quality before optimizing branch lanes or comparing cached
-acceptance and selective repair against warm and cold traversal.
+2.7x. A full-action selective-expansion wrapper now preserves every parent
+action and exact blueprint behavior below unexpanded branches. Its one-board
+pilot cuts deterministic tree states to 38%-79% for partial masks, but the full
+3x2 mask is the best fixed equal-work arm. A fixed-warm mask/no-op oracle is
+11.43% better than full-mask/no-op and every mask wins at least one target, so
+the next C3 gate is a group-separated opportunity dataset with uniformly strong
+blueprints and causal mask features. No partial mask or branch-lane kernel is
+selected yet. Cached acceptance and selective repair remain downstream of that
+quality gate.
 
 **Target:** months 4-6.5.
 

@@ -416,6 +416,22 @@ about 2.7x despite slightly better relative sparsity. The runner's total wall
 time includes redundant correctness controls and is not an online latency
 benchmark. ADR-0038 is the durable verdict.
 
+The full-action selective-expansion pilot is reproduced with:
+
+```powershell
+& $python -m pontius.river_selective_experiment experiments/configs/river-selective-expansion-pilot-v1.json --output experiments/results/river-selective-expansion-pilot-v1.json
+```
+
+The recorded 1,404,427-byte artifact has SHA-256
+`c334724e380bca370cc691917a780f4857a41ff34fd724ff0dce2ffee996a15e`.
+It contains one development board group only and explicitly authorizes no mask,
+warm strength, scheduler, native latency claim, or neural-leaf claim. Exact
+continuation construction is charged separately from hot cached lookup; every
+candidate is scored only in the unwrapped full 3x2 game. Use the fixed-warm
+mask oracle to measure branching opportunity without also selecting warm-start
+strength. Re-running this pilot is calibration reproduction, not new transfer
+evidence. ADR-0040 is the durable interpretation.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

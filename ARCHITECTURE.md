@@ -205,6 +205,23 @@ blueprint while masking search actions, so every candidate—including off-tree
 responses—is evaluated in one common full game. Only action sizes that improve
 full-universe quality per charged work advance to branch-major SIMD layout.
 
+`selective_tree` implements that layer without deleting legal actions. Every
+reached information set retains the full action tuple. Selected nonterminal
+branches expand normally; unselected branches become fixed-blueprint
+continuation leaves. `river_selective` binds that generic mechanism to exact
+sized bet and raise actions and composes a complete deployment policy by
+replacing only materialized information sets. A zero overlay is exactly the
+blueprint, and full expansion is tested against the unwrapped solver.
+
+The first pilot rejects a premature native layout decision. Partial masks use
+38%-79% of full tree states, but the full mask is the best fixed arm at the
+first positive aggregate budget. A fixed-warm, per-target mask/no-op oracle has
+11.43% more reduction than the corresponding full-mask/no-op oracle, so the
+architecture retains mask choice as a scheduler option rather than a fixed
+abstraction. Exact future labels define this ceiling only; causal features and
+stronger group-separated blueprints are required before deployment or C++
+specialization.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

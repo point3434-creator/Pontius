@@ -12,6 +12,10 @@ scores, five discrete macro-allocation options, and fixed checkpoint-four DCFR
 as an explicit fallback. It fits no continuous weights, tree, neural model, or
 threshold.
 
+Within numerical tolerance, fixed checkpoint four wins a selection tie; only
+then does candidate identifier break ties among adaptive rules. This prevents a
+cost-bearing heuristic with no measured benefit from displacing the fallback.
+
 Every adaptive candidate first pays checkpoint two. It begins from fixed
 checkpoint four, promotes high-scored contexts to checkpoint six or eight, and
 funds them by demoting low-scored nonrecipients to checkpoint two. The allocator

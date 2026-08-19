@@ -89,7 +89,7 @@
   },
   "selection": {
     "candidate_family": "Cartesian product of six frozen scores and five frozen macros, plus fixed checkpoint four",
-    "development_choice": "maximum aggregate raw exploitability uplift over fixed checkpoint four; candidate_id breaks tolerance ties",
+    "development_choice": "maximum aggregate raw exploitability uplift over fixed checkpoint four; fixed fallback wins tolerance ties, then candidate_id",
     "evaluation": "for each held-out fold choose on the other four folds, then evaluate once on the untouched fold"
   },
   "runtime_charging": {

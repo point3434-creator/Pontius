@@ -281,8 +281,10 @@ def run_river_shadow_probe(
             "median_conservative_overhead_milliseconds": median(charged_overheads),
         },
         "interpretation_warnings": [
-            "The shadow uses DCFR-generated instantaneous regret deltas; it is not a standalone CFR+ solve.",
-            "Wall-clock deltas are noisy. Conservative per-context charging floors negative paired deltas at zero.",
+            "The shadow uses DCFR-generated instantaneous regret deltas; it is "
+            "not a standalone CFR+ solve.",
+            "Wall-clock deltas are noisy. Conservative per-context charging "
+            "floors negative paired deltas at zero.",
             "The probe reads no equilibrium or future label when constructing its online feature.",
         ],
         "records": rows,

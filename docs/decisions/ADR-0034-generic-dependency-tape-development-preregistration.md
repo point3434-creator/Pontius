@@ -1,6 +1,6 @@
 # ADR-0034: Preregister the generic dependency-tape differential matrix
 
-**Status:** Accepted before the frozen development run
+**Status:** Accepted before the frozen development run; passed in ADR-0035
 
 **Date:** 2026-08-19
 

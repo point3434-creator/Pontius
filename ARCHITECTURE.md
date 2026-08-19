@@ -172,10 +172,22 @@ This specialized evaluator is a reference control, not the final cache engine.
 Its finite-policy benchmark is exact and fast even when every delta scan is
 charged separately, but its best-response dependency graph has only two layers
 and its production changes touch two explicit deals. The next cache interface
-must compile a generic bottom-up dependency tape, propagate best-response action
-flips to ancestors, and accept both sparse combo deltas and factorized dense
-likelihood updates. Multiple bet/raise sizes are the first branching-factor
-transfer gate. Full evaluation remains the independent differential oracle.
+now exists as `dependency_tape`. It compiles any supported root-chance game and
+fixed policy into topologically ordered Float64 arithmetic arrays. Reverse CSR
+dependencies drive sparse invalidation; a dense mode sweeps every arithmetic
+node. Information-set argmax nodes choose one global best-response action while
+history-select nodes preserve imperfect information. A declared support union
+allows source-zero outcomes, and every target is evaluated through an
+epoch-stamped overlay relative to immutable source values.
+
+The generic tape matches the full evaluator and specialized river control on
+finite policies, unseen-hand additions, dense likelihood changes, and actual
+selector flips. It remains an exact reference layout, not a deployment kernel:
+Python wall time mixes compilation and redundant controls, while an explicitly
+enumerated joint outcome universe will not scale directly to six players.
+Multiple bet/raise sizes are the first branching-factor transfer gate. Full
+evaluation remains the independent differential oracle; structured dense range
+algebra is the likely complement to sparse explicit invalidation.
 
 ## Runtime target
 

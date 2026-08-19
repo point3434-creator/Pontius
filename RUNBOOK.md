@@ -384,6 +384,22 @@ construction, and finite source solving separately. Re-running it is a timing
 replicate, not fresh evidence, and the post-hoc bound-first threshold analysis
 in ADR-0032 is not a frozen deployment rule.
 
+The generic flat dependency-tape matrix is frozen in ADR-0034 and reproduced
+with:
+
+```powershell
+& $python -m pontius.dependency_tape_experiment --config experiments/configs/dependency-tape-differential-development-v1.json --output experiments/results/dependency-tape-differential-development-v1.json
+```
+
+The recorded development artifact passes every exactness, action-identity,
+topology, source-relative replay, support-change, and sparse/dense routing gate.
+Its SHA-256 is
+`91c007dcf91a4ba7fc3d72cb4603752ba0f59543d144251633c7c13f64404aa2`.
+The runner intentionally mixes solver, compiler, redundant controls, and JSON
+cost; use its work counts and dirty cones, not its wall time, as architecture
+evidence. Re-running it is reproduction rather than a fresh threshold screen.
+ADR-0035 is the durable verdict.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

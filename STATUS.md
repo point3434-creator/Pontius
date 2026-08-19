@@ -362,23 +362,45 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   bound-first cascade is counterproductive at a 0.1% quality ceiling but would
   reduce recorded exact-path cost at 0.5%-2% ceilings. No threshold rule is
   frozen from this development inspection.
-- Two hundred nineteen automated tests pass.
+- A generic root-chance dependency compiler now emits topologically ordered
+  Float64 input, constant, affine, product, argmax, and history-select nodes in
+  flat arrays with reverse-CSR invalidation and source-relative epoch overlays.
+  It is independent of river action constants and supports declared source-zero
+  outcomes for unseen-hand additions.
+- The frozen generic-tape matrix passes all 840 finite-policy target checks with
+  worst error `7.11e-15`, zero best-response action mismatches, zero replay
+  drift, and 529 observed selector changes. Both sparse and dense execution
+  match the generic full and specialized river controls.
+- Two-deal blocker and unseen-support updates dirty only 17.233% and 15.374% of
+  nodes on average. Factorized likelihood updates change 99.286% of deals and
+  dirty 81.858%, confirming that the runtime needs both sparse compaction and a
+  dense bottom-up path.
+- The automatic `0.35` threshold separates this frozen workload perfectly: the
+  maximum sparse dirty fraction is 22.523%, versus a 61.818% minimum for the
+  factorized-dense family. This large unsampled middle means the threshold is a
+  control, not a learned or optimized crossover.
+- Adding the current fixed raise increases mean numeric topology from 362.10 to
+  539.35 nodes without materially increasing sparse dirty fractions. This is
+  encouraging but remains too shallow to establish branching-factor transfer.
+- Two hundred thirty automated tests pass.
 
 ## In progress
 
-- Generalizing the successful hard-coded river equations into a compiled
-  bottom-up best-response dependency tape with exact action-flip propagation.
 - Designing a wider river tree with multiple legal bet and raise sizes so the
-  dependency evaluator and frozen scheduler face a real branching-factor test.
+  now-verified generic dependency evaluator faces a real branching-factor test.
+- Defining action labels, legality, information-state keys, stack accounting,
+  structural provenance, and an independent payoff oracle for that tree before
+  measuring it.
 - Representing Bayesian action conditioning as structured dense or low-rank
   range updates rather than assuming that explicit combo deltas stay sparse.
 
 ## Next three tasks
 
-1. Build a game-compiled dependency evaluator independent of the current river
-   action constants and differentially match the specialized and full controls.
-2. Add at least three root bet sizes, two raise sizes, and sparse plus
-   factorized-dense range changes; measure invalidation-cone growth and speed.
+1. Add at least three root bet sizes and two raise sizes with exact rules,
+   structural hashes, and differential payoff/best-response tests.
+2. Reuse the generic tape unchanged on sparse, support-changing, and
+   factorized-dense range updates; measure topology and invalidation-cone growth
+   before writing an optimized kernel.
 3. On that richer tree, compare accept/no-op, bound-first exact recertification,
    affected-cone repair, warm full traversal, and cold traversal at equal
    charged time before fitting any learned cache or tree scheduler.
@@ -396,5 +418,6 @@ None.
 
 ## Last updated
 
-2026-08-19, after exact sparse recertification passed its finite-policy speed,
-support-change, provenance, and independent-evaluation gates.
+2026-08-19, after the generic flat dependency tape passed its frozen exactness,
+action-flip, source-relative, topology, support-change, and hybrid-execution
+gates.

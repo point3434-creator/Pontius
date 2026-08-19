@@ -150,9 +150,12 @@ actual ratio on nonzero cases. Delta-aware exact recertification with finite
 source policies now passes its development gate: it matches full evaluation
 within `2.31e-14` and is 55.65x faster hot, 18.77x faster even with an unshared
 full delta scan, and faster in every one of 896 records. The next gate
-generalizes dependency invalidation beyond hard-coded river equations, crosses
-multiple bet/raise sizes with structured dense belief updates, and then
-compares cached acceptance and selective repair against warm and cold traversal.
+has now generalized dependency invalidation beyond hard-coded river equations.
+The flat generic tape matches all exact controls within `7.11e-15`; sparse
+two-deal updates dirty 15%-17% of nodes while factorized-dense updates dirty
+82%. C3 now crosses multiple bet/raise sizes with the unchanged tape and
+structured dense belief updates, then compares cached acceptance and selective
+repair against warm and cold traversal.
 
 **Target:** months 4-6.5.
 

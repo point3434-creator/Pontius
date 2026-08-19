@@ -52,6 +52,96 @@ class CFRTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             TabularCFR(KuhnPoker(), "not-cfr")  # type: ignore[arg-type]
 
+    def test_shadow_regret_uses_active_deltas_without_changing_strategy(self) -> None:
+        game = KuhnPoker()
+        plain = TabularCFR(game, "dcfr")
+        shadowed = TabularCFR(
+            game,
+            "dcfr",
+            shadow_regret_variants=("cfr_plus",),
+        )
+
+        plain.run(7)
+        shadowed.run(7)
+
+        self.assertEqual(plain.current_strategy(), shadowed.current_strategy())
+        self.assertEqual(plain.average_strategy(), shadowed.average_strategy())
+        self.assertEqual(plain.information_sets, shadowed.information_sets)
+        self.assertEqual(shadowed.shadow_regret_variants, ("cfr_plus",))
+        self.assertTrue(shadowed.shadow_regret_table("cfr_plus"))
+        summary = shadowed.shadow_regret_summary("cfr_plus")
+        self.assertEqual(summary["materialized_information_sets"], 12)
+        self.assertEqual(summary["regret_entries"], 24)
+        self.assertGreater(summary["instantaneous_regret_updates"], 0)
+        self.assertGreater(summary["regret_discount_updates"], 0)
+
+    def test_dcfr_cfr_plus_shadow_matches_standalone_only_before_paths_diverge(
+        self,
+    ) -> None:
+        game = KuhnPoker()
+        shadowed = TabularCFR(
+            game,
+            "dcfr",
+            shadow_regret_variants=("cfr_plus",),
+        )
+        standalone = TabularCFR(game, "cfr_plus")
+
+        shadowed.run(1)
+        standalone.run(1)
+
+        first_expected = {
+            key: dict(data.regrets)
+            for key, data in standalone.information_sets.items()
+        }
+        first_actual = shadowed.shadow_regret_table("cfr_plus")
+        self.assertEqual(first_actual.keys(), first_expected.keys())
+        for key, action_regrets in first_expected.items():
+            for action, regret in action_regrets.items():
+                self.assertAlmostEqual(first_actual[key][action], regret)
+
+        shadowed.run(1)
+        standalone.run(1)
+        second_expected = {
+            key: dict(data.regrets)
+            for key, data in standalone.information_sets.items()
+        }
+        second_actual = shadowed.shadow_regret_table("cfr_plus")
+        self.assertTrue(
+            any(
+                abs(second_actual[key][action] - regret) > 1e-12
+                for key, action_regrets in second_expected.items()
+                for action, regret in action_regrets.items()
+            )
+        )
+
+    def test_shadow_regret_configuration_is_strict_and_defensive(self) -> None:
+        game = KuhnPoker()
+        with self.assertRaises(ValueError):
+            TabularCFR(game, "dcfr", shadow_regret_variants=("dcfr",))
+        with self.assertRaises(ValueError):
+            TabularCFR(
+                game,
+                "dcfr",
+                shadow_regret_variants=("cfr_plus", "cfr_plus"),
+            )
+
+        solver = TabularCFR(
+            game,
+            "dcfr",
+            shadow_regret_variants=("cfr_plus",),
+        )
+        solver.run(1)
+        copied = solver.shadow_regret_table("cfr_plus")
+        key = next(iter(copied))
+        action = next(iter(copied[key]))
+        copied[key][action] = 123.0
+        self.assertNotEqual(
+            solver.shadow_regret_table("cfr_plus")[key][action],
+            123.0,
+        )
+        with self.assertRaises(ValueError):
+            solver.shadow_regret_table("cfr")
+
     def test_blueprint_warm_start_sets_the_initial_behavior_policy(self) -> None:
         game = KuhnPoker()
         blueprint_solver = TabularCFR(game, "lcfr")

@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "rule_id": "river-post-probe-scheduler-screen-v1",
+  "status": "preregistered_development_only",
+  "frozen_source": {
+    "contexts": 1024,
+    "experiment_type": "exact_river_early_opportunity_trace",
+    "git_commit": "09acdfbd27066ec3099cbeec6bdc63d8cc501799",
+    "sha256": "e8ae3e078f588434eec7ef84300dab73015df8ca7a5bfd6769b1fc6d5d569ff7",
+    "split": "development"
+  },
+  "solver": {
+    "active_variant": "dcfr",
+    "fixed_checkpoint": 4,
+    "probe_checkpoint": 2,
+    "shadow_regret_variant": "cfr_plus"
+  },
+  "folds": {
+    "assignment": "first eight SHA-256 bytes of group_id, big-endian, modulo fold count",
+    "count": 5,
+    "unit": "board group; all four range families remain together"
+  },
+  "objective": {
+    "budget_unit": "full alternating CFR iterations",
+    "primary": "aggregate raw exploitability reduction from checkpoint zero",
+    "state_work_constraint": "candidate cumulative alternating state visits cannot exceed fixed checkpoint four",
+    "timing_replicate": "aggregate raw reduction per charged measured millisecond"
+  },
+  "rank_transform": {
+    "definition": "average ranks within the current allocation pool, scaled to [0,1] with larger directed values better",
+    "score": "weighted arithmetic mean of term ranks",
+    "ties": "average rank; allocation ties break by context_id"
+  },
+  "scores": [
+    {
+      "name": "active_raw",
+      "terms": [
+        {"direction": "high", "feature": "positive_regret_mass", "weight": 1.0}
+      ]
+    },
+    {
+      "name": "shadow_raw",
+      "terms": [
+        {"direction": "high", "feature": "shadow_cfr_plus_positive_regret_mass", "weight": 1.0}
+      ]
+    },
+    {
+      "name": "fused_raw",
+      "terms": [
+        {"direction": "high", "feature": "positive_regret_mass", "weight": 1.0},
+        {"direction": "high", "feature": "shadow_cfr_plus_positive_regret_mass", "weight": 1.0}
+      ]
+    },
+    {
+      "name": "active_normalized_geometry",
+      "terms": [
+        {"direction": "high", "feature": "normalized_positive_regret_mass", "weight": 1.0},
+        {"direction": "low", "feature": "raise_to_pot", "weight": 1.0}
+      ]
+    },
+    {
+      "name": "shadow_normalized_geometry",
+      "terms": [
+        {"direction": "high", "feature": "shadow_cfr_plus_normalized_positive_regret_mass", "weight": 1.0},
+        {"direction": "low", "feature": "raise_to_pot", "weight": 1.0}
+      ]
+    },
+    {
+      "name": "fused_normalized_geometry",
+      "terms": [
+        {"direction": "high", "feature": "normalized_positive_regret_mass", "weight": 1.0},
+        {"direction": "high", "feature": "shadow_cfr_plus_normalized_positive_regret_mass", "weight": 1.0},
+        {"direction": "low", "feature": "raise_to_pot", "weight": 1.0}
+      ]
+    }
+  ],
+  "macro_options": [
+    {"maximum_recipient_fraction": 0.125, "name": "shallow_12_5", "recipient_checkpoint": 6},
+    {"maximum_recipient_fraction": 0.25, "name": "shallow_25", "recipient_checkpoint": 6},
+    {"maximum_recipient_fraction": 0.5, "name": "shallow_50", "recipient_checkpoint": 6},
+    {"maximum_recipient_fraction": 0.125, "name": "deep_12_5", "recipient_checkpoint": 8},
+    {"maximum_recipient_fraction": 0.25, "name": "deep_25", "recipient_checkpoint": 8}
+  ],
+  "allocator": {
+    "definition": "start every context at checkpoint four; consider at most floor(pool size times maximum recipient fraction) highest-scored recipients; fund each promotion by demoting lowest-scored nonrecipients to checkpoint two until both iteration and deterministic state-visit credits cover it; restore unnecessary highest-scored donors; never exceed either fixed budget",
+    "fallback": "fixed checkpoint four",
+    "future_labels_used": false,
+    "required_checkpoints": [0, 2, 4, 6, 8]
+  },
+  "selection": {
+    "candidate_family": "Cartesian product of six frozen scores and five frozen macros, plus fixed checkpoint four",
+    "development_choice": "maximum aggregate raw exploitability uplift over fixed checkpoint four; candidate_id breaks tolerance ties",
+    "evaluation": "for each held-out fold choose on the other four folds, then evaluate once on the untouched fold"
+  },
+  "runtime_charging": {
+    "active_score": "charge measured one-pass active regret summary and measured allocator time",
+    "shadow_score": "also charge max(0, paired shadowed probe time minus plain probe time) and the measured active-plus-shadow summary",
+    "fixed_fallback": "no feature or scheduler charge",
+    "negative_paired_timing_delta": "floored at zero per context"
+  },
+  "development_gates": {
+    "aggregate_fraction_of_perfect_post_probe_uplift_at_least": 0.25,
+    "aggregate_measured_reduction_per_millisecond_strictly_beats_fixed": true,
+    "candidate_iterations_not_above_fixed": true,
+    "candidate_state_visits_not_above_fixed": true,
+    "strict_raw_exploitability_improvement_in_every_held_out_fold": true
+  },
+  "post_gate": {
+    "failure": "retain fixed checkpoint-four DCFR and do not construct reserved contexts",
+    "pass": "freeze the all-development selected candidate in a new committed rule before constructing validation or test contexts"
+  }
+}

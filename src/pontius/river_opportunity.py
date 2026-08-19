@@ -104,14 +104,49 @@ def _solver_online_features(
 ) -> tuple[dict[str, float | int], Policy]:
     average_policy = solver.average_strategy()
     current_policy = solver.current_strategy()
-    regrets = [
-        regret
-        for data in solver.information_sets.values()
-        for regret in data.regrets.values()
-    ]
-    positives = [max(0.0, regret) for regret in regrets]
-    positive_mass = sum(positives)
-    negative_mass = sum(max(0.0, -regret) for regret in regrets)
+    features = _regret_features(
+        [
+            regret
+            for data in solver.information_sets.values()
+            for regret in data.regrets.values()
+        ],
+        payoff_span,
+    )
+    for shadow_variant in solver.shadow_regret_variants:
+        shadow_summary = solver.shadow_regret_summary(shadow_variant)
+        prefix = f"shadow_{shadow_variant}_"
+        features.update(
+            {
+                f"{prefix}positive_regret_mass": shadow_summary[
+                    "positive_regret_mass"
+                ],
+                f"{prefix}negative_regret_mass": shadow_summary[
+                    "negative_regret_mass"
+                ],
+                f"{prefix}normalized_positive_regret_mass": (
+                    float(shadow_summary["positive_regret_mass"]) / payoff_span
+                ),
+                f"{prefix}normalized_negative_regret_mass": (
+                    float(shadow_summary["negative_regret_mass"]) / payoff_span
+                ),
+                f"{prefix}maximum_positive_regret": shadow_summary[
+                    "maximum_positive_regret"
+                ],
+                f"{prefix}positive_regret_concentration": shadow_summary[
+                    "positive_regret_concentration"
+                ],
+                f"{prefix}materialized_information_sets": shadow_summary[
+                    "materialized_information_sets"
+                ],
+                f"{prefix}regret_entries": shadow_summary["regret_entries"],
+                f"{prefix}instantaneous_regret_updates": shadow_summary[
+                    "instantaneous_regret_updates"
+                ],
+                f"{prefix}regret_discount_updates": shadow_summary[
+                    "regret_discount_updates"
+                ],
+            }
+        )
     previous_mean_tv, previous_max_tv = _policy_tv_summary(
         average_policy,
         previous_average_policy,
@@ -125,16 +160,7 @@ def _solver_online_features(
     return (
         {
             "materialized_information_sets": len(solver.information_sets),
-            "positive_regret_mass": positive_mass,
-            "negative_regret_mass": negative_mass,
-            "normalized_positive_regret_mass": positive_mass / payoff_span,
-            "normalized_negative_regret_mass": negative_mass / payoff_span,
-            "maximum_positive_regret": max(positives, default=0.0),
-            "positive_regret_concentration": (
-                sum((regret / positive_mass) ** 2 for regret in positives)
-                if positive_mass > 0.0
-                else 0.0
-            ),
+            **features,
             "average_policy_entropy": _policy_entropy(
                 average_policy, information_sets
             ),
@@ -148,6 +174,29 @@ def _solver_online_features(
         },
         average_policy,
     )
+
+
+def _regret_features(
+    regrets: list[float],
+    payoff_span: float,
+    *,
+    prefix: str = "",
+) -> dict[str, float]:
+    positives = [max(0.0, regret) for regret in regrets]
+    positive_mass = sum(positives)
+    negative_mass = sum(max(0.0, -regret) for regret in regrets)
+    return {
+        f"{prefix}positive_regret_mass": positive_mass,
+        f"{prefix}negative_regret_mass": negative_mass,
+        f"{prefix}normalized_positive_regret_mass": positive_mass / payoff_span,
+        f"{prefix}normalized_negative_regret_mass": negative_mass / payoff_span,
+        f"{prefix}maximum_positive_regret": max(positives, default=0.0),
+        f"{prefix}positive_regret_concentration": (
+            sum((regret / positive_mass) ** 2 for regret in positives)
+            if positive_mass > 0.0
+            else 0.0
+        ),
+    }
 
 
 def _validate_online_features(features: dict[str, object]) -> None:
@@ -554,6 +603,18 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
         str(solver)
         for solver in config.get("solvers", ("cfr", "lcfr", "cfr_plus", "dcfr"))
     )
+    raw_shadow_regret_variants = config.get("shadow_regret_variants", {})
+    if not isinstance(raw_shadow_regret_variants, dict):
+        raise TypeError("shadow_regret_variants must be an object keyed by solver")
+    shadow_regret_variants: dict[str, tuple[str, ...]] = {}
+    for solver, variants in raw_shadow_regret_variants.items():
+        if not isinstance(variants, (list, tuple)):
+            raise TypeError(
+                f"shadow regret variants for {solver!r} must be an array"
+            )
+        shadow_regret_variants[str(solver)] = tuple(
+            str(variant) for variant in variants
+        )
     checkpoints = tuple(
         int(checkpoint)
         for checkpoint in config.get("checkpoints", DEFAULT_CHECKPOINTS)
@@ -577,6 +638,24 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
     unknown_solvers = set(solvers) - set(UPDATE_RULES)
     if unknown_solvers:
         raise ValueError(f"unsupported solvers: {sorted(unknown_solvers)!r}")
+    unknown_shadow_solvers = set(shadow_regret_variants) - set(solvers)
+    if unknown_shadow_solvers:
+        raise ValueError(
+            "shadow regret configuration references absent solvers: "
+            f"{sorted(unknown_shadow_solvers)!r}"
+        )
+    for solver, shadow_variants in shadow_regret_variants.items():
+        if len(set(shadow_variants)) != len(shadow_variants):
+            raise ValueError(f"shadow regret variants for {solver!r} must be unique")
+        unknown_variants = set(shadow_variants) - set(UPDATE_RULES)
+        if unknown_variants:
+            raise ValueError(
+                f"unsupported shadow regret variants: {sorted(unknown_variants)!r}"
+            )
+        if solver in shadow_variants:
+            raise ValueError(
+                f"active solver {solver!r} cannot also be its own shadow variant"
+            )
     if (
         not included_splits
         or len(set(included_splits)) != len(included_splits)
@@ -652,7 +731,11 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
         context_features = river_context_features(context)
 
         for variant in solvers:
-            solver = TabularCFR(context.game, variant=variant)  # type: ignore[arg-type]
+            solver = TabularCFR(
+                context.game,
+                variant=variant,  # type: ignore[arg-type]
+                shadow_regret_variants=shadow_regret_variants.get(variant, ()),  # type: ignore[arg-type]
+            )
             cumulative_solver_seconds = 0.0
             previous_average_policy: Policy = {}
             run_records = []
@@ -748,6 +831,10 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
             "families": list(families),
             "included_splits": list(included_splits),
             "solvers": list(solvers),
+            "shadow_regret_variants": {
+                solver: list(variants)
+                for solver, variants in shadow_regret_variants.items()
+            },
             "checkpoints": list(checkpoints),
             "store_policies": store_policies,
             "allocation_average_iteration_budgets": list(allocation_budgets),

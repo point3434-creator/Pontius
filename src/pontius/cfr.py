@@ -8,7 +8,7 @@ from typing import Callable
 
 from .evaluation import Policy, collect_information_sets, policy_distribution
 from .game import Action, CHANCE_PLAYER, TERMINAL_PLAYER, ExtensiveFormGame, GameState
-from .updates import SolverVariant, update_rule
+from .updates import CFRUpdateRule, SolverVariant, update_rule
 
 
 @dataclass(slots=True)
@@ -41,6 +41,7 @@ class TabularCFR:
         *,
         blueprint_policy: Policy | None = None,
         blueprint_weight: float = 0.0,
+        shadow_regret_variants: tuple[SolverVariant, ...] = (),
     ) -> None:
         if not 0.0 <= blueprint_weight <= 1.0:
             raise ValueError("blueprint_weight must be between zero and one")
@@ -49,6 +50,24 @@ class TabularCFR:
         self.game = game
         self.update_rule = update_rule(variant)
         self.variant = self.update_rule.name
+        if len(set(shadow_regret_variants)) != len(shadow_regret_variants):
+            raise ValueError("shadow regret variants must be unique")
+        if self.variant in shadow_regret_variants:
+            raise ValueError("the active variant cannot also be a shadow variant")
+        self._shadow_update_rules: dict[SolverVariant, CFRUpdateRule] = {
+            shadow_variant: update_rule(shadow_variant)
+            for shadow_variant in shadow_regret_variants
+        }
+        self._shadow_regrets: dict[
+            SolverVariant,
+            dict[str, dict[Action, float]],
+        ] = {shadow_variant: {} for shadow_variant in shadow_regret_variants}
+        self._shadow_regret_additions = {
+            shadow_variant: 0 for shadow_variant in shadow_regret_variants
+        }
+        self._shadow_regret_discounts = {
+            shadow_variant: 0 for shadow_variant in shadow_regret_variants
+        }
         self.blueprint_policy = (
             None
             if blueprint_policy is None
@@ -90,6 +109,11 @@ class TabularCFR:
                 data = self._data(key, actions)
                 for action in actions:
                     data.regrets[action] = regret_mass * distribution[action]
+                for shadow_table in self._shadow_regrets.values():
+                    shadow_table[key] = {
+                        action: regret_mass * distribution[action]
+                        for action in actions
+                    }
 
     @staticmethod
     def _regret_matching(data: InformationSetData) -> dict[Action, float]:
@@ -159,6 +183,18 @@ class TabularCFR:
             data = self.information_sets[key]
             for action, delta in action_deltas.items():
                 data.regrets[action] = self.update_rule.add_regret(data.regrets[action], delta)
+            for shadow_variant, shadow_table in self._shadow_regrets.items():
+                shadow_data = shadow_table.setdefault(
+                    key,
+                    {action: 0.0 for action in data.actions},
+                )
+                shadow_rule = self._shadow_update_rules[shadow_variant]
+                for action, delta in action_deltas.items():
+                    shadow_data[action] = shadow_rule.add_regret(
+                        shadow_data[action],
+                        delta,
+                    )
+                    self._shadow_regret_additions[shadow_variant] += 1
 
     def _discount_accumulators(self) -> None:
         for data in self.information_sets.values():
@@ -169,6 +205,86 @@ class TabularCFR:
                 data.strategy_sum[action] = self.update_rule.discount_strategy(
                     data.strategy_sum[action], self.iteration
                 )
+        for shadow_variant, shadow_table in self._shadow_regrets.items():
+            shadow_rule = self._shadow_update_rules[shadow_variant]
+            for action_regrets in shadow_table.values():
+                for action, regret in action_regrets.items():
+                    action_regrets[action] = shadow_rule.discount_regret(
+                        regret,
+                        self.iteration,
+                    )
+                    self._shadow_regret_discounts[shadow_variant] += 1
+
+    @property
+    def shadow_regret_variants(self) -> tuple[SolverVariant, ...]:
+        """Alternate accumulator rules fed by the active traversal's deltas."""
+
+        return tuple(self._shadow_regrets)
+
+    def shadow_regret_table(
+        self,
+        variant: SolverVariant,
+    ) -> dict[str, dict[Action, float]]:
+        """Return a defensive copy of one diagnostic shadow accumulator.
+
+        A shadow applies another numerical regret-update rule to the active
+        solver's already-computed instantaneous deltas. It does not influence
+        traversal strategies, collect an average policy, or perform extra tree
+        walks. After active and shadow trajectories diverge, it must not be
+        interpreted as a standalone solve with the shadow variant.
+        """
+
+        try:
+            table = self._shadow_regrets[variant]
+        except KeyError as error:
+            raise ValueError(
+                f"shadow regret variant {variant!r} was not configured"
+            ) from error
+        return {
+            key: dict(action_regrets)
+            for key, action_regrets in table.items()
+        }
+
+    def shadow_regret_summary(
+        self,
+        variant: SolverVariant,
+    ) -> dict[str, float | int]:
+        """Summarize a shadow table in one pass without copying it."""
+
+        try:
+            table = self._shadow_regrets[variant]
+        except KeyError as error:
+            raise ValueError(
+                f"shadow regret variant {variant!r} was not configured"
+            ) from error
+        positive_mass = 0.0
+        positive_squared_mass = 0.0
+        negative_mass = 0.0
+        maximum_positive = 0.0
+        entries = 0
+        for action_regrets in table.values():
+            for regret in action_regrets.values():
+                entries += 1
+                if regret > 0.0:
+                    positive_mass += regret
+                    positive_squared_mass += regret * regret
+                    maximum_positive = max(maximum_positive, regret)
+                elif regret < 0.0:
+                    negative_mass -= regret
+        return {
+            "materialized_information_sets": len(table),
+            "regret_entries": entries,
+            "positive_regret_mass": positive_mass,
+            "negative_regret_mass": negative_mass,
+            "maximum_positive_regret": maximum_positive,
+            "positive_regret_concentration": (
+                positive_squared_mass / (positive_mass * positive_mass)
+                if positive_mass > 0.0
+                else 0.0
+            ),
+            "instantaneous_regret_updates": self._shadow_regret_additions[variant],
+            "regret_discount_updates": self._shadow_regret_discounts[variant],
+        }
 
     def run(
         self,

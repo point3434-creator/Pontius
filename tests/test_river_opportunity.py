@@ -136,6 +136,58 @@ class RiverOpportunityTests(unittest.TestCase):
             )
         )
 
+    def test_trace_records_configured_shadow_regret_as_an_online_feature(self) -> None:
+        result = run_river_opportunity_experiment(
+            {
+                "groups": 1,
+                "seed": 5,
+                "hands_per_player": 2,
+                "families": ["balanced"],
+                "solvers": ["dcfr"],
+                "shadow_regret_variants": {"dcfr": ["cfr_plus"]},
+                "checkpoints": [0, 1, 2],
+                "sequential_raise": True,
+            }
+        )
+
+        self.assertEqual(
+            result["config"]["shadow_regret_variants"],
+            {"dcfr": ["cfr_plus"]},
+        )
+        checkpoint_two = next(
+            record for record in result["records"] if record["checkpoint"] == 2
+        )
+        features = checkpoint_two["online_features"]
+        self.assertGreater(
+            features["shadow_cfr_plus_normalized_positive_regret_mass"],
+            0.0,
+        )
+        self.assertGreater(
+            features["shadow_cfr_plus_materialized_information_sets"],
+            0,
+        )
+
+    def test_trace_rejects_invalid_shadow_regret_configuration(self) -> None:
+        base = {
+            "groups": 1,
+            "seed": 5,
+            "families": ["balanced"],
+            "solvers": ["dcfr"],
+            "checkpoints": [0, 1, 2],
+        }
+        with self.assertRaises(ValueError):
+            run_river_opportunity_experiment(
+                {**base, "shadow_regret_variants": {"cfr": ["cfr_plus"]}}
+            )
+        with self.assertRaises(ValueError):
+            run_river_opportunity_experiment(
+                {**base, "shadow_regret_variants": {"dcfr": ["dcfr"]}}
+            )
+        with self.assertRaises(TypeError):
+            run_river_opportunity_experiment(
+                {**base, "shadow_regret_variants": {"dcfr": "cfr_plus"}}
+            )
+
     def test_pooled_oracle_can_move_an_easy_context_budget(self) -> None:
         def row(checkpoint: int, exploitability: float) -> dict:
             return {

@@ -1,0 +1,13 @@
+{
+  "allocation_average_iteration_budgets": [2, 4, 8, 16, 32],
+  "allocation_context_limit": 128,
+  "checkpoints": [0, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64],
+  "families": ["balanced", "polarized", "blocker_stress", "correlated"],
+  "groups": 400,
+  "hands_per_player": 4,
+  "included_splits": ["development"],
+  "seed": 20260820,
+  "sequential_raise": true,
+  "solvers": ["cfr", "lcfr", "cfr_plus", "dcfr"],
+  "store_policies": false
+}

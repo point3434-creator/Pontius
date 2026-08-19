@@ -120,6 +120,10 @@ Charge:
 Teacher evaluation, feature construction, serialization, and analysis remain
 offline unless explicitly included in one of those charges. Use deterministic
 state work alongside wall time so noise cannot determine the strategic verdict.
+The primary aggregate-acceptance rate gate uses the conservative one-shot tape
+charge: cumulative solve plus full compilation plus one hot candidate. The
+precompiled and trajectory-amortized rates are diagnostics and cannot rescue a
+one-shot gate failure.
 
 ## Frozen gates and branching verdicts
 

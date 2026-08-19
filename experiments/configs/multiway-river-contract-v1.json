@@ -1,0 +1,83 @@
+{
+  "evidence_stage": "preregistered_exact_contract",
+  "game": "multiway_river_holdem_v1",
+  "primary_num_players": 3,
+  "supported_num_players": [2, 3, 4, 5, 6],
+  "public_street": "river",
+  "betting": {
+    "first_actor": 0,
+    "opening_actions": ["check", "bet"],
+    "response_actions": ["fold", "call"],
+    "bet_sizes": 1,
+    "raises": 0,
+    "response_order": "cyclic_after_bettor",
+    "all_configured_calls_are_fully_matched": true,
+    "side_pots": false
+  },
+  "range_model": {
+    "exact_joint_distribution": true,
+    "correlated_ranges": true,
+    "independent_marginal_constructor": true,
+    "exact_card_removal": true,
+    "range_probabilities_excluded_from_information_identity": true
+  },
+  "payoff_model": {
+    "decision_boundary_pot_ownership": "equal_sunk_share",
+    "ties_split_final_pot_equally": true,
+    "new_contributions_are_net_costs": true,
+    "zero_sum_required": true,
+    "payoff_span_formula": "pot + num_players * bet_size"
+  },
+  "unilateral_evaluation": {
+    "metrics": [
+      "profile_utility_per_player",
+      "best_response_value_per_player",
+      "deviation_gain_per_player",
+      "nash_conv"
+    ],
+    "multiplayer_exploitability": null,
+    "normalization": "game_payoff_span"
+  },
+  "coalition_evaluation": {
+    "primary_coalitions": "all_player_pairs",
+    "shared_private_information": true,
+    "shared_objective": "sum_of_member_utilities",
+    "transferable_utility": true,
+    "outsider_policies_fixed": true,
+    "label": "coordinated_shared-information stress upper bound",
+    "safety_theorem": false
+  },
+  "candidate_acceptance_labels": {
+    "numerical_guard_by_payoff_span": 1e-10,
+    "unilateral_pareto_accept": [
+      "aggregate_nash_conv_strictly_decreases",
+      "no_player_deviation_gain_increases_beyond_guard"
+    ],
+    "coalition_stress_accept": [
+      "unilateral_pareto_accept",
+      "no_declared_pair_coalition_gain_increases_beyond_guard"
+    ],
+    "safe_label_authorized": false
+  },
+  "correctness_gates": {
+    "maximum_exact_error": 1e-10,
+    "independent_terminal_contribution_audit": true,
+    "all_terminal_utilities_zero_sum": true,
+    "chance_and_card_removal_invariants": true,
+    "individual_and_coalition_information_invariants": true,
+    "dynamic_unilateral_best_response_matches_enumeration": true,
+    "singleton_coalition_matches_unilateral_best_response": true,
+    "coalition_best_response_matches_independent_oracle": true,
+    "generic_dependency_tape_matches_full_evaluation": true,
+    "payoff_scale_invariance": true
+  },
+  "out_of_scope": [
+    "raises",
+    "re-raises",
+    "side_pots",
+    "earlier_streets",
+    "continuous_bet_sizing",
+    "multiplayer_safety_guarantee",
+    "learned_scheduler"
+  ]
+}

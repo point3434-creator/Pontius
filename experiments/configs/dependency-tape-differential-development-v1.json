@@ -1,0 +1,20 @@
+{
+  "groups": 12,
+  "seed": 20260907,
+  "hands_per_player": 5,
+  "families": ["balanced", "polarized", "blocker_stress", "correlated"],
+  "included_splits": ["development"],
+  "sequential_raise_shapes": [false, true],
+  "solver": "dcfr",
+  "source_policy_checkpoints": [1, 4, 16],
+  "root_tv_budget": 0.01,
+  "maximum_donor_fraction": 0.75,
+  "factorized_likelihood_minimum": 0.5,
+  "factorized_likelihood_maximum": 1.5,
+  "dense_threshold": 0.35,
+  "gates": {
+    "maximum_absolute_evaluation_error": 1e-10,
+    "minimum_sparse_auto_fraction": 0.95,
+    "minimum_dense_auto_fraction": 1.0
+  }
+}

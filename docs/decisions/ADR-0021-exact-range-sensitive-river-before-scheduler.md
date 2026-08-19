@@ -150,3 +150,10 @@ zero-sum, river-only, and uses one fixed bet. Multiplayer work must report
 unilateral NashConv and explicit coalition/team best-response threat models;
 "safe" remains reserved for guarantees that actually cover the stated threat
 model.
+
+## Subsequent decision
+
+ADR-0022 records the exactly paired fixed-raise replication. It breaks the
+local-regret identity, changes the primary label from total headroom to quality
+per unit work, rejects static one-bet hardness transfer, and authorizes only one
+paid-probe transparent scheduler screen.

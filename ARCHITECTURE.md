@@ -96,14 +96,22 @@ preemptible macro-options with intermediate cached state, rather than kill any
 job whose immediately following candidate has zero gain. Current early scalar
 features do not predict that option value well enough in Kuhn. ADR-0021 moves
 that interface into an exact full-deck river microgame. `river` owns cards,
-showdowns, joint combo beliefs, and the one-bet state machine;
+showdowns, joint combo beliefs, and fixed bet/raise state machines;
 `river_oracle` independently solves its normal form; `river_context` creates
 board-grouped range families; and `river_opportunity` records causal regret and
 policy traces against hidden exact labels. `river_trace_analysis` compactly
-audits signal ranks and solver paths without fitting. Normalized accumulated
-positive regret is strongly predictive in 1,024 development contexts, but the
-one-decision binary tree makes a fresh local-regret profile equal NashConv.
-Sequential action is therefore the next transfer gate, not scheduler fitting.
+audits signal ranks, paid-probe allocation ceilings, and solver paths without
+fitting. `river_trace_comparison` verifies exact board/range pairing before
+measuring cross-tree transfer.
+
+ADR-0022 records the sequential result. Adding one raise and final response
+breaks the local-regret/NashConv identity, but also reduces accumulated regret's
+correlation with the relevant gain-per-work target to a moderate level. State
+visits are the stable development cost and serial solver milliseconds are the
+required runtime replicate. Any scheduler using checkpoint-two features must
+first charge every job for that probe. Static one-bet difficulty rankings do not
+transfer to the exactly paired raise tree, so tree-local online measurements,
+not a cross-abstraction hardness cache, drive the next transparent screen.
 
 River cache identity has two levels. `structural_digest` covers the public board
 and betting structure and may key immutable topology or showdown work.

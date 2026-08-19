@@ -266,6 +266,34 @@ regret, not a fresh exact counterfactual-regret calculation. In this one-bet
 game a fresh one-step positive-regret profile equals NashConv exactly; this is a
 known shallow-tree confound and must not be presented as transfer evidence.
 
+Run the fixed-raise sequential pilot and development-only replication with:
+
+```powershell
+& $python -m pontius.river_opportunity --config experiments/configs/river-opportunity-sequential-pilot-v1.json --output experiments/results/river-opportunity-sequential-pilot-v1.json
+& $python -m pontius.river_opportunity --config experiments/configs/river-opportunity-sequential-development-v1.json --output experiments/results/river-opportunity-sequential-development-v1.json
+& $python -m pontius.river_trace_analysis --input experiments/results/river-opportunity-sequential-development-v1.json --output experiments/results/river-opportunity-sequential-development-v1-state-efficiency-analysis.json --primary-target state_visit_efficiency --allocation-probe-checkpoint 2
+& $python -m pontius.river_trace_analysis --input experiments/results/river-opportunity-sequential-development-v1.json --output experiments/results/river-opportunity-sequential-development-v1-millisecond-efficiency-analysis.json --primary-target millisecond_efficiency
+& $python -m pontius.river_trace_comparison --baseline experiments/results/river-opportunity-development-v1.json --target experiments/results/river-opportunity-sequential-development-v1.json --output experiments/results/river-opportunity-sequential-development-v1-paired-comparison.json
+```
+
+`state_visit_efficiency` is payoff-normalized best future reduction per thousand
+deterministic full-tree state visits. Use it for stable development ranking and
+require `millisecond_efficiency` as the serial runtime replicate. Total future
+reduction measures headroom, not quality per millisecond, and must not be the
+primary scheduler target.
+
+`--allocation-probe-checkpoint 2` forces every selected context to pay for the
+checkpoint-two feature before the perfect-information allocator can redistribute
+remaining iterations. Report this post-probe ceiling for any rule using those
+features. The unconditioned budget-two allocator gets the feature for free and
+is not a causal deployable comparison.
+
+The sequential production configuration is development-only and creates the
+same 256 boards and 1,024 complete joint ranges as the one-bet production trace.
+The paired comparator verifies those fields exactly before reporting cross-tree
+rank stability. Do not substitute merely similar ranges or compare unmatched
+context IDs.
+
 Only an identical `provenance_digest` authorizes an exact strategy-cache hit.
 `structural_digest` authorizes topology and board-work reuse, not strategy
 deployment. Total-variation bounds in this laboratory cover one fixed policy's

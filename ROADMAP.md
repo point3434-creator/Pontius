@@ -97,6 +97,16 @@ tree. Accumulated regret is still causal, yet this is an overly favorable
 transfer test. A sequential raise response must break that identity before any
 macro-option rule is fitted or frozen.
 
+The fixed-raise sequential gate now passes exactness and breaks that identity in
+91.99% of 53,248 production records. It also corrects the target: accumulated
+regret ranks total remaining reduction at `0.771`-`0.895`, but reduction per
+deterministic unit of work at only `0.390`-`0.594`. All group-preserving
+efficiency folds remain positive and measured milliseconds replicate the state-
+work ranking. A paid checkpoint-two probe leaves a 4.15%-6.00% perfect
+allocation ceiling at average checkpoint four. ADR-0022 therefore authorizes
+one transparent post-probe heuristic screen, not a learned scheduler. Static
+one-bet hardness transfer is rejected by the exactly paired trace.
+
 **Target:** months 2-4.
 
 **Build:** CFR+, DCFR, external-sampling MCCFR, current/average/snapshot output,
@@ -109,12 +119,12 @@ and memory; provisional algorithms are selected by workload regime.
 
 **Status:** Started narrowly. The exact full-deck heads-up river control now
 supports joint combo ranges, card removal, correlated beliefs, configurable
-pot/stacks/bet size, and an independent normal-form equilibrium oracle. This is
-the two-player river edge of C3, not completion of reduced multiplayer play.
-Multiple bet sizes, raises, earlier streets, more players, unilateral NashConv,
-and coalition threat models remain. The immediate C3 subcheckpoint is one fixed
-raise and a final response, with small enough ranges for the normal-form LP to
-remain an independent exact teacher.
+pot/stacks/bet size, one fixed legal raise and final response, and an independent
+normal-form equilibrium oracle. This is the two-player river edge of C3, not
+completion of reduced multiplayer play. Multiple bet and raise sizes,
+re-raises, earlier streets, more players, unilateral NashConv, and coalition
+threat models remain. The next C3 subcheckpoint measures paired blocker-sensitive
+range warm starts and recertification before expanding the action tree again.
 
 **Target:** months 4-6.5.
 

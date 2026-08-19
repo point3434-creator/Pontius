@@ -1138,3 +1138,76 @@ informative. Freezing a scheduler here would overstate transfer evidence.
 scheduler fitting, and add one exact sequential raise response so a player acts
 twice. Preserve every reserved validation/test context until a rule survives that
 deeper development game.
+
+## EXP-0018: Exact sequential river opportunity transfer
+
+**Date:** 2026-08-19
+
+**Status:** Sequential gate passes; only a transparent post-probe screen is
+authorized. No scheduler is fitted and no reserved context is generated.
+
+The river tree now permits player 1 to make one fixed legal raise and player 0
+to fold or call. The independent normal-form teacher has 256 player-0 pure plans
+and 81 player-1 pure plans for each four-hand context. Its mixed-plan conversion
+conditions later behavior on the opener's remembered bet. On the analytical
+control, a uniform policy has NashConv `35/6` and local positive regret `20/3`,
+so the shallow identity is broken by construction.
+
+The production configuration materializes the same 256 development boards and
+1,024 joint ranges as EXP-0017. It records 4,096 solver trajectories and 53,248
+checkpoints from clean commit `09acdfb`; validation and test remain unconstructed.
+The 207,056,847-byte raw artifact SHA-256 is
+`e8ae3e078f588434eec7ef84300dab73015df8ca7a5bfd6769b1fc6d5d569ff7`.
+Maximum teacher duality gap and realized NashConv are both `1.0413e-11`.
+
+| Solver | Mean exploitability @ 4 | @ 16 | @ 64 | Any regression |
+|---|---:|---:|---:|---:|
+| CFR | 1.62104 | 0.38544 | 0.09952 | 25.10% |
+| LCFR | 1.09951 | 0.15438 | 0.02834 | 57.03% |
+| CFR+ | 0.97987 | 0.10479 | 0.01272 | 45.90% |
+| DCFR | 0.91698 | 0.09794 | 0.00854 | 57.42% |
+
+Fresh one-step regret differs from complete NashConv in 91.99% of all records.
+The mean absolute gap is 0.01298 payoff spans and the maximum is 0.11738. The
+transfer test therefore no longer benefits from exact target equivalence.
+
+The earlier total-opportunity label overstated scheduler relevance. At
+checkpoint two, normalized accumulated positive regret has the following
+unfitted Spearman correlations:
+
+| Solver | Total remaining reduction | Reduction / state work | Reduction / ms |
+|---|---:|---:|---:|
+| CFR | 0.796 | 0.518 | 0.513 |
+| LCFR | 0.771 | 0.390 | 0.388 |
+| CFR+ | 0.895 | 0.594 | 0.592 |
+| DCFR | 0.869 | 0.473 | 0.473 |
+
+All five group-preserving efficiency folds are positive, but the result is
+moderate rather than near-oracular. Deterministic state-work and measured-time
+target ranks agree at `0.9946-0.9991`, supporting state visits as the stable
+development target and measured time as its runtime replicate.
+
+The perfect pooled budget-two uplift falls to 18.1%-22.9%. That comparison gives
+future labels for free. After forcing every context to pay the two-iteration
+feature probe, the honest average-budget-four ceilings over fixed checkpoint
+four are 4.15%, 5.04%, 6.00%, and 5.44% for CFR, LCFR, CFR+, and DCFR. The probe
+does not erase the opportunity, but the remaining prize is narrow.
+
+The paired comparison is the most important negative result. Identical boards,
+opening bets, and joint ranges do not preserve difficulty rankings when the
+raise branch is added. The one-bet feature correlates with sequential
+state-efficiency at `-0.070`, `-0.191`, `0.009`, and `-0.132`; feature-rank
+stability is only `0.183-0.293`. Static range/tree hardness reuse is rejected.
+The current tree must produce the scheduling statistic.
+
+**Verdict:** preregister one tiny, interpretable post-probe allocator and charge
+its feature cost. It must improve fixed checkpoint four in every development
+fold and capture at least 25% of the perfect post-probe uplift before it can be
+frozen for reserved evaluation. Otherwise keep fixed scheduling. ADR-0022 holds
+the complete dissent and kill criteria.
+
+**Reproduction:** run
+`river-opportunity-sequential-development-v1.json`, analyze it with
+`--primary-target state_visit_efficiency --allocation-probe-checkpoint 2`, then
+run `python -m pontius.river_trace_comparison` against the EXP-0017 production
+artifact. Raw and compact result JSON remain locally generated and ignored.

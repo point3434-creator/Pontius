@@ -252,23 +252,48 @@ Checkpoint 2: solver comparison laboratory.
   deferred until a sequential-decision game.
 - A compact analyzer reproduces first-improvement, nonmonotonicity, feature-rank,
   exactness, and allocation diagnostics without fitting a rule.
-- One hundred sixty-seven automated tests pass.
+- The exact river now supports one fixed legal raise-to action and a final
+  opener fold/call response. Exact sunk-cost payoffs, perfect recall, and
+  independent mixed-plan-to-behavioral realization are tested.
+- On the analytical sequential control, uniform-policy NashConv is `35/6` while
+  one-step positive regret is `20/3`; the shallow identity is broken.
+- The clean sequential production trace contains the same 256 development
+  boards and 1,024 joint ranges, 4,096 solver trajectories, and 53,248 records.
+  No validation or test range was constructed; maximum teacher NashConv is
+  `1.0413e-11`.
+- Local one-step regret differs from NashConv in 91.99% of sequential records.
+  Normalized accumulated regret ranks total headroom at `0.771`-`0.895`, but
+  the relevant state-work efficiency target at only `0.390`-`0.594`.
+- Every group-preserving state-efficiency fold remains positive. State-visit
+  and measured-millisecond target rankings agree at `0.9946`-`0.9991`.
+- After charging every context for the checkpoint-two feature probe, a perfect
+  future allocator beats fixed checkpoint four by only 4.15%-6.00%. This is an
+  optimistic ceiling, not achieved scheduling.
+- Exactly paired one-bet features fail cross-tree transfer: their correlation
+  with sequential state efficiency is `-0.191` to `0.009`, and feature-rank
+  stability is only `0.183`-`0.293`. Static hardness reuse is rejected.
+- ADR-0022 authorizes one transparent development-only post-probe screen with a
+  fixed fallback. Neural scheduling and reserved-board evaluation remain
+  unauthorized until a rule is preregistered and frozen.
+- One hundred seventy-nine automated tests pass.
 
 ## In progress
 
-- Designing the smallest exact sequential river raise game that makes one
-  player act twice without making its independent normal-form teacher
-  intractable; validation and test boards remain unsolved.
+- Preregistering a tiny transparent post-probe allocation rule and macro-option
+  set for the average checkpoint-four budget; validation and test boards remain
+  unsolved.
+- Evaluating whether a cheap CFR+/DCFR shadow-regret statistic can be collected
+  from an already-paid traversal without distorting the solver.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Add one fixed raise response and a final fold/call decision to the exact
-   river tree; verify the normal-form teacher on two-to-four-hand ranges.
-2. Re-run causal opportunity traces and test whether accumulated-regret ranking
-   survives after local one-step regret no longer equals complete NashConv.
+1. Freeze the post-probe score family, macro-options, cross-validation gates,
+   and fixed-checkpoint fallback before fitting anything.
+2. Run the development-only heuristic screen; reveal reserved contexts only if
+   the frozen rule passes ADR-0022's every-fold and 25%-capture gates.
 3. Add paired near-range blocker perturbations and measure exact-hit,
    structural-only, warm-start, and recertification costs separately.
 
@@ -285,5 +310,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after the 1,024-context production trace replicated the regret
-signal but exposed its shallow-tree exact-regret confound.
+2026-08-19, after the exactly paired 1,024-context sequential trace replaced the
+shallow target identity with a moderate, work-normalized scheduling signal.

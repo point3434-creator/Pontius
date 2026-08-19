@@ -159,11 +159,16 @@ two-deal updates dirty 15%-17% of nodes while factorized-dense updates dirty
 action and exact blueprint behavior below unexpanded branches. Its one-board
 pilot cuts deterministic tree states to 38%-79% for partial masks, but the full
 3x2 mask is the best fixed equal-work arm. A fixed-warm mask/no-op oracle is
-11.43% better than full-mask/no-op and every mask wins at least one target, so
-the next C3 gate is a group-separated opportunity dataset with uniformly strong
-blueprints and causal mask features. No partial mask or branch-lane kernel is
-selected yet. Cached acceptance and selective repair remain downstream of that
-quality gate.
+11.43% better than full-mask/no-op and every mask wins at least one target. The
+preregistered group-separated replication now strengthens that ceiling to
+13.61% at its primary budget and finds positive opportunity in all eleven
+development board groups. The value is largest under tight work and drops to
+3.56% at budget 64. Fixed pruning still fails: full expansion wins every
+leave-one-group-out fixed-arm fold, while the shallowest masks are
+catastrophically harmful without an oracle no-op. Stable but moderate causal
+feature ranks authorize one transparent compact selector screen. No selector,
+partial mask, exact-label no-op, or branch-lane kernel is selected yet. Cached
+acceptance and selective repair remain downstream of that causal quality gate.
 
 **Target:** months 4-6.5.
 

@@ -1,6 +1,6 @@
 # ADR-0041: Preregister group-separated selective-expansion opportunity
 
-**Status:** Accepted — evidence pending
+**Status:** Accepted — evidence completed by ADR-0042
 
 **Date:** 2026-08-19
 
@@ -134,4 +134,3 @@ blueprint-strength artifacts rather than reusable decision-local signals.
 **Falsifier:** failure of either the 5% aggregate opportunity gate or the 60%
 positive-group gate ends this adaptive-mask branch for the current exact river
 workload without retuning.
-

@@ -222,6 +222,19 @@ abstraction. Exact future labels define this ceiling only; causal features and
 stronger group-separated blueprints are required before deployment or C++
 specialization.
 
+The group-separated matrix confirms the opportunity but sharpens the runtime
+boundary. At 32 full-tree-equivalent iterations, exact best-mask/no-op is 13.61%
+above full-mask/no-op and every development board group is positive. Yet full
+expansion remains the best fixed arm in every held-out-group control, and the
+two shallowest selective solves become more harmful with additional
+iterations. The runtime therefore needs three distinct decisions: whether to
+search, how wide to search, and whether to accept the result. Exact continuation
+leaves solve none of those decisions by themselves. Cheap range-delta geometry
+is evaluated before blueprint-public traversal or a paid solve; all feature and
+recertification costs remain explicit. Native branch-major specialization waits
+for a causal no-op/near-full/full rule to beat always-full without future-label
+access.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

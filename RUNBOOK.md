@@ -432,6 +432,25 @@ mask oracle to measure branching opportunity without also selecting warm-start
 strength. Re-running this pilot is calibration reproduction, not new transfer
 evidence. ADR-0040 is the durable interpretation.
 
+The preregistered group-separated development matrix and selection-free
+analysis are reproduced with:
+
+```powershell
+& $python -m pontius.river_selective_experiment experiments/configs/river-selective-expansion-development-v1.json --output experiments/results/river-selective-expansion-development-v1.json
+& $python -m pontius.river_selective_analysis experiments/results/river-selective-expansion-development-v1.json --output experiments/results/river-selective-expansion-development-v1-analysis.json
+```
+
+The matrix and analysis SHA-256 values are respectively
+`7571a8a2f3c08034b53982b4ac122106fbe3d1cc7b216d3ee4ba58cf01fdd2ff`
+and
+`c1fc2962399d2f8f588504b418ffba8d274ec1d73978af516e48f58075a4e392`.
+The runner stops each source at the first declared DCFR checkpoint satisfying
+normalized NashConv `<=1e-5`, enforces frozen selective-source hashes, and
+records one fixed warm regime. Boundary features are constructed before target
+best responses; solver probes are constructed before candidate labels, and
+their cumulative timing is charged. The analyzer fits no selector. Treat all
+mask/no-op values as exact-future ceilings and ADR-0042 as the durable verdict.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

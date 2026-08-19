@@ -425,30 +425,52 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   `0.0158651` in the correlated family. The next matrix must stop at a declared
   exact source-quality threshold rather than assuming one iteration count is
   comparable across range families.
-- Two hundred fifty automated tests pass.
+- The preregistered group-separated matrix contains eleven development board
+  groups, 44 contexts, 132 targets, and 2,640 exact candidate evaluations. All
+  44 blueprints pass normalized source NashConv `<=1e-5`; none needs the final
+  4,096-iteration checkpoint. No validation or test context/range is
+  materialized.
+- At the primary 32-iteration-equivalent budget, best-mask/no-op reduction is
+  `16.82102` versus `14.80649` for full-mask/no-op: a `13.6057%` uplift. All
+  eleven groups are positive, although one is effectively zero; the median
+  group opportunity is `0.12924`.
+- Adaptive opportunity is largest under tight work: relative uplift is 103.55%,
+  68.49%, 17.91%, 13.61%, and 3.56% at budgets 4 through 64. This is an exact
+  future ceiling, not achieved scheduling.
+- Fixed pruning fails. Full `b3r2` wins every leave-one-group-out fixed-mask
+  fold and captures none of the adaptive oracle. At budget 32, raw `b1r1` and
+  `b2r1` aggregate NashConv reductions are `-72.7261` and `-65.3365`, harming
+  59.85% of targets despite exact blueprint continuation leaves.
+- The strongest boundary opportunity rank is range-delta L2 probability at
+  Spearman `0.37555`, with the same sign in every group audit. The paid shallow
+  probe is weaker (`-0.27811` best absolute rank) and costs 27.75 ms end-to-end
+  in the serial Python control versus 2.00 ms for boundary features.
+- Exact no-op plus near-full `b3r1` and full `b3r2` retains 85.03% of the
+  four-mask oracle in a post-result diagnostic. This informs the next compact
+  screen but is not a selected rule.
+- Two hundred fifty-six automated tests pass.
 
 ## In progress
 
-- Designing the group-separated selective-expansion opportunity matrix with
-  uniform source-blueprint quality and one fixed normalized warm regime.
-- Separating mask-independent causal features and paid-probe features from
-  exact future mask/no-op labels before fitting any transparent allocator.
+- Preregistering one compact, transparent, board-group-separated selector
+  screen over no-op, near-full, and full actions; no current artifact selects a
+  rule.
+- Separating cheap range-delta, blueprint-public, paid-probe, and exact
+  recertification costs before comparing quality per millisecond.
 - Deferring branch-major C++ specialization until a partial or adaptive policy
-  reaches the full-universe quality/work frontier outside the one-board pilot.
+  reaches the full-universe quality/work frontier without oracle labels.
 - Representing Bayesian action conditioning as structured dense or low-rank
   range updates rather than expanding every factorized update into joint deals.
 
 ## Next three tasks
 
-1. Freeze fresh development board groups, blueprint convergence checkpoints,
-   one warm regime, equal-work budgets, causal feature allowlists, and explicit
-   mask-opportunity falsification gates before generating the larger matrix.
-2. Measure fixed masks, full-mask/no-op, best-mask/no-op ceilings, and one paid
-   post-probe transparent heuristic without using exact future labels for
-   selection.
-3. Only if adaptive branching reaches the quality/work frontier, implement
-   branch-major/shared-feature flat kernels and compare accept/no-op, exact
-   recertification, affected-cone repair, warm traversal, and cold traversal.
+1. Freeze the compact selector family, group folds, feature-cost tiers,
+   no-op/safety semantics, primary budget, and kill criteria before fitting.
+2. Run development group cross-validation without exact future fields in any
+   feature, comparing always-full, compact adaptive, and explicitly timed exact
+   recertification controls at matched state work.
+3. Only if the causal rule beats always-full, commit it before reserved
+   validation; native branch lanes remain downstream of that transfer gate.
 
 ## Current blockers
 
@@ -463,6 +485,6 @@ None.
 
 ## Last updated
 
-2026-08-19, after the full-action selective-expansion semantics passed their
-invariants and the one-board pilot found real oracle mask opportunity but no
-fixed partial-mask win.
+2026-08-19, after the preregistered group-separated matrix preserved 13.61%
+primary mask/no-op opportunity across all eleven development groups, rejected
+fixed partial masks, and authorized only a separately frozen causal screen.

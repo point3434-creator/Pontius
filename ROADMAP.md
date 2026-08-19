@@ -86,10 +86,13 @@ captures 83.21% of exact headroom versus 67.64% for that regime's best fixed
 checkpoint. At 20-50 ms Kuhn2 saturates and cannot discriminate schedulers.
 Immediate phase reward is the wrong label: no boundary improves at either of
 the first two candidate checkpoints although 37/40 improve later. Current early
-features rank multi-phase gain/ms too weakly to fit honestly. The remaining C2
-gate is therefore one cached boundary-local blueprint residual/stability
-experiment followed, only if promising, by a frozen macro-option heuristic and
-fresh-regime holdout.
+features rank multi-phase gain/ms too weakly to fit honestly. Rather than fit on
+that toy workload, ADR-0021 moves the residual experiment into a full-deck
+range-sensitive river microgame. Its 128-context pilot finds normalized
+positive regret mass strongly associated with future opportunity and a
+40%-76% perfect-allocation uplift at a two-iteration budget. A 1,024-context
+development-only replication is the remaining signal gate before any
+macro-option rule is fitted or frozen.
 
 **Target:** months 2-4.
 
@@ -100,6 +103,13 @@ leaf-error injection, and tree-mutation experiments.
 and memory; provisional algorithms are selected by workload regime.
 
 ## C3: Reduced multiplayer hold'em
+
+**Status:** Started narrowly. The exact full-deck heads-up river control now
+supports joint combo ranges, card removal, correlated beliefs, configurable
+pot/stacks/bet size, and an independent normal-form equilibrium oracle. This is
+the two-player river edge of C3, not completion of reduced multiplayer play.
+Multiple bet sizes, raises, earlier streets, more players, unilateral NashConv,
+and coalition threat models remain.
 
 **Target:** months 4-6.5.
 

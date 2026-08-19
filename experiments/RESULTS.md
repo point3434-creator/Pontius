@@ -1035,3 +1035,59 @@ workload.
 `opportunity-trace-v1-development.json` under `experiments/configs/` with
 `python -m pontius.opportunity_trace`. Raw JSON remains locally generated and
 ignored.
+
+## EXP-0017: Exact range-sensitive river pilot
+
+**Date:** 2026-08-19
+
+**Status:** Pilot passes exactness and opportunity gates; no scheduler fitted.
+
+ADR-0021 replaces the next Kuhn feature fit with a full-deck heads-up river
+microgame. It has exact card removal, explicit joint combo ranges, correlated
+beliefs, and one check/bet/fold/call tree. A separate normal-form LP is the
+equilibrium teacher. The 32-board pilot contains four range families per board,
+four CFR variants, 13 checkpoints, 512 solver runs, and 6,656 causal records.
+
+Every LP teacher is independently evaluated after conversion to behavioral
+strategy. Maximum matrix duality gap is `1.24e-13`; maximum NashConv is
+`1.28e-13`. The adversarial cache test changes only 1% of root joint mass but
+changes the complete conditional opponent range at a rare shared hand and
+flips its exact response. Approximate ranges are therefore warm starts only.
+
+| Solver | Mean exploitability @ 4 | @ 16 | @ 64 |
+|---|---:|---:|---:|
+| CFR | 1.30250 | 0.31096 | 0.08251 |
+| LCFR | 0.77452 | 0.09895 | 0.01855 |
+| CFR+ | 0.63646 | 0.06048 | 0.00757 |
+| DCFR | 0.62388 | 0.06012 | 0.00587 |
+
+Iteration one records the initial uniform policy and improves no context. First
+gain arrives at checkpoint two for 119 CFR, 112 LCFR, and 106 CFR+/DCFR runs;
+all remaining runs first improve at checkpoint three or four. Mean quality
+improves with work, but individual checkpoint quality is not monotone: CFR,
+LCFR, CFR+, and DCFR regress at least once in 42, 69, 65, and 70 of 128 contexts.
+
+| Average iteration budget | CFR pooled uplift | LCFR | CFR+ | DCFR |
+|---:|---:|---:|---:|---:|
+| 2 | 40.1% | 61.4% | 74.1% | 75.6% |
+| 4 | 6.54% | 5.39% | 5.34% | 5.70% |
+| 8 | 2.29% | 2.10% | 1.64% | 2.20% |
+| 16 | 1.10% | 0.85% | 0.65% | 0.63% |
+
+The pooled oracle reallocates a fixed aggregate number of full alternating
+iterations with exact future knowledge. At budget two it gives zero iterations
+to roughly one third of contexts and spends three or four on many others. This
+is an informative speculative-compute ceiling, not a legal transfer of time
+between unrelated completed poker decisions.
+
+Normalized positive regret mass is the leading unfitted checkpoint-two feature:
+its Spearman correlation with payoff-normalized best future reduction is
+`0.923` for CFR, `0.948` for LCFR, `0.928` for CFR+, and `0.963` for DCFR. The
+association remains positive in the small generated validation/test partitions,
+but those 16-context partitions are not evidence for freezing a rule.
+
+**Verdict:** exact range sensitivity materially changes the feature picture and
+justifies a production-scale development trace. Run the committed
+`river-opportunity-development-v1.json` configuration, which constructs only
+1,024 development contexts. Do not generate reserved labels until a scheduler
+or cache rule is frozen.

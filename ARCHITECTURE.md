@@ -94,8 +94,22 @@ useful columns and response constraints often require several alternating
 cycles before the safe incumbent moves. The scheduler must therefore rank
 preemptible macro-options with intermediate cached state, rather than kill any
 job whose immediately following candidate has zero gain. Current early scalar
-features do not predict that option value well enough to fit a scheduler; a
-cached boundary-local blueprint residual/stability interface is next.
+features do not predict that option value well enough in Kuhn. ADR-0021 moves
+that interface into an exact full-deck river microgame. `river` owns cards,
+showdowns, joint combo beliefs, and the one-bet state machine;
+`river_oracle` independently solves its normal form; `river_context` creates
+board-grouped range families; and `river_opportunity` records causal regret and
+policy traces against hidden exact labels. Normalized positive regret mass is a
+promising pilot ranking feature, not yet a scheduler.
+
+River cache identity has two levels. `structural_digest` covers the public board
+and betting structure and may key immutable topology or showdown work.
+`provenance_digest` adds the entire normalized joint range and is required for
+an exact deployable strategy hit. Approximate belief matches never cross that
+boundary: they may seed a solver, but the candidate must be recomputed or
+recertified under the current joint range. Root total variation bounds only the
+value of a fixed policy and does not imply conditional-range, best-response, or
+equilibrium stability.
 
 ## Runtime target
 
@@ -103,7 +117,8 @@ The final agent will always have an immediate blueprint fallback. CPU code will
 construct and mutate trees. Stable tree epochs and neural leaf batches may run
 on the GPU. Current-decision jobs preempt speculative future work. No cached
 strategy is reused without validating its public state, belief representation,
-blueprint version, and provenance.
+blueprint version, and exact joint-range provenance. Structurally similar range
+entries are warm-start candidates, not strategy hits.
 
 ## Dependency direction
 

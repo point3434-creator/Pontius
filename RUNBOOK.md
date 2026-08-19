@@ -234,6 +234,35 @@ Exact sum-margin and all future outcomes are labels only. Treat
 cross-regime pool can move compute between different blueprint agents and is
 not a deployment interpretation. This analyzer fits no scheduler.
 
+## Exact range-sensitive river traces
+
+Run the small all-split developmental pilot with:
+
+```powershell
+& $python -m pontius.river_opportunity --config experiments/configs/river-opportunity-pilot-v1.json --output experiments/results/river-opportunity-pilot-v1.json
+```
+
+After committing any generator or feature-contract change, produce the larger
+development-only dataset with:
+
+```powershell
+& $python -m pontius.river_opportunity --config experiments/configs/river-opportunity-development-v1.json --output experiments/results/river-opportunity-development-v1.json
+```
+
+The development configuration requests 400 deterministic board groups; its
+frozen split hash materializes 256 development groups and 1,024 four-family
+contexts. Validation and test families are not constructed, solved, or written.
+The normal-form LP and exact best responses are diagnostic teachers and are
+excluded from solver timing. `online_features` must contain no exploitability,
+oracle, future, or gain field. `allocation_oracles` use solver iterations as a
+deterministic work unit and perfect future labels; they are optimistic shared
+or speculative compute ceilings, not deployable schedulers.
+
+Only an identical `provenance_digest` authorizes an exact strategy-cache hit.
+`structural_digest` authorizes topology and board-work reuse, not strategy
+deployment. Total-variation bounds in this laboratory cover one fixed policy's
+value and must not be described as equilibrium reuse certificates.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

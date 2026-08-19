@@ -206,25 +206,53 @@ Checkpoint 2: solver comparison laboratory.
 - Existing early scalar features do not justify fitting a scheduler. Their
   strongest univariate rank correlation with best future gain/ms is only about
   0.15 at boundary start, 0.11 after candidate one, and 0.11 after its pricing.
-- One hundred forty-four automated tests pass.
+- A full-deck exact river microgame now represents joint combo ranges, card
+  removal, best-five-of-seven showdowns, one fixed no-limit bet, and separate
+  structural versus full-range provenance digests.
+- Approximate range matches cannot produce deployable strategy-cache hits.
+  Exact provenance is required; same-structure results are warm starts only
+  until recertified under the current joint range. A fixed-policy TV value
+  bound is implemented but explicitly does not certify equilibrium reuse.
+- A 1% adversarial joint-range change has root TV `0.01`, conditional TV `1.0`
+  at a rare shared private hand, and flips its exact response from fold to call.
+- An independent normal-form LP recovers the analytical fixed-bet bluffing
+  equilibrium and verifies every generated teacher by behavioral NashConv.
+- The river generator groups balanced, polarized, blocker-stress, and correlated
+  ranges by board so no related variants cross development/validation/test.
+  Reserved splits can be omitted before any oracle or trace is run.
+- The 128-context pilot generated 512 solver runs and 6,656 causal records. LP
+  duality gap and behavioral NashConv stayed below `1.28e-13`.
+- The first average-strategy iteration improves nothing. First gain appears at
+  iterations two to four, and 33%-55% of solver runs regress at least once
+  between later checkpoints despite strong mean convergence.
+- DCFR has the best checkpoint-64 mean exploitability (`0.00587`), followed by
+  CFR+ (`0.00757`), LCFR (`0.01855`), and CFR (`0.08251`). Solver choice is still
+  context- and budget-dependent at the earliest checkpoints.
+- At an average two-iteration budget, a perfect pooled allocator beats fixed
+  checkpoint two by 40.1%-75.6% depending on solver. The advantage falls below
+  6% by four iterations. This is an optimistic shared-compute ceiling, not a
+  deployable scheduler.
+- Normalized positive regret mass at checkpoint two has pilot Spearman
+  correlation `0.923`-`0.963` with normalized future opportunity. No rule has
+  been fitted or frozen.
+- One hundred sixty-three automated tests pass.
 
 ## In progress
 
-- Designing a cached boundary-local blueprint residual/stability probe before
-  fitting any target-free multi-phase scheduler.
+- Running a development-only, 1,024-context exact river opportunity dataset on
+  a committed generator; validation and test boards remain unsolved.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Add a target-free, boundary-local counterfactual-regret/stability residual
-   with explicit cached and uncached cost accounting.
-2. Compare conservative multi-phase macro-option heuristics at 5 ms under
-   leave-one-blueprint-regime-out development; freeze only if one beats the
-   fixed checkpoint without oracle or regime-identity features.
-3. Evaluate the frozen rule on fresh blueprint strengths before controlled
-   frontier-value error, multiplayer relaxation, or neural targets advance.
+1. Confirm the normalized-regret opportunity signal and pooled allocation
+   ceiling on 1,024 unsolved development contexts.
+2. Add paired near-range blocker perturbations and measure exact-hit,
+   structural-only, warm-start, and recertification costs separately.
+3. Fit a conservative multi-checkpoint ranking rule on development only; freeze
+   it before generating validation or test labels.
 
 ## Current blockers
 
@@ -239,5 +267,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after causal opportunity traces exposed a useful 5 ms allocation
-ceiling but rejected myopic labels and an immediate scheduler fit.
+2026-08-19, after the exact range-sensitive river pilot exposed a large early
+allocation ceiling and a strong unfitted regret signal.

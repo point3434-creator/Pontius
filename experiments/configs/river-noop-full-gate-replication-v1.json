@@ -1,0 +1,51 @@
+{
+  "evidence_stage": "fresh_group_separated_development_replication",
+  "requested_groups": 36,
+  "seed": 20261219,
+  "hands_per_player": 4,
+  "families": ["balanced", "polarized", "blocker_stress", "correlated"],
+  "included_splits": ["development"],
+  "bet_pot_fractions": [0.25, 0.5, 0.75],
+  "raise_to_pot_fractions": [1.5, 2.0],
+  "candidate_masks": [
+    {
+      "name": "b3r1",
+      "expanded_bet_pot_fractions": [0.25, 0.5, 0.75],
+      "expanded_raise_to_pot_fractions": [1.5]
+    },
+    {
+      "name": "b3r2",
+      "expanded_bet_pot_fractions": [0.25, 0.5, 0.75],
+      "expanded_raise_to_pot_fractions": [1.5, 2.0]
+    }
+  ],
+  "blueprint_solver": "dcfr",
+  "blueprint_quality_checkpoints": [512, 1024, 2048, 4096],
+  "online_solver": "dcfr",
+  "warm_start_multiplier_by_searched_game_payoff_span": 0.1,
+  "full_tree_equivalent_iteration_budget": 32,
+  "target_names": ["blocker_reweight_p0", "blocker_reweight_p1", "factorized_likelihood_p0"],
+  "root_tv_budget": 0.01,
+  "maximum_donor_fraction": 0.75,
+  "factorized_likelihood_minimum": 0.5,
+  "factorized_likelihood_maximum": 1.5,
+  "frozen_rule": "experiments/rules/river-noop-full-gate-v1.json",
+  "frozen_rule_sha256": "27d1d9b942dfe4659eee97feaacdb9ab13636e7e6e1d2e4b6adf32dabc3d0671",
+  "discovery_source_artifact": "experiments/results/river-selective-expansion-development-v1.json",
+  "discovery_source_artifact_sha256": "7571a8a2f3c08034b53982b4ac122106fbe3d1cc7b216d3ee4ba58cf01fdd2ff",
+  "expected_selective_tree_sha256": "c4d82e667a65088cc22e3ae7708c5d650044c9030a24b9e67ff3bf8de65be0dd",
+  "expected_river_selective_sha256": "50e4a37dea2139445018852e1c13e68b15a335745b85b64c1cb7db0c9f46e7e0",
+  "expected_selective_experiment_sha256": "a8c4580516d9e848a107e1d3783717a837fef109f7852f5de5ed7f47399bc85b",
+  "gates": {
+    "minimum_development_board_groups": 20,
+    "maximum_source_normalized_nash_conv": 1e-5,
+    "aggregate_raw_reduction_strictly_beats_fixed_b3r2": true,
+    "aggregate_normalized_reduction_strictly_beats_fixed_b3r2": true,
+    "minimum_positive_raw_uplift_group_fraction": 0.6,
+    "minimum_compact_oracle_opportunity_capture_fraction": 0.15,
+    "aggregate_state_visits_not_above_fixed_b3r2": true,
+    "charged_raw_reduction_per_millisecond_strictly_beats_fixed_b3r2": true,
+    "maximum_selected_target_harm_not_above_fixed_b3r2": true,
+    "minimum_each_rule_arm_fraction": 0.1
+  }
+}

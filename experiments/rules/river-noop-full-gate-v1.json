@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "rule_id": "river-noop-full-gate-v1",
+  "status": "frozen_before_fresh_development_replication",
+  "discovery_provenance": {
+    "correction_audit": "experiments/results/river-selective-payoff-span-correction-audit-v1.json",
+    "correction_audit_sha256": "cb10f19d1833721850b9e3fb79b1fc41a66944e47f472bdd1df1e99ad1ac977b",
+    "implementation_commit": "f65edfff1b51dbe86d7be96e8fc44e79edee20e6",
+    "selected_candidate_id": "delta_only__depth_1__risk_1",
+    "revealed_development_only": true
+  },
+  "decision": {
+    "feature": "range_delta_changed_deal_fraction",
+    "operator": "<=",
+    "threshold": 0.14835164835164835,
+    "true_arm": "no_op",
+    "false_arm": "b3r2",
+    "tie_arm": "no_op"
+  },
+  "solver_regime": {
+    "online_solver": "dcfr",
+    "warm_start_multiplier_by_searched_game_payoff_span": 0.1,
+    "full_tree_equivalent_iteration_budget": 32,
+    "search_mask": "b3r2",
+    "diagnostic_oracle_mask": "b3r1"
+  },
+  "normalization": {
+    "quality": "nash_conv_reduction / searched_multi_size_game_payoff_span",
+    "searched_game_payoff_span": "pot + 2 * maximum legal amount in the 3x2 action universe",
+    "raw_quality_is_also_required": true
+  },
+  "information_boundary": {
+    "causal_before_candidate_solve": true,
+    "future_labels_forbidden": true,
+    "candidate_solver_probes_forbidden": true,
+    "target_or_family_identifiers_forbidden": true,
+    "runtime_charge": "complete boundary_feature_seconds retained conservatively from discovery"
+  },
+  "interpretation": {
+    "adaptive_width_claim": false,
+    "no_op_full_computation_gate": true,
+    "individual_action_pruning_authorized": false,
+    "fresh_replication_required": true,
+    "reserved_validation_or_test_authorized": false,
+    "native_specialization_authorized": false
+  }
+}

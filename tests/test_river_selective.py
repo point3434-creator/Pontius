@@ -11,6 +11,7 @@ from pontius.river_selective import (
     MultiSizeExpansionMask,
     complete_information_schema,
     compose_selective_policy,
+    multi_size_state_cache_key,
 )
 from pontius.selective_tree import (
     SelectiveExpansionGame,
@@ -53,6 +54,18 @@ def _mask(
 
 
 class RiverSelectiveExpansionTests(unittest.TestCase):
+    def test_compact_leaf_keys_distinguish_concrete_histories_without_game_payload(self) -> None:
+        game = _game()
+        deal = game.deals[0][0]
+        dealt = game.initial_state().apply_action(deal)
+        first = multi_size_state_cache_key(dealt.apply_action(game.bet_actions[0]))
+        second = multi_size_state_cache_key(dealt.apply_action(game.bet_actions[1]))
+
+        self.assertNotEqual(first, second)
+        self.assertNotIn(game.structural_digest, first)
+        with self.assertRaisesRegex(TypeError, "MultiSizeRiverState"):
+            multi_size_state_cache_key(object())  # type: ignore[arg-type]
+
     def test_unexpanded_actions_remain_legal_and_cut_to_exact_blueprint_values(self) -> None:
         game = _game()
         blueprint = _uniform_blueprint(game)
@@ -191,4 +204,3 @@ class RiverSelectiveExpansionTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

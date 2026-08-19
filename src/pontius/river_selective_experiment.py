@@ -26,6 +26,7 @@ from .river_selective import (
     MultiSizeExpansionMask,
     complete_information_schema,
     compose_selective_policy,
+    multi_size_state_cache_key,
 )
 from .selective_tree import (
     SelectiveExpansionGame,
@@ -505,7 +506,11 @@ def run_selective_expansion_pilot(config: dict[str, Any]) -> dict[str, Any]:
                         for value in mask_config["expanded_raise_to_pot_fractions"]
                     ),
                 )
-                leaf_values = PolicyContinuationValues(target.num_players, blueprint)
+                leaf_values = PolicyContinuationValues(
+                    target.num_players,
+                    blueprint,
+                    key=multi_size_state_cache_key,
+                )
                 selective = SelectiveExpansionGame(target, leaf_values, mask)
                 selective_states = full_tree_state_count(selective.initial_state())
                 cutoff_states = collect_selective_cutoff_states(selective)
@@ -687,7 +692,7 @@ def run_selective_expansion_pilot(config: dict[str, Any]) -> dict[str, Any]:
                 for row in target_records
             ),
             "maximum_candidate_nash_conv_harm": max(
-                -float(row["nash_conv_reduction_from_blueprint"])
+                max(0.0, -float(row["nash_conv_reduction_from_blueprint"]))
                 for row in records
             ),
             "overall_improvement_fraction": mean(

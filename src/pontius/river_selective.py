@@ -15,6 +15,19 @@ from .river_multi_size import (
 )
 
 
+def multi_size_state_cache_key(state: GameState) -> str:
+    """Return a compact concrete-history key for one fixed multi-size game.
+
+    A continuation provider is scoped to one immutable game, so repeating the
+    board, full joint range, and structural metadata in ``repr(state)`` is both
+    unnecessary and expensive on every hot leaf lookup.
+    """
+
+    if not isinstance(state, MultiSizeRiverState):
+        raise TypeError("multi-size cache keys require MultiSizeRiverState")
+    return repr((state.deal, state.history, state.terminal))
+
+
 @dataclass(frozen=True, slots=True)
 class MultiSizeExpansionMask:
     """Select bet and raise branches to expand without removing any action."""
@@ -132,4 +145,3 @@ def compose_selective_policy(
     for key, distribution in candidate.items():
         completed[key] = dict(distribution)
     return completed
-

@@ -6,6 +6,8 @@ from pontius.evaluation import (
     best_response,
     best_response_enumerated,
     collect_information_sets,
+    counterfactual_regret_profile,
+    evaluate_profile,
     expected_utilities,
 )
 from pontius.river import (
@@ -245,6 +247,28 @@ class RiverHoldemTests(unittest.TestCase):
         self.assertLessEqual(solution.nash_conv, 1e-8)
         self.assertEqual(solution.player0_pure_policies, 4)
         self.assertEqual(solution.player1_pure_policies, 2)
+
+    def test_local_counterfactual_regret_equals_nash_conv_in_this_shallow_tree(
+        self,
+    ) -> None:
+        target_hand = make_hole("Ah", "3h")
+        game = RiverHoldem.from_joint_weights(
+            board=_board(),
+            pot=10.0,
+            stacks=(20.0, 20.0),
+            bet_size=5.0,
+            joint_weights={
+                RiverDeal(make_hole("Ts", "Ks"), target_hand): 0.5,
+                RiverDeal(make_hole("4s", "5s"), target_hand): 0.5,
+            },
+        )
+        for policy in ({}, solve_river_game(game).policy):
+            evaluation = evaluate_profile(game, policy)
+            local_regret = counterfactual_regret_profile(game, policy)
+            self.assertAlmostEqual(
+                local_regret.total_positive_regret,
+                evaluation.nash_conv,
+            )
 
     def test_invalid_board_overlap_and_bet_are_rejected(self) -> None:
         overlapping = RiverDeal(make_hole("2c", "As"), make_hole("Kh", "Kd"))

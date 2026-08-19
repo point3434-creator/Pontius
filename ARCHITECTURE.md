@@ -99,8 +99,11 @@ that interface into an exact full-deck river microgame. `river` owns cards,
 showdowns, joint combo beliefs, and the one-bet state machine;
 `river_oracle` independently solves its normal form; `river_context` creates
 board-grouped range families; and `river_opportunity` records causal regret and
-policy traces against hidden exact labels. Normalized positive regret mass is a
-promising pilot ranking feature, not yet a scheduler.
+policy traces against hidden exact labels. `river_trace_analysis` compactly
+audits signal ranks and solver paths without fitting. Normalized accumulated
+positive regret is strongly predictive in 1,024 development contexts, but the
+one-decision binary tree makes a fresh local-regret profile equal NashConv.
+Sequential action is therefore the next transfer gate, not scheduler fitting.
 
 River cache identity has two levels. `structural_digest` covers the public board
 and betting structure and may key immutable topology or showdown work.

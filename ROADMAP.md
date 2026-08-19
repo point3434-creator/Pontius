@@ -90,8 +90,11 @@ features rank multi-phase gain/ms too weakly to fit honestly. Rather than fit on
 that toy workload, ADR-0021 moves the residual experiment into a full-deck
 range-sensitive river microgame. Its 128-context pilot finds normalized
 positive regret mass strongly associated with future opportunity and a
-40%-76% perfect-allocation uplift at a two-iteration budget. A 1,024-context
-development-only replication is the remaining signal gate before any
+40%-76% perfect-allocation uplift at a two-iteration budget. The 1,024-context
+development-only replication preserves both results, but also proves that
+fresh one-step counterfactual regret equals NashConv in this one-decision binary
+tree. Accumulated regret is still causal, yet this is an overly favorable
+transfer test. A sequential raise response must break that identity before any
 macro-option rule is fitted or frozen.
 
 **Target:** months 2-4.
@@ -109,7 +112,9 @@ supports joint combo ranges, card removal, correlated beliefs, configurable
 pot/stacks/bet size, and an independent normal-form equilibrium oracle. This is
 the two-player river edge of C3, not completion of reduced multiplayer play.
 Multiple bet sizes, raises, earlier streets, more players, unilateral NashConv,
-and coalition threat models remain.
+and coalition threat models remain. The immediate C3 subcheckpoint is one fixed
+raise and a final response, with small enough ranges for the normal-form LP to
+remain an independent exact teacher.
 
 **Target:** months 4-6.5.
 

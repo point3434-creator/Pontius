@@ -100,12 +100,46 @@ checkpoint two its Spearman correlation with normalized best future reduction
 is `0.923`, `0.948`, `0.928`, and `0.963` for CFR, LCFR, CFR+, and DCFR. These are
 unfitted development correlations on a synthetic microgame, not a frozen rule.
 
+## Production development trace
+
+The clean committed run contains 256 development board groups, 1,024 contexts,
+4,096 solver trajectories, and 53,248 records. No validation or test context is
+constructed. Provenance records clean commit `9e81d05`; the raw artifact SHA-256
+is `f9c94e2fda06ac2c656acec74950a1afe5152e146923dcc2265e23b4f8ae6cb2`.
+Maximum LP duality gap and behavioral NashConv are `1.09e-12`.
+
+The pilot ordering replicates. At checkpoint 64, mean exploitability is
+`0.07283` for CFR, `0.01697` for LCFR, `0.00834` for CFR+, and `0.00670` for
+DCFR. Pointwise nonmonotonicity also replicates: 31.4%, 61.5%, 56.1%, and 63.1%
+of the respective solver runs regress at least once. The final checkpoint is
+worse than an earlier checkpoint in 10.5%-22.4% of runs.
+
+On the fixed deterministic 128-context allocation sample, the perfect pooled
+uplift at average budget two is 51.1%, 64.6%, 73.8%, and 75.9%. At budget four
+the range is 8.15%-9.34%; at budget eight it is 2.19%-2.98%. The large earliest
+ceiling is partly caused by iteration one's guaranteed zero average-policy
+movement and must not be generalized to another solver output convention.
+
+Checkpoint-two normalized accumulated positive regret retains Spearman
+correlations `0.917`, `0.925`, `0.904`, and `0.943` with normalized best future
+reduction. Five board-group-preserving fold correlations range from `0.886` to
+`0.952`, so the association is not one small board subset.
+
+There is, however, a structural confound. In this binary tree each player acts
+at most once, so a freshly computed one-step positive counterfactual-regret
+profile equals exact NashConv. The trace feature is different—it is the cheap,
+variant-discounted accumulated CFR regret table—but this environment makes all
+regret-based opportunity signals unusually favorable. Tests now enforce the
+identity so it cannot be forgotten.
+
 ## Consequences
 
-The project advances to a production-scale development trace before fitting a
-scheduler. Reserved validation and test boards remain unsolved. The production
-run must confirm solver rankings, nonmonotonicity, pooled ceilings, and regret
-signal transfer across at least 1,000 exact contexts.
+The production trace passes its replication gates but does not authorize a
+learned scheduler. Fitting now would mostly learn the first-iteration artifact
+and a shallow-tree regret identity. The next exact game adds a sequential river
+raise response so at least one player acts twice; only transfer there can justify
+freezing an opportunity rule. Reserved validation and test boards remain
+unsolved.
 
 Approximate cross-range strategy cache hits are rejected by construction. Later
 cache work must separately measure exact provenance hits, structural-only reuse,

@@ -247,6 +247,7 @@ development-only dataset with:
 
 ```powershell
 & $python -m pontius.river_opportunity --config experiments/configs/river-opportunity-development-v1.json --output experiments/results/river-opportunity-development-v1.json
+& $python -m pontius.river_trace_analysis --input experiments/results/river-opportunity-development-v1.json --output experiments/results/river-opportunity-development-v1-analysis.json
 ```
 
 The development configuration requests 400 deterministic board groups; its
@@ -257,6 +258,13 @@ excluded from solver timing. `online_features` must contain no exploitability,
 oracle, future, or gain field. `allocation_oracles` use solver iterations as a
 deterministic work unit and perfect future labels; they are optimistic shared
 or speculative compute ceilings, not deployable schedulers.
+
+The compact analyzer reports group-preserving Spearman folds,
+first-improvement counts, checkpoint regressions, and teacher exactness without
+fitting a model. Its primary feature is variant-discounted accumulated positive
+regret, not a fresh exact counterfactual-regret calculation. In this one-bet
+game a fresh one-step positive-regret profile equals NashConv exactly; this is a
+known shallow-tree confound and must not be presented as transfer evidence.
 
 Only an identical `provenance_digest` authorizes an exact strategy-cache hit.
 `structural_digest` authorizes topology and board-work reuse, not strategy

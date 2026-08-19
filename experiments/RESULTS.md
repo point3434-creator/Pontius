@@ -1091,3 +1091,50 @@ justifies a production-scale development trace. Run the committed
 `river-opportunity-development-v1.json` configuration, which constructs only
 1,024 development contexts. Do not generate reserved labels until a scheduler
 or cache rule is frozen.
+
+### Production development result
+
+The production run is from clean commit `9e81d05` and contains exactly 256
+development board groups, 1,024 contexts, 4,096 solver trajectories, and 53,248
+checkpoint records. Validation and test contexts were not materialized. Its raw
+artifact SHA-256 is
+`f9c94e2fda06ac2c656acec74950a1afe5152e146923dcc2265e23b4f8ae6cb2`.
+
+| Solver | Mean exploitability @ 4 | @ 16 | @ 64 | Any regression |
+|---|---:|---:|---:|---:|
+| CFR | 1.17310 | 0.28099 | 0.07283 | 31.4% |
+| LCFR | 0.72372 | 0.09862 | 0.01697 | 61.5% |
+| CFR+ | 0.60367 | 0.05941 | 0.00834 | 56.1% |
+| DCFR | 0.59363 | 0.05881 | 0.00670 | 63.1% |
+
+DCFR remains the best mean late solver, but not a universal per-context winner:
+at checkpoint 64 it wins 528 tie-adjusted contexts, CFR+ 366, and LCFR 130.
+CFR is the most frequent checkpoint-two winner, demonstrating that early and
+late solver selection are different problems.
+
+| Average iteration budget | CFR pooled uplift | LCFR | CFR+ | DCFR |
+|---:|---:|---:|---:|---:|
+| 2 | 51.1% | 64.6% | 73.8% | 75.9% |
+| 4 | 8.27% | 8.15% | 9.19% | 9.34% |
+| 8 | 2.95% | 2.41% | 2.19% | 2.98% |
+| 16 | 1.49% | 1.25% | 0.79% | 0.82% |
+
+The allocation oracle uses a deterministic 128-context sample and exact future
+labels. The large budget-two uplift partly reallocates iteration one's guaranteed
+zero average-policy work. It is a useful architecture ceiling, not evidence that
+an online scheduler can attain those values.
+
+Normalized accumulated positive regret mass again ranks normalized best future
+reduction strongly at checkpoint two: Spearman `0.917`, `0.925`, `0.904`, and
+`0.943`. Every one of five board-group-preserving folds remains above `0.885`.
+
+This signal has an important exact-game limitation. Because each player acts at
+most once with two actions, a freshly evaluated positive counterfactual-regret
+profile equals NashConv exactly. The recorded feature is the accumulated,
+variant-discounted solver table and is causal, but the game makes regret unusually
+informative. Freezing a scheduler here would overstate transfer evidence.
+
+**Production verdict:** accept the dataset and compact analyzer, reject immediate
+scheduler fitting, and add one exact sequential raise response so a player acts
+twice. Preserve every reserved validation/test context until a rule survives that
+deeper development game.

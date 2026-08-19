@@ -235,24 +235,42 @@ Checkpoint 2: solver comparison laboratory.
 - Normalized positive regret mass at checkpoint two has pilot Spearman
   correlation `0.923`-`0.963` with normalized future opportunity. No rule has
   been fitted or frozen.
-- One hundred sixty-three automated tests pass.
+- The clean production trace confirms the pilot across 256 development boards,
+  1,024 contexts, 4,096 solver runs, and 53,248 records. No validation or test
+  board was materialized; maximum teacher NashConv is `1.09e-12`.
+- Production checkpoint-64 mean exploitability is `0.07283`, `0.01697`,
+  `0.00834`, and `0.00670` for CFR, LCFR, CFR+, and DCFR. Depending on solver,
+  31.4%-63.1% of runs regress between at least two recorded checkpoints.
+- The production pooled budget-two uplift is 51.1%-75.9% on the fixed
+  128-context allocation sample, falling to 8.15%-9.34% at budget four and
+  2.19%-2.98% at budget eight.
+- Production checkpoint-two normalized accumulated regret correlation remains
+  `0.904`-`0.943`; every board-group-preserving fold remains above `0.885`.
+- In this one-decision binary tree, freshly computed positive counterfactual
+  regret equals NashConv exactly. The recorded accumulated-regret feature is
+  causal but benefits from that structural confound, so scheduler fitting is
+  deferred until a sequential-decision game.
+- A compact analyzer reproduces first-improvement, nonmonotonicity, feature-rank,
+  exactness, and allocation diagnostics without fitting a rule.
+- One hundred sixty-seven automated tests pass.
 
 ## In progress
 
-- Running a development-only, 1,024-context exact river opportunity dataset on
-  a committed generator; validation and test boards remain unsolved.
+- Designing the smallest exact sequential river raise game that makes one
+  player act twice without making its independent normal-form teacher
+  intractable; validation and test boards remain unsolved.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Confirm the normalized-regret opportunity signal and pooled allocation
-   ceiling on 1,024 unsolved development contexts.
-2. Add paired near-range blocker perturbations and measure exact-hit,
+1. Add one fixed raise response and a final fold/call decision to the exact
+   river tree; verify the normal-form teacher on two-to-four-hand ranges.
+2. Re-run causal opportunity traces and test whether accumulated-regret ranking
+   survives after local one-step regret no longer equals complete NashConv.
+3. Add paired near-range blocker perturbations and measure exact-hit,
    structural-only, warm-start, and recertification costs separately.
-3. Fit a conservative multi-checkpoint ranking rule on development only; freeze
-   it before generating validation or test labels.
 
 ## Current blockers
 
@@ -267,5 +285,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after the exact range-sensitive river pilot exposed a large early
-allocation ceiling and a strong unfitted regret signal.
+2026-08-19, after the 1,024-context production trace replicated the regret
+signal but exposed its shallow-tree exact-regret confound.

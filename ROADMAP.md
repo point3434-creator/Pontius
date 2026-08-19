@@ -32,8 +32,10 @@ and explicit pseudo-regret warm starts are implemented; EXP-0005 rejected naïve
 unanchored shallow replacement. EXP-0006 provisionally advanced an affine
 blueprint anchor for average policies. EXP-0007 added structured, localized,
 joint-reach, counterfactual-reach, and matched-root-error controls and rejected
-joint reach as a standalone safety signal. A frozen selection rule, held-out
-multiplayer validation, tree mutation, and external-sampling gates remain.
+joint reach as a standalone safety signal. EXP-0008 rejected a frozen risk-only
+selection rule on held-out strengths, depths, and three-player Kuhn: a separate
+resolver-benefit signal is required. Benefit-gate validation, tree mutation,
+and external-sampling gates remain.
 
 **Target:** months 2-4.
 

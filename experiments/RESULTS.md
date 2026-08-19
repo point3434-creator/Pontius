@@ -345,3 +345,63 @@ yet: solver, anchor, direction, and location still interact.
 `leaf-kuhn2-depth2-correlation-calibrated-matrix.json`, and
 `leaf-kuhn2-depth2-calibrated-structure-matrix.json` under
 `experiments/configs/`. Raw result JSON remains locally generated and ignored.
+
+## EXP-0008: Frozen counterfactual-risk selector v1
+
+**Date:** 2026-08-19
+
+**Status:** Rejected by preregistered holdout.
+
+**Pre-registration:** commit `96d0489`; frozen rule SHA-256
+`c6271e3a00d44ed9777d197914f86ff08e654ad7ead90db9ff3e345d4f96208d`.
+No holdout outcome existed before that commit. The candidate was the LCFR/0.99
+average after 100 iterations. It searched only when maximum player-specific
+counterfactual root L2 was at most `2.0e-4`; otherwise it retained the
+blueprint.
+
+The rule had selected 312 of 773 deduplicated two-player development cases with
+no observed failure. Its holdouts changed blueprint strength, depth, player
+count, error targets, seeds, correlation, and location without retuning.
+
+### Preregistered gate result
+
+| Family | Cases | Searched | Harmful/tied searches | Mean selected Δ NashConv | Worst selected Δ | Unconditional-search mean Δ |
+|---|---:|---:|---:|---:|---:|---:|
+| Kuhn2 holdout | 1,440 | 788 | 434 | +3.03543e-5 | +3.66211e-3 | +9.02753e-5 |
+| Kuhn3 holdout | 480 | 208 | 104 | +4.24468e-5 | +6.42303e-4 | +1.20990e-4 |
+
+Positive delta is worse than the blueprint. V1 reduced the damage of
+unconditional search, but permanent no-op has zero delta and beat both. Its
+net improvement per reference search millisecond was negative in both
+families. The two-player matrix took 87.3 seconds; the smaller three-player
+matrix took 395.2 seconds, demonstrating the steep cost of exact multiplayer
+auditing.
+
+### Resolver regime dominates risk
+
+| Game | Blueprint iterations | Depth | Selected | Harmful/tied | Mean selected Δ NashConv |
+|---|---:|---:|---:|---:|---:|
+| Kuhn2 | 50 | 1 | 141 | 141 | +6.51914e-5 |
+| Kuhn2 | 50 | 2 | 122 | 0 | -4.25589e-4 |
+| Kuhn2 | 300 | 1 | 140 | 140 | +2.66294e-4 |
+| Kuhn2 | 300 | 2 | 122 | 0 | -2.42656e-4 |
+| Kuhn2 | 3,000 | 1 | 141 | 141 | +5.28184e-4 |
+| Kuhn2 | 3,000 | 2 | 122 | 12 | -9.29859e-6 |
+| Kuhn3 | 300 | 2 | 53 | 0 | -5.67388e-5 |
+| Kuhn3 | 300 | 3 | 51 | 0 | -1.19542e-4 |
+| Kuhn3 | 1,500 | 2 | 53 | 53 | +2.71896e-4 |
+| Kuhn3 | 1,500 | 3 | 51 | 51 | +7.41717e-5 |
+
+At the near-exact error target `1e-8`, all 360 two-player cases searched and
+180 were harmful; all 120 three-player cases searched and 60 were harmful.
+Thus better leaves cannot repair the selector. Depth-one hybrid search was
+intrinsically negative in this test, and the same anchored resolver changed
+sign with three-player blueprint strength.
+
+**Verdict:** reject risk-only authorization. Leaf uncertainty remains a useful
+veto, but search also needs a conservative benefit/headroom estimate and an
+explicit latency cost. The next mechanism test should evaluate blueprint local
+counterfactual regret, a short probe solve, and predicted depth-limited gain as
+benefit features against exact-control improvement. A v2 rule is not proposed
+until one of those signals separates the held-out regimes without using
+blueprint iteration count or full-game NashConv.

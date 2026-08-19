@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import unittest
+from json import loads
+from pathlib import Path
 
 from pontius.selection import (
     FrozenSelectionRule,
@@ -95,6 +97,19 @@ class FrozenSelectionTests(unittest.TestCase):
         document["status"] = "draft"
         with self.assertRaises(ValueError):
             FrozenSelectionRule.from_document(document)
+
+    def test_frozen_v1_document_digest_cannot_change_silently(self) -> None:
+        path = (
+            Path(__file__).parents[1]
+            / "experiments"
+            / "rules"
+            / "counterfactual-risk-v1.json"
+        )
+        document = loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(
+            rule_digest(document),
+            "c6271e3a00d44ed9777d197914f86ff08e654ad7ead90db9ff3e345d4f96208d",
+        )
 
 
 if __name__ == "__main__":

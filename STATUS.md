@@ -46,7 +46,7 @@ Checkpoint 2: solver comparison laboratory.
   update rules and never improved the blueprint.
 - A solver-level affine blueprint anchor and an independent output trust region
   now have explicit no-op and total-variation invariants. Prepared blueprints
-  are reused across matrix runs. Sixty-one automated tests pass.
+  are reused across matrix runs. Sixty-two automated tests pass.
 - EXP-0006 found that depth-two anchored average policies can improve weak,
   medium, and strong two-player blueprints. Anchored LCFR was best with exact
   leaves in the tested strong-blueprint slice; moderate noise changed the
@@ -72,11 +72,18 @@ Checkpoint 2: solver comparison laboratory.
   candidate gated at maximum player-specific counterfactual root L2 `2.0e-4`.
   Its machine-readable document, held-out seeds/configs, and kill criteria are
   frozen before any two- or three-player holdout is run.
+- EXP-0008 rejected that rule unchanged. It selected harm in 434/788 searched
+  two-player holdouts and 104/208 searched three-player holdouts; mean selected
+  NashConv deltas were `+3.03543e-5` and `+4.24468e-5`. Permanent no-op won.
+- Near-exact leaves did not rescue v1. Search harmed every depth-one two-player
+  case and both depths of the strong three-player blueprint, while improving
+  the corresponding weak-blueprint cases. Risk may veto search but cannot
+  establish positive resolver value.
 
 ## In progress
 
-- Running counterfactual-risk rule v1 unchanged on its preregistered two- and
-  three-player holdouts.
+- Measuring deployable resolver-benefit/headroom signals independently from
+  leaf-risk signals before proposing any v2 selection rule.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Distinguishing prefix-policy improvement from a complete resolver applied at
   every public state, before interpreting full-game strength.
@@ -85,8 +92,8 @@ Checkpoint 2: solver comparison laboratory.
 
 ## Next three tasks
 
-1. Freeze an uncertainty-to-anchor/no-op rule on two-player cases and falsify it
-   on three-player Kuhn, different depths, and held-out blueprint strengths.
+1. Compare blueprint local counterfactual regret, a short probe solve, and
+   predicted depth-limited gain against exact-control full-game improvement.
 2. Define and evaluate a complete small-game continual-resolving policy rather
    than only a searched prefix merged into blueprint continuation.
 3. Add heteroscedastic/time-varying errors and adversarial branch targeting;
@@ -105,4 +112,4 @@ None.
 
 ## Last updated
 
-2026-08-19, after EXP-0007 established structured reach-weighted error controls.
+2026-08-19, after EXP-0008 rejected the frozen risk-only selector.

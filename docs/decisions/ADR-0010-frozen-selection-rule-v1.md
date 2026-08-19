@@ -1,6 +1,6 @@
 # ADR-0010: Frozen counterfactual-risk selection rule v1
 
-**Status:** Frozen before holdout, 2026-08-19.
+**Status:** Rejected after frozen holdout, 2026-08-19.
 
 ## Decision
 
@@ -72,3 +72,35 @@ is proposed; v1 is never retuned in place.
 Reject v1 if it violates any preregistered advance gate. Preserve its rule file
 and digest. A successor must explain the failure using only development or
 reported holdout analysis and receive a new versioned preregistration.
+
+## Holdout verdict
+
+V1 is rejected without retuning. The two-player holdout selected 788 of 1,440
+cases, made 434 harmful or tied selections, and worsened mean NashConv by
+`3.03543e-5`. The three-player holdout selected 208 of 480 cases, made 104
+harmful or tied selections, and worsened mean NashConv by `4.24468e-5`.
+Permanent no-op beat v1 in both families. V1 reduced harm relative to
+unconditional search, but harm reduction is not strategy improvement.
+
+The failure persisted at an almost exact `1e-8` on-policy root-error target.
+Every depth-one two-player candidate was harmful. In three-player Kuhn, every
+selected candidate improved the 300-iteration blueprint, while every selected
+candidate harmed the stronger 1,500-iteration blueprint at both depths. Leaf
+risk therefore did not determine the sign of resolver value.
+
+## Consequence
+
+A successor requires two independently calibrated terms:
+
+```text
+net value lower bound
+  = resolver-benefit lower bound
+  - leaf/root-harm upper bound
+  - latency opportunity cost
+```
+
+Risk can veto search, but it cannot authorize search. The next cheapest
+experiment is to measure whether a deployable local headroom signal—blueprint
+counterfactual regret, a very short probe solve, or predicted depth-limited
+gain—separates positive and negative exact-control regimes. Blueprint training
+iterations and full-game NashConv remain forbidden selector features.

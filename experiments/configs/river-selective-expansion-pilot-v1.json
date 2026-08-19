@@ -1,0 +1,45 @@
+{
+  "groups": 3,
+  "seed": 83,
+  "hands_per_player": 4,
+  "families": ["balanced", "polarized", "blocker_stress", "correlated"],
+  "included_splits": ["development"],
+  "bet_pot_fractions": [0.25, 0.5, 0.75],
+  "raise_to_pot_fractions": [1.5, 2.0],
+  "masks": [
+    {
+      "name": "b1r1",
+      "expanded_bet_pot_fractions": [0.5],
+      "expanded_raise_to_pot_fractions": [1.5]
+    },
+    {
+      "name": "b2r1",
+      "expanded_bet_pot_fractions": [0.25, 0.5],
+      "expanded_raise_to_pot_fractions": [1.5]
+    },
+    {
+      "name": "b3r1",
+      "expanded_bet_pot_fractions": [0.25, 0.5, 0.75],
+      "expanded_raise_to_pot_fractions": [1.5]
+    },
+    {
+      "name": "b3r2",
+      "expanded_bet_pot_fractions": [0.25, 0.5, 0.75],
+      "expanded_raise_to_pot_fractions": [1.5, 2.0]
+    }
+  ],
+  "blueprint_solver": "dcfr",
+  "blueprint_iterations": 512,
+  "online_solver": "dcfr",
+  "warm_start_multipliers_by_payoff_span": [0.01, 0.1, 1.0],
+  "full_tree_equivalent_iteration_budgets": [1, 2, 4, 8, 16],
+  "target_names": [
+    "blocker_reweight_p0",
+    "blocker_reweight_p1",
+    "factorized_likelihood_p0"
+  ],
+  "root_tv_budget": 0.01,
+  "maximum_donor_fraction": 0.75,
+  "factorized_likelihood_minimum": 0.5,
+  "factorized_likelihood_maximum": 1.5
+}

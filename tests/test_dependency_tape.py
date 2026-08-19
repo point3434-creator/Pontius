@@ -5,6 +5,7 @@ from dataclasses import dataclass
 
 from pontius.cfr import TabularCFR
 from pontius.dependency_tape import (
+    CompiledPolicyDeltaTape,
     CompiledPolicyDependencyTape,
     assess_finite_policy_reuse,
 )
@@ -120,6 +121,215 @@ class _WeightedKuhn:
 
 
 class DependencyTapeTests(unittest.TestCase):
+    def test_policy_delta_modes_match_full_evaluation_and_remain_source_relative(self) -> None:
+        game = generate_river_contexts(
+            groups=1,
+            seed=83,
+            hands_per_player=4,
+            families=("polarized",),
+            splits=("development", "validation", "test"),
+            sequential_raise=True,
+        )[0].game
+        source_solver = TabularCFR(game, variant="dcfr")
+        source_solver.run(1)
+        source_policy = source_solver.average_strategy()
+        candidate_solver = TabularCFR(game, variant="dcfr")
+        candidate_solver.run(64)
+        candidate_policy = candidate_solver.average_strategy()
+        tape = CompiledPolicyDeltaTape(
+            game,
+            source_policy,
+            changed_policy_tolerance=1e-15,
+        )
+
+        full = evaluate_profile(game, candidate_policy)
+        full_actions = tuple(
+            best_response(game, candidate_policy, player)[1]
+            for player in range(game.num_players)
+        )
+        results = {
+            mode: tape.recertify_policy(candidate_policy, mode=mode)
+            for mode in ("sparse", "dense", "auto")
+        }
+        for result in results.values():
+            _assert_evaluation_equal(self, result.evaluation, full)
+            self.assertEqual(result.best_response_actions, full_actions)
+            self.assertGreater(result.diagnostics.changed_policy_entries, 0)
+            self.assertGreater(
+                result.diagnostics.changed_policy_information_sets,
+                0,
+            )
+            self.assertGreater(result.diagnostics.policy_input_entries, 0)
+        self.assertGreater(
+            results["sparse"].diagnostics.best_response_action_flips,
+            0,
+        )
+
+        repeated = tape.recertify_policy(candidate_policy, mode="sparse")
+        _assert_evaluation_equal(self, repeated.evaluation, results["dense"].evaluation)
+        self.assertEqual(repeated.best_response_actions, full_actions)
+        identity = tape.recertify_policy(tape.source_policy, mode="auto")
+        self.assertIs(identity, tape.source_result)
+        self.assertEqual(identity.diagnostics.dirty_nodes, 0)
+        self.assertTrue(tape.topology_summary()["dependencies_are_topological"])
+
+    def test_policy_and_range_delta_can_be_recertified_together(self) -> None:
+        source = generate_river_contexts(
+            groups=1,
+            seed=97,
+            hands_per_player=4,
+            families=("blocker_stress",),
+            splits=("development", "validation", "test"),
+            sequential_raise=True,
+        )[0].game
+        target, _ = make_blocker_perturbation(
+            source,
+            player=0,
+            root_tv_budget=0.01,
+            maximum_donor_fraction=0.75,
+        )
+        solver = TabularCFR(target, variant="lcfr")
+        solver.run(9)
+        candidate = solver.average_strategy()
+        tape = CompiledPolicyDeltaTape(
+            source,
+            {},
+            universe_games=(target,),
+        )
+
+        result = tape.recertify_profile(
+            target.joint_distribution(),
+            candidate,
+            mode="sparse",
+        )
+        _assert_evaluation_equal(self, result.evaluation, evaluate_profile(target, candidate))
+        self.assertGreater(result.diagnostics.changed_root_outcomes, 0)
+        self.assertGreater(result.diagnostics.changed_policy_entries, 0)
+
+    def test_policy_delta_validation_rejects_incomplete_and_invalid_profiles(self) -> None:
+        game = generate_river_contexts(
+            groups=1,
+            seed=101,
+            hands_per_player=3,
+            families=("balanced",),
+            splits=("development", "validation", "test"),
+            sequential_raise=False,
+        )[0].game
+        tape = CompiledPolicyDeltaTape(game, {})
+        source = tape.source_policy
+        first_key = next(iter(source))
+        first_actions = tuple(source[first_key])
+
+        incomplete = dict(source)
+        incomplete.pop(first_key)
+        with self.assertRaisesRegex(ValueError, "compiled information schema"):
+            tape.recertify_policy(incomplete)
+
+        unknown = {key: dict(value) for key, value in source.items()}
+        unknown["not-an-information-set"] = {"x": 1.0}
+        with self.assertRaisesRegex(ValueError, "compiled information schema"):
+            tape.recertify_policy(unknown)
+
+        for invalid, message in (
+            (-0.1, "finite and nonnegative"),
+            (float("nan"), "finite and nonnegative"),
+        ):
+            candidate = {key: dict(value) for key, value in source.items()}
+            candidate[first_key][first_actions[0]] = invalid
+            with self.assertRaisesRegex(ValueError, message):
+                tape.recertify_policy(candidate)
+
+        unnormalized = {key: dict(value) for key, value in source.items()}
+        unnormalized[first_key][first_actions[0]] += 0.1
+        with self.assertRaisesRegex(ValueError, "sum to one"):
+            tape.recertify_policy(unnormalized)
+
+    def test_policy_delta_multiplayer_matches_unilateral_best_responses(self) -> None:
+        game = KuhnPoker(3)
+        source_solver = TabularCFR(game, variant="dcfr")
+        source_solver.run(2)
+        candidate_solver = TabularCFR(game, variant="lcfr")
+        candidate_solver.run(11)
+        source = source_solver.average_strategy()
+        candidate = candidate_solver.average_strategy()
+        tape = CompiledPolicyDeltaTape(game, source)
+        result = tape.recertify_policy(candidate, mode="sparse")
+
+        _assert_evaluation_equal(self, result.evaluation, evaluate_profile(game, candidate))
+        self.assertIsNone(result.evaluation.exploitability)
+        for player in range(game.num_players):
+            value, actions = best_response(game, candidate, player)
+            self.assertAlmostEqual(result.evaluation.best_response_values[player], value)
+            self.assertEqual(result.best_response_actions[player], actions)
+
+    def test_target_players_own_policy_does_not_enter_its_best_response_value(self) -> None:
+        game = generate_river_contexts(
+            groups=1,
+            seed=103,
+            hands_per_player=3,
+            families=("balanced",),
+            splits=("development", "validation", "test"),
+            sequential_raise=True,
+        )[0].game
+        tape = CompiledPolicyDeltaTape(game, {})
+        candidate = tape.source_policy
+        player0_key = next(key for key in candidate if "|p0|" in key)
+        actions = tuple(candidate[player0_key])
+        candidate[player0_key] = {
+            action: float(index == 0) for index, action in enumerate(actions)
+        }
+        result = tape.recertify_policy(candidate, mode="sparse")
+
+        self.assertAlmostEqual(
+            result.evaluation.best_response_values[0],
+            tape.source_result.evaluation.best_response_values[0],
+            places=12,
+        )
+        self.assertNotEqual(
+            result.evaluation.utilities,
+            tape.source_result.evaluation.utilities,
+        )
+
+    def test_policy_delta_is_invariant_under_positive_payoff_scale(self) -> None:
+        base = generate_river_contexts(
+            groups=1,
+            seed=107,
+            hands_per_player=3,
+            families=("correlated",),
+            splits=("development", "validation", "test"),
+            sequential_raise=True,
+        )[0].game
+        normalized = []
+        action_flips = []
+        for scale in (0.5, 1.0, 2.0, 4.0):
+            game = RiverHoldem.from_joint_weights(
+                board=base.board,
+                pot=base.pot * scale,
+                stacks=tuple(stack * scale for stack in base.stacks),
+                bet_size=base.bet_size * scale,
+                raise_to=(None if base.raise_to is None else base.raise_to * scale),
+                joint_weights=base.joint_distribution(),
+            )
+            tape = CompiledPolicyDeltaTape(game, {})
+            candidate = tape.source_policy
+            for distribution in candidate.values():
+                actions = tuple(distribution)
+                distribution.update(
+                    {
+                        action: (0.8 if index == 0 else 0.2 / (len(actions) - 1))
+                        for index, action in enumerate(actions)
+                    }
+                )
+            result = tape.recertify_policy(candidate, mode="sparse")
+            full = evaluate_profile(game, candidate)
+            _assert_evaluation_equal(self, result.evaluation, full)
+            normalized.append(result.evaluation.nash_conv / game.payoff_span)
+            action_flips.append(result.diagnostics.best_response_action_flips)
+
+        for value in normalized[1:]:
+            self.assertAlmostEqual(value, normalized[0], places=12)
+        self.assertEqual(action_flips, [action_flips[0]] * 4)
+
     def test_generated_family_matrix_matches_both_exact_controls(self) -> None:
         comparisons = 0
         for sequential_raise in (False, True):

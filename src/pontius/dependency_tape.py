@@ -1,9 +1,11 @@
-"""Flat exact dependency tape for root-chance policy recertification.
+"""Flat exact dependency tapes for range and behavioral-policy recertification.
 
-The compiler turns an immutable extensive-form tree and one fixed policy into
-contiguous arithmetic arrays.  Root chance probabilities are the only mutable
-inputs.  Fixed-policy utilities and perfect-recall best responses are expressed
-as a topologically ordered circuit with global information-set selectors.
+The base compiler turns an immutable extensive-form tree and one fixed policy
+into contiguous arithmetic arrays whose root chance probabilities are mutable.
+``CompiledPolicyDeltaTape`` additionally materializes one mutable input per
+information-set/action probability.  Fixed-policy utilities and perfect-recall
+best responses are expressed as a topologically ordered circuit with global
+information-set selectors.
 
 This is a correctness and layout reference.  It deliberately keeps Python game
 objects in compilation only; recertification reads flat integer and Float64
@@ -58,6 +60,9 @@ class DependencyTapeDiagnostics:
     numeric_nodes: int
     dependency_edges: int
     contiguous_runtime_bytes: int
+    changed_policy_entries: int = 0
+    changed_policy_information_sets: int = 0
+    policy_input_entries: int = 0
 
 
 @dataclass(frozen=True, slots=True)
@@ -145,6 +150,15 @@ class _SelectorMetadata:
     information_key: str
     actions: tuple[Action, ...]
     node: int
+
+
+@dataclass(frozen=True, slots=True)
+class _PolicyInputMetadata:
+    player: int
+    information_key: str
+    actions: tuple[Action, ...]
+    nodes: tuple[int, ...]
+    source_probabilities: tuple[float, ...]
 
 
 def _normalized_root_distribution(game: ExtensiveFormGame) -> dict[Action, float]:
@@ -430,16 +444,30 @@ class CompiledPolicyDependencyTape:
         *,
         universe_games: Sequence[ExtensiveFormGame] = (),
         dense_threshold: float = 0.35,
+        _parameterize_policy: bool = False,
+        _changed_policy_tolerance: float = 0.0,
     ) -> None:
         if not isfinite(dense_threshold) or not 0.0 <= dense_threshold <= 1.0:
             raise ValueError("dense_threshold must be finite and between zero and one")
+        if (
+            not isfinite(_changed_policy_tolerance)
+            or _changed_policy_tolerance < 0.0
+            or _changed_policy_tolerance > _MAX_NUMERICAL_GUARD
+        ):
+            raise ValueError(
+                "changed policy tolerance must be finite and within the numerical guard"
+            )
         self._tree = _TreeCompiler(source_game, policy, tuple(universe_games))
         self._dense_threshold = dense_threshold
+        self._parameterize_policy = _parameterize_policy
+        self._changed_policy_tolerance = _changed_policy_tolerance
         builder = _TapeBuilder()
         self._root_inputs = tuple(
             builder.input(probability)
             for probability in self._tree.source_probabilities
         )
+        self._policy_inputs_by_key: dict[str, dict[Action, int]] = {}
+        self._policy_metadata = self._compile_policy_inputs(builder)
 
         fixed_cache: list[dict[int, int]] = [
             {} for _ in range(self._tree.num_players)
@@ -453,6 +481,25 @@ class CompiledPolicyDependencyTape:
             if state.player == TERMINAL_PLAYER:
                 assert state.returns is not None
                 result = builder.constant(state.returns[player])
+            elif self._parameterize_policy and state.player != CHANCE_PLAYER:
+                assert state.information_key is not None
+                inputs = self._policy_inputs_by_key[state.information_key]
+                result = builder.affine(
+                    tuple(
+                        (
+                            builder.product(
+                                inputs[action],
+                                fixed_continuation(player, child),
+                            ),
+                            1.0,
+                        )
+                        for action, child in zip(
+                            state.actions,
+                            state.children,
+                            strict=True,
+                        )
+                    )
+                )
             else:
                 result = builder.affine(
                     tuple(
@@ -486,10 +533,16 @@ class CompiledPolicyDependencyTape:
         selectors: list[_SelectorMetadata] = []
         best_response_outputs = []
         for target_player in range(self._tree.num_players):
-            output, player_selectors = self._compile_best_response(
-                builder,
-                target_player,
-            )
+            if self._parameterize_policy:
+                output, player_selectors = self._compile_parameterized_best_response(
+                    builder,
+                    target_player,
+                )
+            else:
+                output, player_selectors = self._compile_best_response(
+                    builder,
+                    target_player,
+                )
             best_response_outputs.append(output)
             selectors.extend(player_selectors)
         self._best_response_outputs = tuple(best_response_outputs)
@@ -525,8 +578,53 @@ class CompiledPolicyDependencyTape:
                 dirty=0,
                 recomputed=0,
                 action_flips=0,
+                changed_policy_entries=0,
+                changed_policy_information_sets=0,
             ),
         )
+
+    def _compile_policy_inputs(
+        self,
+        builder: _TapeBuilder,
+    ) -> tuple[_PolicyInputMetadata, ...]:
+        if not self._parameterize_policy:
+            return ()
+
+        entries: dict[
+            str,
+            tuple[int, tuple[Action, ...], tuple[float, ...]],
+        ] = {}
+        for state in self._tree.nodes:
+            if state.player in (CHANCE_PLAYER, TERMINAL_PLAYER):
+                continue
+            assert state.information_key is not None
+            candidate = (state.player, state.actions, state.probabilities)
+            previous = entries.get(state.information_key)
+            if previous is None:
+                entries[state.information_key] = candidate
+            elif previous != candidate:
+                raise ValueError(
+                    "policy input schema is inconsistent at information set "
+                    f"{state.information_key!r}"
+                )
+
+        metadata = []
+        for information_key in sorted(entries):
+            player, actions, probabilities = entries[information_key]
+            nodes = tuple(builder.input(probability) for probability in probabilities)
+            self._policy_inputs_by_key[information_key] = dict(
+                zip(actions, nodes, strict=True)
+            )
+            metadata.append(
+                _PolicyInputMetadata(
+                    player=player,
+                    information_key=information_key,
+                    actions=actions,
+                    nodes=nodes,
+                    source_probabilities=probabilities,
+                )
+            )
+        return tuple(metadata)
 
     def _compile_best_response(
         self,
@@ -656,6 +754,182 @@ class CompiledPolicyDependencyTape:
                 )
             )
         return builder.affine(tuple(root_terms)), tuple(selector_metadata)
+
+    def _compile_parameterized_best_response(
+        self,
+        builder: _TapeBuilder,
+        target_player: int,
+    ) -> tuple[int, tuple[_SelectorMetadata, ...]]:
+        """Compile a BR whose counterfactual reach follows mutable opponents.
+
+        The target player's own behavioral inputs are deliberately absent from
+        this circuit. Opponent reach and continuations share the same policy
+        input at every concrete member of an information set.
+        """
+
+        information_sets: dict[str, _InformationSet] = {}
+        reach_nodes: dict[str, list[tuple[int, int]]] = {}
+
+        def scaled_reach(reach: int, probability: float) -> int:
+            return builder.affine(((reach, probability),))
+
+        def collect(state_node: int, reach: int, player_depth: int) -> None:
+            state = self._tree.nodes[state_node]
+            if state.player == TERMINAL_PLAYER:
+                return
+            if state.player == CHANCE_PLAYER:
+                for child, probability in zip(
+                    state.children,
+                    state.probabilities,
+                    strict=True,
+                ):
+                    collect(child, scaled_reach(reach, probability), player_depth)
+                return
+
+            assert state.information_key is not None
+            if state.player == target_player:
+                entry = information_sets.get(state.information_key)
+                if entry is None:
+                    entry = _InformationSet(
+                        actions=state.actions,
+                        player_depth=player_depth,
+                        members=[],
+                    )
+                    information_sets[state.information_key] = entry
+                    reach_nodes[state.information_key] = []
+                elif (
+                    entry.actions != state.actions
+                    or entry.player_depth != player_depth
+                ):
+                    raise ValueError(
+                        "game violates action consistency or perfect recall at "
+                        f"{state.information_key!r}"
+                    )
+                # The legacy member reach is not used in this path; retaining
+                # the state list keeps the shared information-set structure.
+                entry.members.append((state_node, 1.0))
+                reach_nodes[state.information_key].append((state_node, reach))
+                for child in state.children:
+                    collect(child, reach, player_depth + 1)
+                return
+
+            policy_inputs = self._policy_inputs_by_key[state.information_key]
+            for action, child in zip(state.actions, state.children, strict=True):
+                collect(
+                    child,
+                    builder.product(reach, policy_inputs[action]),
+                    player_depth,
+                )
+
+        for outcome, root_node in enumerate(self._tree.root_nodes):
+            collect(root_node, self._root_inputs[outcome], 0)
+
+        selector_by_key: dict[str, int] = {}
+        selector_metadata: list[_SelectorMetadata] = []
+        continuation_cache: dict[int, int] = {}
+
+        def continuation(state_node: int) -> int:
+            cached = continuation_cache.get(state_node)
+            if cached is not None:
+                return cached
+            state = self._tree.nodes[state_node]
+            if state.player == TERMINAL_PLAYER:
+                assert state.returns is not None
+                result = builder.constant(state.returns[target_player])
+            elif state.player == target_player:
+                assert state.information_key is not None
+                selector = selector_by_key.get(state.information_key)
+                if selector is None:
+                    raise ValueError(
+                        "best-response dependency was not compiled bottom-up at "
+                        f"{state.information_key!r}"
+                    )
+                result = builder.select(
+                    selector,
+                    tuple(continuation(child) for child in state.children),
+                )
+            elif state.player == CHANCE_PLAYER:
+                result = builder.affine(
+                    tuple(
+                        (continuation(child), probability)
+                        for child, probability in zip(
+                            state.children,
+                            state.probabilities,
+                            strict=True,
+                        )
+                    )
+                )
+            else:
+                assert state.information_key is not None
+                policy_inputs = self._policy_inputs_by_key[state.information_key]
+                result = builder.affine(
+                    tuple(
+                        (
+                            builder.product(
+                                policy_inputs[action],
+                                continuation(child),
+                            ),
+                            1.0,
+                        )
+                        for action, child in zip(
+                            state.actions,
+                            state.children,
+                            strict=True,
+                        )
+                    )
+                )
+            continuation_cache[state_node] = result
+            return result
+
+        ordered = sorted(
+            information_sets.items(),
+            key=lambda item: (item[1].player_depth, item[0]),
+            reverse=True,
+        )
+        for information_key, entry in ordered:
+            action_values = []
+            members = reach_nodes[information_key]
+            for action_index in range(len(entry.actions)):
+                terms = []
+                for state_node, counterfactual_reach in members:
+                    state = self._tree.nodes[state_node]
+                    continuation_node = continuation(state.children[action_index])
+                    terms.append(
+                        (
+                            builder.product(
+                                counterfactual_reach,
+                                continuation_node,
+                            ),
+                            1.0,
+                        )
+                    )
+                action_values.append(builder.affine(tuple(terms)))
+            selector = builder.argmax(tuple(action_values))
+            selector_by_key[information_key] = selector
+            selector_metadata.append(
+                _SelectorMetadata(
+                    player=target_player,
+                    information_key=information_key,
+                    actions=entry.actions,
+                    node=selector,
+                )
+            )
+
+        return (
+            builder.affine(
+                tuple(
+                    (
+                        builder.product(
+                            self._root_inputs[outcome],
+                            continuation(root_node),
+                        ),
+                        1.0,
+                    )
+                    for outcome, root_node in enumerate(self._tree.root_nodes)
+                )
+            ),
+            tuple(selector_metadata),
+        )
 
     def _node_inputs(self, node: int) -> range:
         offset = self._input_offsets[node]
@@ -834,33 +1108,65 @@ class CompiledPolicyDependencyTape:
             raise ValueError("root probabilities must sum to one")
         return tuple(prepared)
 
-    def recertify(
+    def _validated_policy(
         self,
-        probabilities: Mapping[Action, float],
-        *,
-        mode: ExecutionMode = "auto",
-    ) -> DependencyTapeResult:
-        """Evaluate a target distribution from immutable source tape values."""
+        policy: Mapping[str, Mapping[Action, float]],
+    ) -> tuple[tuple[float, ...], ...]:
+        if not self._parameterize_policy:
+            raise ValueError("this tape was compiled without mutable policy inputs")
+        expected = {entry.information_key for entry in self._policy_metadata}
+        missing = expected - set(policy)
+        unknown = set(policy) - expected
+        if missing or unknown:
+            raise ValueError(
+                "policy must contain exactly the compiled information schema: "
+                f"missing={sorted(missing)!r}, unknown={sorted(unknown)!r}"
+            )
 
+        prepared = []
+        for entry in self._policy_metadata:
+            distribution = policy[entry.information_key]
+            missing_actions = set(entry.actions) - set(distribution)
+            unknown_actions = set(distribution) - set(entry.actions)
+            if missing_actions or unknown_actions:
+                raise ValueError(
+                    "policy action schema mismatch at "
+                    f"{entry.information_key!r}: missing={sorted(missing_actions, key=repr)!r}, "
+                    f"unknown={sorted(unknown_actions, key=repr)!r}"
+                )
+            values = tuple(float(distribution[action]) for action in entry.actions)
+            if any(not isfinite(value) or value < 0.0 for value in values):
+                raise ValueError(
+                    "policy probabilities must be finite and nonnegative at "
+                    f"{entry.information_key!r}"
+                )
+            if abs(fsum(values) - 1.0) > 1e-12:
+                raise ValueError(
+                    f"policy probabilities must sum to one at {entry.information_key!r}"
+                )
+            prepared.append(values)
+        return tuple(prepared)
+
+    def _recertify_changed_inputs(
+        self,
+        changed_inputs: Sequence[tuple[int, float]],
+        *,
+        mode: ExecutionMode,
+        changed_root_outcomes: int,
+        changed_policy_entries: int,
+        changed_policy_information_sets: int,
+        collect_actions: bool = True,
+    ) -> DependencyTapeResult:
         if mode not in ("auto", "sparse", "dense"):
             raise ValueError(f"unsupported execution mode {mode!r}")
-        target = self._validated_probabilities(probabilities)
-        changed = [
-            index
-            for index, (source, current) in enumerate(
-                zip(self._tree.source_probabilities, target, strict=True)
-            )
-            if source != current
-        ]
-        if not changed:
+        if not changed_inputs:
             return self._source_result
 
         self._next_epoch()
         dirty_nodes: list[int] = []
         stack = []
-        for outcome in changed:
-            node = self._root_inputs[outcome]
-            self._overlay_values[node] = target[outcome]
+        for node, value in changed_inputs:
+            self._overlay_values[node] = value
             self._value_epochs[node] = self._epoch
             if self._dirty_epochs[node] != self._epoch:
                 self._dirty_epochs[node] = self._epoch
@@ -905,21 +1211,166 @@ class CompiledPolicyDependencyTape:
             self._overlay_selections[node] = selection
             self._value_epochs[node] = self._epoch
 
-        action_flips = sum(
-            self._current_selection(metadata.node)
-            != self._base_selections[metadata.node]
-            for metadata in self._selectors
+        action_flips = (
+            sum(
+                self._current_selection(metadata.node)
+                != self._base_selections[metadata.node]
+                for metadata in self._selectors
+            )
+            if collect_actions
+            else 0
         )
         return DependencyTapeResult(
             evaluation=self._current_evaluation(),
-            best_response_actions=self._current_actions(),
+            best_response_actions=(
+                self._current_actions()
+                if collect_actions
+                else tuple({} for _ in range(self._tree.num_players))
+            ),
             diagnostics=self._diagnostics(
                 execution_mode=selected_mode,
-                changed=len(changed),
+                changed=changed_root_outcomes,
                 dirty=len(dirty_nodes),
                 recomputed=len(recompute),
                 action_flips=action_flips,
+                changed_policy_entries=changed_policy_entries,
+                changed_policy_information_sets=changed_policy_information_sets,
             ),
+        )
+
+    def recertify(
+        self,
+        probabilities: Mapping[Action, float],
+        *,
+        mode: ExecutionMode = "auto",
+    ) -> DependencyTapeResult:
+        """Evaluate a target distribution from immutable source tape values."""
+
+        target = self._validated_probabilities(probabilities)
+        changed = [
+            index
+            for index, (source, current) in enumerate(
+                zip(self._tree.source_probabilities, target, strict=True)
+            )
+            if source != current
+        ]
+        return self._recertify_changed_inputs(
+            tuple((self._root_inputs[index], target[index]) for index in changed),
+            mode=mode,
+            changed_root_outcomes=len(changed),
+            changed_policy_entries=0,
+            changed_policy_information_sets=0,
+        )
+
+    def recertify_policy(
+        self,
+        policy: Mapping[str, Mapping[Action, float]],
+        *,
+        mode: ExecutionMode = "auto",
+    ) -> DependencyTapeResult:
+        """Evaluate a complete target policy from immutable source values."""
+
+        target = self._validated_policy(policy)
+        changed_inputs = []
+        changed_information_sets = 0
+        for entry, values in zip(self._policy_metadata, target, strict=True):
+            entry_changed = False
+            for node, source, current in zip(
+                entry.nodes,
+                entry.source_probabilities,
+                values,
+                strict=True,
+            ):
+                if abs(source - current) <= self._changed_policy_tolerance:
+                    continue
+                changed_inputs.append((node, current))
+                entry_changed = True
+            changed_information_sets += entry_changed
+        return self._recertify_changed_inputs(
+            tuple(changed_inputs),
+            mode=mode,
+            changed_root_outcomes=0,
+            changed_policy_entries=len(changed_inputs),
+            changed_policy_information_sets=changed_information_sets,
+        )
+
+    def evaluate_policy(
+        self,
+        policy: Mapping[str, Mapping[Action, float]],
+        *,
+        mode: ExecutionMode = "auto",
+    ) -> EvaluationResult:
+        """Evaluate a policy without materializing best-response action maps."""
+
+        target = self._validated_policy(policy)
+        changed_inputs = []
+        changed_information_sets = 0
+        for entry, values in zip(self._policy_metadata, target, strict=True):
+            entry_changed = False
+            for node, source, current in zip(
+                entry.nodes,
+                entry.source_probabilities,
+                values,
+                strict=True,
+            ):
+                if abs(source - current) <= self._changed_policy_tolerance:
+                    continue
+                changed_inputs.append((node, current))
+                entry_changed = True
+            changed_information_sets += entry_changed
+        return self._recertify_changed_inputs(
+            tuple(changed_inputs),
+            mode=mode,
+            changed_root_outcomes=0,
+            changed_policy_entries=len(changed_inputs),
+            changed_policy_information_sets=changed_information_sets,
+            collect_actions=False,
+        ).evaluation
+
+    def recertify_profile(
+        self,
+        probabilities: Mapping[Action, float],
+        policy: Mapping[str, Mapping[Action, float]],
+        *,
+        mode: ExecutionMode = "auto",
+    ) -> DependencyTapeResult:
+        """Evaluate simultaneous root-range and behavioral-policy changes."""
+
+        target_probabilities = self._validated_probabilities(probabilities)
+        target_policy = self._validated_policy(policy)
+        changed_inputs: list[tuple[int, float]] = []
+        changed_roots = 0
+        for node, source, current in zip(
+            self._root_inputs,
+            self._tree.source_probabilities,
+            target_probabilities,
+            strict=True,
+        ):
+            if source != current:
+                changed_inputs.append((node, current))
+                changed_roots += 1
+        changed_policy_entries = 0
+        changed_information_sets = 0
+        for entry, values in zip(self._policy_metadata, target_policy, strict=True):
+            entry_changed = False
+            for node, source, current in zip(
+                entry.nodes,
+                entry.source_probabilities,
+                values,
+                strict=True,
+            ):
+                if abs(source - current) <= self._changed_policy_tolerance:
+                    continue
+                changed_inputs.append((node, current))
+                changed_policy_entries += 1
+                entry_changed = True
+            changed_information_sets += entry_changed
+        return self._recertify_changed_inputs(
+            tuple(changed_inputs),
+            mode=mode,
+            changed_root_outcomes=changed_roots,
+            changed_policy_entries=changed_policy_entries,
+            changed_policy_information_sets=changed_information_sets,
         )
 
     def recertify_game(
@@ -939,6 +1390,8 @@ class CompiledPolicyDependencyTape:
         dirty: int,
         recomputed: int,
         action_flips: int,
+        changed_policy_entries: int,
+        changed_policy_information_sets: int,
     ) -> DependencyTapeDiagnostics:
         return DependencyTapeDiagnostics(
             execution_mode=execution_mode,
@@ -951,6 +1404,11 @@ class CompiledPolicyDependencyTape:
             numeric_nodes=len(self._kinds),
             dependency_edges=len(self._edge_inputs),
             contiguous_runtime_bytes=self.contiguous_runtime_bytes,
+            changed_policy_entries=changed_policy_entries,
+            changed_policy_information_sets=changed_policy_information_sets,
+            policy_input_entries=sum(
+                len(entry.nodes) for entry in self._policy_metadata
+            ),
         )
 
     @property
@@ -960,6 +1418,22 @@ class CompiledPolicyDependencyTape:
     @property
     def root_outcomes(self) -> tuple[Action, ...]:
         return tuple(self._tree.outcomes)
+
+    @property
+    def policy_input_schema(self) -> dict[str, tuple[Action, ...]]:
+        return {
+            entry.information_key: entry.actions
+            for entry in self._policy_metadata
+        }
+
+    @property
+    def source_policy(self) -> Policy:
+        return {
+            entry.information_key: dict(
+                zip(entry.actions, entry.source_probabilities, strict=True)
+            )
+            for entry in self._policy_metadata
+        }
 
     @property
     def node_kinds(self) -> memoryview:
@@ -1003,6 +1477,10 @@ class CompiledPolicyDependencyTape:
         }
         return {
             "root_outcomes": len(self._tree.outcomes),
+            "policy_information_sets": len(self._policy_metadata),
+            "policy_input_entries": sum(
+                len(entry.nodes) for entry in self._policy_metadata
+            ),
             "compiled_tree_states": len(self._tree.nodes),
             "numeric_nodes": len(self._kinds),
             "dependency_edges": len(self._edge_inputs),
@@ -1015,3 +1493,31 @@ class CompiledPolicyDependencyTape:
                 for edge in self._node_inputs(node)
             ),
         }
+
+
+class CompiledPolicyDeltaTape(CompiledPolicyDependencyTape):
+    """Exact source-relative tape with mutable range and policy inputs.
+
+    ``recertify_policy`` is the primary policy-delta entry point.
+    ``recertify_profile`` can change both root probabilities and policy in one
+    source-relative epoch. The original ``recertify`` and ``recertify_game``
+    methods remain available for range-only controls.
+    """
+
+    def __init__(
+        self,
+        source_game: ExtensiveFormGame,
+        policy: Policy,
+        *,
+        universe_games: Sequence[ExtensiveFormGame] = (),
+        dense_threshold: float = 0.35,
+        changed_policy_tolerance: float = 0.0,
+    ) -> None:
+        super().__init__(
+            source_game,
+            policy,
+            universe_games=universe_games,
+            dense_threshold=dense_threshold,
+            _parameterize_policy=True,
+            _changed_policy_tolerance=changed_policy_tolerance,
+        )

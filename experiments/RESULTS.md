@@ -85,3 +85,45 @@ toy game but already too costly for frequent training reports. The growth is a
 design constraint for checkpoint C2: evaluation cadence must be decoupled from
 solver iterations, and later games require restricted or incremental deviation
 evaluators.
+
+## EXP-0004: Four CFR update rules
+
+**Date:** 2026-08-18
+
+**Status:** Observed; fixed exact games with exact leaves and cold starts.
+
+All variants use the same alternating full-tree traversal. CFR+ means RM+ with
+quadratic averaging. DCFR means DCFR(1.5, 0, 2). Times are sequential solver
+time and exclude exact evaluation.
+
+### Two-player Kuhn, 20,000 iterations
+
+| Solver | Seconds | NashConv at 2,000 | NashConv at 20,000 |
+|---|---:|---:|---:|
+| CFR | 6.188 | 1.07849e-3 | 1.44267e-4 |
+| LCFR | 6.255 | **9.04947e-5** | **8.59435e-6** |
+| CFR+ | 6.162 | 1.47866e-4 | 8.78964e-6 |
+| DCFR | 6.180 | 1.83883e-4 | 2.36942e-5 |
+
+LCFR and CFR+ are effectively tied at the final budget, with LCFR slightly
+ahead in this run. Default DCFR does not win this game.
+
+### Three-player Kuhn, 5,000 iterations
+
+| Solver | Seconds | NashConv at 500 | NashConv at 1,000 | NashConv at 5,000 |
+|---|---:|---:|---:|---:|
+| CFR | 25.557 | 7.24304e-3 | 3.92234e-3 | 7.79538e-4 |
+| LCFR | 25.626 | 3.78356e-4 | 1.50018e-4 | 1.23000e-5 |
+| CFR+ | 26.013 | **1.36123e-5** | **6.49495e-6** | 1.22307e-6 |
+| DCFR | 25.401 | 1.86172e-4 | 2.15893e-5 | **2.55287e-7** |
+
+CFR+ is decisively best at the shortest measured budgets. DCFR overtakes it
+between 1,000 and 2,500 iterations and finishes about 4.8 times below CFR+ and
+48 times below LCFR. Current strategies remain less stable than averages, but
+DCFR also has the best final current-policy NashConv (`2.47e-4`).
+
+**Conclusion:** there is no justified global solver choice. CFR+ advances as
+the short-budget control and DCFR as the longer-budget three-player control.
+LCFR remains the Pluribus-style sampled/pruning candidate. The next experiments
+must add warm starts, leaf perturbations, and tree changes before choosing an
+online update rule.

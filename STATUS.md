@@ -30,20 +30,28 @@ Checkpoint 2: solver comparison laboratory.
   multiplayer convergence.
 - Uniform-profile exact evaluation took approximately 0.001, 0.014, 0.249,
   4.940, and 106.623 seconds for two through six players respectively.
+- CFR+, with RM+ and quadratic averaging, and default DCFR(1.5, 0, 2) now share
+  the same buffered-regret traversal as CFR and LCFR. Twenty-nine automated
+  tests pass.
+- EXP-0004 found CFR+ strongest at 500-1,000 three-player iterations and DCFR
+  strongest at 5,000. LCFR and CFR+ were effectively tied at 20,000 two-player
+  iterations. Solver selection is therefore budget- and regime-dependent.
 
 ## In progress
 
-- Adding CFR+ and DCFR through the existing update interface.
 - Designing controlled leaf-value perturbations and tree-mutation experiments.
+- Adding explicit blueprint warm starts without smuggling arbitrary confidence
+  into initial regrets.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Refactor regret weighting into explicit update policies for CFR+, DCFR, and
-   future predictive variants.
-2. Compare CFR, LCFR, CFR+, and DCFR under equal iterations and wall time.
-3. Add the first controlled leaf-error and warm-start experiments.
+1. Add deterministic terminal/leaf perturbation wrappers with known error
+   magnitude and location.
+2. Compare all four update rules under exact, noisy, biased, and changing leaf
+   values.
+3. Add an explicit blueprint policy prior and measure warm-start sensitivity.
 
 ## Current blockers
 

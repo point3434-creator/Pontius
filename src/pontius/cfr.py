@@ -4,12 +4,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from math import prod
-from typing import Callable, Literal, TypeAlias
+from typing import Callable
 
 from .evaluation import Policy
 from .game import Action, CHANCE_PLAYER, TERMINAL_PLAYER, ExtensiveFormGame, GameState
-
-SolverVariant: TypeAlias = Literal["cfr", "lcfr"]
+from .updates import SolverVariant, update_rule
 
 
 @dataclass(slots=True)
@@ -36,10 +35,9 @@ class TabularCFR:
     """
 
     def __init__(self, game: ExtensiveFormGame, variant: SolverVariant = "cfr") -> None:
-        if variant not in {"cfr", "lcfr"}:
-            raise ValueError(f"unsupported CFR variant: {variant!r}")
         self.game = game
-        self.variant = variant
+        self.update_rule = update_rule(variant)
+        self.variant = self.update_rule.name
         self.iteration = 0
         self.information_sets: dict[str, InformationSetData] = {}
 
@@ -61,9 +59,6 @@ class TabularCFR:
             return {action: probability for action in data.actions}
         return {action: positive[action] / total for action in data.actions}
 
-    def _weight(self) -> float:
-        return float(self.iteration) if self.variant == "lcfr" else 1.0
-
     def step(self) -> None:
         """Run one alternating update for every player."""
 
@@ -71,6 +66,7 @@ class TabularCFR:
         for traverser in range(self.game.num_players):
             strategy_cache: dict[str, dict[Action, float]] = {}
             average_seen: set[str] = set()
+            regret_deltas: dict[str, dict[Action, float]] = {}
             self._traverse(
                 self.game.initial_state(),
                 traverser,
@@ -78,7 +74,29 @@ class TabularCFR:
                 chance_reach=1.0,
                 strategy_cache=strategy_cache,
                 average_seen=average_seen,
+                regret_deltas=regret_deltas,
             )
+            self._apply_regret_deltas(regret_deltas)
+        self._discount_accumulators()
+
+    def _apply_regret_deltas(
+        self,
+        regret_deltas: dict[str, dict[Action, float]],
+    ) -> None:
+        for key, action_deltas in regret_deltas.items():
+            data = self.information_sets[key]
+            for action, delta in action_deltas.items():
+                data.regrets[action] = self.update_rule.add_regret(data.regrets[action], delta)
+
+    def _discount_accumulators(self) -> None:
+        for data in self.information_sets.values():
+            for action in data.actions:
+                data.regrets[action] = self.update_rule.discount_regret(
+                    data.regrets[action], self.iteration
+                )
+                data.strategy_sum[action] = self.update_rule.discount_strategy(
+                    data.strategy_sum[action], self.iteration
+                )
 
     def run(
         self,
@@ -100,6 +118,7 @@ class TabularCFR:
         chance_reach: float,
         strategy_cache: dict[str, dict[Action, float]],
         average_seen: set[str],
+        regret_deltas: dict[str, dict[Action, float]],
     ) -> float:
         player = state.current_player
         if player == TERMINAL_PLAYER:
@@ -118,6 +137,7 @@ class TabularCFR:
                     chance_reach * probability,
                     strategy_cache,
                     average_seen,
+                    regret_deltas,
                 )
             return value
 
@@ -128,7 +148,7 @@ class TabularCFR:
 
         if player == traverser and key not in average_seen:
             average_seen.add(key)
-            strategy_weight = self._weight() * reach[player]
+            strategy_weight = reach[player]
             for action in actions:
                 data.strategy_sum[action] += strategy_weight * strategy[action]
 
@@ -144,6 +164,7 @@ class TabularCFR:
                 chance_reach,
                 strategy_cache,
                 average_seen,
+                regret_deltas,
             )
             action_values[action] = action_value
             node_value += strategy[action] * action_value
@@ -154,9 +175,13 @@ class TabularCFR:
                 for opponent in range(self.game.num_players)
                 if opponent != traverser
             )
-            regret_weight = self._weight() * counterfactual_reach
+            action_deltas = regret_deltas.setdefault(
+                key, {action: 0.0 for action in actions}
+            )
             for action in actions:
-                data.regrets[action] += regret_weight * (action_values[action] - node_value)
+                action_deltas[action] += counterfactual_reach * (
+                    action_values[action] - node_value
+                )
 
         return node_value
 
@@ -177,4 +202,3 @@ class TabularCFR:
                     action: data.strategy_sum[action] / total for action in data.actions
                 }
         return policy
-

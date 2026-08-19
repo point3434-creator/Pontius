@@ -25,6 +25,29 @@ class CFRTests(unittest.TestCase):
         self.assertAlmostEqual(evaluation.utilities[0], -1.0 / 18.0, delta=0.01)
         self.assertLess(evaluation.nash_conv, 0.04)
 
+    def test_cfr_plus_approaches_kuhn_value(self) -> None:
+        game = KuhnPoker()
+        solver = TabularCFR(game, "cfr_plus")
+        solver.run(5_000)
+        evaluation = evaluate_profile(game, solver.average_strategy())
+        self.assertAlmostEqual(evaluation.utilities[0], -1.0 / 18.0, delta=0.01)
+        self.assertLess(evaluation.nash_conv, 0.04)
+        self.assertTrue(
+            all(
+                regret >= 0.0
+                for data in solver.information_sets.values()
+                for regret in data.regrets.values()
+            )
+        )
+
+    def test_dcfr_approaches_kuhn_value(self) -> None:
+        game = KuhnPoker()
+        solver = TabularCFR(game, "dcfr")
+        solver.run(5_000)
+        evaluation = evaluate_profile(game, solver.average_strategy())
+        self.assertAlmostEqual(evaluation.utilities[0], -1.0 / 18.0, delta=0.01)
+        self.assertLess(evaluation.nash_conv, 0.04)
+
     def test_unknown_variant_is_rejected(self) -> None:
         with self.assertRaises(ValueError):
             TabularCFR(KuhnPoker(), "not-cfr")  # type: ignore[arg-type]

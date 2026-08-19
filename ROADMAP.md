@@ -26,6 +26,10 @@ reproducible from configuration and code revision.
 
 ## C2: Solver comparison laboratory
 
+**Status:** In progress. CFR, LCFR, CFR+, and DCFR share one traversal and the
+initial exact-leaf comparison is recorded in EXP-0004. Leaf perturbation, tree
+mutation, warm-start, and external-sampling gates remain.
+
 **Target:** months 2-4.
 
 **Build:** CFR+, DCFR, external-sampling MCCFR, current/average/snapshot output,

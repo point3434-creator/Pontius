@@ -57,7 +57,7 @@ def run_experiment(config: dict[str, Any]) -> dict[str, Any]:
     num_players = int(game_name[4:])
     if not 2 <= num_players <= 6:
         raise ValueError(f"unsupported game {game_name!r}")
-    if solver_name not in {"cfr", "lcfr"}:
+    if solver_name not in {"cfr", "lcfr", "cfr_plus", "dcfr"}:
         raise ValueError(f"unsupported solver {solver_name!r}")
     if iterations <= 0 or report_every <= 0:
         raise ValueError("iterations and report_every must be positive")
@@ -137,7 +137,7 @@ def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, help="JSON configuration file")
     parser.add_argument("--game", choices=[f"kuhn{players}" for players in range(2, 7)])
-    parser.add_argument("--solver", choices=["cfr", "lcfr"])
+    parser.add_argument("--solver", choices=["cfr", "lcfr", "cfr_plus", "dcfr"])
     parser.add_argument("--iterations", type=int)
     parser.add_argument("--report-every", type=int)
     parser.add_argument("--seed", type=int)

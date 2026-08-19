@@ -113,8 +113,14 @@ of perfect post-probe uplift, and improve conservatively charged reduction/ms
 by 2.33%. A CFR+ shadow accumulator is traversal-free and predicts raw future
 efficiency slightly better, but is nearly redundant with active regret and
 loses after cost. ADR-0024 freezes the simpler active-regret top/bottom 12.5%
-checkpoint-two/six allocator. Reserved evidence is still absent; validation is
-the next C2 gate and test remains sealed unless validation passes unchanged.
+checkpoint-two/six allocator. The selection-free validation and subsequent
+sealed test both pass unchanged. Test capture is 35.16% of perfect post-probe
+uplift, charged reduction/ms improves 2.50%, and every board-group fold strictly
+improves final exploitability without exceeding fixed work. ADR-0028 accepts
+the rule as an exact sequential-river control, not a wider-tree or multiplayer
+scheduler. Neural scheduling remains deferred until a richer workload proves
+that its attainable value exceeds this transparent baseline by enough to pay
+for inference and training complexity.
 
 **Target:** months 2-4.
 
@@ -132,8 +138,10 @@ pot/stacks/bet size, one fixed legal raise and final response, and an independen
 normal-form equilibrium oracle. This is the two-player river edge of C3, not
 completion of reduced multiplayer play. Multiple bet and raise sizes,
 re-raises, earlier streets, more players, unilateral NashConv, and coalition
-threat models remain. The next C3 subcheckpoint measures paired blocker-sensitive
-range warm starts and recertification before expanding the action tree again.
+threat models remain. Its frozen post-probe allocator has passed reserved
+board/range transfer and is now the compute-allocation control. The next C3
+subcheckpoint measures paired blocker-sensitive range warm starts and mandatory
+current-range recertification before expanding the action tree again.
 
 **Target:** months 4-6.5.
 

@@ -126,6 +126,15 @@ deterministic state visits; fixed checkpoint-four DCFR remains the no-feature
 fallback. This is a speculative-job allocation interface, not permission to
 transfer compute between unrelated completed poker decisions.
 
+`river_scheduler_holdout` is the reserved-evidence boundary. It accepts one
+hard-hashed rule, performs no candidate selection, ranks and balances work
+independently inside board-group folds, and charges the separately timed regret
+summary plus allocation. A passing validation artifact with the identical rule
+hash is required before test evaluation. The frozen rule passed both stages;
+its sealed-test charged reduction/ms advantage is 2.499%. It is therefore the
+control for richer search experiments, while fixed checkpoint-four remains the
+fallback outside this exact sequential-river workload.
+
 River cache identity has two levels. `structural_digest` covers the public board
 and betting structure and may key immutable topology or showdown work.
 `provenance_digest` adds the entire normalized joint range and is required for

@@ -330,6 +330,16 @@ selection. Only when the validation artifact says
 & $python -m pontius.river_scheduler_holdout --source experiments/results/river-opportunity-sequential-test-v1.json --rule experiments/rules/river-post-probe-scheduler-v1.json --split test --validation-result experiments/results/river-opportunity-sequential-validation-v1-scheduler-holdout.json --output experiments/results/river-opportunity-sequential-test-v1-scheduler-holdout.json
 ```
 
+The recorded one-time validation and test both pass. Their trace/result
+SHA-256 pairs are respectively
+`315637393122ef2c47a7d3fddd3000e62d1e66b5adbf138e2a1ac5e92338eae8` /
+`5e32a455a394b98dc8ca54ad6d849263ca0899f78900b01deda4051719a30223`
+and
+`a0e51f653987a1fa6f532ae9e56ea5013823e9a961fd6c0525392a775b53ac2e` /
+`47fea9294ff28f37a0dc2e41706267d3fb25f379a01943c575448f36a0221c89`.
+Re-running the commands is a reproducibility check, not a new untouched test.
+ADR-0028 is the durable verdict.
+
 Only an identical `provenance_digest` authorizes an exact strategy-cache hit.
 `structural_digest` authorizes topology and board-work reuse, not strategy
 deployment. Total-variation bounds in this laboratory cover one fixed policy's

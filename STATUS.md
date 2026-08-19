@@ -296,24 +296,45 @@ Checkpoint 2: solver comparison laboratory.
 - ADR-0024 and `river-post-probe-scheduler-v1` freeze that active-only rule
   before any reserved board is constructed. This is a development result, not
   a transfer claim.
-- One hundred eighty-nine automated tests pass.
+- A selection-free holdout evaluator now hard-checks the frozen rule hash,
+  charges an independently timed one-pass active-regret summary, applies the
+  rule within five disjoint board-group folds, and prevents test evaluation
+  unless the unchanged validation verdict passes.
+- A bounded packing-simplex fast path plus verified two-phase fallback solves
+  every reserved exact matrix teacher. The validation teacher-only audit covers
+  all 296 contexts; 295 use packing and one uses fallback, with maximum duality
+  gap and behavioral NashConv `8.65e-11`.
+- The frozen scheduler passes validation without selection or retuning. Across
+  74 unseen groups and 296 contexts, every fold improves fixed checkpoint-four
+  DCFR; aggregate perfect-uplift capture is 42.484% and charged reduction/ms
+  improves 2.630%.
+- Commit `c38fa4b` records that validation pass before test construction. The
+  then-opened sealed test also passes unchanged across 70 groups and 280
+  contexts: every fold improves, aggregate capture is 35.156%, and charged
+  reduction/ms improves 2.499%.
+- Test fold-local final exploitability is 263.548 versus 301.273 fixed, a
+  12.522% decrease, while using 1,118 versus 1,120 iterations and 252,412
+  versus 253,120 deterministic state visits. This is exact heads-up river
+  transfer, not a six-player claim.
+- One hundred ninety-eight automated tests pass.
 
 ## In progress
 
-- Preparing the fixed-rule validation evaluator and validation-only sequential
-  river trace; validation and test boards remain unconstructed.
-- Extending the structured protocol to heteroscedastic and time-varying errors.
-- Reducing evaluation overhead through configurable cadence and future
-  restricted responders.
+- Freezing the paired blocker-sensitive range-reuse and recertification
+  measurement protocol before inspecting its outcomes.
+- Keeping the passed transparent scheduler as the control rather than fitting a
+  neural scheduler to a narrow exact-river effect.
+- Preparing the next branch-factor gate: wider legal river actions after range
+  reuse semantics and costs are measured.
 
 ## Next three tasks
 
-1. Implement and commit a fixed-rule reserved evaluator that cannot select or
-   retune candidates.
-2. Generate validation only and apply `river-post-probe-scheduler-v1` once;
-   construct test only if every frozen validation gate passes.
-3. Add paired near-range blocker perturbations and measure exact-hit,
-   structural-only, warm-start, and recertification costs separately.
+1. Preregister paired near-range blocker perturbations and the exact-hit,
+   structural-only, cold-start, warm-start, and recertification measurements.
+2. Implement range-conditioned warm starts with mandatory current-range exact
+   recertification; reject approximate strategy-cache hits mechanically.
+3. Add multiple legal bet/raise sizes and test whether adaptive tree width plus
+   the frozen scheduler beats a matched fixed abstraction on held-out ranges.
 
 ## Current blockers
 
@@ -328,5 +349,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after the transparent development screen passed and froze an
-active-regret checkpoint-two/four/six scheduler before reserved evaluation.
+2026-08-19, after the unchanged active-regret checkpoint-two/four/six scheduler
+passed both selection-free validation and the final sealed exact-river test.

@@ -1285,3 +1285,57 @@ gate fails; do not inspect test after a validation failure.
 `python -m pontius.river_scheduler_screen` exactly as recorded in `RUNBOOK.md`.
 Generated JSON remains ignored; its digests are frozen in
 `river-post-probe-scheduler-v1.json`.
+
+## EXP-0020: Frozen river scheduler reserved transfer
+
+**Date:** 2026-08-19
+
+**Status:** Validation and sealed test pass; the rule is accepted only as an
+exact heads-up sequential-river control.
+
+Commit `68eecc8` froze the selection-free evaluator, exact feature timing,
+reserved configurations, and a hard check of the production rule SHA-256. The
+evaluator exposes no alternative candidate or threshold. Commit `c38fa4b`
+records the passing validation result before the test trace existed, and
+ADR-0028 records the final untouched test.
+
+| Split | Groups | Contexts | Raw uplift | Perfect-uplift capture | Charged rate uplift |
+|---|---:|---:|---:|---:|---:|
+| Validation | 74 | 296 | 39.468 | 42.484% | 2.630% |
+| Test | 70 | 280 | 37.724 | 35.156% | 2.499% |
+
+The validation and test figures are the aggregate of five disjoint
+board-group folds, with the same fixed active-regret/shallow-12.5% allocator
+applied independently in each fold. Every fold in both splits strictly improves
+raw final exploitability and stays within the fixed iteration and deterministic
+state-work budgets. Every aggregate gate passes without retuning.
+
+On test, fold-local final exploitability is 263.548 versus 301.273 for fixed
+checkpoint-four DCFR, a 12.522% decrease. The adaptive rule uses 1,118 versus
+1,120 iterations and 252,412 versus 253,120 state visits. Charged time is
+1,080.888 ms versus 1,082.006 ms, including 2.453 ms for the checkpoint-two
+active-regret summary and 0.403 ms for the scheduling decision. Charged
+reduction per millisecond is `1.49319` versus `1.45678`.
+
+The validation trace/result SHA-256 digests are
+`315637393122ef2c47a7d3fddd3000e62d1e66b5adbf138e2a1ac5e92338eae8`
+and
+`5e32a455a394b98dc8ca54ad6d849263ca0899f78900b01deda4051719a30223`.
+The test trace/result digests are
+`a0e51f653987a1fa6f532ae9e56ea5013823e9a961fd6c0525392a775b53ac2e`
+and
+`47fea9294ff28f37a0dc2e41706267d3fb25f379a01943c575448f36a0221c89`.
+Maximum test teacher duality gap and behavioral NashConv are both below
+`9.43e-12`.
+
+**Verdict:** the small transparent allocator has demonstrated reserved
+board/range transfer in the tested exact microgame and becomes the adaptive
+compute baseline. It is not evidence of six-player, wider-action, earlier-
+street, neural-leaf, or live asynchronous transfer. Do not spend the next
+milestone fitting a neural scheduler to this narrow 2.5% effect; first measure
+blocker-sensitive range warm starts and exact recertification, then make the
+frozen rule defend its advantage as branching and player count increase.
+
+**Reproduction:** use the validation-then-test commands and guard described in
+`RUNBOOK.md`. Generated JSON remains ignored; the digests above are the durable
+evidence identifiers.

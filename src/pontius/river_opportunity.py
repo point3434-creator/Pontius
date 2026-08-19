@@ -338,10 +338,14 @@ def _summarize_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
 def _pooled_iteration_oracle(
     runs: list[list[dict[str, Any]]],
     average_budget: int,
+    *,
+    minimum_checkpoint: int = 0,
 ) -> dict[str, Any]:
     """Exact multiple-choice allocation using iterations as deterministic cost."""
 
-    total_budget = average_budget * len(runs)
+    if minimum_checkpoint < 0 or average_budget < minimum_checkpoint:
+        raise ValueError("minimum checkpoint must fit within the average budget")
+    total_budget = (average_budget - minimum_checkpoint) * len(runs)
     negative_infinity = float("-inf")
     values = [negative_infinity] * (total_budget + 1)
     values[0] = 0.0
@@ -352,40 +356,49 @@ def _pooled_iteration_oracle(
     fixed_checkpoint = max(
         row["checkpoint"]
         for row in runs[0]
-        if row["checkpoint"] <= average_budget
+        if minimum_checkpoint <= row["checkpoint"] <= average_budget
     )
 
     for run_index, rows in enumerate(runs):
         start = float(rows[0]["labels"]["exploitability"])
         raw_options = [
             (
+                int(row["checkpoint"]) - minimum_checkpoint,
                 int(row["checkpoint"]),
                 start - float(row["labels"]["exploitability"]),
             )
             for row in rows
+            if int(row["checkpoint"]) >= minimum_checkpoint
         ]
-        maximum_available += max(gain for _, gain in raw_options)
+        if not raw_options or raw_options[0][1] != minimum_checkpoint:
+            raise ValueError("every allocation run must contain the minimum checkpoint")
+        maximum_available += max(gain for _, _, gain in raw_options)
         fixed_total += next(
-            gain for checkpoint, gain in raw_options if checkpoint == fixed_checkpoint
+            gain
+            for _, checkpoint, gain in raw_options
+            if checkpoint == fixed_checkpoint
         )
         independent_total += max(
-            gain for checkpoint, gain in raw_options if checkpoint <= average_budget
+            gain
+            for _, checkpoint, gain in raw_options
+            if checkpoint <= average_budget
         )
 
         options = []
         best_gain = negative_infinity
-        for checkpoint, gain in raw_options:
+        for cost, checkpoint, gain in raw_options:
             if gain > best_gain + TOLERANCE:
-                options.append((checkpoint, gain))
+                options.append((cost, checkpoint, gain))
                 best_gain = gain
         next_values = [negative_infinity] * (total_budget + 1)
         selected = bytearray([255]) * (total_budget + 1)
-        previous_limit = min(total_budget, run_index * rows[-1]["checkpoint"])
+        maximum_cost = int(rows[-1]["checkpoint"]) - minimum_checkpoint
+        previous_limit = min(total_budget, run_index * maximum_cost)
         for used in range(previous_limit + 1):
             previous_value = values[used]
             if previous_value == negative_infinity:
                 continue
-            for option_index, (cost, gain) in enumerate(options):
+            for option_index, (cost, _, gain) in enumerate(options):
                 new_cost = used + cost
                 if new_cost > total_budget:
                     continue
@@ -404,35 +417,43 @@ def _pooled_iteration_oracle(
         start = float(rows[0]["labels"]["exploitability"])
         raw_options = [
             (
+                int(row["checkpoint"]) - minimum_checkpoint,
                 int(row["checkpoint"]),
                 start - float(row["labels"]["exploitability"]),
             )
             for row in rows
+            if int(row["checkpoint"]) >= minimum_checkpoint
         ]
         options = []
         best_gain = negative_infinity
-        for checkpoint, gain in raw_options:
+        for cost, checkpoint, gain in raw_options:
             if gain > best_gain + TOLERANCE:
-                options.append((checkpoint, gain))
+                options.append((cost, checkpoint, gain))
                 best_gain = gain
         option_index = backpointers[run_index][selected_cost]
         if option_index == 255:
             raise AssertionError("pooled allocation backpointer is missing")
-        checkpoint = options[option_index][0]
+        cost, checkpoint, _ = options[option_index]
         selection_counts[checkpoint] = selection_counts.get(checkpoint, 0) + 1
-        selected_cost -= checkpoint
+        selected_cost -= cost
     if selected_cost != 0:
         raise AssertionError("pooled allocation backtracking did not reach zero")
 
     return {
         "average_iteration_budget": average_budget,
-        "aggregate_iteration_budget": total_budget,
+        "aggregate_iteration_budget": average_budget * len(runs),
+        "minimum_checkpoint": minimum_checkpoint,
+        "aggregate_additional_iteration_budget": total_budget,
         "fixed_checkpoint": fixed_checkpoint,
         "fixed_checkpoint_total_reduction": fixed_total,
         "independent_hard_cap_oracle_total_reduction": independent_total,
         "pooled_perfect_information_total_reduction": pooled_total,
         "pooled_iterations_used": sum(
             checkpoint * count for checkpoint, count in selection_counts.items()
+        ),
+        "pooled_additional_iterations_used": sum(
+            (checkpoint - minimum_checkpoint) * count
+            for checkpoint, count in selection_counts.items()
         ),
         "pooled_selection_counts": {
             str(checkpoint): count
@@ -454,6 +475,8 @@ def _allocation_oracles(
     budgets: tuple[int, ...],
     context_limit: int,
     seed: int,
+    *,
+    minimum_checkpoint: int = 0,
 ) -> dict[str, Any]:
     context_ids = sorted({str(record["context_id"]) for record in records})
     ranked_ids = sorted(
@@ -478,21 +501,36 @@ def _allocation_oracles(
             {
                 "solver": solver,
                 "budgets": [
-                    _pooled_iteration_oracle(runs, budget) for budget in budgets
+                    _pooled_iteration_oracle(
+                        runs,
+                        budget,
+                        minimum_checkpoint=minimum_checkpoint,
+                    )
+                    for budget in budgets
+                    if budget >= minimum_checkpoint
                 ],
             }
         )
     return {
         "contexts": len(selected_ids),
         "context_limit": context_limit,
+        "minimum_checkpoint": minimum_checkpoint,
         "selection": "deterministic SHA-256 sample when contexts exceed limit",
         "cost_unit": "full alternating CFR iterations",
         "perfect_future_information": True,
+        "feature_acquisition_paid": minimum_checkpoint > 0,
         "deployable": False,
         "interpretation": (
-            "Optimistic ceiling for a shared or speculative compute pool; it is "
-            "not achievable by transferring wall-clock time between unrelated "
-            "already-completed decisions."
+            (
+                f"Every context first pays checkpoint {minimum_checkpoint}; exact "
+                "future labels then allocate only the remaining iteration pool. "
+            )
+            if minimum_checkpoint > 0
+            else ""
+        )
+        + (
+            "This is an optimistic shared or speculative compute ceiling, not "
+            "a deployable transfer of time between unrelated completed decisions."
         ),
         "solvers": solver_results,
     }

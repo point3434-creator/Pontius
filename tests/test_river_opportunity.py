@@ -153,6 +153,38 @@ class RiverOpportunityTests(unittest.TestCase):
         self.assertEqual(result["pooled_perfect_information_total_reduction"], 10.0)
         self.assertEqual(result["pooled_selection_counts"], {"0": 1, "4": 1})
 
+    def test_post_probe_oracle_charges_every_context_for_feature_acquisition(
+        self,
+    ) -> None:
+        def row(checkpoint: int, exploitability: float) -> dict:
+            return {
+                "checkpoint": checkpoint,
+                "labels": {"exploitability": exploitability},
+            }
+
+        easy = [row(0, 10.0), row(2, 9.0), row(4, 9.0)]
+        hard = [row(0, 10.0), row(2, 10.0), row(4, 0.0)]
+
+        result = _pooled_iteration_oracle(
+            [easy, hard],
+            average_budget=3,
+            minimum_checkpoint=2,
+        )
+
+        self.assertEqual(result["minimum_checkpoint"], 2)
+        self.assertEqual(result["aggregate_iteration_budget"], 6)
+        self.assertEqual(result["aggregate_additional_iteration_budget"], 2)
+        self.assertEqual(result["fixed_checkpoint"], 2)
+        self.assertEqual(result["fixed_checkpoint_total_reduction"], 1.0)
+        self.assertEqual(result["pooled_perfect_information_total_reduction"], 11.0)
+        self.assertEqual(result["pooled_selection_counts"], {"2": 1, "4": 1})
+        with self.assertRaisesRegex(ValueError, "minimum checkpoint"):
+            _pooled_iteration_oracle(
+                [easy, hard],
+                average_budget=1,
+                minimum_checkpoint=2,
+            )
+
     def test_invalid_solver_and_checkpoint_configs_are_rejected(self) -> None:
         with self.assertRaisesRegex(ValueError, "unsupported solvers"):
             run_river_opportunity_experiment(

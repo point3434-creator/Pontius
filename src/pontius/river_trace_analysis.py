@@ -11,6 +11,8 @@ from pathlib import Path
 from statistics import mean
 from typing import Any
 
+from .river_opportunity import _allocation_oracles
+
 TOLERANCE = 1e-12
 TARGET_DESCRIPTIONS = {
     "normalized_future_reduction": (
@@ -277,6 +279,7 @@ def analyze_river_trace(
     primary_feature: str = "normalized_positive_regret_mass",
     primary_checkpoint: int = 2,
     primary_target: str = "normalized_future_reduction",
+    allocation_probe_checkpoint: int | None = None,
     folds: int = 5,
 ) -> dict[str, Any]:
     """Return compact measurement-only diagnostics without fitting a rule."""
@@ -297,6 +300,11 @@ def analyze_river_trace(
     sequential_raise = artifact["config"].get("sequential_raise", False) is True
     if primary_checkpoint not in checkpoints:
         raise ValueError("primary checkpoint is absent from the trace")
+    if (
+        allocation_probe_checkpoint is not None
+        and allocation_probe_checkpoint not in checkpoints
+    ):
+        raise ValueError("allocation probe checkpoint is absent from the trace")
 
     correlations = [
         _feature_correlations(records, solver, checkpoint, primary_target)
@@ -304,6 +312,25 @@ def analyze_river_trace(
         for checkpoint in checkpoints[:-1]
     ]
     teacher_labels = [context["oracle_labels"] for context in artifact["contexts"]]
+    post_probe_allocation = None
+    if allocation_probe_checkpoint is not None:
+        allocation_budgets = tuple(
+            int(value)
+            for value in artifact["config"][
+                "allocation_average_iteration_budgets"
+            ]
+        )
+        post_probe_allocation = _allocation_oracles(
+            records,
+            solvers,
+            allocation_budgets,
+            min(
+                int(artifact["config"]["allocation_context_limit"]),
+                int(artifact["counts"]["contexts"]),
+            ),
+            int(artifact["config"]["seed"]),
+            minimum_checkpoint=allocation_probe_checkpoint,
+        )
     return {
         "schema_version": 2,
         "analysis_type": "exact_river_opportunity_measurement",
@@ -360,6 +387,7 @@ def analyze_river_trace(
             ],
         },
         "allocation_oracles": artifact["allocation_oracles"],
+        "post_probe_allocation_oracles": post_probe_allocation,
         "interpretation_warnings": [
             "No scheduler or threshold is fitted by this analysis.",
             "Future reduction and exact exploitability are diagnostic labels only.",
@@ -386,6 +414,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--primary-feature", default="normalized_positive_regret_mass")
     parser.add_argument("--primary-checkpoint", type=int, default=2)
     parser.add_argument("--primary-target", default="normalized_future_reduction")
+    parser.add_argument("--allocation-probe-checkpoint", type=int)
     parser.add_argument("--folds", type=int, default=5)
     return parser.parse_args()
 
@@ -399,6 +428,7 @@ def main() -> None:
         primary_feature=args.primary_feature,
         primary_checkpoint=args.primary_checkpoint,
         primary_target=args.primary_target,
+        allocation_probe_checkpoint=args.allocation_probe_checkpoint,
         folds=args.folds,
     )
     result["source_provenance"] = {

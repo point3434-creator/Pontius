@@ -56,6 +56,7 @@ class RiverTraceAnalysisTests(unittest.TestCase):
             artifact,
             primary_checkpoint=1,
             primary_target="state_visit_efficiency",
+            allocation_probe_checkpoint=2,
             folds=2,
         )
 
@@ -72,6 +73,13 @@ class RiverTraceAnalysisTests(unittest.TestCase):
         self.assertEqual(
             result["primary_signal"]["target"],
             "state_visit_efficiency",
+        )
+        self.assertTrue(
+            result["post_probe_allocation_oracles"]["feature_acquisition_paid"]
+        )
+        self.assertEqual(
+            result["post_probe_allocation_oracles"]["minimum_checkpoint"],
+            2,
         )
 
     def test_analysis_reads_labels_but_does_not_mutate_source(self) -> None:
@@ -103,6 +111,8 @@ class RiverTraceAnalysisTests(unittest.TestCase):
             analyze_river_trace(self.artifact, primary_feature="oracle_future")
         with self.assertRaisesRegex(ValueError, "unknown primary target"):
             analyze_river_trace(self.artifact, primary_target="wishful_efficiency")
+        with self.assertRaisesRegex(ValueError, "probe checkpoint"):
+            analyze_river_trace(self.artifact, allocation_probe_checkpoint=3)
         with self.assertRaisesRegex(ValueError, "folds"):
             analyze_river_trace(self.artifact, folds=1)
 

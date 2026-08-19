@@ -53,7 +53,7 @@ to multiplayer hold'em.
   realized leaf RMSE `1.38657e-4`.
 - At nearly equal reference runtime, solver rankings changed with leaf error;
   this supports regime selection rather than a universal CFR rule.
-- Reusing prepared blueprints reduced a 490-run matrix to about 41 seconds,
+- Reusing prepared blueprints reduced a 490-run matrix to about 42 seconds,
   allowing finer falsification sweeps without changing experiment semantics.
 
 ## Opposing evidence

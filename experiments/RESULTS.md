@@ -216,10 +216,10 @@ iterations, with leaves already materialized.
 
 | Solver | Anchor | Average Δ NashConv | Current Δ NashConv | Search ms |
 |---|---:|---:|---:|---:|
-| CFR | 0.995 | -1.07842e-4 | +7.04390e-4 | 39.05 |
-| CFR+ | 0.995 | -1.49818e-4 | +1.90342e-4 | 39.59 |
-| DCFR | 0.990 | -1.57558e-4 | +4.43275e-4 | 39.99 |
-| LCFR | 0.990 | **-1.69448e-4** | +1.55462e-4 | 39.54 |
+| CFR | 0.995 | -1.07842e-4 | +7.04390e-4 | 39.73 |
+| CFR+ | 0.995 | -1.49818e-4 | +1.90342e-4 | 39.77 |
+| DCFR | 0.990 | -1.57558e-4 | +4.43275e-4 | 39.43 |
+| LCFR | 0.990 | **-1.69448e-4** | +1.55462e-4 | 39.05 |
 
 Every current policy failed even though every selected average improved. LCFR
 wins this exact-leaf slice, not the general solver decision.

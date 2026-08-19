@@ -1,6 +1,6 @@
 # ADR-0016: Preregister direct constrained generation v1
 
-**Status:** Frozen before fresh holdout, 2026-08-19.
+**Status:** Evaluated; v1 rejected by ADR-0017, 2026-08-19.
 
 ## Decision
 

@@ -63,7 +63,10 @@ A dynamic row/column-generation implementation now reaches the exact
 sum-margin optimum without resolver normal-form enumeration. Its held-in
 five-update point captures 84.17% of the exact objective, but is 3.52% behind
 the frozen CFR rule's unusually strong screen quality per millisecond. The rule
-and a new CFR/DCFR holdout are frozen; holdout transfer is the active gate.
+then captures 63.02% on a fresh CFR/DCFR holdout without a transfer collapse,
+but its rate is 17.30% below frozen CFR. V1 is rejected. Phase-aware deadlines,
+immediate column consumption, and shared traversal are the next direct-solver
+gate before frontier approximation.
 
 **Target:** months 2-4.
 

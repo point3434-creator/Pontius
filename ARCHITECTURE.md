@@ -59,6 +59,13 @@ margin. Exact normal-form and complete-game oracles remain excluded teachers.
 The current reference profile says separation and pricing traversals, not the
 small simplex, are the first optimized-kernel targets.
 
+The frozen five-update rule missed the fresh holdout rate gate despite passing
+safety, exactness, capture, and screen-to-holdout transfer gates. Its round
+layout prices a future column after the current incumbent is already known; a
+fixed deadline can therefore pay for work that cannot improve its returned
+policy. Future implementations must expose phase-level cancellation points and
+distinguish quality-producing separation from future-option pricing.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

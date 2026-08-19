@@ -868,3 +868,48 @@ updates without retuning the revealed cases.
 `experiments/configs/` with
 `python -m pontius.constrained_generation_matrix`. Raw JSON remains locally
 generated and ignored.
+
+### Frozen v1 fresh holdout
+
+The preregistration is commit `58f2e66`. The fresh matrix changes both
+blueprint families and strengths: CFR and DCFR at 50, 300, and 10,000
+iterations, covering 24 public boundaries. Frozen generation and frozen CFR v1
+run on identical cases.
+
+| Metric | Generation update 5 | Frozen CFR checkpoint 3 |
+|---|---:|---:|
+| Positive/selected boundaries | 21/24 | 3/24 |
+| Aggregate sum-margin capture | 63.0223% | 29.9909% |
+| Hidden BR capture, diagnostic | 36.8192% | 9.32717% |
+| Mean decision compute | 7.328 ms | 2.884 ms |
+| Sum-margin per millisecond | `2.50896e-4` | `3.03383e-4` |
+
+Generation passes four gates: maximum selected frontier violation is
+`8.33e-17`, maximum converged exact-objective gap is `1.50e-11`, update-five
+capture exceeds 50%, and its rate retains 88.31% of the screen rate. It fails
+the decisive head-to-head rate gate, reaching only 82.70% of frozen CFR's
+target-free rate. V1 is rejected without retuning.
+
+The failure is informative rather than a transfer collapse. Generation
+captures 2.10 times the objective but costs 2.54 times as much. All 24 cases
+converge by update nine and reproduce 100% of the exact sum-margin objective.
+
+Post-reveal, update six captures 95.7683% at `3.32388e-4` per millisecond, but
+it is not promoted. The discrete jump occurs because update five prices a
+column only after scoring its candidate; the restricted master cannot consume
+that column until update six. Two weak 50-iteration CFR boundaries produce
+96.13% of the aggregate jump. This exposes phase scheduling and future-only
+terminal pricing as the next bottleneck, not a license to move the frozen
+deadline.
+
+**Final verdict:** reject constrained-generation v1 as the online
+quality-per-millisecond winner. Retain the algorithm as an exact,
+normal-form-free teacher. The next comparison must checkpoint quality-producing
+and future-option phases separately, avoid terminal pricing that cannot affect
+the returned policy, and freeze on genuinely new evaluation regimes.
+
+**Reproduction:** run
+`constrained-generation-kuhn2-v1-holdout-matrix.json` with
+`python -m pontius.constrained_generation_matrix` and
+`safe-solver-gap-kuhn2-constrained-v1-holdout-matrix.json` with
+`python -m pontius.safe_solver_gap_matrix`.

@@ -153,24 +153,36 @@ Checkpoint 2: solver comparison laboratory.
   Its target-free rate is 3.52% below frozen CFR v1 on that screen, so it has
   not yet passed the quality-per-millisecond gate.
 - `constrained-generation-v1` and a fresh 24-boundary CFR/DCFR holdout are
-  frozen before reveal. Response separation and pricing, not simplex solve,
-  dominate current reference latency.
+  frozen in commit `58f2e66`. Response separation and pricing, not simplex
+  solve, dominate current reference latency.
+- Frozen generation v1 passes safety, exact-convergence, minimum-capture, and
+  rate-transfer gates on the fresh holdout. It captures 63.0223% of exact
+  sum-margin at 7.328 mean milliseconds, selecting 21/24 boundaries.
+- It fails the decisive rate comparison: `2.50896e-4` sum-margin/ms versus
+  frozen CFR checkpoint three's `3.03383e-4`. Generation gets 2.10 times the
+  objective capture at 2.54 times the latency. V1 is rejected without retuning.
+- The post-reveal update-six jump is diagnostic only. A column priced after
+  update-five scoring is not consumed until update six; two weak CFR cases
+  account for 96.13% of the gain. Phase-aware cancellation and immediate cheap
+  re-solves are now the next efficiency hypothesis.
 - One hundred thirty-six automated tests pass.
 
 ## In progress
 
-- Evaluating frozen constrained-generation v1 on the fresh CFR/DCFR holdout and
-  comparing it with frozen CFR v1 on identical boundaries.
+- Designing phase-aware constrained generation that does not perform terminal
+  pricing work which cannot improve the returned incumbent.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Run and adjudicate the preregistered constrained-generation holdout.
-2. Profile shared traversal and cache opportunities only if the holdout passes.
-3. Inject controlled frontier-value error and uncertainty bounds before
-   declaring any multiplayer relaxation or neural frontier target.
+1. Expose phase-level candidate and future-option timing/cancellation points.
+2. Test immediate master re-solve and shared separation/pricing caches, then
+   freeze the best target-free time rule before new regimes.
+3. Inject controlled frontier-value error and uncertainty bounds only after a
+   target-free solver passes its efficiency gate; then test any multiplayer
+   relaxation or neural frontier target.
 
 ## Current blockers
 
@@ -185,4 +197,4 @@ None.
 
 ## Last updated
 
-2026-08-19, after freezing direct constrained generation and its fresh holdout.
+2026-08-19, after constrained-generation v1 missed its frozen holdout rate gate.

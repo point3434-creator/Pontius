@@ -1,0 +1,70 @@
+{
+  "evidence_stage": "group_separated_development_only",
+  "requested_groups": 8,
+  "seed": 20261220,
+  "num_players": 3,
+  "hands_per_player": 3,
+  "families": ["balanced", "polarized", "blocker_stress", "correlated"],
+  "included_splits": ["development"],
+  "pot_options": [8.0, 12.0, 20.0, 32.0],
+  "bet_to_pot_options": [0.25, 0.5, 1.0],
+  "effective_stack_to_pot": 2.0,
+  "range_weight_options": [0.25, 0.5, 1.0, 2.0, 4.0],
+  "target_specs": [
+    {
+      "name": "seat0_max_conditional_reweight",
+      "kind": "seat_max_conditional_reweight",
+      "seat": 0,
+      "likelihood_multiplier": 2.0
+    },
+    {
+      "name": "seat1_max_conditional_reweight",
+      "kind": "seat_max_conditional_reweight",
+      "seat": 1,
+      "likelihood_multiplier": 2.0
+    },
+    {
+      "name": "seat2_max_conditional_reweight",
+      "kind": "seat_max_conditional_reweight",
+      "seat": 2,
+      "likelihood_multiplier": 2.0
+    },
+    {
+      "name": "three_way_strength_alignment",
+      "kind": "three_way_strength_alignment",
+      "minimum_likelihood": 1.0,
+      "maximum_likelihood": 2.0
+    }
+  ],
+  "blueprint_solver": "dcfr",
+  "blueprint_quality_checkpoints": [128, 256, 512],
+  "maximum_source_normalized_nash_conv": 0.001,
+  "candidate_solvers": ["lcfr", "cfr_plus", "dcfr"],
+  "candidate_checkpoints": [1, 2, 4, 8, 16, 32],
+  "warm_start_multiplier_by_payoff_span": 0.1,
+  "candidate_output": "average_strategy",
+  "primary_solver": "dcfr",
+  "primary_checkpoint": 32,
+  "numerical_guard_by_payoff_span": 1e-10,
+  "tape_execution_mode": "dense",
+  "timing_repeats": 1,
+  "expected_multiway_game_sha256": "942e2b4bf2acc0c5937b378a2d7620c5f318060d1068c84430af17e13de414d5",
+  "expected_coalition_evaluator_sha256": "6aee741a2f90d42c935bb85d6b8ac616bbcbbc3d90ef588112529c27133c86a3",
+  "expected_dependency_tape_sha256": "da7a89870b59dc151c8a056ab32468ed3206471959ac3b26dffca0d733c06501",
+  "frozen_contract_sha256": "b98ee2c73b7b3c93a686ecc5d783756990fbd06b7c911a2e8f52521368e358f4",
+  "calibration_artifact_sha256": "d0f74bb9b77766aa233f6cc6ccd16533d6f0242e2e7a59b367ea83063f833e20",
+  "gates": {
+    "minimum_development_groups": 6,
+    "maximum_exact_evaluation_error": 1e-10,
+    "maximum_best_response_action_mismatches": 0,
+    "require_all_unilateral_acceptance_invariants": true,
+    "require_all_coalition_acceptance_invariants": true,
+    "hot_tape_strictly_faster_than_ordinary_evaluation": true,
+    "two_candidate_reuse_strictly_faster_than_two_ordinary_evaluations": true,
+    "primary_aggregate_acceptance_strictly_beats_blind_raw_reduction": true,
+    "primary_aggregate_acceptance_hot_rate_strictly_beats_blind": true,
+    "minimum_primary_unilateral_accept_target_fraction": 0.1,
+    "minimum_primary_coalition_accept_target_fraction": 0.05,
+    "primary_coalition_acceptance_has_positive_normalized_reduction": true
+  }
+}

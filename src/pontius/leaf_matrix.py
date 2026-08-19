@@ -22,11 +22,16 @@ CONFIG_FIELDS = {
     "search_iterations",
     "depth_limit",
     "leaf_error_scale",
+    "leaf_error_target_on_policy_root_l2",
     "leaf_error_seed",
     "zero_sum_errors",
     "warm_start_regret_mass",
     "in_search_blueprint_weight",
     "output_candidate_weight",
+    "leaf_error_grouping",
+    "leaf_error_scope",
+    "leaf_error_scope_actions",
+    "leaf_error_bias",
 }
 
 
@@ -37,8 +42,35 @@ def _compact_run(result: dict[str, Any]) -> dict[str, Any]:
         "config": result["config"],
         "metrics": {
             "leaf_rmse": result["leaf_error"]["rmse"],
+            "leaf_effective_scale": result["structured_error_protocol"][
+                "effective_leaf_error_scale"
+            ],
             "leaf_mean_absolute_error": result["leaf_error"][
                 "mean_absolute_error"
+            ],
+            "leaf_on_policy_reach_mass": result["leaf_error_reach_weighted"][
+                "on_policy_reach_mass"
+            ],
+            "leaf_on_policy_rmse": result["leaf_error_reach_weighted"][
+                "on_policy_rmse"
+            ],
+            "leaf_on_policy_root_l2": result["leaf_error_reach_weighted"][
+                "on_policy_root_l2"
+            ],
+            "leaf_aggregate_counterfactual_rmse": result[
+                "leaf_error_reach_weighted"
+            ]["aggregate_counterfactual_rmse"],
+            "leaf_max_counterfactual_root_l2": max(
+                result["leaf_error_reach_weighted"]["counterfactual_root_l2"]
+            ),
+            "leaf_active_on_policy_reach_mass": result[
+                "structured_error_protocol"
+            ]["active_on_policy_reach_mass"],
+            "leaf_active_on_policy_reach_fraction": result[
+                "structured_error_protocol"
+            ]["active_on_policy_reach_fraction"],
+            "leaf_active_error_groups": result["structured_error_protocol"][
+                "active_error_groups"
             ],
             "blueprint_nash_conv": result["blueprint"]["nash_conv"],
             "exact_average_nash_conv_delta_from_blueprint": result[
@@ -109,13 +141,26 @@ def _compact_run(result: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _summary_statistics(values: list[float]) -> dict[str, float | int]:
+def _summary_statistics(
+    values: list[float | int | bool | None],
+) -> dict[str, float | int | None]:
+    defined = [float(value) for value in values if value is not None]
+    if not defined:
+        return {
+            "count": len(values),
+            "defined_count": 0,
+            "mean": None,
+            "sample_stddev": None,
+            "min": None,
+            "max": None,
+        }
     return {
         "count": len(values),
-        "mean": mean(values),
-        "sample_stddev": stdev(values) if len(values) > 1 else 0.0,
-        "min": min(values),
-        "max": max(values),
+        "defined_count": len(defined),
+        "mean": mean(defined),
+        "sample_stddev": stdev(defined) if len(defined) > 1 else 0.0,
+        "min": min(defined),
+        "max": max(defined),
     }
 
 
@@ -145,7 +190,7 @@ def _summarize(
                 "replicates": len(members),
                 "metrics": {
                     metric: _summary_statistics(
-                        [float(member["metrics"][metric]) for member in members]
+                        [member["metrics"][metric] for member in members]
                     )
                     for metric in metric_names
                 },
@@ -208,7 +253,7 @@ def run_leaf_matrix(matrix_config: dict[str, Any]) -> dict[str, Any]:
     summaries = _summarize(compact_runs, replicate_axes)
     wall_seconds = time.perf_counter() - started
     output = {
-        "schema_version": 2,
+        "schema_version": 3,
         "experiment_type": "paired_leaf_error_matrix",
         "matrix_config": {
             "base": base,

@@ -46,7 +46,7 @@ Checkpoint 2: solver comparison laboratory.
   update rules and never improved the blueprint.
 - A solver-level affine blueprint anchor and an independent output trust region
   now have explicit no-op and total-variation invariants. Prepared blueprints
-  are reused across matrix runs. Fifty-three automated tests pass.
+  are reused across matrix runs. Fifty-eight automated tests pass.
 - EXP-0006 found that depth-two anchored average policies can improve weak,
   medium, and strong two-player blueprints. Anchored LCFR was best with exact
   leaves in the tested strong-blueprint slice; moderate noise changed the
@@ -55,11 +55,25 @@ Checkpoint 2: solver comparison laboratory.
   RMSE `1.38657e-4`, failed one seed at RMSE `4.62190e-4`, and lost to no-op on
   mean at RMSE `1.38657e-3`. This is a provisional error envelope, not a neural
   target or multiplayer claim.
+- Cutoff traversal now propagates chance reach and every player's behavior
+  reach separately. Reports include joint-reach conditional and root L2 error,
+  per-player counterfactual RMSE/root L2, active reach mass, and uniform error.
+- Random leaf error can be grouped by concrete or public history, localized by
+  blueprint reach or public actions, combined with explicit bias, and calibrated
+  to equal realized on-policy root L2 for controlled comparisons.
+- EXP-0007 showed raw error scale is not transferable across correlation
+  structures. At equal on-policy root L2, errors localized to the low-reach
+  half failed all 40 tested LCFR/0.99 runs across two groupings while the
+  high-reach half improved 39/40. Counterfactual error exposed the difference.
+- Joint reach alone is rejected as a scheduler safety signal. Local uncertainty,
+  per-player counterfactual sensitivity, provenance/correlation, and minimum
+  rare-branch coverage advance as required allocator inputs.
 
 ## In progress
 
-- Extending leaf errors from independent concrete histories to reach-weighted,
-  correlated, biased, localized, and time-varying regimes.
+- Defining a conservative uncertainty/benefit-to-anchor-or-no-op rule without
+  fitting it to the held-out multiplayer cases.
+- Extending the structured protocol to heteroscedastic and time-varying errors.
 - Distinguishing prefix-policy improvement from a complete resolver applied at
   every public state, before interpreting full-game strength.
 - Reducing evaluation overhead through configurable cadence and future
@@ -67,12 +81,12 @@ Checkpoint 2: solver comparison laboratory.
 
 ## Next three tasks
 
-1. Add blueprint-reach and counterfactual-reach-weighted error metrics plus
-   correlated, biased, and localized perturbations.
-2. Freeze an uncertainty-to-anchor/no-op rule on two-player cases and falsify it
+1. Freeze an uncertainty-to-anchor/no-op rule on two-player cases and falsify it
    on three-player Kuhn, different depths, and held-out blueprint strengths.
-3. Define and evaluate a complete small-game continual-resolving policy rather
+2. Define and evaluate a complete small-game continual-resolving policy rather
    than only a searched prefix merged into blueprint continuation.
+3. Add heteroscedastic/time-varying errors and adversarial branch targeting;
+   compare the frozen rule with unconditional search and permanent no-op.
 
 ## Current blockers
 
@@ -87,4 +101,4 @@ None.
 
 ## Last updated
 
-2026-08-19, after EXP-0006 provisionally advanced anchored average search.
+2026-08-19, after EXP-0007 established structured reach-weighted error controls.

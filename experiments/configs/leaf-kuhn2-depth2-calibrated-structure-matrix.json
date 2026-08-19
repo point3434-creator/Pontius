@@ -1,0 +1,29 @@
+{
+  "axes": {
+    "leaf_error_grouping": ["concrete", "public_history"],
+    "leaf_error_scope": [
+      "all",
+      "top_half_by_blueprint_reach",
+      "bottom_half_by_blueprint_reach"
+    ],
+    "leaf_error_seed": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+    "leaf_error_target_on_policy_root_l2": [0.0001, 0.000225, 0.0004]
+  },
+  "base": {
+    "blueprint_iterations": 1000,
+    "blueprint_solver": "lcfr",
+    "depth_limit": 2,
+    "game": "kuhn2",
+    "in_search_blueprint_weight": 0.99,
+    "leaf_error_bias": null,
+    "leaf_error_scale": 1.0,
+    "output_candidate_weight": 1.0,
+    "search_iterations": 100,
+    "search_solver": "lcfr",
+    "warm_start_regret_mass": null,
+    "zero_sum_errors": true
+  },
+  "max_runs": 400,
+  "replicate_axes": ["leaf_error_seed"],
+  "store_full_runs": false
+}

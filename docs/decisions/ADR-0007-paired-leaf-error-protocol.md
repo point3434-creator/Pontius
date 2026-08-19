@@ -35,14 +35,18 @@ full-game strategy is materially worse than the blueprint, further solver
 convergence or lower leaf MSE cannot rescue that design. The deployable action
 remains the blueprint/no-op until an anchored or otherwise safe update passes.
 
-## Initial limitations
+## 2026-08-19 extension
+
+ADR-0009 adds factored blueprint and counterfactual reach, correlated public-
+history noise, systematic bias, localized errors, and matched on-policy root-L2
+calibration. Uniform realized errors remain in every report for continuity.
+
+## Remaining limitations
 
 - Leaf values are conditioned on concrete private histories rather than public
   beliefs and ranges.
-- Error is independent across concrete leaves; correlated, biased, localized,
-  heteroscedastic, and changing errors remain to be added.
-- Error RMSE and policy distance are initially unweighted. Blueprint reach and
-  counterfactual-reach-weighted metrics remain required.
+- Heteroscedastic learned uncertainty and time-varying model error remain to be
+  added.
 - Leaves are precomputed before timed search. This isolates traversal cost and
   is a warm-cache result, not an end-to-end latency claim.
 - Multiplayer resolving has no safety claim here.

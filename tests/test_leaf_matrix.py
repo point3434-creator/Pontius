@@ -23,7 +23,7 @@ class LeafMatrixTests(unittest.TestCase):
             }
         )
 
-        self.assertEqual(result["schema_version"], 2)
+        self.assertEqual(result["schema_version"], 3)
         self.assertEqual(result["run_count"], 4)
         self.assertEqual(result["prepared_blueprints"], 1)
         self.assertEqual(len(result["runs"]), 4)
@@ -32,6 +32,7 @@ class LeafMatrixTests(unittest.TestCase):
         self.assertNotIn("full_runs", result)
         for summary in result["summaries"]:
             self.assertEqual(summary["metrics"]["leaf_rmse"]["count"], 2)
+            self.assertEqual(summary["metrics"]["leaf_rmse"]["defined_count"], 2)
 
     def test_matrix_can_retain_full_runs(self) -> None:
         result = run_leaf_matrix(

@@ -6,16 +6,17 @@ import argparse
 import json
 import time
 from dataclasses import asdict, dataclass
-from math import sqrt
+from math import isfinite, sqrt
 from pathlib import Path
 from typing import Any
 
 from .cfr import TabularCFR
 from .depth_limited import (
+    CutoffReach,
     DepthLimitedGame,
     DeterministicPerturbedValues,
     PolicyContinuationValues,
-    collect_cutoff_states,
+    collect_cutoff_reaches,
 )
 from .evaluation import (
     EvaluationResult,
@@ -30,6 +31,13 @@ from .policy import interpolate_policy
 from .reporting import environment_metadata, json_policy
 
 SOLVERS = {"cfr", "lcfr", "cfr_plus", "dcfr"}
+ERROR_GROUPINGS = {"concrete", "public_history"}
+ERROR_SCOPES = {
+    "all",
+    "top_half_by_blueprint_reach",
+    "bottom_half_by_blueprint_reach",
+    "public_actions",
+}
 
 
 @dataclass(frozen=True, slots=True)
@@ -96,6 +104,56 @@ def _resolved_information_sets(
             if previous != actions:
                 raise ValueError(f"information-set collision for {key!r}")
     return result
+
+
+def _public_history_key(state: Any) -> str:
+    history = getattr(state, "history", None)
+    if history is None:
+        raise ValueError("public-history grouping requires states with history")
+    return repr(tuple(history))
+
+
+def _public_actions(state: Any) -> tuple[str, ...]:
+    history = getattr(state, "history", None)
+    if history is None:
+        raise ValueError("public-action scope requires states with history")
+    return tuple(str(action) for _, action in history)
+
+
+def _active_state_keys(
+    reaches: list[CutoffReach],
+    scope: str,
+    scope_actions: tuple[str, ...] | None,
+) -> frozenset[str] | None:
+    if scope == "all":
+        return None
+    if scope == "public_actions":
+        if scope_actions is None:
+            raise ValueError("public_actions scope requires leaf_error_scope_actions")
+        selected = {
+            repr(record.state)
+            for record in reaches
+            if _public_actions(record.state) == scope_actions
+        }
+    else:
+        ordered = sorted(
+            reaches,
+            key=lambda record: (record.joint_reach, repr(record.state)),
+        )
+        count = max(1, (len(ordered) + 1) // 2)
+        selected_records = (
+            ordered[-count:]
+            if scope == "top_half_by_blueprint_reach"
+            else ordered[:count]
+        )
+        selected = {repr(record.state) for record in selected_records}
+    if not selected:
+        raise ValueError("leaf error scope selects no cutoff states")
+    return frozenset(selected)
+
+
+def _safe_ratio(numerator: float, denominator: float) -> float | None:
+    return numerator / denominator if denominator > 0.0 else None
 
 
 def _policy_distance(
@@ -232,6 +290,10 @@ def run_leaf_experiment(
     search_iterations = int(config.get("search_iterations", 100))
     depth_limit = int(config.get("depth_limit", 1))
     leaf_error_scale = float(config.get("leaf_error_scale", 0.0))
+    raw_target_root_l2 = config.get("leaf_error_target_on_policy_root_l2")
+    leaf_error_target_on_policy_root_l2 = (
+        None if raw_target_root_l2 is None else float(raw_target_root_l2)
+    )
     leaf_error_seed = int(config.get("leaf_error_seed", 0))
     zero_sum_errors = bool(config.get("zero_sum_errors", True))
     raw_warm_start = config.get("warm_start_regret_mass")
@@ -242,8 +304,24 @@ def run_leaf_experiment(
         config.get("in_search_blueprint_weight", 0.0)
     )
     output_candidate_weight = float(config.get("output_candidate_weight", 1.0))
+    leaf_error_grouping = str(config.get("leaf_error_grouping", "concrete"))
+    leaf_error_scope = str(config.get("leaf_error_scope", "all"))
+    raw_scope_actions = config.get("leaf_error_scope_actions")
+    if raw_scope_actions is not None and not isinstance(raw_scope_actions, (list, tuple)):
+        raise ValueError("leaf_error_scope_actions must be a list or null")
+    leaf_error_scope_actions = (
+        None
+        if raw_scope_actions is None
+        else tuple(str(action) for action in raw_scope_actions)
+    )
+    raw_bias = config.get("leaf_error_bias")
+    if raw_bias is not None and not isinstance(raw_bias, (list, tuple)):
+        raise ValueError("leaf_error_bias must be a list or null")
+    leaf_error_bias = (
+        None if raw_bias is None else tuple(float(value) for value in raw_bias)
+    )
 
-    _parse_game(game_name)
+    parsed_game = _parse_game(game_name)
     if blueprint_solver_name not in SOLVERS:
         raise ValueError(f"unsupported blueprint solver {blueprint_solver_name!r}")
     if search_solver_name not in SOLVERS:
@@ -252,14 +330,32 @@ def run_leaf_experiment(
         raise ValueError("blueprint_iterations and search_iterations must be positive")
     if depth_limit < 1:
         raise ValueError("depth_limit must be at least one")
-    if leaf_error_scale < 0.0:
-        raise ValueError("leaf_error_scale cannot be negative")
+    if not isfinite(leaf_error_scale) or leaf_error_scale < 0.0:
+        raise ValueError("leaf_error_scale must be finite and nonnegative")
+    if leaf_error_target_on_policy_root_l2 is not None:
+        if (
+            not isfinite(leaf_error_target_on_policy_root_l2)
+            or leaf_error_target_on_policy_root_l2 <= 0.0
+        ):
+            raise ValueError(
+                "leaf_error_target_on_policy_root_l2 must be finite and positive"
+            )
+        if leaf_error_scale <= 0.0:
+            raise ValueError("target root L2 calibration requires positive noise scale")
+        if leaf_error_bias is not None:
+            raise ValueError("target root L2 calibration does not support explicit bias")
     if warm_start_regret_mass is not None and warm_start_regret_mass <= 0.0:
         raise ValueError("warm_start_regret_mass must be positive or null")
     if not 0.0 <= in_search_blueprint_weight <= 1.0:
         raise ValueError("in_search_blueprint_weight must be between zero and one")
     if not 0.0 <= output_candidate_weight <= 1.0:
         raise ValueError("output_candidate_weight must be between zero and one")
+    if leaf_error_grouping not in ERROR_GROUPINGS:
+        raise ValueError(f"unsupported leaf_error_grouping {leaf_error_grouping!r}")
+    if leaf_error_scope not in ERROR_SCOPES:
+        raise ValueError(f"unsupported leaf_error_scope {leaf_error_scope!r}")
+    if leaf_error_bias is not None and len(leaf_error_bias) != parsed_game.num_players:
+        raise ValueError("leaf_error_bias count must match game players")
 
     experiment_start = time.perf_counter()
     blueprint_prepared_in_run = prepared_blueprint is None
@@ -282,19 +378,78 @@ def run_leaf_experiment(
 
     exact_leaves = PolicyContinuationValues(game.num_players, blueprint)
     exact_game = DepthLimitedGame(game, depth_limit, exact_leaves)
-    perturbed_leaves = DeterministicPerturbedValues(
-        exact_leaves,
-        game.num_players,
-        scale=leaf_error_scale,
-        seed=leaf_error_seed,
-        zero_sum=zero_sum_errors,
+    leaf_start = time.perf_counter()
+    cutoff_reaches = collect_cutoff_reaches(exact_game, blueprint)
+    active_state_keys = _active_state_keys(
+        cutoff_reaches,
+        leaf_error_scope,
+        leaf_error_scope_actions,
     )
+    noise_key = _public_history_key if leaf_error_grouping == "public_history" else None
+    effective_leaf_error_scale = leaf_error_scale
+
+    def build_perturbed_leaves(scale: float) -> DeterministicPerturbedValues:
+        return DeterministicPerturbedValues(
+            exact_leaves,
+            game.num_players,
+            scale=scale,
+            seed=leaf_error_seed,
+            zero_sum=zero_sum_errors,
+            noise_key=noise_key,
+            bias=leaf_error_bias,
+            active_state_keys=active_state_keys,
+        )
+
+    perturbed_leaves = build_perturbed_leaves(effective_leaf_error_scale)
+    if leaf_error_target_on_policy_root_l2 is not None:
+        calibration_root_l2 = perturbed_leaves.reach_weighted_error_stats(
+            cutoff_reaches
+        ).on_policy_root_l2
+        if calibration_root_l2 <= 0.0:
+            raise ValueError("cannot calibrate a zero realized perturbation")
+        effective_leaf_error_scale *= (
+            leaf_error_target_on_policy_root_l2 / calibration_root_l2
+        )
+        perturbed_leaves = build_perturbed_leaves(effective_leaf_error_scale)
     perturbed_game = DepthLimitedGame(game, depth_limit, perturbed_leaves)
 
-    leaf_start = time.perf_counter()
-    cutoff_states = collect_cutoff_states(exact_game)
+    cutoff_states = [record.state for record in cutoff_reaches]
     leaf_error = perturbed_leaves.error_stats(cutoff_states)
+    reach_weighted_leaf_error = perturbed_leaves.reach_weighted_error_stats(
+        cutoff_reaches
+    )
     leaf_materialization_seconds = time.perf_counter() - leaf_start
+    active_records = [
+        record for record in cutoff_reaches if perturbed_leaves.is_active(record.state)
+    ]
+    active_on_policy_mass = sum(record.joint_reach for record in active_records)
+    active_counterfactual_mass = tuple(
+        sum(record.counterfactual_reach(player) for record in active_records)
+        for player in range(game.num_players)
+    )
+    total_counterfactual_mass = reach_weighted_leaf_error.counterfactual_reach_mass
+    active_counterfactual_fraction = tuple(
+        _safe_ratio(active, total)
+        for active, total in zip(
+            active_counterfactual_mass,
+            total_counterfactual_mass,
+            strict=True,
+        )
+    )
+    active_on_policy_fraction = _safe_ratio(
+        active_on_policy_mass,
+        reach_weighted_leaf_error.on_policy_reach_mass,
+    )
+    error_group_key = noise_key or repr
+    active_error_groups = len(
+        {error_group_key(record.state) for record in active_records}
+    )
+    effective_bias = None
+    if leaf_error_bias is not None:
+        bias_mean = (
+            sum(leaf_error_bias) / game.num_players if zero_sum_errors else 0.0
+        )
+        effective_bias = [value - bias_mean for value in leaf_error_bias]
 
     (
         control_solver,
@@ -357,7 +512,7 @@ def run_leaf_experiment(
     candidate_evaluation_seconds = time.perf_counter() - evaluation_start
 
     result = {
-        "schema_version": 2,
+        "schema_version": 3,
         "experiment_type": "paired_leaf_error",
         "config": {
             "game": game_name,
@@ -367,11 +522,24 @@ def run_leaf_experiment(
             "search_iterations": search_iterations,
             "depth_limit": depth_limit,
             "leaf_error_scale": leaf_error_scale,
+            "leaf_error_target_on_policy_root_l2": (
+                leaf_error_target_on_policy_root_l2
+            ),
             "leaf_error_seed": leaf_error_seed,
             "zero_sum_errors": zero_sum_errors,
             "warm_start_regret_mass": warm_start_regret_mass,
             "in_search_blueprint_weight": in_search_blueprint_weight,
             "output_candidate_weight": output_candidate_weight,
+            "leaf_error_grouping": leaf_error_grouping,
+            "leaf_error_scope": leaf_error_scope,
+            "leaf_error_scope_actions": (
+                None
+                if leaf_error_scope_actions is None
+                else list(leaf_error_scope_actions)
+            ),
+            "leaf_error_bias": (
+                None if leaf_error_bias is None else list(leaf_error_bias)
+            ),
         },
         "environment": environment_metadata() if environment is None else environment,
         "timing": {
@@ -395,9 +563,34 @@ def run_leaf_experiment(
         "leaf_protocol": {
             "continuation_policy": "blueprint_average",
             "cache_mode": "precomputed_before_search",
-            "perturbation_granularity": "concrete_private-history leaf",
-            "error_weighting": "uniform_over_enumerated_leaves",
+            "perturbation_granularity": leaf_error_grouping,
+            "error_weighting": (
+                "uniform, blueprint on-policy reach, and per-player "
+                "counterfactual reach"
+            ),
             "policy_distance_weighting": "uniform_over_resolved_information_sets",
+        },
+        "structured_error_protocol": {
+            "grouping": leaf_error_grouping,
+            "scope": leaf_error_scope,
+            "scope_actions": (
+                None
+                if leaf_error_scope_actions is None
+                else list(leaf_error_scope_actions)
+            ),
+            "requested_bias": (
+                None if leaf_error_bias is None else list(leaf_error_bias)
+            ),
+            "effective_bias_after_zero_sum_projection": effective_bias,
+            "effective_leaf_error_scale": effective_leaf_error_scale,
+            "active_leaf_states": len(active_records),
+            "active_error_groups": active_error_groups,
+            "active_on_policy_reach_mass": active_on_policy_mass,
+            "active_on_policy_reach_fraction": active_on_policy_fraction,
+            "active_counterfactual_reach_mass": list(active_counterfactual_mass),
+            "active_counterfactual_reach_fraction": list(
+                active_counterfactual_fraction
+            ),
         },
         "strategy_protocol": {
             "in_search_constraint": (
@@ -414,6 +607,7 @@ def run_leaf_experiment(
             "oracle_no_op_uses_unavailable_full_game_nash_conv": True,
         },
         "leaf_error": asdict(leaf_error),
+        "leaf_error_reach_weighted": asdict(reach_weighted_leaf_error),
         "blueprint": {
             **asdict(blueprint_evaluation),
             "policy": json_policy(blueprint),
@@ -506,10 +700,15 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--search-iterations", type=int)
     parser.add_argument("--depth-limit", type=int)
     parser.add_argument("--leaf-error-scale", type=float)
+    parser.add_argument("--leaf-error-target-on-policy-root-l2", type=float)
     parser.add_argument("--leaf-error-seed", type=int)
     parser.add_argument("--warm-start-regret-mass", type=float)
     parser.add_argument("--in-search-blueprint-weight", type=float)
     parser.add_argument("--output-candidate-weight", type=float)
+    parser.add_argument("--leaf-error-grouping", choices=sorted(ERROR_GROUPINGS))
+    parser.add_argument("--leaf-error-scope", choices=sorted(ERROR_SCOPES))
+    parser.add_argument("--leaf-error-scope-actions", nargs="+")
+    parser.add_argument("--leaf-error-bias", nargs="+", type=float)
     parser.add_argument("--output", type=Path)
     return parser.parse_args()
 
@@ -527,10 +726,15 @@ def main() -> None:
         "search_iterations",
         "depth_limit",
         "leaf_error_scale",
+        "leaf_error_target_on_policy_root_l2",
         "leaf_error_seed",
         "warm_start_regret_mass",
         "in_search_blueprint_weight",
         "output_candidate_weight",
+        "leaf_error_grouping",
+        "leaf_error_scope",
+        "leaf_error_scope_actions",
+        "leaf_error_bias",
     ):
         value = getattr(args, name)
         if value is not None:

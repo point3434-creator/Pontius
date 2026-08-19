@@ -51,6 +51,19 @@ Anchored-search reproduction configs are:
 - `experiments/configs/leaf-kuhn2-depth2-fine-anchor-matrix.json`
 - `experiments/configs/leaf-kuhn2-depth2-anchored-solvers-matrix.json`
 
+Structured-error reproduction configs are:
+
+- `experiments/configs/leaf-kuhn2-depth2-structured-noise-matrix.json`
+- `experiments/configs/leaf-kuhn2-depth2-structured-bias-matrix.json`
+- `experiments/configs/leaf-kuhn2-depth2-correlation-focus-matrix.json`
+- `experiments/configs/leaf-kuhn2-depth2-correlation-calibrated-matrix.json`
+- `experiments/configs/leaf-kuhn2-depth2-calibrated-structure-matrix.json`
+
+`leaf_error_target_on_policy_root_l2` rescales each deterministic random draw
+to a matched realized root contribution and records the effective raw scale.
+It is an experimental control for comparing error structure, not an online
+post-hoc correction. It cannot be combined with explicit bias.
+
 The matrix runner trains and exactly evaluates each distinct blueprint once,
 then reuses it across perturbation and solver axes. `prepared_blueprints` in the
 artifact records the number of cached blueprints.

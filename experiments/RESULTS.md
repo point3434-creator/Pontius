@@ -247,3 +247,101 @@ not less: computation should be spent only when the predicted improvement
 margin exceeds leaf-error risk. Next add reach-weighted, correlated, biased, and
 localized errors, then test a frozen selection rule on held-out multiplayer
 games.
+
+## EXP-0007: Structured and reach-weighted leaf error
+
+**Date:** 2026-08-19
+
+**Status:** Observed; measurement advance and scheduler falsification in one
+tiny exact game.
+
+**Configuration:** two-player Kuhn; 1,000-iteration LCFR blueprint with NashConv
+`1.87060e-4`; depth-two anchored search for 100 iterations; six continuing
+`check/bet` private-history leaves. Errors are measured uniformly, under joint
+blueprint reach, and under each player's counterfactual reach. All treatment
+policies are evaluated in the untouched full game.
+
+### Same raw scale, different correlation
+
+At random-error scale `1e-3`, 50 fixed seeds produced the following results.
+The treatment column is NashConv change from the blueprint, so negative is
+better. Because one coherent public-history draw does not average across the
+six leaves, its mean realized root L2 was about 15% larger; the calibrated
+control below separates that effect.
+
+| Error grouping | Solver / anchor | Mean root L2 | Mean treatment Δ | Worst treatment Δ | Improving seeds |
+|---|---|---:|---:|---:|---:|
+| Concrete IID | LCFR / 0.990 | 2.127e-4 | -6.761e-5 | +8.175e-5 | 45/50 |
+| Concrete IID | LCFR / 0.995 | 2.127e-4 | -4.157e-5 | +4.295e-4 | 40/50 |
+| Concrete IID | CFR+ / 0.990 | 2.127e-4 | -6.627e-5 | +8.371e-5 | 41/50 |
+| Concrete IID | CFR+ / 0.995 | 2.127e-4 | -5.969e-5 | +4.348e-4 | 44/50 |
+| Public-history | LCFR / 0.990 | 2.450e-4 | -2.216e-5 | +2.871e-4 | 31/50 |
+| Public-history | LCFR / 0.995 | 2.450e-4 | +2.393e-5 | +5.330e-4 | 31/50 |
+| Public-history | CFR+ / 0.990 | 2.450e-4 | -5.541e-6 | +2.655e-4 | 28/50 |
+| Public-history | CFR+ / 0.995 | 2.450e-4 | +2.106e-5 | +5.162e-4 | 31/50 |
+
+Raw scale is therefore not a transferable error budget. Correlation changes
+both the distribution of realized root error and how a solver reacts to its
+direction.
+
+### Same realized root error
+
+Each draw was next rescaled to exactly `2.25e-4` joint-reach-weighted root L2.
+This reverses any simple claim that correlation is intrinsically worse.
+
+| Error grouping | Solver / anchor | Mean treatment Δ | Worst treatment Δ | Improving seeds |
+|---|---|---:|---:|---:|
+| Concrete IID | LCFR / 0.990 | -5.477e-5 | +8.799e-5 | 41/50 |
+| Concrete IID | LCFR / 0.995 | -3.740e-5 | +4.288e-4 | 41/50 |
+| Concrete IID | CFR+ / 0.990 | -5.587e-5 | +1.064e-4 | 43/50 |
+| Concrete IID | CFR+ / 0.995 | -3.199e-5 | +4.347e-4 | 41/50 |
+| Public-history | LCFR / 0.990 | -4.909e-5 | -4.719e-6 | 50/50 |
+| Public-history | LCFR / 0.995 | -3.748e-5 | +3.234e-5 | 29/50 |
+| Public-history | CFR+ / 0.990 | -3.537e-5 | -2.683e-5 | 50/50 |
+| Public-history | CFR+ / 0.995 | -3.090e-5 | -4.804e-6 | 50/50 |
+
+In this boundary there is only one public error group; after two-player
+zero-sum normalization and fixed-magnitude calibration it has only two error
+directions. The counts are consequently a mechanism check, not a population
+estimate for neural range errors.
+
+### Same on-policy root error, different location
+
+For LCFR with anchor 0.99, 20 draws in every cell were fixed at the same
+`2.25e-4` on-policy root L2. `Max CF root L2` is the larger of the two
+player-specific counterfactual error contributions.
+
+| Grouping | Error scope | Mean max CF root L2 | Mean treatment Δ | Worst treatment Δ | Improving seeds |
+|---|---|---:|---:|---:|---:|
+| Concrete IID | All leaves | 3.367e-4 | -6.270e-5 | +8.484e-5 | 17/20 |
+| Concrete IID | High-reach half | 2.697e-4 | -8.381e-5 | +2.479e-6 | 19/20 |
+| Concrete IID | Low-reach half | 1.786e-3 | +7.672e-5 | +1.261e-4 | 0/20 |
+| Public-history | All leaves | 3.080e-4 | -5.062e-5 | -4.719e-6 | 20/20 |
+| Public-history | High-reach half | 2.583e-4 | -7.273e-5 | -3.375e-5 | 20/20 |
+| Public-history | Low-reach half | 8.373e-4 | +7.108e-5 | +1.236e-4 | 0/20 |
+
+The low-reach half contains only 4.43% of on-policy frontier mass. Matching the
+same on-policy root error there required about five times larger local error,
+which created much larger counterfactual error and failed every run. A
+reach-only scheduler could therefore starve precisely the leaves whose local
+uncertainty it has allowed to become dangerous.
+
+Systematic bias showed the same lack of a universal scalar threshold. With
+LCFR/0.99 and error on every leaf, player-0 biases of `+/-3e-4` still improved
+the blueprint, with smaller margins; biases of `+/-1e-3` reversed the gain.
+The two signs caused different amounts of harm.
+
+**Verdict:** promote root-scaled and per-player counterfactual error metrics;
+reject raw perturbation scale, uniform RMSE, correlation, or joint reach as a
+standalone scheduler signal. The future allocator needs local calibrated
+uncertainty, counterfactual/opponent reach or action sensitivity, error
+provenance, and minimum rare-branch coverage. No anchor/no-op rule is frozen
+yet: solver, anchor, direction, and location still interact.
+
+**Reproduction:** the tracked configs are
+`leaf-kuhn2-depth2-structured-noise-matrix.json`,
+`leaf-kuhn2-depth2-structured-bias-matrix.json`,
+`leaf-kuhn2-depth2-correlation-focus-matrix.json`,
+`leaf-kuhn2-depth2-correlation-calibrated-matrix.json`, and
+`leaf-kuhn2-depth2-calibrated-structure-matrix.json` under
+`experiments/configs/`. Raw result JSON remains locally generated and ignored.

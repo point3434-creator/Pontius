@@ -64,8 +64,9 @@ to multiplayer hold'em.
 - Every tested current policy worsened the strong blueprint even when its
   average improved.
 - Anchor coefficients were selected on the same tiny game used for reporting.
-- Errors are independent concrete-history noise, not correlated public-belief
-  range-value errors. The favorable threshold may be optimistic.
+- The original favorable envelope used independent concrete-history noise.
+  EXP-0007 found materially different failure rates under coherent public-
+  history errors and localized errors; no scalar RMSE threshold is promoted.
 - The experiment composes only a prefix policy with blueprint continuation; it
   is not yet a complete continual-resolving policy evaluated at every public
   state.

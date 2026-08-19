@@ -30,7 +30,9 @@ reproducible from configuration and code revision.
 initial fixed-game comparison is recorded in EXP-0004. Paired leaf perturbation
 and explicit pseudo-regret warm starts are implemented; EXP-0005 rejected naïve
 unanchored shallow replacement. EXP-0006 provisionally advanced an affine
-blueprint anchor for average policies. Structured/reach-weighted errors, held-out
+blueprint anchor for average policies. EXP-0007 added structured, localized,
+joint-reach, counterfactual-reach, and matched-root-error controls and rejected
+joint reach as a standalone safety signal. A frozen selection rule, held-out
 multiplayer validation, tree mutation, and external-sampling gates remain.
 
 **Target:** months 2-4.

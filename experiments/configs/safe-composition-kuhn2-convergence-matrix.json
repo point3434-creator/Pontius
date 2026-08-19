@@ -1,0 +1,14 @@
+{
+  "base": {
+    "game": "kuhn2",
+    "blueprint_solver": "lcfr",
+    "strict_frontier_tolerance": 1e-12
+  },
+  "axes": {
+    "blueprint_iterations": [20, 100, 1000, 3000],
+    "search_solver": ["lcfr", "cfr_plus"],
+    "search_iterations": [30, 100, 300, 1000]
+  },
+  "max_runs": 64,
+  "store_full_runs": false
+}

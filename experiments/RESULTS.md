@@ -599,3 +599,74 @@ or conservative relaxations be tested in multiplayer games.
 `composition-kuhn2-full-depth-audit.json` under `experiments/configs/` with
 `python -m pontius.composition_matrix`. Raw JSON remains locally generated and
 ignored.
+
+## EXP-0011: Exact opponent-frontier safe resolving
+
+**Date:** 2026-08-19
+
+**Status:** Safety control verified; unconditional finite-residual deployment
+rejected.
+
+This checkpoint implements the two-player terminate/follow resolving game. At
+each Kuhn2 public boundary, initial chance samples concrete private states in
+proportion to chance reach times the resolver's trunk reach, excluding the
+opponent's reach. The opponent receives one opt-out information set per private
+card. Terminating returns its exact blueprint counterfactual-best-response
+value; following enters a utility-scaled copy of the complete subgame. Only the
+resolver player's subgame strategy is exported.
+
+The exact candidate certificate has a useful identity: opponent gadget
+best-response value above the opt-out baseline equals the sum of positive
+candidate frontier violations. With the other full-game component fixed, half
+that value bounds the increase in exploitability. Nested solves add their
+one-sided bounds. Full-game evaluation is revealed only after construction.
+
+The 32-case matrix crosses blueprint iterations 20, 100, 1,000, and 3,000;
+LCFR/CFR+ search; and 30, 100, 300, and 1,000 iterations. `Strict` deploys a
+boundary only when exact total positive frontier violation is at most `1e-12`.
+`Global` is a from-scratch coherent full-game solve at the same iteration count.
+
+| Architecture | Positive | Mean improvement | Worst improvement | Mean decision ms | Aggregate improvement/ms | Bound failures | Deployed roots |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Raw safe continual | 9/32 | -7.05082e-3 | -4.24750e-2 | 251.458 | -2.80398e-5 | 0/32 | 128/128 |
+| Strict safe continual | 9/32 | +1.27000e-3 | 0 | 250.749 | +5.06482e-6 | 0/32 | 18/128 |
+| Global control | 12/32 | +2.51098e-3 | -9.87721e-3 | 120.751 | +2.07946e-5 | n/a | n/a |
+
+The independent single-boundary audit adds 128 candidate checks and has zero
+bound failures; 31 candidates improve the full game. The raw composed arm also
+has no bound failure—the problem is that its finite residual is large enough
+to permit the observed harm. Its mean exploitability-increase allowance is
+`5.48317e-3`. A correct bound can honestly certify that a weak solve may be
+bad; it is not itself a no-harm guarantee.
+
+### Convergence
+
+| Search iterations | Raw positive / mean improvement | Strict positive / mean improvement | Global positive / mean improvement |
+|---:|---:|---:|---:|
+| 30 | 1/8 / -2.57224e-2 | 0/8 / 0 | 2/8 / -3.86808e-3 |
+| 100 | 2/8 / -3.22312e-3 | 2/8 / +1.75208e-3 | 2/8 / +2.98289e-3 |
+| 300 | 3/8 / -3.03925e-4 | 3/8 / +1.52807e-3 | 4/8 / +5.16284e-3 |
+| 1,000 | 3/8 / +1.04617e-3 | 4/8 / +1.79984e-3 | 4/8 / +5.76627e-3 |
+
+The strict arm helps mainly when the blueprint is weak: it improves 6/8 cases
+at 20 blueprint iterations with mean `+5.04616e-3`. It improves 2/8 at 100,
+none at 1,000, and one by only `2.06972e-6` at 3,000. This is consistent with
+safe reconstruction having little headroom on a near-equilibrium blueprint.
+
+Exact certificate evaluation averages about 5% of safe decision compute in
+this tiny game; gadget traversal dominates. Even so, safe continual search
+averages roughly twice the latency of the global control because each public
+boundary adds an opt-out layer and is solved separately. Exact certification
+will not remain cheap at poker scale.
+
+**Verdict:** accept the gadget and additive residual certificate as the
+two-player correctness oracle. Retain strict frontier gating as the permanent
+non-harming control. Reject raw finite-iteration Resolve as deployment logic.
+Safety alone does not maximize strategy quality per millisecond: next build an
+exact constrained or max-margin oracle, then measure whether CFR convergence or
+the feasibility-only objective is limiting useful safe improvement.
+
+**Reproduction:** run
+`safe-composition-kuhn2-convergence-matrix.json` under
+`experiments/configs/` with `python -m pontius.safe_composition_matrix`. Raw
+JSON remains locally generated and ignored.

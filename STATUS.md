@@ -103,24 +103,37 @@ Checkpoint 2: solver comparison laboratory.
   24 Kuhn3 rows. At terminal depth, prefix/global improved all six audit cases
   while independent continual replacement harmed all six. Counterfactual
   frontier consistency, not tree depth or leaf error, is the next bottleneck.
-- Eighty-four automated tests pass.
+- An exact two-player terminate/follow resolving gadget now samples public-root
+  states by chance and resolver reach while excluding opponent reach. It
+  computes exact blueprint opponent counterfactual-best-response frontiers and
+  deploys only the resolver's subgame component.
+- The gadget's one-sided security residual equals the sum of positive frontier
+  violations. Single and nested replacements satisfy a tested exploitability
+  bound equal to half that residual, additive across nested solves.
+- EXP-0011 found zero bound failures across 128 single-boundary candidates and
+  all 32 composed profiles. Raw finite-residual Resolve improved only 9/32 and
+  had mean NashConv improvement `-7.05082e-3`.
+- An exact strict-frontier gate deployed 18/128 searched public histories,
+  improved 9/32 profiles, never worsened a blueprint, and had mean improvement
+  `+1.27000e-3`. It is a correctness control, not a scalable runtime gate.
+- Ninety-eight automated tests pass.
 
 ## In progress
 
-- Implementing a two-player zero-sum safe-resolving gadget with exact blueprint
-  opponent counterfactual frontier values.
+- Designing an exact constrained/max-margin oracle to separate safe-strategy
+  quality from finite-CFR convergence error.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Build and verify the two-player terminate/follow safe-resolving gadget at a
-   single public boundary and terminal depth.
-2. Compose safe replacements across all Kuhn2 public roots; compare against
-   no-op, prefix, naïve continual, local-gated, and global controls.
-3. Design a declared multiplayer relaxation only after the two-player
-   counterfactual-value invariants pass.
+1. Build an exact small-game constrained/max-margin strategy oracle for the
+   same opponent frontiers and use it to measure achievable safe improvement.
+2. Compare CFR gadget convergence and one-sided stopping against that oracle;
+   test whether warm starts or margin objectives improve quality per millisecond.
+3. Inject controlled frontier-value error and uncertainty bounds before
+   declaring any multiplayer relaxation or neural frontier target.
 
 ## Current blockers
 
@@ -135,4 +148,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after EXP-0010 rejected naïve continual policy composition.
+2026-08-19, after EXP-0011 verified the safe-resolving control and rejected
+unguarded finite-residual deployment.

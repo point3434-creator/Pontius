@@ -124,6 +124,23 @@ expected search time per hand. The local-gated arm additionally includes the
 exact local evaluations required by its veto; optional diagnostic evaluation
 is reported separately and excluded from decision latency.
 
+## Safe-resolving control
+
+Run the exact two-player opponent-frontier convergence matrix with:
+
+```powershell
+$python = "C:\Users\point\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+$env:PYTHONPATH = "src"
+& $python -m pontius.safe_composition_matrix --config experiments/configs/safe-composition-kuhn2-convergence-matrix.json --output experiments/results/safe-composition-kuhn2-convergence-matrix.json
+```
+
+The raw arm deploys every finite-CFR candidate and reports its additive
+residual-adjusted exploitability bound. The strict arm pays for an exact
+opponent-CBR certificate and keeps the current policy unless total positive
+frontier violation is within the configured tolerance. Certificate evaluation
+is included in decision compute. Full-game exploitability is evaluated only
+after construction and is never used by either arm.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

@@ -20,8 +20,19 @@ evaluation      exact metrics, responders, leagues, variance control
 The Python package implements `game-core`, `exact-lab`, the reference portion
 of `solver-core`, and a small experimental public-belief/online-search control.
 The Bayesian continual compositor is a rejected negative control, not the
-production resolver. Performance backends and future safe-resolving gadgets
-must remain differentially testable against this implementation.
+production resolver. `safe_resolving` is the exact two-player correctness
+control: its chance root uses chance × resolver reach, its opponent opt-out
+information sets carry blueprint counterfactual-best-response values, and only
+the resolver component is exported. Its full-game target remains outside
+policy construction. Performance backends and future approximate gadgets must
+remain differentially testable against this implementation.
+
+The safe frontier interface is vector-valued. Each opponent augmented root
+information set has counterfactual reach, blueprint CBR value, candidate CBR
+value, and positive violation. Finite-solver error is a first-class certificate,
+not an unreported convergence assumption. Exact best-response certification is
+permitted only in the laboratory; a scalable system will need conservative
+value bounds or a permanent no-op fallback.
 
 ## Runtime target
 

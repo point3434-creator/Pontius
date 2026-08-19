@@ -42,7 +42,12 @@ continual-resolving composition gate now precedes v2 selection and neural
 scaling. EXP-0010 implemented that Bayesian composition control and rejected
 it: even terminal-depth independent public-root solves violate full-game
 strategy consistency. A two-player counterfactual-value safe-resolving gadget
-is now the required control before any multiplayer relaxation.
+was the required control before any multiplayer relaxation. EXP-0011 now
+verifies its exact opponent-frontier and residual-adjusted exploitability
+certificates at every Kuhn2 public boundary. Raw finite-CFR Resolve is too
+unsafe and inefficient to deploy without a residual constraint; an exact
+strict gate is safe but conservative and unscalable. An exact constrained or
+max-margin oracle is the next gate before approximate frontiers or multiplayer.
 
 **Target:** months 2-4.
 

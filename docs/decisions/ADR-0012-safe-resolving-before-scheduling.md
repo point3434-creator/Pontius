@@ -73,9 +73,9 @@ baselines. All compute comparisons include any required gate evaluation.
 For two-player Kuhn at terminal depth, compute exact blueprint opponent
 counterfactual values, construct the terminate/follow resolving gadget, and
 replace one public-root strategy. Verify that opponent counterfactual values do
-not fall below the blueprint boundary and that full-game exploitability does
-not increase beyond numerical tolerance. Then compose all public roots and
-repeat across blueprint strengths and anchors.
+not exceed the blueprint boundary beyond measured solver residual and that
+full-game exploitability respects the corresponding bound. Then compose all
+public roots and repeat across blueprint strengths and solvers.
 
 ## Kill criterion
 

@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "name": "counterfactual-risk-v1",
+  "status": "frozen",
+  "frozen_date": "2026-08-19",
+  "purpose": "Pre-search blueprint/no-op gate for one fixed anchored candidate",
+  "rule": {
+    "candidate_config": {
+      "in_search_blueprint_weight": 0.99,
+      "output_candidate_weight": 1.0,
+      "search_iterations": 100,
+      "search_solver": "lcfr",
+      "warm_start_regret_mass": null
+    },
+    "candidate_policy": "average",
+    "risk_metric": "leaf_max_counterfactual_root_l2",
+    "maximum_risk": 0.0002,
+    "decision": "search iff risk_metric <= maximum_risk; otherwise blueprint no-op"
+  },
+  "information_contract": {
+    "allowed": [
+      "declared candidate configuration",
+      "largest player-specific counterfactual root-L2 uncertainty proxy"
+    ],
+    "forbidden": [
+      "candidate or blueprint full-game NashConv",
+      "candidate utility against an exact responder",
+      "holdout outcomes",
+      "oracle no-op label"
+    ],
+    "current_proxy_warning": "The exact lab supplies realized leaf error. A deployable successor must supply a conservative prediction before search.",
+    "timing_warning": "Reported avoided cost covers reference search only, not future neural inference or uncertainty calibration."
+  },
+  "derivation": {
+    "game": "kuhn2",
+    "blueprint": {
+      "iterations": 1000,
+      "solver": "lcfr"
+    },
+    "candidate_filter": {
+      "in_search_blueprint_weight": 0.99,
+      "search_solver": "lcfr"
+    },
+    "training_result_files": [
+      "leaf-kuhn2-depth2-structured-noise-matrix.json",
+      "leaf-kuhn2-depth2-structured-bias-matrix.json",
+      "leaf-kuhn2-depth2-correlation-focus-matrix.json",
+      "leaf-kuhn2-depth2-correlation-calibrated-matrix.json",
+      "leaf-kuhn2-depth2-calibrated-structure-matrix.json"
+    ],
+    "deduplication": "canonical JSON of the complete run config",
+    "unique_cases": 773,
+    "beneficial_candidates": 607,
+    "harmful_or_tied_candidates": 166,
+    "selected_cases": 312,
+    "selected_harmful_or_tied": 0,
+    "selected_mean_candidate_nash_conv_delta": -0.00013587630464831002,
+    "all_case_mean_selected_nash_conv_delta": -0.00005484269993566976,
+    "selected_worst_candidate_nash_conv_delta": -0.000052947923799451235,
+    "smallest_observed_failing_risk": 0.00025582294951585245,
+    "threshold_margin_below_first_failure_fraction": 0.21820931085931872,
+    "selection_rationale": "Use the round 2e-4 threshold below the first observed failure; prefer a falsifiable conservative baseline over fitting a nonlinear classifier."
+  },
+  "holdout_preregistration": {
+    "configs": [
+      "selection-v1-kuhn2-holdout-matrix.json",
+      "selection-v1-kuhn3-holdout-matrix.json"
+    ],
+    "seeds": "100-109 for kuhn2 and 100-104 for kuhn3; none appeared in derivation",
+    "rule_retuning": "prohibited until both holdout families are reported",
+    "advance_gate": {
+      "minimum_search_rate": 0.1,
+      "harmful_or_tied_selected_searches": 0,
+      "overall_mean_selected_nash_conv_delta": "strictly negative",
+      "every_game_blueprint_depth_mean_selected_delta": "nonpositive",
+      "efficiency": "selected improvement per reference search millisecond exceeds unconditional search"
+    }
+  }
+}

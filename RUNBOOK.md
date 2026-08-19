@@ -64,6 +64,22 @@ to a matched realized root contribution and records the effective raw scale.
 It is an experimental control for comparing error structure, not an online
 post-hoc correction. It cannot be combined with explicit bias.
 
+## Frozen selection holdout
+
+Run a preregistered rule directly from a matrix configuration with:
+
+```powershell
+$python = "C:\Users\point\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+$env:PYTHONPATH = "src"
+& $python -m pontius.selection --rule experiments/rules/counterfactual-risk-v1.json --matrix-config experiments/configs/selection-v1-kuhn2-holdout-matrix.json --output experiments/results/selection-v1-kuhn2-holdout.json
+```
+
+The evaluator validates the candidate configuration in every run and embeds a
+SHA-256 digest of the complete frozen rule document. It compares the gate with
+permanent no-op, unconditional search, and the unavailable full-game oracle,
+and reports game/blueprint/depth subgroups. Commit a frozen rule before running
+its holdout; never edit a versioned rule after observing outcomes.
+
 The matrix runner trains and exactly evaluates each distinct blueprint once,
 then reuses it across perturbation and solver axes. `prepared_blueprints` in the
 artifact records the number of cached blueprints.

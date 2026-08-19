@@ -46,7 +46,7 @@ Checkpoint 2: solver comparison laboratory.
   update rules and never improved the blueprint.
 - A solver-level affine blueprint anchor and an independent output trust region
   now have explicit no-op and total-variation invariants. Prepared blueprints
-  are reused across matrix runs. Fifty-eight automated tests pass.
+  are reused across matrix runs. Sixty-one automated tests pass.
 - EXP-0006 found that depth-two anchored average policies can improve weak,
   medium, and strong two-player blueprints. Anchored LCFR was best with exact
   leaves in the tested strong-blueprint slice; moderate noise changed the
@@ -68,11 +68,15 @@ Checkpoint 2: solver comparison laboratory.
 - Joint reach alone is rejected as a scheduler safety signal. Local uncertainty,
   per-player counterfactual sensitivity, provenance/correlation, and minimum
   rare-branch coverage advance as required allocator inputs.
+- Counterfactual-risk rule v1 is preregistered as a fixed LCFR/0.99 average
+  candidate gated at maximum player-specific counterfactual root L2 `2.0e-4`.
+  Its machine-readable document, held-out seeds/configs, and kill criteria are
+  frozen before any two- or three-player holdout is run.
 
 ## In progress
 
-- Defining a conservative uncertainty/benefit-to-anchor-or-no-op rule without
-  fitting it to the held-out multiplayer cases.
+- Running counterfactual-risk rule v1 unchanged on its preregistered two- and
+  three-player holdouts.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Distinguishing prefix-policy improvement from a complete resolver applied at
   every public state, before interpreting full-game strength.

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import unittest
+from pathlib import Path
 
 from pontius.river_selective_experiment import run_selective_expansion_pilot
 
@@ -47,6 +49,41 @@ def _config() -> dict:
         "factorized_likelihood_minimum": 0.5,
         "factorized_likelihood_maximum": 1.5,
     }
+
+
+def _source_hash(filename: str) -> str:
+    path = Path(__file__).parents[1] / "src" / "pontius" / filename
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _development_config() -> dict:
+    config = _config()
+    config.pop("blueprint_iterations")
+    config.update(
+        {
+            "evidence_stage": "group_separated_development",
+            "blueprint_quality_checkpoints": [2, 4],
+            "warm_start_multipliers_by_payoff_span": [0.1],
+            "boundary_feature_families": [
+                "source_context",
+                "target_context",
+                "context_delta",
+                "range_delta",
+                "target_blueprint_public_policy",
+            ],
+            "record_solver_probe_features": True,
+            "expected_selective_tree_sha256": _source_hash("selective_tree.py"),
+            "expected_river_selective_sha256": _source_hash("river_selective.py"),
+            "gates": {
+                "minimum_development_board_groups": 1,
+                "maximum_source_normalized_nash_conv": 10.0,
+                "primary_full_tree_equivalent_iteration_budget": 2,
+                "minimum_mask_no_op_oracle_relative_uplift": 0.0,
+                "minimum_positive_group_uplift_fraction": 0.0,
+            },
+        }
+    )
+    return config
 
 
 class RiverSelectiveExpansionExperimentTests(unittest.TestCase):
@@ -129,6 +166,80 @@ class RiverSelectiveExpansionExperimentTests(unittest.TestCase):
             run_selective_expansion_pilot({**self.config, "masks": reversed_masks})
         with self.assertRaisesRegex(ValueError, "unknown"):
             run_selective_expansion_pilot({**self.config, "future_axis": 1})
+
+
+class RiverSelectiveExpansionDevelopmentTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.config = _development_config()
+        cls.result = run_selective_expansion_pilot(cls.config)
+
+    def test_threshold_blueprint_and_frozen_sources_are_reported(self) -> None:
+        self.assertEqual(
+            self.result["experiment_type"],
+            "river_selective_expansion_development_matrix",
+        )
+        self.assertFalse(self.result["pilot"])
+        self.assertEqual(
+            self.result["evidence_stage"],
+            "group_separated_development",
+        )
+        blueprint = self.result["blueprints"][0]
+        self.assertTrue(blueprint["quality_threshold_passed"])
+        self.assertIn(blueprint["iterations"], (2, 4))
+        self.assertTrue(blueprint["quality_trajectory"])
+        self.assertTrue(
+            self.result["gates"]["results"]["selective_tree_source_is_frozen"]
+        )
+        self.assertTrue(
+            self.result["gates"]["results"]["river_selective_source_is_frozen"]
+        )
+
+    def test_boundary_and_probe_features_cannot_contain_teacher_labels(self) -> None:
+        forbidden = (
+            "nash",
+            "exploit",
+            "best_response",
+            "future",
+            "gain",
+            "label",
+            "reduction",
+            "oracle",
+        )
+        boundary = self.result["targets"][0]["boundary_online_features"]
+        probe = self.result["records"][0]["solver_probe_features"]
+        self.assertTrue(boundary)
+        self.assertTrue(probe)
+        self.assertTrue(
+            all(not any(part in key for part in forbidden) for key in boundary)
+        )
+        self.assertTrue(
+            all(not any(part in key for part in forbidden) for key in probe)
+        )
+        self.assertGreaterEqual(
+            self.result["records"][0]["hot_with_probe_feature_seconds"],
+            self.result["records"][0]["hot_online_seconds"],
+        )
+        self.assertGreaterEqual(
+            self.result["records"][0][
+                "cold_exact_leaf_with_probe_feature_seconds"
+            ],
+            self.result["records"][0]["cold_exact_leaf_online_seconds"],
+        )
+        self.assertIsNotNone(self.result["primary_opportunity"])
+
+    def test_development_contract_rejects_warm_selection_and_missing_hashes(self) -> None:
+        with self.assertRaisesRegex(ValueError, "one warm-start"):
+            run_selective_expansion_pilot(
+                {
+                    **self.config,
+                    "warm_start_multipliers_by_payoff_span": [0.1, 1.0],
+                }
+            )
+        missing_hash = dict(self.config)
+        missing_hash.pop("expected_selective_tree_sha256")
+        with self.assertRaisesRegex(ValueError, "lowercase SHA-256"):
+            run_selective_expansion_pilot(missing_hash)
 
 
 if __name__ == "__main__":

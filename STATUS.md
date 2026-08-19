@@ -515,25 +515,42 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 - Exact post-solve acceptance does transfer. It raises fresh raw reduction
   18.09% and, even with ordinary exact-label cost, raises raw quality/ms 10.75%.
   Full search plus exact verification is now the conservative heads-up control.
+- The ADR-0052 exact multiway river contract is implemented for two through six
+  players, with three players as the primary teacher workload. It includes
+  exact joint ranges/card removal, cyclic one-bet response order, multiway ties,
+  per-player unilateral metrics, shared-private-information pair-coalition
+  responses, and separate unilateral-Pareto and coalition-stress labels.
+- Twenty-four new contract tests cover every three-player terminal history,
+  independent payoff and pure-policy oracles, singleton-team equivalence,
+  pair-team enumeration, information hiding, payoff scaling, and unchanged
+  generic range/policy dependency tapes. The complete suite passes 313 tests in
+  50.314 seconds.
+- A reproducible revealed cost calibration passes at `9.33e-15` maximum exact
+  error with zero best-response action mismatches. At three hands per seat (27
+  joint deals), full unilateral evaluation costs 35.10 ms, all pair coalitions
+  36.75 ms, one DCFR iteration 12.97 ms, tape compilation 25.22 ms, and hot
+  dense candidate evaluation 5.88 ms.
+- Hot dense policy evaluation is 5.83x-6.52x faster across one to 216 joint
+  deals. But states, memory, and latency are linear in explicit joint deals;
+  independent three-player support grows cubically in hands per seat. Explicit
+  joint enumeration is now classified as an exact teacher, not a scalable
+  six-player representation.
 
 ## In progress
 
-- Retaining full `b3r2` plus exact post-solve acceptance as the heads-up river
-  control; the frozen no-op/full density gate is rejected without retuning.
-- Designing the next reduced-multiplayer measurement workload with explicit
-  unilateral and coalition diagnostics instead of fitting another threshold on
-  the failed river artifact.
-- Treating dense compiled evaluation as the primary policy-delta lane and
-  measuring whether two-or-more candidate reuse is representative online.
-- Keeping exact recertification a heads-up teacher while defining unilateral
-  and coalition-threat evaluation boundaries for reduced multiplayer.
+- Freezing the first grouped three-player range-shift and full-search matrix.
+- Carrying exact acceptance into multiplayer as four explicit arms: blind,
+  aggregate NashConv, per-player unilateral Pareto, and pair-coalition stress.
+- Treating the explicit joint game as the oracle for a future factorized or
+  low-rank public-belief contraction rather than scaling tuple enumeration.
+- Keeping coalition cost separate from hot unilateral tape evaluation.
 
 ## Next three tasks
 
-1. Freeze the reduced-multiplayer game and evaluation contract, including per-
-   player unilateral NashConv and explicit coalition-threat diagnostics.
-2. Carry full search plus exact acceptance into that workload as the incumbent,
-   with dense policy-tape reuse measured separately from compilation.
+1. Freeze and run the grouped three-player full-search/acceptance matrix, with
+   dense policy-tape reuse measured separately from compilation and coalitions.
+2. Prototype exact factorized belief contraction against the enumerated oracle
+   if the matrix shows useful search value.
 3. Build a larger causal opportunity trace before fitting another scheduler;
    require blocker-sensitive reach/uncertainty features and grouped transfer.
 
@@ -550,5 +567,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after the corrected no-op/full rule failed on 23 fresh groups while
-exact post-solve acceptance retained a positive quality-per-millisecond gain.
+2026-08-19, after the exact multiway contract and revealed cost calibration
+passed while identifying explicit joint-deal enumeration as teacher-only.

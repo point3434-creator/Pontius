@@ -202,6 +202,21 @@ post-solve acceptance does transfer, improving raw quality 18.09% and rate
 the retained river control; the next C3 work moves to reduced multiplayer and
 requires richer blocker/reach/uncertainty traces before another scheduler fit.
 
+The first reduced-multiplayer contract now passes. A configurable two-to-six-
+player exact river game supplies correlated joint ranges, card removal, cyclic
+one-bet response order, multiway ties, per-player unilateral NashConv terms,
+and exact shared-private-information pair-coalition stress responses. Separate
+unilateral-Pareto and coalition-stress incumbent labels prevent aggregate
+quality from hiding a worse seat or pair. A revealed three-player cost
+calibration matches the flat policy tape within `9.33e-15` with zero response
+action mismatches. Hot dense candidate evaluation is 5.83x-6.52x faster than
+full traversal. However, exact state count, memory, and latency scale linearly
+in materialized joint deals, which grow cubically in hands per seat for three
+independent ranges and exponentially in player count. Explicit tuples are now
+an oracle representation only. The next grouped matrix must first show that
+full search retains value under per-seat and coalition constraints; if so, an
+exact factorized/low-rank belief contraction becomes the next scaling target.
+
 **Target:** months 4-6.5.
 
 **Build:** reduced decks, 2-6 players, dense bet lattice, exact belief handling,

@@ -1,0 +1,15 @@
+{
+  "evidence_stage": "revealed_engineering_calibration",
+  "board": ["2c", "7d", "9h", "Js", "Qc"],
+  "pot": 12.0,
+  "stack": 30.0,
+  "bet_size": 3.0,
+  "hands_per_player": [1, 2, 3, 4, 5, 6],
+  "range_weight_rule": "disjoint_linear_index",
+  "solver": "dcfr",
+  "candidate_iterations": 4,
+  "timing_repeats": 3,
+  "warmup_repeats": 1,
+  "frozen_contract_sha256": "b98ee2c73b7b3c93a686ecc5d783756990fbd06b7c911a2e8f52521368e358f4",
+  "maximum_exact_error": 1e-10
+}

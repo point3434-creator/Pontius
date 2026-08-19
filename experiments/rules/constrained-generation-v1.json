@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "rule_name": "constrained-generation-v1",
+  "status": "frozen-before-fresh-holdout",
+  "frozen_at": "2026-08-19",
+  "selection_evidence": {
+    "matrix": "constrained-generation-kuhn2-screen-matrix.json",
+    "blueprint_solvers": ["lcfr", "cfr_plus"],
+    "blueprint_iterations": [20, 1000],
+    "selection_target": "aggregate certified sum-frontier-margin per decision millisecond"
+  },
+  "solver": {
+    "initial_column": "complete behavioral blueprint",
+    "restricted_master_objective": "maximize sum of nonnegative guaranteed frontier margins",
+    "response_separation": "dynamic opponent counterfactual best response",
+    "resolver_pricing": "LP-dual-weighted dynamic resolver best response",
+    "maximum_master_updates": 5,
+    "candidate_gate": "total positive frontier violation <= 1e-10",
+    "incumbent_ranking": "largest signed sum frontier margin",
+    "replacement_threshold": "strictly greater than incumbent by 1e-10",
+    "fallback": "blueprint"
+  },
+  "screen_result": {
+    "boundaries": 16,
+    "converged_boundaries_by_budget": 11,
+    "positive_incumbent_boundaries": 15,
+    "aggregate_sum_margin_capture": 0.8416905745358862,
+    "aggregate_hidden_br_capture_diagnostic": 0.7151195733534141,
+    "mean_decision_compute_milliseconds": 7.270243750326699,
+    "aggregate_sum_margin_per_decision_millisecond": 0.000284122483164997
+  },
+  "prior_frozen_cfr_screen_comparison": {
+    "rule": "safe-solver-incumbent-v1",
+    "aggregate_sum_margin_capture": 0.3406881876257366,
+    "mean_decision_compute_milliseconds": 2.839,
+    "aggregate_sum_margin_per_decision_millisecond": 0.0002945012214506173,
+    "constrained_generation_rate_fraction": 0.964758250459886,
+    "constrained_generation_capture_multiple": 2.4705598993661804
+  },
+  "fresh_holdout": {
+    "blueprint_solvers": ["cfr", "dcfr"],
+    "blueprint_iterations": [50, 300, 10000],
+    "public_boundaries": 24,
+    "generation_matrix": "constrained-generation-kuhn2-v1-holdout-matrix.json",
+    "frozen_cfr_matrix": "safe-solver-gap-kuhn2-constrained-v1-holdout-matrix.json",
+    "untouched_when_frozen": true
+  },
+  "holdout_gates": {
+    "maximum_frontier_violation": 1e-10,
+    "maximum_converged_exact_objective_gap": 1e-8,
+    "minimum_update_5_aggregate_sum_margin_capture": 0.5,
+    "minimum_update_5_rate_fraction_of_screen": 0.3333333333333333,
+    "must_beat_frozen_cfr_sum_margin_per_millisecond": true,
+    "no_post_reveal_retuning": true
+  },
+  "scope": {
+    "exact_two_player_kuhn_teacher": true,
+    "runtime_deployable": false,
+    "multiplayer_claim": false,
+    "exact_certification_required": true
+  }
+}

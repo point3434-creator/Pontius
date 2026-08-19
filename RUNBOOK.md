@@ -181,6 +181,30 @@ After that rule is committed, its untouched holdout is run with:
 & $python -m pontius.safe_solver_gap_matrix --config experiments/configs/safe-solver-gap-kuhn2-v1-holdout-matrix.json --output experiments/results/safe-solver-gap-kuhn2-v1-holdout-matrix.json
 ```
 
+## Direct constrained generation
+
+Run the dynamic row/column-generation screen with:
+
+```powershell
+$python = "C:\Users\point\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+$env:PYTHONPATH = "src"
+& $python -m pontius.constrained_generation_matrix --config experiments/configs/constrained-generation-kuhn2-screen-matrix.json --output experiments/results/constrained-generation-kuhn2-screen-matrix.json
+```
+
+`experiments/rules/constrained-generation-v1.json` freezes the five-update
+screen winner and its fresh CFR/DCFR holdout. Only after that rule is committed,
+run both paired holdout arms:
+
+```powershell
+& $python -m pontius.constrained_generation_matrix --config experiments/configs/constrained-generation-kuhn2-v1-holdout-matrix.json --output experiments/results/constrained-generation-kuhn2-v1-holdout-matrix.json
+& $python -m pontius.safe_solver_gap_matrix --config experiments/configs/safe-solver-gap-kuhn2-constrained-v1-holdout-matrix.json --output experiments/results/safe-solver-gap-kuhn2-constrained-v1-holdout-matrix.json
+```
+
+Decision timing excludes the exact normal-form regret teacher and hidden
+complete-game diagnostic. It includes frontier setup, master construction and
+solve, behavioral conversion, response separation, and dynamic resolver
+pricing.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

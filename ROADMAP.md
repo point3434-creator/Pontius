@@ -59,6 +59,12 @@ regret mass is rejected without retuning. A direct constrained
 response-generation solver is the next gate before approximate frontiers or
 multiplayer.
 
+A dynamic row/column-generation implementation now reaches the exact
+sum-margin optimum without resolver normal-form enumeration. Its held-in
+five-update point captures 84.17% of the exact objective, but is 3.52% behind
+the frozen CFR rule's unusually strong screen quality per millisecond. The rule
+and a new CFR/DCFR holdout are frozen; holdout transfer is the active gate.
+
 **Target:** months 2-4.
 
 **Build:** CFR+, DCFR, external-sampling MCCFR, current/average/snapshot output,

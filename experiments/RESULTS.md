@@ -810,3 +810,61 @@ retuning on this holdout. Retain blueprint initialization and target-free
 incumbent retention as controls. Move to a solver that handles individual
 frontier constraints and the summed-margin objective directly rather than
 continuing scalar regret-mass sweeps.
+
+## EXP-0014 screening: Dynamic constrained generation
+
+**Date:** 2026-08-19
+
+**Status:** Five-update rule frozen before a fresh CFR/DCFR holdout.
+
+This checkpoint directly solves the safe sum-margin program with a restricted
+master. It begins with one complete behavioral blueprint column, generates
+violated opponent response rows with dynamic counterfactual best response, and
+uses verified LP duals to price the best missing resolver column through one
+weighted dynamic best response. Resolver normal-form plans are counted for the
+teacher comparison but never enumerated by candidate construction.
+
+Every converged result across the screen's 16 public boundaries matches the
+exact normal-form objective within numerical tolerance. The largest root case
+uses at most nine active columns out of 64 normal-form plans and six active
+response rows. A safe monotone incumbent prevents intermediate infeasible
+masters from changing the blueprint policy.
+
+| Update budget | Converged | Positive incumbents | Sum capture | Hidden BR capture | Mean ms | Sum margin/ms |
+|---:|---:|---:|---:|---:|---:|---:|
+| 3 | 8/16 | 12/16 | 49.2476% | 35.7432% | 5.233 | `2.30942e-4` |
+| 4 | 11/16 | 15/16 | 72.5593% | 54.1828% | 6.411 | `2.77759e-4` |
+| **5** | **11/16** | **15/16** | **84.1691%** | **71.5120%** | **7.270** | **`2.84122e-4`** |
+| 7 | 13/16 | 16/16 | 96.1984% | 89.4673% | 8.804 | `2.68167e-4` |
+| 10 | 16/16 | 16/16 | 100.0000% | 95.1417% | 10.587 | `2.31816e-4` |
+
+At its screened optimum, direct generation captures 2.47 times as much exact
+sum-margin as frozen CFR v1, but its target-free quality per millisecond is
+3.52% lower (`2.84122e-4` versus `2.94501e-4`). The result therefore justifies
+a transfer test, not a win claim.
+
+At update five, mean phase times are 1.279 ms setup, 0.545 ms master build,
+0.225 ms simplex solve, 0.783 ms policy conversion, 2.634 ms response
+separation, and 1.805 ms resolver pricing. Traversal and state conversion are
+the measured bottlenecks; replacing the tiny LP solver first would target only
+3.1% of latency.
+
+`constrained-generation-v1.json` freezes update five and a fresh 24-boundary
+CFR/DCFR holdout at blueprint iterations 50, 300, and 10,000. Its canonical
+digest is
+`3ffa9bc62d0f5bd6d6cde4e56bad53f4bc95dbcc02324b714250e187bc5c32f1`.
+The already frozen CFR rule will run on the same cases. No holdout result has
+been read at this preregistration point.
+
+**Pre-holdout verdict:** direct constraint handling removes normal-form
+enumeration and dramatically improves objective capture, but has not beaten
+the screened CFR quality rate. Advance only the frozen five-update rule. If it
+passes transfer, optimize shared separation/pricing traversal; if it fails,
+retain it as an exact teacher and investigate primal-feasible first-order
+updates without retuning the revealed cases.
+
+**Reproduction:** run
+`constrained-generation-kuhn2-screen-matrix.json` under
+`experiments/configs/` with
+`python -m pontius.constrained_generation_matrix`. Raw JSON remains locally
+generated and ignored.

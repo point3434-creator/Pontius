@@ -16,6 +16,10 @@ class LinearProgramTests(unittest.TestCase):
         self.assertAlmostEqual(result.variables[0], 8.0 / 3.0)
         self.assertAlmostEqual(result.variables[1], 2.0 / 3.0)
         self.assertAlmostEqual(result.objective, 10.0 / 3.0)
+        self.assertAlmostEqual(result.dual_variables[0], 1.0 / 3.0)
+        self.assertAlmostEqual(result.dual_variables[1], 1.0 / 6.0)
+        self.assertAlmostEqual(result.dual_objective, result.objective)
+        self.assertLessEqual(result.duality_gap, 1e-10)
 
     def test_phase_one_handles_equality_as_two_inequalities(self) -> None:
         result = maximize_linear_program(
@@ -26,6 +30,8 @@ class LinearProgramTests(unittest.TestCase):
 
         self.assertAlmostEqual(result.variables[0], 1.0)
         self.assertAlmostEqual(result.objective, 2.0)
+        self.assertAlmostEqual(result.dual_variables[0], 2.0)
+        self.assertAlmostEqual(result.dual_variables[1], 0.0)
 
     def test_infeasible_and_unbounded_programs_are_rejected(self) -> None:
         with self.assertRaisesRegex(ValueError, "infeasible"):

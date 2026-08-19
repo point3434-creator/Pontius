@@ -11,6 +11,9 @@ from math import isfinite
 class LinearProgramSolution:
     variables: tuple[float, ...]
     objective: float
+    dual_variables: tuple[float, ...]
+    dual_objective: float
+    duality_gap: float
     pivots: int
     max_constraint_violation: float
 
@@ -118,7 +121,9 @@ class _SimplexTableau:
                 return False
             self.pivot(leaving, entering)
 
-    def solve(self) -> tuple[tuple[float, ...], float, int]:
+    def solve(
+        self,
+    ) -> tuple[tuple[float, ...], float, tuple[float, ...], int]:
         if self.constraints:
             row = min(
                 range(self.constraints),
@@ -157,9 +162,22 @@ class _SimplexTableau:
         for row, variable in enumerate(self.basic):
             if variable < self.variables:
                 values[variable] = self.tableau[row][self.variables + 1]
+        nonbasic_columns = {
+            variable: column for column, variable in enumerate(self.nonbasic)
+        }
+        dual = []
+        for constraint in range(self.constraints):
+            slack_variable = self.variables + constraint
+            column = nonbasic_columns.get(slack_variable)
+            dual.append(
+                0.0
+                if column is None
+                else self.tableau[self.constraints][column]
+            )
         return (
             tuple(values),
             self.tableau[self.constraints][self.variables + 1],
+            tuple(dual),
             self.pivots,
         )
 
@@ -199,7 +217,7 @@ def maximize_linear_program(
         tolerance,
         max_pivots,
     )
-    variables, objective_value, pivots = tableau.solve()
+    variables, objective_value, dual_variables, pivots = tableau.solve()
     violations = [
         sum(coefficient * value for coefficient, value in zip(row, variables))
         - bound
@@ -217,9 +235,30 @@ def maximize_linear_program(
     )
     if abs(verified_objective - objective_value) > allowed:
         raise AssertionError("linear-program objective verification failed")
+    if any(value < -allowed for value in dual_variables):
+        raise AssertionError("linear-program solution fails dual nonnegativity")
+    dual_values = tuple(
+        0.0 if abs(value) <= tolerance else value for value in dual_variables
+    )
+    dual_slacks = [
+        sum(row[column] * dual for row, dual in zip(matrix, dual_values))
+        - c[column]
+        for column in range(len(c))
+    ]
+    if any(slack < -allowed for slack in dual_slacks):
+        raise AssertionError("linear-program solution fails dual feasibility")
+    dual_objective = sum(
+        bound * dual for bound, dual in zip(rhs, dual_values, strict=True)
+    )
+    duality_gap = dual_objective - verified_objective
+    if duality_gap < -allowed or duality_gap > allowed:
+        raise AssertionError("linear-program primal and dual objectives disagree")
     return LinearProgramSolution(
         variables=tuple(0.0 if abs(value) <= tolerance else value for value in variables),
         objective=objective_value,
+        dual_variables=dual_values,
+        dual_objective=dual_objective,
+        duality_gap=max(0.0, duality_gap),
         pivots=pivots,
         max_constraint_violation=max(0.0, max_violation),
     )

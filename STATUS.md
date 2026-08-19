@@ -143,22 +143,32 @@ Checkpoint 2: solver comparison laboratory.
 - Blueprint initialization and monotone certified retention still prevent
   harm: all rejected holdout snapshots fall back to no-op. Fixed raw
   pseudo-regret mass is rejected as a transferable trust parameter.
-- One hundred twenty-six automated tests pass.
+- The dependency-free simplex now returns and independently verifies dual
+  variables, enabling reduced-cost pricing rather than normal-form scanning.
+- A blueprint-started restricted master now generates opponent response rows
+  and prices resolver columns with a dual-weighted dynamic best response. It
+  matches the exact normal-form sum-margin teacher at every tested boundary.
+- On the 16-boundary held-in screen, five updates capture 84.1691% of exact
+  sum-margin and 71.5120% of hidden BR improvement at 7.270 mean milliseconds.
+  Its target-free rate is 3.52% below frozen CFR v1 on that screen, so it has
+  not yet passed the quality-per-millisecond gate.
+- `constrained-generation-v1` and a fresh 24-boundary CFR/DCFR holdout are
+  frozen before reveal. Response separation and pricing, not simplex solve,
+  dominate current reference latency.
+- One hundred thirty-six automated tests pass.
 
 ## In progress
 
-- Designing a restricted constrained master/response-generation solver that
-  optimizes sum-margin while exposing frontier feasibility residual directly.
+- Evaluating frozen constrained-generation v1 on the fresh CFR/DCFR holdout and
+  comparing it with frozen CFR v1 on identical boundaries.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Build a blueprint-feasible restricted constrained master with opponent
-   response generation and compare every update with the exact normal-form LP.
-2. Benchmark its anytime feasibility and sum-margin quality per millisecond
-   against the frozen blueprint-warm CFR incumbent.
+1. Run and adjudicate the preregistered constrained-generation holdout.
+2. Profile shared traversal and cache opportunities only if the holdout passes.
 3. Inject controlled frontier-value error and uncertainty bounds before
    declaring any multiplayer relaxation or neural frontier target.
 
@@ -175,5 +185,4 @@ None.
 
 ## Last updated
 
-2026-08-19, after the frozen EXP-0013 holdout rejected fixed regret-mass
-transfer and advanced direct constrained optimization as the next solver gate.
+2026-08-19, after freezing direct constrained generation and its fresh holdout.

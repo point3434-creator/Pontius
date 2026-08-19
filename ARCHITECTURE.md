@@ -49,6 +49,16 @@ frozen fixed-regret-mass rule failed holdout transfer, so the next solver layer
 must represent feasibility constraints and secondary objective progress
 directly rather than relying on gadget Nash convergence to select a policy.
 
+`constrained_generation` is that direct exact-lab control. Its restricted LP
+starts with the complete behavioral blueprint, adds opponent counterfactual
+best-response rows on demand, and uses LP duals to construct one weighted game
+whose dynamic resolver best response prices the best missing column. It never
+enumerates the resolver normal form during construction. A monotone incumbent
+exports only an independently frontier-feasible policy with larger summed
+margin. Exact normal-form and complete-game oracles remain excluded teachers.
+The current reference profile says separation and pricing traversals, not the
+small simplex, are the first optimized-kernel targets.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

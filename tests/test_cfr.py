@@ -3,7 +3,7 @@ from __future__ import annotations
 import unittest
 
 from pontius.cfr import TabularCFR
-from pontius.evaluation import evaluate_profile
+from pontius.evaluation import collect_information_sets, evaluate_profile, policy_distribution
 from pontius.kuhn import KuhnPoker
 
 
@@ -51,6 +51,39 @@ class CFRTests(unittest.TestCase):
     def test_unknown_variant_is_rejected(self) -> None:
         with self.assertRaises(ValueError):
             TabularCFR(KuhnPoker(), "not-cfr")  # type: ignore[arg-type]
+
+    def test_blueprint_warm_start_sets_the_initial_behavior_policy(self) -> None:
+        game = KuhnPoker()
+        blueprint_solver = TabularCFR(game, "lcfr")
+        blueprint_solver.run(100)
+        blueprint = blueprint_solver.average_strategy()
+
+        solver = TabularCFR(game, "dcfr")
+        solver.warm_start(blueprint, regret_mass=7.0)
+        current = solver.current_strategy()
+
+        for player in range(game.num_players):
+            for key, actions in collect_information_sets(game, player).items():
+                expected = policy_distribution(blueprint, key, actions)
+                for action in actions:
+                    self.assertAlmostEqual(current[key][action], expected[action])
+        self.assertEqual(solver.iteration, 0)
+        self.assertTrue(
+            all(
+                total == 0.0
+                for data in solver.information_sets.values()
+                for total in data.strategy_sum.values()
+            )
+        )
+
+    def test_warm_start_requires_positive_mass_and_pristine_solver(self) -> None:
+        solver = TabularCFR(KuhnPoker(), "cfr")
+        with self.assertRaises(ValueError):
+            solver.warm_start({}, regret_mass=0.0)
+
+        solver.warm_start({}, regret_mass=1.0)
+        with self.assertRaises(ValueError):
+            solver.warm_start({}, regret_mass=1.0)
 
     def test_three_player_cfr_produces_a_zero_sum_profile(self) -> None:
         game = KuhnPoker(3)

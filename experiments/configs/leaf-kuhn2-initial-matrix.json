@@ -1,0 +1,19 @@
+{
+  "axes": {
+    "leaf_error_scale": [0.0, 0.001, 0.003, 0.01, 0.03, 0.1],
+    "leaf_error_seed": [0, 1, 2, 3, 4],
+    "search_solver": ["cfr", "lcfr", "cfr_plus", "dcfr"],
+    "warm_start_regret_mass": [null, 10.0]
+  },
+  "base": {
+    "blueprint_iterations": 1000,
+    "blueprint_solver": "lcfr",
+    "depth_limit": 1,
+    "game": "kuhn2",
+    "search_iterations": 100,
+    "zero_sum_errors": true
+  },
+  "max_runs": 500,
+  "replicate_axes": ["leaf_error_seed"],
+  "store_full_runs": false
+}

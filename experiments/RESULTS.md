@@ -127,3 +127,57 @@ the short-budget control and DCFR as the longer-budget three-player control.
 LCFR remains the Pluribus-style sampled/pruning candidate. The next experiments
 must add warm starts, leaf perturbations, and tree changes before choosing an
 online update rule.
+
+## EXP-0005: Paired shallow-leaf sensitivity
+
+**Date:** 2026-08-18
+
+**Status:** Observed negative result; mechanism test, not a neural-leaf claim.
+
+**Configuration:** two-player Kuhn; LCFR blueprint trained for 1,000 iterations;
+blueprint NashConv `1.87060e-4`; search cut after one strategic action; 100
+alternating iterations; average policy; precomputed exact blueprint
+continuations; independent concrete-leaf zero-sum perturbations; five fixed
+seeds. Each perturbed run is paired with an otherwise identical exact-leaf
+control and both are evaluated in the original game.
+
+### No blueprint prior, very small error
+
+At leaf scale `0.001`, realized mean RMSE was `4.03756e-4`.
+
+| Solver | Exact-control Δ NashConv from blueprint | Mean absolute causal Δ NashConv | Mean policy TV |
+|---|---:|---:|---:|
+| CFR | 8.62665e-2 | 1.83159e-2 | 0.13200 |
+| LCFR | 8.77865e-2 | 1.93912e-2 | 0.13331 |
+| CFR+ | 8.78167e-2 | 1.94126e-2 | 0.13333 |
+| DCFR | 8.78167e-2 | 1.94126e-2 | 0.13333 |
+
+The naïve shallow solve damaged a strong blueprint by roughly `0.087` NashConv
+even with exact leaves, around 460 times the blueprint's initial NashConv. Tiny
+leaf error then caused discontinuous policy changes. Some perturbations
+accidentally improved the already poor exact control, so absolute causal change
+is reported as sensitivity rather than called harm.
+
+### Pseudo-regret warm start, mass 10
+
+At leaf scale `0.01`, realized mean RMSE was `4.03756e-3`. Reference Python
+search time was approximately 13.6-13.7 ms per 100-iteration arm and excludes
+the precomputed leaf cost.
+
+| Solver | Exact-control Δ NashConv | Mean causal Δ NashConv | Mean policy TV |
+|---|---:|---:|---:|
+| CFR | **1.18804e-4** | **5.98298e-4** | **1.47121e-3** |
+| CFR+ | 1.78901e-4 | 9.53936e-4 | 2.20985e-3 |
+| DCFR | 1.26431e-3 | 6.23371e-3 | 1.36085e-2 |
+| LCFR | 7.70866e-3 | 3.11892e-2 | 7.34094e-2 |
+
+The prior attenuated damage, but it did not make the exact control better than
+the blueprint. CFR appears strongest here because it retains the prior; LCFR
+and DCFR discount it. This is not evidence that CFR is the generally superior
+online solver, and equal raw prior mass is not a solver-neutral comparison.
+
+**Verdict:** reject unanchored shallow replacement as the current resolver.
+Before spending on neural leaves, test a variant-neutral blueprint trust region,
+residual/output interpolation, and a no-op acceptance option. Then add
+reach-weighted and structured leaf errors. The tracked reproduction config is
+`experiments/configs/leaf-kuhn2-initial-matrix.json`.

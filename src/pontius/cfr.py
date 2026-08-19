@@ -6,7 +6,7 @@ from dataclasses import dataclass, field
 from math import prod
 from typing import Callable
 
-from .evaluation import Policy
+from .evaluation import Policy, collect_information_sets, policy_distribution
 from .game import Action, CHANCE_PLAYER, TERMINAL_PLAYER, ExtensiveFormGame, GameState
 from .updates import SolverVariant, update_rule
 
@@ -49,6 +49,27 @@ class TabularCFR:
         elif data.actions != actions:
             raise ValueError(f"inconsistent actions for information set {key!r}")
         return data
+
+    def warm_start(self, policy: Policy, regret_mass: float) -> None:
+        """Initialize regret matching to a policy with explicit prior strength.
+
+        This is a pseudo-regret prior, not a theoretical CFR guarantee. The
+        scalar ``regret_mass`` controls how much new counterfactual regret is
+        required to move away from the blueprint. It must therefore be swept and
+        reported rather than hidden inside solver initialization.
+        """
+
+        if self.iteration != 0 or self.information_sets:
+            raise ValueError("warm_start must be called before the first iteration")
+        if regret_mass <= 0.0:
+            raise ValueError("regret_mass must be positive")
+
+        for player in range(self.game.num_players):
+            for key, actions in collect_information_sets(self.game, player).items():
+                distribution = policy_distribution(policy, key, actions)
+                data = self._data(key, actions)
+                for action in actions:
+                    data.regrets[action] = regret_mass * distribution[action]
 
     @staticmethod
     def _regret_matching(data: InformationSetData) -> dict[Action, float]:

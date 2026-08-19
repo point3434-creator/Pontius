@@ -27,8 +27,10 @@ reproducible from configuration and code revision.
 ## C2: Solver comparison laboratory
 
 **Status:** In progress. CFR, LCFR, CFR+, and DCFR share one traversal and the
-initial exact-leaf comparison is recorded in EXP-0004. Leaf perturbation, tree
-mutation, warm-start, and external-sampling gates remain.
+initial fixed-game comparison is recorded in EXP-0004. Paired leaf perturbation
+and explicit pseudo-regret warm starts are implemented; EXP-0005 rejected naïve
+unanchored shallow replacement. Blueprint anchoring, structured errors, tree
+mutation, and external-sampling gates remain.
 
 **Target:** months 2-4.
 

@@ -31,27 +31,38 @@ Checkpoint 2: solver comparison laboratory.
 - Uniform-profile exact evaluation took approximately 0.001, 0.014, 0.249,
   4.940, and 106.623 seconds for two through six players respectively.
 - CFR+, with RM+ and quadratic averaging, and default DCFR(1.5, 0, 2) now share
-  the same buffered-regret traversal as CFR and LCFR. Twenty-nine automated
-  tests pass.
+  the same buffered-regret traversal as CFR and LCFR.
 - EXP-0004 found CFR+ strongest at 500-1,000 three-player iterations and DCFR
   strongest at 5,000. LCFR and CFR+ were effectively tied at 20,000 two-player
   iterations. Solver selection is therefore budget- and regime-dependent.
+- Depth-limited games now substitute cached blueprint continuation values after
+  a stated number of strategic actions without modifying the full-game
+  evaluator. Deterministic zero-sum leaf perturbations report realized errors.
+- Paired exact-control/treatment experiments and a replicated matrix runner map
+  leaf error to full-game NashConv and policy change. Forty-four automated tests
+  pass.
+- EXP-0005 rejected naïve unanchored shallow replacement: with exact leaves it
+  worsened a strong two-player blueprint by about 0.087 NashConv. A mass-10
+  pseudo-regret prior attenuated the effect but behaved very differently across
+  update rules and never improved the blueprint.
 
 ## In progress
 
-- Designing controlled leaf-value perturbations and tree-mutation experiments.
-- Adding explicit blueprint warm starts without smuggling arbitrary confidence
-  into initial regrets.
+- Designing a variant-neutral blueprint anchor, residual update, and explicit
+  no-op acceptance path before attempting deeper resolving.
+- Extending leaf errors from independent concrete histories to reach-weighted,
+  correlated, biased, localized, and time-varying regimes.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Add deterministic terminal/leaf perturbation wrappers with known error
-   magnitude and location.
-2. Compare all four update rules under exact, noisy, biased, and changing leaf
-   values.
-3. Add an explicit blueprint policy prior and measure warm-start sensitivity.
+1. Compare output interpolation and in-search anchoring against the blueprint,
+   with the no-op action included and exact-leaf safety as the first gate.
+2. Add blueprint-reach and counterfactual-reach-weighted error metrics plus
+   correlated, biased, and localized perturbations.
+3. Repeat paired experiments across blueprint strength, search depth, and
+   three-player Kuhn before choosing an online update rule.
 
 ## Current blockers
 
@@ -66,4 +77,4 @@ None.
 
 ## Last updated
 
-2026-08-18, after passing checkpoint C1 and completing EXP-0002/EXP-0003.
+2026-08-18, after EXP-0005 rejected naïve unanchored shallow replacement.

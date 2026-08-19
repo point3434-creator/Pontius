@@ -4,45 +4,16 @@ from __future__ import annotations
 
 import argparse
 import json
-import platform
 import random
-import subprocess
-import sys
 import time
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
 from .cfr import TabularCFR
-from .evaluation import Policy, evaluate_profile
+from .evaluation import evaluate_profile
 from .kuhn import KuhnPoker
-
-
-def _git_metadata() -> dict[str, Any]:
-    def run(*arguments: str) -> str | None:
-        try:
-            result = subprocess.run(
-                ["git", *arguments],
-                check=True,
-                capture_output=True,
-                text=True,
-                timeout=5,
-            )
-        except (FileNotFoundError, subprocess.SubprocessError):
-            return None
-        return result.stdout.strip()
-
-    return {
-        "commit": run("rev-parse", "HEAD") or "unborn",
-        "dirty": bool(run("status", "--porcelain")),
-    }
-
-
-def _json_policy(policy: Policy) -> dict[str, dict[str, float]]:
-    return {
-        key: {str(action): probability for action, probability in distribution.items()}
-        for key, distribution in policy.items()
-    }
+from .reporting import environment_metadata, json_policy
 
 
 def run_experiment(config: dict[str, Any]) -> dict[str, Any]:
@@ -106,11 +77,7 @@ def run_experiment(config: dict[str, Any]) -> dict[str, Any]:
             "report_every": report_every,
             "seed": seed,
         },
-        "environment": {
-            "python": sys.version,
-            "platform": platform.platform(),
-            "git": _git_metadata(),
-        },
+        "environment": environment_metadata(),
         "timing": {
             "solver_seconds": solver_seconds,
             "trace_evaluation_seconds": trace_evaluation_seconds,
@@ -123,11 +90,11 @@ def run_experiment(config: dict[str, Any]) -> dict[str, Any]:
         },
         "average": {
             **asdict(average_evaluation),
-            "policy": _json_policy(average_policy),
+            "policy": json_policy(average_policy),
         },
         "current": {
             **asdict(current_evaluation),
-            "policy": _json_policy(current_policy),
+            "policy": json_policy(current_policy),
         },
         "trace": trace,
     }

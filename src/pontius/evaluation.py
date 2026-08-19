@@ -12,7 +12,7 @@ from .game import Action, CHANCE_PLAYER, TERMINAL_PLAYER, ExtensiveFormGame, Gam
 Policy: TypeAlias = dict[str, dict[Action, float]]
 
 
-def _distribution(
+def policy_distribution(
     policy: Policy,
     information_key: str,
     actions: tuple[Action, ...],
@@ -36,44 +36,54 @@ def _distribution(
     return {action: weight / total for action, weight in weights.items()}
 
 
-def expected_utilities(game: ExtensiveFormGame, policy: Policy) -> tuple[float, ...]:
-    """Enumerate the complete tree and return expected utilities."""
+def expected_utilities_from_state(
+    num_players: int,
+    state: GameState,
+    policy: Policy,
+) -> tuple[float, ...]:
+    """Enumerate a continuation tree and return expected utilities."""
 
-    def walk(state: GameState) -> tuple[float, ...]:
-        player = state.current_player
+    def walk(current: GameState) -> tuple[float, ...]:
+        player = current.current_player
         if player == TERMINAL_PLAYER:
-            result = state.returns()
-            if len(result) != game.num_players:
-                raise ValueError("terminal utility count does not match game.num_players")
+            result = current.returns()
+            if len(result) != num_players:
+                raise ValueError("terminal utility count does not match num_players")
             return result
 
         if player == CHANCE_PLAYER:
-            outcomes = tuple(state.chance_outcomes())
+            outcomes = tuple(current.chance_outcomes())
             probability_sum = sum(probability for _, probability in outcomes)
             if not outcomes or abs(probability_sum - 1.0) > 1e-12:
                 raise ValueError(f"invalid chance distribution with mass {probability_sum}")
-            values = [0.0] * game.num_players
+            values = [0.0] * num_players
             for action, probability in outcomes:
                 if probability < 0.0:
                     raise ValueError("chance probability cannot be negative")
-                child_values = walk(state.apply_action(action))
+                child_values = walk(current.apply_action(action))
                 for index, value in enumerate(child_values):
                     values[index] += probability * value
             return tuple(values)
 
-        actions = tuple(state.legal_actions())
+        actions = tuple(current.legal_actions())
         if not actions:
             raise ValueError("nonterminal player state has no legal actions")
-        key = state.information_state_key(player)
-        distribution = _distribution(policy, key, actions)
-        values = [0.0] * game.num_players
+        key = current.information_state_key(player)
+        distribution = policy_distribution(policy, key, actions)
+        values = [0.0] * num_players
         for action, probability in distribution.items():
-            child_values = walk(state.apply_action(action))
+            child_values = walk(current.apply_action(action))
             for index, value in enumerate(child_values):
                 values[index] += probability * value
         return tuple(values)
 
-    return walk(game.initial_state())
+    return walk(state)
+
+
+def expected_utilities(game: ExtensiveFormGame, policy: Policy) -> tuple[float, ...]:
+    """Enumerate the complete tree and return expected utilities."""
+
+    return expected_utilities_from_state(game.num_players, game.initial_state(), policy)
 
 
 def collect_information_sets(
@@ -203,7 +213,7 @@ def best_response(
                 collect(state.apply_action(action), counterfactual_reach, player_depth + 1)
             return
 
-        distribution = _distribution(policy, key, actions)
+        distribution = policy_distribution(policy, key, actions)
         for action, probability in distribution.items():
             collect(
                 state.apply_action(action),
@@ -233,7 +243,7 @@ def best_response(
                 )
             return continuation_value(state.apply_action(selected_actions[key]))
 
-        distribution = _distribution(policy, key, actions)
+        distribution = policy_distribution(policy, key, actions)
         return sum(
             probability * continuation_value(state.apply_action(action))
             for action, probability in distribution.items()

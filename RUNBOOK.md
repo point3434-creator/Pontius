@@ -340,6 +340,20 @@ and
 Re-running the commands is a reproducibility check, not a new untouched test.
 ADR-0028 is the durable verdict.
 
+The blocker-sensitive range-reuse development screen is frozen in ADR-0029.
+It is development-only and must not be changed after reading its production
+result:
+
+```powershell
+& $python -m pontius.river_range_reuse --config experiments/configs/river-range-reuse-development-v1.json --output experiments/results/river-range-reuse-development-v1.json
+```
+
+Only identical provenance is a direct strategy hit. A structural-only match
+may supply cached information-set topology and a numerical policy prior, but
+the resulting policy remains nondeployable until current-range recertification.
+The experiment reports lookup, initialization, solving, and recertification
+cost separately.
+
 Only an identical `provenance_digest` authorizes an exact strategy-cache hit.
 `structural_digest` authorizes topology and board-work reuse, not strategy
 deployment. Total-variation bounds in this laboratory cover one fixed policy's

@@ -102,18 +102,60 @@ class TabularCFR:
             raise ValueError("warm_start must be called before the first iteration")
         if regret_mass <= 0.0:
             raise ValueError("regret_mass must be positive")
-
+        information_sets: dict[str, tuple[Action, ...]] = {}
         for player in range(self.game.num_players):
-            for key, actions in collect_information_sets(self.game, player).items():
-                distribution = policy_distribution(policy, key, actions)
-                data = self._data(key, actions)
-                for action in actions:
-                    data.regrets[action] = regret_mass * distribution[action]
-                for shadow_table in self._shadow_regrets.values():
-                    shadow_table[key] = {
-                        action: regret_mass * distribution[action]
-                        for action in actions
-                    }
+            player_sets = collect_information_sets(self.game, player)
+            overlap = set(information_sets) & set(player_sets)
+            if overlap:
+                raise ValueError(
+                    f"information-set keys are shared across players: {overlap!r}"
+                )
+            information_sets.update(player_sets)
+        self.warm_start_from_schema(policy, regret_mass, information_sets)
+
+    def warm_start_from_schema(
+        self,
+        policy: Policy,
+        regret_mass: float,
+        information_sets: dict[str, tuple[Action, ...]],
+    ) -> None:
+        """Warm start from an already verified compatible information schema.
+
+        This avoids a full game traversal when immutable tree topology is
+        reused.  The caller must establish structural identity before passing a
+        cached schema.  A later traversal still rejects any action mismatch.
+        The method initializes numerical state only; it does not authorize the
+        supplied policy for direct deployment in the current game.
+        """
+
+        if self.iteration != 0 or self.information_sets:
+            raise ValueError("warm_start must be called before the first iteration")
+        if regret_mass <= 0.0:
+            raise ValueError("regret_mass must be positive")
+        if not information_sets:
+            raise ValueError("information_sets must be nonempty")
+
+        prepared: list[
+            tuple[str, tuple[Action, ...], dict[Action, float]]
+        ] = []
+        for key, actions in sorted(information_sets.items()):
+            if not actions or len(set(actions)) != len(actions):
+                raise ValueError(
+                    f"invalid cached action schema for information set {key!r}"
+                )
+            prepared.append(
+                (key, actions, policy_distribution(policy, key, actions))
+            )
+
+        for key, actions, distribution in prepared:
+            data = self._data(key, actions)
+            for action in actions:
+                data.regrets[action] = regret_mass * distribution[action]
+            for shadow_table in self._shadow_regrets.values():
+                shadow_table[key] = {
+                    action: regret_mass * distribution[action]
+                    for action in actions
+                }
 
     @staticmethod
     def _regret_matching(data: InformationSetData) -> dict[Action, float]:

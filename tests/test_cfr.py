@@ -175,6 +175,33 @@ class CFRTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             solver.warm_start({}, regret_mass=1.0)
 
+    def test_cached_schema_warm_start_matches_traversal_initialization(self) -> None:
+        game = KuhnPoker()
+        blueprint_solver = TabularCFR(game, "lcfr")
+        blueprint_solver.run(20)
+        blueprint = blueprint_solver.average_strategy()
+        schema = {}
+        for player in range(game.num_players):
+            schema.update(collect_information_sets(game, player))
+
+        traversed = TabularCFR(game, "dcfr")
+        cached = TabularCFR(game, "dcfr")
+        traversed.warm_start(blueprint, regret_mass=3.0)
+        cached.warm_start_from_schema(blueprint, regret_mass=3.0, information_sets=schema)
+
+        self.assertEqual(cached.current_strategy(), traversed.current_strategy())
+        cached.step()
+        traversed.step()
+        self.assertEqual(cached.current_strategy(), traversed.current_strategy())
+        self.assertEqual(cached.average_strategy(), traversed.average_strategy())
+
+    def test_cached_schema_warm_start_is_defensive(self) -> None:
+        solver = TabularCFR(KuhnPoker(), "cfr")
+        with self.assertRaisesRegex(ValueError, "nonempty"):
+            solver.warm_start_from_schema({}, 1.0, {})
+        with self.assertRaisesRegex(ValueError, "cached action schema"):
+            solver.warm_start_from_schema({}, 1.0, {"bad": ()})
+
     def test_full_blueprint_anchor_never_leaves_the_blueprint(self) -> None:
         game = KuhnPoker()
         blueprint_solver = TabularCFR(game, "lcfr")

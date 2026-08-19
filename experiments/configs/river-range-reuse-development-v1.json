@@ -1,0 +1,29 @@
+{
+  "groups": 24,
+  "seed": 20260821,
+  "hands_per_player": 4,
+  "families": ["balanced", "polarized", "blocker_stress", "correlated"],
+  "included_splits": ["development"],
+  "sequential_raise": true,
+  "perturbations": [
+    {
+      "name": "rare_p0_root_tv_1pct",
+      "player": 0,
+      "root_tv_budget": 0.01,
+      "maximum_donor_fraction": 0.75
+    },
+    {
+      "name": "rare_p1_root_tv_1pct",
+      "player": 1,
+      "root_tv_budget": 0.01,
+      "maximum_donor_fraction": 0.75
+    }
+  ],
+  "solver": "dcfr",
+  "checkpoints": [0, 1, 2, 3, 4, 6, 8, 12, 16],
+  "warm_start_regret_mass_by_payoff_span": [0.01, 0.03, 0.1, 0.3, 1.0],
+  "certification_normalized_exploitability_thresholds": [0.001, 0.005, 0.01, 0.02],
+  "primary_checkpoint": 4,
+  "folds": 5,
+  "minimum_cold_residual_capture": 0.25
+}

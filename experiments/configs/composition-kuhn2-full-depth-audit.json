@@ -1,0 +1,17 @@
+{
+  "axes": {
+    "in_search_blueprint_weight": [0.99, 0.995, 0.999],
+    "search_solver": ["lcfr", "cfr_plus"]
+  },
+  "base": {
+    "blueprint_iterations": 1000,
+    "blueprint_solver": "lcfr",
+    "depth_limit": 3,
+    "game": "kuhn2",
+    "output_candidate_weight": 1.0,
+    "search_iterations": 100,
+    "warm_start_regret_mass": null
+  },
+  "max_runs": 10,
+  "store_full_runs": false
+}

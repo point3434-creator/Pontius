@@ -39,7 +39,10 @@ and external-sampling gates remain. EXP-0009 then rejected blueprint local
 regret, scalar probe gain, probe extrapolation, and local-model gain sign as
 transferable authorization signals even with exact leaves. A complete
 continual-resolving composition gate now precedes v2 selection and neural
-scaling.
+scaling. EXP-0010 implemented that Bayesian composition control and rejected
+it: even terminal-depth independent public-root solves violate full-game
+strategy consistency. A two-player counterfactual-value safe-resolving gadget
+is now the required control before any multiplayer relaxation.
 
 **Target:** months 2-4.
 

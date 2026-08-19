@@ -17,9 +17,11 @@ scheduler       current and speculative value-of-computation queues
 evaluation      exact metrics, responders, leagues, variance control
 ```
 
-The initial Python package implements only `game-core`, `exact-lab`, and the
-reference portion of `solver-core`. Performance backends must remain
-differentially testable against this implementation.
+The Python package implements `game-core`, `exact-lab`, the reference portion
+of `solver-core`, and a small experimental public-belief/online-search control.
+The Bayesian continual compositor is a rejected negative control, not the
+production resolver. Performance backends and future safe-resolving gadgets
+must remain differentially testable against this implementation.
 
 ## Runtime target
 
@@ -34,4 +36,3 @@ blueprint version, and provenance.
 Game definitions do not depend on solvers. Exact evaluation and solvers depend
 only on the generic game interface. Models and optimized runtimes must not
 become required dependencies for correctness tests.
-

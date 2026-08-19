@@ -104,6 +104,26 @@ enters a feature. Current matrices recompute each deterministic prefix for
 measurement simplicity; a runtime implementation must snapshot one progressive
 solve instead.
 
+## Policy-composition controls
+
+Compare prefix deployment, Bayesian continual composition, exact local gating,
+and a coherent global control with:
+
+```powershell
+$python = "C:\Users\point\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+$env:PYTHONPATH = "src"
+& $python -m pontius.composition_matrix --config experiments/configs/composition-kuhn2-matrix.json --output experiments/results/composition-kuhn2-matrix.json
+& $python -m pontius.composition_matrix --config experiments/configs/composition-kuhn3-focus-matrix.json --output experiments/results/composition-kuhn3-focus-matrix.json
+& $python -m pontius.composition_matrix --config experiments/configs/composition-kuhn2-full-depth-audit.json --output experiments/results/composition-kuhn2-full-depth-audit.json
+```
+
+The continual policy is built root-forward. Each posterior sees the already
+composed ancestor policy, and tests verify that recorded reach, entropy, and
+effective state count match the final composed prefix. Its decision cost is
+expected search time per hand. The local-gated arm additionally includes the
+exact local evaluations required by its veto; optional diagnostic evaluation
+is reported separately and excluded from decision latency.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

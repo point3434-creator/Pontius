@@ -488,3 +488,114 @@ continual resolver and measure whether it removes the frontier-deviation gap.
 `benefit-kuhn3-trajectory-matrix.json`, then run
 `python -m pontius.benefit_trajectory` as documented in `RUNBOOK.md`. Raw JSON
 remains locally generated and ignored.
+
+## EXP-0010: Public-belief continual composition
+
+**Date:** 2026-08-19
+
+**Status:** Rejected architecture; retained as a negative control.
+
+EXP-0009 showed that a searched prefix could look better locally while harming
+the full game. This experiment tests whether resolving every public decision
+fixes that composition error. At each public history, the continual control:
+
+1. reconstructs the joint posterior over private deals from the already
+   composed ancestor policy;
+2. solves a depth-limited game with exact blueprint continuation values;
+3. deploys only the current public root's information sets; and
+4. leaves zero-reach off-path histories on the blueprint.
+
+Every information set is written at most once. Unit tests verify Bayes updates,
+final-prefix posterior consistency, complete information-set coverage, a full-
+anchor no-op, and off-path fallback. This is coherent Bayesian policy
+composition, not safe resolving: it supplies no opponent counterfactual-value
+guarantee at the replacement frontier.
+
+Four target-blind architectures share the blueprint, solver, iterations,
+anchor, and exact leaves:
+
+- `Prefix` deploys every information set from one root depth-limited solve.
+- `Continual` independently deploys one root strategy at every public history.
+- `Local-gated` runs the same continual resolver but vetoes a root replacement
+  unless exact local-model NashConv improves.
+- `Global` is one coherent full-game anchored solve. It is an exact-game
+  control, not a deployable hold'em architecture.
+
+Positive improvement means lower full-game NashConv. Decision compute for
+continual policies is reach-weighted expected search time per hand. The local
+gate also includes its required exact local evaluation; optional diagnostics
+are excluded. Reported quality/ms is the mean of per-case rates.
+
+### Two-player matrix
+
+The grid contains 72 paired cases: six blueprint strengths, depths one and two,
+three anchors, and LCFR/CFR+.
+
+| Architecture | Positive cases | Mean improvement | Worst improvement | Mean decision ms | Mean improvement/ms |
+|---|---:|---:|---:|---:|---:|
+| Prefix | 32/72 | -2.61671e-4 | -2.62138e-3 | 27.312 | -2.20200e-5 |
+| Continual | 21/72 | -3.03646e-3 | -1.49190e-2 | 47.430 | -8.05744e-5 |
+| Local-gated | 29/72 | -2.79147e-3 | -1.49190e-2 | 49.893 | -7.30929e-5 |
+| Global | **68/72** | **+6.98319e-4** | -1.09587e-4 | 38.458 | **+1.81830e-5** |
+
+Continual beat prefix in only 15/72 cases. The local gate improved on raw
+continual in 22 cases, but global still beat it in 55/72. The four global
+failures are duplicate depth rows for the strongest 3,000-iteration blueprint,
+the loosest 0.97 anchor, and both solvers. Coherent search therefore still
+needs a trust region; coherence is necessary, not sufficient.
+
+### Three-player focus matrix
+
+The grid contains 24 paired cases: 300- and 1,500-iteration blueprints, depths
+one through three, anchors 0.99/0.995, and LCFR/CFR+.
+
+| Architecture | Positive cases | Mean improvement | Worst improvement | Mean decision ms | Mean improvement/ms |
+|---|---:|---:|---:|---:|---:|
+| Prefix | 10/24 | -6.75439e-5 | -6.42303e-4 | 273.764 | -2.73813e-7 |
+| Continual | 2/24 | -9.00442e-4 | -2.37479e-3 | 753.155 | -1.78676e-6 |
+| Local-gated | 4/24 | -7.73361e-4 | -2.37442e-3 | 791.236 | -1.62187e-6 |
+| Global | **24/24** | **+2.09830e-4** | **+3.09260e-5** | 636.080 | **+3.30268e-7** |
+
+Global beat continual and local-gated continual in every case. Continual beat
+prefix only twice. The gate searched all 12 public histories and deployed nine
+on average, so it saved no search time; its required exact local evaluation
+added 34.518 ms per expected hand. In Kuhn2 it deployed 3.49 of four histories
+and added 2.301 ms.
+
+Local rank statistics do not rescue deployment. In Kuhn3, reach-weighted root
+model gain has AUC 0.909, yet its sign is positive in all 24 cases: two true
+positives and 22 false positives. In Kuhn2 it makes 45 false-positive and 19
+true-positive sign calls. A high AUC under severe class imbalance can coexist
+with a useless zero threshold.
+
+### Terminal-depth audit
+
+A six-case Kuhn2 audit uses a 1,000-iteration blueprint and depth three, which
+reaches true terminals from every public root. It varies LCFR/CFR+ and anchors
+0.99, 0.995, and 0.999.
+
+| Architecture | Positive cases | Mean improvement | Worst improvement |
+|---|---:|---:|---:|
+| Prefix / Global | 6/6 | +1.18143e-4 | +5.38385e-5 |
+| Continual | 0/6 | -1.17723e-3 | -2.79728e-3 |
+| Local-gated | 4/6 | -6.34707e-4 | -2.79728e-3 |
+
+Prefix and global are identical here because the root solve spans the complete
+game. Independent public-root replacement still fails. Thus the mechanism is
+not leaf truncation, posterior drift, solver convergence, or missing public
+states. A common Bayesian posterior preserves on-policy beliefs but not each
+opponent's blueprint counterfactual values. Later strategy replacement opens
+profitable deviations through earlier and off-path information sets.
+
+**Verdict:** reject naïve Bayesian continual resolving and exact local no-op
+gating. Stop tuning their CFR rule, depth, or anchor as the primary fix. Retain
+them as falsification controls. The next resolver must first preserve opponent
+counterfactual frontier values in two-player zero-sum Kuhn through a safe
+resolving gadget. Only after that control passes should per-opponent constraints
+or conservative relaxations be tested in multiplayer games.
+
+**Reproduction:** use `composition-kuhn2-matrix.json`,
+`composition-kuhn3-focus-matrix.json`, and
+`composition-kuhn2-full-depth-audit.json` under `experiments/configs/` with
+`python -m pontius.composition_matrix`. Raw JSON remains locally generated and
+ignored.

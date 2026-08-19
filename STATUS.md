@@ -92,24 +92,35 @@ Checkpoint 2: solver comparison laboratory.
 - Exact leaf values preserve fixed-policy expected utility but not full-game
   deviations below the frontier. Prefix-only resolving is therefore a
   compositional bottleneck that must be tested before neural leaf scaling.
-- Seventy-one automated tests pass.
+- A Bayesian continual-resolving control now reconstructs card-sensitive joint
+  posteriors, resolves every public history, deploys each information set once,
+  and retains the blueprint on zero-reach histories. Posterior and no-op
+  invariants are tested.
+- EXP-0010 rejects that control. It improved 21/72 Kuhn2 and 2/24 Kuhn3 cases;
+  mean NashConv improvement and quality per millisecond were negative. An
+  optimistic exact local-model gate reached only 29/72 and 4/24.
+- A coherent global anchored solve improved 68/72 paired Kuhn2 rows and all
+  24 Kuhn3 rows. At terminal depth, prefix/global improved all six audit cases
+  while independent continual replacement harmed all six. Counterfactual
+  frontier consistency, not tree depth or leaf error, is the next bottleneck.
+- Eighty-four automated tests pass.
 
 ## In progress
 
-- Designing a complete two- and three-player continual-resolving policy whose
-  local objective can be checked against composed full-game strength.
+- Implementing a two-player zero-sum safe-resolving gadget with exact blueprint
+  opponent counterfactual frontier values.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Define and evaluate a complete small-game continual-resolving policy rather
-   than only a searched prefix merged into blueprint continuation.
-2. Compare prefix-only and complete composition under exact leaves, then rerun
-   the unfitted benefit/probe diagnostics.
-3. Add heteroscedastic/time-varying errors and adversarial branch targeting to
-   whichever resolver passes the exact composition gate.
+1. Build and verify the two-player terminate/follow safe-resolving gadget at a
+   single public boundary and terminal depth.
+2. Compose safe replacements across all Kuhn2 public roots; compare against
+   no-op, prefix, naïve continual, local-gated, and global controls.
+3. Design a declared multiplayer relaxation only after the two-player
+   counterfactual-value invariants pass.
 
 ## Current blockers
 
@@ -124,4 +135,4 @@ None.
 
 ## Last updated
 
-2026-08-19, after EXP-0009 rejected local/probe benefit authorization.
+2026-08-19, after EXP-0010 rejected naïve continual policy composition.

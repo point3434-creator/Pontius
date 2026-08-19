@@ -23,6 +23,7 @@ class RiverOpportunityTests(unittest.TestCase):
         )
 
     def test_builds_grouped_exact_traces_with_causal_features(self) -> None:
+        self.assertEqual(self.result["schema_version"], 2)
         self.assertEqual(self.result["status"], "measurement_only_no_scheduler_fit")
         self.assertEqual(
             self.result["counts"],
@@ -59,6 +60,27 @@ class RiverOpportunityTests(unittest.TestCase):
         )
         self.assertEqual(rows[-1]["labels"]["future_best_additional_reduction"], 0.0)
         self.assertIsNone(rows[-1]["labels"]["first_future_improvement_checkpoint"])
+        self.assertGreater(
+            first["labels"][
+                "best_future_normalized_reduction_per_thousand_state_visits"
+            ],
+            0.0,
+        )
+        self.assertGreater(
+            first["labels"][
+                "best_future_normalized_reduction_per_solver_millisecond"
+            ],
+            0.0,
+        )
+        self.assertEqual(
+            rows[-1]["labels"][
+                "best_future_normalized_reduction_per_thousand_state_visits"
+            ],
+            0.0,
+        )
+        self.assertIsNone(
+            rows[-1]["labels"]["next_checkpoint_additional_state_visits"]
+        )
 
     def test_exact_teacher_is_independent_of_solver_trace(self) -> None:
         context = self.result["contexts"][0]
@@ -97,6 +119,10 @@ class RiverOpportunityTests(unittest.TestCase):
             )
             self.assertIn(
                 "local_one_step_positive_regret",
+                record["labels"],
+            )
+            self.assertIn(
+                "best_future_normalized_reduction_per_thousand_state_visits",
                 record["labels"],
             )
         self.assertTrue(

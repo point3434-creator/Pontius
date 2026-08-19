@@ -12,6 +12,17 @@ from statistics import mean
 from typing import Any
 
 TOLERANCE = 1e-12
+TARGET_DESCRIPTIONS = {
+    "normalized_future_reduction": (
+        "future_best_additional_reduction / payoff_span"
+    ),
+    "state_visit_efficiency": (
+        "best future payoff-normalized reduction per thousand state visits"
+    ),
+    "millisecond_efficiency": (
+        "best future payoff-normalized reduction per measured solver millisecond"
+    ),
+}
 
 
 def _ranks(values: list[float]) -> list[float]:
@@ -67,6 +78,26 @@ def _normalized_future_target(record: dict[str, Any]) -> float:
         float(record["labels"]["future_best_additional_reduction"])
         / _payoff_span(record)
     )
+
+
+def _target_value(record: dict[str, Any], target: str) -> float:
+    if target == "normalized_future_reduction":
+        return _normalized_future_target(record)
+    label = {
+        "state_visit_efficiency": (
+            "best_future_normalized_reduction_per_thousand_state_visits"
+        ),
+        "millisecond_efficiency": (
+            "best_future_normalized_reduction_per_solver_millisecond"
+        ),
+    }.get(target)
+    if label is None:
+        raise ValueError(f"unknown primary target {target!r}")
+    if label not in record["labels"]:
+        raise ValueError(
+            f"primary target {target!r} is unavailable in this trace artifact"
+        )
+    return float(record["labels"][label])
 
 
 def _local_regret_diagnostics(records: list[dict[str, Any]]) -> dict[str, Any]:
@@ -163,13 +194,14 @@ def _feature_correlations(
     records: list[dict[str, Any]],
     solver: str,
     checkpoint: int,
+    target: str,
 ) -> dict[str, Any]:
     rows = [
         record
         for record in records
         if record["solver"] == solver and record["checkpoint"] == checkpoint
     ]
-    targets = [_normalized_future_target(record) for record in rows]
+    targets = [_target_value(record, target) for record in rows]
     numeric_names = sorted(
         name
         for name, value in rows[0]["online_features"].items()
@@ -198,7 +230,8 @@ def _feature_correlations(
             for record in rows
         )
         / len(rows),
-        "target": "future_best_additional_reduction / payoff_span",
+        "target": target,
+        "target_description": TARGET_DESCRIPTIONS[target],
         "correlations": correlations,
     }
 
@@ -209,6 +242,7 @@ def _fold_correlations(
     solver: str,
     checkpoint: int,
     feature: str,
+    target: str,
     folds: int,
 ) -> list[dict[str, Any]]:
     result = []
@@ -226,7 +260,7 @@ def _fold_correlations(
             == fold
         ]
         values = [float(record["online_features"][feature]) for record in rows]
-        targets = [_normalized_future_target(record) for record in rows]
+        targets = [_target_value(record, target) for record in rows]
         result.append(
             {
                 "fold": fold,
@@ -242,6 +276,7 @@ def analyze_river_trace(
     *,
     primary_feature: str = "normalized_positive_regret_mass",
     primary_checkpoint: int = 2,
+    primary_target: str = "normalized_future_reduction",
     folds: int = 5,
 ) -> dict[str, Any]:
     """Return compact measurement-only diagnostics without fitting a rule."""
@@ -255,6 +290,8 @@ def analyze_river_trace(
         raise ValueError("folds must exceed one")
     if primary_feature not in records[0]["online_features"]:
         raise ValueError(f"unknown primary feature {primary_feature!r}")
+    if primary_target not in TARGET_DESCRIPTIONS:
+        raise ValueError(f"unknown primary target {primary_target!r}")
     solvers = tuple(str(solver) for solver in artifact["config"]["solvers"])
     checkpoints = tuple(int(value) for value in artifact["config"]["checkpoints"])
     sequential_raise = artifact["config"].get("sequential_raise", False) is True
@@ -262,13 +299,13 @@ def analyze_river_trace(
         raise ValueError("primary checkpoint is absent from the trace")
 
     correlations = [
-        _feature_correlations(records, solver, checkpoint)
+        _feature_correlations(records, solver, checkpoint, primary_target)
         for solver in solvers
         for checkpoint in checkpoints[:-1]
     ]
     teacher_labels = [context["oracle_labels"] for context in artifact["contexts"]]
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "analysis_type": "exact_river_opportunity_measurement",
         "status": "unfitted_diagnostics_only",
         "source_config": artifact["config"],
@@ -293,6 +330,8 @@ def analyze_river_trace(
         "primary_signal": {
             "feature": primary_feature,
             "checkpoint": primary_checkpoint,
+            "target": primary_target,
+            "target_description": TARGET_DESCRIPTIONS[primary_target],
             "group_preserving_folds": folds,
             "by_solver": [
                 {
@@ -313,6 +352,7 @@ def analyze_river_trace(
                         solver=solver,
                         checkpoint=primary_checkpoint,
                         feature=primary_feature,
+                        target=primary_target,
                         folds=folds,
                     ),
                 }
@@ -345,6 +385,7 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--output", type=Path)
     parser.add_argument("--primary-feature", default="normalized_positive_regret_mass")
     parser.add_argument("--primary-checkpoint", type=int, default=2)
+    parser.add_argument("--primary-target", default="normalized_future_reduction")
     parser.add_argument("--folds", type=int, default=5)
     return parser.parse_args()
 
@@ -357,6 +398,7 @@ def main() -> None:
         artifact,
         primary_feature=args.primary_feature,
         primary_checkpoint=args.primary_checkpoint,
+        primary_target=args.primary_target,
         folds=args.folds,
     )
     result["source_provenance"] = {

@@ -23,6 +23,7 @@ class RiverTraceAnalysisTests(unittest.TestCase):
     def test_reports_unfitted_path_and_signal_diagnostics(self) -> None:
         result = analyze_river_trace(self.artifact, folds=2)
 
+        self.assertEqual(result["schema_version"], 2)
         self.assertEqual(result["status"], "unfitted_diagnostics_only")
         self.assertEqual(result["source_counts"]["contexts"], 4)
         self.assertEqual(len(result["solver_path_diagnostics"]), 2)
@@ -51,7 +52,12 @@ class RiverTraceAnalysisTests(unittest.TestCase):
             }
         )
 
-        result = analyze_river_trace(artifact, primary_checkpoint=1, folds=2)
+        result = analyze_river_trace(
+            artifact,
+            primary_checkpoint=1,
+            primary_target="state_visit_efficiency",
+            folds=2,
+        )
 
         self.assertTrue(
             any(
@@ -62,6 +68,10 @@ class RiverTraceAnalysisTests(unittest.TestCase):
         self.assertGreater(
             result["local_regret_vs_nash_conv"]["nonidentity_records"],
             0,
+        )
+        self.assertEqual(
+            result["primary_signal"]["target"],
+            "state_visit_efficiency",
         )
 
     def test_analysis_reads_labels_but_does_not_mutate_source(self) -> None:
@@ -91,6 +101,8 @@ class RiverTraceAnalysisTests(unittest.TestCase):
             analyze_river_trace({"experiment_type": "other"})
         with self.assertRaisesRegex(ValueError, "unknown primary"):
             analyze_river_trace(self.artifact, primary_feature="oracle_future")
+        with self.assertRaisesRegex(ValueError, "unknown primary target"):
+            analyze_river_trace(self.artifact, primary_target="wishful_efficiency")
         with self.assertRaisesRegex(ValueError, "folds"):
             analyze_river_trace(self.artifact, folds=1)
 

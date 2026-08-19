@@ -164,6 +164,14 @@ def _annotate_future_labels(records: list[dict[str, Any]]) -> None:
     start_exploitability = float(records[0]["labels"]["exploitability"])
     for index, record in enumerate(records):
         current = float(record["labels"]["exploitability"])
+        current_features = record["online_features"]
+        payoff_span = float(current_features["payoff_span"])
+        current_state_visits = int(
+            current_features["cumulative_alternating_state_visits"]
+        )
+        current_milliseconds = float(
+            current_features["cumulative_solver_milliseconds"]
+        )
         future = records[index + 1 :]
         labels = record["labels"]
         labels["reduction_from_start"] = start_exploitability - current
@@ -180,10 +188,32 @@ def _annotate_future_labels(records: list[dict[str, Any]]) -> None:
                     "future_best_checkpoint": record["checkpoint"],
                     "first_future_improvement_checkpoint": None,
                     "future_improvement_positive": False,
+                    "next_checkpoint_additional_state_visits": None,
+                    "next_checkpoint_additional_solver_milliseconds": None,
+                    "next_checkpoint_normalized_reduction_per_thousand_state_visits": None,
+                    "next_checkpoint_normalized_reduction_per_solver_millisecond": None,
+                    "best_future_normalized_reduction_per_thousand_state_visits": 0.0,
+                    "best_state_rate_future_checkpoint": record["checkpoint"],
+                    "best_future_normalized_reduction_per_solver_millisecond": 0.0,
+                    "best_millisecond_rate_future_checkpoint": record["checkpoint"],
                 }
             )
             continue
         next_exploitability = float(future[0]["labels"]["exploitability"])
+        next_features = future[0]["online_features"]
+        next_state_cost = (
+            int(next_features["cumulative_alternating_state_visits"])
+            - current_state_visits
+        )
+        next_millisecond_cost = (
+            float(next_features["cumulative_solver_milliseconds"])
+            - current_milliseconds
+        )
+        if next_state_cost <= 0 or next_millisecond_cost < 0.0:
+            raise AssertionError("future solver costs must increase monotonically")
+        signed_next_normalized_reduction = (
+            current - next_exploitability
+        ) / payoff_span
         best_future = min(
             future,
             key=lambda candidate: float(candidate["labels"]["exploitability"]),
@@ -201,6 +231,35 @@ def _annotate_future_labels(records: list[dict[str, Any]]) -> None:
             0.0,
             current - float(best_future["labels"]["exploitability"]),
         )
+        best_state_rate = 0.0
+        best_state_rate_checkpoint = int(record["checkpoint"])
+        best_millisecond_rate = 0.0
+        best_millisecond_rate_checkpoint = int(record["checkpoint"])
+        for candidate in future:
+            candidate_features = candidate["online_features"]
+            normalized_gain = max(
+                0.0,
+                current - float(candidate["labels"]["exploitability"]),
+            ) / payoff_span
+            state_cost = (
+                int(candidate_features["cumulative_alternating_state_visits"])
+                - current_state_visits
+            )
+            millisecond_cost = (
+                float(candidate_features["cumulative_solver_milliseconds"])
+                - current_milliseconds
+            )
+            if state_cost <= 0 or millisecond_cost < 0.0:
+                raise AssertionError("future solver costs must increase monotonically")
+            state_rate = normalized_gain / (state_cost / 1_000.0)
+            if state_rate > best_state_rate + TOLERANCE:
+                best_state_rate = state_rate
+                best_state_rate_checkpoint = int(candidate["checkpoint"])
+            if millisecond_cost > 0.0:
+                millisecond_rate = normalized_gain / millisecond_cost
+                if millisecond_rate > best_millisecond_rate + TOLERANCE:
+                    best_millisecond_rate = millisecond_rate
+                    best_millisecond_rate_checkpoint = int(candidate["checkpoint"])
         labels.update(
             {
                 "next_checkpoint_reduction": current - next_exploitability,
@@ -210,6 +269,29 @@ def _annotate_future_labels(records: list[dict[str, Any]]) -> None:
                     None if first_improvement is None else first_improvement["checkpoint"]
                 ),
                 "future_improvement_positive": first_improvement is not None,
+                "next_checkpoint_additional_state_visits": next_state_cost,
+                "next_checkpoint_additional_solver_milliseconds": (
+                    next_millisecond_cost
+                ),
+                "next_checkpoint_normalized_reduction_per_thousand_state_visits": (
+                    signed_next_normalized_reduction
+                    / (next_state_cost / 1_000.0)
+                ),
+                "next_checkpoint_normalized_reduction_per_solver_millisecond": (
+                    signed_next_normalized_reduction / next_millisecond_cost
+                    if next_millisecond_cost > 0.0
+                    else None
+                ),
+                "best_future_normalized_reduction_per_thousand_state_visits": (
+                    best_state_rate
+                ),
+                "best_state_rate_future_checkpoint": best_state_rate_checkpoint,
+                "best_future_normalized_reduction_per_solver_millisecond": (
+                    best_millisecond_rate
+                ),
+                "best_millisecond_rate_future_checkpoint": (
+                    best_millisecond_rate_checkpoint
+                ),
             }
         )
 
@@ -617,7 +699,7 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
     postprocessing_seconds = time.perf_counter() - postprocessing_start
     wall_seconds = time.perf_counter() - experiment_start
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "experiment_type": "exact_river_early_opportunity_trace",
         "status": "measurement_only_no_scheduler_fit",
         "config": {

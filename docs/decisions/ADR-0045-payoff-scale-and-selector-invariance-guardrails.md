@@ -78,3 +78,8 @@ invariance did not and could not detect that semantic mismatch because both
 denominators scale linearly. The invariance tests remain valid guardrails, but
 the claim above that they validate ADR-0044's normalized selector comparison is
 superseded pending a frozen denominator-correction audit.
+
+ADR-0049 completed that audit: the corrected denominator changes the selected
+procedure and makes the unchanged screen pass. Scale and order invariance remain
+required guardrails, but they are not evidence that a metric refers to the
+right underlying game.

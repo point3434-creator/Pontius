@@ -1,6 +1,6 @@
 # ADR-0048: Preregister the searched-game payoff-span correction audit
 
-**Status:** Accepted before implementation and corrected selector inspection
+**Status:** Accepted before implementation and corrected selector inspection; passed in ADR-0049
 
 **Date:** 2026-08-19
 

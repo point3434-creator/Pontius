@@ -492,14 +492,26 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   searched 3x2 game has a different span. Their ratio varies from 1.25x to
   3.33x, so ADR-0044's normalized selector result requires a frozen correction
   audit. Scale invariance could not detect selection of the wrong denominator.
+- The frozen correction audit mutates exactly those 132 denominator fields,
+  matches independently regenerated wide-game spans exactly, and reproduces
+  the original screen with zero error. Corrected-to-old span ratios take four
+  values from 1.25x through 3.33x.
+- With the corrected objective, the unchanged grouped screen selects a single
+  split on `range_delta_changed_deal_fraction`: no-op at or below
+  `0.14835164835164835`, otherwise full `b3r2`. It selects 63 no-ops and 69 full
+  searches and passes every original gate.
+- Out of fold, the fixed procedure improves normalized reduction 9.47%, raw
+  reduction 41.31%, and raw quality/ms 172.55%; uses 49.49% fewer state visits;
+  lowers maximum target harm 91.87%; and improves seven of eleven groups. These
+  are revealed-development results, so fixed full remains incumbent until a
+  fresh replication passes.
 
 ## In progress
 
-- Retaining full `b3r2` as the incumbent while auditing the newly discovered
-  narrow-versus-wide payoff-span mismatch without retuning the selector.
-- Freezing a mechanical correction diagnostic before inspecting whether the
-  old compact-screen outcome changes; any changed outcome requires fresh
-  development replication rather than post-hoc acceptance.
+- Retaining full `b3r2` as the incumbent while freezing a fresh replication of
+  the corrected one-split causal computation gate.
+- Treating the selected rule as no-op-versus-full scheduling, not evidence that
+  individual bet-size pruning is safe.
 - Treating dense compiled evaluation as the primary policy-delta lane and
   measuring whether two-or-more candidate reuse is representative online.
 - Keeping exact recertification a heads-up teacher while defining unilateral
@@ -507,10 +519,10 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Freeze and run the full-game payoff-span correction audit on the unchanged
-   compact selector family.
-2. If the corrected development verdict changes, preregister fresh groups; if
-   it does not, close adaptive width on this workload more strongly.
+1. Preregister the exact corrected threshold and run it once on at least twenty
+   fresh development board groups without refitting.
+2. Retain it only if every original strategy, group, harm, work, and rate gate
+   passes; otherwise return permanently to full search on this workload.
 3. Benchmark one-, two-, and multi-candidate evaluator reuse before deciding
    whether a native dense policy tape outranks reduced-multiplayer expansion.
 
@@ -527,6 +539,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after exact policy-delta recertification passed but revealed that
-real candidates are mostly dense and that the prior compact screen used the
-narrow game's payoff span rather than the searched multi-size game's span.
+2026-08-19, after the searched-game payoff-span correction reversed the old
+screen verdict and advanced one simple no-op/full rule to fresh replication.

@@ -1,6 +1,6 @@
 # ADR-0044: Reject the causal width screen and retain full search
 
-**Status:** Accepted for the frozen screen; normalized interpretation qualified by ADR-0047
+**Status:** Superseded for normalized selection by ADR-0049; fixed full remains incumbent pending replication
 
 **Date:** 2026-08-19
 
@@ -138,3 +138,9 @@ units. Fixed `b3r2` remains the incumbent because no corrected alternative has
 been validated, but the normalized rejection is pending a frozen mechanical
 correction audit. Raw outcomes and timings remain unchanged, and no adaptive
 rule is retroactively authorized.
+
+ADR-0049 completed the frozen correction. The unchanged grouped screen then
+selected `delta_only__depth_1__risk_1` and passed every original gate. This
+invalidates the normalized rejection in this record, but only on revealed
+development data. Fixed full remains the incumbent until the corrected fixed
+rule passes a fresh preregistered replication.

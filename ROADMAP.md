@@ -185,7 +185,14 @@ reduces that to 24.01% and is 0.66% behind the ordinary exact gate, requiring
 reuse. This run also exposes that the compact screen normalized by the narrow
 range game's span rather than the searched multi-size game's span. Because the
 ratio varies 1.25x-3.33x across targets, a frozen correction audit now precedes
-any final adaptive-width conclusion or native specialization.
+any final adaptive-width conclusion or native specialization. That audit now
+passes exactly and reverses the screen verdict. The unchanged grouped procedure
+selects a depth-one rule that skips search when changed-deal fraction is at most
+`0.14835164835164835` and otherwise runs full `b3r2`. It improves corrected
+normalized reduction 9.47%, raw reduction 41.31%, and charged raw rate 172.55%,
+while halving work and improving 7/11 groups. Because all labels are revealed,
+this advances only to a fresh preregistered development replication. It is a
+no-op/full computation gate, not evidence for safe individual branch pruning.
 
 **Target:** months 4-6.5.
 

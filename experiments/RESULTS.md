@@ -1143,8 +1143,9 @@ deeper development game.
 
 **Date:** 2026-08-19
 
-**Status:** Sequential gate passes; only a transparent post-probe screen is
-authorized. No scheduler is fitted and no reserved context is generated.
+**Status:** Sequential gate passes; a transparent development screen is
+authorized. Its result is recorded separately in EXP-0019. No reserved context
+is generated here.
 
 The river tree now permits player 1 to make one fixed legal raise and player 0
 to fold or call. The independent normal-form teacher has 256 player-0 pure plans
@@ -1211,3 +1212,76 @@ the complete dissent and kill criteria.
 `--primary-target state_visit_efficiency --allocation-probe-checkpoint 2`, then
 run `python -m pontius.river_trace_comparison` against the EXP-0017 production
 artifact. Raw and compact result JSON remain locally generated and ignored.
+
+## EXP-0019: Transparent post-probe scheduler screen
+
+**Date:** 2026-08-19
+
+**Status:** Development gate passes; one active-only rule is frozen before
+reserved evaluation. Validation and test remain unconstructed.
+
+ADR-0023 and commit `98c0605` freeze the candidate family before the production
+shadow feature is measured. Commit `2ba2ac5` freezes the cross-validation
+implementation. The screen contains six rank-based scores, five discrete
+checkpoint-two/four/six/eight macro options, and fixed checkpoint-four DCFR.
+Every adaptive allocation is capped by both aggregate iterations and
+deterministic state visits.
+
+The paired shadow probe covers all 1,024 development contexts. It reproduces
+every provenance digest and active checkpoint-two DCFR regret feature, changes
+no active accumulator, and adds zero tree traversals. The 1,744,730-byte
+artifact SHA-256 is
+`0e6678666a512ae43b7e7aa165b664fe37d9c0a5c2cd4009ab96e77c899ccd3d`.
+Shadowed solver time is 1.0017 times plain time. Conservative per-context
+charging, which floors negative timing deltas at zero and includes feature
+summaries, costs 163.748 ms or 7.905% of the plain two-iteration probe.
+
+The shadow is informative but redundant:
+
+| Feature | Normalized gain/state Spearman | Raw gain/state Spearman |
+|---|---:|---:|
+| Active normalized/raw regret | 0.473 | 0.618 |
+| Shadow normalized/raw regret | 0.563 | 0.670 |
+
+Active and shadow raw-regret ranks correlate at `0.978`. The best fused-shadow
+rule improves development final exploitability by 136.152, versus 148.969 for
+the active-only winner, and loses 1.44% in charged reduction/ms. Shadow-only
+rules do worse. The shadow accumulator is therefore rejected from the frozen
+runtime rule despite its higher univariate target correlation.
+
+Five-fold group-preserving selection produces:
+
+| Held-out fold | Contexts | Training choice | Held-out raw uplift | Perfect-uplift capture | Charged rate uplift |
+|---:|---:|---|---:|---:|---:|
+| 0 | 212 | active raw / shallow 12.5% | 24.011 | 44.22% | 2.20% |
+| 1 | 212 | active raw / shallow 12.5% | 24.459 | 45.95% | 2.29% |
+| 2 | 200 | active raw / shallow 12.5% | 36.136 | 56.15% | 3.93% |
+| 3 | 248 | active raw / shallow 25% | 19.665 | 30.24% | 1.26% |
+| 4 | 152 | active raw / shallow 12.5% | 27.937 | 45.58% | 2.69% |
+
+Aggregate held-out raw uplift is 132.208, or 44.335% of the exact post-probe
+perfect-information uplift. Charged reduction per millisecond is 2.330% above
+fixed checkpoint four. Every fold improves final exploitability and stays
+below fixed state work, so all preregistered development gates pass.
+
+Fitting the finite choice once on all development contexts selects
+`active_raw::shallow_12_5`. It sends 128 contexts to checkpoint two, 768 to
+checkpoint four, and 128 to checkpoint six. Aggregate final exploitability is
+790.014 versus 938.983 fixed, an improvement of 148.969. It uses 926,336 state
+visits versus 926,848 fixed. Charged feature and allocation costs are 9.063 and
+1.343 ms; total reduction/ms improves by 2.509%.
+
+The 47,102-byte screen artifact SHA-256 is
+`e9350cd0a40dd47325dd0fa08d272377867ceaa493546aa44ae5f61efebb00ba`.
+It explicitly records that no reserved context was constructed.
+
+**Verdict:** freeze the simpler active-regret shallow-12.5% rule in ADR-0024.
+This is not unseen transfer: active candidate design used the revealed
+development trace. Commit the selected rule and a selection-free evaluator
+before generating validation. Reject without retuning if any frozen validation
+gate fails; do not inspect test after a validation failure.
+
+**Reproduction:** run `python -m pontius.river_shadow_probe`, then
+`python -m pontius.river_scheduler_screen` exactly as recorded in `RUNBOOK.md`.
+Generated JSON remains ignored; its digests are frozen in
+`river-post-probe-scheduler-v1.json`.

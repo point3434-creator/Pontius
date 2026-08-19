@@ -107,6 +107,15 @@ allocation ceiling at average checkpoint four. ADR-0022 therefore authorizes
 one transparent post-probe heuristic screen, not a learned scheduler. Static
 one-bet hardness transfer is rejected by the exactly paired trace.
 
+That screen now passes its development gate. Five-fold selected rules improve
+fixed checkpoint-four DCFR in every held-out development fold, capture 44.34%
+of perfect post-probe uplift, and improve conservatively charged reduction/ms
+by 2.33%. A CFR+ shadow accumulator is traversal-free and predicts raw future
+efficiency slightly better, but is nearly redundant with active regret and
+loses after cost. ADR-0024 freezes the simpler active-regret top/bottom 12.5%
+checkpoint-two/six allocator. Reserved evidence is still absent; validation is
+the next C2 gate and test remains sealed unless validation passes unchanged.
+
 **Target:** months 2-4.
 
 **Build:** CFR+, DCFR, external-sampling MCCFR, current/average/snapshot output,

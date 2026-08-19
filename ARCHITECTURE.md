@@ -113,6 +113,19 @@ first charge every job for that probe. Static one-bet difficulty rankings do not
 transfer to the exactly paired raise tree, so tree-local online measurements,
 not a cross-abstraction hardness cache, drive the next transparent screen.
 
+`river_shadow_probe` applies alternate numerical regret updates to deltas
+already produced by DCFR. The shadow never selects traversal behavior or walks
+the tree again, and paired instrumentation must leave every active accumulator
+unchanged. The development screen found its extra signal too redundant to pay
+for: shadow and active raw-regret ranks correlate at `0.978`. The frozen
+`river-post-probe-scheduler-v1` therefore keeps only a one-pass active positive-
+regret summary. `river_scheduler_screen` ranks a shared pool after checkpoint
+two and funds a bounded number of checkpoint-six jobs by stopping low-ranked
+jobs at checkpoint two. Its budget ledger covers both iterations and
+deterministic state visits; fixed checkpoint-four DCFR remains the no-feature
+fallback. This is a speculative-job allocation interface, not permission to
+transfer compute between unrelated completed poker decisions.
+
 River cache identity has two levels. `structural_digest` covers the public board
 and betting structure and may key immutable topology or showdown work.
 `provenance_digest` adds the entire normalized joint range and is required for

@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "rule_id": "river-post-probe-scheduler-v1",
+  "status": "frozen_before_reserved",
+  "development_evidence": {
+    "implementation_commit": "2ba2ac5",
+    "preregistered_family": {
+      "path": "experiments/rules/river-post-probe-scheduler-screen-v1.json",
+      "sha256": "f2f2847ede0e4541460dda005ca1d0a3f7d349abfc075a1588c3f86b27111729"
+    },
+    "scheduler_screen": {
+      "path": "experiments/results/river-opportunity-sequential-development-v1-scheduler-screen.json",
+      "sha256": "e9350cd0a40dd47325dd0fa08d272377867ceaa493546aa44ae5f61efebb00ba"
+    },
+    "shadow_probe": {
+      "path": "experiments/results/river-opportunity-sequential-development-v1-shadow-probe.json",
+      "sha256": "0e6678666a512ae43b7e7aa165b664fe37d9c0a5c2cd4009ab96e77c899ccd3d"
+    },
+    "source_trace": {
+      "path": "experiments/results/river-opportunity-sequential-development-v1.json",
+      "sha256": "e8ae3e078f588434eec7ef84300dab73015df8ca7a5bfd6769b1fc6d5d569ff7"
+    }
+  },
+  "solver": {
+    "active_variant": "dcfr",
+    "fixed_checkpoint": 4,
+    "probe_checkpoint": 2,
+    "shadow_regret_enabled": false
+  },
+  "score": {
+    "direction": "high",
+    "feature": "positive_regret_mass",
+    "name": "active_raw",
+    "transform": "average rank within the current allocation pool, with context_id breaking allocation ties"
+  },
+  "macro": {
+    "maximum_recipient_fraction": 0.125,
+    "name": "shallow_12_5",
+    "recipient_checkpoint": 6
+  },
+  "allocator": {
+    "definition": "start every context at checkpoint four; consider at most floor(pool size times 0.125) highest-scored recipients; fund each checkpoint-six promotion by demoting lowest-scored nonrecipients to checkpoint two until both iteration and deterministic state-visit credits cover it; restore unnecessary highest-scored donors",
+    "fallback": "fixed checkpoint four",
+    "future_labels_used": false,
+    "iteration_budget_may_not_exceed_fixed": true,
+    "state_visit_budget_may_not_exceed_fixed": true
+  },
+  "runtime_charging": {
+    "feature": "charge a one-pass active DCFR regret summary after checkpoint two",
+    "scheduler": "charge rank construction and macro allocation",
+    "shadow": "disabled and uncharged",
+    "solver": "charge cumulative DCFR traversal time at the selected checkpoint"
+  },
+  "reserved_generation": {
+    "allocation_average_iteration_budgets": [4],
+    "checkpoints": [0, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64],
+    "families": ["balanced", "polarized", "blocker_stress", "correlated"],
+    "groups": 400,
+    "hands_per_player": 4,
+    "seed": 20260820,
+    "sequential_raise": true,
+    "solvers": ["dcfr"],
+    "split_order": ["validation", "test"],
+    "store_policies": false
+  },
+  "reserved_evaluation": {
+    "fold_assignment": "first eight SHA-256 bytes of group_id, big-endian, modulo five",
+    "folds": 5,
+    "perfect_uplift_denominator": "exact post-checkpoint-two pooled iteration oracle at average budget four",
+    "validation_gates": {
+      "aggregate_fraction_of_perfect_post_probe_uplift_at_least": 0.25,
+      "aggregate_measured_reduction_per_millisecond_strictly_beats_fixed": true,
+      "candidate_iterations_not_above_fixed": true,
+      "candidate_state_visits_not_above_fixed": true,
+      "strict_raw_exploitability_improvement_in_every_group_fold": true
+    },
+    "test_policy": "construct and evaluate test only if validation passes every gate; use this rule unchanged and apply the same gates",
+    "validation_policy": "apply this fixed rule once; do not select or retune on validation"
+  },
+  "failure_policy": "retain fixed checkpoint-four DCFR; do not retune this rule"
+}

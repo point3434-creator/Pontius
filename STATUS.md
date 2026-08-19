@@ -275,25 +275,43 @@ Checkpoint 2: solver comparison laboratory.
 - ADR-0022 authorizes one transparent development-only post-probe screen with a
   fixed fallback. Neural scheduling and reserved-board evaluation remain
   unauthorized until a rule is preregistered and frozen.
-- One hundred seventy-nine automated tests pass.
+- CFR+ shadow regret now consumes the active DCFR traversal's instantaneous
+  deltas without changing its strategy or launching another tree walk. It is a
+  DCFR-path statistic, not an equivalent standalone CFR+ solve.
+- The 1,024-context shadow probe reproduces every provenance digest and active
+  checkpoint-two feature exactly. Conservative update-plus-feature charging is
+  7.905% of the plain two-iteration probe.
+- Raw shadow regret ranks raw gain per state visit better than active regret
+  (`0.670` versus `0.618` Spearman), but their ranks are `0.978` correlated.
+  Every shadow-bearing top candidate loses measured quality per millisecond
+  after charging its probe cost.
+- The preregistered development screen passes all gates. Its fold-selected
+  rules improve fixed checkpoint-four DCFR in all five held-out development
+  folds, capture 44.335% of perfect post-probe uplift, and improve charged raw
+  reduction per millisecond by 2.330% without exceeding state work.
+- All-development selection freezes `active_raw::shallow_12_5`: 128 contexts at
+  checkpoint two, 768 at four, and 128 at six. It lowers aggregate final
+  exploitability by 148.969 and improves charged reduction/ms by 2.509% while
+  using 512 fewer deterministic state visits than fixed checkpoint four.
+- ADR-0024 and `river-post-probe-scheduler-v1` freeze that active-only rule
+  before any reserved board is constructed. This is a development result, not
+  a transfer claim.
+- One hundred eighty-nine automated tests pass.
 
 ## In progress
 
-- Preregistering a tiny transparent post-probe allocation rule and macro-option
-  set for the average checkpoint-four budget; validation and test boards remain
-  unsolved.
-- Evaluating whether a cheap CFR+/DCFR shadow-regret statistic can be collected
-  from an already-paid traversal without distorting the solver.
+- Preparing the fixed-rule validation evaluator and validation-only sequential
+  river trace; validation and test boards remain unconstructed.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Freeze the post-probe score family, macro-options, cross-validation gates,
-   and fixed-checkpoint fallback before fitting anything.
-2. Run the development-only heuristic screen; reveal reserved contexts only if
-   the frozen rule passes ADR-0022's every-fold and 25%-capture gates.
+1. Implement and commit a fixed-rule reserved evaluator that cannot select or
+   retune candidates.
+2. Generate validation only and apply `river-post-probe-scheduler-v1` once;
+   construct test only if every frozen validation gate passes.
 3. Add paired near-range blocker perturbations and measure exact-hit,
    structural-only, warm-start, and recertification costs separately.
 
@@ -310,5 +328,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after the exactly paired 1,024-context sequential trace replaced the
-shallow target identity with a moderate, work-normalized scheduling signal.
+2026-08-19, after the transparent development screen passed and froze an
+active-regret checkpoint-two/four/six scheduler before reserved evaluation.

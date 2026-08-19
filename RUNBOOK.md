@@ -294,6 +294,25 @@ The paired comparator verifies those fields exactly before reporting cross-tree
 rank stability. Do not substitute merely similar ranges or compare unmatched
 context IDs.
 
+The preregistered shadow and scheduler screen is reproduced with:
+
+```powershell
+& $python -m pontius.river_shadow_probe --source experiments/results/river-opportunity-sequential-development-v1.json --output experiments/results/river-opportunity-sequential-development-v1-shadow-probe.json
+& $python -m pontius.river_scheduler_screen --source experiments/results/river-opportunity-sequential-development-v1.json --shadow experiments/results/river-opportunity-sequential-development-v1-shadow-probe.json --rule experiments/rules/river-post-probe-scheduler-screen-v1.json --output experiments/results/river-opportunity-sequential-development-v1-scheduler-screen.json
+```
+
+The shadow must reproduce every context and active DCFR feature and report zero
+extra tree traversals. It is not a standalone CFR+ solve. The scheduler screen
+must use the committed rule family; do not add a feature, weight, or macro after
+reading its result. Raw JSON is ignored, so record its digest in the frozen
+selected rule and decision record.
+
+`experiments/rules/river-post-probe-scheduler-v1.json` is the selected rule.
+It disables shadow regret and freezes `active_raw::shallow_12_5`. Do not
+construct validation until the fixed-rule evaluator is committed. Generate
+validation before test, apply the rule once without selection, and stop without
+test or retuning if any ADR-0024 validation gate fails.
+
 Only an identical `provenance_digest` authorizes an exact strategy-cache hit.
 `structural_digest` authorizes topology and board-work reuse, not strategy
 deployment. Total-variation bounds in this laboratory cover one fixed policy's

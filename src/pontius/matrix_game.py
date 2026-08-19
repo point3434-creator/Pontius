@@ -6,6 +6,8 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from math import isfinite
 
+from .linear_program import maximize_linear_program
+
 
 @dataclass(frozen=True, slots=True)
 class MatrixGameSolution:
@@ -19,6 +21,11 @@ class MatrixGameSolution:
     duality_gap: float
     payoff_shift: float
     simplex_pivots: int
+    simplex_backend: str
+
+
+class _PackingSimplexStalled(ValueError):
+    """The fast tableau cycled or exceeded its bounded pivot attempt."""
 
 
 def _pivot(
@@ -64,7 +71,12 @@ def _packing_simplex(
     tableau.append([-1.0] * variables + [0.0] * constraints + [0.0])
 
     pivots = 0
+    seen_bases: set[tuple[int, ...]] = set()
     while True:
+        signature = tuple(basis)
+        if signature in seen_bases:
+            raise _PackingSimplexStalled("matrix-game packing simplex cycled")
+        seen_bases.add(signature)
         objective = tableau[-1]
         entering = next(
             (
@@ -92,7 +104,9 @@ def _packing_simplex(
         basis[leaving] = entering
         pivots += 1
         if pivots > max_pivots:
-            raise ValueError("matrix-game simplex exceeded max_pivots")
+            raise _PackingSimplexStalled(
+                "matrix-game packing simplex exceeded its fast pivot budget"
+            )
 
     packing = [0.0] * variables
     for row, basic_variable in enumerate(basis):
@@ -142,11 +156,30 @@ def solve_zero_sum_matrix_game(
         [shifted[row][column] for row in range(len(rows))]
         for column in range(columns)
     ]
-    row_weights, column_weights, objective, pivots = _packing_simplex(
-        packing_coefficients,
-        tolerance=tolerance,
-        max_pivots=max_pivots,
+    fast_pivot_budget = min(
+        max_pivots,
+        max(1_000, 2 * (len(rows) + columns)),
     )
+    try:
+        row_weights, column_weights, objective, pivots = _packing_simplex(
+            packing_coefficients,
+            tolerance=tolerance,
+            max_pivots=fast_pivot_budget,
+        )
+        simplex_backend = "packing"
+    except _PackingSimplexStalled:
+        packing = maximize_linear_program(
+            (1.0,) * len(rows),
+            packing_coefficients,
+            (1.0,) * columns,
+            tolerance=tolerance,
+            max_pivots=max_pivots,
+        )
+        row_weights = packing.variables
+        column_weights = packing.dual_variables
+        objective = packing.objective
+        pivots = packing.pivots
+        simplex_backend = "two_phase_fallback"
     row_mass = sum(row_weights)
     column_mass = sum(column_weights)
     if row_mass <= tolerance or column_mass <= tolerance or objective <= tolerance:
@@ -188,4 +221,5 @@ def solve_zero_sum_matrix_game(
         duality_gap=max(0.0, gap),
         payoff_shift=shift,
         simplex_pivots=pivots,
+        simplex_backend=simplex_backend,
     )

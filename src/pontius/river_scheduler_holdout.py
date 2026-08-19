@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -384,6 +385,17 @@ def run_river_scheduler_holdout(
             ),
             "maximum_behavioral_nash_conv": max(
                 float(labels["nash_conv"]) for labels in teacher_labels
+            ),
+            "maximum_simplex_pivots": max(
+                int(labels["simplex_pivots"]) for labels in teacher_labels
+            ),
+            "simplex_backend_counts": dict(
+                sorted(
+                    Counter(
+                        str(labels["simplex_backend"])
+                        for labels in teacher_labels
+                    ).items()
+                )
             ),
         },
         "folds": fold_results,

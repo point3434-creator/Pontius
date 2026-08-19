@@ -36,7 +36,12 @@ def _artifacts(
                     "group_id": group_id,
                     "split": split,
                     "provenance_digest": f"digest-{context_id}",
-                    "oracle_labels": {"duality_gap": 0.0, "nash_conv": 0.0},
+                    "oracle_labels": {
+                        "duality_gap": 0.0,
+                        "nash_conv": 0.0,
+                        "simplex_pivots": 3,
+                        "simplex_backend": "packing",
+                    },
                 }
             )
             feature = float(is_high) if adaptive_signal else 0.0

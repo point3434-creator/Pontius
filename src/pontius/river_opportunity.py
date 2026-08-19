@@ -722,6 +722,8 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
             "player1_pure_policies": oracle.player1_pure_policies,
             "player0_support_size": oracle.player0_support_size,
             "player1_support_size": oracle.player1_support_size,
+            "simplex_pivots": oracle.matrix_solution.simplex_pivots,
+            "simplex_backend": oracle.matrix_solution.simplex_backend,
             "solve_milliseconds": context_oracle_seconds * 1_000.0,
         }
         if store_policies:

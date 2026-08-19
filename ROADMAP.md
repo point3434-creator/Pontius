@@ -1,0 +1,110 @@
+# Roadmap and Checkpoint Gates
+
+## C0: Research contract and durable memory
+
+**Target:** weeks 1-2.
+
+**Gate:** rules, metrics, non-goals, risks, reproduction requirements, and the
+evidence protocol are unambiguous and version controlled.
+
+## C1: Exact-game laboratory
+
+**Target:** months 0.5-2.
+
+**Build:** generic extensive-form interface, Kuhn variants, exact evaluation,
+best response, NashConv, vanilla CFR, and LCFR.
+
+**Gate:** analytical game values are matched within numerical tolerance; an
+intentionally weak policy produces positive deviation gain; all experiments are
+reproducible from configuration and code revision.
+
+## C2: Solver comparison laboratory
+
+**Target:** months 2-4.
+
+**Build:** CFR+, DCFR, external-sampling MCCFR, current/average/snapshot output,
+leaf-error injection, and tree-mutation experiments.
+
+**Gate:** solver rankings are repeatable under equal iterations, nodes, time,
+and memory; provisional algorithms are selected by workload regime.
+
+## C3: Reduced multiplayer hold'em
+
+**Target:** months 4-6.5.
+
+**Build:** reduced decks, 2-6 players, dense bet lattice, exact belief handling,
+and tractable best responses.
+
+**Gate:** root costs of action omission, card merging, range corruption, and
+early stopping are measurable; adaptive branching beats a fixed abstraction on
+at least one held-out regime.
+
+## C4: Optimized runtime
+
+**Target:** months 6.5-9.
+
+**Build:** flat C++ tree, CPU vectorization, batched GPU prototype, asynchronous
+leaf interface, profiling, cancellation, and memory accounting.
+
+**Gate:** optimized results match the reference numerically and improve real
+search traces by several-fold without strategy-quality regression.
+
+## C5: Pluribus-style control agent
+
+**Target:** months 9-11.
+
+**Build:** fixed abstraction, sparse external-sampling LCFR blueprint, cautious
+negative-regret pruning, ranges, fixed-depth resolving, and off-tree handling.
+
+**Gate:** complete legal 6-max play; resolver reliably improves the blueprint in
+reduced exact games and against a frozen evaluation league.
+
+## C6: Neural blueprint and leaves
+
+**Target:** months 11-15.
+
+**Build:** backward river-to-flop teachers, policy/value/action/uncertainty
+models, active data generation, and root-aware validation.
+
+**Gate:** neural leaves reduce held-out root harm at equal latency relative to
+blueprint continuation. Lower value MSE alone does not pass the gate.
+
+## C7: Adaptive public-belief search
+
+**Target:** months 15-18.
+
+**Build:** dynamic width/depth, continuous bet proposals, action insertion,
+residual solving, street/player specialization, and heuristic computation
+allocation.
+
+**Gate:** adaptive search Pareto-dominates fixed search at multiple budgets with
+no material rare-branch vulnerability.
+
+## C8: Cache and speculation
+
+**Target:** months 18-20.
+
+**Build:** range-aware caches, topology/embedding reuse, continuous pondering,
+future-state forests, and preemptible background work.
+
+**Gate:** future decisions improve without degrading current-decision p95
+latency or corrupting strategies when beliefs differ.
+
+## C9: Learned value-of-computation scheduler
+
+**Target:** months 20-23.
+
+**Build:** oracle labels, operation-cost model, conservative learned ranking,
+minimum coverage, and heuristic fallback.
+
+**Gate:** learned scheduling beats the best tuned heuristic on hidden games and
+full-game traces. Otherwise the heuristic remains production default.
+
+## C10: Full evaluation
+
+**Target:** month 23 onward.
+
+**Gate:** exact reduced-game results, adversarial responders, complete cross-play
+matrices, paired-deal confidence intervals, latency/memory profiles, and all
+major ablations are available for a defensible report.
+

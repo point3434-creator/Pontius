@@ -19,7 +19,7 @@ order, information hiding, conditional ranges, stochastic pure-policy best
 response enumeration, singleton-team equivalence, pair-team enumeration, both
 generic dependency tapes, and positive payoff scaling. The implementation was
 committed as `d808425` after the frozen contract commit `f66887f`.
-The complete repository passes 313 tests in 50.314 seconds.
+The complete repository passes 313 tests in 50.440 seconds.
 
 The reproducible engineering calibration uses
 `experiments/configs/multiway-river-cost-calibration-v1.json`, SHA-256
@@ -27,7 +27,7 @@ The reproducible engineering calibration uses
 It is explicitly revealed calibration, not a preregistered strategy test. The
 result is
 `experiments/results/multiway-river-cost-calibration-v1.json`, SHA-256
-`196c732e39e07c578636c57b092ea033a5121ab1bbb0eee3a3700ab489bce86f`.
+`d0f74bb9b77766aa233f6cc6ccd16533d6f0242e2e7a59b367ea83063f833e20`.
 
 The calibration's maximum exact evaluation error is `9.32588e-15`, with zero
 literal best-response action mismatches and topological dependencies throughout.
@@ -42,12 +42,12 @@ candidate evaluation after compilation.
 
 | Hands/seat | Joint deals | Tree states | Full ms | Team ms | First DCFR iteration ms | Compile ms | Hot ms | Full/hot |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 1 | 1 | 25 | 1.391 | 1.435 | 0.513 | 1.136 | 0.237 | 5.870x |
-| 2 | 8 | 200 | 10.470 | 10.639 | 3.799 | 8.031 | 1.796 | 5.830x |
-| 3 | 27 | 675 | 35.101 | 36.752 | 12.965 | 25.217 | 5.879 | 5.971x |
-| 4 | 64 | 1,600 | 84.381 | 85.196 | 30.862 | 59.563 | 13.656 | 6.179x |
-| 5 | 125 | 3,125 | 169.557 | 170.898 | 61.997 | 123.690 | 25.986 | 6.525x |
-| 6 | 216 | 5,400 | 304.154 | 307.352 | 111.931 | 215.673 | 46.633 | 6.522x |
+| 1 | 1 | 25 | 1.399 | 1.434 | 0.526 | 1.180 | 0.242 | 5.785x |
+| 2 | 8 | 200 | 10.411 | 10.903 | 3.804 | 7.955 | 1.779 | 5.853x |
+| 3 | 27 | 675 | 35.802 | 36.565 | 12.999 | 25.426 | 5.751 | 6.226x |
+| 4 | 64 | 1,600 | 85.520 | 85.645 | 30.972 | 62.444 | 13.889 | 6.157x |
+| 5 | 125 | 3,125 | 169.606 | 172.183 | 61.152 | 125.333 | 26.270 | 6.456x |
+| 6 | 216 | 5,400 | 306.148 | 307.602 | 111.737 | 216.880 | 46.627 | 6.566x |
 
 Tape storage rises from 22,012 bytes at one deal to 4,395,037 bytes at 216
 deals. Both tree states and reference latency are nearly linear in enumerated
@@ -60,7 +60,7 @@ runtime play.
 
 1. The exact contract passes and is large enough for a grouped three-player
    development workload at two or three hands per seat.
-2. Dense policy-tape reuse advances. It is 5.83x-6.52x faster hot. Even the sum
+2. Dense policy-tape reuse advances. It is 5.79x-6.57x faster hot. Even the sum
    of separate median compilation and one hot candidate is slightly below one
    ordinary candidate evaluation in every calibrated row, although that
    approximate sum is not a synchronized latency benchmark.

@@ -524,13 +524,13 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   independent payoff and pure-policy oracles, singleton-team equivalence,
   pair-team enumeration, information hiding, payoff scaling, and unchanged
   generic range/policy dependency tapes. The complete suite passes 313 tests in
-  50.314 seconds.
+  50.440 seconds.
 - A reproducible revealed cost calibration passes at `9.33e-15` maximum exact
   error with zero best-response action mismatches. At three hands per seat (27
-  joint deals), full unilateral evaluation costs 35.10 ms, all pair coalitions
-  36.75 ms, one DCFR iteration 12.97 ms, tape compilation 25.22 ms, and hot
-  dense candidate evaluation 5.88 ms.
-- Hot dense policy evaluation is 5.83x-6.52x faster across one to 216 joint
+  joint deals), full unilateral evaluation costs 35.80 ms, all pair coalitions
+  36.57 ms, one DCFR iteration 13.00 ms, tape compilation 25.43 ms, and hot
+  dense candidate evaluation 5.75 ms.
+- Hot dense policy evaluation is 5.79x-6.57x faster across one to 216 joint
   deals. But states, memory, and latency are linear in explicit joint deals;
   independent three-player support grows cubically in hands per seat. Explicit
   joint enumeration is now classified as an exact teacher, not a scalable

@@ -209,7 +209,7 @@ and exact shared-private-information pair-coalition stress responses. Separate
 unilateral-Pareto and coalition-stress incumbent labels prevent aggregate
 quality from hiding a worse seat or pair. A revealed three-player cost
 calibration matches the flat policy tape within `9.33e-15` with zero response
-action mismatches. Hot dense candidate evaluation is 5.83x-6.52x faster than
+action mismatches. Hot dense candidate evaluation is 5.79x-6.57x faster than
 full traversal. However, exact state count, memory, and latency scale linearly
 in materialized joint deals, which grow cubically in hands per seat for three
 independent ranges and exponentially in player count. Explicit tuples are now

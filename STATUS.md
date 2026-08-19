@@ -469,29 +469,50 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   selector decisions remain invariant at 0.5x, 1x, 2x, and 4x utility scales.
   The real 132-target artifact also retains fixed `b3r2`, normalized reduction
   `0.39752103705623065`, and its failed-screen status after every scale transform
-  and a seeded input permutation. This validates the rejection; it does not
-  reopen adaptive width.
-- Two hundred sixty-six automated tests pass.
+  and a seeded input permutation. This ruled out unit and order artifacts, but
+  the later denominator-semantic finding below supersedes the stronger claim
+  that it fully validated the rejection.
+- Exact behavioral-policy inputs now share one Float64 dependency at every
+  information-set/action pair. Policy-only, range-plus-policy, multiplayer
+  unilateral BR, source-relative replay, invalid-profile, tie, and payoff-scale
+  controls all pass; 276 automated tests pass in 49.573 seconds.
+- The frozen 264-candidate policy-delta matrix reproduces every prior label
+  exactly, agrees with full evaluation within `8.88e-15`, and has zero action or
+  acceptance mismatches. Hot evaluation is `5.96x` faster than the object-tree
+  evaluator.
+- Exact acceptance improves payoff-normalized quality/ms by 31.47% over blind
+  full search. Compilation charged once still improves 24.01%, but is 0.66%
+  slower than simply using the ordinary exact evaluator. Policy-tape value
+  therefore requires precompilation or reuse.
+- Realistic policy deltas are mostly dense: the full candidate has median dirty
+  fraction 81.42% and automatic sparse execution on only 16.67% of targets.
+  Dense flat evaluation, not sparse invalidation, is the demonstrated win.
+- Interpreting the new artifact exposed a measurement bug in the prior width
+  screen: it normalized by the narrow range game's payoff span, while the
+  searched 3x2 game has a different span. Their ratio varies from 1.25x to
+  3.33x, so ADR-0044's normalized selector result requires a frozen correction
+  audit. Scale invariance could not detect selection of the wrong denominator.
 
 ## In progress
 
-- Retaining full `b3r2` as the current search control and cancelling the compact
-  adaptive-width replication and branch-lane specialization.
-- Designing a policy-parameterized dependency-tape control to measure exact
-  candidate acceptance/rejection without rebuilding the full evaluator.
+- Retaining full `b3r2` as the incumbent while auditing the newly discovered
+  narrow-versus-wide payoff-span mismatch without retuning the selector.
+- Freezing a mechanical correction diagnostic before inspecting whether the
+  old compact-screen outcome changes; any changed outcome requires fresh
+  development replication rather than post-hoc acceptance.
+- Treating dense compiled evaluation as the primary policy-delta lane and
+  measuring whether two-or-more candidate reuse is representative online.
 - Keeping exact recertification a heads-up teacher while defining unilateral
   and coalition-threat evaluation boundaries for reduced multiplayer.
-- Representing Bayesian action conditioning as structured dense or low-rank
-  range updates rather than expanding every factorized update into joint deals.
 
 ## Next three tasks
 
-1. Preregister the policy-delta tape semantics, exact differential tolerances,
-   compile/hot cost boundaries, and accept/no-op quality-per-millisecond gate.
-2. Extend the generic tape so source range and candidate policy deltas can be
-   applied independently, then compare affected cones with full evaluation.
-3. If exact candidate acceptance is not sparse and cheap, stop optimizing this
-   river decision and advance the measurement framework to reduced multiplayer.
+1. Freeze and run the full-game payoff-span correction audit on the unchanged
+   compact selector family.
+2. If the corrected development verdict changes, preregister fresh groups; if
+   it does not, close adaptive width on this workload more strongly.
+3. Benchmark one-, two-, and multi-candidate evaluator reuse before deciding
+   whether a native dense policy tape outranks reduced-multiplayer expansion.
 
 ## Current blockers
 
@@ -506,6 +527,6 @@ None.
 
 ## Last updated
 
-2026-08-19, after payoff-scale and selector invariance audits validated the
-measurement path and confirmed that the frozen compact-screen rejection is not
-an artifact of chip units, record order, group names, unused labels, or ties.
+2026-08-19, after exact policy-delta recertification passed but revealed that
+real candidates are mostly dense and that the prior compact screen used the
+narrow game's payoff span rather than the searched multi-size game's span.

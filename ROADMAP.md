@@ -175,7 +175,17 @@ the next exact control. No deployable exact no-op or multiplayer safety claim
 follows. Payoff-scale and selector property audits now confirm that the failed
 width decision and normalized measurement are invariant across 0.5x-4x stakes,
 input ordering, group names, unused labels, and declared ties. These are
-measurement guardrails, not new evidence for adaptive width.
+measurement guardrails, not new evidence for adaptive width. The subsequent
+policy-parameterized tape reproduces all 264 frozen candidates exactly, reaches
+`8.88e-15` maximum error, and evaluates hot candidates `5.96x` faster. Full
+candidate cones are mostly dense (81.42% median dirty), so dense compiled
+evaluation replaces sparsity as the primary mechanism. Hot exact acceptance
+improves normalized quality/ms 31.47% over blind search; one-shot compilation
+reduces that to 24.01% and is 0.66% behind the ordinary exact gate, requiring
+reuse. This run also exposes that the compact screen normalized by the narrow
+range game's span rather than the searched multi-size game's span. Because the
+ratio varies 1.25x-3.33x across targets, a frozen correction audit now precedes
+any final adaptive-width conclusion or native specialization.
 
 **Target:** months 4-6.5.
 

@@ -70,3 +70,11 @@ scale, order, and tie checks to its full-versus-incremental acceptance decisions
 with Float64 error and false-accept/false-reject gates taking precedence over
 speed.
 
+## Subsequent correction
+
+ADR-0047 found that the selector's `target_payoff_span` came from the narrow
+range-context game rather than the searched 3x2 multi-size game. Positive scale
+invariance did not and could not detect that semantic mismatch because both
+denominators scale linearly. The invariance tests remain valid guardrails, but
+the claim above that they validate ADR-0044's normalized selector comparison is
+superseded pending a frozen denominator-correction audit.

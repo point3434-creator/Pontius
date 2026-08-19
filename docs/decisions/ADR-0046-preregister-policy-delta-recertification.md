@@ -1,6 +1,6 @@
 # ADR-0046: Preregister exact policy-delta recertification
 
-**Status:** Accepted before implementation and measurement
+**Status:** Accepted before implementation and measurement; passed in ADR-0047
 
 **Date:** 2026-08-19
 

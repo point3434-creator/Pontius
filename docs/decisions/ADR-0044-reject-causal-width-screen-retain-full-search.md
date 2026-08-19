@@ -1,6 +1,6 @@
 # ADR-0044: Reject the causal width screen and retain full search
 
-**Status:** Accepted
+**Status:** Accepted for the frozen screen; normalized interpretation qualified by ADR-0047
 
 **Date:** 2026-08-19
 
@@ -127,3 +127,14 @@ the existing exact river and compare its hot affected cone with full candidate
 evaluation. If policy deltas are dense or compilation dominates reuse, stop
 exact online acceptance and move the lesson into learned uncertainty or richer
 reduced multiplayer evaluation.
+
+## Subsequent correction boundary
+
+ADR-0047 found that this screen divided candidate reductions by the narrow
+range-context payoff span rather than the payoff span of the searched 3x2
+multi-size game. The ratio between those denominators varies across targets, so
+the reported normalized ranking is not merely expressed in different global
+units. Fixed `b3r2` remains the incumbent because no corrected alternative has
+been validated, but the normalized rejection is pending a frozen mechanical
+correction audit. Raw outcomes and timings remain unchanged, and no adaptive
+rule is retroactively authorized.

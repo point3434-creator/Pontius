@@ -400,6 +400,22 @@ cost; use its work counts and dirty cones, not its wall time, as architecture
 evidence. Re-running it is reproduction rather than a fresh threshold screen.
 ADR-0035 is the durable verdict.
 
+The exact multi-size branching transfer is frozen in ADR-0037 and reproduced
+with:
+
+```powershell
+& $python -m pontius.river_multi_size_experiment --config experiments/configs/river-multi-size-dependency-development-v1.json --output experiments/results/river-multi-size-dependency-development-v1.json
+```
+
+The recorded artifact has SHA-256
+`8198e6b0f013b1d1fe92a2fa0fcbbf1119cc0e6a22ab360aeae23c6c55c89d08`.
+It verifies the pre-widening dependency-tape source hash, audits all 19 terminal
+paths per deal independently, and compares matched fixed and 3x2 topologies.
+Use absolute dirty-node ratios as well as dirty fractions: wide sparse work rises
+about 2.7x despite slightly better relative sparsity. The runner's total wall
+time includes redundant correctness controls and is not an online latency
+benchmark. ADR-0038 is the durable verdict.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

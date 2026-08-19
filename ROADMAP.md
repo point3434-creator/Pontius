@@ -136,12 +136,12 @@ and memory; provisional algorithms are selected by workload regime.
 
 **Status:** Started narrowly. The exact full-deck heads-up river control now
 supports joint combo ranges, card removal, correlated beliefs, configurable
-pot/stacks/bet size, one fixed legal raise and final response, and an independent
-normal-form equilibrium oracle. This is the two-player river edge of C3, not
-completion of reduced multiplayer play. Multiple bet and raise sizes,
-re-raises, earlier streets, more players, unilateral NashConv, and coalition
-threat models remain. Its frozen post-probe allocator has passed reserved
-board/range transfer and is now the compute-allocation control. The next C3
+pot/stacks/bet size, an exact three-bet/two-raise extension, final response, and
+an independent normal-form equilibrium oracle for the fixed-size control. This
+is the two-player river edge of C3, not completion of reduced multiplayer play.
+Re-raises, earlier streets, more players, scalable unilateral NashConv, and
+coalition threat models remain. Its frozen post-probe allocator has passed
+reserved board/range transfer and is now the compute-allocation control. The next C3
 subcheckpoint now separates paired blocker-sensitive cache paths. Exact-source
 warm DCFR passes its development gate, but the recertified cached policy before
 any new solve is both stronger and cheaper. The global TV certificate is about
@@ -153,9 +153,11 @@ full delta scan, and faster in every one of 896 records. The next gate
 has now generalized dependency invalidation beyond hard-coded river equations.
 The flat generic tape matches all exact controls within `7.11e-15`; sparse
 two-deal updates dirty 15%-17% of nodes while factorized-dense updates dirty
-82%. C3 now crosses multiple bet/raise sizes with the unchanged tape and
-structured dense belief updates, then compares cached acceptance and selective
-repair against warm and cold traversal.
+82%. The unchanged tape also passes the three-bet/two-raise transfer gate within
+`1.42e-14`. Sparse percentages remain 15%-16%, but absolute work grows about
+2.7x. C3 now measures whether the added actions earn that cost in exact full-
+universe strategy quality before optimizing branch lanes or comparing cached
+acceptance and selective repair against warm and cold traversal.
 
 **Target:** months 4-6.5.
 

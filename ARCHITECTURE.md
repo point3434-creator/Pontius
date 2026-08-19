@@ -189,6 +189,22 @@ Multiple bet/raise sizes are the first branching-factor transfer gate. Full
 evaluation remains the independent differential oracle; structured dense range
 algebra is the likely complement to sparse explicit invalidation.
 
+`river_multi_size` now supplies that transfer workload without altering the
+fixed-size game. Opening bets and raise-to totals are immutable sized actions;
+legal raises are filtered by the full minimum-raise rule, every contribution
+fits both stacks, information keys retain exact public sizes, and joint-range
+provenance remains separate from topology. `river_multi_size_audit` independently
+reconstructs utilities from committed contributions and showdown results.
+
+The unchanged tape remains exact on three bets and two raises. This branching
+expands mean numeric topology `2.896x` and flat bytes `2.985x`. Sparse dirty
+fractions decrease slightly, but absolute dirty work rises `2.69x`-`2.73x`.
+Accordingly, the architecture treats the 3x2 tree as a reference action universe
+rather than a chosen abstraction. The next layer must preserve a complete 3x2
+blueprint while masking search actions, so every candidate—including off-tree
+responses—is evaluated in one common full game. Only action sizes that improve
+full-universe quality per charged work advance to branch-major SIMD layout.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

@@ -382,28 +382,49 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 - Adding the current fixed raise increases mean numeric topology from 362.10 to
   539.35 nodes without materially increasing sparse dirty fractions. This is
   encouraging but remains too shallow to establish branching-factor transfer.
-- Two hundred thirty automated tests pass.
+- `MultiSizeRiverHoldem` now provides exact sized actions, three configurable
+  opening bets, per-bet minimum-raise filtering, multiple raise-to sizes, exact
+  stack/contribution accounting, and range-separated provenance without
+  changing the fixed-size river controls.
+- An independent contribution-based audit matches all 68,514 terminal histories
+  in the frozen multi-size artifact bit-for-bit. Dynamic best responses also
+  match exhaustive pure-response values on the tractable deterministic control.
+- The unchanged dependency tape passes 840 matched multi-size transfer checks
+  with maximum error `1.42e-14`, zero frozen action mismatches, exact replay,
+  and perfect sparse/dense routing.
+- Widening from one bet/one raise to three bets/two raises multiplies mean tree
+  states `3.625x`, numeric nodes `2.896x`, selectors `3.333x`, and flat bytes
+  `2.985x`.
+- Sparse locality survives: wide blocker and support changes dirty only 16.493%
+  and 14.833% of nodes. The crucial counterweight is absolute work, which grows
+  `2.686x` and `2.734x` versus the matched fixed tree despite lower percentages.
+- Factorized likelihood updates remain dense at 80.314% of wide nodes. Support-
+  change selector flips increase from 1.042 to 3.935 on average, so action
+  instability grows faster than the dependency fraction.
+- Two hundred forty automated tests pass.
 
 ## In progress
 
-- Designing a wider river tree with multiple legal bet and raise sizes so the
-  now-verified generic dependency evaluator faces a real branching-factor test.
-- Defining action labels, legality, information-state keys, stack accounting,
-  structural provenance, and an independent payoff oracle for that tree before
-  measuring it.
+- Designing a full-universe action-mask laboratory that measures the exact
+  strategy-quality numerator earned by the extra bet and raise sizes.
+- Preserving complete off-tree blueprint behavior so restricted and adaptive
+  action candidates are always evaluated against best responses in the same
+  3x2 reference game.
+- Designing branch-major action lanes and shared deal features, contingent on
+  the quality experiment showing that the added sizes earn their 2.7x work cost.
 - Representing Bayesian action conditioning as structured dense or low-rank
-  range updates rather than assuming that explicit combo deltas stay sparse.
+  range updates rather than expanding every factorized update into joint deals.
 
 ## Next three tasks
 
-1. Add at least three root bet sizes and two raise sizes with exact rules,
-   structural hashes, and differential payoff/best-response tests.
-2. Reuse the generic tape unchanged on sparse, support-changing, and
-   factorized-dense range updates; measure topology and invalidation-cone growth
-   before writing an optimized kernel.
-3. On that richer tree, compare accept/no-op, bound-first exact recertification,
-   affected-cone repair, warm full traversal, and cold traversal at equal
-   charged time before fitting any learned cache or tree scheduler.
+1. Build one strong 3x2 blueprint and a nested action-mask wrapper whose
+   off-tree information sets retain that blueprint exactly.
+2. Compare fixed, nested, and adaptive action sets under equal state and time
+   budgets using full-3x2 NashConv reduction, root harm, and quality per
+   millisecond—not restricted-game convergence.
+3. If extra sizes pass that value test, implement branch-major/shared-feature
+   flat kernels and then compare accept/no-op, exact recertification, affected-
+   cone repair, warm traversal, and cold traversal at equal charged time.
 
 ## Current blockers
 
@@ -418,6 +439,6 @@ None.
 
 ## Last updated
 
-2026-08-19, after the generic flat dependency tape passed its frozen exactness,
-action-flip, source-relative, topology, support-change, and hybrid-execution
-gates.
+2026-08-19, after the exact three-bet/two-raise game and unchanged dependency
+tape passed their frozen payoff, branching, sparse-locality, and dense-routing
+transfer gates.

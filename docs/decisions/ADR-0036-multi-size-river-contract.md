@@ -1,6 +1,6 @@
 # ADR-0036: Exact multi-size river betting contract
 
-**Status:** Accepted for implementation
+**Status:** Implemented; frozen transfer passed in ADR-0038
 
 **Date:** 2026-08-19
 

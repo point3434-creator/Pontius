@@ -1,6 +1,6 @@
 # ADR-0037: Preregister multi-size dependency-tape transfer
 
-**Status:** Accepted before the frozen development run
+**Status:** Accepted before the frozen development run; passed in ADR-0038
 
 **Date:** 2026-08-19
 

@@ -41,6 +41,14 @@ responses. The target-free sum-margin LP is the current teacher objective. A
 second LP may inspect the full-game opponent best response only as a hidden
 diagnostic control; it is explicitly outside the online dependency graph.
 
+`safe_solver_gap_experiment` treats search as an anytime stream. The blueprint
+is the initial incumbent; average and current snapshots must pass every exact
+frontier constraint and improve the target-free summed margin before replacing
+it. This exact monitor is a teacher interface, not runtime certification. A
+frozen fixed-regret-mass rule failed holdout transfer, so the next solver layer
+must represent feasibility constraints and secondary objective progress
+directly rather than relying on gadget Nash convergence to select a policy.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

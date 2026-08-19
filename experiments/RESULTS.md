@@ -734,7 +734,7 @@ remains locally generated and ignored.
 
 **Date:** 2026-08-19
 
-**Status:** Screening complete; v1 rule frozen before holdout.
+**Status:** Frozen holdout failed; v1 rejected without retuning.
 
 The progressive solver-gap runner compares every finite gadget snapshot with
 the exact sum-margin and hidden conditional best-response optima at the same
@@ -777,4 +777,36 @@ LCFR/CFR+ 100- and 3,000-iteration holdouts. Its canonical document digest is
 **Pre-holdout verdict:** cold CFR-family resolving is rejected at online-scale
 budgets. Blueprint warm starts plus monotone certified retention advance as the
 correct control architecture. Whether the three-iteration DCFR rule transfers
-is intentionally unanswered in this commit.
+was intentionally unanswered in preregistration commit `3776496`.
+
+### Frozen v1 holdout
+
+The rule was committed as `3776496` before the declared holdout was opened. No
+configuration changed. The holdout contains LCFR and CFR+ blueprints at 100 and
+3,000 iterations, again covering four public boundaries each.
+
+| Metric | Screen | Holdout |
+|---|---:|---:|
+| Improved boundaries | 3/16 | 1/16 |
+| Aggregate sum-margin capture | 34.0688% | 2.51385% |
+| Hidden BR capture, diagnostic | 22.1516% | 2.88280% |
+| Mean decision compute | 2.839 ms | 2.844 ms |
+| Sum-margin per millisecond | `2.94501e-4` | `2.25286e-6` |
+
+The target-free rate falls by 130.72 times. The only selected improvement is a
+current-policy root snapshot for the 100-iteration CFR+ blueprint. Every LCFR
+boundary, both 3,000-iteration blueprints, and the other three CFR+ branches
+remain no-op.
+
+The failure is not hidden by unsafe deployment. At iteration 1, every average
+policy is the safe blueprint, while only one current policy is safe and 14/16
+raw current policies are harmful. At iteration 3, only one average and one
+current policy are safe; 14/16 raw averages and 13/16 raw current policies are
+harmful. Monotone retention works as a safety control and exposes the search
+rule's lack of transferable improvement.
+
+**Final verdict:** reject the fixed mass-10, three-iteration DCFR rule without
+retuning on this holdout. Retain blueprint initialization and target-free
+incumbent retention as controls. Move to a solver that handles individual
+frontier constraints and the summed-margin objective directly rather than
+continuing scalar regret-mass sweeps.

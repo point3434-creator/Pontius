@@ -137,22 +137,28 @@ Checkpoint 2: solver comparison laboratory.
   and three iterations. It captures 34.0688% of exact sum-margin headroom at
   2.839 mean reference milliseconds and is frozen as
   `safe-solver-incumbent-v1` before holdout evaluation.
+- The frozen v1 holdout rejects transfer: only 1/16 boundaries improve,
+  aggregate sum-margin capture falls to 2.51385%, and target-free quality per
+  millisecond falls by 130.72 times. The rule is not retuned.
+- Blueprint initialization and monotone certified retention still prevent
+  harm: all rejected holdout snapshots fall back to no-op. Fixed raw
+  pseudo-regret mass is rejected as a transferable trust parameter.
 - One hundred twenty-six automated tests pass.
 
 ## In progress
 
-- Evaluating the frozen safe-solver incumbent on untouched 100- and
-  3,000-iteration blueprint holdouts.
+- Designing a restricted constrained master/response-generation solver that
+  optimizes sum-margin while exposing frontier feasibility residual directly.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Run the committed `safe-solver-incumbent-v1` rule on its untouched holdout
-   and accept or reject transfer without retuning.
-2. Use the measured residual/objective decomposition to design a constrained
-   objective-aware solver rather than tuning feasibility-only CFR indefinitely.
+1. Build a blueprint-feasible restricted constrained master with opponent
+   response generation and compare every update with the exact normal-form LP.
+2. Benchmark its anytime feasibility and sum-margin quality per millisecond
+   against the frozen blueprint-warm CFR incumbent.
 3. Inject controlled frontier-value error and uncertainty bounds before
    declaring any multiplayer relaxation or neural frontier target.
 
@@ -169,5 +175,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after EXP-0013 screening froze the three-iteration DCFR
-blueprint-warm incumbent rule before its declared holdout.
+2026-08-19, after the frozen EXP-0013 holdout rejected fixed regret-mass
+transfer and advanced direct constrained optimization as the next solver gate.

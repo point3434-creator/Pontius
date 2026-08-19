@@ -53,8 +53,10 @@ control's improvement in aggregate on the eight-case Kuhn2 matrix. Measuring
 finite-CFR regret shows that cold gadget policies remain unsafe at many
 boundaries even after 1,000 iterations. Blueprint warm starts and monotone
 certified retention are now the control architecture. A three-iteration DCFR,
-mass-10 incumbent rule is frozen before its declared holdout; that transfer
-test is the next gate before objective-aware solvers, approximate frontiers, or
+mass-10 incumbent rule then failed its declared holdout: sum-margin capture fell
+from 34.07% to 2.51% and quality per millisecond fell 130.72-fold. Fixed raw
+regret mass is rejected without retuning. A direct constrained
+response-generation solver is the next gate before approximate frontiers or
 multiplayer.
 
 **Target:** months 2-4.

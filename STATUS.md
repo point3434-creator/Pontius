@@ -505,13 +505,24 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   lowers maximum target harm 91.87%; and improves seven of eleven groups. These
   are revealed-development results, so fixed full remains incumbent until a
   fresh replication passes.
+- The fixed threshold then fails its preregistered fresh replication across 23
+  new development groups, 92 contexts, and 276 targets. It loses 1.11% raw and
+  2.28% normalized quality and improves only 6/23 groups, despite halving work
+  and increasing raw quality/ms 84.21%. It is rejected without retuning.
+- Changed-deal fraction separates all dense factorized updates from sparse
+  blocker updates but cannot rank the sparse slice: the 125 skipped fresh
+  candidates contain 83 improvements and 42 harms with net positive value.
+- Exact post-solve acceptance does transfer. It raises fresh raw reduction
+  18.09% and, even with ordinary exact-label cost, raises raw quality/ms 10.75%.
+  Full search plus exact verification is now the conservative heads-up control.
 
 ## In progress
 
-- Retaining full `b3r2` as the incumbent while freezing a fresh replication of
-  the corrected one-split causal computation gate.
-- Treating the selected rule as no-op-versus-full scheduling, not evidence that
-  individual bet-size pruning is safe.
+- Retaining full `b3r2` plus exact post-solve acceptance as the heads-up river
+  control; the frozen no-op/full density gate is rejected without retuning.
+- Designing the next reduced-multiplayer measurement workload with explicit
+  unilateral and coalition diagnostics instead of fitting another threshold on
+  the failed river artifact.
 - Treating dense compiled evaluation as the primary policy-delta lane and
   measuring whether two-or-more candidate reuse is representative online.
 - Keeping exact recertification a heads-up teacher while defining unilateral
@@ -519,12 +530,12 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Preregister the exact corrected threshold and run it once on at least twenty
-   fresh development board groups without refitting.
-2. Retain it only if every original strategy, group, harm, work, and rate gate
-   passes; otherwise return permanently to full search on this workload.
-3. Benchmark one-, two-, and multi-candidate evaluator reuse before deciding
-   whether a native dense policy tape outranks reduced-multiplayer expansion.
+1. Freeze the reduced-multiplayer game and evaluation contract, including per-
+   player unilateral NashConv and explicit coalition-threat diagnostics.
+2. Carry full search plus exact acceptance into that workload as the incumbent,
+   with dense policy-tape reuse measured separately from compilation.
+3. Build a larger causal opportunity trace before fitting another scheduler;
+   require blocker-sensitive reach/uncertainty features and grouped transfer.
 
 ## Current blockers
 
@@ -539,5 +550,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after the searched-game payoff-span correction reversed the old
-screen verdict and advanced one simple no-op/full rule to fresh replication.
+2026-08-19, after the corrected no-op/full rule failed on 23 fresh groups while
+exact post-solve acceptance retained a positive quality-per-millisecond gain.

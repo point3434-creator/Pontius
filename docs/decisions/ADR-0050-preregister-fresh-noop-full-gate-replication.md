@@ -1,6 +1,6 @@
 # ADR-0050: Preregister the fresh no-op/full computation-gate replication
 
-**Status:** Accepted before constructing fresh contexts
+**Status:** Accepted before constructing fresh contexts; failed in ADR-0051
 
 **Date:** 2026-08-19
 

@@ -1,6 +1,6 @@
 # ADR-0049: Corrected causal computation gate passes; require fresh replication
 
-**Status:** Accepted
+**Status:** Accepted as corrected discovery evidence; fixed rule rejected by ADR-0051
 
 **Date:** 2026-08-19
 

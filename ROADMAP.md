@@ -193,6 +193,14 @@ normalized reduction 9.47%, raw reduction 41.31%, and charged raw rate 172.55%,
 while halving work and improving 7/11 groups. Because all labels are revealed,
 this advances only to a fresh preregistered development replication. It is a
 no-op/full computation gate, not evidence for safe individual branch pruning.
+That fresh replication now rejects the rule: across 23 new groups it loses
+1.11% raw and 2.28% normalized quality and improves only 26.09% of groups,
+although it nearly halves work and raises raw rate 84.21%. Range-update density
+does not distinguish strategically critical sparse blocker changes. Exact
+post-solve acceptance does transfer, improving raw quality 18.09% and rate
+10.75% even with the ordinary evaluator. Full search plus exact verification is
+the retained river control; the next C3 work moves to reduced multiplayer and
+requires richer blocker/reach/uncertainty traces before another scheduler fit.
 
 **Target:** months 4-6.5.
 

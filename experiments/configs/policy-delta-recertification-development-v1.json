@@ -1,0 +1,28 @@
+{
+  "evidence_stage": "revealed_development_mechanism_test",
+  "source_artifact": "experiments/results/river-selective-expansion-development-v1.json",
+  "source_artifact_sha256": "7571a8a2f3c08034b53982b4ac122106fbe3d1cc7b216d3ee4ba58cf01fdd2ff",
+  "source_config_sha256": "3740d5a9ae9293eb71bdc3a6491cf6b5e22d40289918534755c0a414ce46e3d9",
+  "source_implementation_commit": "e0ff3a6621449d5e06060395516c037e676ce6df",
+  "expected_groups": 11,
+  "expected_contexts": 44,
+  "expected_targets": 132,
+  "candidate_masks": ["b3r1", "b3r2"],
+  "primary_mask": "b3r2",
+  "warm_start_multiplier_by_payoff_span": 0.1,
+  "full_tree_equivalent_iteration_budget": 32,
+  "dense_threshold": 0.35,
+  "changed_probability_tolerance": 1e-15,
+  "acceptance_tolerance_by_payoff_span": 1e-10,
+  "timing_warmup_repetitions": 1,
+  "timing_measurement_repetitions": 7,
+  "execution_modes": ["sparse", "dense", "auto"],
+  "gates": {
+    "maximum_absolute_evaluation_error": 1e-10,
+    "maximum_regenerated_label_error": 1e-10,
+    "maximum_acceptance_decision_mismatches": 0,
+    "maximum_best_response_action_mismatches": 0,
+    "minimum_hot_update_speedup_over_full_evaluation": 1.0,
+    "minimum_hot_verified_normalized_quality_rate_ratio_over_blind": 1.0
+  }
+}

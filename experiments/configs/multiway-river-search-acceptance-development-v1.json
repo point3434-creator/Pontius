@@ -48,6 +48,7 @@
   "numerical_guard_by_payoff_span": 1e-10,
   "tape_execution_mode": "dense",
   "timing_repeats": 1,
+  "expected_context_generator_sha256": "806a0238ea2f0f9148209e1e515b35a17ae2fb5731de0ec103317557f2b253aa",
   "expected_multiway_game_sha256": "942e2b4bf2acc0c5937b378a2d7620c5f318060d1068c84430af17e13de414d5",
   "expected_coalition_evaluator_sha256": "6aee741a2f90d42c935bb85d6b8ac616bbcbbc3d90ef588112529c27133c86a3",
   "expected_dependency_tape_sha256": "da7a89870b59dc151c8a056ab32468ed3206471959ac3b26dffca0d733c06501",

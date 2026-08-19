@@ -16,7 +16,8 @@ explicit joint-deal representation.
 The frozen configuration is
 `experiments/configs/multiway-river-search-acceptance-development-v1.json`.
 Its SHA-256 is
-`511303952baa67bdde3824fca3b6f59099e8270dd9f799e4ac73643c0253244f`.
+`807d511a920ee1bcb13d5cf54ca61991c30bb63845dabfb9e04d318c1f8ef0a4`
+after the pre-label generator-hash amendment recorded in ADR-0055.
 The result target is
 `experiments/results/multiway-river-search-acceptance-development-v1.json`.
 

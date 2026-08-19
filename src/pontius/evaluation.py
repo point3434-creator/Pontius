@@ -282,6 +282,132 @@ class EvaluationResult:
     exploitability: float | None
 
 
+@dataclass(frozen=True, slots=True)
+class CounterfactualRegretResult:
+    """Positive one-step counterfactual regret under a fixed policy."""
+
+    information_sets: int
+    per_player_positive_regret: tuple[float, ...]
+    total_positive_regret: float
+    max_information_set_positive_regret: float
+
+
+def counterfactual_regret_profile(
+    game: ExtensiveFormGame,
+    policy: Policy,
+) -> CounterfactualRegretResult:
+    """Aggregate immediate counterfactual action regrets for every player.
+
+    Each deviation changes one action and then follows ``policy``. Histories in
+    an information set are weighted by chance and opponents' reach, excluding
+    the acting player's own reach. This is a cheap local headroom diagnostic,
+    not a best response and not a safety bound.
+    """
+
+    all_regrets: dict[str, dict[Action, float]] = {}
+    key_players: dict[str, int] = {}
+
+    for traverser in range(game.num_players):
+        regrets: dict[str, dict[Action, float]] = {}
+
+        def walk(
+            state: GameState,
+            reach: tuple[float, ...],
+            chance_reach: float,
+        ) -> float:
+            acting = state.current_player
+            if acting == TERMINAL_PLAYER:
+                returns = state.returns()
+                if len(returns) != game.num_players:
+                    raise ValueError("terminal utility count does not match players")
+                return returns[traverser]
+            if acting == CHANCE_PLAYER:
+                outcomes = tuple(state.chance_outcomes())
+                probability_mass = sum(probability for _, probability in outcomes)
+                if not outcomes or abs(probability_mass - 1.0) > 1e-12:
+                    raise ValueError("invalid chance distribution")
+                if any(probability < 0.0 for _, probability in outcomes):
+                    raise ValueError("chance probability cannot be negative")
+                return sum(
+                    probability
+                    * walk(
+                        state.apply_action(action),
+                        reach,
+                        chance_reach * probability,
+                    )
+                    for action, probability in outcomes
+                )
+
+            actions = tuple(state.legal_actions())
+            if not actions:
+                raise ValueError("nonterminal player state has no legal actions")
+            key = state.information_state_key(acting)
+            distribution = policy_distribution(policy, key, actions)
+            action_values: dict[Action, float] = {}
+            node_value = 0.0
+            for action, probability in distribution.items():
+                child_reach = list(reach)
+                child_reach[acting] *= probability
+                action_value = walk(
+                    state.apply_action(action),
+                    tuple(child_reach),
+                    chance_reach,
+                )
+                action_values[action] = action_value
+                node_value += probability * action_value
+
+            if acting == traverser:
+                counterfactual_reach = chance_reach * prod(
+                    reach[player]
+                    for player in range(game.num_players)
+                    if player != traverser
+                )
+                action_regrets = regrets.setdefault(
+                    key,
+                    {action: 0.0 for action in actions},
+                )
+                if tuple(action_regrets) != actions:
+                    raise ValueError(f"inconsistent actions at {key!r}")
+                for action in actions:
+                    action_regrets[action] += counterfactual_reach * (
+                        action_values[action] - node_value
+                    )
+            return node_value
+
+        walk(
+            game.initial_state(),
+            reach=(1.0,) * game.num_players,
+            chance_reach=1.0,
+        )
+        for key, action_regrets in regrets.items():
+            if key in all_regrets:
+                raise ValueError(f"information-set key shared across players: {key!r}")
+            all_regrets[key] = action_regrets
+            key_players[key] = traverser
+
+    per_information_set = {
+        key: sum(max(0.0, regret) for regret in action_regrets.values())
+        for key, action_regrets in all_regrets.items()
+    }
+    per_player = tuple(
+        sum(
+            per_information_set[key]
+            for key, player_at_key in key_players.items()
+            if player_at_key == player
+        )
+        for player in range(game.num_players)
+    )
+    return CounterfactualRegretResult(
+        information_sets=len(all_regrets),
+        per_player_positive_regret=per_player,
+        total_positive_regret=sum(per_player),
+        max_information_set_positive_regret=max(
+            per_information_set.values(),
+            default=0.0,
+        ),
+    )
+
+
 def evaluate_profile(game: ExtensiveFormGame, policy: Policy) -> EvaluationResult:
     """Return exact utilities and unilateral-deviation metrics."""
 

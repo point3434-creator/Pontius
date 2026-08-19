@@ -84,6 +84,26 @@ The matrix runner trains and exactly evaluates each distinct blueprint once,
 then reuses it across perturbation and solver axes. `prepared_blueprints` in the
 artifact records the number of cached blueprints.
 
+## Resolver-benefit trajectories
+
+Generate exact-leaf benefit matrices, then analyze deterministic probe prefixes
+without fitting a selector:
+
+```powershell
+$python = "C:\Users\point\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+$env:PYTHONPATH = "src"
+& $python -m pontius.benefit_matrix --config experiments/configs/benefit-kuhn2-regimes-matrix.json --output experiments/results/benefit-kuhn2-regimes-matrix.json
+& $python -m pontius.benefit_matrix --config experiments/configs/benefit-kuhn3-trajectory-matrix.json --output experiments/results/benefit-kuhn3-trajectory-matrix.json
+& $python -m pontius.benefit_trajectory --matrix kuhn2 experiments/results/benefit-kuhn2-regimes-matrix.json --matrix kuhn3 experiments/results/benefit-kuhn3-trajectory-matrix.json --output experiments/results/benefit-probe-trajectories.json
+```
+
+The trajectory analyzer requires checkpoints 1, 3, 5, 10, and 25 for every
+otherwise identical configuration. Probe features see only the depth-limited
+model. The full-game exact outcome is a hidden diagnostic target and never
+enters a feature. Current matrices recompute each deterministic prefix for
+measurement simplicity; a runtime implementation must snapshot one progressive
+solve instead.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

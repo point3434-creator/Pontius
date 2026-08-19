@@ -6,6 +6,7 @@ from pontius.evaluation import (
     best_response,
     best_response_enumerated,
     collect_information_sets,
+    counterfactual_regret_profile,
     evaluate_profile,
     expected_utilities,
 )
@@ -43,6 +44,22 @@ class ExactEvaluationTests(unittest.TestCase):
         self.assertAlmostEqual(sum(evaluation.utilities), 0.0)
         self.assertGreater(evaluation.nash_conv, 0.0)
         self.assertEqual(len(evaluation.best_response_values), 2)
+
+    def test_counterfactual_regret_profile_has_known_kuhn_values(self) -> None:
+        uniform = counterfactual_regret_profile(KuhnPoker(), {})
+        passive = counterfactual_regret_profile(KuhnPoker(), passive_policy())
+
+        self.assertEqual(uniform.information_sets, 12)
+        self.assertAlmostEqual(uniform.total_positive_regret, 4.0 / 3.0)
+        self.assertAlmostEqual(uniform.per_player_positive_regret[0], 19.0 / 24.0)
+        self.assertAlmostEqual(uniform.per_player_positive_regret[1], 13.0 / 24.0)
+        self.assertAlmostEqual(
+            uniform.total_positive_regret,
+            sum(uniform.per_player_positive_regret),
+        )
+        self.assertAlmostEqual(uniform.max_information_set_positive_regret, 0.25)
+        self.assertAlmostEqual(passive.total_positive_regret, 2.0)
+        self.assertAlmostEqual(passive.max_information_set_positive_regret, 2.0 / 3.0)
 
     def test_every_player_has_six_information_sets(self) -> None:
         game = KuhnPoker()

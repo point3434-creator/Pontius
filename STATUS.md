@@ -79,25 +79,37 @@ Checkpoint 2: solver comparison laboratory.
   case and both depths of the strong three-player blueprint, while improving
   the corresponding weak-blueprint cases. Risk may veto search but cannot
   establish positive resolver value.
+- A fixed-policy one-step counterfactual-regret evaluator and exact-leaf
+  resolver-benefit laboratory now separate local signals from untouched
+  full-game targets. Progressive probes are analyzed without fitting a rule.
+- EXP-0009 evaluated 72 distinct candidates in each of two- and three-player
+  Kuhn across five probe checkpoints. Full search improved only 32/72 and
+  26/72 respectively despite exact continuation leaves.
+- Full local gain per mean policy TV was the strongest observed ranking signal
+  (AUC 0.968 in Kuhn2, 0.686 in Kuhn3, 0.855 combined), but local gain sign made
+  38 and 40 false-positive deployments. Probe slopes and extrapolations did not
+  transfer between games, so no v2 selector is frozen.
+- Exact leaf values preserve fixed-policy expected utility but not full-game
+  deviations below the frontier. Prefix-only resolving is therefore a
+  compositional bottleneck that must be tested before neural leaf scaling.
+- Seventy-one automated tests pass.
 
 ## In progress
 
-- Measuring deployable resolver-benefit/headroom signals independently from
-  leaf-risk signals before proposing any v2 selection rule.
+- Designing a complete two- and three-player continual-resolving policy whose
+  local objective can be checked against composed full-game strength.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
-- Distinguishing prefix-policy improvement from a complete resolver applied at
-  every public state, before interpreting full-game strength.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Compare blueprint local counterfactual regret, a short probe solve, and
-   predicted depth-limited gain against exact-control full-game improvement.
-2. Define and evaluate a complete small-game continual-resolving policy rather
+1. Define and evaluate a complete small-game continual-resolving policy rather
    than only a searched prefix merged into blueprint continuation.
-3. Add heteroscedastic/time-varying errors and adversarial branch targeting;
-   compare the frozen rule with unconditional search and permanent no-op.
+2. Compare prefix-only and complete composition under exact leaves, then rerun
+   the unfitted benefit/probe diagnostics.
+3. Add heteroscedastic/time-varying errors and adversarial branch targeting to
+   whichever resolver passes the exact composition gate.
 
 ## Current blockers
 
@@ -112,4 +124,4 @@ None.
 
 ## Last updated
 
-2026-08-19, after EXP-0008 rejected the frozen risk-only selector.
+2026-08-19, after EXP-0009 rejected local/probe benefit authorization.

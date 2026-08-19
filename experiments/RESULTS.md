@@ -405,3 +405,86 @@ counterfactual regret, a short probe solve, and predicted depth-limited gain as
 benefit features against exact-control improvement. A v2 rule is not proposed
 until one of those signals separates the held-out regimes without using
 blueprint iteration count or full-game NashConv.
+
+## EXP-0009: Resolver-benefit and progressive-probe signals
+
+**Date:** 2026-08-19
+
+**Status:** Observed mechanism failure; no v2 selector frozen.
+
+This experiment removes leaf error entirely and asks a narrower question: can
+information available inside the resolver predict whether deploying its
+candidate will improve the untouched full game? Every depth-limited leaf is the
+exact blueprint continuation value. Signal calculations use only that local
+model; exact full-game NashConv is revealed afterward as the target.
+
+The two-player grid contains 72 distinct candidates: six blueprint strengths,
+two depths, three anchor weights, and LCFR/CFR+. The three-player grid contains
+another 72: four blueprint strengths, three depths, three anchors, and the same
+two solvers. Each candidate is observed after 1, 3, 5, 10, and 25 deterministic
+probe iterations and after a full 100-iteration search, producing 360 raw runs
+per game. Full search improved 32/72 two-player candidates and 26/72
+three-player candidates.
+
+`AUC` measures only ranking of positive versus nonpositive full-game outcomes;
+0.5 is random. It is not a safety guarantee or a deployable threshold.
+
+| Higher-is-better feature | Available | Kuhn2 AUC / rho | Kuhn3 AUC / rho | Combined AUC / rho |
+|---|---|---:|---:|---:|
+| Blueprint local CF regret | Before search | 0.631 / +0.378 | 0.565 / +0.021 | 0.600 / +0.193 |
+| Probe model gain at 3 | After 3 iterations | 0.358 / -0.080 | 0.687 / +0.310 | 0.459 / -0.054 |
+| Negative policy TV at 5 | After 5 iterations | 0.805 / +0.550 | 0.716 / +0.512 | 0.709 / +0.468 |
+| Negative TV slope, 3 to 5 | After 5 iterations | 0.890 / +0.707 | 0.592 / +0.117 | 0.718 / +0.399 |
+| Inverse-iteration gain estimate at 10 | After 10 iterations | 0.857 / +0.564 | 0.306 / -0.356 | 0.639 / +0.269 |
+| Full local-model gain | After search | 0.891 / +0.652 | 0.509 / +0.002 | 0.718 / +0.389 |
+| Full local gain / mean policy TV | After search | **0.968 / +0.747** | **0.686 / +0.364** | **0.855 / +0.633** |
+| Negative full policy TV | After search | 0.823 / +0.576 | 0.686 / +0.494 | 0.721 / +0.486 |
+
+The most tempting probe extrapolations do not transfer. The 10-iteration
+asymptotic estimate changes from useful in Kuhn2 to anticorrelated in Kuhn3.
+The direction of the raw three-iteration gain also reverses. A fitted pooled
+classifier could hide this domain shift, so none was fit.
+
+Post-search local gain per unit policy movement is the strongest observed
+ranking feature. Policy displacement appears to proxy compositional risk: a
+small modeled improvement bought with a large strategy change is suspect. But
+raw sign still fails badly. Local-model gain was positive in 70/72 two-player
+candidates, including 38 harmful candidates. It was positive in 63/72
+three-player candidates, including 40 harmful candidates, and missed three
+beneficial candidates. The ratio is therefore a candidate feature for later
+calibration, not authorization.
+
+The mechanism is now explicit. Exact continuation values make fixed-policy
+expected utility identical in the local model and full game to numerical
+precision. They do not make local and full best responses identical: a full
+responder can deviate below the frontier, while the local evaluator cannot.
+Consequently local NashConv improvement can coexist with full-game harm. This
+is a resolver-composition problem, not a neural-leaf-error problem.
+
+### Reference cost
+
+| Probe checkpoint | Kuhn2 ms / full-search fraction | Kuhn3 ms / full-search fraction |
+|---:|---:|---:|
+| 1 | 0.337 / 1.2% | 2.785 / 1.0% |
+| 3 | 0.923 / 3.3% | 8.222 / 3.1% |
+| 5 | 1.515 / 5.2% | 13.645 / 5.1% |
+| 10 | 2.983 / 10.4% | 27.302 / 10.1% |
+| 25 | 7.257 / 25.0% | 67.820 / 25.1% |
+
+Mean full-search time was 28.943 ms in Kuhn2 and 270.766 ms in Kuhn3 in the
+reference Python runner. Blueprint signal evaluation added 1.125 ms and 10.217
+ms respectively; post-search candidate-model evaluation added 1.992 ms and
+17.223 ms. These timings characterize the reference workload, not a production
+kernel.
+
+**Verdict:** reject local headroom, a scalar probe endpoint, trajectory
+extrapolation, or local gain sign as the missing benefit authorization term.
+Retain policy movement and gain-per-movement as risk-aware ranking candidates.
+Before neural scaling or a v2 preregistration, implement a complete small-game
+continual resolver and measure whether it removes the frontier-deviation gap.
+
+**Reproduction:** generate the two trajectory matrices with
+`benefit-kuhn2-regimes-matrix.json` and
+`benefit-kuhn3-trajectory-matrix.json`, then run
+`python -m pontius.benefit_trajectory` as documented in `RUNBOOK.md`. Raw JSON
+remains locally generated and ignored.

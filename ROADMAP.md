@@ -35,7 +35,11 @@ joint-reach, counterfactual-reach, and matched-root-error controls and rejected
 joint reach as a standalone safety signal. EXP-0008 rejected a frozen risk-only
 selection rule on held-out strengths, depths, and three-player Kuhn: a separate
 resolver-benefit signal is required. Benefit-gate validation, tree mutation,
-and external-sampling gates remain.
+and external-sampling gates remain. EXP-0009 then rejected blueprint local
+regret, scalar probe gain, probe extrapolation, and local-model gain sign as
+transferable authorization signals even with exact leaves. A complete
+continual-resolving composition gate now precedes v2 selection and neural
+scaling.
 
 **Target:** months 2-4.
 

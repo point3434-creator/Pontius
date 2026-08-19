@@ -116,22 +116,33 @@ Checkpoint 2: solver comparison laboratory.
 - An exact strict-frontier gate deployed 18/128 searched public histories,
   improved 9/32 profiles, never worsened a blueprint, and had mean improvement
   `+1.27000e-3`. It is a correctness control, not a scalable runtime gate.
-- Ninety-eight automated tests pass.
+- A dependency-free normal-form oracle now independently solves the safe
+  frontier with a matrix-game LP, a general two-phase simplex, and verified
+  mixed-to-behavioral conversion.
+- EXP-0012 rejects max-min margin as the primary objective. Target-free
+  constrained sum-margin improved all eight paired Kuhn2 profiles, achieved
+  mean NashConv improvement `3.56692e-3`, and beat max-min in every case at
+  essentially identical exact-oracle cost.
+- Sum-margin captured 96.9916% of the hidden best-response greedy control's
+  improvement in aggregate, with 94.9296% worst-case capture and zero
+  residual-adjusted bound failures. The hidden control remains diagnostic and
+  its root-forward composition is not a global optimum claim.
+- One hundred eighteen automated tests pass.
 
 ## In progress
 
-- Designing an exact constrained/max-margin oracle to separate safe-strategy
-  quality from finite-CFR convergence error.
+- Measuring finite CFR candidates against exact frontier-sum and hidden
+  conditional best-response regret.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Build an exact small-game constrained/max-margin strategy oracle for the
-   same opponent frontiers and use it to measure achievable safe improvement.
-2. Compare CFR gadget convergence and one-sided stopping against that oracle;
-   test whether warm starts or margin objectives improve quality per millisecond.
+1. Compare CFR gadget convergence and one-sided stopping against the exact
+   sum-margin oracle at every public boundary and budget.
+2. Test objective-aware tie-breaking, regularization, and warm starts against
+   plain LCFR/CFR+ on frontier-sum regret per millisecond.
 3. Inject controlled frontier-value error and uncertainty bounds before
    declaring any multiplayer relaxation or neural frontier target.
 
@@ -148,5 +159,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after EXP-0011 verified the safe-resolving control and rejected
-unguarded finite-residual deployment.
+2026-08-19, after EXP-0012 rejected max-min degeneracy and advanced exact
+target-free sum-margin as the safe-strategy teacher objective.

@@ -34,6 +34,13 @@ not an unreported convergence assumption. Exact best-response certification is
 permitted only in the laboratory; a scalable system will need conservative
 value bounds or a permanent no-op fallback.
 
+`maxmargin` adds an exponential exact-strategy oracle around that frontier. It
+enumerates pure subgame plans, solves max-min and constrained objectives, and
+checks mixed-to-behavioral realization equivalence against dynamic best
+responses. The target-free sum-margin LP is the current teacher objective. A
+second LP may inspect the full-game opponent best response only as a hidden
+diagnostic control; it is explicitly outside the online dependency graph.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

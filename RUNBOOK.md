@@ -141,6 +141,23 @@ frontier violation is within the configured tolerance. Certificate evaluation
 is included in decision compute. Full-game exploitability is evaluated only
 after construction and is never used by either arm.
 
+## Exact safe-strategy objectives
+
+Compare max-min frontier margin, target-free constrained sum-margin, and the
+hidden full-game best-response greedy control with:
+
+```powershell
+$python = "C:\Users\point\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+$env:PYTHONPATH = "src"
+& $python -m pontius.safe_oracle_matrix --config experiments/configs/safe-oracle-kuhn2-objectives-matrix.json --output experiments/results/safe-oracle-kuhn2-objectives-matrix.json
+```
+
+All three arms enumerate exact normal-form plans and independently verify the
+converted behavioral strategy. Sum-margin never sees a full-game target. The
+hidden arm does and is diagnostic only; its root-forward result is a greedy
+control, not a deployable resolver or a global continual optimum. Raw JSON is
+ignored until promoted as a checkpoint artifact.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

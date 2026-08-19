@@ -1,0 +1,13 @@
+{
+  "base": {
+    "game": "kuhn2",
+    "max_pure_plans": 1000000,
+    "tolerance": 1e-10
+  },
+  "axes": {
+    "blueprint_solver": ["lcfr", "cfr_plus"],
+    "blueprint_iterations": [20, 100, 1000, 3000]
+  },
+  "max_runs": 16,
+  "store_full_runs": false
+}

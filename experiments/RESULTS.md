@@ -670,3 +670,62 @@ the feasibility-only objective is limiting useful safe improvement.
 `safe-composition-kuhn2-convergence-matrix.json` under
 `experiments/configs/` with `python -m pontius.safe_composition_matrix`. Raw
 JSON remains locally generated and ignored.
+
+## EXP-0012: Exact safe-strategy objective oracle
+
+**Date:** 2026-08-19
+
+**Status:** Sum-margin advanced as the target-free teacher objective; max-min
+rejected as the primary objective.
+
+This checkpoint removes finite-CFR convergence from the comparison. For each
+Kuhn2 counterfactual frontier, it enumerates both players' pure continuation
+plans and solves the safe strategy exactly. Mixed normal-form policies are
+converted to behavioral policies and checked independently against dynamic
+counterfactual best responses.
+
+Three root-forward arms use the same exact safety constraints:
+
+- `Max-min` maximizes the worst margin over every frontier entry and pure
+  opponent continuation.
+- `Sum-margin` assigns each frontier entry a nonnegative worst-case margin and
+  maximizes their sum. It never sees the full-game target.
+- `Hidden BR greedy` maximizes the current full-game opponent best-response
+  reduction. It is an exact conditional diagnostic at each boundary, but its
+  root-forward composition is greedy and non-deployable.
+
+The eight-case matrix crosses LCFR and CFR+ blueprints at 20, 100, 1,000, and
+3,000 iterations. Each architecture performs 32 public-boundary solves.
+
+| Objective | Positive | Mean improvement | Median improvement | Mean decision ms | Aggregate improvement/ms | Bound failures |
+|---|---:|---:|---:|---:|---:|---:|
+| Max-min | 8/8 | `8.30711e-5` | `4.94315e-7` | 153.115 | `5.42540e-7` | 0/8 |
+| Sum-margin | 8/8 | `3.56692e-3` | `7.97976e-4` | 150.904 | `2.36369e-5` | 0/8 |
+| Hidden BR greedy | 8/8 | `3.67755e-3` | `8.14478e-4` | 1662.488 | `2.21208e-6` | 0/8 |
+
+Sum-margin beats max-min in every paired case at essentially the same measured
+oracle cost. Its aggregate improvement is about 42.94 times as large. One
+unchangeable root frontier component pins max-min at zero, so it can return a
+safe strategy with almost no useful movement despite substantial headroom.
+
+Sum-margin captures 96.9916% of the hidden greedy improvement in aggregate.
+The mean case-wise capture is 98.9680%; the worst case is the weakest LCFR
+blueprint at 94.9296%. The two strongest CFR+ cases agree with the hidden
+control to numerical precision. This does not prove transfer, but it shows
+that feasibility alone was not the limiting mathematical objective in Kuhn2.
+
+The hidden arm is about eleven times slower in this reference implementation
+because it enumerates and evaluates complete full-game opponent responses. The
+normal-form algorithms are exponential, so none of these timings represent a
+runtime proposal. They establish an exact target against which iterative
+solvers can now be measured.
+
+**Verdict:** reject max-min margin as the main search target. Advance exact
+sum-margin as the target-free teacher and evaluate finite CFR candidates by
+frontier-sum regret and hidden conditional BR regret. Do not begin neural or
+multiplayer approximation until that comparison identifies whether convergence,
+tie-breaking, or objective realization is the next bottleneck.
+
+**Reproduction:** run `safe-oracle-kuhn2-objectives-matrix.json` under
+`experiments/configs/` with `python -m pontius.safe_oracle_matrix`. Raw JSON
+remains locally generated and ignored.

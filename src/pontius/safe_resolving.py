@@ -193,10 +193,23 @@ class _RootDistributionState:
 
 
 @dataclass(frozen=True, slots=True)
-class _RootDistributionGame:
+class CounterfactualSubgameGame:
+    """Original subgame under chance × resolver trunk reach."""
+
     roots: tuple[CounterfactualRoot, ...]
     total_counterfactual_reach: float
     num_players: int = 2
+
+    def __post_init__(self) -> None:
+        if self.num_players != 2:
+            raise ValueError("counterfactual subgame requires two players")
+        if not self.roots or self.total_counterfactual_reach <= 0.0:
+            raise ValueError("counterfactual subgame requires positive root reach")
+        if abs(
+            sum(root.counterfactual_reach for root in self.roots)
+            - self.total_counterfactual_reach
+        ) > 1e-12:
+            raise ValueError("counterfactual root reaches do not match total")
 
     def initial_state(self) -> GameState:
         return _RootDistributionState(
@@ -427,7 +440,7 @@ def _counterfactual_best_response_values(
     opponent: int,
     resolver_policy: Policy,
 ) -> dict[str, float]:
-    root_game = _RootDistributionGame(roots, total_counterfactual_reach)
+    root_game = CounterfactualSubgameGame(roots, total_counterfactual_reach)
     _, selected_actions = best_response(root_game, resolver_policy, opponent)
     opponent_information_sets = collect_information_sets(root_game, opponent)
     response_policy: Policy = {

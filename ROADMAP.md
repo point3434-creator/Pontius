@@ -46,8 +46,12 @@ was the required control before any multiplayer relaxation. EXP-0011 now
 verifies its exact opponent-frontier and residual-adjusted exploitability
 certificates at every Kuhn2 public boundary. Raw finite-CFR Resolve is too
 unsafe and inefficient to deploy without a residual constraint; an exact
-strict gate is safe but conservative and unscalable. An exact constrained or
-max-margin oracle is the next gate before approximate frontiers or multiplayer.
+strict gate is safe but conservative and unscalable. EXP-0012 independently
+solves the frontier-constrained normal form and rejects max-min degeneracy.
+Target-free sum-margin captures 96.99% of the hidden best-response greedy
+control's improvement in aggregate on the eight-case Kuhn2 matrix. Measuring
+finite-CFR regret to this exact objective is the next gate before approximate
+frontiers or multiplayer.
 
 **Target:** months 2-4.
 

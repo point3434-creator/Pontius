@@ -451,6 +451,19 @@ best responses; solver probes are constructed before candidate labels, and
 their cumulative timing is charged. The analyzer fits no selector. Treat all
 mask/no-op values as exact-future ceilings and ADR-0042 as the durable verdict.
 
+The frozen compact causal screen is reproduced with:
+
+```powershell
+& $python -m pontius.river_selective_screen --source experiments/results/river-selective-expansion-development-v1.json --rule experiments/rules/river-selective-width-screen-v1.json --output experiments/results/river-selective-width-screen-v1.json
+```
+
+The screen artifact SHA-256 is
+`ee7df32361a08236603e4b2d8d3e6f26d1a209f98b86bb5ffce53fcf14be2794`.
+It selects fixed `b3r2` and fails the frozen gates. Do not change a feature,
+objective, arm, depth, uncertainty multiplier, or threshold and rerun it as new
+evidence. Do not generate the proposed fresh adaptive-width replication or any
+reserved context from this branch. ADR-0044 is the durable rejection.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

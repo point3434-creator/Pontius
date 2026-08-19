@@ -165,10 +165,14 @@ preregistered group-separated replication now strengthens that ceiling to
 development board groups. The value is largest under tight work and drops to
 3.56% at budget 64. Fixed pruning still fails: full expansion wins every
 leave-one-group-out fixed-arm fold, while the shallowest masks are
-catastrophically harmful without an oracle no-op. Stable but moderate causal
-feature ranks authorize one transparent compact selector screen. No selector,
-partial mask, exact-label no-op, or branch-lane kernel is selected yet. Cached
-acceptance and selective repair remain downstream of that causal quality gate.
+catastrophically harmful without an oracle no-op. The frozen compact causal
+screen also fails: its best normalized candidate loses 1.74%, improves only
+4/11 groups, and fixed full search wins the selection objective. Adaptive-width
+replication and branch-lane specialization are cancelled without retuning.
+Exact-label full-candidate rejection nevertheless improves Python reference
+quality/ms by 57.79%, making policy-delta recertification—not width prediction—
+the next exact control. No deployable exact no-op or multiplayer safety claim
+follows.
 
 **Target:** months 4-6.5.
 

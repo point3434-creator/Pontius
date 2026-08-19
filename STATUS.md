@@ -448,29 +448,43 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 - Exact no-op plus near-full `b3r1` and full `b3r2` retains 85.03% of the
   four-mask oracle in a post-result diagnostic. This informs the next compact
   screen but is not a selected rule.
-- Two hundred fifty-six automated tests pass.
+- The compact causal screen freezes 18 depth-one/two tree specifications before
+  fitting and evaluates each by leave-one-board-group-out training. Fixed full
+  search wins the declared normalized-quality objective; no adaptive rule is
+  frozen and no fresh replication or reserved context is authorized.
+- The closest normalized tree gains 16.10% raw reduction, 77.39% raw
+  reduction/ms, uses 38.11% less state work, and lowers worst target harm, but
+  loses 1.740% normalized quality and improves only 4/11 groups. The raw-best
+  tree gains 25.94% raw chips while losing 5.690% normalized quality.
+- This is a real objective conflict, not a timing-only rejection. The causal
+  features identify high-pot efficiency trades but do not transfer stable
+  strategy-quality improvement across board groups. ADR-0044 stops adaptive
+  width on the current workload without retuning.
+- Exact-label acceptance of full candidates remains an optimistic clue: it
+  raises raw reduction from `8.81632` to `14.80649` while adding 6.44% Python
+  time, improving raw reduction/ms 57.79%. It is a teacher, not a deployable
+  gate.
+- Two hundred sixty automated tests pass.
 
 ## In progress
 
-- Preregistering one compact, transparent, board-group-separated selector
-  screen over no-op, near-full, and full actions; no current artifact selects a
-  rule.
-- Separating cheap range-delta, blueprint-public, paid-probe, and exact
-  recertification costs before comparing quality per millisecond.
-- Deferring branch-major C++ specialization until a partial or adaptive policy
-  reaches the full-universe quality/work frontier without oracle labels.
+- Retaining full `b3r2` as the current search control and cancelling the compact
+  adaptive-width replication and branch-lane specialization.
+- Designing a policy-parameterized dependency-tape control to measure exact
+  candidate acceptance/rejection without rebuilding the full evaluator.
+- Keeping exact recertification a heads-up teacher while defining unilateral
+  and coalition-threat evaluation boundaries for reduced multiplayer.
 - Representing Bayesian action conditioning as structured dense or low-rank
   range updates rather than expanding every factorized update into joint deals.
 
 ## Next three tasks
 
-1. Freeze the compact selector family, group folds, feature-cost tiers,
-   no-op/safety semantics, primary budget, and kill criteria before fitting.
-2. Run development group cross-validation without exact future fields in any
-   feature, comparing always-full, compact adaptive, and explicitly timed exact
-   recertification controls at matched state work.
-3. Only if the causal rule beats always-full, commit it before reserved
-   validation; native branch lanes remain downstream of that transfer gate.
+1. Preregister the policy-delta tape semantics, exact differential tolerances,
+   compile/hot cost boundaries, and accept/no-op quality-per-millisecond gate.
+2. Extend the generic tape so source range and candidate policy deltas can be
+   applied independently, then compare affected cones with full evaluation.
+3. If exact candidate acceptance is not sparse and cheap, stop optimizing this
+   river decision and advance the measurement framework to reduced multiplayer.
 
 ## Current blockers
 
@@ -485,6 +499,6 @@ None.
 
 ## Last updated
 
-2026-08-19, after the preregistered group-separated matrix preserved 13.61%
-primary mask/no-op opportunity across all eleven development groups, rejected
-fixed partial masks, and authorized only a separately frozen causal screen.
+2026-08-19, after the frozen compact causal screen selected fixed full search,
+failed normalized and board-group transfer, cancelled adaptive-width
+replication, and redirected the next gate toward exact candidate acceptance.

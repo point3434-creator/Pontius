@@ -1,6 +1,6 @@
 # ADR-0043: Preregister the compact causal width screen
 
-**Status:** Accepted — evidence pending
+**Status:** Accepted — evidence completed and rejected by ADR-0044
 
 **Date:** 2026-08-19
 

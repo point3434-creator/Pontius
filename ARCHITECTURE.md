@@ -235,6 +235,16 @@ recertification costs remain explicit. Native branch-major specialization waits
 for a causal no-op/near-full/full rule to beat always-full without future-label
 access.
 
+That compact causal rule does not pass. Group-held-out trees can trade pot-
+normalized quality for raw chips and lower work, but no preregistered candidate
+beats fixed full search on normalized quality; the closest improves only four
+of eleven groups. The runtime therefore retains the full action lattice and
+drops adaptive-width specialization for this workload. The unresolved control
+moves to acceptance: a parameterized dependency tape should ingest candidate
+policy-probability deltas, propagate only their exact affected cones, and decide
+whether the full candidate improves the incumbent. Exact acceptance is a
+heads-up teacher and must not be called multiplayer-safe.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

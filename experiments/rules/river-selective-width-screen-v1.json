@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "rule_id": "river-selective-width-screen-v1",
+  "status": "preregistered_discovery_only",
+  "frozen_source": {
+    "experiment_type": "river_selective_expansion_development_matrix",
+    "evidence_stage": "group_separated_development",
+    "sha256": "7571a8a2f3c08034b53982b4ac122106fbe3d1cc7b216d3ee4ba58cf01fdd2ff",
+    "config_sha256": "3740d5a9ae9293eb71bdc3a6491cf6b5e22d40289918534755c0a414ce46e3d9",
+    "git_commit": "e0ff3a6621449d5e06060395516c037e676ce6df",
+    "groups": 11,
+    "targets": 132,
+    "split": "development"
+  },
+  "solver_regime": {
+    "warm_start_multiplier_by_payoff_span": 0.1,
+    "full_tree_equivalent_iteration_budget": 32,
+    "fallback_mask": "b3r2",
+    "candidate_arms": ["no_op", "b3r1", "b3r2"],
+    "excluded_primary_masks": ["b1r1", "b2r1"]
+  },
+  "feature_tiers": [
+    {
+      "name": "delta_only",
+      "features": [
+        "range_delta_l2_probability",
+        "range_delta_total_variation",
+        "range_delta_maximum_absolute_probability",
+        "range_delta_absolute_concentration",
+        "range_delta_changed_deal_fraction"
+      ]
+    },
+    {
+      "name": "delta_context",
+      "features": [
+        "range_delta_l2_probability",
+        "range_delta_total_variation",
+        "range_delta_maximum_absolute_probability",
+        "range_delta_absolute_concentration",
+        "range_delta_changed_deal_fraction",
+        "change_minimum_player0_hand_probability",
+        "change_minimum_player1_hand_probability",
+        "source_player0_expected_conditional_shift",
+        "source_player1_expected_conditional_shift",
+        "source_range_mutual_information"
+      ]
+    },
+    {
+      "name": "delta_context_public",
+      "features": [
+        "range_delta_l2_probability",
+        "range_delta_total_variation",
+        "range_delta_maximum_absolute_probability",
+        "range_delta_absolute_concentration",
+        "range_delta_changed_deal_fraction",
+        "change_minimum_player0_hand_probability",
+        "change_minimum_player1_hand_probability",
+        "source_player0_expected_conditional_shift",
+        "source_player1_expected_conditional_shift",
+        "source_range_mutual_information",
+        "blueprint_facing_bet_0_raise_1_conditional_mass",
+        "blueprint_facing_bet_1_raise_1_conditional_mass",
+        "blueprint_facing_bet_2_raise_1_conditional_mass",
+        "blueprint_root_check_conditional_mass",
+        "blueprint_total_decision_reach",
+        "blueprint_weighted_max_action_probability"
+      ]
+    }
+  ],
+  "tree_family": {
+    "maximum_depths": [1, 2],
+    "risk_standard_error_multipliers": [0.0, 1.0, 2.0],
+    "minimum_leaf_instances": 12,
+    "minimum_leaf_board_groups": 4,
+    "thresholds": "midpoints between distinct training feature values",
+    "growth": "greedy best-first split with maximum leaves equal to two raised to maximum_depth",
+    "split_acceptance": "risk-adjusted training objective must improve by more than 1e-12",
+    "leaf_arm_score": "board-group-balanced mean normalized raw reduction minus risk multiplier times its sample standard error",
+    "leaf_tie_order": ["no_op", "b3r2", "b3r1"]
+  },
+  "cross_validation": {
+    "unit": "board group",
+    "method": "leave one board group out",
+    "candidate_family": "Cartesian product of three frozen feature tiers, two maximum depths, and three risk multipliers",
+    "selection_objective": "maximum aggregate held-out payoff-normalized raw reduction; fixed b3r2 wins tolerance ties, then lower feature tier, depth, risk multiplier, and candidate_id",
+    "final_fit": "fit the selected candidate specification once on all discovery groups and serialize the resulting tree"
+  },
+  "runtime_charging": {
+    "fixed_b3r2": "charge cold_exact_leaf_online_seconds for b3r2 and no feature cost",
+    "adaptive": "conservatively charge the complete recorded boundary_feature_seconds for every target, measured tree evaluation, and cold_exact_leaf_online_seconds only for the selected non-no-op arm",
+    "state_work": "no_op has zero solver state visits; searched arms use their recorded actual_state_visits",
+    "offline_training": "excluded from runtime",
+    "solver_probe_features": "forbidden",
+    "exact_candidate_evaluation": "label-only; report a separately charged exact-recertification diagnostic but never use it in the causal rule"
+  },
+  "selection_gates": {
+    "minimum_board_groups": 10,
+    "aggregate_raw_reduction_strictly_beats_fixed_b3r2": true,
+    "aggregate_normalized_reduction_strictly_beats_fixed_b3r2": true,
+    "minimum_positive_raw_uplift_group_fraction": 0.6,
+    "minimum_compact_oracle_opportunity_capture_fraction": 0.15,
+    "aggregate_state_visits_not_above_fixed_b3r2": true,
+    "charged_raw_reduction_per_millisecond_strictly_beats_fixed_b3r2": true,
+    "maximum_selected_target_harm_not_above_fixed_b3r2": true
+  },
+  "post_screen": {
+    "failure": "retain fixed b3r2, stop adaptive width on this workload, and do not generate a replication",
+    "pass": "commit the selected specification and serialized tree before freezing or generating a fresh development replication",
+    "reserved_validation_or_test_authorized": false,
+    "native_specialization_authorized": false,
+    "neural_selector_authorized": false
+  }
+}

@@ -2,12 +2,18 @@
 
 ## C0: Research contract and durable memory
 
+**Status:** Passed 2026-08-18.
+
 **Target:** weeks 1-2.
 
 **Gate:** rules, metrics, non-goals, risks, reproduction requirements, and the
 evidence protocol are unambiguous and version controlled.
 
 ## C1: Exact-game laboratory
+
+**Status:** Passed 2026-08-18 for the initial Kuhn laboratory. Independent
+sequence-form validation of multiplayer best response remains a recorded
+strengthening task, not a blocker for C2.
 
 **Target:** months 0.5-2.
 
@@ -107,4 +113,3 @@ full-game traces. Otherwise the heuristic remains production default.
 **Gate:** exact reduced-game results, adversarial responders, complete cross-play
 matrices, paired-deal confidence intervals, latency/memory profiles, and all
 major ablations are available for a defensible report.
-

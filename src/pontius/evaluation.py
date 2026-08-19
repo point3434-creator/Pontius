@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from itertools import product
 from math import prod
 from typing import TypeAlias
@@ -108,14 +108,14 @@ def collect_information_sets(
     return dict(sorted(information_sets.items()))
 
 
-def best_response(
+def best_response_enumerated(
     game: ExtensiveFormGame,
     policy: Policy,
     player: int,
     *,
     max_pure_policies: int = 1_000_000,
 ) -> tuple[float, dict[str, Action]]:
-    """Compute an exact pure best response by information-set policy enumeration.
+    """Compute an exact pure best response by complete policy enumeration.
 
     A best response to fixed opponents can be chosen deterministically. This
     deliberately slow algorithm is transparent and exact for the small games in
@@ -149,6 +149,120 @@ def best_response(
     return best_value, best_actions
 
 
+@dataclass(slots=True)
+class _BestResponseInformationSet:
+    actions: tuple[Action, ...]
+    player_depth: int
+    states: list[tuple[GameState, float]] = field(default_factory=list)
+
+
+def best_response(
+    game: ExtensiveFormGame,
+    policy: Policy,
+    player: int,
+) -> tuple[float, dict[str, Action]]:
+    """Compute an exact perfect-recall best response by backward induction.
+
+    Histories in each target-player information set are weighted by chance and
+    opponents' reach, excluding the target player's own reach. Information sets
+    are solved from the deepest target-player decision to the root. Perfect
+    recall makes each descendant decision independent of how likely the target
+    player was to choose the sequence leading to it.
+    """
+
+    if player not in range(game.num_players):
+        raise ValueError(f"invalid player index {player}")
+    information_sets: dict[str, _BestResponseInformationSet] = {}
+
+    def collect(state: GameState, counterfactual_reach: float, player_depth: int) -> None:
+        acting = state.current_player
+        if acting == TERMINAL_PLAYER:
+            return
+        if acting == CHANCE_PLAYER:
+            for action, probability in state.chance_outcomes():
+                collect(
+                    state.apply_action(action),
+                    counterfactual_reach * probability,
+                    player_depth,
+                )
+            return
+
+        actions = tuple(state.legal_actions())
+        key = state.information_state_key(acting)
+        if acting == player:
+            entry = information_sets.get(key)
+            if entry is None:
+                entry = _BestResponseInformationSet(actions, player_depth)
+                information_sets[key] = entry
+            elif entry.actions != actions or entry.player_depth != player_depth:
+                raise ValueError(
+                    f"game violates action consistency or perfect recall at {key!r}"
+                )
+            entry.states.append((state, counterfactual_reach))
+            for action in actions:
+                collect(state.apply_action(action), counterfactual_reach, player_depth + 1)
+            return
+
+        distribution = _distribution(policy, key, actions)
+        for action, probability in distribution.items():
+            collect(
+                state.apply_action(action),
+                counterfactual_reach * probability,
+                player_depth,
+            )
+
+    collect(game.initial_state(), 1.0, 0)
+    selected_actions: dict[str, Action] = {}
+
+    def continuation_value(state: GameState) -> float:
+        acting = state.current_player
+        if acting == TERMINAL_PLAYER:
+            return state.returns()[player]
+        if acting == CHANCE_PLAYER:
+            return sum(
+                probability * continuation_value(state.apply_action(action))
+                for action, probability in state.chance_outcomes()
+            )
+
+        actions = tuple(state.legal_actions())
+        key = state.information_state_key(acting)
+        if acting == player:
+            if key not in selected_actions:
+                raise ValueError(
+                    f"best-response dependency {key!r} was not solved bottom-up"
+                )
+            return continuation_value(state.apply_action(selected_actions[key]))
+
+        distribution = _distribution(policy, key, actions)
+        return sum(
+            probability * continuation_value(state.apply_action(action))
+            for action, probability in distribution.items()
+        )
+
+    ordered = sorted(
+        information_sets.items(),
+        key=lambda item: (item[1].player_depth, item[0]),
+        reverse=True,
+    )
+    for key, entry in ordered:
+        action_values = {
+            action: sum(
+                reach * continuation_value(state.apply_action(action))
+                for state, reach in entry.states
+            )
+            for action in entry.actions
+        }
+        selected_actions[key] = max(entry.actions, key=action_values.__getitem__)
+
+    candidate: Policy = {key: dict(distribution) for key, distribution in policy.items()}
+    for key, action in selected_actions.items():
+        candidate[key] = {
+            candidate_action: float(candidate_action == action)
+            for candidate_action in information_sets[key].actions
+        }
+    return expected_utilities(game, candidate)[player], selected_actions
+
+
 @dataclass(frozen=True, slots=True)
 class EvaluationResult:
     utilities: tuple[float, ...]
@@ -178,4 +292,3 @@ def evaluate_profile(game: ExtensiveFormGame, policy: Policy) -> EvaluationResul
         nash_conv=nash_conv,
         exploitability=exploitability,
     )
-

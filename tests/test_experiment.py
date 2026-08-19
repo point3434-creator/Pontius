@@ -24,7 +24,19 @@ class ExperimentRunnerTests(unittest.TestCase):
         self.assertIn("nash_conv", result["average"])
         self.assertEqual(len(result["average"]["utilities"]), 2)
 
+    def test_multiplayer_run_reports_nash_conv_without_exploitability(self) -> None:
+        result = run_experiment(
+            {
+                "game": "kuhn3",
+                "solver": "cfr",
+                "iterations": 2,
+                "report_every": 2,
+                "seed": 0,
+            }
+        )
+        self.assertEqual(len(result["average"]["utilities"]), 3)
+        self.assertIsNone(result["average"]["exploitability"])
+
 
 if __name__ == "__main__":
     unittest.main()
-

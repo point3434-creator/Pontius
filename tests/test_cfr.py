@@ -29,7 +29,15 @@ class CFRTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             TabularCFR(KuhnPoker(), "not-cfr")  # type: ignore[arg-type]
 
+    def test_three_player_cfr_produces_a_zero_sum_profile(self) -> None:
+        game = KuhnPoker(3)
+        solver = TabularCFR(game, "lcfr")
+        solver.run(100)
+        evaluation = evaluate_profile(game, solver.average_strategy())
+        self.assertAlmostEqual(sum(evaluation.utilities), 0.0)
+        self.assertGreater(len(solver.information_sets), 12)
+        self.assertGreaterEqual(evaluation.nash_conv, 0.0)
+
 
 if __name__ == "__main__":
     unittest.main()
-

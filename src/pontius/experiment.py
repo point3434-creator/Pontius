@@ -52,7 +52,10 @@ def run_experiment(config: dict[str, Any]) -> dict[str, Any]:
     report_every = int(config.get("report_every", max(1, iterations // 10)))
     seed = int(config.get("seed", 0))
 
-    if game_name != "kuhn2":
+    if not game_name.startswith("kuhn") or not game_name[4:].isdigit():
+        raise ValueError(f"unsupported game {game_name!r}")
+    num_players = int(game_name[4:])
+    if not 2 <= num_players <= 6:
         raise ValueError(f"unsupported game {game_name!r}")
     if solver_name not in {"cfr", "lcfr"}:
         raise ValueError(f"unsupported solver {solver_name!r}")
@@ -60,7 +63,7 @@ def run_experiment(config: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("iterations and report_every must be positive")
 
     random.seed(seed)
-    game = KuhnPoker()
+    game = KuhnPoker(num_players)
     solver = TabularCFR(game, variant=solver_name)  # type: ignore[arg-type]
     trace: list[dict[str, Any]] = []
     experiment_start = time.perf_counter()
@@ -133,7 +136,7 @@ def run_experiment(config: dict[str, Any]) -> dict[str, Any]:
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, help="JSON configuration file")
-    parser.add_argument("--game", choices=["kuhn2"])
+    parser.add_argument("--game", choices=[f"kuhn{players}" for players in range(2, 7)])
     parser.add_argument("--solver", choices=["cfr", "lcfr"])
     parser.add_argument("--iterations", type=int)
     parser.add_argument("--report-every", type=int)
@@ -160,13 +163,17 @@ def main() -> None:
 
     average = result["average"]
     timing = result["timing"]
+    exploitability = average["exploitability"]
+    optional_metric = (
+        f", exploitability={exploitability:.8f}" if exploitability is not None else ""
+    )
     print(
         f"{result['config']['solver']} on {result['config']['game']}: "
         f"iterations={result['config']['iterations']}, "
         f"solver={timing['solver_seconds']:.3f}s, "
         f"value_p0={average['utilities'][0]:.8f}, "
-        f"nash_conv={average['nash_conv']:.8f}, "
-        f"exploitability={average['exploitability']:.8f}"
+        f"nash_conv={average['nash_conv']:.8f}"
+        f"{optional_metric}"
     )
     if args.output is not None:
         print(f"wrote {args.output}")

@@ -47,7 +47,27 @@ class KuhnStateTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             state.apply_action(CALL)
 
+    def test_three_player_all_check_showdown(self) -> None:
+        state = KuhnPoker(3).initial_state().apply_action((3, 0, 2))
+        for _ in range(3):
+            state = state.apply_action(CHECK)
+        self.assertEqual(state.current_player, TERMINAL_PLAYER)
+        self.assertEqual(state.returns(), (2.0, -1.0, -1.0))
+
+    def test_three_player_bet_response_order_and_side_contributions(self) -> None:
+        state = KuhnPoker(3).initial_state().apply_action((3, 0, 2))
+        state = state.apply_action(CHECK)
+        state = state.apply_action(BET)
+        self.assertEqual(state.current_player, 2)
+        state = state.apply_action(CALL)
+        self.assertEqual(state.current_player, 0)
+        state = state.apply_action(FOLD)
+        self.assertEqual(state.returns(), (-1.0, -2.0, 3.0))
+
+    def test_multiplayer_deal_count_is_factorial(self) -> None:
+        self.assertEqual(len(KuhnPoker(3).initial_state().chance_outcomes()), 24)
+        self.assertEqual(len(KuhnPoker(4).initial_state().chance_outcomes()), 120)
+
 
 if __name__ == "__main__":
     unittest.main()
-

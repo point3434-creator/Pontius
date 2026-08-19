@@ -1,0 +1,8 @@
+{
+  "game": "kuhn3",
+  "solver": "lcfr",
+  "iterations": 5000,
+  "report_every": 500,
+  "seed": 0
+}
+

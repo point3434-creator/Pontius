@@ -2,7 +2,7 @@
 
 ## Active checkpoint
 
-Checkpoint 1: exact measurement laboratory and reference solvers.
+Checkpoint 2: solver comparison laboratory.
 
 ## Verified state
 
@@ -16,23 +16,34 @@ Checkpoint 1: exact measurement laboratory and reference solvers.
 - Exact expected utility, pure information-set best response, deviation gain,
   NashConv, and exploitability are implemented.
 - Full-tree alternating CFR and LCFR share one traversal and pass 14 automated
-  tests.
+  tests in the initial commit.
 - At 20,000 sequential reference iterations, CFR reached NashConv `0.00014427`
   in 3.911 seconds and LCFR reached `0.00000859` in 3.917 seconds. Both matched
   Kuhn's analytical player-0 value of `-1/18` within numerical tolerance.
+- Configurable two-to-six-player Kuhn implements the explicit rules in
+  `ADR-0005` and now passes a total of 23 automated tests.
+- The exact dynamic perfect-recall best response matches exhaustive policy
+  enumeration in two-player tests and is locally undominated in a three-player
+  cross-check.
+- At 5,000 three-player iterations, CFR reached NashConv `0.00077954`; LCFR
+  reached `0.00001229`. This advances LCFR as the control without establishing
+  multiplayer convergence.
+- Uniform-profile exact evaluation took approximately 0.001, 0.014, 0.249,
+  4.940, and 106.623 seconds for two through six players respectively.
 
 ## In progress
 
-- Completing checkpoint C1 with configurable multiplayer Kuhn.
-- Designing exact multiplayer best-response tests that remain computationally
-  tractable.
-- Preparing controlled leaf-error and solver-variant experiments.
+- Adding CFR+ and DCFR through the existing update interface.
+- Designing controlled leaf-value perturbations and tree-mutation experiments.
+- Reducing evaluation overhead through configurable cadence and future
+  restricted responders.
 
 ## Next three tasks
 
-1. Add three-player and configurable multiplayer Kuhn rules.
-2. Verify multiplayer utilities, information sets, and exact deviation gains.
-3. Add CFR+, DCFR, and the first controlled leaf-error experiment.
+1. Refactor regret weighting into explicit update policies for CFR+, DCFR, and
+   future predictive variants.
+2. Compare CFR, LCFR, CFR+, and DCFR under equal iterations and wall time.
+3. Add the first controlled leaf-error and warm-start experiments.
 
 ## Current blockers
 
@@ -47,4 +58,4 @@ None.
 
 ## Last updated
 
-2026-08-18, after EXP-0001 and the first verified exact-game baseline.
+2026-08-18, after passing checkpoint C1 and completing EXP-0002/EXP-0003.

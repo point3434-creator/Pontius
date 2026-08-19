@@ -1,14 +1,20 @@
-"""Exact two-player Kuhn poker.
+"""Configurable multiplayer Kuhn poker.
 
-Cards are integers ordered J=0, Q=1, K=2. Each player antes one chip. There is
-one betting opportunity of one chip. The public action names are deliberately
-verbose because these states are the executable specification for later games.
+For ``N`` players the deck contains ``N + 1`` ordered cards. Every player antes
+one chip. Before a bet, players act once in seat order and may check or make the
+only allowed one-chip bet. After a bet, every other player calls or folds in
+cyclic order; raises are not allowed. If everyone checks, all players show down.
+Otherwise the highest card among the bettor and callers wins the pot.
+
+This is a deliberately explicit benchmark game, not a claim that every paper
+using the phrase "multiplayer Kuhn" uses the same betting convention.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from itertools import permutations
+from math import factorial
 
 from .game import Action, CHANCE_PLAYER, TERMINAL_PLAYER
 
@@ -17,71 +23,125 @@ BET = "bet"
 FOLD = "fold"
 CALL = "call"
 
-_TERMINAL_HISTORIES = {
-    (CHECK, CHECK),
-    (BET, FOLD),
-    (BET, CALL),
-    (CHECK, BET, FOLD),
-    (CHECK, BET, CALL),
-}
-
 
 @dataclass(frozen=True, slots=True)
 class KuhnState:
-    """Immutable state for two-player Kuhn poker."""
+    """Immutable state for configurable multiplayer Kuhn poker."""
 
-    cards: tuple[int, int] | None = None
-    history: tuple[str, ...] = ()
+    num_players: int = 2
+    cards: tuple[int, ...] | None = None
+    history: tuple[tuple[int, str], ...] = ()
+    next_player: int | None = None
+    bettor: int | None = None
+    pending_responders: tuple[int, ...] = ()
+    callers: frozenset[int] = field(default_factory=frozenset)
+    folded: frozenset[int] = field(default_factory=frozenset)
+    terminal: bool = False
+
+    def __post_init__(self) -> None:
+        if not 2 <= self.num_players <= 6:
+            raise ValueError("Kuhn benchmark supports between two and six players")
+        if self.cards is not None and len(self.cards) != self.num_players:
+            raise ValueError("card count must equal player count")
+        if self.cards is not None and len(set(self.cards)) != len(self.cards):
+            raise ValueError("private cards must be distinct")
 
     @property
     def current_player(self) -> int:
         if self.cards is None:
             return CHANCE_PLAYER
-        if self.history in _TERMINAL_HISTORIES:
+        if self.terminal:
             return TERMINAL_PLAYER
-        if self.history == ():
-            return 0
-        if self.history in {(CHECK,), (BET,)}:
-            return 1
-        if self.history == (CHECK, BET):
-            return 0
-        raise ValueError(f"invalid Kuhn history: {self.history!r}")
+        if self.next_player is None:
+            raise ValueError("nonterminal dealt state has no next player")
+        return self.next_player
 
     def legal_actions(self) -> tuple[str, ...]:
         if self.current_player < 0:
             return ()
-        if self.history in {(), (CHECK,)}:
-            return (CHECK, BET)
-        if self.history in {(BET,), (CHECK, BET)}:
-            return (FOLD, CALL)
-        raise ValueError(f"no legal-action definition for history {self.history!r}")
+        return (CHECK, BET) if self.bettor is None else (FOLD, CALL)
 
-    def chance_outcomes(self) -> tuple[tuple[tuple[int, int], float], ...]:
+    def chance_outcomes(self) -> tuple[tuple[tuple[int, ...], float], ...]:
         if self.current_player != CHANCE_PLAYER:
             return ()
-        deals = tuple(permutations(range(3), 2))
-        probability = 1.0 / len(deals)
+        deals = tuple(permutations(range(self.num_players + 1), self.num_players))
+        expected_deals = factorial(self.num_players + 1)
+        if len(deals) != expected_deals:
+            raise AssertionError("unexpected deal count")
+        probability = 1.0 / expected_deals
         return tuple((deal, probability) for deal in deals)
 
     def apply_action(self, action: Action) -> KuhnState:
-        if self.current_player == TERMINAL_PLAYER:
+        player = self.current_player
+        if player == TERMINAL_PLAYER:
             raise ValueError("cannot act in a terminal state")
-        if self.current_player == CHANCE_PLAYER:
+        if player == CHANCE_PLAYER:
             if (
                 not isinstance(action, tuple)
-                or len(action) != 2
+                or len(action) != self.num_players
                 or any(not isinstance(card, int) for card in action)
-                or len(set(action)) != 2
-                or any(card not in range(3) for card in action)
+                or len(set(action)) != self.num_players
+                or any(card not in range(self.num_players + 1) for card in action)
             ):
                 raise ValueError(f"invalid Kuhn deal: {action!r}")
-            return KuhnState(cards=action, history=())
+            return KuhnState(
+                num_players=self.num_players,
+                cards=action,
+                next_player=0,
+            )
 
         legal = self.legal_actions()
         if action not in legal:
             raise ValueError(f"illegal action {action!r}; legal actions are {legal!r}")
         assert isinstance(action, str)
-        return KuhnState(cards=self.cards, history=self.history + (action,))
+        history = self.history + ((player, action),)
+
+        if self.bettor is None:
+            if action == CHECK:
+                if player == self.num_players - 1:
+                    return KuhnState(
+                        num_players=self.num_players,
+                        cards=self.cards,
+                        history=history,
+                        terminal=True,
+                    )
+                return KuhnState(
+                    num_players=self.num_players,
+                    cards=self.cards,
+                    history=history,
+                    next_player=player + 1,
+                )
+
+            responders = tuple(
+                (player + offset) % self.num_players
+                for offset in range(1, self.num_players)
+            )
+            return KuhnState(
+                num_players=self.num_players,
+                cards=self.cards,
+                history=history,
+                next_player=responders[0],
+                bettor=player,
+                pending_responders=responders,
+                callers=frozenset({player}),
+            )
+
+        if not self.pending_responders or self.pending_responders[0] != player:
+            raise ValueError("response order is inconsistent with pending responders")
+        remaining = self.pending_responders[1:]
+        callers = self.callers | ({player} if action == CALL else set())
+        folded = self.folded | ({player} if action == FOLD else set())
+        return KuhnState(
+            num_players=self.num_players,
+            cards=self.cards,
+            history=history,
+            next_player=remaining[0] if remaining else None,
+            bettor=self.bettor,
+            pending_responders=remaining,
+            callers=frozenset(callers),
+            folded=frozenset(folded),
+            terminal=not remaining,
+        )
 
     def information_state_key(self, player: int) -> str:
         if self.cards is None:
@@ -91,34 +151,46 @@ class KuhnState:
                 f"information key requested for player {player} while player "
                 f"{self.current_player} acts"
             )
-        history = "/".join(self.history) if self.history else "root"
-        return f"p{player}|card={self.cards[player]}|history={history}"
+        public_history = "/".join(f"p{seat}:{action}" for seat, action in self.history)
+        if not public_history:
+            public_history = "root"
+        return f"p{player}|card={self.cards[player]}|history={public_history}"
 
-    def returns(self) -> tuple[float, float]:
+    def returns(self) -> tuple[float, ...]:
         if self.current_player != TERMINAL_PLAYER or self.cards is None:
             raise ValueError("returns are available only at terminal states")
 
-        if self.history == (BET, FOLD):
-            winner, magnitude = 0, 1.0
-        elif self.history == (CHECK, BET, FOLD):
-            winner, magnitude = 1, 1.0
-        elif self.history == (CHECK, CHECK):
-            winner = 0 if self.cards[0] > self.cards[1] else 1
-            magnitude = 1.0
-        elif self.history in {(BET, CALL), (CHECK, BET, CALL)}:
-            winner = 0 if self.cards[0] > self.cards[1] else 1
-            magnitude = 2.0
+        contributions = [1.0] * self.num_players
+        if self.bettor is None:
+            contenders = set(range(self.num_players))
         else:
-            raise ValueError(f"invalid terminal history: {self.history!r}")
+            contenders = set(self.callers)
+            contributions[self.bettor] += 1.0
+            for player in self.callers:
+                if player != self.bettor:
+                    contributions[player] += 1.0
 
-        return (magnitude, -magnitude) if winner == 0 else (-magnitude, magnitude)
+        if not contenders:
+            raise ValueError("terminal state has no showdown contender")
+        winner = max(contenders, key=lambda player: self.cards[player])
+        pot = sum(contributions)
+        utilities = [-contribution for contribution in contributions]
+        utilities[winner] += pot
+        if abs(sum(utilities)) > 1e-12:
+            raise AssertionError("Kuhn terminal utilities must sum to zero")
+        return tuple(utilities)
 
 
+@dataclass(frozen=True, slots=True)
 class KuhnPoker:
-    """Two-player Kuhn poker game factory."""
+    """Configurable two-to-six-player Kuhn poker game factory."""
 
-    num_players = 2
+    num_players: int = 2
+
+    def __post_init__(self) -> None:
+        if not 2 <= self.num_players <= 6:
+            raise ValueError("Kuhn benchmark supports between two and six players")
 
     def initial_state(self) -> KuhnState:
-        return KuhnState()
+        return KuhnState(num_players=self.num_players)
 

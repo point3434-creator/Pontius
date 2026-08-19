@@ -73,6 +73,13 @@ but are not charged to v2; exact teacher comparisons remain outside candidate
 construction. Terminal cancellation returns the safe incumbent without
 creating a column that only a later master could consume.
 
+The phase-v2 holdout shows why the scheduler boundary belongs above the solver.
+Conditional solver efficiency transfers and beats CFR strongly, while absolute
+margin/ms falls when blueprints contain less safe-improvement headroom. The
+runtime needs a target-free opportunity estimate alongside phase cost; low-
+opportunity decisions should retain the immediate blueprint and release their
+budget to current or speculative jobs with higher expected value.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

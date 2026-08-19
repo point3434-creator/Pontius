@@ -412,6 +412,16 @@ def run_constrained_generation_matrix(
         "best_update_budget": _best_budget(summaries),
         "candidate_anytime_summary": candidate_summaries,
         "best_candidate_checkpoint": _best_budget(candidate_summaries),
+        "candidate_checkpoint_protocol": {
+            "status": "counterfactual phase-stop diagnostic",
+            "selection": "stop immediately before current-round pricing",
+            "caveat": (
+                "when a run previously paid pricing to discover convergence, "
+                "the candidate summary removes that price and is not the cost "
+                "of executing the fixed maximum-update loop"
+            ),
+            "executable_fixed_update_summary": "anytime_summary",
+        },
         "deadline_summary": _deadline_summary(records, deadlines),
         "deadline_protocol": {
             "status": "optimistic upper bound",

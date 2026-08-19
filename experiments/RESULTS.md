@@ -942,3 +942,40 @@ The fresh holdout crosses CFR, LCFR, CFR+, and DCFR blueprints at iterations
 better of CFR checkpoints one and three on the same cases. Its frozen digest is
 `ffee077d5af33d13ed1e4819f3af8834187407d77aa950fa5b6f001dfa1ccb4e`.
 No holdout result has been read at this point.
+
+### Frozen phase-v2 holdout
+
+The preregistration is commit `c7d096b`. On the 48 untouched boundaries, v2
+passes safety, objective, capture, and both paired CFR gates, but fails its
+absolute screen-to-holdout rate gate.
+
+| Metric | Phase v2 | Better CFR checkpoint |
+|---|---:|---:|
+| Checkpoint | candidate-ready 6 | checkpoint 3 |
+| Positive/selected boundaries | 44/48 | 5/48 |
+| Sum-margin capture | 81.2623% | 8.18700% |
+| Hidden BR capture, diagnostic | 59.6536% | 9.61820% |
+| Mean charged ms | 5.453 | 2.848 |
+| Sum-margin/ms | `1.51755e-4` | `2.92707e-5` |
+
+Phase v2 beats the strongest CFR rate by 5.1845 times and captures 9.93 times
+as much exact objective. Maximum selected frontier violation is `1.11e-16` and
+maximum objective overshoot is `3.05e-16`.
+
+However, v2 retains only 32.7363% of its development margin/ms, below the
+frozen 50% requirement. It is formally rejected without changing that gate.
+Mean exact headroom per boundary is only 37.28% of development. Capture per
+millisecond retains 87.82%, showing that the absolute transfer metric mostly
+tracks a lower-opportunity blueprint mix. This diagnosis cannot retroactively
+pass the rule.
+
+Candidate-ready timing is also an optimistic phase-stop diagnostic when a run
+already paid pricing to discover earlier convergence. Charging the executable
+fixed-loop cost yields `1.47968e-4`, still 5.0552 times CFR and still below half
+the corresponding development rate. The verdict is unchanged.
+
+**Final verdict:** reject the fixed v2 stopping rule, accept the nonduplicated
+phase implementation as the exact-lab control, and stop selecting integer
+update counts. The next target is a target-free opportunity/cost estimator that
+can skip low-headroom boundaries and redirect computation to higher-value
+current or speculative states.

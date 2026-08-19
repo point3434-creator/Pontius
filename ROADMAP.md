@@ -74,6 +74,12 @@ A six-candidate v2 rule is frozen on new solver/strength combinations; it must
 beat the better of one- and three-iteration CFR controls before phase-aware
 generation advances.
 
+Phase v2 then beats the better CFR checkpoint by about 5.18 times on the fresh
+paired holdout and remains exactly safe, but fails its preregistered absolute
+rate-transfer gate because mean objective headroom is only 37% of development.
+The fixed rule is rejected. A target-free opportunity-and-phase-cost estimator
+is now required before approximation or kernel specialization.
+
 **Target:** months 2-4.
 
 **Build:** CFR+, DCFR, external-sampling MCCFR, current/average/snapshot output,

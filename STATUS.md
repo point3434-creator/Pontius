@@ -174,21 +174,34 @@ Checkpoint 2: solver comparison laboratory.
   CFR rate by about 35%.
 - `constrained-generation-phase-v2` is frozen before a new 48-boundary holdout
   crossing all four blueprint solvers at unseen iterations 75, 700, and 5,000.
+- Phase v2 captures 81.2623% of exact sum-margin on that fresh holdout and beats
+  the better frozen CFR checkpoint by 5.1845 times in target-free margin/ms,
+  with selected frontier violation at most `1.11e-16`.
+- It nevertheless fails its preregistered absolute rate-transfer gate: only
+  32.7363% of development rate remains versus a required 50%. The fixed rule is
+  rejected without changing the gate.
+- Exact improvement headroom per boundary is only 37.28% of development, while
+  opportunity-normalized capture/ms retains 87.82%. This separates conditional
+  solver efficiency from the scheduler's job of finding worthwhile decisions.
+- Candidate-ready timing is now explicitly labeled counterfactual when it
+  subtracts pricing already used to establish earlier convergence. Executable
+  fixed-loop accounting yields the same gate verdict and a 5.0552x CFR win.
 - One hundred thirty-nine automated tests pass.
 
 ## In progress
 
-- Evaluating frozen phase-v2 generation and both frozen CFR checkpoints on the
-  same fresh 48-boundary holdout.
+- Designing a target-free opportunity-and-phase-cost estimator that skips
+  low-headroom boundaries while preserving the safe blueprint fallback.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Run and adjudicate the preregistered phase-v2 holdout without retuning.
-2. If it passes, fit a conservative non-oracle phase-cost scheduler at explicit
-   wall-clock budgets; otherwise retain generation as an offline teacher.
+1. Build early-trace opportunity labels and target-blind features without
+   fitting on a future holdout.
+2. Compare conservative stopping/allocation heuristics at explicit 5/20/50 ms
+   budgets, including speculative reuse of saved work.
 3. Inject controlled frontier-value error and uncertainty bounds only after a
    target-free solver passes its efficiency gate; then test any multiplayer
    relaxation or neural frontier target.
@@ -206,4 +219,4 @@ None.
 
 ## Last updated
 
-2026-08-19, after freezing nonduplicated candidate-ready generation v2.
+2026-08-19, after phase v2 won paired efficiency but failed its transfer gate.

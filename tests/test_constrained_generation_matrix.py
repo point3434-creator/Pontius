@@ -38,6 +38,10 @@ class ConstrainedGenerationMatrixTests(unittest.TestCase):
             result["candidate_anytime_summary"][0]["checkpoint_phase"],
             "candidate_ready",
         )
+        self.assertEqual(
+            result["candidate_checkpoint_protocol"]["status"],
+            "counterfactual phase-stop diagnostic",
+        )
         for candidate, post_pricing in zip(
             result["candidate_anytime_summary"],
             result["anytime_summary"],

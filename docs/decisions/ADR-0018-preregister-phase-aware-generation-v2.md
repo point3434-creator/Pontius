@@ -1,6 +1,6 @@
 # ADR-0018: Preregister phase-aware constrained generation v2
 
-**Status:** Frozen before fresh holdout, 2026-08-19.
+**Status:** Evaluated; frozen rule rejected by ADR-0019, 2026-08-19.
 
 ## Decision
 

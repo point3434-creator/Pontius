@@ -4,7 +4,7 @@
   "source_artifact_sha256": "7571a8a2f3c08034b53982b4ac122106fbe3d1cc7b216d3ee4ba58cf01fdd2ff",
   "source_config_sha256": "3740d5a9ae9293eb71bdc3a6491cf6b5e22d40289918534755c0a414ce46e3d9",
   "selector_rule": "experiments/rules/river-selective-width-screen-v1.json",
-  "selector_rule_sha256": "3a8c26ee23eefaeecc87f42e23257d591734cd90abb997734e9a1761f7b385e93",
+  "selector_rule_sha256": "3a8c26ee23eefaeec87f42e23257d591734cd90abb997734e9a1761f7b385e93",
   "original_screen_artifact": "experiments/results/river-selective-width-screen-v1.json",
   "original_screen_artifact_sha256": "ee7df32361a08236603e4b2d8d3e6f26d1a209f98b86bb5ffce53fcf14be2794",
   "independent_wide_span_artifact": "experiments/results/policy-delta-recertification-development-v1.json",

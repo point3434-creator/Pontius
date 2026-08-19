@@ -11,7 +11,7 @@ or cross-validating a selective-width rule. The screen may choose only no-op,
 near-full `b3r1`, or full `b3r2` at the preregistered budget of 32
 full-tree-equivalent iterations and warm mass `0.1 * payoff_span`.
 The frozen rule-file SHA-256 is
-`3a8c26ee23eefaeecc87f42e23257d591734cd90abb997734e9a1761f7b385e93`.
+`3a8c26ee23eefaeec87f42e23257d591734cd90abb997734e9a1761f7b385e93`.
 
 This is a discovery screen on the already revealed ADR-0042 matrix. A pass may
 freeze one fitted transparent tree for a fresh development replication. It does

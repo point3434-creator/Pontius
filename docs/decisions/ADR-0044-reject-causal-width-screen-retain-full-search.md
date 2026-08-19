@@ -19,7 +19,7 @@ or a new causal information source, not by retuning this artifact.
 ## Frozen evidence
 
 ADR-0043 froze the rule family before fitting. Its rule-file SHA-256 is
-`3a8c26ee23eefaeecc87f42e23257d591734cd90abb997734e9a1761f7b385e93`.
+`3a8c26ee23eefaeec87f42e23257d591734cd90abb997734e9a1761f7b385e93`.
 The implementation was committed as
 `1f672c0be398c33566883bf0624c3967c7a31710` after all tests passed and before
 the real discovery labels were processed.

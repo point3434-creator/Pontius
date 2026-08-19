@@ -16,13 +16,19 @@ quality label, or selection gate.
 The frozen configuration is
 `experiments/configs/river-selective-payoff-span-correction-audit-v1.json`,
 SHA-256
-`d2b179038972259f4d4821c3a63fac28744b13bb499630e4d658cdf411f52810`. The result target is
+`f4d6a8217c8da22139b8434870231f4e172781128ec56761ab54377adb86a866`. The result target is
 `experiments/results/river-selective-payoff-span-correction-audit-v1.json`.
 
 This is a bug audit on fully revealed data. Even if the old selection outcome
 changes and every old gate passes, this run cannot authorize deployment,
 validation/test access, native specialization, or a neural selector. It can
 only decide whether a fresh development replication is warranted.
+
+The initial preregistration commit transcribed the selector-rule digest as 65
+characters. The first configuration unit test rejected it before this runner
+or any corrected screen executed. The digest and resulting config hash above
+were corrected to the artifact's actual 64-character SHA-256 before outcome
+inspection.
 
 ## Frozen inputs
 
@@ -31,7 +37,7 @@ Require all four artifacts byte-for-byte:
 1. selective-expansion source SHA-256
    `7571a8a2f3c08034b53982b4ac122106fbe3d1cc7b216d3ee4ba58cf01fdd2ff`;
 2. selector rule SHA-256
-   `3a8c26ee23eefaeecc87f42e23257d591734cd90abb997734e9a1761f7b385e93`;
+   `3a8c26ee23eefaeec87f42e23257d591734cd90abb997734e9a1761f7b385e93`;
 3. original screen SHA-256
    `ee7df32361a08236603e4b2d8d3e6f26d1a209f98b86bb5ffce53fcf14be2794`;
    and

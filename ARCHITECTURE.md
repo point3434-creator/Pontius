@@ -80,6 +80,23 @@ runtime needs a target-free opportunity estimate alongside phase cost; low-
 opportunity decisions should retain the immediate blueprint and release their
 budget to current or speculative jobs with higher expected value.
 
+`opportunity_trace` now enforces the scheduler's causal interface. A boundary-
+start decision sees only public context; a candidate-ready decision may inspect
+the solved master and its one paid safety separation but cannot inspect current
+pricing; a post-pricing decision may inspect the purchased reduced-cost option.
+Exact objectives and future improvements exist only in the training-label
+plane. Allocation controls scope reusable compute to states sharing one fixed
+blueprint, while cross-blueprint pooling remains a deliberately loose
+diagnostic.
+
+Solver work is not assumed to produce reward every phase. In the exact traces,
+useful columns and response constraints often require several alternating
+cycles before the safe incumbent moves. The scheduler must therefore rank
+preemptible macro-options with intermediate cached state, rather than kill any
+job whose immediately following candidate has zero gain. Current early scalar
+features do not predict that option value well enough to fit a scheduler; a
+cached boundary-local blueprint residual/stability interface is next.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

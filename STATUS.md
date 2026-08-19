@@ -186,25 +186,45 @@ Checkpoint 2: solver comparison laboratory.
 - Candidate-ready timing is now explicitly labeled counterfactual when it
   subtracts pricing already used to establish earlier convergence. Executable
   fixed-loop accounting yields the same gate verdict and a 5.0552x CFR win.
-- One hundred thirty-nine automated tests pass.
+- A causal opportunity dataset now separates boundary-start, candidate-ready,
+  and post-pricing decisions. Its 412 revealed-development records use explicit
+  online feature allowlists; oracle and current-pricing mutation tests prevent
+  target and phase leakage.
+- At an average 5 ms budget within each fixed blueprint regime, a perfect
+  state-adaptive pool captures 83.2072% of exact sum-margin versus 67.635% for
+  that regime's best oracle fixed checkpoint and 47.7146% under independent
+  hard deadlines. A serial timing replicate preserves the adaptive result and
+  moves fixed capture only to 67.323%.
+- Cross-blueprint pooling reaches 99.919% but is rejected as a deployment
+  interpretation. Within fixed blueprints, the largest one of four public
+  boundaries holds a headroom-weighted 41.04% of opportunity and the largest
+  two hold 70.20%.
+- Myopic phase rewards are rejected: the first two candidate checkpoints
+  improve 0/40 boundaries although 37/40 improve later. First gain requires
+  3.51 candidates and 4.29 ms from boundary start on average, with a maximum
+  horizon of six candidates.
+- Existing early scalar features do not justify fitting a scheduler. Their
+  strongest univariate rank correlation with best future gain/ms is only about
+  0.15 at boundary start, 0.11 after candidate one, and 0.11 after its pricing.
+- One hundred forty-four automated tests pass.
 
 ## In progress
 
-- Designing a target-free opportunity-and-phase-cost estimator that skips
-  low-headroom boundaries while preserving the safe blueprint fallback.
+- Designing a cached boundary-local blueprint residual/stability probe before
+  fitting any target-free multi-phase scheduler.
 - Extending the structured protocol to heteroscedastic and time-varying errors.
 - Reducing evaluation overhead through configurable cadence and future
   restricted responders.
 
 ## Next three tasks
 
-1. Build early-trace opportunity labels and target-blind features without
-   fitting on a future holdout.
-2. Compare conservative stopping/allocation heuristics at explicit 5/20/50 ms
-   budgets, including speculative reuse of saved work.
-3. Inject controlled frontier-value error and uncertainty bounds only after a
-   target-free solver passes its efficiency gate; then test any multiplayer
-   relaxation or neural frontier target.
+1. Add a target-free, boundary-local counterfactual-regret/stability residual
+   with explicit cached and uncached cost accounting.
+2. Compare conservative multi-phase macro-option heuristics at 5 ms under
+   leave-one-blueprint-regime-out development; freeze only if one beats the
+   fixed checkpoint without oracle or regime-identity features.
+3. Evaluate the frozen rule on fresh blueprint strengths before controlled
+   frontier-value error, multiplayer relaxation, or neural targets advance.
 
 ## Current blockers
 
@@ -219,4 +239,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after phase v2 won paired efficiency but failed its transfer gate.
+2026-08-19, after causal opportunity traces exposed a useful 5 ms allocation
+ceiling but rejected myopic labels and an immediate scheduler fit.

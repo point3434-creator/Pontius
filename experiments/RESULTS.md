@@ -979,3 +979,59 @@ phase implementation as the exact-lab control, and stop selecting integer
 update counts. The next target is a target-free opportunity/cost estimator that
 can skip low-headroom boundaries and redirect computation to higher-value
 current or speculative states.
+
+## EXP-0016: Causal opportunity traces and allocation ceilings
+
+**Date:** 2026-08-19
+
+**Status:** Allocation research advanced at 5 ms; scheduler fitting deferred
+until a stronger target-free residual feature exists.
+
+The opportunity analyzer combines the 40 already revealed phase-v2 development
+boundaries without fitting a rule. Explicit allowlists produce 40
+`boundary_start`, 186 `candidate_ready`, and 186 `after_pricing` records. Exact
+sum-margin, hidden complete-game best response, and future trace outcomes are
+labels only. Mutation tests enforce that candidate-ready features cannot see
+the pricing result they are deciding whether to buy.
+
+Mixed-regime headroom is highly concentrated: the top 25% of all boundaries
+hold 87.19%. Because cross-blueprint pooling is unrealistic, the primary
+allocation control limits compute donation to four public states sharing one
+fixed blueprint. Headroom-weighted within-regime top-one and top-two shares are
+41.04% and 70.20%.
+
+| 5 ms control | Sum-margin capture |
+|---|---:|
+| Independent perfect phase fit | 47.7146% |
+| Best oracle fixed checkpoint per blueprint regime | 67.635% |
+| Perfect-information adaptive pool within each regime | 83.2072% |
+
+The adaptive ceiling is 15.57 percentage points above the already optimistic
+fixed control. A serial timing replicate preserves adaptive capture exactly and
+moves fixed capture only to 67.323%. At 20 ms the within-regime fixed and
+adaptive controls both saturate the tiny game; at 50 ms every control
+saturates. These are oracle allocation controls, not deployable schedulers.
+
+The phase trace rejects myopic reward labels. The first and second candidate
+checkpoints improve 0/40 boundaries, although 37/40 improve later. From the
+boundary start, first improvement requires 3.51 candidate checkpoints and 4.29
+ms on average, with a maximum six-checkpoint horizon. A scheduler must value a
+preemptible multi-phase option, not only the next incumbent delta.
+
+Present scalar features are insufficient. The strongest absolute univariate
+rank correlation with best future gain/ms is approximately 0.15 at start, 0.11
+after candidate one, and 0.11 after its pricing. Initial reduced cost is driven
+mostly by public-tree geometry and reaches only about 0.11 against the rate
+target.
+
+**Verdict:** the honest within-blueprint 5 ms ceiling is large enough to justify
+one better feature experiment, but not a scheduler fit. Next measure a cached,
+boundary-local blueprint counterfactual-regret/stability residual, including
+its cost. If a causal macro-phase heuristic then fails a fresh exact-game
+holdout, retain fixed scheduling until reduced hold'em supplies a richer
+workload.
+
+**Reproduction:** regenerate both phase-v2 development matrices, then run
+`opportunity-trace-v1-development.json` under `experiments/configs/` with
+`python -m pontius.opportunity_trace`. Raw JSON remains locally generated and
+ignored.

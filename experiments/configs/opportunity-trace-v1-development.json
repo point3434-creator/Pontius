@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "analysis_name": "opportunity-trace-v1-development",
+  "status": "revealed-development-measurement-only",
+  "sources": [
+    {
+      "name": "phase-v2-screen-development",
+      "path": "../results/constrained-generation-kuhn2-phase-v2-screen-development.json"
+    },
+    {
+      "name": "phase-v2-revealed-development",
+      "path": "../results/constrained-generation-kuhn2-phase-v2-revealed-development.json"
+    }
+  ],
+  "deadline_milliseconds": [5.0, 20.0, 50.0],
+  "pool_quantum_milliseconds": 0.05,
+  "store_records": true,
+  "protocol": {
+    "fit_scheduler": false,
+    "exact_objective_is_label_only": true,
+    "hidden_best_response_is_diagnostic_only": true,
+    "candidate_ready_excludes_current_pricing": true,
+    "pooled_allocation_is_nondeployable_perfect_information": true
+  }
+}

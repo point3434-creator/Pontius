@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import time
 from dataclasses import dataclass, field
-from math import isfinite, prod
+from math import isfinite, log, prod
 
 from .continual import PublicHistory
 from .evaluation import (
@@ -61,6 +61,9 @@ class GenerationUpdateRecord:
     total_positive_frontier_violation: float
     safe_candidate: bool
     candidate_support_size: int
+    candidate_max_column_weight: float
+    candidate_column_weight_concentration: float
+    candidate_column_weight_entropy: float
     incumbent_updated: bool
     incumbent_sum_margin: float
     incumbent_hidden_br_reduction: float
@@ -74,6 +77,11 @@ class GenerationUpdateRecord:
     master_duality_gap: float
     realization_equivalence_max_error: float | None
     effective_column_dual: float
+    response_dual_mass: float
+    response_dual_active_count: int
+    response_dual_max_share: float
+    response_dual_concentration: float
+    response_dual_entropy: float
     best_pricing_score: float | None
     best_reduced_cost: float | None
     added_column: str | None
@@ -127,6 +135,29 @@ class ConstraintGenerationResult:
             + self.total_separation_seconds
             + self.total_pricing_seconds
         )
+
+
+def _mass_statistics(
+    values: list[float] | tuple[float, ...],
+    tolerance: float,
+) -> tuple[float, int, float, float, float]:
+    """Return cheap scale/concentration summaries for an online mass vector."""
+
+    positive = [max(0.0, value) for value in values]
+    mass = sum(positive)
+    active = [value for value in positive if value > tolerance]
+    if mass <= tolerance or not active:
+        return mass, 0, 0.0, 0.0, 0.0
+    active_mass = sum(active)
+    shares = [value / active_mass for value in active]
+    max_share = min(1.0, max(shares))
+    concentration = min(1.0, sum(share * share for share in shares))
+    entropy = (
+        -sum(share * log(share) for share in shares) / log(len(shares))
+        if len(shares) > 1
+        else 0.0
+    )
+    return mass, len(active), max_share, concentration, min(1.0, max(0.0, entropy))
 
 
 def _copy_policy(policy: Policy) -> Policy:
@@ -677,6 +708,18 @@ def solve_sum_margin_with_generation(
             bounds,
             tolerance=min(tolerance / 10.0, 1e-11),
         )
+        equality_duals = solution.dual_variables[:2]
+        effective_column_dual = equality_duals[0] - equality_duals[1]
+        response_duals = solution.dual_variables[2:]
+        if len(response_duals) != len(active_constraints):
+            raise AssertionError("master dual count does not match response rows")
+        (
+            response_dual_mass,
+            response_dual_active_count,
+            response_dual_max_share,
+            response_dual_concentration,
+            response_dual_entropy,
+        ) = _mass_statistics(response_duals, tolerance)
         master_solve_seconds = time.perf_counter() - solve_start
         total_master_solve += master_solve_seconds
 
@@ -685,6 +728,13 @@ def solve_sum_margin_with_generation(
             solution.variables[:columns_before],
             tolerance,
         )
+        (
+            _,
+            candidate_support_size,
+            candidate_max_weight,
+            candidate_weight_concentration,
+            candidate_weight_entropy,
+        ) = _mass_statistics(weights, tolerance)
         candidate_policy = _mixture_to_behavioral_policy(
             subgame,
             resolver_player,
@@ -780,11 +830,6 @@ def solve_sum_margin_with_generation(
             + total_pricing
         )
         pricing_performed = price_after_last_update or update < max_updates
-        equality_duals = solution.dual_variables[:2]
-        effective_column_dual = equality_duals[0] - equality_duals[1]
-        response_duals = solution.dual_variables[2:]
-        if len(response_duals) != len(active_constraints):
-            raise AssertionError("master dual count does not match response rows")
         if pricing_performed:
             pricing_start = time.perf_counter()
             priced_column, best_pricing_score, best_reduced_cost = _price_column(
@@ -848,7 +893,12 @@ def solve_sum_margin_with_generation(
                 actual_min_margin=actual_min_margin,
                 total_positive_frontier_violation=total_violation,
                 safe_candidate=safe_candidate,
-                candidate_support_size=sum(weight > tolerance for weight in weights),
+                candidate_support_size=candidate_support_size,
+                candidate_max_column_weight=candidate_max_weight,
+                candidate_column_weight_concentration=(
+                    candidate_weight_concentration
+                ),
+                candidate_column_weight_entropy=candidate_weight_entropy,
                 incumbent_updated=incumbent_updated,
                 incumbent_sum_margin=incumbent_sum_margin,
                 incumbent_hidden_br_reduction=incumbent_hidden_gain,
@@ -876,6 +926,11 @@ def solve_sum_margin_with_generation(
                 master_duality_gap=solution.duality_gap,
                 realization_equivalence_max_error=equivalence_error,
                 effective_column_dual=effective_column_dual,
+                response_dual_mass=response_dual_mass,
+                response_dual_active_count=response_dual_active_count,
+                response_dual_max_share=response_dual_max_share,
+                response_dual_concentration=response_dual_concentration,
+                response_dual_entropy=response_dual_entropy,
                 best_pricing_score=best_pricing_score,
                 best_reduced_cost=best_reduced_cost,
                 added_column=None if add_column is None else add_column.label,

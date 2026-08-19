@@ -80,6 +80,17 @@ rate-transfer gate because mean objective headroom is only 37% of development.
 The fixed rule is rejected. A target-free opportunity-and-phase-cost estimator
 is now required before approximation or kernel specialization.
 
+Causal phase traces now expose a real but narrow scheduler opportunity. At 5
+ms, perfect allocation restricted to public states sharing one fixed blueprint
+captures 83.21% of exact headroom versus 67.64% for that regime's best fixed
+checkpoint. At 20-50 ms Kuhn2 saturates and cannot discriminate schedulers.
+Immediate phase reward is the wrong label: no boundary improves at either of
+the first two candidate checkpoints although 37/40 improve later. Current early
+features rank multi-phase gain/ms too weakly to fit honestly. The remaining C2
+gate is therefore one cached boundary-local blueprint residual/stability
+experiment followed, only if promising, by a frozen macro-option heuristic and
+fresh-regime holdout.
+
 **Target:** months 2-4.
 
 **Build:** CFR+, DCFR, external-sampling MCCFR, current/average/snapshot output,

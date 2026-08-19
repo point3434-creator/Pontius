@@ -219,6 +219,21 @@ after safety separation and before current pricing. The matrix also reports an
 explicitly optimistic deadline upper bound using realized phase times; do not
 describe that oracle phase-fit diagnostic as a deployable scheduler.
 
+Build the revealed-development causal opportunity dataset and allocation
+controls with:
+
+```powershell
+& $python -m pontius.opportunity_trace --config experiments/configs/opportunity-trace-v1-development.json --output experiments/results/opportunity-trace-v1-development.json
+```
+
+Regenerate both phase-v2 development matrices first whenever trace fields or
+timing instrumentation change. `candidate_ready` features intentionally omit
+the current pricing score, reduced cost, generated column, and pricing time.
+Exact sum-margin and all future outcomes are labels only. Treat
+`blueprint_regime_allocation` as the primary speculation ceiling; the looser
+cross-regime pool can move compute between different blueprint agents and is
+not a deployment interpretation. This analyzer fits no scheduler.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

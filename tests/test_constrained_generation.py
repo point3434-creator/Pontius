@@ -42,6 +42,18 @@ class ConstrainedGenerationTests(unittest.TestCase):
                 + update.pricing_seconds,
                 update.cumulative_decision_compute_seconds,
             )
+            self.assertGreater(update.candidate_max_column_weight, 0.0)
+            self.assertLessEqual(update.candidate_max_column_weight, 1.0)
+            self.assertGreater(update.candidate_column_weight_concentration, 0.0)
+            self.assertLessEqual(update.candidate_column_weight_concentration, 1.0)
+            self.assertGreaterEqual(update.candidate_column_weight_entropy, 0.0)
+            self.assertLessEqual(update.candidate_column_weight_entropy, 1.0)
+            self.assertLessEqual(
+                update.response_dual_active_count,
+                update.response_constraints_before_update,
+            )
+            self.assertGreaterEqual(update.response_dual_max_share, 0.0)
+            self.assertLessEqual(update.response_dual_max_share, 1.0)
 
     def test_every_public_boundary_matches_the_normal_form_teacher(self) -> None:
         for history in public_histories(self.blueprint.game):

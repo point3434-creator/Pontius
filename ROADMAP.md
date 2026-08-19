@@ -26,8 +26,10 @@ reproducible from configuration and code revision.
 
 ## C2: Solver comparison laboratory
 
-**Status:** In progress. CFR, LCFR, CFR+, and DCFR share one traversal and the
-initial fixed-game comparison is recorded in EXP-0004. Paired leaf perturbation
+**Status:** Control established; remaining external-sampling and generic tree-
+mutation gates are deferred until C3 supplies a more representative workload.
+CFR, LCFR, CFR+, and DCFR share one traversal and the initial fixed-game
+comparison is recorded in EXP-0004. Paired leaf perturbation
 and explicit pseudo-regret warm starts are implemented; EXP-0005 rejected naïve
 unanchored shallow replacement. EXP-0006 provisionally advanced an affine
 blueprint anchor for average policies. EXP-0007 added structured, localized,
@@ -140,8 +142,12 @@ completion of reduced multiplayer play. Multiple bet and raise sizes,
 re-raises, earlier streets, more players, unilateral NashConv, and coalition
 threat models remain. Its frozen post-probe allocator has passed reserved
 board/range transfer and is now the compute-allocation control. The next C3
-subcheckpoint measures paired blocker-sensitive range warm starts and mandatory
-current-range recertification before expanding the action tree again.
+subcheckpoint now separates paired blocker-sensitive cache paths. Exact-source
+warm DCFR passes its development gate, but the recertified cached policy before
+any new solve is both stronger and cheaper. The global TV certificate is about
+111 times faster than a full exact best response but has a median 40x bound-to-
+actual ratio on nonzero cases. Delta-aware exact recertification with finite
+source policies therefore precedes expansion of the action tree.
 
 **Target:** months 4-6.5.
 

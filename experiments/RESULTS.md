@@ -1339,3 +1339,56 @@ frozen rule defend its advantage as branching and player count increase.
 **Reproduction:** use the validation-then-test commands and guard described in
 `RUNBOOK.md`. Generated JSON remains ignored; the digests above are the durable
 evidence identifiers.
+
+## EXP-0021: Blocker-sensitive range reuse and recertification
+
+**Date:** 2026-08-19
+
+**Status:** Frozen development screen passes; recertification-only control
+dominates, so warm-prior promotion is deferred.
+
+ADR-0029 and commit `f514720` freeze exact-provenance cache semantics, two
+support-preserving 1%-TV conditional shocks per context, five warm priors, exact
+cost accounting, and the five-fold gates before production execution. The
+10,840,740-byte artifact SHA-256 is
+`470d54d8f10bdd7e02c2f607da7dbe50ee03c91248e05558ac30042a096b78a1`.
+It covers 19 development board groups, 76 source contexts, 152 paired targets,
+and 8,208 trajectory records.
+
+Every approximate lookup is correctly classified `structural_only`; none is a
+deployable strategy hit. Mean root TV is 0.924%, while median selected-hand
+conditional TV is 19.0% and the maximum is 66.67%. Maximum source/target exact-
+policy TV at an information set has median `0.333` and reaches `1.0`, confirming
+that root overlap cannot certify local strategy similarity.
+
+The preregistered checkpoint-four screen passes:
+
+| Result | Warm fold selection | Cold DCFR |
+|---|---:|---:|
+| Aggregate final exploitability | 11.441 | 210.844 |
+| Reduction per charged ms | 1.23698 | 1.04274 |
+| Deterministic state visits | 138,432 | 138,432 |
+
+Every fold improves raw exploitability and charged reduction/ms. The warm
+selection removes 94.574% of cold residual and raises the charged rate 18.628%.
+Three folds select a 0.3-payoff-span pseudo-regret mass and two select 1.0;
+all-development selection chooses 0.3.
+
+The more important diagnostic is checkpoint zero. The exact cached source
+policy, after current-range exact recertification but before a DCFR step, has
+aggregate exploitability `10.409`, better than the selected four-iteration
+warm result. Lookup plus exact recertification achieves reduction/ms `3.02872`,
+190.46% above cold checkpoint four. Continuing DCFR slightly harms the strong
+cached policy on average.
+
+The cheap theorem-based certificate costs 0.0227 ms on average, versus 2.526 ms
+for full exact recertification, but is conservative. At normalized ceilings of
+0.1%, 0.5%, 1%, and 2%, it certifies 0, 3, 10, and 43 pairs; exact evaluation
+passes 115, 152, 152, and 152. It has zero false positives and a median 40x
+bound/actual ratio among nonzero cases.
+
+**Verdict:** exact strategy hits remain provenance-only, and cached topology is
+worth retaining. Do not freeze a warm prior merely because its declared screen
+passed: the recorded recertification-only control dominates it. Next build an
+exact delta-aware recertifier and repeat with finite source policies, explicit
+source-cost amortization, support changes, and later a wider action tree.

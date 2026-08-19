@@ -354,10 +354,19 @@ the resulting policy remains nondeployable until current-range recertification.
 The experiment reports lookup, initialization, solving, and recertification
 cost separately.
 
+The recorded development artifact passes the warm checkpoint-four gates and
+has SHA-256
+`470d54d8f10bdd7e02c2f607da7dbe50ee03c91248e05558ac30042a096b78a1`.
+ADR-0030 records why no warm prior is promoted: the exact-recertified cached
+policy at checkpoint zero dominates additional warm solving. Re-running this
+configuration is reproduction, not fresh development evidence.
+
 Only an identical `provenance_digest` authorizes an exact strategy-cache hit.
 `structural_digest` authorizes topology and board-work reuse, not strategy
-deployment. Total-variation bounds in this laboratory cover one fixed policy's
-value and must not be described as equilibrium reuse certificates.
+deployment. Raw total variation bounds one fixed policy's value, not equilibrium
+reuse. With a certified source exploitability, ADR-0030's stronger bound covers
+that same fixed policy's target exploitability only in the two-player zero-sum
+game; it still does not certify range identity or policy similarity.
 
 ## Continuation protocol
 

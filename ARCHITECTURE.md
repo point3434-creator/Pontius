@@ -144,6 +144,24 @@ recertified under the current joint range. Root total variation bounds only the
 value of a fixed policy and does not imply conditional-range, best-response, or
 equilibrium stability.
 
+`river_cache` enforces that boundary in code. A structural match may return a
+defensive nondeployable policy hint and cached information-set/action schema;
+only exact provenance returns a deployable strategy. For this two-player zero-
+sum game, a separately certified source exploitability extends the TV argument:
+the same fixed policy's target exploitability is at most source exploitability
+plus `2 * payoff_span * joint_TV`. This is a conservative policy-quality bound,
+not a range hit or strategy-distance guarantee, and it does not extend to
+multiplayer.
+
+The blocker-sensitive screen makes recertification the next cache subsystem.
+Exact-source policies remain excellent after a 1% root shift even when local
+equilibrium-policy TV reaches one; solving them further is worse on average than
+deploying them after exact current-range recertification. The global TV bound is
+cheap but too loose. The next implementation caches per-deal utility and best-
+response dependency data, applies sparse range deltas, and recomputes only the
+affected information sets and ancestors. Full evaluation remains the exact
+differential oracle.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

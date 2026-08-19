@@ -2,7 +2,7 @@
 
 ## Active checkpoint
 
-Checkpoint 2: solver comparison laboratory.
+Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Verified state
 
@@ -316,23 +316,47 @@ Checkpoint 2: solver comparison laboratory.
   12.522% decrease, while using 1,118 versus 1,120 iterations and 252,412
   versus 253,120 deterministic state visits. This is exact heads-up river
   transfer, not a six-player claim.
-- One hundred ninety-eight automated tests pass.
+- Exact-provenance cache lookup is now mechanically distinct from structural
+  topology/policy hints. Range distance never authorizes a direct strategy hit;
+  cached information-set schemas can initialize CFR without rediscovering the
+  tree.
+- A two-player zero-sum TV certificate bounds one fixed cached policy's target
+  exploitability by source exploitability plus twice payoff span times joint
+  TV. It is verified against exact target best responses and explicitly does
+  not transfer to multiplayer.
+- The 152-pair blocker-sensitive development screen passes every frozen warm-
+  start gate. Fold-selected checkpoint-four warm DCFR removes 94.574% of cold
+  residual and improves charged reduction/ms 18.628% at identical state work.
+- The stronger finding is negative for further solving: exact current-range
+  recertification of the cached source policy before any DCFR step has aggregate
+  exploitability 10.409 versus 11.441 after selected warm solving and 210.844
+  cold. Lookup plus full recertification improves rate 190.46% over cold.
+- The 0.0227 ms mean TV certificate is safe but loose; full exact recertification
+  costs 2.526 ms. At a normalized 0.5% ceiling, the bound certifies only 3/152
+  pairs while exact evaluation accepts all 152. Delta-aware recertification is
+  now the bottleneck.
+- Exact source teachers cost 106.493 ms on average and are an optimistic sunk-
+  cache assumption. No warm prior advances until finite source policies and
+  explicit amortization are tested.
+- Two hundred eight automated tests pass.
 
 ## In progress
 
-- Freezing the paired blocker-sensitive range-reuse and recertification
-  measurement protocol before inspecting its outcomes.
-- Keeping the passed transparent scheduler as the control rather than fitting a
-  neural scheduler to a narrow exact-river effect.
-- Preparing the next branch-factor gate: wider legal river actions after range
-  reuse semantics and costs are measured.
+- Designing an exact delta-aware recertifier that updates cached per-deal
+  utilities and best-response dependency cones after sparse range changes.
+- Replacing optimistic exact source strategies with finite DCFR cache entries
+  and charging source construction by observed reuse count.
+- Keeping wider legal river actions next in line after recertification is no
+  longer hidden inside a full-tree best response.
 
 ## Next three tasks
 
-1. Preregister paired near-range blocker perturbations and the exact-hit,
-   structural-only, cold-start, warm-start, and recertification measurements.
-2. Implement range-conditioned warm starts with mandatory current-range exact
-   recertification; reject approximate strategy-cache hits mechanically.
+1. Implement a cached exact-evaluation control that incrementally recomputes
+   only range-delta-dependent values and affected best-response ancestors;
+   require identity with full current-range evaluation.
+2. Preregister finite-source checkpoints, sparse weight shifts, support changes,
+   and reuse-count amortization; compare bound-only, incremental, full exact,
+   warm solve, and cold solve paths.
 3. Add multiple legal bet/raise sizes and test whether adaptive tree width plus
    the frozen scheduler beats a matched fixed abstraction on held-out ranges.
 
@@ -349,5 +373,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after the unchanged active-regret checkpoint-two/four/six scheduler
-passed both selection-free validation and the final sealed exact-river test.
+2026-08-19, after blocker-sensitive range reuse showed that current-range
+recertification, rather than additional warm solving, is the next bottleneck.

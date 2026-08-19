@@ -1,0 +1,51 @@
+{
+  "groups": 24,
+  "seed": 20260829,
+  "hands_per_player": 8,
+  "families": ["balanced", "polarized", "blocker_stress", "correlated"],
+  "included_splits": ["development"],
+  "sequential_raise": true,
+  "perturbations": [
+    {
+      "name": "rare_p0_root_tv_1pct",
+      "kind": "blocker_reweight",
+      "player": 0,
+      "root_tv_budget": 0.01,
+      "maximum_donor_fraction": 0.75
+    },
+    {
+      "name": "rare_p1_root_tv_1pct",
+      "kind": "blocker_reweight",
+      "player": 1,
+      "root_tv_budget": 0.01,
+      "maximum_donor_fraction": 0.75
+    },
+    {
+      "name": "unseen_hand_support_swap_p0",
+      "kind": "support_swap",
+      "player": 0
+    },
+    {
+      "name": "unseen_hand_support_swap_p1",
+      "kind": "support_swap",
+      "player": 1
+    }
+  ],
+  "solver": "dcfr",
+  "source_policy_checkpoints": [1, 4, 16, 64],
+  "normalized_exploitability_thresholds": [0.001, 0.005, 0.01, 0.02],
+  "timing": {
+    "batches": 5,
+    "cache_inner_repetitions": 1,
+    "delta_inner_repetitions": 10,
+    "full_inner_repetitions": 1,
+    "incremental_inner_repetitions": 20,
+    "bound_inner_repetitions": 10
+  },
+  "gates": {
+    "maximum_absolute_evaluation_error": 1e-10,
+    "minimum_aggregate_hot_speedup": 10.0,
+    "minimum_shared_delta_speedup": 5.0,
+    "minimum_fraction_incremental_faster": 0.99
+  }
+}

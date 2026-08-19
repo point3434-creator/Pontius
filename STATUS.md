@@ -338,27 +338,50 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 - Exact source teachers cost 106.493 ms on average and are an optimistic sunk-
   cache assumption. No warm prior advances until finite source policies and
   explicit amortization are tested.
-- Two hundred eight automated tests pass.
+- A provenance-bound `RiverRangeDelta` and compiled finite-policy evaluator now
+  update only changed deal coefficients and affected private-hand best-response
+  maxima. Support additions compile unseen hands under the target game; no
+  distance threshold or unchecked chained update exists.
+- Differential tests cover no-raise and sequential-raise trees, all four river
+  families, finite DCFR policies, blocker reweights, deal removal, and unseen-
+  hand addition. Worst production disagreement with full exact evaluation is
+  `2.31e-14`.
+- The frozen 896-record finite-policy development benchmark passes every gate.
+  Exact incremental application averages 0.1996 ms versus 11.1061 ms full,
+  yielding 55.652x hot, 37.315x shared-delta, and 18.766x pessimistic unshared-
+  delta speedups. Every individual record is faster.
+- Compiled-cache construction averages 1.9132 ms and pays back in an estimated
+  0.175 recertifications. Charging it leaves a 14.313x aggregate speedup;
+  charging the entire finite source solve to one batch instead yields 0.640x,
+  so policy construction and reuse economics remain explicit.
+- At finite DCFR checkpoint 64, mean normalized source exploitability is
+  `0.000118`; targets average `0.000484` after larger blocker reweights and
+  `0.000153` after smaller unseen-hand support swaps. Cheap recertification
+  measures this damage but does not repair it.
+- The TV bound is 5.92 times faster than incremental application. A post-hoc
+  bound-first cascade is counterproductive at a 0.1% quality ceiling but would
+  reduce recorded exact-path cost at 0.5%-2% ceilings. No threshold rule is
+  frozen from this development inspection.
+- Two hundred nineteen automated tests pass.
 
 ## In progress
 
-- Designing an exact delta-aware recertifier that updates cached per-deal
-  utilities and best-response dependency cones after sparse range changes.
-- Replacing optimistic exact source strategies with finite DCFR cache entries
-  and charging source construction by observed reuse count.
-- Keeping wider legal river actions next in line after recertification is no
-  longer hidden inside a full-tree best response.
+- Generalizing the successful hard-coded river equations into a compiled
+  bottom-up best-response dependency tape with exact action-flip propagation.
+- Designing a wider river tree with multiple legal bet and raise sizes so the
+  dependency evaluator and frozen scheduler face a real branching-factor test.
+- Representing Bayesian action conditioning as structured dense or low-rank
+  range updates rather than assuming that explicit combo deltas stay sparse.
 
 ## Next three tasks
 
-1. Implement a cached exact-evaluation control that incrementally recomputes
-   only range-delta-dependent values and affected best-response ancestors;
-   require identity with full current-range evaluation.
-2. Preregister finite-source checkpoints, sparse weight shifts, support changes,
-   and reuse-count amortization; compare bound-only, incremental, full exact,
-   warm solve, and cold solve paths.
-3. Add multiple legal bet/raise sizes and test whether adaptive tree width plus
-   the frozen scheduler beats a matched fixed abstraction on held-out ranges.
+1. Build a game-compiled dependency evaluator independent of the current river
+   action constants and differentially match the specialized and full controls.
+2. Add at least three root bet sizes, two raise sizes, and sparse plus
+   factorized-dense range changes; measure invalidation-cone growth and speed.
+3. On that richer tree, compare accept/no-op, bound-first exact recertification,
+   affected-cone repair, warm full traversal, and cold traversal at equal
+   charged time before fitting any learned cache or tree scheduler.
 
 ## Current blockers
 
@@ -373,5 +396,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after blocker-sensitive range reuse showed that current-range
-recertification, rather than additional warm solving, is the next bottleneck.
+2026-08-19, after exact sparse recertification passed its finite-policy speed,
+support-change, provenance, and independent-evaluation gates.

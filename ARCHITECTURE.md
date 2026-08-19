@@ -157,10 +157,25 @@ The blocker-sensitive screen makes recertification the next cache subsystem.
 Exact-source policies remain excellent after a 1% root shift even when local
 equilibrium-policy TV reaches one; solving them further is worse on average than
 deploying them after exact current-range recertification. The global TV bound is
-cheap but too loose. The next implementation caches per-deal utility and best-
-response dependency data, applies sparse range deltas, and recomputes only the
-affected information sets and ancestors. Full evaluation remains the exact
-differential oracle.
+cheap but too loose.
+
+`river_incremental` now implements the exact middle path. `RiverRangeDelta`
+binds a lossless probability delta to source, target, and structural provenance.
+`RiverPolicyEvaluationCache` compiles probability-free per-deal fixed-policy
+and counterfactual best-response coefficients. Delta application changes only
+the private-hand aggregates touched by reweighted, removed, or added deals and
+recomputes their maxima. Added support is compiled under the target game; an
+unseen information set uses the fixed policy evaluator's ordinary uniform
+fallback. There is no approximate-hit threshold or unchecked chained update.
+
+This specialized evaluator is a reference control, not the final cache engine.
+Its finite-policy benchmark is exact and fast even when every delta scan is
+charged separately, but its best-response dependency graph has only two layers
+and its production changes touch two explicit deals. The next cache interface
+must compile a generic bottom-up dependency tape, propagate best-response action
+flips to ancestors, and accept both sparse combo deltas and factorized dense
+likelihood updates. Multiple bet/raise sizes are the first branching-factor
+transfer gate. Full evaluation remains the independent differential oracle.
 
 ## Runtime target
 

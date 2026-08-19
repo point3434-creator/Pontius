@@ -147,7 +147,12 @@ warm DCFR passes its development gate, but the recertified cached policy before
 any new solve is both stronger and cheaper. The global TV certificate is about
 111 times faster than a full exact best response but has a median 40x bound-to-
 actual ratio on nonzero cases. Delta-aware exact recertification with finite
-source policies therefore precedes expansion of the action tree.
+source policies now passes its development gate: it matches full evaluation
+within `2.31e-14` and is 55.65x faster hot, 18.77x faster even with an unshared
+full delta scan, and faster in every one of 896 records. The next gate
+generalizes dependency invalidation beyond hard-coded river equations, crosses
+multiple bet/raise sizes with structured dense belief updates, and then
+compares cached acceptance and selective repair against warm and cold traversal.
 
 **Target:** months 4-6.5.
 

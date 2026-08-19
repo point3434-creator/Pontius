@@ -368,6 +368,22 @@ reuse. With a certified source exploitability, ADR-0030's stronger bound covers
 that same fixed policy's target exploitability only in the two-player zero-sum
 game; it still does not certify range identity or policy similarity.
 
+The finite-policy exact incremental-recertification screen is frozen in
+ADR-0031 and reproduced with:
+
+```powershell
+& $python -m pontius.river_incremental_experiment --config experiments/configs/river-incremental-recertification-development-v1.json --output experiments/results/river-incremental-recertification-development-v1.json
+```
+
+The recorded development artifact passes every correctness, perturbation, and
+latency gate and has SHA-256
+`0daafbc3c241c00befc51f05fa14aaa705a51a880d7b9ae4a5fa2722906b9b9e`.
+It uses finite checkpoint-1/4/16/64 DCFR policies, not exact source teachers.
+The runner reports hot application, delta discovery, TV bound, compiled-cache
+construction, and finite source solving separately. Re-running it is a timing
+replicate, not fresh evidence, and the post-hoc bound-first threshold analysis
+in ADR-0032 is not a frozen deployment rule.
+
 ## Continuation protocol
 
 1. Read `PROJECT.md`, `STATUS.md`, and the relevant decision records.

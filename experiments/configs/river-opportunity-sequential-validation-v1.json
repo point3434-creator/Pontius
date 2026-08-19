@@ -1,0 +1,15 @@
+{
+  "allocation_average_iteration_budgets": [4],
+  "allocation_context_limit": 10000,
+  "checkpoints": [0, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64],
+  "families": ["balanced", "polarized", "blocker_stress", "correlated"],
+  "groups": 400,
+  "hands_per_player": 4,
+  "included_splits": ["validation"],
+  "measure_active_regret_summary_cost": true,
+  "seed": 20260820,
+  "sequential_raise": true,
+  "shadow_regret_variants": {},
+  "solvers": ["dcfr"],
+  "store_policies": false
+}

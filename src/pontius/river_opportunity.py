@@ -620,6 +620,13 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
         for checkpoint in config.get("checkpoints", DEFAULT_CHECKPOINTS)
     )
     store_policies = bool(config.get("store_policies", False))
+    measure_active_regret_summary_cost_value = config.get(
+        "measure_active_regret_summary_cost",
+        False,
+    )
+    if not isinstance(measure_active_regret_summary_cost_value, bool):
+        raise TypeError("measure_active_regret_summary_cost must be a boolean")
+    measure_active_regret_summary_cost = measure_active_regret_summary_cost_value
     default_allocation_budgets = tuple(
         budget
         for budget in (2, 4, 8, 16, 32)
@@ -698,6 +705,7 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
     records: list[dict[str, Any]] = []
     oracle_seconds = 0.0
     solver_seconds_total = 0.0
+    active_regret_summary_seconds_total = 0.0
     evaluation_seconds_total = 0.0
 
     for context in contexts:
@@ -755,6 +763,25 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
                     previous_average_policy,
                     context.game.payoff_span,
                 )
+                active_regret_summary_milliseconds = None
+                if measure_active_regret_summary_cost:
+                    feature_start = time.perf_counter()
+                    active_regret_features = _regret_features(
+                        [
+                            regret
+                            for data in solver.information_sets.values()
+                            for regret in data.regrets.values()
+                        ],
+                        context.game.payoff_span,
+                    )
+                    feature_seconds = time.perf_counter() - feature_start
+                    active_regret_summary_seconds_total += feature_seconds
+                    active_regret_summary_milliseconds = feature_seconds * 1_000.0
+                    for name, value in active_regret_features.items():
+                        if abs(float(solver_features[name]) - float(value)) > TOLERANCE:
+                            raise AssertionError(
+                                f"measured active regret summary differs at {name!r}"
+                            )
                 online_features: dict[str, object] = {
                     **context_features,
                     "solver": variant,
@@ -768,6 +795,10 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
                     "cumulative_solver_milliseconds": cumulative_solver_seconds * 1_000.0,
                     **solver_features,
                 }
+                if active_regret_summary_milliseconds is not None:
+                    online_features["active_regret_summary_milliseconds"] = (
+                        active_regret_summary_milliseconds
+                    )
                 _validate_online_features(online_features)
 
                 evaluation_start = time.perf_counter()
@@ -837,6 +868,9 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
             },
             "checkpoints": list(checkpoints),
             "store_policies": store_policies,
+            "measure_active_regret_summary_cost": (
+                measure_active_regret_summary_cost
+            ),
             "allocation_average_iteration_budgets": list(allocation_budgets),
             "allocation_context_limit": allocation_context_limit,
         },
@@ -845,6 +879,7 @@ def run_river_opportunity_experiment(config: dict[str, Any]) -> dict[str, Any]:
             "context_generation_seconds": generation_seconds,
             "oracle_seconds": oracle_seconds,
             "solver_seconds": solver_seconds_total,
+            "active_regret_summary_seconds": active_regret_summary_seconds_total,
             "diagnostic_evaluation_seconds": evaluation_seconds_total,
             "postprocessing_seconds": postprocessing_seconds,
             "wall_seconds": wall_seconds,

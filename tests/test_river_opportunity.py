@@ -167,6 +167,39 @@ class RiverOpportunityTests(unittest.TestCase):
             0,
         )
 
+    def test_trace_can_charge_a_minimal_active_regret_summary(self) -> None:
+        result = run_river_opportunity_experiment(
+            {
+                "groups": 1,
+                "seed": 5,
+                "hands_per_player": 2,
+                "families": ["balanced"],
+                "solvers": ["dcfr"],
+                "checkpoints": [0, 1, 2],
+                "sequential_raise": True,
+                "measure_active_regret_summary_cost": True,
+            }
+        )
+
+        self.assertTrue(result["config"]["measure_active_regret_summary_cost"])
+        self.assertGreaterEqual(
+            result["timing"]["active_regret_summary_seconds"],
+            0.0,
+        )
+        for record in result["records"]:
+            self.assertGreaterEqual(
+                record["online_features"][
+                    "active_regret_summary_milliseconds"
+                ],
+                0.0,
+            )
+
+    def test_active_regret_cost_flag_must_be_boolean(self) -> None:
+        with self.assertRaisesRegex(TypeError, "measure_active"):
+            run_river_opportunity_experiment(
+                {"groups": 1, "measure_active_regret_summary_cost": "yes"}
+            )
+
     def test_trace_rejects_invalid_shadow_regret_configuration(self) -> None:
         base = {
             "groups": 1,

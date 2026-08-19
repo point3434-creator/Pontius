@@ -313,6 +313,23 @@ construct validation until the fixed-rule evaluator is committed. Generate
 validation before test, apply the rule once without selection, and stop without
 test or retuning if any ADR-0024 validation gate fails.
 
+After committing `river_scheduler_holdout`, ADR-0025, and both reserved configs,
+generate and evaluate validation only:
+
+```powershell
+& $python -m pontius.river_opportunity --config experiments/configs/river-opportunity-sequential-validation-v1.json --output experiments/results/river-opportunity-sequential-validation-v1.json
+& $python -m pontius.river_scheduler_holdout --source experiments/results/river-opportunity-sequential-validation-v1.json --rule experiments/rules/river-post-probe-scheduler-v1.json --split validation --output experiments/results/river-opportunity-sequential-validation-v1-scheduler-holdout.json
+```
+
+The holdout evaluator enforces the frozen rule SHA and performs no candidate
+selection. Only when the validation artifact says
+`validation_passed_test_authorized` may test be generated and evaluated:
+
+```powershell
+& $python -m pontius.river_opportunity --config experiments/configs/river-opportunity-sequential-test-v1.json --output experiments/results/river-opportunity-sequential-test-v1.json
+& $python -m pontius.river_scheduler_holdout --source experiments/results/river-opportunity-sequential-test-v1.json --rule experiments/rules/river-post-probe-scheduler-v1.json --split test --validation-result experiments/results/river-opportunity-sequential-validation-v1-scheduler-holdout.json --output experiments/results/river-opportunity-sequential-test-v1-scheduler-holdout.json
+```
+
 Only an identical `provenance_digest` authorizes an exact strategy-cache hit.
 `structural_digest` authorizes topology and board-work reuse, not strategy
 deployment. Total-variation bounds in this laboratory cover one fixed policy's

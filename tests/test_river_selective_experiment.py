@@ -108,6 +108,16 @@ class RiverSelectiveExpansionExperimentTests(unittest.TestCase):
         self.assertTrue(
             all(not row["selection_authorized"] for row in self.result["oracle_ceiling"])
         )
+        fixed_warm = self.result["fixed_warm_mask_oracle"]
+        self.assertEqual(len(fixed_warm), 2)
+        self.assertTrue(all(not row["selection_authorized"] for row in fixed_warm))
+        self.assertTrue(
+            all(
+                row["mask_oracle_with_no_op_total_reduction"]
+                >= row["full_mask_with_no_op_total_reduction"]
+                for row in fixed_warm
+            )
+        )
 
     def test_reserved_splits_non_nested_masks_and_unknown_fields_fail(self) -> None:
         with self.assertRaisesRegex(ValueError, "development-only"):
@@ -123,4 +133,3 @@ class RiverSelectiveExpansionExperimentTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

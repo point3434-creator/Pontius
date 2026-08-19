@@ -398,6 +398,95 @@ def _oracle_ceiling(
     return result
 
 
+def _fixed_warm_mask_oracle(
+    records: list[dict[str, Any]],
+    *,
+    full_mask_name: str,
+) -> list[dict[str, object]]:
+    """Measure mask-selection headroom without also selecting warm strength."""
+
+    result = []
+    regimes = sorted(
+        {
+            (
+                float(row["warm_start_multiplier_by_payoff_span"]),
+                int(row["full_tree_equivalent_iteration_budget"]),
+            )
+            for row in records
+        }
+    )
+    for warm_multiplier, budget in regimes:
+        regime_rows = [
+            row
+            for row in records
+            if float(row["warm_start_multiplier_by_payoff_span"])
+            == warm_multiplier
+            and int(row["full_tree_equivalent_iteration_budget"]) == budget
+        ]
+        instances: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
+        for row in regime_rows:
+            instances[(str(row["context_id"]), str(row["target_name"]))].append(row)
+
+        mask_oracle_total = 0.0
+        mask_oracle_with_no_op_total = 0.0
+        full_mask_total = 0.0
+        full_mask_with_no_op_total = 0.0
+        oracle_no_ops = 0
+        full_mask_no_ops = 0
+        winning_masks: dict[str, int] = defaultdict(int)
+        for rows in instances.values():
+            best = max(
+                rows,
+                key=lambda row: float(row["nash_conv_reduction_from_blueprint"]),
+            )
+            best_reduction = float(best["nash_conv_reduction_from_blueprint"])
+            winning_masks[str(best["mask_name"])] += 1
+            mask_oracle_total += best_reduction
+            if best_reduction > 0.0:
+                mask_oracle_with_no_op_total += best_reduction
+            else:
+                oracle_no_ops += 1
+
+            full_rows = [row for row in rows if row["mask_name"] == full_mask_name]
+            if len(full_rows) != 1:
+                raise AssertionError("fixed-warm oracle requires one full-mask row per instance")
+            full_reduction = float(
+                full_rows[0]["nash_conv_reduction_from_blueprint"]
+            )
+            full_mask_total += full_reduction
+            if full_reduction > 0.0:
+                full_mask_with_no_op_total += full_reduction
+            else:
+                full_mask_no_ops += 1
+
+        result.append(
+            {
+                "warm_start_multiplier_by_payoff_span": warm_multiplier,
+                "full_tree_equivalent_iteration_budget": budget,
+                "instances": len(instances),
+                "mask_oracle_total_reduction": mask_oracle_total,
+                "full_mask_total_reduction": full_mask_total,
+                "mask_oracle_minus_full_mask_reduction": (
+                    mask_oracle_total - full_mask_total
+                ),
+                "mask_oracle_with_no_op_total_reduction": (
+                    mask_oracle_with_no_op_total
+                ),
+                "full_mask_with_no_op_total_reduction": (
+                    full_mask_with_no_op_total
+                ),
+                "mask_oracle_with_no_op_uplift": (
+                    mask_oracle_with_no_op_total - full_mask_with_no_op_total
+                ),
+                "mask_oracle_no_op_instances": oracle_no_ops,
+                "full_mask_no_op_instances": full_mask_no_ops,
+                "winning_mask_counts": dict(sorted(winning_masks.items())),
+                "selection_authorized": False,
+            }
+        )
+    return result
+
+
 def run_selective_expansion_pilot(config: dict[str, Any]) -> dict[str, Any]:
     parsed = _validate_config(config)
     experiment_start = time.perf_counter()
@@ -650,6 +739,10 @@ def run_selective_expansion_pilot(config: dict[str, Any]) -> dict[str, Any]:
 
     summaries = _summaries(records)
     oracle = _oracle_ceiling(records, summaries)
+    fixed_warm_mask_oracle = _fixed_warm_mask_oracle(
+        records,
+        full_mask_name=str(parsed["masks"][-1]["name"]),
+    )
     config_payload = json.dumps(config, sort_keys=True, separators=(",", ":"))
     gates = {
         "development_contexts_only": all(context.split == "development" for context in contexts),
@@ -707,6 +800,7 @@ def run_selective_expansion_pilot(config: dict[str, Any]) -> dict[str, Any]:
         "records": records,
         "summaries": summaries,
         "oracle_ceiling": oracle,
+        "fixed_warm_mask_oracle": fixed_warm_mask_oracle,
         "interpretation_limits": {
             "development_only": True,
             "exact_continuation_values_are_oracle_control": True,

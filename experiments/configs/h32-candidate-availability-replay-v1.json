@@ -1,0 +1,42 @@
+{
+  "evidence_stage": "post_label_deterministic_replay_after_adr0113_with_zero_new_strategy_evaluations",
+  "expected_original_acceptance_sha256": "1898c24a6c0232059a19c2151f29537a574ba85d8ec9a3641c117eda9b9087af",
+  "expected_original_timing_sha256": "b432eda21d1978b1dd576a9f4e7451250f1d53dcf9a88a6efa739d681ecb6f33",
+  "expected_fresh_transfer_sha256": "af0a725f89d18eaf98e924fa0423176a8a8be6f6e477234fa492304101db3cf9",
+  "expected_selector_sha256": "edadd8f66a28ea03223d696be0611d4ba0ca6cc1b3b3b50f2bcb0bb666acc404",
+  "expected_replay_implementation_sha256": "bdb1b86db792d49e503915c399dbcc0cc3d03b3760acf8410d9ca2562de672ce",
+  "raw_guard": 3e-9,
+  "availability": {
+    "control_average32": 0,
+    "control_current48": 0,
+    "search_average1": 1,
+    "search_current1": 1,
+    "search_average2": 2,
+    "search_current2": 2,
+    "interpolate_current1_to2_alpha025": 2,
+    "interpolate_current1_to2_alpha050": 2,
+    "interpolate_current1_to2_alpha075": 2,
+    "search_average4": 4,
+    "search_current4": 4,
+    "search_average8": 8,
+    "search_current8": 8
+  },
+  "stages": [0, 1, 2, 4, 8],
+  "late_candidate_ids": ["search_average4", "search_current4", "search_average8", "search_current8"],
+  "gates": {
+    "expected_board_sources": 2,
+    "expected_targets": 8,
+    "expected_targets_per_board": 4,
+    "expected_candidates_per_target": 13,
+    "expected_stage_candidate_counts": [2, 4, 9, 11, 13],
+    "require_source_status_and_gates": true,
+    "require_nested_exhaustive_stages": true,
+    "require_full_stage_source_selection_identity": true,
+    "maximum_quality_vector_sum_error": 1e-12,
+    "require_finite_quality_and_cost": true,
+    "expected_new_training_steps": 0,
+    "expected_new_strategy_evaluations": 0,
+    "expected_new_tensor_contractions": 0,
+    "maximum_replay_seconds": 5.0
+  }
+}

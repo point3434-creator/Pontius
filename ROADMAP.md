@@ -307,6 +307,14 @@ from the source artifact's canonical layout order. ADR-0077 freezes a pure
 within-seat axis permutation with matching unary-column permutation; all four
 game provenance digests and deal counts remain exact, and no representation
 result was exposed before the correction.
+The corrected run now resolves both questions. Exact clean-fringe deltas and
+their sign envelopes pass, but the universal capped-root gate fails on one of
+twelve late-average rows and is not weakened. Flat compatible-deal evaluation
+dominates meaningful four/seven-hand marginals. Clean reads do beat
+recomposition on mature h7 average-to-average updates, isolating their real
+customer. The next gate removes the current two-term candidate/baseline
+duplication with a signed single-seat reach factor and chooses a clean cutset by
+rank/work before C++ specialization.
 
 **Target:** months 4-6.5.
 

@@ -723,6 +723,27 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   while carrying every unary column preserves exact game provenance and the
   compatible-deal counts on all four geometries; the ADR-0076 workload and
   gates remain byte-frozen.
+- The corrected representation audit completes all 126 rank and 134 candidate
+  rows. Thirteen of fourteen gates pass. Clean-fringe deltas agree with exact
+  controls within `4.03e-14`, bounds have zero violations, and all 654 nonzero
+  sign certificates are correct.
+- The universal capped-root gate fails on exactly one of twelve late-average
+  rows: h4 blocker-heavy seat 3 has rank-8 normalized error `4.65e-4`; rank
+  16/32 fix value error but exceed the 25% h4 storage ceiling. All six h7 late
+  rows pass rank 16 at 4.462% of dense and at most `5.16e-5` error.
+- Real average selected ranks jump from uniform's 6-23 to 40-169 by checkpoint
+  four, peak at 43-196 near checkpoint 16, and decline only partly at the last
+  checkpoint. They remain much closer to hashed-dense than uniform. Literal-BR
+  target ranks are lower at 10-70.
+- The flat evaluator wins 115/134 raw marginal bills and every meaningful h4
+  changed candidate. Clean fringe nevertheless beats recomposition by median
+  factors `1.293x` and `1.326x` on the actual h7 checkpoint 4→16 and 16→64
+  average-update customer; uniform-near and pure-BR candidates favor
+  recomposition.
+- Every nonzero whole-seat edit has a 64-node support frontier. All-six feature
+  width grows from roughly 8k-11k at h4 to 16k-21k at h7, and the current
+  two-sided stream pays the same structural bill for microscopic and material
+  policy TV.
 
 ## In progress
 
@@ -734,10 +755,10 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   and average accumulators for all four update rules and a six-player control.
   Revealed source-only calibration costs 23-29 ms per h4 iteration and 194-350
   ms per h7 iteration, removing the premise for coarse-axis policy lifting.
-- ADR-0077's corrected ADR-0076 runner is frozen and ready to run. It will
-  compare crown rank versus
-  checkpoint and charge clean-fringe, TT recomposition, and flat compatible-
-  deal evaluation with compile, marginal, and break-even bills.
+- ADR-0078 records the clean-fringe exactness pass and universal capped-root
+  rejection. The next implementation target is a one-term signed single-seat
+  frontier delta plus a rank/work-optimized clean cutset before any native
+  kernel specialization.
 - Treating response actions and per-player deviation vectors, rather than
   probability reconstruction or leaf MSE alone, as representation gates.
 - Separating online value/action contraction from offline all-player response
@@ -749,9 +770,9 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Run the axis-corrected frozen representation/read-path screen, record rank-versus-checkpoint
-   before interpreting evaluator speed, and accept or reject each product on
-   its own declared gates.
+1. Replace candidate-minus-baseline term pairs with the exact single-seat signed
+   reach factor, then compare immediate and rank-optimized clean cutsets on the
+   revealed source workload without fitting a strategy selector.
 2. If the scalar path has credible scaling, expose conditional hand/action
    values and exact response-action gates without charging all-player BR work to
    every online decision.
@@ -771,5 +792,6 @@ None.
 
 ## Last updated
 
-2026-08-20, after ADR-0077 corrected a pre-rank source-axis ordering mismatch
-without changing ADR-0076's workload, gates, or accounting.
+2026-08-20, after the corrected audit accepted exact clean-fringe deltas,
+rejected the universal capped root, and localized the next cost to duplicated
+frontier terms and cut selection.

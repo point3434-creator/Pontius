@@ -15,7 +15,7 @@ control.
 
 The frozen configuration is
 `experiments/configs/multiway-source-tape-reuse-audit-v1.json`, SHA-256
-`ff45344d457d2c27a6500daa2c33b1d1e5e8d43d0219b8817999ec629fb46b4d`.
+`c602cebfa58ac113d4668bc1abc7da1ffdd285e5fecf981949fc49d5537ccd03`.
 The result target is
 `experiments/results/multiway-source-tape-reuse-audit-v1.json`.
 
@@ -38,7 +38,7 @@ Require byte-identical inputs:
 4. context generator SHA-256
    `806a0238ea2f0f9148209e1e515b35a17ae2fb5731de0ec103317557f2b253aa`;
 5. multiway game SHA-256
-   `942e2c4bf2acc0c5937b378a2d7620c5f318060d1068c84430af17e13de414d5`;
+   `942e2b4bf2acc0c5937b378a2d7620c5f318060d1068c84430af17e13de414d5`;
 6. coalition evaluator SHA-256
    `6aee741a2f90d42c935bb85d6b8ac616bbcbbc3d90ef588112529c27133c86a3`;
    and
@@ -88,6 +88,11 @@ Require:
 The last gate tests source-relative epoch semantics against range and policy
 call-order contamination. An approximate distance, overlap, embedding, or
 nearest-range cache key is forbidden.
+
+The initial preregistration transcribed the multiway-game digest with `c` in
+place of `b`. The strict configuration parser rejected it before context
+generation, solving, evaluation, or timing. The digest and configuration hash
+above were corrected at that point; no workload or gate changed.
 
 ## Frozen performance accounting
 

@@ -266,6 +266,13 @@ one operator, while rank 8 develops `6.64e-05` literal expectation error at
 seven hands. C3 therefore advances to bottom-up fixed-policy TT composition and
 one root contraction, not 64 independent terminal-group passes. Conditional
 hand/action vectors and response-action identity remain the next hard gate.
+The fixed-policy composition control is exact, but the compression hypothesis
+fails: exact middle ranks reach 202, and rank 32 still has `0.0634%` normalized
+utility error versus the frozen `0.01%` gate while exceeding dense storage on
+the small axis. Terminal ranks top out at ten, isolating arbitrary hand-policy
+gates as the source. C3 now screens the ten 3/3 seat elimination partitions. If
+no transferable order restores compression, the architecture will retain an
+explicit public-state bond instead of collapsing the whole tree into one TT.
 
 **Target:** months 4-6.5.
 

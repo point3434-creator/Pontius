@@ -630,12 +630,21 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 - Rank 8 ceases to be exact on the preregistered seven-hand extension: maximum
   literal scalar expectation error is `6.64e-05`, versus Float64 noise at four
   and five hands. Wider rank selection remains open and must use root/actions.
+- Bottom-up fixed-policy root TT composition is implementation-exact: terminal
+  error is at most `7.31e-10`, exact root tensor error `3.30e-11`, exact utility
+  error `3.09e-13`, and quotient disagreement `2.66e-15`.
+- Its compressed-arm hypothesis fails. Rank 8/16/32 maximum normalized utility
+  errors are `1.0478%`, `0.3047%`, and `0.06342%`, versus the frozen `0.01%`
+  gate. Rank 16/32 also exceed the `25%` small-axis storage ceiling.
+- Public-policy elimination, not terminal payoff, causes rank growth. Maximum
+  terminal rank is ten, while exact root middle ranks reach 26 for uniform, 75
+  for hashed-pure, and 202 for hashed-dense policies.
 
 ## In progress
 
-- Building a bottom-up fixed-policy public-tree TT: action probabilities modify
-  one seat core, action branches sum/recompress, and only the root operator is
-  sent through the proven direct factor contraction.
+- Screening all ten distinct 3-versus-3 seat partitions and within-half mode
+  orders before abandoning root TT; ordering is chosen without belief labels
+  and must transfer across policy/family/target cases.
 - Treating response actions and per-player deviation vectors, rather than
   probability reconstruction or leaf MSE alone, as representation gates.
 - Separating online value/action contraction from offline all-player response
@@ -647,11 +656,10 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Compile fixed public policies into bottom-up root TTs and compare root
-   utilities against the exact public-tree quotient; measure rank growth and
-   avoid one contraction per terminal group.
-2. Leave one target hand mode uncontracted to produce conditional action-value
-   vectors, then require literal unilateral response-action identity.
+1. Audit 3/3 seat partitions and mode orders against exact root spectra,
+   utility damage, storage, and reordered factor contraction.
+2. If ordering fails, retain an explicit public-state bond and contract a tree
+   tensor network; only then expose target-hand conditional action values.
 3. Build a larger causal early-stopping trace only after representation cost is
    honest; require blocker/correlation features and fresh grouped transfer.
 
@@ -668,5 +676,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after direct factor–TT contraction passed while seven-hand rank
-growth and one-table-per-payoff economics forced a public-policy root-TT lift.
+2026-08-19, after exact fixed-policy root composition revealed policy-induced
+rank 202 and rejected every global cap through 32.

@@ -252,6 +252,13 @@ is `3.666x` faster at ten hands but still takes over four seconds at 32 hands in
 Python. Belief storage is therefore no longer the primary C3 blocker; the next
 rank/compression target is the signed showdown and counterfactual value
 operator, evaluated by root strategy damage rather than tensor error alone.
+That operator screen now passes at rank 8. Across both revealed hand geometries,
+its maximum numerical bond rank is seven; rank 8 preserves every root metric
+and response action to Float64 noise while reducing grouped operator storage
+`5.12x` at four hands and `14.33x` at five. Rank 4 flips seven responses and is
+rejected despite a `14.22x` storage reduction. The active C3 gate is now direct
+contraction of rank-8 payoff cores with the exact nonnegative factor belief and
+card-subset topology, without reconstructing the Cartesian tensor.
 
 **Target:** months 4-6.5.
 

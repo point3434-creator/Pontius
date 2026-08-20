@@ -605,11 +605,24 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 - Routine poker belief storage and Bayesian updates therefore do not require a
   neural or signed low-rank model. The active combinatorial target is the
   showdown/counterfactual value operator, plus a native cached contraction.
+- The frozen signed showdown-operator screen now passes. Sixty-four terminal
+  payoff types are gathered into the literal public tree with zero error; the
+  untruncated TT control has `6.91e-11` operator error, `6.66e-14` root error,
+  and zero response-action mismatches.
+- Rank 8 is the sole safe arm across both hand geometries, one- and three-
+  component exact beliefs, and uniform/dense/pure policies. It has zero action
+  mismatches and `2.23e-15` maximum normalized root error.
+- Rank 8 uses `19.531%` of four-hand dense grouped-operator bytes (`5.12x`
+  smaller) and `6.976%` at five hands (`14.33x` smaller). Its cap exceeds all
+  observed numerical ranks, whose maximum bond rank is seven.
+- Rank 4 is decisively unsafe despite using only `7.031%` of dense storage: it
+  flips seven responses and reaches `0.9702%` normalized root error. Tensor MSE
+  again fails as a sufficient representation selector.
 
 ## In progress
 
-- Freezing a signed value-operator rank screen against the exact public-tree
-  quotient and exact nonnegative factor-belief oracle.
+- Building a direct rank-8 factor–TT contraction that never reconstructs the
+  Cartesian payoff tensor.
 - Treating response actions and per-player deviation vectors, rather than
   probability reconstruction or leaf MSE alone, as representation gates.
 - Separating online value/action contraction from offline all-player response
@@ -621,11 +634,11 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Measure exact and truncated ranks of card-compatible showdown/value tensors;
-   apply errors at the root and every unilateral response action.
-2. Prototype cached/native factor contraction only for the operator family that
-   survives the strategic rank screen; preserve the measured small-support
-   recursive/MITM crossover.
+1. Contract rank-8 payoff cores directly with exact mixture/unary beliefs and
+   cached card-subset incidence; verify scalar expectations against enumeration.
+2. Lift the proven contraction through public-policy values, then conditional
+   hand values needed for unilateral certification; keep online and offline
+   costs separate.
 3. Build a larger causal early-stopping trace only after representation cost is
    honest; require blocker/correlation features and fresh grouped transfer.
 
@@ -642,5 +655,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after exact factorized beliefs removed dense range storage while
-isolating payoff/value contraction as the remaining combinatorial barrier.
+2026-08-19, after rank 8 exactly compressed the revealed showdown operator and
+advanced to a direct factor–TT contraction gate.

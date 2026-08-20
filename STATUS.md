@@ -578,13 +578,28 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   over blind. Fresh compilation reaches pooled break-even after four reuses,
   but the margin is only 0.29%; four-reuse rate wins just 2/6 groups. Source
   reuse is adopted as an exact scaling primitive, not a deployable timing rule.
+- The exact public-tree quotient passes all frozen gates across 19 revealed
+  games and 57 profiles. Maximum error is `2.13e-14`, with zero unilateral
+  response-action, schema, public-topology, or numeric-layout failures.
+- On the 343-deal row, one 25-node public tree evaluates the full three-player
+  profile in `0.5028` ms: `173.07x` faster than the generic compiled tape and
+  `1180.46x` faster than ordinary traversal. Compilation is `56.03x` faster.
+- Persistent quotient tensors use 114,276 bytes, `1.639%` of the tape's
+  6,970,924 runtime bytes. Including estimated hot scratch raises the quotient
+  numeric footprint to `5.54%` of that tape control.
+- The result is structural reuse, not belief compression. A revealed
+  six-player/three-hand diagnostic still has 385 public nodes, 729 joint deals,
+  22.5 MB of persistent-plus-scratch numeric tensors, and a 24.177 ms Python
+  full-profile cost. Explicit joint support remains the active blocker.
 
 ## In progress
 
-- Freezing the factorized/low-rank belief-contraction contract against the
-  source-compiled enumerated oracle.
+- Freezing the factorized/low-rank belief-contraction contract against the much
+  faster exact public-tree quotient oracle.
 - Treating response actions and per-player deviation vectors, rather than
   probability reconstruction or leaf MSE alone, as representation gates.
+- Separating online value/action contraction from offline all-player response
+  certification so the latter is not charged to every decision.
 - Preserving per-player deviation vectors through contraction; coalition gains
   remain offline stress labels with separately visible cost.
 - Keeping the early-checkpoint opportunity as a causal-trace target, not a
@@ -592,10 +607,10 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Freeze the structured-belief contract and stress axes: independent,
-   blocker-heavy, and explicitly correlated ranges across widened supports.
-2. Prototype exact and truncated factorized contractions against enumeration,
-   measuring every per-player deviation term, action map, time, and memory.
+1. Freeze the structured-belief representation families and exact-vs-
+   approximate accounting on independent, blocker-heavy, and correlated axes.
+2. Prototype exact factor-graph and truncated low-rank contractions against the
+   quotient, measuring every per-player term, action map, time, and memory.
 3. Build a larger causal early-stopping trace only after representation cost is
    honest; require blocker/correlation features and fresh grouped transfer.
 
@@ -612,5 +627,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after exact source-tape reuse passed all frozen engineering gates
-while exposing a narrow, group-inconsistent four-reuse decision-rate margin.
+2026-08-19, after exact public-tree quotienting passed decisively while proving
+that explicit six-player joint support remains the next scaling barrier.

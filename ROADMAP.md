@@ -235,7 +235,14 @@ Precompiled primary verification beats blind rate 2.06%, while fresh source
 compilation reaches pooled break-even at four reuses by only 0.29% and wins just
 2/6 groups. Source reuse is therefore accepted as an exact oracle primitive,
 not a robust online rule. Removing explicit joint-deal materialization through
-factorized or low-rank contraction is now the active C3 scaling gate.
+factorized or low-rank contraction is now the active C3 scaling gate. Before
+approximating that belief, an exact public-tree quotient removes the duplicated
+betting tree from every deal. Across 19 revealed games it preserves every
+unilateral term and action within `2.13e-14`. On 343 deals it is `173.07x`
+faster than the generic compiled tape and uses `1.639%` of its persistent
+numeric bytes. This is the new enumerated oracle. A six-player diagnostic still
+reaches 385 public nodes and 729 explicit deals with only three hands per seat,
+so the quotient does not satisfy the belief-scaling gate by itself.
 
 **Target:** months 4-6.5.
 

@@ -278,15 +278,18 @@ rounding dominates. It amortizes at seven candidates, so the primitive remains
 useful for local edits and larger batches rather than passing as the frozen
 acceptance hot path. A seven-hand root alone costs 17%-20% of cold and one
 11-node crown path costs 69%-72%, so future reports use rank/cost-weighted
-closures rather than node fractions. C3 now builds a dense-free exact showdown
-automaton before the 32-hand lift, then screens seat cuts on actual DCFR-average
-and literal-BR provenance as well as hash controls. That screen also moves
-fixed-policy scalar candidate reads to clean-fringe contractions with no new TT
-rounding and charges rounding only when an accepted candidate becomes the new
-baseline. Within-axis strength sorting is recorded as a rank invariant, not a
-TT-SVD compression arm. If no transferable
-representation restores compression, the architecture will retain an explicit
-public-state bond instead of collapsing the whole tree into one TT.
+closures rather than node fractions. The dense-free showdown automaton now
+passes the 32-hand lift: maximum literal sampled error is `4.44e-16`, one sparse
+operator peaks at 97,048 bytes, all 384 group/target objects at 10.39 MB, and
+maximum reachable state rank at 187. A full 384-object Python construction
+takes 499-552 ms. This removes Cartesian terminal construction, not root-policy
+rank. C3 now screens seat cuts on actual DCFR-average and literal-BR provenance
+as well as hash controls. That screen also moves fixed-policy scalar candidate
+reads to clean-fringe contractions with no new TT rounding and charges rounding
+only when an accepted candidate becomes the new baseline. Within-axis strength
+sorting is recorded as a rank invariant, not a TT-SVD compression arm. If no
+transferable representation restores compression, the architecture will retain
+an explicit public-state bond instead of collapsing the whole tree into one TT.
 
 **Target:** months 4-6.5.
 

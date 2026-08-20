@@ -665,15 +665,31 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   compared on one public cutset; its simple shared-fringe error bound is at most
   twice the largest used cache bound. Rounding occurs only after acceptance on
   the baseline write path. Fringe contraction count remains an unmeasured cost.
+- Exact structured showdown automata now pass all twelve frozen gates across
+  4,608 builds. Complete four/seven-hand automaton, direct-TT, and zero-sum
+  errors are exactly zero; deterministic transition mismatches are zero.
+- The added wide literal-assignment oracle independently agrees within
+  `4.44e-16` on every six-seat payoff over 4,096 assignments per terminal
+  group. Wide sampled zero sum is `1.78e-15`; no wrong-winner bug is hidden by
+  conservation alone.
+- At 32 hands, the largest sparse automaton is only 97,048 bytes and all 384
+  group/target objects total at most 10.39 MB, versus one 8.59 GB dense payoff
+  tensor. Maximum reachable state rank is 187. Building 384 objects takes
+  499-552 ms in Python, or 1.30-1.44 ms each on average.
+- Strength sorting preserves every unfolding spectrum within `9.83e-14` and
+  never increases transition runs. Balanced axes were already strength-
+  monotone; blocker-heavy 32-hand sorting reduces transition runs 13.08% but
+  does not reduce uncompressed bytes or reliably improve build time.
+- The 384 logical objects collapse to 193 executable winner topologies, but
+  sharing saves only about 6.9% of numeric bytes at 32 hands because distinct
+  active-target tables dominate. Sparse construction, not deduplication, is the
+  primary terminal win.
+- The automaton is scoped to the equal-stack, one-bet no-side-pot tree. It
+  removes the selected-32-hand dense terminal blocker, not public-policy rank,
+  full-board hole-card width, conditional actions, or best-response cost.
 
 ## In progress
 
-- Building an exact dense-free showdown terminal as a seat-mode automaton over
-  running maximum strength, tie multiplicity, and target-in-argmax state, with
-  sunk contribution kept rank one.
-- Treating within-axis strength sorting as a TT-rank invariant control: it can
-  improve monotone construction/locality but cannot change unfolding singular
-  values. Seat elimination order remains a separate later screen.
 - Adding real policy-provenance arms—DCFR checkpoint averages and literal best
   responses—to the later representation audit instead of drawing architecture
   conclusions only from pseudo-random hash policies.
@@ -691,11 +707,12 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Construct exact structured showdown terminals without SVD or dense Cartesian
-   intermediates and verify them against four/seven-hand literal operators.
-2. Audit seat partitions and the read/write-split scalar evaluator on uniform,
+1. Audit seat partitions and the read/write-split scalar evaluator on uniform,
    pure, hashed-dense, DCFR-average, and literal-BR provenance; include the
    within-axis permutation invariant and near-guard abstention checks.
+2. If the scalar path has credible scaling, expose conditional hand/action
+   values and exact response-action gates without charging all-player BR work to
+   every online decision.
 3. If no transferable representation passes, retain an explicit public-state
    bond; then expose conditional action values and exact response-action gates.
 
@@ -712,5 +729,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after incremental policy-delta composition passed every correctness
-and bound gate but missed four-reuse unilateral economics at seven hands.
+2026-08-19, after the exact sparse showdown automaton passed all frozen
+four/seven/32-hand correctness and storage gates.

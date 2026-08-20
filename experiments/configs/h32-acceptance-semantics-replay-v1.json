@@ -1,0 +1,62 @@
+{
+  "evidence_stage": "post_label_semantics_audit_after_adr0104_with_zero_new_strategy_evaluation",
+  "seed": 20260820,
+  "expected_source_sha256": {
+    "adr0099": "150362ea770c80190c8124148fa66e0a376d98d1bd01b790f3d11e5ad9b5d8a9",
+    "adr0101": "b432eda21d1978b1dd576a9f4e7451250f1d53dcf9a88a6efa739d681ecb6f33",
+    "adr0103": "ba0fdd6ea8dfd67de3f74c9026588d3555525d362a74ad1f03295f35281cb8c0"
+  },
+  "expected_audit_implementation_sha256": "edadd8f66a28ea03223d696be0611d4ba0ca6cc1b3b3b50f2bcb0bb666acc404",
+  "source_order": ["adr0099", "adr0101", "adr0103"],
+  "range_families": ["balanced", "blocker_heavy"],
+  "target_shifts": ["local_blocker_seat3_x2", "all_seat_strength_1_to2"],
+  "players": 6,
+  "payoff_span": 30.0,
+  "acceptance_guard_normalized": 1e-10,
+  "pool_order": [
+    "adr0099_frozen_stream",
+    "adr0101_full_interleaved",
+    "adr0103_interpolation",
+    "full_measured_union"
+  ],
+  "order_variants": [
+    "canonical",
+    "reverse",
+    "policy_digest",
+    "seeded_permutations"
+  ],
+  "seeded_permutation_count": 64,
+  "fixed_envelope_contract": {
+    "cap_anchor": "blueprint_deviation_gain_plus_raw_guard_per_seat",
+    "objective": "minimum_raw_nash_conv_among_cap_feasible_policies",
+    "baseline_abstention": "retain_blueprint_when_within_raw_guard_of_minimum",
+    "candidate_tie_band": "raw_nash_conv_at_most_minimum_plus_raw_guard",
+    "candidate_tie_break": "lexicographically_smallest_policy_sha256",
+    "stream_semantics": "recompute_canonical_choice_over_all_observed_policies",
+    "coalition_safety": false
+  },
+  "gates": {
+    "expected_target_rows": 4,
+    "expected_source_target_rows": 12,
+    "expected_source_stream_candidates_per_target": {
+      "adr0099_frozen_stream": 3,
+      "adr0101_full_interleaved": 8,
+      "adr0103_interpolation": 5
+    },
+    "expected_union_candidates_per_target": 13,
+    "expected_order_variants_per_pool": 67,
+    "expected_new_strategy_evaluations": 0,
+    "require_source_hash_identity": true,
+    "require_source_status_identity": true,
+    "require_target_descriptor_identity": true,
+    "require_blueprint_identity": true,
+    "maximum_duplicate_quality_error": 1e-15,
+    "maximum_quality_sum_error": 1e-12,
+    "maximum_quality_normalization_error": 1e-15,
+    "require_frozen_legacy_replay_identity": true,
+    "require_fixed_envelope_order_invariance": true,
+    "require_selected_cap_compliance": true,
+    "require_synthetic_tie_semantics": true,
+    "maximum_total_audit_seconds": 10.0
+  }
+}

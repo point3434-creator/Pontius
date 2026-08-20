@@ -276,10 +276,15 @@ pooled after charging compilation. At seven hands, a seat-wide change skips
 67.2% of strategic nodes yet gains only `1.20x` raw because upper-tree TT
 rounding dominates. It amortizes at seven candidates, so the primitive remains
 useful for local edits and larger batches rather than passing as the frozen
-acceptance hot path. C3 now builds a dense-free exact showdown automaton before
-the 32-hand lift, then screens seat cuts on actual DCFR-average and literal-BR
-provenance as well as hash controls. Within-axis strength sorting is recorded as
-a rank invariant, not a TT-SVD compression arm. If no transferable
+acceptance hot path. A seven-hand root alone costs 17%-20% of cold and one
+11-node crown path costs 69%-72%, so future reports use rank/cost-weighted
+closures rather than node fractions. C3 now builds a dense-free exact showdown
+automaton before the 32-hand lift, then screens seat cuts on actual DCFR-average
+and literal-BR provenance as well as hash controls. That screen also moves
+fixed-policy scalar candidate reads to clean-fringe contractions with no new TT
+rounding and charges rounding only when an accepted candidate becomes the new
+baseline. Within-axis strength sorting is recorded as a rank invariant, not a
+TT-SVD compression arm. If no transferable
 representation restores compression, the architecture will retain an explicit
 public-state bond instead of collapsing the whole tree into one TT.
 

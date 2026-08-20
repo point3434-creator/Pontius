@@ -656,6 +656,15 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   baseline/candidate pair at 94.55 MB. Cache capacity is not the current wall.
   Fixed-policy sign guards remain explicitly unauthorized for best-response,
   Pareto, coalition, NashConv, or equilibrium claims.
+- At seven hands, recomputing only the root costs 17.09%-19.75% of cold, while
+  one 11-node root-to-leaf closure costs 69.13%-72.01%. Cost-weighted dirty
+  closure, not node fraction, becomes a required statistic. Recorded root
+  middle ranks grow from 53-64 at four hands to 106-244 at seven.
+- The policy-delta successor moves candidate evaluation to a no-rounding scalar
+  read path over cached clean-fringe TTs. Candidate and baseline reaches are
+  compared on one public cutset; its simple shared-fringe error bound is at most
+  twice the largest used cache bound. Rounding occurs only after acceptance on
+  the baseline write path. Fringe contraction count remains an unmeasured cost.
 
 ## In progress
 
@@ -668,6 +677,9 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 - Adding real policy-provenance arms—DCFR checkpoint averages and literal best
   responses—to the later representation audit instead of drawing architecture
   conclusions only from pseudo-random hash policies.
+- Requiring the later screen to compare clean-fringe scalar read time against
+  recompose-then-contract, report cost-weighted closures/crown ranks, and test
+  deterministic below/above-guard perturbations including abstention.
 - Treating response actions and per-player deviation vectors, rather than
   probability reconstruction or leaf MSE alone, as representation gates.
 - Separating online value/action contraction from offline all-player response
@@ -681,8 +693,9 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 1. Construct exact structured showdown terminals without SVD or dense Cartesian
    intermediates and verify them against four/seven-hand literal operators.
-2. Audit seat partitions on uniform, pure, hashed-dense, DCFR-average, and
-   literal-BR provenance; include the within-axis permutation invariant check.
+2. Audit seat partitions and the read/write-split scalar evaluator on uniform,
+   pure, hashed-dense, DCFR-average, and literal-BR provenance; include the
+   within-axis permutation invariant and near-guard abstention checks.
 3. If no transferable representation passes, retain an explicit public-state
    bond; then expose conditional action values and exact response-action gates.
 

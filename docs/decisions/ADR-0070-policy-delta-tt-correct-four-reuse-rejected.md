@@ -68,6 +68,22 @@ The result also exposes the remaining bottleneck. At seven hands, skipping
 and QR/SVD rounds, especially the root, dominate cost. Node locality alone does
 not make recomposition proportional to dirty-node count.
 
+The crown localization is sharper:
+
+| Seven-hand family | Root-only / cold | Eleven-node crown path / cold |
+|---|---:|---:|
+| balanced | `17.09%` | `69.13%` |
+| blocker-heavy | `19.75%` | `72.01%` |
+
+Thus 2.86% of all public nodes can consume about 70% of a cold composition.
+Every dirty closure contains the expensive crown. Direct-sum ranks add before
+rounding and QR/SVD cost is superlinear in those ranks, so raw node count is a
+poor work proxy. The recorded root output middle ranks are 53-64 at four hands
+and 106-244 at seven: 185-244 on balanced axes and 106-211 on blocker-heavy
+axes. This strongly warns against favorable 32-hand reuse extrapolation, but it
+does not measure one; real solver policies may have materially smaller crown
+ranks than the hashed-dense control.
+
 ## Four-reuse gate fails
 
 The frozen amortized cost is
@@ -93,6 +109,59 @@ point, eight reuses. Persistent-cache memory is not the blocker: the maximum
 six-player baseline cache is 48.20 MB of numeric storage, and the maximum
 simultaneous baseline-plus-candidate footprint is 94.55 MB. Python object
 overhead is excluded.
+
+## Read/write split for the successor
+
+Recomposing and rounding a root TT is a cache-write operation. The acceptance
+customer initially needs only a scalar fixed-policy utility delta. The
+successor must therefore compare the current round-on-every-read path with an
+exact clean-fringe contraction that performs no candidate-time TT rounding.
+
+Let `F` be a public cutset at the clean fringe of the dirty induced tree. For a
+private hand tuple `h`, candidate public reaches `q'_f(h)` are nonnegative and
+sum to one over `f in F`. Each reach is a product of per-seat hand unaries and
+can be folded into the exact factor belief. If cached fringe value `V_hat_f`
+has sup-norm error at most `b_f`, then
+
+`abs(U_hat_candidate - U_candidate) <= max_f b_f`.
+
+Evaluate the baseline through the same cutset and subtract. The shared-fringe
+delta has error at most
+
+`E_b[sum_f abs(q'_f - q_f) b_f] <= 2 * max_f b_f`.
+
+This removes every new crown-rounding term. A tighter reach-weighted bound may
+be reported, but the `2 * max` bound is the simple certificate. If a candidate
+is accepted and becomes the new baseline, compose and round once on the write
+path and amortize that cost over its lifetime.
+
+This algebra does not guarantee a latency win. A naive implementation launches
+one factor-TT contraction per fringe term and could merely exchange expensive
+SVDs for too many contractions. Prefix reach products, compatible-card
+incidence, six player targets, and mutually exclusive public branches must be
+batched. The successor gate is read-path scalar delta time versus
+recompose-then-contract on identical whole-seat candidates, not composition
+time alone.
+
+For unilateral same-seat edits, a hybrid-policy telescoping expansion is also
+exact. The one-bet tree limits repeated same-seat action products on one line,
+but overlapping ancestor/descendant edits still require their cross terms. Use
+either a cutset evaluation or an explicitly verified telescoping order; do not
+sum independent single-node effects as though they were additive.
+
+The successor must additionally report:
+
+- dirty-node fraction;
+- measured dirty cost divided by measured cold cost;
+- a pre-evaluation cost proxy based on cached raw/output ranks and core sizes;
+- clean-fringe term count and batched contraction feature work; and
+- crown ranks by policy provenance.
+
+It must include deterministic near-guard controls. Interpolate one root-hand
+swap to place fixed-policy deltas below and above the guard, then require the
+expected abstention/certificate decisions against the dense oracle. ADR-0069's
+120 large mutations all cleared the guard and therefore did not exercise
+abstention.
 
 ## Decision
 

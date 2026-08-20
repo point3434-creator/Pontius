@@ -301,7 +301,12 @@ decisive evidence. ADR-0076 now freezes that screen: 126 root-rank rows, 134
 whole-seat candidates, exact clean-fringe delta certificates, and equal
 compile/marginal/reuse bills against recomposition and the flat compatible-deal
 incumbent. There is no small-axis speed gate; cap-32 compression and clean-read
-economics are separate products and may be rejected independently.
+economics are separate products and may be rejected independently. Its first
+invocation stopped before root composition because generator hand order differed
+from the source artifact's canonical layout order. ADR-0077 freezes a pure
+within-seat axis permutation with matching unary-column permutation; all four
+game provenance digests and deal counts remain exact, and no representation
+result was exposed before the correction.
 
 **Target:** months 4-6.5.
 

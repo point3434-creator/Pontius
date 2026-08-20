@@ -1,0 +1,11 @@
+{
+  "evidence_stage": "preregistered_pre_rank_axis_order_correction",
+  "expected_source_artifact_sha256": "cdcae48dcca5fd1447fd5ad33426a4b20f04e098c88897d8f0f6eddb797ef36e",
+  "expected_base_config_sha256": "fa13bc219050ca885b176fe024b2af3ce2940c40806626b7be8dcd1eb991c22f",
+  "expected_base_implementation_sha256": "584548f9de392cd6691db710b2b95b17c574e363369b7c802048bad660ed6351",
+  "expected_correction_implementation_sha256": "08d91f37e02c72ebcdab6fab2ec1f5b9ae57615693c4af0c2508d20ffcb31a31",
+  "axis_order_correction": "stable_lexicographic_hand_order_with_matching_unary_column_permutation",
+  "failed_attempt": "hand_axis_mismatch_before_first_root_composition",
+  "base_workload_and_gates_unchanged": true,
+  "representation_results_observed_before_correction": false
+}

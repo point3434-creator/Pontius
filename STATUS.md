@@ -715,6 +715,14 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 - Historical source modules are again byte-identical to their frozen hashes.
   Batched weighted contraction and per-node profiling live in additive modules,
   and the complete pre-freeze suite passes 405 tests.
+- ADR-0076's first run stopped in 0.331 seconds before any root composition or
+  rank because the regenerated factor axes used generator order while the
+  source artifact serialized each seat's hands in canonical layout order. No
+  v1 result artifact was written and no representation result was revealed.
+- ADR-0077 freezes an additive order-only correction. Sorting within each seat
+  while carrying every unary column preserves exact game provenance and the
+  compatible-deal counts on all four geometries; the ADR-0076 workload and
+  gates remain byte-frozen.
 
 ## In progress
 
@@ -726,7 +734,8 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   and average accumulators for all four update rules and a six-player control.
   Revealed source-only calibration costs 23-29 ms per h4 iteration and 194-350
   ms per h7 iteration, removing the premise for coarse-axis policy lifting.
-- ADR-0076 is frozen and ready to run. It will compare crown rank versus
+- ADR-0077's corrected ADR-0076 runner is frozen and ready to run. It will
+  compare crown rank versus
   checkpoint and charge clean-fringe, TT recomposition, and flat compatible-
   deal evaluation with compile, marginal, and break-even bills.
 - Treating response actions and per-player deviation vectors, rather than
@@ -740,7 +749,7 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Run the frozen representation/read-path screen, record rank-versus-checkpoint
+1. Run the axis-corrected frozen representation/read-path screen, record rank-versus-checkpoint
    before interpreting evaluator speed, and accept or reject each product on
    its own declared gates.
 2. If the scalar path has credible scaling, expose conditional hand/action
@@ -762,5 +771,5 @@ None.
 
 ## Last updated
 
-2026-08-20, after ADR-0076 froze the real-policy representation and clean-
-fringe audit without observing canonical-source ranks or evaluator results.
+2026-08-20, after ADR-0077 corrected a pre-rank source-axis ordering mismatch
+without changing ADR-0076's workload, gates, or accounting.

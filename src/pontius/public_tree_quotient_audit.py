@@ -264,9 +264,11 @@ def _hashed_policy(
                 for index, action in enumerate(actions)
             }
         else:
+            weights = tuple(float(1 + score % 31) for score in scores)
+            total = sum(weights)
             result[key] = {
-                action: float(1 + score % 31)
-                for action, score in zip(actions, scores, strict=True)
+                action: weight / total
+                for action, weight in zip(actions, weights, strict=True)
             }
     return result
 

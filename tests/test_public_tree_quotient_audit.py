@@ -4,6 +4,7 @@ import json
 import unittest
 from pathlib import Path
 
+from pontius.dependency_tape import CompiledPolicyDeltaTape
 from pontius.public_tree_quotient_audit import (
     _build_disjoint_game,
     _hashed_policy,
@@ -48,8 +49,10 @@ class PublicTreeQuotientAuditTests(unittest.TestCase):
         )
         for key, actions in schema.items():
             self.assertTrue(all(dense[key][action] > 0.0 for action in actions))
+            self.assertAlmostEqual(sum(dense[key].values()), 1.0)
             self.assertEqual(sum(pure[key].values()), 1.0)
             self.assertEqual(sum(value == 0.0 for value in pure[key].values()), 1)
+        CompiledPolicyDeltaTape(game, {}).recertify_policy(dense, mode="dense")
 
     def test_unknown_fields_stage_changes_and_source_changes_fail(self) -> None:
         unknown = config()

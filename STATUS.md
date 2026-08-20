@@ -703,6 +703,18 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   744-757 distinct action distributions at h4 and 1,318-1,329 at h7, with no
   exactly pure information sets. Whether poker-aligned variation compresses is
   now an open measurement rather than an assumed average-policy advantage.
+- ADR-0076 freezes the combined real-policy representation and clean-fringe
+  audit against the immutable source SHA before observing any canonical-policy
+  rank or evaluator result. It covers 126 rank rows, all ten 3/3 partitions,
+  134 whole-seat candidates, and compile/marginal/reuse bills for three
+  evaluators without a small-axis speed gate.
+- The clean-fringe successor evaluates fixed-policy utility deltas with no
+  candidate-time TT rounding. Its certificate is `2 * max(frontier bound)`
+  plus a separate Float64 allowance; candidate reach above overlapping edits
+  is verified against dense and scalar oracles.
+- Historical source modules are again byte-identical to their frozen hashes.
+  Batched weighted contraction and per-node profiling live in additive modules,
+  and the complete pre-freeze suite passes 405 tests.
 
 ## In progress
 
@@ -714,10 +726,9 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   and average accumulators for all four update rules and a six-player control.
   Revealed source-only calibration costs 23-29 ms per h4 iteration and 194-350
   ms per h7 iteration, removing the premise for coarse-axis policy lifting.
-- After the canonical source artifact passes, freezing a separate representation
-  and clean-fringe screen against its SHA-256. That screen will compare crown
-  rank versus checkpoint and charge clean-fringe, TT recomposition, and flat
-  compatible-deal evaluation with compile, marginal, and break-even bills.
+- ADR-0076 is frozen and ready to run. It will compare crown rank versus
+  checkpoint and charge clean-fringe, TT recomposition, and flat compatible-
+  deal evaluation with compile, marginal, and break-even bills.
 - Treating response actions and per-player deviation vectors, rather than
   probability reconstruction or leaf MSE alone, as representation gates.
 - Separating online value/action contraction from offline all-player response
@@ -729,8 +740,9 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Preregister the representation/read-path screen against the immutable source
-   SHA, then measure rank-versus-checkpoint before interpreting evaluator speed.
+1. Run the frozen representation/read-path screen, record rank-versus-checkpoint
+   before interpreting evaluator speed, and accept or reject each product on
+   its own declared gates.
 2. If the scalar path has credible scaling, expose conditional hand/action
    values and exact response-action gates without charging all-player BR work to
    every online decision.
@@ -750,5 +762,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after the canonical own-axis real-policy artifact passed all frozen
-identity gates and exposed the real checkpoint-TV axis without measuring rank.
+2026-08-20, after ADR-0076 froze the real-policy representation and clean-
+fringe audit without observing canonical-source ranks or evaluator results.

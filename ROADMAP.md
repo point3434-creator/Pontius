@@ -297,7 +297,11 @@ is low on these finite games but the averages retain nearly one distinct action
 distribution per information set, so favorable TT rank is not assumed. The
 next frozen screen reads the source artifact by SHA and treats rank versus
 checkpoint, common-frontier work, and equal evaluator accounting as the
-decisive evidence.
+decisive evidence. ADR-0076 now freezes that screen: 126 root-rank rows, 134
+whole-seat candidates, exact clean-fringe delta certificates, and equal
+compile/marginal/reuse bills against recomposition and the flat compatible-deal
+incumbent. There is no small-axis speed gate; cap-32 compression and clean-read
+economics are separate products and may be rejected independently.
 
 **Target:** months 4-6.5.
 

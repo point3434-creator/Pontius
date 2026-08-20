@@ -1,0 +1,8 @@
+{
+  "evidence_stage": "additive_control_flow_correction_after_v1_nameerror_before_any_result_artifact",
+  "expected_v1_config_sha256": "ed3812df2fccaa519e9abd9dc9ef921585597898f134e0e5cdd94d8aad4b2363",
+  "expected_v1_implementation_sha256": "bdb1b86db792d49e503915c399dbcc0cc3d03b3760acf8410d9ca2562de672ce",
+  "expected_correction_implementation_sha256": "bddca64e1cbfd21ae2f2647ff2dabafe3f1176ad70fac715d83d98531067a605",
+  "correction": "supply_stage_count_sentinel_from_frozen_availability_only",
+  "require_no_v1_result_artifact": true
+}

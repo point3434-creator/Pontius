@@ -69,6 +69,28 @@ Most importantly for the next decision, iterations 17-32 remove 73.438% and
 `4.81e-5` and `5.83e-5` normalized quality per training second. The curve has
 not established a plateau.
 
+The relative convergence factor improves in the final doubling: residual
+average NashConv falls by about 3.5-3.8x. Absolute quality gained per second
+does not accelerate, however. Balanced falls slightly from `5.51e-5` to
+`4.81e-5` normalized gain/s, while blocker-heavy falls from `1.75e-4` to
+`5.83e-5`. Under the quality-per-millisecond objective, the defensible claim is
+"still materially improving," not "accelerating."
+
+The average first beats current at iteration four for blocker-heavy and
+iteration eight for balanced. Current retakes blocker-heavy at iteration eight,
+but average is permanently ahead in both families by iteration 16. At 32 the
+two policies are close: current is marginally better balanced and average is
+marginally better blocker-heavy.
+
+The two final average normalized values differ by only 0.14%. This is useful
+evidence that one cost/quality model may serve these two range families, but
+two generated beliefs on one board are nowhere near enough to fit that rule.
+
+For context only, the independent h7 checkpoint-64 averages in the ADR-0075
+source normalize to `0.004971` balanced and `0.004140` blocker-heavy. Extending
+h32 to 64 can test whether width changes the convergence rate rather than
+assuming that the apparent similarity transfers.
+
 ## Per-seat result
 
 Final average deviation gains are:
@@ -149,6 +171,31 @@ All are inside their frozen gates.
 Checkpoint JSON states stabilize near 2.77 MB apiece. The verbose transparent
 format is already practical for laboratory restart and branch experiments,
 though it is not a production checkpoint encoding.
+
+## Tie geometry and the training incumbent
+
+Sharp current policies retain exactly the difficult geometry that motivated
+the interval/tie semantics:
+
+- balanced current has 1,984 exact action ties at iteration eight and a
+  minimum nonzero action gap of `1.29e-23` at iteration 16;
+- final current still has 32 exact ties balanced and five blocker-heavy; and
+- every measured average has zero exact ties.
+
+The final averages remain non-pure at every information set. They contain
+2,212 and 2,236 distinct action distributions with mean entropy `0.0874` and
+`0.0791`. The average is therefore not merely smoothing a mostly literal pure
+table; it is the strategically stable customer the representation work must
+serve.
+
+Balanced current's 54% raw-NashConv regression from iteration 8 to 16 also
+turns the certified-incumbent pattern into a training requirement. A product
+that deployed "current after N iterations" would have shipped a large quality
+regression at N=16. An exact-evaluated best-so-far incumbent would retain the
+iteration-eight profile until a later candidate passed its guard. Extend the
+ladder with both literal current/average curves and an acceptance-gated
+best-so-far trace; do not add a seat selector, since the final per-seat data
+shows the early seat asymmetry was transient.
 
 ## The decisive efficiency diagnosis
 

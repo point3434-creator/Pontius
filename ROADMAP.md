@@ -270,9 +270,18 @@ The fixed-policy composition control is exact, but the compression hypothesis
 fails: exact middle ranks reach 202, and rank 32 still has `0.0634%` normalized
 utility error versus the frozen `0.01%` gate while exceeding dense storage on
 the small axis. Terminal ranks top out at ten, isolating arbitrary hand-policy
-gates as the source. C3 now screens the ten 3/3 seat elimination partitions. If
-no transferable order restores compression, the architecture will retain an
-explicit public-state bond instead of collapsing the whole tree into one TT.
+gates as the source. The corrected fixed-belief policy-delta cache is exact and
+memory-modest, but misses its four-reuse unilateral speed gate: `0.99181x`
+pooled after charging compilation. At seven hands, a seat-wide change skips
+67.2% of strategic nodes yet gains only `1.20x` raw because upper-tree TT
+rounding dominates. It amortizes at seven candidates, so the primitive remains
+useful for local edits and larger batches rather than passing as the frozen
+acceptance hot path. C3 now builds a dense-free exact showdown automaton before
+the 32-hand lift, then screens seat cuts on actual DCFR-average and literal-BR
+provenance as well as hash controls. Within-axis strength sorting is recorded as
+a rank invariant, not a TT-SVD compression arm. If no transferable
+representation restores compression, the architecture will retain an explicit
+public-state bond instead of collapsing the whole tree into one TT.
 
 **Target:** months 4-6.5.
 

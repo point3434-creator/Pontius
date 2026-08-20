@@ -639,12 +639,35 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 - Public-policy elimination, not terminal payoff, causes rank growth. Maximum
   terminal rank is ten, while exact root middle ranks reach 26 for uniform, 75
   for hashed-pure, and 202 for hashed-dense policies.
+- Incremental policy-delta TT recomposition is exact. Across 120 candidate/player
+  rows it matches cold roots bit-for-bit, stays within `2.84e-13` of dense
+  utilities, has zero propagated-bound or six-seat zero-sum violations, and
+  produces zero wrong signs for 120 guarded fixed-policy utility deltas.
+- Seat-3 profile edits change 32 strategic nodes and dirty the union of 63
+  public nodes. Raw recomposition is `2.54x-2.68x` faster at four hands but only
+  about `1.20x` at seven, despite skipping 129 of 192 strategic nodes. Upper-
+  tree TT rounding, not dirty discovery or memory, dominates the wider axis.
+- The frozen four-reuse unilateral economics gate fails: pooled charged
+  incremental time is `4825.328 ms` versus `4785.817 ms` cold, or `0.99181x`.
+  Both seven-hand rows are about 8% slower after the charge. Every case breaks
+  even by seven reuses and passes the reported eight-reuse point, but the
+  frozen four-reuse result is not promoted.
+- Six baseline player caches peak at 48.20 MB of numeric storage and a live
+  baseline/candidate pair at 94.55 MB. Cache capacity is not the current wall.
+  Fixed-policy sign guards remain explicitly unauthorized for best-response,
+  Pareto, coalition, NashConv, or equilibrium claims.
 
 ## In progress
 
-- Screening all ten distinct 3-versus-3 seat partitions and within-half mode
-  orders before abandoning root TT; ordering is chosen without belief labels
-  and must transfer across policy/family/target cases.
+- Building an exact dense-free showdown terminal as a seat-mode automaton over
+  running maximum strength, tie multiplicity, and target-in-argmax state, with
+  sunk contribution kept rank one.
+- Treating within-axis strength sorting as a TT-rank invariant control: it can
+  improve monotone construction/locality but cannot change unfolding singular
+  values. Seat elimination order remains a separate later screen.
+- Adding real policy-provenance arms—DCFR checkpoint averages and literal best
+  responses—to the later representation audit instead of drawing architecture
+  conclusions only from pseudo-random hash policies.
 - Treating response actions and per-player deviation vectors, rather than
   probability reconstruction or leaf MSE alone, as representation gates.
 - Separating online value/action contraction from offline all-player response
@@ -656,12 +679,12 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Audit 3/3 seat partitions and mode orders against exact root spectra,
-   utility damage, storage, and reordered factor contraction.
-2. If ordering fails, retain an explicit public-state bond and contract a tree
-   tensor network; only then expose target-hand conditional action values.
-3. Build a larger causal early-stopping trace only after representation cost is
-   honest; require blocker/correlation features and fresh grouped transfer.
+1. Construct exact structured showdown terminals without SVD or dense Cartesian
+   intermediates and verify them against four/seven-hand literal operators.
+2. Audit seat partitions on uniform, pure, hashed-dense, DCFR-average, and
+   literal-BR provenance; include the within-axis permutation invariant check.
+3. If no transferable representation passes, retain an explicit public-state
+   bond; then expose conditional action values and exact response-action gates.
 
 ## Current blockers
 
@@ -676,5 +699,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after exact fixed-policy root composition revealed policy-induced
-rank 202 and rejected every global cap through 32.
+2026-08-19, after incremental policy-delta composition passed every correctness
+and bound gate but missed four-reuse unilateral economics at seven hands.

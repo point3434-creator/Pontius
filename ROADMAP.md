@@ -242,7 +242,16 @@ unilateral term and action within `2.13e-14`. On 343 deals it is `173.07x`
 faster than the generic compiled tape and uses `1.639%` of its persistent
 numeric bytes. This is the new enumerated oracle. A six-player diagnostic still
 reaches 385 public nodes and 729 explicit deals with only three hands per seat,
-so the quotient does not satisfy the belief-scaling gate by itself.
+so the quotient does not satisfy the belief-scaling gate by itself. The next
+exact representation result separates storage from contraction: a nonnegative
+mixture of per-seat ranges times exact card compatibility is closed under every
+ordinary public-action Bayesian update. It matches explicit beliefs within
+`2.22e-16`. At 32 hands per seat it stores 6,168 numeric bytes instead of an
+8.59 GB dense `32^6` probability tensor. Exact meet-in-the-middle normalization
+is `3.666x` faster at ten hands but still takes over four seconds at 32 hands in
+Python. Belief storage is therefore no longer the primary C3 blocker; the next
+rank/compression target is the signed showdown and counterfactual value
+operator, evaluated by root strategy damage rather than tensor error alone.
 
 **Target:** months 4-6.5.
 

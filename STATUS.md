@@ -591,11 +591,25 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   six-player/three-hand diagnostic still has 385 public nodes, 729 joint deals,
   22.5 MB of persistent-plus-scratch numeric tensors, and a 24.177 ms Python
   full-profile cost. Explicit joint support remains the active blocker.
+- Exact factorized-card beliefs now pass 40 closure cases. One- and three-
+  component nonnegative mixtures remain exact through repeated public action
+  likelihoods and hero-hand conditioning: full-distribution error is at most
+  `2.22e-16`, with zero support mismatches or impossible-card mass.
+- Six-player meet-in-the-middle partition-plus-marginal contraction beats
+  recursive enumeration `3.666x` at ten hands per seat, but loses at four hands
+  and is roughly tied on the seven-hand blocker case. A cost crossover is real.
+- At 32 hands per seat, the exact factor belief uses 6,168 numeric bytes versus
+  8.59 GB for a dense `32^6` probability tensor. It contracts 158-275 million
+  compatible assignments through at most 50,535 half-records, but still costs
+  4.23-4.89 seconds per Python split and builds 309k-372k incidence entries.
+- Routine poker belief storage and Bayesian updates therefore do not require a
+  neural or signed low-rank model. The active combinatorial target is the
+  showdown/counterfactual value operator, plus a native cached contraction.
 
 ## In progress
 
-- Freezing the factorized/low-rank belief-contraction contract against the much
-  faster exact public-tree quotient oracle.
+- Freezing a signed value-operator rank screen against the exact public-tree
+  quotient and exact nonnegative factor-belief oracle.
 - Treating response actions and per-player deviation vectors, rather than
   probability reconstruction or leaf MSE alone, as representation gates.
 - Separating online value/action contraction from offline all-player response
@@ -607,10 +621,11 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Freeze the structured-belief representation families and exact-vs-
-   approximate accounting on independent, blocker-heavy, and correlated axes.
-2. Prototype exact factor-graph and truncated low-rank contractions against the
-   quotient, measuring every per-player term, action map, time, and memory.
+1. Measure exact and truncated ranks of card-compatible showdown/value tensors;
+   apply errors at the root and every unilateral response action.
+2. Prototype cached/native factor contraction only for the operator family that
+   survives the strategic rank screen; preserve the measured small-support
+   recursive/MITM crossover.
 3. Build a larger causal early-stopping trace only after representation cost is
    honest; require blocker/correlation features and fresh grouped transfer.
 
@@ -627,5 +642,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after exact public-tree quotienting passed decisively while proving
-that explicit six-player joint support remains the next scaling barrier.
+2026-08-19, after exact factorized beliefs removed dense range storage while
+isolating payoff/value contraction as the remaining combinatorial barrier.

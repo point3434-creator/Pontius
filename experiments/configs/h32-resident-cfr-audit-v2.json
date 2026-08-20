@@ -1,0 +1,27 @@
+{
+  "evidence_stage": "preregistered_after_adr0118_formal_failure_before_the_single_v2_rerun",
+  "expected_v1_result_sha256": "e4b55f1e1ead00dcb29963c9aa513e3fb730927aff394bd2ea7bfa7d0ded867a",
+  "expected_v1_config_sha256": "a4f329761098ac33a0819d2b890f4f709775a83bab42562e77efe2580728cad9",
+  "expected_v1_implementation_sha256": "766899b6c4ed0798eb63bfc3ae07f46013f441b8d0af7d8dc1c6cf5be4c6c3f3",
+  "expected_v1_decision_sha256": "5c57c6568a18b7ae0bba9832db6c4a36773ead6422aa45d6c78ff4dfbaca6873",
+  "expected_audit_implementation_sha256": "bcc133640028b31957bf9d4a5d2dcd433f0caf753d947cb3c3cf88f53f4fdad9",
+  "rerun_protocol": "execute_immutable_v1_workload_and_all_v1_speed_gates",
+  "cross_run_identity_contract": "numerical_accumulator_and_policy_identity_at_frozen_tolerances",
+  "preserved_digest_semantics": "report_cross_run_digests_but_require_digests_only_for_stored_object_and_exact_restart_identity",
+  "gates": {
+    "require_v1_formal_failure": true,
+    "require_v1_only_cross_run_digest_gate_failed": true,
+    "expected_target_rows": 4,
+    "expected_checkpoint_comparisons": 8,
+    "maximum_legacy_teacher_regret_error": 1e-12,
+    "maximum_legacy_teacher_strategy_sum_error": 1e-12,
+    "maximum_resident_legacy_regret_error": 1e-9,
+    "maximum_resident_legacy_strategy_sum_error": 1e-9,
+    "maximum_resident_legacy_policy_probability_error": 1e-9,
+    "maximum_resident_legacy_policy_mean_tv": 1e-10,
+    "minimum_each_target_two_step_marginal_speedup": 1.5,
+    "minimum_each_target_one_step_cache_charged_speedup": 1.2,
+    "minimum_each_target_two_step_cache_charged_speedup": 1.5,
+    "maximum_total_audit_seconds": 1200.0
+  }
+}

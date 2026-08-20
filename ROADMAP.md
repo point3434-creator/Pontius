@@ -213,9 +213,19 @@ action mismatches. Hot dense candidate evaluation is 5.79x-6.57x faster than
 full traversal. However, exact state count, memory, and latency scale linearly
 in materialized joint deals, which grow cubically in hands per seat for three
 independent ranges and exponentially in player count. Explicit tuples are now
-an oracle representation only. The next grouped matrix must first show that
-full search retains value under per-seat and coalition constraints; if so, an
-exact factorized/low-rank belief contraction becomes the next scaling target.
+an oracle representation only. The frozen grouped matrix now shows that useful
+full-search value survives the stricter constraints: unilateral Pareto accepts
+36/96 primary candidates and pair-coalition stress accepts 10/96, both with
+positive retained quality. Aggregate acceptance removes 18 harmful DCFR-32
+deployments and raises raw quality 4.82%, but a fresh compiled tape makes its
+one-shot rate 3.30% worse than blind search. Precompiled and amortized rates are
+3.30% and 2.91% better, and compile plus two candidates is 1.77x faster than
+two ordinary evaluations. The fixed primary gate therefore fails narrowly and
+is not promoted. Exact source-compiled range-plus-policy reuse, followed by
+factorized/low-rank belief contraction against every per-player and coalition
+oracle label, becomes the next scaling gate. Early checkpoint diagnostics show
+scheduler opportunity but inconsistent group transfer, so no solver or stopping
+rule is selected post hoc.
 
 **Target:** months 4-6.5.
 

@@ -535,24 +535,55 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   independent three-player support grows cubically in hands per seat. Explicit
   joint enumeration is now classified as an exact teacher, not a scalable
   six-player representation.
+- The frozen first multiplayer strategy matrix completed from clean commit
+  `896f82a`: six development groups, 24 contexts, 96 range shifts, and 1,728
+  full-search candidates. All 24 source blueprints passed at iteration 128,
+  maximum normalized NashConv was `0.000644255`, and no reserved context was
+  materialized.
+- Ordinary and compiled evaluations agree within `1.95e-14`, with zero
+  best-response action mismatches. Hot candidate evaluation is `6.02x` faster,
+  and compile plus two hot candidates is `1.77x` faster than two ordinary
+  evaluations. The complete suite now passes 325 tests in 57.855 seconds.
+- Primary DCFR-32 aggregate acceptance removes 18 harmful deployments and
+  raises raw reduction 4.82%, but its fresh-compile one-shot rate falls 3.30%
+  below blind search. This sole failed primary hypothesis keeps the overall
+  frozen gate false. Precompiled and amortized diagnostics improve rate 3.30%
+  and 2.91% respectively but cannot rescue the preregistered failure.
+- Per-player and pair constraints are active rather than ceremonial. Only
+  36/96 primary candidates pass unilateral Pareto and 10/96 pass coalition
+  stress, both above their frozen acceptance thresholds and with positive
+  retained quality. Forty-two of 78 aggregate improvements worsen at least one
+  seat; 26 of 36 unilateral-Pareto candidates worsen at least one pair.
+- Strict-arm value is concentrated in three-way correlation shifts: they
+  supply 97.80% of unilateral-Pareto and 93.73% of coalition-stress raw
+  reduction. Single-seat blocker reweights rarely improve without shifting
+  vulnerability elsewhere. Aggregate NashConv alone is rejected as the
+  multiplayer deployment constraint.
+- Post-label diagnostics put the best pooled one-shot accepted rate at LCFR-4,
+  while DCFR-8 beats its blind rate in five of six groups. No checkpoint is
+  selected: group behavior is inconsistent and DCFR-32 remains the failed
+  frozen primary. The early rate peak becomes opportunity-trace evidence only.
 
 ## In progress
 
-- Freezing the first grouped three-player range-shift and full-search matrix.
-- Carrying exact acceptance into multiplayer as four explicit arms: blind,
-  aggregate NashConv, per-player unilateral Pareto, and pair-coalition stress.
-- Treating the explicit joint game as the oracle for a future factorized or
-  low-rank public-belief contraction rather than scaling tuple enumeration.
-- Keeping coalition cost separate from hot unilateral tape evaluation.
+- Designing an exact source-compiled range-plus-policy reuse gate before any
+  approximate range-cache or low-rank claim.
+- Treating the explicit joint game as the oracle for factorized or low-rank
+  public-belief contraction rather than scaling tuple enumeration.
+- Preserving per-player deviation vectors through contraction; coalition gains
+  remain offline stress labels with separately visible cost.
+- Keeping the early-checkpoint opportunity as a causal-trace target, not a
+  post-hoc solver or stopping-rule selection.
 
 ## Next three tasks
 
-1. Freeze and run the grouped three-player full-search/acceptance matrix, with
-   dense policy-tape reuse measured separately from compilation and coalitions.
-2. Prototype exact factorized belief contraction against the enumerated oracle
-   if the matrix shows useful search value.
-3. Build a larger causal opportunity trace before fitting another scheduler;
-   require blocker-sensitive reach/uncertainty features and grouped transfer.
+1. Reuse one source-compiled exact tape across support-preserving target ranges
+   and simultaneous candidate-policy changes; require literal agreement with
+   every enumerated evaluator and acceptance label.
+2. Prototype factorized or low-rank belief contraction against that oracle,
+   measuring every per-player deviation term, action map, time, and memory.
+3. Build a larger causal early-stopping trace only after representation cost is
+   honest; require blocker/correlation features and fresh grouped transfer.
 
 ## Current blockers
 
@@ -567,5 +598,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after the exact multiway contract and revealed cost calibration
-passed while identifying explicit joint-deal enumeration as teacher-only.
+2026-08-19, after the first frozen multiplayer strategy matrix passed exactness
+and strict-arm usefulness but failed the DCFR-32 fresh-compile rate gate.

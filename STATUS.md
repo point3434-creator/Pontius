@@ -618,11 +618,24 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 - Rank 4 is decisively unsafe despite using only `7.031%` of dense storage: it
   flips seven responses and reaches `0.9702%` normalized root error. Tensor MSE
   again fails as a sufficient representation selector.
+- Direct factor–TT contraction passes all frozen gates. It matches reconstructed
+  TT expectations within `3.38e-14`, compatible partitions within `2.22e-15`,
+  and synthetic enumerated-joint controls within `1.39e-16`.
+- The cached hot pass is `247.12x` faster than explicit joint enumeration at ten
+  hands per seat (`6.300` versus `1556.741` ms pooled median). The exact card
+  topology, belief partition, and signed operator table are separately reusable.
+- At 32 hands, one rank-8/three-component operator costs `274-312` ms and peaks
+  at `68.4-78.2` MB, or at most `0.91045%` of one dense 8.59 GB operator. This
+  passes but is too costly to repeat naively across 64 payoff groups.
+- Rank 8 ceases to be exact on the preregistered seven-hand extension: maximum
+  literal scalar expectation error is `6.64e-05`, versus Float64 noise at four
+  and five hands. Wider rank selection remains open and must use root/actions.
 
 ## In progress
 
-- Building a direct rank-8 factor–TT contraction that never reconstructs the
-  Cartesian payoff tensor.
+- Building a bottom-up fixed-policy public-tree TT: action probabilities modify
+  one seat core, action branches sum/recompress, and only the root operator is
+  sent through the proven direct factor contraction.
 - Treating response actions and per-player deviation vectors, rather than
   probability reconstruction or leaf MSE alone, as representation gates.
 - Separating online value/action contraction from offline all-player response
@@ -634,11 +647,11 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Contract rank-8 payoff cores directly with exact mixture/unary beliefs and
-   cached card-subset incidence; verify scalar expectations against enumeration.
-2. Lift the proven contraction through public-policy values, then conditional
-   hand values needed for unilateral certification; keep online and offline
-   costs separate.
+1. Compile fixed public policies into bottom-up root TTs and compare root
+   utilities against the exact public-tree quotient; measure rank growth and
+   avoid one contraction per terminal group.
+2. Leave one target hand mode uncontracted to produce conditional action-value
+   vectors, then require literal unilateral response-action identity.
 3. Build a larger causal early-stopping trace only after representation cost is
    honest; require blocker/correlation features and fresh grouped transfer.
 
@@ -655,5 +668,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after rank 8 exactly compressed the revealed showdown operator and
-advanced to a direct factor–TT contraction gate.
+2026-08-19, after direct factor–TT contraction passed while seven-hand rank
+growth and one-table-per-payoff economics forced a public-policy root-TT lift.

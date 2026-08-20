@@ -259,6 +259,13 @@ and response action to Float64 noise while reducing grouped operator storage
 rejected despite a `14.22x` storage reduction. The active C3 gate is now direct
 contraction of rank-8 payoff cores with the exact nonnegative factor belief and
 card-subset topology, without reconstructing the Cartesian tensor.
+That direct contraction now also passes: it is exact to `3.38e-14`, crosses the
+explicit-joint baseline by `247.12x` at ten hands, and peaks below 1% of a dense
+32-hand operator. The wide hot pass still costs `274-312` ms and `68-78` MB for
+one operator, while rank 8 develops `6.64e-05` literal expectation error at
+seven hands. C3 therefore advances to bottom-up fixed-policy TT composition and
+one root contraction, not 64 independent terminal-group passes. Conditional
+hand/action vectors and response-action identity remain the next hard gate.
 
 **Target:** months 4-6.5.
 

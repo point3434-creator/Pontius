@@ -225,7 +225,17 @@ is not promoted. Exact source-compiled range-plus-policy reuse, followed by
 factorized/low-rank belief contraction against every per-player and coalition
 oracle label, becomes the next scaling gate. Early checkpoint diagnostics show
 scheduler opportunity but inconsistent group transfer, so no solver or stopping
-rule is selected post hoc.
+rule is selected post hoc. The exact source-reuse audit now passes: it
+reproduces all 1,728 candidates and labels within `1.95e-14`, survives
+cross-range call-order replay exactly, reduces the complete evaluator path
+9.11%, and cuts persisted tape bytes fourfold. The win comes from 24 source
+compilations replacing 96 target compilations; dense combined updates are 3.04%
+slower than policy-only updates and dirty 94.46% of nodes at the median.
+Precompiled primary verification beats blind rate 2.06%, while fresh source
+compilation reaches pooled break-even at four reuses by only 0.29% and wins just
+2/6 groups. Source reuse is therefore accepted as an exact oracle primitive,
+not a robust online rule. Removing explicit joint-deal materialization through
+factorized or low-rank contraction is now the active C3 scaling gate.
 
 **Target:** months 4-6.5.
 

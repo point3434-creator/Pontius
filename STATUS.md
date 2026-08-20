@@ -563,13 +563,28 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
   while DCFR-8 beats its blind rate in five of six groups. No checkpoint is
   selected: group behavior is inconsistent and DCFR-32 remains the failed
   frozen primary. The early rate peak becomes opportunity-trace evidence only.
+- Exact source-compiled range-plus-policy reuse now reproduces all 1,728 frozen
+  candidates at `1.95e-14` maximum error, zero action mismatches, zero
+  acceptance-label mismatches, and zero call-order replay error after
+  intervening range and policy calls. All 329 tests pass.
+- Compiling 24 source tapes instead of 96 target tapes cuts the complete
+  evaluator path from 9,356.704 ms to 8,504.023 ms, a `1.1003x` speedup, and
+  reduces persisted contiguous tape bytes exactly fourfold. It wins 23/24
+  individual context paths, not all 24.
+- The gain is compilation reuse, not sparse propagation. Combined range/policy
+  updates are 3.04% slower than policy-only target updates; their median dirty
+  fraction is 94.46%. Dense evaluation remains the reference mechanism.
+- Precompiled source verification raises primary DCFR-32 raw quality/ms 2.06%
+  over blind. Fresh compilation reaches pooled break-even after four reuses,
+  but the margin is only 0.29%; four-reuse rate wins just 2/6 groups. Source
+  reuse is adopted as an exact scaling primitive, not a deployable timing rule.
 
 ## In progress
 
-- Designing an exact source-compiled range-plus-policy reuse gate before any
-  approximate range-cache or low-rank claim.
-- Treating the explicit joint game as the oracle for factorized or low-rank
-  public-belief contraction rather than scaling tuple enumeration.
+- Freezing the factorized/low-rank belief-contraction contract against the
+  source-compiled enumerated oracle.
+- Treating response actions and per-player deviation vectors, rather than
+  probability reconstruction or leaf MSE alone, as representation gates.
 - Preserving per-player deviation vectors through contraction; coalition gains
   remain offline stress labels with separately visible cost.
 - Keeping the early-checkpoint opportunity as a causal-trace target, not a
@@ -577,10 +592,9 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Reuse one source-compiled exact tape across support-preserving target ranges
-   and simultaneous candidate-policy changes; require literal agreement with
-   every enumerated evaluator and acceptance label.
-2. Prototype factorized or low-rank belief contraction against that oracle,
+1. Freeze the structured-belief contract and stress axes: independent,
+   blocker-heavy, and explicitly correlated ranges across widened supports.
+2. Prototype exact and truncated factorized contractions against enumeration,
    measuring every per-player deviation term, action map, time, and memory.
 3. Build a larger causal early-stopping trace only after representation cost is
    honest; require blocker/correlation features and fresh grouped transfer.
@@ -598,5 +612,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after the first frozen multiplayer strategy matrix passed exactness
-and strict-arm usefulness but failed the DCFR-32 fresh-compile rate gate.
+2026-08-19, after exact source-tape reuse passed all frozen engineering gates
+while exposing a narrow, group-inconsistent four-reuse decision-rate margin.

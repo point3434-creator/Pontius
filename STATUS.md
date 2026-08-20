@@ -690,17 +690,20 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## In progress
 
-- ADR-0073 freezes real policy-provenance arms before observing their ranks: an
-  exact six-player three-hand DCFR source at average checkpoints 4/16 and seat
-  3's literal response to checkpoint 16, lifted by a target-blind showdown-
-  strength quantile rule to four/seven-hand axes.
-- Screening all ten unordered 3/3 seat partitions and all 36 within-half orders
-  per partition. DCFR-average checkpoint 16 must meet the prior `1e-4` value and
-  25% storage gates at a cap no larger than 32; BR/hash policies remain explicit
-  public-state/tape customers and are not required to compress.
-- Requiring the later screen to compare clean-fringe scalar read time against
-  recompose-then-contract, report cost-weighted closures/crown ranks, and test
-  deterministic below/above-guard perturbations including abstention.
+- ADR-0073 was superseded before execution: no three-hand source, lifted policy,
+  rank, utility, or result was produced.
+- ADR-0074 freezes canonical own-axis six-player DCFR policy generation before
+  observing source policies or ranks. Four-hand checkpoints are 0/1/4/16/64/256;
+  seven-hand checkpoints are 0/1/4/16/64; every seat receives a literal response
+  object against checkpoint 16. Source quality is metadata, never a gate.
+- The exact public-tree tensor solver matches `TabularCFR` policies, regrets,
+  and average accumulators for all four update rules and a six-player control.
+  Revealed source-only calibration costs 23-29 ms per h4 iteration and 194-350
+  ms per h7 iteration, removing the premise for coarse-axis policy lifting.
+- After the canonical source artifact passes, freezing a separate representation
+  and clean-fringe screen against its SHA-256. That screen will compare crown
+  rank versus checkpoint and charge clean-fringe, TT recomposition, and flat
+  compatible-deal evaluation with compile, marginal, and break-even bills.
 - Treating response actions and per-player deviation vectors, rather than
   probability reconstruction or leaf MSE alone, as representation gates.
 - Separating online value/action contraction from offline all-player response
@@ -712,9 +715,8 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Audit seat partitions and the read/write-split scalar evaluator on uniform,
-   pure, hashed-dense, DCFR-average, and literal-BR provenance; include the
-   within-axis permutation invariant and near-guard abstention checks.
+1. Generate and SHA-freeze the own-axis checkpoint/BR policy artifact, then
+   preregister the representation/read-path screen without rerunning the solver.
 2. If the scalar path has credible scaling, expose conditional hand/action
    values and exact response-action gates without charging all-player BR work to
    every online decision.
@@ -734,5 +736,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after the exact sparse showdown automaton passed and the real-policy
-provenance/seat-order screen was frozen before source solves or ranks.
+2026-08-19, after exact public-tree tensor CFR superseded the coarse lifted-policy
+source and ADR-0074 froze canonical own-axis policy generation.

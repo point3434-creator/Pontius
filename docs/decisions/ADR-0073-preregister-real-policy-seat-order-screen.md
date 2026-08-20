@@ -1,10 +1,16 @@
 # ADR-0073: Preregister real-policy provenance and seat-order screen
 
-**Status:** Accepted before source solves, lifted policies, ranks, utilities, or timing
+**Status:** Superseded before execution; no source solve, lifted policy, rank, utility, or result was produced
 
 **Date:** 2026-08-19
 
 ## Decision
+
+ADR-0074 supersedes this preregistration. A subsequently implemented exact
+public-tree tensor CFR update reduced the measured own-axis source cost by
+roughly three orders of magnitude, removing the premise for a three-hand source
+and target-axis policy lift. The committed configuration remains an audit trail
+but is not authorized for execution or evidence.
 
 Run the missing representation screen before implementing the clean-fringe
 candidate reader. Replace the pseudo-random-policy-only evidence with actual

@@ -96,6 +96,15 @@ class FactorizedBeliefAuditTests(unittest.TestCase):
             ),
             1e-15,
         )
+        self.assertIs(
+            type(
+                _distribution_error(
+                    _materialized_dict(updated.materialize()),
+                    explicit_updated or {},
+                )
+            ),
+            float,
+        )
 
     def test_schema_stage_hash_and_timing_mutations_fail(self) -> None:
         unknown = config()

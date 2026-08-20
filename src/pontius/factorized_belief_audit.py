@@ -422,9 +422,14 @@ def _distribution_error(
     first: dict[tuple[int, ...], float],
     second: dict[tuple[int, ...], float],
 ) -> float:
-    return max(
-        (abs(first.get(key, 0.0) - second.get(key, 0.0)) for key in set(first) | set(second)),
-        default=0.0,
+    return float(
+        max(
+            (
+                abs(first.get(key, 0.0) - second.get(key, 0.0))
+                for key in set(first) | set(second)
+            ),
+            default=0.0,
+        )
     )
 
 
@@ -833,28 +838,32 @@ def run_factorized_belief_audit(config: dict[str, Any]) -> dict[str, Any]:
     hand_32_rows = [row for row in wide_rows if row["hands_per_player"] == 32]
     gates = parsed["gates"]
     gate_results = {
-        "initial_distribution_identity": (
+        "initial_distribution_identity": bool(
             maximum_initial_error <= gates["maximum_initial_distribution_error"]
         ),
-        "updated_distribution_identity": (
+        "updated_distribution_identity": bool(
             maximum_updated_error <= gates["maximum_updated_distribution_error"]
         ),
-        "partition_identity": maximum_partition_error <= gates["maximum_partition_error"],
-        "marginal_identity": maximum_marginal_error <= gates["maximum_marginal_error"],
-        "wide_split_identity": (
+        "partition_identity": bool(
+            maximum_partition_error <= gates["maximum_partition_error"]
+        ),
+        "marginal_identity": bool(
+            maximum_marginal_error <= gates["maximum_marginal_error"]
+        ),
+        "wide_split_identity": bool(
             maximum_wide_error <= gates["maximum_wide_split_relative_error"]
         ),
-        "impossible_assignment_mass_is_zero": (
+        "impossible_assignment_mass_is_zero": bool(
             maximum_impossible_mass <= gates["maximum_impossible_assignment_mass"]
         ),
-        "exact_support_identity": (
+        "exact_support_identity": bool(
             support_mismatches <= gates["maximum_exact_support_mismatches"]
         ),
-        "contiguous_numeric_storage": (
+        "contiguous_numeric_storage": bool(
             layout_failures == 0
             and gates["require_contiguous_float64_and_uint64_storage"]
         ),
-        "ten_hand_mitm_strictly_faster_than_recursive": (
+        "ten_hand_mitm_strictly_faster_than_recursive": bool(
             sum(float(row["meet_in_middle_median_ms"]) for row in ten_hand_rows)
             < sum(float(row["recursive_median_ms"]) for row in ten_hand_rows)
         ),

@@ -290,6 +290,14 @@ only when an accepted candidate becomes the new baseline. Within-axis strength
 sorting is recorded as a rank invariant, not a TT-SVD compression arm. If no
 transferable representation restores compression, the architecture will retain
 an explicit public-state bond instead of collapsing the whole tree into one TT.
+The own-axis source is now concrete: 46 checkpoint/BR policy tables replay
+bit-identically, and exact tensor CFR reduces source iterations from tens of
+seconds to 23-29 ms at four hands and 194-350 ms at seven. Late source NashConv
+is low on these finite games but the averages retain nearly one distinct action
+distribution per information set, so favorable TT rank is not assumed. The
+next frozen screen reads the source artifact by SHA and treats rank versus
+checkpoint, common-frontier work, and equal evaluator accounting as the
+decisive evidence.
 
 **Target:** months 4-6.5.
 

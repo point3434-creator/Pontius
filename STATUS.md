@@ -687,15 +687,29 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 - The automaton is scoped to the equal-stack, one-bet no-side-pot tree. It
   removes the selected-32-hand dense terminal blocker, not public-policy rank,
   full-board hole-card width, conditional actions, or best-response cost.
+- Exact public-tree tensor CFR now matches the recursive solver's current and
+  average policies, every regret, and every average accumulator for CFR, LCFR,
+  CFR+, and DCFR, including a six-player control. The complete suite passes 398
+  tests.
+- The canonical own-axis real-policy artifact passes all seven frozen gates
+  from clean commit `40c4205`. Its SHA-256 is
+  `cdcae48dcca5fd1447fd5ad33426a4b20f04e098c88897d8f0f6eddb797ef36e`;
+  46 policy tables replay bit-identically, maximum BR target-value error is
+  `1.09e-14`, and maximum zero-sum residual is `1.96e-14`.
+- Finite source quality improves from uniform NashConv `13.69-14.38` to
+  `0.0119-0.0148` at h4 checkpoint 256 and `0.124-0.149` at h7 checkpoint 64.
+  This is metadata, not a convergence or checkpoint-selection gate.
+- Real average policies remain structurally rich: last-checkpoint objects have
+  744-757 distinct action distributions at h4 and 1,318-1,329 at h7, with no
+  exactly pure information sets. Whether poker-aligned variation compresses is
+  now an open measurement rather than an assumed average-policy advantage.
 
 ## In progress
 
 - ADR-0073 was superseded before execution: no three-hand source, lifted policy,
   rank, utility, or result was produced.
-- ADR-0074 freezes canonical own-axis six-player DCFR policy generation before
-  observing source policies or ranks. Four-hand checkpoints are 0/1/4/16/64/256;
-  seven-hand checkpoints are 0/1/4/16/64; every seat receives a literal response
-  object against checkpoint 16. Source quality is metadata, never a gate.
+- ADR-0074's canonical source passed; ADR-0075 freezes its artifact SHA and
+  interpretation without observing any policy TT rank.
 - The exact public-tree tensor solver matches `TabularCFR` policies, regrets,
   and average accumulators for all four update rules and a six-player control.
   Revealed source-only calibration costs 23-29 ms per h4 iteration and 194-350
@@ -715,8 +729,8 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## Next three tasks
 
-1. Generate and SHA-freeze the own-axis checkpoint/BR policy artifact, then
-   preregister the representation/read-path screen without rerunning the solver.
+1. Preregister the representation/read-path screen against the immutable source
+   SHA, then measure rank-versus-checkpoint before interpreting evaluator speed.
 2. If the scalar path has credible scaling, expose conditional hand/action
    values and exact response-action gates without charging all-player BR work to
    every online decision.
@@ -736,5 +750,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after exact public-tree tensor CFR superseded the coarse lifted-policy
-source and ADR-0074 froze canonical own-axis policy generation.
+2026-08-19, after the canonical own-axis real-policy artifact passed all frozen
+identity gates and exposed the real checkpoint-TV axis without measuring rank.

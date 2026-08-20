@@ -690,9 +690,14 @@ Checkpoint 3: reduced hold'em, exact heads-up river/cache subcheckpoint.
 
 ## In progress
 
-- Adding real policy-provenance arms—DCFR checkpoint averages and literal best
-  responses—to the later representation audit instead of drawing architecture
-  conclusions only from pseudo-random hash policies.
+- ADR-0073 freezes real policy-provenance arms before observing their ranks: an
+  exact six-player three-hand DCFR source at average checkpoints 4/16 and seat
+  3's literal response to checkpoint 16, lifted by a target-blind showdown-
+  strength quantile rule to four/seven-hand axes.
+- Screening all ten unordered 3/3 seat partitions and all 36 within-half orders
+  per partition. DCFR-average checkpoint 16 must meet the prior `1e-4` value and
+  25% storage gates at a cap no larger than 32; BR/hash policies remain explicit
+  public-state/tape customers and are not required to compress.
 - Requiring the later screen to compare clean-fringe scalar read time against
   recompose-then-contract, report cost-weighted closures/crown ranks, and test
   deterministic below/above-guard perturbations including abstention.
@@ -729,5 +734,5 @@ None.
 
 ## Last updated
 
-2026-08-19, after the exact sparse showdown automaton passed all frozen
-four/seven/32-hand correctness and storage gates.
+2026-08-19, after the exact sparse showdown automaton passed and the real-policy
+provenance/seat-order screen was frozen before source solves or ranks.

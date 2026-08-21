@@ -109,6 +109,14 @@ before replay on a parent-schema lookup; the additive
 [ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md)
 changes only that lookup and preserves the timing protocol.
 
+[ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md)
+accepts the corrected attribution. The resident GPU pipeline owns 67.87% of
+pooled step time, host record-to-hand folding 30.56%, and transfers only 0.63%.
+The runtime therefore profiles device arithmetic versus bandwidth first and
+keeps a resident hand reduction as the secondary optimization. Candidate
+portfolio capacity remains deadline-derived; neither median timing nor a
+standalone proof bill may choose K.
+
 ## Architecture evolution record
 
 The narrative below records how the architecture reached the current spine and

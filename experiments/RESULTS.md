@@ -33,6 +33,13 @@ and the target spread is 11,004x. Across both extreme-seat panels, two targets
 carry 88.78% of value. The affine runtime transfers; material opportunity, not
 certificate correctness, is now the unresolved layer.
 
+[ADR-0198](../docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md)
+attributes six exact restarts on the disclosed fastest and slowest targets.
+Device work consumes 67.87% of pooled step time, host record-to-hand folding
+30.56%, transfer 0.63%, and other work 0.94%. A serial 2x device-only
+counterfactual projects a 1.51x complete-step speedup. This is read-only
+compute evidence, not a hardware recommendation or strategy result.
+
 ## EXP-0001: CFR versus LCFR on two-player Kuhn
 
 **Date:** 2026-08-18

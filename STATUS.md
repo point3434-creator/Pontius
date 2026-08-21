@@ -5,26 +5,26 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) — The affine street mechanism transfers to seat 5 but value remains concentrated.
+Latest accepted research result: [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) — The device pipeline dominates the h32 step and host folding is second.
 
-Status: accepted prospective replication result.
+Status: accepted read-only engineering result.
 
 ## Current decision
 
-Accept the acting-seat-5 replication and preserve the live core unchanged.
-Stop consuming the now-exposed local-blocker family merely to accumulate more
-4-of-4 counts.
+Accept the stage attribution. Follow the preregistered device-dominant branch:
+next separate FP64 arithmetic pressure from device-memory/sparse-pipeline
+pressure on this exact workload before recommending hardware or rewriting the
+kernel. Retain device-resident record-to-hand folding as the high-value
+secondary engineering screen.
 
-Before another fresh GPU panel, freeze a broader transfer design: new board or
-belief regimes, explicit position coverage, and a causally available
-materiality/no-op rule whose threshold has principled provenance. Treat the
-one-raw-guard retrospective as development evidence only. Do not tune a
-threshold and report it on these eight targets as prospective evidence, and do
-not return to another DCFR variant while opportunity magnitude is unresolved.
+Do not change the frozen live rule, 15-second boundary, immutable blueprint,
+numerical tolerances, or fallback. Use this result only to price compute. It is
+not a latency distribution, purchase recommendation, strategy-quality result,
+deployment authorization, or composition claim.
 
 ## Open preregistration
 
-[ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md) — Preregister the source-schema-corrected resident-step profile (accepted correction preregistration before any replay timing).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -36,7 +36,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0174](docs/decisions/ADR-0174-public-node-blocks-fit-but-two-directions-are-cap-bound.md) | 2026-08-21 | accepted prospective result | Public-node blocks fit but two directions are cap-bound |
 | [ADR-0175](docs/decisions/ADR-0175-preregister-fresh-h32-public-block-admissible-radius-map.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 public-block admissible-radius map |
 | [ADR-0176](docs/decisions/ADR-0176-public-block-radii-exist-but-certified-value-remains-microscopic.md) | 2026-08-21 | accepted prospective result | Public-block radii exist but certified value remains microscopic |
 | [ADR-0177](docs/decisions/ADR-0177-preregister-fresh-h32-regret-vertex-opportunity-audit.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 regret-vertex opportunity audit |
@@ -60,12 +59,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md) | 2026-08-21 | accepted preregistration before any replay step | Preregister a read-only h32 resident-step bottleneck profile |
 | [ADR-0196](docs/decisions/ADR-0196-resident-step-profile-v1-rejects-before-replay-on-parent-pass-key.md) | 2026-08-21 | rejected execution before any replay step | Resident-step profile v1 rejects before replay on the parent pass key |
 | [ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md) | 2026-08-21 | accepted correction preregistration before any replay timing | Preregister the source-schema-corrected resident-step profile |
+| [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) | 2026-08-21 | accepted read-only engineering result | The device pipeline dominates the h32 step and host folding is second |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md) — Preregister the source-schema-corrected resident-step profile.
-- Numbered decisions: 197.
-- ADR-header SHA-256: `41cb5c01043ae2f18e3af7bd32a9c833b23f8340d7a2ba947c7a479f74174b68`.
+- Latest ADR: [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) — The device pipeline dominates the h32 step and host folding is second.
+- Numbered decisions: 198.
+- ADR-header SHA-256: `fd3e177ae36018251e5558bd7cf7c54fba23e7602c0e1d70daca2337c83f879c`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -73,4 +73,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) and its dependencies
+4. [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) and its dependencies

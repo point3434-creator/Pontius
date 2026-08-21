@@ -93,6 +93,14 @@ or rescue direction. No broader fresh panel is currently preregistered; freeze
 its board/belief construction, position coverage, and materiality rule before
 any new target policy step.
 
+ADR-0198 accepts ADR-0197's corrected compute profile. Its result artifact has
+SHA-256
+`a8f5ed0e2b0866af4b5df0d62ddf1351ca7e8a4e9ace71223602031c1f2ae796`.
+The resident GPU pipeline is the primary bucket and host hand folding is the
+secondary bucket. Reproduction is not a latency distribution. Before any
+hardware recommendation, separate arithmetic from bandwidth pressure on the
+same workload; before changing the fold, preregister a numerical differential.
+
 ## Tests
 
 From the repository root:

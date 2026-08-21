@@ -93,6 +93,13 @@ fresh panel should prefer action-conditioned in-tree posterior shifts over
 another mild synthetic blocker family, with construction and thresholds frozen
 before labels.
 
+ADR-0198 closes the first compute-attribution subgate. The resident GPU
+pipeline consumes 67.87% of pooled step time, host record-to-hand folding
+30.56%, and transfer only 0.63%. The primary C4 screen must distinguish FP64
+arithmetic from memory/sparse-pipeline pressure on the exact workload; a
+resident hand-fold differential is the secondary software lever. Neither is a
+license to change the frozen live rule.
+
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
 rule must improve certified value under the complete wall-clock and memory
 contract without weakening any per-seat cap. Exact offline opportunity alone

@@ -334,8 +334,15 @@ def serialize_compact_sized_policy(
         raise ValueError("compact sized policy differs from the external schema")
     probabilities = []
     for key, actions in schema.items():
-        distribution = policy_distribution(dict(policy), key, actions)
-        probabilities.append([distribution[action] for action in actions])
+        row = policy[key]
+        if set(row) != set(actions):
+            raise ValueError("compact sized policy action schema differs")
+        values = [float(row[action]) for action in actions]
+        if any(not math.isfinite(value) or value < 0.0 for value in values):
+            raise ValueError("compact sized policy probabilities are invalid")
+        if abs(math.fsum(values) - 1.0) > 1e-12:
+            raise ValueError("compact sized policy row is not normalized")
+        probabilities.append(values)
     return {
         "schema_version": 1,
         "information_schema_sha256": _external_schema_digest(schema),

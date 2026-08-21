@@ -14,6 +14,13 @@ confirms strong target-dependent direction sensitivity. This strengthens the
 generator diagnosis but authorizes neither a live selector nor a general
 strategy-quality claim.
 
+The next prospective artifact is frozen but not yet executed in
+[ADR-0185](../docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md).
+It uses fresh seat-2 belief shifts to compare regret mass, blueprint action-gap,
+fixed-probe cap sensitivity, and fixed-probe exact value against a bounded
+three-direction label. Until that result exists, no causal feature or added
+best-response-vertex family has an outcome.
+
 ## EXP-0001: CFR versus LCFR on two-player Kuhn
 
 **Date:** 2026-08-18

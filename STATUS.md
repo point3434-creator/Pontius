@@ -32,7 +32,7 @@ make no live selector claim until a precommitted rule transfers.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md) — Preregister a fresh h32 causal direction and opportunity screen (accepted preregistration).
 
 ## Evidence protocol
 
@@ -44,7 +44,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0161](docs/decisions/ADR-0161-preregister-two-shift-shared-response-residency.md) | 2026-08-21 | accepted and preregistered | Preregister two-shift shared response residency |
 | [ADR-0162](docs/decisions/ADR-0162-shared-response-residency-is-exact-but-cached-scratch-fails-headroom-rule.md) | 2026-08-21 | accepted result with residency authorization withheld | Shared response residency is exact but cached scratch fails the headroom rule |
 | [ADR-0163](docs/decisions/ADR-0163-preregister-shared-response-allocator-lifecycle-replay.md) | 2026-08-21 | accepted and preregistered | Preregister the shared-response allocator lifecycle replay |
 | [ADR-0164](docs/decisions/ADR-0164-allocator-lifecycle-authorizes-two-context-atomic-residency.md) | 2026-08-21 | accepted result | Allocator lifecycle authorizes two-context atomic residency |
@@ -68,12 +67,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0182](docs/decisions/ADR-0182-deep-horizon-v1-is-rejected-by-two-miscopied-descriptor-hashes.md) | 2026-08-21 | rejected result | Deep-horizon v1 is rejected by two miscopied descriptor hashes |
 | [ADR-0183](docs/decisions/ADR-0183-preregister-read-only-deep-horizon-descriptor-correction.md) | 2026-08-21 | accepted correction preregistration | Preregister the read-only deep-horizon descriptor correction |
 | [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) | 2026-08-21 | accepted corrected prospective result | Ordinary deep DCFR plateaus while purification remains direction-sensitive |
+| [ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 causal direction and opportunity screen |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) — Ordinary deep DCFR plateaus while purification remains direction-sensitive.
-- Numbered decisions: 184.
-- ADR-header SHA-256: `fe6d1cfaa6f534d6fcd10afd06a61114cfe19aa051b6d39251d48267f71980d1`.
+- Latest ADR: [ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md) — Preregister a fresh h32 causal direction and opportunity screen.
+- Numbered decisions: 185.
+- ADR-header SHA-256: `9ddecafd746a3fbb893818e278b0fe85ff18d2a905a52881cd9c65b34ced77cc`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

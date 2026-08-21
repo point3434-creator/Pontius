@@ -70,6 +70,20 @@ start with a committed preregistration and clean tracked worktree, keep the
 immutable blueprint anchor, use outcome-neutral gates, report memory and wall-
 clock ledgers, and preserve blueprint fallback.
 
+The open fresh causal direction screen is frozen in
+[ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md).
+After checking out its clean preregistration commit exactly once, execute:
+
+```powershell
+& $python -m pontius.h32_fresh_causal_direction_screen --config experiments/configs/h32-fresh-causal-direction-screen-v1.json --output experiments/results/h32-fresh-causal-direction-screen-v1.json
+```
+
+The run reconstructs six previously unlabeled seat-2 belief shifts, performs
+one warm step per target, compares three single-public-node direction families,
+and labels four opportunity features. Its adaptive searches and all-block
+probe rankings are off clock. Even a passing result emits only the immutable
+blueprint and cannot be cited as a live selector or population-quality result.
+
 ## Tests
 
 From the repository root:

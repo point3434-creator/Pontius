@@ -52,7 +52,11 @@ strategy research problem. The 8/32/64 ladder in
 [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md)
 adds that ordinary depth produces substantially more policy motion without a
 material certified-value lift; direction and causal opportunity identification
-therefore precede amortized deep solving.
+therefore precede amortized deep solving. The open causal screen in
+[ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md)
+keeps that ordering explicit: it tests free regret/action-gap features, one
+charged vertex probe, and one best-response-vertex library expansion before any
+predictive-DCFR architecture is considered.
 
 ## Architecture evolution record
 

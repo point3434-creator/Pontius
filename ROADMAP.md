@@ -39,12 +39,13 @@ retained two-direction oracle. Purification adds 4.99x over raw average-64 but
 is concentrated in one target and still trails the regret vertex
 ([ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md)).
 
-**Next gate:** preregister a causal direction/opportunity screen on fresh
-contexts. Compare regret mass with action-gap, directional-slope, and one
-explicitly charged vertex-certificate probe, and add at most one deterministic
-third direction family. Exact certified value—not update magnitude or policy
-TV—remains the label. No live selector advances without a precommitted fresh
-transfer result under the immutable blueprint and complete wall-clock contract.
+**Open gate:** ADR-0185 preregisters a causal direction/opportunity screen on
+six fresh seat-2 contexts. It compares regret mass with blueprint action-gap,
+directional cap slope, and one explicitly charged fixed-scale vertex probe,
+while adding one immutable-blueprint best-response-vertex family. Exact
+certified value—not update magnitude or policy TV—remains the label. No live
+selector advances merely because a descriptive correlation, bounded-library
+lift, or one-probe ledger looks favorable.
 
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
 rule must improve certified value under the complete wall-clock and memory

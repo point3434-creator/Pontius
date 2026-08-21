@@ -72,6 +72,13 @@ six retained seat-0 street ledgers. The primitive is now eligible for a fresh
 deadline-guarded trial, but it remains invalid for multiple changed public
 nodes, response-switch intervals, unions, or chained updates.
 
+[ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md)
+freezes that first trial as a deliberately nonadaptive runtime slice: one
+resident step, one fixed seat-0 regret vertex, one affine proof, and preloaded
+blueprint fallback. Two start guards protect the one-second emission reserve.
+The old exact verifier is a post-emission teacher only, so it can reject the
+trial but cannot choose its live action.
+
 ## Architecture evolution record
 
 The narrative below records how the architecture reached the current spine and

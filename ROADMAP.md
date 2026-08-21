@@ -58,13 +58,15 @@ The slowest retained ledger has only 338.90 ms of boundary headroom after the
 one-second reserve, so the result validates the primitive but not a latency
 distribution.
 
-**Open gate:** preregister a narrow fresh street trial. Keep the regret vertex
-and affine proof fixed, charge the complete live ledger, enforce the hard
-deadline, and emit the immutable blueprint whenever construction, proof, or
-time is incomplete. The old exact verifier may remain an off-clock teacher but
-cannot participate in the live decision. No selected count, value, street fit,
-or target from ADR-0190 may become a fresh-outcome gate. Modern DCFR variants
-remain deferred because changing the soft trajectory does not solve opportunity
+**Open gate:** execute the narrow fresh street trial frozen in
+[ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md).
+It always chooses acting seat 0's regret vertex on four previously unmaterialized
+seat-0 blocker shifts, charges the complete live ledger, enforces two start
+guards and the hard deadline, and emits the immutable blueprint whenever
+construction, proof, or time is incomplete. The old exact verifier runs only
+after simulated emission is frozen. No selected count, value, street fit, or
+target from ADR-0190 is a fresh-outcome gate. Modern DCFR variants remain
+deferred because changing the soft trajectory does not solve opportunity
 location.
 
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online

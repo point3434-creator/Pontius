@@ -79,6 +79,20 @@ trial using the fixed regret-vertex direction and affine-only live proof. Do
 not construct its targets or labels before its configuration, implementation,
 and decision rule are committed.
 
+That trial is frozen in
+[ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md).
+From its clean preregistration commit, execute exactly once with:
+
+```powershell
+& $python -m pontius.h32_fresh_selector_stable_affine_street_audit --config experiments/configs/h32-fresh-selector-stable-affine-street-v1.json --output experiments/results/h32-fresh-selector-stable-affine-street-v1.json
+```
+
+The runner checks that all four target and descriptor digests are absent from
+the sealed preconstruction commit. It preloads the blueprint, starts the clock
+at the single resident step, uses only acting seat 0's regret vertex and affine
+proof live, and freezes simulated emission before any old-verifier teacher.
+Do not rerun with altered guards or inspect another fresh shift as a rescue.
+
 ## Tests
 
 From the repository root:

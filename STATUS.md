@@ -23,7 +23,7 @@ strategy-quality or population claim from this retained differential.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md) — Preregister a fresh seat-0 selector-stable affine street trial (accepted preregistration).
 
 ## Evidence protocol
 
@@ -35,7 +35,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0167](docs/decisions/ADR-0167-retrospective-single-atom-value-capture-contract.md) | 2026-08-21 | accepted retrospective analysis contract; not preregistered | Retrospective single-atom value-capture contract |
 | [ADR-0168](docs/decisions/ADR-0168-retrospective-atomization-exposes-strong-nonadditivity.md) | 2026-08-21 | accepted retrospective result; not preregistered | Retrospective atomization exposes strong nonadditivity |
 | [ADR-0169](docs/decisions/ADR-0169-preregister-fresh-h32-exact-union-value-ledger.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 exact-union value ledger |
 | [ADR-0170](docs/decisions/ADR-0170-fresh-union-v1-rejected-by-overstrict-warm-digest-gate.md) | 2026-08-21 | rejected result | Fresh-union v1 is rejected by an overstrict warm digest gate |
@@ -59,12 +58,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0188](docs/decisions/ADR-0188-selector-stable-affine-v1-rejected-by-forbidden-warm-digest-gate.md) | 2026-08-21 | rejected result | Selector-stable affine v1 is rejected by a forbidden warm digest gate |
 | [ADR-0189](docs/decisions/ADR-0189-preregister-numerically-corrected-selector-stable-affine-rerun.md) | 2026-08-21 | accepted successor preregistration | Preregister the numerically corrected selector-stable affine rerun |
 | [ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md) | 2026-08-21 | accepted corrected engineering result | The selector-stable affine certificate is exact and fits retained street ledgers |
+| [ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-0 selector-stable affine street trial |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md) — The selector-stable affine certificate is exact and fits retained street ledgers.
-- Numbered decisions: 190.
-- ADR-header SHA-256: `23a77adb4a780637914de849b9f6d05d52fd0ff462bc2e68c5f328afb3ac8d36`.
+- Latest ADR: [ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md) — Preregister a fresh seat-0 selector-stable affine street trial.
+- Numbered decisions: 191.
+- ADR-header SHA-256: `638af89574513e30edc671cdb0b1ad82eb864cc4d6592f00c1f992d25cfbc2a7`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

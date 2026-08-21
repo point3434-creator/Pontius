@@ -36,7 +36,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md) | 2026-08-21 | accepted prospective result | Regret vertices expose soft-generator weakness but not a live selector |
 | [ADR-0179](docs/decisions/ADR-0179-numerical-identity-is-the-default-gpu-evidence-gate.md) | 2026-08-21 | accepted process decision | Numerical identity is the default GPU evidence gate |
 | [ADR-0180](docs/decisions/ADR-0180-generate-status-front-door-from-adr-metadata.md) | 2026-08-21 | accepted process decision | Generate the status front door from ADR metadata |
 | [ADR-0181](docs/decisions/ADR-0181-preregister-h32-deep-horizon-opportunity-ladder.md) | 2026-08-21 | accepted preregistration | Preregister the h32 deep-horizon opportunity ladder |
@@ -60,12 +59,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0199](docs/decisions/ADR-0199-preregister-retained-affine-selector-cascade-replay.md) | 2026-08-21 | accepted preregistration before missing-feature extraction or semantic label load | Preregister the retained affine selector-cascade replay |
 | [ADR-0200](docs/decisions/ADR-0200-selector-replay-v1-rejects-on-final-memory-schema-key.md) | 2026-08-21 | rejected result | Selector replay v1 rejects on its final memory-schema key |
 | [ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md) | 2026-08-21 | accepted correction preregistration before corrected replay | Preregister the memory-schema-corrected selector replay |
+| [ADR-0202](docs/decisions/ADR-0202-corrected-selector-replay-v2-rejects-on-overstrict-schema-guard.md) | 2026-08-21 | rejected corrected replay | Corrected selector replay v2 rejects on its overstrict schema guard |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md) — Preregister the memory-schema-corrected selector replay.
-- Numbered decisions: 201.
-- ADR-header SHA-256: `4df9bf3eb1c42352938f7c1919d5ecc22925b6036b958561bda65e1b352ce87b`.
+- Latest ADR: [ADR-0202](docs/decisions/ADR-0202-corrected-selector-replay-v2-rejects-on-overstrict-schema-guard.md) — Corrected selector replay v2 rejects on its overstrict schema guard.
+- Numbered decisions: 202.
+- ADR-header SHA-256: `1a03043e680751396f9a1b40855ee7310aa0a81213a923c6249893cf3e0667ed`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

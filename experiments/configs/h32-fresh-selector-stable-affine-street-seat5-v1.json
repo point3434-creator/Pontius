@@ -1,0 +1,60 @@
+{
+  "evidence_stage": "preregistered_after_adr0192_before_any_fresh_seat4_policy_step_or_quality_label",
+  "expected_seat0_config_sha256": "90704c11d8cc3a778fbfdb9d25586b7580fbbe7a7d4fa4f790e6c8ce0d59cb0c",
+  "expected_seat0_implementation_sha256": "2e435e835d7c2bc536deb06433a3f2e67bc5dd5e3b406d1ad81ea217a4391a5e",
+  "expected_seat0_control_test_sha256": "cde1d4ade13d8b6c65d159a843f7b66caca0cf3318e3ab6e9ad27da1ebcdb48a",
+  "expected_seat0_result_sha256": "7cb3496e754eec2f44083b3c845dea068c7b7cf9af4e382017b4f22c5de178e6",
+  "expected_seat0_decision_sha256": "13e3218504444b923ab1a831eebcf1babe2cf103fc0ccd654a0af63bbf7b2549",
+  "expected_target_builder_sha256": "12c7cba9deb1d6307c058120332c56f5a5446a9ca4045d0f34fbb01bb35a7fb4",
+  "expected_audit_implementation_sha256": "9b69918ff4a367d6a37d0189e0223467cad5209ab8f3685e1fd29c91a90ca3f3",
+  "expected_control_test_sha256": "0828e32606a98c01f3827d754d1b725da337ebe3d6e9bc7db75757b8e811ae20",
+  "seed": 20260821,
+  "freshness_base_commit": "d59b8577220229e6b49c9b904a57a8c1787b2cb5",
+  "targets": [
+    {
+      "target": "panel_1/blocker_heavy/local_blocker_seat4_x2",
+      "board_id": "panel_1",
+      "board": ["5c", "8c", "8d", "Jc", "As"],
+      "range_family": "blocker_heavy",
+      "target_shift": "local_blocker_seat4_x2",
+      "source_belief_sha256": "aa3a5a8abe8dc72fe436134d4b619239a87b002134cdad88a908d833318b5067",
+      "target_belief_sha256": "9cb9f6c30990baab33c710ce5bbef634cd903d5dd11346b26b7037b03d1d5953",
+      "target_descriptor_sha256": "a8dbff19eb77c5e109d31bfb72954ca1fb2dfe28f884e1628e1f9f0c5a51e3a9"
+    },
+    {
+      "target": "panel_2/balanced/local_blocker_seat4_x2",
+      "board_id": "panel_2",
+      "board": ["2c", "3s", "5d", "Js", "Qc"],
+      "range_family": "balanced",
+      "target_shift": "local_blocker_seat4_x2",
+      "source_belief_sha256": "0662b2cf2436cbc6dcc5669fe75a2c15f03e652fb40a6903703a10dd14cfa289",
+      "target_belief_sha256": "4bf33595af8b344e01b534ea12ad5619fac2e307f06d4e1e1be55ca6d7f4c0de",
+      "target_descriptor_sha256": "41675715d6df5e230d77688dedc7c18c404ab0807ab604f660fd767612068748"
+    },
+    {
+      "target": "panel_3/balanced/local_blocker_seat4_x2",
+      "board_id": "panel_3",
+      "board": ["4h", "7h", "9s", "Jd", "Kc"],
+      "range_family": "balanced",
+      "target_shift": "local_blocker_seat4_x2",
+      "source_belief_sha256": "cadd9449259f56de43ae4d710c2e3fd6ae4733e7b7c8323836b87578a3cc9a71",
+      "target_belief_sha256": "add4941c6ee083319afcbfbe8df2a02afb672c652b46236f0e265cbc4fcf7cac",
+      "target_descriptor_sha256": "99ea66ac4cfc59f083b696b1ddd7ccb22f9c52a8cf2dfea58c8fdf61edf4ef6e"
+    },
+    {
+      "target": "panel_3/blocker_heavy/local_blocker_seat4_x2",
+      "board_id": "panel_3",
+      "board": ["4h", "7h", "9s", "Jd", "Kc"],
+      "range_family": "blocker_heavy",
+      "target_shift": "local_blocker_seat4_x2",
+      "source_belief_sha256": "74ce0c18ac82e9ebb799be851f140c7011ad75671a3409f94c7db1db3187278e",
+      "target_belief_sha256": "2df7b14b451769607ed037c0a7cd5ed77f7253c1382d40ac798078690ab4a2db",
+      "target_descriptor_sha256": "64a032424e7a14f47513615395e7586c29fdce6e8bd7e7bfd0f39998721594e7"
+    }
+  ],
+  "target_construction": "double_label_free_maximum_overlap_then_strength_then_smallest_canonical_hand_at_seat4",
+  "target_seat": 4,
+  "acting_seat": 5,
+  "replication_scope": "reuse_complete_adr0191_live_core_change_only_target_seat4_and_acting_seat5",
+  "outcome_policy": "retain_every_adr0191_outcome_neutral_gate_and_add_no_seat0_outcome_gate"
+}

@@ -26,6 +26,11 @@ post-emission exact agreement. Total certified value is `1.1263e-6`, but one
 target supplies 86.45% and the target spread is 565x. This is prospective
 engineering evidence, not a selector, deployment, or population-quality claim.
 
+[ADR-0193](../docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md)
+freezes the direct other-extreme replication. It reuses the complete live core
+and changes only to four unseen seat-4 belief shifts and fixed acting seat 5;
+no seat-0 outcome becomes a replication gate.
+
 ## EXP-0001: CFR versus LCFR on two-player Kuhn
 
 **Date:** 2026-08-18

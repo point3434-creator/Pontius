@@ -86,6 +86,11 @@ precision and at least 3.80 seconds of boundary headroom. Value varies by 565x,
 so the architecture keeps acquisition correctness separate from opportunity
 magnitude and next tests the unchanged mechanism at acting seat 5.
 
+[ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md)
+freezes that replication as a hash-bound successor of the seat-0 live core.
+Only fresh target seat 4 and fixed acting seat 5 change; all proof, deadline,
+fallback, and post-emission teacher semantics remain identical.
+
 ## Architecture evolution record
 
 The narrative below records how the architecture reached the current spine and

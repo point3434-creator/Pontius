@@ -65,13 +65,14 @@ agree to `1.67e-16`. Certified value is highly heterogeneous: one target carries
 86.45% of the total and the target spread is 565x
 ([ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md)).
 
-**Open gate:** replicate the unchanged rule at the other order extreme. Freeze
-acting seat 5 on the four remaining previously unlabeled seat-4 blocker shifts,
-retain both deadline guards and all causal teacher boundaries, and do not add a
-materiality threshold or rescue direction from the seat-0 outcomes. Modern DCFR
-variants remain deferred because the fixed regret vertex now acquires value
-inside the street; breadth and transfer, not another soft update rule, are the
-next uncertainty.
+**Open gate:** execute the unchanged other-extreme replication frozen in
+[ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md).
+It fixes acting seat 5 on the four remaining previously unlabeled seat-4
+blocker shifts and inherits both deadline guards, the causal teacher boundary,
+and every outcome-neutral gate from ADR-0191. No materiality threshold or
+rescue direction is added from the seat-0 outcomes. Modern DCFR variants remain
+deferred because the fixed regret vertex now acquires value inside the street;
+breadth and transfer, not another soft update rule, are the next uncertainty.
 
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
 rule must improve certified value under the complete wall-clock and memory

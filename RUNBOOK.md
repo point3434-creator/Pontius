@@ -83,6 +83,18 @@ altered guards or inspect another seat-0 shift as a rescue. The next authorized
 work is a separately committed acting-seat-5 replication over still-unlabeled
 beliefs; no such target may be stepped before its own preregistration closes.
 
+That replication is frozen in
+[ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md).
+From its clean preregistration commit, execute exactly once with:
+
+```powershell
+& $python -m pontius.h32_fresh_selector_stable_affine_street_seat5_audit --config experiments/configs/h32-fresh-selector-stable-affine-street-seat5-v1.json --output experiments/results/h32-fresh-selector-stable-affine-street-seat5-v1.json
+```
+
+The successor hash-binds and reuses the complete seat-0 live core, substituting
+only fresh target seat 4 and acting seat 5. It inherits all deadlines and gates;
+do not edit the parent runner or add a seat-0 outcome requirement.
+
 ## Tests
 
 From the repository root:

@@ -5,34 +5,35 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) — Ordinary deep DCFR plateaus while purification remains direction-sensitive.
+Latest accepted research result: [ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md) — Fresh vertices replicate generator weakness but no free selector transfers.
 
-Status: accepted corrected prospective result.
+Status: accepted prospective result.
 
 ## Current decision
 
-Accept the corrected mechanism result and reject ordinary 32-64-step DCFR as
-the next architecture on this panel. The frozen material-depth hypothesis did
-not pass. Do not expand the deep ladder, promote purified-average-64, or infer
-that the immutable envelope has exhausted all local opportunity.
+Accept the prospective mechanism result. Retain regret vertices as the
+decisive bounded direction and reject this immutable-blueprint best-response
+vertex as a useful library expansion. Reject regret mass and blueprint minimum
+action gap as live opportunity selectors on the frozen construction. Do not
+promote the cap-radius probe, any observed seat, block, scale, or candidate.
 
-The evidence now points to generator direction and opportunity identification:
+The next bottleneck is obtaining useful direction/cap information cheaply
+enough to choose and realize a regret-vertex move inside the street. A
+successor must preregister a genuinely online ledger on fresh contexts, charge
+every probe and final certificate, reserve emission time, and fail closed to
+the immutable blueprint. The order-extreme concentration and cap-radius
+capture may define a narrow hypothesis, but they require prospective transfer
+and cannot be mined into a rule from this panel.
 
-1. regret vertices beat one-step soft movement by about `20.54x` in ADR-0178;
-2. ordinary depth adds only `1.26x` over step 8 here; and
-3. purification can add `4.99x` over raw deep average, but only on one target
-   and still remains far below the regret vertex.
-
-The next gate should be a separately preregistered causal direction/opportunity
-screen on fresh contexts. Compare the failed regret-mass proxy with action-gap,
-directional-slope, and one explicitly charged vertex-certificate probe, while
-adding at most one deterministic third direction family. Keep exact certified
-value—not policy movement—as the label, preserve the immutable blueprint, and
-make no live selector claim until a precommitted rule transfers.
+Do not expand ordinary DCFR depth or introduce a predictive/discount-schedule
+variant yet. Those changes alter the soft trajectory while the replicated
+failure is opportunity location and decisive-direction realization. Revisit a
+modern DCFR-family arm only after an online-feasible selector exists or as a
+frozen control against that selector.
 
 ## Open preregistration
 
-[ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md) — Preregister a fresh h32 causal direction and opportunity screen (accepted preregistration).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -44,7 +45,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0162](docs/decisions/ADR-0162-shared-response-residency-is-exact-but-cached-scratch-fails-headroom-rule.md) | 2026-08-21 | accepted result with residency authorization withheld | Shared response residency is exact but cached scratch fails the headroom rule |
 | [ADR-0163](docs/decisions/ADR-0163-preregister-shared-response-allocator-lifecycle-replay.md) | 2026-08-21 | accepted and preregistered | Preregister the shared-response allocator lifecycle replay |
 | [ADR-0164](docs/decisions/ADR-0164-allocator-lifecycle-authorizes-two-context-atomic-residency.md) | 2026-08-21 | accepted result | Allocator lifecycle authorizes two-context atomic residency |
 | [ADR-0165](docs/decisions/ADR-0165-preregister-h32-atomic-street-scheduler-ledger.md) | 2026-08-21 | accepted and preregistered | Preregister the h32 atomic street-scheduler ledger |
@@ -68,12 +68,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0183](docs/decisions/ADR-0183-preregister-read-only-deep-horizon-descriptor-correction.md) | 2026-08-21 | accepted correction preregistration | Preregister the read-only deep-horizon descriptor correction |
 | [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) | 2026-08-21 | accepted corrected prospective result | Ordinary deep DCFR plateaus while purification remains direction-sensitive |
 | [ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 causal direction and opportunity screen |
+| [ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md) | 2026-08-21 | accepted prospective result | Fresh vertices replicate generator weakness but no free selector transfers |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md) — Preregister a fresh h32 causal direction and opportunity screen.
-- Numbered decisions: 185.
-- ADR-header SHA-256: `9ddecafd746a3fbb893818e278b0fe85ff18d2a905a52881cd9c65b34ced77cc`.
+- Latest ADR: [ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md) — Fresh vertices replicate generator weakness but no free selector transfers.
+- Numbered decisions: 186.
+- ADR-header SHA-256: `1a4563929716c803c56037f618dc8c1cd9b99731f58c39babc058b65be747029`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -81,4 +82,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) and its dependencies
+4. [ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md) and its dependencies

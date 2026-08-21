@@ -4,30 +4,29 @@
 
 The original CPU reference laboratory uses Python 3.11+ and the standard
 library. The wide h32 GPU path additionally uses pinned SciPy, CuPy, and CUDA
-runtime directories. In the current Codex desktop environment:
+runtime directories. The accepted ADR-0186 evidence used the repository-local
+environment:
 
 ```text
-C:\Users\point\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
-C:\Users\point\AppData\Local\Temp\pontius-scipy-screen-20260820
-C:\Users\point\AppData\Local\Temp\pontius-cupy-screen-20260820
-C:\Users\point\AppData\Local\Temp\pontius-cupy-screen-20260820\nvidia\cu13\bin\x86_64
+.venv\Scripts\python.exe
+.venv\Lib\site-packages
+.venv\Lib\site-packages\nvidia\cu13\bin\x86_64
 ```
 
-These temporary dependency paths are environment-specific. If they disappear,
-restore equivalent pinned dependencies and rerun the complete numerical
-regression suite before producing evidence. Do not silently fall back to a
-different backend.
+The local environment is workspace-specific. If it disappears, restore the
+pinned package/runtime versions and rerun the complete numerical regression
+suite before producing evidence. Do not silently fall back to a different
+backend.
 
 ## Current GPU verification environment
 
-From the repository root, initialize the evidence environment once per shell:
+From the repository root, initialize the pinned repository environment once
+per shell:
 
 ```powershell
-$python = "C:\Users\point\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
-$scipy = "C:\Users\point\AppData\Local\Temp\pontius-scipy-screen-20260820"
-$cupy = "C:\Users\point\AppData\Local\Temp\pontius-cupy-screen-20260820"
-$cuda = "C:\Users\point\AppData\Local\Temp\pontius-cupy-screen-20260820\nvidia\cu13\bin\x86_64"
-$env:PYTHONPATH = "src;$scipy;$cupy"
+$python = (Resolve-Path ".\.venv\Scripts\python.exe").Path
+$cuda = (Resolve-Path ".\.venv\Lib\site-packages\nvidia\cu13\bin\x86_64").Path
+$env:PYTHONPATH = "src"
 $env:PONTIUS_CUDA_DLL_DIRECTORY = $cuda
 $env:PATH = "$cuda;$env:PATH"
 & $python -m unittest discover -s tests -v
@@ -53,26 +52,9 @@ and maintained local links.
 
 ## Current h32 evidence reproduction
 
-The latest accepted result is the metadata-corrected deep-horizon audit. Replay
-the correction without GPU or strategy recomputation with:
-
-```powershell
-& $python -m pontius.h32_deep_horizon_correction_replay --config experiments/configs/h32-deep-horizon-correction-v1.json --output experiments/results/h32-deep-horizon-correction-v1.json
-```
-
-The source GPU invocation is intentionally rejected by
-[ADR-0182](docs/decisions/ADR-0182-deep-horizon-v1-is-rejected-by-two-miscopied-descriptor-hashes.md);
-do not overwrite or cite it directly as accepted evidence. The read-only replay
-and scientific interpretation are frozen in
-[ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md).
-Rerunning either command is reproduction, not fresh evidence. New research must
-start with a committed preregistration and clean tracked worktree, keep the
-immutable blueprint anchor, use outcome-neutral gates, report memory and wall-
-clock ledgers, and preserve blueprint fallback.
-
-The open fresh causal direction screen is frozen in
-[ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md).
-After checking out its clean preregistration commit exactly once, execute:
+The latest accepted result is the fresh causal direction screen recorded in
+[ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md).
+Reproduce its frozen invocation with:
 
 ```powershell
 & $python -m pontius.h32_fresh_causal_direction_screen --config experiments/configs/h32-fresh-causal-direction-screen-v1.json --output experiments/results/h32-fresh-causal-direction-screen-v1.json
@@ -80,9 +62,17 @@ After checking out its clean preregistration commit exactly once, execute:
 
 The run reconstructs six previously unlabeled seat-2 belief shifts, performs
 one warm step per target, compares three single-public-node direction families,
-and labels four opportunity features. Its adaptive searches and all-block
-probe rankings are off clock. Even a passing result emits only the immutable
-blueprint and cannot be cited as a live selector or population-quality result.
+and labels four opportunity features. Its accepted artifact has SHA-256
+`c6fde183230994915668b5288bedb290ac7e960d4b13437d336e80a6bbd88b4d`.
+Rerunning it is reproduction, not fresh evidence. Its adaptive searches and
+all-block probe rankings are off clock; even a passing reproduction emits only
+the immutable blueprint and cannot be cited as a live selector or
+population-quality result.
+
+New research must start with a committed preregistration and clean tracked
+worktree, keep the immutable blueprint anchor, use outcome-neutral gates,
+charge the complete street ledger, report memory and wall-clock evidence, and
+preserve blueprint fallback.
 
 ## Tests
 

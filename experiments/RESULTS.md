@@ -7,19 +7,15 @@ historical rather than the project status front door. Raw JSON artifacts under
 until a checkpoint package explicitly promotes them.
 
 For the live decision, read generated [STATUS.md](../STATUS.md). The current
-opened research result is
-[ADR-0184](../docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md):
-ordinary 32-64-step DCFR fails the frozen material-depth rule, while purification
-confirms strong target-dependent direction sensitivity. This strengthens the
-generator diagnosis but authorizes neither a live selector nor a general
-strategy-quality claim.
-
-The next prospective artifact is frozen but not yet executed in
-[ADR-0185](../docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md).
-It uses fresh seat-2 belief shifts to compare regret mass, blueprint action-gap,
-fixed-probe cap sensitivity, and fixed-probe exact value against a bounded
-three-direction label. Until that result exists, no causal feature or added
-best-response-vertex family has an outcome.
+research result is
+[ADR-0186](../docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md):
+on six fresh seat-2 belief shifts, regret vertices capture 99.20% of the
+bounded three-family oracle while soft DCFR captures 5.47%. The added
+immutable-blueprint best-response vertex supplies no material lift. Regret mass
+and blueprint minimum action gap fail as free opportunity selectors; a charged
+cap-radius probe exposes useful geometry but is neither stable enough nor
+available cheaply enough to promote. No live selector, emitted candidate,
+population result, or general strategy-quality claim follows.
 
 ## EXP-0001: CFR versus LCFR on two-player Kuhn
 

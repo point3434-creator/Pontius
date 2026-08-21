@@ -39,13 +39,23 @@ retained two-direction oracle. Purification adds 4.99x over raw average-64 but
 is concentrated in one target and still trails the regret vertex
 ([ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md)).
 
-**Open gate:** ADR-0185 preregisters a causal direction/opportunity screen on
-six fresh seat-2 contexts. It compares regret mass with blueprint action-gap,
-directional cap slope, and one explicitly charged fixed-scale vertex probe,
-while adding one immutable-blueprint best-response-vertex family. Exact
-certified value—not update magnitude or policy TV—remains the label. No live
-selector advances merely because a descriptive correlation, bounded-library
-lift, or one-probe ledger looks favorable.
+The fresh causal direction/opportunity screen replicates the generator
+diagnosis: soft DCFR captures only 5.47% of its bounded three-family oracle,
+while the regret vertex captures 99.20%. An immutable-blueprint best-response
+vertex is directionally redundant and adds no material value. Regret mass and
+minimum action gap both fail as free opportunity selectors. A charged
+cap-radius probe captures 95.41% of the target-best denominator but is unstable
+across targets and unavailable before certificate work
+([ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md)).
+
+**Open gate:** preregister a narrow online-feasible opportunity-acquisition
+rule on fresh contexts. Keep the regret vertex fixed, charge every probe and
+final certificate, preserve the one-second emission reserve, and emit the
+immutable blueprint whenever evidence or time is incomplete. The observed
+order-extreme concentration and cap-radius signal may motivate the hypothesis,
+but neither is a live rule until it transfers prospectively. Modern DCFR
+variants remain deferred because changing the soft trajectory does not yet
+solve opportunity location.
 
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
 rule must improve certified value under the complete wall-clock and memory

@@ -2,12 +2,69 @@
 
 ## Runtime
 
-The reference laboratory uses Python 3.11+ and the standard library only. In
-the Codex desktop environment, the bundled interpreter is currently:
+The original CPU reference laboratory uses Python 3.11+ and the standard
+library. The wide h32 GPU path additionally uses pinned SciPy, CuPy, and CUDA
+runtime directories. In the current Codex desktop environment:
 
 ```text
 C:\Users\point\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
+C:\Users\point\AppData\Local\Temp\pontius-scipy-screen-20260820
+C:\Users\point\AppData\Local\Temp\pontius-cupy-screen-20260820
+C:\Users\point\AppData\Local\Temp\pontius-cupy-screen-20260820\nvidia\cu13\bin\x86_64
 ```
+
+These temporary dependency paths are environment-specific. If they disappear,
+restore equivalent pinned dependencies and rerun the complete numerical
+regression suite before producing evidence. Do not silently fall back to a
+different backend.
+
+## Current GPU verification environment
+
+From the repository root, initialize the evidence environment once per shell:
+
+```powershell
+$python = "C:\Users\point\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
+$scipy = "C:\Users\point\AppData\Local\Temp\pontius-scipy-screen-20260820"
+$cupy = "C:\Users\point\AppData\Local\Temp\pontius-cupy-screen-20260820"
+$cuda = "C:\Users\point\AppData\Local\Temp\pontius-cupy-screen-20260820\nvidia\cu13\bin\x86_64"
+$env:PYTHONPATH = "src;$scipy;$cupy"
+$env:PONTIUS_CUDA_DLL_DIRECTORY = $cuda
+$env:PATH = "$cuda;$env:PATH"
+& $python -m unittest discover -s tests -v
+```
+
+GPU or parallel Float64 recomputation uses the frozen numerical-identity
+protocol in [ADR-0179](docs/decisions/ADR-0179-numerical-identity-is-the-default-gpu-evidence-gate.md).
+Digests remain provenance diagnostics unless the gate is explicitly about
+immutable bytes, immediate re-export, or bitwise determinism.
+
+## Documentation freshness
+
+`STATUS.md` is generated from ADR metadata and must not be edited manually:
+
+```powershell
+$env:PYTHONPATH = "src"
+& $python -m pontius.status_generation --check
+```
+
+After adding or changing an accepted ADR, regenerate with the same command
+without `--check`. Documentation integrity tests verify the generated artifact
+and maintained local links.
+
+## Current h32 evidence reproduction
+
+The latest opened result is the regret-vertex opportunity audit:
+
+```powershell
+& $python -m pontius.h32_fresh_regret_vertex_opportunity_audit --config experiments/configs/h32-fresh-regret-vertex-opportunity-v1.json --output experiments/results/h32-fresh-regret-vertex-opportunity-v1.json
+```
+
+Its accepted artifact and interpretation are frozen in
+[ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md).
+Rerunning it is a reproducibility check, not fresh evidence. New research must
+start with a committed preregistration and clean worktree, keep the immutable
+blueprint anchor, use outcome-neutral gates, report memory and wall-clock
+ledgers, and preserve blueprint fallback.
 
 ## Tests
 
@@ -471,4 +528,5 @@ reserved context from this branch. ADR-0044 is the durable rejection.
 3. Run the fast test suite before modifying correctness-critical code.
 4. Make one measurable change.
 5. Verify against the reference and record the experiment configuration.
-6. Update `STATUS.md` and any decision whose evidence changed.
+6. Add the immutable decision record, regenerate `STATUS.md`, and run the
+   documentation freshness and link checks.

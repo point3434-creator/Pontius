@@ -1,8 +1,19 @@
 # Experiment Results
 
-This file records compact, reviewable conclusions. Raw JSON artifacts under
+This is the legacy experiment-numbered ledger through EXP-0021. Later work uses
+immutable numbered ADRs as the sole durable result narrative, so this file is
+historical rather than the project status front door. Raw JSON artifacts under
 `experiments/results/` are generated locally and excluded from version control
 until a checkpoint package explicitly promotes them.
+
+For the live decision, read generated [STATUS.md](../STATUS.md). The current
+opened research result is
+[ADR-0178](../docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md):
+on six fresh h32 targets, one-step soft DCFR captured 4.87% of the positive
+certified value in a frozen two-direction library, while regret vertices exposed
+about 20.54 times as much aggregate value. This identifies generator weakness
+within that library, but authorizes neither a live selector nor a general
+strategy-quality claim.
 
 ## EXP-0001: CFR versus LCFR on two-player Kuhn
 

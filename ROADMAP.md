@@ -1,395 +1,97 @@
 # Roadmap and Checkpoint Gates
 
-## C0: Research contract and durable memory
+This file is the compact forward map. The generated [STATUS.md](STATUS.md)
+names the latest accepted decision; the immutable records under
+[`docs/decisions`](docs/decisions) retain the complete experimental history.
 
-**Status:** Passed 2026-08-18.
+## C0-C2: Research contract and exact solver laboratory
 
-**Target:** weeks 1-2.
+**Status:** Passed as foundations.
 
-**Gate:** rules, metrics, non-goals, risks, reproduction requirements, and the
-evidence protocol are unambiguous and version controlled.
-
-## C1: Exact-game laboratory
-
-**Status:** Passed 2026-08-18 for the initial Kuhn laboratory. Independent
-sequence-form validation of multiplayer best response remains a recorded
-strengthening task, not a blocker for C2.
-
-**Target:** months 0.5-2.
-
-**Build:** generic extensive-form interface, Kuhn variants, exact evaluation,
-best response, NashConv, vanilla CFR, and LCFR.
-
-**Gate:** analytical game values are matched within numerical tolerance; an
-intentionally weak policy produces positive deviation gain; all experiments are
-reproducible from configuration and code revision.
-
-## C2: Solver comparison laboratory
-
-**Status:** Control established; remaining external-sampling and generic tree-
-mutation gates are deferred until C3 supplies a more representative workload.
-CFR, LCFR, CFR+, and DCFR share one traversal and the initial fixed-game
-comparison is recorded in EXP-0004. Paired leaf perturbation
-and explicit pseudo-regret warm starts are implemented; EXP-0005 rejected naïve
-unanchored shallow replacement. EXP-0006 provisionally advanced an affine
-blueprint anchor for average policies. EXP-0007 added structured, localized,
-joint-reach, counterfactual-reach, and matched-root-error controls and rejected
-joint reach as a standalone safety signal. EXP-0008 rejected a frozen risk-only
-selection rule on held-out strengths, depths, and three-player Kuhn: a separate
-resolver-benefit signal is required. Benefit-gate validation, tree mutation,
-and external-sampling gates remain. EXP-0009 then rejected blueprint local
-regret, scalar probe gain, probe extrapolation, and local-model gain sign as
-transferable authorization signals even with exact leaves. A complete
-continual-resolving composition gate now precedes v2 selection and neural
-scaling. EXP-0010 implemented that Bayesian composition control and rejected
-it: even terminal-depth independent public-root solves violate full-game
-strategy consistency. A two-player counterfactual-value safe-resolving gadget
-was the required control before any multiplayer relaxation. EXP-0011 now
-verifies its exact opponent-frontier and residual-adjusted exploitability
-certificates at every Kuhn2 public boundary. Raw finite-CFR Resolve is too
-unsafe and inefficient to deploy without a residual constraint; an exact
-strict gate is safe but conservative and unscalable. EXP-0012 independently
-solves the frontier-constrained normal form and rejects max-min degeneracy.
-Target-free sum-margin captures 96.99% of the hidden best-response greedy
-control's improvement in aggregate on the eight-case Kuhn2 matrix. Measuring
-finite-CFR regret shows that cold gadget policies remain unsafe at many
-boundaries even after 1,000 iterations. Blueprint warm starts and monotone
-certified retention are now the control architecture. A three-iteration DCFR,
-mass-10 incumbent rule then failed its declared holdout: sum-margin capture fell
-from 34.07% to 2.51% and quality per millisecond fell 130.72-fold. Fixed raw
-regret mass is rejected without retuning. A direct constrained
-response-generation solver is the next gate before approximate frontiers or
-multiplayer.
-
-A dynamic row/column-generation implementation now reaches the exact
-sum-margin optimum without resolver normal-form enumeration. Its held-in
-five-update point captures 84.17% of the exact objective, but is 3.52% behind
-the frozen CFR rule's unusually strong screen quality per millisecond. The rule
-then captures 63.02% on a fresh CFR/DCFR holdout without a transfer collapse,
-but its rate is 17.30% below frozen CFR. V1 is rejected. Phase-aware deadlines,
-immediate column consumption, and shared traversal are the next direct-solver
-gate before frontier approximation.
-
-The nonduplicated candidate-ready phase now preserves identical strategies
-while raising pooled revealed-development quality per millisecond materially.
-A six-candidate v2 rule is frozen on new solver/strength combinations; it must
-beat the better of one- and three-iteration CFR controls before phase-aware
-generation advances.
-
-Phase v2 then beats the better CFR checkpoint by about 5.18 times on the fresh
-paired holdout and remains exactly safe, but fails its preregistered absolute
-rate-transfer gate because mean objective headroom is only 37% of development.
-The fixed rule is rejected. A target-free opportunity-and-phase-cost estimator
-is now required before approximation or kernel specialization.
-
-Causal phase traces now expose a real but narrow scheduler opportunity. At 5
-ms, perfect allocation restricted to public states sharing one fixed blueprint
-captures 83.21% of exact headroom versus 67.64% for that regime's best fixed
-checkpoint. At 20-50 ms Kuhn2 saturates and cannot discriminate schedulers.
-Immediate phase reward is the wrong label: no boundary improves at either of
-the first two candidate checkpoints although 37/40 improve later. Current early
-features rank multi-phase gain/ms too weakly to fit honestly. Rather than fit on
-that toy workload, ADR-0021 moves the residual experiment into a full-deck
-range-sensitive river microgame. Its 128-context pilot finds normalized
-positive regret mass strongly associated with future opportunity and a
-40%-76% perfect-allocation uplift at a two-iteration budget. The 1,024-context
-development-only replication preserves both results, but also proves that
-fresh one-step counterfactual regret equals NashConv in this one-decision binary
-tree. Accumulated regret is still causal, yet this is an overly favorable
-transfer test. A sequential raise response must break that identity before any
-macro-option rule is fitted or frozen.
-
-The fixed-raise sequential gate now passes exactness and breaks that identity in
-91.99% of 53,248 production records. It also corrects the target: accumulated
-regret ranks total remaining reduction at `0.771`-`0.895`, but reduction per
-deterministic unit of work at only `0.390`-`0.594`. All group-preserving
-efficiency folds remain positive and measured milliseconds replicate the state-
-work ranking. A paid checkpoint-two probe leaves a 4.15%-6.00% perfect
-allocation ceiling at average checkpoint four. ADR-0022 therefore authorizes
-one transparent post-probe heuristic screen, not a learned scheduler. Static
-one-bet hardness transfer is rejected by the exactly paired trace.
-
-That screen now passes its development gate. Five-fold selected rules improve
-fixed checkpoint-four DCFR in every held-out development fold, capture 44.34%
-of perfect post-probe uplift, and improve conservatively charged reduction/ms
-by 2.33%. A CFR+ shadow accumulator is traversal-free and predicts raw future
-efficiency slightly better, but is nearly redundant with active regret and
-loses after cost. ADR-0024 freezes the simpler active-regret top/bottom 12.5%
-checkpoint-two/six allocator. The selection-free validation and subsequent
-sealed test both pass unchanged. Test capture is 35.16% of perfect post-probe
-uplift, charged reduction/ms improves 2.50%, and every board-group fold strictly
-improves final exploitability without exceeding fixed work. ADR-0028 accepts
-the rule as an exact sequential-river control, not a wider-tree or multiplayer
-scheduler. Neural scheduling remains deferred until a richer workload proves
-that its attainable value exceeds this transparent baseline by enough to pay
-for inference and training complexity.
-
-**Target:** months 2-4.
-
-**Build:** CFR+, DCFR, external-sampling MCCFR, current/average/snapshot output,
-leaf-error injection, and tree-mutation experiments.
-
-**Gate:** solver rankings are repeatable under equal iterations, nodes, time,
-and memory; provisional algorithms are selected by workload regime.
+The repository has reproducible extensive-form controls, exact utilities and
+best responses, NashConv, CFR-family solvers, frozen configurations, causal
+holdout discipline, and explicit fallbacks. These checkpoints remain the
+reference layer; they are not evidence that full hold'em is solved.
 
 ## C3: Reduced multiplayer hold'em
 
-**Status:** Started narrowly. The exact full-deck heads-up river control now
-supports joint combo ranges, card removal, correlated beliefs, configurable
-pot/stacks/bet size, an exact three-bet/two-raise extension, final response, and
-an independent normal-form equilibrium oracle for the fixed-size control. This
-is the two-player river edge of C3, not completion of reduced multiplayer play.
-Re-raises, earlier streets, more players, scalable unilateral NashConv, and
-coalition threat models remain. Its frozen post-probe allocator has passed
-reserved board/range transfer and is now the compute-allocation control. The next C3
-subcheckpoint now separates paired blocker-sensitive cache paths. Exact-source
-warm DCFR passes its development gate, but the recertified cached policy before
-any new solve is both stronger and cheaper. The global TV certificate is about
-111 times faster than a full exact best response but has a median 40x bound-to-
-actual ratio on nonzero cases. Delta-aware exact recertification with finite
-source policies now passes its development gate: it matches full evaluation
-within `2.31e-14` and is 55.65x faster hot, 18.77x faster even with an unshared
-full delta scan, and faster in every one of 896 records. The next gate
-has now generalized dependency invalidation beyond hard-coded river equations.
-The flat generic tape matches all exact controls within `7.11e-15`; sparse
-two-deal updates dirty 15%-17% of nodes while factorized-dense updates dirty
-82%. The unchanged tape also passes the three-bet/two-raise transfer gate within
-`1.42e-14`. Sparse percentages remain 15%-16%, but absolute work grows about
-2.7x. A full-action selective-expansion wrapper now preserves every parent
-action and exact blueprint behavior below unexpanded branches. Its one-board
-pilot cuts deterministic tree states to 38%-79% for partial masks, but the full
-3x2 mask is the best fixed equal-work arm. A fixed-warm mask/no-op oracle is
-11.43% better than full-mask/no-op and every mask wins at least one target. The
-preregistered group-separated replication now strengthens that ceiling to
-13.61% at its primary budget and finds positive opportunity in all eleven
-development board groups. The value is largest under tight work and drops to
-3.56% at budget 64. Fixed pruning still fails: full expansion wins every
-leave-one-group-out fixed-arm fold, while the shallowest masks are
-catastrophically harmful without an oracle no-op. The frozen compact causal
-screen also fails: its best normalized candidate loses 1.74%, improves only
-4/11 groups, and fixed full search wins the selection objective. Adaptive-width
-replication and branch-lane specialization are cancelled without retuning.
-Exact-label full-candidate rejection nevertheless improves Python reference
-quality/ms by 57.79%, making policy-delta recertification—not width prediction—
-the next exact control. No deployable exact no-op or multiplayer safety claim
-follows. Payoff-scale and selector property audits now confirm that the failed
-width decision and normalized measurement are invariant across 0.5x-4x stakes,
-input ordering, group names, unused labels, and declared ties. These are
-measurement guardrails, not new evidence for adaptive width. The subsequent
-policy-parameterized tape reproduces all 264 frozen candidates exactly, reaches
-`8.88e-15` maximum error, and evaluates hot candidates `5.96x` faster. Full
-candidate cones are mostly dense (81.42% median dirty), so dense compiled
-evaluation replaces sparsity as the primary mechanism. Hot exact acceptance
-improves normalized quality/ms 31.47% over blind search; one-shot compilation
-reduces that to 24.01% and is 0.66% behind the ordinary exact gate, requiring
-reuse. This run also exposes that the compact screen normalized by the narrow
-range game's span rather than the searched multi-size game's span. Because the
-ratio varies 1.25x-3.33x across targets, a frozen correction audit now precedes
-any final adaptive-width conclusion or native specialization. That audit now
-passes exactly and reverses the screen verdict. The unchanged grouped procedure
-selects a depth-one rule that skips search when changed-deal fraction is at most
-`0.14835164835164835` and otherwise runs full `b3r2`. It improves corrected
-normalized reduction 9.47%, raw reduction 41.31%, and charged raw rate 172.55%,
-while halving work and improving 7/11 groups. Because all labels are revealed,
-this advances only to a fresh preregistered development replication. It is a
-no-op/full computation gate, not evidence for safe individual branch pruning.
-That fresh replication now rejects the rule: across 23 new groups it loses
-1.11% raw and 2.28% normalized quality and improves only 26.09% of groups,
-although it nearly halves work and raises raw rate 84.21%. Range-update density
-does not distinguish strategically critical sparse blocker changes. Exact
-post-solve acceptance does transfer, improving raw quality 18.09% and rate
-10.75% even with the ordinary evaluator. Full search plus exact verification is
-the retained river control; the next C3 work moves to reduced multiplayer and
-requires richer blocker/reach/uncertainty traces before another scheduler fit.
+**Status:** Active at the six-player h32 river boundary.
 
-The first reduced-multiplayer contract now passes. A configurable two-to-six-
-player exact river game supplies correlated joint ranges, card removal, cyclic
-one-bet response order, multiway ties, per-player unilateral NashConv terms,
-and exact shared-private-information pair-coalition stress responses. Separate
-unilateral-Pareto and coalition-stress incumbent labels prevent aggregate
-quality from hiding a worse seat or pair. A revealed three-player cost
-calibration matches the flat policy tape within `9.33e-15` with zero response
-action mismatches. Hot dense candidate evaluation is 5.79x-6.57x faster than
-full traversal. However, exact state count, memory, and latency scale linearly
-in materialized joint deals, which grow cubically in hands per seat for three
-independent ranges and exponentially in player count. Explicit tuples are now
-an oracle representation only. The frozen grouped matrix now shows that useful
-full-search value survives the stricter constraints: unilateral Pareto accepts
-36/96 primary candidates and pair-coalition stress accepts 10/96, both with
-positive retained quality. Aggregate acceptance removes 18 harmful DCFR-32
-deployments and raises raw quality 4.82%, but a fresh compiled tape makes its
-one-shot rate 3.30% worse than blind search. Precompiled and amortized rates are
-3.30% and 2.91% better, and compile plus two candidates is 1.77x faster than
-two ordinary evaluations. The fixed primary gate therefore fails narrowly and
-is not promoted. Exact source-compiled range-plus-policy reuse, followed by
-factorized/low-rank belief contraction against every per-player and coalition
-oracle label, becomes the next scaling gate. Early checkpoint diagnostics show
-scheduler opportunity but inconsistent group transfer, so no solver or stopping
-rule is selected post hoc. The exact source-reuse audit now passes: it
-reproduces all 1,728 candidates and labels within `1.95e-14`, survives
-cross-range call-order replay exactly, reduces the complete evaluator path
-9.11%, and cuts persisted tape bytes fourfold. The win comes from 24 source
-compilations replacing 96 target compilations; dense combined updates are 3.04%
-slower than policy-only updates and dirty 94.46% of nodes at the median.
-Precompiled primary verification beats blind rate 2.06%, while fresh source
-compilation reaches pooled break-even at four reuses by only 0.29% and wins just
-2/6 groups. Source reuse is therefore accepted as an exact oracle primitive,
-not a robust online rule. Removing explicit joint-deal materialization through
-factorized or low-rank contraction is now the active C3 scaling gate. Before
-approximating that belief, an exact public-tree quotient removes the duplicated
-betting tree from every deal. Across 19 revealed games it preserves every
-unilateral term and action within `2.13e-14`. On 343 deals it is `173.07x`
-faster than the generic compiled tape and uses `1.639%` of its persistent
-numeric bytes. This is the new enumerated oracle. A six-player diagnostic still
-reaches 385 public nodes and 729 explicit deals with only three hands per seat,
-so the quotient does not satisfy the belief-scaling gate by itself. The next
-exact representation result separates storage from contraction: a nonnegative
-mixture of per-seat ranges times exact card compatibility is closed under every
-ordinary public-action Bayesian update. It matches explicit beliefs within
-`2.22e-16`. At 32 hands per seat it stores 6,168 numeric bytes instead of an
-8.59 GB dense `32^6` probability tensor. Exact meet-in-the-middle normalization
-is `3.666x` faster at ten hands but still takes over four seconds at 32 hands in
-Python. Belief storage is therefore no longer the primary C3 blocker; the next
-rank/compression target is the signed showdown and counterfactual value
-operator, evaluated by root strategy damage rather than tensor error alone.
-That operator screen now passes at rank 8. Across both revealed hand geometries,
-its maximum numerical bond rank is seven; rank 8 preserves every root metric
-and response action to Float64 noise while reducing grouped operator storage
-`5.12x` at four hands and `14.33x` at five. Rank 4 flips seven responses and is
-rejected despite a `14.22x` storage reduction. The active C3 gate is now direct
-contraction of rank-8 payoff cores with the exact nonnegative factor belief and
-card-subset topology, without reconstructing the Cartesian tensor.
-That direct contraction now also passes: it is exact to `3.38e-14`, crosses the
-explicit-joint baseline by `247.12x` at ten hands, and peaks below 1% of a dense
-32-hand operator. The wide hot pass still costs `274-312` ms and `68-78` MB for
-one operator, while rank 8 develops `6.64e-05` literal expectation error at
-seven hands. C3 therefore advances to bottom-up fixed-policy TT composition and
-one root contraction, not 64 independent terminal-group passes. Conditional
-hand/action vectors and response-action identity remain the next hard gate.
-The fixed-policy composition control is exact, but the compression hypothesis
-fails: exact middle ranks reach 202, and rank 32 still has `0.0634%` normalized
-utility error versus the frozen `0.01%` gate while exceeding dense storage on
-the small axis. Terminal ranks top out at ten, isolating arbitrary hand-policy
-gates as the source. The corrected fixed-belief policy-delta cache is exact and
-memory-modest, but misses its four-reuse unilateral speed gate: `0.99181x`
-pooled after charging compilation. At seven hands, a seat-wide change skips
-67.2% of strategic nodes yet gains only `1.20x` raw because upper-tree TT
-rounding dominates. It amortizes at seven candidates, so the primitive remains
-useful for local edits and larger batches rather than passing as the frozen
-acceptance hot path. A seven-hand root alone costs 17%-20% of cold and one
-11-node crown path costs 69%-72%, so future reports use rank/cost-weighted
-closures rather than node fractions. The dense-free showdown automaton now
-passes the 32-hand lift: maximum literal sampled error is `4.44e-16`, one sparse
-operator peaks at 97,048 bytes, all 384 group/target objects at 10.39 MB, and
-maximum reachable state rank at 187. A full 384-object Python construction
-takes 499-552 ms. This removes Cartesian terminal construction, not root-policy
-rank. C3 now screens seat cuts on actual DCFR-average and literal-BR provenance
-as well as hash controls. That screen also moves fixed-policy scalar candidate
-reads to clean-fringe contractions with no new TT rounding and charges rounding
-only when an accepted candidate becomes the new baseline. Within-axis strength
-sorting is recorded as a rank invariant, not a TT-SVD compression arm. If no
-transferable representation restores compression, the architecture will retain
-an explicit public-state bond instead of collapsing the whole tree into one TT.
-The own-axis source is now concrete: 46 checkpoint/BR policy tables replay
-bit-identically, and exact tensor CFR reduces source iterations from tens of
-seconds to 23-29 ms at four hands and 194-350 ms at seven. Late source NashConv
-is low on these finite games but the averages retain nearly one distinct action
-distribution per information set, so favorable TT rank is not assumed. The
-next frozen screen reads the source artifact by SHA and treats rank versus
-checkpoint, common-frontier work, and equal evaluator accounting as the
-decisive evidence. ADR-0076 now freezes that screen: 126 root-rank rows, 134
-whole-seat candidates, exact clean-fringe delta certificates, and equal
-compile/marginal/reuse bills against recomposition and the flat compatible-deal
-incumbent. There is no small-axis speed gate; cap-32 compression and clean-read
-economics are separate products and may be rejected independently. Its first
-invocation stopped before root composition because generator hand order differed
-from the source artifact's canonical layout order. ADR-0077 freezes a pure
-within-seat axis permutation with matching unary-column permutation; all four
-game provenance digests and deal counts remain exact, and no representation
-result was exposed before the correction.
-The corrected run now resolves both questions. Exact clean-fringe deltas and
-their sign envelopes pass, but the universal capped-root gate fails on one of
-twelve late-average rows and is not weakened. Flat compatible-deal evaluation
-dominates meaningful four/seven-hand marginals. Clean reads do beat
-recomposition on mature h7 average-to-average updates, isolating their real
-customer. The next gate removes the current two-term candidate/baseline
-duplication with a signed single-seat reach factor and chooses a clean cutset by
-rank/work before C++ specialization.
+Completed subgates include:
 
-**Target:** months 4-6.5.
+- exact two-to-six-player river controls with per-seat unilateral deviation
+  gains and separate coalition-stress diagnostics;
+- public-tree quotienting, factorized compatible-card beliefs, low-rank
+  showdown structure, clean-fringe deltas, and shared-topology GPU residency;
+- exact incremental response certification against an immutable blueprint;
+- allocator lifecycle control for two resident h32 belief contexts; and
+- a prepared 15-second street ledger: one resident warm step plus two exact
+  atomic certificates and a one-second emission reserve on two frozen trials
+  ([ADR-0166](docs/decisions/ADR-0166-prepared-street-fits-two-atomic-certificates-after-one-warm-step.md)).
 
-**Build:** reduced decks, 2-6 players, dense bet lattice, exact belief handling,
-and tractable best responses.
+The current strategy-identification result is narrower. Public-node admissible
+radii exist, but one-step soft DCFR captures only 4.87% of the positive value in
+a frozen two-direction library. Regret vertices expose about 20.54 times as much
+aggregate certified value, while the available regret-mass proxy fails to rank
+that opportunity ([ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md)).
+This supports “generator, at least”; it does not authorize a live selector or a
+global strategy-quality claim.
 
-**Gate:** root costs of action omission, card merging, range corruption, and
-early stopping are measurable; adaptive branching beats a fixed abstraction on
-at least one held-out regime.
+**Next gate:** preregister a small deep-horizon diagnostic on frozen panel
+targets. Compare immutable-envelope certification at off-clock 32-64-step
+checkpoints. Material certified value would support amortized deep solving;
+another microscopic result would add evidence about contract geometry without
+proving opportunity exhaustion. The experiment must preserve immutable anchors,
+frozen outcome-neutral gates, numerical GPU identity, explicit memory ceilings,
+and the blueprint fallback.
+
+**C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
+rule must improve certified value under the complete wall-clock and memory
+contract without weakening any per-seat cap. Exact offline opportunity alone
+does not pass.
 
 ## C4: Optimized runtime
 
-**Target:** months 6.5-9.
+**Status:** Partly explored inside C3; not passed as a checkpoint.
 
-**Build:** flat C++ tree, CPU vectorization, batched GPU prototype, asynchronous
-leaf interface, profiling, cancellation, and memory accounting.
-
-**Gate:** optimized results match the reference numerically and improve real
-search traces by several-fold without strategy-quality regression.
+Build the production-oriented flat/native runtime, cancellation and emission
+path, latency distributions, and memory accounting. Optimized results must
+match the reference numerically under the frozen protocol and improve real
+decision traces without strategy regression.
 
 ## C5: Pluribus-style control agent
 
-**Target:** months 9-11.
-
-**Build:** fixed abstraction, sparse external-sampling LCFR blueprint, cautious
-negative-regret pruning, ranges, fixed-depth resolving, and off-tree handling.
-
-**Gate:** complete legal 6-max play; resolver reliably improves the blueprint in
-reduced exact games and against a frozen evaluation league.
+Build a complete legal six-max control agent with a fixed abstraction,
+blueprint, ranges, fixed-depth resolving, off-tree handling, and fail-closed
+fallbacks. The resolver must improve the blueprint in reduced exact games and
+against a frozen evaluation league.
 
 ## C6: Neural blueprint and leaves
 
-**Target:** months 11-15.
-
-**Build:** backward river-to-flop teachers, policy/value/action/uncertainty
-models, active data generation, and root-aware validation.
-
-**Gate:** neural leaves reduce held-out root harm at equal latency relative to
-blueprint continuation. Lower value MSE alone does not pass the gate.
+Add river-to-flop teachers and policy/value/action/uncertainty models only after
+the exact runtime and decision contract are stable. Pass on root-strategy harm
+at equal latency, not value-function mean-squared error alone.
 
 ## C7: Adaptive public-belief search
 
-**Target:** months 15-18.
-
-**Build:** dynamic width/depth, continuous bet proposals, action insertion,
-residual solving, street/player specialization, and heuristic computation
-allocation.
-
-**Gate:** adaptive search Pareto-dominates fixed search at multiple budgets with
-no material rare-branch vulnerability.
+Add dynamic width/depth, continuous action proposals, residual solving, and
+street/player specialization. Adaptive search must Pareto-dominate fixed search
+at multiple budgets with no material rare-branch vulnerability.
 
 ## C8: Cache and speculation
 
-**Target:** months 18-20.
-
-**Build:** range-aware caches, topology/embedding reuse, continuous pondering,
-future-state forests, and preemptible background work.
-
-**Gate:** future decisions improve without degrading current-decision p95
-latency or corrupting strategies when beliefs differ.
+Add range-aware caches, topology/embedding reuse, pondering, and preemptible
+future-state work. Future decisions must improve without degrading current-
+decision p95 latency or reusing a strategy across incompatible beliefs.
 
 ## C9: Learned value-of-computation scheduler
 
-**Target:** months 20-23.
-
-**Build:** oracle labels, operation-cost model, conservative learned ranking,
-minimum coverage, and heuristic fallback.
-
-**Gate:** learned scheduling beats the best tuned heuristic on hidden games and
-full-game traces. Otherwise the heuristic remains production default.
+Train only after a richer workload demonstrates enough attainable value to pay
+for inference and training. A learned scheduler must beat the best transparent
+heuristic on hidden games and full traces; otherwise retain the heuristic.
 
 ## C10: Full evaluation
 
-**Target:** month 23 onward.
-
-**Gate:** exact reduced-game results, adversarial responders, complete cross-play
-matrices, paired-deal confidence intervals, latency/memory profiles, and all
-major ablations are available for a defensible report.
+Require exact reduced-game results, adversarial responders, complete cross-play
+matrices, paired-deal confidence intervals, latency and memory profiles, and all
+major ablations before a defensible final report.

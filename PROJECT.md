@@ -10,12 +10,38 @@ decision budget on one Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
 
 ## Initial game contract
 
+This is the original charter contract. Its 5-250 ms budgets remain useful for
+the early exact laboratories, but they are not the active h32 decision ledger.
+
 - Six-player cash-game no-limit Texas hold'em.
 - 100 big-blind starting stacks.
 - No rake and no ante in the first full-game implementation.
 - Exact legal betting, all-in, side-pot, and card-removal rules.
 - Initial online budgets: 5, 20, 50, 100, and 250 milliseconds.
 - Cold-cache and warm-cache results are reported separately.
+
+## Current decision-boundary contract
+
+- The active systems control is a prepared six-player h32 river decision.
+- The hard boundary is 15,000 ms, including a fixed 1,000 ms reserve for
+  synchronization and action emission.
+- Belief/topology preparation and immutable-blueprint construction occur before
+  the decision clock and are reported separately from charged work.
+- The frozen measured schedule permits one resident warm step, deterministic
+  candidate construction, and only certificates that the deadline guard can
+  finish before the reserve.
+- Every candidate is compared with the same immutable blueprint anchor. Safety
+  does not compose across atomic candidates; any union requires exact
+  recertification.
+- If no independently certified candidate completes in time, emit the immutable
+  blueprint. A late result is unusable.
+- Cold construction, warm work, certificate work, persistent GPU-pool bytes,
+  physical-free memory, and the emission reserve stay separate in every ledger.
+
+[ADR-0166](docs/decisions/ADR-0166-prepared-street-fits-two-atomic-certificates-after-one-warm-step.md)
+records the current capacity evidence. It does not authorize deployment, claim
+a population latency distribution, or establish that the certifiable edits
+capture material strategy value.
 
 ## Primary measurements
 

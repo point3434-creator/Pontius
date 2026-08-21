@@ -17,6 +17,46 @@ scheduler       current and speculative value-of-computation queues
 evaluation      exact metrics, responders, leagues, variance control
 ```
 
+## Current h32 execution spine
+
+The active boundary is a prepared six-player river decision with 32 hands per
+seat. Off-clock preparation builds the immutable blueprint, factorized belief
+contexts, shared public topology, resident solver state, and incremental
+response caches. Allocator scratch is trimmed before the street becomes ready.
+
+Inside the 15-second boundary, the frozen systems control performs one resident
+warm step, constructs deterministic source-relative candidate deltas, and runs
+only independent exact certificates that can finish before a one-second
+emission reserve. A candidate may replace the blueprint only if every per-seat
+deviation cap and the incumbent NashConv objective pass against that same
+immutable anchor. Atomic certificates do not compose; a union is a new policy
+and requires exact recertification. Missing, stopped, stale, or late evidence
+emits the blueprint.
+
+```text
+prepared immutable state
+    -> one resident warm step
+    -> causal candidate directions
+    -> deadline-admitted exact certificate(s)
+    -> certified incumbent or immutable blueprint
+    -> reserved synchronization/action emission
+```
+
+GPU semantic equality is numerical under preregistered Float64 ceilings; exact
+digests remain authoritative for immutable provenance and explicitly bitwise
+questions. [ADR-0166](docs/decisions/ADR-0166-prepared-street-fits-two-atomic-certificates-after-one-warm-step.md)
+closes the present systems-capacity spine, while
+[ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md)
+shows that candidate generation—not certification alone—is now the active
+strategy research problem.
+
+## Architecture evolution record
+
+The narrative below records how the architecture reached the current spine and
+is retained for mechanism provenance. Words such as “current” and “next” in
+that record are time-scoped to the experiment being discussed; use generated
+[STATUS.md](STATUS.md) for the live decision.
+
 The Python package implements `game-core`, `exact-lab`, the reference portion
 of `solver-core`, and a small experimental public-belief/online-search control.
 The Bayesian continual compositor is a rejected negative control, not the

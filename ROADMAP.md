@@ -72,12 +72,16 @@ is 11,004x. Across both extreme-seat trials, two of eight targets supply 88.78%
 of all certified value
 ([ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md)).
 
-**Open gate:** broaden transfer rather than repeat the exposed blocker family.
-Freeze new board or belief regimes, explicit position coverage, and a causal
-materiality/no-op rule before new labels. A one-raw-guard threshold is only a
-retrospective development candidate even though it retains 99.902% of the eight
-observed values. Modern DCFR variants remain deferred: the certificate and
-deadline mechanism now work, while opportunity magnitude remains the weak link.
+**Open gates:** broaden transfer rather than repeat the exposed blocker family,
+and reduce compute time without changing the accepted live semantics. ADR-0195
+first attributes the resident warm-step bill on disclosed targets; its result
+may select a GPU, transfer, host-fold, or finer-profiling engineering screen but
+cannot count as fresh strategy evidence. Before new labels, freeze new board or
+belief regimes, explicit position coverage, and a causal materiality/no-op
+rule. A one-raw-guard threshold is only a retrospective development candidate
+even though it retains 99.902% of the eight observed values. Modern DCFR
+variants remain deferred: the certificate and deadline mechanism now work,
+while opportunity magnitude remains the strategy weak link.
 
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
 rule must improve certified value under the complete wall-clock and memory

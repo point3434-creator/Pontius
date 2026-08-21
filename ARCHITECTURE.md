@@ -98,6 +98,14 @@ targets carry 88.78% of value. The architecture therefore treats the affine
 runtime as provisionally sound and moves the research boundary to causal
 materiality and broader position/belief coverage.
 
+[ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md)
+opens a separate compute-time subgate without consuming a fresh strategy
+context. It replays the disclosed fastest and slowest seat-5 targets and
+partitions the dominant resident step into device, transfer, host-fold, and
+residual buckets. Its Amdahl estimates can route the next engineering screen;
+they cannot justify a hardware purchase without a workload-specific follow-up
+or weaken the 15-second fail-closed boundary.
+
 ## Architecture evolution record
 
 The narrative below records how the architecture reached the current spine and

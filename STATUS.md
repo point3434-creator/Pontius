@@ -24,7 +24,7 @@ not return to another DCFR variant while opportunity magnitude is unresolved.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md) — Preregister a read-only h32 resident-step bottleneck profile (accepted preregistration before any replay step).
 
 ## Evidence protocol
 
@@ -36,7 +36,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0171](docs/decisions/ADR-0171-preregister-numerically-corrected-fresh-union-rerun.md) | 2026-08-21 | accepted successor preregistration | Preregister the numerically corrected fresh-union rerun |
 | [ADR-0172](docs/decisions/ADR-0172-fresh-six-atom-unions-fit-but-do-not-recover-material-value.md) | 2026-08-21 | accepted corrected result | Fresh six-atom unions fit but do not recover material value |
 | [ADR-0173](docs/decisions/ADR-0173-preregister-fresh-h32-public-node-block-value-ledger.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 public-node block value ledger |
 | [ADR-0174](docs/decisions/ADR-0174-public-node-blocks-fit-but-two-directions-are-cap-bound.md) | 2026-08-21 | accepted prospective result | Public-node blocks fit but two directions are cap-bound |
@@ -60,12 +59,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md) | 2026-08-21 | accepted prospective engineering result | The fixed seat-0 affine rule emits four fresh certified candidates before deadline |
 | [ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-5 affine street replication |
 | [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) | 2026-08-21 | accepted prospective replication result | The affine street mechanism transfers to seat 5 but value remains concentrated |
+| [ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md) | 2026-08-21 | accepted preregistration before any replay step | Preregister a read-only h32 resident-step bottleneck profile |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) — The affine street mechanism transfers to seat 5 but value remains concentrated.
-- Numbered decisions: 194.
-- ADR-header SHA-256: `2695b2a0def4a371b72a13fb5e3c02a29a471339a17ce85c3bd57810a5094c65`.
+- Latest ADR: [ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md) — Preregister a read-only h32 resident-step bottleneck profile.
+- Numbered decisions: 195.
+- ADR-header SHA-256: `da84a21b1a0c75c58bd0704e73b262afdabf3a5706440869c5fc9bd12d8ee9dc`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

@@ -73,15 +73,19 @@ strategy-quality claim.
 New research must start with a committed preregistration and clean tracked
 worktree, keep the immutable blueprint anchor, use outcome-neutral gates,
 charge the complete street ledger, report memory and wall-clock evidence, and
-preserve blueprint fallback. The next authorized experiment is a fresh street
-trial using the fixed regret-vertex direction and affine-only live proof. Do
-not construct its targets or labels before its configuration, implementation,
-and decision rule are committed.
+preserve blueprint fallback. ADR-0195 authorizes one read-only compute-time
+profile over two already exposed ADR-0194 targets. It may attribute the
+resident step but may not evaluate strategy quality or count as new transfer
+evidence. Run it only from its clean preregistration commit:
+
+```powershell
+& $python -m pontius.h32_resident_step_bottleneck_profile --config experiments/configs/h32-resident-step-bottleneck-profile-v1.json --output experiments/results/h32-resident-step-bottleneck-profile-v1.json
+```
 
 ADR-0191's one-time fresh invocation is already spent. Do not rerun it with
-altered guards or inspect another seat-0 shift as a rescue. The next authorized
-work is a separately committed acting-seat-5 replication over still-unlabeled
-beliefs; no such target may be stepped before its own preregistration closes.
+altered guards or inspect another seat-0 shift as a rescue. ADR-0193's
+acting-seat-5 replication is also complete; its two timing-extreme targets may
+be replayed only under ADR-0195's no-label profiling boundary.
 
 ADR-0193's one-time invocation is also spent. Do not rerun it with a threshold
 or rescue direction. No broader fresh panel is currently preregistered; freeze

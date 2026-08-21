@@ -93,18 +93,21 @@ or rescue direction. No broader fresh panel is currently preregistered; freeze
 its board/belief construction, position coverage, and materiality rule before
 any new target policy step.
 
-ADR-0199 is the active retained-label selector replay. It creates no fresh
-strategy label and emits only the immutable blueprint. Run it once from its
-clean preregistration commit:
+ADR-0199's first invocation rejected before result serialization on the final
+memory-field spelling. ADR-0201 is the active corrected retained-label selector
+replay. It creates no fresh strategy label and emits only the immutable
+blueprint. Run it once from its clean preregistration commit:
 
 ```powershell
-& $python -m pontius.h32_retained_affine_selector_cascade_replay --config experiments/configs/h32-retained-affine-selector-cascade-replay-v1.json --output experiments/results/h32-retained-affine-selector-cascade-replay-v1.json
+& $python -m pontius.h32_retained_affine_selector_cascade_replay_v2 --config experiments/configs/h32-retained-affine-selector-cascade-replay-v2.json --output experiments/results/h32-retained-affine-selector-cascade-replay-v2.json
 ```
 
 Config validation reads the retained-label artifact only as opaque bytes for
 SHA-256 provenance. The runner must compute all 108 feature rows and every
 clock-derived K before deserializing or joining label content. A saturated
-six-candidate primary K is library limitation, not selector evidence.
+six-candidate primary K is library limitation, not selector evidence. The v2
+wrapper may add only `gpu_physical_free_bytes := gpu_free_bytes`; it may not
+reuse the failed process state.
 
 ADR-0198 accepts ADR-0197's corrected compute profile. Its result artifact has
 SHA-256

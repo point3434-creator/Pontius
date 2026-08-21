@@ -41,9 +41,12 @@ counterfactual projects a 1.51x complete-step speedup. This is read-only
 compute evidence, not a hardware recommendation or strategy result.
 
 [ADR-0199](../docs/decisions/ADR-0199-preregister-retained-affine-selector-cascade-replay.md)
-is the open no-new-label replay. It freezes the affine feature matrix, causal
-label-join order, clock-priced K, primary regret-only stratum, raw-family
-secondary stratum, and soft-excluded confound control. It has no result yet.
+froze the no-new-label replay, but its first invocation rejected before result
+serialization on a final memory-field spelling. The additive
+[ADR-0201](../docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md)
+preserves the affine feature matrix, causal label-join order, clock-priced K,
+candidate strata, controls, and gates while adding only the exact snapshot
+alias. It has no result yet.
 
 ## EXP-0001: CFR versus LCFR on two-player Kuhn
 

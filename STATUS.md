@@ -24,7 +24,7 @@ deployment authorization, or composition claim.
 
 ## Open preregistration
 
-[ADR-0199](docs/decisions/ADR-0199-preregister-retained-affine-selector-cascade-replay.md) — Preregister the retained affine selector-cascade replay (accepted preregistration before missing-feature extraction or semantic label load).
+[ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md) — Preregister the memory-schema-corrected selector replay (accepted correction preregistration before corrected replay).
 
 ## Evidence protocol
 
@@ -36,7 +36,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0177](docs/decisions/ADR-0177-preregister-fresh-h32-regret-vertex-opportunity-audit.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 regret-vertex opportunity audit |
 | [ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md) | 2026-08-21 | accepted prospective result | Regret vertices expose soft-generator weakness but not a live selector |
 | [ADR-0179](docs/decisions/ADR-0179-numerical-identity-is-the-default-gpu-evidence-gate.md) | 2026-08-21 | accepted process decision | Numerical identity is the default GPU evidence gate |
 | [ADR-0180](docs/decisions/ADR-0180-generate-status-front-door-from-adr-metadata.md) | 2026-08-21 | accepted process decision | Generate the status front door from ADR metadata |
@@ -60,12 +59,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) | 2026-08-21 | accepted read-only engineering result | The device pipeline dominates the h32 step and host folding is second |
 | [ADR-0199](docs/decisions/ADR-0199-preregister-retained-affine-selector-cascade-replay.md) | 2026-08-21 | accepted preregistration before missing-feature extraction or semantic label load | Preregister the retained affine selector-cascade replay |
 | [ADR-0200](docs/decisions/ADR-0200-selector-replay-v1-rejects-on-final-memory-schema-key.md) | 2026-08-21 | rejected result | Selector replay v1 rejects on its final memory-schema key |
+| [ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md) | 2026-08-21 | accepted correction preregistration before corrected replay | Preregister the memory-schema-corrected selector replay |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0200](docs/decisions/ADR-0200-selector-replay-v1-rejects-on-final-memory-schema-key.md) — Selector replay v1 rejects on its final memory-schema key.
-- Numbered decisions: 200.
-- ADR-header SHA-256: `4f105c4a2588824823aa9f04e3a823b2ef35034f2a680dbc426a2eb59840c3c1`.
+- Latest ADR: [ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md) — Preregister the memory-schema-corrected selector replay.
+- Numbered decisions: 201.
+- ADR-header SHA-256: `4df9bf3eb1c42352938f7c1919d5ecc22925b6036b958561bda65e1b352ce87b`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

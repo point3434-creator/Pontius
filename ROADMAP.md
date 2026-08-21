@@ -84,7 +84,9 @@ even though it retains 99.902% of the eight observed values. Modern DCFR
 variants remain deferred: the certificate and deadline mechanism now work,
 while opportunity magnitude remains the strategy weak link.
 
-ADR-0199 now freezes the leading no-new-label opportunity follow-up. It
+ADR-0199 freezes the leading no-new-label opportunity follow-up. Its first
+invocation produced no artifact after a final memory-field lookup failed;
+ADR-0201 preserves the full protocol and adds only the exact snapshot alias. It
 reconstructs all missing affine features against ADR-0186's sealed labels,
 derives K before semantic label load, and reports certified-value recall and
 value per charged millisecond against the failed proxies. Its primary matrix is

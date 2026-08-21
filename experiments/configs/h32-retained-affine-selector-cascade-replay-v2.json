@@ -1,0 +1,13 @@
+{
+  "evidence_stage": "preregistered_after_adr0200_before_corrected_selector_replay",
+  "expected_v1_config_sha256": "9f700db8c7ddedf9e3d0e91f982634b41d65483719735b7d6be202294ffec841",
+  "expected_v1_implementation_sha256": "04062b4355d773ee7046995b05f03c927c8ecdae8edf5576819e642f8e948d0e",
+  "expected_v1_control_test_sha256": "31a6d43bb936583d47d54eec3fb5f1758151af5738f890eeb9018ffedf774b29",
+  "expected_v1_decision_sha256": "49c06091754f71a9af0aeb036c2a2f99dbcc9d6e2d6162a90d4a3fe2ff2995d7",
+  "expected_rejection_decision_sha256": "0bc2ab141236de9bc868294f2f2deed7c0a3bfdf01f374e14827d3755c2488b6",
+  "expected_audit_implementation_sha256": "36addb294ca4ecf748b2033cb2c836422d60570b3a532c40289a5b479ee21369",
+  "expected_control_test_sha256": "bf0f7be44eba92ab22b1542d2102925f38cbdd3013f1c2a00933c2c2a1f798c2",
+  "correction_scope": "add_gpu_physical_free_bytes_as_in_memory_alias_of_the_existing_gpu_free_bytes_snapshot_field_only",
+  "replay_scope": "reuse_adr0199_targets_features_label_barrier_candidate_strata_capacity_scoring_controls_gates_and_blueprint_emission_unchanged",
+  "outcome_policy": "no_partial_v1_state_or_metric_is_reused_and_every_feature_is_recomputed_before_the_single_semantic_label_join"
+}

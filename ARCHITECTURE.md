@@ -124,7 +124,10 @@ rows before semantically loading the labels, prices K from measured work, and
 scores the primary six regret vertices separately from the confounded 18-row
 family library and its soft-excluded control. The primary set is explicitly
 library-limited if K reaches six; pooled or family-discrimination performance
-cannot be presented as a live selector result.
+cannot be presented as a live selector result. Its first invocation rejected
+at final aggregation on a memory-field spelling; the additive
+[ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md)
+adds only the exact `gpu_free_bytes` alias and recomputes the full matrix.
 
 ## Architecture evolution record
 

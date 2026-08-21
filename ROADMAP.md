@@ -58,16 +58,20 @@ The slowest retained ledger has only 338.90 ms of boundary headroom after the
 one-second reserve, so the result validates the primitive but not a latency
 distribution.
 
-**Open gate:** execute the narrow fresh street trial frozen in
-[ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md).
-It always chooses acting seat 0's regret vertex on four previously unmaterialized
-seat-0 blocker shifts, charges the complete live ledger, enforces two start
-guards and the hard deadline, and emits the immutable blueprint whenever
-construction, proof, or time is incomplete. The old exact verifier runs only
-after simulated emission is frozen. No selected count, value, street fit, or
-target from ADR-0190 is a fresh-outcome gate. Modern DCFR variants remain
-deferred because changing the soft trajectory does not solve opportunity
-location.
+The first fresh live-rule trial passes on all four precommitted contexts. Fixed
+acting seat 0 produces four deadline-eligible affine-certified candidates with
+at least 3.80 seconds of boundary headroom, and post-emission exact teachers
+agree to `1.67e-16`. Certified value is highly heterogeneous: one target carries
+86.45% of the total and the target spread is 565x
+([ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md)).
+
+**Open gate:** replicate the unchanged rule at the other order extreme. Freeze
+acting seat 5 on the four remaining previously unlabeled seat-4 blocker shifts,
+retain both deadline guards and all causal teacher boundaries, and do not add a
+materiality threshold or rescue direction from the seat-0 outcomes. Modern DCFR
+variants remain deferred because the fixed regret vertex now acquires value
+inside the street; breadth and transfer, not another soft update rule, are the
+next uncertainty.
 
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
 rule must improve certified value under the complete wall-clock and memory

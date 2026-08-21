@@ -52,24 +52,23 @@ and maintained local links.
 
 ## Current h32 evidence reproduction
 
-The latest accepted engineering result is the corrected selector-stable affine
-certificate differential recorded in
-[ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md).
+The latest accepted prospective engineering result is the fresh fixed-seat-0
+street trial recorded in
+[ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md).
 Reproduce its frozen invocation with:
 
 ```powershell
-& $python -m pontius.h32_selector_stable_affine_certificate_audit_v2 --config experiments/configs/h32-selector-stable-affine-certificate-v2.json --output experiments/results/h32-selector-stable-affine-certificate-v2.json
+& $python -m pontius.h32_fresh_selector_stable_affine_street_audit --config experiments/configs/h32-fresh-selector-stable-affine-street-v1.json --output experiments/results/h32-fresh-selector-stable-affine-street-v1.json
 ```
 
-The run reconstructs ADR-0186's six retained targets, one warm step per target,
-36 regret-vertex public blocks, and 216 responding-seat affine rows. Direct
-fixed and selected-scale validations are off-clock teachers. Its accepted
-artifact has SHA-256
-`f47964cfcf91464d7db81ae68ced98b8d817ab97601a7d9deb6a00eaa71ab3cd`.
-Rerunning it is reproduction, not fresh evidence. All six descriptive seat-0
-ledgers fit, but the narrowest remaining boundary margin is only `338.90 ms`.
-The audit emits only the immutable blueprint and cannot be cited as a live
-selector, latency distribution, or population-quality result.
+The run reconstructs the four frozen fresh seat-0 blocker shifts, preloads each
+immutable blueprint, performs one charged warm step, and always attempts acting
+seat 0's regret vertex under the two deadline guards. Its accepted artifact has
+SHA-256
+`7cb3496e754eec2f44083b3c845dea068c7b7cf9af4e382017b4f22c5de178e6`.
+All four simulated emissions are non-blueprint candidates and all post-emission
+exact teachers pass. Rerunning it is reproduction, not another fresh trial, and
+the result is not a population, deployment, or general strategy-quality claim.
 
 New research must start with a committed preregistration and clean tracked
 worktree, keep the immutable blueprint anchor, use outcome-neutral gates,
@@ -79,19 +78,10 @@ trial using the fixed regret-vertex direction and affine-only live proof. Do
 not construct its targets or labels before its configuration, implementation,
 and decision rule are committed.
 
-That trial is frozen in
-[ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md).
-From its clean preregistration commit, execute exactly once with:
-
-```powershell
-& $python -m pontius.h32_fresh_selector_stable_affine_street_audit --config experiments/configs/h32-fresh-selector-stable-affine-street-v1.json --output experiments/results/h32-fresh-selector-stable-affine-street-v1.json
-```
-
-The runner checks that all four target and descriptor digests are absent from
-the sealed preconstruction commit. It preloads the blueprint, starts the clock
-at the single resident step, uses only acting seat 0's regret vertex and affine
-proof live, and freezes simulated emission before any old-verifier teacher.
-Do not rerun with altered guards or inspect another fresh shift as a rescue.
+ADR-0191's one-time fresh invocation is already spent. Do not rerun it with
+altered guards or inspect another seat-0 shift as a rescue. The next authorized
+work is a separately committed acting-seat-5 replication over still-unlabeled
+beliefs; no such target may be stepped before its own preregistration closes.
 
 ## Tests
 

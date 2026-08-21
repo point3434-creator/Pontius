@@ -79,6 +79,13 @@ blueprint fallback. Two start guards protect the one-second emission reserve.
 The old exact verifier is a post-emission teacher only, so it can reject the
 trial but cannot choose its live action.
 
+[ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md)
+shows that slice closing prospectively: all four fresh seat-0 trials emit a
+certified candidate before the cutoff, with exact teachers agreeing to machine
+precision and at least 3.80 seconds of boundary headroom. Value varies by 565x,
+so the architecture keeps acquisition correctness separate from opportunity
+magnitude and next tests the unchanged mechanism at acting seat 5.
+
 ## Architecture evolution record
 
 The narrative below records how the architecture reached the current spine and

@@ -5,25 +5,27 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md) — The selector-stable affine certificate is exact and fits retained street ledgers.
+Latest accepted research result: [ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md) — The fixed seat-0 affine rule emits four fresh certified candidates before deadline.
 
-Status: accepted corrected engineering result.
+Status: accepted prospective engineering result.
 
 ## Current decision
 
-Accept the additive selector-stable affine certificate as an exact engineering
-primitive within its frozen scope. ADR-0187's advancement condition is met:
-exactness passes and all retained descriptive seat-0 ledgers fit.
+Accept the fixed seat-0 rule as a successful four-context prospective
+engineering trial. Preserve the affine proof, two deadline guards, immutable
+anchor, and preloaded blueprint fallback unchanged.
 
-Authorize a separately committed fresh street trial with a predeclared
-regret-vertex direction, affine-only live certificate, hard deadline, one-second
-emission reserve, and immutable-blueprint fallback. Do not run the old exact
-teacher on the live ledger, compose certificates, move the anchor, or infer a
-strategy-quality or population claim from this retained differential.
+The cheapest next falsification is the other order extreme: preregister the
+same fixed rule for acting seat 5 on the four remaining previously unlabeled
+seat-4 blocker shifts. Do not tune a value threshold, scale rule, guard, target,
+or direction from the seat-0 outcomes. If that replication fails exactness or
+deadline, stop and repair the primitive/runtime; if it merely finds sparse or
+microscopic value, record that outcome rather than rescue it with another
+direction.
 
 ## Open preregistration
 
-[ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md) — Preregister a fresh seat-0 selector-stable affine street trial (accepted preregistration).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -35,7 +37,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0168](docs/decisions/ADR-0168-retrospective-atomization-exposes-strong-nonadditivity.md) | 2026-08-21 | accepted retrospective result; not preregistered | Retrospective atomization exposes strong nonadditivity |
 | [ADR-0169](docs/decisions/ADR-0169-preregister-fresh-h32-exact-union-value-ledger.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 exact-union value ledger |
 | [ADR-0170](docs/decisions/ADR-0170-fresh-union-v1-rejected-by-overstrict-warm-digest-gate.md) | 2026-08-21 | rejected result | Fresh-union v1 is rejected by an overstrict warm digest gate |
 | [ADR-0171](docs/decisions/ADR-0171-preregister-numerically-corrected-fresh-union-rerun.md) | 2026-08-21 | accepted successor preregistration | Preregister the numerically corrected fresh-union rerun |
@@ -59,12 +60,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0189](docs/decisions/ADR-0189-preregister-numerically-corrected-selector-stable-affine-rerun.md) | 2026-08-21 | accepted successor preregistration | Preregister the numerically corrected selector-stable affine rerun |
 | [ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md) | 2026-08-21 | accepted corrected engineering result | The selector-stable affine certificate is exact and fits retained street ledgers |
 | [ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-0 selector-stable affine street trial |
+| [ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md) | 2026-08-21 | accepted prospective engineering result | The fixed seat-0 affine rule emits four fresh certified candidates before deadline |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md) — Preregister a fresh seat-0 selector-stable affine street trial.
-- Numbered decisions: 191.
-- ADR-header SHA-256: `638af89574513e30edc671cdb0b1ad82eb864cc4d6592f00c1f992d25cfbc2a7`.
+- Latest ADR: [ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md) — The fixed seat-0 affine rule emits four fresh certified candidates before deadline.
+- Numbered decisions: 192.
+- ADR-header SHA-256: `3222825260cbbcd146399725fbf0fe68474d0354206b7984980c48a2aefa6334`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -72,4 +74,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md) and its dependencies
+4. [ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md) and its dependencies

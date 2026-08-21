@@ -18,11 +18,13 @@ one-second reserve. This authorizes a separately preregistered fresh trial, not
 deployment, a latency distribution, candidate emission, or a general
 strategy-quality claim.
 
-[ADR-0191](../docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md)
-freezes that next trial over the four remaining unseen seat-0 blocker shifts.
-It uses no opportunity selector: acting seat 0 and the regret-vertex direction
-are fixed before labels, and exact old-verifier teachers run only after the
-simulated emitted policy is immutable.
+[ADR-0192](../docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md)
+records the completed trial over the four remaining unseen seat-0 blocker
+shifts. All four fixed regret vertices produce deadline-eligible simulated
+emissions, with at least 3.80 seconds of boundary headroom and machine-precision
+post-emission exact agreement. Total certified value is `1.1263e-6`, but one
+target supplies 86.45% and the target spread is 565x. This is prospective
+engineering evidence, not a selector, deployment, or population-quality claim.
 
 ## EXP-0001: CFR versus LCFR on two-player Kuhn
 

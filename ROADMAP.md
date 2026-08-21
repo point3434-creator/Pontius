@@ -86,7 +86,9 @@ while opportunity magnitude remains the strategy weak link.
 
 ADR-0199 freezes the leading no-new-label opportunity follow-up. Its first
 invocation produced no artifact after a final memory-field lookup failed;
-ADR-0201 preserves the full protocol and adds only the exact snapshot alias. It
+ADR-0201's guard then rejected two legitimate source telemetry fields before
+the warm step. ADR-0203 preserves the full protocol, pins the literal four-field
+snapshot, and adds only the exact alias. It
 reconstructs all missing affine features against ADR-0186's sealed labels,
 derives K before semantic label load, and reports certified-value recall and
 value per charged millisecond against the failed proxies. Its primary matrix is

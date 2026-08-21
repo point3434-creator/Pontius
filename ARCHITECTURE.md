@@ -127,7 +127,10 @@ library-limited if K reaches six; pooled or family-discrimination performance
 cannot be presented as a live selector result. Its first invocation rejected
 at final aggregation on a memory-field spelling; the additive
 [ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md)
-adds only the exact `gpu_free_bytes` alias and recomputes the full matrix.
+then rejected its legitimate four-field source as an overstrict two-field
+schema. [ADR-0203](docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md)
+pins all four source fields, adds only the exact `gpu_free_bytes` alias, and
+recomputes the full matrix.
 
 ## Architecture evolution record
 

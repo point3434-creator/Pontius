@@ -24,7 +24,7 @@ deployment authorization, or composition claim.
 
 ## Open preregistration
 
-[ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md) — Preregister the memory-schema-corrected selector replay (accepted correction preregistration before corrected replay).
+[ADR-0203](docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md) — Preregister the final four-field selector-replay correction (accepted final correction preregistration before replay).
 
 ## Evidence protocol
 
@@ -36,7 +36,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0179](docs/decisions/ADR-0179-numerical-identity-is-the-default-gpu-evidence-gate.md) | 2026-08-21 | accepted process decision | Numerical identity is the default GPU evidence gate |
 | [ADR-0180](docs/decisions/ADR-0180-generate-status-front-door-from-adr-metadata.md) | 2026-08-21 | accepted process decision | Generate the status front door from ADR metadata |
 | [ADR-0181](docs/decisions/ADR-0181-preregister-h32-deep-horizon-opportunity-ladder.md) | 2026-08-21 | accepted preregistration | Preregister the h32 deep-horizon opportunity ladder |
 | [ADR-0182](docs/decisions/ADR-0182-deep-horizon-v1-is-rejected-by-two-miscopied-descriptor-hashes.md) | 2026-08-21 | rejected result | Deep-horizon v1 is rejected by two miscopied descriptor hashes |
@@ -60,12 +59,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0200](docs/decisions/ADR-0200-selector-replay-v1-rejects-on-final-memory-schema-key.md) | 2026-08-21 | rejected result | Selector replay v1 rejects on its final memory-schema key |
 | [ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md) | 2026-08-21 | accepted correction preregistration before corrected replay | Preregister the memory-schema-corrected selector replay |
 | [ADR-0202](docs/decisions/ADR-0202-corrected-selector-replay-v2-rejects-on-overstrict-schema-guard.md) | 2026-08-21 | rejected corrected replay | Corrected selector replay v2 rejects on its overstrict schema guard |
+| [ADR-0203](docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md) | 2026-08-21 | accepted final correction preregistration before replay | Preregister the final four-field selector-replay correction |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0202](docs/decisions/ADR-0202-corrected-selector-replay-v2-rejects-on-overstrict-schema-guard.md) — Corrected selector replay v2 rejects on its overstrict schema guard.
-- Numbered decisions: 202.
-- ADR-header SHA-256: `1a03043e680751396f9a1b40855ee7310aa0a81213a923c6249893cf3e0667ed`.
+- Latest ADR: [ADR-0203](docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md) — Preregister the final four-field selector-replay correction.
+- Numbered decisions: 203.
+- ADR-header SHA-256: `5df5b244639952282022ba8358f243c053e8c85fc0bbc478a9fde2a0b3afe65a`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

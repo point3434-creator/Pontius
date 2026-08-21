@@ -18,8 +18,10 @@ from pontius.multi_size_affine_resident_leaf_adjoint_cfr import (
     MultiSizeAffineResidentLeafAdjointPublicTreeCFR,
 )
 from pontius.multi_size_policy_bridge import (
+    deserialize_compact_sized_policy,
     deserialize_sized_policy,
     embed_one_size_policy,
+    serialize_compact_sized_policy,
     serialize_sized_policy,
     sized_policy_digest,
 )
@@ -112,6 +114,22 @@ class MultiSizePolicyBridgeTests(unittest.TestCase):
         )
         self.assertEqual(sized_policy_digest(restored), record["policy_sha256"])
         self.assertEqual(restored, self.embedded)
+
+        compact = serialize_compact_sized_policy(
+            self.embedded,
+            self.source.layout,
+            self.source.belief.hands_by_player,
+        )
+        compact_restored = deserialize_compact_sized_policy(
+            compact,
+            self.source.layout,
+            self.source.belief.hands_by_player,
+        )
+        self.assertEqual(compact_restored, self.embedded)
+        self.assertLess(
+            len(str(compact)),
+            len(str(record)),
+        )
 
     def test_digest_distinguishes_added_bet_probability(self) -> None:
         changed = {key: dict(row) for key, row in self.embedded.items()}

@@ -283,3 +283,101 @@ def deserialize_sized_policy(
     if sized_policy_digest(result) != supplied["policy_sha256"]:
         raise ValueError("sized policy record digest differs")
     return dict(sorted(result.items()))
+
+
+def _external_information_schema(
+    layout: MultiSizePublicTreeTensorEvaluator,
+    hands_by_player: tuple[tuple[HoleCards, ...], ...],
+) -> dict[str, tuple[Action, ...]]:
+    if len(hands_by_player) != layout.num_players or any(
+        not hands for hands in hands_by_player
+    ):
+        raise ValueError("sized policy schema requires one nonempty hand axis per seat")
+    schema: dict[str, tuple[Action, ...]] = {}
+    for node in layout.nodes:
+        if node.player == TERMINAL_PLAYER:
+            continue
+        for hand in hands_by_player[node.player]:
+            key = _information_key(layout, node.player, hand, node.history)
+            previous = schema.setdefault(key, node.actions)
+            if previous != node.actions:
+                raise ValueError("sized policy external information schema is inconsistent")
+    return dict(sorted(schema.items()))
+
+
+def _external_schema_digest(schema: Mapping[str, tuple[Action, ...]]) -> str:
+    payload = [
+        {
+            "information_key": key,
+            "actions": [sized_action_token(action) for action in schema[key]],
+        }
+        for key in sorted(schema)
+    ]
+    rendered = json.dumps(
+        payload,
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    )
+    return hashlib.sha256(rendered.encode("utf-8")).hexdigest()
+
+
+def serialize_compact_sized_policy(
+    policy: Mapping[str, Mapping[Action, float]],
+    layout: MultiSizePublicTreeTensorEvaluator,
+    hands_by_player: tuple[tuple[HoleCards, ...], ...],
+) -> dict[str, Any]:
+    """Serialize only ordered probabilities against a bound external schema."""
+
+    schema = _external_information_schema(layout, hands_by_player)
+    if set(policy) != set(schema):
+        raise ValueError("compact sized policy differs from the external schema")
+    probabilities = []
+    for key, actions in schema.items():
+        distribution = policy_distribution(dict(policy), key, actions)
+        probabilities.append([distribution[action] for action in actions])
+    return {
+        "schema_version": 1,
+        "information_schema_sha256": _external_schema_digest(schema),
+        "probabilities": probabilities,
+        "policy_sha256": sized_policy_digest(policy),
+    }
+
+
+def deserialize_compact_sized_policy(
+    record: Mapping[str, Any],
+    layout: MultiSizePublicTreeTensorEvaluator,
+    hands_by_player: tuple[tuple[HoleCards, ...], ...],
+) -> Policy:
+    """Restore a schema-bound compact sized policy and verify its digest."""
+
+    supplied = dict(record)
+    expected_fields = {
+        "schema_version",
+        "information_schema_sha256",
+        "probabilities",
+        "policy_sha256",
+    }
+    if set(supplied) != expected_fields or supplied["schema_version"] != 1:
+        raise ValueError("compact sized policy fields or version are invalid")
+    schema = _external_information_schema(layout, hands_by_player)
+    if supplied["information_schema_sha256"] != _external_schema_digest(schema):
+        raise ValueError("compact sized policy schema digest differs")
+    raw_rows = supplied["probabilities"]
+    if not isinstance(raw_rows, list) or len(raw_rows) != len(schema):
+        raise ValueError("compact sized policy probability rows differ")
+    policy: Policy = {}
+    for (key, actions), raw in zip(schema.items(), raw_rows, strict=True):
+        if not isinstance(raw, list) or len(raw) != len(actions):
+            raise ValueError("compact sized policy action width differs")
+        values = tuple(float(value) for value in raw)
+        if any(not math.isfinite(value) or value < 0.0 for value in values):
+            raise ValueError("compact sized policy probabilities are invalid")
+        if abs(math.fsum(values) - 1.0) > 1e-12:
+            raise ValueError("compact sized policy row is not normalized")
+        policy[key] = {
+            action: values[index] for index, action in enumerate(actions)
+        }
+    if sized_policy_digest(policy) != supplied["policy_sha256"]:
+        raise ValueError("compact sized policy digest differs")
+    return dict(sorted(policy.items()))

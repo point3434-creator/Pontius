@@ -38,7 +38,9 @@ no sized-game value.
 Because sized policies use typed `BetAction` keys, their evidence identity may
 not rely on JSON object-key coercion.  Serialize each action as a type-bound
 token and digest the ordered row representation.  Deserialization must recover
-the exact live layout schema and reproduce the digest.
+the exact live layout schema and reproduce the digest.  Large artifacts may
+store only ordered probability rows when they also bind the complete external
+information-schema digest.
 
 Add an exact profile evaluator using the accepted scale-canonical affine cache,
 the contribution-aware terminal keys, and the same target-omitted reverse pass

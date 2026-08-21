@@ -33,7 +33,7 @@ frozen control against that selector.
 
 ## Open preregistration
 
-[ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md) — Preregister a selector-stable affine certificate differential (accepted preregistration).
+[ADR-0189](docs/decisions/ADR-0189-preregister-numerically-corrected-selector-stable-affine-rerun.md) — Preregister the numerically corrected selector-stable affine rerun (accepted successor preregistration).
 
 ## Evidence protocol
 
@@ -45,8 +45,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0164](docs/decisions/ADR-0164-allocator-lifecycle-authorizes-two-context-atomic-residency.md) | 2026-08-21 | accepted result | Allocator lifecycle authorizes two-context atomic residency |
-| [ADR-0165](docs/decisions/ADR-0165-preregister-h32-atomic-street-scheduler-ledger.md) | 2026-08-21 | accepted and preregistered | Preregister the h32 atomic street-scheduler ledger |
 | [ADR-0166](docs/decisions/ADR-0166-prepared-street-fits-two-atomic-certificates-after-one-warm-step.md) | 2026-08-21 | accepted result | A prepared street fits two atomic certificates after one warm step |
 | [ADR-0167](docs/decisions/ADR-0167-retrospective-single-atom-value-capture-contract.md) | 2026-08-21 | accepted retrospective analysis contract; not preregistered | Retrospective single-atom value-capture contract |
 | [ADR-0168](docs/decisions/ADR-0168-retrospective-atomization-exposes-strong-nonadditivity.md) | 2026-08-21 | accepted retrospective result; not preregistered | Retrospective atomization exposes strong nonadditivity |
@@ -69,12 +67,14 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 causal direction and opportunity screen |
 | [ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md) | 2026-08-21 | accepted prospective result | Fresh vertices replicate generator weakness but no free selector transfers |
 | [ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md) | 2026-08-21 | accepted preregistration | Preregister a selector-stable affine certificate differential |
+| [ADR-0188](docs/decisions/ADR-0188-selector-stable-affine-v1-rejected-by-forbidden-warm-digest-gate.md) | 2026-08-21 | rejected result | Selector-stable affine v1 is rejected by a forbidden warm digest gate |
+| [ADR-0189](docs/decisions/ADR-0189-preregister-numerically-corrected-selector-stable-affine-rerun.md) | 2026-08-21 | accepted successor preregistration | Preregister the numerically corrected selector-stable affine rerun |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md) — Preregister a selector-stable affine certificate differential.
-- Numbered decisions: 187.
-- ADR-header SHA-256: `f597ef6fa10d5fc70698a7ade46c113805fc5d3cce6a4645b30e4b572690d406`.
+- Latest ADR: [ADR-0189](docs/decisions/ADR-0189-preregister-numerically-corrected-selector-stable-affine-rerun.md) — Preregister the numerically corrected selector-stable affine rerun.
+- Numbered decisions: 189.
+- ADR-header SHA-256: `a3939f5106dc8bc2bcd7d7ca262cf38b82972fd2a0b40b075f371c511fec6cc2`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

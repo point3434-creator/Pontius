@@ -1,0 +1,17 @@
+{
+  "evidence_stage": "preregistered_after_adr0188_before_corrected_selector_stable_affine_rerun",
+  "expected_v1_config_sha256": "f62d2e04ad39fb32ca1a51b6ca09952fa880cb32b0bdd30f938a4f81c5345ec5",
+  "expected_v1_implementation_sha256": "2306d4b09e7c746fa41ac35f50c9badeaa246d8d9fb5b280f94573924d17644e",
+  "expected_v1_control_test_sha256": "fa2289281bc3b79090177c8e0b1833852f1d686f086203d085fae098ab168836",
+  "expected_failed_result_sha256": "19daba7a043bc2cb7cc12935847eabfe3af88bfeccf2cb47e1260f124cdf8637",
+  "expected_failed_decision_sha256": "a99f054a72f1e4e7c3c5cd543f82127e6c5fc5b25f69684114d2f760f48afa9f",
+  "expected_evidence_protocol_sha256": "30b9e4cc29272d25d5ba374a3c433b9a63ee75d5a9efa98b6645091f81659efd",
+  "expected_audit_implementation_sha256": "294424fd9f461e76354b8793581f01979be61b388cca5d4d4dea47acabeac9d5",
+  "expected_control_test_sha256": "5b5fd4759b27c2550290284fe3f341a382ac13bf6316a0c6fbfd031413b0e90c",
+  "correction_scope": "replace_only_cross_run_warm_policy_digest_gate_with_adr0179_numerical_probability_and_mean_tv_gates",
+  "maximum_warm_start_probability_error": 1e-12,
+  "maximum_warm_start_mean_total_variation": 1e-13,
+  "require_warm_start_digest_identity": false,
+  "rerun_scope": "repeat_complete_v1_six_target_selector_stable_affine_differential",
+  "outcome_policy": "retain_every_v1_outcome_neutral_gate_and_add_no_outcome_identity_gate"
+}

@@ -29,7 +29,7 @@ and the closed 15-second spine are visible.
 
 ## Open preregistration
 
-[ADR-0181](docs/decisions/ADR-0181-preregister-h32-deep-horizon-opportunity-ladder.md) — Preregister the h32 deep-horizon opportunity ladder (accepted preregistration).
+[ADR-0183](docs/decisions/ADR-0183-preregister-read-only-deep-horizon-descriptor-correction.md) — Preregister the read-only deep-horizon descriptor correction (accepted correction preregistration).
 
 ## Evidence protocol
 
@@ -41,8 +41,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0158](docs/decisions/ADR-0158-terminal-numerator-overlay-is-exact-on-reduced-response-controls.md) | — | Accepted as the reduced physical implementation following ADR-0157. It | Terminal-numerator overlay is exact on reduced response controls |
-| [ADR-0159](docs/decisions/ADR-0159-preregister-h32-atomic-incremental-response-preflight.md) | 2026-08-21 | accepted and preregistered | Preregister the h32 atomic incremental-response preflight |
 | [ADR-0160](docs/decisions/ADR-0160-h32-atomic-response-preflight-passes-and-is-cache-construction-bound.md) | 2026-08-21 | accepted result | The h32 atomic response preflight passes and is cache-construction bound |
 | [ADR-0161](docs/decisions/ADR-0161-preregister-two-shift-shared-response-residency.md) | 2026-08-21 | accepted and preregistered | Preregister two-shift shared response residency |
 | [ADR-0162](docs/decisions/ADR-0162-shared-response-residency-is-exact-but-cached-scratch-fails-headroom-rule.md) | 2026-08-21 | accepted result with residency authorization withheld | Shared response residency is exact but cached scratch fails the headroom rule |
@@ -65,12 +63,14 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0179](docs/decisions/ADR-0179-numerical-identity-is-the-default-gpu-evidence-gate.md) | 2026-08-21 | accepted process decision | Numerical identity is the default GPU evidence gate |
 | [ADR-0180](docs/decisions/ADR-0180-generate-status-front-door-from-adr-metadata.md) | 2026-08-21 | accepted process decision | Generate the status front door from ADR metadata |
 | [ADR-0181](docs/decisions/ADR-0181-preregister-h32-deep-horizon-opportunity-ladder.md) | 2026-08-21 | accepted preregistration | Preregister the h32 deep-horizon opportunity ladder |
+| [ADR-0182](docs/decisions/ADR-0182-deep-horizon-v1-is-rejected-by-two-miscopied-descriptor-hashes.md) | 2026-08-21 | rejected result | Deep-horizon v1 is rejected by two miscopied descriptor hashes |
+| [ADR-0183](docs/decisions/ADR-0183-preregister-read-only-deep-horizon-descriptor-correction.md) | 2026-08-21 | accepted correction preregistration | Preregister the read-only deep-horizon descriptor correction |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0181](docs/decisions/ADR-0181-preregister-h32-deep-horizon-opportunity-ladder.md) — Preregister the h32 deep-horizon opportunity ladder.
-- Numbered decisions: 181.
-- ADR-header SHA-256: `6664d294a7c99adc99c8d9fdb9dbd1d2fd13c158305da57956f32f153b13c4ac`.
+- Latest ADR: [ADR-0183](docs/decisions/ADR-0183-preregister-read-only-deep-horizon-descriptor-correction.md) — Preregister the read-only deep-horizon descriptor correction.
+- Numbered decisions: 183.
+- ADR-header SHA-256: `0b0655d332e87857274b3cab4ca357d70fa721a03330cf2ad7ea1075ded08f5b`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

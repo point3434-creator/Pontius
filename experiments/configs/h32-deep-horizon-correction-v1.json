@@ -1,0 +1,41 @@
+{
+  "evidence_stage": "post_failure_read_only_metadata_correction_after_adr0182",
+  "expected_source_result_sha256": "692c76d863a94c7a399ba21da18d1551f94c0d6e43519999059879accec2fe4f",
+  "expected_source_config_sha256": "1571d7fec7323d8c15b618611f889de0e56cd8e0b727e5cece65757a27fdfa86",
+  "expected_source_implementation_sha256": "ab015f9fc6bb2a6e594587e381e19b66a40874d3aa8727ac2086f52b53f7d49e",
+  "expected_parent_result_sha256": "9606df6dc2356bd045e8f6667b82062ae04f5904672795246d204dc8e9a48070",
+  "expected_failure_decision_sha256": "94449e74c66190782fe8b5c618cc4152c261558fb166b4cbb078345f0ac78b7f",
+  "expected_correction_implementation_sha256": "b00f464c733b6eb3b163e8e8169eee2603c0069f098883fa8132635468508d0c",
+  "expected_control_test_sha256": "473c1b6b8a889fdc2a5a8ef9291805020d010f9738f7d40d1275860d9c254825",
+  "source_status": "rejected_result_only_target_identity_substantively_false",
+  "corrections": [
+    {
+      "target": "panel_1/balanced/local_blocker_seat1_x2",
+      "incorrect_descriptor_sha256": "6109b0afb8548629870f64853a960118a842b062b97809e908efbf3ca5f7d9d0d",
+      "correct_descriptor_sha256": "6109b0afb8548629870f6484d5f1050468aad320c0e1c92e8506d841c9dc7f7b"
+    },
+    {
+      "target": "panel_3/blocker_heavy/local_blocker_seat1_x2",
+      "incorrect_descriptor_sha256": "de67f2fbba92ea16ad5ede876b9c6451affb06f0b30c4f6baa7def53950f981c26",
+      "correct_descriptor_sha256": "de67f2fbba92ea16ad5ede876b9c6451affb06d103e5f1f6e0b30c4df8b56eeb"
+    }
+  ],
+  "expected_substantive_false_gates": ["target_identity"],
+  "correction_scope": "replace_only_the_two_expected_descriptor_hashes_for_gate_replay_from_authoritative_adr0178_parent",
+  "aggregate_rule": "copy_source_aggregate_byte_for_byte_after_canonical_json_round_trip",
+  "strategy_recomputation": "forbidden",
+  "gates": {
+    "expected_target_rows": 2,
+    "require_source_rejected": true,
+    "require_only_target_identity_failed": true,
+    "require_source_provenance": true,
+    "require_belief_identity": true,
+    "require_descriptor_rehash_identity": true,
+    "require_parent_descriptor_identity": true,
+    "require_exact_two_corrections": true,
+    "require_all_other_source_gates_true": true,
+    "require_aggregate_identity": true,
+    "require_no_strategy_recomputation": true,
+    "require_strategy_population_claim_null": true
+  }
+}

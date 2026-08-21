@@ -1,0 +1,16 @@
+{
+  "evidence_stage": "preregistered_after_adr0170_before_corrected_fresh_union_rerun",
+  "expected_v1_config_sha256": "dd4d50e5aa993f0f8ce4f7ee792ea8ce52b27e1ad0dda4bb039220c09bf020da",
+  "expected_v1_implementation_sha256": "12c7cba9deb1d6307c058120332c56f5a5446a9ca4045d0f34fbb01bb35a7fb4",
+  "expected_v1_control_test_sha256": "423a1acd694a149d3fa888fd163c29c200c497f41bb6f83256ad9810788d1bd3",
+  "expected_failed_result_sha256": "675c1eee9ab70d4390135e0cf82402382188a1c943b24be3827091df57226fe0",
+  "expected_failed_decision_sha256": "e9b9d75ccab859b165791cb76d3ad8aff3474fa9bf252103f157fba40d41a6ba",
+  "expected_audit_implementation_sha256": "a25f807c8ba40498fad97aa1cdfd6ca47da2e896b48a3ee53d5e604553c110b9",
+  "expected_control_test_sha256": "18edb6e02d71afb2092781c8cc12de694ebcfa3dddff4743146879e43d102cb8",
+  "correction_scope": "replace_only_exact_warm_policy_digest_gate_with_established_numerical_probability_and_mean_tv_gates",
+  "maximum_warm_start_probability_error": 1e-12,
+  "maximum_warm_start_mean_total_variation": 1e-13,
+  "require_warm_start_digest_identity": false,
+  "rerun_scope": "repeat_complete_v1_two_target_live_union_and_post_ledger_atom_matrix",
+  "outcome_policy": "retain_every_v1_outcome_neutral_gate_and_add_no_outcome_identity_gate"
+}

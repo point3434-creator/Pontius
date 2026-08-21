@@ -55,6 +55,24 @@ GPU traversal     -> CPU reference
 online resolving  -> blueprint strategy
 ```
 
+### GPU numerical-identity default
+
+For a Float64 artifact re-derived through GPU or parallel sparse reductions,
+semantic identity is numerical by default. Freeze the applicable ceilings
+before execution and report digests as diagnostics. The repository defaults
+are maximum accumulator and policy-probability error `1e-12`, mean
+information-set policy total variation `1e-13`, and maximum quality-vector
+error `1e-10`; stricter experiment-specific tolerances may be preregistered.
+No tolerance may be introduced or relaxed after observing a result.
+
+A SHA-256 or other bitwise gate remains authoritative for immutable input and
+configuration provenance, literal serialized-object identity, immediate
+restore/re-export, or an experiment explicitly testing deterministic future
+execution. It is not the default semantic-equivalence gate for an independently
+recomputed GPU trajectory. Exact discrete fields, schemas, action identities,
+and combinatorial work counts remain exact gates unless a preregistration says
+otherwise. The executable constants and fail-closed purpose check live in
+`pontius.evidence_protocol`.
+
 The project is for offline research, simulation, and environments that
 explicitly permit automated agents.
-

@@ -1,0 +1,23 @@
+{
+  "evidence_stage": "retrospective_after_atomic_labels_were_inspected_not_preregistered",
+  "expected_atomic_source_sha256": "63e69b9785acea84bbf4da139ebc8ec475f2c55d20b4cdae250cc6b5154898c4",
+  "expected_bundle_source_sha256": "2fb53315812ee2afeb2d3d50399770140c1fcd0e4bb29e4d6cc54ca19743a489",
+  "expected_acceptance_source_sha256": "150362ea770c80190c8124148fa66e0a376d98d1bd01b790f3d11e5ad9b5d8a9",
+  "expected_scheduler_source_sha256": "9657319e2ef8269bcb52940fc2d0dc45747092e89c516f0bebcb3a9a7ad57d99",
+  "expected_implementation_sha256": "34969cfddc498bb177c724f93ce410de206a30f94c4bdd0d106843167f201d72",
+  "bundle_candidate_id": "search_current1",
+  "scheduler_capacity_atoms": 2,
+  "scheduler_atom_order": [0, 1, 2, 3, 4, 5],
+  "value_definition": "positive_blueprint_minus_candidate_nash_conv",
+  "bounded_oracle": "best_single_envelope_complete_retained_atom",
+  "tie_break": "maximum_value_then_acting_seat",
+  "gates": {
+    "expected_target_rows": 4,
+    "expected_atom_rows": 24,
+    "expected_bundle_rows": 4,
+    "expected_new_strategy_quality_labels": 0,
+    "require_source_gates": true,
+    "require_policy_identity": true,
+    "require_finite_accounting": true
+  }
+}

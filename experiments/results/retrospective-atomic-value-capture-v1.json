@@ -1,0 +1,498 @@
+{
+  "status": "retrospective_atomic_value_capture_executed",
+  "methodology": {
+    "preregistered": false,
+    "reason": "atomic_labels_were_inspected_before_this_analysis_contract_was_frozen",
+    "new_solver_calls": 0,
+    "new_strategy_quality_labels": 0,
+    "oracle_scope": "best_single_envelope_complete_retained_atom",
+    "composition": "forbidden_no_union_label_created",
+    "generalization_claim": "none"
+  },
+  "config_sha256": "03ec3aa95cce1a58b1a5d0de174636d25740593c65f6658098a9ecca8b73c9b5",
+  "implementation_sha256": "34969cfddc498bb177c724f93ce410de206a30f94c4bdd0d106843167f201d72",
+  "target_rows": [
+    {
+      "range_family": "balanced",
+      "target_shift": "local_blocker_seat3_x2",
+      "blueprint_nash_conv": 0.06691450329437318,
+      "bundle": {
+        "candidate_id": "search_current1",
+        "policy_sha256": "e8344bae68a6da85bb12505aceb6e2caf3ec4e65af39000acac7df5e2493da71",
+        "envelope_complete": true,
+        "stop_reason": "complete",
+        "nash_conv": 0.062296613930522104,
+        "exact_quality_label_present": true,
+        "positive_certified_value": 0.004617889363851074
+      },
+      "atom_rows": [
+        {
+          "acting_seat": 0,
+          "policy_sha256": "1524a1c991646c8e65c4492b078c7ba024787d13fa411507154588f4631e32b5",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.06691450329366296,
+          "positive_certified_value": 7.102235466405205e-13,
+          "raw_objective_reduction": 7.102235466405205e-13,
+          "certificate_ms": 309.6273999999539,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 1,
+          "policy_sha256": "d1e213c7064f0962b707b0922d631cfa1b06b4686cfdc3c9c7437396038143f4",
+          "envelope_complete": false,
+          "stop_reason": "blueprint_cap",
+          "stop_seat": 2,
+          "nash_conv": 0.06691031335054594,
+          "positive_certified_value": 0.0,
+          "raw_objective_reduction": 4.18994382724025e-06,
+          "certificate_ms": 784.2755999990914,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 2,
+          "policy_sha256": "99e6e58e14c54258de0afd893a790ae37882a35419e36b2b7bdf46a31f3b2243",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.06691450304689227,
+          "positive_certified_value": 2.4748091076443046e-10,
+          "raw_objective_reduction": 2.4748091076443046e-10,
+          "certificate_ms": 994.4213999988278,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 3,
+          "policy_sha256": "a0da261dce96fc1fffb908f4da216d09055b366125f7d5673d6239800684ff61",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.06691450301311722,
+          "positive_certified_value": 2.812559629639111e-10,
+          "raw_objective_reduction": 2.812559629639111e-10,
+          "certificate_ms": 723.9722000012989,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 4,
+          "policy_sha256": "6c1ef56c16e21a72fe414195477dd812cd9b9494a3ad8d0d38377cc1b67f7f69",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.06691450325958281,
+          "positive_certified_value": 3.479036503328814e-11,
+          "raw_objective_reduction": 3.479036503328814e-11,
+          "certificate_ms": 467.5994000008359,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 5,
+          "policy_sha256": "356f27041424d6b8244d0e3100c84ba3727f609deabf53e819fb7103e88808db",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.06691450329424357,
+          "positive_certified_value": 1.296046603371792e-13,
+          "raw_objective_reduction": 1.296046603371792e-13,
+          "certificate_ms": 337.857399999848,
+          "response_action_flips": 0
+        }
+      ],
+      "admissible_atom_count": 5,
+      "cap_bound_atom_count": 1,
+      "objective_bound_atom_count": 0,
+      "bounded_single_atom_oracle": {
+        "acting_seat": 3,
+        "positive_certified_value": 2.812559629639111e-10,
+        "certificate_ms": 723.9722000012989
+      },
+      "fixed_two_certificate_prefix": {
+        "acting_seats": [
+          0,
+          1
+        ],
+        "admissible_count": 1,
+        "best_available_acting_seat": 0,
+        "best_available_positive_certified_value": 7.102235466405205e-13,
+        "captured_fraction_of_bounded_single_oracle": 0.0025251857388412123
+      },
+      "interaction_diagnostics": {
+        "sum_admissible_single_atom_values": 5.643670669686074e-10,
+        "best_single_fraction_of_bundle_value": 6.090573870512968e-08,
+        "sum_single_fraction_of_bundle_value": 1.2221320661912853e-07,
+        "six_atom_union_nash_interaction_residual": -0.004613698855656767,
+        "bundle_complete_with_cap_bound_constituent": true
+      }
+    },
+    {
+      "range_family": "balanced",
+      "target_shift": "all_seat_strength_1_to2",
+      "blueprint_nash_conv": 0.3403314815675872,
+      "bundle": {
+        "candidate_id": "search_current1",
+        "policy_sha256": "55e2845ae94ac742b551fdab88a7a03dcbac438f241a8c0e0a4aca890464d176",
+        "envelope_complete": false,
+        "stop_reason": "blueprint_cap",
+        "nash_conv": null,
+        "exact_quality_label_present": false,
+        "positive_certified_value": 0.0
+      },
+      "atom_rows": [
+        {
+          "acting_seat": 0,
+          "policy_sha256": "ec4f62b3ffba608f48430246a33c4245a7715f610bba304cf4f7f91e3a8c2018",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.34033148156095794,
+          "positive_certified_value": 6.629252702339272e-12,
+          "raw_objective_reduction": 6.629252702339272e-12,
+          "certificate_ms": 289.54049999993003,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 1,
+          "policy_sha256": "19d789aba5b362f531d2de04894c56fa6342a98430abf78d96ec816909913504",
+          "envelope_complete": false,
+          "stop_reason": "blueprint_cap",
+          "stop_seat": 0,
+          "nash_conv": 0.3403309821557864,
+          "positive_certified_value": 0.0,
+          "raw_objective_reduction": 4.994118008028181e-07,
+          "certificate_ms": 469.01319999960833,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 2,
+          "policy_sha256": "99e6e58e14c54258de0afd893a790ae37882a35419e36b2b7bdf46a31f3b2243",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.3403314806407475,
+          "positive_certified_value": 9.268397160866471e-10,
+          "raw_objective_reduction": 9.268397160866471e-10,
+          "certificate_ms": 1006.4526000005571,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 3,
+          "policy_sha256": "a0da261dce96fc1fffb908f4da216d09055b366125f7d5673d6239800684ff61",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.3403314812506655,
+          "positive_certified_value": 3.1692171109654055e-10,
+          "raw_objective_reduction": 3.1692171109654055e-10,
+          "certificate_ms": 750.4800999995496,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 4,
+          "policy_sha256": "8e46ef553b7f7d2e04cba6f8c716a1f0ccafcf0ea03ea291025cbcb1bf234e65",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.34033148145987135,
+          "positive_certified_value": 1.0771583625057701e-10,
+          "raw_objective_reduction": 1.0771583625057701e-10,
+          "certificate_ms": 471.28970000085246,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 5,
+          "policy_sha256": "6525307a8f22588ffb9eda572f559686370094f7689e485c5959ccc416395e4f",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.3403314815665648,
+          "positive_certified_value": 1.0224043833773067e-12,
+          "raw_objective_reduction": 1.0224043833773067e-12,
+          "certificate_ms": 327.33830000142916,
+          "response_action_flips": 0
+        }
+      ],
+      "admissible_atom_count": 5,
+      "cap_bound_atom_count": 1,
+      "objective_bound_atom_count": 0,
+      "bounded_single_atom_oracle": {
+        "acting_seat": 2,
+        "positive_certified_value": 9.268397160866471e-10,
+        "certificate_ms": 1006.4526000005571
+      },
+      "fixed_two_certificate_prefix": {
+        "acting_seats": [
+          0,
+          1
+        ],
+        "admissible_count": 1,
+        "best_available_acting_seat": 0,
+        "best_available_positive_certified_value": 6.629252702339272e-12,
+        "captured_fraction_of_bounded_single_oracle": 0.0071525341299892315
+      },
+      "interaction_diagnostics": {
+        "sum_admissible_single_atom_values": 1.3591289205194812e-09,
+        "best_single_fraction_of_bundle_value": null,
+        "sum_single_fraction_of_bundle_value": null,
+        "six_atom_union_nash_interaction_residual": null,
+        "bundle_complete_with_cap_bound_constituent": false
+      }
+    },
+    {
+      "range_family": "blocker_heavy",
+      "target_shift": "local_blocker_seat3_x2",
+      "blueprint_nash_conv": 0.05665060772758268,
+      "bundle": {
+        "candidate_id": "search_current1",
+        "policy_sha256": "fd493a7b8256dc84a480c5d7172c4e2584979a92b594ce3063fddfb7116046bc",
+        "envelope_complete": true,
+        "stop_reason": "complete",
+        "nash_conv": 0.05334305536876333,
+        "exact_quality_label_present": true,
+        "positive_certified_value": 0.0033075523588193476
+      },
+      "atom_rows": [
+        {
+          "acting_seat": 0,
+          "policy_sha256": "7c7c971eb01b50e89a3aba6d9510e64c4ba773f160e87a1fcfd5f4f05afab963",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.05665060772680698,
+          "positive_certified_value": 7.756989495177891e-13,
+          "raw_objective_reduction": 7.756989495177891e-13,
+          "certificate_ms": 252.21130000136327,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 1,
+          "policy_sha256": "8672e055da24cba74ffd962e4014ea1c355180fec4dc92ef4859e49c23ede98c",
+          "envelope_complete": false,
+          "stop_reason": "blueprint_cap",
+          "stop_seat": 2,
+          "nash_conv": 0.05664661587636777,
+          "positive_certified_value": 0.0,
+          "raw_objective_reduction": 3.991851214912856e-06,
+          "certificate_ms": 606.1239999999088,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 2,
+          "policy_sha256": "76d7d541f66924a8e16096aeb07fdcc017bc2d2f0523e2d0c23b4f11ad1554e5",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.056650602137703135,
+          "positive_certified_value": 5.589879545353504e-09,
+          "raw_objective_reduction": 5.589879545353504e-09,
+          "certificate_ms": 788.5456999993039,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 3,
+          "policy_sha256": "dde924e5e8c546f64b450918dfcbe7989d85c4562269bb8af508edf8d6a34970",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.05665060720492052,
+          "positive_certified_value": 5.226621635490147e-10,
+          "raw_objective_reduction": 5.226621635490147e-10,
+          "certificate_ms": 600.4281999994419,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 4,
+          "policy_sha256": "2adba91429c0c4119ccc392346284d9de74b4629afab5732c5161fc61534d6d9",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.056650607646392265,
+          "positive_certified_value": 8.119041550180839e-11,
+          "raw_objective_reduction": 8.119041550180839e-11,
+          "certificate_ms": 379.6922999990784,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 5,
+          "policy_sha256": "12855ff10246aa4f0c559a6126d7eb2b3d443c033bb29a92bb5f7627f2717b73",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.056650607727267537,
+          "positive_certified_value": 3.151437444337546e-13,
+          "raw_objective_reduction": 3.151437444337546e-13,
+          "certificate_ms": 275.88640000067244,
+          "response_action_flips": 0
+        }
+      ],
+      "admissible_atom_count": 5,
+      "cap_bound_atom_count": 1,
+      "objective_bound_atom_count": 0,
+      "bounded_single_atom_oracle": {
+        "acting_seat": 2,
+        "positive_certified_value": 5.589879545353504e-09,
+        "certificate_ms": 788.5456999993039
+      },
+      "fixed_two_certificate_prefix": {
+        "acting_seats": [
+          0,
+          1
+        ],
+        "admissible_count": 1,
+        "best_available_acting_seat": 0,
+        "best_available_positive_certified_value": 7.756989495177891e-13,
+        "captured_fraction_of_bounded_single_oracle": 0.00013876845524561903
+      },
+      "interaction_diagnostics": {
+        "sum_admissible_single_atom_values": 6.194822967098279e-09,
+        "best_single_fraction_of_bundle_value": 1.6900350890737974e-06,
+        "sum_single_fraction_of_bundle_value": 1.8729326991847112e-06,
+        "six_atom_union_nash_interaction_residual": -0.0033035543127814676,
+        "bundle_complete_with_cap_bound_constituent": true
+      }
+    },
+    {
+      "range_family": "blocker_heavy",
+      "target_shift": "all_seat_strength_1_to2",
+      "blueprint_nash_conv": 0.38937524305851257,
+      "bundle": {
+        "candidate_id": "search_current1",
+        "policy_sha256": "21bb02b0e91ee231b0e5c4a731a4ea68520db027b1aa437a7cb3eb0e97754ff9",
+        "envelope_complete": false,
+        "stop_reason": "blueprint_cap",
+        "nash_conv": null,
+        "exact_quality_label_present": false,
+        "positive_certified_value": 0.0
+      },
+      "atom_rows": [
+        {
+          "acting_seat": 0,
+          "policy_sha256": "4cf66e25461894d5594027e7ee092e5c43db5365791b63aeb0584f7266970af0",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.38937524305524995,
+          "positive_certified_value": 3.2626124024659475e-12,
+          "raw_objective_reduction": 3.2626124024659475e-12,
+          "certificate_ms": 257.85719999839785,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 1,
+          "policy_sha256": "951a11e329f09e33530b229fccaf94d8e47c1e8385fa3fc31c93fd97854992f0",
+          "envelope_complete": false,
+          "stop_reason": "blueprint_cap",
+          "stop_seat": 0,
+          "nash_conv": 0.38937185777672395,
+          "positive_certified_value": 0.0,
+          "raw_objective_reduction": 3.385281788614858e-06,
+          "certificate_ms": 357.3820000001433,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 2,
+          "policy_sha256": "76d7d541f66924a8e16096aeb07fdcc017bc2d2f0523e2d0c23b4f11ad1554e5",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.389375237535471,
+          "positive_certified_value": 5.523041579635901e-09,
+          "raw_objective_reduction": 5.523041579635901e-09,
+          "certificate_ms": 788.8509000003978,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 3,
+          "policy_sha256": "dde924e5e8c546f64b450918dfcbe7989d85c4562269bb8af508edf8d6a34970",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.3893752421160464,
+          "positive_certified_value": 9.424661606693974e-10,
+          "raw_objective_reduction": 9.424661606693974e-10,
+          "certificate_ms": 577.8719000009005,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 4,
+          "policy_sha256": "9247fe6b0304d593bbb39989ae8787c0eb5e37a361d3114eb64870fdb2a0b67e",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.3893752428351793,
+          "positive_certified_value": 2.2333324078971373e-10,
+          "raw_objective_reduction": 2.2333324078971373e-10,
+          "certificate_ms": 381.0011999994458,
+          "response_action_flips": 0
+        },
+        {
+          "acting_seat": 5,
+          "policy_sha256": "df179e1a31772fdfaafb76ed1e8911bccd586950878d7c273f2473876d5d4016",
+          "envelope_complete": true,
+          "stop_reason": "complete",
+          "stop_seat": null,
+          "nash_conv": 0.3893752430554097,
+          "positive_certified_value": 3.1028513092223875e-12,
+          "raw_objective_reduction": 3.1028513092223875e-12,
+          "certificate_ms": 280.8050000003277,
+          "response_action_flips": 0
+        }
+      ],
+      "admissible_atom_count": 5,
+      "cap_bound_atom_count": 1,
+      "objective_bound_atom_count": 0,
+      "bounded_single_atom_oracle": {
+        "acting_seat": 2,
+        "positive_certified_value": 5.523041579635901e-09,
+        "certificate_ms": 788.8509000003978
+      },
+      "fixed_two_certificate_prefix": {
+        "acting_seats": [
+          0,
+          1
+        ],
+        "admissible_count": 1,
+        "best_available_acting_seat": 0,
+        "best_available_positive_certified_value": 3.2626124024659475e-12,
+        "captured_fraction_of_bounded_single_oracle": 0.0005907274742409292
+      },
+      "interaction_diagnostics": {
+        "sum_admissible_single_atom_values": 6.6952064448067006e-09,
+        "best_single_fraction_of_bundle_value": null,
+        "sum_single_fraction_of_bundle_value": null,
+        "six_atom_union_nash_interaction_residual": null,
+        "bundle_complete_with_cap_bound_constituent": false
+      }
+    }
+  ],
+  "aggregate": {
+    "target_rows": 4,
+    "atom_rows": 24,
+    "complete_bundle_rows": 2,
+    "exact_bundle_quality_rows": 2,
+    "admissible_atom_rows": 20,
+    "cap_bound_atom_rows": 4,
+    "objective_bound_atom_rows": 0,
+    "bundle_complete_with_cap_bound_constituent_rows": 2,
+    "fixed_two_prefix_capture_fraction": {
+      "minimum": 0.00013876845524561903,
+      "maximum": 0.0071525341299892315
+    },
+    "best_single_fraction_of_bundle_value": {
+      "minimum": 6.090573870512968e-08,
+      "maximum": 1.6900350890737974e-06,
+      "rows": 2
+    },
+    "new_strategy_quality_labels": 0
+  },
+  "gates": {
+    "source_gates": true,
+    "target_rows": true,
+    "atom_rows": true,
+    "bundle_rows": true,
+    "zero_new_strategy_quality_labels": true,
+    "policy_identity": true,
+    "finite_accounting": true,
+    "passed": true
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "evidence_stage": "preregistered_after_adr0135_failure_and_observed_abstentions_before_the_single_v2_rerun",
+  "expected_v1_result_sha256": "87de94cf58007eb5b118b86b0ca44c8c9ac78c05280d5f64bcc01b8eb7497669",
+  "expected_v1_config_sha256": "1431e57e2fc0e640a16aed0488a7f1070897a17740a33c273b5e1e9b9a44fa60",
+  "expected_v1_implementation_sha256": "a7072bec66e9febe179f1f1e42cd29f2e5c5efa4ef9809935d3f91071494b728",
+  "expected_v1_decision_sha256": "a7b37f3061e80ed364bda74079f8f4227b81ff4c2bde89c6133244bf4f4d081b",
+  "expected_parent_sha256": "af0a725f89d18eaf98e924fa0423176a8a8be6f6e477234fa492304101db3cf9",
+  "expected_audit_implementation_sha256": "1978491f7439ef137705ec7feca468b75f971e23dd62301c966010d0d1f26666",
+  "expected_control_test_sha256": "1be10c510335a77019e8ad0b9bdd6d7b935fe94c9f7b9338882657b293da0d00",
+  "rerun_protocol": "execute_immutable_v1_workload_with_only_projected_target_descriptor_identity",
+  "target_identity_contract": "exact_belief_digest_hand_axes_shift_specific_field_set_and_parent_core_projection",
+  "known_v1_outcome": "both_arms_abstained_on_all_four_targets_with_zero_selected_reduction",
+  "strategy_claim_policy": "top_level_claim_remains_null_regardless_of_arm_outcome",
+  "gates": {
+    "require_v1_formal_failure": true,
+    "expected_v1_failed_gates": ["target_identity"],
+    "expected_target_rows": 4,
+    "require_v1_other_gates": true,
+    "require_exact_construction_field_sets": true,
+    "require_exact_parent_measurement_field_sets": true,
+    "require_exact_parent_core_projection": true,
+    "require_exact_belief_digest": true,
+    "require_hand_axes_identity": true,
+    "require_immutable_v1_workload": true,
+    "require_rerun_v1_all_gates": true,
+    "require_outcome_neutrality": true,
+    "maximum_total_successor_seconds": 3600.0
+  }
+}

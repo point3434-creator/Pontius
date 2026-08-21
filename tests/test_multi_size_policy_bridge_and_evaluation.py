@@ -14,6 +14,9 @@ from pontius.game import TERMINAL_PLAYER
 from pontius.multi_size_affine_resident_leaf_adjoint_evaluation import (
     evaluate_multi_size_affine_resident_profile,
 )
+from pontius.multi_size_affine_resident_leaf_adjoint_cfr import (
+    MultiSizeAffineResidentLeafAdjointPublicTreeCFR,
+)
 from pontius.multi_size_policy_bridge import (
     deserialize_sized_policy,
     embed_one_size_policy,
@@ -21,7 +24,10 @@ from pontius.multi_size_policy_bridge import (
     sized_policy_digest,
 )
 from pontius.public_tree_tensor import PublicTreeTensorEvaluator
-from pontius.resident_heterogeneous_leaf_contraction import CuPyResidentBeliefCache
+from pontius.resident_heterogeneous_leaf_contraction import (
+    CuPyResidentAutomatonCache,
+    CuPyResidentBeliefCache,
+)
 from pontius.river import BET, CHECK
 from pontius.river_multi_size import BetAction
 from pontius.river_multiway import MultiwayRiverHoldem
@@ -146,6 +152,14 @@ class MultiSizeAffineResidentEvaluationTests(unittest.TestCase):
             )
             for seat in range(6)
         )
+        cls.raw_caches = tuple(
+            CuPyResidentAutomatonCache.compile(
+                cls.source.workspace,
+                cls.source.automata[seat],
+                target_seat=seat,
+            )
+            for seat in range(6)
+        )
 
     def test_complete_profile_matches_dense_sized_teacher(self) -> None:
         dense = self.source.layout.evaluate(self.source.policy)
@@ -188,6 +202,50 @@ class MultiSizeAffineResidentEvaluationTests(unittest.TestCase):
             sum(cache.shared_topologies for cache in self.caches),
             378,
         )
+
+    def test_three_step_canonical_trajectory_matches_raw_resident(self) -> None:
+        from pontius.multi_size_resident_leaf_adjoint_cfr import (
+            MultiSizeResidentLeafAdjointPublicTreeCFR,
+        )
+
+        raw = MultiSizeResidentLeafAdjointPublicTreeCFR(
+            self.source.layout,
+            self.source.workspace,
+            self.source.sparse,
+            self.source.automata,
+            "dcfr",
+            belief_cache=self.belief_cache,
+            automaton_caches=self.raw_caches,
+            cupy_sparse=self.gpu,
+            maximum_feature_width_per_batch=96,
+            hands_by_player=self.source.belief.hands_by_player,
+        )
+        canonical = MultiSizeAffineResidentLeafAdjointPublicTreeCFR(
+            self.source.layout,
+            self.source.workspace,
+            self.source.sparse,
+            self.source.automata,
+            "dcfr",
+            belief_cache=self.belief_cache,
+            automaton_caches=self.caches,
+            cupy_sparse=self.gpu,
+            maximum_feature_width_per_batch=96,
+            hands_by_player=self.source.belief.hands_by_player,
+        )
+        raw.warm_start(self.source.policy, 4.8)
+        canonical.warm_start(self.source.policy, 4.8)
+        raw.run(3)
+        canonical.run(3)
+        for left, right in (
+            (raw.regret_table(), canonical.regret_table()),
+            (raw.strategy_sum_table(), canonical.strategy_sum_table()),
+        ):
+            maximum = max(
+                abs(float(left[key][action]) - float(right[key][action]))
+                for key in left
+                for action in left[key]
+            )
+            self.assertLessEqual(maximum, 2e-11)
 
 
 if __name__ == "__main__":

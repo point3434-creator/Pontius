@@ -5,7 +5,7 @@
   "expected_cache_parent_sha256": "9bc385bd463ffd39a8ff587edf58a75ca7663b3ec1d25c90cad3309e8c315349",
   "expected_cache_parent_config_sha256": "d334f18cf13caa617e9ce152a004f7dcb0d85e90766f64a3944779a4bbba644a",
   "expected_requirements_sha256": "9e693b244cc9cc3651d28397e46969d54fc506548067a598f050145d324cd8d0",
-  "expected_audit_implementation_sha256": "d92967e7bb0152620d7d48980d1a7b8255b4d1900d9b5e7c4aa9b9b59d136c04",
+  "expected_audit_implementation_sha256": "1946fd99a4954d5e47cd57631e2b449f4069281b5727dddc4c7cf01263061ea7",
   "expected_policy_bridge_sha256": "87fd50d1b71550fa0876195dc5e6d8e207210801d10be3ec45e7630e31d5c476",
   "expected_sized_evaluation_sha256": "306f7e1839a8a40e83fe0168bd9d51fa6c6aba2b832917b5deea309b1db047f6",
   "expected_canonical_cache_sha256": "5d722bff2dd55b76957c4d178a0b3aadf0f9e37f019204741894ef70875c1258",

@@ -1089,7 +1089,7 @@ def run_h32_action_width_quality_audit(
     if not parent_identity:
         raise ValueError("h32 action-width parent identity rejected")
 
-    environment = environment_metadata(_ROOT)
+    environment = environment_metadata()
     environment["git"] = _strict_git_metadata(_ROOT)
     cp, runtime = _validate_runtime(parsed)
     small = _small_control(parsed)

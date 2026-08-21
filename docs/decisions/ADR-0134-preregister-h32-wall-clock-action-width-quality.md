@@ -5,6 +5,13 @@
 Frozen before any h32 two-size policy construction, sized-game best response,
 or common-game action-width quality measurement.
 
+The first clean invocation from `d0b13b8` stopped before the h2 control because
+the new runner passed an obsolete positional argument to
+`environment_metadata`.  It constructed no h32 cache, step, policy, or quality
+label and wrote no artifact.  The single-call correction and its replacement
+implementation hash were committed before retry; no scientific field, budget,
+candidate rule, gate, or source changed.
+
 ## Question
 
 From one immutable one-size incumbent and under one fixed construction-plus-

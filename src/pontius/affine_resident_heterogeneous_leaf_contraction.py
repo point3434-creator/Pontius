@@ -95,7 +95,7 @@ class CuPyAffineResidentAutomatonCache:
         half_started = time.perf_counter()
         groups: dict[str, list[tuple[int, StructuredShowdownAutomaton]]] = {}
         for identifier, automaton in unique.items():
-            groups.setdefault(_transition_topology_digest(automaton), []).append(
+            groups.setdefault(_affine_basis_digest(automaton), []).append(
                 (identifier, automaton)
             )
 
@@ -115,21 +115,35 @@ class CuPyAffineResidentAutomatonCache:
                 )
                 right_basis[:, state_rank] = 1.0
             right_basis = np.ascontiguousarray(right_basis, dtype=np.float64)
-            reconstructed = right_basis * _right_coefficients(
-                representative, right.shape[1]
-            )[None, :]
-            if not np.allclose(reconstructed, right, atol=1e-13, rtol=0.0):
-                raise AssertionError("affine resident basis failed reconstruction")
             host_bases[key] = (
                 np.ascontiguousarray(left, dtype=np.float64),
                 right_basis,
             )
-            for identifier, automaton in rows:
-                if _transition_topology_digest(automaton) != key:
+            for row_index, (identifier, automaton) in enumerate(rows):
+                if _affine_basis_digest(automaton) != key:
                     raise AssertionError("affine topology grouping is inconsistent")
                 coefficients = _right_coefficients(automaton, right.shape[1])
                 if coefficients.shape != (right.shape[1],):
                     raise AssertionError("affine coefficient width differs from basis")
+                if row_index == 0:
+                    member_left, member_right = left, right
+                else:
+                    member_left, member_right = _automaton_half_vectors(
+                        automaton,
+                        workspace,
+                    )
+                if not np.allclose(member_left, left, atol=1e-13, rtol=0.0):
+                    raise AssertionError("affine resident left basis differs within group")
+                reconstructed = right_basis * coefficients[None, :]
+                if not np.allclose(
+                    reconstructed,
+                    member_right,
+                    atol=1e-13,
+                    rtol=0.0,
+                ):
+                    raise AssertionError(
+                        "affine resident member failed reconstruction"
+                    )
                 host_coefficients[identifier] = coefficients
                 topology_by_automaton[identifier] = key
         half_prepare_ms = (time.perf_counter() - half_started) * 1000.0
@@ -520,7 +534,11 @@ def _right_coefficients(
     return np.ascontiguousarray(result, dtype=np.float64)
 
 
-def _transition_topology_digest(automaton: StructuredShowdownAutomaton) -> str:
+def _affine_basis_digest(automaton: StructuredShowdownAutomaton) -> str:
+    """Identify every amount-independent array required for basis sharing."""
+
+    if not np.isfinite(automaton.final_pot) or automaton.final_pot <= 0.0:
+        raise ValueError("affine showdown basis requires a positive final pot")
     digest = hashlib.sha256()
     digest.update(
         repr(
@@ -530,9 +548,17 @@ def _transition_topology_digest(automaton: StructuredShowdownAutomaton) -> str:
                 automaton.target_player,
                 automaton.constant_winner_shortcut,
             )
-        ).encode("ascii")
+        ).encode("utf-8")
     )
-    for values in (*automaton.transitions, *automaton.bond_states):
+    normalized_terminal = np.ascontiguousarray(
+        automaton.terminal_winner_values / automaton.final_pot,
+        dtype=np.float64,
+    )
+    for values in (
+        *automaton.transitions,
+        *automaton.bond_states,
+        normalized_terminal,
+    ):
         digest.update(repr((values.shape, values.dtype.str)).encode("ascii"))
         digest.update(values.tobytes(order="C"))
     return digest.hexdigest()

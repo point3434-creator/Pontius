@@ -7,6 +7,7 @@ import numpy as np
 
 from pontius.affine_resident_heterogeneous_leaf_contraction import (
     CuPyAffineResidentAutomatonCache,
+    _affine_basis_digest,
 )
 from pontius.cupy_sparse_incidence import CuPyBidirectionalIncidence, _cupy_modules
 from pontius.multi_size_affine_resident_leaf_adjoint_cfr import (
@@ -22,7 +23,45 @@ from pontius.resident_heterogeneous_leaf_contraction import (
     CuPyResidentAutomatonCache,
     CuPyResidentBeliefCache,
 )
+from pontius.structured_showdown_automaton import build_structured_showdown_automaton
 import tests.test_multi_size_leaf_adjoint as sized_fixture
+
+
+def _final_mode_basis_pair():
+    shared = tuple(np.asarray([0, 1], dtype=np.int32) for _ in range(5))
+    first = build_structured_showdown_automaton(
+        strength_codes=(*shared, np.asarray([0, 1], dtype=np.int32)),
+        contenders=(0, 1, 2, 3, 4, 5),
+        target_player=0,
+        contributed=True,
+        pot=12.0,
+        bet_size=3.0,
+    )
+    second = build_structured_showdown_automaton(
+        strength_codes=(*shared, np.asarray([1, 0], dtype=np.int32)),
+        contenders=(0, 1, 2, 3, 4, 5),
+        target_player=0,
+        contributed=True,
+        pot=12.0,
+        bet_size=6.0,
+    )
+    return first, second
+
+
+class AffineBasisIdentityTests(unittest.TestCase):
+    def test_affine_digest_binds_final_mode_winner_basis(self) -> None:
+        first, second = _final_mode_basis_pair()
+        for left, right in zip(first.transitions, second.transitions, strict=True):
+            np.testing.assert_array_equal(left, right)
+        for left, right in zip(first.bond_states, second.bond_states, strict=True):
+            np.testing.assert_array_equal(left, right)
+        self.assertFalse(
+            np.array_equal(
+                first.terminal_winner_values / first.final_pot,
+                second.terminal_winner_values / second.final_pot,
+            )
+        )
+        self.assertNotEqual(_affine_basis_digest(first), _affine_basis_digest(second))
 
 
 @unittest.skipUnless(importlib.util.find_spec("cupy"), "optional CuPy screen")
@@ -74,6 +113,16 @@ class AffineResidentLeafAdjointCFRTests(unittest.TestCase):
         raw_bytes = sum(cache.numeric_bytes for cache in self.raw_caches)
         affine_bytes = sum(cache.numeric_bytes for cache in self.affine_caches)
         self.assertLess(affine_bytes / raw_bytes, 0.60)
+
+    def test_affine_cache_does_not_group_different_final_mode_bases(self) -> None:
+        first, second = _final_mode_basis_pair()
+        cache = CuPyAffineResidentAutomatonCache.compile(
+            self.source.workspace,
+            {"first": first, "second": second},
+            target_seat=0,
+        )
+        self.assertEqual(cache.unique_automata, 2)
+        self.assertEqual(cache.shared_topologies, 2)
 
     def test_affine_traverser_matches_raw_resident_in_both_directions(self) -> None:
         for seat in (0, 3):

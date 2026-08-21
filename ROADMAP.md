@@ -65,14 +65,19 @@ agree to `1.67e-16`. Certified value is highly heterogeneous: one target carries
 86.45% of the total and the target spread is 565x
 ([ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md)).
 
-**Open gate:** execute the unchanged other-extreme replication frozen in
-[ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md).
-It fixes acting seat 5 on the four remaining previously unlabeled seat-4
-blocker shifts and inherits both deadline guards, the causal teacher boundary,
-and every outcome-neutral gate from ADR-0191. No materiality threshold or
-rescue direction is added from the seat-0 outcomes. Modern DCFR variants remain
-deferred because the fixed regret vertex now acquires value inside the street;
-breadth and transfer, not another soft update rule, are the next uncertainty.
+The unchanged other-extreme replication also passes. Acting seat 5 emits four
+fresh, exact, deadline-eligible candidates with at least 2.57 seconds of
+headroom. Yet one target supplies 91.50% of seat-5 value and the target spread
+is 11,004x. Across both extreme-seat trials, two of eight targets supply 88.78%
+of all certified value
+([ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md)).
+
+**Open gate:** broaden transfer rather than repeat the exposed blocker family.
+Freeze new board or belief regimes, explicit position coverage, and a causal
+materiality/no-op rule before new labels. A one-raw-guard threshold is only a
+retrospective development candidate even though it retains 99.902% of the eight
+observed values. Modern DCFR variants remain deferred: the certificate and
+deadline mechanism now work, while opportunity magnitude remains the weak link.
 
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
 rule must improve certified value under the complete wall-clock and memory

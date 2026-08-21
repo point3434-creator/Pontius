@@ -5,27 +5,26 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md) — The fixed seat-0 affine rule emits four fresh certified candidates before deadline.
+Latest accepted research result: [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) — The affine street mechanism transfers to seat 5 but value remains concentrated.
 
-Status: accepted prospective engineering result.
+Status: accepted prospective replication result.
 
 ## Current decision
 
-Accept the fixed seat-0 rule as a successful four-context prospective
-engineering trial. Preserve the affine proof, two deadline guards, immutable
-anchor, and preloaded blueprint fallback unchanged.
+Accept the acting-seat-5 replication and preserve the live core unchanged.
+Stop consuming the now-exposed local-blocker family merely to accumulate more
+4-of-4 counts.
 
-The cheapest next falsification is the other order extreme: preregister the
-same fixed rule for acting seat 5 on the four remaining previously unlabeled
-seat-4 blocker shifts. Do not tune a value threshold, scale rule, guard, target,
-or direction from the seat-0 outcomes. If that replication fails exactness or
-deadline, stop and repair the primitive/runtime; if it merely finds sparse or
-microscopic value, record that outcome rather than rescue it with another
-direction.
+Before another fresh GPU panel, freeze a broader transfer design: new board or
+belief regimes, explicit position coverage, and a causally available
+materiality/no-op rule whose threshold has principled provenance. Treat the
+one-raw-guard retrospective as development evidence only. Do not tune a
+threshold and report it on these eight targets as prospective evidence, and do
+not return to another DCFR variant while opportunity magnitude is unresolved.
 
 ## Open preregistration
 
-[ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md) — Preregister a fresh seat-5 affine street replication (accepted preregistration).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -37,7 +36,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0170](docs/decisions/ADR-0170-fresh-union-v1-rejected-by-overstrict-warm-digest-gate.md) | 2026-08-21 | rejected result | Fresh-union v1 is rejected by an overstrict warm digest gate |
 | [ADR-0171](docs/decisions/ADR-0171-preregister-numerically-corrected-fresh-union-rerun.md) | 2026-08-21 | accepted successor preregistration | Preregister the numerically corrected fresh-union rerun |
 | [ADR-0172](docs/decisions/ADR-0172-fresh-six-atom-unions-fit-but-do-not-recover-material-value.md) | 2026-08-21 | accepted corrected result | Fresh six-atom unions fit but do not recover material value |
 | [ADR-0173](docs/decisions/ADR-0173-preregister-fresh-h32-public-node-block-value-ledger.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 public-node block value ledger |
@@ -61,12 +59,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-0 selector-stable affine street trial |
 | [ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md) | 2026-08-21 | accepted prospective engineering result | The fixed seat-0 affine rule emits four fresh certified candidates before deadline |
 | [ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-5 affine street replication |
+| [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) | 2026-08-21 | accepted prospective replication result | The affine street mechanism transfers to seat 5 but value remains concentrated |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md) — Preregister a fresh seat-5 affine street replication.
-- Numbered decisions: 193.
-- ADR-header SHA-256: `179ba08045a4ecab1a61c3447c57e7001fe22452cf4adbed5fe127ebf16d4e92`.
+- Latest ADR: [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) — The affine street mechanism transfers to seat 5 but value remains concentrated.
+- Numbered decisions: 194.
+- ADR-header SHA-256: `2695b2a0def4a371b72a13fb5e3c02a29a471339a17ce85c3bd57810a5094c65`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -74,4 +73,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md) and its dependencies
+4. [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) and its dependencies

@@ -26,10 +26,12 @@ post-emission exact agreement. Total certified value is `1.1263e-6`, but one
 target supplies 86.45% and the target spread is 565x. This is prospective
 engineering evidence, not a selector, deployment, or population-quality claim.
 
-[ADR-0193](../docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md)
-freezes the direct other-extreme replication. It reuses the complete live core
-and changes only to four unseen seat-4 belief shifts and fixed acting seat 5;
-no seat-0 outcome becomes a replication gate.
+[ADR-0194](../docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md)
+records the direct other-extreme replication. Acting seat 5 also produces four
+deadline-eligible exact emissions, but one target carries 91.50% of its value
+and the target spread is 11,004x. Across both extreme-seat panels, two targets
+carry 88.78% of value. The affine runtime transfers; material opportunity, not
+certificate correctness, is now the unresolved layer.
 
 ## EXP-0001: CFR versus LCFR on two-player Kuhn
 

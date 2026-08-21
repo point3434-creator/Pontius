@@ -91,6 +91,13 @@ freezes that replication as a hash-bound successor of the seat-0 live core.
 Only fresh target seat 4 and fixed acting seat 5 change; all proof, deadline,
 fallback, and post-emission teacher semantics remain identical.
 
+[ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md)
+confirms the transfer: seat 5 also completes four of four fresh candidates on
+time with machine-precision exact teachers. Across both extremes, however, two
+targets carry 88.78% of value. The architecture therefore treats the affine
+runtime as provisionally sound and moves the research boundary to causal
+materiality and broader position/belief coverage.
+
 ## Architecture evolution record
 
 The narrative below records how the architecture reached the current spine and

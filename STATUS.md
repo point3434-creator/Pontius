@@ -24,7 +24,7 @@ deployment authorization, or composition claim.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0199](docs/decisions/ADR-0199-preregister-retained-affine-selector-cascade-replay.md) — Preregister the retained affine selector-cascade replay (accepted preregistration before missing-feature extraction or semantic label load).
 
 ## Evidence protocol
 
@@ -36,7 +36,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0175](docs/decisions/ADR-0175-preregister-fresh-h32-public-block-admissible-radius-map.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 public-block admissible-radius map |
 | [ADR-0176](docs/decisions/ADR-0176-public-block-radii-exist-but-certified-value-remains-microscopic.md) | 2026-08-21 | accepted prospective result | Public-block radii exist but certified value remains microscopic |
 | [ADR-0177](docs/decisions/ADR-0177-preregister-fresh-h32-regret-vertex-opportunity-audit.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 regret-vertex opportunity audit |
 | [ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md) | 2026-08-21 | accepted prospective result | Regret vertices expose soft-generator weakness but not a live selector |
@@ -60,12 +59,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0196](docs/decisions/ADR-0196-resident-step-profile-v1-rejects-before-replay-on-parent-pass-key.md) | 2026-08-21 | rejected execution before any replay step | Resident-step profile v1 rejects before replay on the parent pass key |
 | [ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md) | 2026-08-21 | accepted correction preregistration before any replay timing | Preregister the source-schema-corrected resident-step profile |
 | [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) | 2026-08-21 | accepted read-only engineering result | The device pipeline dominates the h32 step and host folding is second |
+| [ADR-0199](docs/decisions/ADR-0199-preregister-retained-affine-selector-cascade-replay.md) | 2026-08-21 | accepted preregistration before missing-feature extraction or semantic label load | Preregister the retained affine selector-cascade replay |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) — The device pipeline dominates the h32 step and host folding is second.
-- Numbered decisions: 198.
-- ADR-header SHA-256: `fd3e177ae36018251e5558bd7cf7c54fba23e7602c0e1d70daca2337c83f879c`.
+- Latest ADR: [ADR-0199](docs/decisions/ADR-0199-preregister-retained-affine-selector-cascade-replay.md) — Preregister the retained affine selector-cascade replay.
+- Numbered decisions: 199.
+- ADR-header SHA-256: `e385addc6b06979dfae5c99183cf9113d5cc5e81e6511e3cbc8d9daae9cbf5a3`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

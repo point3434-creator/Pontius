@@ -93,6 +93,19 @@ or rescue direction. No broader fresh panel is currently preregistered; freeze
 its board/belief construction, position coverage, and materiality rule before
 any new target policy step.
 
+ADR-0199 is the active retained-label selector replay. It creates no fresh
+strategy label and emits only the immutable blueprint. Run it once from its
+clean preregistration commit:
+
+```powershell
+& $python -m pontius.h32_retained_affine_selector_cascade_replay --config experiments/configs/h32-retained-affine-selector-cascade-replay-v1.json --output experiments/results/h32-retained-affine-selector-cascade-replay-v1.json
+```
+
+Config validation reads the retained-label artifact only as opaque bytes for
+SHA-256 provenance. The runner must compute all 108 feature rows and every
+clock-derived K before deserializing or joining label content. A saturated
+six-candidate primary K is library limitation, not selector evidence.
+
 ADR-0198 accepts ADR-0197's corrected compute profile. Its result artifact has
 SHA-256
 `a8f5ed0e2b0866af4b5df0d62ddf1351ca7e8a4e9ace71223602031c1f2ae796`.

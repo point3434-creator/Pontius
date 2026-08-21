@@ -117,6 +117,15 @@ keeps a resident hand reduction as the secondary optimization. Candidate
 portfolio capacity remains deadline-derived; neither median timing nor a
 standalone proof bill may choose K.
 
+[ADR-0199](docs/decisions/ADR-0199-preregister-retained-affine-selector-cascade-replay.md)
+freezes the next no-new-label selector layer. It extracts the same exact
+Tier-A/Tier-B affine features for all 108 already labelled block-direction
+rows before semantically loading the labels, prices K from measured work, and
+scores the primary six regret vertices separately from the confounded 18-row
+family library and its soft-excluded control. The primary set is explicitly
+library-limited if K reaches six; pooled or family-discrimination performance
+cannot be presented as a live selector result.
+
 ## Architecture evolution record
 
 The narrative below records how the architecture reached the current spine and

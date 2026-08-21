@@ -84,14 +84,15 @@ even though it retains 99.902% of the eight observed values. Modern DCFR
 variants remain deferred: the certificate and deadline mechanism now work,
 while opportunity magnitude remains the strategy weak link.
 
-The leading no-new-label opportunity follow-up is an artifact replay, not a
-new GPU campaign: score existing blocks by their own affine objective/cap
-coefficients and by free belief-delta features, then report certified-value
-recall at the clock-feasible top-K and value per charged millisecond against
-the failed proxies. K must come from measured marginal proof capacity. A later
-fresh panel should prefer action-conditioned in-tree posterior shifts over
-another mild synthetic blocker family, with construction and thresholds frozen
-before labels.
+ADR-0199 now freezes the leading no-new-label opportunity follow-up. It
+reconstructs all missing affine features against ADR-0186's sealed labels,
+derives K before semantic label load, and reports certified-value recall and
+value per charged millisecond against the failed proxies. Its primary matrix is
+the six regret vertices per context; the raw 18-family matrix is weak secondary
+evidence and must survive a soft-excluded control. A later fresh panel should
+prefer action-conditioned in-tree posterior shifts with a genuinely widened
+single-family block library, with construction and thresholds frozen before
+labels.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

@@ -1,0 +1,14 @@
+{
+  "evidence_stage": "preregistered_after_adr0147_before_corrected_target_rerun",
+  "expected_v1_config_sha256": "16bff3db1c3b87d7dae6570e33fb81f16c8f5ccb3ff7c37152f70e64bc1f85ab",
+  "expected_v1_implementation_sha256": "23a3a777ca2730511d9a052a2de62d14a2a634296c347456d03024d77be6d9e7",
+  "expected_failed_result_sha256": "9d00b82bab234e2785b3add4468ee2190d5c71e3dbb547ec7447436d3617dd37",
+  "expected_failed_decision_sha256": "4e9cae0a3d79f600beacb5eac3878d8f49c85cb37f756812a191dc3121d991ca",
+  "expected_audit_implementation_sha256": "61cc7a9e600e087d30eb0aa03d102915a3dd00c57b6267a4a8a1bd5de2510a98",
+  "expected_control_test_sha256": "914c90a5a91f87f87ed488e4698331c92584096c9c3fff6950d4afab247218aa",
+  "correction_scope": "replace_only_exact_warm_policy_digest_gate_with_established_numerical_probability_and_mean_tv_gates",
+  "maximum_warm_start_probability_error": 1e-12,
+  "maximum_warm_start_mean_total_variation": 1e-13,
+  "require_warm_start_digest_identity": false,
+  "outcome_policy": "retain_v1_target_candidate_order_acceptance_and_all_outcome_neutral_gates"
+}

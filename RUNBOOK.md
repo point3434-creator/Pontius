@@ -53,18 +53,22 @@ and maintained local links.
 
 ## Current h32 evidence reproduction
 
-The latest opened result is the regret-vertex opportunity audit:
+The latest accepted result is the metadata-corrected deep-horizon audit. Replay
+the correction without GPU or strategy recomputation with:
 
 ```powershell
-& $python -m pontius.h32_fresh_regret_vertex_opportunity_audit --config experiments/configs/h32-fresh-regret-vertex-opportunity-v1.json --output experiments/results/h32-fresh-regret-vertex-opportunity-v1.json
+& $python -m pontius.h32_deep_horizon_correction_replay --config experiments/configs/h32-deep-horizon-correction-v1.json --output experiments/results/h32-deep-horizon-correction-v1.json
 ```
 
-Its accepted artifact and interpretation are frozen in
-[ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md).
-Rerunning it is a reproducibility check, not fresh evidence. New research must
-start with a committed preregistration and clean worktree, keep the immutable
-blueprint anchor, use outcome-neutral gates, report memory and wall-clock
-ledgers, and preserve blueprint fallback.
+The source GPU invocation is intentionally rejected by
+[ADR-0182](docs/decisions/ADR-0182-deep-horizon-v1-is-rejected-by-two-miscopied-descriptor-hashes.md);
+do not overwrite or cite it directly as accepted evidence. The read-only replay
+and scientific interpretation are frozen in
+[ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md).
+Rerunning either command is reproduction, not fresh evidence. New research must
+start with a committed preregistration and clean tracked worktree, keep the
+immutable blueprint anchor, use outcome-neutral gates, report memory and wall-
+clock ledgers, and preserve blueprint fallback.
 
 ## Tests
 

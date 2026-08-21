@@ -29,21 +29,22 @@ Completed subgates include:
   atomic certificates and a one-second emission reserve on two frozen trials
   ([ADR-0166](docs/decisions/ADR-0166-prepared-street-fits-two-atomic-certificates-after-one-warm-step.md)).
 
-The current strategy-identification result is narrower. Public-node admissible
-radii exist, but one-step soft DCFR captures only 4.87% of the positive value in
-a frozen two-direction library. Regret vertices expose about 20.54 times as much
-aggregate certified value, while the available regret-mass proxy fails to rank
-that opportunity ([ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md)).
-This supports “generator, at least”; it does not authorize a live selector or a
-global strategy-quality claim.
+The active strategy result identifies generator direction as the weak link.
+Regret vertices expose about 20.54 times the value of one-step soft DCFR, while
+the regret-mass proxy fails to rank that opportunity
+([ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md)).
+The subsequent 8/32/64 ladder rejects ordinary depth as the next architecture:
+the best deep endpoint rises only 1.256x over step 8 and captures 2.97% of the
+retained two-direction oracle. Purification adds 4.99x over raw average-64 but
+is concentrated in one target and still trails the regret vertex
+([ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md)).
 
-**Next gate:** preregister a small deep-horizon diagnostic on frozen panel
-targets. Compare immutable-envelope certification at off-clock 32-64-step
-checkpoints. Material certified value would support amortized deep solving;
-another microscopic result would add evidence about contract geometry without
-proving opportunity exhaustion. The experiment must preserve immutable anchors,
-frozen outcome-neutral gates, numerical GPU identity, explicit memory ceilings,
-and the blueprint fallback.
+**Next gate:** preregister a causal direction/opportunity screen on fresh
+contexts. Compare regret mass with action-gap, directional-slope, and one
+explicitly charged vertex-certificate probe, and add at most one deterministic
+third direction family. Exact certified value—not update magnitude or policy
+TV—remains the label. No live selector advances without a precommitted fresh
+transfer result under the immutable blueprint and complete wall-clock contract.
 
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
 rule must improve certified value under the complete wall-clock and memory

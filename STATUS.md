@@ -5,31 +5,34 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md) — Regret vertices expose soft-generator weakness but not a live selector.
+Latest accepted research result: [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) — Ordinary deep DCFR plateaus while purification remains direction-sensitive.
 
-Status: accepted prospective result.
+Status: accepted corrected prospective result.
 
 ## Current decision
 
-Accept the prospective mechanism and generator diagnosis. Do not launch a live
-regret-vertex holdout yet: the rule magnifies small regret signs, lacks a causal
-ranking feature, and learned its best scale off-clock.
+Accept the corrected mechanism result and reject ordinary 32-64-step DCFR as
+the next architecture on this panel. The frozen material-depth hypothesis did
+not pass. Do not expand the deep ladder, promote purified-average-64, or infer
+that the immutable envelope has exhausted all local opportunity.
 
-The next decisive diagnostic is a small deep-horizon arm on preregistered panel
-targets. Run the immutable envelope against policy checkpoints from a 32-64
-step off-clock solve. If deeper search produces materially larger exact
-Pareto-safe value, horizon and amortized deep solving become the next
-architecture. If it remains microscopic, evidence shifts toward the six-seat
-contract geometry, although even that result must be stated as evidence rather
-than proof that no other generator can succeed.
+The evidence now points to generator direction and opportunity identification:
 
-Before that run, codify numerical identity as the default GPU evidence gate and
-repair the stale repository status front door so the repeated protocol lesson
-and the closed 15-second spine are visible.
+1. regret vertices beat one-step soft movement by about `20.54x` in ADR-0178;
+2. ordinary depth adds only `1.26x` over step 8 here; and
+3. purification can add `4.99x` over raw deep average, but only on one target
+   and still remains far below the regret vertex.
+
+The next gate should be a separately preregistered causal direction/opportunity
+screen on fresh contexts. Compare the failed regret-mass proxy with action-gap,
+directional-slope, and one explicitly charged vertex-certificate probe, while
+adding at most one deterministic third direction family. Keep exact certified
+value—not policy movement—as the label, preserve the immutable blueprint, and
+make no live selector claim until a precommitted rule transfers.
 
 ## Open preregistration
 
-[ADR-0183](docs/decisions/ADR-0183-preregister-read-only-deep-horizon-descriptor-correction.md) — Preregister the read-only deep-horizon descriptor correction (accepted correction preregistration).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -41,7 +44,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0160](docs/decisions/ADR-0160-h32-atomic-response-preflight-passes-and-is-cache-construction-bound.md) | 2026-08-21 | accepted result | The h32 atomic response preflight passes and is cache-construction bound |
 | [ADR-0161](docs/decisions/ADR-0161-preregister-two-shift-shared-response-residency.md) | 2026-08-21 | accepted and preregistered | Preregister two-shift shared response residency |
 | [ADR-0162](docs/decisions/ADR-0162-shared-response-residency-is-exact-but-cached-scratch-fails-headroom-rule.md) | 2026-08-21 | accepted result with residency authorization withheld | Shared response residency is exact but cached scratch fails the headroom rule |
 | [ADR-0163](docs/decisions/ADR-0163-preregister-shared-response-allocator-lifecycle-replay.md) | 2026-08-21 | accepted and preregistered | Preregister the shared-response allocator lifecycle replay |
@@ -65,12 +67,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0181](docs/decisions/ADR-0181-preregister-h32-deep-horizon-opportunity-ladder.md) | 2026-08-21 | accepted preregistration | Preregister the h32 deep-horizon opportunity ladder |
 | [ADR-0182](docs/decisions/ADR-0182-deep-horizon-v1-is-rejected-by-two-miscopied-descriptor-hashes.md) | 2026-08-21 | rejected result | Deep-horizon v1 is rejected by two miscopied descriptor hashes |
 | [ADR-0183](docs/decisions/ADR-0183-preregister-read-only-deep-horizon-descriptor-correction.md) | 2026-08-21 | accepted correction preregistration | Preregister the read-only deep-horizon descriptor correction |
+| [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) | 2026-08-21 | accepted corrected prospective result | Ordinary deep DCFR plateaus while purification remains direction-sensitive |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0183](docs/decisions/ADR-0183-preregister-read-only-deep-horizon-descriptor-correction.md) — Preregister the read-only deep-horizon descriptor correction.
-- Numbered decisions: 183.
-- ADR-header SHA-256: `0b0655d332e87857274b3cab4ca357d70fa721a03330cf2ad7ea1075ded08f5b`.
+- Latest ADR: [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) — Ordinary deep DCFR plateaus while purification remains direction-sensitive.
+- Numbered decisions: 184.
+- ADR-header SHA-256: `fe6d1cfaa6f534d6fcd10afd06a61114cfe19aa051b6d39251d48267f71980d1`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -78,4 +81,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md) and its dependencies
+4. [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) and its dependencies

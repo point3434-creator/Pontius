@@ -8,11 +8,10 @@ until a checkpoint package explicitly promotes them.
 
 For the live decision, read generated [STATUS.md](../STATUS.md). The current
 opened research result is
-[ADR-0178](../docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md):
-on six fresh h32 targets, one-step soft DCFR captured 4.87% of the positive
-certified value in a frozen two-direction library, while regret vertices exposed
-about 20.54 times as much aggregate value. This identifies generator weakness
-within that library, but authorizes neither a live selector nor a general
+[ADR-0184](../docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md):
+ordinary 32-64-step DCFR fails the frozen material-depth rule, while purification
+confirms strong target-dependent direction sensitivity. This strengthens the
+generator diagnosis but authorizes neither a live selector nor a general
 strategy-quality claim.
 
 ## EXP-0001: CFR versus LCFR on two-player Kuhn

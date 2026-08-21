@@ -48,7 +48,11 @@ questions. [ADR-0166](docs/decisions/ADR-0166-prepared-street-fits-two-atomic-ce
 closes the present systems-capacity spine, while
 [ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md)
 shows that candidate generation—not certification alone—is now the active
-strategy research problem.
+strategy research problem. The 8/32/64 ladder in
+[ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md)
+adds that ordinary depth produces substantially more policy motion without a
+material certified-value lift; direction and causal opportunity identification
+therefore precede amortized deep solving.
 
 ## Architecture evolution record
 

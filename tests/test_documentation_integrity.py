@@ -39,7 +39,7 @@ class DocumentationIntegrityTests(unittest.TestCase):
         expected = {
             "README.md": ("six-player river control", "15-second"),
             "PROJECT.md": ("15,000 ms", "immutable blueprint"),
-            "ROADMAP.md": ("ADR-0178", "deep-horizon"),
+            "ROADMAP.md": ("ADR-0184", "direction/opportunity"),
             "RUNBOOK.md": ("PONTIUS_CUDA_DLL_DIRECTORY", "status_generation --check"),
             "ARCHITECTURE.md": ("Current h32 execution spine", "deadline-admitted exact certificate"),
             "RISK_REGISTER.md": ("R35", "Documentation drift"),

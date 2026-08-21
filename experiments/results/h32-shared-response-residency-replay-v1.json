@@ -1,0 +1,146 @@
+{
+  "status": "frozen_h32_shared_response_residency_replay_executed",
+  "methodology": {
+    "shared_payload": "one_immutable_topology_automaton_bundle",
+    "target_payload": "one_belief_cache_and_blueprint_response_overlay_per_shift",
+    "source_quality": "retained_blueprint_teacher_only",
+    "new_strategy_quality_labels": 0,
+    "strategy_selection": "forbidden",
+    "strategy_quality_claim": "none"
+  },
+  "environment": {
+    "python": "3.12.13 (main, Aug  7 2026, 02:26:41) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "git": {
+      "commit": "82207f78a22fcdb53c59e6bd1d4526956d7b46c8",
+      "dirty": false
+    }
+  },
+  "config_sha256": "9e904265a5da105e18ab22fa88aff035fdae7d9a9216b010d06a26b8f49d7b01",
+  "implementation_sha256": "d9d6232c30730652b1aee30bec658b02c2e5749de151b5b82246d83700020881",
+  "memory_before_bundle": {
+    "gpu_free_bytes": 15631122432,
+    "gpu_total_bytes": 17094475776,
+    "gpu_pool_used_bytes": 69038592,
+    "gpu_pool_total_bytes": 69038592
+  },
+  "memory_after_bundle": {
+    "gpu_free_bytes": 10843324416,
+    "gpu_total_bytes": 17094475776,
+    "gpu_pool_used_bytes": 4394371072,
+    "gpu_pool_total_bytes": 4394371072
+  },
+  "memory_after_all_contexts": {
+    "gpu_free_bytes": 7219445760,
+    "gpu_total_bytes": 17094475776,
+    "gpu_pool_used_bytes": 4398026752,
+    "gpu_pool_total_bytes": 7934734336
+  },
+  "bundle": {
+    "compile_ms": 3545.8372000011877,
+    "numeric_bytes": 4325101664,
+    "seat_caches": 6,
+    "total_middle_rank": 10658,
+    "maximum_middle_rank": 104
+  },
+  "target_rows": [
+    {
+      "range_family": "balanced",
+      "target_shift": "local_blocker_seat3_x2",
+      "target_descriptor_sha256": "c04a64e3b45d05c2065b86a65d21b902b24aa7e1d8999f68f8006dbc4d9ace00",
+      "blueprint_policy_sha256": "f4e93154ddfb187952ae8ff8616e4ac8bb9908e9815ba51bb7fa4616f00e75c1",
+      "belief_cache_numeric_bytes": 1826160,
+      "belief_cache_compile_ms": 0.9516999998595566,
+      "response_cache_compile_ms": 9375.476199998957,
+      "context_bind_ms": 9376.427899998816,
+      "response_cache_raw_numeric_bytes": 904752,
+      "source_terminal_contractions": 1158,
+      "source_maximum_terminal_middle_rank": 104,
+      "source_errors": {
+        "maximum_utility_error": 2.831068712794149e-15,
+        "maximum_best_response_error": 2.7755575615628914e-15,
+        "maximum_deviation_gain_error": 4.996003610813204e-16
+      },
+      "memory_before_bind": {
+        "gpu_free_bytes": 10843324416,
+        "gpu_total_bytes": 17094475776,
+        "gpu_pool_used_bytes": 4394371072,
+        "gpu_pool_total_bytes": 4394371072
+      },
+      "memory_after_bind": {
+        "gpu_free_bytes": 7219445760,
+        "gpu_total_bytes": 17094475776,
+        "gpu_pool_used_bytes": 4396198912,
+        "gpu_pool_total_bytes": 7934734336
+      }
+    },
+    {
+      "range_family": "balanced",
+      "target_shift": "all_seat_strength_1_to2",
+      "target_descriptor_sha256": "46bdd04f43fb31776359d63289794a81680ef176431b14097f9f1096108d397c",
+      "blueprint_policy_sha256": "f4e93154ddfb187952ae8ff8616e4ac8bb9908e9815ba51bb7fa4616f00e75c1",
+      "belief_cache_numeric_bytes": 1826160,
+      "belief_cache_compile_ms": 0.3909999995812541,
+      "response_cache_compile_ms": 9222.331200000554,
+      "context_bind_ms": 9222.722200000135,
+      "response_cache_raw_numeric_bytes": 904752,
+      "source_terminal_contractions": 1158,
+      "source_maximum_terminal_middle_rank": 104,
+      "source_errors": {
+        "maximum_utility_error": 1.3322676295501878e-15,
+        "maximum_best_response_error": 1.2212453270876722e-15,
+        "maximum_deviation_gain_error": 7.494005416219807e-16
+      },
+      "memory_before_bind": {
+        "gpu_free_bytes": 7219445760,
+        "gpu_total_bytes": 17094475776,
+        "gpu_pool_used_bytes": 4396198912,
+        "gpu_pool_total_bytes": 7934734336
+      },
+      "memory_after_bind": {
+        "gpu_free_bytes": 7219445760,
+        "gpu_total_bytes": 17094475776,
+        "gpu_pool_used_bytes": 4398026752,
+        "gpu_pool_total_bytes": 7934734336
+      }
+    }
+  ],
+  "aggregate": {
+    "context_rows": 2,
+    "source_seat_evaluations": 12,
+    "new_strategy_quality_labels": 0,
+    "shared_device_numeric_bytes": 4328753984,
+    "duplicated_device_numeric_bytes": 8653855648,
+    "device_numeric_bytes_saved": 4325101664,
+    "shared_to_duplicated_device_ratio": 0.5002110227018198,
+    "unique_response_numeric_bytes": 826464,
+    "maximum_pool_total_bytes": 7934734336,
+    "minimum_physical_free_bytes": 7219445760,
+    "pool_headroom_below_ceiling_bytes": 4065265664,
+    "headroom_rule_safe": false,
+    "maximum_utility_error": 2.831068712794149e-15,
+    "maximum_best_response_error": 2.7755575615628914e-15,
+    "maximum_deviation_gain_error": 7.494005416219807e-16,
+    "bundle_compile_ms": 3545.8372000011877,
+    "total_context_bind_ms": 18599.15009999895,
+    "total_cold_construction_ms": 22144.98730000014,
+    "total_audit_seconds": 25.379353700000138
+  },
+  "gates": {
+    "context_rows": true,
+    "source_seat_evaluations": true,
+    "zero_new_strategy_quality_labels": true,
+    "target_identity": true,
+    "policy_identity": true,
+    "shared_topology_identity": true,
+    "source_exact": true,
+    "shared_device_numeric_bytes": true,
+    "unique_response_numeric_bytes": true,
+    "pool_total_bytes": true,
+    "physical_free_bytes": true,
+    "bundle_compile_ms": true,
+    "context_bind_ms": true,
+    "total_audit_seconds": true,
+    "passed": true
+  }
+}

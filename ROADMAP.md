@@ -73,15 +73,25 @@ of all certified value
 ([ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md)).
 
 **Open gates:** broaden transfer rather than repeat the exposed blocker family,
-and reduce compute time without changing the accepted live semantics. ADR-0195
-first attributes the resident warm-step bill on disclosed targets; its result
-may select a GPU, transfer, host-fold, or finer-profiling engineering screen but
-cannot count as fresh strategy evidence. Before new labels, freeze new board or
+and reduce compute time without changing the accepted live semantics. The
+ADR-0195 profile rejected before replay; ADR-0197 preserves its complete
+scientific protocol with only the source pass-field schema corrected. Its
+result may select a GPU, transfer, host-fold, or finer-profiling engineering
+screen but cannot count as fresh strategy evidence. Before new labels, freeze new board or
 belief regimes, explicit position coverage, and a causal materiality/no-op
 rule. A one-raw-guard threshold is only a retrospective development candidate
 even though it retains 99.902% of the eight observed values. Modern DCFR
 variants remain deferred: the certificate and deadline mechanism now work,
 while opportunity magnitude remains the strategy weak link.
+
+The leading no-new-label opportunity follow-up is an artifact replay, not a
+new GPU campaign: score existing blocks by their own affine objective/cap
+coefficients and by free belief-delta features, then report certified-value
+recall at the clock-feasible top-K and value per charged millisecond against
+the failed proxies. K must come from measured marginal proof capacity. A later
+fresh panel should prefer action-conditioned in-tree posterior shifts over
+another mild synthetic blocker family, with construction and thresholds frozen
+before labels.
 
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
 rule must improve certified value under the complete wall-clock and memory

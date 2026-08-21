@@ -73,13 +73,14 @@ strategy-quality claim.
 New research must start with a committed preregistration and clean tracked
 worktree, keep the immutable blueprint anchor, use outcome-neutral gates,
 charge the complete street ledger, report memory and wall-clock evidence, and
-preserve blueprint fallback. ADR-0195 authorizes one read-only compute-time
-profile over two already exposed ADR-0194 targets. It may attribute the
-resident step but may not evaluate strategy quality or count as new transfer
-evidence. Run it only from its clean preregistration commit:
+preserve blueprint fallback. ADR-0195's first profile invocation rejected
+before replay on a source-schema lookup. ADR-0197 authorizes its schema-only
+successor over the same two already exposed ADR-0194 targets. It may attribute
+the resident step but may not evaluate strategy quality or count as new
+transfer evidence. Run it only from its clean preregistration commit:
 
 ```powershell
-& $python -m pontius.h32_resident_step_bottleneck_profile --config experiments/configs/h32-resident-step-bottleneck-profile-v1.json --output experiments/results/h32-resident-step-bottleneck-profile-v1.json
+& $python -m pontius.h32_resident_step_bottleneck_profile_v2 --config experiments/configs/h32-resident-step-bottleneck-profile-v2.json --output experiments/results/h32-resident-step-bottleneck-profile-v2.json
 ```
 
 ADR-0191's one-time fresh invocation is already spent. Do not rerun it with

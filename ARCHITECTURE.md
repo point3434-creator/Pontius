@@ -104,7 +104,10 @@ context. It replays the disclosed fastest and slowest seat-5 targets and
 partitions the dominant resident step into device, transfer, host-fold, and
 residual buckets. Its Amdahl estimates can route the next engineering screen;
 they cannot justify a hardware purchase without a workload-specific follow-up
-or weaken the 15-second fail-closed boundary.
+or weaken the 15-second fail-closed boundary. Its first invocation rejected
+before replay on a parent-schema lookup; the additive
+[ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md)
+changes only that lookup and preserves the timing protocol.
 
 ## Architecture evolution record
 

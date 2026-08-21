@@ -24,7 +24,7 @@ not return to another DCFR variant while opportunity magnitude is unresolved.
 
 ## Open preregistration
 
-[ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md) — Preregister a read-only h32 resident-step bottleneck profile (accepted preregistration before any replay step).
+[ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md) — Preregister the source-schema-corrected resident-step profile (accepted correction preregistration before any replay timing).
 
 ## Evidence protocol
 
@@ -36,7 +36,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0173](docs/decisions/ADR-0173-preregister-fresh-h32-public-node-block-value-ledger.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 public-node block value ledger |
 | [ADR-0174](docs/decisions/ADR-0174-public-node-blocks-fit-but-two-directions-are-cap-bound.md) | 2026-08-21 | accepted prospective result | Public-node blocks fit but two directions are cap-bound |
 | [ADR-0175](docs/decisions/ADR-0175-preregister-fresh-h32-public-block-admissible-radius-map.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 public-block admissible-radius map |
 | [ADR-0176](docs/decisions/ADR-0176-public-block-radii-exist-but-certified-value-remains-microscopic.md) | 2026-08-21 | accepted prospective result | Public-block radii exist but certified value remains microscopic |
@@ -60,12 +59,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) | 2026-08-21 | accepted prospective replication result | The affine street mechanism transfers to seat 5 but value remains concentrated |
 | [ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md) | 2026-08-21 | accepted preregistration before any replay step | Preregister a read-only h32 resident-step bottleneck profile |
 | [ADR-0196](docs/decisions/ADR-0196-resident-step-profile-v1-rejects-before-replay-on-parent-pass-key.md) | 2026-08-21 | rejected execution before any replay step | Resident-step profile v1 rejects before replay on the parent pass key |
+| [ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md) | 2026-08-21 | accepted correction preregistration before any replay timing | Preregister the source-schema-corrected resident-step profile |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0196](docs/decisions/ADR-0196-resident-step-profile-v1-rejects-before-replay-on-parent-pass-key.md) — Resident-step profile v1 rejects before replay on the parent pass key.
-- Numbered decisions: 196.
-- ADR-header SHA-256: `856ad768e2f0a6c6dc908275ce14ee84c5785d0245f5ae54b48c5d21a99a0ac3`.
+- Latest ADR: [ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md) — Preregister the source-schema-corrected resident-step profile.
+- Numbered decisions: 197.
+- ADR-header SHA-256: `41cb5c01043ae2f18e3af7bd32a9c833b23f8340d7a2ba947c7a479f74174b68`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

@@ -1,0 +1,13 @@
+{
+  "evidence_stage": "preregistered_after_adr0196_before_any_resident_step_timing_with_all_v1_measurements_still_unobserved",
+  "expected_v1_config_sha256": "463f6fadb5f0a6039119da149d1d7f6a040a2563233790c4a9863eab72732fcd",
+  "expected_v1_implementation_sha256": "c77238e017211df9cbd940c386540f3a10a740437afd87dd4f9bdb5696de8033",
+  "expected_v1_control_test_sha256": "7e7d88b1a7d739ac3691725de0c481073efae9f8f81929b9650603fa02b1a9b5",
+  "expected_v1_decision_sha256": "929c89cf1e82e9cfdc6b15d00c43ede009d6d31d94d9ab563e9e5871de3197f9",
+  "expected_rejection_decision_sha256": "f54ed5dc36fe147e0603771ec0f14bef494327b9041f75ae1f78a4323da8690b",
+  "expected_audit_implementation_sha256": "9ecfd18a607080522aba0323a313ae4c3cb0400aae9aba0da307e2cd0a0765db",
+  "expected_control_test_sha256": "d9208f5dfa8ff8ddbfc4c673cf61f85c4e531eccf2701cb0c570e74f90d457e2",
+  "correction_scope": "add_top_level_source_passed_as_in_memory_gates_passed_alias_for_the_exact_source_blueprint_artifact_only",
+  "replay_scope": "reuse_adr0195_config_runner_helpers_targets_restarts_timing_buckets_counterfactuals_numerical_gates_and_resource_gates_unchanged",
+  "outcome_policy": "classification_remains_report_only_and_no_strategy_quality_label_is_run"
+}

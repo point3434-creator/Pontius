@@ -74,6 +74,21 @@ worktree, keep the immutable blueprint anchor, use outcome-neutral gates,
 charge the complete street ledger, report memory and wall-clock evidence, and
 preserve blueprint fallback.
 
+The open retained-policy engineering differential is preregistered in
+[ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md).
+From its clean preregistration commit, execute exactly once with:
+
+```powershell
+& $python -m pontius.h32_selector_stable_affine_certificate_audit --config experiments/configs/h32-selector-stable-affine-certificate-v1.json --output experiments/results/h32-selector-stable-affine-certificate-v1.json
+```
+
+This reconstructs ADR-0186's retained targets and compares one additive
+selector-stable affine endpoint proof per public block with direct exact
+recertification. The direct validations are off clock; the descriptive street
+ledger contains only one warm step, construction, one seat-0 affine sweep, and
+the emission reserve. The audit emits the immutable blueprint and exposes no
+fresh target.
+
 ## Tests
 
 From the repository root:

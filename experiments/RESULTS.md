@@ -17,6 +17,12 @@ cap-radius probe exposes useful geometry but is neither stable enough nor
 available cheaply enough to promote. No live selector, emitted candidate,
 population result, or general strategy-quality claim follows.
 
+The next artifact is an engineering differential, not a new strategy result.
+[ADR-0187](../docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md)
+freezes an additive one-sweep affine certificate over all 36 retained
+regret-vertex blocks. It must match direct exact recertification and preserve
+historical verifier hashes before any fresh online selector trial is allowed.
+
 ## EXP-0001: CFR versus LCFR on two-player Kuhn
 
 **Date:** 2026-08-18

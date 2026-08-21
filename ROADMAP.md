@@ -57,6 +57,13 @@ but neither is a live rule until it transfers prospectively. Modern DCFR
 variants remain deferred because changing the soft trajectory does not yet
 solve opportunity location.
 
+The first engineering subgate is frozen in
+[ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md):
+before any fresh trial, one additive selector-stable affine certificate must
+match the accepted exact verifier across all 36 retained regret-vertex blocks.
+Only an exact primitive whose conservative seat-0 ledger fits may advance to
+the prospective street rule.
+
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
 rule must improve certified value under the complete wall-clock and memory
 contract without weakening any per-seat cap. Exact offline opportunity alone

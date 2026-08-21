@@ -33,7 +33,7 @@ frozen control against that selector.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md) — Preregister a selector-stable affine certificate differential (accepted preregistration).
 
 ## Evidence protocol
 
@@ -45,7 +45,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0163](docs/decisions/ADR-0163-preregister-shared-response-allocator-lifecycle-replay.md) | 2026-08-21 | accepted and preregistered | Preregister the shared-response allocator lifecycle replay |
 | [ADR-0164](docs/decisions/ADR-0164-allocator-lifecycle-authorizes-two-context-atomic-residency.md) | 2026-08-21 | accepted result | Allocator lifecycle authorizes two-context atomic residency |
 | [ADR-0165](docs/decisions/ADR-0165-preregister-h32-atomic-street-scheduler-ledger.md) | 2026-08-21 | accepted and preregistered | Preregister the h32 atomic street-scheduler ledger |
 | [ADR-0166](docs/decisions/ADR-0166-prepared-street-fits-two-atomic-certificates-after-one-warm-step.md) | 2026-08-21 | accepted result | A prepared street fits two atomic certificates after one warm step |
@@ -69,12 +68,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) | 2026-08-21 | accepted corrected prospective result | Ordinary deep DCFR plateaus while purification remains direction-sensitive |
 | [ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 causal direction and opportunity screen |
 | [ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md) | 2026-08-21 | accepted prospective result | Fresh vertices replicate generator weakness but no free selector transfers |
+| [ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md) | 2026-08-21 | accepted preregistration | Preregister a selector-stable affine certificate differential |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md) — Fresh vertices replicate generator weakness but no free selector transfers.
-- Numbered decisions: 186.
-- ADR-header SHA-256: `1a4563929716c803c56037f618dc8c1cd9b99731f58c39babc058b65be747029`.
+- Latest ADR: [ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md) — Preregister a selector-stable affine certificate differential.
+- Numbered decisions: 187.
+- ADR-header SHA-256: `f597ef6fa10d5fc70698a7ade46c113805fc5d3cce6a4645b30e4b572690d406`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

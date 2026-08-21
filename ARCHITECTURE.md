@@ -62,6 +62,15 @@ next architecture layer must acquire enough of that information inside the
 street before predictive-DCFR variants or wider direction libraries are
 justified.
 
+[ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md)
+freezes the first additive implementation of that layer. For a one-seat,
+one-public-node direction it contracts the scale-one endpoint once, propagates
+affine slopes through the immutable source response tape, and stops before the
+first conservative selector tie. The accepted incremental verifier remains
+byte-identical and serves as the off-clock differential teacher. No fresh
+scheduler may rely on the affine certificate until that retained comparison
+passes.
+
 ## Architecture evolution record
 
 The narrative below records how the architecture reached the current spine and

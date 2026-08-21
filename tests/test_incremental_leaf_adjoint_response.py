@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 import unittest
 
@@ -15,6 +16,11 @@ from pontius.leaf_adjoint_checkpoint_ladder_audit import _build_case
 from pontius.leaf_adjoint_evaluation import evaluate_leaf_adjoint_profile
 from pontius.public_policy_tt import _information_key, information_schema_for_axes
 from pontius.river import parse_cards
+from pontius.selector_stable_affine_response import (
+    certify_selector_stable_affine_envelope,
+    evaluate_selector_stable_affine_leaf_adjoint_seat,
+    selector_stable_affine_values_at_scale,
+)
 
 
 _ROOT = Path(__file__).parents[1]
@@ -93,6 +99,52 @@ class IncrementalLeafAdjointResponseTests(unittest.TestCase):
                 row.full_terminal_contractions,
             )
         return incremental
+
+    def _interpolated_candidate(
+        self,
+        key: str,
+        endpoint_action_index: int,
+        scale: float,
+    ) -> dict:
+        actions = self.layout.information_schema()[key]
+        source = 1.0 / len(actions)
+        return {
+            key: {
+                action: (1.0 - scale) * source
+                + scale * float(index == endpoint_action_index)
+                for index, action in enumerate(actions)
+            }
+        }
+
+    def _affine_rows(self, candidate: dict) -> tuple:
+        probabilities = compile_policy_probability_tape(
+            self.layout,
+            self.belief.hands_by_player,
+            candidate,
+        )
+        changed_node = next(
+            node_index
+            for node_index, (source, endpoint) in enumerate(
+                zip(
+                    self.caches[0].source_probabilities,
+                    probabilities,
+                    strict=True,
+                )
+            )
+            if source is not None
+            and endpoint is not None
+            and not (source == endpoint).all()
+        )
+        actor = self.layout.nodes[changed_node].player
+        return tuple(
+            evaluate_selector_stable_affine_leaf_adjoint_seat(
+                cache,
+                probabilities,
+                acting_player=actor,
+                selector_margin_allowance=1e-14,
+            )
+            for cache in self.caches
+        )
 
     def test_source_cache_matches_complete_leaf_adjoint(self) -> None:
         complete = evaluate_leaf_adjoint_profile(
@@ -331,6 +383,165 @@ class IncrementalLeafAdjointResponseTests(unittest.TestCase):
         self.assertEqual(cap["stop_reason"], "blueprint_cap")
         self.assertEqual(cap["stop_seat"], violating_seat)
         self.assertEqual(cap["evaluated_seat_count"], 1)
+
+    def test_selector_stable_affine_values_match_direct_evaluation(self) -> None:
+        schema = self.layout.information_schema()
+        witness = None
+        for key, actions in tuple(schema.items())[:48]:
+            if len(actions) < 2:
+                continue
+            endpoint = self._candidate(key, 0)
+            rows = self._affine_rows(endpoint)
+            stable = min(row.selector_stable_scale for row in rows)
+            if stable > 1e-8:
+                witness = (key, rows, min(0.25, stable * 0.5))
+                break
+        self.assertIsNotNone(witness)
+        assert witness is not None
+        key, rows, scale = witness
+        candidate = self._interpolated_candidate(key, 0, scale)
+        probabilities = compile_policy_probability_tape(
+            self.layout,
+            self.belief.hands_by_player,
+            candidate,
+        )
+        direct = tuple(
+            evaluate_incremental_leaf_adjoint_seat(cache, probabilities)
+            for cache in self.caches
+        )
+        for affine, exact in zip(rows, direct, strict=True):
+            utility, response, gain = selector_stable_affine_values_at_scale(
+                affine, scale
+            )
+            self.assertAlmostEqual(utility, exact.profile_utility, places=12)
+            self.assertAlmostEqual(response, exact.best_response_value, places=12)
+            self.assertAlmostEqual(gain, exact.deviation_gain, places=12)
+            self.assertEqual(exact.response_action_flips, 0)
+
+    def test_affine_scope_rejects_two_changed_public_nodes(self) -> None:
+        schema = self.layout.information_schema()
+        first_key = next(iter(schema))
+        first_history = first_key.rsplit("|history=", 1)[-1]
+        second_key = next(
+            key
+            for key in schema
+            if key.rsplit("|history=", 1)[-1] != first_history
+        )
+        candidate = {
+            **self._candidate(first_key, 0),
+            **self._candidate(second_key, 0),
+        }
+        probabilities = compile_policy_probability_tape(
+            self.layout,
+            self.belief.hands_by_player,
+            candidate,
+        )
+        with self.assertRaisesRegex(ValueError, "exactly one changed public node"):
+            evaluate_selector_stable_affine_leaf_adjoint_seat(
+                self.caches[0],
+                probabilities,
+                acting_player=0,
+            )
+
+    def test_affine_selector_breakpoint_precedes_observed_endpoint_flip(self) -> None:
+        schema = self.layout.information_schema()
+        witness = None
+        for key, actions in tuple(schema.items())[:64]:
+            if len(actions) < 2:
+                continue
+            endpoint = self._candidate(key, 0)
+            probabilities = compile_policy_probability_tape(
+                self.layout,
+                self.belief.hands_by_player,
+                endpoint,
+            )
+            direct = tuple(
+                evaluate_incremental_leaf_adjoint_seat(cache, probabilities)
+                for cache in self.caches
+            )
+            if sum(row.response_action_flips for row in direct) == 0:
+                continue
+            affine = self._affine_rows(endpoint)
+            witness = (direct, affine)
+            break
+        self.assertIsNotNone(witness)
+        assert witness is not None
+        direct, affine = witness
+        self.assertGreater(sum(row.response_action_flips for row in direct), 0)
+        self.assertLess(min(row.selector_stable_scale for row in affine), 1.0)
+
+    def test_affine_envelope_selects_only_a_directly_exact_improving_scale(self) -> None:
+        schema = self.layout.information_schema()
+        blueprint_gains = tuple(
+            cache.source_evaluation.deviation_gain for cache in self.caches
+        )
+        blueprint_nash = math.fsum(blueprint_gains)
+        scale_grid = tuple(2.0**-index for index in range(34))
+        witness = None
+        for key, actions in tuple(schema.items())[:96]:
+            if len(actions) < 2:
+                continue
+            for action_index in range(len(actions)):
+                endpoint = self._candidate(key, action_index)
+                rows = self._affine_rows(endpoint)
+                envelope = certify_selector_stable_affine_envelope(
+                    rows,
+                    blueprint_deviation_gains=blueprint_gains,
+                    blueprint_nash_conv=blueprint_nash,
+                    raw_guard=1e6,
+                    scale_grid=scale_grid,
+                    safety_fraction=0.5,
+                    numerical_allowance=1e-12,
+                )
+                if envelope.complete:
+                    witness = (key, action_index, rows, envelope)
+                    break
+            if witness is not None:
+                break
+        self.assertIsNotNone(witness)
+        assert witness is not None
+        key, action_index, rows, envelope = witness
+        assert envelope.selected_scale is not None
+        candidate = self._interpolated_candidate(
+            key, action_index, envelope.selected_scale
+        )
+        direct = verify_incremental_leaf_adjoint_candidate(
+            candidate_id="affine_selected",
+            layout=self.layout,
+            policy=candidate,
+            hands_by_player=self.belief.hands_by_player,
+            response_caches=self.caches,
+            blueprint_deviation_gains=(1e6,) * 6,
+            best_complete_nash_conv=1e6,
+            payoff_span=float(self.layout.game.payoff_span),
+            raw_guard=0.0,
+            seat_order=(0, 1, 2, 3, 4, 5),
+        )
+        self.assertTrue(direct["complete"])
+        self.assertEqual(direct["response_action_flips"], 0)
+        self.assertLessEqual(
+            max(
+                abs(left - right)
+                for left, right in zip(
+                    envelope.predicted_deviation_gains,
+                    direct["quality"]["deviation_gains"],
+                    strict=True,
+                )
+            ),
+            2e-12,
+        )
+        self.assertAlmostEqual(
+            envelope.predicted_nash_conv,
+            direct["quality"]["nash_conv"],
+            places=11,
+        )
+        limiting = min(rows, key=lambda row: row.selector_stable_scale)
+        if limiting.selector_stable_scale < 1.0:
+            with self.assertRaisesRegex(ValueError, "exceeds selector-stable"):
+                selector_stable_affine_values_at_scale(
+                    limiting,
+                    (limiting.selector_stable_scale + 1.0) * 0.5,
+                )
 
 
 if __name__ == "__main__":

@@ -52,42 +52,32 @@ and maintained local links.
 
 ## Current h32 evidence reproduction
 
-The latest accepted result is the fresh causal direction screen recorded in
-[ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md).
+The latest accepted engineering result is the corrected selector-stable affine
+certificate differential recorded in
+[ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md).
 Reproduce its frozen invocation with:
 
 ```powershell
-& $python -m pontius.h32_fresh_causal_direction_screen --config experiments/configs/h32-fresh-causal-direction-screen-v1.json --output experiments/results/h32-fresh-causal-direction-screen-v1.json
+& $python -m pontius.h32_selector_stable_affine_certificate_audit_v2 --config experiments/configs/h32-selector-stable-affine-certificate-v2.json --output experiments/results/h32-selector-stable-affine-certificate-v2.json
 ```
 
-The run reconstructs six previously unlabeled seat-2 belief shifts, performs
-one warm step per target, compares three single-public-node direction families,
-and labels four opportunity features. Its accepted artifact has SHA-256
-`c6fde183230994915668b5288bedb290ac7e960d4b13437d336e80a6bbd88b4d`.
-Rerunning it is reproduction, not fresh evidence. Its adaptive searches and
-all-block probe rankings are off clock; even a passing reproduction emits only
-the immutable blueprint and cannot be cited as a live selector or
-population-quality result.
+The run reconstructs ADR-0186's six retained targets, one warm step per target,
+36 regret-vertex public blocks, and 216 responding-seat affine rows. Direct
+fixed and selected-scale validations are off-clock teachers. Its accepted
+artifact has SHA-256
+`f47964cfcf91464d7db81ae68ced98b8d817ab97601a7d9deb6a00eaa71ab3cd`.
+Rerunning it is reproduction, not fresh evidence. All six descriptive seat-0
+ledgers fit, but the narrowest remaining boundary margin is only `338.90 ms`.
+The audit emits only the immutable blueprint and cannot be cited as a live
+selector, latency distribution, or population-quality result.
 
 New research must start with a committed preregistration and clean tracked
 worktree, keep the immutable blueprint anchor, use outcome-neutral gates,
 charge the complete street ledger, report memory and wall-clock evidence, and
-preserve blueprint fallback.
-
-The open retained-policy engineering differential is preregistered in
-[ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md).
-From its clean preregistration commit, execute exactly once with:
-
-```powershell
-& $python -m pontius.h32_selector_stable_affine_certificate_audit --config experiments/configs/h32-selector-stable-affine-certificate-v1.json --output experiments/results/h32-selector-stable-affine-certificate-v1.json
-```
-
-This reconstructs ADR-0186's retained targets and compares one additive
-selector-stable affine endpoint proof per public block with direct exact
-recertification. The direct validations are off clock; the descriptive street
-ledger contains only one warm step, construction, one seat-0 affine sweep, and
-the emission reserve. The audit emits the immutable blueprint and exposes no
-fresh target.
+preserve blueprint fallback. The next authorized experiment is a fresh street
+trial using the fixed regret-vertex direction and affine-only live proof. Do
+not construct its targets or labels before its configuration, implementation,
+and decision rule are committed.
 
 ## Tests
 

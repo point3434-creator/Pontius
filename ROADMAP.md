@@ -48,21 +48,24 @@ cap-radius probe captures 95.41% of the target-best denominator but is unstable
 across targets and unavailable before certificate work
 ([ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md)).
 
-**Open gate:** preregister a narrow online-feasible opportunity-acquisition
-rule on fresh contexts. Keep the regret vertex fixed, charge every probe and
-final certificate, preserve the one-second emission reserve, and emit the
-immutable blueprint whenever evidence or time is incomplete. The observed
-order-extreme concentration and cap-radius signal may motivate the hypothesis,
-but neither is a live rule until it transfers prospectively. Modern DCFR
-variants remain deferred because changing the soft trajectory does not yet
-solve opportunity location.
+The first online-feasibility engineering subgate now passes. The additive
+selector-stable affine certificate matches the old exact verifier to at most
+`1.36e-15` across 36 retained regret-vertex blocks, and all six conservative
+seat-0 ledgers fit the 15-second boundary. It captures 48.80% of the frozen
+three-family bounded oracle under its preregistered half-radius rule
+([ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md)).
+The slowest retained ledger has only 338.90 ms of boundary headroom after the
+one-second reserve, so the result validates the primitive but not a latency
+distribution.
 
-The first engineering subgate is frozen in
-[ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md):
-before any fresh trial, one additive selector-stable affine certificate must
-match the accepted exact verifier across all 36 retained regret-vertex blocks.
-Only an exact primitive whose conservative seat-0 ledger fits may advance to
-the prospective street rule.
+**Open gate:** preregister a narrow fresh street trial. Keep the regret vertex
+and affine proof fixed, charge the complete live ledger, enforce the hard
+deadline, and emit the immutable blueprint whenever construction, proof, or
+time is incomplete. The old exact verifier may remain an off-clock teacher but
+cannot participate in the live decision. No selected count, value, street fit,
+or target from ADR-0190 may become a fresh-outcome gate. Modern DCFR variants
+remain deferred because changing the soft trajectory does not solve opportunity
+location.
 
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
 rule must improve certified value under the complete wall-clock and memory

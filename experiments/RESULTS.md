@@ -7,21 +7,16 @@ historical rather than the project status front door. Raw JSON artifacts under
 until a checkpoint package explicitly promotes them.
 
 For the live decision, read generated [STATUS.md](../STATUS.md). The current
-research result is
-[ADR-0186](../docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md):
-on six fresh seat-2 belief shifts, regret vertices capture 99.20% of the
-bounded three-family oracle while soft DCFR captures 5.47%. The added
-immutable-blueprint best-response vertex supplies no material lift. Regret mass
-and blueprint minimum action gap fail as free opportunity selectors; a charged
-cap-radius probe exposes useful geometry but is neither stable enough nor
-available cheaply enough to promote. No live selector, emitted candidate,
-population result, or general strategy-quality claim follows.
-
-The next artifact is an engineering differential, not a new strategy result.
-[ADR-0187](../docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md)
-freezes an additive one-sweep affine certificate over all 36 retained
-regret-vertex blocks. It must match direct exact recertification and preserve
-historical verifier hashes before any fresh online selector trial is allowed.
+engineering result is
+[ADR-0190](../docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md):
+the additive selector-stable affine certificate matches direct exact
+recertification to at most `1.36e-15` over all 36 retained regret-vertex blocks.
+It selects 35 blocks, captures 48.80% of the frozen bounded oracle under its
+half-radius rule, and fits all six descriptive seat-0 street ledgers. The
+narrowest fit leaves only `338.90 ms` of the 15-second boundary after the fixed
+one-second reserve. This authorizes a separately preregistered fresh trial, not
+deployment, a latency distribution, candidate emission, or a general
+strategy-quality claim.
 
 ## EXP-0001: CFR versus LCFR on two-player Kuhn
 

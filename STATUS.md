@@ -5,35 +5,25 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md) — Fresh vertices replicate generator weakness but no free selector transfers.
+Latest accepted research result: [ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md) — The selector-stable affine certificate is exact and fits retained street ledgers.
 
-Status: accepted prospective result.
+Status: accepted corrected engineering result.
 
 ## Current decision
 
-Accept the prospective mechanism result. Retain regret vertices as the
-decisive bounded direction and reject this immutable-blueprint best-response
-vertex as a useful library expansion. Reject regret mass and blueprint minimum
-action gap as live opportunity selectors on the frozen construction. Do not
-promote the cap-radius probe, any observed seat, block, scale, or candidate.
+Accept the additive selector-stable affine certificate as an exact engineering
+primitive within its frozen scope. ADR-0187's advancement condition is met:
+exactness passes and all retained descriptive seat-0 ledgers fit.
 
-The next bottleneck is obtaining useful direction/cap information cheaply
-enough to choose and realize a regret-vertex move inside the street. A
-successor must preregister a genuinely online ledger on fresh contexts, charge
-every probe and final certificate, reserve emission time, and fail closed to
-the immutable blueprint. The order-extreme concentration and cap-radius
-capture may define a narrow hypothesis, but they require prospective transfer
-and cannot be mined into a rule from this panel.
-
-Do not expand ordinary DCFR depth or introduce a predictive/discount-schedule
-variant yet. Those changes alter the soft trajectory while the replicated
-failure is opportunity location and decisive-direction realization. Revisit a
-modern DCFR-family arm only after an online-feasible selector exists or as a
-frozen control against that selector.
+Authorize a separately committed fresh street trial with a predeclared
+regret-vertex direction, affine-only live certificate, hard deadline, one-second
+emission reserve, and immutable-blueprint fallback. Do not run the old exact
+teacher on the live ledger, compose certificates, move the anchor, or infer a
+strategy-quality or population claim from this retained differential.
 
 ## Open preregistration
 
-[ADR-0189](docs/decisions/ADR-0189-preregister-numerically-corrected-selector-stable-affine-rerun.md) — Preregister the numerically corrected selector-stable affine rerun (accepted successor preregistration).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -45,7 +35,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0166](docs/decisions/ADR-0166-prepared-street-fits-two-atomic-certificates-after-one-warm-step.md) | 2026-08-21 | accepted result | A prepared street fits two atomic certificates after one warm step |
 | [ADR-0167](docs/decisions/ADR-0167-retrospective-single-atom-value-capture-contract.md) | 2026-08-21 | accepted retrospective analysis contract; not preregistered | Retrospective single-atom value-capture contract |
 | [ADR-0168](docs/decisions/ADR-0168-retrospective-atomization-exposes-strong-nonadditivity.md) | 2026-08-21 | accepted retrospective result; not preregistered | Retrospective atomization exposes strong nonadditivity |
 | [ADR-0169](docs/decisions/ADR-0169-preregister-fresh-h32-exact-union-value-ledger.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 exact-union value ledger |
@@ -69,12 +58,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md) | 2026-08-21 | accepted preregistration | Preregister a selector-stable affine certificate differential |
 | [ADR-0188](docs/decisions/ADR-0188-selector-stable-affine-v1-rejected-by-forbidden-warm-digest-gate.md) | 2026-08-21 | rejected result | Selector-stable affine v1 is rejected by a forbidden warm digest gate |
 | [ADR-0189](docs/decisions/ADR-0189-preregister-numerically-corrected-selector-stable-affine-rerun.md) | 2026-08-21 | accepted successor preregistration | Preregister the numerically corrected selector-stable affine rerun |
+| [ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md) | 2026-08-21 | accepted corrected engineering result | The selector-stable affine certificate is exact and fits retained street ledgers |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0189](docs/decisions/ADR-0189-preregister-numerically-corrected-selector-stable-affine-rerun.md) — Preregister the numerically corrected selector-stable affine rerun.
-- Numbered decisions: 189.
-- ADR-header SHA-256: `a3939f5106dc8bc2bcd7d7ca262cf38b82972fd2a0b40b075f371c511fec6cc2`.
+- Latest ADR: [ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md) — The selector-stable affine certificate is exact and fits retained street ledgers.
+- Numbered decisions: 190.
+- ADR-header SHA-256: `23a77adb4a780637914de849b9f6d05d52fd0ff462bc2e68c5f328afb3ac8d36`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -82,4 +72,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md) and its dependencies
+4. [ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md) and its dependencies

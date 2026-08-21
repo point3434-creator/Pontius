@@ -29,7 +29,7 @@ and the closed 15-second spine are visible.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0181](docs/decisions/ADR-0181-preregister-h32-deep-horizon-opportunity-ladder.md) — Preregister the h32 deep-horizon opportunity ladder (accepted preregistration).
 
 ## Evidence protocol
 
@@ -41,7 +41,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0157](docs/decisions/ADR-0157-localized-response-bridge-closes-the-semantic-gap-on-reduced-controls.md) | — | Accepted as an additive exact semantic bridge after ADR-0156. It authorizes | The localized response bridge closes the semantic gap on reduced controls |
 | [ADR-0158](docs/decisions/ADR-0158-terminal-numerator-overlay-is-exact-on-reduced-response-controls.md) | — | Accepted as the reduced physical implementation following ADR-0157. It | Terminal-numerator overlay is exact on reduced response controls |
 | [ADR-0159](docs/decisions/ADR-0159-preregister-h32-atomic-incremental-response-preflight.md) | 2026-08-21 | accepted and preregistered | Preregister the h32 atomic incremental-response preflight |
 | [ADR-0160](docs/decisions/ADR-0160-h32-atomic-response-preflight-passes-and-is-cache-construction-bound.md) | 2026-08-21 | accepted result | The h32 atomic response preflight passes and is cache-construction bound |
@@ -65,12 +64,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0178](docs/decisions/ADR-0178-regret-vertices-expose-soft-generator-weakness-but-not-a-live-selector.md) | 2026-08-21 | accepted prospective result | Regret vertices expose soft-generator weakness but not a live selector |
 | [ADR-0179](docs/decisions/ADR-0179-numerical-identity-is-the-default-gpu-evidence-gate.md) | 2026-08-21 | accepted process decision | Numerical identity is the default GPU evidence gate |
 | [ADR-0180](docs/decisions/ADR-0180-generate-status-front-door-from-adr-metadata.md) | 2026-08-21 | accepted process decision | Generate the status front door from ADR metadata |
+| [ADR-0181](docs/decisions/ADR-0181-preregister-h32-deep-horizon-opportunity-ladder.md) | 2026-08-21 | accepted preregistration | Preregister the h32 deep-horizon opportunity ladder |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0180](docs/decisions/ADR-0180-generate-status-front-door-from-adr-metadata.md) — Generate the status front door from ADR metadata.
-- Numbered decisions: 180.
-- ADR-header SHA-256: `ba82736aedf79a35ca90b62f09de7b17c9146d1838f97d9cb0127181b8524d43`.
+- Latest ADR: [ADR-0181](docs/decisions/ADR-0181-preregister-h32-deep-horizon-opportunity-ladder.md) — Preregister the h32 deep-horizon opportunity ladder.
+- Numbered decisions: 181.
+- ADR-header SHA-256: `6664d294a7c99adc99c8d9fdb9dbd1d2fd13c158305da57956f32f153b13c4ac`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

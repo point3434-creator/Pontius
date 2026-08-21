@@ -1,0 +1,10 @@
+{
+  "evidence_stage": "preregistered_after_adr0151_before_corrected_fresh_panel_action_width_rerun",
+  "expected_v1_config_sha256": "f677e75be8fc2fc3680667799031ad455bf6c81d7a0253ecb3cd9b2e42c14372",
+  "expected_v1_implementation_sha256": "77ee4b7c72e45ff2abfb3c59b75347d8b9ca5cd280cff8e79acf875cdacd557d",
+  "expected_failed_execution_adr_sha256": "73cc6feaff2de1b7ea2728d6eaaf1605dfd8d4e6fb318022cfa6696f09895deb",
+  "expected_audit_implementation_sha256": "07e527c69708f99063adc1cd099a234460a33f44cc2fa47ddbae5e23c7cc6d68",
+  "expected_control_test_sha256": "d017084bdc7dc47d4030e98292bcf36a2237f06f29c58f9e02b7c479c5e52e32",
+  "correction_scope": "post_work_aggregation_only_use_outer_profile_rows_for_timing_and_gpu_pool_and_inner_quality_rows_for_exactness_and_finiteness",
+  "outcome_policy": "reuse_adr0150_targets_order_steps_candidates_common_game_caps_thresholds_and_null_claim_without_tuning"
+}

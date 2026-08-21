@@ -8,9 +8,11 @@ or common-game action-width quality measurement.
 The first clean invocation from `d0b13b8` stopped before the h2 control because
 the new runner passed an obsolete positional argument to
 `environment_metadata`.  It constructed no h32 cache, step, policy, or quality
-label and wrote no artifact.  The single-call correction and its replacement
-implementation hash were committed before retry; no scientific field, budget,
-candidate rule, gate, or source changed.
+label and wrote no artifact.  The first retry then stopped at the adjacent
+strict-Git helper for the same obsolete positional-argument mistake, again
+before the h2 control or any h32 work.  Both single-call corrections and their
+replacement implementation hashes were committed before the scientific retry;
+no scientific field, budget, candidate rule, gate, or source changed.
 
 ## Question
 

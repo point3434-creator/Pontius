@@ -36,7 +36,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0172](docs/decisions/ADR-0172-fresh-six-atom-unions-fit-but-do-not-recover-material-value.md) | 2026-08-21 | accepted corrected result | Fresh six-atom unions fit but do not recover material value |
 | [ADR-0173](docs/decisions/ADR-0173-preregister-fresh-h32-public-node-block-value-ledger.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 public-node block value ledger |
 | [ADR-0174](docs/decisions/ADR-0174-public-node-blocks-fit-but-two-directions-are-cap-bound.md) | 2026-08-21 | accepted prospective result | Public-node blocks fit but two directions are cap-bound |
 | [ADR-0175](docs/decisions/ADR-0175-preregister-fresh-h32-public-block-admissible-radius-map.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 public-block admissible-radius map |
@@ -60,12 +59,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-5 affine street replication |
 | [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) | 2026-08-21 | accepted prospective replication result | The affine street mechanism transfers to seat 5 but value remains concentrated |
 | [ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md) | 2026-08-21 | accepted preregistration before any replay step | Preregister a read-only h32 resident-step bottleneck profile |
+| [ADR-0196](docs/decisions/ADR-0196-resident-step-profile-v1-rejects-before-replay-on-parent-pass-key.md) | 2026-08-21 | rejected execution before any replay step | Resident-step profile v1 rejects before replay on the parent pass key |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md) — Preregister a read-only h32 resident-step bottleneck profile.
-- Numbered decisions: 195.
-- ADR-header SHA-256: `da84a21b1a0c75c58bd0704e73b262afdabf3a5706440869c5fc9bd12d8ee9dc`.
+- Latest ADR: [ADR-0196](docs/decisions/ADR-0196-resident-step-profile-v1-rejects-before-replay-on-parent-pass-key.md) — Resident-step profile v1 rejects before replay on the parent pass key.
+- Numbered decisions: 196.
+- ADR-header SHA-256: `856ad768e2f0a6c6dc908275ce14ee84c5785d0245f5ae54b48c5d21a99a0ac3`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

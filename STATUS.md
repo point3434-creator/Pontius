@@ -5,35 +5,36 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) — The resident-sparse profile identifies compute pressure.
+Latest accepted research result: [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) — The action-conditioned posterior panel is fresh, balanced, and nondegenerate.
 
-Status: accepted diagnostic result.
+Status: accepted label-free manifest result.
 
 ## Current decision
 
-Retire launch-amortization, six-call batching, and occupancy tuning as current
-optimization theses for the width-384 resident sparse pass. Preserve the exact
-batch implementation as a semantic primitive, but do not schedule it as a
-performance lever.
+Authorize preregistration of the widened, regret-vertex-only corpus against
+these exact 12 target and descriptor digests. Preserve all targets; do not
+remove a low- or high-TV row after seeing later strategy labels.
 
-Do not open a speculative custom-SpMM or reduced-precision rewrite. The
-dominant work is already inside cuSPARSE, achieved occupancy is high, and the
-frozen Float64 numerical contract leaves no obvious cheap bounded change whose
-expected value precedes the planned scientific spend. Any future kernel change
-requires a separately preregistered ADR-0179 identity and ordinary paired-wall
-differential against the accepted device-fold path.
+The widened trial must:
 
-Proceed to preregister the fresh action-conditioned widened corpus using the
-sealed ADR-0212 wall ledger. Selection remains unbound only for the retained
-six-block library; the widened corpus is where the affine composite and honest
-capacity-priced K receive their first deployment-shaped test.
+- perform one device-fold warm step from the immutable source blueprint;
+- enumerate every coherent changed public-node block rather than one block per
+  seat;
+- build one regret-vertex direction per block;
+- complete all label-independent affine features and clock-priced capacity
+  rows before opening exact strategy labels;
+- derive live K from the accepted ADR-0212 ledger, not from future labels;
+- report every target separately before pooled capture;
+- preserve immutable-blueprint fallback and the frozen one-second reserve; and
+- use ADR-0179 numerical ceilings for reassociated GPU reductions.
 
-No strategy is populated. This result makes no strategy-quality, transfer,
-deployment, population, roofline, hardware-comparison, or GPU-purchase claim.
+The candidate schedule must be frozen from public structure and the observed
+prefix. Tier A remains forbidden as an exclusion filter by ADR-0206. Tier B
+may rank only candidates whose charged rows fit the measured K.
 
 ## Open preregistration
 
-[ADR-0219](docs/decisions/ADR-0219-preregister-action-conditioned-posterior-manifest.md) — Preregister the action-conditioned posterior manifest (accepted label-free preregistration before any action-conditioned warm step or label).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -45,7 +46,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0196](docs/decisions/ADR-0196-resident-step-profile-v1-rejects-before-replay-on-parent-pass-key.md) | 2026-08-21 | rejected execution before any replay step | Resident-step profile v1 rejects before replay on the parent pass key |
 | [ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md) | 2026-08-21 | accepted correction preregistration before any replay timing | Preregister the source-schema-corrected resident-step profile |
 | [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) | 2026-08-21 | accepted read-only engineering result | The device pipeline dominates the h32 step and host folding is second |
 | [ADR-0199](docs/decisions/ADR-0199-preregister-retained-affine-selector-cascade-replay.md) | 2026-08-21 | accepted preregistration before missing-feature extraction or semantic label load | Preregister the retained affine selector-cascade replay |
@@ -69,12 +69,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0217](docs/decisions/ADR-0217-preregister-final-sparse-profiler-target-correction.md) | 2026-08-21 | accepted tooling correction before any final corrected h32 counter collection | Preregister the final sparse-profiler target correction |
 | [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) | 2026-08-21 | accepted diagnostic result | The resident-sparse profile identifies compute pressure |
 | [ADR-0219](docs/decisions/ADR-0219-preregister-action-conditioned-posterior-manifest.md) | 2026-08-21 | accepted label-free preregistration before any action-conditioned warm step or label | Preregister the action-conditioned posterior manifest |
+| [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) | 2026-08-21 | accepted label-free manifest result | The action-conditioned posterior panel is fresh, balanced, and nondegenerate |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0219](docs/decisions/ADR-0219-preregister-action-conditioned-posterior-manifest.md) — Preregister the action-conditioned posterior manifest.
-- Numbered decisions: 219.
-- ADR-header SHA-256: `d950019ce9f1ca4c39fb680d356dd7eae89fa2f1a109dc84e786caad4de6bb10`.
+- Latest ADR: [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) — The action-conditioned posterior panel is fresh, balanced, and nondegenerate.
+- Numbered decisions: 220.
+- ADR-header SHA-256: `4606316cdc463a4b0d6b8f78ec021699ad65c31bdcc1acaa7ee4fdb96fcff4af`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -82,4 +83,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) and its dependencies
+4. [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) and its dependencies

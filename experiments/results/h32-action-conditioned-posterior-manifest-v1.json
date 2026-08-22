@@ -1,0 +1,1083 @@
+{
+  "aggregate": {
+    "bettor_counts": {
+      "0": 2,
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 2,
+      "5": 2
+    },
+    "maximum_acting_seat_marginal_tv": 0.7227602493855574,
+    "maximum_maximum_seat_marginal_tv": 0.7227602493855574,
+    "minimum_acting_seat_marginal_tv": 0.5669860266915712,
+    "minimum_maximum_seat_marginal_tv": 0.5669860266915712,
+    "observation_rows": 42,
+    "source_counts": {
+      "panel_1/balanced": 2,
+      "panel_1/blocker_heavy": 2,
+      "panel_2/balanced": 2,
+      "panel_2/blocker_heavy": 2,
+      "panel_3/balanced": 2,
+      "panel_3/blocker_heavy": 2
+    }
+  },
+  "config_sha256": "c45c38504ced043a586e6466f5b6a333cd24cbef5446fae783a6263cc650a45e",
+  "decision": "authorize_action_conditioned_widened_corpus_preregistration",
+  "environment": {
+    "git": {
+      "commit": "a3ac07dab02cba19e47ed65890de9967e3d6c93d",
+      "dirty": false,
+      "strict_status": true
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "gates": {
+    "bettor_balance": true,
+    "blueprint_identity": true,
+    "clean_git": true,
+    "finite": true,
+    "hand_axes_identity": true,
+    "ledger_parent_passed": true,
+    "marginal_split_identity": true,
+    "new_strategy_labels_zero": true,
+    "nonzero_acting_marginal_shift": true,
+    "observation_count": true,
+    "passed": true,
+    "source_balance": true,
+    "source_checkpoint_identity": true,
+    "source_count": true,
+    "source_parent_passed": true,
+    "strategy_population_claim_null": true,
+    "target_count": true,
+    "target_differs_from_source": true,
+    "target_digest_fresh": true,
+    "target_digest_unique": true,
+    "total_seconds": true
+  },
+  "implementation_sha256": "e30483bb9a72cbd57e3ad1ed8591ba39508a6542888a099996802fd7048c0db1",
+  "limitations": [
+    "The posterior uses the frozen blueprint as the action-likelihood model.",
+    "The panel conditions ranges but does not yet compile a continuation-root subgame.",
+    "Marginal TV is a belief-shift descriptor, not a strategy opportunity label.",
+    "No strategy-quality, transfer, deployment, or population claim is made."
+  ],
+  "methodology": {
+    "new_certificates": 0,
+    "new_quality_evaluations": 0,
+    "new_strategy_labels": 0,
+    "new_warm_steps": 0,
+    "posterior_targets_constructed": 12,
+    "source_blueprints_reconstructed": 6
+  },
+  "passed": true,
+  "schema_version": 1,
+  "status": "h32_action_conditioned_posterior_manifest_executed",
+  "strategy_population_claim": null,
+  "target_rows": [
+    {
+      "acting_seat_marginal_total_variation": 0.6202772876069211,
+      "construction": "sequential_blueprint_action_likelihoods_for_every_prefix_action",
+      "fresh_at_base_commit": true,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.6202772876069211,
+        0.05620686760589372,
+        0.03966734031965368,
+        0.047792878063091154,
+        0.04893783462317748,
+        0.052781079505446915
+      ],
+      "maximum_marginal_total_variation": 0.6202772876069211,
+      "observation_count": 1,
+      "observation_rows": [
+        {
+          "action": "bet",
+          "actor": 0,
+          "likelihood_maximum": 0.8190902702255047,
+          "likelihood_mean": 0.11580320083518841,
+          "likelihood_minimum": 5.163385376855523e-05,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 0,
+      "public_sequence": [
+        {
+          "action": "bet",
+          "actor": 0,
+          "public_history": "root"
+        }
+      ],
+      "round": "latin_a",
+      "source": "panel_1/balanced",
+      "source_belief_sha256": "376e8a44217f35dfdf305035fe8f3bbfb52b010e14050bedaf55da78c9e72885",
+      "source_partition": 5079624.302589729,
+      "source_split_relative_error": 2.7501716243285902e-15,
+      "target_belief_sha256": "8be09e3da90985ec0f3a7f111a02c0d89eeb4a1281f960861bca4a8e8399b118",
+      "target_descriptor_sha256": "bac2c9931bc6b24e9487429c835a4eaa31534f9bbea079f55071a2d1c9d31f18",
+      "target_id": "panel_1/balanced/checks_then_bet_seat0",
+      "target_partition": 734435.6634021456,
+      "target_split_relative_error": 9.66910375586509e-15
+    },
+    {
+      "acting_seat_marginal_total_variation": 0.5805102463981988,
+      "construction": "sequential_blueprint_action_likelihoods_for_every_prefix_action",
+      "fresh_at_base_commit": true,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.07684125102681391,
+        0.5805102463981988,
+        0.05726813588422502,
+        0.05171578385630332,
+        0.06674857575998061,
+        0.057373365308353144
+      ],
+      "maximum_marginal_total_variation": 0.5805102463981988,
+      "observation_count": 2,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9741615442593168,
+          "likelihood_minimum": 0.6422022239147597,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 1,
+          "likelihood_maximum": 0.6613847179294919,
+          "likelihood_mean": 0.09427582678467737,
+          "likelihood_minimum": 0.000701169566103884,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 1,
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "bet",
+          "actor": 1,
+          "public_history": "p0:check"
+        }
+      ],
+      "round": "latin_a",
+      "source": "panel_1/blocker_heavy",
+      "source_belief_sha256": "aa3a5a8abe8dc72fe436134d4b619239a87b002134cdad88a908d833318b5067",
+      "source_partition": 3680678.653844108,
+      "source_split_relative_error": 8.881357337419935e-14,
+      "target_belief_sha256": "bcab3d7f0c696252938c3edc39b87ea8462e3bd0b2da67498337169307886c77",
+      "target_descriptor_sha256": "c9bdfd2292e4ae3fc85bddfa14bad88ad1b45056e57e940c3e1cc0bda65f989a",
+      "target_id": "panel_1/blocker_heavy/checks_then_bet_seat1",
+      "target_partition": 708133.3241732045,
+      "target_split_relative_error": 3.287949256246565e-16
+    },
+    {
+      "acting_seat_marginal_total_variation": 0.5669860266915712,
+      "construction": "sequential_blueprint_action_likelihoods_for_every_prefix_action",
+      "fresh_at_base_commit": true,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.0865226097176773,
+        0.10665825672742865,
+        0.5669860266915712,
+        0.03690924054486877,
+        0.041101479112632636,
+        0.043856566849924374
+      ],
+      "maximum_marginal_total_variation": 0.5669860266915712,
+      "observation_count": 3,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9246648909937909,
+          "likelihood_minimum": 0.4749608515606836,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "likelihood_maximum": 0.9980312843104159,
+          "likelihood_mean": 0.8779423973559646,
+          "likelihood_minimum": 0.3498991216194137,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 2,
+          "likelihood_maximum": 0.9929511292747419,
+          "likelihood_mean": 0.19652702311016704,
+          "likelihood_minimum": 0.0005034118435239261,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 2,
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "bet",
+          "actor": 2,
+          "public_history": "p0:check/p1:check"
+        }
+      ],
+      "round": "latin_a",
+      "source": "panel_2/blocker_heavy",
+      "source_belief_sha256": "59f955c6b89bdc56670dc16b19795451404fe80ff37f519bac007975d85200f1",
+      "source_partition": 2475741.1058343262,
+      "source_split_relative_error": 1.2978186106986323e-14,
+      "target_belief_sha256": "85e2cc9d2ed5a6913af1c936eea40dab1e5eabb02c90aa0961c539b1256d9b17",
+      "target_descriptor_sha256": "76bd6ddc1039181e3308b62139501978e268934fe614cfa3fe8420fab63160fb",
+      "target_id": "panel_2/blocker_heavy/checks_then_bet_seat2",
+      "target_partition": 675375.1979810108,
+      "target_split_relative_error": 1.3962077814185366e-14
+    },
+    {
+      "acting_seat_marginal_total_variation": 0.6295647230627608,
+      "construction": "sequential_blueprint_action_likelihoods_for_every_prefix_action",
+      "fresh_at_base_commit": true,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.10136045024722418,
+        0.09141888830650456,
+        0.14451477973620902,
+        0.6295647230627608,
+        0.040937946622517415,
+        0.047839914707079205
+      ],
+      "maximum_marginal_total_variation": 0.6295647230627608,
+      "observation_count": 4,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.8646859135814435,
+          "likelihood_minimum": 0.06945602228877436,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "likelihood_maximum": 0.999272995048622,
+          "likelihood_mean": 0.8910479832609907,
+          "likelihood_minimum": 0.09960330884715539,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "likelihood_maximum": 0.9993002634261472,
+          "likelihood_mean": 0.8340440724736051,
+          "likelihood_minimum": 0.11775557201316886,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 3,
+          "likelihood_maximum": 0.9988420130396881,
+          "likelihood_mean": 0.22324794527655326,
+          "likelihood_minimum": 0.002330737046839058,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 3,
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "public_history": "p0:check/p1:check"
+        },
+        {
+          "action": "bet",
+          "actor": 3,
+          "public_history": "p0:check/p1:check/p2:check"
+        }
+      ],
+      "round": "latin_a",
+      "source": "panel_2/balanced",
+      "source_belief_sha256": "0662b2cf2436cbc6dcc5669fe75a2c15f03e652fb40a6903703a10dd14cfa289",
+      "source_partition": 5671283.3863394195,
+      "source_split_relative_error": 5.337060699155045e-14,
+      "target_belief_sha256": "2b781733c5534cbd7a88a3e708528b783784e613240b82350ee829b22551e971",
+      "target_descriptor_sha256": "7d8498fb426c3c10d55934e7b56a7fdd801ac7fdd2f78be8747a7ef3dcc33fa0",
+      "target_id": "panel_2/balanced/checks_then_bet_seat3",
+      "target_partition": 1011136.711010737,
+      "target_split_relative_error": 2.7171415746237435e-14
+    },
+    {
+      "acting_seat_marginal_total_variation": 0.6899163163297408,
+      "construction": "sequential_blueprint_action_likelihoods_for_every_prefix_action",
+      "fresh_at_base_commit": true,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.07367830209188903,
+        0.06320381758133435,
+        0.17668381432542646,
+        0.22946094611663942,
+        0.6899163163297408,
+        0.03768617666354908
+      ],
+      "maximum_marginal_total_variation": 0.6899163163297408,
+      "observation_count": 5,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9553054148817585,
+          "likelihood_minimum": 0.3490051890450674,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "likelihood_maximum": 0.997337875139897,
+          "likelihood_mean": 0.923081430606252,
+          "likelihood_minimum": 0.36428061857350413,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "likelihood_maximum": 0.9997810305569311,
+          "likelihood_mean": 0.8350832451608152,
+          "likelihood_minimum": 0.07145158669523347,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 3,
+          "likelihood_maximum": 0.9973848872551029,
+          "likelihood_mean": 0.761711726963208,
+          "likelihood_minimum": 0.002713995117262852,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 4,
+          "likelihood_maximum": 0.9996296306678124,
+          "likelihood_mean": 0.21483402487198516,
+          "likelihood_minimum": 0.0012851275049363179,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check/p3:check",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 4,
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "public_history": "p0:check/p1:check"
+        },
+        {
+          "action": "check",
+          "actor": 3,
+          "public_history": "p0:check/p1:check/p2:check"
+        },
+        {
+          "action": "bet",
+          "actor": 4,
+          "public_history": "p0:check/p1:check/p2:check/p3:check"
+        }
+      ],
+      "round": "latin_a",
+      "source": "panel_3/balanced",
+      "source_belief_sha256": "cadd9449259f56de43ae4d710c2e3fd6ae4733e7b7c8323836b87578a3cc9a71",
+      "source_partition": 4179500.9379368536,
+      "source_split_relative_error": 4.233789914264027e-15,
+      "target_belief_sha256": "cfc757298ead33a00ae0681ca54a31b05f321f6f25f6e50ca8f8c12b11037852",
+      "target_descriptor_sha256": "c4a1e284d73a23119cab545d4d68c2a9206cf35caf55a5dd5806deb293313447",
+      "target_id": "panel_3/balanced/checks_then_bet_seat4",
+      "target_partition": 564868.3085334498,
+      "target_split_relative_error": 2.8852999556808644e-15
+    },
+    {
+      "acting_seat_marginal_total_variation": 0.5957335519486249,
+      "construction": "sequential_blueprint_action_likelihoods_for_every_prefix_action",
+      "fresh_at_base_commit": true,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.08049870767751091,
+        0.13269755593883106,
+        0.0841535727388482,
+        0.15742804340870098,
+        0.240841236404147,
+        0.5957335519486249
+      ],
+      "maximum_marginal_total_variation": 0.5957335519486249,
+      "observation_count": 6,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9131011696270189,
+          "likelihood_minimum": 0.4576228246587848,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.8725907994598268,
+          "likelihood_minimum": 0.04516272010170767,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9151189079870281,
+          "likelihood_minimum": 0.3437546651750508,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 3,
+          "likelihood_maximum": 0.9988183146420518,
+          "likelihood_mean": 0.7794315030964546,
+          "likelihood_minimum": 0.001614232764361214,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 4,
+          "likelihood_maximum": 0.9994536733262973,
+          "likelihood_mean": 0.7855385703335287,
+          "likelihood_minimum": 0.000554025803034301,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check/p3:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 5,
+          "likelihood_maximum": 0.9999720483005367,
+          "likelihood_mean": 0.2731331051471523,
+          "likelihood_minimum": 0.0010111166795933387,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check/p3:check/p4:check",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 5,
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "public_history": "p0:check/p1:check"
+        },
+        {
+          "action": "check",
+          "actor": 3,
+          "public_history": "p0:check/p1:check/p2:check"
+        },
+        {
+          "action": "check",
+          "actor": 4,
+          "public_history": "p0:check/p1:check/p2:check/p3:check"
+        },
+        {
+          "action": "bet",
+          "actor": 5,
+          "public_history": "p0:check/p1:check/p2:check/p3:check/p4:check"
+        }
+      ],
+      "round": "latin_a",
+      "source": "panel_3/blocker_heavy",
+      "source_belief_sha256": "74ce0c18ac82e9ebb799be851f140c7011ad75671a3409f94c7db1db3187278e",
+      "source_partition": 4095854.410582921,
+      "source_split_relative_error": 6.594070969432982e-15,
+      "target_belief_sha256": "befb107a26d17f4b88475ca54df27bbc8302797ad65044a51f24c5bf763a8861",
+      "target_descriptor_sha256": "6d6af3ade9b3772449359cbb82b03c13ba43b5df02b910b3280a1500600600cc",
+      "target_id": "panel_3/blocker_heavy/checks_then_bet_seat5",
+      "target_partition": 662127.9023354267,
+      "target_split_relative_error": 5.6262397118777545e-15
+    },
+    {
+      "acting_seat_marginal_total_variation": 0.5906883442184089,
+      "construction": "sequential_blueprint_action_likelihoods_for_every_prefix_action",
+      "fresh_at_base_commit": true,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.07926078470263925,
+        0.08187944813079329,
+        0.13400516095587725,
+        0.5906883442184089,
+        0.04086372047390199,
+        0.027764002236994028
+      ],
+      "maximum_marginal_total_variation": 0.5906883442184089,
+      "observation_count": 4,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999483661462315,
+          "likelihood_mean": 0.8841967991648115,
+          "likelihood_minimum": 0.18090972977449532,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "likelihood_maximum": 0.9997694903147982,
+          "likelihood_mean": 0.917997127702709,
+          "likelihood_minimum": 0.19879185198381866,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "likelihood_maximum": 0.9991564702207997,
+          "likelihood_mean": 0.8481193200482727,
+          "likelihood_minimum": 0.01138518459884533,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 3,
+          "likelihood_maximum": 0.995897933633805,
+          "likelihood_mean": 0.22495214237522837,
+          "likelihood_minimum": 0.004199858560207696,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 3,
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "public_history": "p0:check/p1:check"
+        },
+        {
+          "action": "bet",
+          "actor": 3,
+          "public_history": "p0:check/p1:check/p2:check"
+        }
+      ],
+      "round": "latin_b",
+      "source": "panel_1/balanced",
+      "source_belief_sha256": "376e8a44217f35dfdf305035fe8f3bbfb52b010e14050bedaf55da78c9e72885",
+      "source_partition": 5079624.302589729,
+      "source_split_relative_error": 2.7501716243285902e-15,
+      "target_belief_sha256": "4dd505411c5b2e86c73a841480a438c1a22b5abf785dce4af28af89f646b9c5e",
+      "target_descriptor_sha256": "468de50fcd34ba66d0cd843fe37f2f066de12fb15fadc8f94052691832f72f71",
+      "target_id": "panel_1/balanced/checks_then_bet_seat3",
+      "target_partition": 1097400.3298054265,
+      "target_split_relative_error": 1.4851594821973816e-14
+    },
+    {
+      "acting_seat_marginal_total_variation": 0.5771915814535837,
+      "construction": "sequential_blueprint_action_likelihoods_for_every_prefix_action",
+      "fresh_at_base_commit": true,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.04906376519307987,
+        0.07981006211099384,
+        0.0768235933197709,
+        0.1330861041321627,
+        0.5771915814535837,
+        0.034236373202793303
+      ],
+      "maximum_marginal_total_variation": 0.5771915814535837,
+      "observation_count": 5,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9741615442593168,
+          "likelihood_minimum": 0.6422022239147597,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "likelihood_maximum": 0.9992988304338961,
+          "likelihood_mean": 0.9057241732153225,
+          "likelihood_minimum": 0.33861528207050806,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "likelihood_maximum": 0.9989158097792384,
+          "likelihood_mean": 0.9004657477430558,
+          "likelihood_minimum": 0.1723725613782946,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 3,
+          "likelihood_maximum": 0.9998467394881723,
+          "likelihood_mean": 0.827996868387756,
+          "likelihood_minimum": 0.009773119404490735,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 4,
+          "likelihood_maximum": 0.9988994870928584,
+          "likelihood_mean": 0.3060567369369934,
+          "likelihood_minimum": 0.001085959250744943,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check/p3:check",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 4,
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "public_history": "p0:check/p1:check"
+        },
+        {
+          "action": "check",
+          "actor": 3,
+          "public_history": "p0:check/p1:check/p2:check"
+        },
+        {
+          "action": "bet",
+          "actor": 4,
+          "public_history": "p0:check/p1:check/p2:check/p3:check"
+        }
+      ],
+      "round": "latin_b",
+      "source": "panel_1/blocker_heavy",
+      "source_belief_sha256": "aa3a5a8abe8dc72fe436134d4b619239a87b002134cdad88a908d833318b5067",
+      "source_partition": 3680678.653844108,
+      "source_split_relative_error": 8.881357337419935e-14,
+      "target_belief_sha256": "532029359f6a6bc384eaafdd3a2e98edbe2e8a9462fa5c93bdbc0e2a32e69ef2",
+      "target_descriptor_sha256": "50195938d5a40943267f0612216161a710afb53e46dc11073c065a3df8bff220",
+      "target_id": "panel_1/blocker_heavy/checks_then_bet_seat4",
+      "target_partition": 951443.4634031807,
+      "target_split_relative_error": 4.894261248504787e-15
+    },
+    {
+      "acting_seat_marginal_total_variation": 0.6021077723010256,
+      "construction": "sequential_blueprint_action_likelihoods_for_every_prefix_action",
+      "fresh_at_base_commit": true,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.05839624517476753,
+        0.10470780075709515,
+        0.15303828485973536,
+        0.08849857926357163,
+        0.2379994796067333,
+        0.6021077723010256
+      ],
+      "maximum_marginal_total_variation": 0.6021077723010256,
+      "observation_count": 6,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9246648909937909,
+          "likelihood_minimum": 0.4749608515606836,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "likelihood_maximum": 0.9980312843104159,
+          "likelihood_mean": 0.8779423973559646,
+          "likelihood_minimum": 0.3498991216194137,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "likelihood_maximum": 0.9994965881564761,
+          "likelihood_mean": 0.803472976889833,
+          "likelihood_minimum": 0.007048870725258058,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 3,
+          "likelihood_maximum": 0.9991510088704392,
+          "likelihood_mean": 0.8355285123900618,
+          "likelihood_minimum": 0.014813673947409288,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 4,
+          "likelihood_maximum": 0.9996396780149641,
+          "likelihood_mean": 0.7142265659039199,
+          "likelihood_minimum": 2.795169946332738e-05,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check/p3:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 5,
+          "likelihood_maximum": 0.9999720483005367,
+          "likelihood_mean": 0.28786283405787566,
+          "likelihood_minimum": 0.0017276147389417016,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check/p3:check/p4:check",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 5,
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "public_history": "p0:check/p1:check"
+        },
+        {
+          "action": "check",
+          "actor": 3,
+          "public_history": "p0:check/p1:check/p2:check"
+        },
+        {
+          "action": "check",
+          "actor": 4,
+          "public_history": "p0:check/p1:check/p2:check/p3:check"
+        },
+        {
+          "action": "bet",
+          "actor": 5,
+          "public_history": "p0:check/p1:check/p2:check/p3:check/p4:check"
+        }
+      ],
+      "round": "latin_b",
+      "source": "panel_2/blocker_heavy",
+      "source_belief_sha256": "59f955c6b89bdc56670dc16b19795451404fe80ff37f519bac007975d85200f1",
+      "source_partition": 2475741.1058343262,
+      "source_split_relative_error": 1.2978186106986323e-14,
+      "target_belief_sha256": "7a51d4cfcf2612b427ed9e0f15efac10e1afc3f79431bf7659ed8dfc13b5d444",
+      "target_descriptor_sha256": "76557ac65b94f8660fa92b54a7bb9450a78fbe6c428157e561fc0079eb796d3c",
+      "target_id": "panel_2/blocker_heavy/checks_then_bet_seat5",
+      "target_partition": 360328.0879739364,
+      "target_split_relative_error": 6.623169764175551e-15
+    },
+    {
+      "acting_seat_marginal_total_variation": 0.687631549302692,
+      "construction": "sequential_blueprint_action_likelihoods_for_every_prefix_action",
+      "fresh_at_base_commit": true,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.687631549302692,
+        0.04716960742662683,
+        0.05012436351564317,
+        0.03425677043531104,
+        0.04630922706933066,
+        0.04022320857997387
+      ],
+      "maximum_marginal_total_variation": 0.687631549302692,
+      "observation_count": 1,
+      "observation_rows": [
+        {
+          "action": "bet",
+          "actor": 0,
+          "likelihood_maximum": 0.9305439777112257,
+          "likelihood_mean": 0.13531408641855644,
+          "likelihood_minimum": 5.5903398926654765e-06,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 0,
+      "public_sequence": [
+        {
+          "action": "bet",
+          "actor": 0,
+          "public_history": "root"
+        }
+      ],
+      "round": "latin_b",
+      "source": "panel_2/balanced",
+      "source_belief_sha256": "0662b2cf2436cbc6dcc5669fe75a2c15f03e652fb40a6903703a10dd14cfa289",
+      "source_partition": 5671283.3863394195,
+      "source_split_relative_error": 5.337060699155045e-14,
+      "target_belief_sha256": "51a120ca4ab79a3603021fd07046f54b7fb523d2013ca35b2bda0e98cdae2637",
+      "target_descriptor_sha256": "013e66985c71fa1ab4381024513dd2c74299b51fc1e57048bdf5825aaa64f4d2",
+      "target_id": "panel_2/balanced/checks_then_bet_seat0",
+      "target_partition": 1457321.8456337256,
+      "target_split_relative_error": 2.5562577749199514e-15
+    },
+    {
+      "acting_seat_marginal_total_variation": 0.6415267931197517,
+      "construction": "sequential_blueprint_action_likelihoods_for_every_prefix_action",
+      "fresh_at_base_commit": true,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.08328725408048376,
+        0.6415267931197517,
+        0.10551955567633126,
+        0.08747125128073294,
+        0.08786460277007309,
+        0.11392721046857289
+      ],
+      "maximum_marginal_total_variation": 0.6415267931197517,
+      "observation_count": 2,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9553054148817585,
+          "likelihood_minimum": 0.3490051890450674,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 1,
+          "likelihood_maximum": 0.6357193814264958,
+          "likelihood_mean": 0.076918569393748,
+          "likelihood_minimum": 0.0026621248601030718,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 1,
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "bet",
+          "actor": 1,
+          "public_history": "p0:check"
+        }
+      ],
+      "round": "latin_b",
+      "source": "panel_3/balanced",
+      "source_belief_sha256": "cadd9449259f56de43ae4d710c2e3fd6ae4733e7b7c8323836b87578a3cc9a71",
+      "source_partition": 4179500.9379368536,
+      "source_split_relative_error": 4.233789914264027e-15,
+      "target_belief_sha256": "dc99d9dff8c7171dd00e22ca8b4ca93d35a6201002cb56b7af00889ec22bbb1b",
+      "target_descriptor_sha256": "99569f7e829d50d0e09b95b4f6f9b9cb4c374c2d6984e99746c1284616885914",
+      "target_id": "panel_3/balanced/checks_then_bet_seat1",
+      "target_partition": 803177.6121636936,
+      "target_split_relative_error": 4.884593751310806e-14
+    },
+    {
+      "acting_seat_marginal_total_variation": 0.7227602493855574,
+      "construction": "sequential_blueprint_action_likelihoods_for_every_prefix_action",
+      "fresh_at_base_commit": true,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.11839490699946355,
+        0.14399930285130363,
+        0.7227602493855574,
+        0.06043210641753248,
+        0.04620599968550554,
+        0.04134806054853054
+      ],
+      "maximum_marginal_total_variation": 0.7227602493855574,
+      "observation_count": 3,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9131011696270189,
+          "likelihood_minimum": 0.4576228246587848,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.8725907994598268,
+          "likelihood_minimum": 0.04516272010170767,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 2,
+          "likelihood_maximum": 0.6562453348249492,
+          "likelihood_mean": 0.08488109201297193,
+          "likelihood_minimum": 5.5903398926654765e-06,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 2,
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "bet",
+          "actor": 2,
+          "public_history": "p0:check/p1:check"
+        }
+      ],
+      "round": "latin_b",
+      "source": "panel_3/blocker_heavy",
+      "source_belief_sha256": "74ce0c18ac82e9ebb799be851f140c7011ad75671a3409f94c7db1db3187278e",
+      "source_partition": 4095854.410582921,
+      "source_split_relative_error": 6.594070969432982e-15,
+      "target_belief_sha256": "ebce93e48c1b9e9f25e86d4d0b5ba131e55e4dbc562c2a3427ee7d3922146688",
+      "target_descriptor_sha256": "4e83c4c7752cd1a635e693e22c53c7e8b8cb6a31820b5f9e24049b855a37f915",
+      "target_id": "panel_3/blocker_heavy/checks_then_bet_seat2",
+      "target_partition": 734650.5674523454,
+      "target_split_relative_error": 1.3627863532230682e-14
+    }
+  ],
+  "total_seconds": 89.15754389999711
+}

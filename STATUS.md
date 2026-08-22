@@ -5,22 +5,31 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0258](docs/decisions/ADR-0258-convex-half-retreat-delivers-material-value-on-all-six-latin-e-targets.md) — Convex half-retreat delivers material value on all six Latin-E targets.
+Latest accepted research result: [ADR-0266](docs/decisions/ADR-0266-post-fold-panel-is-fresh-current-and-held-label-blind.md) — Post-fold panel is fresh, current, and held label-blind.
 
-Status: accepted label-blind six-target result; Latin-F confirmation authorized.
+Status: accepted label-blind result; retrospective closure census authorized.
 
 ## Current decision
 
-Accept the six-target label-blind shadow result and the resident-row
-classification correction. Preserve the factor-`0.5` retreat, exact final
-certificate, campaign-wide barrier, complete conservative ledger, and
-outcome-neutral blueprint fallback. Preregister Latin-F without changing any
-scientific threshold or algorithm; use it as the untouched confirmatory test
-of the same six-target breadth branch.
+Accept and seal the six post-fold identities. Keep every post-fold strategy
+label closed.
+
+Next, inventory the already-opened retained one-seat convex contexts and
+preregister a retrospective off-clock constraint-generation census that runs
+each eligible context to verified epigraph closure or a frozen resource cap.
+The census may generate further optimization labels on already-opened contexts;
+it is therefore not label-free. It must exclude these six post-fold identities.
+
+The primary outputs are rounds to closure, unique new opponent-response facets,
+exact oracle work and time, incumbent exact-certified value by round, verified
+master upper bound, incumbent lower bound, and their gap. Only that
+distribution may decide whether direction generation is operationally
+dissolved under the live one-seat deadline. Until then, keep the existing ray
+and vertex machinery as a cheap incumbent and fail-closed fallback.
 
 ## Open preregistration
 
-[ADR-0265](docs/decisions/ADR-0265-preregister-decision-aligned-post-fold-posterior-panel.md) — Preregister decision-aligned post-fold posterior panel (accepted label-blind preregistration before any post-fold strategy label).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -32,7 +41,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0242](docs/decisions/ADR-0242-preregister-h4-sequence-form-open-axis-differential.md) | 2026-08-22 | accepted preregistration before the h4 open-axis run | Preregister h4 sequence-form open-axis differential |
 | [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) | 2026-08-22 | accepted coefficient control; label-free h32 extraction preflight authorized | h4 open-axis rows match dense teachers |
 | [ADR-0244](docs/decisions/ADR-0244-preregister-h32-one-seat-open-axis-preflight.md) | 2026-08-22 | accepted preregistration before any h32 full-axis row pass | Preregister h32 one-seat open-axis preflight |
 | [ADR-0245](docs/decisions/ADR-0245-h32-full-axis-rows-fit-one-conservative-cut-round.md) | 2026-08-22 | accepted engineering result; label-free h32 master prototype authorized | h32 full-axis rows fit one conservative cut round |
@@ -56,12 +64,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0263](docs/decisions/ADR-0263-preregister-decision-aligned-live-shadow-trial.md) | 2026-08-22 | accepted preregistration before any decision-aligned warm step, candidate, or strategy label | Preregister decision-aligned live-shadow trial |
 | [ADR-0264](docs/decisions/ADR-0264-current-decision-convex-shadow-delivers-six-safe-candidates-in-five-seconds.md) | 2026-08-22 | accepted prospective shadow result; post-fold preregistration authorized | Current-decision convex shadow delivers six safe candidates in five seconds |
 | [ADR-0265](docs/decisions/ADR-0265-preregister-decision-aligned-post-fold-posterior-panel.md) | 2026-08-22 | accepted label-blind preregistration before any post-fold strategy label | Preregister decision-aligned post-fold posterior panel |
+| [ADR-0266](docs/decisions/ADR-0266-post-fold-panel-is-fresh-current-and-held-label-blind.md) | 2026-08-22 | accepted label-blind result; retrospective closure census authorized | Post-fold panel is fresh, current, and held label-blind |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0265](docs/decisions/ADR-0265-preregister-decision-aligned-post-fold-posterior-panel.md) — Preregister decision-aligned post-fold posterior panel.
-- Numbered decisions: 265.
-- ADR-header SHA-256: `7bc62bd0576a3eb5bc8fbd7149fbc0250d4fe53c29767cb0c799ad428d93758e`.
+- Latest ADR: [ADR-0266](docs/decisions/ADR-0266-post-fold-panel-is-fresh-current-and-held-label-blind.md) — Post-fold panel is fresh, current, and held label-blind.
+- Numbered decisions: 266.
+- ADR-header SHA-256: `7782a3606a46e2529910b5c6531408b42b1ec47d5eb0efa925163cf939bf0d5b`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -69,4 +78,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0258](docs/decisions/ADR-0258-convex-half-retreat-delivers-material-value-on-all-six-latin-e-targets.md) and its dependencies
+4. [ADR-0266](docs/decisions/ADR-0266-post-fold-panel-is-fresh-current-and-held-label-blind.md) and its dependencies

@@ -457,6 +457,15 @@ seconds under the unchanged 13.968-second conservative floor. The setup adapter
 is scoped and restored, and the actual emitted policy remains the blueprint.
 This authorizes a post-fold identity test, not deployment.
 
+[ADR-0266](docs/decisions/ADR-0266-post-fold-panel-is-fresh-current-and-held-label-blind.md)
+seals the complementary six post-fold identities. They preserve the same
+current-player, one-node h32 axis, and three-opponent downstream geometry while
+changing only the first observed response from call to fold. Their strategy
+labels remain closed pending an off-clock full-convergence census on
+already-opened contexts. That census distinguishes finite global one-seat
+solvability from the current live engine's one-cut-round guarantee; the latter
+continues to certify only the emitted retreat, not global optimality.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

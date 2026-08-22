@@ -301,16 +301,22 @@ roots, three downstream responders, one-node h32 axes, and zero strategy
 labels. A pass seals identities but deliberately does not authorize their GPU
 strategy evaluation.
 
-**Immediate gate:** execute ADR-0265 exactly once. If it passes, inventory the
-already-opened retained convex contexts and preregister an off-clock
-full-convergence closure census before opening any post-fold strategy label.
-The census is retrospective but not label-free: it may generate optimizer
-labels only on contexts whose strategy evidence is already open. Measure
-rounds to exact closure, unique new response facets, oracle work, incumbent
-certified value, and verified master-upper-bound minus incumbent-lower-bound
-gap. Use that distribution—not the single ADR-0247 keystone—to decide whether
-the live one-seat direction-library branch can be demoted. Preserve the ray
-library as a cheap incumbent/fallback until that evidence closes.
+ADR-0266 accepts and seals the post-fold manifest. All 36 gates pass, the six
+identities are fresh and disjoint from the post-call panel, every actor is
+current with one h32 public node and three downstream opponents, and actor TV
+is nonzero at `0.037662–0.130666`. The CPU-only run generates zero strategy
+labels; those identities remain closed.
+
+**Immediate gate:** inventory the already-opened retained convex contexts and
+preregister an off-clock full-convergence closure census before opening any
+post-fold strategy label. The census is retrospective but not label-free: it
+may generate optimizer labels only on contexts whose strategy evidence is
+already open. Measure rounds to exact closure, unique new response facets,
+oracle work, incumbent certified value, and verified master-upper-bound minus
+incumbent-lower-bound gap. Use that distribution—not the single ADR-0247
+keystone—to decide whether the live one-seat direction-library branch can be
+demoted. Preserve the ray library as a cheap incumbent/fallback until that
+evidence closes.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

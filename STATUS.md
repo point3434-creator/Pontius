@@ -5,26 +5,30 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) — Convex retreat beats the live fallback on the frozen target.
+Latest accepted research result: [ADR-0254](docs/decisions/ADR-0254-final-latin-posterior-panel-is-fresh-and-balanced.md) — Final-Latin posterior panel is fresh and balanced.
 
-Status: accepted single-target strategy-quality result; fresh replication authorized.
+Status: accepted label-free result; fresh convex replication authorized.
 
 ## Current decision
 
-Accept the narrow one-target strategy-quality result. The one-seat convex
-master has now produced a candidate that is independently exact-safe, restores
-interior guard slack, fits the full street ledger, and materially outperforms
-the accepted complete-library one-step fallback on the optimizer target.
+Accept and seal the 12 fresh identities. Authorize a separately preregistered
+fresh convex-retreat strategy replication.
 
-Authorize only a separately preregistered fresh-target replication. Freeze the
-fresh target or target panel before any convex candidate or label, retain the
-factor `0.5`, exact two-oracle authority, distinct cap and epigraph allowances,
-full conservative charge, sealed fallback comparison where available, and
-immutable external blueprint. Do not tune the retreat factor from this result.
+Use Latin-E as the primary six-target replication: it contains one target per
+source, observed bettor, and acting player. Keep Latin-F quality labels unopened
+as a balanced confirmatory reserve. This split is fixed from the Latin design,
+not chosen from belief TV or strategy opportunity.
+
+Retain factor `0.5`, the widest last-responder one-seat axis, at most one exact
+multi-cut round, exactly two all-seat oracles per target, separate `2e-11` cap
+and `1e-9` epigraph allowances, independent retreat certification, the full
+conservative 15-second schedule, immutable external blueprint, and no safety
+composition. A target that does not close or certify inside the frozen method
+must abstain; do not add a round or tune the factor.
 
 ## Open preregistration
 
-[ADR-0253](docs/decisions/ADR-0253-preregister-final-latin-convex-replication-posterior-panel.md) — Preregister final-Latin convex-replication posterior panel (accepted label-free preregistration before any Latin-E/F posterior or convex candidate).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -36,7 +40,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) | 2026-08-22 | accepted label-free engineering result | Two continuation steps fit the conservative street ledger |
 | [ADR-0231](docs/decisions/ADR-0231-preregister-heldout-continuation-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration | Preregister the held-out continuation posterior panel |
 | [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) | 2026-08-22 | accepted label-free result | Held-out continuation posterior panel is fresh and nondegenerate |
 | [ADR-0233](docs/decisions/ADR-0233-shared-payoff-semantics-and-runner-contracts-retire-repeat-defects.md) | 2026-08-22 | accepted process correction | Shared payoff semantics and runner contracts retire repeat defects |
@@ -60,12 +63,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0251](docs/decisions/ADR-0251-preregister-numerically-identified-convex-retreat-quality-gate.md) | 2026-08-22 | accepted corrected preregistration before any retreat certificate or fallback label join | Preregister numerically identified convex-retreat quality gate |
 | [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) | 2026-08-22 | accepted single-target strategy-quality result; fresh replication authorized | Convex retreat beats the live fallback on the frozen target |
 | [ADR-0253](docs/decisions/ADR-0253-preregister-final-latin-convex-replication-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration before any Latin-E/F posterior or convex candidate | Preregister final-Latin convex-replication posterior panel |
+| [ADR-0254](docs/decisions/ADR-0254-final-latin-posterior-panel-is-fresh-and-balanced.md) | 2026-08-22 | accepted label-free result; fresh convex replication authorized | Final-Latin posterior panel is fresh and balanced |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0253](docs/decisions/ADR-0253-preregister-final-latin-convex-replication-posterior-panel.md) — Preregister final-Latin convex-replication posterior panel.
-- Numbered decisions: 253.
-- ADR-header SHA-256: `cd87258a9b198f042e2db26245cf09343d9a440b35a4fc66f5488e26093f4b48`.
+- Latest ADR: [ADR-0254](docs/decisions/ADR-0254-final-latin-posterior-panel-is-fresh-and-balanced.md) — Final-Latin posterior panel is fresh and balanced.
+- Numbered decisions: 254.
+- ADR-header SHA-256: `19580ecf7c83bbde9f21ad5b92b75a1e0caef883ca00802eece4195514692204`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -73,4 +77,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) and its dependencies
+4. [ADR-0254](docs/decisions/ADR-0254-final-latin-posterior-panel-is-fresh-and-balanced.md) and its dependencies

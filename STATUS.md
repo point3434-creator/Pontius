@@ -5,40 +5,39 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) — Continuation rooting unbinds the complete 31-block library.
+Latest accepted research result: [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) — Continuation rooting delivers exact safe value on all twelve targets.
 
-Status: accepted label-free engineering result.
+Status: accepted fresh research result.
 
 ## Current decision
 
-Accept the label-free ledger and authorize one separate fresh continuation-
-root strategy preregistration on the same 12 targets. Freeze the live-like path
-as:
+Accept the fresh result. The solver spine now has one causally correct positive
+end-to-end vertebra: exact post-action belief, exact continuation topology,
+one resident warm step, complete legal block library, full six-seat affine
+proof, one independent exact certificate, hard deadline, and immutable
+fallback. Within these 12 frozen contexts, the one-step regret-vertex path
+delivers exact safe local value on every target.
 
-1. one continuation-root warm step;
-2. all 31 regret-vertex blocks in public-tree order, subject to a hard
-   pre-emission clock guard;
-3. complete six-seat affine rows for every completed block;
-4. one winner selected by the full affine envelope's positive certified value,
-   with deterministic structural tie-breaking;
-5. one independent exact certificate on that winner only; and
-6. immutable restricted-blueprint fallback for no positive envelope, failed or
-   late proof, numerical failure, or deadline exhaustion.
+Do not populate a deployment strategy from this artifact. The same source
+boards and posterior family have now been opened, the game remains an exact
+six-player one-bet river abstraction, and only one direction family was tested.
 
-The next preregistration must preserve the 15-second boundary and one-second
-emission reserve, distinguish the affine proof from its independent exact
-teacher, report abstention and delivered exact value per target, and make no
-claim about candidate families beyond the frozen one-step regret vertices.
-Do not reopen a proxy selector: at 31 blocks, the measured continuation path
-does not need one.
+The next compute question is whether the remaining minimum `4.436 s` of hard
+ledger headroom should buy a second continuation warm step. Measure that first
+as a label-free retained-context differential: one versus two warm steps,
+followed by the same 31-row pricing bill, with no new exact winner query. If the
+two-step worst-case hard ledger remains below 15 seconds on every target,
+preregister a fresh held-out posterior panel comparing one-step and two-step
+delivered exact value. If it does not fit, retain the proven one-step path and
+spend the headroom elsewhere.
 
-No strategy has been populated. This result makes no strategy-quality,
-opportunity-magnitude, selector-transfer, continual-resolving, deployment,
-composition, or population claim.
+This result establishes exact local safe improvement only for the frozen
+continuation contexts. It makes no deployment, continual-resolving,
+composition, population, whole-game, or broad poker-strength claim.
 
 ## Open preregistration
 
-[ADR-0227](docs/decisions/ADR-0227-preregister-live-like-continuation-strategy-trial.md) — Preregister the live-like continuation strategy trial (accepted preregistration).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -50,7 +49,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0204](docs/decisions/ADR-0204-final-selector-wrapper-rejects-on-environment-api-mismatch.md) | 2026-08-21 | rejected final corrected replay | The final selector wrapper rejects on an environment API mismatch |
 | [ADR-0205](docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md) | 2026-08-21 | accepted direct-runner preregistration before replay | Preregister the reviewed direct selector replay |
 | [ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md) | 2026-08-21 | accepted retained-label development result | Opponent-sensitivity composite locates retained value but the Tier-A cascade fails |
 | [ADR-0207](docs/decisions/ADR-0207-preregister-six-block-tier-b-opponent-batch-differential.md) | 2026-08-21 | accepted engineering preregistration before any h32 batch measurement | Preregister the six-block Tier-B opponent batch differential |
@@ -74,12 +72,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0225](docs/decisions/ADR-0225-preregister-continuation-root-wall-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root wall ledger |
 | [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting unbinds the complete 31-block library |
 | [ADR-0227](docs/decisions/ADR-0227-preregister-live-like-continuation-strategy-trial.md) | 2026-08-22 | accepted preregistration | Preregister the live-like continuation strategy trial |
+| [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) | 2026-08-22 | accepted fresh research result | Continuation rooting delivers exact safe value on all twelve targets |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0227](docs/decisions/ADR-0227-preregister-live-like-continuation-strategy-trial.md) — Preregister the live-like continuation strategy trial.
-- Numbered decisions: 227.
-- ADR-header SHA-256: `da45292e7e8309e8228c006195e25593d1cc292395db5ac61ca1ad49b01412cf`.
+- Latest ADR: [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) — Continuation rooting delivers exact safe value on all twelve targets.
+- Numbered decisions: 228.
+- ADR-header SHA-256: `1133e99782d846244fa11a7d13c11a2c4005808ec703767c044a271c285d382f`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -87,4 +86,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) and its dependencies
+4. [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) and its dependencies

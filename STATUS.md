@@ -31,7 +31,7 @@ label. This is a capacity question, not a one-size/two-size quality claim.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0277](docs/decisions/ADR-0277-preregister-pre-bet-current-node-action-width-capacity.md) — Preregister pre-bet current-node action-width capacity (accepted label-free preregistration before any h32 pre-bet widened warm step, master, or candidate evaluation).
 
 ## Evidence protocol
 
@@ -43,7 +43,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0253](docs/decisions/ADR-0253-preregister-final-latin-convex-replication-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration before any Latin-E/F posterior or convex candidate | Preregister final-Latin convex-replication posterior panel |
 | [ADR-0254](docs/decisions/ADR-0254-final-latin-posterior-panel-is-fresh-and-balanced.md) | 2026-08-22 | accepted label-free result; fresh convex replication authorized | Final-Latin posterior panel is fresh and balanced |
 | [ADR-0255](docs/decisions/ADR-0255-preregister-six-target-fresh-convex-retreat-replication.md) | 2026-08-22 | accepted preregistration before any Latin-E warm step, convex candidate, or final strategy label | Preregister six-target fresh convex-retreat replication |
 | [ADR-0256](docs/decisions/ADR-0256-reject-partial-latin-e-run-on-resident-row-misclassification.md) | 2026-08-22 | accepted process correction; strategy campaign result rejected | Reject partial Latin-E run on resident-row misclassification |
@@ -67,12 +66,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0274](docs/decisions/ADR-0274-post-fold-confirms-safe-value-but-not-universal-one-round-closure.md) | 2026-08-22 | accepted fresh mixed result; universal current-decision closure rejected | Post-fold confirms safe value but not universal one-round closure |
 | [ADR-0275](docs/decisions/ADR-0275-preregister-post-fold-failure-closure-depth-diagnostic.md) | 2026-08-22 | accepted retrospective preregistration before any additional post-fold optimizer label | Preregister post-fold failure closure-depth diagnostic |
 | [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) | 2026-08-22 | accepted retrospective diagnostic; exact global closure remains off-clock | Post-fold failures close in two and three rounds |
+| [ADR-0277](docs/decisions/ADR-0277-preregister-pre-bet-current-node-action-width-capacity.md) | 2026-08-22 | accepted label-free preregistration before any h32 pre-bet widened warm step, master, or candidate evaluation | Preregister pre-bet current-node action-width capacity |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) — Post-fold failures close in two and three rounds.
-- Numbered decisions: 276.
-- ADR-header SHA-256: `d118d3c4776f498c0485e6b12a7b61da9c766951d2dbb44399fcd12fa182d9b4`.
+- Latest ADR: [ADR-0277](docs/decisions/ADR-0277-preregister-pre-bet-current-node-action-width-capacity.md) — Preregister pre-bet current-node action-width capacity.
+- Numbered decisions: 277.
+- ADR-header SHA-256: `64fadda04475160409df9653a46e56e967ee4f8724f2b8f6d1eaba325ac89e9f`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

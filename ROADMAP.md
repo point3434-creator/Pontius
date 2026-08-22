@@ -384,11 +384,20 @@ direction fallback remains live. ADR-0276 also discloses a Windows newline
 checkpoint-hash telemetry defect and installs a byte-truth helper for future
 runners without rewriting the sealed artifact.
 
-**Immediate gate:** return to ADR-0237's open action-width branch. Preregister
-a label-free continuation-root one-size versus two-size capacity preflight for
-the widened one-seat master. Measure resident geometry, safe headroom, one warm
-step, exact-oracle and master work, and the complete deadline reserve before
-opening any widened strategy label. This is not a strategy-quality comparison.
+ADR-0277 freezes the action-width capacity successor and corrects its root
+scope before GPU work. A post-bet root would compare fold/call against
+fold/call and therefore contain no current action-width choice. The accepted
+pre-bet scope instead crosses all six retained sources with all six current
+positions after prior checks, opening only the current public node. This keeps
+the exact affine master valid even though a checking actor may act again later;
+all future own-policy rows remain at blueprint and are solved afresh if reached.
+
+**Immediate gate:** execute ADR-0277 exactly once. Complete all 72 one-size and
+two-size cache measurements before the global memory barrier. Only if every arm
+is safe, run one resident warm step, eleven embedded-blueprint coefficient
+passes, and one redacted current-node master per arm. Price a complete
+conservative cut round and proof separately for every position. Open zero
+master-candidate endpoints and make no action-width strategy-quality claim.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

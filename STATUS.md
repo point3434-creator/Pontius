@@ -5,17 +5,35 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) — Reject the second sparse profile on Python child targeting.
+Latest accepted research result: [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) — The resident-sparse profile identifies compute pressure.
 
-Status: accepted tooling rejection; no counter interpretation.
+Status: accepted diagnostic result.
 
 ## Current decision
 
-The latest research ADR has no explicit Decision section.
+Retire launch-amortization, six-call batching, and occupancy tuning as current
+optimization theses for the width-384 resident sparse pass. Preserve the exact
+batch implementation as a semantic primitive, but do not schedule it as a
+performance lever.
+
+Do not open a speculative custom-SpMM or reduced-precision rewrite. The
+dominant work is already inside cuSPARSE, achieved occupancy is high, and the
+frozen Float64 numerical contract leaves no obvious cheap bounded change whose
+expected value precedes the planned scientific spend. Any future kernel change
+requires a separately preregistered ADR-0179 identity and ordinary paired-wall
+differential against the accepted device-fold path.
+
+Proceed to preregister the fresh action-conditioned widened corpus using the
+sealed ADR-0212 wall ledger. Selection remains unbound only for the retained
+six-block library; the widened corpus is where the affine composite and honest
+capacity-priced K receive their first deployment-shaped test.
+
+No strategy is populated. This result makes no strategy-quality, transfer,
+deployment, population, roofline, hardware-comparison, or GPU-purchase claim.
 
 ## Open preregistration
 
-[ADR-0217](docs/decisions/ADR-0217-preregister-final-sparse-profiler-target-correction.md) — Preregister the final sparse-profiler target correction (accepted tooling correction before any final corrected h32 counter collection).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -27,7 +45,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) | 2026-08-21 | accepted prospective replication result | The affine street mechanism transfers to seat 5 but value remains concentrated |
 | [ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md) | 2026-08-21 | accepted preregistration before any replay step | Preregister a read-only h32 resident-step bottleneck profile |
 | [ADR-0196](docs/decisions/ADR-0196-resident-step-profile-v1-rejects-before-replay-on-parent-pass-key.md) | 2026-08-21 | rejected execution before any replay step | Resident-step profile v1 rejects before replay on the parent pass key |
 | [ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md) | 2026-08-21 | accepted correction preregistration before any replay timing | Preregister the source-schema-corrected resident-step profile |
@@ -51,12 +68,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0215](docs/decisions/ADR-0215-preregister-corrected-resident-sparse-console-page.md) | 2026-08-21 | accepted tooling correction before any corrected h32 counter collection | Preregister the corrected resident-sparse console page |
 | [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the second sparse profile on Python child targeting |
 | [ADR-0217](docs/decisions/ADR-0217-preregister-final-sparse-profiler-target-correction.md) | 2026-08-21 | accepted tooling correction before any final corrected h32 counter collection | Preregister the final sparse-profiler target correction |
+| [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) | 2026-08-21 | accepted diagnostic result | The resident-sparse profile identifies compute pressure |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0217](docs/decisions/ADR-0217-preregister-final-sparse-profiler-target-correction.md) — Preregister the final sparse-profiler target correction.
-- Numbered decisions: 217.
-- ADR-header SHA-256: `6251a5b13460010519bcfd7b5c2f9fcead9a770644d5256709803239a0a4cebb`.
+- Latest ADR: [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) — The resident-sparse profile identifies compute pressure.
+- Numbered decisions: 218.
+- ADR-header SHA-256: `963fdcb8745c8658e7895fb7f87f66d5ec4c4a0edffdec4b02fdb1acfd1ee954`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -64,4 +82,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) and its dependencies
+4. [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) and its dependencies

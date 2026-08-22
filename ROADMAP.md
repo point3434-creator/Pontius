@@ -429,6 +429,33 @@ Do not run h32 or open action-width quality until a fresh label-free capacity
 preregistration freezes these mechanics, per-unit bounds, numerical identity,
 independent certification, and every unchanged safety cap.
 
+[ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md)
+closes that CPU/h2 falsifier. The complete `2N - 1` initial-row bundle binds
+the full policy and exact probability tape, belief, hands, game provenance,
+compiled topology, fixed continuation, action schema, acting/payoff roles,
+every fixed-response tape, row primitive, numerical contract, and literal
+persisted bytes. Lookup revalidates every source intercept within `2e-11` and
+admits no partial row set.
+
+On the two-player, two-hand literal control, all three cached rows round-trip
+byte-exactly, reconstruct both gain rows byte-exactly, and feed the same
+restricted master. Independent endpoint evaluation agrees within
+`1.34e-15`. All eleven provenance-digest mutations and the byte, response,
+schema, numerical, size, and fallback adversaries miss or reject. The
+successor path performs zero warm steps and keeps the defensive blueprint as
+its only external policy. These are cache-correctness controls, not h32 timing
+or capacity evidence.
+
+**Immediate gate:** author a separate executable label-free capacity
+preregistration before any GPU work. Freeze distinct one-size and two-size GPU
+primitive manifests, off-clock population and trusted entry hashes, on-clock
+identity/lookup/validation/gain assembly, the active monotonic campaign
+deadline and complete per-unit bounds, and a completed immutable-blueprint
+miss outcome. Preserve the unchanged 15-second street ledger, one-second
+reserve, memory caps, Float64 ceilings, independent proof, and campaign-wide
+prelabel barrier. Do not run h32, open a candidate endpoint, or make an
+action-width quality claim until that preregistration is clean.
+
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
 30.56%, and transfer only 0.63%. The primary C4 screen must distinguish FP64

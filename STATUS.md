@@ -5,24 +5,27 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0279](docs/decisions/ADR-0279-install-active-campaign-deadlines-and-prioritize-exact-pre-bet-row-speculation.md) — Install active campaign deadlines and prioritize exact pre-bet row speculation.
+Latest accepted research result: [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md) — Exact pre-bet row cache passes CPU/h2 fail-closed control.
 
-Status: accepted label-free engineering result; deadline prerequisite closed and CPU/cache differential authorized.
+Status: accepted label-free engineering control; cache mechanics pass and timed capacity remains closed.
 
 ## Current decision
 
-Close R41's implementation prerequisite: every future bounded GPU campaign
-must use the shared active monotonic deadline, a byte-truth checkpoint before
-each frozen unit, and a preregistered complete unit bound. ADR-0277 remains
-sealed and must never be rerun.
+Accept the CPU/h2 exact row-cache mechanics and close ADR-0279's cheapest
+falsifier. Retain the warm-free cache-to-master preparation as a successor-only
+path; do not edit or rerun the sealed ADR-0277 runner. Every cache miss remains
+an immutable-blueprint no-op, and every eventual candidate must still pass the
+unchanged exact independent certificate before any emission.
 
-For the pre-bet current-node successor, remove the nonfeeding warm step and
-prioritize an exact, full-provenance source/current-prefix initial-row cache
-control. Authorize CPU/h2 implementation and a future separately preregistered
-label-free timing differential only. Do not yet authorize h32 execution,
-action-width strategy quality, a bet-6 overlay, an anytime separation claim,
-or any relaxation of the street ledger, campaign wall, memory caps, Float64
-ceilings, independent certificate, or immutable-blueprint fallback.
+The next gate is a separate executable label-free capacity preregistration,
+not an immediate GPU run. It must freeze distinct one-size and two-size GPU
+primitive manifests, exact off-clock cache-population and trusted-byte-hash
+mechanics, on-clock identity/lookup/validation/gain-assembly accounting,
+active monotonic campaign deadlines with complete per-unit bounds, the
+unchanged 15-second street ledger and one-second reserve, memory caps,
+Float64 ceilings, and blueprint fallback. It must define a miss as a completed
+fallback outcome and preserve a campaign-wide prelabel barrier. No h32 work is
+authorized until that preregistration is clean.
 
 ## Open preregistration
 
@@ -38,7 +41,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0256](docs/decisions/ADR-0256-reject-partial-latin-e-run-on-resident-row-misclassification.md) | 2026-08-22 | accepted process correction; strategy campaign result rejected | Reject partial Latin-E run on resident-row misclassification |
 | [ADR-0257](docs/decisions/ADR-0257-preregister-label-blind-latin-e-replication-with-global-barrier.md) | 2026-08-22 | accepted corrective preregistration before any remaining Latin-E final label | Preregister label-blind Latin-E replication with global barrier |
 | [ADR-0258](docs/decisions/ADR-0258-convex-half-retreat-delivers-material-value-on-all-six-latin-e-targets.md) | 2026-08-22 | accepted label-blind six-target result; Latin-F confirmation authorized | Convex half-retreat delivers material value on all six Latin-E targets |
 | [ADR-0259](docs/decisions/ADR-0259-preregister-untouched-latin-f-convex-retreat-confirmation.md) | 2026-08-22 | accepted preregistration before any Latin-F warm step, candidate, or strategy label | Preregister untouched Latin-F convex-retreat confirmation |
@@ -62,12 +64,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0277](docs/decisions/ADR-0277-preregister-pre-bet-current-node-action-width-capacity.md) | 2026-08-22 | accepted label-free preregistration before any h32 pre-bet widened warm step, master, or candidate evaluation | Preregister pre-bet current-node action-width capacity |
 | [ADR-0278](docs/decisions/ADR-0278-reject-pre-bet-action-width-capacity-invocation-on-campaign-duration.md) | 2026-08-22 | accepted rejection record; ADR-0277 invocation and widened authorization rejected | Reject pre-bet action-width capacity invocation on campaign duration |
 | [ADR-0279](docs/decisions/ADR-0279-install-active-campaign-deadlines-and-prioritize-exact-pre-bet-row-speculation.md) | 2026-08-22 | accepted label-free engineering result; deadline prerequisite closed and CPU/cache differential authorized | Install active campaign deadlines and prioritize exact pre-bet row speculation |
+| [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md) | 2026-08-22 | accepted label-free engineering control; cache mechanics pass and timed capacity remains closed | Exact pre-bet row cache passes CPU/h2 fail-closed control |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0279](docs/decisions/ADR-0279-install-active-campaign-deadlines-and-prioritize-exact-pre-bet-row-speculation.md) — Install active campaign deadlines and prioritize exact pre-bet row speculation.
-- Numbered decisions: 279.
-- ADR-header SHA-256: `06452c19bf5ad993b4ddbb89c6988d47db9e3d0663839a5b7ef5e4b78bdecb42`.
+- Latest ADR: [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md) — Exact pre-bet row cache passes CPU/h2 fail-closed control.
+- Numbered decisions: 280.
+- ADR-header SHA-256: `c042be13cf3692ceedf41de97af4128e5d7b7de6b1db9a9587490af426fd1eb8`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -75,4 +78,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0279](docs/decisions/ADR-0279-install-active-campaign-deadlines-and-prioritize-exact-pre-bet-row-speculation.md) and its dependencies
+4. [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md) and its dependencies

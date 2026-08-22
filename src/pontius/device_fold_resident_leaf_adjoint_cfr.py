@@ -33,6 +33,10 @@ from .resident_leaf_adjoint_cfr import (
     ResidentLeafAdjointStepWork,
     ResidentLeafAdjointTraverserResult,
 )
+from .resident_record_to_hand_fold import (
+    RecordToHandBackend,
+    validate_record_to_hand_backend,
+)
 from .sparse_incidence_open_mode import SparseBidirectionalIncidence
 from .sparse_open_mode_cfr import SparseCFRRegretRead
 from .structured_showdown_automaton import StructuredShowdownAutomaton
@@ -42,6 +46,17 @@ class DeviceFoldResidentLeafAdjointPublicTreeCFR(
     ResidentLeafAdjointPublicTreeCFR
 ):
     """The accepted resident solver with only terminal fold placement changed."""
+
+    def __init__(
+        self,
+        *args: Any,
+        record_to_hand_backend: RecordToHandBackend = "gpu_cupy",
+        **kwargs: Any,
+    ) -> None:
+        super().__init__(*args, **kwargs)
+        self.record_to_hand_backend = validate_record_to_hand_backend(
+            record_to_hand_backend
+        )
 
     def step(self) -> None:
         step_started = time.perf_counter()
@@ -69,6 +84,7 @@ class DeviceFoldResidentLeafAdjointPublicTreeCFR(
                 maximum_feature_width_per_batch=(
                     self.maximum_feature_width_per_batch
                 ),
+                record_to_hand_backend=self.record_to_hand_backend,
             )
             started = time.perf_counter()
             entries = 0
@@ -133,6 +149,7 @@ def device_fold_resident_leaf_adjoint_cfr_traverser(
     cupy_sparse: Any,
     maximum_feature_width_per_batch: int = 384,
     zero_reach_value: float = 0.0,
+    record_to_hand_backend: RecordToHandBackend = "gpu_cupy",
 ) -> ResidentLeafAdjointTraverserResult:
     """Compute one accepted reverse pass from device-folded terminal vectors."""
 
@@ -186,6 +203,7 @@ def device_fold_resident_leaf_adjoint_cfr_traverser(
         cupy_sparse=cupy_sparse,
         maximum_feature_width_per_batch=maximum_feature_width_per_batch,
         zero_reach_value=zero_reach_value,
+        record_to_hand_backend=record_to_hand_backend,
     )
     contraction_ms = (time.perf_counter() - contraction_started) * 1000.0
     for node_index, values in contraction.values:

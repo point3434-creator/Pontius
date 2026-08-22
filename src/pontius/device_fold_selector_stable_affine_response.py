@@ -22,6 +22,7 @@ from .incremental_leaf_adjoint_response import (
 from .incremental_policy_tt import PolicyProbabilityTape
 from .leaf_adjoint_cfr import _target_omitted_path_factors
 from .public_policy_tt import _terminal_keys_by_slot
+from .resident_record_to_hand_fold import RecordToHandBackend
 from .selector_stable_affine_response import (
     SelectorStableAffineSeatResult,
     _selector_stable_affine_reverse,
@@ -200,6 +201,7 @@ def evaluate_device_fold_selector_stable_affine_leaf_adjoint_seat(
     belief_cache: Any,
     automaton_cache: Any,
     cupy_sparse: Any,
+    record_to_hand_backend: RecordToHandBackend = "gpu_cupy",
 ) -> DeviceFoldSelectorStableAffineResult:
     """Evaluate one opponent coefficient with device record folding."""
 
@@ -227,6 +229,7 @@ def evaluate_device_fold_selector_stable_affine_leaf_adjoint_seat(
             automaton_cache=automaton_cache,
             cupy_sparse=cupy_sparse,
             maximum_feature_width_per_batch=maximum_feature_width_per_batch,
+            record_to_hand_backend=record_to_hand_backend,
         )
         contraction_ms = (time.perf_counter() - started) * 1000.0
         work = contraction.work
@@ -261,6 +264,7 @@ def evaluate_device_fold_batched_selector_stable_affine_opponents(
     belief_cache: Any,
     automaton_cache: Any,
     cupy_sparse: Any,
+    record_to_hand_backend: RecordToHandBackend = "gpu_cupy",
 ) -> DeviceFoldBatchedSelectorResult:
     """Pack several opponent directions and fold their records on-device."""
 
@@ -307,6 +311,7 @@ def evaluate_device_fold_batched_selector_stable_affine_opponents(
             automaton_cache=automaton_cache,
             cupy_sparse=cupy_sparse,
             maximum_feature_width_per_batch=maximum_feature_width_per_batch,
+            record_to_hand_backend=record_to_hand_backend,
         )
         contraction_ms = (time.perf_counter() - started) * 1000.0
         contraction_work = contraction.work

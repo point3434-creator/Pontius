@@ -1,0 +1,106 @@
+{
+  "evidence_stage": "preregistered_after_adr0210_before_any_h32_device_fold_placement_or_timing_measurement",
+  "expected_source_result_sha256": "c2a6691d214eec7e35c9f4d18e489f60de1ebf47cb35bba9785796e0582cbced",
+  "expected_batch_result_sha256": "84ed32019afeaa4a18695436c74e41722fc146044a2150de92323833cb8d42fd",
+  "expected_batch_decision_sha256": "bcd8ef1a7f96b57abcbba06e9007a2c1fde6431e8467359b76dc0e2779a9f95b",
+  "expected_batch_v2_config_sha256": "983c6b72ba3860209a20e7204428ee195c28877069628ee0ebc9190fdf23ce0f",
+  "expected_batch_v2_implementation_sha256": "de7ae739f7187d3834d7e7972c7be2754d24052653c90a65b7211e6620ffd734",
+  "expected_fold_implementation_sha256": "6cf7428ad2c8d41a3495eab53a9ba245e9e1c30db681b8f3bd14ac642c357969",
+  "expected_contraction_implementation_sha256": "299c7af1f45e2f24793143d136daaee4852733b0d719af58554db2d41bc9d639",
+  "expected_cfr_implementation_sha256": "349d43b1b4254cc071291daaee17432e4b5c921ef31b7e302df454bb7a235ca8",
+  "expected_affine_implementation_sha256": "b8d1f0d240452c5e9e30e815fd1d8b4dcf610002048ec6bc33c4f535ffac7a6f",
+  "expected_reduced_control_test_sha256": "be4d8b3e20b89776e35c067be6cc4a737d5b1af07d1687a43865deef762d5434",
+  "expected_audit_implementation_sha256": "26e17b0d78506d004e3d19d6c1958fa3bf37d694a5725a6be36fc9df2c63df0a",
+  "expected_audit_control_test_sha256": "03be212ab71df346adbde99e9915f6f4b06f6ee1a42e824cad46c5068e04100a",
+  "target_scope": "all_six_retained_adr0186_contexts_without_label_load",
+  "candidate_scope": "the_same_six_regret_vertex_public_node_blocks_per_context_reconstructed_by_the_adr0209_path",
+  "warm_step_arms": [
+    "host_fold",
+    "device_fold"
+  ],
+  "tier_b_cells": [
+    "host_scalar",
+    "host_batch",
+    "device_scalar",
+    "device_batch"
+  ],
+  "placement_intervention": "all_new_cells_share_one_additive_resident_pipeline_and_change_only_record_to_hand_fold_placement_host_numpy_or_gpu_cupy",
+  "timing_warmups_per_arm": 1,
+  "warm_step_schedule": [
+    [
+      "host_fold",
+      "device_fold"
+    ],
+    [
+      "device_fold",
+      "host_fold"
+    ],
+    [
+      "host_fold",
+      "device_fold"
+    ]
+  ],
+  "tier_b_schedule": [
+    [
+      "host_scalar",
+      "host_batch",
+      "device_scalar",
+      "device_batch"
+    ],
+    [
+      "device_batch",
+      "device_scalar",
+      "host_batch",
+      "host_scalar"
+    ],
+    [
+      "host_batch",
+      "device_batch",
+      "host_scalar",
+      "device_scalar"
+    ]
+  ],
+  "global_tier_b_choice_rule": "choose_one_device_cell_for_all_contexts_by_lower_pooled_measured_wall_median_with_device_scalar_on_exact_tie",
+  "complete_ledger_rule": "replace_the_search_step_with_the_device_fold_warm_median_and_tier_b_with_the_globally_chosen_device_cell_then_charge_endpoint_construction_own_rows_winner_envelope_and_one_second_emission",
+  "street_budget_ms": 15000.0,
+  "emission_reserve_ms": 1000.0,
+  "minimum_prework_physical_free_bytes": 5184456164,
+  "maximum_feature_width_per_batch": 384,
+  "minimum_material_speedup": 1.05,
+  "maximum_target_regression_ratio": 1.02,
+  "h3_device_batch_speedup_threshold": 1.1,
+  "h3_interaction_ratio_threshold": 1.08,
+  "profiler_rule": "hardware_counters_are_forbidden_in_paired_timing_record_ncu_availability_only_and_run_any_counter_profile_later_as_a_separate_non_gating_artifact",
+  "outcome_policy": "validity_is_provenance_numerical_structural_memory_and_accounting_only_speed_h3_full_set_fit_and_promotion_are_preregistered_report_or_decision_branches_not_retroactive_validity_gates",
+  "gates": {
+    "expected_targets": 6,
+    "expected_candidates_per_target": 6,
+    "expected_warm_samples_per_arm": 3,
+    "expected_tier_samples_per_cell": 3,
+    "expected_opponent_rows_per_tier_cell": 30,
+    "expected_scalar_calls_per_cell": 30,
+    "expected_batch_calls_per_cell": 6,
+    "maximum_affine_numeric_error": 2e-11,
+    "maximum_composite_error": 2e-11,
+    "maximum_warm_regret_error": 1e-12,
+    "maximum_warm_strategy_sum_error": 1e-12,
+    "maximum_warm_policy_probability_error": 1e-12,
+    "maximum_warm_policy_mean_total_variation": 1e-13,
+    "maximum_arm_wall_ms": 60000.0,
+    "maximum_gpu_pool_bytes": 12000000000,
+    "minimum_postwork_physical_free_bytes": 1000000000,
+    "maximum_total_audit_seconds": 2400.0,
+    "require_clean_git_state": true,
+    "require_source_parent_passed": true,
+    "require_source_checkpoint_identity": true,
+    "require_target_identity": true,
+    "require_blueprint_identity": true,
+    "require_structural_identity": true,
+    "require_fold_placement_accounting": true,
+    "require_device_transfer_reduction": true,
+    "require_safe_preflight": true,
+    "require_blueprint_emission": true,
+    "require_finite": true,
+    "require_strategy_population_claim_null": true
+  }
+}

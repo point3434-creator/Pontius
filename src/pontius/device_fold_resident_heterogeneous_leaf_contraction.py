@@ -25,7 +25,11 @@ from .resident_heterogeneous_leaf_contraction import (
     CuPyResidentAutomatonCache,
     CuPyResidentBeliefCache,
 )
-from .resident_record_to_hand_fold import finalize_resident_record_accumulators
+from .resident_record_to_hand_fold import (
+    RecordToHandBackend,
+    finalize_resident_record_accumulators,
+    validate_record_to_hand_backend,
+)
 from .sparse_incidence_open_mode import SparseBidirectionalIncidence
 
 
@@ -49,6 +53,7 @@ class DeviceFoldResidentHeterogeneousLeafWork:
     resident_pipeline_gpu_ms: float
     device_hand_fold_gpu_ms: float
     device_to_host_ms: float
+    host_hand_fold_ms: float
     host_hand_finalize_ms: float
     wall_ms: float
     per_call_host_to_device_bytes: int
@@ -89,10 +94,12 @@ def contract_device_fold_resident_heterogeneous_leaf_terms(
     cupy_sparse: CuPyBidirectionalIncidence,
     maximum_feature_width_per_batch: int = 384,
     zero_reach_value: float = 0.0,
+    record_to_hand_backend: RecordToHandBackend = "gpu_cupy",
 ) -> DeviceFoldResidentHeterogeneousLeafContraction:
-    """Run the accepted resident contraction and group records on-device."""
+    """Run one resident contraction with an explicit final-fold placement."""
 
     wall_started = time.perf_counter()
+    fold_backend = validate_record_to_hand_backend(record_to_hand_backend)
     if not terms:
         raise ValueError("device-fold resident contraction requires terms")
     if sparse.topology is not workspace.topology:
@@ -276,7 +283,7 @@ def contract_device_fold_resident_heterogeneous_leaf_terms(
         reach_records=reach_records,
         host_hand_indices=query_half.indices[:, depth],
         device_hand_indices=query_indices[:, depth],
-        backend="gpu_cupy",
+        backend=fold_backend,
         zero_reach_value=zero_reach_value,
     )
     pool = cp.get_default_memory_pool()
@@ -303,7 +310,11 @@ def contract_device_fold_resident_heterogeneous_leaf_terms(
         work=DeviceFoldResidentHeterogeneousLeafWork(
             target_seat=target_seat,
             direction=direction,
-            operator_backend="gpu_cupy_resident_device_fold",
+            operator_backend=(
+                "gpu_cupy_resident_device_fold"
+                if fold_backend == "gpu_cupy"
+                else "gpu_cupy_resident_host_fold_intervention"
+            ),
             terms=term_count,
             unique_automata=len({id(term.automaton) for term in terms}),
             total_middle_rank=sum(ranks),
@@ -317,6 +328,7 @@ def contract_device_fold_resident_heterogeneous_leaf_terms(
             resident_pipeline_gpu_ms=resident_pipeline_ms,
             device_hand_fold_gpu_ms=folded.device_hand_fold_gpu_ms,
             device_to_host_ms=folded.device_to_host_ms,
+            host_hand_fold_ms=folded.host_hand_fold_ms,
             host_hand_finalize_ms=folded.host_hand_finalize_ms,
             wall_ms=(time.perf_counter() - wall_started) * 1000.0,
             per_call_host_to_device_bytes=factor_bytes,

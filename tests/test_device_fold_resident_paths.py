@@ -151,27 +151,44 @@ class DeviceFoldResidentPathTests(unittest.TestCase):
             cupy_sparse=self.gpu,
             maximum_feature_width_per_batch=96,
         )
+        host_intervention = contract_device_fold_resident_heterogeneous_leaf_terms(
+            self.source.workspace,
+            self.source.sparse,
+            terms,
+            target_seat=0,
+            belief_cache=self.belief_cache,
+            automaton_cache=self.automaton_caches[0],
+            cupy_sparse=self.gpu,
+            maximum_feature_width_per_batch=96,
+            record_to_hand_backend="host_numpy",
+        )
 
         for key, expected_values in expected.values:
-            actual_values = actual.for_key(key)
-            np.testing.assert_allclose(
-                actual_values.root_normalized_reaches,
-                expected_values.root_normalized_reaches,
-                atol=2e-13,
-                rtol=0.0,
-            )
-            np.testing.assert_allclose(
-                actual_values.root_normalized_numerators,
-                expected_values.root_normalized_numerators,
-                atol=2e-12,
-                rtol=0.0,
-            )
+            for measured in (actual, host_intervention):
+                actual_values = measured.for_key(key)
+                np.testing.assert_allclose(
+                    actual_values.root_normalized_reaches,
+                    expected_values.root_normalized_reaches,
+                    atol=2e-13,
+                    rtol=0.0,
+                )
+                np.testing.assert_allclose(
+                    actual_values.root_normalized_numerators,
+                    expected_values.root_normalized_numerators,
+                    atol=2e-12,
+                    rtol=0.0,
+                )
         self.assertEqual(
             actual.work.operator_backend,
             "gpu_cupy_resident_device_fold",
         )
         self.assertGreater(actual.work.device_hand_fold_gpu_ms, 0.0)
         self.assertGreater(actual.work.host_hand_finalize_ms, 0.0)
+        self.assertEqual(
+            host_intervention.work.operator_backend,
+            "gpu_cupy_resident_host_fold_intervention",
+        )
+        self.assertGreater(host_intervention.work.host_hand_fold_ms, 0.0)
         self.assertLess(
             actual.work.per_call_device_to_host_bytes,
             expected.work.per_call_device_to_host_bytes,
@@ -201,27 +218,39 @@ class DeviceFoldResidentPathTests(unittest.TestCase):
             "dcfr",
             **common,
         )
+        host_intervention = DeviceFoldResidentLeafAdjointPublicTreeCFR(
+            self.source.layout,
+            self.source.workspace,
+            self.source.sparse,
+            self.source.automata,
+            "dcfr",
+            record_to_hand_backend="host_numpy",
+            **common,
+        )
         expected.warm_start(self.source.policy, 2.5)
         actual.warm_start(self.source.policy, 2.5)
+        host_intervention.warm_start(self.source.policy, 2.5)
         expected.step()
         actual.step()
+        host_intervention.step()
 
         expected_regrets = expected.regret_table()
-        actual_regrets = actual.regret_table()
-        maximum_regret_error = max(
-            abs(actual_regrets[key][action] - expected_regrets[key][action])
-            for key in expected_regrets
-            for action in expected_regrets[key]
-        )
-        self.assertLessEqual(maximum_regret_error, 2e-12)
         expected_sums = expected.strategy_sum_table()
-        actual_sums = actual.strategy_sum_table()
-        maximum_sum_error = max(
-            abs(actual_sums[key][action] - expected_sums[key][action])
-            for key in expected_sums
-            for action in expected_sums[key]
-        )
-        self.assertLessEqual(maximum_sum_error, 2e-12)
+        for measured in (actual, host_intervention):
+            actual_regrets = measured.regret_table()
+            maximum_regret_error = max(
+                abs(actual_regrets[key][action] - expected_regrets[key][action])
+                for key in expected_regrets
+                for action in expected_regrets[key]
+            )
+            self.assertLessEqual(maximum_regret_error, 2e-12)
+            actual_sums = measured.strategy_sum_table()
+            maximum_sum_error = max(
+                abs(actual_sums[key][action] - expected_sums[key][action])
+                for key in expected_sums
+                for action in expected_sums[key]
+            )
+            self.assertLessEqual(maximum_sum_error, 2e-12)
         self.assertIsNotNone(actual.last_step_work)
         assert actual.last_step_work is not None
         self.assertTrue(
@@ -261,6 +290,20 @@ class DeviceFoldResidentPathTests(unittest.TestCase):
             )
             for endpoint, actor in zip(endpoints, actors, strict=True)
         )
+        placed_host_scalar = tuple(
+            evaluate_device_fold_selector_stable_affine_leaf_adjoint_seat(
+                self.response_caches[target],
+                endpoint,
+                acting_player=actor,
+                selector_margin_allowance=1e-14,
+                maximum_feature_width_per_batch=96,
+                belief_cache=self.belief_cache,
+                automaton_cache=self.automaton_caches[target],
+                cupy_sparse=self.gpu,
+                record_to_hand_backend="host_numpy",
+            )
+            for endpoint, actor in zip(endpoints, actors, strict=True)
+        )
         host_batch = evaluate_batched_selector_stable_affine_opponents(
             self.response_caches[target],
             endpoints,
@@ -280,6 +323,19 @@ class DeviceFoldResidentPathTests(unittest.TestCase):
             belief_cache=self.belief_cache,
             automaton_cache=self.automaton_caches[target],
             cupy_sparse=self.gpu,
+        )
+        placed_host_batch = (
+            evaluate_device_fold_batched_selector_stable_affine_opponents(
+                self.response_caches[target],
+                endpoints,
+                acting_players=actors,
+                selector_margin_allowance=1e-14,
+                maximum_feature_width_per_batch=96,
+                belief_cache=self.belief_cache,
+                automaton_cache=self.automaton_caches[target],
+                cupy_sparse=self.gpu,
+                record_to_hand_backend="host_numpy",
+            )
         )
 
         numeric = (
@@ -307,8 +363,10 @@ class DeviceFoldResidentPathTests(unittest.TestCase):
         for index, expected in enumerate(host_scalar):
             alternatives = (
                 device_scalar[index].semantic,
+                placed_host_scalar[index].semantic,
                 host_batch.seat_results[index],
                 device_batch.seat_results[index],
+                placed_host_batch.seat_results[index],
             )
             for actual in alternatives:
                 for field in numeric:

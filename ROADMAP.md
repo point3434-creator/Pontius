@@ -373,18 +373,22 @@ one-round closure nevertheless fails: four of six endpoints close, while two
 fresh one-cut endpoints expose new response facets and retain exact gaps
 `0.00077635` and `0.00034964`. Direction demotion is rejected.
 
-ADR-0275 freezes that off-clock diagnostic. It selects exactly the two fresh
-failures, routes the byte-pinned ADR-0267 full-closure target through the
-post-fold setup, and requires numerical/discrete reproduction of both already-
-opened one-round prefixes before interpreting later rounds. Every target is
-isolated and atomically checkpointed; any error fails the process. Marginal
-work is the newly exposed cut extraction plus the next master and endpoint
-oracle, with no new retreat or live-admission claim.
+ADR-0275 freezes that off-clock diagnostic. ADR-0276 accepts its process-valid
+result: both failures close, but at depths three and two rather than a common
+second round. The blocker-heavy target exposes two successive pairs of new
+seat-0/seat-5 response tapes. Later-round measured work is `555.105–764.960 ms`,
+but the unchanged conservative ledger has only `32.384 ms` left and the
+diagnostic omits a new retreat proof. Exact global closure therefore remains
+off-clock; the one-round master remains the bounded safe generator and the
+direction fallback remains live. ADR-0276 also discloses a Windows newline
+checkpoint-hash telemetry defect and installs a byte-truth helper for future
+runners without rewriting the sealed artifact.
 
-**Immediate gate:** invoke ADR-0275 once from its clean preregistration commit.
-If both failures close at exactly round two, separately study deadline
-admission; if either is deeper or stalls, keep exact global closure off-clock.
-The current conservative floor and live fallback do not change in this run.
+**Immediate gate:** return to ADR-0237's open action-width branch. Preregister
+a label-free continuation-root one-size versus two-size capacity preflight for
+the widened one-seat master. Measure resident geometry, safe headroom, one warm
+step, exact-oracle and master work, and the complete deadline reserve before
+opening any widened strategy label. This is not a strategy-quality comparison.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

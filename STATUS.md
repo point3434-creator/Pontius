@@ -5,32 +5,33 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0274](docs/decisions/ADR-0274-post-fold-confirms-safe-value-but-not-universal-one-round-closure.md) — Post-fold confirms safe value but not universal one-round closure.
+Latest accepted research result: [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) — Post-fold failures close in two and three rounds.
 
-Status: accepted fresh mixed result; universal current-decision closure rejected.
+Status: accepted retrospective diagnostic; exact global closure remains off-clock.
 
 ## Current decision
 
-Accept and seal the process-valid fresh mixed result. Accept fresh transfer of
-safe material value after a fold. Reject universal one-round current-decision
-global closure and do not demote or retire direction generation.
+Reject the optimistic hypothesis that every fresh one-round failure is exactly
+one additional round from closure. Under ADR-0275's frozen branch, keep exact
+global closure off-clock. Do not open a deadline-admission or conservative-
+repricing study from this selected pair, and do not spend measured slack
+against the unchanged `13,967.616 ms` floor.
 
-Authorize one retrospective, target-isolated full-closure timing diagnostic on
-only the two disclosed fresh failures. Preserve their order, setup, warm step,
-master, exact oracle, cut semantics, caps, and tolerances; allow additional
-rounds only off-clock and emit no candidate. Record rounds to closure and the
-marginal cut, master, and endpoint-oracle costs after the already-failed first
-round.
+The one-round multidimensional master remains a bounded, exact-certified safe
+candidate generator; full convergence remains an off-clock global one-seat
+teacher. Thus direction guessing is obsolete for the converged teacher but is
+not retired from the deadline-bounded live system. Preserve the existing
+direction fallback and immutable no-op.
 
-If both failures close with exactly one additional round, separately study a
-component-wise deadline admission rule or evidence-backed conservative
-repricing. Do not silently spend the measured slack or weaken the existing
-floor. If either remains deep or stalls, keep one-round convex retreat as the
-bounded safe generator and treat global closure as off-clock teacher evidence.
+Return next to the still-open action-width branch with a separately
+preregistered, label-free continuation-root one-size versus two-size capacity
+preflight. Price the widened one-seat master shape, resident caches, warm step,
+exact oracle, and complete deadline reserve before opening any widened strategy
+label. This is a capacity question, not a one-size/two-size quality claim.
 
 ## Open preregistration
 
-[ADR-0275](docs/decisions/ADR-0275-preregister-post-fold-failure-closure-depth-diagnostic.md) — Preregister post-fold failure closure-depth diagnostic (accepted retrospective preregistration before any additional post-fold optimizer label).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -42,7 +43,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) | 2026-08-22 | accepted single-target strategy-quality result; fresh replication authorized | Convex retreat beats the live fallback on the frozen target |
 | [ADR-0253](docs/decisions/ADR-0253-preregister-final-latin-convex-replication-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration before any Latin-E/F posterior or convex candidate | Preregister final-Latin convex-replication posterior panel |
 | [ADR-0254](docs/decisions/ADR-0254-final-latin-posterior-panel-is-fresh-and-balanced.md) | 2026-08-22 | accepted label-free result; fresh convex replication authorized | Final-Latin posterior panel is fresh and balanced |
 | [ADR-0255](docs/decisions/ADR-0255-preregister-six-target-fresh-convex-retreat-replication.md) | 2026-08-22 | accepted preregistration before any Latin-E warm step, convex candidate, or final strategy label | Preregister six-target fresh convex-retreat replication |
@@ -66,12 +66,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0273](docs/decisions/ADR-0273-preregister-fresh-post-fold-closure-and-value-confirmation.md) | 2026-08-22 | accepted preregistration before any post-fold warm step, optimizer, or strategy label | Preregister fresh post-fold closure and value confirmation |
 | [ADR-0274](docs/decisions/ADR-0274-post-fold-confirms-safe-value-but-not-universal-one-round-closure.md) | 2026-08-22 | accepted fresh mixed result; universal current-decision closure rejected | Post-fold confirms safe value but not universal one-round closure |
 | [ADR-0275](docs/decisions/ADR-0275-preregister-post-fold-failure-closure-depth-diagnostic.md) | 2026-08-22 | accepted retrospective preregistration before any additional post-fold optimizer label | Preregister post-fold failure closure-depth diagnostic |
+| [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) | 2026-08-22 | accepted retrospective diagnostic; exact global closure remains off-clock | Post-fold failures close in two and three rounds |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0275](docs/decisions/ADR-0275-preregister-post-fold-failure-closure-depth-diagnostic.md) — Preregister post-fold failure closure-depth diagnostic.
-- Numbered decisions: 275.
-- ADR-header SHA-256: `cdaf13d1d6428550dc727359374423f574ef03cc1a79fa303cb38fdc4ec1cf3a`.
+- Latest ADR: [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) — Post-fold failures close in two and three rounds.
+- Numbered decisions: 276.
+- ADR-header SHA-256: `d118d3c4776f498c0485e6b12a7b61da9c766951d2dbb44399fcd12fa182d9b4`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -79,4 +80,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0274](docs/decisions/ADR-0274-post-fold-confirms-safe-value-but-not-universal-one-round-closure.md) and its dependencies
+4. [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) and its dependencies

@@ -28,7 +28,7 @@ must abstain; do not add a round or tune the factor.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0255](docs/decisions/ADR-0255-preregister-six-target-fresh-convex-retreat-replication.md) — Preregister six-target fresh convex-retreat replication (accepted preregistration before any Latin-E warm step, convex candidate, or final strategy label).
 
 ## Evidence protocol
 
@@ -40,7 +40,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0231](docs/decisions/ADR-0231-preregister-heldout-continuation-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration | Preregister the held-out continuation posterior panel |
 | [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) | 2026-08-22 | accepted label-free result | Held-out continuation posterior panel is fresh and nondegenerate |
 | [ADR-0233](docs/decisions/ADR-0233-shared-payoff-semantics-and-runner-contracts-retire-repeat-defects.md) | 2026-08-22 | accepted process correction | Shared payoff semantics and runner contracts retire repeat defects |
 | [ADR-0234](docs/decisions/ADR-0234-preregister-heldout-one-step-versus-two-step-continuation-value.md) | 2026-08-22 | accepted preregistration before any held-out strategy work | Preregister held-out one-step versus two-step continuation value |
@@ -64,12 +63,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) | 2026-08-22 | accepted single-target strategy-quality result; fresh replication authorized | Convex retreat beats the live fallback on the frozen target |
 | [ADR-0253](docs/decisions/ADR-0253-preregister-final-latin-convex-replication-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration before any Latin-E/F posterior or convex candidate | Preregister final-Latin convex-replication posterior panel |
 | [ADR-0254](docs/decisions/ADR-0254-final-latin-posterior-panel-is-fresh-and-balanced.md) | 2026-08-22 | accepted label-free result; fresh convex replication authorized | Final-Latin posterior panel is fresh and balanced |
+| [ADR-0255](docs/decisions/ADR-0255-preregister-six-target-fresh-convex-retreat-replication.md) | 2026-08-22 | accepted preregistration before any Latin-E warm step, convex candidate, or final strategy label | Preregister six-target fresh convex-retreat replication |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0254](docs/decisions/ADR-0254-final-latin-posterior-panel-is-fresh-and-balanced.md) — Final-Latin posterior panel is fresh and balanced.
-- Numbered decisions: 254.
-- ADR-header SHA-256: `19580ecf7c83bbde9f21ad5b92b75a1e0caef883ca00802eece4195514692204`.
+- Latest ADR: [ADR-0255](docs/decisions/ADR-0255-preregister-six-target-fresh-convex-retreat-replication.md) — Preregister six-target fresh convex-retreat replication.
+- Numbered decisions: 255.
+- ADR-header SHA-256: `07bb0b8090ef5baa612f96f0cf5b18cd731d93e37ded86122ee67dc777f1c095`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

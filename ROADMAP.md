@@ -202,12 +202,21 @@ fresh, every source/bettor/acting seat appears twice, and the three panels now
 cover all 36 source-bettor combinations exactly once. Acting-player marginal
 TV is nonzero on every target (`0.044–0.194`); no quality label was opened.
 
-**Immediate gate:** preregister fresh convex-retreat strategy replication on
-the six Latin-E targets, one per source, bettor, and acting player. Keep Latin-F
-unopened as the balanced confirmatory reserve. Retain factor `0.5`, at most one
-multi-cut round, two all-seat oracles, separate cap/epigraph allowances, full
-conservative street charge, immutable external blueprint, and abstention on
-any target that does not independently certify.
+ADR-0255 freezes that strategy replication before any Latin-E warm step or
+final label. All six Latin-E targets run in manifest order with no opportunity
+selection or cross-target adaptation. Each target pays one warm step, one
+source master, one exact multi-cut construction oracle, at most one resolve,
+and one independent exact factor-`0.5` retreat certificate. The cap and
+epigraph allowances remain separate, the effective ledger is at least
+`13,967.616 ms`, all external policies remain the blueprint, and the bounded
+one-round master makes no global-optimality claim.
+
+**Immediate gate:** execute ADR-0255 once from its clean preregistration commit
+and seal all six outcomes. Authorize only a separately preregistered Latin-F
+confirmation if at least four Latin-E targets deliver more than `0.001` exact
+accepted value, both range families are represented, and every measured and
+effective conservative schedule fits. Otherwise retain ADR-0252 as known-
+target evidence and leave Latin-F unopened.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

@@ -15,7 +15,7 @@ The latest research ADR has no explicit Decision section.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0215](docs/decisions/ADR-0215-preregister-corrected-resident-sparse-console-page.md) — Preregister the corrected resident-sparse console page (accepted tooling correction before any corrected h32 counter collection).
 
 ## Evidence protocol
 
@@ -27,7 +27,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-0 selector-stable affine street trial |
 | [ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md) | 2026-08-21 | accepted prospective engineering result | The fixed seat-0 affine rule emits four fresh certified candidates before deadline |
 | [ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-5 affine street replication |
 | [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) | 2026-08-21 | accepted prospective replication result | The affine street mechanism transfers to seat 5 but value remains concentrated |
@@ -51,12 +50,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md) | 2026-08-21 | accepted engineering result | The device record fold materially speeds both resident customers |
 | [ADR-0213](docs/decisions/ADR-0213-preregister-isolated-resident-sparse-nsight-profile.md) | 2026-08-21 | accepted diagnostic preregistration before any h32 counter collection | Preregister the isolated resident-sparse Nsight profile |
 | [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the first resident-sparse profile on an empty console page |
+| [ADR-0215](docs/decisions/ADR-0215-preregister-corrected-resident-sparse-console-page.md) | 2026-08-21 | accepted tooling correction before any corrected h32 counter collection | Preregister the corrected resident-sparse console page |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) — Reject the first resident-sparse profile on an empty console page.
-- Numbered decisions: 214.
-- ADR-header SHA-256: `27f10362da425892273d6cf90928f803c9fbbc0c843b4c1272bb43001ecd9fda`.
+- Latest ADR: [ADR-0215](docs/decisions/ADR-0215-preregister-corrected-resident-sparse-console-page.md) — Preregister the corrected resident-sparse console page.
+- Numbered decisions: 215.
+- ADR-header SHA-256: `cc490397614801fd64ff201968fed5eb80755ebe55cfebb6c98cac588df4977b`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

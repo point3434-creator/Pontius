@@ -1,0 +1,12 @@
+{
+  "evidence_stage": "preregistered_after_adr0214_before_any_corrected_h32_hardware_counter_collection",
+  "expected_v1_config_sha256": "b7e84e772ac80a40c89d1b24ab7af9aa4c144ae9f9dc3f21a864be3adbd51cc6",
+  "expected_v1_implementation_sha256": "18d3e21e6dd2fb05da979bb4f6c8357d4fcf41e7dc4acdfac1423d94f8ad7fed",
+  "expected_v1_control_test_sha256": "46f9763376fe5a2bcb1e62089c616c21f12707ac313b38a773632e5108d5f47b",
+  "expected_v1_result_sha256": "59801f5643b0e8c9bf7efe538a42ddc23c3802f5a4c53bc1f50b3ff2fd3745de",
+  "expected_v1_rejection_sha256": "dc71293d6f3a50800b0874ad9d802b245720fe348a3b6506bb1f13d2f006ec51",
+  "expected_v2_implementation_sha256": "acc6afdba1507d844ae1ee8d8744d2a1f9a7f02c39ba328544b7a04e87426629",
+  "expected_v2_control_test_sha256": "75fc257a89460887fd832d48459147f32c8eea9299681ca72b9eecde97e6c0fe",
+  "correction_rule": "add_print_summary_per_kernel_require_nonempty_stdout_and_make_core_metric_presence_nonvacuous",
+  "output_rule": "write_only_h32_resident_sparse_ncu_profile_v2_json"
+}

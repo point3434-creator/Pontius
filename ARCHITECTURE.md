@@ -35,12 +35,34 @@ emits the blueprint.
 
 ```text
 prepared immutable state
-    -> one resident warm step
+    -> one or two independently priced resident warm steps
     -> causal candidate directions
-    -> deadline-admitted exact certificate(s)
+    -> complete continuation-block affine screen
+    -> one deadline-admitted exact winner certificate
     -> certified incumbent or immutable blueprint
     -> reserved synchronization/action emission
 ```
+
+Continuation rooting is now the active execution shape. It preserves exact
+terminal semantics while removing five sixths of strategic nodes, and it makes
+all 31 legal changed-public-node blocks affordable inside the street ledger.
+[ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md)
+records positive exact certified value on all 12 opened posterior targets;
+[ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md)
+shows that two independent continuation steps also fit all 12 conservative
+ledgers. [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md)
+seals the disjoint Latin-C/D panel for the next one-step versus two-step value
+test. These are reduced h32 results, not broad strategy-quality claims.
+
+Every successor runner derives acceptance guards and quality normalization
+from `layout.game.payoff_span` through `payoff_semantics`; stack is never a
+span. Artifact loading, pass-bit access, environment assembly, gate plumbing,
+and finite serialization use `runner_harness`. Byte-pinned historical runners
+remain immutable, with their legacy expressions held in an exact AST exception
+inventory. New device-fold customers likewise use the non-consuming,
+contiguity-guarded `resident_record_to_hand_fold_v2` successor rather than
+altering the pinned fold. [ADR-0233](docs/decisions/ADR-0233-shared-payoff-semantics-and-runner-contracts-retire-repeat-defects.md)
+is the governing process correction.
 
 GPU semantic equality is numerical under preregistered Float64 ceilings; exact
 digests remain authoritative for immutable provenance and explicitly bitwise

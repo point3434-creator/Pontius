@@ -606,3 +606,13 @@ reserved context from this branch. ADR-0044 is the durable rejection.
 5. Verify against the reference and record the experiment configuration.
 6. Add the immutable decision record, regenerate `STATUS.md`, and run the
    documentation freshness and link checks.
+7. In every new evidence runner, load parents and build result plumbing through
+   `pontius.runner_harness`; do not hand-select `passed` versus `gates.passed`,
+   call `environment_metadata` with invented arguments, or assemble duplicate
+   pass bits independently.
+8. Convert normalized guards and raw quality only through
+   `pontius.payoff_semantics`. The payoff span comes from
+   `layout.game.payoff_span`; stack, pot, and action sizes are not substitutes.
+9. Route new GPU record-fold customers through
+   `pontius.resident_record_to_hand_fold_v2`; the predecessor is retained only
+   to reproduce hash-pinned evidence.

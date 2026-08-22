@@ -19,7 +19,7 @@ None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0180](docs/decisions/ADR-0180-generate-status-front-door-from-adr-metadata.md) — Generate the status front door from ADR metadata.
+Latest process decision: [ADR-0233](docs/decisions/ADR-0233-shared-payoff-semantics-and-runner-contracts-retire-repeat-defects.md) — Shared payoff semantics and runner contracts retire repeat defects.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -27,7 +27,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0209](docs/decisions/ADR-0209-preregister-top-level-source-pass-correction-for-tier-b-batch.md) | 2026-08-21 | accepted schema-only correction preregistration before h32 work | Preregister the top-level source-pass correction for the Tier-B batch |
 | [ADR-0210](docs/decisions/ADR-0210-six-way-tier-b-batching-is-exact-but-does-not-reduce-resident-contraction-work.md) | 2026-08-21 | accepted corrected engineering result | Six-way Tier-B batching is exact but does not reduce resident contraction work |
 | [ADR-0211](docs/decisions/ADR-0211-preregister-resident-record-to-hand-fold-placement-differential.md) | 2026-08-21 | accepted engineering preregistration before any h32 placement measurement | Preregister the resident record-to-hand fold placement differential |
 | [ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md) | 2026-08-21 | accepted engineering result | The device record fold materially speeds both resident customers |
@@ -51,12 +50,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) | 2026-08-22 | accepted label-free engineering result | Two continuation steps fit the conservative street ledger |
 | [ADR-0231](docs/decisions/ADR-0231-preregister-heldout-continuation-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration | Preregister the held-out continuation posterior panel |
 | [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) | 2026-08-22 | accepted label-free result | Held-out continuation posterior panel is fresh and nondegenerate |
+| [ADR-0233](docs/decisions/ADR-0233-shared-payoff-semantics-and-runner-contracts-retire-repeat-defects.md) | 2026-08-22 | accepted process correction | Shared payoff semantics and runner contracts retire repeat defects |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) — Held-out continuation posterior panel is fresh and nondegenerate.
-- Numbered decisions: 232.
-- ADR-header SHA-256: `165dd38f8daa5a5e61954336d3775cef58bcc655a00beb1dfabf4d1d8c1487be`.
+- Latest ADR: [ADR-0233](docs/decisions/ADR-0233-shared-payoff-semantics-and-runner-contracts-retire-repeat-defects.md) — Shared payoff semantics and runner contracts retire repeat defects.
+- Numbered decisions: 233.
+- ADR-header SHA-256: `6821266888dbdedaef957ce3757cc5408ab8bf33e966a9f967993627e55f7d9c`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

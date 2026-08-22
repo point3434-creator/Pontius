@@ -102,6 +102,33 @@ A later fresh panel should prefer action-conditioned in-tree posterior shifts
 with a genuinely widened single-family block library, but it remains sealed
 until the engineering ledger can price its candidate set honestly.
 
+The subsequent systems and strategy line changes that assessment materially.
+The resident device fold speeds both the warm-step and Tier-B customers
+([ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md)),
+while the isolated profile identifies sparse FP64 compute pressure rather than
+a hidden transfer or host barrier
+([ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md)).
+Action-conditioned posteriors contain exact value but the widened live selector
+still misses the wall boundary
+([ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md)).
+
+Continuation rooting is the first strategy-positive correction to that
+failure. It is exact, cuts five sixths of strategic nodes, prices all 31 legal
+blocks, and delivers exact certified value on all 12 opened targets before the
+deadline ([ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md),
+[ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md),
+[ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md)).
+Two independent steps fit every conservative ledger
+([ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md)),
+and the disjoint 12-target Latin-C/D posterior panel is sealed
+([ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md)).
+
+**Immediate gate:** after the ADR-0233 structural payoff-span and runner-contract
+correction, preregister and run the held-out one-step versus two-step
+continuation value trial exactly as ADR-0230/0232 require. Promotion depends on
+additional exact certified value per hard-ledger second, not on policy motion or
+deadline fit alone. No strategy-quality claim precedes that result.
+
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
 30.56%, and transfer only 0.63%. The primary C4 screen must distinguish FP64

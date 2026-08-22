@@ -40,9 +40,9 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "README.md": ("six-player river control", "15-second"),
             "PROJECT.md": ("15,000 ms", "immutable blueprint"),
             "ROADMAP.md": ("ADR-0184", "direction/opportunity"),
-            "RUNBOOK.md": ("PONTIUS_CUDA_DLL_DIRECTORY", "status_generation --check"),
-            "ARCHITECTURE.md": ("Current h32 execution spine", "deadline-admitted exact certificate"),
-            "RISK_REGISTER.md": ("R35", "Documentation drift"),
+            "RUNBOOK.md": ("PONTIUS_CUDA_DLL_DIRECTORY", "pontius.runner_harness"),
+            "ARCHITECTURE.md": ("Current h32 execution spine", "deadline-admitted exact winner certificate"),
+            "RISK_REGISTER.md": ("R36", "Coincidental equality"),
         }
         for relative, phrases in expected.items():
             text = (_ROOT / relative).read_text(encoding="utf-8")

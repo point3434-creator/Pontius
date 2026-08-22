@@ -5,27 +5,27 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0239](docs/decisions/ADR-0239-reject-cross-payoff-v1-on-external-axis-key-mismatch.md) — Reject cross-payoff v1 on external-axis key mismatch.
+Latest accepted research result: [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) — One-seat convex generation matches complete teacher.
 
-Status: rejected execution; no coefficient or timing result accepted.
+Status: accepted finite control; h4 cut-extraction differential authorized.
 
 ## Current decision
 
-Reject v1 as evidence. Preserve ADR-0238's algebra, single tight target, 24+30
-pass workload, teacher comparison, numerical ceilings, wall ledger, promotion
-rule, and claims boundary.
+Accept the ADR-0240 keystone and authorize one label-free h4 open-axis cut-
+extraction differential. Compare every extracted coefficient against direct
+exact fixed-tape perturbation controls, include repeated-actor sequence-form
+and post-bet behavioral-shortcut cases, report coefficient construction cost,
+conditioning, persistent bytes, and exact response-oracle cost, and preserve
+exact-response-signature-only deduplication.
 
-Authorize one external-axis-only successor. Its response splice must require
-the explicit `hands_by_player` tuple, reconstruct each key with the accepted
-`_information_key(layout, player, hand, node.history)` helper, and validate the
-source row shape against that external axis. Add a mutation control in which
-the embedded layout and external axes differ. The successor must use a new
-config, runner, primitive, test, result path, and clean commit; it may not reuse
-any v1 process state.
+Only an h4 identity pass may reopen the corrected ADR-0238 external-axis path
+as an h32 row extractor. h32 cut count, extraction latency, master latency,
+independent final-certificate latency, memory headroom, and the 15-second ledger
+remain unmeasured.
 
 ## Open preregistration
 
-[ADR-0240](docs/decisions/ADR-0240-preregister-one-seat-convex-generation-keystone.md) — Preregister one-seat convex generation keystone (accepted preregistration before the frozen convex-keystone run).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -37,7 +37,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0217](docs/decisions/ADR-0217-preregister-final-sparse-profiler-target-correction.md) | 2026-08-21 | accepted tooling correction before any final corrected h32 counter collection | Preregister the final sparse-profiler target correction |
 | [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) | 2026-08-21 | accepted diagnostic result | The resident-sparse profile identifies compute pressure |
 | [ADR-0219](docs/decisions/ADR-0219-preregister-action-conditioned-posterior-manifest.md) | 2026-08-21 | accepted label-free preregistration before any action-conditioned warm step or label | Preregister the action-conditioned posterior manifest |
 | [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) | 2026-08-21 | accepted label-free manifest result | The action-conditioned posterior panel is fresh, balanced, and nondegenerate |
@@ -61,12 +60,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0238](docs/decisions/ADR-0238-preregister-cross-payoff-reverse-adjoint-feasibility.md) | 2026-08-22 | accepted preregistration before any cross-payoff h32 pass | Preregister cross-payoff reverse-adjoint feasibility |
 | [ADR-0239](docs/decisions/ADR-0239-reject-cross-payoff-v1-on-external-axis-key-mismatch.md) | 2026-08-22 | rejected execution; no coefficient or timing result accepted | Reject cross-payoff v1 on external-axis key mismatch |
 | [ADR-0240](docs/decisions/ADR-0240-preregister-one-seat-convex-generation-keystone.md) | 2026-08-22 | accepted preregistration before the frozen convex-keystone run | Preregister one-seat convex generation keystone |
+| [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) | 2026-08-22 | accepted finite control; h4 cut-extraction differential authorized | One-seat convex generation matches complete teacher |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0240](docs/decisions/ADR-0240-preregister-one-seat-convex-generation-keystone.md) — Preregister one-seat convex generation keystone.
-- Numbered decisions: 240.
-- ADR-header SHA-256: `44e1cd6dd9577349d616ea7da3b571cf253db633e6de54988c95b0ef5d866a77`.
+- Latest ADR: [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) — One-seat convex generation matches complete teacher.
+- Numbered decisions: 241.
+- ADR-header SHA-256: `728b5dd221b3a315576db5f8ebaca0325f8f114ad3581c585163b06049b03399`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -74,4 +74,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0239](docs/decisions/ADR-0239-reject-cross-payoff-v1-on-external-axis-key-mismatch.md) and its dependencies
+4. [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) and its dependencies

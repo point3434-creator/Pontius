@@ -1,0 +1,354 @@
+{
+  "acting_seat_rows": [
+    {
+      "acting_player": 0,
+      "acting_pure_plans": 64,
+      "baseline_nash_conv": 0.008543857826338985,
+      "blueprint_policy_sha256": "a4d01ea4f8678260e3920938b34b841618ba3c55db164630cc9bbb70e8894c7c",
+      "complete_teacher_objective": 0.004897428981896614,
+      "conditioning_by_player": [
+        {
+          "effective_condition_number": 1.0,
+          "minimum_normalized_separation": null,
+          "numerical_rank": 1,
+          "rows": 1
+        },
+        {
+          "effective_condition_number": 139.1319273815677,
+          "minimum_normalized_separation": 0.6410179566577966,
+          "numerical_rank": 4,
+          "rows": 5
+        }
+      ],
+      "converged": true,
+      "exact_duplicate_response_hits": 0,
+      "exact_incumbent_error": 0.0,
+      "generated_response_rows_by_player": [
+        1,
+        5
+      ],
+      "generated_seconds": 0.016087900003185496,
+      "incumbent_policy_sha256": "c1e41ae9bfed6c6b120b80d701bb40f12ccef92cd77cf141402d2cb22195cc14",
+      "independent_incumbent_nash_conv": 0.004897428981896601,
+      "iteration_rows": [
+        {
+          "added_targets": [
+            1
+          ],
+          "candidate_feasible": true,
+          "candidate_nash_conv": 0.11600854009300768,
+          "converged": false,
+          "cut_extraction_seconds": 0.0003532999980961904,
+          "exact_oracle_seconds": 0.0010045000017271377,
+          "incumbent_updated": false,
+          "incumbent_upper_bound": 0.008543857826338985,
+          "iteration": 1,
+          "master_lower_bound": 0.0,
+          "master_solve_seconds": 0.000370699999621138,
+          "maximum_cap_violation": 0.0,
+          "maximum_epigraph_violation": 0.11600854009300768,
+          "optimality_gap": 0.008543857826338985,
+          "realization_equivalence_max_error": 1.249000902703301e-16,
+          "response_rows_added": 1,
+          "response_rows_before": 2
+        },
+        {
+          "added_targets": [
+            1
+          ],
+          "candidate_feasible": true,
+          "candidate_nash_conv": 0.17860880134057702,
+          "converged": false,
+          "cut_extraction_seconds": 0.0003540999969118275,
+          "exact_oracle_seconds": 0.0010017000022344291,
+          "incumbent_updated": false,
+          "incumbent_upper_bound": 0.008543857826338985,
+          "iteration": 2,
+          "master_lower_bound": 0.0013750761358894393,
+          "master_solve_seconds": 0.0003887999992002733,
+          "maximum_cap_violation": 0.0,
+          "maximum_epigraph_violation": 0.17723372520468741,
+          "optimality_gap": 0.0071687816904495456,
+          "realization_equivalence_max_error": 1.1102230246251565e-16,
+          "response_rows_added": 1,
+          "response_rows_before": 3
+        },
+        {
+          "added_targets": [
+            1
+          ],
+          "candidate_feasible": true,
+          "candidate_nash_conv": 0.04575482646525378,
+          "converged": false,
+          "cut_extraction_seconds": 0.00035319999733474106,
+          "exact_oracle_seconds": 0.0010054000013042241,
+          "incumbent_updated": false,
+          "incumbent_upper_bound": 0.008543857826338985,
+          "iteration": 3,
+          "master_lower_bound": 0.0016603522486584835,
+          "master_solve_seconds": 0.00041120000241789967,
+          "maximum_cap_violation": 0.0,
+          "maximum_epigraph_violation": 0.0440944742165951,
+          "optimality_gap": 0.006883505577680502,
+          "realization_equivalence_max_error": 1.2934531917752068e-16,
+          "response_rows_added": 1,
+          "response_rows_before": 4
+        },
+        {
+          "added_targets": [
+            1
+          ],
+          "candidate_feasible": true,
+          "candidate_nash_conv": 0.0604529845374521,
+          "converged": false,
+          "cut_extraction_seconds": 0.0003542000049492344,
+          "exact_oracle_seconds": 0.0010173000046052039,
+          "incumbent_updated": false,
+          "incumbent_upper_bound": 0.008543857826338985,
+          "iteration": 4,
+          "master_lower_bound": 0.0017548330280360552,
+          "master_solve_seconds": 0.00044550000166054815,
+          "maximum_cap_violation": 0.0,
+          "maximum_epigraph_violation": 0.05869815150941579,
+          "optimality_gap": 0.00678902479830293,
+          "realization_equivalence_max_error": 1.8041124150158794e-16,
+          "response_rows_added": 1,
+          "response_rows_before": 5
+        },
+        {
+          "added_targets": [],
+          "candidate_feasible": true,
+          "candidate_nash_conv": 0.004897428981896601,
+          "converged": true,
+          "cut_extraction_seconds": 3.00002284348011e-07,
+          "exact_oracle_seconds": 0.0010168000007979572,
+          "incumbent_updated": true,
+          "incumbent_upper_bound": 0.004897428981896601,
+          "iteration": 5,
+          "master_lower_bound": 0.004897428981896289,
+          "master_solve_seconds": 0.00041849999979604036,
+          "maximum_cap_violation": 0.0,
+          "maximum_epigraph_violation": 2.0816681711721685e-16,
+          "optimality_gap": 3.122502256758253e-16,
+          "realization_equivalence_max_error": 1.3877787807814457e-16,
+          "response_rows_added": 0,
+          "response_rows_before": 6
+        }
+      ],
+      "iterations": 5,
+      "lower_bounds_monotone": true,
+      "master_lower_bound": 0.004897428981896289,
+      "maximum_realization_equivalence_error": 1.8041124150158794e-16,
+      "maximum_retreat_jensen_error": 2.7755575615628914e-17,
+      "optimality_gap": 3.122502256758253e-16,
+      "response_pure_plans": [
+        0,
+        64
+      ],
+      "retreated_nash_conv": 0.005626714750785078,
+      "retreated_policy_sha256": "0a07aae93dbcbd1b63b61ae67e0734bca53a91a2648265a1302ccc5a1a2fc0e6",
+      "safe_incumbent_upper_bound": 0.004897428981896601,
+      "teacher_exact_nash_conv": 0.0048974289818965455,
+      "teacher_objective_error": 1.3010426069826053e-17,
+      "teacher_seconds": 0.6651478999992833,
+      "upper_bounds_monotone": true
+    },
+    {
+      "acting_player": 1,
+      "acting_pure_plans": 64,
+      "baseline_nash_conv": 0.008543857826338985,
+      "blueprint_policy_sha256": "a4d01ea4f8678260e3920938b34b841618ba3c55db164630cc9bbb70e8894c7c",
+      "complete_teacher_objective": 0.00364642884444253,
+      "conditioning_by_player": [
+        {
+          "effective_condition_number": 13.01301345606702,
+          "minimum_normalized_separation": 1.2096133276395198,
+          "numerical_rank": 3,
+          "rows": 3
+        },
+        {
+          "effective_condition_number": 1.0,
+          "minimum_normalized_separation": null,
+          "numerical_rank": 1,
+          "rows": 1
+        }
+      ],
+      "converged": true,
+      "exact_duplicate_response_hits": 0,
+      "exact_incumbent_error": 0.0,
+      "generated_response_rows_by_player": [
+        3,
+        1
+      ],
+      "generated_seconds": 0.009667599995736964,
+      "incumbent_policy_sha256": "fff021dc6e4363f829dd560f5912619bab800130cfddfecd471fe3cc63601b5c",
+      "independent_incumbent_nash_conv": 0.0036464288444424953,
+      "iteration_rows": [
+        {
+          "added_targets": [
+            0
+          ],
+          "candidate_feasible": true,
+          "candidate_nash_conv": 0.16738534737103214,
+          "converged": false,
+          "cut_extraction_seconds": 0.00035819999902741984,
+          "exact_oracle_seconds": 0.0010056999963126145,
+          "incumbent_updated": false,
+          "incumbent_upper_bound": 0.008543857826338985,
+          "iteration": 1,
+          "master_lower_bound": 0.0007186807043656949,
+          "master_solve_seconds": 0.00034749999758787453,
+          "maximum_cap_violation": 0.0,
+          "maximum_epigraph_violation": 0.16666666666666666,
+          "optimality_gap": 0.00782517712197329,
+          "realization_equivalence_max_error": 9.020562075079397e-17,
+          "response_rows_added": 1,
+          "response_rows_before": 2
+        },
+        {
+          "added_targets": [
+            0
+          ],
+          "candidate_feasible": true,
+          "candidate_nash_conv": 0.19773668356298715,
+          "converged": false,
+          "cut_extraction_seconds": 0.00040940000326372683,
+          "exact_oracle_seconds": 0.001021500000206288,
+          "incumbent_updated": false,
+          "incumbent_upper_bound": 0.008543857826338985,
+          "iteration": 2,
+          "master_lower_bound": 0.0029380493926433465,
+          "master_solve_seconds": 0.00035909999860450625,
+          "maximum_cap_violation": 0.0,
+          "maximum_epigraph_violation": 0.1947986341703441,
+          "optimality_gap": 0.005605808433695639,
+          "realization_equivalence_max_error": 1.3183898417423734e-16,
+          "response_rows_added": 1,
+          "response_rows_before": 3
+        },
+        {
+          "added_targets": [],
+          "candidate_feasible": true,
+          "candidate_nash_conv": 0.0036464288444424953,
+          "converged": true,
+          "cut_extraction_seconds": 4.00003045797348e-07,
+          "exact_oracle_seconds": 0.0010143999970750883,
+          "incumbent_updated": true,
+          "incumbent_upper_bound": 0.0036464288444424953,
+          "iteration": 3,
+          "master_lower_bound": 0.0036464288444432906,
+          "master_solve_seconds": 0.00047140000242507085,
+          "maximum_cap_violation": 0.0,
+          "maximum_epigraph_violation": 0.0,
+          "optimality_gap": 0.0,
+          "realization_equivalence_max_error": 1.6653345369377348e-16,
+          "response_rows_added": 0,
+          "response_rows_before": 4
+        }
+      ],
+      "iterations": 3,
+      "lower_bounds_monotone": true,
+      "master_lower_bound": 0.0036464288444432906,
+      "maximum_realization_equivalence_error": 1.6653345369377348e-16,
+      "maximum_retreat_jensen_error": 1.0581813203458523e-16,
+      "optimality_gap": 0.0,
+      "response_pure_plans": [
+        64,
+        0
+      ],
+      "retreated_nash_conv": 0.004625914640821821,
+      "retreated_policy_sha256": "b54864e1bf8c761ec33abca7b0cadff2b4a790b2b3116870c46e6403a92c19d1",
+      "safe_incumbent_upper_bound": 0.0036464288444424953,
+      "teacher_exact_nash_conv": 0.0036464288444425785,
+      "teacher_objective_error": 3.469446951953614e-17,
+      "teacher_seconds": 0.6676047000000835,
+      "upper_bounds_monotone": true
+    }
+  ],
+  "config_sha256": "3d2ba1bbba3b7cbedda9bde1afbf164234284d1bd509ec78dbba58ce39c3e5c3",
+  "decision": "authorize_h4_open_axis_cut_extraction_differential",
+  "environment": {
+    "git": {
+      "commit": "2aa3cb97dc776ac456b39fc9fa752783b947f343",
+      "dirty": false,
+      "strict_status": true
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "runtime": {
+      "backend": "cpu_float64_exact_small_game"
+    }
+  },
+  "gates": {
+    "acting_seat_count": true,
+    "all_opponent_multi_cut_control": true,
+    "behavioral_shortcut_rejection": true,
+    "bound_monotonicity": true,
+    "clean_git": true,
+    "complete_teacher_counts": true,
+    "exact_digest_dedup_only": true,
+    "exact_incumbent_identity": true,
+    "finite": true,
+    "global_gap": true,
+    "passed": true,
+    "realization_equivalence": true,
+    "repeated_actor_topology": true,
+    "retreat_jensen": true,
+    "safe_timeout_incumbent": true,
+    "teacher_objective_identity": true,
+    "total_time": true
+  },
+  "implementation_sha256": "fd77aa6d107bc4a27c40b83cfc51c7fbea93aec22a5f8a6d340a132a02c8c5c1",
+  "limitations": [
+    "This is a finite algebra and optimization control, not a poker-strength result.",
+    "The complete teacher is tractable only because Kuhn2 has 64 pure plans per seat.",
+    "A pass does not price h4 or h32 cut extraction, cut count, conditioning, or the 15-second ledger.",
+    "The exact evaluator remains emission authority; the restricted master never authorizes an unchecked policy."
+  ],
+  "methodology": {
+    "acting_players": [
+      0,
+      1
+    ],
+    "blueprint_iterations": 37,
+    "blueprint_solver": "lcfr",
+    "cut_policy": "all_violated_opponent_epigraph_rows_per_iteration",
+    "game": "kuhn2",
+    "gap_definition": "safe_incumbent_upper_bound_minus_master_lower_bound",
+    "generated_coordinates": "sequence_form_realization",
+    "guard": 0.25,
+    "retreat_factor": 0.8,
+    "row_deduplication": "exact_response_signature_only",
+    "teacher_coordinates": "complete_mixed_normal_form",
+    "timeout_policy": "best_independently_certified_feasible_incumbent"
+  },
+  "mutation_controls": {
+    "all_opponents_added_in_one_round": true,
+    "behavioral_shortcut_rejected": true,
+    "multi_cut_added_targets": [
+      1,
+      2
+    ],
+    "timeout_bound_orientation_correct": true,
+    "timeout_converged": false,
+    "timeout_safe_incumbent": true
+  },
+  "passed": true,
+  "primitive_sha256": "a84126b66aad760dcda28ba4870cd4a5daba18ebe5377fef8b1efa53a04d9231",
+  "schema_version": 1,
+  "status": "one_seat_convex_keystone_executed",
+  "strategy_quality_claim": null,
+  "topology": {
+    "passed": false,
+    "repeated_player": 0,
+    "witness_actions": [
+      [
+        0,
+        1
+      ],
+      "check",
+      "bet"
+    ]
+  },
+  "total_seconds": 1.5374425000045449
+}

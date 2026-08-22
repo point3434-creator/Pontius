@@ -141,15 +141,21 @@ hand keys instead of the continuation's external posterior axes. The algebra
 remains open, but a mechanical rerun is deferred in favor of the stronger
 one-seat convex-program question.
 
-**Immediate gate:** execute the ADR-0240 finite keystone from its clean
-preregistration commit. The generated sequence-form row solver must reproduce
-an independently enumerated complete normal-form optimum, preserve the safe
-incumbent and `U - L` timeout bound, reject the behavioral shortcut on a
-repeated-actor path, and pass the exact retreat control. A pass authorizes only
-an h4 open-axis cut-extraction differential; h32 cut count, extraction cost,
-conditioning, certification cost, and the 15-second ledger remain unopened.
-Retain one continuation step and the complete 31-block regret-vertex library as
-the live fallback, and do not open widened strategy labels on this control.
+ADR-0241 closes the finite keystone. The sequence-form row solver matches both
+complete 64-by-64 normal-form teachers to at most `3.47e-17`, preserves the
+safe-incumbent and `U - L` timeout contract, rejects the behavioral shortcut on
+a repeated-actor path, and passes realization-retreat identities below
+`1.1e-16`. It uses five opponent rows for acting seat 0 and three for seat 1;
+those sparse control counts are not an h32 prediction.
+
+**Immediate gate:** preregister one label-free h4 open-axis cut-extraction
+differential. Compare extracted fixed-response coefficient rows with direct
+exact perturbation teachers, cover repeated-actor sequence form and post-bet
+behavioral-shortcut topology, and price coefficient construction, response
+oracles, conditioning, and bytes. Only an h4 identity pass may reopen the
+corrected external-axis ADR-0238 implementation as an h32 row extractor. Retain
+one continuation step and the complete 31-block regret-vertex library as the
+live fallback, and do not open widened strategy labels on this control.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

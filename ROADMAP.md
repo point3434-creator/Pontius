@@ -184,12 +184,15 @@ preregistered `2e-11` cap allowance leaves the branch unchanged by nearly four
 orders of magnitude. The endpoint and diagnostic retreat remain un-emitted,
 and no strategy-quality claim is open.
 
-**Immediate gate:** preregister one narrow quality trial on this same target.
-Independently certify the factor-`0.5` retreat and compare it with the immutable
-blueprint and accepted one-step/31-block live fallback under the complete
-15-second ledger. Pass cap and epigraph tolerances as distinct semantics. The
-exact certificate remains sole emission authority; retain the one-seat,
-non-composition, and no-cross-street boundaries until fresh-target replication.
+**Open gate:** ADR-0249 freezes one narrow quality trial on this same target.
+Reconstruct the accepted convex endpoint, independently certify its factor-
+`0.5` retreat, and only then open the sealed one-step/31-block fallback label.
+The two-oracle schedule substitutes the retreat proof for the former endpoint
+proof and retains the full `13,967.616 ms` conservative charge. Cap and
+epigraph allowances are separate. A strict material-value and conservative-
+rate win can authorize only a fresh-target replication; external emission
+remains the immutable blueprint and the one-seat, non-composition, and no-
+cross-street boundaries remain closed.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

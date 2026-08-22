@@ -26,7 +26,7 @@ single-seat boundaries. No candidate from this optimizer artifact is emitted.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0249](docs/decisions/ADR-0249-preregister-one-seat-convex-retreat-quality-gate.md) — Preregister one-seat convex-retreat quality gate (accepted preregistration before any h32 retreat certificate or fallback label join).
 
 ## Evidence protocol
 
@@ -38,7 +38,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0225](docs/decisions/ADR-0225-preregister-continuation-root-wall-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root wall ledger |
 | [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting unbinds the complete 31-block library |
 | [ADR-0227](docs/decisions/ADR-0227-preregister-live-like-continuation-strategy-trial.md) | 2026-08-22 | accepted preregistration | Preregister the live-like continuation strategy trial |
 | [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) | 2026-08-22 | accepted fresh research result | Continuation rooting delivers exact safe value on all twelve targets |
@@ -62,12 +61,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0246](docs/decisions/ADR-0246-preregister-one-round-h32-convex-master.md) | 2026-08-22 | accepted preregistration before any h32 master candidate or oracle | Preregister one-round h32 convex master |
 | [ADR-0247](docs/decisions/ADR-0247-one-round-h32-convex-master-closes-the-exact-gap.md) | 2026-08-22 | accepted optimizer result; quality experiment authorization granted | One-round h32 convex master closes the exact gap |
 | [ADR-0248](docs/decisions/ADR-0248-auto-bootstrap-the-pinned-windows-cuda-dll-bundle.md) | 2026-08-22 | accepted process correction | Auto-bootstrap the pinned Windows CUDA DLL bundle |
+| [ADR-0249](docs/decisions/ADR-0249-preregister-one-seat-convex-retreat-quality-gate.md) | 2026-08-22 | accepted preregistration before any h32 retreat certificate or fallback label join | Preregister one-seat convex-retreat quality gate |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0248](docs/decisions/ADR-0248-auto-bootstrap-the-pinned-windows-cuda-dll-bundle.md) — Auto-bootstrap the pinned Windows CUDA DLL bundle.
-- Numbered decisions: 248.
-- ADR-header SHA-256: `234da7a2937fd1400a3c2388a7780695afce7cbff5c3f6beb27bf108967c5410`.
+- Latest ADR: [ADR-0249](docs/decisions/ADR-0249-preregister-one-seat-convex-retreat-quality-gate.md) — Preregister one-seat convex-retreat quality gate.
+- Numbered decisions: 249.
+- ADR-header SHA-256: `b7646e4aec1079fd14dfee843dcd7a8f5e17c823135353f94cf59a281879530f`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

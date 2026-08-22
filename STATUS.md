@@ -39,7 +39,7 @@ continual-resolving, population, composition, or broad poker-strength claim.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0223](docs/decisions/ADR-0223-preregister-continuation-root-semantic-preflight.md) — Preregister the continuation-root semantic preflight (accepted label-free preregistration).
 
 ## Evidence protocol
 
@@ -51,7 +51,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0199](docs/decisions/ADR-0199-preregister-retained-affine-selector-cascade-replay.md) | 2026-08-21 | accepted preregistration before missing-feature extraction or semantic label load | Preregister the retained affine selector-cascade replay |
 | [ADR-0200](docs/decisions/ADR-0200-selector-replay-v1-rejects-on-final-memory-schema-key.md) | 2026-08-21 | rejected result | Selector replay v1 rejects on its final memory-schema key |
 | [ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md) | 2026-08-21 | accepted correction preregistration before corrected replay | Preregister the memory-schema-corrected selector replay |
 | [ADR-0202](docs/decisions/ADR-0202-corrected-selector-replay-v2-rejects-on-overstrict-schema-guard.md) | 2026-08-21 | rejected corrected replay | Corrected selector replay v2 rejects on its overstrict schema guard |
@@ -75,12 +74,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) | 2026-08-21 | accepted label-free manifest result | The action-conditioned posterior panel is fresh, balanced, and nondegenerate |
 | [ADR-0221](docs/decisions/ADR-0221-preregister-action-conditioned-widened-selector-trial.md) | 2026-08-21 | accepted preregistration | Preregister the action-conditioned widened selector trial |
 | [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) | 2026-08-21 | accepted fresh research result; current live path rejected | Widened range transfer finds value, but live selection is infeasible |
+| [ADR-0223](docs/decisions/ADR-0223-preregister-continuation-root-semantic-preflight.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root semantic preflight |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) — Widened range transfer finds value, but live selection is infeasible.
-- Numbered decisions: 222.
-- ADR-header SHA-256: `1d351b854c20ace7e583705bbece26da06ba3a4f08e8036c28d5c471810c6a02`.
+- Latest ADR: [ADR-0223](docs/decisions/ADR-0223-preregister-continuation-root-semantic-preflight.md) — Preregister the continuation-root semantic preflight.
+- Numbered decisions: 223.
+- ADR-header SHA-256: `66a1648b5245691072513e50e0fb553844e8ef206a34f5fc938a0fe9edeef4a8`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

@@ -1,0 +1,14 @@
+{
+  "evidence_stage": "preregistered_after_adr0216_before_any_final_corrected_h32_hardware_counter_collection",
+  "expected_v1_result_sha256": "59801f5643b0e8c9bf7efe538a42ddc23c3802f5a4c53bc1f50b3ff2fd3745de",
+  "expected_v1_rejection_sha256": "dc71293d6f3a50800b0874ad9d802b245720fe348a3b6506bb1f13d2f006ec51",
+  "expected_v2_config_sha256": "0f0ea45a4529911600979e7bcee3bcb7cc46220bb2aa96babffd6d2e7290d80b",
+  "expected_v2_implementation_sha256": "acc6afdba1507d844ae1ee8d8744d2a1f9a7f02c39ba328544b7a04e87426629",
+  "expected_v2_control_test_sha256": "75fc257a89460887fd832d48459147f32c8eea9299681ca72b9eecde97e6c0fe",
+  "expected_v2_result_sha256": "77fb2b516af4c16ef2c33262fb7b9ee1035be53b2de86a131adb6992308ae70d",
+  "expected_v2_rejection_sha256": "318bd0c2e155e2e934794056158f026c7063c66ba2e9f9310245b9b44bc05469",
+  "expected_v3_implementation_sha256": "603b083d504f9027ac840eeb542957da561c630efe7f59a6f4f0ad43f2cb28e0",
+  "expected_v3_control_test_sha256": "37d8904f53b868cb84ccfa70d9aab7386aa8754958a24350218fb1a64412e683",
+  "correction_rule": "target_all_python_child_processes_and_restore_the_v1_wide_raw_page_without_per_kernel_summary",
+  "output_rule": "write_only_h32_resident_sparse_ncu_profile_v3_json"
+}

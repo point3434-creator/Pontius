@@ -15,7 +15,7 @@ The latest research ADR has no explicit Decision section.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0217](docs/decisions/ADR-0217-preregister-final-sparse-profiler-target-correction.md) — Preregister the final sparse-profiler target correction (accepted tooling correction before any final corrected h32 counter collection).
 
 ## Evidence protocol
 
@@ -27,7 +27,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-5 affine street replication |
 | [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) | 2026-08-21 | accepted prospective replication result | The affine street mechanism transfers to seat 5 but value remains concentrated |
 | [ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md) | 2026-08-21 | accepted preregistration before any replay step | Preregister a read-only h32 resident-step bottleneck profile |
 | [ADR-0196](docs/decisions/ADR-0196-resident-step-profile-v1-rejects-before-replay-on-parent-pass-key.md) | 2026-08-21 | rejected execution before any replay step | Resident-step profile v1 rejects before replay on the parent pass key |
@@ -51,12 +50,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the first resident-sparse profile on an empty console page |
 | [ADR-0215](docs/decisions/ADR-0215-preregister-corrected-resident-sparse-console-page.md) | 2026-08-21 | accepted tooling correction before any corrected h32 counter collection | Preregister the corrected resident-sparse console page |
 | [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the second sparse profile on Python child targeting |
+| [ADR-0217](docs/decisions/ADR-0217-preregister-final-sparse-profiler-target-correction.md) | 2026-08-21 | accepted tooling correction before any final corrected h32 counter collection | Preregister the final sparse-profiler target correction |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) — Reject the second sparse profile on Python child targeting.
-- Numbered decisions: 216.
-- ADR-header SHA-256: `0cd4a55041551de5e8704d0007f9d7c67d019a0a82a36ea6bb281434e1d8deb5`.
+- Latest ADR: [ADR-0217](docs/decisions/ADR-0217-preregister-final-sparse-profiler-target-correction.md) — Preregister the final sparse-profiler target correction.
+- Numbered decisions: 217.
+- ADR-header SHA-256: `6251a5b13460010519bcfd7b5c2f9fcead9a770644d5256709803239a0a4cebb`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

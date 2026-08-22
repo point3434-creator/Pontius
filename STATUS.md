@@ -5,40 +5,17 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) — Two continuation steps fit the conservative street ledger.
+Latest accepted research result: [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) — Held-out continuation posterior panel is fresh and nondegenerate.
 
-Status: accepted label-free engineering result.
+Status: accepted label-free result.
 
 ## Current decision
 
-Accept the label-free differential. Two continuation warm steps are safely
-affordable for this exact h32 continuation workload under the conservative
-street ledger. Authorize a fresh held-out action-conditioned posterior panel
-that compares one-step and two-step delivered exact value.
-
-The fresh experiment must not reuse the 12 opened target combinations. Select
-new `(board, source range family, observed bettor)` combinations before any
-new posterior or strategy value is computed. Preserve:
-
-- independent one-step and two-step solvers from the same restricted blueprint;
-- latest-step instantaneous regret-vertex directions in both arms;
-- all 31 legal continuation blocks and the full-affine winner rule;
-- one independent exact winner certificate per arm;
-- the hard 15-second boundary, 1,250 ms proof-start reserve, one-second
-  emission reserve, and immutable fallback; and
-- outcome-neutral validity gates.
-
-The primary comparison is exact delivered value per target and per hard-ledger
-second. A second step earns promotion only if it creates additional certified
-value rather than motion; deadline fit alone is no quality evidence.
-
-No strategy is populated. This result makes no two-step strategy-quality,
-deployment, continual-resolving, composition, population, or broad poker-
-strength claim.
+The latest research ADR has no explicit Decision section.
 
 ## Open preregistration
 
-[ADR-0231](docs/decisions/ADR-0231-preregister-heldout-continuation-posterior-panel.md) — Preregister the held-out continuation posterior panel (accepted label-free preregistration).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -50,7 +27,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0208](docs/decisions/ADR-0208-tier-b-batch-v1-rejects-before-h32-work-on-source-pass-schema.md) | 2026-08-21 | rejected execution before any h32 coefficient or timing measurement | Tier-B batch v1 rejects before h32 work on the source pass schema |
 | [ADR-0209](docs/decisions/ADR-0209-preregister-top-level-source-pass-correction-for-tier-b-batch.md) | 2026-08-21 | accepted schema-only correction preregistration before h32 work | Preregister the top-level source-pass correction for the Tier-B batch |
 | [ADR-0210](docs/decisions/ADR-0210-six-way-tier-b-batching-is-exact-but-does-not-reduce-resident-contraction-work.md) | 2026-08-21 | accepted corrected engineering result | Six-way Tier-B batching is exact but does not reduce resident contraction work |
 | [ADR-0211](docs/decisions/ADR-0211-preregister-resident-record-to-hand-fold-placement-differential.md) | 2026-08-21 | accepted engineering preregistration before any h32 placement measurement | Preregister the resident record-to-hand fold placement differential |
@@ -74,12 +50,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0229](docs/decisions/ADR-0229-preregister-label-free-continuation-depth-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the label-free continuation depth ledger |
 | [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) | 2026-08-22 | accepted label-free engineering result | Two continuation steps fit the conservative street ledger |
 | [ADR-0231](docs/decisions/ADR-0231-preregister-heldout-continuation-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration | Preregister the held-out continuation posterior panel |
+| [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) | 2026-08-22 | accepted label-free result | Held-out continuation posterior panel is fresh and nondegenerate |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0231](docs/decisions/ADR-0231-preregister-heldout-continuation-posterior-panel.md) — Preregister the held-out continuation posterior panel.
-- Numbered decisions: 231.
-- ADR-header SHA-256: `6da62ae94fefb1e6f15c313640f0434ea5b24315b09877a2d8d22e229ae44396`.
+- Latest ADR: [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) — Held-out continuation posterior panel is fresh and nondegenerate.
+- Numbered decisions: 232.
+- ADR-header SHA-256: `165dd38f8daa5a5e61954336d3775cef58bcc655a00beb1dfabf4d1d8c1487be`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -87,4 +64,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) and its dependencies
+4. [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) and its dependencies

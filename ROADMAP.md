@@ -273,13 +273,19 @@ manifest must prove the legal prefix, current-player identity, one-node h32
 axis, path-single-visit topology, fresh posterior identity, and nondegenerate
 belief shifts before GPU work.
 
-**Immediate gate:** execute the ADR-0261 CPU-only manifest once. A complete pass
-authorizes a separate prospective live-shadow preregistration using one bounded
-one-round convex attempt, factor `0.5`, the existing exact certificate and
-interior floor, complete deadline ledger, and immediate blueprint fallback. A
-failure rejects this fixed all-call panel without substituting a target. Do not
-use the structured Latin panels as an IID success-rate estimate, retune on
-their two abstentions, or introduce deployment authority.
+ADR-0262 accepts the label-blind manifest. All six posterior identities are
+fresh and nondegenerate; every declared actor is the current fold/call player,
+with three downstream responders, one acting public node, 32 h32 information
+sets, and 64 behavioral variables. Current-actor marginal TV is
+`0.062778–0.152469`. The manifest generated zero strategy labels.
+
+**Immediate gate:** preregister the prospective decision-aligned live-shadow
+trial on all six ADR-0262 targets in manifest order. Use one bounded one-round
+convex attempt, factor `0.5`, the existing exact certificate and interior
+floor, complete deadline ledger, campaign-wide barrier, and immediate blueprint
+fallback. Recompute only the frozen axis-count expectations for the one-node
+scope. Do not use TV or the structured Latin labels to select targets, retune
+on their two abstentions, or introduce deployment authority.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

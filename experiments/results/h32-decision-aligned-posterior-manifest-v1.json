@@ -1,0 +1,934 @@
+{
+  "aggregate": {
+    "acting_player_counts": {
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
+    },
+    "acting_public_nodes_per_target": [
+      1
+    ],
+    "bettor_counts": {
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
+    },
+    "downstream_responders_per_target": [
+      3
+    ],
+    "maximum_acting_player_marginal_tv": 0.15246918923223424,
+    "maximum_observed_responder_marginal_tv": 0.8416293621947495,
+    "minimum_acting_player_marginal_tv": 0.06277764191940166,
+    "minimum_observed_responder_marginal_tv": 0.679208950549456,
+    "observation_rows": 27,
+    "observed_responder_counts": {
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1,
+      "5": 1
+    },
+    "source_counts": {
+      "panel_1/balanced": 1,
+      "panel_1/blocker_heavy": 1,
+      "panel_2/balanced": 1,
+      "panel_2/blocker_heavy": 1,
+      "panel_3/balanced": 1,
+      "panel_3/blocker_heavy": 1
+    }
+  },
+  "config_sha256": "e0870ac0da41222532b661f1b8f83c213082c24f858ab87750dfc91d25860eab",
+  "decision": "authorize_preregistered_decision_aligned_live_shadow_trial",
+  "environment": {
+    "git": {
+      "commit": "1cdbbcd40c4dc461ab4d7f18280a045fab89e9e1",
+      "dirty": false,
+      "strict_status": true
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "runtime": {
+      "kind": "cpu_only"
+    }
+  },
+  "gates": {
+    "acting_player_balance": true,
+    "axis_counts": true,
+    "bettor_balance": true,
+    "blueprint_identity": true,
+    "call_fold_root": true,
+    "clean_git": true,
+    "current_player_alignment": true,
+    "finite": true,
+    "hand_axes_identity": true,
+    "latin_f_parent_passed": true,
+    "legal_public_prefix": true,
+    "live_shadow_authorized": true,
+    "marginal_split_identity": true,
+    "new_strategy_labels_zero": true,
+    "nonzero_acting_player_marginal_shift": true,
+    "nonzero_bettor_marginal_shift": true,
+    "nonzero_observed_responder_marginal_shift": true,
+    "observation_count": true,
+    "observed_responder_balance": true,
+    "passed": true,
+    "path_single_visit": true,
+    "source_balance": true,
+    "source_checkpoint_identity": true,
+    "source_count": true,
+    "source_parent_passed": true,
+    "strategy_population_claim_null": true,
+    "target_count": true,
+    "target_differs_from_source": true,
+    "target_digest_fresh": true,
+    "target_digest_unique": true,
+    "target_id_fresh": true,
+    "three_downstream_responders": true,
+    "total_time": true,
+    "zero_topology_mismatches": true
+  },
+  "implementation_sha256": "f5e5cd2c028811cb09dc9fd75fd03f8077b65a8c35e0c2ecf93ff0876f8d274e",
+  "limitations": [
+    "The six boards and source blueprints are retained; freshness applies to the deeper post-call posterior identities.",
+    "Every target observes a call, so this panel does not test a post-fold posterior.",
+    "The panel is structurally balanced but is not an IID sample of deployment decisions.",
+    "Marginal TV and topology are label-free descriptors, not strategy-opportunity labels.",
+    "No warm step, candidate, certificate, strategy quality, deployment, or poker-strength claim is made."
+  ],
+  "methodology": {
+    "certificates": 0,
+    "continuation_topologies_compiled": 6,
+    "convex_candidates": 0,
+    "new_warm_steps": 0,
+    "posterior_targets_constructed": 6,
+    "quality_evaluations": 0,
+    "strategy_labels": 0
+  },
+  "passed": true,
+  "schema_version": 1,
+  "status": "h32_decision_aligned_posterior_manifest_executed",
+  "strategy_population_claim": null,
+  "target_rows": [
+    {
+      "acting_player": 2,
+      "acting_player_marginal_total_variation": 0.06277764191940166,
+      "acting_public_nodes": 1,
+      "behavioral_information_sets": 32,
+      "construction": "sequential_blueprint_action_likelihoods_for_checks_bet_and_one_call",
+      "continuation_public_nodes": 31,
+      "downstream_responders_after_actor": 3,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.5815410339962279,
+        0.679208950549456,
+        0.06277764191940166,
+        0.09159835830341279,
+        0.07067367173545128,
+        0.0884481377649681
+      ],
+      "maximum_marginal_total_variation": 0.679208950549456,
+      "observation_count": 2,
+      "observation_rows": [
+        {
+          "action": "bet",
+          "actor": 0,
+          "likelihood_maximum": 0.8190902702255047,
+          "likelihood_mean": 0.11580320083518841,
+          "likelihood_minimum": 5.163385376855523e-05,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "call",
+          "actor": 1,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.20178791152618364,
+          "likelihood_minimum": 5.5903398926654765e-06,
+          "positive_hand_count": 32,
+          "public_history": "p0:bet",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 0,
+      "observed_bettor_marginal_total_variation": 0.5815410339962279,
+      "observed_responder": 1,
+      "observed_responder_marginal_total_variation": 0.679208950549456,
+      "observed_response": "call",
+      "path_single_visit": true,
+      "policy_variables": 64,
+      "public_prefix": [
+        [
+          0,
+          "bet"
+        ],
+        [
+          1,
+          "call"
+        ]
+      ],
+      "public_sequence": [
+        {
+          "action": "bet",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "call",
+          "actor": 1,
+          "public_history": "p0:bet"
+        }
+      ],
+      "remaining_responders": 4,
+      "root_current_player": 2,
+      "root_legal_actions": [
+        "fold",
+        "call"
+      ],
+      "round": "decision_aligned_call_v1",
+      "source": "panel_1/balanced",
+      "source_belief_sha256": "376e8a44217f35dfdf305035fe8f3bbfb52b010e14050bedaf55da78c9e72885",
+      "source_split_relative_error": 2.7501716243285902e-15,
+      "target_belief_sha256": "dd5d0999464177a326de3bf75fe7b635f87aa0f3d0cf530a941a4c19970f18b1",
+      "target_descriptor_sha256": "066a5dd17b5a7005207fb9026fad56bfafb0798d59ef0eb0c39251fc3b3989b2",
+      "target_digest_fresh_at_base_commit": true,
+      "target_id": "panel_1/balanced/checks_then_bet_seat0_then_call_seat1",
+      "target_id_fresh_at_base_commit": true,
+      "target_split_relative_error": 2.6020914187610124e-14,
+      "topology_mismatch_count": 0
+    },
+    {
+      "acting_player": 3,
+      "acting_player_marginal_total_variation": 0.0846047958584229,
+      "acting_public_nodes": 1,
+      "behavioral_information_sets": 32,
+      "construction": "sequential_blueprint_action_likelihoods_for_checks_bet_and_one_call",
+      "continuation_public_nodes": 31,
+      "downstream_responders_after_actor": 3,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.13210850232809265,
+        0.5067112427512575,
+        0.7290101259134582,
+        0.0846047958584229,
+        0.12034743849838939,
+        0.11388620485479367
+      ],
+      "maximum_marginal_total_variation": 0.7290101259134582,
+      "observation_count": 3,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9741615442593168,
+          "likelihood_minimum": 0.6422022239147597,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 1,
+          "likelihood_maximum": 0.6613847179294919,
+          "likelihood_mean": 0.09427582678467737,
+          "likelihood_minimum": 0.000701169566103884,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "call",
+          "actor": 2,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.206915438957256,
+          "likelihood_minimum": 5.5903398926654765e-06,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:bet",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 1,
+      "observed_bettor_marginal_total_variation": 0.5067112427512575,
+      "observed_responder": 2,
+      "observed_responder_marginal_total_variation": 0.7290101259134582,
+      "observed_response": "call",
+      "path_single_visit": true,
+      "policy_variables": 64,
+      "public_prefix": [
+        [
+          0,
+          "check"
+        ],
+        [
+          1,
+          "bet"
+        ],
+        [
+          2,
+          "call"
+        ]
+      ],
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "bet",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "call",
+          "actor": 2,
+          "public_history": "p0:check/p1:bet"
+        }
+      ],
+      "remaining_responders": 4,
+      "root_current_player": 3,
+      "root_legal_actions": [
+        "fold",
+        "call"
+      ],
+      "round": "decision_aligned_call_v1",
+      "source": "panel_1/blocker_heavy",
+      "source_belief_sha256": "aa3a5a8abe8dc72fe436134d4b619239a87b002134cdad88a908d833318b5067",
+      "source_split_relative_error": 8.881357337419935e-14,
+      "target_belief_sha256": "3258159fa9c771418f263630130f509e17e14b278db1827f574e810d410e8bf0",
+      "target_descriptor_sha256": "ce5cf688879b210f67e9b51a4801b06b9250031d9fe52679a93baebb839fe2b2",
+      "target_digest_fresh_at_base_commit": true,
+      "target_id": "panel_1/blocker_heavy/checks_then_bet_seat1_then_call_seat2",
+      "target_id_fresh_at_base_commit": true,
+      "target_split_relative_error": 3.767858842720681e-15,
+      "topology_mismatch_count": 0
+    },
+    {
+      "acting_player": 4,
+      "acting_player_marginal_total_variation": 0.07040249793291821,
+      "acting_public_nodes": 1,
+      "behavioral_information_sets": 32,
+      "construction": "sequential_blueprint_action_likelihoods_for_checks_bet_and_one_call",
+      "continuation_public_nodes": 31,
+      "downstream_responders_after_actor": 3,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.11664316694651569,
+        0.1294255679602646,
+        0.5707729012858891,
+        0.8416293621947495,
+        0.07040249793291821,
+        0.08008063953353718
+      ],
+      "maximum_marginal_total_variation": 0.8416293621947495,
+      "observation_count": 4,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9246648909937909,
+          "likelihood_minimum": 0.4749608515606836,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "likelihood_maximum": 0.9980312843104159,
+          "likelihood_mean": 0.8779423973559646,
+          "likelihood_minimum": 0.3498991216194137,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 2,
+          "likelihood_maximum": 0.9929511292747419,
+          "likelihood_mean": 0.19652702311016704,
+          "likelihood_minimum": 0.0005034118435239261,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "call",
+          "actor": 3,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.17649713440570425,
+          "likelihood_minimum": 5.5903398926654765e-06,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:bet",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 2,
+      "observed_bettor_marginal_total_variation": 0.5707729012858891,
+      "observed_responder": 3,
+      "observed_responder_marginal_total_variation": 0.8416293621947495,
+      "observed_response": "call",
+      "path_single_visit": true,
+      "policy_variables": 64,
+      "public_prefix": [
+        [
+          0,
+          "check"
+        ],
+        [
+          1,
+          "check"
+        ],
+        [
+          2,
+          "bet"
+        ],
+        [
+          3,
+          "call"
+        ]
+      ],
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "bet",
+          "actor": 2,
+          "public_history": "p0:check/p1:check"
+        },
+        {
+          "action": "call",
+          "actor": 3,
+          "public_history": "p0:check/p1:check/p2:bet"
+        }
+      ],
+      "remaining_responders": 4,
+      "root_current_player": 4,
+      "root_legal_actions": [
+        "fold",
+        "call"
+      ],
+      "round": "decision_aligned_call_v1",
+      "source": "panel_2/blocker_heavy",
+      "source_belief_sha256": "59f955c6b89bdc56670dc16b19795451404fe80ff37f519bac007975d85200f1",
+      "source_split_relative_error": 1.2978186106986323e-14,
+      "target_belief_sha256": "fc99073dbdf0fd30e602768b69bf6f78b7e9c329146ea1a56d9b3ac4dfc5fe7f",
+      "target_descriptor_sha256": "830c7a71848e6fdd959ad3751514239370b8bc330e62c137489c6da3a5d3bf7a",
+      "target_digest_fresh_at_base_commit": true,
+      "target_id": "panel_2/blocker_heavy/checks_then_bet_seat2_then_call_seat3",
+      "target_id_fresh_at_base_commit": true,
+      "target_split_relative_error": 3.9140562091460525e-14,
+      "topology_mismatch_count": 0
+    },
+    {
+      "acting_player": 5,
+      "acting_player_marginal_total_variation": 0.07151659457698226,
+      "acting_public_nodes": 1,
+      "behavioral_information_sets": 32,
+      "construction": "sequential_blueprint_action_likelihoods_for_checks_bet_and_one_call",
+      "continuation_public_nodes": 31,
+      "downstream_responders_after_actor": 3,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.13285441660845806,
+        0.11422210600793438,
+        0.1610099715718735,
+        0.6283689896829153,
+        0.724446563975939,
+        0.07151659457698226
+      ],
+      "maximum_marginal_total_variation": 0.724446563975939,
+      "observation_count": 5,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.8646859135814435,
+          "likelihood_minimum": 0.06945602228877436,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "likelihood_maximum": 0.999272995048622,
+          "likelihood_mean": 0.8910479832609907,
+          "likelihood_minimum": 0.09960330884715539,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "likelihood_maximum": 0.9993002634261472,
+          "likelihood_mean": 0.8340440724736051,
+          "likelihood_minimum": 0.11775557201316886,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 3,
+          "likelihood_maximum": 0.9988420130396881,
+          "likelihood_mean": 0.22324794527655326,
+          "likelihood_minimum": 0.002330737046839058,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "call",
+          "actor": 4,
+          "likelihood_maximum": 0.9999720483005367,
+          "likelihood_mean": 0.20367245178092666,
+          "likelihood_minimum": 2.795169946332738e-05,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check/p3:bet",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 3,
+      "observed_bettor_marginal_total_variation": 0.6283689896829153,
+      "observed_responder": 4,
+      "observed_responder_marginal_total_variation": 0.724446563975939,
+      "observed_response": "call",
+      "path_single_visit": true,
+      "policy_variables": 64,
+      "public_prefix": [
+        [
+          0,
+          "check"
+        ],
+        [
+          1,
+          "check"
+        ],
+        [
+          2,
+          "check"
+        ],
+        [
+          3,
+          "bet"
+        ],
+        [
+          4,
+          "call"
+        ]
+      ],
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "public_history": "p0:check/p1:check"
+        },
+        {
+          "action": "bet",
+          "actor": 3,
+          "public_history": "p0:check/p1:check/p2:check"
+        },
+        {
+          "action": "call",
+          "actor": 4,
+          "public_history": "p0:check/p1:check/p2:check/p3:bet"
+        }
+      ],
+      "remaining_responders": 4,
+      "root_current_player": 5,
+      "root_legal_actions": [
+        "fold",
+        "call"
+      ],
+      "round": "decision_aligned_call_v1",
+      "source": "panel_2/balanced",
+      "source_belief_sha256": "0662b2cf2436cbc6dcc5669fe75a2c15f03e652fb40a6903703a10dd14cfa289",
+      "source_split_relative_error": 5.337060699155045e-14,
+      "target_belief_sha256": "6abecaaf1965d8fec1198e4ce2aa974ca434458d01e2def8d3f8c6c84823a679",
+      "target_descriptor_sha256": "3b15ca5cfd6fd32fbf805462b4e81ae123837cf90c5d5faa4eb466fcaac64437",
+      "target_digest_fresh_at_base_commit": true,
+      "target_id": "panel_2/balanced/checks_then_bet_seat3_then_call_seat4",
+      "target_id_fresh_at_base_commit": true,
+      "target_split_relative_error": 1.423197528702988e-14,
+      "topology_mismatch_count": 0
+    },
+    {
+      "acting_player": 0,
+      "acting_player_marginal_total_variation": 0.09666234091025289,
+      "acting_public_nodes": 1,
+      "behavioral_information_sets": 32,
+      "construction": "sequential_blueprint_action_likelihoods_for_checks_bet_and_one_call",
+      "continuation_public_nodes": 31,
+      "downstream_responders_after_actor": 3,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.09666234091025289,
+        0.08661130999729916,
+        0.2026415561945787,
+        0.24171965138334472,
+        0.6837191264496386,
+        0.7189003114868817
+      ],
+      "maximum_marginal_total_variation": 0.7189003114868817,
+      "observation_count": 6,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9553054148817585,
+          "likelihood_minimum": 0.3490051890450674,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "likelihood_maximum": 0.997337875139897,
+          "likelihood_mean": 0.923081430606252,
+          "likelihood_minimum": 0.36428061857350413,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "likelihood_maximum": 0.9997810305569311,
+          "likelihood_mean": 0.8350832451608152,
+          "likelihood_minimum": 0.07145158669523347,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 3,
+          "likelihood_maximum": 0.9973848872551029,
+          "likelihood_mean": 0.761711726963208,
+          "likelihood_minimum": 0.002713995117262852,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 4,
+          "likelihood_maximum": 0.9996296306678124,
+          "likelihood_mean": 0.21483402487198516,
+          "likelihood_minimum": 0.0012851275049363179,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check/p3:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "call",
+          "actor": 5,
+          "likelihood_maximum": 0.9999720483005367,
+          "likelihood_mean": 0.2486984026493761,
+          "likelihood_minimum": 2.795169946332738e-05,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check/p3:check/p4:bet",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 4,
+      "observed_bettor_marginal_total_variation": 0.6837191264496386,
+      "observed_responder": 5,
+      "observed_responder_marginal_total_variation": 0.7189003114868817,
+      "observed_response": "call",
+      "path_single_visit": true,
+      "policy_variables": 64,
+      "public_prefix": [
+        [
+          0,
+          "check"
+        ],
+        [
+          1,
+          "check"
+        ],
+        [
+          2,
+          "check"
+        ],
+        [
+          3,
+          "check"
+        ],
+        [
+          4,
+          "bet"
+        ],
+        [
+          5,
+          "call"
+        ]
+      ],
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "public_history": "p0:check/p1:check"
+        },
+        {
+          "action": "check",
+          "actor": 3,
+          "public_history": "p0:check/p1:check/p2:check"
+        },
+        {
+          "action": "bet",
+          "actor": 4,
+          "public_history": "p0:check/p1:check/p2:check/p3:check"
+        },
+        {
+          "action": "call",
+          "actor": 5,
+          "public_history": "p0:check/p1:check/p2:check/p3:check/p4:bet"
+        }
+      ],
+      "remaining_responders": 4,
+      "root_current_player": 0,
+      "root_legal_actions": [
+        "fold",
+        "call"
+      ],
+      "round": "decision_aligned_call_v1",
+      "source": "panel_3/balanced",
+      "source_belief_sha256": "cadd9449259f56de43ae4d710c2e3fd6ae4733e7b7c8323836b87578a3cc9a71",
+      "source_split_relative_error": 4.233789914264027e-15,
+      "target_belief_sha256": "540b9a2abc13a2a0ad1c3512b2f296d992bb7345d87a08134e3f268c1304d123",
+      "target_descriptor_sha256": "d8bdcef89f33cb09927b09c5ae18b7c3791b8232a535037599a1963d15abe7df",
+      "target_digest_fresh_at_base_commit": true,
+      "target_id": "panel_3/balanced/checks_then_bet_seat4_then_call_seat5",
+      "target_id_fresh_at_base_commit": true,
+      "target_split_relative_error": 7.618427205026485e-15,
+      "topology_mismatch_count": 0
+    },
+    {
+      "acting_player": 1,
+      "acting_player_marginal_total_variation": 0.15246918923223424,
+      "acting_public_nodes": 1,
+      "behavioral_information_sets": 32,
+      "construction": "sequential_blueprint_action_likelihoods_for_checks_bet_and_one_call",
+      "continuation_public_nodes": 31,
+      "downstream_responders_after_actor": 3,
+      "hand_axes_identity": true,
+      "marginal_total_variation_by_seat": [
+        0.6913974928660183,
+        0.15246918923223424,
+        0.12268016286278448,
+        0.16466052826516622,
+        0.2549209401383758,
+        0.5909829387719079
+      ],
+      "maximum_marginal_total_variation": 0.6913974928660183,
+      "observation_count": 7,
+      "observation_rows": [
+        {
+          "action": "check",
+          "actor": 0,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9131011696270189,
+          "likelihood_minimum": 0.4576228246587848,
+          "positive_hand_count": 32,
+          "public_history": "root",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.8725907994598268,
+          "likelihood_minimum": 0.04516272010170767,
+          "positive_hand_count": 32,
+          "public_history": "p0:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "likelihood_maximum": 0.9999944096601074,
+          "likelihood_mean": 0.9151189079870281,
+          "likelihood_minimum": 0.3437546651750508,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 3,
+          "likelihood_maximum": 0.9988183146420518,
+          "likelihood_mean": 0.7794315030964546,
+          "likelihood_minimum": 0.001614232764361214,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "check",
+          "actor": 4,
+          "likelihood_maximum": 0.9994536733262973,
+          "likelihood_mean": 0.7855385703335287,
+          "likelihood_minimum": 0.000554025803034301,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check/p3:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "bet",
+          "actor": 5,
+          "likelihood_maximum": 0.9999720483005367,
+          "likelihood_mean": 0.2731331051471523,
+          "likelihood_minimum": 0.0010111166795933387,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check/p3:check/p4:check",
+          "zero_hand_count": 0
+        },
+        {
+          "action": "call",
+          "actor": 0,
+          "likelihood_maximum": 0.9999958003965512,
+          "likelihood_mean": 0.24739020353771826,
+          "likelihood_minimum": 2.795185572370149e-06,
+          "positive_hand_count": 32,
+          "public_history": "p0:check/p1:check/p2:check/p3:check/p4:check/p5:bet",
+          "zero_hand_count": 0
+        }
+      ],
+      "observed_bettor": 5,
+      "observed_bettor_marginal_total_variation": 0.5909829387719079,
+      "observed_responder": 0,
+      "observed_responder_marginal_total_variation": 0.6913974928660183,
+      "observed_response": "call",
+      "path_single_visit": true,
+      "policy_variables": 64,
+      "public_prefix": [
+        [
+          0,
+          "check"
+        ],
+        [
+          1,
+          "check"
+        ],
+        [
+          2,
+          "check"
+        ],
+        [
+          3,
+          "check"
+        ],
+        [
+          4,
+          "check"
+        ],
+        [
+          5,
+          "bet"
+        ],
+        [
+          0,
+          "call"
+        ]
+      ],
+      "public_sequence": [
+        {
+          "action": "check",
+          "actor": 0,
+          "public_history": "root"
+        },
+        {
+          "action": "check",
+          "actor": 1,
+          "public_history": "p0:check"
+        },
+        {
+          "action": "check",
+          "actor": 2,
+          "public_history": "p0:check/p1:check"
+        },
+        {
+          "action": "check",
+          "actor": 3,
+          "public_history": "p0:check/p1:check/p2:check"
+        },
+        {
+          "action": "check",
+          "actor": 4,
+          "public_history": "p0:check/p1:check/p2:check/p3:check"
+        },
+        {
+          "action": "bet",
+          "actor": 5,
+          "public_history": "p0:check/p1:check/p2:check/p3:check/p4:check"
+        },
+        {
+          "action": "call",
+          "actor": 0,
+          "public_history": "p0:check/p1:check/p2:check/p3:check/p4:check/p5:bet"
+        }
+      ],
+      "remaining_responders": 4,
+      "root_current_player": 1,
+      "root_legal_actions": [
+        "fold",
+        "call"
+      ],
+      "round": "decision_aligned_call_v1",
+      "source": "panel_3/blocker_heavy",
+      "source_belief_sha256": "74ce0c18ac82e9ebb799be851f140c7011ad75671a3409f94c7db1db3187278e",
+      "source_split_relative_error": 6.594070969432982e-15,
+      "target_belief_sha256": "84219064643dd4b3ea345386fb065ec4a1fc2003e87df526bca44efa20f8b0dd",
+      "target_descriptor_sha256": "a588b5902f42b44d1a714073bfa2eca2ec6c2216913625aa22420316aeb0c1b0",
+      "target_digest_fresh_at_base_commit": true,
+      "target_id": "panel_3/blocker_heavy/checks_then_bet_seat5_then_call_seat0",
+      "target_id_fresh_at_base_commit": true,
+      "target_split_relative_error": 1.3269908502143092e-15,
+      "topology_mismatch_count": 0
+    }
+  ],
+  "total_seconds": 60.33186220000789
+}

@@ -20,7 +20,7 @@ of the same six-target breadth branch.
 
 ## Open preregistration
 
-[ADR-0261](docs/decisions/ADR-0261-preregister-decision-aligned-post-call-posterior-panel.md) — Preregister decision-aligned post-call posterior panel (accepted label-blind preregistration before any decision-aligned strategy label).
+[ADR-0262](docs/decisions/ADR-0262-post-call-panel-is-fresh-current-and-nondegenerate.md) — Post-call panel is fresh, current, and nondegenerate (accepted label-blind result; decision-aligned live-shadow preregistration authorized).
 
 ## Evidence protocol
 
@@ -32,7 +32,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0238](docs/decisions/ADR-0238-preregister-cross-payoff-reverse-adjoint-feasibility.md) | 2026-08-22 | accepted preregistration before any cross-payoff h32 pass | Preregister cross-payoff reverse-adjoint feasibility |
 | [ADR-0239](docs/decisions/ADR-0239-reject-cross-payoff-v1-on-external-axis-key-mismatch.md) | 2026-08-22 | rejected execution; no coefficient or timing result accepted | Reject cross-payoff v1 on external-axis key mismatch |
 | [ADR-0240](docs/decisions/ADR-0240-preregister-one-seat-convex-generation-keystone.md) | 2026-08-22 | accepted preregistration before the frozen convex-keystone run | Preregister one-seat convex generation keystone |
 | [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) | 2026-08-22 | accepted finite control; h4 cut-extraction differential authorized | One-seat convex generation matches complete teacher |
@@ -56,12 +55,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0259](docs/decisions/ADR-0259-preregister-untouched-latin-f-convex-retreat-confirmation.md) | 2026-08-22 | accepted preregistration before any Latin-F warm step, candidate, or strategy label | Preregister untouched Latin-F convex-retreat confirmation |
 | [ADR-0260](docs/decisions/ADR-0260-latin-f-confirms-convex-breadth-with-two-interior-abstentions.md) | 2026-08-22 | accepted fresh confirmation; prospective live-shadow preregistration authorized | Latin-F confirms convex breadth with two interior abstentions |
 | [ADR-0261](docs/decisions/ADR-0261-preregister-decision-aligned-post-call-posterior-panel.md) | 2026-08-22 | accepted label-blind preregistration before any decision-aligned strategy label | Preregister decision-aligned post-call posterior panel |
+| [ADR-0262](docs/decisions/ADR-0262-post-call-panel-is-fresh-current-and-nondegenerate.md) | 2026-08-22 | accepted label-blind result; decision-aligned live-shadow preregistration authorized | Post-call panel is fresh, current, and nondegenerate |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0261](docs/decisions/ADR-0261-preregister-decision-aligned-post-call-posterior-panel.md) — Preregister decision-aligned post-call posterior panel.
-- Numbered decisions: 261.
-- ADR-header SHA-256: `a4a25f9e5661108e0fa0d0e8a40b190d340a4a0904815a02cb94d8e36bfbad96`.
+- Latest ADR: [ADR-0262](docs/decisions/ADR-0262-post-call-panel-is-fresh-current-and-nondegenerate.md) — Post-call panel is fresh, current, and nondegenerate.
+- Numbered decisions: 262.
+- ADR-header SHA-256: `8ddd90d07ae8b1929154ee802d888cfea7678565199d5526bc9f4bfaaddd37d2`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

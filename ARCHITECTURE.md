@@ -440,6 +440,15 @@ authorizes prospective live-shadow integration with the same no-op path; it
 does not infer an IID population rate or a fresh comparison against the one-
 step regret-vertex fallback.
 
+[ADR-0262](docs/decisions/ADR-0262-post-call-panel-is-fresh-current-and-nondegenerate.md)
+aligns that next integration with the actual decision root. After checks, a
+bet, and the first responder's call, the second responder is both the declared
+one-seat axis and the current fold/call player; three opponents remain
+downstream. The complete current-decision axis is therefore one public node,
+32 h32 information sets, and 64 behavioral variables. Six fixed post-call
+posterior identities pass the label-blind freshness, topology, and belief-
+nondegeneracy gates. No strategy label has yet been opened on this scope.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

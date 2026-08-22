@@ -30,7 +30,7 @@ cap allowance, residual tolerance, cut budget, order, or materiality floor.
 
 ## Open preregistration
 
-[ADR-0272](docs/decisions/ADR-0272-current-decision-closure-and-safe-retreat-fit-one-street.md) — Current-decision closure and safe retreat fit one street (accepted read-only ledger result; fresh post-fold confirmation preregistration authorized).
+[ADR-0273](docs/decisions/ADR-0273-preregister-fresh-post-fold-closure-and-value-confirmation.md) — Preregister fresh post-fold closure and value confirmation (accepted preregistration before any post-fold warm step, optimizer, or strategy label).
 
 ## Evidence protocol
 
@@ -42,7 +42,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0249](docs/decisions/ADR-0249-preregister-one-seat-convex-retreat-quality-gate.md) | 2026-08-22 | accepted preregistration before any h32 retreat certificate or fallback label join | Preregister one-seat convex-retreat quality gate |
 | [ADR-0250](docs/decisions/ADR-0250-reject-bytewise-retreat-reconstruction-before-labels.md) | 2026-08-22 | rejected preregistered execution before any new strategy-quality label | Reject bytewise retreat reconstruction before labels |
 | [ADR-0251](docs/decisions/ADR-0251-preregister-numerically-identified-convex-retreat-quality-gate.md) | 2026-08-22 | accepted corrected preregistration before any retreat certificate or fallback label join | Preregister numerically identified convex-retreat quality gate |
 | [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) | 2026-08-22 | accepted single-target strategy-quality result; fresh replication authorized | Convex retreat beats the live fallback on the frozen target |
@@ -66,12 +65,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0270](docs/decisions/ADR-0270-current-decision-programs-close-wide-axis-census-does-not.md) | 2026-08-22 | accepted retrospective censored result; current-decision combined-ledger replay authorized | Current-decision programs close; wide-axis census does not |
 | [ADR-0271](docs/decisions/ADR-0271-preregister-current-decision-combined-ledger-replay.md) | 2026-08-22 | accepted executable preregistration before any post-fold strategy label | Preregister current-decision combined-ledger replay |
 | [ADR-0272](docs/decisions/ADR-0272-current-decision-closure-and-safe-retreat-fit-one-street.md) | 2026-08-22 | accepted read-only ledger result; fresh post-fold confirmation preregistration authorized | Current-decision closure and safe retreat fit one street |
+| [ADR-0273](docs/decisions/ADR-0273-preregister-fresh-post-fold-closure-and-value-confirmation.md) | 2026-08-22 | accepted preregistration before any post-fold warm step, optimizer, or strategy label | Preregister fresh post-fold closure and value confirmation |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0272](docs/decisions/ADR-0272-current-decision-closure-and-safe-retreat-fit-one-street.md) — Current-decision closure and safe retreat fit one street.
-- Numbered decisions: 272.
-- ADR-header SHA-256: `6691f48d2fa2eb0a2ee6d54589edbcee620613d8183cf3a3511e42dd9272a27c`.
+- Latest ADR: [ADR-0273](docs/decisions/ADR-0273-preregister-fresh-post-fold-closure-and-value-confirmation.md) — Preregister fresh post-fold closure and value confirmation.
+- Numbered decisions: 273.
+- ADR-header SHA-256: `d749de9ba1ba01350669404b0e7a75dd2909c1193a47b7a985a9c02d866c5b84`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

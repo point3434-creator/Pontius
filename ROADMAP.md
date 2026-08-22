@@ -358,13 +358,20 @@ ledger is 5.885 seconds. The worst conservative ledger is 14.968 seconds,
 leaving 32.384 ms. Every inherited retreat remains exact-safe and positive,
 and the post-fold labels remain unopened.
 
-**Immediate gate:** separately preregister all six post-fold current-decision
-targets as fresh closure-and-value confirmation. Preserve the one-round
-algorithm, factor `0.5`, exact retreat certificate, all numerical allowances,
-target order, materiality rule, immutable external emission, and full prelabel
-barrier. A post-cut endpoint oracle is the only new charged component and must
-finish within 1,000 ms. Any second-round need or ledger failure retains the
-direction fallback.
+ADR-0273 freezes that fresh confirmation. It uses all six post-fold identities
+in manifest order, a separately pinned fold adapter, and a restoration-tested
+capture of the sealed core's exact endpoint and final epigraph outputs. All six
+candidates freeze before any post-cut endpoint or final retreat label. Zero-cut
+paths reuse the first oracle; one-cut paths add exactly one endpoint oracle and
+never continue to round two. Global closure requires exact cap and epigraph
+closure plus `U - L <= 1e-8`.
+
+**Immediate gate:** invoke ADR-0273 once from its clean preregistration commit.
+Only six global closures, six safe positive half-retreats, four material rows
+above `0.001` spanning both families, and complete measured/conservative
+15-second ledgers authorize a current-decision direction-demotion review. Any
+second-round need or scientific failure retains the fallback; any process
+failure rejects the invocation.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

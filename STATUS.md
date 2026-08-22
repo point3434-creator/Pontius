@@ -38,7 +38,7 @@ composition, or population claim.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0227](docs/decisions/ADR-0227-preregister-live-like-continuation-strategy-trial.md) — Preregister the live-like continuation strategy trial (accepted preregistration).
 
 ## Evidence protocol
 
@@ -50,7 +50,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0203](docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md) | 2026-08-21 | accepted final correction preregistration before replay | Preregister the final four-field selector-replay correction |
 | [ADR-0204](docs/decisions/ADR-0204-final-selector-wrapper-rejects-on-environment-api-mismatch.md) | 2026-08-21 | rejected final corrected replay | The final selector wrapper rejects on an environment API mismatch |
 | [ADR-0205](docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md) | 2026-08-21 | accepted direct-runner preregistration before replay | Preregister the reviewed direct selector replay |
 | [ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md) | 2026-08-21 | accepted retained-label development result | Opponent-sensitivity composite locates retained value but the Tier-A cascade fails |
@@ -74,12 +73,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting is exact and removes five sixths of strategic nodes |
 | [ADR-0225](docs/decisions/ADR-0225-preregister-continuation-root-wall-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root wall ledger |
 | [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting unbinds the complete 31-block library |
+| [ADR-0227](docs/decisions/ADR-0227-preregister-live-like-continuation-strategy-trial.md) | 2026-08-22 | accepted preregistration | Preregister the live-like continuation strategy trial |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) — Continuation rooting unbinds the complete 31-block library.
-- Numbered decisions: 226.
-- ADR-header SHA-256: `3953e89f2926f0a8ffd3e5c8fb35df5be8f1c578e919f1f7a414fcf671454b1c`.
+- Latest ADR: [ADR-0227](docs/decisions/ADR-0227-preregister-live-like-continuation-strategy-trial.md) — Preregister the live-like continuation strategy trial.
+- Numbered decisions: 227.
+- ADR-header SHA-256: `da45292e7e8309e8228c006195e25593d1cc292395db5ac61ca1ad49b01412cf`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

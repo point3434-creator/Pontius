@@ -25,7 +25,7 @@ remain unmeasured.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0242](docs/decisions/ADR-0242-preregister-h4-sequence-form-open-axis-differential.md) — Preregister h4 sequence-form open-axis differential (accepted preregistration before the h4 open-axis run).
 
 ## Evidence protocol
 
@@ -37,7 +37,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) | 2026-08-21 | accepted diagnostic result | The resident-sparse profile identifies compute pressure |
 | [ADR-0219](docs/decisions/ADR-0219-preregister-action-conditioned-posterior-manifest.md) | 2026-08-21 | accepted label-free preregistration before any action-conditioned warm step or label | Preregister the action-conditioned posterior manifest |
 | [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) | 2026-08-21 | accepted label-free manifest result | The action-conditioned posterior panel is fresh, balanced, and nondegenerate |
 | [ADR-0221](docs/decisions/ADR-0221-preregister-action-conditioned-widened-selector-trial.md) | 2026-08-21 | accepted preregistration | Preregister the action-conditioned widened selector trial |
@@ -61,12 +60,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0239](docs/decisions/ADR-0239-reject-cross-payoff-v1-on-external-axis-key-mismatch.md) | 2026-08-22 | rejected execution; no coefficient or timing result accepted | Reject cross-payoff v1 on external-axis key mismatch |
 | [ADR-0240](docs/decisions/ADR-0240-preregister-one-seat-convex-generation-keystone.md) | 2026-08-22 | accepted preregistration before the frozen convex-keystone run | Preregister one-seat convex generation keystone |
 | [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) | 2026-08-22 | accepted finite control; h4 cut-extraction differential authorized | One-seat convex generation matches complete teacher |
+| [ADR-0242](docs/decisions/ADR-0242-preregister-h4-sequence-form-open-axis-differential.md) | 2026-08-22 | accepted preregistration before the h4 open-axis run | Preregister h4 sequence-form open-axis differential |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) — One-seat convex generation matches complete teacher.
-- Numbered decisions: 241.
-- ADR-header SHA-256: `728b5dd221b3a315576db5f8ebaca0325f8f114ad3581c585163b06049b03399`.
+- Latest ADR: [ADR-0242](docs/decisions/ADR-0242-preregister-h4-sequence-form-open-axis-differential.md) — Preregister h4 sequence-form open-axis differential.
+- Numbered decisions: 242.
+- ADR-header SHA-256: `92c10cd7efc611984649cd0291501ea3f7d8a40f8b08f41827bb7761e1788662`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

@@ -148,14 +148,15 @@ a repeated-actor path, and passes realization-retreat identities below
 `1.1e-16`. It uses five opponent rows for acting seat 0 and three for seat 1;
 those sparse control counts are not an h32 prediction.
 
-**Immediate gate:** preregister one label-free h4 open-axis cut-extraction
-differential. Compare extracted fixed-response coefficient rows with direct
-exact perturbation teachers, cover repeated-actor sequence form and post-bet
-behavioral-shortcut topology, and price coefficient construction, response
-oracles, conditioning, and bytes. Only an h4 identity pass may reopen the
-corrected external-axis ADR-0238 implementation as an h32 row extractor. Retain
-one continuation step and the complete 31-block regret-vertex library as the
-live fallback, and do not open widened strategy labels on this control.
+**Immediate gate:** execute the frozen ADR-0242 label-free h4 open-axis
+differential from its clean preregistration commit. Compare 22 extracted payoff
+rows with direct dense source/endpoint teachers, cover repeated-actor sequence
+form and post-bet behavioral-shortcut topology, and measure coefficient
+construction, response oracles, conditioning, and bytes. Only a complete h4
+identity pass may reopen the corrected external-axis ADR-0238 implementation as
+an h32 row extractor. Retain one continuation step and the complete 31-block
+regret-vertex library as the live fallback, and do not open widened strategy
+labels on this control.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

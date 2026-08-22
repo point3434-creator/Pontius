@@ -33,7 +33,7 @@ or broad poker strength.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0238](docs/decisions/ADR-0238-preregister-cross-payoff-reverse-adjoint-feasibility.md) — Preregister cross-payoff reverse-adjoint feasibility (accepted preregistration before any cross-payoff h32 pass).
 
 ## Evidence protocol
 
@@ -45,7 +45,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the first resident-sparse profile on an empty console page |
 | [ADR-0215](docs/decisions/ADR-0215-preregister-corrected-resident-sparse-console-page.md) | 2026-08-21 | accepted tooling correction before any corrected h32 counter collection | Preregister the corrected resident-sparse console page |
 | [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the second sparse profile on Python child targeting |
 | [ADR-0217](docs/decisions/ADR-0217-preregister-final-sparse-profiler-target-correction.md) | 2026-08-21 | accepted tooling correction before any final corrected h32 counter collection | Preregister the final sparse-profiler target correction |
@@ -69,12 +68,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md) | 2026-08-22 | accepted fresh research result; two-step promotion rejected | One continuation step is retained after held-out depth value trial |
 | [ADR-0236](docs/decisions/ADR-0236-preregister-label-free-continuation-direction-capacity.md) | 2026-08-22 | accepted preregistration before any bisector affine row or strategy label | Preregister label-free continuation direction capacity |
 | [ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md) | 2026-08-22 | accepted label-free engineering result; bisector value labels remain closed | Full bisector library does not fit every street |
+| [ADR-0238](docs/decisions/ADR-0238-preregister-cross-payoff-reverse-adjoint-feasibility.md) | 2026-08-22 | accepted preregistration before any cross-payoff h32 pass | Preregister cross-payoff reverse-adjoint feasibility |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md) — Full bisector library does not fit every street.
-- Numbered decisions: 237.
-- ADR-header SHA-256: `c68751e155b0a8c3a3bb051138461a2f7adf599f4a63197c5c5d3297fd45240e`.
+- Latest ADR: [ADR-0238](docs/decisions/ADR-0238-preregister-cross-payoff-reverse-adjoint-feasibility.md) — Preregister cross-payoff reverse-adjoint feasibility.
+- Numbered decisions: 238.
+- ADR-header SHA-256: `3fcd7480640140c8425c488b1ecb1da69c0d46561c6fba8b19c2f5c782d5e26a`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

@@ -154,15 +154,18 @@ form row and post-bet behavioral row match independent dense teachers below
 embedded-key splice fails all 256 mutation entries. The measured CPU h4 costs
 are controls, not h32 predictions.
 
-**Immediate gate:** preregister one narrow, label-free h32 row-extraction
-preflight on the accepted post-bet continuation topology. Price the exact rows
-needed for one acting-seat master, compare row projections against an accepted
-independent teacher, and measure resident construction and pass costs, response
-oracles, row bytes, middle rank, conditioning, GPU-pool headroom, and the full
-conservative 15-second ledger before constructing any candidate. Retain one
+ADR-0244 freezes the narrow h32 successor on the tight Latin-D target and its
+widest acting seat. Eleven initial resident passes build all six epigraph rows;
+16 frozen regret vertices are projection teachers only. The self-priced ledger
+charges a measured full response oracle and all five possible new response
+rows per cut round, plus a separate measured-or-floor final proof reserve.
+
+**Immediate gate:** execute ADR-0244 once from its clean preregistration commit.
+Only exact external-axis rows, safe memory headroom, and at least one complete
+15-second cut round may authorize a label-free h32 master prototype. Retain one
 continuation step and the complete 31-block regret-vertex library as the live
-fallback, reserve the independent final-certificate budget, and do not open
-widened strategy labels on this control.
+fallback, and open no widened strategy labels or optimizer-generated policy on
+this preflight.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

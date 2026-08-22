@@ -26,7 +26,7 @@ labels or emit a policy.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0244](docs/decisions/ADR-0244-preregister-h32-one-seat-open-axis-preflight.md) — Preregister h32 one-seat open-axis preflight (accepted preregistration before any h32 full-axis row pass).
 
 ## Evidence protocol
 
@@ -38,7 +38,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) | 2026-08-21 | accepted label-free manifest result | The action-conditioned posterior panel is fresh, balanced, and nondegenerate |
 | [ADR-0221](docs/decisions/ADR-0221-preregister-action-conditioned-widened-selector-trial.md) | 2026-08-21 | accepted preregistration | Preregister the action-conditioned widened selector trial |
 | [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) | 2026-08-21 | accepted fresh research result; current live path rejected | Widened range transfer finds value, but live selection is infeasible |
 | [ADR-0223](docs/decisions/ADR-0223-preregister-continuation-root-semantic-preflight.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root semantic preflight |
@@ -62,12 +61,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) | 2026-08-22 | accepted finite control; h4 cut-extraction differential authorized | One-seat convex generation matches complete teacher |
 | [ADR-0242](docs/decisions/ADR-0242-preregister-h4-sequence-form-open-axis-differential.md) | 2026-08-22 | accepted preregistration before the h4 open-axis run | Preregister h4 sequence-form open-axis differential |
 | [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) | 2026-08-22 | accepted coefficient control; label-free h32 extraction preflight authorized | h4 open-axis rows match dense teachers |
+| [ADR-0244](docs/decisions/ADR-0244-preregister-h32-one-seat-open-axis-preflight.md) | 2026-08-22 | accepted preregistration before any h32 full-axis row pass | Preregister h32 one-seat open-axis preflight |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) — h4 open-axis rows match dense teachers.
-- Numbered decisions: 243.
-- ADR-header SHA-256: `81e9585d92ba4317bb133a83e9e3816b106b179d442e5d311bd4c7cdf019314a`.
+- Latest ADR: [ADR-0244](docs/decisions/ADR-0244-preregister-h32-one-seat-open-axis-preflight.md) — Preregister h32 one-seat open-axis preflight.
+- Numbered decisions: 244.
+- ADR-header SHA-256: `381c8d99fa11b1f446bde4e170bdf7c342d362c9b5a1592938edb8b9c0c74117`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

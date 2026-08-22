@@ -48,7 +48,11 @@ then rejected before the warm step on an overstrict source-schema guard. The
 final [ADR-0203](../docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md)
 preserves the affine feature matrix, causal label-join order, clock-priced K,
 candidate strata, controls, and gates while pinning all four source fields and
-adding only the exact alias. It has no result yet.
+adding only the exact alias, but its invocation rejected on the reporting API.
+[ADR-0205](../docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md)
+closes the wrapper line and freezes direct raw-memory, environment, and
+serialization boundaries around the unchanged ADR-0199 science. It has no
+result yet.
 
 ## EXP-0001: CFR versus LCFR on two-player Kuhn
 

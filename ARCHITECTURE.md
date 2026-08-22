@@ -130,7 +130,11 @@ at final aggregation on a memory-field spelling; the additive
 then rejected its legitimate four-field source as an overstrict two-field
 schema. [ADR-0203](docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md)
 pins all four source fields, adds only the exact `gpu_free_bytes` alias, and
-recomputes the full matrix.
+recomputes the full matrix. That wrapper later rejected on the reporting API,
+so [ADR-0205](docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md)
+closes the wrapper line and freezes a direct orchestration: raw four-field
+memory consumption, zero-argument environment metadata, pre-write JSON
+serialization, and the unchanged ADR-0199 scientific helpers.
 
 ## Architecture evolution record
 

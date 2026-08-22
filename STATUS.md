@@ -24,7 +24,7 @@ deployment authorization, or composition claim.
 
 ## Open preregistration
 
-[ADR-0203](docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md) — Preregister the final four-field selector-replay correction (accepted final correction preregistration before replay).
+[ADR-0205](docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md) — Preregister the reviewed direct selector replay (accepted direct-runner preregistration before replay).
 
 ## Evidence protocol
 
@@ -36,7 +36,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0181](docs/decisions/ADR-0181-preregister-h32-deep-horizon-opportunity-ladder.md) | 2026-08-21 | accepted preregistration | Preregister the h32 deep-horizon opportunity ladder |
 | [ADR-0182](docs/decisions/ADR-0182-deep-horizon-v1-is-rejected-by-two-miscopied-descriptor-hashes.md) | 2026-08-21 | rejected result | Deep-horizon v1 is rejected by two miscopied descriptor hashes |
 | [ADR-0183](docs/decisions/ADR-0183-preregister-read-only-deep-horizon-descriptor-correction.md) | 2026-08-21 | accepted correction preregistration | Preregister the read-only deep-horizon descriptor correction |
 | [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) | 2026-08-21 | accepted corrected prospective result | Ordinary deep DCFR plateaus while purification remains direction-sensitive |
@@ -60,12 +59,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0202](docs/decisions/ADR-0202-corrected-selector-replay-v2-rejects-on-overstrict-schema-guard.md) | 2026-08-21 | rejected corrected replay | Corrected selector replay v2 rejects on its overstrict schema guard |
 | [ADR-0203](docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md) | 2026-08-21 | accepted final correction preregistration before replay | Preregister the final four-field selector-replay correction |
 | [ADR-0204](docs/decisions/ADR-0204-final-selector-wrapper-rejects-on-environment-api-mismatch.md) | 2026-08-21 | rejected final corrected replay | The final selector wrapper rejects on an environment API mismatch |
+| [ADR-0205](docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md) | 2026-08-21 | accepted direct-runner preregistration before replay | Preregister the reviewed direct selector replay |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0204](docs/decisions/ADR-0204-final-selector-wrapper-rejects-on-environment-api-mismatch.md) — The final selector wrapper rejects on an environment API mismatch.
-- Numbered decisions: 204.
-- ADR-header SHA-256: `5d518433698748b046773d8bc4fee69bd0eb55cddbcdac96bf91cdb88eb24948`.
+- Latest ADR: [ADR-0205](docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md) — Preregister the reviewed direct selector replay.
+- Numbered decisions: 205.
+- ADR-header SHA-256: `2697eedb3c106eec1d2401e7d1f536e3ec43c7209f9f7c5a65c8239c55bc51ac`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

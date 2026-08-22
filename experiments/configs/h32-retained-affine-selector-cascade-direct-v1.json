@@ -1,0 +1,22 @@
+{
+  "evidence_stage": "preregistered_after_adr0204_and_direct_result_assembly_review_before_any_direct_selector_replay",
+  "expected_science_config_sha256": "9f700db8c7ddedf9e3d0e91f982634b41d65483719735b7d6be202294ffec841",
+  "expected_science_implementation_sha256": "04062b4355d773ee7046995b05f03c927c8ecdae8edf5576819e642f8e948d0e",
+  "expected_science_control_test_sha256": "31a6d43bb936583d47d54eec3fb5f1758151af5738f890eeb9018ffedf774b29",
+  "expected_science_decision_sha256": "49c06091754f71a9af0aeb036c2a2f99dbcc9d6e2d6162a90d4a3fe2ff2995d7",
+  "expected_v1_rejection_sha256": "0bc2ab141236de9bc868294f2f2deed7c0a3bfdf01f374e14827d3755c2488b6",
+  "expected_v2_correction_decision_sha256": "44c1f2a7b1d9dd68b018dbbd80e3d7cba914ffdb9e355dbf6c1e4cf59ec5e7f4",
+  "expected_v2_rejection_sha256": "b6817f15f6d3f266a70d987712e2ddd090d01e608b25c3289d774e38a0868ecb",
+  "expected_v3_correction_decision_sha256": "f1e5309501e8351632720bef894cf9227886474254241bea3fbef16618f13f88",
+  "expected_v3_rejection_sha256": "83517c82e65dab29314d575193f9e00d350ef6a1b8aba9b26867ef863b3ccf6d",
+  "expected_memory_helper_sha256": "12c7cba9deb1d6307c058120332c56f5a5446a9ca4045d0f34fbb01bb35a7fb4",
+  "expected_reporting_helper_sha256": "9e341347310e256a658bc7e7c13994895faf794f17d48eece82cddbf8828ecb2",
+  "expected_audit_implementation_sha256": "6799bf677d1a7fae874bd264505f8b6d42d0a7ebba0390b2949730e8c1703fc1",
+  "expected_control_test_sha256": "f523108d3744cb2d9ec98e103d67cbd661562a58f655e75bef8006e2da2201b4",
+  "orchestration_rule": "call_frozen_adr0199_feature_join_scoring_and_control_helpers_directly_without_monkeypatch_or_schema_alias",
+  "memory_rule": "consume_the_pinned_four_field_snapshot_directly_using_gpu_pool_total_bytes_and_gpu_free_bytes",
+  "environment_rule": "call_zero_argument_environment_metadata_then_merge_runtime_and_strict_git_metadata_by_dictionary_expansion",
+  "serialization_rule": "validate_complete_result_with_json_dumps_sort_keys_allow_nan_false_before_single_path_write",
+  "replay_scope": "reuse_adr0199_targets_features_label_barrier_candidate_strata_capacity_scoring_controls_gates_and_blueprint_emission_unchanged",
+  "outcome_policy": "no_partial_state_reuse_no_wrapper_and_stop_on_any_direct_runner_or_inherited_scientific_failure"
+}

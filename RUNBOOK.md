@@ -95,22 +95,23 @@ any new target policy step.
 
 ADR-0199's first invocation rejected before result serialization on the final
 memory-field spelling. ADR-0201 then rejected before its warm step because its
-guard omitted two legitimate source telemetry fields. ADR-0203 is the active
-final corrected retained-label selector replay. It creates no fresh strategy
-label and emits only the immutable blueprint. Run it once from its clean
-preregistration commit:
+guard omitted two legitimate source telemetry fields. ADR-0203 passed that
+guard but rejected on the reporting helper's API during result assembly.
+ADR-0205 closes the wrapper line and is the active reviewed direct retained-
+label selector replay. It creates no fresh strategy label and emits only the
+immutable blueprint. Run it once from its clean preregistration commit:
 
 ```powershell
-& $python -m pontius.h32_retained_affine_selector_cascade_replay_v3 --config experiments/configs/h32-retained-affine-selector-cascade-replay-v3.json --output experiments/results/h32-retained-affine-selector-cascade-replay-v3.json
+& $python -m pontius.h32_retained_affine_selector_cascade_direct_replay --config experiments/configs/h32-retained-affine-selector-cascade-direct-v1.json --output experiments/results/h32-retained-affine-selector-cascade-direct-v1.json
 ```
 
 Config validation reads the retained-label artifact only as opaque bytes for
 SHA-256 provenance. The runner must compute all 108 feature rows and every
 clock-derived K before deserializing or joining label content. A saturated
-six-candidate primary K is library limitation, not selector evidence. The v3
-wrapper must preserve the exact four-field memory snapshot and may add only
-`gpu_physical_free_bytes := gpu_free_bytes`; it may not reuse either failed
-process state.
+six-candidate primary K is library limitation, not selector evidence. The
+direct runner consumes the exact four-field memory snapshot without an alias,
+uses the zero-argument environment API, and may not reuse any failed process
+state.
 
 ADR-0198 accepts ADR-0197's corrected compute profile. Its result artifact has
 SHA-256

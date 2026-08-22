@@ -279,13 +279,20 @@ with three downstream responders, one acting public node, 32 h32 information
 sets, and 64 behavioral variables. Current-actor marginal TV is
 `0.062778–0.152469`. The manifest generated zero strategy labels.
 
-**Immediate gate:** preregister the prospective decision-aligned live-shadow
-trial on all six ADR-0262 targets in manifest order. Use one bounded one-round
-convex attempt, factor `0.5`, the existing exact certificate and interior
-floor, complete deadline ledger, campaign-wide barrier, and immediate blueprint
-fallback. Recompute only the frozen axis-count expectations for the one-node
-scope. Do not use TV or the structured Latin labels to select targets, retune
-on their two abstentions, or introduce deployment authority.
+ADR-0263 freezes that strategy trial before any decision-aligned label. A scoped
+adapter changes only posterior/continuation setup and must restore the sealed
+Latin setup after the bounded campaign. The one-round core, factor `0.5`, exact
+certificate, `1.48e-9` interior floor, full measured and conservative ledgers,
+global prelabel barrier, and immutable-blueprint external emission remain
+unchanged. Process validity is separate from the inherited four-of-six material
+value-transfer threshold.
+
+**Immediate gate:** execute ADR-0263 exactly once on all six manifest targets.
+A process pass with at least four material accepted retreats above `0.001`, both
+families, and all schedules fitting authorizes only a separately preregistered
+post-fold test. A clean sub-threshold result rejects transfer but remains valid
+evidence. A process failure rejects the execution. Do not pilot, substitute,
+retune, or introduce deployment authority.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

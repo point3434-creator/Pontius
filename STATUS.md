@@ -20,7 +20,7 @@ of the same six-target breadth branch.
 
 ## Open preregistration
 
-[ADR-0262](docs/decisions/ADR-0262-post-call-panel-is-fresh-current-and-nondegenerate.md) — Post-call panel is fresh, current, and nondegenerate (accepted label-blind result; decision-aligned live-shadow preregistration authorized).
+[ADR-0263](docs/decisions/ADR-0263-preregister-decision-aligned-live-shadow-trial.md) — Preregister decision-aligned live-shadow trial (accepted preregistration before any decision-aligned warm step, candidate, or strategy label).
 
 ## Evidence protocol
 
@@ -32,7 +32,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0239](docs/decisions/ADR-0239-reject-cross-payoff-v1-on-external-axis-key-mismatch.md) | 2026-08-22 | rejected execution; no coefficient or timing result accepted | Reject cross-payoff v1 on external-axis key mismatch |
 | [ADR-0240](docs/decisions/ADR-0240-preregister-one-seat-convex-generation-keystone.md) | 2026-08-22 | accepted preregistration before the frozen convex-keystone run | Preregister one-seat convex generation keystone |
 | [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) | 2026-08-22 | accepted finite control; h4 cut-extraction differential authorized | One-seat convex generation matches complete teacher |
 | [ADR-0242](docs/decisions/ADR-0242-preregister-h4-sequence-form-open-axis-differential.md) | 2026-08-22 | accepted preregistration before the h4 open-axis run | Preregister h4 sequence-form open-axis differential |
@@ -56,12 +55,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0260](docs/decisions/ADR-0260-latin-f-confirms-convex-breadth-with-two-interior-abstentions.md) | 2026-08-22 | accepted fresh confirmation; prospective live-shadow preregistration authorized | Latin-F confirms convex breadth with two interior abstentions |
 | [ADR-0261](docs/decisions/ADR-0261-preregister-decision-aligned-post-call-posterior-panel.md) | 2026-08-22 | accepted label-blind preregistration before any decision-aligned strategy label | Preregister decision-aligned post-call posterior panel |
 | [ADR-0262](docs/decisions/ADR-0262-post-call-panel-is-fresh-current-and-nondegenerate.md) | 2026-08-22 | accepted label-blind result; decision-aligned live-shadow preregistration authorized | Post-call panel is fresh, current, and nondegenerate |
+| [ADR-0263](docs/decisions/ADR-0263-preregister-decision-aligned-live-shadow-trial.md) | 2026-08-22 | accepted preregistration before any decision-aligned warm step, candidate, or strategy label | Preregister decision-aligned live-shadow trial |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0262](docs/decisions/ADR-0262-post-call-panel-is-fresh-current-and-nondegenerate.md) — Post-call panel is fresh, current, and nondegenerate.
-- Numbered decisions: 262.
-- ADR-header SHA-256: `8ddd90d07ae8b1929154ee802d888cfea7678565199d5526bc9f4bfaaddd37d2`.
+- Latest ADR: [ADR-0263](docs/decisions/ADR-0263-preregister-decision-aligned-live-shadow-trial.md) — Preregister decision-aligned live-shadow trial.
+- Numbered decisions: 263.
+- ADR-header SHA-256: `73cc5a744ba070280c5d21bae0c5f2790eca60e20686bb6fbbee94d65d6dac88`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

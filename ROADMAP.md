@@ -325,13 +325,20 @@ is conservatively treated as opened. The failure is orchestration-local: one
 target exception erased prior in-memory rows and prevented the fixed remainder
 from running.
 
-**Immediate gate:** preregister a target-isolated v2 with the identical roster,
-math, tolerances, caps, and decision table. It must checkpoint each completed
-row, classify target-local numerical failures as censored, release their GPU
-state, and continue. A diagnostic LP replay may report the failed KKT
-component but cannot loosen or replace the authoritative master. The v2 must
-disclose recomputation of targets 1–6, retain post-fold label blindness, and
-preserve immutable-blueprint emission.
+ADR-0269 freezes the target-isolated correction. It imports ADR-0267's pinned
+config and target implementation without changing any scientific field,
+discloses recomputation of targets 1–6, atomically checkpoints every outcome,
+and continues only after the known master-verification error has been marked
+censored and GPU state released. Any other target error fails the process;
+neither kind can count as closure. The original 42/42 one-round and full-
+closure branches remain unchanged even though the printed 3- and 2-round rows
+have already falsified the first.
+
+**Immediate gate:** execute ADR-0269 once. Seal all 42 ordered outcomes and the
+checkpoint hash. If the process passes, use the completed/right-censored
+distribution to retain the live direction fallback and decide whether the
+next work is master-numerics diagnosis, extra-round capacity, or a fresh
+one-round confirmation. Do not open post-fold labels during this census.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

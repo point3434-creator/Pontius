@@ -1,0 +1,161 @@
+{
+  "aggregate": {
+    "direction_classifications": [],
+    "maximum_gpu_pool_bytes": 961623552,
+    "median_event_elapsed_ms_diagnostic": 21.803184509277344,
+    "profiled_directions": 2,
+    "profiled_kernels": 0
+  },
+  "config_sha256": "0f0ea45a4529911600979e7bcee3bcb7cc46220bb2aa96babffd6d2e7290d80b",
+  "decision": "reject_corrected_resident_sparse_ncu_profile",
+  "direction_rows": [
+    {
+      "classification": null,
+      "counter_permission_error": false,
+      "direction": "right_to_left",
+      "nvtx_range": "PONTIUS_H32_SPARSE_RIGHT_TO_LEFT_W384",
+      "parse_error": "Nsight output contains no raw CSV header",
+      "profile": null,
+      "return_code": 0,
+      "stderr": "",
+      "stdout_bytes": 140,
+      "wall_seconds": 5.622758199999225,
+      "workload": {
+        "checksum": 74994819213.74054,
+        "checksum_download_ms": 22.528999998030486,
+        "compatible_numeric_bytes": 77693952,
+        "direction": "right_to_left",
+        "event_elapsed_ms_diagnostic": 20.939584732055664,
+        "feature_width": 384,
+        "features_numeric_bytes": 76532736,
+        "finite": true,
+        "gpu_pool_total_bytes": 961623552,
+        "gpu_pool_used_bytes": 807202816,
+        "incidence_entries": 190417,
+        "incidence_numeric_bytes": 584964096,
+        "nvtx_range": "PONTIUS_H32_SPARSE_RIGHT_TO_LEFT_W384",
+        "query_matrix_shape": [
+          25291,
+          190418
+        ],
+        "query_nnz": 1141225,
+        "query_records": 25291,
+        "source_belief_sha256": "0662b2cf2436cbc6dcc5669fe75a2c15f03e652fb40a6903703a10dd14cfa289",
+        "source_matrix_shape": [
+          190418,
+          24913
+        ],
+        "source_nnz": 1594432,
+        "source_records": 24913
+      }
+    },
+    {
+      "classification": null,
+      "counter_permission_error": false,
+      "direction": "left_to_right",
+      "nvtx_range": "PONTIUS_H32_SPARSE_LEFT_TO_RIGHT_W384",
+      "parse_error": "Nsight output contains no raw CSV header",
+      "profile": null,
+      "return_code": 0,
+      "stderr": "",
+      "stdout_bytes": 140,
+      "wall_seconds": 5.617037899999559,
+      "workload": {
+        "checksum": 73763666843.27927,
+        "checksum_download_ms": 21.272500001941808,
+        "compatible_numeric_bytes": 76532736,
+        "direction": "left_to_right",
+        "event_elapsed_ms_diagnostic": 22.666784286499023,
+        "feature_width": 384,
+        "features_numeric_bytes": 77693952,
+        "finite": true,
+        "gpu_pool_total_bytes": 869169664,
+        "gpu_pool_used_bytes": 791286784,
+        "incidence_entries": 185236,
+        "incidence_numeric_bytes": 569048064,
+        "nvtx_range": "PONTIUS_H32_SPARSE_LEFT_TO_RIGHT_W384",
+        "query_matrix_shape": [
+          24913,
+          185237
+        ],
+        "query_nnz": 1171236,
+        "query_records": 24913,
+        "source_belief_sha256": "0662b2cf2436cbc6dcc5669fe75a2c15f03e652fb40a6903703a10dd14cfa289",
+        "source_matrix_shape": [
+          185237,
+          25291
+        ],
+        "source_nnz": 1618624,
+        "source_records": 25291
+      }
+    }
+  ],
+  "environment": {
+    "compute_capability": "120",
+    "cuda_driver": 13030,
+    "cuda_runtime": 13020,
+    "cupy": "14.2.0",
+    "device_free_bytes_at_start": 15712911360,
+    "device_total_bytes": 17094475776,
+    "git": {
+      "commit": "2ab6cfd645e069857751f18b6c314e841da4dca5",
+      "dirty": false,
+      "strict_status": true
+    },
+    "ncu_path": "C:\\Program Files\\NVIDIA Corporation\\Nsight Compute 2026.2.1\\target\\windows-desktop-win7-x64\\ncu.exe",
+    "ncu_version": "NVIDIA (R) Nsight Compute Command Line Profiler Copyright (c) 2018-2026 NVIDIA Corporation Version 2026.2.1.0 (build 38283040) (public-release)",
+    "numpy": "2.5.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "scipy": "1.18.0"
+  },
+  "gates": {
+    "clean_git": true,
+    "core_metrics_present": false,
+    "counter_access": true,
+    "direction_count": true,
+    "feature_width_identity": true,
+    "fold_parent_passed": true,
+    "gpu_pool": true,
+    "kernel_count": false,
+    "metrics_finite": false,
+    "ncu_available": true,
+    "nvtx_range_identity": false,
+    "passed": false,
+    "source_parent_passed": true,
+    "stdout_nonempty": true,
+    "strategy_population_claim_null": true,
+    "target_identity": true,
+    "total_profile_seconds": true,
+    "workload_finite": true
+  },
+  "implementation_sha256": "acc6afdba1507d844ae1ee8d8744d2a1f9a7f02c39ba328544b7a04e87426629",
+  "limitations": [
+    "The corrected run changes only console-page emission and empty-evidence gates.",
+    "The profile covers one maximum-width sparse pass in each direction.",
+    "Dense values are synthetic but resident CSR operators and shapes are actual.",
+    "Kernel replay counter values are not ordinary wall-time measurements.",
+    "The classifier is diagnostic and authorizes no rewrite by itself.",
+    "No strategy, deployment, population, GPU-purchase, or hardware claim is authorized."
+  ],
+  "methodology": {
+    "actual_resident_csr_operators": true,
+    "correction": "explicit_print_summary_per_kernel",
+    "counter_values_are_non_gating": true,
+    "directions": [
+      "right_to_left",
+      "left_to_right"
+    ],
+    "feature_width": 384,
+    "nvtx_isolated_two_spmm_pass": true,
+    "rejected_v1_reused": false,
+    "representative_target": "panel_2/balanced/local_blocker_seat2_x2",
+    "strategy_labels_loaded": 0,
+    "synthetic_dense_feature_values": true
+  },
+  "passed": false,
+  "schema_version": 2,
+  "status": "h32_resident_sparse_ncu_profile_v2_executed",
+  "strategy_population_claim": null,
+  "total_profile_seconds": 12.15726210000139
+}

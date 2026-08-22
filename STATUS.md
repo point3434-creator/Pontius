@@ -5,7 +5,7 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) — Reject the first resident-sparse profile on an empty console page.
+Latest accepted research result: [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) — Reject the second sparse profile on Python child targeting.
 
 Status: accepted tooling rejection; no counter interpretation.
 
@@ -15,7 +15,7 @@ The latest research ADR has no explicit Decision section.
 
 ## Open preregistration
 
-[ADR-0215](docs/decisions/ADR-0215-preregister-corrected-resident-sparse-console-page.md) — Preregister the corrected resident-sparse console page (accepted tooling correction before any corrected h32 counter collection).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -27,7 +27,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md) | 2026-08-21 | accepted prospective engineering result | The fixed seat-0 affine rule emits four fresh certified candidates before deadline |
 | [ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-5 affine street replication |
 | [ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md) | 2026-08-21 | accepted prospective replication result | The affine street mechanism transfers to seat 5 but value remains concentrated |
 | [ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md) | 2026-08-21 | accepted preregistration before any replay step | Preregister a read-only h32 resident-step bottleneck profile |
@@ -51,12 +50,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0213](docs/decisions/ADR-0213-preregister-isolated-resident-sparse-nsight-profile.md) | 2026-08-21 | accepted diagnostic preregistration before any h32 counter collection | Preregister the isolated resident-sparse Nsight profile |
 | [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the first resident-sparse profile on an empty console page |
 | [ADR-0215](docs/decisions/ADR-0215-preregister-corrected-resident-sparse-console-page.md) | 2026-08-21 | accepted tooling correction before any corrected h32 counter collection | Preregister the corrected resident-sparse console page |
+| [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the second sparse profile on Python child targeting |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0215](docs/decisions/ADR-0215-preregister-corrected-resident-sparse-console-page.md) — Preregister the corrected resident-sparse console page.
-- Numbered decisions: 215.
-- ADR-header SHA-256: `cc490397614801fd64ff201968fed5eb80755ebe55cfebb6c98cac588df4977b`.
+- Latest ADR: [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) — Reject the second sparse profile on Python child targeting.
+- Numbered decisions: 216.
+- ADR-header SHA-256: `0cd4a55041551de5e8704d0007f9d7c67d019a0a82a36ea6bb281434e1d8deb5`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -64,4 +64,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) and its dependencies
+4. [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) and its dependencies

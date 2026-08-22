@@ -366,12 +366,19 @@ paths reuse the first oracle; one-cut paths add exactly one endpoint oracle and
 never continue to round two. Global closure requires exact cap and epigraph
 closure plus `U - L <= 1e-8`.
 
-**Immediate gate:** invoke ADR-0273 once from its clean preregistration commit.
-Only six global closures, six safe positive half-retreats, four material rows
-above `0.001` spanning both families, and complete measured/conservative
-15-second ledgers authorize a current-decision direction-demotion review. Any
-second-round need or scientific failure retains the fallback; any process
-failure rejects the invocation.
+ADR-0274 accepts the process-valid fresh mixed result. All six post-fold
+half-retreats are exact-safe, positive, and material, with pooled value
+`0.04710747`; measured complete ledgers top out at 5.337 seconds. Universal
+one-round closure nevertheless fails: four of six endpoints close, while two
+fresh one-cut endpoints expose new response facets and retain exact gaps
+`0.00077635` and `0.00034964`. Direction demotion is rejected.
+
+**Immediate gate:** preregister an off-clock, target-isolated full-closure
+timing diagnostic on only those two disclosed failures. Preserve all math and
+record the marginal work after round one. If both close in exactly one more
+round, separately investigate component-wise deadline admission or
+conservative repricing; the present 13.968-second floor cannot admit another
+round merely because this panel measured fast.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

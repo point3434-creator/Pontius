@@ -5,32 +5,32 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0270](docs/decisions/ADR-0270-current-decision-programs-close-wide-axis-census-does-not.md) — Current-decision programs close; wide-axis census does not.
+Latest accepted research result: [ADR-0274](docs/decisions/ADR-0274-post-fold-confirms-safe-value-but-not-universal-one-round-closure.md) — Post-fold confirms safe value but not universal one-round closure.
 
-Status: accepted retrospective censored result; current-decision combined-ledger replay authorized.
+Status: accepted fresh mixed result; universal current-decision closure rejected.
 
 ## Current decision
 
-Accept the target-isolated retrospective census and its censored branch. Retain
-the live ray/direction fallback across the broad scope. Do not formally
-supersede the direction-diversity ADR line.
+Accept and seal the process-valid fresh mixed result. Accept fresh transfer of
+safe material value after a fold. Reject universal one-round current-decision
+global closure and do not demote or retire direction generation.
 
-Authorize one read-only current-decision combined-ledger replay before opening
-post-fold labels. Join the six ADR-0270 endpoint-closure paths with their exact
-ADR-0264 half-retreat certificate costs and frozen 50-ms envelope and 1,000-ms
-emission reserves. Preserve per-target pairing and use the unchanged
-`13,967.616 ms` conservative floor plus only the genuinely incremental
-post-cut endpoint-oracle charge. If every measured and conservative combined
-path fits 15 seconds, separately preregister the six sealed post-fold targets
-as the fresh current-decision closure-and-value confirmation. Otherwise retain
-the current safe retreat without a live global-optimality claim.
+Authorize one retrospective, target-isolated full-closure timing diagnostic on
+only the two disclosed fresh failures. Preserve their order, setup, warm step,
+master, exact oracle, cut semantics, caps, and tolerances; allow additional
+rounds only off-clock and emit no candidate. Record rounds to closure and the
+marginal cut, master, and endpoint-oracle costs after the already-failed first
+round.
 
-Do not use the current six-of-six result to tune the post-fold factor, guard,
-cap allowance, residual tolerance, cut budget, order, or materiality floor.
+If both failures close with exactly one additional round, separately study a
+component-wise deadline admission rule or evidence-backed conservative
+repricing. Do not silently spend the measured slack or weaken the existing
+floor. If either remains deep or stalls, keep one-round convex retreat as the
+bounded safe generator and treat global closure as off-clock teacher evidence.
 
 ## Open preregistration
 
-[ADR-0273](docs/decisions/ADR-0273-preregister-fresh-post-fold-closure-and-value-confirmation.md) — Preregister fresh post-fold closure and value confirmation (accepted preregistration before any post-fold warm step, optimizer, or strategy label).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -42,7 +42,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0250](docs/decisions/ADR-0250-reject-bytewise-retreat-reconstruction-before-labels.md) | 2026-08-22 | rejected preregistered execution before any new strategy-quality label | Reject bytewise retreat reconstruction before labels |
 | [ADR-0251](docs/decisions/ADR-0251-preregister-numerically-identified-convex-retreat-quality-gate.md) | 2026-08-22 | accepted corrected preregistration before any retreat certificate or fallback label join | Preregister numerically identified convex-retreat quality gate |
 | [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) | 2026-08-22 | accepted single-target strategy-quality result; fresh replication authorized | Convex retreat beats the live fallback on the frozen target |
 | [ADR-0253](docs/decisions/ADR-0253-preregister-final-latin-convex-replication-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration before any Latin-E/F posterior or convex candidate | Preregister final-Latin convex-replication posterior panel |
@@ -66,12 +65,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0271](docs/decisions/ADR-0271-preregister-current-decision-combined-ledger-replay.md) | 2026-08-22 | accepted executable preregistration before any post-fold strategy label | Preregister current-decision combined-ledger replay |
 | [ADR-0272](docs/decisions/ADR-0272-current-decision-closure-and-safe-retreat-fit-one-street.md) | 2026-08-22 | accepted read-only ledger result; fresh post-fold confirmation preregistration authorized | Current-decision closure and safe retreat fit one street |
 | [ADR-0273](docs/decisions/ADR-0273-preregister-fresh-post-fold-closure-and-value-confirmation.md) | 2026-08-22 | accepted preregistration before any post-fold warm step, optimizer, or strategy label | Preregister fresh post-fold closure and value confirmation |
+| [ADR-0274](docs/decisions/ADR-0274-post-fold-confirms-safe-value-but-not-universal-one-round-closure.md) | 2026-08-22 | accepted fresh mixed result; universal current-decision closure rejected | Post-fold confirms safe value but not universal one-round closure |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0273](docs/decisions/ADR-0273-preregister-fresh-post-fold-closure-and-value-confirmation.md) — Preregister fresh post-fold closure and value confirmation.
-- Numbered decisions: 273.
-- ADR-header SHA-256: `d749de9ba1ba01350669404b0e7a75dd2909c1193a47b7a985a9c02d866c5b84`.
+- Latest ADR: [ADR-0274](docs/decisions/ADR-0274-post-fold-confirms-safe-value-but-not-universal-one-round-closure.md) — Post-fold confirms safe value but not universal one-round closure.
+- Numbered decisions: 274.
+- ADR-header SHA-256: `0d86a19538070a09616a629b7e95a9fa18ecfabea33c651bb481251e07e08380`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -79,4 +79,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0270](docs/decisions/ADR-0270-current-decision-programs-close-wide-axis-census-does-not.md) and its dependencies
+4. [ADR-0274](docs/decisions/ADR-0274-post-fold-confirms-safe-value-but-not-universal-one-round-closure.md) and its dependencies

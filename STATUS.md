@@ -37,7 +37,7 @@ composition, population, whole-game, or broad poker-strength claim.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0229](docs/decisions/ADR-0229-preregister-label-free-continuation-depth-ledger.md) — Preregister the label-free continuation depth ledger (accepted label-free preregistration).
 
 ## Evidence protocol
 
@@ -49,7 +49,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0205](docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md) | 2026-08-21 | accepted direct-runner preregistration before replay | Preregister the reviewed direct selector replay |
 | [ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md) | 2026-08-21 | accepted retained-label development result | Opponent-sensitivity composite locates retained value but the Tier-A cascade fails |
 | [ADR-0207](docs/decisions/ADR-0207-preregister-six-block-tier-b-opponent-batch-differential.md) | 2026-08-21 | accepted engineering preregistration before any h32 batch measurement | Preregister the six-block Tier-B opponent batch differential |
 | [ADR-0208](docs/decisions/ADR-0208-tier-b-batch-v1-rejects-before-h32-work-on-source-pass-schema.md) | 2026-08-21 | rejected execution before any h32 coefficient or timing measurement | Tier-B batch v1 rejects before h32 work on the source pass schema |
@@ -73,12 +72,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting unbinds the complete 31-block library |
 | [ADR-0227](docs/decisions/ADR-0227-preregister-live-like-continuation-strategy-trial.md) | 2026-08-22 | accepted preregistration | Preregister the live-like continuation strategy trial |
 | [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) | 2026-08-22 | accepted fresh research result | Continuation rooting delivers exact safe value on all twelve targets |
+| [ADR-0229](docs/decisions/ADR-0229-preregister-label-free-continuation-depth-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the label-free continuation depth ledger |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) — Continuation rooting delivers exact safe value on all twelve targets.
-- Numbered decisions: 228.
-- ADR-header SHA-256: `1133e99782d846244fa11a7d13c11a2c4005808ec703767c044a271c285d382f`.
+- Latest ADR: [ADR-0229](docs/decisions/ADR-0229-preregister-label-free-continuation-depth-ledger.md) — Preregister the label-free continuation depth ledger.
+- Numbered decisions: 229.
+- ADR-header SHA-256: `8711c71cd085ea910d159bd363f4e447cae13e044cad4e5b5e114b71127bc21d`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

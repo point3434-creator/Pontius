@@ -342,14 +342,20 @@ claim is false and the direction path remains live. All six actual current-
 decision targets, however, close in zero or one round (four/two) with no stall
 or error. Every difficult row belongs to the wider future-axis scope.
 
-**Immediate gate:** preregister a read-only paired ledger join on those six
-opened current-decision targets. Combine ADR-0270 endpoint-closure work with
-ADR-0264's exact half-retreat certificate, 50-ms envelope charge, 1,000-ms
-emission reserve, and unchanged 13.968-second conservative floor. Charge only
-the genuinely incremental post-cut endpoint oracle beyond the sealed safe-
-retreat path. If all six complete paths fit 15 seconds, separately preregister
-the unopened post-fold panel as fresh closure-and-value confirmation. Do not
-open post-fold labels during the ledger replay.
+ADR-0271 freezes that read-only paired ledger join. The four zero-cut paths owe
+no additional oracle because their first endpoint is already exact and closed;
+the two one-cut paths owe exactly one post-cut endpoint oracle. The inherited
+safe retreat must remain exact-certified, cap-feasible, interior, accepted,
+and positive. Measured accounting adds the recorded incremental time, while
+conservative accounting adds a fixed 1,000 ms to the unchanged 13.968-second
+floor, leaving only 32.384 ms on the one-cut shape. The replay is CPU-only and
+opens no post-fold label.
+
+**Immediate gate:** invoke ADR-0271 once from its clean preregistration commit.
+If every pairing, identity, certificate, incremental-work, oracle-ceiling, and
+15-second gate passes, seal it and separately preregister the unopened
+post-fold panel as fresh closure-and-value confirmation. Do not open post-fold
+labels during the ledger replay.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

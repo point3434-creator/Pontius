@@ -30,7 +30,7 @@ cap allowance, residual tolerance, cut budget, order, or materiality floor.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0271](docs/decisions/ADR-0271-preregister-current-decision-combined-ledger-replay.md) — Preregister current-decision combined-ledger replay (accepted executable preregistration before any post-fold strategy label).
 
 ## Evidence protocol
 
@@ -42,7 +42,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0247](docs/decisions/ADR-0247-one-round-h32-convex-master-closes-the-exact-gap.md) | 2026-08-22 | accepted optimizer result; quality experiment authorization granted | One-round h32 convex master closes the exact gap |
 | [ADR-0248](docs/decisions/ADR-0248-auto-bootstrap-the-pinned-windows-cuda-dll-bundle.md) | 2026-08-22 | accepted process correction | Auto-bootstrap the pinned Windows CUDA DLL bundle |
 | [ADR-0249](docs/decisions/ADR-0249-preregister-one-seat-convex-retreat-quality-gate.md) | 2026-08-22 | accepted preregistration before any h32 retreat certificate or fallback label join | Preregister one-seat convex-retreat quality gate |
 | [ADR-0250](docs/decisions/ADR-0250-reject-bytewise-retreat-reconstruction-before-labels.md) | 2026-08-22 | rejected preregistered execution before any new strategy-quality label | Reject bytewise retreat reconstruction before labels |
@@ -66,12 +65,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0268](docs/decisions/ADR-0268-reject-partial-closure-census-on-master-verification-failure.md) | 2026-08-22 | accepted process correction; ADR-0267 census result rejected | Reject partial closure census on master verification failure |
 | [ADR-0269](docs/decisions/ADR-0269-preregister-target-isolated-closure-census.md) | 2026-08-22 | accepted corrective preregistration before any census-label recomputation | Preregister target-isolated closure census |
 | [ADR-0270](docs/decisions/ADR-0270-current-decision-programs-close-wide-axis-census-does-not.md) | 2026-08-22 | accepted retrospective censored result; current-decision combined-ledger replay authorized | Current-decision programs close; wide-axis census does not |
+| [ADR-0271](docs/decisions/ADR-0271-preregister-current-decision-combined-ledger-replay.md) | 2026-08-22 | accepted executable preregistration before any post-fold strategy label | Preregister current-decision combined-ledger replay |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0270](docs/decisions/ADR-0270-current-decision-programs-close-wide-axis-census-does-not.md) — Current-decision programs close; wide-axis census does not.
-- Numbered decisions: 270.
-- ADR-header SHA-256: `33c4b548e41ef0cee36b5027ddf6d4662c303036fc8251c8da0921f059af3b62`.
+- Latest ADR: [ADR-0271](docs/decisions/ADR-0271-preregister-current-decision-combined-ledger-replay.md) — Preregister current-decision combined-ledger replay.
+- Numbered decisions: 271.
+- ADR-header SHA-256: `81a5e080b70701f06d80fb2978ddd73fde875d7fcf7e61a6e38baf9d68289746`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

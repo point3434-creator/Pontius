@@ -5,35 +5,27 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md) — Full bisector library does not fit every street.
+Latest accepted research result: [ADR-0239](docs/decisions/ADR-0239-reject-cross-payoff-v1-on-external-axis-key-mismatch.md) — Reject cross-payoff v1 on external-axis key mismatch.
 
-Status: accepted label-free engineering result; bisector value labels remain closed.
+Status: rejected execution; no coefficient or timing result accepted.
 
 ## Current decision
 
-Retain the one-step, 31-block regret-vertex spine. Do not open a fresh bisector
-value panel, select a 14-row subset from this timing result, or infer that the
-bisector lacks strategy value. Capacity—not quality—rejected the full family.
+Reject v1 as evidence. Preserve ADR-0238's algebra, single tight target, 24+30
+pass workload, teacher comparison, numerical ceilings, wall ledger, promotion
+rule, and claims boundary.
 
-Direction diversity remains viable only after a separately justified work-
-reduction mechanism or a label-free structural rule that is fixed before
-direction values. Prior batch measurements do not supply that mechanism.
-
-The remaining ADR-0235 diversity branch is action width. Its next gate must be
-a label-free continuation-root two-size capacity preflight: reconstruct the
-embedded immutable blueprint, measure one resident warm step and the complete
-widened legal block library, reserve one proof and emission, and fail closed
-before any widened strategy label. Reuse the shared payoff semantics and
-multi-size resident infrastructure; do not extrapolate from the earlier full-
-tree action-width trials.
-
-This is a reduced-h32 engineering result. It makes no claim about bisector
-quality, action-width quality, deployment, composition, population behavior,
-or broad poker strength.
+Authorize one external-axis-only successor. Its response splice must require
+the explicit `hands_by_player` tuple, reconstruct each key with the accepted
+`_information_key(layout, player, hand, node.history)` helper, and validate the
+source row shape against that external axis. Add a mutation control in which
+the embedded layout and external axes differ. The successor must use a new
+config, runner, primitive, test, result path, and clean commit; it may not reuse
+any v1 process state.
 
 ## Open preregistration
 
-[ADR-0238](docs/decisions/ADR-0238-preregister-cross-payoff-reverse-adjoint-feasibility.md) — Preregister cross-payoff reverse-adjoint feasibility (accepted preregistration before any cross-payoff h32 pass).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -45,7 +37,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0215](docs/decisions/ADR-0215-preregister-corrected-resident-sparse-console-page.md) | 2026-08-21 | accepted tooling correction before any corrected h32 counter collection | Preregister the corrected resident-sparse console page |
 | [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the second sparse profile on Python child targeting |
 | [ADR-0217](docs/decisions/ADR-0217-preregister-final-sparse-profiler-target-correction.md) | 2026-08-21 | accepted tooling correction before any final corrected h32 counter collection | Preregister the final sparse-profiler target correction |
 | [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) | 2026-08-21 | accepted diagnostic result | The resident-sparse profile identifies compute pressure |
@@ -69,12 +60,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0236](docs/decisions/ADR-0236-preregister-label-free-continuation-direction-capacity.md) | 2026-08-22 | accepted preregistration before any bisector affine row or strategy label | Preregister label-free continuation direction capacity |
 | [ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md) | 2026-08-22 | accepted label-free engineering result; bisector value labels remain closed | Full bisector library does not fit every street |
 | [ADR-0238](docs/decisions/ADR-0238-preregister-cross-payoff-reverse-adjoint-feasibility.md) | 2026-08-22 | accepted preregistration before any cross-payoff h32 pass | Preregister cross-payoff reverse-adjoint feasibility |
+| [ADR-0239](docs/decisions/ADR-0239-reject-cross-payoff-v1-on-external-axis-key-mismatch.md) | 2026-08-22 | rejected execution; no coefficient or timing result accepted | Reject cross-payoff v1 on external-axis key mismatch |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0238](docs/decisions/ADR-0238-preregister-cross-payoff-reverse-adjoint-feasibility.md) — Preregister cross-payoff reverse-adjoint feasibility.
-- Numbered decisions: 238.
-- ADR-header SHA-256: `3fcd7480640140c8425c488b1ecb1da69c0d46561c6fba8b19c2f5c782d5e26a`.
+- Latest ADR: [ADR-0239](docs/decisions/ADR-0239-reject-cross-payoff-v1-on-external-axis-key-mismatch.md) — Reject cross-payoff v1 on external-axis key mismatch.
+- Numbered decisions: 239.
+- ADR-header SHA-256: `c2fcb0b24690273857474e7adaa1e7a70b4543f9fada1ac1d86de3b555143085`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -82,4 +74,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md) and its dependencies
+4. [ADR-0239](docs/decisions/ADR-0239-reject-cross-payoff-v1-on-external-axis-key-mismatch.md) and its dependencies

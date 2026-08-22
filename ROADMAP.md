@@ -244,6 +244,18 @@ ledger, immutable blueprint emission, and null global/population claims. Treat
 Latin-F as confirmation of the breadth branch, not as a license to retune or
 introduce a fresh fallback comparison.
 
+ADR-0259 freezes that confirmation before any Latin-F GPU work. All six targets
+run in manifest order as first final-label evaluations. The algorithm,
+tolerances, factor, campaign barrier, exact proof, `0.001` materiality floor,
+four-of-six breadth rule, family requirement, and complete ledgers are inherited
+unchanged from ADR-0257/0258. No Latin-E value enters a Latin-F threshold.
+
+**Immediate gate:** execute ADR-0259 once and seal the fixed confirmation
+branch. A pass authorizes only a separately preregistered prospective live-
+shadow integration test with immutable blueprint fallback; a clean failure
+retains Latin-E evidence but rejects that integration step. Neither branch
+licenses deployment or a population claim.
+
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
 30.56%, and transfer only 0.63%. The primary C4 screen must distinguish FP64

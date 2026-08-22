@@ -5,41 +5,39 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) — Widened range transfer finds value, but live selection is infeasible.
+Latest accepted research result: [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) — Continuation rooting is exact and removes five sixths of strategic nodes.
 
-Status: accepted fresh research result; current live path rejected.
+Status: accepted label-free engineering result.
 
 ## Current decision
 
-Accept the fresh result and reject the present complete-tree live B-to-C path.
-Do not tune the structural schedule, replace worst-case K with a label-informed
-rule, or advertise the pooled opportunity as deployable from this corpus.
-Do not pursue another nearby DCFR variant or GPU micro-optimization as the next
-step.
+Authorize preregistration of one label-free continuation-root device-fold warm
+step per frozen target, followed by complete changed-block enumeration and
+Tier-B cost measurement. That experiment must:
 
-The next prerequisite is a continuation-root h32 representation beginning
-after the observed public prefix, with the conditioned belief, updated pot and
-commitments, legal remaining actors/actions, and the immutable blueprint
-restricted to reachable descendant information sets. This change addresses
-both problems revealed here:
+- retain all 12 targets and immutable restricted blueprints;
+- generate no exact strategy certificate or quality label;
+- measure warm-step wall time and resident work, changed-block count, per-block
+  Tier-B cost distribution, memory, and a cumulative deadline ledger;
+- preserve the 15-second budget and one-second emission reserve;
+- compare against the complete-tree ADR-0222 timing only as a structural
+  engineering baseline; and
+- freeze any cost-aware stopping rule before a continuation strategy label is
+  opened.
 
-- it removes decisions the bot can no longer make, restoring causal scope; and
-- it should sharply reduce warm-step and candidate-library work before any new
-  selector optimization is considered.
+The fixed worst-case K from ADR-0221 may be reported for continuity, but the
+preflight should also price a deterministic cumulative deadline rule because
+ADR-0222 measured per-block Tier-B costs from about `119 ms` to `7.14 s`. The
+rule must consume candidates in a label-independent order and stop before the
+reserve; it may not use retained ADR-0222 values to reorder continuation rows.
 
-Preregister continuation-root equivalence and mutation controls before any
-new strategy label. At minimum, prove public-history legality, pot/stack and
-terminal-payoff identity, blueprint restriction identity, conditional reach
-normalization, descendant-only block membership, and exact agreement with a
-full-tree conditional evaluator on reduced games. Preserve the 15-second
-reserve, immutable fallback, and ADR-0179 numerical ceilings.
-
-No strategy is populated. This result makes no deployed strategy-quality,
-continual-resolving, population, composition, or broad poker-strength claim.
+No strategy has been populated. This result makes no warm-step speed, strategy-
+quality, selector-transfer, continual-resolving, deployment, composition, or
+population claim.
 
 ## Open preregistration
 
-[ADR-0223](docs/decisions/ADR-0223-preregister-continuation-root-semantic-preflight.md) — Preregister the continuation-root semantic preflight (accepted label-free preregistration).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -51,7 +49,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0200](docs/decisions/ADR-0200-selector-replay-v1-rejects-on-final-memory-schema-key.md) | 2026-08-21 | rejected result | Selector replay v1 rejects on its final memory-schema key |
 | [ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md) | 2026-08-21 | accepted correction preregistration before corrected replay | Preregister the memory-schema-corrected selector replay |
 | [ADR-0202](docs/decisions/ADR-0202-corrected-selector-replay-v2-rejects-on-overstrict-schema-guard.md) | 2026-08-21 | rejected corrected replay | Corrected selector replay v2 rejects on its overstrict schema guard |
 | [ADR-0203](docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md) | 2026-08-21 | accepted final correction preregistration before replay | Preregister the final four-field selector-replay correction |
@@ -75,12 +72,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0221](docs/decisions/ADR-0221-preregister-action-conditioned-widened-selector-trial.md) | 2026-08-21 | accepted preregistration | Preregister the action-conditioned widened selector trial |
 | [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) | 2026-08-21 | accepted fresh research result; current live path rejected | Widened range transfer finds value, but live selection is infeasible |
 | [ADR-0223](docs/decisions/ADR-0223-preregister-continuation-root-semantic-preflight.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root semantic preflight |
+| [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting is exact and removes five sixths of strategic nodes |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0223](docs/decisions/ADR-0223-preregister-continuation-root-semantic-preflight.md) — Preregister the continuation-root semantic preflight.
-- Numbered decisions: 223.
-- ADR-header SHA-256: `66a1648b5245691072513e50e0fb553844e8ef206a34f5fc938a0fe9edeef4a8`.
+- Latest ADR: [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) — Continuation rooting is exact and removes five sixths of strategic nodes.
+- Numbered decisions: 224.
+- ADR-header SHA-256: `9608cd0eaca22a0f449f84ccfc72ae5cb51407b013b286b941df76b1cb8f9a07`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -88,4 +86,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) and its dependencies
+4. [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) and its dependencies

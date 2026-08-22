@@ -1,0 +1,657 @@
+{
+  "aggregate": {
+    "automaton_numeric_byte_ratio": 0.6715813994196576,
+    "continuation_public_nodes": 63,
+    "continuation_strategic_nodes": 31,
+    "continuation_terminal_groups": 32,
+    "full_public_nodes": 385,
+    "full_strategic_nodes": 192,
+    "full_terminal_groups": 64,
+    "full_terminal_nodes": 193,
+    "strategic_node_reduction_fraction": 0.8385416666666666
+  },
+  "config_sha256": "20d265c191edc2a9d1c1b563d1c3fae980fde7fbe5aaab9d76ac264a84b26821",
+  "decision": "authorize_continuation_root_warm_step_preregistration",
+  "environment": {
+    "git": {
+      "commit": "6717e4efa9f06e7c547dd34dd243f6af84353738",
+      "dirty": false,
+      "strict_status": true
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "gates": {
+    "automaton_identity": true,
+    "blueprint_identity": true,
+    "blueprint_restriction_identity": true,
+    "clean_git": true,
+    "finite": true,
+    "information_key_identity": true,
+    "mutation_controls": true,
+    "new_strategy_labels_zero": true,
+    "node_counts": true,
+    "parents_passed": true,
+    "passed": true,
+    "source_checkpoint_identity": true,
+    "strategy_population_claim_null": true,
+    "target_count": true,
+    "target_identity": true,
+    "terminal_group_identity": true,
+    "topology_identity": true,
+    "total_time": true
+  },
+  "implementation_sha256": "848982d18649eccf584ded7fe82799f8d8902baaf076307d7e52ba425c011b41",
+  "limitations": [
+    "This preflight proves topology, policy-key, payoff, and automaton identity only.",
+    "It performs no continuation-root warm step, quality evaluation, feature extraction, or strategy certificate.",
+    "It does not yet establish wall-clock speedup or strategy quality."
+  ],
+  "methodology": {
+    "affine_features": 0,
+    "certificates": 0,
+    "quality_evaluations": 0,
+    "strategy_labels": 0,
+    "warm_steps": 0
+  },
+  "mutation_controls": {
+    "passed": true,
+    "terminal_prefix_rejected": true,
+    "wrong_actor_rejected": true
+  },
+  "passed": true,
+  "schema_version": 1,
+  "status": "h32_continuation_root_preflight_executed",
+  "strategy_population_claim": null,
+  "target_rows": [
+    {
+      "automaton": {
+        "continuation_numeric_bytes": 4788096,
+        "continuation_unique_automata": 192,
+        "full_numeric_bytes": 7129584,
+        "full_unique_automata": 384,
+        "maximum_terminal_winner_value_error": 0.0,
+        "missing_full_tree_groups": 0,
+        "semantic_field_mismatches": 0
+      },
+      "blueprint_identity": true,
+      "continuation": {
+        "blueprint_action_schema_mismatches": 0,
+        "information_key_mismatches": 0,
+        "information_set_count": 992,
+        "maximum_fixed_policy_subtree_utility_error": 0.0,
+        "maximum_terminal_payoff_error": 0.0,
+        "missing_blueprint_information_sets": [],
+        "public_nodes": 63,
+        "public_prefix": [
+          [
+            0,
+            "bet"
+          ]
+        ],
+        "restricted_blueprint_policy_sha256": "003ddc911907bac5ca2b52bdd234f8271800918d65eaf462e093912fb981645a",
+        "strategic_nodes": 31,
+        "terminal_group_count": 32,
+        "terminal_key_mismatches": 0,
+        "terminal_nodes": 32,
+        "topology_mismatch_count_across_deals": 0,
+        "topology_mismatches": 0
+      },
+      "observed_bettor": 0,
+      "source": "panel_1/balanced",
+      "source_checkpoint_identity": true,
+      "target_id": "panel_1/balanced/checks_then_bet_seat0",
+      "target_identity": true
+    },
+    {
+      "automaton": {
+        "continuation_numeric_bytes": 4584320,
+        "continuation_unique_automata": 192,
+        "full_numeric_bytes": 7074696,
+        "full_unique_automata": 384,
+        "maximum_terminal_winner_value_error": 0.0,
+        "missing_full_tree_groups": 0,
+        "semantic_field_mismatches": 0
+      },
+      "blueprint_identity": true,
+      "continuation": {
+        "blueprint_action_schema_mismatches": 0,
+        "information_key_mismatches": 0,
+        "information_set_count": 992,
+        "maximum_fixed_policy_subtree_utility_error": 0.0,
+        "maximum_terminal_payoff_error": 0.0,
+        "missing_blueprint_information_sets": [],
+        "public_nodes": 63,
+        "public_prefix": [
+          [
+            0,
+            "check"
+          ],
+          [
+            1,
+            "bet"
+          ]
+        ],
+        "restricted_blueprint_policy_sha256": "a295090f2b41dd9c457d2d96dd75b539a5e64fe00ba36b1acf54bbee6371066a",
+        "strategic_nodes": 31,
+        "terminal_group_count": 32,
+        "terminal_key_mismatches": 0,
+        "terminal_nodes": 32,
+        "topology_mismatch_count_across_deals": 0,
+        "topology_mismatches": 0
+      },
+      "observed_bettor": 1,
+      "source": "panel_1/blocker_heavy",
+      "source_checkpoint_identity": true,
+      "target_id": "panel_1/blocker_heavy/checks_then_bet_seat1",
+      "target_identity": true
+    },
+    {
+      "automaton": {
+        "continuation_numeric_bytes": 7162880,
+        "continuation_unique_automata": 192,
+        "full_numeric_bytes": 11303528,
+        "full_unique_automata": 384,
+        "maximum_terminal_winner_value_error": 0.0,
+        "missing_full_tree_groups": 0,
+        "semantic_field_mismatches": 0
+      },
+      "blueprint_identity": true,
+      "continuation": {
+        "blueprint_action_schema_mismatches": 0,
+        "information_key_mismatches": 0,
+        "information_set_count": 992,
+        "maximum_fixed_policy_subtree_utility_error": 0.0,
+        "maximum_terminal_payoff_error": 0.0,
+        "missing_blueprint_information_sets": [],
+        "public_nodes": 63,
+        "public_prefix": [
+          [
+            0,
+            "check"
+          ],
+          [
+            1,
+            "check"
+          ],
+          [
+            2,
+            "bet"
+          ]
+        ],
+        "restricted_blueprint_policy_sha256": "7407261aae193c38871a2fecd78f56ff014583a8e46c48779c6b86d3b158b0e1",
+        "strategic_nodes": 31,
+        "terminal_group_count": 32,
+        "terminal_key_mismatches": 0,
+        "terminal_nodes": 32,
+        "topology_mismatch_count_across_deals": 0,
+        "topology_mismatches": 0
+      },
+      "observed_bettor": 2,
+      "source": "panel_2/blocker_heavy",
+      "source_checkpoint_identity": true,
+      "target_id": "panel_2/blocker_heavy/checks_then_bet_seat2",
+      "target_identity": true
+    },
+    {
+      "automaton": {
+        "continuation_numeric_bytes": 7231040,
+        "continuation_unique_automata": 192,
+        "full_numeric_bytes": 11943632,
+        "full_unique_automata": 384,
+        "maximum_terminal_winner_value_error": 0.0,
+        "missing_full_tree_groups": 0,
+        "semantic_field_mismatches": 0
+      },
+      "blueprint_identity": true,
+      "continuation": {
+        "blueprint_action_schema_mismatches": 0,
+        "information_key_mismatches": 0,
+        "information_set_count": 992,
+        "maximum_fixed_policy_subtree_utility_error": 0.0,
+        "maximum_terminal_payoff_error": 0.0,
+        "missing_blueprint_information_sets": [],
+        "public_nodes": 63,
+        "public_prefix": [
+          [
+            0,
+            "check"
+          ],
+          [
+            1,
+            "check"
+          ],
+          [
+            2,
+            "check"
+          ],
+          [
+            3,
+            "bet"
+          ]
+        ],
+        "restricted_blueprint_policy_sha256": "67bc6bab3ca04afe2186d67cca5b6dae5cfe49f64344a2cdbf77e6d86e83de20",
+        "strategic_nodes": 31,
+        "terminal_group_count": 32,
+        "terminal_key_mismatches": 0,
+        "terminal_nodes": 32,
+        "topology_mismatch_count_across_deals": 0,
+        "topology_mismatches": 0
+      },
+      "observed_bettor": 3,
+      "source": "panel_2/balanced",
+      "source_checkpoint_identity": true,
+      "target_id": "panel_2/balanced/checks_then_bet_seat3",
+      "target_identity": true
+    },
+    {
+      "automaton": {
+        "continuation_numeric_bytes": 5934336,
+        "continuation_unique_automata": 192,
+        "full_numeric_bytes": 10244704,
+        "full_unique_automata": 384,
+        "maximum_terminal_winner_value_error": 0.0,
+        "missing_full_tree_groups": 0,
+        "semantic_field_mismatches": 0
+      },
+      "blueprint_identity": true,
+      "continuation": {
+        "blueprint_action_schema_mismatches": 0,
+        "information_key_mismatches": 0,
+        "information_set_count": 992,
+        "maximum_fixed_policy_subtree_utility_error": 0.0,
+        "maximum_terminal_payoff_error": 0.0,
+        "missing_blueprint_information_sets": [],
+        "public_nodes": 63,
+        "public_prefix": [
+          [
+            0,
+            "check"
+          ],
+          [
+            1,
+            "check"
+          ],
+          [
+            2,
+            "check"
+          ],
+          [
+            3,
+            "check"
+          ],
+          [
+            4,
+            "bet"
+          ]
+        ],
+        "restricted_blueprint_policy_sha256": "533bf357bd2b4dd04a15237b555e38c7f0a57ddd4f156e2b78ee5e91031c5d62",
+        "strategic_nodes": 31,
+        "terminal_group_count": 32,
+        "terminal_key_mismatches": 0,
+        "terminal_nodes": 32,
+        "topology_mismatch_count_across_deals": 0,
+        "topology_mismatches": 0
+      },
+      "observed_bettor": 4,
+      "source": "panel_3/balanced",
+      "source_checkpoint_identity": true,
+      "target_id": "panel_3/balanced/checks_then_bet_seat4",
+      "target_identity": true
+    },
+    {
+      "automaton": {
+        "continuation_numeric_bytes": 4197312,
+        "continuation_unique_automata": 192,
+        "full_numeric_bytes": 7964112,
+        "full_unique_automata": 384,
+        "maximum_terminal_winner_value_error": 0.0,
+        "missing_full_tree_groups": 0,
+        "semantic_field_mismatches": 0
+      },
+      "blueprint_identity": true,
+      "continuation": {
+        "blueprint_action_schema_mismatches": 0,
+        "information_key_mismatches": 0,
+        "information_set_count": 992,
+        "maximum_fixed_policy_subtree_utility_error": 0.0,
+        "maximum_terminal_payoff_error": 0.0,
+        "missing_blueprint_information_sets": [],
+        "public_nodes": 63,
+        "public_prefix": [
+          [
+            0,
+            "check"
+          ],
+          [
+            1,
+            "check"
+          ],
+          [
+            2,
+            "check"
+          ],
+          [
+            3,
+            "check"
+          ],
+          [
+            4,
+            "check"
+          ],
+          [
+            5,
+            "bet"
+          ]
+        ],
+        "restricted_blueprint_policy_sha256": "04b14e5af0e0f81e6c736f88e73f27a3ae3d5f1d8044630a586c685eb2a1d337",
+        "strategic_nodes": 31,
+        "terminal_group_count": 32,
+        "terminal_key_mismatches": 0,
+        "terminal_nodes": 32,
+        "topology_mismatch_count_across_deals": 0,
+        "topology_mismatches": 0
+      },
+      "observed_bettor": 5,
+      "source": "panel_3/blocker_heavy",
+      "source_checkpoint_identity": true,
+      "target_id": "panel_3/blocker_heavy/checks_then_bet_seat5",
+      "target_identity": true
+    },
+    {
+      "automaton": {
+        "continuation_numeric_bytes": 4316800,
+        "continuation_unique_automata": 192,
+        "full_numeric_bytes": 7129584,
+        "full_unique_automata": 384,
+        "maximum_terminal_winner_value_error": 0.0,
+        "missing_full_tree_groups": 0,
+        "semantic_field_mismatches": 0
+      },
+      "blueprint_identity": true,
+      "continuation": {
+        "blueprint_action_schema_mismatches": 0,
+        "information_key_mismatches": 0,
+        "information_set_count": 992,
+        "maximum_fixed_policy_subtree_utility_error": 0.0,
+        "maximum_terminal_payoff_error": 0.0,
+        "missing_blueprint_information_sets": [],
+        "public_nodes": 63,
+        "public_prefix": [
+          [
+            0,
+            "check"
+          ],
+          [
+            1,
+            "check"
+          ],
+          [
+            2,
+            "check"
+          ],
+          [
+            3,
+            "bet"
+          ]
+        ],
+        "restricted_blueprint_policy_sha256": "acf115c750cf9f03165559e9d014ac5383eff8eddc7d466b19a2ba8338ede338",
+        "strategic_nodes": 31,
+        "terminal_group_count": 32,
+        "terminal_key_mismatches": 0,
+        "terminal_nodes": 32,
+        "topology_mismatch_count_across_deals": 0,
+        "topology_mismatches": 0
+      },
+      "observed_bettor": 3,
+      "source": "panel_1/balanced",
+      "source_checkpoint_identity": true,
+      "target_id": "panel_1/balanced/checks_then_bet_seat3",
+      "target_identity": true
+    },
+    {
+      "automaton": {
+        "continuation_numeric_bytes": 4077376,
+        "continuation_unique_automata": 192,
+        "full_numeric_bytes": 7074696,
+        "full_unique_automata": 384,
+        "maximum_terminal_winner_value_error": 0.0,
+        "missing_full_tree_groups": 0,
+        "semantic_field_mismatches": 0
+      },
+      "blueprint_identity": true,
+      "continuation": {
+        "blueprint_action_schema_mismatches": 0,
+        "information_key_mismatches": 0,
+        "information_set_count": 992,
+        "maximum_fixed_policy_subtree_utility_error": 0.0,
+        "maximum_terminal_payoff_error": 0.0,
+        "missing_blueprint_information_sets": [],
+        "public_nodes": 63,
+        "public_prefix": [
+          [
+            0,
+            "check"
+          ],
+          [
+            1,
+            "check"
+          ],
+          [
+            2,
+            "check"
+          ],
+          [
+            3,
+            "check"
+          ],
+          [
+            4,
+            "bet"
+          ]
+        ],
+        "restricted_blueprint_policy_sha256": "becf16e114900f18ef26a1718dfb7d45200e9e0955dc0f5adda18fbc769080a1",
+        "strategic_nodes": 31,
+        "terminal_group_count": 32,
+        "terminal_key_mismatches": 0,
+        "terminal_nodes": 32,
+        "topology_mismatch_count_across_deals": 0,
+        "topology_mismatches": 0
+      },
+      "observed_bettor": 4,
+      "source": "panel_1/blocker_heavy",
+      "source_checkpoint_identity": true,
+      "target_id": "panel_1/blocker_heavy/checks_then_bet_seat4",
+      "target_identity": true
+    },
+    {
+      "automaton": {
+        "continuation_numeric_bytes": 6000896,
+        "continuation_unique_automata": 192,
+        "full_numeric_bytes": 11303528,
+        "full_unique_automata": 384,
+        "maximum_terminal_winner_value_error": 0.0,
+        "missing_full_tree_groups": 0,
+        "semantic_field_mismatches": 0
+      },
+      "blueprint_identity": true,
+      "continuation": {
+        "blueprint_action_schema_mismatches": 0,
+        "information_key_mismatches": 0,
+        "information_set_count": 992,
+        "maximum_fixed_policy_subtree_utility_error": 0.0,
+        "maximum_terminal_payoff_error": 0.0,
+        "missing_blueprint_information_sets": [],
+        "public_nodes": 63,
+        "public_prefix": [
+          [
+            0,
+            "check"
+          ],
+          [
+            1,
+            "check"
+          ],
+          [
+            2,
+            "check"
+          ],
+          [
+            3,
+            "check"
+          ],
+          [
+            4,
+            "check"
+          ],
+          [
+            5,
+            "bet"
+          ]
+        ],
+        "restricted_blueprint_policy_sha256": "342a6be84c5db2ab668b07780f123ce0d20f2129a331da2cffa119318f8da57d",
+        "strategic_nodes": 31,
+        "terminal_group_count": 32,
+        "terminal_key_mismatches": 0,
+        "terminal_nodes": 32,
+        "topology_mismatch_count_across_deals": 0,
+        "topology_mismatches": 0
+      },
+      "observed_bettor": 5,
+      "source": "panel_2/blocker_heavy",
+      "source_checkpoint_identity": true,
+      "target_id": "panel_2/blocker_heavy/checks_then_bet_seat5",
+      "target_identity": true
+    },
+    {
+      "automaton": {
+        "continuation_numeric_bytes": 7923968,
+        "continuation_unique_automata": 192,
+        "full_numeric_bytes": 11943632,
+        "full_unique_automata": 384,
+        "maximum_terminal_winner_value_error": 0.0,
+        "missing_full_tree_groups": 0,
+        "semantic_field_mismatches": 0
+      },
+      "blueprint_identity": true,
+      "continuation": {
+        "blueprint_action_schema_mismatches": 0,
+        "information_key_mismatches": 0,
+        "information_set_count": 992,
+        "maximum_fixed_policy_subtree_utility_error": 0.0,
+        "maximum_terminal_payoff_error": 0.0,
+        "missing_blueprint_information_sets": [],
+        "public_nodes": 63,
+        "public_prefix": [
+          [
+            0,
+            "bet"
+          ]
+        ],
+        "restricted_blueprint_policy_sha256": "bc47dae63b19c74ea102e57bc7867479813c8b473e8ad155eb9e363b7e264afc",
+        "strategic_nodes": 31,
+        "terminal_group_count": 32,
+        "terminal_key_mismatches": 0,
+        "terminal_nodes": 32,
+        "topology_mismatch_count_across_deals": 0,
+        "topology_mismatches": 0
+      },
+      "observed_bettor": 0,
+      "source": "panel_2/balanced",
+      "source_checkpoint_identity": true,
+      "target_id": "panel_2/balanced/checks_then_bet_seat0",
+      "target_identity": true
+    },
+    {
+      "automaton": {
+        "continuation_numeric_bytes": 6608192,
+        "continuation_unique_automata": 192,
+        "full_numeric_bytes": 10244704,
+        "full_unique_automata": 384,
+        "maximum_terminal_winner_value_error": 0.0,
+        "missing_full_tree_groups": 0,
+        "semantic_field_mismatches": 0
+      },
+      "blueprint_identity": true,
+      "continuation": {
+        "blueprint_action_schema_mismatches": 0,
+        "information_key_mismatches": 0,
+        "information_set_count": 992,
+        "maximum_fixed_policy_subtree_utility_error": 0.0,
+        "maximum_terminal_payoff_error": 0.0,
+        "missing_blueprint_information_sets": [],
+        "public_nodes": 63,
+        "public_prefix": [
+          [
+            0,
+            "check"
+          ],
+          [
+            1,
+            "bet"
+          ]
+        ],
+        "restricted_blueprint_policy_sha256": "b174b23a459e7217f1fc6368868f79f1b5722f29f279b402b6e71ea9af28836c",
+        "strategic_nodes": 31,
+        "terminal_group_count": 32,
+        "terminal_key_mismatches": 0,
+        "terminal_nodes": 32,
+        "topology_mismatch_count_across_deals": 0,
+        "topology_mismatches": 0
+      },
+      "observed_bettor": 1,
+      "source": "panel_3/balanced",
+      "source_checkpoint_identity": true,
+      "target_id": "panel_3/balanced/checks_then_bet_seat1",
+      "target_identity": true
+    },
+    {
+      "automaton": {
+        "continuation_numeric_bytes": 5011008,
+        "continuation_unique_automata": 192,
+        "full_numeric_bytes": 7964112,
+        "full_unique_automata": 384,
+        "maximum_terminal_winner_value_error": 0.0,
+        "missing_full_tree_groups": 0,
+        "semantic_field_mismatches": 0
+      },
+      "blueprint_identity": true,
+      "continuation": {
+        "blueprint_action_schema_mismatches": 0,
+        "information_key_mismatches": 0,
+        "information_set_count": 992,
+        "maximum_fixed_policy_subtree_utility_error": 0.0,
+        "maximum_terminal_payoff_error": 0.0,
+        "missing_blueprint_information_sets": [],
+        "public_nodes": 63,
+        "public_prefix": [
+          [
+            0,
+            "check"
+          ],
+          [
+            1,
+            "check"
+          ],
+          [
+            2,
+            "bet"
+          ]
+        ],
+        "restricted_blueprint_policy_sha256": "b665a63efd9301b1c8d59cb159178d5a4cffca4682695993746533a145fc6934",
+        "strategic_nodes": 31,
+        "terminal_group_count": 32,
+        "terminal_key_mismatches": 0,
+        "terminal_nodes": 32,
+        "topology_mismatch_count_across_deals": 0,
+        "topology_mismatches": 0
+      },
+      "observed_bettor": 2,
+      "source": "panel_3/blocker_heavy",
+      "source_checkpoint_identity": true,
+      "target_id": "panel_3/blocker_heavy/checks_then_bet_seat2",
+      "target_identity": true
+    }
+  ],
+  "total_seconds": 30.004609800002072
+}

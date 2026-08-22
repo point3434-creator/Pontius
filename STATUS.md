@@ -5,39 +5,40 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) — Continuation rooting is exact and removes five sixths of strategic nodes.
+Latest accepted research result: [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) — Continuation rooting unbinds the complete 31-block library.
 
 Status: accepted label-free engineering result.
 
 ## Current decision
 
-Authorize preregistration of one label-free continuation-root device-fold warm
-step per frozen target, followed by complete changed-block enumeration and
-Tier-B cost measurement. That experiment must:
+Accept the label-free ledger and authorize one separate fresh continuation-
+root strategy preregistration on the same 12 targets. Freeze the live-like path
+as:
 
-- retain all 12 targets and immutable restricted blueprints;
-- generate no exact strategy certificate or quality label;
-- measure warm-step wall time and resident work, changed-block count, per-block
-  Tier-B cost distribution, memory, and a cumulative deadline ledger;
-- preserve the 15-second budget and one-second emission reserve;
-- compare against the complete-tree ADR-0222 timing only as a structural
-  engineering baseline; and
-- freeze any cost-aware stopping rule before a continuation strategy label is
-  opened.
+1. one continuation-root warm step;
+2. all 31 regret-vertex blocks in public-tree order, subject to a hard
+   pre-emission clock guard;
+3. complete six-seat affine rows for every completed block;
+4. one winner selected by the full affine envelope's positive certified value,
+   with deterministic structural tie-breaking;
+5. one independent exact certificate on that winner only; and
+6. immutable restricted-blueprint fallback for no positive envelope, failed or
+   late proof, numerical failure, or deadline exhaustion.
 
-The fixed worst-case K from ADR-0221 may be reported for continuity, but the
-preflight should also price a deterministic cumulative deadline rule because
-ADR-0222 measured per-block Tier-B costs from about `119 ms` to `7.14 s`. The
-rule must consume candidates in a label-independent order and stop before the
-reserve; it may not use retained ADR-0222 values to reorder continuation rows.
+The next preregistration must preserve the 15-second boundary and one-second
+emission reserve, distinguish the affine proof from its independent exact
+teacher, report abstention and delivered exact value per target, and make no
+claim about candidate families beyond the frozen one-step regret vertices.
+Do not reopen a proxy selector: at 31 blocks, the measured continuation path
+does not need one.
 
-No strategy has been populated. This result makes no warm-step speed, strategy-
-quality, selector-transfer, continual-resolving, deployment, composition, or
-population claim.
+No strategy has been populated. This result makes no strategy-quality,
+opportunity-magnitude, selector-transfer, continual-resolving, deployment,
+composition, or population claim.
 
 ## Open preregistration
 
-[ADR-0225](docs/decisions/ADR-0225-preregister-continuation-root-wall-ledger.md) — Preregister the continuation-root wall ledger (accepted label-free preregistration).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -49,7 +50,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0202](docs/decisions/ADR-0202-corrected-selector-replay-v2-rejects-on-overstrict-schema-guard.md) | 2026-08-21 | rejected corrected replay | Corrected selector replay v2 rejects on its overstrict schema guard |
 | [ADR-0203](docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md) | 2026-08-21 | accepted final correction preregistration before replay | Preregister the final four-field selector-replay correction |
 | [ADR-0204](docs/decisions/ADR-0204-final-selector-wrapper-rejects-on-environment-api-mismatch.md) | 2026-08-21 | rejected final corrected replay | The final selector wrapper rejects on an environment API mismatch |
 | [ADR-0205](docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md) | 2026-08-21 | accepted direct-runner preregistration before replay | Preregister the reviewed direct selector replay |
@@ -73,12 +73,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0223](docs/decisions/ADR-0223-preregister-continuation-root-semantic-preflight.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root semantic preflight |
 | [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting is exact and removes five sixths of strategic nodes |
 | [ADR-0225](docs/decisions/ADR-0225-preregister-continuation-root-wall-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root wall ledger |
+| [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting unbinds the complete 31-block library |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0225](docs/decisions/ADR-0225-preregister-continuation-root-wall-ledger.md) — Preregister the continuation-root wall ledger.
-- Numbered decisions: 225.
-- ADR-header SHA-256: `d17e1d07e557e4471e7cf105b2d3cfd3918fc9c3d43e90cae0a85dda9bb2a6e2`.
+- Latest ADR: [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) — Continuation rooting unbinds the complete 31-block library.
+- Numbered decisions: 226.
+- ADR-header SHA-256: `3953e89f2926f0a8ffd3e5c8fb35df5be8f1c578e919f1f7a414fcf671454b1c`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -86,4 +87,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) and its dependencies
+4. [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) and its dependencies

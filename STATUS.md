@@ -28,7 +28,7 @@ deployment, composition, population performance, or broad poker strength.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0236](docs/decisions/ADR-0236-preregister-label-free-continuation-direction-capacity.md) — Preregister label-free continuation direction capacity (accepted preregistration before any bisector affine row or strategy label).
 
 ## Evidence protocol
 
@@ -40,7 +40,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md) | 2026-08-21 | accepted engineering result | The device record fold materially speeds both resident customers |
 | [ADR-0213](docs/decisions/ADR-0213-preregister-isolated-resident-sparse-nsight-profile.md) | 2026-08-21 | accepted diagnostic preregistration before any h32 counter collection | Preregister the isolated resident-sparse Nsight profile |
 | [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the first resident-sparse profile on an empty console page |
 | [ADR-0215](docs/decisions/ADR-0215-preregister-corrected-resident-sparse-console-page.md) | 2026-08-21 | accepted tooling correction before any corrected h32 counter collection | Preregister the corrected resident-sparse console page |
@@ -64,12 +63,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0233](docs/decisions/ADR-0233-shared-payoff-semantics-and-runner-contracts-retire-repeat-defects.md) | 2026-08-22 | accepted process correction | Shared payoff semantics and runner contracts retire repeat defects |
 | [ADR-0234](docs/decisions/ADR-0234-preregister-heldout-one-step-versus-two-step-continuation-value.md) | 2026-08-22 | accepted preregistration before any held-out strategy work | Preregister held-out one-step versus two-step continuation value |
 | [ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md) | 2026-08-22 | accepted fresh research result; two-step promotion rejected | One continuation step is retained after held-out depth value trial |
+| [ADR-0236](docs/decisions/ADR-0236-preregister-label-free-continuation-direction-capacity.md) | 2026-08-22 | accepted preregistration before any bisector affine row or strategy label | Preregister label-free continuation direction capacity |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md) — One continuation step is retained after held-out depth value trial.
-- Numbered decisions: 235.
-- ADR-header SHA-256: `7e746343678567af9b14b2122b8c4906b9bd7f7c6897f0ff229947e5a97d8110`.
+- Latest ADR: [ADR-0236](docs/decisions/ADR-0236-preregister-label-free-continuation-direction-capacity.md) — Preregister label-free continuation direction capacity.
+- Numbered decisions: 236.
+- ADR-header SHA-256: `f0823db65c2667873ab7f3ff77ab5cbdceb0e2c4acf3171f3d99cb5c599aa686`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

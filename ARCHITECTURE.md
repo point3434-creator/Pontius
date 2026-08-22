@@ -466,6 +466,17 @@ already-opened contexts. That census distinguishes finite global one-seat
 solvability from the current live engine's one-cut-round guarantee; the latter
 continues to certify only the emitted retreat, not global optimality.
 
+[ADR-0270](docs/decisions/ADR-0270-current-decision-programs-close-wide-axis-census-does-not.md)
+measures that distinction across all 42 opened compatible contexts. Thirty-
+five programs close globally in zero to three exact multi-cut rounds, six
+reach no-new-facet states whose LP points still fail the tighter exact cap, and
+one wide-axis master hits its KKT verification guard. Only 18 of 42 close by
+round one, so the broad live path retains its direction fallback. In contrast,
+all six actual current-decision programs close in zero or one round (four and
+two, respectively). That subgroup authorizes a combined endpoint-closure plus
+retreat-certificate ledger replay, not deployment or a global-population
+claim.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

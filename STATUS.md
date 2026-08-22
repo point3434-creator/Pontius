@@ -5,31 +5,32 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0266](docs/decisions/ADR-0266-post-fold-panel-is-fresh-current-and-held-label-blind.md) — Post-fold panel is fresh, current, and held label-blind.
+Latest accepted research result: [ADR-0270](docs/decisions/ADR-0270-current-decision-programs-close-wide-axis-census-does-not.md) — Current-decision programs close; wide-axis census does not.
 
-Status: accepted label-blind result; retrospective closure census authorized.
+Status: accepted retrospective censored result; current-decision combined-ledger replay authorized.
 
 ## Current decision
 
-Accept and seal the six post-fold identities. Keep every post-fold strategy
-label closed.
+Accept the target-isolated retrospective census and its censored branch. Retain
+the live ray/direction fallback across the broad scope. Do not formally
+supersede the direction-diversity ADR line.
 
-Next, inventory the already-opened retained one-seat convex contexts and
-preregister a retrospective off-clock constraint-generation census that runs
-each eligible context to verified epigraph closure or a frozen resource cap.
-The census may generate further optimization labels on already-opened contexts;
-it is therefore not label-free. It must exclude these six post-fold identities.
+Authorize one read-only current-decision combined-ledger replay before opening
+post-fold labels. Join the six ADR-0270 endpoint-closure paths with their exact
+ADR-0264 half-retreat certificate costs and frozen 50-ms envelope and 1,000-ms
+emission reserves. Preserve per-target pairing and use the unchanged
+`13,967.616 ms` conservative floor plus only the genuinely incremental
+post-cut endpoint-oracle charge. If every measured and conservative combined
+path fits 15 seconds, separately preregister the six sealed post-fold targets
+as the fresh current-decision closure-and-value confirmation. Otherwise retain
+the current safe retreat without a live global-optimality claim.
 
-The primary outputs are rounds to closure, unique new opponent-response facets,
-exact oracle work and time, incumbent exact-certified value by round, verified
-master upper bound, incumbent lower bound, and their gap. Only that
-distribution may decide whether direction generation is operationally
-dissolved under the live one-seat deadline. Until then, keep the existing ray
-and vertex machinery as a cheap incumbent and fail-closed fallback.
+Do not use the current six-of-six result to tune the post-fold factor, guard,
+cap allowance, residual tolerance, cut budget, order, or materiality floor.
 
 ## Open preregistration
 
-[ADR-0269](docs/decisions/ADR-0269-preregister-target-isolated-closure-census.md) — Preregister target-isolated closure census (accepted corrective preregistration before any census-label recomputation).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -41,7 +42,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0246](docs/decisions/ADR-0246-preregister-one-round-h32-convex-master.md) | 2026-08-22 | accepted preregistration before any h32 master candidate or oracle | Preregister one-round h32 convex master |
 | [ADR-0247](docs/decisions/ADR-0247-one-round-h32-convex-master-closes-the-exact-gap.md) | 2026-08-22 | accepted optimizer result; quality experiment authorization granted | One-round h32 convex master closes the exact gap |
 | [ADR-0248](docs/decisions/ADR-0248-auto-bootstrap-the-pinned-windows-cuda-dll-bundle.md) | 2026-08-22 | accepted process correction | Auto-bootstrap the pinned Windows CUDA DLL bundle |
 | [ADR-0249](docs/decisions/ADR-0249-preregister-one-seat-convex-retreat-quality-gate.md) | 2026-08-22 | accepted preregistration before any h32 retreat certificate or fallback label join | Preregister one-seat convex-retreat quality gate |
@@ -65,12 +65,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0267](docs/decisions/ADR-0267-preregister-retained-full-closure-census.md) | 2026-08-22 | accepted retrospective preregistration before any full-convergence oracle | Preregister retained full-closure census |
 | [ADR-0268](docs/decisions/ADR-0268-reject-partial-closure-census-on-master-verification-failure.md) | 2026-08-22 | accepted process correction; ADR-0267 census result rejected | Reject partial closure census on master verification failure |
 | [ADR-0269](docs/decisions/ADR-0269-preregister-target-isolated-closure-census.md) | 2026-08-22 | accepted corrective preregistration before any census-label recomputation | Preregister target-isolated closure census |
+| [ADR-0270](docs/decisions/ADR-0270-current-decision-programs-close-wide-axis-census-does-not.md) | 2026-08-22 | accepted retrospective censored result; current-decision combined-ledger replay authorized | Current-decision programs close; wide-axis census does not |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0269](docs/decisions/ADR-0269-preregister-target-isolated-closure-census.md) — Preregister target-isolated closure census.
-- Numbered decisions: 269.
-- ADR-header SHA-256: `c93d21649498f3f0814d92e8bc9edb1009067a03c5939ee283fef16722fbdac1`.
+- Latest ADR: [ADR-0270](docs/decisions/ADR-0270-current-decision-programs-close-wide-axis-census-does-not.md) — Current-decision programs close; wide-axis census does not.
+- Numbered decisions: 270.
+- ADR-header SHA-256: `33c4b548e41ef0cee36b5027ddf6d4662c303036fc8251c8da0921f059af3b62`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -78,4 +79,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0266](docs/decisions/ADR-0266-post-fold-panel-is-fresh-current-and-held-label-blind.md) and its dependencies
+4. [ADR-0270](docs/decisions/ADR-0270-current-decision-programs-close-wide-axis-census-does-not.md) and its dependencies

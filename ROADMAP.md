@@ -334,11 +334,22 @@ neither kind can count as closure. The original 42/42 one-round and full-
 closure branches remain unchanged even though the printed 3- and 2-round rows
 have already falsified the first.
 
-**Immediate gate:** execute ADR-0269 once. Seal all 42 ordered outcomes and the
-checkpoint hash. If the process passes, use the completed/right-censored
-distribution to retain the live direction fallback and decide whether the
-next work is master-numerics diagnosis, extra-round capacity, or a fresh
-one-round confirmation. Do not open post-fold labels during this census.
+ADR-0270 seals the 42-target census. Thirty-five programs close globally:
+seven at round 0, eleven at round 1, ten at round 2, and seven at round 3. Six
+facet-closed candidates fail the tighter exact cap and retain material `U - L`
+gaps; one wide-axis target has the isolated KKT failure. The broad one-round
+claim is false and the direction path remains live. All six actual current-
+decision targets, however, close in zero or one round (four/two) with no stall
+or error. Every difficult row belongs to the wider future-axis scope.
+
+**Immediate gate:** preregister a read-only paired ledger join on those six
+opened current-decision targets. Combine ADR-0270 endpoint-closure work with
+ADR-0264's exact half-retreat certificate, 50-ms envelope charge, 1,000-ms
+emission reserve, and unchanged 13.968-second conservative floor. Charge only
+the genuinely incremental post-cut endpoint oracle beyond the sealed safe-
+retreat path. If all six complete paths fit 15 seconds, separately preregister
+the unopened post-fold panel as fresh closure-and-value confirmation. Do not
+open post-fold labels during the ledger replay.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

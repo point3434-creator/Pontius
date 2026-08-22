@@ -5,27 +5,28 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) — One-seat convex generation matches complete teacher.
+Latest accepted research result: [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) — h4 open-axis rows match dense teachers.
 
-Status: accepted finite control; h4 cut-extraction differential authorized.
+Status: accepted coefficient control; label-free h32 extraction preflight authorized.
 
 ## Current decision
 
-Accept the ADR-0240 keystone and authorize one label-free h4 open-axis cut-
-extraction differential. Compare every extracted coefficient against direct
-exact fixed-tape perturbation controls, include repeated-actor sequence-form
-and post-bet behavioral-shortcut cases, report coefficient construction cost,
-conditioning, persistent bytes, and exact response-oracle cost, and preserve
-exact-response-signature-only deduplication.
+Authorize one narrow, label-free h32 row-extraction preflight on the accepted
+post-bet continuation topology. Before constructing or optimizing a candidate,
+the successor must measure exact row identity against an independent accepted
+teacher, actual resident GPU construction and marginal pass cost, response-
+oracle cost, retained bytes, middle rank, conditioning, GPU-pool headroom, and
+the complete conservative 15-second ledger.
 
-Only an h4 identity pass may reopen the corrected ADR-0238 external-axis path
-as an h32 row extractor. h32 cut count, extraction latency, master latency,
-independent final-certificate latency, memory headroom, and the 15-second ledger
-remain unmeasured.
+The preflight must price only the rows needed for one acting-seat master, keep
+all six epigraph families, use exact response signatures without approximate
+row deletion, and reserve the independent final-certificate budget. A pass may
+authorize a label-free h32 master prototype; it may not open strategy-quality
+labels or emit a policy.
 
 ## Open preregistration
 
-[ADR-0242](docs/decisions/ADR-0242-preregister-h4-sequence-form-open-axis-differential.md) — Preregister h4 sequence-form open-axis differential (accepted preregistration before the h4 open-axis run).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -37,7 +38,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0219](docs/decisions/ADR-0219-preregister-action-conditioned-posterior-manifest.md) | 2026-08-21 | accepted label-free preregistration before any action-conditioned warm step or label | Preregister the action-conditioned posterior manifest |
 | [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) | 2026-08-21 | accepted label-free manifest result | The action-conditioned posterior panel is fresh, balanced, and nondegenerate |
 | [ADR-0221](docs/decisions/ADR-0221-preregister-action-conditioned-widened-selector-trial.md) | 2026-08-21 | accepted preregistration | Preregister the action-conditioned widened selector trial |
 | [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) | 2026-08-21 | accepted fresh research result; current live path rejected | Widened range transfer finds value, but live selection is infeasible |
@@ -61,12 +61,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0240](docs/decisions/ADR-0240-preregister-one-seat-convex-generation-keystone.md) | 2026-08-22 | accepted preregistration before the frozen convex-keystone run | Preregister one-seat convex generation keystone |
 | [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) | 2026-08-22 | accepted finite control; h4 cut-extraction differential authorized | One-seat convex generation matches complete teacher |
 | [ADR-0242](docs/decisions/ADR-0242-preregister-h4-sequence-form-open-axis-differential.md) | 2026-08-22 | accepted preregistration before the h4 open-axis run | Preregister h4 sequence-form open-axis differential |
+| [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) | 2026-08-22 | accepted coefficient control; label-free h32 extraction preflight authorized | h4 open-axis rows match dense teachers |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0242](docs/decisions/ADR-0242-preregister-h4-sequence-form-open-axis-differential.md) — Preregister h4 sequence-form open-axis differential.
-- Numbered decisions: 242.
-- ADR-header SHA-256: `92c10cd7efc611984649cd0291501ea3f7d8a40f8b08f41827bb7761e1788662`.
+- Latest ADR: [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) — h4 open-axis rows match dense teachers.
+- Numbered decisions: 243.
+- ADR-header SHA-256: `81e9585d92ba4317bb133a83e9e3816b106b179d442e5d311bd4c7cdf019314a`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -74,4 +75,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) and its dependencies
+4. [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) and its dependencies

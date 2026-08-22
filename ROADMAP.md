@@ -148,15 +148,21 @@ a repeated-actor path, and passes realization-retreat identities below
 `1.1e-16`. It uses five opponent rows for acting seat 0 and three for seat 1;
 those sparse control counts are not an h32 prediction.
 
-**Immediate gate:** execute the frozen ADR-0242 label-free h4 open-axis
-differential from its clean preregistration commit. Compare 22 extracted payoff
-rows with direct dense source/endpoint teachers, cover repeated-actor sequence
-form and post-bet behavioral-shortcut topology, and measure coefficient
-construction, response oracles, conditioning, and bytes. Only a complete h4
-identity pass may reopen the corrected external-axis ADR-0238 implementation as
-an h32 row extractor. Retain one continuation step and the complete 31-block
-regret-vertex library as the live fallback, and do not open widened strategy
-labels on this control.
+ADR-0243 closes the h4 open-axis identity gate. The repeated-actor sequence-
+form row and post-bet behavioral row match independent dense teachers below
+`8.0e-15`; the corrected explicit-axis response splice is exact while the old
+embedded-key splice fails all 256 mutation entries. The measured CPU h4 costs
+are controls, not h32 predictions.
+
+**Immediate gate:** preregister one narrow, label-free h32 row-extraction
+preflight on the accepted post-bet continuation topology. Price the exact rows
+needed for one acting-seat master, compare row projections against an accepted
+independent teacher, and measure resident construction and pass costs, response
+oracles, row bytes, middle rank, conditioning, GPU-pool headroom, and the full
+conservative 15-second ledger before constructing any candidate. Retain one
+continuation step and the complete 31-block regret-vertex library as the live
+fallback, reserve the independent final-certificate budget, and do not open
+widened strategy labels on this control.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

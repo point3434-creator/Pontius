@@ -1,0 +1,186 @@
+{
+  "config_sha256": "ac94319ad03e8dc8d6fc0b9d425f5e8a399552c38cfbfba3455da796cd06a2d1",
+  "decision": "authorize_external_axis_h32_row_extraction_preflight",
+  "environment": {
+    "git": {
+      "commit": "a7d052327204e849745dd2b63b0c08e3c0e7c44b",
+      "dirty": false,
+      "strict_status": true
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "runtime": {
+      "backend": "cpu_float64_h4_sparse_leaf_contraction"
+    }
+  },
+  "external_axis_mutation": {
+    "corrected_splice_errors": 0,
+    "embedded_splice_mismatch_entries": 256,
+    "passed": true,
+    "reordered_external_axes": true
+  },
+  "gates": {
+    "acting_br_invariance": true,
+    "clean_git": true,
+    "external_axis_corrected_splice": true,
+    "finite": true,
+    "fixed_response_row_identity": true,
+    "gain_row_identity": true,
+    "layout_count": true,
+    "no_approximate_row_deduplication": true,
+    "no_strategy_labels": true,
+    "parent_passed": true,
+    "pass_counts": true,
+    "passed": true,
+    "profile_row_identity": true,
+    "public_node_counts": true,
+    "row_persistent_bytes": true,
+    "sequence_entry_counts": true,
+    "source_zero_sum": true,
+    "topology_classification": true,
+    "total_time": true
+  },
+  "implementation_sha256": "f5ee2a888bfb6f2dfde9bda681961f78b0f7007c05b91a67435c2e9a5c44628e",
+  "layout_rows": [
+    {
+      "acting_best_response_invariance_error": 0.0,
+      "acting_player": 0,
+      "acting_public_nodes": 32,
+      "certificates_executed": 0,
+      "coefficient_assembly_ms": 6.014400001731701,
+      "coefficient_construction_ms": 425.6251000042539,
+      "coefficient_contraction_ms": 393.87120000174036,
+      "conditioning": {
+        "effective_condition_number": 6.605399041796609,
+        "minimum_normalized_separation": 0.4541441834329485,
+        "numerical_rank": 6,
+        "rows": 6
+      },
+      "direct_teacher_ms": 487.31940000288887,
+      "endpoint_policy_sha256": "d848ae2d3b7570e90e713b5f89f6f421ea504c5d8ea01a2459ca4ef046e715c1",
+      "fixed_response_passes": 5,
+      "gain_row_persistent_bytes": 12288,
+      "layout_id": "full_repeated_actor",
+      "layout_memory": {
+        "estimated_hot_scratch_bytes": 24957216,
+        "hand_index_bytes": 27792,
+        "persistent_numeric_bytes": 10770928,
+        "public_topology_bytes": 6160,
+        "root_probability_bytes": 9264,
+        "terminal_value_bytes": 10727712
+      },
+      "maximum_fixed_response_row_error": 1.3322676295501878e-15,
+      "maximum_gain_row_error": 7.105427357601002e-15,
+      "maximum_gpu_pool_total_bytes": 0,
+      "maximum_middle_rank": 12,
+      "maximum_peak_numeric_bytes": 2484628,
+      "maximum_profile_row_error": 7.993605777301127e-15,
+      "path_single_visit": false,
+      "profile_passes": 6,
+      "public_nodes": 385,
+      "public_prefix": [],
+      "quality_rows_serialized": 0,
+      "repeated_player": 0,
+      "response_oracle_ms": 40.959699996165,
+      "sequence_entries_per_row": 256,
+      "source_policy_sha256": "d761103c5e609117d0ce29e75122c1ae9f5f5efbbf4b0ac2da3d51218fa9d75d",
+      "source_zero_sum_residual": 2.1371793224034263e-15,
+      "sparse_operator_numeric_bytes": 94688,
+      "strategy_labels_generated": 0,
+      "terminal_automaton_numeric_bytes": 259312,
+      "terminal_nodes": 193,
+      "workspace_numeric_bytes": 83424
+    },
+    {
+      "acting_best_response_invariance_error": 0.0,
+      "acting_player": 2,
+      "acting_public_nodes": 1,
+      "certificates_executed": 0,
+      "coefficient_assembly_ms": 1.0701999854063615,
+      "coefficient_construction_ms": 74.964400009776,
+      "coefficient_contraction_ms": 69.3805999981123,
+      "conditioning": {
+        "effective_condition_number": 24.03817131892745,
+        "minimum_normalized_separation": 0.1442076428142026,
+        "numerical_rank": 5,
+        "rows": 6
+      },
+      "direct_teacher_ms": 51.902399987739045,
+      "endpoint_policy_sha256": "33b79a9174f300403b5a25e7226e627c5f7ee761b023df6463de6daa574039e9",
+      "fixed_response_passes": 5,
+      "gain_row_persistent_bytes": 384,
+      "layout_id": "post_bet_single_visit",
+      "layout_memory": {
+        "estimated_hot_scratch_bytes": 4076160,
+        "hand_index_bytes": 27792,
+        "persistent_numeric_bytes": 1816752,
+        "public_topology_bytes": 1008,
+        "root_probability_bytes": 9264,
+        "terminal_value_bytes": 1778688
+      },
+      "maximum_fixed_response_row_error": 5.329070518200751e-15,
+      "maximum_gain_row_error": 5.773159728050814e-15,
+      "maximum_gpu_pool_total_bytes": 0,
+      "maximum_middle_rank": 12,
+      "maximum_peak_numeric_bytes": 1899304,
+      "maximum_profile_row_error": 3.1086244689504383e-15,
+      "path_single_visit": true,
+      "profile_passes": 6,
+      "public_nodes": 63,
+      "public_prefix": [
+        [
+          0,
+          "check"
+        ],
+        [
+          1,
+          "bet"
+        ]
+      ],
+      "quality_rows_serialized": 0,
+      "repeated_player": null,
+      "response_oracle_ms": 4.283199996280018,
+      "sequence_entries_per_row": 8,
+      "source_policy_sha256": "1bb1f2f8d5faf271bfcdd1b6011ca54b3c364a4158bd13868f8b85e3a0ed1ebf",
+      "source_zero_sum_residual": 2.9976021664879227e-15,
+      "sparse_operator_numeric_bytes": 94688,
+      "strategy_labels_generated": 0,
+      "terminal_automaton_numeric_bytes": 157952,
+      "terminal_nodes": 32,
+      "workspace_numeric_bytes": 83424
+    }
+  ],
+  "limitations": [
+    "This is a label-free h4 coefficient identity and cost differential.",
+    "The dense teacher and sparse extractor share game semantics but not the open-axis assembly path.",
+    "h4 CPU timing does not predict resident h32 GPU latency or cut count.",
+    "A pass authorizes only an h32 label-free extraction preflight, not optimization or emission."
+  ],
+  "methodology": {
+    "certificates": 0,
+    "fixed_response_passes": 10,
+    "layouts": [
+      "full_repeated_actor",
+      "post_bet_single_visit"
+    ],
+    "profile_passes": 12,
+    "quality_rows": 0,
+    "row_coordinates": "last_action_sequence_form_realization",
+    "row_deduplication": "none_in_differential_exact_signature_only_later",
+    "strategy_labels": 0,
+    "teacher": "direct_dense_deal_axis_source_and_endpoint_utilities"
+  },
+  "passed": true,
+  "primitive_sha256": "131928a4fd8aeb12dd7d2ca03ebabc44e06af5ddf666d8ad900f07e0e1e5aaee",
+  "schema_version": 1,
+  "sparse_compile_ms": 170.30069999600528,
+  "status": "h4_sequence_form_open_axis_differential_executed",
+  "strategy_quality_claim": null,
+  "total_seconds": 2.112426699997741,
+  "workspace_build_ms": {
+    "belief_workspace_ms": 0.49510000098962337,
+    "bidirectional_topology_ms": 1.434099998732563,
+    "factor_topology_ms": 1.5702000018791296,
+    "reverse_belief_workspace_ms": 0.06179999763844535
+  }
+}

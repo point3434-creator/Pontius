@@ -1,0 +1,15 @@
+{
+  "evidence_stage": "preregistered_after_adr0208_before_any_corrected_h32_tier_b_batch_measurement",
+  "expected_v1_config_sha256": "0b3009edbd3b187f10efa837e454847486b0066a6e80c94ebe1b237cff69fe56",
+  "expected_v1_implementation_sha256": "96d0de5d34d717f8245512e4cf7a7e672f3ec7c731724b5826a361661b29fb9e",
+  "expected_v1_control_test_sha256": "a4e5f0d80ef36f2668da0d172a865d02175a5c08a0de9ecc7d11641b77609794",
+  "expected_v1_decision_sha256": "411e23f6cbaeffaf160b1c5a548b2d1fe61d1ba54c4ed4cdf9deda968b463718",
+  "expected_v1_rejection_sha256": "0375adc47a90734d4894052e1381df97cf1990c970868e47e7a6707597ff2fee",
+  "expected_source_result_sha256": "c2a6691d214eec7e35c9f4d18e489f60de1ebf47cb35bba9785796e0582cbced",
+  "expected_v2_implementation_sha256": "de7ae739f7187d3834d7e7972c7be2754d24052653c90a65b7211e6620ffd734",
+  "expected_v2_control_test_sha256": "165e5d6e8471d1b5c4952bcf61a357355bffcc0d49efca4e75459dbdda308f9b",
+  "correction_rule": "replace_both_source_parent_gates_passed_reads_with_the_pinned_top_level_source_parent_passed_field_only",
+  "source_schema_rule": "require_the_exact_pinned_top_level_source_schema_with_passed_and_gate_results_and_without_gates",
+  "output_rule": "write_only_h32_tier_b_opponent_batch_v2_json",
+  "state_reuse_rule": "reconstruct_every_target_and_measurement_from_scratch_without_failed_v1_process_state"
+}

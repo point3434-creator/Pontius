@@ -5,28 +5,26 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0247](docs/decisions/ADR-0247-one-round-h32-convex-master-closes-the-exact-gap.md) — One-round h32 convex master closes the exact gap.
+Latest accepted research result: [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) — Convex retreat beats the live fallback on the frozen target.
 
-Status: accepted optimizer result; quality experiment authorization granted.
+Status: accepted single-target strategy-quality result; fresh replication authorized.
 
 ## Current decision
 
-Accept the h32 one-round optimizer result and the convex/cutting-plane path for
-one-seat continuation work. The result answers the former idea's feasibility
-question positively: full-axis direction generation can cross response kinks,
-recover the exact one-seat optimum, and close a verified bound inside the hard
-street ledger on the frozen target.
+Accept the narrow one-target strategy-quality result. The one-seat convex
+master has now produced a candidate that is independently exact-safe, restores
+interior guard slack, fits the full street ledger, and materially outperforms
+the accepted complete-library one-step fallback on the optimizer target.
 
-Authorize only a new clean preregistration for strategy quality. That trial
-should compare the independently certified factor-`0.5` retreat against the
-immutable blueprint and the accepted live fallback under the complete street
-ledger. It must use distinct cap and epigraph allowances, retain the exact
-certificate as sole emission authority, and preserve the no-composition and
-single-seat boundaries. No candidate from this optimizer artifact is emitted.
+Authorize only a separately preregistered fresh-target replication. Freeze the
+fresh target or target panel before any convex candidate or label, retain the
+factor `0.5`, exact two-oracle authority, distinct cap and epigraph allowances,
+full conservative charge, sealed fallback comparison where available, and
+immutable external blueprint. Do not tune the retreat factor from this result.
 
 ## Open preregistration
 
-[ADR-0251](docs/decisions/ADR-0251-preregister-numerically-identified-convex-retreat-quality-gate.md) — Preregister numerically identified convex-retreat quality gate (accepted corrected preregistration before any retreat certificate or fallback label join).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -38,7 +36,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) | 2026-08-22 | accepted fresh research result | Continuation rooting delivers exact safe value on all twelve targets |
 | [ADR-0229](docs/decisions/ADR-0229-preregister-label-free-continuation-depth-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the label-free continuation depth ledger |
 | [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) | 2026-08-22 | accepted label-free engineering result | Two continuation steps fit the conservative street ledger |
 | [ADR-0231](docs/decisions/ADR-0231-preregister-heldout-continuation-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration | Preregister the held-out continuation posterior panel |
@@ -62,12 +59,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0249](docs/decisions/ADR-0249-preregister-one-seat-convex-retreat-quality-gate.md) | 2026-08-22 | accepted preregistration before any h32 retreat certificate or fallback label join | Preregister one-seat convex-retreat quality gate |
 | [ADR-0250](docs/decisions/ADR-0250-reject-bytewise-retreat-reconstruction-before-labels.md) | 2026-08-22 | rejected preregistered execution before any new strategy-quality label | Reject bytewise retreat reconstruction before labels |
 | [ADR-0251](docs/decisions/ADR-0251-preregister-numerically-identified-convex-retreat-quality-gate.md) | 2026-08-22 | accepted corrected preregistration before any retreat certificate or fallback label join | Preregister numerically identified convex-retreat quality gate |
+| [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) | 2026-08-22 | accepted single-target strategy-quality result; fresh replication authorized | Convex retreat beats the live fallback on the frozen target |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0251](docs/decisions/ADR-0251-preregister-numerically-identified-convex-retreat-quality-gate.md) — Preregister numerically identified convex-retreat quality gate.
-- Numbered decisions: 251.
-- ADR-header SHA-256: `c1aeef37ea03c882280cb7ebe7ae8e7254ff808b19e5710d80755495833eddf6`.
+- Latest ADR: [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) — Convex retreat beats the live fallback on the frozen target.
+- Numbered decisions: 252.
+- ADR-header SHA-256: `94833751ebaf1b52b15177ccf2fb6d4af6b4c77caa4fe9e453879c3e756c9ecc`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -75,4 +73,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0247](docs/decisions/ADR-0247-one-round-h32-convex-master-closes-the-exact-gap.md) and its dependencies
+4. [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) and its dependencies

@@ -190,12 +190,18 @@ GPU-derived policy byte digests did not. No retreat or fallback label opened
 and no artifact was written. This is the ADR-0179 reassociation class, not a
 changed optimizer branch.
 
-**Open gate:** ADR-0251 inherits the narrow quality trial while correcting only
-candidate identity. The algorithm, exact response signatures, cut set, row
-counts, bounds, and numerical optimizer witnesses are authoritative; policy
-digests are diagnostics. The two-oracle schedule, sealed comparator, distinct
-cap/epigraph allowances, full `13,967.616 ms` conservative charge, immutable
-external blueprint, and strict fresh-replication promotion rule are unchanged.
+ADR-0252 closes the corrected quality gate. The independently certified half-
+retreat delivers exact value `0.00795681`, `3.14x` the accepted fallback's
+value, and retains `1.50e-9` minimum cap slack. Its conservative value rate is
+`2.37x` the fallback rate while the full `13,967.616 ms` ledger still fits.
+All numerical/discrete reconstruction gates pass while the three policy byte
+digests remain non-gating reassociation diagnostics.
+
+**Immediate gate:** preregister fresh-target replication before constructing
+another convex candidate or opening another label. Retain factor `0.5`, the
+two-oracle exact authority, separate cap/epigraph allowances, full conservative
+charge, immutable external blueprint, and all one-seat/no-composition limits.
+Do not tune from the known-target win.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

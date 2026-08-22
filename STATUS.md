@@ -5,36 +5,28 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0245](docs/decisions/ADR-0245-h32-full-axis-rows-fit-one-conservative-cut-round.md) — h32 full-axis rows fit one conservative cut round.
+Latest accepted research result: [ADR-0247](docs/decisions/ADR-0247-one-round-h32-convex-master-closes-the-exact-gap.md) — One-round h32 convex master closes the exact gap.
 
-Status: accepted engineering result; label-free h32 master prototype authorized.
+Status: accepted optimizer result; quality experiment authorization granted.
 
 ## Current decision
 
-Authorize one label-free h32 master prototype on the identical target, acting
-seat, row families, and external axes. It must:
+Accept the h32 one-round optimizer result and the convex/cutting-plane path for
+one-seat continuation work. The result answers the former idea's feasibility
+question positively: full-axis direction generation can cross response kinks,
+recover the exact one-seat optimum, and close a verified bound inside the hard
+street ledger on the frozen target.
 
-1. build the source row library and solve the restricted master;
-2. independently evaluate the proposed policy with the exact six-seat
-   response oracle;
-3. add every violated opponent response row in one multi-cut round;
-4. resolve once, then stop regardless of remaining gap;
-5. report restricted-master `L`, independently evaluated incumbent `U`,
-   `U - L`, active caps, exact response signatures, added rows, master and
-   oracle timings, retreat behavior, memory, and the complete measured ledger;
-   and
-6. emit only the immutable blueprint and execute no strategy-quality label.
-
-If the initial master or the single allowed multi-cut round closes `U - L` to
-the frozen tolerance, a later preregistration may ask a strategy-quality
-question with an independent exact final certificate. Otherwise reject this
-live solver at the current cost structure and retain it for off-clock analysis
-or future oracle/row reductions. Do not borrow a second round from the final-
-certificate or emission reserve.
+Authorize only a new clean preregistration for strategy quality. That trial
+should compare the independently certified factor-`0.5` retreat against the
+immutable blueprint and the accepted live fallback under the complete street
+ledger. It must use distinct cap and epigraph allowances, retain the exact
+certificate as sole emission authority, and preserve the no-composition and
+single-seat boundaries. No candidate from this optimizer artifact is emitted.
 
 ## Open preregistration
 
-[ADR-0246](docs/decisions/ADR-0246-preregister-one-round-h32-convex-master.md) — Preregister one-round h32 convex master (accepted preregistration before any h32 master candidate or oracle).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -46,7 +38,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0223](docs/decisions/ADR-0223-preregister-continuation-root-semantic-preflight.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root semantic preflight |
 | [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting is exact and removes five sixths of strategic nodes |
 | [ADR-0225](docs/decisions/ADR-0225-preregister-continuation-root-wall-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root wall ledger |
 | [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting unbinds the complete 31-block library |
@@ -70,12 +61,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0244](docs/decisions/ADR-0244-preregister-h32-one-seat-open-axis-preflight.md) | 2026-08-22 | accepted preregistration before any h32 full-axis row pass | Preregister h32 one-seat open-axis preflight |
 | [ADR-0245](docs/decisions/ADR-0245-h32-full-axis-rows-fit-one-conservative-cut-round.md) | 2026-08-22 | accepted engineering result; label-free h32 master prototype authorized | h32 full-axis rows fit one conservative cut round |
 | [ADR-0246](docs/decisions/ADR-0246-preregister-one-round-h32-convex-master.md) | 2026-08-22 | accepted preregistration before any h32 master candidate or oracle | Preregister one-round h32 convex master |
+| [ADR-0247](docs/decisions/ADR-0247-one-round-h32-convex-master-closes-the-exact-gap.md) | 2026-08-22 | accepted optimizer result; quality experiment authorization granted | One-round h32 convex master closes the exact gap |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0246](docs/decisions/ADR-0246-preregister-one-round-h32-convex-master.md) — Preregister one-round h32 convex master.
-- Numbered decisions: 246.
-- ADR-header SHA-256: `eeeb1f0068b2455a22fd3329ae22c7a21d40000816cd7e99052a0bfe4a9684b0`.
+- Latest ADR: [ADR-0247](docs/decisions/ADR-0247-one-round-h32-convex-master-closes-the-exact-gap.md) — One-round h32 convex master closes the exact gap.
+- Numbered decisions: 247.
+- ADR-header SHA-256: `b04f95c2eccf5bf8e8bdcac5401fd2ec5bfe59f1ccc4b4e17daa87c226f99763`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -83,4 +75,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0245](docs/decisions/ADR-0245-h32-full-axis-rows-fit-one-conservative-cut-round.md) and its dependencies
+4. [ADR-0247](docs/decisions/ADR-0247-one-round-h32-convex-master-closes-the-exact-gap.md) and its dependencies

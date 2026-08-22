@@ -174,11 +174,22 @@ stops. It reports verified `L`, independent `U`, `U - L`, response signatures,
 rows, active caps, retreat, timings, memory, and both complete ledgers while
 emitting only the immutable blueprint.
 
-**Immediate gate:** invoke ADR-0246 once from a clean commit. Promote only if
-the one allowed round closes the epigraph and bound gap, the exact candidate is
-cap-feasible, and both 15-second ledgers pass. Otherwise reject the live convex
-path at current costs. Retain one continuation step and the complete 31-block
-regret-vertex library as the live fallback; open no strategy-quality labels.
+ADR-0247 closes the optimizer gate. The initial master needs two new opponent
+facets; one all-opponent multi-cut round then closes exact `U - L` to
+`3.84e-15`. The final exact cap violation is only `1.03e-15`, the measured live
+ledger is 8.72 seconds, and the corrected conservative ledger is 13.97
+seconds. A result audit caught that the frozen runner reused the looser
+epigraph tolerance for its cap-feasible Boolean; independently applying the
+preregistered `2e-11` cap allowance leaves the branch unchanged by nearly four
+orders of magnitude. The endpoint and diagnostic retreat remain un-emitted,
+and no strategy-quality claim is open.
+
+**Immediate gate:** preregister one narrow quality trial on this same target.
+Independently certify the factor-`0.5` retreat and compare it with the immutable
+blueprint and accepted one-step/31-block live fallback under the complete
+15-second ledger. Pass cap and epigraph tolerances as distinct semantics. The
+exact certificate remains sole emission authority; retain the one-seat,
+non-composition, and no-cross-street boundaries until fresh-target replication.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

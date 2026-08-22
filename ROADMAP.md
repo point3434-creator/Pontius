@@ -287,12 +287,19 @@ global prelabel barrier, and immutable-blueprint external emission remain
 unchanged. Process validity is separate from the inherited four-of-six material
 value-transfer threshold.
 
-**Immediate gate:** execute ADR-0263 exactly once on all six manifest targets.
-A process pass with at least four material accepted retreats above `0.001`, both
-families, and all schedules fitting authorizes only a separately preregistered
-post-fold test. A clean sub-threshold result rejects transfer but remains valid
-evidence. A process failure rejects the execution. Do not pilot, substitute,
-retune, or introduce deployment authority.
+ADR-0264 accepts the prospective current-decision result. All six half-retreats
+are exact-cap-safe, interior, positive, and shadow-accepted; four exceed
+`0.001`, both range families are present, and measured live time tops out at
+5.081 seconds while the 13.968-second conservative floor remains binding. The
+scoped setup adapter restores correctly and every actual emission is still the
+blueprint.
+
+**Immediate gate:** preregister a label-blind post-fold posterior panel on the
+same six sources and positional schedule, replacing only the frozen first-
+responder call with a fold. Require fresh identities, legal current-player
+roots, three downstream responders, one-node h32 axes, and zero strategy labels
+before any GPU work. Do not tune the factor, interior floor, materiality
+threshold, cut budget, schedule, or emission authority from ADR-0264.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

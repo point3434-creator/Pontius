@@ -447,7 +447,15 @@ one-seat axis and the current fold/call player; three opponents remain
 downstream. The complete current-decision axis is therefore one public node,
 32 h32 information sets, and 64 behavioral variables. Six fixed post-call
 posterior identities pass the label-blind freshness, topology, and belief-
-nondegeneracy gates. No strategy label has yet been opened on this scope.
+nondegeneracy gates.
+
+[ADR-0264](docs/decisions/ADR-0264-current-decision-convex-shadow-delivers-six-safe-candidates-in-five-seconds.md)
+opens those labels prospectively. All six half-retreats are exact-cap-safe,
+interior, positive, and shadow-accepted; four exceed `0.001`, both range
+families are represented, and the maximum measured live ledger is 5.081
+seconds under the unchanged 13.968-second conservative floor. The setup adapter
+is scoped and restored, and the actual emitted policy remains the blueprint.
+This authorizes a post-fold identity test, not deployment.
 
 ## Runtime target
 

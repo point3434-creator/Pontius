@@ -351,11 +351,20 @@ conservative accounting adds a fixed 1,000 ms to the unchanged 13.968-second
 floor, leaving only 32.384 ms on the one-cut shape. The replay is CPU-only and
 opens no post-fold label.
 
-**Immediate gate:** invoke ADR-0271 once from its clean preregistration commit.
-If every pairing, identity, certificate, incremental-work, oracle-ceiling, and
-15-second gate passes, seal it and separately preregister the unopened
-post-fold panel as fresh closure-and-value confirmation. Do not open post-fold
-labels during the ledger replay.
+ADR-0272 accepts the replay. All pair identities agree within `1.08e-14`. Four
+zero-cut paths retain two exact oracles; the two one-cut paths add one exact
+post-cut endpoint oracle at 760.975 and 844.294 ms. The worst measured combined
+ledger is 5.885 seconds. The worst conservative ledger is 14.968 seconds,
+leaving 32.384 ms. Every inherited retreat remains exact-safe and positive,
+and the post-fold labels remain unopened.
+
+**Immediate gate:** separately preregister all six post-fold current-decision
+targets as fresh closure-and-value confirmation. Preserve the one-round
+algorithm, factor `0.5`, exact retreat certificate, all numerical allowances,
+target order, materiality rule, immutable external emission, and full prelabel
+barrier. A post-cut endpoint oracle is the only new charged component and must
+finish within 1,000 ms. Any second-round need or ledger failure retains the
+direction fallback.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

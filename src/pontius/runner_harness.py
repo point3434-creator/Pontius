@@ -79,8 +79,9 @@ def assemble_environment(
     """Build the canonical nested runtime/Git environment payload."""
 
     payload = dict(environment_metadata() if base is None else base)
-    if "runtime" in payload or "git" in payload:
-        raise ValueError("base environment must not predefine runtime or git")
+    if "runtime" in payload:
+        raise ValueError("base environment must not predefine runtime")
+    payload.pop("git", None)
     payload["runtime"] = dict(runtime)
     payload["git"] = dict(git)
     return payload

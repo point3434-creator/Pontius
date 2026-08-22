@@ -49,7 +49,8 @@ class RunnerHarnessTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "x lacks required field a.c"):
             require_path({"a": {}}, ("a", "c"), artifact_name="x")
         environment = assemble_environment(
-            base={"python": "test"}, runtime={"cuda": "13"}, git={"commit": "abc"}
+            base={"python": "test", "git": {"dirty": True}},
+            runtime={"cuda": "13"}, git={"commit": "abc"}
         )
         self.assertEqual(
             environment,

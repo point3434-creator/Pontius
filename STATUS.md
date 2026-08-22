@@ -15,7 +15,7 @@ The latest research ADR has no explicit Decision section.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0234](docs/decisions/ADR-0234-preregister-heldout-one-step-versus-two-step-continuation-value.md) — Preregister held-out one-step versus two-step continuation value (accepted preregistration before any held-out strategy work).
 
 ## Evidence protocol
 
@@ -27,7 +27,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0210](docs/decisions/ADR-0210-six-way-tier-b-batching-is-exact-but-does-not-reduce-resident-contraction-work.md) | 2026-08-21 | accepted corrected engineering result | Six-way Tier-B batching is exact but does not reduce resident contraction work |
 | [ADR-0211](docs/decisions/ADR-0211-preregister-resident-record-to-hand-fold-placement-differential.md) | 2026-08-21 | accepted engineering preregistration before any h32 placement measurement | Preregister the resident record-to-hand fold placement differential |
 | [ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md) | 2026-08-21 | accepted engineering result | The device record fold materially speeds both resident customers |
 | [ADR-0213](docs/decisions/ADR-0213-preregister-isolated-resident-sparse-nsight-profile.md) | 2026-08-21 | accepted diagnostic preregistration before any h32 counter collection | Preregister the isolated resident-sparse Nsight profile |
@@ -51,12 +50,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0231](docs/decisions/ADR-0231-preregister-heldout-continuation-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration | Preregister the held-out continuation posterior panel |
 | [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) | 2026-08-22 | accepted label-free result | Held-out continuation posterior panel is fresh and nondegenerate |
 | [ADR-0233](docs/decisions/ADR-0233-shared-payoff-semantics-and-runner-contracts-retire-repeat-defects.md) | 2026-08-22 | accepted process correction | Shared payoff semantics and runner contracts retire repeat defects |
+| [ADR-0234](docs/decisions/ADR-0234-preregister-heldout-one-step-versus-two-step-continuation-value.md) | 2026-08-22 | accepted preregistration before any held-out strategy work | Preregister held-out one-step versus two-step continuation value |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0233](docs/decisions/ADR-0233-shared-payoff-semantics-and-runner-contracts-retire-repeat-defects.md) — Shared payoff semantics and runner contracts retire repeat defects.
-- Numbered decisions: 233.
-- ADR-header SHA-256: `6821266888dbdedaef957ce3757cc5408ab8bf33e966a9f967993627e55f7d9c`.
+- Latest ADR: [ADR-0234](docs/decisions/ADR-0234-preregister-heldout-one-step-versus-two-step-continuation-value.md) — Preregister held-out one-step versus two-step continuation value.
+- Numbered decisions: 234.
+- ADR-header SHA-256: `7742b7e5a8217e7e980eada9afe3af350a5a4dea3c438f0572337067deac1471`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

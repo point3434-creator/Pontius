@@ -5,33 +5,27 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) — Post-fold failures close in two and three rounds.
+Latest accepted research result: [ADR-0278](docs/decisions/ADR-0278-reject-pre-bet-action-width-capacity-invocation-on-campaign-duration.md) — Reject pre-bet action-width capacity invocation on campaign duration.
 
-Status: accepted retrospective diagnostic; exact global closure remains off-clock.
+Status: accepted rejection record; ADR-0277 invocation and widened authorization rejected.
 
 ## Current decision
 
-Reject the optimistic hypothesis that every fresh one-round failure is exactly
-one additional round from closure. Under ADR-0275's frozen branch, keep exact
-global closure off-clock. Do not open a deadline-admission or conservative-
-repricing study from this selected pair, and do not spend measured slack
-against the unchanged `13,967.616 ms` floor.
+Retain the one-size system and keep widened strategy quality closed. Do not
+spend another GPU campaign merely to replace the observed one-hour ceiling
+with a post-hoc larger value. The complete timing matrix may guide a separately
+preregistered engineering differential, but it cannot authorize widening.
 
-The one-round multidimensional master remains a bounded, exact-certified safe
-candidate generator; full convergence remains an off-clock global one-seat
-teacher. Thus direction guessing is obsolete for the converged teacher but is
-not retired from the deadline-bounded live system. Preserve the existing
-direction fallback and immutable no-op.
-
-Return next to the still-open action-width branch with a separately
-preregistered, label-free continuation-root one-size versus two-size capacity
-preflight. Price the widened one-seat master shape, resident caches, warm step,
-exact oracle, and complete deadline reserve before opening any widened strategy
-label. This is a capacity question, not a one-size/two-size quality claim.
+Before any further bounded campaign, install an active monotonic campaign
+deadline in the shared runner path. For action width, stop pursuing further
+cache compression: the affine/shared topology has already discharged memory.
+Any successor must reduce resident contraction/oracle work enough to fit a
+complete source-crossed position under 15 seconds, then pass on a fresh frozen
+capacity question before any widened strategy label is evaluated.
 
 ## Open preregistration
 
-[ADR-0277](docs/decisions/ADR-0277-preregister-pre-bet-current-node-action-width-capacity.md) — Preregister pre-bet current-node action-width capacity (accepted label-free preregistration before any h32 pre-bet widened warm step, master, or candidate evaluation).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -43,7 +37,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0254](docs/decisions/ADR-0254-final-latin-posterior-panel-is-fresh-and-balanced.md) | 2026-08-22 | accepted label-free result; fresh convex replication authorized | Final-Latin posterior panel is fresh and balanced |
 | [ADR-0255](docs/decisions/ADR-0255-preregister-six-target-fresh-convex-retreat-replication.md) | 2026-08-22 | accepted preregistration before any Latin-E warm step, convex candidate, or final strategy label | Preregister six-target fresh convex-retreat replication |
 | [ADR-0256](docs/decisions/ADR-0256-reject-partial-latin-e-run-on-resident-row-misclassification.md) | 2026-08-22 | accepted process correction; strategy campaign result rejected | Reject partial Latin-E run on resident-row misclassification |
 | [ADR-0257](docs/decisions/ADR-0257-preregister-label-blind-latin-e-replication-with-global-barrier.md) | 2026-08-22 | accepted corrective preregistration before any remaining Latin-E final label | Preregister label-blind Latin-E replication with global barrier |
@@ -67,12 +60,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0275](docs/decisions/ADR-0275-preregister-post-fold-failure-closure-depth-diagnostic.md) | 2026-08-22 | accepted retrospective preregistration before any additional post-fold optimizer label | Preregister post-fold failure closure-depth diagnostic |
 | [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) | 2026-08-22 | accepted retrospective diagnostic; exact global closure remains off-clock | Post-fold failures close in two and three rounds |
 | [ADR-0277](docs/decisions/ADR-0277-preregister-pre-bet-current-node-action-width-capacity.md) | 2026-08-22 | accepted label-free preregistration before any h32 pre-bet widened warm step, master, or candidate evaluation | Preregister pre-bet current-node action-width capacity |
+| [ADR-0278](docs/decisions/ADR-0278-reject-pre-bet-action-width-capacity-invocation-on-campaign-duration.md) | 2026-08-22 | accepted rejection record; ADR-0277 invocation and widened authorization rejected | Reject pre-bet action-width capacity invocation on campaign duration |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0277](docs/decisions/ADR-0277-preregister-pre-bet-current-node-action-width-capacity.md) — Preregister pre-bet current-node action-width capacity.
-- Numbered decisions: 277.
-- ADR-header SHA-256: `64fadda04475160409df9653a46e56e967ee4f8724f2b8f6d1eaba325ac89e9f`.
+- Latest ADR: [ADR-0278](docs/decisions/ADR-0278-reject-pre-bet-action-width-capacity-invocation-on-campaign-duration.md) — Reject pre-bet action-width capacity invocation on campaign duration.
+- Numbered decisions: 278.
+- ADR-header SHA-256: `27ac55e46333a6ecbf8b48e23c4e693c8342631aea9890cc6aa85ccd07b912cd`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -80,4 +74,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) and its dependencies
+4. [ADR-0278](docs/decisions/ADR-0278-reject-pre-bet-action-width-capacity-invocation-on-campaign-duration.md) and its dependencies

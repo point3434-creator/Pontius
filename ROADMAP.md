@@ -392,12 +392,20 @@ positions after prior checks, opening only the current public node. This keeps
 the exact affine master valid even though a checking actor may act again later;
 all future own-policy rows remain at blueprint and are solved afresh if reached.
 
-**Immediate gate:** execute ADR-0277 exactly once. Complete all 72 one-size and
-two-size cache measurements before the global memory barrier. Only if every arm
-is safe, run one resident warm step, eleven embedded-blueprint coefficient
-passes, and one redacted current-node master per arm. Price a complete
-conservative cut round and proof separately for every position. Open zero
-master-candidate endpoints and make no action-width strategy-quality claim.
+ADR-0278 rejects the sole invocation because its `3,844.795 s` total exceeds
+the frozen `3,600 s` campaign ceiling; every other leaf gate passes and no
+widened strategy label opens. The complete diagnostic matrix shows that the
+canonical affine/shared cache has already solved the memory problem: all 72
+caches are safe, two-size median persistent bytes are slightly below one-size,
+and peak pool use is 5.169 GB. Runtime is the wall. No two-size arm fits the
+15-second conservative proxy; only the last acting position fits one size on
+all six sources. Retain one size and keep widened quality closed.
+
+**Immediate gate:** before another bounded GPU campaign, make the global
+campaign deadline active and fail-fast in the shared runner path. Do not rerun
+ADR-0277 with a relaxed post-hoc ceiling. Any action-width successor must first
+reduce resident warm/coefficient/oracle work, then freeze a fresh capacity
+question; further cache compression is not the current lever.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

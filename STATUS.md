@@ -5,39 +5,40 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) — Continuation rooting delivers exact safe value on all twelve targets.
+Latest accepted research result: [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) — Two continuation steps fit the conservative street ledger.
 
-Status: accepted fresh research result.
+Status: accepted label-free engineering result.
 
 ## Current decision
 
-Accept the fresh result. The solver spine now has one causally correct positive
-end-to-end vertebra: exact post-action belief, exact continuation topology,
-one resident warm step, complete legal block library, full six-seat affine
-proof, one independent exact certificate, hard deadline, and immutable
-fallback. Within these 12 frozen contexts, the one-step regret-vertex path
-delivers exact safe local value on every target.
+Accept the label-free differential. Two continuation warm steps are safely
+affordable for this exact h32 continuation workload under the conservative
+street ledger. Authorize a fresh held-out action-conditioned posterior panel
+that compares one-step and two-step delivered exact value.
 
-Do not populate a deployment strategy from this artifact. The same source
-boards and posterior family have now been opened, the game remains an exact
-six-player one-bet river abstraction, and only one direction family was tested.
+The fresh experiment must not reuse the 12 opened target combinations. Select
+new `(board, source range family, observed bettor)` combinations before any
+new posterior or strategy value is computed. Preserve:
 
-The next compute question is whether the remaining minimum `4.436 s` of hard
-ledger headroom should buy a second continuation warm step. Measure that first
-as a label-free retained-context differential: one versus two warm steps,
-followed by the same 31-row pricing bill, with no new exact winner query. If the
-two-step worst-case hard ledger remains below 15 seconds on every target,
-preregister a fresh held-out posterior panel comparing one-step and two-step
-delivered exact value. If it does not fit, retain the proven one-step path and
-spend the headroom elsewhere.
+- independent one-step and two-step solvers from the same restricted blueprint;
+- latest-step instantaneous regret-vertex directions in both arms;
+- all 31 legal continuation blocks and the full-affine winner rule;
+- one independent exact winner certificate per arm;
+- the hard 15-second boundary, 1,250 ms proof-start reserve, one-second
+  emission reserve, and immutable fallback; and
+- outcome-neutral validity gates.
 
-This result establishes exact local safe improvement only for the frozen
-continuation contexts. It makes no deployment, continual-resolving,
-composition, population, whole-game, or broad poker-strength claim.
+The primary comparison is exact delivered value per target and per hard-ledger
+second. A second step earns promotion only if it creates additional certified
+value rather than motion; deadline fit alone is no quality evidence.
+
+No strategy is populated. This result makes no two-step strategy-quality,
+deployment, continual-resolving, composition, population, or broad poker-
+strength claim.
 
 ## Open preregistration
 
-[ADR-0229](docs/decisions/ADR-0229-preregister-label-free-continuation-depth-ledger.md) — Preregister the label-free continuation depth ledger (accepted label-free preregistration).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -49,7 +50,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md) | 2026-08-21 | accepted retained-label development result | Opponent-sensitivity composite locates retained value but the Tier-A cascade fails |
 | [ADR-0207](docs/decisions/ADR-0207-preregister-six-block-tier-b-opponent-batch-differential.md) | 2026-08-21 | accepted engineering preregistration before any h32 batch measurement | Preregister the six-block Tier-B opponent batch differential |
 | [ADR-0208](docs/decisions/ADR-0208-tier-b-batch-v1-rejects-before-h32-work-on-source-pass-schema.md) | 2026-08-21 | rejected execution before any h32 coefficient or timing measurement | Tier-B batch v1 rejects before h32 work on the source pass schema |
 | [ADR-0209](docs/decisions/ADR-0209-preregister-top-level-source-pass-correction-for-tier-b-batch.md) | 2026-08-21 | accepted schema-only correction preregistration before h32 work | Preregister the top-level source-pass correction for the Tier-B batch |
@@ -73,12 +73,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0227](docs/decisions/ADR-0227-preregister-live-like-continuation-strategy-trial.md) | 2026-08-22 | accepted preregistration | Preregister the live-like continuation strategy trial |
 | [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) | 2026-08-22 | accepted fresh research result | Continuation rooting delivers exact safe value on all twelve targets |
 | [ADR-0229](docs/decisions/ADR-0229-preregister-label-free-continuation-depth-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the label-free continuation depth ledger |
+| [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) | 2026-08-22 | accepted label-free engineering result | Two continuation steps fit the conservative street ledger |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0229](docs/decisions/ADR-0229-preregister-label-free-continuation-depth-ledger.md) — Preregister the label-free continuation depth ledger.
-- Numbered decisions: 229.
-- ADR-header SHA-256: `8711c71cd085ea910d159bd363f4e447cae13e044cad4e5b5e114b71127bc21d`.
+- Latest ADR: [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) — Two continuation steps fit the conservative street ledger.
+- Numbered decisions: 230.
+- ADR-header SHA-256: `1c7be65cb7cde84ec655499b83fc3b890337edcc18ea645f7f7e4153084008fd`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -86,4 +87,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) and its dependencies
+4. [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) and its dependencies

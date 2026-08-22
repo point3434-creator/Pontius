@@ -29,7 +29,7 @@ and vertex machinery as a cheap incumbent and fail-closed fallback.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0267](docs/decisions/ADR-0267-preregister-retained-full-closure-census.md) — Preregister retained full-closure census (accepted retrospective preregistration before any full-convergence oracle).
 
 ## Evidence protocol
 
@@ -41,7 +41,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) | 2026-08-22 | accepted coefficient control; label-free h32 extraction preflight authorized | h4 open-axis rows match dense teachers |
 | [ADR-0244](docs/decisions/ADR-0244-preregister-h32-one-seat-open-axis-preflight.md) | 2026-08-22 | accepted preregistration before any h32 full-axis row pass | Preregister h32 one-seat open-axis preflight |
 | [ADR-0245](docs/decisions/ADR-0245-h32-full-axis-rows-fit-one-conservative-cut-round.md) | 2026-08-22 | accepted engineering result; label-free h32 master prototype authorized | h32 full-axis rows fit one conservative cut round |
 | [ADR-0246](docs/decisions/ADR-0246-preregister-one-round-h32-convex-master.md) | 2026-08-22 | accepted preregistration before any h32 master candidate or oracle | Preregister one-round h32 convex master |
@@ -65,12 +64,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0264](docs/decisions/ADR-0264-current-decision-convex-shadow-delivers-six-safe-candidates-in-five-seconds.md) | 2026-08-22 | accepted prospective shadow result; post-fold preregistration authorized | Current-decision convex shadow delivers six safe candidates in five seconds |
 | [ADR-0265](docs/decisions/ADR-0265-preregister-decision-aligned-post-fold-posterior-panel.md) | 2026-08-22 | accepted label-blind preregistration before any post-fold strategy label | Preregister decision-aligned post-fold posterior panel |
 | [ADR-0266](docs/decisions/ADR-0266-post-fold-panel-is-fresh-current-and-held-label-blind.md) | 2026-08-22 | accepted label-blind result; retrospective closure census authorized | Post-fold panel is fresh, current, and held label-blind |
+| [ADR-0267](docs/decisions/ADR-0267-preregister-retained-full-closure-census.md) | 2026-08-22 | accepted retrospective preregistration before any full-convergence oracle | Preregister retained full-closure census |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0266](docs/decisions/ADR-0266-post-fold-panel-is-fresh-current-and-held-label-blind.md) — Post-fold panel is fresh, current, and held label-blind.
-- Numbered decisions: 266.
-- ADR-header SHA-256: `7782a3606a46e2529910b5c6531408b42b1ec47d5eb0efa925163cf939bf0d5b`.
+- Latest ADR: [ADR-0267](docs/decisions/ADR-0267-preregister-retained-full-closure-census.md) — Preregister retained full-closure census.
+- Numbered decisions: 267.
+- ADR-header SHA-256: `5042a2f1d735f2b46c4d2c5a652e0260a1fbe83d8943d18cf8e366893448a162`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

@@ -307,16 +307,22 @@ current with one h32 public node and three downstream opponents, and actor TV
 is nonzero at `0.037662–0.130666`. The CPU-only run generates zero strategy
 labels; those identities remain closed.
 
-**Immediate gate:** inventory the already-opened retained convex contexts and
-preregister an off-clock full-convergence closure census before opening any
-post-fold strategy label. The census is retrospective but not label-free: it
-may generate optimizer labels only on contexts whose strategy evidence is
-already open. Measure rounds to exact closure, unique new response facets,
-oracle work, incumbent certified value, and verified master-upper-bound minus
-incumbent-lower-bound gap. Use that distribution—not the single ADR-0247
-keystone—to decide whether the live one-seat direction-library branch can be
-demoted. Preserve the ray library as a cheap incumbent/fallback until that
-evidence closes.
+ADR-0267 corrects the retained inventory from 24 to 42 eligible opened
+contexts: Latin-A/B, C/D, E/F, and the post-call panel. The roster contains 36
+wide last-responder axes and six current-decision axes; every source, bettor,
+and acting seat appears seven times. It freezes exact multi-cut generation to
+verified cap and `U - L` closure, with 32-round, 240-second target, and
+10,800-second campaign caps. The census is explicitly retrospective, keeps the
+post-fold six label-blind, preserves one warm step and all-seat oracles, and
+uses ADR-0247 as a numerical/discrete replay control.
+
+**Immediate gate:** execute ADR-0267 once. Universal one-round closure on the
+retained corpus requires all 42 targets to close by round one and authorizes
+only fresh confirmation. If later rounds are needed, retain the convex solver
+as an exact off-clock teacher and the ray/direction path as the deadline
+fallback. Treat any resource-capped or no-new-row numerical stall as censored,
+not as closure. Do not open post-fold labels or optimize the oracle path until
+the distribution is sealed.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

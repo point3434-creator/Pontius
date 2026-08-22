@@ -8,12 +8,14 @@ import unittest
 from pontius.h32_fresh_convex_retreat_replication import (
     FreshCandidateBarrier,
     _parse_config,
+    classify_resident_epigraph_violation,
     fresh_replication_promotion,
 )
+from pontius.sequence_form_open_axis import SequenceFormAffineRow
 
 
 ROOT = Path(__file__).parents[1]
-CONFIG = ROOT / "experiments/configs/h32-fresh-convex-retreat-replication-v1.json"
+CONFIG = ROOT / "experiments/configs/h32-fresh-convex-retreat-replication-v2.json"
 IMPLEMENTATION = ROOT / "src/pontius/h32_fresh_convex_retreat_replication.py"
 
 
@@ -101,6 +103,77 @@ class H32FreshConvexRetreatReplicationTests(unittest.TestCase):
             )["authorizes_latin_f_confirmation"]
         )
 
+    def test_resident_violation_is_not_misclassified_as_a_new_facet(self) -> None:
+        row = SequenceFormAffineRow(acting_player=2, constant=0.5, nodes=())
+        resident = classify_resident_epigraph_violation(
+            player=1,
+            acting_player=2,
+            exact_response_signature="resident",
+            resident_rows={"resident": row},
+            realization=(),
+            raw_gain_value=0.5,
+            epigraph_value=0.5 - 3e-9,
+            maximum_row_identity_error=2e-11,
+            maximum_residual=1e-8,
+        )
+        self.assertIsNotNone(resident)
+        self.assertEqual(resident["classification"], "opponent_exact_response_row")
+        self.assertAlmostEqual(resident["epigraph_residual"], 3e-9)
+
+        self.assertIsNone(
+            classify_resident_epigraph_violation(
+                player=1,
+                acting_player=2,
+                exact_response_signature="new",
+                resident_rows={"resident": row},
+                realization=(),
+                raw_gain_value=0.5,
+                epigraph_value=0.49,
+                maximum_row_identity_error=2e-11,
+                maximum_residual=1e-8,
+            )
+        )
+        with self.assertRaisesRegex(ArithmeticError, "exceeds master primal gate"):
+            classify_resident_epigraph_violation(
+                player=1,
+                acting_player=2,
+                exact_response_signature="resident",
+                resident_rows={"resident": row},
+                realization=(),
+                raw_gain_value=0.5,
+                epigraph_value=0.49,
+                maximum_row_identity_error=2e-11,
+                maximum_residual=1e-8,
+            )
+
+    def test_acting_invariant_row_survives_tie_signature_but_not_bad_math(self) -> None:
+        row = SequenceFormAffineRow(acting_player=2, constant=0.5, nodes=())
+        resident = classify_resident_epigraph_violation(
+            player=2,
+            acting_player=2,
+            exact_response_signature="tie_switched",
+            resident_rows={"source_tie": row},
+            realization=(),
+            raw_gain_value=0.5,
+            epigraph_value=0.5 - 2e-9,
+            maximum_row_identity_error=2e-11,
+            maximum_residual=1e-8,
+        )
+        self.assertEqual(resident["classification"], "acting_invariant_row")
+        self.assertFalse(resident["response_signature_matches"])
+        with self.assertRaisesRegex(ArithmeticError, "differs from exact oracle"):
+            classify_resident_epigraph_violation(
+                player=2,
+                acting_player=2,
+                exact_response_signature="source_tie",
+                resident_rows={"source_tie": row},
+                realization=(),
+                raw_gain_value=0.6,
+                epigraph_value=0.5,
+                maximum_row_identity_error=2e-11,
+                maximum_residual=1.0,
+            )
+
     def test_config_freezes_latin_e_only_and_distinct_tolerances(self) -> None:
         parsed = _parse_config(json.loads(CONFIG.read_text(encoding="utf-8")))
         targets = parsed["target_specs"]
@@ -120,6 +193,13 @@ class H32FreshConvexRetreatReplicationTests(unittest.TestCase):
         )
         self.assertEqual(parsed["maximum_cut_rounds"], 1)
         self.assertEqual(parsed["interior_retreat_factor"], 0.5)
+        self.assertIn("computed_twice_but_never", parsed["prior_label_incident"])
+        self.assertEqual(
+            parsed["gates"]["expected_candidates_frozen_before_labels"], 6
+        )
+        self.assertTrue(
+            parsed["gates"]["require_all_first_oracle_violators_accounted"]
+        )
         self.assertTrue(parsed["gates"]["require_no_global_optimality_claim"])
 
     def test_stack_is_not_reused_as_payoff_span_or_guard(self) -> None:

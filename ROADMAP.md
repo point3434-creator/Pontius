@@ -211,12 +211,29 @@ epigraph allowances remain separate, the effective ledger is at least
 `13,967.616 ms`, all external policies remain the blueprint, and the bounded
 one-round master makes no global-optimality claim.
 
-**Immediate gate:** execute ADR-0255 once from its clean preregistration commit
-and seal all six outcomes. Authorize only a separately preregistered Latin-F
-confirmation if at least four Latin-E targets deliver more than `0.001` exact
-accepted value, both range families are represented, and every measured and
-effective conservative schedule fits. Otherwise retain ADR-0252 as known-
-target evidence and leave Latin-F unopened.
+ADR-0256 rejects the partial v1 invocation without a strategy result. Target 1
+completed in memory but its label was never printed, persisted, or inspected;
+target 2 stopped before its final label. Its first oracle found three apparent
+epigraph violations whose response signatures were already resident and whose
+rows matched exact gains within `4.98e-16`. The largest `3.073e-9` discrepancy
+matched the master's recorded inequality residual, identifying a response-
+classification defect rather than a missing facet. No artifact was written and
+Latin-F remains untouched.
+
+ADR-0257 freezes the label-blind correction. Already-resident response rows are
+accepted only when they reproduce the exact oracle within `2e-11` and remain
+inside the unchanged `1e-8` master primal ceiling; genuinely new opponent
+signatures are still cut. It also requires all six candidates to freeze before
+any v2 final retreat label. Certificate contexts are then reconstructed one at
+a time, with identities and reconstruction time recorded separately from the
+unchanged resident live ledger.
+
+**Immediate gate:** execute ADR-0257 once from its clean corrective
+preregistration commit and seal all six outcomes. Authorize only a separately
+preregistered Latin-F confirmation if at least four Latin-E targets deliver
+more than `0.001` exact accepted value, both range families are represented,
+and every measured and effective conservative schedule fits. Otherwise retain
+ADR-0252 as known-target evidence and leave Latin-F unopened.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

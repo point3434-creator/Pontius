@@ -66,8 +66,19 @@ from .shared_resident_response_context import (
 
 
 _ROOT = Path(__file__).parents[2]
-_CONFIG = _ROOT / "experiments/configs/h32-fresh-convex-retreat-replication-v1.json"
-_OUTPUT = _ROOT / "experiments/results/h32-fresh-convex-retreat-replication-v1.json"
+_CONFIG = _ROOT / "experiments/configs/h32-fresh-convex-retreat-replication-v2.json"
+_OUTPUT = _ROOT / "experiments/results/h32-fresh-convex-retreat-replication-v2.json"
+_V1_CONFIG = (
+    _ROOT / "experiments/configs/h32-fresh-convex-retreat-replication-v1.json"
+)
+_V1_DECISION = (
+    _ROOT
+    / "docs/decisions/ADR-0255-preregister-six-target-fresh-convex-retreat-replication.md"
+)
+_V1_REJECTION = (
+    _ROOT
+    / "docs/decisions/ADR-0256-reject-partial-latin-e-run-on-resident-row-misclassification.md"
+)
 _SOURCE = _ROOT / "experiments/results/h32-fresh-panel-source-blueprints-v1.json"
 _MANIFEST = (
     _ROOT / "experiments/results/h32-convex-replication-posterior-manifest-v1.json"
@@ -87,6 +98,9 @@ _IMPLEMENTATION = Path(__file__)
 _TEST = _ROOT / "tests/test_h32_fresh_convex_retreat_replication.py"
 
 _PATHS = {
+    "expected_v1_config_sha256": _V1_CONFIG,
+    "expected_v1_decision_sha256": _V1_DECISION,
+    "expected_v1_rejection_sha256": _V1_REJECTION,
     "expected_source_result_sha256": _SOURCE,
     "expected_manifest_result_sha256": _MANIFEST,
     "expected_manifest_config_sha256": _MANIFEST_CONFIG,
@@ -205,15 +219,70 @@ def fresh_replication_promotion(
     }
 
 
+def classify_resident_epigraph_violation(
+    *,
+    player: int,
+    acting_player: int,
+    exact_response_signature: str,
+    resident_rows: Mapping[str, SequenceFormAffineRow],
+    realization: Any,
+    raw_gain_value: float,
+    epigraph_value: float,
+    maximum_row_identity_error: float,
+    maximum_residual: float,
+) -> dict[str, Any] | None:
+    """Distinguish an existing-row LP residual from a genuinely new facet."""
+
+    if not resident_rows:
+        raise ValueError("resident epigraph classification requires a row")
+    if player == acting_player:
+        if len(resident_rows) != 1:
+            raise ValueError("acting-seat invariant library must contain one row")
+        resident_signature, row = next(iter(resident_rows.items()))
+        classification = "acting_invariant_row"
+    else:
+        if exact_response_signature not in resident_rows:
+            return None
+        resident_signature = exact_response_signature
+        row = resident_rows[resident_signature]
+        classification = "opponent_exact_response_row"
+    resident_value = float(row.value(realization))
+    raw_gain = float(raw_gain_value)
+    epigraph = float(epigraph_value)
+    identity_error = abs(resident_value - raw_gain)
+    residual = raw_gain - epigraph
+    if identity_error > maximum_row_identity_error:
+        raise ArithmeticError("resident response row differs from exact oracle")
+    if residual > maximum_residual:
+        raise ArithmeticError("resident response residual exceeds master primal gate")
+    return {
+        "target_player": player,
+        "classification": classification,
+        "exact_response_signature_sha256": exact_response_signature,
+        "resident_response_signature_sha256": resident_signature,
+        "response_signature_matches": exact_response_signature == resident_signature,
+        "resident_row_value": resident_value,
+        "exact_raw_gain": raw_gain,
+        "row_identity_error": identity_error,
+        "master_epigraph": epigraph,
+        "epigraph_residual": residual,
+        "maximum_allowed_row_identity_error": maximum_row_identity_error,
+        "maximum_allowed_residual": maximum_residual,
+    }
+
+
 def _parse_config(config: dict[str, Any]) -> dict[str, Any]:
     expected = {
         "evidence_stage",
         *_PATHS,
         "seed",
+        "prior_label_incident",
         "target_selection_rule",
         "target_specs",
         "acting_player_rule",
         "scope",
+        "campaign_barrier_rule",
+        "certificate_reconstruction_rule",
         "construction_rule",
         "oracle_rule",
         "cut_rule",
@@ -299,13 +368,16 @@ def _parse_config(config: dict[str, Any]) -> dict[str, Any]:
             }
         )
     exact = {
-        "evidence_stage": "preregistered_after_adr0254_before_any_latin_e_warm_step_convex_candidate_or_strategy_label",
+        "evidence_stage": "label_blind_v2_preregistered_after_adr0256_before_any_remaining_latin_e_final_label",
         "seed": 20260822,
+        "prior_label_incident": "latin_e_target_1_final_label_computed_twice_but_never_printed_persisted_or_inspected",
         "target_selection_rule": "all_six_latin_e_targets_in_manifest_order_zero_tv_or_opportunity_selection_latin_f_unopened",
         "target_specs": frozen_specs,
         "acting_player_rule": "manifest_last_responder_immediately_before_bettor_modulo_six",
-        "scope": "six_fresh_targets_one_per_source_bettor_and_acting_player_one_seat_shadow_only",
-        "construction_rule": "source_master_all_six_exact_first_oracle_all_epigraph_violator_multicut_resolve_at_most_once_then_half_retreat",
+        "scope": "six_latin_e_target_identities_one_label_blind_reconstruction_one_per_source_bettor_and_acting_player_one_seat_shadow_only",
+        "campaign_barrier_rule": "construct_and_freeze_all_six_candidates_before_any_v2_final_retreat_oracle",
+        "certificate_reconstruction_rule": "rebuild_each_pinned_context_after_global_barrier_recheck_identity_and_charge_only_final_oracle_to_live_ledger",
+        "construction_rule": "source_master_all_six_exact_first_oracle_new_response_multicut_verified_resident_residuals_resolve_at_most_once_then_half_retreat",
         "oracle_rule": "exactly_two_all_seat_oracles_per_target_first_master_separation_then_independent_retreat_certificate",
         "cut_rule": "add_every_new_opponent_response_signature_above_1e_9_once_no_second_round",
         "retreat_rule": "fixed_factor_0_5_no_endpoint_oracle_no_jensen_claim_exact_retreat_oracle_is_authority",
@@ -345,7 +417,7 @@ def _parse_config(config: dict[str, Any]) -> dict[str, Any]:
         "minimum_cuda_driver_version": 13000,
         "required_compute_capability": "120",
         "cuda_dll_environment_variable": "PONTIUS_CUDA_DLL_DIRECTORY",
-        "strategy_label_policy": "six_fixed_fresh_retreat_labels_no_cross_target_adaptation_latin_f_labels_zero",
+        "strategy_label_policy": "six_fixed_label_blind_retreat_measurements_global_prelabel_barrier_no_cross_target_adaptation_latin_f_labels_zero",
     }
     for field_name, expected_value in exact.items():
         if config[field_name] != expected_value:
@@ -363,8 +435,11 @@ def _parse_config(config: dict[str, Any]) -> dict[str, Any]:
         "expected_initial_gain_rows_per_target": 6,
         "expected_exact_oracles_per_target": 2,
         "expected_new_strategy_labels": 6,
+        "expected_candidates_frozen_before_labels": 6,
         "maximum_initial_row_error": 2e-11,
         "maximum_cut_row_error": 2e-11,
+        "maximum_resident_row_identity_error": 2e-11,
+        "maximum_resident_epigraph_residual": 1e-8,
         "maximum_profile_equivalence_error": 2e-11,
         "maximum_master_primal_error": 1e-8,
         "maximum_master_dual_error": 1e-8,
@@ -388,8 +463,11 @@ def _parse_config(config: dict[str, Any]) -> dict[str, Any]:
         "require_warm_start_identity": True,
         "require_path_single_visit": True,
         "require_exact_external_axis_coverage": True,
-        "require_all_first_oracle_violators_cut": True,
+        "require_all_first_oracle_violators_accounted": True,
+        "require_all_new_first_oracle_violators_cut": True,
         "require_maximum_one_cut_round": True,
+        "require_campaign_barrier_before_labels": True,
+        "require_certificate_reconstruction_identity": True,
         "require_every_retreat_certificate_complete": True,
         "require_outcome_neutral_abstention": True,
         "require_no_cross_target_adaptation": True,
@@ -456,7 +534,7 @@ def _oracle_summary(
     }
 
 
-def _run_target(
+def _construct_target_candidate(
     parsed: Mapping[str, Any],
     source_parent: Mapping[str, Any],
     spec: Mapping[str, Any],
@@ -635,13 +713,30 @@ def _run_target(
     violating_players = tuple(first_summary["epigraph_violating_players"])
     cut_rows = []
     cut_identity_errors = []
+    resident_response_residual_rows = []
     cut_started = time.perf_counter()
     for player in violating_players:
-        if player == acting_player:
-            raise ArithmeticError("fresh convex invariant acting row is violated")
         signature = first_oracle["response_signatures"][player]
-        if signature in row_libraries[player]:
-            raise ArithmeticError("fresh convex exact duplicate response remains violated")
+        resident = classify_resident_epigraph_violation(
+            player=player,
+            acting_player=acting_player,
+            exact_response_signature=signature,
+            resident_rows=row_libraries[player],
+            realization=first_oracle["probabilities"],
+            raw_gain_value=first_oracle["raw_gains"][player],
+            epigraph_value=first_master.epigraph[player],
+            maximum_row_identity_error=float(
+                parsed["gates"]["maximum_resident_row_identity_error"]
+            ),
+            maximum_residual=float(
+                parsed["gates"]["maximum_resident_epigraph_residual"]
+            ),
+        )
+        if resident is not None:
+            resident_response_residual_rows.append(resident)
+            continue
+        if player == acting_player:
+            raise ArithmeticError("fresh convex invariant acting row is unavailable")
         actions = first_oracle["evaluations"][player].best_response_actions
         response_probabilities = splice_fixed_response_probability_tape_for_axes(
             layout,
@@ -743,9 +838,15 @@ def _run_target(
         policy_digest(objects["full_blueprint"])
         == objects["state"]["average_policy_sha256"]
     )
-    all_violators_cut = {
-        row["target_player"] for row in cut_rows
-    } == set(violating_players)
+    resident_residual_players = {
+        row["target_player"] for row in resident_response_residual_rows
+    }
+    new_violating_players = set(violating_players) - resident_residual_players
+    cut_players = {row["target_player"] for row in cut_rows}
+    all_violators_accounted = (
+        cut_players | resident_residual_players
+    ) == set(violating_players)
+    all_new_violators_cut = cut_players == new_violating_players
     exact_external_axis_coverage = external_axis_splices == (
         layout.num_players - 1 + len(cut_rows)
     )
@@ -777,7 +878,24 @@ def _run_target(
         "projection": max(first_projection_error, second_projection_error)
         <= gate["maximum_projection_error"],
         "raw_guard": abs(guard - 3e-9) <= gate["maximum_raw_guard_error"],
-        "all_violators_cut": all_violators_cut,
+        "resident_row_identity": max(
+            (
+                row["row_identity_error"]
+                for row in resident_response_residual_rows
+            ),
+            default=0.0,
+        )
+        <= gate["maximum_resident_row_identity_error"],
+        "resident_epigraph_residual": max(
+            (
+                row["epigraph_residual"]
+                for row in resident_response_residual_rows
+            ),
+            default=0.0,
+        )
+        <= gate["maximum_resident_epigraph_residual"],
+        "all_violators_accounted": all_violators_accounted,
+        "all_new_violators_cut": all_new_violators_cut,
         "maximum_one_cut_round": cut_rounds <= 1,
         "external_axis_coverage": exact_external_axis_coverage,
         "cap_allowance_separate": first_summary["cap_allowance"]
@@ -788,75 +906,16 @@ def _run_target(
         <= gate["maximum_warm_start_probability_error"],
     }
     barrier.freeze_candidate(prelabel_checks)
-
-    retreat_oracle = _exact_oracle(
-        objects=objects,
-        policy=retreat_policy,
-        cp=cp,
-        maximum_feature_width_per_batch=int(parsed["maximum_feature_width_per_batch"]),
-    )
-    retreat_summary = _oracle_summary(
-        retreat_oracle,
-        layout=layout,
-        caps=caps,
-        cap_allowance=float(parsed["cap_numerical_allowance"]),
-    )
-    barrier.complete_retreat_certificate()
-    memory_rows.append({"stage": "retreat_oracle", **_memory_snapshot(cp)})
-    profile_equivalence_errors.extend(
-        abs(
-            profile_rows[player].value(retreat_oracle["probabilities"])
-            - retreat_oracle["evaluations"][player].profile_utility
-        )
-        for player in range(layout.num_players)
-    )
-
-    exact_positive_value = source_nash_conv - float(retreat_summary["nash_conv"])
-    required_interior_slack = max(
-        0.0,
-        (1.0 - float(parsed["interior_retreat_factor"])) * guard
-        - float(parsed["minimum_interior_slack_allowance"]),
-    )
     master_ms = math.fsum(row["solve_ms"] for row in masters)
-    measured_live_ms = (
-        warm_step_ms
-        + initial_row_ms
-        + master_ms
-        + float(first_oracle["wall_ms"])
-        + cut_extraction_ms
-        + float(retreat_oracle["wall_ms"])
-        + max(
-            retreat_construction_ms,
-            float(parsed["retreat_envelope_reserve_ms"]),
-        )
-        + float(parsed["emission_reserve_ms"])
-    )
-    effective_conservative_ms = max(
-        float(parsed["frozen_conservative_live_ledger_ms"]),
-        measured_live_ms,
-    )
-    fits_measured = measured_live_ms <= float(parsed["street_budget_ms"])
-    fits_conservative = effective_conservative_ms <= float(parsed["street_budget_ms"])
-    interior_passed = (
-        float(retreat_summary["minimum_cap_slack"]) >= required_interior_slack
-    )
-    acceptance_predicate_passed = bool(
-        retreat_summary["cap_feasible"]
-        and exact_positive_value > float(parsed["quality_numerical_allowance"])
-        and interior_passed
-        and fits_measured
-        and fits_conservative
-    )
-    shadow_accepted = acceptance_predicate_passed
-    maximum_pool = max(
+    construction_maximum_pool = max(
         max(row["gpu_pool_total_bytes"] for row in memory_rows),
         max(row["maximum_gpu_pool_total_bytes"] for row in initial_pass_rows),
         max((row["maximum_gpu_pool_total_bytes"] for row in cut_rows), default=0),
         int(first_oracle["maximum_gpu_pool_total_bytes"]),
-        int(retreat_oracle["maximum_gpu_pool_total_bytes"]),
     )
-    minimum_free = min(row["gpu_free_bytes"] for row in memory_rows)
-    result = {
+    construction_minimum_free = min(row["gpu_free_bytes"] for row in memory_rows)
+    blueprint_sha256 = policy_digest(blueprint)
+    construction_row = {
         "target_id": spec["target_id"],
         "source": spec["source"],
         "range_family": spec["range_family"],
@@ -893,6 +952,21 @@ def _run_target(
         "cut_rows": cut_rows,
         "cut_extraction_ms": cut_extraction_ms,
         "maximum_cut_row_error": max(cut_identity_errors, default=0.0),
+        "resident_response_residual_rows": resident_response_residual_rows,
+        "maximum_resident_row_identity_error": max(
+            (
+                row["row_identity_error"]
+                for row in resident_response_residual_rows
+            ),
+            default=0.0,
+        ),
+        "maximum_resident_epigraph_residual": max(
+            (
+                row["epigraph_residual"]
+                for row in resident_response_residual_rows
+            ),
+            default=0.0,
+        ),
         "row_counts_by_player": [len(rows) for rows in row_libraries],
         "maximum_profile_equivalence_error": max(profile_equivalence_errors),
         "maximum_master_primal_error": maximum_master_primal,
@@ -904,48 +978,12 @@ def _run_target(
             "policy_sha256": policy_digest(retreat_policy),
             "maximum_simplex_mass_error": retreat_mass_error,
             "construction_ms": retreat_construction_ms,
-            "exact_certificate": retreat_summary,
-            "exact_positive_value": exact_positive_value,
-            "required_interior_slack": required_interior_slack,
-            "interior_slack_passed": interior_passed,
-            "independently_certified": True,
-            "acceptance_predicate_passed": acceptance_predicate_passed,
-            "shadow_accepted": shadow_accepted,
-            "material_value": exact_positive_value
-            > float(parsed["minimum_material_exact_value"]),
+            "independently_certified": False,
             "emitted": False,
         },
-        "exact_oracles_executed": 2,
-        "oracle_targets": ["first_master_candidate", "factor_0.5_retreat"],
-        "ledger": {
-            "measured_live_ms": measured_live_ms,
-            "measured_headroom_ms": float(parsed["street_budget_ms"])
-            - measured_live_ms,
-            "frozen_conservative_live_ms": float(
-                parsed["frozen_conservative_live_ledger_ms"]
-            ),
-            "effective_conservative_live_ms": effective_conservative_ms,
-            "effective_conservative_headroom_ms": float(parsed["street_budget_ms"])
-            - effective_conservative_ms,
-            "fits_measured_street": fits_measured,
-            "fits_effective_conservative_street": fits_conservative,
-            "components_ms": {
-                "warm_step": warm_step_ms,
-                "initial_rows": initial_row_ms,
-                "masters": master_ms,
-                "first_oracle": float(first_oracle["wall_ms"]),
-                "cut_extraction": cut_extraction_ms,
-                "retreat_oracle": float(retreat_oracle["wall_ms"]),
-                "retreat_and_envelope_charged": max(
-                    retreat_construction_ms,
-                    float(parsed["retreat_envelope_reserve_ms"]),
-                ),
-                "emission_reserve": float(parsed["emission_reserve_ms"]),
-            },
-        },
         "memory_rows": memory_rows,
-        "maximum_gpu_pool_total_bytes": maximum_pool,
-        "minimum_gpu_free_bytes": minimum_free,
+        "construction_maximum_gpu_pool_total_bytes": construction_maximum_pool,
+        "construction_minimum_gpu_free_bytes": construction_minimum_free,
         "resident_numeric_bytes": {
             "shared_device": shared_device_numeric_bytes(shared, (context,)),
             "unique_response_host": unique_response_numeric_bytes((context,)),
@@ -956,18 +994,239 @@ def _run_target(
         "blueprint_identity": blueprint_identity,
         "exact_external_axis_coverage": exact_external_axis_coverage,
         "external_axis_splices": external_axis_splices,
-        "all_first_oracle_violators_cut": all_violators_cut,
+        "all_first_oracle_violators_accounted": all_violators_accounted,
+        "all_new_first_oracle_violators_cut": all_new_violators_cut,
         "label_barrier": barrier.snapshot(),
-        "restricted_blueprint_policy_sha256": policy_digest(blueprint),
-        "actual_emitted_policy_sha256": policy_digest(blueprint),
+        "restricted_blueprint_policy_sha256": blueprint_sha256,
+        "actual_emitted_policy_sha256": blueprint_sha256,
         "candidate_policies_emitted": 0,
-        "new_strategy_quality_labels_generated": 1,
+        "new_strategy_quality_labels_generated": 0,
+    }
+    bundle = {
+        "spec": dict(spec),
+        "retreat_policy": retreat_policy,
+        "profile_rows": tuple(profile_rows[player] for player in range(layout.num_players)),
+        "source_gains": source_gains,
+        "caps": caps,
+        "barrier": barrier,
+        "construction_row": construction_row,
+        "ledger_components_ms": {
+            "warm_step": warm_step_ms,
+            "initial_rows": initial_row_ms,
+            "masters": master_ms,
+            "first_oracle": float(first_oracle["wall_ms"]),
+            "cut_extraction": cut_extraction_ms,
+            "retreat_and_envelope_charged": max(
+                retreat_construction_ms,
+                float(parsed["retreat_envelope_reserve_ms"]),
+            ),
+            "emission_reserve": float(parsed["emission_reserve_ms"]),
+        },
     }
     del solver
     objects.clear()
     gc.collect()
     release_cupy_memory_pool()
-    return result
+    return bundle
+
+
+def _certify_target_candidate(
+    parsed: Mapping[str, Any],
+    source_parent: Mapping[str, Any],
+    bundle: Mapping[str, Any],
+    cp: Any,
+) -> dict[str, Any]:
+    spec = bundle["spec"]
+    construction_row = dict(bundle["construction_row"])
+    retreat_policy = bundle["retreat_policy"]
+    profile_rows = bundle["profile_rows"]
+    source_gains = tuple(float(value) for value in bundle["source_gains"])
+    caps = tuple(float(value) for value in bundle["caps"])
+    barrier = bundle["barrier"]
+    gate = parsed["gates"]
+
+    cp.cuda.runtime.deviceSynchronize()
+    reconstruction_started = time.perf_counter()
+    objects = _setup(parsed, source_parent, spec)
+    cp.cuda.runtime.deviceSynchronize()
+    reconstruction_ms = (time.perf_counter() - reconstruction_started) * 1000.0
+    layout = objects["layout"]
+    context = objects["context"]
+    belief = objects["belief"]
+    blueprint = objects["blueprint"]
+    reconstructed_source_gains = tuple(
+        float(cache.source_evaluation.deviation_gain)
+        for cache in context.response_caches
+    )
+    maximum_source_gain_error = max(
+        abs(left - right)
+        for left, right in zip(
+            reconstructed_source_gains,
+            source_gains,
+            strict=True,
+        )
+    )
+    reconstructed_caps = tuple(
+        gain + raw_guard(layout, float(parsed["acceptance_guard_normalized"]))
+        for gain in reconstructed_source_gains
+    )
+    maximum_cap_reconstruction_error = max(
+        abs(left - right)
+        for left, right in zip(reconstructed_caps, caps, strict=True)
+    )
+    reconstruction_checks = {
+        "candidate_barrier_frozen": barrier.phase == "candidate_frozen",
+        "source_checkpoint_identity": (
+            axis_cfr_checkpoint_digest(objects["state"])
+            == objects["state"]["state_sha256"]
+            and _belief_digest(objects["source"]) == spec["source_belief_sha256"]
+        ),
+        "target_identity": _belief_digest(belief) == spec["target_belief_sha256"],
+        "blueprint_identity": (
+            policy_digest(objects["full_blueprint"])
+            == objects["state"]["average_policy_sha256"]
+            and policy_digest(blueprint)
+            == construction_row["restricted_blueprint_policy_sha256"]
+        ),
+        "retreat_policy_identity": (
+            policy_digest(retreat_policy) == construction_row["retreat"]["policy_sha256"]
+        ),
+        "payoff_span_identity": (
+            payoff_span(layout) == float(construction_row["payoff_span"])
+        ),
+        "source_gain_identity": (
+            maximum_source_gain_error <= gate["maximum_profile_equivalence_error"]
+        ),
+        "cap_identity": (
+            maximum_cap_reconstruction_error
+            <= gate["maximum_profile_equivalence_error"]
+        ),
+    }
+    if not all(reconstruction_checks.values()):
+        failed = sorted(
+            key for key, value in reconstruction_checks.items() if not value
+        )
+        raise RuntimeError(
+            f"fresh convex certificate reconstruction changed before label: "
+            f"{spec['target_id']}: {failed}"
+        )
+    reconstruction_memory = {
+        "stage": "certificate_reconstruction",
+        **_memory_snapshot(cp),
+    }
+
+    retreat_oracle = _exact_oracle(
+        objects=objects,
+        policy=retreat_policy,
+        cp=cp,
+        maximum_feature_width_per_batch=int(parsed["maximum_feature_width_per_batch"]),
+    )
+    retreat_summary = _oracle_summary(
+        retreat_oracle,
+        layout=layout,
+        caps=caps,
+        cap_allowance=float(parsed["cap_numerical_allowance"]),
+    )
+    barrier.complete_retreat_certificate()
+    retreat_memory = {"stage": "retreat_oracle", **_memory_snapshot(cp)}
+    retreat_profile_errors = [
+        abs(
+            profile_rows[player].value(retreat_oracle["probabilities"])
+            - retreat_oracle["evaluations"][player].profile_utility
+        )
+        for player in range(layout.num_players)
+    ]
+
+    source_nash_conv = float(construction_row["source_nash_conv"])
+    exact_positive_value = source_nash_conv - float(retreat_summary["nash_conv"])
+    required_interior_slack = max(
+        0.0,
+        (1.0 - float(parsed["interior_retreat_factor"]))
+        * float(construction_row["raw_guard"])
+        - float(parsed["minimum_interior_slack_allowance"]),
+    )
+    components = dict(bundle["ledger_components_ms"])
+    components["retreat_oracle"] = float(retreat_oracle["wall_ms"])
+    measured_live_ms = math.fsum(components.values())
+    effective_conservative_ms = max(
+        float(parsed["frozen_conservative_live_ledger_ms"]),
+        measured_live_ms,
+    )
+    fits_measured = measured_live_ms <= float(parsed["street_budget_ms"])
+    fits_conservative = effective_conservative_ms <= float(parsed["street_budget_ms"])
+    interior_passed = (
+        float(retreat_summary["minimum_cap_slack"]) >= required_interior_slack
+    )
+    acceptance_predicate_passed = bool(
+        retreat_summary["cap_feasible"]
+        and exact_positive_value > float(parsed["quality_numerical_allowance"])
+        and interior_passed
+        and fits_measured
+        and fits_conservative
+    )
+    memory_rows = [
+        *construction_row["memory_rows"],
+        reconstruction_memory,
+        retreat_memory,
+    ]
+    maximum_pool = max(
+        int(construction_row["construction_maximum_gpu_pool_total_bytes"]),
+        int(retreat_oracle["maximum_gpu_pool_total_bytes"]),
+        *(int(row["gpu_pool_total_bytes"]) for row in memory_rows),
+    )
+    minimum_free = min(int(row["gpu_free_bytes"]) for row in memory_rows)
+    construction_row["maximum_profile_equivalence_error"] = max(
+        float(construction_row["maximum_profile_equivalence_error"]),
+        max(retreat_profile_errors),
+    )
+    construction_row["retreat"] = {
+        **construction_row["retreat"],
+        "exact_certificate": retreat_summary,
+        "exact_positive_value": exact_positive_value,
+        "required_interior_slack": required_interior_slack,
+        "interior_slack_passed": interior_passed,
+        "independently_certified": True,
+        "acceptance_predicate_passed": acceptance_predicate_passed,
+        "shadow_accepted": acceptance_predicate_passed,
+        "material_value": exact_positive_value
+        > float(parsed["minimum_material_exact_value"]),
+    }
+    construction_row["certificate_reconstruction"] = {
+        "wall_ms": reconstruction_ms,
+        "excluded_from_live_ledger": True,
+        "checks": reconstruction_checks,
+        "maximum_source_gain_error": maximum_source_gain_error,
+        "maximum_cap_reconstruction_error": maximum_cap_reconstruction_error,
+    }
+    construction_row["exact_oracles_executed"] = 2
+    construction_row["oracle_targets"] = [
+        "first_master_candidate",
+        "factor_0.5_retreat",
+    ]
+    construction_row["ledger"] = {
+        "measured_live_ms": measured_live_ms,
+        "measured_headroom_ms": float(parsed["street_budget_ms"])
+        - measured_live_ms,
+        "frozen_conservative_live_ms": float(
+            parsed["frozen_conservative_live_ledger_ms"]
+        ),
+        "effective_conservative_live_ms": effective_conservative_ms,
+        "effective_conservative_headroom_ms": float(parsed["street_budget_ms"])
+        - effective_conservative_ms,
+        "fits_measured_street": fits_measured,
+        "fits_effective_conservative_street": fits_conservative,
+        "components_ms": components,
+    }
+    construction_row["memory_rows"] = memory_rows
+    construction_row["maximum_gpu_pool_total_bytes"] = maximum_pool
+    construction_row["minimum_gpu_free_bytes"] = minimum_free
+    construction_row["label_barrier"] = barrier.snapshot()
+    construction_row["new_strategy_quality_labels_generated"] = 1
+
+    objects.clear()
+    gc.collect()
+    release_cupy_memory_pool()
+    return construction_row
 
 
 def run_h32_fresh_convex_retreat_replication(
@@ -993,7 +1252,34 @@ def run_h32_fresh_convex_retreat_replication(
         expected_sha256=parsed["expected_known_result_sha256"],
         require_passed=True,
     ).payload
-    target_rows = [_run_target(parsed, source, spec, cp) for spec in parsed["target_specs"]]
+    campaign_events = ["inputs_pinned"]
+    candidate_bundles = []
+    for spec in parsed["target_specs"]:
+        candidate_bundles.append(
+            _construct_target_candidate(parsed, source, spec, cp)
+        )
+        gc.collect()
+        release_cupy_memory_pool()
+    campaign_prelabel_snapshots = [
+        bundle["barrier"].snapshot() for bundle in candidate_bundles
+    ]
+    candidates_frozen_before_labels = sum(
+        row["phase"] == "candidate_frozen" for row in campaign_prelabel_snapshots
+    )
+    if candidates_frozen_before_labels != len(parsed["target_specs"]):
+        raise RuntimeError("fresh convex campaign barrier did not freeze every target")
+    if any(
+        bundle["construction_row"]["new_strategy_quality_labels_generated"] != 0
+        for bundle in candidate_bundles
+    ):
+        raise RuntimeError("fresh convex final label opened before campaign barrier")
+    campaign_events.append("all_candidates_frozen")
+    target_rows = []
+    for bundle in candidate_bundles:
+        target_rows.append(_certify_target_candidate(parsed, source, bundle, cp))
+        gc.collect()
+        release_cupy_memory_pool()
+    campaign_events.append("all_retreat_certificates_complete")
     promotion = fresh_replication_promotion(
         target_rows,
         minimum_material_targets=int(parsed["minimum_material_targets"]),
@@ -1056,6 +1342,10 @@ def run_h32_fresh_convex_retreat_replication(
         "row_identity": all(
             row["maximum_initial_row_error"] <= gate["maximum_initial_row_error"]
             and row["maximum_cut_row_error"] <= gate["maximum_cut_row_error"]
+            and row["maximum_resident_row_identity_error"]
+            <= gate["maximum_resident_row_identity_error"]
+            and row["maximum_resident_epigraph_residual"]
+            <= gate["maximum_resident_epigraph_residual"]
             and row["maximum_profile_equivalence_error"]
             <= gate["maximum_profile_equivalence_error"]
             for row in target_rows
@@ -1078,6 +1368,10 @@ def run_h32_fresh_convex_retreat_replication(
             for row in target_rows
         ),
         "cold_setup_time": max(row["cold_setup_ms"] for row in target_rows)
+        <= gate["maximum_cold_setup_ms"],
+        "certificate_reconstruction_time": max(
+            row["certificate_reconstruction"]["wall_ms"] for row in target_rows
+        )
         <= gate["maximum_cold_setup_ms"],
         "warm_step_time": max(row["warm_step"]["wall_ms"] for row in target_rows)
         <= gate["maximum_warm_step_ms"],
@@ -1102,12 +1396,32 @@ def run_h32_fresh_convex_retreat_replication(
             row["exact_external_axis_coverage"] for row in target_rows
         )
         == gate["require_exact_external_axis_coverage"],
-        "all_violators_cut": all(
-            row["all_first_oracle_violators_cut"] for row in target_rows
+        "all_violators_accounted": all(
+            row["all_first_oracle_violators_accounted"] for row in target_rows
         )
-        == gate["require_all_first_oracle_violators_cut"],
+        == gate["require_all_first_oracle_violators_accounted"],
+        "all_new_violators_cut": all(
+            row["all_new_first_oracle_violators_cut"] for row in target_rows
+        )
+        == gate["require_all_new_first_oracle_violators_cut"],
         "maximum_one_cut_round": all(row["cut_rounds"] <= 1 for row in target_rows)
         == gate["require_maximum_one_cut_round"],
+        "campaign_barrier_before_labels": (
+            candidates_frozen_before_labels
+            == gate["expected_candidates_frozen_before_labels"]
+            and campaign_events[:2] == ["inputs_pinned", "all_candidates_frozen"]
+            and all(
+                row["phase"] == "candidate_frozen"
+                and row["events"] == ["inputs_pinned", "candidate_frozen"]
+                for row in campaign_prelabel_snapshots
+            )
+        )
+        == gate["require_campaign_barrier_before_labels"],
+        "certificate_reconstruction_identity": all(
+            all(row["certificate_reconstruction"]["checks"].values())
+            for row in target_rows
+        )
+        == gate["require_certificate_reconstruction_identity"],
         "retreat_certificates_complete": all(
             row["retreat"]["independently_certified"]
             and row["exact_oracles_executed"] == gate["expected_exact_oracles_per_target"]
@@ -1161,13 +1475,15 @@ def run_h32_fresh_convex_retreat_replication(
         for row in target_rows
     ]
     result = {
-        "schema_version": 1,
-        "status": "h32_fresh_convex_retreat_replication_executed",
+        "schema_version": 2,
+        "status": "h32_label_blind_fresh_convex_retreat_replication_executed",
         "environment": assemble_environment(runtime=runtime, git=git),
         "config_sha256": _sha256(config_path),
         "implementation_sha256": _sha256(_IMPLEMENTATION),
         "methodology": {
-            "fresh_targets": 6,
+            "fresh_target_identities": 6,
+            "label_blind_reconstructed_targets": 1,
+            "previously_unobserved_final_label_computations": 2,
             "warm_steps": 6,
             "exact_oracles": 12,
             "adaptive_construction_oracles": 6,
@@ -1176,6 +1492,8 @@ def run_h32_fresh_convex_retreat_replication(
             "latin_f_strategy_quality_labels": latin_f_strategy_quality_labels,
             "candidate_policies_emitted": 0,
             "cross_target_adaptation": cross_target_adaptation,
+            "campaign_events": campaign_events,
+            "candidates_frozen_before_labels": candidates_frozen_before_labels,
         },
         "target_rows": target_rows,
         "promotion": promotion,
@@ -1207,13 +1525,16 @@ def run_h32_fresh_convex_retreat_replication(
         ),
         "actual_emitted_policy": "immutable_restricted_blueprint_only_on_all_targets",
         "strategy_quality_claim": (
-            "six_fresh_target_shadow_measurement_only" if gate_result["passed"] else None
+            "six_target_label_blind_shadow_measurement_only"
+            if gate_result["passed"]
+            else None
         ),
         "one_seat_global_optimality_claim": one_seat_global_optimality_claim,
         "strategy_population_claim": strategy_population_claim,
         "total_seconds": total_seconds,
         "limitations": [
-            "Latin-E reuses source boards and blueprints but opens six previously unseen action-conditioned posterior labels.",
+            "Latin-E target identities are fresh, but target 1 is a label-blind reconstruction after ADR-0256 rather than a never-computed label.",
+            "All six candidates freeze before v2 final labels; certificate-context reconstruction time is measured but excluded from the resident live ledger.",
             "No fresh one-step fallback is evaluated, so this experiment tests convex value transfer rather than comparative dominance.",
             "A post-cut endpoint is not independently certified; only the half-retreat exact oracle has safety authority.",
             "Latin-F remains untouched and no population, deployment, composition, cross-street, or broad poker claim is made.",

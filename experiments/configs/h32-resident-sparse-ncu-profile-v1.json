@@ -1,0 +1,52 @@
+{
+  "evidence_stage": "preregistered_after_adr0212_and_counter_permission_canary_before_any_h32_hardware_counter_collection",
+  "expected_fold_result_sha256": "9d26092c4974c9890dafa31681865adbdd8b5c53f56f46b73563a5cb69763a39",
+  "expected_fold_decision_sha256": "f5c4d007e93f66446b2fd0d582baa58a26a669f9b4ec474ebc768699f1e5735f",
+  "expected_source_result_sha256": "c2a6691d214eec7e35c9f4d18e489f60de1ebf47cb35bba9785796e0582cbced",
+  "expected_batch_v2_config_sha256": "983c6b72ba3860209a20e7204428ee195c28877069628ee0ebc9190fdf23ce0f",
+  "expected_workload_implementation_sha256": "b3798ecd89287cbe4daf940b8268ecec935984ce92c70d157ec0ebb9d7513473",
+  "expected_profile_implementation_sha256": "18d3e21e6dd2fb05da979bb4f6c8357d4fcf41e7dc4acdfac1423d94f8ad7fed",
+  "expected_control_test_sha256": "46f9763376fe5a2bcb1e62089c616c21f12707ac313b38a773632e5108d5f47b",
+  "representative_target": "panel_2/balanced/local_blocker_seat2_x2",
+  "expected_source_belief_sha256": "0662b2cf2436cbc6dcc5669fe75a2c15f03e652fb40a6903703a10dd14cfa289",
+  "directions": [
+    "right_to_left",
+    "left_to_right"
+  ],
+  "feature_width": 384,
+  "workload_warmups": 2,
+  "nvtx_ranges": {
+    "right_to_left": "PONTIUS_H32_SPARSE_RIGHT_TO_LEFT_W384",
+    "left_to_right": "PONTIUS_H32_SPARSE_LEFT_TO_RIGHT_W384"
+  },
+  "ncu_path": "C:\\Program Files\\NVIDIA Corporation\\Nsight Compute 2026.2.1\\target\\windows-desktop-win7-x64\\ncu.exe",
+  "ncu_set": "basic",
+  "ncu_replay_mode": "kernel",
+  "profile_timeout_seconds_per_direction": 900.0,
+  "dominant_duration_fraction": 0.9,
+  "pressure_threshold_pct": 60.0,
+  "pressure_ratio": 1.25,
+  "low_throughput_threshold_pct": 50.0,
+  "low_occupancy_threshold_pct": 40.0,
+  "low_waves_threshold": 1.0,
+  "classification_rule": "duration_weight_the_minimum_kernel_prefix_covering_ninety_percent_classify_memory_if_peak_memory_is_at_least_sixty_percent_and_one_point_two_five_times_sm_compute_compute_symmetrically_classify_launch_or_occupancy_if_both_are_below_fifty_percent_and_occupancy_is_below_forty_percent_or_waves_below_one_else_mixed",
+  "outcome_policy": "counter_values_and_pressure_classification_are_diagnostic_not_validity_gates_and_authorize_no_strategy_gpu_purchase_or_kernel_rewrite_claim_without_a_separate_differential",
+  "gates": {
+    "expected_directions": 2,
+    "minimum_profiled_kernels_per_direction": 2,
+    "maximum_gpu_pool_bytes": 12000000000,
+    "maximum_total_profile_seconds": 1800.0,
+    "require_clean_git_state": true,
+    "require_fold_parent_passed": true,
+    "require_source_parent_passed": true,
+    "require_target_identity": true,
+    "require_ncu_available": true,
+    "require_counter_access": true,
+    "require_nvtx_range_identity": true,
+    "require_feature_width_identity": true,
+    "require_workload_finite": true,
+    "require_core_metrics_present": true,
+    "require_metrics_finite": true,
+    "require_strategy_population_claim_null": true
+  }
+}

@@ -5,30 +5,22 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0254](docs/decisions/ADR-0254-final-latin-posterior-panel-is-fresh-and-balanced.md) — Final-Latin posterior panel is fresh and balanced.
+Latest accepted research result: [ADR-0258](docs/decisions/ADR-0258-convex-half-retreat-delivers-material-value-on-all-six-latin-e-targets.md) — Convex half-retreat delivers material value on all six Latin-E targets.
 
-Status: accepted label-free result; fresh convex replication authorized.
+Status: accepted label-blind six-target result; Latin-F confirmation authorized.
 
 ## Current decision
 
-Accept and seal the 12 fresh identities. Authorize a separately preregistered
-fresh convex-retreat strategy replication.
-
-Use Latin-E as the primary six-target replication: it contains one target per
-source, observed bettor, and acting player. Keep Latin-F quality labels unopened
-as a balanced confirmatory reserve. This split is fixed from the Latin design,
-not chosen from belief TV or strategy opportunity.
-
-Retain factor `0.5`, the widest last-responder one-seat axis, at most one exact
-multi-cut round, exactly two all-seat oracles per target, separate `2e-11` cap
-and `1e-9` epigraph allowances, independent retreat certification, the full
-conservative 15-second schedule, immutable external blueprint, and no safety
-composition. A target that does not close or certify inside the frozen method
-must abstain; do not add a round or tune the factor.
+Accept the six-target label-blind shadow result and the resident-row
+classification correction. Preserve the factor-`0.5` retreat, exact final
+certificate, campaign-wide barrier, complete conservative ledger, and
+outcome-neutral blueprint fallback. Preregister Latin-F without changing any
+scientific threshold or algorithm; use it as the untouched confirmatory test
+of the same six-target breadth branch.
 
 ## Open preregistration
 
-[ADR-0257](docs/decisions/ADR-0257-preregister-label-blind-latin-e-replication-with-global-barrier.md) — Preregister label-blind Latin-E replication with global barrier (accepted corrective preregistration before any remaining Latin-E final label).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -40,7 +32,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0234](docs/decisions/ADR-0234-preregister-heldout-one-step-versus-two-step-continuation-value.md) | 2026-08-22 | accepted preregistration before any held-out strategy work | Preregister held-out one-step versus two-step continuation value |
 | [ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md) | 2026-08-22 | accepted fresh research result; two-step promotion rejected | One continuation step is retained after held-out depth value trial |
 | [ADR-0236](docs/decisions/ADR-0236-preregister-label-free-continuation-direction-capacity.md) | 2026-08-22 | accepted preregistration before any bisector affine row or strategy label | Preregister label-free continuation direction capacity |
 | [ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md) | 2026-08-22 | accepted label-free engineering result; bisector value labels remain closed | Full bisector library does not fit every street |
@@ -64,12 +55,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0255](docs/decisions/ADR-0255-preregister-six-target-fresh-convex-retreat-replication.md) | 2026-08-22 | accepted preregistration before any Latin-E warm step, convex candidate, or final strategy label | Preregister six-target fresh convex-retreat replication |
 | [ADR-0256](docs/decisions/ADR-0256-reject-partial-latin-e-run-on-resident-row-misclassification.md) | 2026-08-22 | accepted process correction; strategy campaign result rejected | Reject partial Latin-E run on resident-row misclassification |
 | [ADR-0257](docs/decisions/ADR-0257-preregister-label-blind-latin-e-replication-with-global-barrier.md) | 2026-08-22 | accepted corrective preregistration before any remaining Latin-E final label | Preregister label-blind Latin-E replication with global barrier |
+| [ADR-0258](docs/decisions/ADR-0258-convex-half-retreat-delivers-material-value-on-all-six-latin-e-targets.md) | 2026-08-22 | accepted label-blind six-target result; Latin-F confirmation authorized | Convex half-retreat delivers material value on all six Latin-E targets |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0257](docs/decisions/ADR-0257-preregister-label-blind-latin-e-replication-with-global-barrier.md) — Preregister label-blind Latin-E replication with global barrier.
-- Numbered decisions: 257.
-- ADR-header SHA-256: `6fe6cd7db36c78f7d9c88529a717e19671ee41e02de7cc408138024a6e20a793`.
+- Latest ADR: [ADR-0258](docs/decisions/ADR-0258-convex-half-retreat-delivers-material-value-on-all-six-latin-e-targets.md) — Convex half-retreat delivers material value on all six Latin-E targets.
+- Numbered decisions: 258.
+- ADR-header SHA-256: `f2a1286439cc58188210c6401ab53fa1d2d86f8987f54509787b2a1bf55b79c1`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -77,4 +69,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0254](docs/decisions/ADR-0254-final-latin-posterior-panel-is-fresh-and-balanced.md) and its dependencies
+4. [ADR-0258](docs/decisions/ADR-0258-convex-half-retreat-delivers-material-value-on-all-six-latin-e-targets.md) and its dependencies

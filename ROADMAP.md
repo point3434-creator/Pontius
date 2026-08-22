@@ -228,12 +228,21 @@ any v2 final retreat label. Certificate contexts are then reconstructed one at
 a time, with identities and reconstruction time recorded separately from the
 unchanged resident live ledger.
 
-**Immediate gate:** execute ADR-0257 once from its clean corrective
-preregistration commit and seal all six outcomes. Authorize only a separately
-preregistered Latin-F confirmation if at least four Latin-E targets deliver
-more than `0.001` exact accepted value, both range families are represented,
-and every measured and effective conservative schedule fits. Otherwise retain
-ADR-0252 as known-target evidence and leave Latin-F unopened.
+ADR-0258 closes the corrected campaign. All six candidates freeze before the
+first v2 label; all six exact half-retreats are cap-safe, material, and on time.
+Pooled delivered value is `0.0649285`, with target values from `0.0017020` to
+`0.0323617`; all three balanced and all three blocker-heavy targets pass. The
+four verified resident residual rows match exact gains within `4.72e-16`, ten
+new facets are cut, measured live time stays below 8.98 seconds, and the full
+13.97-second conservative ledger fits every target. Target 1 remains explicitly
+label-blind reconstructed under ADR-0256; no candidate was emitted.
+
+**Immediate gate:** preregister the unchanged algorithm and thresholds on the
+six untouched Latin-F targets. Preserve the campaign-wide barrier, factor
+`0.5`, exact final proof, resident-row classification, full conservative
+ledger, immutable blueprint emission, and null global/population claims. Treat
+Latin-F as confirmation of the breadth branch, not as a license to retune or
+introduce a fresh fallback comparison.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

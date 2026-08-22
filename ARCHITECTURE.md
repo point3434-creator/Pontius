@@ -402,6 +402,39 @@ policy-probability deltas, propagate only their exact affected cones, and decide
 whether the full candidate improves the incumbent. Exact acceptance is a
 heads-up teacher and must not be called multiplayer-safe.
 
+## Reduced-h32 one-seat convex generation
+
+The current multiplayer direction generator no longer searches only isolated
+regret rays. On a compiled continuation where no root-to-terminal path visits
+two information sets of the same seat, the acting seat's full behavioral axis
+is affine. `behavioral_open_axis` contracts exact profile and fixed-response
+rows, while `behavioral_one_seat_master` minimizes six deviation-gain epigraphs
+over every information set of that seat. General repeated-actor continuations
+must use sequence form; the behavioral shortcut fails closed at layout compile.
+
+An exact all-seat response oracle separates the restricted master. Newly
+exposed opponent response signatures add exact rows; already-resident rows are
+accepted only when they reproduce the oracle and remain inside the verified LP
+primal ceiling. The 15-second ledger currently permits at most one multi-cut
+round. Because that bounded master need not be fully separated, it carries no
+global-optimality claim and is never the safety authority.
+
+The deployable unit is a fixed factor-`0.5` blueprint retreat followed by an
+independent exact all-seat certificate. Acceptance requires exact per-seat cap
+feasibility, positive NashConv improvement, restored interior slack, and both
+measured and conservative street ledgers; otherwise the immutable blueprint is
+the outcome. Multi-seat edits, chaining, cross-street reuse, and banked guard
+remain outside the contract.
+
+[ADR-0258](docs/decisions/ADR-0258-convex-half-retreat-delivers-material-value-on-all-six-latin-e-targets.md)
+is the first breadth result for this layer: all six label-blind Latin-E
+half-retreats are exact-cap-safe, materially positive, and within the full
+ledger. The development runner freezes every campaign candidate before opening
+final labels and reconstructs certificate contexts one at a time to respect GPU
+memory. Latin-F remains the untouched confirmation gate; the architecture does
+not yet infer a population rate or a fresh comparison against the one-step
+regret-vertex fallback.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

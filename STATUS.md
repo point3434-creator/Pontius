@@ -5,34 +5,26 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0210](docs/decisions/ADR-0210-six-way-tier-b-batching-is-exact-but-does-not-reduce-resident-contraction-work.md) — Six-way Tier-B batching is exact but does not reduce resident contraction work.
+Latest accepted research result: [ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md) — The device record fold materially speeds both resident customers.
 
-Status: accepted corrected engineering result.
+Status: accepted engineering result.
 
 ## Current decision
 
-Accept the batch primitive as an exact generic implementation, but reject
-cross-candidate call packing as a selector-capacity optimization. Preserve the
-scalar path as the timing baseline; the batched path has not earned live
-promotion from a non-robust one-percent effect. K remains bound on the three
-slow contexts, so do not open a fresh action-conditioned selector corpus yet.
+Promote the device record-to-hand fold at both the complete warm-step and
+Tier-B call sites. Preserve the globally selected device-batch topology for the
+current six-block ledger, while retaining ADR-0210's conclusion that batching
+itself is not a material optimization. Treat all-six fit as a retained
+development result; the `85.5 ms` minimum headroom is not a deployment margin.
 
-Do not schedule ADR-0158's overlay again: it is already responsible for a
-`94.473%` terminal-row reuse rate here. The next numerical differential should
-move the record-to-hand fold onto the device for both the warm step and Tier B,
-recording host milliseconds removed and device milliseconds added separately
-under ADR-0179. It directly attacks `20.967%` of measured Tier-B batch time and
-ADR-0198's independent `30.562%` of warm-step time. Reprofile after that
-differential. If the resident sparse pipeline still controls K, distinguish
-arithmetic from memory/sparse pressure before rewriting its kernel.
+Before changing the resident sparse implementation, preregister and run a
+separate non-gating Nsight Compute profile that distinguishes arithmetic,
+sparse-memory, and launch/occupancy pressure. Keep fresh action-conditioned
+strategy labels sealed until that engineering profile is interpreted and the
+next complete-ledger choice is frozen.
 
-Coefficient caching across beliefs remains only a fallback hypothesis. Fixed-
-belief affine exactness does not establish slow variation under belief drift;
-any cache must be preregistered with structural identity, a numerical staleness
-teacher, and fail-closed exact recertification.
-
-This result makes no strategy-quality, transfer, deployment, composition,
-population, hardware, occupancy, or broad opportunity-distribution claim.
+This result makes no strategy-quality, opportunity-distribution, transfer,
+deployment, population, composition, occupancy, roofline, or hardware claim.
 
 ## Open preregistration
 
@@ -48,8 +40,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md) | 2026-08-21 | accepted preregistration | Preregister a selector-stable affine certificate differential |
-| [ADR-0188](docs/decisions/ADR-0188-selector-stable-affine-v1-rejected-by-forbidden-warm-digest-gate.md) | 2026-08-21 | rejected result | Selector-stable affine v1 is rejected by a forbidden warm digest gate |
 | [ADR-0189](docs/decisions/ADR-0189-preregister-numerically-corrected-selector-stable-affine-rerun.md) | 2026-08-21 | accepted successor preregistration | Preregister the numerically corrected selector-stable affine rerun |
 | [ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md) | 2026-08-21 | accepted corrected engineering result | The selector-stable affine certificate is exact and fits retained street ledgers |
 | [ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-0 selector-stable affine street trial |
@@ -72,12 +62,14 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0208](docs/decisions/ADR-0208-tier-b-batch-v1-rejects-before-h32-work-on-source-pass-schema.md) | 2026-08-21 | rejected execution before any h32 coefficient or timing measurement | Tier-B batch v1 rejects before h32 work on the source pass schema |
 | [ADR-0209](docs/decisions/ADR-0209-preregister-top-level-source-pass-correction-for-tier-b-batch.md) | 2026-08-21 | accepted schema-only correction preregistration before h32 work | Preregister the top-level source-pass correction for the Tier-B batch |
 | [ADR-0210](docs/decisions/ADR-0210-six-way-tier-b-batching-is-exact-but-does-not-reduce-resident-contraction-work.md) | 2026-08-21 | accepted corrected engineering result | Six-way Tier-B batching is exact but does not reduce resident contraction work |
+| [ADR-0211](docs/decisions/ADR-0211-preregister-resident-record-to-hand-fold-placement-differential.md) | 2026-08-21 | accepted engineering preregistration before any h32 placement measurement | Preregister the resident record-to-hand fold placement differential |
+| [ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md) | 2026-08-21 | accepted engineering result | The device record fold materially speeds both resident customers |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0210](docs/decisions/ADR-0210-six-way-tier-b-batching-is-exact-but-does-not-reduce-resident-contraction-work.md) — Six-way Tier-B batching is exact but does not reduce resident contraction work.
-- Numbered decisions: 210.
-- ADR-header SHA-256: `63d0c331dc9c21bf0108932a9c3b8fc2a7720ce9fcc12f565a37f1cb2b7a353e`.
+- Latest ADR: [ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md) — The device record fold materially speeds both resident customers.
+- Numbered decisions: 212.
+- ADR-header SHA-256: `24226a50ff57d2b69fc03f853a2afa406940caf07ca52abd3944b14abc0816ac`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -85,4 +77,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0210](docs/decisions/ADR-0210-six-way-tier-b-batching-is-exact-but-does-not-reduce-resident-contraction-work.md) and its dependencies
+4. [ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md) and its dependencies

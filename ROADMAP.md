@@ -256,6 +256,21 @@ shadow integration test with immutable blueprint fallback; a clean failure
 retains Latin-E evidence but rejects that integration step. Neither branch
 licenses deployment or a population claim.
 
+ADR-0260 accepts the untouched confirmation at the exact frozen floor. Four of
+six Latin-F targets materially pass, with both families represented and every
+schedule inside the full ledger. All six raw half-retreats are positive and
+exact-cap-feasible; two abstain solely because minimum slack (`1.374e-9` and
+`1.246e-9`) misses the stronger `1.48e-9` interior requirement. Latin-E/F now
+deliver accepted pooled value `0.1104383` across ten contract-passing targets,
+while every actual policy remains the blueprint.
+
+**Immediate gate:** preregister a prospective live-shadow integration on new
+boards or posterior identities. Use one bounded one-round convex attempt,
+factor `0.5`, the existing exact certificate and interior floor, complete
+deadline ledger, and immediate blueprint fallback. Do not use the structured
+Latin panels as an IID success-rate estimate, retune on their two abstentions,
+or introduce deployment authority.
+
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
 30.56%, and transfer only 0.63%. The primary C4 screen must distinguish FP64

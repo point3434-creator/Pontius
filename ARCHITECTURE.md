@@ -431,9 +431,14 @@ is the first breadth result for this layer: all six label-blind Latin-E
 half-retreats are exact-cap-safe, materially positive, and within the full
 ledger. The development runner freezes every campaign candidate before opening
 final labels and reconstructs certificate contexts one at a time to respect GPU
-memory. Latin-F remains the untouched confirmation gate; the architecture does
-not yet infer a population rate or a fresh comparison against the one-step
-regret-vertex fallback.
+memory. The untouched confirmation in
+[ADR-0260](docs/decisions/ADR-0260-latin-f-confirms-convex-breadth-with-two-interior-abstentions.md)
+passes at four of six: all six raw retreats are positive and exact-cap-feasible,
+but two correctly abstain because their slack misses the stronger interior
+floor. Across both panels, ten of twelve deliver under the full contract. This
+authorizes prospective live-shadow integration with the same no-op path; it
+does not infer an IID population rate or a fresh comparison against the one-
+step regret-vertex fallback.
 
 ## Runtime target
 

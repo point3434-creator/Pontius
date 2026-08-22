@@ -36,8 +36,8 @@ emits the blueprint.
 ```text
 prepared immutable state
     -> one resident warm step
-    -> causal candidate directions
-    -> complete continuation-block affine screen
+    -> one retained regret-vertex direction family
+    -> complete 31-block continuation affine screen
     -> one deadline-admitted exact winner certificate
     -> certified incumbent or immutable blueprint
     -> reserved synchronization/action emission
@@ -56,6 +56,12 @@ winner, the remaining target gets worse, and value per charged second falls
 13.24%. The active spine therefore retains one step and directs spare time to
 generator/action diversity. These are reduced h32 results, not broad poker-
 strength claims.
+
+[ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md)
+keeps that direction width fixed. A second, structurally distinct 31-block
+soft/regret bisector family fits 8 of 12 retained street ledgers but reaches
+19.42 seconds on the tightest target. No bisector value labels were opened;
+memory remained safe and affine work, not residency, is the blocker.
 
 Every successor runner derives acceptance guards and quality normalization
 from `layout.game.payoff_span` through `payoff_semantics`; stack is never a

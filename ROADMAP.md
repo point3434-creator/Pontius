@@ -129,11 +129,19 @@ Eleven of twelve targets reproduce the exact same winner; the sole material
 switch is harmful
 ([ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md)).
 
-**Immediate gate:** retain one continuation step and price direction or action
-diversity with the recovered second. The next experiment is label-free capacity
-work first; do not open another strategy panel until a second coherent direction
-family or widened action arm fits beside all 31 blocks, one proof, and the fixed
-emission reserve. Ordinary DCFR depth is no longer the default compute sink.
+The first direction-diversity capacity gate is closed. A complete second
+soft/regret bisector family is structurally distinct but exceeds the street
+boundary on 4 of 12 targets, reaching 19.42 seconds
+([ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md)).
+No direction labels were opened.
+
+**Immediate gate:** retain one continuation step and the complete 31-block
+regret-vertex library. Price the remaining action-diversity branch with a
+label-free continuation-root two-size preflight before any widened strategy
+label. Preserve one proof reserve, the emission reserve, shared payoff
+semantics, and immutable fallback. Do not select a partial bisector library from
+the rejected capacity artifact, and do not return ordinary depth to the default
+compute budget.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

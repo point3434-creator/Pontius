@@ -5,30 +5,35 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md) — One continuation step is retained after held-out depth value trial.
+Latest accepted research result: [ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md) — Full bisector library does not fit every street.
 
-Status: accepted fresh research result; two-step promotion rejected.
+Status: accepted label-free engineering result; bisector value labels remain closed.
 
 ## Current decision
 
-Retain one continuation step. Do not spend street time on a second ordinary
-DCFR step for this workload. The extra step is affordable, but affordability is
-not value; in 11 of 12 held-out targets it reproduces the same regret-vertex
-winner and in the remaining target it selects a worse one.
+Retain the one-step, 31-block regret-vertex spine. Do not open a fresh bisector
+value panel, select a 14-row subset from this timing result, or infer that the
+bisector lacks strategy value. Capacity—not quality—rejected the full family.
 
-The next strategy experiment should spend the recovered second on direction or
-action diversity, not ordinary depth. Preregister a label-free capacity screen
-before opening another strategy panel. Preserve the one-step continuation root,
-all 31 blocks, full affine envelope, exact winner proof, hard deadline, shared
-payoff semantics, runner harness, and immutable fallback.
+Direction diversity remains viable only after a separately justified work-
+reduction mechanism or a label-free structural rule that is fixed before
+direction values. Prior batch measurements do not supply that mechanism.
 
-This is positive held-out evidence for the one-step reduced-h32 continuation
-spine, not a claim about more steps, other generators, other streets,
-deployment, composition, population performance, or broad poker strength.
+The remaining ADR-0235 diversity branch is action width. Its next gate must be
+a label-free continuation-root two-size capacity preflight: reconstruct the
+embedded immutable blueprint, measure one resident warm step and the complete
+widened legal block library, reserve one proof and emission, and fail closed
+before any widened strategy label. Reuse the shared payoff semantics and
+multi-size resident infrastructure; do not extrapolate from the earlier full-
+tree action-width trials.
+
+This is a reduced-h32 engineering result. It makes no claim about bisector
+quality, action-width quality, deployment, composition, population behavior,
+or broad poker strength.
 
 ## Open preregistration
 
-[ADR-0236](docs/decisions/ADR-0236-preregister-label-free-continuation-direction-capacity.md) — Preregister label-free continuation direction capacity (accepted preregistration before any bisector affine row or strategy label).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -40,7 +45,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0213](docs/decisions/ADR-0213-preregister-isolated-resident-sparse-nsight-profile.md) | 2026-08-21 | accepted diagnostic preregistration before any h32 counter collection | Preregister the isolated resident-sparse Nsight profile |
 | [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the first resident-sparse profile on an empty console page |
 | [ADR-0215](docs/decisions/ADR-0215-preregister-corrected-resident-sparse-console-page.md) | 2026-08-21 | accepted tooling correction before any corrected h32 counter collection | Preregister the corrected resident-sparse console page |
 | [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the second sparse profile on Python child targeting |
@@ -64,12 +68,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0234](docs/decisions/ADR-0234-preregister-heldout-one-step-versus-two-step-continuation-value.md) | 2026-08-22 | accepted preregistration before any held-out strategy work | Preregister held-out one-step versus two-step continuation value |
 | [ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md) | 2026-08-22 | accepted fresh research result; two-step promotion rejected | One continuation step is retained after held-out depth value trial |
 | [ADR-0236](docs/decisions/ADR-0236-preregister-label-free-continuation-direction-capacity.md) | 2026-08-22 | accepted preregistration before any bisector affine row or strategy label | Preregister label-free continuation direction capacity |
+| [ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md) | 2026-08-22 | accepted label-free engineering result; bisector value labels remain closed | Full bisector library does not fit every street |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0236](docs/decisions/ADR-0236-preregister-label-free-continuation-direction-capacity.md) — Preregister label-free continuation direction capacity.
-- Numbered decisions: 236.
-- ADR-header SHA-256: `f0823db65c2667873ab7f3ff77ab5cbdceb0e2c4acf3171f3d99cb5c599aa686`.
+- Latest ADR: [ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md) — Full bisector library does not fit every street.
+- Numbered decisions: 237.
+- ADR-header SHA-256: `c68751e155b0a8c3a3bb051138461a2f7adf599f4a63197c5c5d3297fd45240e`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -77,4 +82,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md) and its dependencies
+4. [ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md) and its dependencies

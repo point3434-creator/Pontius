@@ -7,7 +7,14 @@ historical rather than the project status front door. Raw JSON artifacts under
 until a checkpoint package explicitly promotes them.
 
 For the live decision, read generated [STATUS.md](../STATUS.md). The current
-held-out strategy result is
+engineering result is
+[ADR-0237](../docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md):
+the full 62-row regret-plus-bisector continuation library fits 8 of 12 retained
+street ledgers but reaches `19.422 s` on the tightest target. All 372 added
+endpoints are distinct, but no quality labels were opened. Retain the 31-row
+regret library and move the next label-free gate to continuation action width.
+
+The current held-out strategy result is
 [ADR-0235](../docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md):
 one continuation step delivers pooled exact value `0.056326`, while two steps
 deliver `0.055709` at 14.00% greater charged time. Eleven of twelve targets

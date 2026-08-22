@@ -264,12 +264,22 @@ exact-cap-feasible; two abstain solely because minimum slack (`1.374e-9` and
 deliver accepted pooled value `0.1104383` across ten contract-passing targets,
 while every actual policy remains the blueprint.
 
-**Immediate gate:** preregister a prospective live-shadow integration on new
-boards or posterior identities. Use one bounded one-round convex attempt,
-factor `0.5`, the existing exact certificate and interior floor, complete
-deadline ledger, and immediate blueprint fallback. Do not use the structured
-Latin panels as an IID success-rate estimate, retune on their two abstentions,
-or introduce deployment authority.
+ADR-0261 freezes the first deployment-aligned identity panel without opening a
+strategy label. Each retained source observes checks, a bet, and exactly the
+first responder's call; the second responder is then the player actually on
+the clock, with three opponents still acting downstream. Source, bettor,
+observed responder, and acting player are each balanced exactly once. The
+manifest must prove the legal prefix, current-player identity, one-node h32
+axis, path-single-visit topology, fresh posterior identity, and nondegenerate
+belief shifts before GPU work.
+
+**Immediate gate:** execute the ADR-0261 CPU-only manifest once. A complete pass
+authorizes a separate prospective live-shadow preregistration using one bounded
+one-round convex attempt, factor `0.5`, the existing exact certificate and
+interior floor, complete deadline ledger, and immediate blueprint fallback. A
+failure rejects this fixed all-call panel without substituting a target. Do not
+use the structured Latin panels as an IID success-rate estimate, retune on
+their two abstentions, or introduce deployment authority.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

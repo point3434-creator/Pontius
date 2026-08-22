@@ -37,6 +37,11 @@ the early exact laboratories, but they are not the active h32 decision ledger.
   blueprint. A late result is unusable.
 - Cold construction, warm work, certificate work, persistent GPU-pool bytes,
   physical-free memory, and the emission reserve stay separate in every ledger.
+- Every bounded multi-target campaign carries one shared monotonic deadline.
+  The runner atomically checkpoints before each frozen target or arm, admits
+  the unit only when its complete preregistered bound still fits, and stops
+  before any later work or label if either the unit or campaign wall is crossed.
+  This campaign ceiling is separate from the 15-second decision ledger.
 
 [ADR-0166](docs/decisions/ADR-0166-prepared-street-fits-two-atomic-certificates-after-one-warm-step.md)
 records the current capacity evidence. It does not authorize deployment, claim

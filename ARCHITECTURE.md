@@ -66,7 +66,13 @@ memory remained safe and affine work, not residency, is the blocker.
 Every successor runner derives acceptance guards and quality normalization
 from `layout.game.payoff_span` through `payoff_semantics`; stack is never a
 span. Artifact loading, pass-bit access, environment assembly, gate plumbing,
-and finite serialization use `runner_harness`. Byte-pinned historical runners
+and finite serialization use the byte-pinned `runner_harness`. Active campaign
+admission uses its separate `campaign_deadline` successor so historical
+provenance remains exact. One `MonotonicCampaignDeadline` spans each bounded
+campaign: it checkpoints before every frozen target or arm, requires the entire
+unit bound to fit, and
+stops immediately after a unit or campaign overrun. Campaign time remains
+separate from the 15-second decision ledger. Byte-pinned historical runners
 remain immutable, with their legacy expressions held in an exact AST exception
 inventory. New device-fold customers likewise use the non-consuming,
 contiguity-guarded `resident_record_to_hand_fold_v2` successor rather than

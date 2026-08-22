@@ -401,11 +401,33 @@ and peak pool use is 5.169 GB. Runtime is the wall. No two-size arm fits the
 15-second conservative proxy; only the last acting position fits one size on
 all six sources. Retain one size and keep widened quality closed.
 
-**Immediate gate:** before another bounded GPU campaign, make the global
-campaign deadline active and fail-fast in the shared runner path. Do not rerun
-ADR-0277 with a relaxed post-hoc ceiling. Any action-width successor must first
-reduce resident warm/coefficient/oracle work, then freeze a fresh capacity
-question; further cache compression is not the current lever.
+[ADR-0279](docs/decisions/ADR-0279-install-active-campaign-deadlines-and-prioritize-exact-pre-bet-row-speculation.md)
+installs and tests the shared active campaign deadline without running h32. One
+`monotonic_ns` wall now checkpoints before each frozen unit, denies a unit whose
+complete preregistered bound does not fit, and stops after either a unit or
+campaign overrun. The campaign wall remains distinct from the live street
+ledger.
+
+Its read-only ADR-0278 repricing also localizes the next action-width lever. The
+warm DCFR state is not consumed by the pre-bet restricted master; removing that
+step saves a two-size median 9.331 seconds but leaves no complete position. The
+eleven exact initial rows cost a larger median 17.292 seconds. Conditional on a
+zero-cost exact row-cache hit, removing both blocks would place all six seat-5
+sources below 15 seconds, with a worst proxy of 12.966 seconds. That is a
+counterfactual bound, not capacity evidence: lookup, validation, hit rate, and
+fresh execution remain unmeasured.
+
+**Immediate gate:** build a CPU/h2 exact round-trip control for a byte-truth,
+full-provenance source/current-prefix row cache and remove the nonfeeding warm
+step only in the pre-bet restricted-master successor. Charge lookup and
+validation on-clock and preserve the immutable blueprint on every miss. The
+one-size/added-column overlay remains unproved: even optimistic paired-delta
+arithmetic for initial and future cut rows leaves the worst seat-5 source at
+15.856 seconds unless endpoint contractions also shrink. The sealed artifact
+contains zero endpoints or cuts, so it cannot price an anytime separation rule.
+Do not run h32 or open action-width quality until a fresh label-free capacity
+preregistration freezes these mechanics, per-unit bounds, numerical identity,
+independent certification, and every unchanged safety cap.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

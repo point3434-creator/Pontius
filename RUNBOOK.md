@@ -57,6 +57,29 @@ After adding or changing an accepted ADR, regenerate with the same command
 without `--check`. Documentation integrity tests verify the generated artifact
 and maintained local links.
 
+## Bounded campaign admission
+
+Every new bounded evidence runner uses
+`pontius.campaign_deadline.MonotonicCampaignDeadline`. Construct it once at the
+campaign boundary from the frozen global ceiling, then wrap every target or
+arm in `bounded_unit`. The unit maximum must be frozen before execution and
+must cover the complete indivisible unit; an observed duration is not a lawful
+substitute.
+
+The callback passed to `bounded_unit` must write the current byte-truth atomic
+checkpoint. Admission occurs only after that callback completes and only when
+the whole unit bound still fits in the remaining `monotonic_ns` allowance. The
+post-unit check stops on either a unit-bound overrun or the global campaign
+wall. Catch `CampaignDeadlineStop` only to persist its `as_record()` telemetry,
+release resources, and retain the preregistered fallback. Execute no later
+target, candidate evaluation, certificate, strategy label, or emission.
+
+The campaign deadline never replaces the per-decision live ledger or its
+emission reserve. A successor config must freeze both independently. The
+ADR-0277 runner is sealed historical code and must not be invoked again; any
+successor must import the shared deadline and test its stop path before GPU
+work.
+
 ## Current h32 evidence reproduction
 
 The latest accepted prospective engineering result is the fixed-seat-5

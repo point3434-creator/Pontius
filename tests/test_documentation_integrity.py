@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-from pathlib import Path
 import re
 import unittest
+from pathlib import Path
 from urllib.parse import unquote
-
 
 _ROOT = Path(__file__).parents[1]
 _MAINTAINED = (
@@ -41,8 +40,32 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "PROJECT.md": ("15,000 ms", "immutable blueprint"),
             "ROADMAP.md": ("ADR-0184", "direction/opportunity"),
             "RUNBOOK.md": ("PONTIUS_CUDA_DLL_DIRECTORY", "pontius.runner_harness"),
-            "ARCHITECTURE.md": ("Current h32 execution spine", "deadline-admitted exact winner certificate"),
+            "ARCHITECTURE.md": (
+                "Current h32 execution spine",
+                "deadline-admitted exact winner certificate",
+            ),
             "RISK_REGISTER.md": ("R36", "Coincidental equality"),
+        }
+        for relative, phrases in expected.items():
+            text = (_ROOT / relative).read_text(encoding="utf-8")
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+    def test_active_campaign_deadline_is_visible_in_maintained_contracts(self) -> None:
+        expected = {
+            "PROJECT.md": ("shared monotonic deadline", "15-second decision ledger"),
+            "ROADMAP.md": ("ADR-0279", "12.966 seconds"),
+            "RUNBOOK.md": (
+                "campaign_deadline",
+                "MonotonicCampaignDeadline",
+                "CampaignDeadlineStop",
+            ),
+            "ARCHITECTURE.md": (
+                "campaign_deadline",
+                "MonotonicCampaignDeadline",
+                "campaign overrun",
+            ),
+            "RISK_REGISTER.md": ("R41", "R42"),
         }
         for relative, phrases in expected.items():
             text = (_ROOT / relative).read_text(encoding="utf-8")

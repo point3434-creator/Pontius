@@ -5,30 +5,17 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md) — The device record fold materially speeds both resident customers.
+Latest accepted research result: [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) — Reject the first resident-sparse profile on an empty console page.
 
-Status: accepted engineering result.
+Status: accepted tooling rejection; no counter interpretation.
 
 ## Current decision
 
-Promote the device record-to-hand fold at both the complete warm-step and
-Tier-B call sites. Preserve the globally selected device-batch topology for the
-current six-block ledger, while retaining ADR-0210's conclusion that batching
-itself is not a material optimization. Treat all-six fit as a retained
-development result; the `85.5 ms` minimum headroom is not a deployment margin.
-
-Before changing the resident sparse implementation, preregister and run a
-separate non-gating Nsight Compute profile that distinguishes arithmetic,
-sparse-memory, and launch/occupancy pressure. Keep fresh action-conditioned
-strategy labels sealed until that engineering profile is interpreted and the
-next complete-ledger choice is frozen.
-
-This result makes no strategy-quality, opportunity-distribution, transfer,
-deployment, population, composition, occupancy, roofline, or hardware claim.
+The latest research ADR has no explicit Decision section.
 
 ## Open preregistration
 
-[ADR-0213](docs/decisions/ADR-0213-preregister-isolated-resident-sparse-nsight-profile.md) — Preregister the isolated resident-sparse Nsight profile (accepted diagnostic preregistration before any h32 counter collection).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -40,7 +27,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0190](docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md) | 2026-08-21 | accepted corrected engineering result | The selector-stable affine certificate is exact and fits retained street ledgers |
 | [ADR-0191](docs/decisions/ADR-0191-preregister-fresh-seat0-selector-stable-affine-street-trial.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-0 selector-stable affine street trial |
 | [ADR-0192](docs/decisions/ADR-0192-fixed-seat0-affine-rule-emits-four-fresh-certified-candidates-before-deadline.md) | 2026-08-21 | accepted prospective engineering result | The fixed seat-0 affine rule emits four fresh certified candidates before deadline |
 | [ADR-0193](docs/decisions/ADR-0193-preregister-fresh-seat5-affine-street-replication.md) | 2026-08-21 | accepted preregistration | Preregister a fresh seat-5 affine street replication |
@@ -64,12 +50,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0211](docs/decisions/ADR-0211-preregister-resident-record-to-hand-fold-placement-differential.md) | 2026-08-21 | accepted engineering preregistration before any h32 placement measurement | Preregister the resident record-to-hand fold placement differential |
 | [ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md) | 2026-08-21 | accepted engineering result | The device record fold materially speeds both resident customers |
 | [ADR-0213](docs/decisions/ADR-0213-preregister-isolated-resident-sparse-nsight-profile.md) | 2026-08-21 | accepted diagnostic preregistration before any h32 counter collection | Preregister the isolated resident-sparse Nsight profile |
+| [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the first resident-sparse profile on an empty console page |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0213](docs/decisions/ADR-0213-preregister-isolated-resident-sparse-nsight-profile.md) — Preregister the isolated resident-sparse Nsight profile.
-- Numbered decisions: 213.
-- ADR-header SHA-256: `de3cecc9c21767a654510283c5eaafa984542680eaddd0b4f0c8065c530004f0`.
+- Latest ADR: [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) — Reject the first resident-sparse profile on an empty console page.
+- Numbered decisions: 214.
+- ADR-header SHA-256: `27f10362da425892273d6cf90928f803c9fbbc0c843b4c1272bb43001ecd9fda`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -77,4 +64,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md) and its dependencies
+4. [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) and its dependencies

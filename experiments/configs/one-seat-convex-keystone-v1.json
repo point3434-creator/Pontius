@@ -1,0 +1,42 @@
+{
+  "evidence_stage": "preregistered_after_adr0239_before_frozen_keystone_run",
+  "expected_parent_decision_sha256": "8fc421c89d9766df5da4dbfa3242fd118675f711bac7883b710c1908f63d99c2",
+  "expected_primitive_sha256": "a84126b66aad760dcda28ba4870cd4a5daba18ebe5377fef8b1efa53a04d9231",
+  "expected_primitive_test_sha256": "94b03674f67e32773b2dde975ecb5f23611bd9f427f4fef4ce9736fd878698f2",
+  "expected_proof_sha256": "adc376afd7077b140ef849998a31b0931aaee87548242ccea4627e587a9b42fc",
+  "expected_implementation_sha256": "fd77aa6d107bc4a27c40b83cfc51c7fbea93aec22a5f8a6d340a132a02c8c5c1",
+  "expected_control_test_sha256": "e9dc30c252d84883ee82c777b10ec632bb8abdc85866f0abd950a27d329dac11",
+  "game": "kuhn2",
+  "blueprint_solver": "lcfr",
+  "blueprint_iterations": 37,
+  "acting_players": [
+    0,
+    1
+  ],
+  "guard": 0.25,
+  "retreat_factor": 0.8,
+  "max_iterations": 128,
+  "max_pure_plans": 1000,
+  "tolerance": 1e-10,
+  "claims_policy": "finite_algebra_control_only_no_strategy_quality_claim",
+  "gates": {
+    "expected_acting_seats": 2,
+    "expected_acting_pure_plans": 64,
+    "expected_opponent_pure_plans": 64,
+    "maximum_teacher_objective_error": 1e-9,
+    "maximum_exact_incumbent_error": 1e-9,
+    "maximum_final_optimality_gap": 1e-9,
+    "maximum_retreat_jensen_error": 1e-9,
+    "maximum_realization_equivalence_error": 1e-9,
+    "maximum_total_seconds": 60.0,
+    "require_clean_git_state": true,
+    "require_repeated_actor_topology": true,
+    "require_behavioral_shortcut_rejection": true,
+    "require_all_opponent_multi_cut_control": true,
+    "require_safe_timeout_incumbent": true,
+    "require_bound_monotonicity": true,
+    "require_exact_digest_dedup_only": true,
+    "require_independent_certificate": true,
+    "require_finite": true
+  }
+}

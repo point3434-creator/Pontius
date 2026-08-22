@@ -25,7 +25,7 @@ any v1 process state.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0240](docs/decisions/ADR-0240-preregister-one-seat-convex-generation-keystone.md) — Preregister one-seat convex generation keystone (accepted preregistration before the frozen convex-keystone run).
 
 ## Evidence protocol
 
@@ -37,7 +37,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the second sparse profile on Python child targeting |
 | [ADR-0217](docs/decisions/ADR-0217-preregister-final-sparse-profiler-target-correction.md) | 2026-08-21 | accepted tooling correction before any final corrected h32 counter collection | Preregister the final sparse-profiler target correction |
 | [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) | 2026-08-21 | accepted diagnostic result | The resident-sparse profile identifies compute pressure |
 | [ADR-0219](docs/decisions/ADR-0219-preregister-action-conditioned-posterior-manifest.md) | 2026-08-21 | accepted label-free preregistration before any action-conditioned warm step or label | Preregister the action-conditioned posterior manifest |
@@ -61,12 +60,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md) | 2026-08-22 | accepted label-free engineering result; bisector value labels remain closed | Full bisector library does not fit every street |
 | [ADR-0238](docs/decisions/ADR-0238-preregister-cross-payoff-reverse-adjoint-feasibility.md) | 2026-08-22 | accepted preregistration before any cross-payoff h32 pass | Preregister cross-payoff reverse-adjoint feasibility |
 | [ADR-0239](docs/decisions/ADR-0239-reject-cross-payoff-v1-on-external-axis-key-mismatch.md) | 2026-08-22 | rejected execution; no coefficient or timing result accepted | Reject cross-payoff v1 on external-axis key mismatch |
+| [ADR-0240](docs/decisions/ADR-0240-preregister-one-seat-convex-generation-keystone.md) | 2026-08-22 | accepted preregistration before the frozen convex-keystone run | Preregister one-seat convex generation keystone |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0239](docs/decisions/ADR-0239-reject-cross-payoff-v1-on-external-axis-key-mismatch.md) — Reject cross-payoff v1 on external-axis key mismatch.
-- Numbered decisions: 239.
-- ADR-header SHA-256: `c2fcb0b24690273857474e7adaa1e7a70b4543f9fada1ac1d86de3b555143085`.
+- Latest ADR: [ADR-0240](docs/decisions/ADR-0240-preregister-one-seat-convex-generation-keystone.md) — Preregister one-seat convex generation keystone.
+- Numbered decisions: 240.
+- ADR-header SHA-256: `44e1cd6dd9577349d616ea7da3b571cf253db633e6de54988c95b0ef5d866a77`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

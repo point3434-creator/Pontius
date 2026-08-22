@@ -135,13 +135,21 @@ boundary on 4 of 12 targets, reaching 19.42 seconds
 ([ADR-0237](docs/decisions/ADR-0237-full-bisector-library-does-not-fit-every-street.md)).
 No direction labels were opened.
 
-**Immediate gate:** retain one continuation step and the complete 31-block
-regret-vertex library. Price the remaining action-diversity branch with a
-label-free continuation-root two-size preflight before any widened strategy
-label. Preserve one proof reserve, the emission reserve, shared payoff
-semantics, and immutable fallback. Do not select a partial bisector library from
-the rejected capacity artifact, and do not return ordinary depth to the default
-compute budget.
+ADR-0239 rejects the first label-free cross-payoff implementation before any
+coefficient matrix completed: its fixed-response splice used embedded layout
+hand keys instead of the continuation's external posterior axes. The algebra
+remains open, but a mechanical rerun is deferred in favor of the stronger
+one-seat convex-program question.
+
+**Immediate gate:** execute the ADR-0240 finite keystone from its clean
+preregistration commit. The generated sequence-form row solver must reproduce
+an independently enumerated complete normal-form optimum, preserve the safe
+incumbent and `U - L` timeout bound, reject the behavioral shortcut on a
+repeated-actor path, and pass the exact retreat control. A pass authorizes only
+an h4 open-axis cut-extraction differential; h32 cut count, extraction cost,
+conditioning, certification cost, and the 15-second ledger remain unopened.
+Retain one continuation step and the complete 31-block regret-vertex library as
+the live fallback, and do not open widened strategy labels on this control.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

@@ -33,7 +33,7 @@ deployment, population, roofline, hardware-comparison, or GPU-purchase claim.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0219](docs/decisions/ADR-0219-preregister-action-conditioned-posterior-manifest.md) — Preregister the action-conditioned posterior manifest (accepted label-free preregistration before any action-conditioned warm step or label).
 
 ## Evidence protocol
 
@@ -45,7 +45,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0195](docs/decisions/ADR-0195-preregister-read-only-h32-resident-step-bottleneck-profile.md) | 2026-08-21 | accepted preregistration before any replay step | Preregister a read-only h32 resident-step bottleneck profile |
 | [ADR-0196](docs/decisions/ADR-0196-resident-step-profile-v1-rejects-before-replay-on-parent-pass-key.md) | 2026-08-21 | rejected execution before any replay step | Resident-step profile v1 rejects before replay on the parent pass key |
 | [ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md) | 2026-08-21 | accepted correction preregistration before any replay timing | Preregister the source-schema-corrected resident-step profile |
 | [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) | 2026-08-21 | accepted read-only engineering result | The device pipeline dominates the h32 step and host folding is second |
@@ -69,12 +68,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0216](docs/decisions/ADR-0216-reject-second-sparse-profile-on-python-child-targeting.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the second sparse profile on Python child targeting |
 | [ADR-0217](docs/decisions/ADR-0217-preregister-final-sparse-profiler-target-correction.md) | 2026-08-21 | accepted tooling correction before any final corrected h32 counter collection | Preregister the final sparse-profiler target correction |
 | [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) | 2026-08-21 | accepted diagnostic result | The resident-sparse profile identifies compute pressure |
+| [ADR-0219](docs/decisions/ADR-0219-preregister-action-conditioned-posterior-manifest.md) | 2026-08-21 | accepted label-free preregistration before any action-conditioned warm step or label | Preregister the action-conditioned posterior manifest |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) — The resident-sparse profile identifies compute pressure.
-- Numbered decisions: 218.
-- ADR-header SHA-256: `963fdcb8745c8658e7895fb7f87f66d5ec4c4a0edffdec4b02fdb1acfd1ee954`.
+- Latest ADR: [ADR-0219](docs/decisions/ADR-0219-preregister-action-conditioned-posterior-manifest.md) — Preregister the action-conditioned posterior manifest.
+- Numbered decisions: 219.
+- ADR-header SHA-256: `d950019ce9f1ca4c39fb680d356dd7eae89fa2f1a109dc84e786caad4de6bb10`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

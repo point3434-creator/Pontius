@@ -197,11 +197,12 @@ value, and retains `1.50e-9` minimum cap slack. Its conservative value rate is
 All numerical/discrete reconstruction gates pass while the three policy byte
 digests remain non-gating reassociation diagnostics.
 
-**Immediate gate:** preregister fresh-target replication before constructing
-another convex candidate or opening another label. Retain factor `0.5`, the
-two-oracle exact authority, separate cap/epigraph allowances, full conservative
-charge, immutable external blueprint, and all one-seat/no-composition limits.
-Do not tune from the known-target win.
+**Open gate:** ADR-0253 freezes the last unused Latin offsets two and five over
+the six retained sources. The 12 label-free targets complete all 36 source-
+bettor combinations exactly once. Acting player is predeclared as the last
+responder `(bettor - 1) mod 6`, balancing the widest 16-node one-seat axis twice
+per seat. The CPU manifest must pass freshness, disjointness, identity, hand-
+axis, and nondegeneracy gates before any new warm step or convex candidate.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

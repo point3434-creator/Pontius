@@ -24,7 +24,7 @@ immutable external blueprint. Do not tune the retreat factor from this result.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0253](docs/decisions/ADR-0253-preregister-final-latin-convex-replication-posterior-panel.md) — Preregister final-Latin convex-replication posterior panel (accepted label-free preregistration before any Latin-E/F posterior or convex candidate).
 
 ## Evidence protocol
 
@@ -36,7 +36,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0229](docs/decisions/ADR-0229-preregister-label-free-continuation-depth-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the label-free continuation depth ledger |
 | [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) | 2026-08-22 | accepted label-free engineering result | Two continuation steps fit the conservative street ledger |
 | [ADR-0231](docs/decisions/ADR-0231-preregister-heldout-continuation-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration | Preregister the held-out continuation posterior panel |
 | [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) | 2026-08-22 | accepted label-free result | Held-out continuation posterior panel is fresh and nondegenerate |
@@ -60,12 +59,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0250](docs/decisions/ADR-0250-reject-bytewise-retreat-reconstruction-before-labels.md) | 2026-08-22 | rejected preregistered execution before any new strategy-quality label | Reject bytewise retreat reconstruction before labels |
 | [ADR-0251](docs/decisions/ADR-0251-preregister-numerically-identified-convex-retreat-quality-gate.md) | 2026-08-22 | accepted corrected preregistration before any retreat certificate or fallback label join | Preregister numerically identified convex-retreat quality gate |
 | [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) | 2026-08-22 | accepted single-target strategy-quality result; fresh replication authorized | Convex retreat beats the live fallback on the frozen target |
+| [ADR-0253](docs/decisions/ADR-0253-preregister-final-latin-convex-replication-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration before any Latin-E/F posterior or convex candidate | Preregister final-Latin convex-replication posterior panel |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) — Convex retreat beats the live fallback on the frozen target.
-- Numbered decisions: 252.
-- ADR-header SHA-256: `94833751ebaf1b52b15177ccf2fb6d4af6b4c77caa4fe9e453879c3e756c9ecc`.
+- Latest ADR: [ADR-0253](docs/decisions/ADR-0253-preregister-final-latin-convex-replication-posterior-panel.md) — Preregister final-Latin convex-replication posterior panel.
+- Numbered decisions: 253.
+- ADR-header SHA-256: `cd87258a9b198f042e2db26245cf09343d9a440b35a4fc66f5488e26093f4b48`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

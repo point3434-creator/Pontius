@@ -38,7 +38,7 @@ strength claim.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0231](docs/decisions/ADR-0231-preregister-heldout-continuation-posterior-panel.md) — Preregister the held-out continuation posterior panel (accepted label-free preregistration).
 
 ## Evidence protocol
 
@@ -50,7 +50,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0207](docs/decisions/ADR-0207-preregister-six-block-tier-b-opponent-batch-differential.md) | 2026-08-21 | accepted engineering preregistration before any h32 batch measurement | Preregister the six-block Tier-B opponent batch differential |
 | [ADR-0208](docs/decisions/ADR-0208-tier-b-batch-v1-rejects-before-h32-work-on-source-pass-schema.md) | 2026-08-21 | rejected execution before any h32 coefficient or timing measurement | Tier-B batch v1 rejects before h32 work on the source pass schema |
 | [ADR-0209](docs/decisions/ADR-0209-preregister-top-level-source-pass-correction-for-tier-b-batch.md) | 2026-08-21 | accepted schema-only correction preregistration before h32 work | Preregister the top-level source-pass correction for the Tier-B batch |
 | [ADR-0210](docs/decisions/ADR-0210-six-way-tier-b-batching-is-exact-but-does-not-reduce-resident-contraction-work.md) | 2026-08-21 | accepted corrected engineering result | Six-way Tier-B batching is exact but does not reduce resident contraction work |
@@ -74,12 +73,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) | 2026-08-22 | accepted fresh research result | Continuation rooting delivers exact safe value on all twelve targets |
 | [ADR-0229](docs/decisions/ADR-0229-preregister-label-free-continuation-depth-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the label-free continuation depth ledger |
 | [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) | 2026-08-22 | accepted label-free engineering result | Two continuation steps fit the conservative street ledger |
+| [ADR-0231](docs/decisions/ADR-0231-preregister-heldout-continuation-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration | Preregister the held-out continuation posterior panel |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) — Two continuation steps fit the conservative street ledger.
-- Numbered decisions: 230.
-- ADR-header SHA-256: `1c7be65cb7cde84ec655499b83fc3b890337edcc18ea645f7f7e4153084008fd`.
+- Latest ADR: [ADR-0231](docs/decisions/ADR-0231-preregister-heldout-continuation-posterior-panel.md) — Preregister the held-out continuation posterior panel.
+- Numbered decisions: 231.
+- ADR-header SHA-256: `6da62ae94fefb1e6f15c313640f0434ea5b24315b09877a2d8d22e229ae44396`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

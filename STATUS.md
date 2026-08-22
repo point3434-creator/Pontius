@@ -20,7 +20,7 @@ of the same six-target breadth branch.
 
 ## Open preregistration
 
-[ADR-0264](docs/decisions/ADR-0264-current-decision-convex-shadow-delivers-six-safe-candidates-in-five-seconds.md) — Current-decision convex shadow delivers six safe candidates in five seconds (accepted prospective shadow result; post-fold preregistration authorized).
+[ADR-0265](docs/decisions/ADR-0265-preregister-decision-aligned-post-fold-posterior-panel.md) — Preregister decision-aligned post-fold posterior panel (accepted label-blind preregistration before any post-fold strategy label).
 
 ## Evidence protocol
 
@@ -32,7 +32,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0241](docs/decisions/ADR-0241-one-seat-convex-generation-matches-complete-teacher.md) | 2026-08-22 | accepted finite control; h4 cut-extraction differential authorized | One-seat convex generation matches complete teacher |
 | [ADR-0242](docs/decisions/ADR-0242-preregister-h4-sequence-form-open-axis-differential.md) | 2026-08-22 | accepted preregistration before the h4 open-axis run | Preregister h4 sequence-form open-axis differential |
 | [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) | 2026-08-22 | accepted coefficient control; label-free h32 extraction preflight authorized | h4 open-axis rows match dense teachers |
 | [ADR-0244](docs/decisions/ADR-0244-preregister-h32-one-seat-open-axis-preflight.md) | 2026-08-22 | accepted preregistration before any h32 full-axis row pass | Preregister h32 one-seat open-axis preflight |
@@ -56,12 +55,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0262](docs/decisions/ADR-0262-post-call-panel-is-fresh-current-and-nondegenerate.md) | 2026-08-22 | accepted label-blind result; decision-aligned live-shadow preregistration authorized | Post-call panel is fresh, current, and nondegenerate |
 | [ADR-0263](docs/decisions/ADR-0263-preregister-decision-aligned-live-shadow-trial.md) | 2026-08-22 | accepted preregistration before any decision-aligned warm step, candidate, or strategy label | Preregister decision-aligned live-shadow trial |
 | [ADR-0264](docs/decisions/ADR-0264-current-decision-convex-shadow-delivers-six-safe-candidates-in-five-seconds.md) | 2026-08-22 | accepted prospective shadow result; post-fold preregistration authorized | Current-decision convex shadow delivers six safe candidates in five seconds |
+| [ADR-0265](docs/decisions/ADR-0265-preregister-decision-aligned-post-fold-posterior-panel.md) | 2026-08-22 | accepted label-blind preregistration before any post-fold strategy label | Preregister decision-aligned post-fold posterior panel |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0264](docs/decisions/ADR-0264-current-decision-convex-shadow-delivers-six-safe-candidates-in-five-seconds.md) — Current-decision convex shadow delivers six safe candidates in five seconds.
-- Numbered decisions: 264.
-- ADR-header SHA-256: `1781620aa8aa60a06dc8a46b10eb967092154e946618486ffa35abb7f440f187`.
+- Latest ADR: [ADR-0265](docs/decisions/ADR-0265-preregister-decision-aligned-post-fold-posterior-panel.md) — Preregister decision-aligned post-fold posterior panel.
+- Numbered decisions: 265.
+- ADR-header SHA-256: `7bc62bd0576a3eb5bc8fbd7149fbc0250d4fe53c29767cb0c799ad428d93758e`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

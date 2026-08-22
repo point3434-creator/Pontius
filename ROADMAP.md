@@ -294,12 +294,23 @@ are exact-cap-safe, interior, positive, and shadow-accepted; four exceed
 scoped setup adapter restores correctly and every actual emission is still the
 blueprint.
 
-**Immediate gate:** preregister a label-blind post-fold posterior panel on the
-same six sources and positional schedule, replacing only the frozen first-
-responder call with a fold. Require fresh identities, legal current-player
-roots, three downstream responders, one-node h32 axes, and zero strategy labels
-before any GPU work. Do not tune the factor, interior floor, materiality
-threshold, cut budget, schedule, or emission authority from ADR-0264.
+ADR-0265 freezes the label-blind post-fold differential. It reuses the six
+sources and positional schedule, changes only the first observed response from
+call to fold, and requires fresh disjoint identities, legal current-player
+roots, three downstream responders, one-node h32 axes, and zero strategy
+labels. A pass seals identities but deliberately does not authorize their GPU
+strategy evaluation.
+
+**Immediate gate:** execute ADR-0265 exactly once. If it passes, inventory the
+already-opened retained convex contexts and preregister an off-clock
+full-convergence closure census before opening any post-fold strategy label.
+The census is retrospective but not label-free: it may generate optimizer
+labels only on contexts whose strategy evidence is already open. Measure
+rounds to exact closure, unique new response facets, oracle work, incumbent
+certified value, and verified master-upper-bound minus incumbent-lower-bound
+gap. Use that distribution—not the single ADR-0247 keystone—to decide whether
+the live one-seat direction-library branch can be demoted. Preserve the ray
+library as a cheap incumbent/fallback until that evidence closes.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

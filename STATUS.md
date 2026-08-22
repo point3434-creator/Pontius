@@ -5,28 +5,36 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) — h4 open-axis rows match dense teachers.
+Latest accepted research result: [ADR-0245](docs/decisions/ADR-0245-h32-full-axis-rows-fit-one-conservative-cut-round.md) — h32 full-axis rows fit one conservative cut round.
 
-Status: accepted coefficient control; label-free h32 extraction preflight authorized.
+Status: accepted engineering result; label-free h32 master prototype authorized.
 
 ## Current decision
 
-Authorize one narrow, label-free h32 row-extraction preflight on the accepted
-post-bet continuation topology. Before constructing or optimizing a candidate,
-the successor must measure exact row identity against an independent accepted
-teacher, actual resident GPU construction and marginal pass cost, response-
-oracle cost, retained bytes, middle rank, conditioning, GPU-pool headroom, and
-the complete conservative 15-second ledger.
+Authorize one label-free h32 master prototype on the identical target, acting
+seat, row families, and external axes. It must:
 
-The preflight must price only the rows needed for one acting-seat master, keep
-all six epigraph families, use exact response signatures without approximate
-row deletion, and reserve the independent final-certificate budget. A pass may
-authorize a label-free h32 master prototype; it may not open strategy-quality
-labels or emit a policy.
+1. build the source row library and solve the restricted master;
+2. independently evaluate the proposed policy with the exact six-seat
+   response oracle;
+3. add every violated opponent response row in one multi-cut round;
+4. resolve once, then stop regardless of remaining gap;
+5. report restricted-master `L`, independently evaluated incumbent `U`,
+   `U - L`, active caps, exact response signatures, added rows, master and
+   oracle timings, retreat behavior, memory, and the complete measured ledger;
+   and
+6. emit only the immutable blueprint and execute no strategy-quality label.
+
+If the initial master or the single allowed multi-cut round closes `U - L` to
+the frozen tolerance, a later preregistration may ask a strategy-quality
+question with an independent exact final certificate. Otherwise reject this
+live solver at the current cost structure and retain it for off-clock analysis
+or future oracle/row reductions. Do not borrow a second round from the final-
+certificate or emission reserve.
 
 ## Open preregistration
 
-[ADR-0244](docs/decisions/ADR-0244-preregister-h32-one-seat-open-axis-preflight.md) — Preregister h32 one-seat open-axis preflight (accepted preregistration before any h32 full-axis row pass).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -38,7 +46,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0221](docs/decisions/ADR-0221-preregister-action-conditioned-widened-selector-trial.md) | 2026-08-21 | accepted preregistration | Preregister the action-conditioned widened selector trial |
 | [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) | 2026-08-21 | accepted fresh research result; current live path rejected | Widened range transfer finds value, but live selection is infeasible |
 | [ADR-0223](docs/decisions/ADR-0223-preregister-continuation-root-semantic-preflight.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root semantic preflight |
 | [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting is exact and removes five sixths of strategic nodes |
@@ -62,12 +69,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0242](docs/decisions/ADR-0242-preregister-h4-sequence-form-open-axis-differential.md) | 2026-08-22 | accepted preregistration before the h4 open-axis run | Preregister h4 sequence-form open-axis differential |
 | [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) | 2026-08-22 | accepted coefficient control; label-free h32 extraction preflight authorized | h4 open-axis rows match dense teachers |
 | [ADR-0244](docs/decisions/ADR-0244-preregister-h32-one-seat-open-axis-preflight.md) | 2026-08-22 | accepted preregistration before any h32 full-axis row pass | Preregister h32 one-seat open-axis preflight |
+| [ADR-0245](docs/decisions/ADR-0245-h32-full-axis-rows-fit-one-conservative-cut-round.md) | 2026-08-22 | accepted engineering result; label-free h32 master prototype authorized | h32 full-axis rows fit one conservative cut round |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0244](docs/decisions/ADR-0244-preregister-h32-one-seat-open-axis-preflight.md) — Preregister h32 one-seat open-axis preflight.
-- Numbered decisions: 244.
-- ADR-header SHA-256: `381c8d99fa11b1f446bde4e170bdf7c342d362c9b5a1592938edb8b9c0c74117`.
+- Latest ADR: [ADR-0245](docs/decisions/ADR-0245-h32-full-axis-rows-fit-one-conservative-cut-round.md) — h32 full-axis rows fit one conservative cut round.
+- Numbered decisions: 245.
+- ADR-header SHA-256: `088aea76bb70936437b940208d7b5b1c55a42260637d29d6f44995dd7f0e9b2b`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -75,4 +83,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) and its dependencies
+4. [ADR-0245](docs/decisions/ADR-0245-h32-full-axis-rows-fit-one-conservative-cut-round.md) and its dependencies

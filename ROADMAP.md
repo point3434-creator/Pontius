@@ -160,12 +160,18 @@ widest acting seat. Eleven initial resident passes build all six epigraph rows;
 charges a measured full response oracle and all five possible new response
 rows per cut round, plus a separate measured-or-floor final proof reserve.
 
-**Immediate gate:** execute ADR-0244 once from its clean preregistration commit.
-Only exact external-axis rows, safe memory headroom, and at least one complete
-15-second cut round may authorize a label-free h32 master prototype. Retain one
-continuation step and the complete 31-block regret-vertex library as the live
-fallback, and open no widened strategy labels or optimizer-generated policy on
-this preflight.
+ADR-0245 closes that preflight. All 96 projections agree below `4.2e-15`; six
+gain rows occupy 49.2 KB, the pool peaks at 5.66 GB, and physical free memory
+stays above 9.62 GB. The measured conservative ledger fits exactly one complete
+cut round at 13.47 seconds. A second does not fit.
+
+**Immediate gate:** preregister the label-free one-round h32 master prototype
+on the identical target and acting seat. Solve the source restricted master,
+run one exact all-seat multi-cut oracle only if needed, resolve once, and stop.
+Report `L`, independent `U`, `U - L`, response signatures, rows, active caps,
+retreat, timings, memory, and the complete ledger. Retain one continuation step
+and the complete 31-block regret-vertex library as the live fallback; emit only
+the immutable blueprint and open no strategy-quality labels.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

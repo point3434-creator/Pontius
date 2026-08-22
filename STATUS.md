@@ -26,7 +26,7 @@ single-seat boundaries. No candidate from this optimizer artifact is emitted.
 
 ## Open preregistration
 
-[ADR-0249](docs/decisions/ADR-0249-preregister-one-seat-convex-retreat-quality-gate.md) — Preregister one-seat convex-retreat quality gate (accepted preregistration before any h32 retreat certificate or fallback label join).
+[ADR-0251](docs/decisions/ADR-0251-preregister-numerically-identified-convex-retreat-quality-gate.md) — Preregister numerically identified convex-retreat quality gate (accepted corrected preregistration before any retreat certificate or fallback label join).
 
 ## Evidence protocol
 
@@ -38,8 +38,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0226](docs/decisions/ADR-0226-continuation-root-unbinds-the-complete-31-block-library.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting unbinds the complete 31-block library |
-| [ADR-0227](docs/decisions/ADR-0227-preregister-live-like-continuation-strategy-trial.md) | 2026-08-22 | accepted preregistration | Preregister the live-like continuation strategy trial |
 | [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md) | 2026-08-22 | accepted fresh research result | Continuation rooting delivers exact safe value on all twelve targets |
 | [ADR-0229](docs/decisions/ADR-0229-preregister-label-free-continuation-depth-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the label-free continuation depth ledger |
 | [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md) | 2026-08-22 | accepted label-free engineering result | Two continuation steps fit the conservative street ledger |
@@ -62,12 +60,14 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0247](docs/decisions/ADR-0247-one-round-h32-convex-master-closes-the-exact-gap.md) | 2026-08-22 | accepted optimizer result; quality experiment authorization granted | One-round h32 convex master closes the exact gap |
 | [ADR-0248](docs/decisions/ADR-0248-auto-bootstrap-the-pinned-windows-cuda-dll-bundle.md) | 2026-08-22 | accepted process correction | Auto-bootstrap the pinned Windows CUDA DLL bundle |
 | [ADR-0249](docs/decisions/ADR-0249-preregister-one-seat-convex-retreat-quality-gate.md) | 2026-08-22 | accepted preregistration before any h32 retreat certificate or fallback label join | Preregister one-seat convex-retreat quality gate |
+| [ADR-0250](docs/decisions/ADR-0250-reject-bytewise-retreat-reconstruction-before-labels.md) | 2026-08-22 | rejected preregistered execution before any new strategy-quality label | Reject bytewise retreat reconstruction before labels |
+| [ADR-0251](docs/decisions/ADR-0251-preregister-numerically-identified-convex-retreat-quality-gate.md) | 2026-08-22 | accepted corrected preregistration before any retreat certificate or fallback label join | Preregister numerically identified convex-retreat quality gate |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0249](docs/decisions/ADR-0249-preregister-one-seat-convex-retreat-quality-gate.md) — Preregister one-seat convex-retreat quality gate.
-- Numbered decisions: 249.
-- ADR-header SHA-256: `b7646e4aec1079fd14dfee843dcd7a8f5e17c823135353f94cf59a281879530f`.
+- Latest ADR: [ADR-0251](docs/decisions/ADR-0251-preregister-numerically-identified-convex-retreat-quality-gate.md) — Preregister numerically identified convex-retreat quality gate.
+- Numbered decisions: 251.
+- ADR-header SHA-256: `c1aeef37ea03c882280cb7ebe7ae8e7254ff808b19e5710d80755495833eddf6`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

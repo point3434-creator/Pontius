@@ -184,15 +184,18 @@ preregistered `2e-11` cap allowance leaves the branch unchanged by nearly four
 orders of magnitude. The endpoint and diagnostic retreat remain un-emitted,
 and no strategy-quality claim is open.
 
-**Open gate:** ADR-0249 freezes one narrow quality trial on this same target.
-Reconstruct the accepted convex endpoint, independently certify its factor-
-`0.5` retreat, and only then open the sealed one-step/31-block fallback label.
-The two-oracle schedule substitutes the retreat proof for the former endpoint
-proof and retains the full `13,967.616 ms` conservative charge. Cap and
-epigraph allowances are separate. A strict material-value and conservative-
-rate win can authorize only a fresh-target replication; external emission
-remains the immutable blueprint and the one-seat, non-composition, and no-
-cross-street boundaries remain closed.
+ADR-0250 records that ADR-0249's first invocation stopped at its pre-label
+barrier: source, cuts, row counts, and both LP bounds reproduced, but three
+GPU-derived policy byte digests did not. No retreat or fallback label opened
+and no artifact was written. This is the ADR-0179 reassociation class, not a
+changed optimizer branch.
+
+**Open gate:** ADR-0251 inherits the narrow quality trial while correcting only
+candidate identity. The algorithm, exact response signatures, cut set, row
+counts, bounds, and numerical optimizer witnesses are authoritative; policy
+digests are diagnostics. The two-oracle schedule, sealed comparator, distinct
+cap/epigraph allowances, full `13,967.616 ms` conservative charge, immutable
+external blueprint, and strict fresh-replication promotion rule are unchanged.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

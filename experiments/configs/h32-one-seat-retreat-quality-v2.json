@@ -1,0 +1,26 @@
+{
+  "evidence_stage": "preregistered_after_adr0250_before_any_retreat_certificate_or_fallback_label_join",
+  "expected_implementation_sha256": "ca207d64a3cb70d1767ffd2ade4649fb45c682ab9fc92227d013e38f60906979",
+  "expected_control_test_sha256": "dc182d6a071c05e9acd854f90ee43ebcca877c31d5ce953285661cad94a6bc1c",
+  "expected_rejected_config_sha256": "c544bee4687e68a9059c0d6f7a92e5d6b1585a3cd122af4898767d8c9d9a3ca7",
+  "expected_rejected_implementation_sha256": "2dfda449fcf8061dd57c26a85b4c113995440118c82ecd2025997e30dccb9e81",
+  "expected_rejected_control_test_sha256": "388942f695b2101453475ac08f259c82678456abb591367857899cdc64fad197",
+  "expected_rejected_decision_sha256": "ddb4252b7149021f553f3830f56a6efde7bae51afbc65dab7f22d020f74a0862",
+  "rejected_preregistration_commit": "b1a951280cae56519aa5505b9eb347227e9b88d1",
+  "policy_digest_identity_rule": "first_endpoint_and_retreat_policy_digests_recorded_diagnostic_only_algorithm_cut_rows_bounds_and_float64_witnesses_are_authority",
+  "expected_first_oracle_objective": 0.03699431926539898,
+  "expected_first_oracle_maximum_cap_violation": 8.300123213047898e-05,
+  "expected_first_oracle_maximum_epigraph_violation": 0.0007270318760673571,
+  "expected_first_oracle_response_signatures": [
+    "ac6ca61d21f38bf1d96ef1b9fba584092d98695800591876baee6372696d769a",
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "66ca0830db3260f69d45a46d8b390a5f889f35e17352ef4ba0746f9bc29a7f3e",
+    "6dc6ae44bcabd1ee5b60fd411053126627049f6ca2b4055a1fa9e2027a0b50b6",
+    "f18d9a7054304b45daaa92739a4f6afbb4dce10c0c66c05e1e6b961074f78890",
+    "78c8486b36c9d5e1d79303093c6f2dec647219b5dd2c923c932d5307d085a83a"
+  ],
+  "gate_additions": {
+    "require_first_oracle_numeric_reproduction": true,
+    "require_policy_digests_diagnostic_only": true
+  }
+}

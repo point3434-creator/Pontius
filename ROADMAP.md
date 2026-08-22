@@ -165,13 +165,20 @@ gain rows occupy 49.2 KB, the pool peaks at 5.66 GB, and physical free memory
 stays above 9.62 GB. The measured conservative ledger fits exactly one complete
 cut round at 13.47 seconds. A second does not fit.
 
-**Immediate gate:** preregister the label-free one-round h32 master prototype
-on the identical target and acting seat. Solve the source restricted master,
-run one exact all-seat multi-cut oracle only if needed, resolve once, and stop.
-Report `L`, independent `U`, `U - L`, response signatures, rows, active caps,
-retreat, timings, memory, and the complete ledger. Retain one continuation step
-and the complete 31-block regret-vertex library as the live fallback; emit only
-the immutable blueprint and open no strategy-quality labels.
+ADR-0246 freezes the label-free one-round h32 master prototype on the identical
+target and acting seat. It corrects the conservative ledger by charging the
+previously omitted initial master reserve: the complete one-round path is now
+`13,967.616 ms`, not `13,467.616 ms`. The runner solves the source restricted
+master, runs one exact all-seat multi-cut oracle, resolves at most once, and
+stops. It reports verified `L`, independent `U`, `U - L`, response signatures,
+rows, active caps, retreat, timings, memory, and both complete ledgers while
+emitting only the immutable blueprint.
+
+**Immediate gate:** invoke ADR-0246 once from a clean commit. Promote only if
+the one allowed round closes the epigraph and bound gap, the exact candidate is
+cap-feasible, and both 15-second ledgers pass. Otherwise reject the live convex
+path at current costs. Retain one continuation step and the complete 31-block
+regret-vertex library as the live fallback; open no strategy-quality labels.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

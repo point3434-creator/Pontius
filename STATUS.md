@@ -34,7 +34,7 @@ certificate or emission reserve.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0246](docs/decisions/ADR-0246-preregister-one-round-h32-convex-master.md) — Preregister one-round h32 convex master (accepted preregistration before any h32 master candidate or oracle).
 
 ## Evidence protocol
 
@@ -46,7 +46,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) | 2026-08-21 | accepted fresh research result; current live path rejected | Widened range transfer finds value, but live selection is infeasible |
 | [ADR-0223](docs/decisions/ADR-0223-preregister-continuation-root-semantic-preflight.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root semantic preflight |
 | [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting is exact and removes five sixths of strategic nodes |
 | [ADR-0225](docs/decisions/ADR-0225-preregister-continuation-root-wall-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root wall ledger |
@@ -70,12 +69,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0243](docs/decisions/ADR-0243-h4-open-axis-rows-match-dense-teachers.md) | 2026-08-22 | accepted coefficient control; label-free h32 extraction preflight authorized | h4 open-axis rows match dense teachers |
 | [ADR-0244](docs/decisions/ADR-0244-preregister-h32-one-seat-open-axis-preflight.md) | 2026-08-22 | accepted preregistration before any h32 full-axis row pass | Preregister h32 one-seat open-axis preflight |
 | [ADR-0245](docs/decisions/ADR-0245-h32-full-axis-rows-fit-one-conservative-cut-round.md) | 2026-08-22 | accepted engineering result; label-free h32 master prototype authorized | h32 full-axis rows fit one conservative cut round |
+| [ADR-0246](docs/decisions/ADR-0246-preregister-one-round-h32-convex-master.md) | 2026-08-22 | accepted preregistration before any h32 master candidate or oracle | Preregister one-round h32 convex master |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0245](docs/decisions/ADR-0245-h32-full-axis-rows-fit-one-conservative-cut-round.md) — h32 full-axis rows fit one conservative cut round.
-- Numbered decisions: 245.
-- ADR-header SHA-256: `088aea76bb70936437b940208d7b5b1c55a42260637d29d6f44995dd7f0e9b2b`.
+- Latest ADR: [ADR-0246](docs/decisions/ADR-0246-preregister-one-round-h32-convex-master.md) — Preregister one-round h32 convex master.
+- Numbered decisions: 246.
+- ADR-header SHA-256: `eeeb1f0068b2455a22fd3329ae22c7a21d40000816cd7e99052a0bfe4a9684b0`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

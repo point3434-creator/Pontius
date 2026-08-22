@@ -114,9 +114,25 @@ ADR-0206 accepts the resulting artifact at SHA-256
 `7b251d25b3befcdf2bb5b66dfd6c4ed78818da43f53d5a70e7cdf220d4b6cd93`.
 The Tier-B slope-times-radius composite selects every primary retained winner
 and survives the soft-excluded control, but Tier A is a poor prefilter. Do not
-deploy or tune against these opened labels. The next engineering customer is a
-preregistered batched five-opponent Tier-B differential; the next scientific
-customer is a fresh, widened, action-conditioned single-family corpus.
+deploy or tune against these opened labels.
+
+ADR-0207's first invocation rejected before h32 work on the source pass field;
+ADR-0209 authorizes the schema-only corrected invocation. It is now complete,
+so this command is reproduction only:
+
+```powershell
+& $python -m pontius.h32_tier_b_opponent_batch_differential_v2 --config experiments/configs/h32-tier-b-opponent-batch-v2.json --output experiments/results/h32-tier-b-opponent-batch-v2.json
+```
+
+ADR-0210 accepts the resulting artifact at SHA-256
+`84ed32019afeaa4a18695436c74e41722fc146044a2150de92323833cb8d42fd`.
+The batch is numerically exact but its median target speedup is only `1.0059x`,
+and the complete six-block ledger fits three of six retained contexts. The
+terminal-numerator overlay is already active and reuses `94.47%` of potential
+rows; do not schedule it again as a new optimization. The next engineering
+customer is a separately preregistered resident record-to-hand fold
+differential covering both the warm step and Tier B. The fresh widened,
+action-conditioned single-family corpus remains sealed until K is repriced.
 
 ADR-0198 accepts ADR-0197's corrected compute profile. Its result artifact has
 SHA-256

@@ -92,22 +92,26 @@ is only 1--5 of six blocks and the literal cascade captures 78.17% pooled with
 zero or partial capture on three contexts
 ([ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md)).
 
-The next selector engineering gate is therefore a simplified B-to-C path:
-retain the free slope algebra, batch the five opponent-BR directional reads
-across coherent blocks, derive K from the measured ledger, and certify only the
-winner. Do not assume the full six-set fits. A later fresh panel should prefer
-action-conditioned in-tree posterior shifts with a genuinely widened
-single-family block library, with construction and thresholds frozen before
-labels.
+ADR-0210 now closes that selector engineering gate. Packing 30 scalar opponent
+reads into six responding-seat calls is exact but yields only `1.0059x` median
+speedup; terminal-contraction time remains `99.48%` of the scalar bill and the
+full six-block B-to-C ledger fits only three of six contexts. The accepted
+ADR-0158 overlay was already active and reused `94.47%` of possible terminal
+rows, so repeating it cannot supply the missing multiplier. K remains bound.
+A later fresh panel should prefer action-conditioned in-tree posterior shifts
+with a genuinely widened single-family block library, but it remains sealed
+until the engineering ledger can price its candidate set honestly.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
 30.56%, and transfer only 0.63%. The primary C4 screen must distinguish FP64
 arithmetic from memory/sparse-pipeline pressure on the exact workload; a
-resident hand-fold differential is the secondary software lever. ADR-0206
-places the opponent-BR batch ahead of that fold for selector capacity; once
-Tier B no longer binds, fold savings buy search depth. Neither screen is a
-license to change the frozen live rule.
+resident hand-fold differential is the next concrete software lever now that
+ADR-0210 rejects opponent-call packing. The fold differential must charge host
+milliseconds removed and device milliseconds added separately, cover both the
+warm step and Tier B, and reprice the complete ledger. If the sparse pipeline
+still controls K afterward, separate arithmetic from memory pressure before a
+kernel rewrite. Neither screen is a license to change the frozen live rule.
 
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online
 rule must improve certified value under the complete wall-clock and memory

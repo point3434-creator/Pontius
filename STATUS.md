@@ -5,37 +5,38 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md) — Opponent-sensitivity composite locates retained value but the Tier-A cascade fails.
+Latest accepted research result: [ADR-0210](docs/decisions/ADR-0210-six-way-tier-b-batching-is-exact-but-does-not-reduce-resident-contraction-work.md) — Six-way Tier-B batching is exact but does not reduce resident contraction work.
 
-Status: accepted retained-label development result.
+Status: accepted corrected engineering result.
 
 ## Current decision
 
-Accept the exact Tier-B slope-times-radius composite as a strong retained-label
-opportunity locator. Reject Tier A as a filtering stage. Preserve its algebra:
-own-seat BR invariance and the free profile-utility slopes should be absorbed
-inside a simplified B-to-C path, not used to exclude candidates.
+Accept the batch primitive as an exact generic implementation, but reject
+cross-candidate call packing as a selector-capacity optimization. Preserve the
+scalar path as the timing baseline; the batched path has not earned live
+promotion from a non-robust one-percent effect. K remains bound on the three
+slow contexts, so do not open a fresh action-conditioned selector corpus yet.
 
-Before a fresh selector trial, preregister an engineering differential that
-prices the trimmed five-opponent directional work and a heterogeneous batched
-pass over all six primary blocks using the shared resident operators. The
-target live shape is: compute Tier B for every coherent block that fits, rank
-by the composite, and spend Tier C on the winner. Derive K from measured
-capacity again; do not assume a `3x` to `5x` speedup or six-block saturation.
+Do not schedule ADR-0158's overlay again: it is already responsible for a
+`94.473%` terminal-row reuse rate here. The next numerical differential should
+move the record-to-hand fold onto the device for both the warm step and Tier B,
+recording host milliseconds removed and device milliseconds added separately
+under ADR-0179. It directly attacks `20.967%` of measured Tier-B batch time and
+ADR-0198's independent `30.562%` of warm-step time. Reprofile after that
+differential. If the resident sparse pipeline still controls K, distinguish
+arithmetic from memory/sparse pressure before rewriting its kernel.
 
-The resident-fold differential remains valuable, but its recovered time buys
-search depth only after Tier-B selection ceases to bind. Keep host milliseconds
-removed and device milliseconds added as separate ledger entries under
-ADR-0179's numerical ceilings.
+Coefficient caching across beliefs remains only a fallback hypothesis. Fixed-
+belief affine exactness does not establish slow variation under belief drift;
+any cache must be preregistered with structural identity, a numerical staleness
+teacher, and fail-closed exact recertification.
 
-This result authorizes no strategy-quality, fresh-transfer, deployment,
-composition, population, or broad opportunity-distribution claim. The next
-scientific test remains a widened, single-direction, action-conditioned corpus
-with labels held fresh.
+This result makes no strategy-quality, transfer, deployment, composition,
+population, hardware, occupancy, or broad opportunity-distribution claim.
 
 ## Open preregistration
 
-[ADR-0209](docs/decisions/ADR-0209-preregister-top-level-source-pass-correction-for-tier-b-batch.md) — Preregister the top-level source-pass correction for the Tier-B batch (accepted schema-only correction preregistration before h32 work).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -47,7 +48,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md) | 2026-08-21 | accepted prospective result | Fresh vertices replicate generator weakness but no free selector transfers |
 | [ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md) | 2026-08-21 | accepted preregistration | Preregister a selector-stable affine certificate differential |
 | [ADR-0188](docs/decisions/ADR-0188-selector-stable-affine-v1-rejected-by-forbidden-warm-digest-gate.md) | 2026-08-21 | rejected result | Selector-stable affine v1 is rejected by a forbidden warm digest gate |
 | [ADR-0189](docs/decisions/ADR-0189-preregister-numerically-corrected-selector-stable-affine-rerun.md) | 2026-08-21 | accepted successor preregistration | Preregister the numerically corrected selector-stable affine rerun |
@@ -71,12 +71,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0207](docs/decisions/ADR-0207-preregister-six-block-tier-b-opponent-batch-differential.md) | 2026-08-21 | accepted engineering preregistration before any h32 batch measurement | Preregister the six-block Tier-B opponent batch differential |
 | [ADR-0208](docs/decisions/ADR-0208-tier-b-batch-v1-rejects-before-h32-work-on-source-pass-schema.md) | 2026-08-21 | rejected execution before any h32 coefficient or timing measurement | Tier-B batch v1 rejects before h32 work on the source pass schema |
 | [ADR-0209](docs/decisions/ADR-0209-preregister-top-level-source-pass-correction-for-tier-b-batch.md) | 2026-08-21 | accepted schema-only correction preregistration before h32 work | Preregister the top-level source-pass correction for the Tier-B batch |
+| [ADR-0210](docs/decisions/ADR-0210-six-way-tier-b-batching-is-exact-but-does-not-reduce-resident-contraction-work.md) | 2026-08-21 | accepted corrected engineering result | Six-way Tier-B batching is exact but does not reduce resident contraction work |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0209](docs/decisions/ADR-0209-preregister-top-level-source-pass-correction-for-tier-b-batch.md) — Preregister the top-level source-pass correction for the Tier-B batch.
-- Numbered decisions: 209.
-- ADR-header SHA-256: `afff331d027c4d01512fcb4f62b85523a2b65fb687eec43e06a176812060ecfb`.
+- Latest ADR: [ADR-0210](docs/decisions/ADR-0210-six-way-tier-b-batching-is-exact-but-does-not-reduce-resident-contraction-work.md) — Six-way Tier-B batching is exact but does not reduce resident contraction work.
+- Numbered decisions: 210.
+- ADR-header SHA-256: `63d0c331dc9c21bf0108932a9c3b8fc2a7720ce9fcc12f565a37f1cb2b7a353e`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -84,4 +85,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md) and its dependencies
+4. [ADR-0210](docs/decisions/ADR-0210-six-way-tier-b-batching-is-exact-but-does-not-reduce-resident-contraction-work.md) and its dependencies

@@ -37,7 +37,7 @@ population claim.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0225](docs/decisions/ADR-0225-preregister-continuation-root-wall-ledger.md) — Preregister the continuation-root wall ledger (accepted label-free preregistration).
 
 ## Evidence protocol
 
@@ -49,7 +49,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md) | 2026-08-21 | accepted correction preregistration before corrected replay | Preregister the memory-schema-corrected selector replay |
 | [ADR-0202](docs/decisions/ADR-0202-corrected-selector-replay-v2-rejects-on-overstrict-schema-guard.md) | 2026-08-21 | rejected corrected replay | Corrected selector replay v2 rejects on its overstrict schema guard |
 | [ADR-0203](docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md) | 2026-08-21 | accepted final correction preregistration before replay | Preregister the final four-field selector-replay correction |
 | [ADR-0204](docs/decisions/ADR-0204-final-selector-wrapper-rejects-on-environment-api-mismatch.md) | 2026-08-21 | rejected final corrected replay | The final selector wrapper rejects on an environment API mismatch |
@@ -73,12 +72,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) | 2026-08-21 | accepted fresh research result; current live path rejected | Widened range transfer finds value, but live selection is infeasible |
 | [ADR-0223](docs/decisions/ADR-0223-preregister-continuation-root-semantic-preflight.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root semantic preflight |
 | [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) | 2026-08-22 | accepted label-free engineering result | Continuation rooting is exact and removes five sixths of strategic nodes |
+| [ADR-0225](docs/decisions/ADR-0225-preregister-continuation-root-wall-ledger.md) | 2026-08-22 | accepted label-free preregistration | Preregister the continuation-root wall ledger |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0224](docs/decisions/ADR-0224-continuation-root-is-exact-and-removes-five-sixths-of-strategic-nodes.md) — Continuation rooting is exact and removes five sixths of strategic nodes.
-- Numbered decisions: 224.
-- ADR-header SHA-256: `9608cd0eaca22a0f449f84ccfc72ae5cb51407b013b286b941df76b1cb8f9a07`.
+- Latest ADR: [ADR-0225](docs/decisions/ADR-0225-preregister-continuation-root-wall-ledger.md) — Preregister the continuation-root wall ledger.
+- Numbered decisions: 225.
+- ADR-header SHA-256: `d17e1d07e557e4471e7cf105b2d3cfd3918fc9c3d43e90cae0a85dda9bb2a6e2`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

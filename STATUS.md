@@ -5,36 +5,41 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) — The action-conditioned posterior panel is fresh, balanced, and nondegenerate.
+Latest accepted research result: [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) — Widened range transfer finds value, but live selection is infeasible.
 
-Status: accepted label-free manifest result.
+Status: accepted fresh research result; current live path rejected.
 
 ## Current decision
 
-Authorize preregistration of the widened, regret-vertex-only corpus against
-these exact 12 target and descriptor digests. Preserve all targets; do not
-remove a low- or high-TV row after seeing later strategy labels.
+Accept the fresh result and reject the present complete-tree live B-to-C path.
+Do not tune the structural schedule, replace worst-case K with a label-informed
+rule, or advertise the pooled opportunity as deployable from this corpus.
+Do not pursue another nearby DCFR variant or GPU micro-optimization as the next
+step.
 
-The widened trial must:
+The next prerequisite is a continuation-root h32 representation beginning
+after the observed public prefix, with the conditioned belief, updated pot and
+commitments, legal remaining actors/actions, and the immutable blueprint
+restricted to reachable descendant information sets. This change addresses
+both problems revealed here:
 
-- perform one device-fold warm step from the immutable source blueprint;
-- enumerate every coherent changed public-node block rather than one block per
-  seat;
-- build one regret-vertex direction per block;
-- complete all label-independent affine features and clock-priced capacity
-  rows before opening exact strategy labels;
-- derive live K from the accepted ADR-0212 ledger, not from future labels;
-- report every target separately before pooled capture;
-- preserve immutable-blueprint fallback and the frozen one-second reserve; and
-- use ADR-0179 numerical ceilings for reassociated GPU reductions.
+- it removes decisions the bot can no longer make, restoring causal scope; and
+- it should sharply reduce warm-step and candidate-library work before any new
+  selector optimization is considered.
 
-The candidate schedule must be frozen from public structure and the observed
-prefix. Tier A remains forbidden as an exclusion filter by ADR-0206. Tier B
-may rank only candidates whose charged rows fit the measured K.
+Preregister continuation-root equivalence and mutation controls before any
+new strategy label. At minimum, prove public-history legality, pot/stack and
+terminal-payoff identity, blueprint restriction identity, conditional reach
+normalization, descendant-only block membership, and exact agreement with a
+full-tree conditional evaluator on reduced games. Preserve the 15-second
+reserve, immutable fallback, and ADR-0179 numerical ceilings.
+
+No strategy is populated. This result makes no deployed strategy-quality,
+continual-resolving, population, composition, or broad poker-strength claim.
 
 ## Open preregistration
 
-[ADR-0221](docs/decisions/ADR-0221-preregister-action-conditioned-widened-selector-trial.md) — Preregister the action-conditioned widened selector trial (accepted preregistration).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -46,7 +51,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) | 2026-08-21 | accepted read-only engineering result | The device pipeline dominates the h32 step and host folding is second |
 | [ADR-0199](docs/decisions/ADR-0199-preregister-retained-affine-selector-cascade-replay.md) | 2026-08-21 | accepted preregistration before missing-feature extraction or semantic label load | Preregister the retained affine selector-cascade replay |
 | [ADR-0200](docs/decisions/ADR-0200-selector-replay-v1-rejects-on-final-memory-schema-key.md) | 2026-08-21 | rejected result | Selector replay v1 rejects on its final memory-schema key |
 | [ADR-0201](docs/decisions/ADR-0201-preregister-memory-schema-corrected-selector-replay.md) | 2026-08-21 | accepted correction preregistration before corrected replay | Preregister the memory-schema-corrected selector replay |
@@ -70,12 +74,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0219](docs/decisions/ADR-0219-preregister-action-conditioned-posterior-manifest.md) | 2026-08-21 | accepted label-free preregistration before any action-conditioned warm step or label | Preregister the action-conditioned posterior manifest |
 | [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) | 2026-08-21 | accepted label-free manifest result | The action-conditioned posterior panel is fresh, balanced, and nondegenerate |
 | [ADR-0221](docs/decisions/ADR-0221-preregister-action-conditioned-widened-selector-trial.md) | 2026-08-21 | accepted preregistration | Preregister the action-conditioned widened selector trial |
+| [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) | 2026-08-21 | accepted fresh research result; current live path rejected | Widened range transfer finds value, but live selection is infeasible |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0221](docs/decisions/ADR-0221-preregister-action-conditioned-widened-selector-trial.md) — Preregister the action-conditioned widened selector trial.
-- Numbered decisions: 221.
-- ADR-header SHA-256: `100e44c77582677a3adc683df0ccefd4d948d87059b8478cf3eb78a324c2d47b`.
+- Latest ADR: [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) — Widened range transfer finds value, but live selection is infeasible.
+- Numbered decisions: 222.
+- ADR-header SHA-256: `1d351b854c20ace7e583705bbece26da06ba3a4f08e8036c28d5c471810c6a02`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -83,4 +88,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) and its dependencies
+4. [ADR-0222](docs/decisions/ADR-0222-widened-range-transfer-finds-value-but-live-selection-is-infeasible.md) and its dependencies

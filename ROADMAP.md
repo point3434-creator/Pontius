@@ -373,12 +373,18 @@ one-round closure nevertheless fails: four of six endpoints close, while two
 fresh one-cut endpoints expose new response facets and retain exact gaps
 `0.00077635` and `0.00034964`. Direction demotion is rejected.
 
-**Immediate gate:** preregister an off-clock, target-isolated full-closure
-timing diagnostic on only those two disclosed failures. Preserve all math and
-record the marginal work after round one. If both close in exactly one more
-round, separately investigate component-wise deadline admission or
-conservative repricing; the present 13.968-second floor cannot admit another
-round merely because this panel measured fast.
+ADR-0275 freezes that off-clock diagnostic. It selects exactly the two fresh
+failures, routes the byte-pinned ADR-0267 full-closure target through the
+post-fold setup, and requires numerical/discrete reproduction of both already-
+opened one-round prefixes before interpreting later rounds. Every target is
+isolated and atomically checkpointed; any error fails the process. Marginal
+work is the newly exposed cut extraction plus the next master and endpoint
+oracle, with no new retreat or live-admission claim.
+
+**Immediate gate:** invoke ADR-0275 once from its clean preregistration commit.
+If both failures close at exactly round two, separately study deadline
+admission; if either is deeper or stalls, keep exact global closure off-clock.
+The current conservative floor and live fallback do not change in this run.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

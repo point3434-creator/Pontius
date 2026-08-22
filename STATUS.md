@@ -30,7 +30,7 @@ bounded safe generator and treat global closure as off-clock teacher evidence.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0275](docs/decisions/ADR-0275-preregister-post-fold-failure-closure-depth-diagnostic.md) — Preregister post-fold failure closure-depth diagnostic (accepted retrospective preregistration before any additional post-fold optimizer label).
 
 ## Evidence protocol
 
@@ -42,7 +42,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0251](docs/decisions/ADR-0251-preregister-numerically-identified-convex-retreat-quality-gate.md) | 2026-08-22 | accepted corrected preregistration before any retreat certificate or fallback label join | Preregister numerically identified convex-retreat quality gate |
 | [ADR-0252](docs/decisions/ADR-0252-convex-retreat-beats-the-live-fallback-on-the-frozen-target.md) | 2026-08-22 | accepted single-target strategy-quality result; fresh replication authorized | Convex retreat beats the live fallback on the frozen target |
 | [ADR-0253](docs/decisions/ADR-0253-preregister-final-latin-convex-replication-posterior-panel.md) | 2026-08-22 | accepted label-free preregistration before any Latin-E/F posterior or convex candidate | Preregister final-Latin convex-replication posterior panel |
 | [ADR-0254](docs/decisions/ADR-0254-final-latin-posterior-panel-is-fresh-and-balanced.md) | 2026-08-22 | accepted label-free result; fresh convex replication authorized | Final-Latin posterior panel is fresh and balanced |
@@ -66,12 +65,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0272](docs/decisions/ADR-0272-current-decision-closure-and-safe-retreat-fit-one-street.md) | 2026-08-22 | accepted read-only ledger result; fresh post-fold confirmation preregistration authorized | Current-decision closure and safe retreat fit one street |
 | [ADR-0273](docs/decisions/ADR-0273-preregister-fresh-post-fold-closure-and-value-confirmation.md) | 2026-08-22 | accepted preregistration before any post-fold warm step, optimizer, or strategy label | Preregister fresh post-fold closure and value confirmation |
 | [ADR-0274](docs/decisions/ADR-0274-post-fold-confirms-safe-value-but-not-universal-one-round-closure.md) | 2026-08-22 | accepted fresh mixed result; universal current-decision closure rejected | Post-fold confirms safe value but not universal one-round closure |
+| [ADR-0275](docs/decisions/ADR-0275-preregister-post-fold-failure-closure-depth-diagnostic.md) | 2026-08-22 | accepted retrospective preregistration before any additional post-fold optimizer label | Preregister post-fold failure closure-depth diagnostic |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0274](docs/decisions/ADR-0274-post-fold-confirms-safe-value-but-not-universal-one-round-closure.md) — Post-fold confirms safe value but not universal one-round closure.
-- Numbered decisions: 274.
-- ADR-header SHA-256: `0d86a19538070a09616a629b7e95a9fa18ecfabea33c651bb481251e07e08380`.
+- Latest ADR: [ADR-0275](docs/decisions/ADR-0275-preregister-post-fold-failure-closure-depth-diagnostic.md) — Preregister post-fold failure closure-depth diagnostic.
+- Numbered decisions: 275.
+- ADR-header SHA-256: `cdaf13d1d6428550dc727359374423f574ef03cc1a79fa303cb38fdc4ec1cf3a`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

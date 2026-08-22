@@ -97,21 +97,26 @@ ADR-0199's first invocation rejected before result serialization on the final
 memory-field spelling. ADR-0201 then rejected before its warm step because its
 guard omitted two legitimate source telemetry fields. ADR-0203 passed that
 guard but rejected on the reporting helper's API during result assembly.
-ADR-0205 closes the wrapper line and is the active reviewed direct retained-
-label selector replay. It creates no fresh strategy label and emits only the
-immutable blueprint. Run it once from its clean preregistration commit:
+ADR-0205 closed the wrapper line with a reviewed direct retained-label replay.
+That invocation is complete; the command below is now reproduction only:
 
 ```powershell
 & $python -m pontius.h32_retained_affine_selector_cascade_direct_replay --config experiments/configs/h32-retained-affine-selector-cascade-direct-v1.json --output experiments/results/h32-retained-affine-selector-cascade-direct-v1.json
 ```
 
 Config validation reads the retained-label artifact only as opaque bytes for
-SHA-256 provenance. The runner must compute all 108 feature rows and every
-clock-derived K before deserializing or joining label content. A saturated
-six-candidate primary K is library limitation, not selector evidence. The
-direct runner consumes the exact four-field memory snapshot without an alias,
-uses the zero-argument environment API, and may not reuse any failed process
-state.
+SHA-256 provenance. The runner computes all 108 feature rows and every
+clock-derived K before deserializing or joining label content. It consumes the
+exact four-field memory snapshot without an alias, uses the zero-argument
+environment API, and may not reuse any failed process state.
+
+ADR-0206 accepts the resulting artifact at SHA-256
+`7b251d25b3befcdf2bb5b66dfd6c4ed78818da43f53d5a70e7cdf220d4b6cd93`.
+The Tier-B slope-times-radius composite selects every primary retained winner
+and survives the soft-excluded control, but Tier A is a poor prefilter. Do not
+deploy or tune against these opened labels. The next engineering customer is a
+preregistered batched five-opponent Tier-B differential; the next scientific
+customer is a fresh, widened, action-conditioned single-family corpus.
 
 ADR-0198 accepts ADR-0197's corrected compute profile. Its result artifact has
 SHA-256

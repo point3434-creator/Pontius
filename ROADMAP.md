@@ -73,29 +73,30 @@ of all certified value
 ([ADR-0194](docs/decisions/ADR-0194-affine-street-mechanism-transfers-to-seat5-but-value-remains-concentrated.md)).
 
 **Open gates:** broaden transfer rather than repeat the exposed blocker family,
-and reduce compute time without changing the accepted live semantics. The
-ADR-0195 profile rejected before replay; ADR-0197 preserves its complete
-scientific protocol with only the source pass-field schema corrected. Its
-result may select a GPU, transfer, host-fold, or finer-profiling engineering
-screen but cannot count as fresh strategy evidence. Before new labels, freeze new board or
-belief regimes, explicit position coverage, and a causal materiality/no-op
-rule. A one-raw-guard threshold is only a retrospective development candidate
-even though it retains 99.902% of the eight observed values. Modern DCFR
-variants remain deferred: the certificate and deadline mechanism now work,
-while opportunity magnitude remains the strategy weak link.
+and reduce compute time without changing the accepted live semantics. Before
+new labels, freeze new board or belief regimes, explicit position coverage,
+and a causal materiality/no-op rule. A one-raw-guard threshold is only a
+retrospective development candidate even though it retains 99.902% of the
+eight observed values. Modern DCFR variants remain deferred: the certificate
+and deadline mechanism now work, while opportunity magnitude remains the
+strategy weak link.
 
-ADR-0199 freezes the leading no-new-label opportunity follow-up. Its first
-invocation produced no artifact after a final memory-field lookup failed;
-ADR-0201's guard then rejected two legitimate source telemetry fields before
-the warm step. ADR-0203 passed that guard but rejected at result assembly on the
-reporting API. ADR-0205 closes the wrapper line and freezes a directly reviewed
-orchestration over the unchanged science. It
-reconstructs all missing affine features against ADR-0186's sealed labels,
-derives K before semantic label load, and reports certified-value recall and
-value per charged millisecond against the failed proxies. Its primary matrix is
-the six regret vertices per context; the raw 18-family matrix is weak secondary
-evidence and must survive a soft-excluded control. A later fresh panel should
-prefer action-conditioned in-tree posterior shifts with a genuinely widened
+The retained-label selector replay is now closed by ADR-0206. Across the
+primary six regret-vertex blocks per context, the exact Tier-B
+slope-times-cap-radius composite selects all six winners and has mean
+within-target Spearman `1.0`. It remains nearly perfect after every soft row is
+removed, so the result is not merely family discrimination. The exact free
+Tier-A own-gain slope is nevertheless a poor ranker and its prefilter discards
+winners; the proposed A-to-B-to-C cascade is rejected. Current clock-derived K
+is only 1--5 of six blocks and the literal cascade captures 78.17% pooled with
+zero or partial capture on three contexts
+([ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md)).
+
+The next selector engineering gate is therefore a simplified B-to-C path:
+retain the free slope algebra, batch the five opponent-BR directional reads
+across coherent blocks, derive K from the measured ledger, and certify only the
+winner. Do not assume the full six-set fits. A later fresh panel should prefer
+action-conditioned in-tree posterior shifts with a genuinely widened
 single-family block library, with construction and thresholds frozen before
 labels.
 
@@ -103,7 +104,9 @@ ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
 30.56%, and transfer only 0.63%. The primary C4 screen must distinguish FP64
 arithmetic from memory/sparse-pipeline pressure on the exact workload; a
-resident hand-fold differential is the secondary software lever. Neither is a
+resident hand-fold differential is the secondary software lever. ADR-0206
+places the opponent-BR batch ahead of that fold for selector capacity; once
+Tier B no longer binds, fold savings buy search depth. Neither screen is a
 license to change the frozen live rule.
 
 **C3 exit gate:** on fresh reduced multiplayer regimes, a precommitted online

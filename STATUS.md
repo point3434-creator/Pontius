@@ -5,26 +5,37 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) — The device pipeline dominates the h32 step and host folding is second.
+Latest accepted research result: [ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md) — Opponent-sensitivity composite locates retained value but the Tier-A cascade fails.
 
-Status: accepted read-only engineering result.
+Status: accepted retained-label development result.
 
 ## Current decision
 
-Accept the stage attribution. Follow the preregistered device-dominant branch:
-next separate FP64 arithmetic pressure from device-memory/sparse-pipeline
-pressure on this exact workload before recommending hardware or rewriting the
-kernel. Retain device-resident record-to-hand folding as the high-value
-secondary engineering screen.
+Accept the exact Tier-B slope-times-radius composite as a strong retained-label
+opportunity locator. Reject Tier A as a filtering stage. Preserve its algebra:
+own-seat BR invariance and the free profile-utility slopes should be absorbed
+inside a simplified B-to-C path, not used to exclude candidates.
 
-Do not change the frozen live rule, 15-second boundary, immutable blueprint,
-numerical tolerances, or fallback. Use this result only to price compute. It is
-not a latency distribution, purchase recommendation, strategy-quality result,
-deployment authorization, or composition claim.
+Before a fresh selector trial, preregister an engineering differential that
+prices the trimmed five-opponent directional work and a heterogeneous batched
+pass over all six primary blocks using the shared resident operators. The
+target live shape is: compute Tier B for every coherent block that fits, rank
+by the composite, and spend Tier C on the winner. Derive K from measured
+capacity again; do not assume a `3x` to `5x` speedup or six-block saturation.
+
+The resident-fold differential remains valuable, but its recovered time buys
+search depth only after Tier-B selection ceases to bind. Keep host milliseconds
+removed and device milliseconds added as separate ledger entries under
+ADR-0179's numerical ceilings.
+
+This result authorizes no strategy-quality, fresh-transfer, deployment,
+composition, population, or broad opportunity-distribution claim. The next
+scientific test remains a widened, single-direction, action-conditioned corpus
+with labels held fresh.
 
 ## Open preregistration
 
-[ADR-0205](docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md) — Preregister the reviewed direct selector replay (accepted direct-runner preregistration before replay).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -36,7 +47,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0182](docs/decisions/ADR-0182-deep-horizon-v1-is-rejected-by-two-miscopied-descriptor-hashes.md) | 2026-08-21 | rejected result | Deep-horizon v1 is rejected by two miscopied descriptor hashes |
 | [ADR-0183](docs/decisions/ADR-0183-preregister-read-only-deep-horizon-descriptor-correction.md) | 2026-08-21 | accepted correction preregistration | Preregister the read-only deep-horizon descriptor correction |
 | [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) | 2026-08-21 | accepted corrected prospective result | Ordinary deep DCFR plateaus while purification remains direction-sensitive |
 | [ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 causal direction and opportunity screen |
@@ -60,12 +70,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0203](docs/decisions/ADR-0203-preregister-final-four-field-selector-replay-correction.md) | 2026-08-21 | accepted final correction preregistration before replay | Preregister the final four-field selector-replay correction |
 | [ADR-0204](docs/decisions/ADR-0204-final-selector-wrapper-rejects-on-environment-api-mismatch.md) | 2026-08-21 | rejected final corrected replay | The final selector wrapper rejects on an environment API mismatch |
 | [ADR-0205](docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md) | 2026-08-21 | accepted direct-runner preregistration before replay | Preregister the reviewed direct selector replay |
+| [ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md) | 2026-08-21 | accepted retained-label development result | Opponent-sensitivity composite locates retained value but the Tier-A cascade fails |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0205](docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md) — Preregister the reviewed direct selector replay.
-- Numbered decisions: 205.
-- ADR-header SHA-256: `2697eedb3c106eec1d2401e7d1f536e3ec43c7209f9f7c5a65c8239c55bc51ac`.
+- Latest ADR: [ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md) — Opponent-sensitivity composite locates retained value but the Tier-A cascade fails.
+- Numbered decisions: 206.
+- ADR-header SHA-256: `07e746944e144f4082bb346b49a87824638aef0ee61e3690be17dda695505a5a`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -73,4 +84,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) and its dependencies
+4. [ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md) and its dependencies

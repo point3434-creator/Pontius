@@ -35,7 +35,7 @@ emits the blueprint.
 
 ```text
 prepared immutable state
-    -> one or two independently priced resident warm steps
+    -> one resident warm step
     -> causal candidate directions
     -> complete continuation-block affine screen
     -> one deadline-admitted exact winner certificate
@@ -49,10 +49,13 @@ all 31 legal changed-public-node blocks affordable inside the street ledger.
 [ADR-0228](docs/decisions/ADR-0228-continuation-root-delivers-exact-safe-value-on-all-twelve-targets.md)
 records positive exact certified value on all 12 opened posterior targets;
 [ADR-0230](docs/decisions/ADR-0230-two-continuation-steps-fit-the-conservative-street-ledger.md)
-shows that two independent continuation steps also fit all 12 conservative
-ledgers. [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md)
-seals the disjoint Latin-C/D panel for the next one-step versus two-step value
-test. These are reduced h32 results, not broad strategy-quality claims.
+ledgers. The held-out comparison in
+[ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md)
+rejects that affordable second step: 11 of 12 targets reproduce the identical
+winner, the remaining target gets worse, and value per charged second falls
+13.24%. The active spine therefore retains one step and directs spare time to
+generator/action diversity. These are reduced h32 results, not broad poker-
+strength claims.
 
 Every successor runner derives acceptance guards and quality normalization
 from `layout.game.payoff_span` through `payoff_semantics`; stack is never a

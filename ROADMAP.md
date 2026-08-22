@@ -123,11 +123,17 @@ Two independent steps fit every conservative ledger
 and the disjoint 12-target Latin-C/D posterior panel is sealed
 ([ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md)).
 
-**Immediate gate:** after the ADR-0233 structural payoff-span and runner-contract
-correction, preregister and run the held-out one-step versus two-step
-continuation value trial exactly as ADR-0230/0232 require. Promotion depends on
-additional exact certified value per hard-ledger second, not on policy motion or
-deadline fit alone. No strategy-quality claim precedes that result.
+The held-out depth gate is now closed. Two steps consume 14.00% more charged
+time, deliver 1.10% less pooled exact value, and reduce value rate by 13.24%.
+Eleven of twelve targets reproduce the exact same winner; the sole material
+switch is harmful
+([ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md)).
+
+**Immediate gate:** retain one continuation step and price direction or action
+diversity with the recovered second. The next experiment is label-free capacity
+work first; do not open another strategy panel until a second coherent direction
+family or widened action arm fits beside all 31 blocks, one proof, and the fixed
+emission reserve. Ordinary DCFR depth is no longer the default compute sink.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

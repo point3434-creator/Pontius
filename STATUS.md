@@ -5,17 +5,30 @@
 
 ## Active checkpoint
 
-Latest accepted research result: [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) — Held-out continuation posterior panel is fresh and nondegenerate.
+Latest accepted research result: [ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md) — One continuation step is retained after held-out depth value trial.
 
-Status: accepted label-free result.
+Status: accepted fresh research result; two-step promotion rejected.
 
 ## Current decision
 
-The latest research ADR has no explicit Decision section.
+Retain one continuation step. Do not spend street time on a second ordinary
+DCFR step for this workload. The extra step is affordable, but affordability is
+not value; in 11 of 12 held-out targets it reproduces the same regret-vertex
+winner and in the remaining target it selects a worse one.
+
+The next strategy experiment should spend the recovered second on direction or
+action diversity, not ordinary depth. Preregister a label-free capacity screen
+before opening another strategy panel. Preserve the one-step continuation root,
+all 31 blocks, full affine envelope, exact winner proof, hard deadline, shared
+payoff semantics, runner harness, and immutable fallback.
+
+This is positive held-out evidence for the one-step reduced-h32 continuation
+spine, not a claim about more steps, other generators, other streets,
+deployment, composition, population performance, or broad poker strength.
 
 ## Open preregistration
 
-[ADR-0234](docs/decisions/ADR-0234-preregister-heldout-one-step-versus-two-step-continuation-value.md) — Preregister held-out one-step versus two-step continuation value (accepted preregistration before any held-out strategy work).
+None. The latest preregistration has a newer research result.
 
 ## Evidence protocol
 
@@ -27,7 +40,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0211](docs/decisions/ADR-0211-preregister-resident-record-to-hand-fold-placement-differential.md) | 2026-08-21 | accepted engineering preregistration before any h32 placement measurement | Preregister the resident record-to-hand fold placement differential |
 | [ADR-0212](docs/decisions/ADR-0212-device-record-fold-materially-speeds-both-resident-customers.md) | 2026-08-21 | accepted engineering result | The device record fold materially speeds both resident customers |
 | [ADR-0213](docs/decisions/ADR-0213-preregister-isolated-resident-sparse-nsight-profile.md) | 2026-08-21 | accepted diagnostic preregistration before any h32 counter collection | Preregister the isolated resident-sparse Nsight profile |
 | [ADR-0214](docs/decisions/ADR-0214-reject-first-resident-sparse-profile-on-empty-console-page.md) | 2026-08-21 | accepted tooling rejection; no counter interpretation | Reject the first resident-sparse profile on an empty console page |
@@ -51,12 +63,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) | 2026-08-22 | accepted label-free result | Held-out continuation posterior panel is fresh and nondegenerate |
 | [ADR-0233](docs/decisions/ADR-0233-shared-payoff-semantics-and-runner-contracts-retire-repeat-defects.md) | 2026-08-22 | accepted process correction | Shared payoff semantics and runner contracts retire repeat defects |
 | [ADR-0234](docs/decisions/ADR-0234-preregister-heldout-one-step-versus-two-step-continuation-value.md) | 2026-08-22 | accepted preregistration before any held-out strategy work | Preregister held-out one-step versus two-step continuation value |
+| [ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md) | 2026-08-22 | accepted fresh research result; two-step promotion rejected | One continuation step is retained after held-out depth value trial |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0234](docs/decisions/ADR-0234-preregister-heldout-one-step-versus-two-step-continuation-value.md) — Preregister held-out one-step versus two-step continuation value.
-- Numbered decisions: 234.
-- ADR-header SHA-256: `7742b7e5a8217e7e980eada9afe3af350a5a4dea3c438f0572337067deac1471`.
+- Latest ADR: [ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md) — One continuation step is retained after held-out depth value trial.
+- Numbered decisions: 235.
+- ADR-header SHA-256: `7e746343678567af9b14b2122b8c4906b9bd7f7c6897f0ff229947e5a97d8110`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation
@@ -64,4 +77,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0232](docs/decisions/ADR-0232-heldout-continuation-posterior-panel-is-fresh-and-nondegenerate.md) and its dependencies
+4. [ADR-0235](docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md) and its dependencies

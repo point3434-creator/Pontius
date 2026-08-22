@@ -7,7 +7,15 @@ historical rather than the project status front door. Raw JSON artifacts under
 until a checkpoint package explicitly promotes them.
 
 For the live decision, read generated [STATUS.md](../STATUS.md). The current
-engineering result is
+held-out strategy result is
+[ADR-0235](../docs/decisions/ADR-0235-one-step-retained-after-heldout-depth-value-trial.md):
+one continuation step delivers pooled exact value `0.056326`, while two steps
+deliver `0.055709` at 14.00% greater charged time. Eleven of twelve targets
+select the identical winner at both depths; the only material switch is worse.
+Retain one step and move compute toward direction/action diversity. This is a
+reduced-h32 result, not a broad poker-strength claim.
+
+The earlier affine engineering result is
 [ADR-0190](../docs/decisions/ADR-0190-selector-stable-affine-certificate-is-exact-and-fits-retained-street-ledgers.md):
 the additive selector-stable affine certificate matches direct exact
 recertification to at most `1.36e-15` over all 36 retained regret-vertex blocks.

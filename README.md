@@ -32,6 +32,8 @@ python -m pontius.experiment --game kuhn2 --solver lcfr --iterations 20000 --rep
 ```
 
 The current wide GPU evidence path additionally requires the pinned SciPy,
-CuPy, and CUDA runtime described in [RUNBOOK.md](RUNBOOK.md). Use that path for
-the complete regression suite and never treat a reproduction of an already
-opened result as fresh evidence.
+CuPy, and CUDA runtime described in [RUNBOOK.md](RUNBOOK.md). The repository-
+local Windows CUDA DLL bundle is discovered automatically when Pontius is
+imported; the environment variable is now an explicit override, not a required
+shell ritual. Use the pinned path for the complete regression suite and never
+treat a reproduction of an already opened result as fresh evidence.

@@ -1,5 +1,6 @@
 """Pontius exact-game research laboratory."""
 
+from .cuda_dll_bootstrap import configure_cuda_dll_directory
 from .cfr import TabularCFR
 from .coalition import (
     CoalitionEvaluationResult,
@@ -14,6 +15,10 @@ from .river import RiverHoldem
 from .river_incremental import RiverPolicyEvaluationCache, RiverRangeDelta
 from .river_multi_size import MultiSizeRiverHoldem
 from .river_multiway import MultiwayRiverDeal, MultiwayRiverHoldem
+
+# Configure only a complete repository-pinned Windows bundle. This performs
+# no CUDA import or DLL load, so the CPU laboratory remains CUDA-optional.
+configure_cuda_dll_directory()
 
 __all__ = [
     "CompiledPolicyDependencyTape",

@@ -20,17 +20,24 @@ backend.
 
 ## Current GPU verification environment
 
-From the repository root, initialize the pinned repository environment once
-per shell:
+From the repository root, use the pinned interpreter. On Windows, importing
+`pontius` now discovers a complete CUDA 13 DLL bundle under the active
+repository `.venv`, sets the process-local DLL environment, and prepends that
+directory to the child-process `PATH`. No per-shell CUDA initialization is
+required:
 
 ```powershell
 $python = (Resolve-Path ".\.venv\Scripts\python.exe").Path
-$cuda = (Resolve-Path ".\.venv\Lib\site-packages\nvidia\cu13\bin\x86_64").Path
 $env:PYTHONPATH = "src"
-$env:PONTIUS_CUDA_DLL_DIRECTORY = $cuda
-$env:PATH = "$cuda;$env:PATH"
 & $python -m unittest discover -s tests -v
 ```
+
+An explicitly supplied `PONTIUS_CUDA_DLL_DIRECTORY` still takes precedence for
+controlled reproduction on a nonstandard environment. Automatic discovery is
+deliberately limited to the active or repository-local Python environment and
+requires the complete loader DLL set; Pontius never silently selects an
+arbitrary system CUDA installation. Frozen experiment runtime/version gates
+remain authoritative after discovery.
 
 GPU or parallel Float64 recomputation uses the frozen numerical-identity
 protocol in [ADR-0179](docs/decisions/ADR-0179-numerical-identity-is-the-default-gpu-evidence-gate.md).

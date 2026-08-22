@@ -34,7 +34,7 @@ may rank only candidates whose charged rows fit the measured K.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0221](docs/decisions/ADR-0221-preregister-action-conditioned-widened-selector-trial.md) — Preregister the action-conditioned widened selector trial (accepted preregistration).
 
 ## Evidence protocol
 
@@ -46,7 +46,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0197](docs/decisions/ADR-0197-preregister-source-schema-corrected-resident-step-profile.md) | 2026-08-21 | accepted correction preregistration before any replay timing | Preregister the source-schema-corrected resident-step profile |
 | [ADR-0198](docs/decisions/ADR-0198-device-pipeline-dominates-h32-step-host-fold-is-second.md) | 2026-08-21 | accepted read-only engineering result | The device pipeline dominates the h32 step and host folding is second |
 | [ADR-0199](docs/decisions/ADR-0199-preregister-retained-affine-selector-cascade-replay.md) | 2026-08-21 | accepted preregistration before missing-feature extraction or semantic label load | Preregister the retained affine selector-cascade replay |
 | [ADR-0200](docs/decisions/ADR-0200-selector-replay-v1-rejects-on-final-memory-schema-key.md) | 2026-08-21 | rejected result | Selector replay v1 rejects on its final memory-schema key |
@@ -70,12 +69,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0218](docs/decisions/ADR-0218-resident-sparse-profile-identifies-compute-pressure.md) | 2026-08-21 | accepted diagnostic result | The resident-sparse profile identifies compute pressure |
 | [ADR-0219](docs/decisions/ADR-0219-preregister-action-conditioned-posterior-manifest.md) | 2026-08-21 | accepted label-free preregistration before any action-conditioned warm step or label | Preregister the action-conditioned posterior manifest |
 | [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) | 2026-08-21 | accepted label-free manifest result | The action-conditioned posterior panel is fresh, balanced, and nondegenerate |
+| [ADR-0221](docs/decisions/ADR-0221-preregister-action-conditioned-widened-selector-trial.md) | 2026-08-21 | accepted preregistration | Preregister the action-conditioned widened selector trial |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0220](docs/decisions/ADR-0220-action-conditioned-posterior-panel-is-fresh-balanced-and-nondegenerate.md) — The action-conditioned posterior panel is fresh, balanced, and nondegenerate.
-- Numbered decisions: 220.
-- ADR-header SHA-256: `4606316cdc463a4b0d6b8f78ec021699ad65c31bdcc1acaa7ee4fdb96fcff4af`.
+- Latest ADR: [ADR-0221](docs/decisions/ADR-0221-preregister-action-conditioned-widened-selector-trial.md) — Preregister the action-conditioned widened selector trial.
+- Numbered decisions: 221.
+- ADR-header SHA-256: `100e44c77582677a3adc683df0ccefd4d948d87059b8478cf3eb78a324c2d47b`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

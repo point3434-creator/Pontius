@@ -47,7 +47,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0184](docs/decisions/ADR-0184-ordinary-deep-dcfr-plateaus-while-purification-remains-direction-sensitive.md) | 2026-08-21 | accepted corrected prospective result | Ordinary deep DCFR plateaus while purification remains direction-sensitive |
 | [ADR-0185](docs/decisions/ADR-0185-preregister-fresh-h32-causal-direction-screen.md) | 2026-08-21 | accepted preregistration | Preregister a fresh h32 causal direction and opportunity screen |
 | [ADR-0186](docs/decisions/ADR-0186-fresh-vertices-replicate-generator-weakness-but-no-free-selector-transfers.md) | 2026-08-21 | accepted prospective result | Fresh vertices replicate generator weakness but no free selector transfers |
 | [ADR-0187](docs/decisions/ADR-0187-preregister-selector-stable-affine-certificate-differential.md) | 2026-08-21 | accepted preregistration | Preregister a selector-stable affine certificate differential |
@@ -71,12 +70,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0205](docs/decisions/ADR-0205-preregister-reviewed-direct-selector-replay.md) | 2026-08-21 | accepted direct-runner preregistration before replay | Preregister the reviewed direct selector replay |
 | [ADR-0206](docs/decisions/ADR-0206-opponent-sensitivity-composite-locates-retained-value-but-tier-a-cascade-fails.md) | 2026-08-21 | accepted retained-label development result | Opponent-sensitivity composite locates retained value but the Tier-A cascade fails |
 | [ADR-0207](docs/decisions/ADR-0207-preregister-six-block-tier-b-opponent-batch-differential.md) | 2026-08-21 | accepted engineering preregistration before any h32 batch measurement | Preregister the six-block Tier-B opponent batch differential |
+| [ADR-0208](docs/decisions/ADR-0208-tier-b-batch-v1-rejects-before-h32-work-on-source-pass-schema.md) | 2026-08-21 | rejected execution before any h32 coefficient or timing measurement | Tier-B batch v1 rejects before h32 work on the source pass schema |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0207](docs/decisions/ADR-0207-preregister-six-block-tier-b-opponent-batch-differential.md) — Preregister the six-block Tier-B opponent batch differential.
-- Numbered decisions: 207.
-- ADR-header SHA-256: `4e163d43a6bc082482df830abb14885a91ecc6e35d253b8b30ea1afff5590844`.
+- Latest ADR: [ADR-0208](docs/decisions/ADR-0208-tier-b-batch-v1-rejects-before-h32-work-on-source-pass-schema.md) — Tier-B batch v1 rejects before h32 work on the source pass schema.
+- Numbered decisions: 208.
+- ADR-header SHA-256: `e203ed29966f4273275254f55b916c0e51125b5b61315cf8218ff0d962c91cf6`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

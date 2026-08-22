@@ -33,7 +33,7 @@ and vertex machinery as a cheap incumbent and fail-closed fallback.
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0256](docs/decisions/ADR-0256-reject-partial-latin-e-run-on-resident-row-misclassification.md) — Reject partial Latin-E run on resident-row misclassification.
+Latest process decision: [ADR-0268](docs/decisions/ADR-0268-reject-partial-closure-census-on-master-verification-failure.md) — Reject partial closure census on master verification failure.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -41,7 +41,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0244](docs/decisions/ADR-0244-preregister-h32-one-seat-open-axis-preflight.md) | 2026-08-22 | accepted preregistration before any h32 full-axis row pass | Preregister h32 one-seat open-axis preflight |
 | [ADR-0245](docs/decisions/ADR-0245-h32-full-axis-rows-fit-one-conservative-cut-round.md) | 2026-08-22 | accepted engineering result; label-free h32 master prototype authorized | h32 full-axis rows fit one conservative cut round |
 | [ADR-0246](docs/decisions/ADR-0246-preregister-one-round-h32-convex-master.md) | 2026-08-22 | accepted preregistration before any h32 master candidate or oracle | Preregister one-round h32 convex master |
 | [ADR-0247](docs/decisions/ADR-0247-one-round-h32-convex-master-closes-the-exact-gap.md) | 2026-08-22 | accepted optimizer result; quality experiment authorization granted | One-round h32 convex master closes the exact gap |
@@ -65,12 +64,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0265](docs/decisions/ADR-0265-preregister-decision-aligned-post-fold-posterior-panel.md) | 2026-08-22 | accepted label-blind preregistration before any post-fold strategy label | Preregister decision-aligned post-fold posterior panel |
 | [ADR-0266](docs/decisions/ADR-0266-post-fold-panel-is-fresh-current-and-held-label-blind.md) | 2026-08-22 | accepted label-blind result; retrospective closure census authorized | Post-fold panel is fresh, current, and held label-blind |
 | [ADR-0267](docs/decisions/ADR-0267-preregister-retained-full-closure-census.md) | 2026-08-22 | accepted retrospective preregistration before any full-convergence oracle | Preregister retained full-closure census |
+| [ADR-0268](docs/decisions/ADR-0268-reject-partial-closure-census-on-master-verification-failure.md) | 2026-08-22 | accepted process correction; ADR-0267 census result rejected | Reject partial closure census on master verification failure |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0267](docs/decisions/ADR-0267-preregister-retained-full-closure-census.md) — Preregister retained full-closure census.
-- Numbered decisions: 267.
-- ADR-header SHA-256: `5042a2f1d735f2b46c4d2c5a652e0260a1fbe83d8943d18cf8e366893448a162`.
+- Latest ADR: [ADR-0268](docs/decisions/ADR-0268-reject-partial-closure-census-on-master-verification-failure.md) — Reject partial closure census on master verification failure.
+- Numbered decisions: 268.
+- ADR-header SHA-256: `cb1480f53edd29d559f04a6b5f8673b570fc5ed9587a1550c756030f13efd031`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

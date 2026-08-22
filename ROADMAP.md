@@ -316,13 +316,22 @@ verified cap and `U - L` closure, with 32-round, 240-second target, and
 post-fold six label-blind, preserves one warm step and all-seat oracles, and
 uses ADR-0247 as a numerical/discrete replay control.
 
-**Immediate gate:** execute ADR-0267 once. Universal one-round closure on the
-retained corpus requires all 42 targets to close by round one and authorizes
-only fresh confirmation. If later rounds are needed, retain the convex solver
-as an exact off-clock teacher and the ray/direction path as the deadline
-fallback. Treat any resource-capped or no-new-row numerical stall as censored,
-not as closure. Do not open post-fold labels or optimize the oracle path until
-the distribution is sealed.
+ADR-0268 rejects the first census invocation without an artifact. Four printed
+targets close in 3, 2, 0, and 1 rounds; a fifth reaches the frozen no-new-facet
+numerical-stall branch; target 6 then raises the master's primal/dual
+verification guard. Universal one-round closure is already falsified, but the
+five printed rows are not a complete census and target 6's intermediate state
+is conservatively treated as opened. The failure is orchestration-local: one
+target exception erased prior in-memory rows and prevented the fixed remainder
+from running.
+
+**Immediate gate:** preregister a target-isolated v2 with the identical roster,
+math, tolerances, caps, and decision table. It must checkpoint each completed
+row, classify target-local numerical failures as censored, release their GPU
+state, and continue. A diagnostic LP replay may report the failed KKT
+component but cannot loosen or replace the authoritative master. The v2 must
+disclose recomputation of targets 1–6, retain post-fold label blindness, and
+preserve immutable-blueprint emission.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

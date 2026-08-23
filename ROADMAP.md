@@ -621,9 +621,13 @@ source digest plus two exact fresh seeds.
 [ADR-0302](docs/decisions/ADR-0302-seal-fresh-v3-structures-before-qualification-values.md)
 now commits the resulting value-free 48-context representative structure and
 96-context qualified pool, with zero counterpart in 604 maintained prior
-contexts. The immediate boundary is a separate candidate-blind full/narrow
-qualification runner on only the sealed pool. The representative family and
-every v3 value remain unopened.
+contexts.
+[ADR-0303](docs/decisions/ADR-0303-seal-fresh-qualified-panel-before-v3-values.md)
+passes the separate candidate-blind full/narrow screen at 24 qualifiers after
+60 contexts and seals the final panel plus teacher controls. The immediate
+boundary is the one frozen v3 campaign: representative first, then qualified
+only after every representative conjunct passes. Every v3 value remains
+unopened.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

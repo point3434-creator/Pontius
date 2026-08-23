@@ -62,8 +62,10 @@ now records its exhaustively validated exact-legal source and immutable digest:
 v2's two-pot action remains whenever distinct, and three-halves pot substitutes
 only on a mandatory-anchor collision. Two exact fresh stream seeds are sealed;
 ADR-0302 now seals their value-free 48-context representative family and
-separate 96-context qualification pool. All fresh sizing values and every
-integration path remain unopened.
+separate 96-context qualification pool. ADR-0303's candidate-blind full/narrow
+screen reaches 24 unambiguous qualifiers after 60 contexts and seals the final
+panel before candidate values. The representative family, every v3 value, and
+all integration remain unopened.
 
 ## Current checkpoint
 

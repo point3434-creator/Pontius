@@ -759,3 +759,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     runner after this structural commit; keep representative and v3 values
     unopened, bind every semantic field, and stop inside the runner at target,
     ambiguity, or exhaustion.
+21. Reproduce ADR-0303 qualification only through
+    `pontius.fresh_collision_repair_qualification.run_adr0302_fresh_qualification`.
+    The result, qualified panel, teacher, and campaign digests are respectively
+    `c5be094e616043644a13ebbd477565ff548593a9d7d1f70dac0ae5340cbe0c23`,
+    `05f00a99ccec22bfea07abd405b1089414a89bce9a4c4e704efceb132ea1cf29`,
+    `b88b47f2260da31bdb7e49a0d454309327483ded0ff6ea7b17d77bd2cf914ada`,
+    and `3ada7c7a68002eb2fa3d0e6ca904f0df771f17e8270fd09ef10cedef1772d8fe`.
+    Rebuild panel membership without values through
+    `build_adr0302_qualified_panel`. Before any v3 value, preserve the exact
+    48-then-24 family order and every ADR-0300 conjunct; stop before qualified
+    if representative fails.

@@ -60,7 +60,10 @@ RTX 5080 workstation.
   source digest and two exact fresh seeds. ADR-0302 seals the resulting
   value-free 48-context representative family and separate 96-context
   qualification pool with zero counterpart among 604 maintained prior
-  contexts. No fresh sizing value, v3 value, or integration exists yet.
+  contexts. ADR-0303's candidate-blind runner reaches 24 qualifiers after a
+  contiguous 60-context prefix and seals the final qualified panel. The
+  representative family and every v3 value remain unopened; no integration
+  exists yet.
 - The authoritative hard boundary is 15,000 ms of wall-clock time per street,
   including a fixed 1,000 ms reserve for synchronization and action emission.
   Older 5-250 ms targets are superseded historical context and must not govern

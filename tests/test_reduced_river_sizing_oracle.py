@@ -136,6 +136,10 @@ class ReducedRiverSizingOracleTests(unittest.TestCase):
             for solution in (full, candidate, narrow):
                 self.assertLessEqual(solution.max_probability_simplex_residual, 1e-9)
                 self.assertLessEqual(solution.chip_objective_reconstruction_error, 1e-9)
+                self.assertLessEqual(
+                    solution.max_envelope_constraint_violation_chips,
+                    1e-9,
+                )
             self.assertGreaterEqual(full.value_chips + 1e-9, candidate.value_chips)
             self.assertGreaterEqual(candidate.value_chips + 1e-9, narrow.value_chips)
 
@@ -182,6 +186,22 @@ class ReducedRiverSizingOracleTests(unittest.TestCase):
                 (20, 2),
                 probability_allowance=self.probability_allowance,
                 chip_allowance=self.chip_allowance,
+            )
+        with self.assertRaisesRegex(TypeError, "maximum pivots"):
+            solve_reduced_river_sizing(
+                context,
+                (2, 20),
+                probability_allowance=self.probability_allowance,
+                chip_allowance=self.chip_allowance,
+                max_pivots=True,  # type: ignore[arg-type]
+            )
+        with self.assertRaisesRegex(ValueError, "maximum pivots"):
+            solve_reduced_river_sizing(
+                context,
+                (2, 20),
+                probability_allowance=self.probability_allowance,
+                chip_allowance=self.chip_allowance,
+                max_pivots=0,
             )
         with self.assertRaisesRegex(ValueError, "bounded"):
             solve_bounded_normal_form_sizing_teacher(context, (2, 20))

@@ -50,8 +50,12 @@ ADR-0297 now freezes that next test without opening a pool or value. It changes
 only the private-type width from three-by-three to four-by-four, retains the
 candidate-blind full-versus-minimum/all-in comparison, and adds exact LP-work
 ceilings. ADR-0298 seals three structural pools and their digests in a separate
-value-free module; all width-four values remain unopened pending the owned
-runner invocation.
+value-free module before the owned runner invocation.
+
+ADR-0299 records a clean pass: the three batches reach 12 qualifiers after 23,
+24, and 32 openings, with numerical, diversity, teacher, and pivot gates clean.
+The result authorizes only preregistration of one v3 mechanism and fresh dual-
+panel evaluation; none of these development panels may fit or confirm v3.
 
 ## Current checkpoint
 

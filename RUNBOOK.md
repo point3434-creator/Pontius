@@ -733,3 +733,9 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     module free of sizing-solver imports. Open values only through the separate
     ADR-0297 owned runner after the structural commit, in batch order, and stop
     the campaign at the first failed batch.
+17. Reproduce ADR-0299 values only through
+    `pontius.width_four_sizing_power_evaluation.run_adr0297_width_four_campaign`.
+    Gate probability-simplex and chip-valued envelope residuals separately;
+    never use the reduced oracle's legacy mixed-coordinate maximum as a
+    semantic allowance. Treat every ADR-0297 panel as development-only. Freeze
+    v3 before deriving fresh representative and qualified-panel seeds.

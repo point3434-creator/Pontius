@@ -279,6 +279,7 @@ class ReducedRiverSizingSolution:
     chip_objective_reconstruction_error: float
     linear_program_duality_gap: float
     linear_program_max_constraint_violation: float
+    max_envelope_constraint_violation_chips: float
     simplex_pivots: int
 
 
@@ -316,6 +317,7 @@ def solve_reduced_river_sizing(
     probability_allowance: ProbabilitySimplexAllowance,
     chip_allowance: ChipObjectiveAllowance,
     solver_tolerance: float = 1e-11,
+    max_pivots: int = 100_000,
 ) -> ReducedRiverSizingSolution:
     """Solve the opener's compact behavioral security-value program."""
 
@@ -329,6 +331,10 @@ def solve_reduced_river_sizing(
         raise ValueError("solver tolerance must be a finite float")
     if solver_tolerance <= 0.0:
         raise ValueError("solver tolerance must be positive")
+    if isinstance(max_pivots, bool) or not isinstance(max_pivots, int):
+        raise TypeError("reduced sizing maximum pivots must be an integer")
+    if max_pivots <= 0:
+        raise ValueError("reduced sizing maximum pivots must be positive")
     sizes = _validate_bet_sizes(context, bet_sizes)
 
     opener_count = len(context.opener_hands)
@@ -394,6 +400,7 @@ def solve_reduced_river_sizing(
         coefficients,
         bounds,
         tolerance=solver_tolerance,
+        max_pivots=max_pivots,
     )
     policy = tuple(
         tuple(
@@ -415,6 +422,25 @@ def solve_reduced_river_sizing(
     )
     if probability_residual > probability_allowance.value:
         raise AssertionError("reduced sizing policy exceeds its probability allowance")
+
+    envelope_constraint_violation = 0.0
+    for responder in range(responder_count):
+        for bet_index, bet in enumerate(sizes):
+            envelope = solved.variables[envelope_index(responder, bet_index)]
+            fold_value = 0.0
+            call_value = 0.0
+            for opener in range(opener_count):
+                mass = (
+                    float(context.joint_probabilities[opener][responder].fraction)
+                    * policy[opener][bet_index + 1]
+                )
+                fold_value += mass * half_pot
+                call_value += mass * signs[opener][responder] * (half_pot + bet)
+            envelope_constraint_violation = max(
+                envelope_constraint_violation,
+                envelope - fold_value - maximum_stake,
+                envelope - call_value - maximum_stake,
+            )
 
     reconstructed = 0.0
     for opener in range(opener_count):
@@ -457,6 +483,10 @@ def solve_reduced_river_sizing(
         chip_objective_reconstruction_error=objective_error,
         linear_program_duality_gap=solved.duality_gap,
         linear_program_max_constraint_violation=solved.max_constraint_violation,
+        max_envelope_constraint_violation_chips=max(
+            0.0,
+            envelope_constraint_violation,
+        ),
         simplex_pivots=solved.pivots,
     )
 

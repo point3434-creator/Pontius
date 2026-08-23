@@ -15,16 +15,24 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Commit the generator, pool identities, structural tests, and this record as a
-separate evidence boundary. After this commit, implement ADR-0297's value
-runner in a separate module so the structural source remains value-free. The
-runner must own both LP calls, the frozen constants, numerical and pivot gates,
-pool-prefix binding, classification, and immediate termination. Only that
-runner may open width-four values.
+Park all ADR-0297 pools, observations, and panels as candidate-blind
+development evidence. Do not use them to fit or confirm v3. The next checkpoint
+may preregister exactly one legal v3 sizing mechanism. Only after its source is
+frozen may fresh commit-derived seeds construct two disjoint evaluation
+families:
+
+1. an unqualified representative panel for maximum and mean full-versus-v3
+   harm; and
+2. an independently width-four-qualified panel for aggregate recovery where
+   material intermediate-sizing opportunity exists.
+
+The candidate must pass both families conjunctively before any reference-hand,
+convex-master, blueprint, resolver, or strategy-label integration is eligible.
+The exact legal action source remains the reference fallback.
 
 ## Active next
 
-Implement and execute ADR-0297's exact value-owning runner against only the three sealed width-four pools, stopping each batch at target, ambiguity, or exhaustion; keep ADR-0295 batch 2 and every action-abstraction, replay, blueprint, convex-master, resolver, and strategy label closed
+Preregister exactly one v3 legal sizing mechanism before constructing fresh representative and independently width-four-qualified confirmation panels; keep every ADR-0291 through ADR-0299 panel development-only and keep replay, blueprint, convex-master, resolver, and strategy integration closed
 
 ## Revoked authorities
 
@@ -32,7 +40,7 @@ Implement and execute ADR-0297's exact value-owning runner against only the thre
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md) — Seal width-four structural pools before values.
+Latest process decision: [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md) — Width four passes replicated sizing power.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -40,7 +48,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0275](docs/decisions/ADR-0275-preregister-post-fold-failure-closure-depth-diagnostic.md) | 2026-08-22 | accepted retrospective preregistration before any additional post-fold optimizer label | Preregister post-fold failure closure-depth diagnostic |
 | [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) | 2026-08-22 | accepted retrospective diagnostic; exact global closure remains off-clock | Post-fold failures close in two and three rounds |
 | [ADR-0277](docs/decisions/ADR-0277-preregister-pre-bet-current-node-action-width-capacity.md) | 2026-08-22 | accepted label-free preregistration before any h32 pre-bet widened warm step, master, or candidate evaluation | Preregister pre-bet current-node action-width capacity |
 | [ADR-0278](docs/decisions/ADR-0278-reject-pre-bet-action-width-capacity-invocation-on-campaign-duration.md) | 2026-08-22 | accepted rejection record; ADR-0277 invocation and widened authorization rejected | Reject pre-bet action-width capacity invocation on campaign duration |
@@ -64,18 +71,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0296](docs/decisions/ADR-0296-reject-candidate-blind-power-pools-and-own-stop-state.md) | 2026-08-23 | accepted negative diagnostic and corrective process control; ADR-0295 rejected before v3 | Reject candidate-blind power pools and own stop state |
 | [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md) | 2026-08-23 | accepted executable preregistration before any width-four pool construction or value | Preregister width-four sizing-power replications |
 | [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md) | 2026-08-23 | accepted structural freeze; all width-four sizing values remain unopened | Seal width-four structural pools before values |
+| [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md) | 2026-08-23 | accepted candidate-blind evaluation-power result; one v3 preregistration is authorized but no mechanism or integration is accepted | Width four passes replicated sizing power |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md) — Seal width-four structural pools before values.
+- Latest ADR: [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md) — Width four passes replicated sizing power.
 - Governing runtime contract: [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
-- Numbered decisions: 298.
-- ADR-header SHA-256: `72e833b99a08231823af9937cdc09143a9f3414062263e567127fe34483205c3`.
-- Current blockers: no width-four full or narrow LP has run, replicated yield and pivot gates remain unknown, and no v3 mechanism is authorized.
+- Numbered decisions: 299.
+- ADR-header SHA-256: `01034f7cdfcb0805f873b16d48c00e9d187045fafbfdcf19c298b52784d3a822`.
+- Current blockers: no v3 mechanism or fresh dual-panel protocol is frozen, no v3 value exists, and neither candidate quality nor real-time integration has passed.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies
+4. [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies

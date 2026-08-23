@@ -112,6 +112,14 @@ sign-pattern filter, binds three 96-context pools, and exposes analytic compact-
 LP dimensions. It deliberately has no sizing-solver import; value opening must
 live behind the separately owned ADR-0297 runner after the structural commit.
 
+`width_four_sizing_power_evaluation` is that owned ADR-0299 boundary. It fixes
+all numerical semantics and pivot limits internally, binds each observation to
+the sealed pool and analytic dimensions, stops each batch and the campaign
+inside the value owner, and runs bounded teacher controls only for completed
+panels. The underlying reduced oracle now exposes chip-valued lower-envelope
+constraint violation separately from its legacy mixed-coordinate diagnostic.
+The passed panels remain development evidence and are not candidate sources.
+
 `reference_hand_replay` joins those boundaries for one controlled seat. Frozen
 opponent events, public-card reveal and validation, blueprint key/lookup,
 legality, controlled emission, betting transitions, and card-domain audits have

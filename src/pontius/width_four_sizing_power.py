@@ -280,12 +280,17 @@ def build_adr0297_width_four_pool(*, batch_index: int) -> WidthFourSizingPowerPo
                 joint_probabilities=probabilities,
             )
         )
-    return WidthFourSizingPowerPool(
+    pool = WidthFourSizingPowerPool(
         batch_index=batch_index,
         seed=seed,
         candidate_attempts=candidate_attempts,
         contexts=tuple(contexts),
     )
+    if pool.candidate_attempts != ADR0297_POOL_CANDIDATE_ATTEMPTS[batch_index]:
+        raise AssertionError("width-four candidate-attempt count differs from ADR-0298")
+    if pool.digest != ADR0297_POOL_SHA256[batch_index]:
+        raise AssertionError("width-four pool digest differs from ADR-0298")
+    return pool
 
 
 __all__ = [

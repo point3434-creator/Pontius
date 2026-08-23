@@ -605,9 +605,12 @@ four private types per seat with the same one-bet tree, opportunity floor, and
 candidate-blind controls. It adds exact LP-dimension and pivot ceilings.
 [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md)
 now seals all three 96-context pools and analytic dimensions in a value-free
-module. The next active gate is to implement and execute the owned replications
-unchanged. Do not tune the floor, enlarge the pools, open ADR-0295 batch 2, or
-choose v3.
+module. [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md)
+passes the owned replications at 12 qualifiers after 23, 24, and 32 openings,
+with all numerical, diversity, teacher, and pivot gates clean. The next active
+gate is to preregister exactly one v3 mechanism before deriving fresh,
+disjoint representative and qualified panels. Do not fit or confirm against
+any opened panel or open ADR-0295 batch 2.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
@@ -650,9 +653,9 @@ reduced sizing recovery and v2 on confirmation power. The next checkpoint
 remains narrower than blueprint training or resolver integration. ADR-0297
 preregisters a four-by-four private-type game while holding the one-bet tree
 fixed. The three-by-three pool failed its second yield replication and remains
-parked. Only after the width-four game passes its frozen replicated yield and
-exact-work boundary may a v3 mechanism be frozen. The passive reference source
-remains the emitted fallback.
+parked. The width-four game now passes its frozen replicated yield and exact-
+work boundary, authorizing only a v3 preregistration and fresh dual-panel gate.
+The passive reference source remains the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

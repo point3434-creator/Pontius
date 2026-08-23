@@ -590,11 +590,19 @@ loss than v1. But only five of 24 contexts have measurable full-over-narrow
 opportunity versus the frozen minimum of eight. Structural showdown diversity
 did not guarantee sizing informativeness.
 
-The next active gate is evaluation design, not v3 sizing. Preregister a
-candidate-blind power diagnostic using only full and minimum/all-in controls,
-or a richer reduced sizing game, before choosing another mechanism. No
-optimizer, resolver, charged replay hook, or h32 strategy label was opened by
-either action-abstraction candidate.
+[ADR-0295](docs/decisions/ADR-0295-preregister-candidate-blind-sizing-power-diagnostic.md)
+freezes three full-versus-minimum/all-in-only power replications. Its outcome
+[ADR-0296](docs/decisions/ADR-0296-reject-candidate-blind-power-pools-and-own-stop-state.md)
+rejects the protocol before v3. Batch 0 reaches 12 material contexts after 40
+openings; batch 1 exhausts 96 with only 11; batch 2 values remain unopened. A
+follow-up also opened batch-0 values after its stop point due to unattributed
+failure telemetry. Those values are quarantined, and a new owned runner now
+binds batch, contiguous prefix, and stop reason.
+
+The next active gate remains evaluation design, not v3 sizing: preregister a
+richer reduced sizing-power game and use the owned runner. Do not tune the
+floor, enlarge these pools, or open batch 2. No optimizer, resolver, charged
+replay hook, or h32 strategy label was opened.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
@@ -635,10 +643,10 @@ against a frozen evaluation league.
 The first two exact-legality candidates were killed before integration: v1 on
 reduced sizing recovery and v2 on confirmation power. The next checkpoint
 remains narrower than blueprint training or resolver integration: preregister
-a candidate-blind sizing-power diagnostic. It must establish that a frozen
-panel construction or richer game produces enough full-over-minimum/all-in
-opportunity without evaluating a candidate. Only after that boundary may a v3
-mechanism be frozen. The passive reference source remains the emitted fallback.
+a richer candidate-blind sizing-power game. The one-bet three-by-three pool
+fails its second yield replication and may not be enlarged post-outcome. Only
+after a richer game passes a frozen yield/cost boundary may a v3 mechanism be
+frozen. The passive reference source remains the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

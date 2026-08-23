@@ -45,6 +45,10 @@ RTX 5080 workstation.
   its untouched panel contains only five informative contexts rather than
   eight. Favorable conditional loss and recovery diagnostics do not waive that
   power gate. Candidate-blind evaluation-power design must precede v3.
+- ADR-0296 rejects the first candidate-blind pool qualifier when its second
+  replication yields 11 rather than 12 material contexts. Its owned runner now
+  makes batch identity and stop-after-target state semantic evidence. Batch 2
+  values remain unopened; a richer reduced game must precede v3.
 - The authoritative hard boundary is 15,000 ms of wall-clock time per street,
   including a fixed 1,000 ms reserve for synchronization and action emission.
   Older 5-250 ms targets are superseded historical context and must not govern

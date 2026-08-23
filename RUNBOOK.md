@@ -718,3 +718,8 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     opened river panels as development evidence only. Before v3, freeze a
     candidate-blind sizing-power diagnostic; structural showdown diversity is
     not a substitute for measured full-over-narrow opportunity.
+14. Open sizing-power values only through
+    `pontius.sizing_power_diagnostic.run_candidate_blind_sizing_power_qualification`.
+    Its batch-bound result owns the contiguous prefix and stop reason. Do not
+    use scratch loops, open contexts after target/ambiguity, enlarge ADR-0295's
+    pools, or open batch 2.

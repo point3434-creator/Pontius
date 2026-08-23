@@ -97,6 +97,15 @@ quality controls but the panel fails its minimum informative-context count.
 The generator therefore supplies a reproducible negative control, not a live
 source or permission to lower the power gate.
 
+`sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
+successor. It can generate sealed structural pools and compare only full
+integer with minimum/all-in values. Its owned qualification runner returns a
+batch-bound immutable prefix and stops inside the value-opening function at
+target, exhaustion, or ambiguity. Panel extraction rebinds that prefix to the
+structural pool before producing a qualified panel. The second replication
+still misses its power target, so this machinery is a process/evaluation oracle
+rather than a v3 panel source.
+
 `reference_hand_replay` joins those boundaries for one controlled seat. Frozen
 opponent events, public-card reveal and validation, blueprint key/lookup,
 legality, controlled emission, betting transitions, and card-domain audits have

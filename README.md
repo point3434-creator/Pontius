@@ -39,6 +39,13 @@ contexts are informative versus the frozen minimum of eight. Both candidates
 remain parked; the next work is candidate-blind sizing-power diagnostics, not
 another post-outcome fraction adjustment.
 
+ADR-0296 rejects the subsequent candidate-blind pool qualifier: its first seed
+reaches 12 material contexts, but the second reaches only 11 within the frozen
+96-context cap. No candidate was evaluated and the third batch remains value-
+unopened. A follow-up over-open incident is recorded explicitly; the maintained
+successor now owns batch identity and stop state rather than trusting a caller
+loop. The next work must test a richer reduced sizing game before v3.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

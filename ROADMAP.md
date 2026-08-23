@@ -602,10 +602,12 @@ binds batch, contiguous prefix, and stop reason.
 [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md)
 freezes the smallest richer sizing-power game before any new pool or value:
 four private types per seat with the same one-bet tree, opportunity floor, and
-candidate-blind controls. It adds exact LP-dimension and pivot ceilings. The
-next active gate is to construct and commit all three structural pools, then
-execute the owned replications unchanged. Do not tune the floor, enlarge the
-pools, open ADR-0295 batch 2, or choose v3.
+candidate-blind controls. It adds exact LP-dimension and pivot ceilings.
+[ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md)
+now seals all three 96-context pools and analytic dimensions in a value-free
+module. The next active gate is to implement and execute the owned replications
+unchanged. Do not tune the floor, enlarge the pools, open ADR-0295 batch 2, or
+choose v3.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

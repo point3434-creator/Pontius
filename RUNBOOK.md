@@ -728,3 +728,8 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     value-owning runner. Preserve the one-bet tree and exact frozen thresholds;
     do not use width-four yield or local diagnostic time as a runtime-quality
     claim.
+16. Reconstruct ADR-0298's width-four structures only through
+    `pontius.width_four_sizing_power.build_adr0297_width_four_pool`. Keep that
+    module free of sizing-solver imports. Open values only through the separate
+    ADR-0297 owned runner after the structural commit, in batch order, and stop
+    the campaign at the first failed batch.

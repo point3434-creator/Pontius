@@ -49,7 +49,9 @@ loop. The next work must test a richer reduced sizing game before v3.
 ADR-0297 now freezes that next test without opening a pool or value. It changes
 only the private-type width from three-by-three to four-by-four, retains the
 candidate-blind full-versus-minimum/all-in comparison, and adds exact LP-work
-ceilings. Structural digests must be committed before its value invocation.
+ceilings. ADR-0298 seals three structural pools and their digests in a separate
+value-free module; all width-four values remain unopened pending the owned
+runner invocation.
 
 ## Current checkpoint
 

@@ -15,20 +15,16 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Run the smallest richer-game successor to ADR-0295: retain the opener
-check/bet and responder fold/call tree, exact integer full arm, and
-minimum/all-in narrow arm, but expand the exact joint private range from three
-by three to four by four. This isolates private-type width. It does not test a
-responder-raise branch, production range width, multiplayer play, or a proposed
-bet lattice.
-
-Preregistration and structural construction are temporally separated from
-value opening. Commit this ADR before constructing a pool. After construction,
-record and commit all structural digests before any full or narrow LP is run.
+Commit the generator, pool identities, structural tests, and this record as a
+separate evidence boundary. After this commit, implement ADR-0297's value
+runner in a separate module so the structural source remains value-free. The
+runner must own both LP calls, the frozen constants, numerical and pivot gates,
+pool-prefix binding, classification, and immediate termination. Only that
+runner may open width-four values.
 
 ## Active next
 
-Construct and seal three width-four structural pools, then execute only the frozen candidate-blind full-versus-minimum/all-in replications through an owned runner; keep ADR-0295 batch 2 value-unopened and keep v1, v2, v3, replay, blueprint, convex-master, resolver, and strategy labels closed
+Implement and execute ADR-0297's exact value-owning runner against only the three sealed width-four pools, stopping each batch at target, ambiguity, or exhaustion; keep ADR-0295 batch 2 and every action-abstraction, replay, blueprint, convex-master, resolver, and strategy label closed
 
 ## Revoked authorities
 
@@ -36,7 +32,7 @@ Construct and seal three width-four structural pools, then execute only the froz
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md) — Preregister width-four sizing-power replications.
+Latest process decision: [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md) — Seal width-four structural pools before values.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -44,7 +40,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0274](docs/decisions/ADR-0274-post-fold-confirms-safe-value-but-not-universal-one-round-closure.md) | 2026-08-22 | accepted fresh mixed result; universal current-decision closure rejected | Post-fold confirms safe value but not universal one-round closure |
 | [ADR-0275](docs/decisions/ADR-0275-preregister-post-fold-failure-closure-depth-diagnostic.md) | 2026-08-22 | accepted retrospective preregistration before any additional post-fold optimizer label | Preregister post-fold failure closure-depth diagnostic |
 | [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) | 2026-08-22 | accepted retrospective diagnostic; exact global closure remains off-clock | Post-fold failures close in two and three rounds |
 | [ADR-0277](docs/decisions/ADR-0277-preregister-pre-bet-current-node-action-width-capacity.md) | 2026-08-22 | accepted label-free preregistration before any h32 pre-bet widened warm step, master, or candidate evaluation | Preregister pre-bet current-node action-width capacity |
@@ -68,18 +63,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0295](docs/decisions/ADR-0295-preregister-candidate-blind-sizing-power-diagnostic.md) | 2026-08-23 | accepted executable diagnostic preregistration before any new pool construction or full-versus-narrow value | Preregister candidate-blind sizing-power diagnostic |
 | [ADR-0296](docs/decisions/ADR-0296-reject-candidate-blind-power-pools-and-own-stop-state.md) | 2026-08-23 | accepted negative diagnostic and corrective process control; ADR-0295 rejected before v3 | Reject candidate-blind power pools and own stop state |
 | [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md) | 2026-08-23 | accepted executable preregistration before any width-four pool construction or value | Preregister width-four sizing-power replications |
+| [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md) | 2026-08-23 | accepted structural freeze; all width-four sizing values remain unopened | Seal width-four structural pools before values |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md) — Preregister width-four sizing-power replications.
+- Latest ADR: [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md) — Seal width-four structural pools before values.
 - Governing runtime contract: [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
-- Numbered decisions: 297.
-- ADR-header SHA-256: `50b6e93a94d7d119cc7d3beed19b3e4759f77e9194adf894ca63492cd2865102`.
-- Current blockers: no width-four pool digest or value exists, the replicated yield and exact-work gates have not run, and no v3 mechanism is authorized.
+- Numbered decisions: 298.
+- ADR-header SHA-256: `72e833b99a08231823af9937cdc09143a9f3414062263e567127fe34483205c3`.
+- Current blockers: no width-four full or narrow LP has run, replicated yield and pivot gates remain unknown, and no v3 mechanism is authorized.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies
+4. [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies

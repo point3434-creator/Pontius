@@ -51,7 +51,8 @@ RTX 5080 workstation.
   values remain unopened; a richer reduced game must precede v3.
 - ADR-0297 preregisters the smallest richer game: four private types per seat
   with the same one-bet tree and candidate-blind controls. Pool construction is
-  still unopened, and its structural digests must be committed before values.
+  separated from values. ADR-0298 seals all three structural pools and exact LP
+  dimensions; every width-four sizing value remains unopened.
 - The authoritative hard boundary is 15,000 ms of wall-clock time per street,
   including a fixed 1,000 ms reserve for synchronization and action emission.
   Older 5-250 ms targets are superseded historical context and must not govern

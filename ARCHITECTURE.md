@@ -106,6 +106,12 @@ structural pool before producing a qualified panel. The second replication
 still misses its power target, so this machinery is a process/evaluation oracle
 rather than a v3 panel source.
 
+`width_four_sizing_power` is ADR-0297/0298's value-free structural successor.
+It expands both exact private-hand axes to four, enforces the frozen richer
+sign-pattern filter, binds three 96-context pools, and exposes analytic compact-
+LP dimensions. It deliberately has no sizing-solver import; value opening must
+live behind the separately owned ADR-0297 runner after the structural commit.
+
 `reference_hand_replay` joins those boundaries for one controlled seat. Frozen
 opponent events, public-card reveal and validation, blueprint key/lookup,
 legality, controlled emission, betting transitions, and card-domain audits have

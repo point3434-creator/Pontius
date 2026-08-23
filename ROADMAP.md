@@ -4,12 +4,14 @@ This file is the compact forward map. The generated [STATUS.md](STATUS.md)
 names the latest accepted decision; the immutable records under
 [`docs/decisions`](docs/decisions) retain the complete experimental history.
 
-The authoritative live target is one shared 15,000 ms wall-clock budget per
-street of cumulative charged agent work, including the frozen emission reserve.
-Opponent/transport idle pauses the ledger; useful background work consumes it;
-and it does not reset at each action on the same street. Older 5-250 ms targets
-are historical only
-([ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md)).
+The authoritative live target is maximum marginal chip-valued decision quality
+per millisecond of attributable online compute under one continuous 15,000 ms
+response wall for each controlled action, including the frozen emission
+reserve. Prior-street and opponent-turn preparation is measured separately and
+may be credited only through an exact matching artifact; it never extends the
+live response wall. Older cumulative-street and 5-250 ms targets are historical
+only
+([ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)).
 
 ## C0-C2: Research contract and exact solver laboratory
 
@@ -32,7 +34,7 @@ Completed subgates include:
   showdown structure, clean-fringe deltas, and shared-topology GPU residency;
 - exact incremental response certification against an immutable blueprint;
 - allocator lifecycle control for two resident h32 belief contexts; and
-- a prepared 15-second street ledger: one resident warm step plus two exact
+- a historical prepared 15-second street ledger: one resident warm step plus two exact
   atomic certificates and a one-second emission reserve on two frozen trials
   ([ADR-0166](docs/decisions/ADR-0166-prepared-street-fits-two-atomic-certificates-after-one-warm-step.md)).
 
@@ -527,7 +529,7 @@ explicit tolerance schema before making a lower-bound or closure claim.
 closes the remaining review defects in strict evidence loading, affine/cache
 provenance, deadline admission arithmetic, behavioral-master unit separation,
 negative-reach folding and transitive successor routing. It also installs the
-first executable shared 15-second street ledger. No h32 cache, candidate or
+first executable historical cumulative 15-second street ledger. No h32 cache, candidate or
 strategy label was opened.
 
 [ADR-0286](docs/decisions/ADR-0286-install-the-exact-six-seat-legal-decision-spine.md)
@@ -535,11 +537,12 @@ connects that ledger to an immutable six-seat integer-chip betting reference.
 The kernel covers exact action order, fold/check/call/raise-to bounds, the full-
 bet and cumulative short-all-in reopening rules, unmatched returns, independently
 eligible side pots, integer odd chips, settlement, and all street transitions.
-The one-seat controller charges observed-action processing and all foreground
-or background agent work, pauses opponent/transport idle, retains one ledger
-across repeated actions, and fails closed to a caller-supplied legal blueprint
-action. A maintained exhaustive three-chip oracle covers 45,456 semantic states
-and 60,732 transitions for all button positions.
+The historical one-seat controller charges observed-action processing and all
+foreground or background agent work, pauses opponent/transport idle, retains
+one ledger across repeated actions, and fails closed to a caller-supplied legal
+blueprint action. A maintained exhaustive three-chip oracle covers 45,456
+semantic states and 60,732 transitions for all button positions. ADR-0307 keeps
+this implementation for reproduction but supersedes its timing contract.
 
 [ADR-0287](docs/decisions/ADR-0287-preregister-the-complete-reference-hand-replay.md)
 froze the complete reference hand replay before results. The successor
@@ -644,6 +647,14 @@ v3-superset, full-slot, provenance, projection, and bounded-work validation.
 The next gate is only construction and sealing of the three frozen value-free
 streams; qualification and all candidate values remain unopened.
 
+[ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
+now amends the governing resource contract before more v4 work. Each controlled
+action receives one continuous 15-second response wall. Earlier-street and
+opponent-turn compute can contribute only through an exactly matching prepared
+artifact and is reported as attributable online work, not free latency or
+literal deadline carryover. The additive action-clock ledger, preparation bank,
+and exact-spine v2 must pass before the three v4 structures are constructed.
+
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
 30.56%, and transfer only 0.63%. This retained C4 line should next distinguish
@@ -692,8 +703,9 @@ fixed. The three-by-three pool failed its second yield replication and remains
 parked. The width-four game now passes its frozen replicated yield and exact-
 work boundary. Collision-repair v3 is implemented but rejected and parked.
 Capacity-filling v4 is implemented only as a frozen value-free source; its
-fresh structures and every value remain unopened. The passive reference source
-remains the emitted fallback.
+fresh structures and every value remain unopened. ADR-0307 temporarily places
+the additive action-clock/preparation-bank implementation ahead of those
+structures. The passive reference source remains the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

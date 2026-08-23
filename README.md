@@ -8,22 +8,22 @@ count.
 The current research spine is an exact six-player river control at 32 hands per
 seat (`h32`). It combines factorized beliefs, shared public topology, resident
 GPU solving, unilateral-deviation certificates, and an immutable-blueprint
-fallback. The authoritative target is one shared 15-second wall-clock budget
-of charged agent work per street, including a one-second emission reserve; it
-pauses during opponent/transport idle and does not reset for another agent
-action on the same street. On two frozen prepared contexts, one
-resident warm step and two exact atomic certificates fit that ledger. This is a
-systems-capacity result, not a complete-street, deployment, or broad strategy-
-quality claim.
+fallback. The authoritative target is maximum marginal chip-valued decision
+quality per millisecond of attributable online compute, subject to one hard
+15-second continuous response wall whenever the controlled seat acts and a
+one-second emission reserve. Prior-street and opponent-turn computation may be
+credited only through an exact matching prepared artifact; it never extends
+the live response deadline. Earlier cumulative-street results remain historical
+systems controls, not deployment or broad strategy-quality claims.
 
 ADR-0290 carries ADR-0288's explicit-deal reference loop, built on ADR-0286,
 across five complete 1,225/1,081/1,035/990 opponent axes on every street. Exact
 rational public-action likelihoods update only their actor, hard card
 disjointness is retained, board reveals filter every axis, and the unchanged
-four-street hand remains inside its cumulative 15-second ledgers. The immutable
-policy is deliberately passive and untrained; normalized full-width marginals,
-scalable value contraction, action abstraction, a credible full-game blueprint,
-resolver candidates, and strength evidence remain unconnected.
+four-street hand remains inside its historical cumulative-street ledgers. The
+immutable policy is deliberately passive and untrained; normalized full-width
+marginals, scalable value contraction, action abstraction, a credible full-game
+blueprint, resolver candidates, and strength evidence remain unconnected.
 
 ADR-0292 rejects the first fixed action-sizing lattice before it reaches that
 loop. Its exact legal lattice and rational off-tree projector pass all 45,456

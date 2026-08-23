@@ -26,8 +26,8 @@ class StatusGenerationTests(unittest.TestCase):
     def test_runtime_contract_remains_visible_outside_the_recent_ledger(self) -> None:
         rendered = render_status(_ROOT, recent_count=1)
         self.assertIn("## Governing runtime contract", rendered)
-        self.assertIn("[ADR-0282]", rendered)
-        self.assertIn("fifteen-second street wall", rendered)
+        self.assertIn("[ADR-0307]", rendered)
+        self.assertIn("action clock and preparation bank", rendered)
 
     def test_front_door_heads_do_not_depend_on_title_or_status_keywords(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

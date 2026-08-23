@@ -11,20 +11,43 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Governing runtime contract
 
-[ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
+[ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
 
 ## Current decision
 
-Freeze the source and proceed only to the three value-free structure builds in
-ADR-0305's order. The structural module must retain the exact frozen seeds and
-generator semantics, import no sizing candidate or value owner, and commit all
-identities and disjointness results before qualification. Do not edit this
-source, construct a replacement seed, inspect a value, connect v4 to the
-reference hand, or treat this source pass as action-abstraction acceptance.
+Replace ADR-0282's cumulative 15-second charged-compute allowance per street
+with two distinct and jointly reported resources:
+
+1. one hard 15,000 ms continuous wall-clock response deadline for each
+   controlled action, including the existing 1,000 ms synchronization and
+   emission reserve; and
+2. online preparation work performed before that action clock starts, which
+   may benefit a later decision only through an exact provenance-bound
+   artifact hit.
+
+The optimization objective is now **maximum marginal chip-valued decision
+quality per additional millisecond of attributable online workstation compute,
+subject to the hard 15-second response deadline on every controlled action**.
+Report the quality curve, not only one quality/latency ratio.
+
+The response clock starts when an observed event makes the controlled seat the
+actor, not when the resolver chooses to start a timer. It runs continuously
+through event processing, belief updates, legality, candidate construction,
+solving, certification, fallback selection, synchronization, and emission.
+Pauses or uninstrumented gaps inside that interval still consume the external
+wall. Each later controlled action receives a new 15-second response wall.
+
+Opponent think and transport time before the controlled turn do not consume
+the response wall. Agent computation during that opportunity is not free: it
+is online preparation and consumes the one workstation. Preparation may begin
+on an earlier street, enumerate future public branches, or refine a current-
+street branch before the controlled seat acts. Only work embodied in an exact
+matching artifact may be credited to the eventual decision. All preparation
+spent, credited, unclaimed, invalidated, and aborted must remain visible.
 
 ## Active next
 
-Construct only ADR-0305's value-free 48-context representative, 96-context qualified-A, and 96-context qualified-B streams from their exact frozen seeds; commit all three identities, attempt counts, within/across-family uniqueness, and zero-counterpart checks before importing a sizing candidate or opening any qualification value
+Implement only the additive continuous 15-second action-response ledger, provenance-bound one-use online preparation bank, and exact legal-decision-spine v2 below; preserve the ADR-0286 cumulative-street implementation for historical reproduction, keep all ADR-0305 streams and values unopened, and commit exhaustive timing/provenance tests before resuming v4 structures
 
 ## Revoked authorities
 
@@ -32,7 +55,7 @@ Construct only ADR-0305's value-free 48-context representative, 96-context quali
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md) — Freeze capacity-filling v4 source.
+Latest process decision: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -40,7 +63,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0283](docs/decisions/ADR-0283-withdraw-v1-seed-authority-and-install-v2-trust-controls.md) | 2026-08-22 | accepted corrective process and engineering control; no h32 invocation authorized | Withdraw v1 seed authority and install v2 trust controls |
 | [ADR-0284](docs/decisions/ADR-0284-install-certified-bound-and-semantic-type-successors.md) | 2026-08-22 | accepted corrective engineering controls; historical result labels are preserved but numerical-bound claims are qualified | Install certified-bound and semantic-type successors |
 | [ADR-0285](docs/decisions/ADR-0285-close-second-and-third-round-review-defects.md) | 2026-08-23 | accepted corrective engineering validation; no research invocation or h32 result authorized | Close second- and third-round review defects |
 | [ADR-0286](docs/decisions/ADR-0286-install-the-exact-six-seat-legal-decision-spine.md) | 2026-08-23 | accepted reference-game and runtime engineering control; no strategy-quality or deployment result | Install the exact six-seat legal decision spine |
@@ -64,18 +86,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0304](docs/decisions/ADR-0304-reject-collision-repair-v3-on-qualified-recovery.md) | 2026-08-23 | accepted negative result; collision-repair v3 is rejected and parked before every integration path | Reject collision-repair v3 on qualified recovery |
 | [ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md) | 2026-08-23 | accepted prospective mechanism and replicated fresh-panel preregistration before v4 source code, structure construction, or values | Preregister capacity-filling pot-odds v4 |
 | [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md) | 2026-08-23 | accepted value-free source gate; v4 source is frozen before every seeded structure and value | Freeze capacity-filling v4 source |
+| [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) | 2026-08-23 | accepted charter amendment and executable successor preregistration before action-clock or preparation-bank source | Make the action clock and preparation bank authoritative |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md) — Freeze capacity-filling v4 source.
-- Governing runtime contract: [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
-- Numbered decisions: 306.
-- ADR-header SHA-256: `11d8ca2948ac819f75082f93504aa944277d1338fc2b69f7380e2789836b4fc2`.
-- Current blockers: all three v4 structures remain unconstructed; both candidate-blind qualification replications and every representative, v3-control, and v4 value remain unopened; v4 has not passed sizing quality or power; replay, blueprint, convex-master, resolver, and strategy integration remain unauthorized.
+- Latest ADR: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
+- Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
+- Numbered decisions: 307.
+- ADR-header SHA-256: `a47350dece57d2f6edb448cd677fef88c26f9cdc6f2115bd713b3d5d134b81cb`.
+- Current blockers: the maintained controller still implements ADR-0282's superseded cumulative charged-compute street ledger; no provenance-bound preparation bank or action-clock spine v2 exists; v4 structures and values remain unopened; no complete bot or live host adapter exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies
+4. [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), and their dependencies

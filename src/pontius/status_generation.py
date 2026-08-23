@@ -379,6 +379,10 @@ def render_status(root: Path = _ROOT, *, recent_count: int = 24) -> str:
     lines.append(f"Latest process decision: {_link(process, root)} — {process.title}.")
     lines.append("")
     lines.append("Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).")
+    required_heads = tuple(
+        dict.fromkeys((snapshot.controller, research, contract))
+    )
+    required_links = ", ".join(_link(row, root) for row in required_heads)
     lines.extend(
         [
             "",
@@ -413,7 +417,7 @@ def render_status(root: Path = _ROOT, *, recent_count: int = 24) -> str:
             "1. [PROJECT.md](PROJECT.md)",
             "2. [STATUS.md](STATUS.md)",
             "3. [ROADMAP.md](ROADMAP.md)",
-            f"4. {_link(snapshot.controller, root)}, {_link(research, root)}, {_link(contract, root)}, and their dependencies",
+            f"4. {required_links}, and their dependencies",
             "",
         ]
     )

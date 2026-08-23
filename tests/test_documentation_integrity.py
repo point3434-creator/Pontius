@@ -59,7 +59,7 @@ class DocumentationIntegrityTests(unittest.TestCase):
 
     def test_active_campaign_deadline_is_visible_in_maintained_contracts(self) -> None:
         expected = {
-            "PROJECT.md": ("shared monotonic deadline", "15-second street ledger"),
+            "PROJECT.md": ("shared monotonic deadline", "15-second action-response wall"),
             "ROADMAP.md": ("ADR-0279", "12.966 seconds"),
             "RUNBOOK.md": (
                 "campaign_deadline",
@@ -78,19 +78,22 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
-    def test_fifteen_second_wall_is_the_authoritative_street_contract(self) -> None:
+    def test_fifteen_second_wall_is_the_authoritative_action_contract(self) -> None:
         project = _contract_text("PROJECT.md")
         roadmap = _contract_text("ROADMAP.md")
         architecture = _contract_text("ARCHITECTURE.md")
-        self.assertIn("15,000 ms wall-clock budget per street", project)
-        self.assertIn("does not reset for another action", project)
+        self.assertIn("15,000 ms wall-clock response deadline", project)
+        self.assertIn("A later controlled action receives a new response wall", project)
         self.assertNotIn("Initial online budgets", project)
-        self.assertIn("Older 5-250 ms targets are historical only", roadmap)
-        self.assertIn("does not receive a fresh street budget", architecture)
+        self.assertIn(
+            "Older cumulative-street and 5-250 ms targets are historical only",
+            roadmap,
+        )
+        self.assertIn("does not pause through emission", architecture)
         runbook = _contract_text("RUNBOOK.md")
         risks = _contract_text("RISK_REGISTER.md")
         for relative, text in (("RUNBOOK.md", runbook), ("RISK_REGISTER.md", risks)):
-            self.assertIn("per-street", text, relative)
+            self.assertIn("action-response", text, relative)
             self.assertNotIn("per-decision live ledger", text, relative)
 
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:

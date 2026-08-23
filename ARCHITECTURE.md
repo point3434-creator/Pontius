@@ -37,14 +37,16 @@ their live eligibility sets are equal, preventing a folded-only threshold from
 creating a fictitious separately split side pot. Settlement splits each actual
 pot independently and awards integer odd chips clockwise from the button.
 
-`legal_decision_spine` owns one controlled seat. It applies opponent events,
+`legal_decision_spine` is the preserved ADR-0286 historical controller for one
+controlled seat. It applies opponent events,
 opens the controlled legal decision, accepts a resolver candidate only while
 timely and legal, and otherwise applies a caller-supplied immutable-blueprint
 fallback. Its `StreetDeadlineLedger` accumulates explicit monotonic wall-time
 intervals. The production hand factories construct and validate the initial
 preflop state inside the first charged interval. Opponent or transport idle is
 paused; event processing and any foreground or background agent computation
-are charged. The same ledger spans all controlled actions on a street.
+are charged. The same ledger spans all controlled actions on a street under
+the superseded ADR-0282 contract.
 Betting-state transition work is charged to the closing street; an exact
 transition archives its immutable closing snapshot before resetting, and
 fold/showdown freezes the final street record.
@@ -153,11 +155,15 @@ seat. Off-clock preparation builds the immutable blueprint, factorized belief
 contexts, shared public topology, resident solver state, and incremental
 response caches. Allocator scratch is trimmed before the street becomes ready.
 
-The governing live contract is one shared 15,000 ms of cumulative charged
-wall-clock work per street. All charged work across repeated agent actions on
-that street consumes the same allowance; opponent idle pauses it, useful
-background work consumes it, and a later action does not receive a fresh
-street budget.
+ADR-0307 now governs live time: every controlled action receives one continuous
+15,000 ms response wall, including the one-second emission reserve. The clock
+starts when the controlled seat becomes the actor and does not pause through
+emission. Earlier-street and opponent-turn work is separately measured online
+preparation; only an exact provenance-bound artifact hit can be credited to a
+decision, and no credit enlarges the response remainder. The additive action-
+clock ledger, preparation bank, and exact-spine v2 are preregistered but not yet
+implemented. The old cumulative-street controller remains a reproduction
+oracle rather than the governing timing path.
 
 Inside the 15-second boundary, the frozen systems control performs one resident
 warm step, constructs deterministic source-relative candidate deltas, and runs

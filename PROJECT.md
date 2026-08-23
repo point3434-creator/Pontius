@@ -5,9 +5,10 @@
 Build and measure a six-player no-limit Texas hold'em research agent that uses
 an offline blueprint, public-belief search, neural continuation values, adaptive
 actions and trees, and deadline-aware allocation of computation. The primary
-deployment objective is the best attainable strategy quality within one hard
-15,000 ms wall-clock budget per street on a Ryzen 9 9900X, 64 GB host-memory,
-RTX 5080 workstation.
+deployment objective is maximum marginal chip-valued decision quality per
+additional millisecond of attributable online workstation compute, subject to
+one hard 15,000 ms wall-clock response deadline whenever the controlled seat
+acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
 
 ## Game contract
 
@@ -15,14 +16,21 @@ RTX 5080 workstation.
 - 100 big-blind starting stacks.
 - No rake and no ante in the first full-game implementation.
 - Exact legal betting, all-in, side-pot, and card-removal rules.
-- One shared 15,000 ms wall-clock budget for all charged agent work on each
-  street. The clock does not reset for another action on the same street.
-- Opponent think and transport idle do not consume that allowance. Every
-  interval of agent work does: initial hand-state construction,
-  observed-action processing, foreground or background computation, legality
-  and candidate selection, certification, fallback preparation,
-  street-transition processing, and emission. Concurrent CPU/GPU work is
-  charged by elapsed wall time rather than summed device time.
+- Each controlled action has one continuous 15,000 ms wall-clock response
+  deadline, including a fixed 1,000 ms synchronization and emission reserve.
+  It starts when an observed event makes the controlled seat the actor and
+  includes every pause and work interval through emission. A later controlled
+  action receives a new response wall.
+- Opponent think and transport idle before that clock starts do not consume the
+  response wall. Agent work during that opportunity, including prior-street and
+  opponent-turn speculation, is online preparation rather than free time. It
+  may benefit a decision only through an exact provenance-bound artifact hit.
+  Report all preparation spent, credited, missed, invalidated, and aborted
+  separately; concurrent CPU/GPU work is elapsed wall time rather than summed
+  device time.
+- Pontius banks computed artifacts, not unused milliseconds. Preparation never
+  extends the live 15-second response deadline unless a future host exposes a
+  separate rules-defined time bank. Offline training cost remains separate.
 - Cold-cache and warm-cache results are reported separately.
 
 ## Current decision-boundary contract
@@ -74,12 +82,13 @@ RTX 5080 workstation.
   All three seed-bound structures, replicated qualification, and candidate
   values remain unopened. V1, v2, and v3 remain parked, v4 remains unaccepted
   on quality, and no action abstraction is integrated.
-- The authoritative hard boundary is 15,000 ms of wall-clock time per street,
-  including a fixed 1,000 ms reserve for synchronization and action emission.
-  Older 5-250 ms targets are superseded historical context and must not govern
-  any current or future acceptance gate.
-- Belief/topology preparation and immutable-blueprint construction occur before
-  the decision clock and are reported separately from charged work.
+- ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
+  hard boundary is 15,000 ms of continuous wall-clock time per controlled
+  action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain
+  superseded historical context.
+- Belief/topology preparation and speculation before the action clock are
+  measured online work. Only an exact semantic artifact hit may be credited to
+  a decision, and credited preparation never enlarges its live remainder.
 - The frozen measured schedule permits one resident warm step, deterministic
   candidate construction, and only certificates that the deadline guard can
   finish before the reserve.
@@ -94,7 +103,8 @@ RTX 5080 workstation.
   The runner atomically checkpoints before each frozen target or arm, admits
   the unit only when its complete preregistered bound still fits, and stops
   before any later work or label if either the unit or campaign wall is crossed.
-  This campaign ceiling is separate from the shared 15-second street ledger.
+  This campaign ceiling is separate from the 15-second action-response wall and
+  from online preparation accounting.
 - A speculative cache cannot trust a byte hash first produced by the same
   invocation that consumes it. Population, external hash sealing, and live
   replay are separate prospective stages. Until a later clean config pins the

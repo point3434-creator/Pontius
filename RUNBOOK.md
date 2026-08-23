@@ -80,7 +80,7 @@ $env:PYTHONPATH = "src"
 & $python -B -m unittest tests.test_no_limit_betting tests.test_no_limit_betting_exhaustive tests.test_legal_decision_spine tests.test_street_deadline tests.test_holdem_cards tests.test_immutable_blueprint tests.test_reference_hand_replay -v
 ```
 
-For every controlled decision, open the ticket once, place all resolver work
+For ADR-0286 historical reproduction, open the ticket once, place all resolver work
 inside `charge_compute()`, and call `emit_controlled_action` with both the
 candidate and a legal immutable-blueprint fallback. Apply opponent actions only
 through `observe_opponent_action`; the method charges event processing while
@@ -91,6 +91,8 @@ after the betting state reports round completion and the actual next public
 street has arrived. The method charges betting-transition work, archives the
 closing snapshot in `completed_street_deadlines`, and is the only ledger-reset
 path. Fold and showdown terminals likewise archive and freeze the final street.
+Do not use this cumulative-street controller as the governing timing path after
+ADR-0307.
 
 For complete reference hands, construct one `SixSeatHoldemDeal` only inside the
 replay/oracle boundary and pass decisions through `replay_reference_hand`. The
@@ -125,10 +127,9 @@ wall. Catch `CampaignDeadlineStop` only to persist its `as_record()` telemetry,
 release resources, and retain the preregistered fallback. Execute no later
 target, candidate evaluation, certificate, strategy label, or emission.
 
-The campaign deadline never replaces the one shared per-street live ledger or
-its emission reserve; that 15,000 ms ledger carries across every agent action
-on the street and never resets per decision. A successor config must freeze
-both independently. The
+The campaign deadline never replaces ADR-0307's continuous 15-second action-
+response wall, its emission reserve, or separate online-preparation accounting.
+A successor config must freeze these independently. The
 ADR-0277 runner is sealed historical code and must not be invoked again; any
 successor must import the shared deadline and test its stop path before GPU
 work.
@@ -701,10 +702,10 @@ reserved context from this branch. ADR-0044 is the durable rejection.
    CFR or selector modules backed by `pontius.resident_record_to_hand_fold_v2`.
    Supply distinct typed reach allowances and derive payoff span from the game;
    the predecessor is retained only to reproduce hash-pinned evidence.
-10. Carry `pontius.street_deadline.StreetDeadlineLedger` across all controlled
-    actions on one street. Charge every interval of event processing,
-    foreground/background agent work, legality, selection, and emission;
-    exclude only opponent/transport idle. Reset only on the exact next street.
+10. Retain `pontius.street_deadline.StreetDeadlineLedger` across all controlled
+    actions on one street only when reproducing ADR-0282/0286 evidence. ADR-0307
+    supersedes it for new live-timing claims; do not silently reinterpret its
+    cumulative charged seconds as a per-action response clock.
 11. Publish successor evidence through `pontius.deadline_owned_result` and load
     it only through its verified loader. A canonical file with no completion
     seal, or with a publishing lock, is diagnostic state rather than evidence.
@@ -800,3 +801,10 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     uniqueness, and maintained-inventory disjointness before importing any
     candidate or opening any qualification value. Keep v4 out of replay,
     blueprint, convex-master, resolver, and strategy integration.
+25. ADR-0307 supersedes the cumulative-street timing contract before those v4
+    structures. Preserve the old ledger and spine for reproduction. Implement
+    only the additive continuous 15-second action-response ledger, one-use
+    provenance-bound online preparation bank, and exact legal-decision-spine
+    v2. Preparation records actual work, not unused milliseconds; a valid
+    credit never extends the response remainder. Commit fake-clock boundary,
+    provenance, fallback, and archive tests before resuming ADR-0305 streams.

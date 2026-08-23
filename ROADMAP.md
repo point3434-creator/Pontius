@@ -672,8 +672,13 @@ now seals the value-free compiler, both prospective structures, the known
   micro enumeration, all three fixed adapters, original-coordinate semantic
   reconstruction and outward bounds, complete failure capture, and the exact
   2,655-invocation schedule under CPython 3.14.6, NumPy 2.5.2, SciPy 1.18.0,
-  and embedded HiGHS 1.12.0. Only unsealed toys have run. No sealed optimum or
-  backend result exists; the next checkpoint is one complete audit invocation.
+  and embedded HiGHS 1.12.0. Only unsealed toys had run at that source boundary.
+  [ADR-0314](docs/decisions/ADR-0314-retain-native-simplex-audit-and-reject-frozen-gate.md)
+  now retains the one-shot 2,655-observation result. Both HiGHS methods pass all
+  885 arms; native records 849 verified returns and 36 failures. The literal
+  frozen gate rejects on its sole `known-native-regression-mismatch` because
+  it required maximum row 215 to be the entire above-allowance row set. HiGHS
+  remains ineligible pending a separately sealed artifact-only correction.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -740,12 +745,12 @@ by ADR-0310 when qualified B hits the native solver's numerical kill criterion.
 Its A selection is provisional, no final evaluation panels exist, and every
 representative and candidate value remains unopened. All four exact-legality
   action candidates are parked. Before another sizing campaign can be trusted,
-  ADR-0311's candidate-independent native-simplex robustness audit must advance
-  through its remaining one-shot result boundary. ADR-0312 has sealed the
-  compiler and corpus half, and ADR-0313 has separately sealed the runner,
-  environment, options, typed observations, and complete schedule without a
-  sealed solver result. The passive reference source remains the emitted
-  fallback.
+  ADR-0311's candidate-independent native-simplex robustness audit had to pass
+  its one-shot result boundary. ADR-0314 now records that complete campaign but
+  rejects the literal gate on an over-specified known-regression row-set
+  predicate. All 1,770 HiGHS arms pass, but no backend is replacement-eligible
+  until a separate artifact-only correction is source-sealed and applied. The
+  passive reference source remains the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

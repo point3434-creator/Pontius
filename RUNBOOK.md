@@ -885,3 +885,17 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     partial result. The already-known native failure does not stop later arms.
     Record the frozen conjunctive pass or rejection before any replacement ADR;
     no outcome can revive v4 or authorize a consumer migration directly.
+32. ADR-0314 retains the complete one-shot campaign at
+    `experiments/results/native-simplex-robustness-audit-v1.json`, 110,068,679
+    bytes, SHA-256
+    `1f5e49cf1f855135283a0b8794656fc9e4fa6447886cb5fd8fe6dfcdcac8039a`.
+    Preserve all 2,655 observations. HiGHS dual simplex and IPM each pass all
+    885 arms; native records 849 verified returns and 36 exceptions. The
+    literal gate rejects on its sole `known-native-regression-mismatch`: the
+    frozen predicate required `(215,)` as the complete failing-row tuple, while
+    ADR-0310 had recorded row 215 as the unique maximum-residual row. Do not
+    rerun a backend or silently reinterpret this as a pass. A successor may
+    source-seal only an artifact-bound semantic correction, with a mocked
+    multi-row/unique-maximum control, before authoritative reanalysis. It may
+    change no result byte, HiGHS conjunct, option, allowance, native source,
+    action candidate, or consumer.

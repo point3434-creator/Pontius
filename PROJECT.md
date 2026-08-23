@@ -100,8 +100,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   with exact micro enumeration, original-coordinate primal/dual mapping,
   feasible behavioral sizing reconstruction, outward certificates, complete
   failure observations, frozen runtime/options, and the 2,655-call schedule.
-  Only unsealed toys have exercised it. No sealed optimum or backend result
-  exists; the next boundary is the one-shot complete audit invocation.
+  ADR-0313's one-shot complete audit invocation is now retained by ADR-0314:
+  all 2,655 arms completed, all 885 HiGHS dual-simplex and all 885 IPM arms
+  passed, and native recorded 36 failures. The literal conjunction still
+  rejects because its known-regression predicate confused unique maximum row
+  215 with the complete above-allowance row set. HiGHS remains ineligible
+  pending a source-sealed, artifact-only semantic-gate correction; no backend
+  rerun or v4 revival is authorized.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -214,6 +214,32 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_native_simplex_audit_frozen_gate_rejection_is_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0314", "36 failures"),
+            "PROJECT.md": ("all 2,655 arms", "complete above-allowance row set"),
+            "STATUS.md": ("ADR-0314", "artifact-bound semantic-gate correction"),
+            "ROADMAP.md": ("known-native-regression-mismatch", "1,770 HiGHS arms"),
+            "RUNBOOK.md": (
+                "1f5e49cf1f855135283a0b8794656fc9e4fa6447886cb5fd8fe6dfcdcac8039a",
+                "complete failing-row tuple",
+            ),
+            "ARCHITECTURE.md": (
+                "849 verified returns and 36 exceptions",
+                "literal gate rejects",
+            ),
+            "RISK_REGISTER.md": (
+                "R74",
+                "unique maximum-residual row",
+                "R75",
+                "core.autocrlf=true",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

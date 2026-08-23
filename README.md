@@ -97,8 +97,12 @@ criteria before any corpus source or new LP value. ADR-0312 now seals the pure
   ADR-0313 runner is now source-sealed with typed failure-complete observations,
   exact micro enumeration, original-coordinate sizing reconstruction, outward
   certificate plumbing, frozen environment/options, and the exact 2,655-call
-  schedule. It has run only on unsealed toys. The active boundary is one
-  complete sealed audit invocation; no sealed optimum or backend result exists.
+  schedule. ADR-0314 now retains the complete 2,655-observation result. Every
+  HiGHS dual-simplex and IPM arm passes, while native records 36 failures. The
+  literal gate rejects because it over-specified the known regression's entire
+  failing-row set instead of its recorded unique maximum row 215. HiGHS remains
+  ineligible until a separately sealed artifact-only correction is applied;
+  no backend rerun, v4 revival, or consumer migration is authorized.
 
 ## Current checkpoint
 

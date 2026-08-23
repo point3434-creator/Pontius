@@ -150,9 +150,13 @@ ordered bases, and five exact row/variable/scaling/redundancy representations
   rounded original-coordinate upper bounds, immutable failure-complete
   observations, and the variant-major 2,655-call schedule. The adjacent
   `native_simplex_audit_seal` prevents a changed runner or runtime identity from
-  invoking the corpus. Only unsealed toy inputs have exercised these paths; no
-  sealed exact optimum, HiGHS/native result, sizing value, or certificate
-  interval exists. This remains solver infrastructure and cannot reopen v4.
+  invoking the corpus. At the ADR-0313 boundary, only unsealed toy inputs had
+  exercised these paths. ADR-0314 now retains the complete 2,655-arm canonical
+  artifact: both HiGHS methods verify on all 885 representations, native has
+  849 verified returns and 36 exceptions, and no runner failure truncates the
+  schedule. The literal gate rejects because it equated the regression's
+  unique maximum row with its complete above-allowance row set. This remains
+  solver infrastructure; HiGHS is not a consumer and v4 stays parked.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

@@ -15,15 +15,24 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Proceed to value-free structural construction. Do not change the source,
-source id, digest semantics, seed text, generator version, inherited structural
-rules, context counts, or temporal boundaries after seeing a structure or
-value. Any drift rejects this invocation rather than creating an implicit v3
-variant.
+Commit these structural identities before implementing or calling the value-
+owning qualification successor. That successor must convert each structural
+record one-to-one into the existing reduced oracle context and prove equality
+of every semantic field before solving. It may import full/narrow oracle
+machinery but must not import the collision-repair source or derive any
+candidate action. It must own both calls, classification, contiguous prefix,
+first ambiguity, exact stop state, numerical controls, pivot caps, and result
+binding.
+
+The representative family remains entirely value-unopened during qualified-
+pool classification. After a clean target-reached result, extract exactly the
+first 24 qualifiers and commit the result, qualified-panel identity, teacher
+controls, and disjointness preservation before opening the first representative
+or qualified v3 value.
 
 ## Active next
 
-Implement the value-free fresh width-four structural generator, construct exactly the frozen 48-context representative family and separate 96-context qualified pool, and commit their identities before opening any full/narrow qualification value; keep collision-repair v3 values and every replay, blueprint, convex-master, resolver, and strategy integration closed
+Implement a separate candidate-blind owned qualification runner against only the sealed 96-context qualified pool, bind an exact one-to-one structural-to-oracle conversion, and stop immediately on the twenty-fourth qualifier, first ambiguity, or exhaustion; keep the representative family and every v3 value, replay, blueprint, convex-master, resolver, and strategy integration unopened
 
 ## Revoked authorities
 
@@ -31,7 +40,7 @@ Implement the value-free fresh width-four structural generator, construct exactl
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0301](docs/decisions/ADR-0301-freeze-collision-repair-v3-source-and-fresh-seeds.md) — Freeze collision-repair v3 source and fresh seeds.
+Latest process decision: [ADR-0302](docs/decisions/ADR-0302-seal-fresh-v3-structures-before-qualification-values.md) — Seal fresh v3 structures before qualification values.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -39,7 +48,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0278](docs/decisions/ADR-0278-reject-pre-bet-action-width-capacity-invocation-on-campaign-duration.md) | 2026-08-22 | accepted rejection record; ADR-0277 invocation and widened authorization rejected | Reject pre-bet action-width capacity invocation on campaign duration |
 | [ADR-0279](docs/decisions/ADR-0279-install-active-campaign-deadlines-and-prioritize-exact-pre-bet-row-speculation.md) | 2026-08-22 | accepted label-free engineering result; deadline prerequisite closed and CPU/cache differential authorized | Install active campaign deadlines and prioritize exact pre-bet row speculation |
 | [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md) | 2026-08-22 | accepted label-free engineering control; cache mechanics pass and timed capacity remains closed | Exact pre-bet row cache passes CPU/h2 fail-closed control |
 | [ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md) | 2026-08-22 | accepted label-free seed-only preregistration before any h32 cache population or capacity replay; revoked by ADR-0283 | Preregister temporally separated pre-bet row-cache seed |
@@ -63,18 +71,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md) | 2026-08-23 | accepted candidate-blind evaluation-power result; one v3 preregistration is authorized but no mechanism or integration is accepted | Width four passes replicated sizing power |
 | [ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md) | 2026-08-23 | accepted executable mechanism and evaluation preregistration before v3 source implementation or fresh panel construction | Preregister collision-repair v3 and fresh dual panels |
 | [ADR-0301](docs/decisions/ADR-0301-freeze-collision-repair-v3-source-and-fresh-seeds.md) | 2026-08-23 | accepted source and seed freeze; no fresh panel or sizing value has been constructed | Freeze collision-repair v3 source and fresh seeds |
+| [ADR-0302](docs/decisions/ADR-0302-seal-fresh-v3-structures-before-qualification-values.md) | 2026-08-23 | accepted value-free structural freeze; every fresh sizing value remains unopened | Seal fresh v3 structures before qualification values |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0301](docs/decisions/ADR-0301-freeze-collision-repair-v3-source-and-fresh-seeds.md) — Freeze collision-repair v3 source and fresh seeds.
+- Latest ADR: [ADR-0302](docs/decisions/ADR-0302-seal-fresh-v3-structures-before-qualification-values.md) — Seal fresh v3 structures before qualification values.
 - Governing runtime contract: [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
-- Numbered decisions: 301.
-- ADR-header SHA-256: `6a41cf073ca5c7f720a0c2ff3ad559073bcdbf351e5dda12c0ad0814d38ff2ce`.
-- Current blockers: neither fresh structure exists, the candidate-blind qualified runner has not opened a value, no 24-context qualified panel or disjointness digest exists, no v3 value exists, and integration remains unauthorized.
+- Numbered decisions: 302.
+- ADR-header SHA-256: `3e93f1a32b971fc1c33a19f755f05d168f2250e13339f0b4050682feade2a10b`.
+- Current blockers: no fresh full/narrow value or qualified result exists, the 24-context qualified panel is not identified, the representative family has no value, no v3 evaluation has run, and integration remains unauthorized.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0301](docs/decisions/ADR-0301-freeze-collision-repair-v3-source-and-fresh-seeds.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies
+4. [ADR-0302](docs/decisions/ADR-0302-seal-fresh-v3-structures-before-qualification-values.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies

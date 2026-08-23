@@ -751,3 +751,11 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     commit their identities and finite-inventory disjointness checks before
     opening full/narrow qualification values. Keep the v3 source absent from
     structural and qualification modules until both final panels are sealed.
+20. Rebuild ADR-0302's value-free families only through
+    `pontius.fresh_collision_repair_structures.build_adr0301_fresh_structure`.
+    Their digests are `b678f1140dd7ba75f5315abf58392d42b42a1a633c3249ec36991846a1bbab69`
+    and `fb26a8cfd2f82fd56896e22f6d006495f1148669dd6db3f56dcf2e79deeb4146`.
+    Convert and open only the sealed qualified pool through a separate owned
+    runner after this structural commit; keep representative and v3 values
+    unopened, bind every semantic field, and stop inside the runner at target,
+    ambiguity, or exhaustion.

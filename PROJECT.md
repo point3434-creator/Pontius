@@ -57,8 +57,10 @@ RTX 5080 workstation.
 - ADR-0300 preregisters collision-repair v3 before source code: preserve v2's
   distinct two-pot action and use three-halves pot only when two-pot wastes its
   slot on a mandatory anchor. ADR-0301 now freezes the exhaustively validated
-  source digest and two exact fresh seeds. No fresh structure, sizing value,
-  v3 value, or integration exists yet.
+  source digest and two exact fresh seeds. ADR-0302 seals the resulting
+  value-free 48-context representative family and separate 96-context
+  qualification pool with zero counterpart among 604 maintained prior
+  contexts. No fresh sizing value, v3 value, or integration exists yet.
 - The authoritative hard boundary is 15,000 ms of wall-clock time per street,
   including a fixed 1,000 ms reserve for synchronization and action emission.
   Older 5-250 ms targets are superseded historical context and must not govern

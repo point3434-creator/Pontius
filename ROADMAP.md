@@ -617,9 +617,13 @@ freezes that mechanism and its dual-panel gates before source implementation.
 The successor
 [ADR-0301](docs/decisions/ADR-0301-freeze-collision-repair-v3-source-and-fresh-seeds.md)
 passes exhaustive exact-legality and v2-superset validation and freezes the
-source digest plus two exact fresh seeds. The immediate boundary is a separate
-value-free commit of the 48-context representative structure and 96-context
-qualified pool. No full/narrow qualification or v3 value may precede it.
+source digest plus two exact fresh seeds.
+[ADR-0302](docs/decisions/ADR-0302-seal-fresh-v3-structures-before-qualification-values.md)
+now commits the resulting value-free 48-context representative structure and
+96-context qualified pool, with zero counterpart in 604 maintained prior
+contexts. The immediate boundary is a separate candidate-blind full/narrow
+qualification runner on only the sealed pool. The representative family and
+every v3 value remain unopened.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

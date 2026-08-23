@@ -61,7 +61,9 @@ ADR-0300 freezes collision-repair v3 before source implementation. ADR-0301
 now records its exhaustively validated exact-legal source and immutable digest:
 v2's two-pot action remains whenever distinct, and three-halves pot substitutes
 only on a mandatory-anchor collision. Two exact fresh stream seeds are sealed;
-their structures, all sizing values, and every integration path remain unopened.
+ADR-0302 now seals their value-free 48-context representative family and
+separate 96-context qualification pool. All fresh sizing values and every
+integration path remain unopened.
 
 ## Current checkpoint
 

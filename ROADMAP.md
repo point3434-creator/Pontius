@@ -652,8 +652,14 @@ now amends the governing resource contract before more v4 work. Each controlled
 action receives one continuous 15-second response wall. Earlier-street and
 opponent-turn compute can contribute only through an exactly matching prepared
 artifact and is reported as attributable online work, not free latency or
-literal deadline carryover. The additive action-clock ledger, preparation bank,
-and exact-spine v2 must pass before the three v4 structures are constructed.
+literal deadline carryover.
+[ADR-0308](docs/decisions/ADR-0308-install-the-action-clock-and-preparation-bank.md)
+now passes the additive action-clock ledger, preparation bank, and exact-spine
+v2 checkpoint with deterministic boundary, provenance, archive, and fallback
+tests. It establishes accounting mechanics only: complete-hand/live-host
+integration and useful preparation hit/quality evidence remain absent. The next
+gate returns to construction and sealing of the three frozen value-free v4
+streams; qualification and candidate values remain unopened.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
@@ -703,9 +709,10 @@ fixed. The three-by-three pool failed its second yield replication and remains
 parked. The width-four game now passes its frozen replicated yield and exact-
 work boundary. Collision-repair v3 is implemented but rejected and parked.
 Capacity-filling v4 is implemented only as a frozen value-free source; its
-fresh structures and every value remain unopened. ADR-0307 temporarily places
-the additive action-clock/preparation-bank implementation ahead of those
-structures. The passive reference source remains the emitted fallback.
+fresh structures and every value remain unopened. ADR-0308 passes the additive
+action-clock/preparation-bank implementation and returns the active boundary to
+those value-free structures. The passive reference source remains the emitted
+fallback.
 
 ## C6: Neural blueprint and leaves
 

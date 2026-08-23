@@ -96,6 +96,23 @@ class DocumentationIntegrityTests(unittest.TestCase):
             self.assertIn("action-response", text, relative)
             self.assertNotIn("per-decision live ledger", text, relative)
 
+    def test_action_clock_and_preparation_successor_is_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0308", "LegalDecisionSpineV2"),
+            "PROJECT.md": ("ActionClockLedger", "PreparationBank"),
+            "ROADMAP.md": ("ADR-0308", "quality evidence remain absent"),
+            "RUNBOOK.md": (
+                "pontius.legal_decision_spine_v2",
+                "claim_preparation",
+            ),
+            "ARCHITECTURE.md": ("implemented and accepted", "live host"),
+            "RISK_REGISTER.md": ("R67", "R68", "marginal decision quality"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

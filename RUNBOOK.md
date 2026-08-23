@@ -61,24 +61,43 @@ integrity tests verify the generated artifact and maintained local links.
 
 ## Legal decision spine verification
 
-The reference full-hand foundation is `pontius.no_limit_betting`, wrapped for
-one controlled seat by `pontius.legal_decision_spine`. It uses integer chips and
-raise-to totals. Do not feed the simplified `river_multiway` or
-`river_multiway_multi_size` action semantics into this boundary; those modules
-remain intentionally restricted sealed workloads.
+The exact betting foundation is `pontius.no_limit_betting`. ADR-0308's
+governing one-seat timing wrapper is `pontius.legal_decision_spine_v2`; the
+unversioned `pontius.legal_decision_spine` remains the ADR-0286 historical
+complete-hand wrapper. Both use integer chips and raise-to totals. Do not feed
+the simplified `river_multiway` or `river_multiway_multi_size` action semantics
+into either boundary; those modules remain intentionally restricted sealed
+workloads.
 
-Create a live hand with `LegalDecisionSpine.new_hand` or `six_max_100bb`; those
-factories charge initial betting-state construction and validation to preflop.
-The direct constructor is for a replay state paired with its already-owned
-ledger, not a way to move live initialization off-clock.
+Create a prospective live hand with `LegalDecisionSpineV2.new_hand` or
+`six_max_100bb`. Those factories capture the external boundary before initial
+betting-state construction. Invoke `observe_opponent_action` immediately on
+event receipt and `advance_street` immediately on the public transition; each
+method owns the transition boundary and starts the continuous action wall if
+the result makes the controlled seat the actor. A direct v2 constructor must
+not receive a prebuilt state where the controlled seat is already acting unless
+the exact matching action clock was started at the external boundary; it fails
+closed otherwise.
 
 Run the focused rules, one-seat, timing, card, blueprint, replay, randomized,
 and exhaustive checks with:
 
 ```powershell
 $env:PYTHONPATH = "src"
-& $python -B -m unittest tests.test_no_limit_betting tests.test_no_limit_betting_exhaustive tests.test_legal_decision_spine tests.test_street_deadline tests.test_holdem_cards tests.test_immutable_blueprint tests.test_reference_hand_replay -v
+& $python -B -m unittest tests.test_no_limit_betting tests.test_no_limit_betting_exhaustive tests.test_action_clock tests.test_preparation_bank tests.test_legal_decision_spine_v2 tests.test_legal_decision_spine tests.test_street_deadline tests.test_holdem_cards tests.test_immutable_blueprint tests.test_reference_hand_replay -v
 ```
+
+For ADR-0308, open the exact decision before resolver work and wrap all on-clock
+work in `charge_compute()`. Preparation is legal only while no controlled action
+is active. Build it through `PreparationBank.start_preparation` and
+`seal_preparation`, or its exception-safe context; never supply a duration.
+Target the exact future betting-state digest, and bind cards, board, beliefs,
+action model, and every other consumer dependency inside the semantic-context
+digest. Claim through `LegalDecisionSpineV2.claim_preparation`; the current
+public-state digest is derived by the spine and cannot be caller supplied. A hit
+adds credited preparation to telemetry only. It does not change the action's
+15-second remainder. Stop resolver work before emission and always supply a
+legal immutable fallback.
 
 For ADR-0286 historical reproduction, open the ticket once, place all resolver work
 inside `charge_compute()`, and call `emit_controlled_action` with both the
@@ -802,9 +821,15 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     candidate or opening any qualification value. Keep v4 out of replay,
     blueprint, convex-master, resolver, and strategy integration.
 25. ADR-0307 supersedes the cumulative-street timing contract before those v4
-    structures. Preserve the old ledger and spine for reproduction. Implement
-    only the additive continuous 15-second action-response ledger, one-use
-    provenance-bound online preparation bank, and exact legal-decision-spine
-    v2. Preparation records actual work, not unused milliseconds; a valid
-    credit never extends the response remainder. Commit fake-clock boundary,
-    provenance, fallback, and archive tests before resuming ADR-0305 streams.
+    structures. Preserve the old ledger and spine for reproduction. ADR-0308
+    now accepts the additive continuous 15-second action-response ledger, one-
+    use provenance-bound online preparation bank, and exact legal-decision-
+    spine v2. Preparation records actual work, not unused milliseconds; a valid
+    credit never extends the response remainder. Use only this successor for
+    prospective timing claims.
+26. Resume ADR-0305 only at its three value-free stream constructions, in the
+    frozen representative, qualified-A, qualified-B order. Keep every value
+    unopened. Any later allocation experiment must report the full marginal
+    chip-quality curve over both response and preparation milliseconds, plus
+    misses and invalidation waste; credited compute or hit rate alone is not a
+    quality result.

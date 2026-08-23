@@ -89,6 +89,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
 - Belief/topology preparation and speculation before the action clock are
   measured online work. Only an exact semantic artifact hit may be credited to
   a decision, and credited preparation never enlarges its live remainder.
+- ADR-0308 implements that contract in the additive `ActionClockLedger`,
+  `PreparationBank`, and `LegalDecisionSpineV2`. The exact spine derives the
+  current public-state identity, rejects late construction after our turn has
+  begun, and forces a legal fallback at the work or wall boundary. The older
+  cumulative-street spine remains a historical reproduction control. V2 is not
+  yet connected to the complete-hand replay or a live host, and no preparation
+  hit has established decision-quality value.
 - The frozen measured schedule permits one resident warm step, deterministic
   candidate construction, and only certificates that the deadline guard can
   finish before the reserve.

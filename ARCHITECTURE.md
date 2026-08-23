@@ -161,9 +161,12 @@ starts when the controlled seat becomes the actor and does not pause through
 emission. Earlier-street and opponent-turn work is separately measured online
 preparation; only an exact provenance-bound artifact hit can be credited to a
 decision, and no credit enlarges the response remainder. The additive action-
-clock ledger, preparation bank, and exact-spine v2 are preregistered but not yet
-implemented. The old cumulative-street controller remains a reproduction
-oracle rather than the governing timing path.
+clock ledger, preparation bank, and exact-spine v2 are implemented and accepted
+by ADR-0308. The exact spine derives the active public-state digest, starts at
+the event boundary, rejects construction after an unowned live boundary, and
+falls back on cutoff or deadline crossing. The old cumulative-street controller
+remains a reproduction oracle rather than the governing timing path; the new
+spine is not yet connected to the complete-hand replay or a live host.
 
 Inside the 15-second boundary, the frozen systems control performs one resident
 warm step, constructs deterministic source-relative candidate deltas, and runs

@@ -16,6 +16,13 @@ credited only through an exact matching prepared artifact; it never extends
 the live response deadline. Earlier cumulative-street results remain historical
 systems controls, not deployment or broad strategy-quality claims.
 
+ADR-0308 installs that contract as `ActionClockLedger`, `PreparationBank`, and
+`LegalDecisionSpineV2`. Exact event boundaries now start each action wall before
+state-transition work, preparation claims are one-use and bound to the exact
+public state plus semantic/source provenance, and late candidates fail closed
+to a legal fallback. This is verified resource accounting, not evidence that
+speculation improves play or that a complete decision fits the live host.
+
 ADR-0290 carries ADR-0288's explicit-deal reference loop, built on ADR-0286,
 across five complete 1,225/1,081/1,035/990 opponent axes on every street. Exact
 rational public-action likelihoods update only their actor, hard card

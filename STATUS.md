@@ -15,19 +15,23 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept and seal ADR-0305's three value-free capacity-filling v4 structures.
-They reconstruct from the exact frozen ASCII seeds in the required
-representative, qualified-A, qualified-B order; satisfy the inherited width-
-four card, chip, exact-range, and sign-filter contract; are unique within and
-across families; and have no semantic counterpart in the finite maintained
-ADR-0291 through ADR-0304 context inventory.
+Keep v4 as a hash-pinned, value-free source and rejected qualification control.
+Do not repair the native solver and retry this panel, replace the oracle with
+HiGHS after outcome, accept A alone, select around B context 21, enlarge or
+reseed either pool, relax a tolerance, or open representative/v3/v4 candidate
+values. ADR-0305's failure authority is exhausted.
 
-This checkpoint opened no sizing-oracle, qualification, representative, v3,
-or v4 value. The frozen capacity-filling candidate source is unchanged.
+The next eligible boundary is a new prospective, candidate-independent
+native-simplex robustness preregistration. It should freeze the already-known
+failing LP as a development regression, add a prospectively fixed adversarial
+corpus, compare feasibility and objectives against an independent solver or
+certificate with unit-specific checks, and define what would reject a solver
+replacement. A future action candidate would still require new prospective
+quality evidence; a solver repair alone cannot revive v4.
 
 ## Active next
 
-Implement a separate candidate-blind owned qualification runner over only the sealed qualified-A pool, stop at its twenty-fourth qualifier, first ambiguity, numerical failure, or exhaustion, and open qualified B only after A passes; keep the representative family and every v3/v4 candidate value unopened until both final panel identities are committed
+Preregister a candidate-independent native-simplex robustness audit over the sealed failing LP and a prospectively fixed adversarial corpus, with an independent solver or certificate used only as a diagnostic control; do not repair and retry ADR-0305 qualification, reopen capacity-filling v4, open its representative or candidate values, or connect any parked action lattice to replay, blueprint, the convex master, resolving, or strategy paths
 
 ## Revoked authorities
 
@@ -35,7 +39,7 @@ Implement a separate candidate-blind owned qualification runner over only the se
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md) — Seal capacity-filling v4 structures before qualification.
+Latest process decision: [ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md) — Reject capacity-filling v4 on qualified-B numerical failure.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -43,7 +47,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0286](docs/decisions/ADR-0286-install-the-exact-six-seat-legal-decision-spine.md) | 2026-08-23 | accepted reference-game and runtime engineering control; no strategy-quality or deployment result | Install the exact six-seat legal decision spine |
 | [ADR-0287](docs/decisions/ADR-0287-preregister-the-complete-reference-hand-replay.md) | 2026-08-23 | accepted executable correctness preregistration before any reference-hand replay result | Preregister the complete reference-hand replay |
 | [ADR-0288](docs/decisions/ADR-0288-complete-reference-hands-pass-the-exact-one-seat-loop.md) | 2026-08-23 | accepted complete-reference correctness result; no strategy-quality, scalability, latency-distribution, or deployment result | Complete reference hands pass the exact one-seat loop |
 | [ADR-0289](docs/decisions/ADR-0289-preregister-the-full-width-belief-blueprint-boundary.md) | 2026-08-23 | accepted executable correctness preregistration before any full-width complete-hand result | Preregister the full-width belief/blueprint boundary |
@@ -67,18 +70,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) | 2026-08-23 | accepted charter amendment and executable successor preregistration before action-clock or preparation-bank source | Make the action clock and preparation bank authoritative |
 | [ADR-0308](docs/decisions/ADR-0308-install-the-action-clock-and-preparation-bank.md) | 2026-08-23 | accepted runtime engineering control; no strategy-quality, preparation-utility, complete-hand, or deployment result | Install the action clock and preparation bank |
 | [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md) | 2026-08-23 | accepted value-free structural freeze; every v4 qualification and candidate value remains unopened | Seal capacity-filling v4 structures before qualification |
+| [ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md) | 2026-08-23 | accepted negative qualification result; capacity-filling v4 is rejected and parked before every candidate value and integration path | Reject capacity-filling v4 on qualified-B numerical failure |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md) — Seal capacity-filling v4 structures before qualification.
+- Latest ADR: [ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md) — Reject capacity-filling v4 on qualified-B numerical failure.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 309.
-- ADR-header SHA-256: `c36065a0ad2cd3c4b38b168db8090c20abe426d81f23c3e599b5789bab7137ff`.
-- Current blockers: neither candidate-blind qualification replication has opened a value; no 24-context qualified-A or qualified-B panel exists; every representative, v3-control, and v4 value remains unopened; v4 has no sizing-quality, replay, convex-master, resolver, blueprint, or strength result.
+- Numbered decisions: 310.
+- ADR-header SHA-256: `a90097c09bdcc8ddeebc4f3aa17e56514c9a43697eb35f362502f19ef87afb33`.
+- Current blockers: qualified B hits the frozen numerical kill criterion before a final panel exists; qualified A's passing selection is provisional and cannot authorize evaluation alone; capacity-filling v4 and v1-v3 are parked; the native compact-LP solver has one reproducible robustness failure without a replacement evidence contract; no action abstraction has passed the complete reduced quality-and-power boundary.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

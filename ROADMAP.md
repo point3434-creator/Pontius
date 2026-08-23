@@ -647,9 +647,15 @@ v3-superset, full-slot, provenance, projection, and bounded-work validation.
 [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md)
 now seals the three frozen value-free streams at 48/96/96 contexts after
 239/570/451 raw card candidates. All are mutually unique and have zero
-counterparts in the finite 748-context maintained inventory. The next gate is
-only candidate-blind qualification of A and then, conditional on A passing, B;
-the representative family and every candidate value remain unopened.
+counterparts in the finite 748-context maintained inventory.
+[ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md)
+rejects the ordered candidate-blind qualification. A reaches 24 qualifiers
+after 73 contexts and passes all teacher controls, but B stops on the
+full-integer arm of context 21 when the native simplex solution fails primal
+verification. No final A/B panel exists, the representative and every
+candidate value remain unopened, and v4 is parked. The next eligible boundary
+is a separately preregistered candidate-independent native-simplex robustness
+audit; it cannot repair and retry this v4 panel.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -661,9 +667,10 @@ literal deadline carryover.
 now passes the additive action-clock ledger, preparation bank, and exact-spine
 v2 checkpoint with deterministic boundary, provenance, archive, and fallback
 tests. It establishes accounting mechanics only: complete-hand/live-host
-integration and useful preparation hit/quality evidence remain absent. The next
-gate returns to ADR-0309's sealed v4 boundary; qualification and candidate
-values remain unopened.
+integration and useful preparation hit/quality evidence remain absent. Its
+successor gate returned to ADR-0309's sealed v4 boundary; ADR-0310 has since
+rejected that qualification while preserving every representative and
+candidate value as unopened.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
@@ -701,22 +708,22 @@ blueprint, ranges, fixed-depth resolving, off-tree handling, and fail-closed
 fallbacks. The resolver must improve the blueprint in reduced exact games and
 against a frozen evaluation league.
 
-The first three exact-legality candidates were killed before integration: v1
+The first four exact-legality candidates were killed before integration: v1
 on reduced sizing recovery, v2 on confirmation power, and v3 on qualified
-aggregate recovery. The next checkpoint remains narrower than blueprint
-training or resolver integration. ADR-0305 prospectively freezes a same-ceiling
-capacity-filling successor; ADR-0306 passes its source gate, but it must still
-pass replicated fresh-panel and reduced quality gates before any compatibility
-audit. ADR-0297
+aggregate recovery, then v4 on qualified-B numerical robustness. The next
+checkpoint remains narrower than blueprint training or resolver integration.
+ADR-0297
 preregisters a four-by-four private-type game while holding the one-bet tree
 fixed. The three-by-three pool failed its second yield replication and remains
 parked. The width-four game now passes its frozen replicated yield and exact-
 work boundary. Collision-repair v3 is implemented but rejected and parked.
-Capacity-filling v4 is implemented only as a frozen value-free source; its
-three fresh structures are now sealed by ADR-0309, while every qualification
-and candidate value remains unopened. The active boundary is candidate-blind
-qualification A, then B only if A passes. The passive reference source remains
-the emitted fallback.
+Capacity-filling v4 is implemented as a frozen value-free source but rejected
+by ADR-0310 when qualified B hits the native solver's numerical kill criterion.
+Its A selection is provisional, no final evaluation panels exist, and every
+representative and candidate value remains unopened. All four exact-legality
+action candidates are parked. Before another sizing campaign can be trusted,
+the active boundary is a prospective candidate-independent native-simplex
+robustness audit. The passive reference source remains the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

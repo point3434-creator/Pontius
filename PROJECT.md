@@ -82,9 +82,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   ADR-0309 now seals its 48-context representative and separate 96-context
   qualified-A and qualified-B structures before every value. They are mutually
   unique and have no counterpart in the finite 748-context ADR-0291--0304
-  inventory. Both qualification replications and every candidate value remain
-  unopened. V1, v2, and v3 remain parked, v4 remains unaccepted on quality,
-  and no action abstraction is integrated.
+  inventory. ADR-0310 rejects the ordered qualification before candidate
+  evaluation: A reaches 24 qualifiers after 73 contexts and passes its teacher
+  controls, but B's full-integer LP at context 21 fails native primal
+  verification. A is provisional, no final A/B panels exist, and every
+  representative and candidate value remains unopened. V1-v4 are parked and
+  no action abstraction is integrated. The next eligible work is a separately
+  preregistered candidate-independent native-simplex robustness audit, not a
+  v4 retry.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

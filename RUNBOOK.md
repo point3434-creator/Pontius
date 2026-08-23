@@ -835,10 +835,19 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     experiment must report the full marginal chip-quality curve over both
     response and preparation milliseconds, plus misses and invalidation waste;
     credited compute or hit rate alone is not a quality result.
-27. Implement v4 qualification only in a separate value-owning module. Convert
-    each sealed structural record one-to-one, bind every semantic field, and
-    import no action candidate. Open qualified A first and stop internally at
-    its twenty-fourth qualifier, first ambiguity, numerical/pivot failure, or
-    exhaustion. Do not open B unless A passes. Commit both final panel
-    identities and leading two-by-two teacher controls before opening the
-    representative family or importing v3/v4 into an evaluator.
+27. Reproduce ADR-0310 only through
+    `pontius.fresh_capacity_filling_qualification`. Qualified A must stop at
+    context 72 with campaign digest
+    `c292dd30782d26a43ef71038f7f2fd55cabfa1004f6f049b8476e69df3f7462d`.
+    Only that exact pass may construct B. B must stop on solver call 43, the
+    full-integer arm at context 21, with failure digest
+    `03c5dc4f00c0429d3c615352a1d52f9c64dec0d3b4c4cf72f6d7cc171e3a26fe`.
+    Do not run B's minimum/all-in arm at context 21, open context 22 or later,
+    accept A's provisional panel, or open representative/v3/v4 candidate
+    values. Keep v4 and every integration path parked.
+28. Any native-simplex repair begins with a separate prospective,
+    candidate-independent robustness preregistration. The known B context-21
+    LP may be a development regression, but freeze an additional adversarial
+    corpus and independent diagnostic/certificate contract before evaluating
+    a replacement. Never use alternate-solver feasibility, looser tolerance,
+    or a post-outcome rerun to revive ADR-0305 qualification.

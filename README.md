@@ -83,8 +83,12 @@ replications are committed prospectively. ADR-0306 now freezes the value-free
 v4 source after exhaustive legality, v3-inclusion, exact-capacity, projection,
 and bounded-work checks. ADR-0309 now seals the value-free 48/96/96 fresh
 structures, their raw attempt counts, and zero overlap with the finite prior
-inventory. No v4 qualification or candidate value is open, and the source is
-not connected to replay, blueprint, the convex master, or resolving.
+inventory. ADR-0310 rejects v4's ordered qualification: A reaches 24
+qualifiers after 73 contexts, but B's full-integer LP at context 21 fails the
+native solver's primal verification. No final panel or candidate value is
+accepted, and the source remains disconnected from replay, blueprint, the
+convex master, and resolving. The next gate is a prospectively preregistered
+candidate-independent native-simplex robustness audit, not a v4 retry.
 
 ## Current checkpoint
 

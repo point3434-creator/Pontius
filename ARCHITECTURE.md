@@ -107,9 +107,11 @@ seven raises by exact-rational maximin spacing in responder pot-odds. Its
 midpoint inversion checks only floor and ceiling integers, so work is bounded
 by action width rather than chip depth. Refill rank, bracket, score, parent
 digest, and source digest are immutable and reconstructively validated. The
-source gate passes and ADR-0309 seals all three fresh structures, but every
-qualification and candidate value remains unopened; no v4 action may enter
-replay, blueprint, convex-master, resolver, or strategy paths.
+source gate passes and ADR-0309 seals all three fresh structures. ADR-0310's A
+qualification passes provisionally, but B stops on a native full-integer LP
+primal-verification failure before any final panel or candidate value. V4 is
+therefore rejected and parked; no v4 action may enter replay, blueprint,
+convex-master, resolver, or strategy paths.
 
 `fresh_capacity_filling_structures` is ADR-0309's candidate-free structural
 boundary. It reconstructs the frozen representative, qualified-A, and
@@ -118,7 +120,17 @@ only the exact river card evaluator. Canonical identities bind the ADR-0306
 source, inherited SHA-256/Fisher-Yates semantics, filter, attempts, order, and
 every context field. The three structures are sealed and finite-inventory
 disjoint; no sizing value or candidate dependency is present. Qualification
-must occur in a separate owner after this structural commit.
+occurs only in a separate owner after this structural commit.
+
+`fresh_capacity_filling_qualification` is ADR-0310's candidate-blind
+full-integer-versus-minimum/all-in owner. Its exact adapter binds every
+structural and oracle field, it rejects the representative family before a
+solve, and B construction requires the exact digest-bound A pass. A stops at
+its twenty-fourth qualifier after 73 contexts and owns 24 independent bounded
+teachers. B completes contexts 0-20, then emits a typed digest-bound numerical
+failure on the full arm of context 21; it opens no later context or candidate
+value. The owner is a parked negative-control/evaluation artifact, not a live
+strategy dependency.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

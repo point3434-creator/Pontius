@@ -133,6 +133,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_capacity_filling_qualification_rejection_is_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0310", "context 21"),
+            "PROJECT.md": ("ADR-0310", "A is provisional"),
+            "STATUS.md": ("ADR-0310", "native-simplex robustness"),
+            "ROADMAP.md": ("qualified B", "numerical kill criterion"),
+            "RUNBOOK.md": (
+                "fresh_capacity_filling_qualification",
+                "03c5dc4f00c0429d3c615352a1d52f9c64dec0d3b4c4cf72f6d7cc171e3a26fe",
+            ),
+            "ARCHITECTURE.md": (
+                "fresh_capacity_filling_qualification",
+                "digest-bound numerical failure",
+            ),
+            "RISK_REGISTER.md": ("R70", "post-outcome solver substitution"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

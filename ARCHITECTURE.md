@@ -169,6 +169,18 @@ ordered bases, and five exact row/variable/scaling/redundancy representations
   the corrected gate has zero failures. This authorizes only a prospective
   replacement-adapter evaluation; no solver is connected to a consumer.
 
+ADR-0317 splits that prospective work by LP class. The compact
+`reduced_river_sizing_lp` is the class whose v1 consumer still invokes rejected
+native simplex; its next boundary is a canonical HiGHS dual-simplex proposer
+accepted only by original-unit policy/envelope reconstruction and an
+outward-rounded bounded-variable certificate. The behavioral one-seat master
+already rebuilds a SciPy HiGHS dual-simplex model. Its recorded
+product-of-simplexes shape is favorable to persistence or decomposition, but
+the retained perfect-solver ceilings are only 0.151% and 0.063% of complete
+measured ledgers. That optimization is parked until a prospective certified-v2
+ledger crosses the 5% materiality trigger. Historical behavioral-master v1
+primal objectives remain uncertified as lower bounds under ADR-0284.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

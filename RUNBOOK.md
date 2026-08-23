@@ -927,3 +927,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     certificates and HiGHS fallback and only if complete-ledger marginal chip
     quality per millisecond leaves material headroom. Do not use audit timings
     as runtime evidence or open v1-v4.
+35. ADR-0317 separates the compact reduced-sizing solver from the behavioral
+    one-seat master. Implement only a separately named canonical HiGHS
+    dual-simplex sizing adapter next, using the public SciPy interface,
+    original-unit policy/envelope reconstruction, an exactly normalized
+    behavioral lower bound, an outward-rounded bounded-variable upper bound,
+    and distinct semantic allowances. Source-seal its import closure, runtime,
+    options, result schema, and later 177-base schedule before invoking any
+    sealed base. Do not edit a v1 consumer, invoke ADR-0310/v4, or open a fresh
+    candidate value. The behavioral master already uses HiGHS and remains
+    parked until a fresh certified-v2 complete ledger reaches the 5%
+    perfect-solver materiality trigger.

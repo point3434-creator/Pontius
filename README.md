@@ -108,6 +108,15 @@ criteria before any corpus source or new LP value. ADR-0312 now seals the pure
   evaluation. No adapter, runtime or quality result, v4 revival, or consumer
   migration is authorized.
 
+ADR-0317 separates two solver classes that ADR-0316's direction had blurred.
+The rejected native simplex remains in the compact reduced-sizing oracle, so
+the active source boundary is a certified canonical HiGHS dual-simplex adapter
+for that oracle. The one-seat behavioral master already uses HiGHS; its
+retained solve calls consume only 0.063%-0.151% of complete measured ledgers,
+so persistence and specialization are parked under a prospective 5%
+perfect-solver materiality trigger. No solver source, result, consumer, or
+candidate is changed by ADR-0317.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

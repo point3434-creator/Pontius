@@ -683,7 +683,15 @@ now seals the value-free compiler, both prospective structures, the known
   authoritative access. ADR-0316's one exact-digest reanalysis passes with no
   corrected-gate failure and makes HiGHS dual simplex eligible only for a
   later prospective adapter evaluation. No backend or exact/certificate work
-  is rerun.
+  is rerun. ADR-0317 now separates that adapter question from behavioral-master
+  optimization. The active boundary is a source-sealed canonical HiGHS adapter
+  for the compact reduced-sizing LP, with independent original-unit
+  reconstruction and an outward certificate. Behavioral masters already use
+  HiGHS and consume only 0.063%-0.151% of the two retained complete ledgers;
+  persistence and specialization are parked until a fresh certified-v2 ledger
+  crosses a 5% perfect-solver materiality trigger. If that trigger opens,
+  persistent warm HiGHS remains the null hypothesis before any untrusted
+  product-of-simplexes proposer.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -756,12 +764,14 @@ representative and candidate value remains unopened. All four exact-legality
   predicate. All 1,770 HiGHS arms pass, but no backend is replacement-eligible
   under ADR-0314. ADR-0316's source-separated correction now passes on the
   exact retained digest, making dual simplex eligible only to enter a later
-  prospective adapter gate. That gate should
-  test persistent warm HiGHS as the null hypothesis before any untrusted
-  product-of-simplexes proposer, and must score complete-ledger marginal chip
-  quality per millisecond with certificate rejection and HiGHS fallback costs.
-  No such adapter or comparison is yet preregistered. The passive reference
-  source remains the emitted fallback.
+  prospective adapter gate. ADR-0317 freezes that next gate for the compact
+  reduced-sizing LP, whose legacy consumer still invokes rejected native
+  simplex. It does not authorize v4 or any candidate value. The separate
+  product-of-simplexes behavioral master already uses HiGHS; its perfect-solver
+  ceiling is below 0.2% on both retained six-target ledgers, so persistent
+  HiGHS and any untrusted specialized proposer remain parked under a 5%
+  complete-ledger trigger. The passive reference source remains the emitted
+  fallback.
 
 ## C6: Neural blueprint and leaves
 

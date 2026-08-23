@@ -176,7 +176,7 @@ class DocumentationIntegrityTests(unittest.TestCase):
         expected = {
             "README.md": ("ADR-0312", "885 exact representations"),
             "PROJECT.md": ("finite 988-context inventory", "runner and result-schema"),
-            "STATUS.md": ("ADR-0312", "2,655-invocation schedule"),
+            "STATUS.md": ("ADR-0312", "Seal the native-simplex audit compiler and corpora"),
             "ROADMAP.md": ("ADR-0312", "No optimum or backend result"),
             "RUNBOOK.md": (
                 "4be6dcc311bc2f885ce9ad312cee8294f38231180ab78bbbfb6497184b1597a3",
@@ -197,7 +197,7 @@ class DocumentationIntegrityTests(unittest.TestCase):
                 "cfb127960e3d501a156f14d22244ecd122874b74fefb668685f9a721503ade16",
                 "one-shot complete audit invocation",
             ),
-            "STATUS.md": ("ADR-0313", "2,655 scheduled observations"),
+            "STATUS.md": ("ADR-0313", "Seal the native-simplex audit runner before results"),
             "ROADMAP.md": ("embedded HiGHS 1.12.0", "Only unsealed toys"),
             "RUNBOOK.md": (
                 "execute_sealed_adr0311_audit",
@@ -218,7 +218,7 @@ class DocumentationIntegrityTests(unittest.TestCase):
         expected = {
             "README.md": ("ADR-0314", "36 failures"),
             "PROJECT.md": ("all 2,655 arms", "complete above-allowance row set"),
-            "STATUS.md": ("ADR-0314", "artifact-bound semantic-gate correction"),
+            "STATUS.md": ("ADR-0314", "Retain the native-simplex audit and reject the frozen gate"),
             "ROADMAP.md": ("known-native-regression-mismatch", "1,770 HiGHS arms"),
             "RUNBOOK.md": (
                 "1f5e49cf1f855135283a0b8794656fc9e4fa6447886cb5fd8fe6dfcdcac8039a",
@@ -244,7 +244,7 @@ class DocumentationIntegrityTests(unittest.TestCase):
         expected = {
             "README.md": ("ADR-0315", "authoritative retained-evidence read"),
             "PROJECT.md": ("ADR-0315", "temporally separated exact-digest reanalysis"),
-            "STATUS.md": ("ADR-0315", "persistent modify-in-place HiGHS"),
+            "STATUS.md": ("ADR-0315", "Source-seal the artifact-only native-simplex"),
             "ROADMAP.md": (
                 "persistent warm HiGHS",
                 "product-of-simplexes proposer",
@@ -276,8 +276,8 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "README.md": ("ADR-0316", "prospective replacement-adapter"),
             "PROJECT.md": ("ADR-0316", "passes with zero failures"),
             "STATUS.md": (
-                "highs_dual_simplex_eligible = true",
-                "all 2,655 scheduled observations",
+                "ADR-0316",
+                "Accept the corrected audit and bound replacement eligibility",
             ),
             "ROADMAP.md": (
                 "eligible only to enter a later",
@@ -296,6 +296,21 @@ class DocumentationIntegrityTests(unittest.TestCase):
                 "stale basis/model",
                 "authorize no consumer on audit evidence alone",
             ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+    def test_solver_classes_and_materiality_boundary_are_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0317", "5%"),
+            "PROJECT.md": ("compact reduced-sizing LP", "0.063%-0.151%"),
+            "STATUS.md": ("canonical reduced-sizing HiGHS", "0.151 percent"),
+            "ROADMAP.md": ("perfect-solver materiality trigger", "rejected native simplex"),
+            "RUNBOOK.md": ("177-base schedule", "behavioral master already uses HiGHS"),
+            "ARCHITECTURE.md": ("ADR-0317", "Historical behavioral-master v1"),
+            "RISK_REGISTER.md": ("R79", "Evidence from one LP class"),
         }
         for relative, phrases in expected.items():
             text = _contract_text(relative)

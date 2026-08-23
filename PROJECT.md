@@ -111,6 +111,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   and makes HiGHS dual simplex eligible only for a later prospective adapter
   evaluation. No adapter, runtime latency, quality result, specialized solver,
   consumer migration, or v4 revival is authorized.
+- ADR-0317 separates the compact reduced-sizing LP from the one-seat behavioral
+  master. The former still invokes rejected native simplex and is next eligible
+  only for a prospectively source-sealed, semantically certified HiGHS
+  dual-simplex adapter. The latter already uses HiGHS and accounts for only
+  0.063%-0.151% of complete measured time in the two retained six-target
+  ledgers; persistent or specialized master work remains parked until a fresh
+  certified v2 ledger crosses a 5% perfect-solver materiality trigger. This is
+  a scheduling boundary, not an adapter, speedup, or candidate result.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

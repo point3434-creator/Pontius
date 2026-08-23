@@ -132,6 +132,16 @@ failure on the full arm of context 21; it opens no later context or candidate
 value. The owner is a parked negative-control/evaluation artifact, not a live
 strategy dependency.
 
+ADR-0311 prospectively freezes a candidate-independent LP robustness audit;
+no compiler, corpus, runner, or new result exists yet. The planned boundary
+first extracts the reduced-sizing LP into a pure compiler with dimensionless
+policy rows and chip-valued envelope rows, then seals 48 exact bounded micro
+LPs and 64 fresh width-four contexts before any solve. Each base receives five
+exact row/variable/scaling/redundancy representations. The eventual native,
+HiGHS dual-simplex, and HiGHS IPM comparison must use exact micro enumeration,
+original-coordinate feasible sizing reconstruction, and outward-rounded dual
+bounds. It is solver infrastructure only and cannot reopen v4.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

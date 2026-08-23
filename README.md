@@ -89,6 +89,10 @@ native solver's primal verification. No final panel or candidate value is
 accepted, and the source remains disconnected from replay, blueprint, the
 convex master, and resolving. The next gate is a prospectively preregistered
 candidate-independent native-simplex robustness audit, not a v4 retry.
+ADR-0311 now freezes that audit's exact micro and fresh sizing corpora,
+metamorphic representations, backend options, independent bounds, and kill
+criteria before any corpus source or new LP value. The active implementation
+boundary is value-free compiler and corpus construction only.
 
 ## Current checkpoint
 

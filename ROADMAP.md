@@ -656,6 +656,13 @@ verification. No final A/B panel exists, the representative and every
 candidate value remain unopened, and v4 is parked. The next eligible boundary
 is a separately preregistered candidate-independent native-simplex robustness
 audit; it cannot repair and retry this v4 panel.
+[ADR-0311](docs/decisions/ADR-0311-preregister-native-simplex-robustness-audit.md)
+now freezes that audit before source or values. It prospectively binds one
+known regression, 48 exactly enumerable micro LPs, 128 fresh candidate-free
+sizing LPs, five exact metamorphic representations, and native/HiGHS-DS/
+HiGHS-IPM arms with unit-specific reconstruction and certificate gates. The
+next checkpoint is value-free compiler and corpus construction only; no new LP
+result or backend replacement is authorized.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -722,8 +729,9 @@ by ADR-0310 when qualified B hits the native solver's numerical kill criterion.
 Its A selection is provisional, no final evaluation panels exist, and every
 representative and candidate value remains unopened. All four exact-legality
 action candidates are parked. Before another sizing campaign can be trusted,
-the active boundary is a prospective candidate-independent native-simplex
-robustness audit. The passive reference source remains the emitted fallback.
+ADR-0311's candidate-independent native-simplex robustness audit must advance
+through its value-free compiler/corpus and committed-runner boundaries. The
+passive reference source remains the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

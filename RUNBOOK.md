@@ -851,3 +851,11 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     corpus and independent diagnostic/certificate contract before evaluating
     a replacement. Never use alternate-solver feasibility, looser tolerance,
     or a post-outcome rerun to revive ADR-0305 qualification.
+29. ADR-0311 freezes that audit before source or values. Implement only its
+    pure unit-tagged reduced-sizing compiler plus the 48-record exact micro-LP
+    and 64-context fresh width-four constructors next. Preserve the literal
+    three seed texts, five transform rules, 177-base/885-instance counts, and
+    finite-inventory collision rejection. Commit source hashes and every
+    corpus identity before exact vertex enumeration, native/HiGHS invocation,
+    objective reconstruction, or certificate evaluation. Do not edit
+    `pontius.linear_program` or write the audit runner in this boundary.

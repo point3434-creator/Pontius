@@ -15,23 +15,16 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Keep v4 as a hash-pinned, value-free source and rejected qualification control.
-Do not repair the native solver and retry this panel, replace the oracle with
-HiGHS after outcome, accept A alone, select around B context 21, enlarge or
-reseed either pool, relax a tolerance, or open representative/v3/v4 candidate
-values. ADR-0305's failure authority is exhausted.
-
-The next eligible boundary is a new prospective, candidate-independent
-native-simplex robustness preregistration. It should freeze the already-known
-failing LP as a development regression, add a prospectively fixed adversarial
-corpus, compare feasibility and objectives against an independent solver or
-certificate with unit-specific checks, and define what would reject a solver
-replacement. A future action candidate would still require new prospective
-quality evidence; a solver repair alone cannot revive v4.
+Proceed only to value-free compiler and corpus construction under the frozen
+mechanics below. Commit their exact source and corpus identities before
+writing the audit runner or opening any new native, HiGHS, exact-enumeration,
+objective, or certificate result. Keep the native solver unchanged, keep v4
+permanently parked, and treat every backend as ineligible until the complete
+conjunctive audit says otherwise.
 
 ## Active next
 
-Preregister a candidate-independent native-simplex robustness audit over the sealed failing LP and a prospectively fixed adversarial corpus, with an independent solver or certificate used only as a diagnostic control; do not repair and retry ADR-0305 qualification, reopen capacity-filling v4, open its representative or candidate values, or connect any parked action lattice to replay, blueprint, the convex master, resolving, or strategy paths
+Implement only the value-free semantic reduced-sizing LP compiler and the two frozen audit-corpus constructors below, prove exact legacy-formula identity, unit tags, deterministic construction, diversity, and finite-inventory disjointness, then commit their source hashes and complete corpus identities before writing the audit runner or opening any native, HiGHS, enumeration, certificate, or objective result; do not modify the native simplex or reopen v4
 
 ## Revoked authorities
 
@@ -39,7 +32,7 @@ Preregister a candidate-independent native-simplex robustness audit over the sea
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md) — Reject capacity-filling v4 on qualified-B numerical failure.
+Latest process decision: [ADR-0311](docs/decisions/ADR-0311-preregister-native-simplex-robustness-audit.md) — Preregister the native-simplex robustness audit.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -47,7 +40,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0287](docs/decisions/ADR-0287-preregister-the-complete-reference-hand-replay.md) | 2026-08-23 | accepted executable correctness preregistration before any reference-hand replay result | Preregister the complete reference-hand replay |
 | [ADR-0288](docs/decisions/ADR-0288-complete-reference-hands-pass-the-exact-one-seat-loop.md) | 2026-08-23 | accepted complete-reference correctness result; no strategy-quality, scalability, latency-distribution, or deployment result | Complete reference hands pass the exact one-seat loop |
 | [ADR-0289](docs/decisions/ADR-0289-preregister-the-full-width-belief-blueprint-boundary.md) | 2026-08-23 | accepted executable correctness preregistration before any full-width complete-hand result | Preregister the full-width belief/blueprint boundary |
 | [ADR-0290](docs/decisions/ADR-0290-full-width-belief-and-rational-policy-cross-the-reference-hand.md) | 2026-08-23 | accepted full-width interface result; no normalized full-width marginal, trained-blueprint, action-abstraction, strategy-quality, or deployment result | Full-width belief and rational policy cross the reference hand |
@@ -71,18 +63,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0308](docs/decisions/ADR-0308-install-the-action-clock-and-preparation-bank.md) | 2026-08-23 | accepted runtime engineering control; no strategy-quality, preparation-utility, complete-hand, or deployment result | Install the action clock and preparation bank |
 | [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md) | 2026-08-23 | accepted value-free structural freeze; every v4 qualification and candidate value remains unopened | Seal capacity-filling v4 structures before qualification |
 | [ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md) | 2026-08-23 | accepted negative qualification result; capacity-filling v4 is rejected and parked before every candidate value and integration path | Reject capacity-filling v4 on qualified-B numerical failure |
+| [ADR-0311](docs/decisions/ADR-0311-preregister-native-simplex-robustness-audit.md) | 2026-08-23 | accepted prospective candidate-independent solver audit before corpus source, corpus construction, audit-runner source, or any new LP result | Preregister the native-simplex robustness audit |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md) — Reject capacity-filling v4 on qualified-B numerical failure.
+- Latest ADR: [ADR-0311](docs/decisions/ADR-0311-preregister-native-simplex-robustness-audit.md) — Preregister the native-simplex robustness audit.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 310.
-- ADR-header SHA-256: `a90097c09bdcc8ddeebc4f3aa17e56514c9a43697eb35f362502f19ef87afb33`.
-- Current blockers: qualified B hits the frozen numerical kill criterion before a final panel exists; qualified A's passing selection is provisional and cannot authorize evaluation alone; capacity-filling v4 and v1-v3 are parked; the native compact-LP solver has one reproducible robustness failure without a replacement evidence contract; no action abstraction has passed the complete reduced quality-and-power boundary.
+- Numbered decisions: 311.
+- ADR-header SHA-256: `97da739a51b2424516099c38687ffc7a9bd038e4b3643d2654d69f4878c105a6`.
+- Current blockers: neither prospective corpus exists; the reduced-sizing LP has no pure unit-tagged compiler; no audit runner or candidate-independent result exists; the native solver remains rejected for this workload; no replacement backend is eligible; v1-v4 and every action-abstraction integration path remain parked.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0311](docs/decisions/ADR-0311-preregister-native-simplex-robustness-audit.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

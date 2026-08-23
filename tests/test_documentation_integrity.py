@@ -154,6 +154,21 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_native_simplex_audit_preregistration_is_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0311", "value-free compiler and corpus"),
+            "PROJECT.md": ("48 exact micro LPs", "HiGHS-IPM"),
+            "STATUS.md": ("ADR-0311", "value-free semantic reduced-sizing LP compiler"),
+            "ROADMAP.md": ("five exact metamorphic representations", "no new LP result"),
+            "RUNBOOK.md": ("177-base/885-instance", "Do not edit"),
+            "ARCHITECTURE.md": ("48 exact bounded micro LPs", "outward-rounded dual"),
+            "RISK_REGISTER.md": ("R71", "overfit to one known failure"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

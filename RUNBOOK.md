@@ -859,3 +859,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     corpus identity before exact vertex enumeration, native/HiGHS invocation,
     objective reconstruction, or certificate evaluation. Do not edit
     `pontius.linear_program` or write the audit runner in this boundary.
+30. ADR-0312 seals the value-free implementation at 48 micro inputs, 64 fresh
+    contexts after 300 raw card candidates, 177 bases, and 885 representations.
+    Preserve complete-corpus SHA-256
+    `4be6dcc311bc2f885ce9ad312cee8294f38231180ab78bbbfb6497184b1597a3`.
+    Implement only the owned runner and typed observation/result schemas next,
+    including exact micro enumeration, original-coordinate sizing
+    reconstruction, outward certificate plumbing, complete failure capture,
+    and the fixed 2,655-call schedule. Verify with mocks and frozen toys, then
+    commit source/environment/options identities before any sealed native,
+    HiGHS, exact-enumeration, reconstruction, or certificate invocation. Do
+    not edit `pontius.linear_program`, change an input/transform, or reopen v4.

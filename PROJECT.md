@@ -92,8 +92,11 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   v4 retry. ADR-0311 now freezes that audit before corpus or compiler source:
   one known regression, 48 exact micro LPs, 128 fresh candidate-free sizing
   LPs, five exact representations, and native/HiGHS-DS/HiGHS-IPM arms with
-  unit-specific independent bounds. No new corpus or solver value exists; the
-  next boundary is value-free compiler and corpus construction only.
+  unit-specific independent bounds. ADR-0312 now seals the pure compiler, 48
+  micro inputs, 64 fresh contexts, 177 bases, and 885 exact representations.
+  The fresh contexts have zero counterpart in the finite 988-context inventory
+  through ADR-0310. No optimum or backend result exists; the next boundary is
+  runner and result-schema source with mocks and frozen toys only.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

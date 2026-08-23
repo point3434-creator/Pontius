@@ -132,15 +132,19 @@ failure on the full arm of context 21; it opens no later context or candidate
 value. The owner is a parked negative-control/evaluation artifact, not a live
 strategy dependency.
 
-ADR-0311 prospectively freezes a candidate-independent LP robustness audit;
-no compiler, corpus, runner, or new result exists yet. The planned boundary
-first extracts the reduced-sizing LP into a pure compiler with dimensionless
-policy rows and chip-valued envelope rows, then seals 48 exact bounded micro
-LPs and 64 fresh width-four contexts before any solve. Each base receives five
-exact row/variable/scaling/redundancy representations. The eventual native,
-HiGHS dual-simplex, and HiGHS IPM comparison must use exact micro enumeration,
-original-coordinate feasible sizing reconstruction, and outward-rounded dual
-bounds. It is solver infrastructure only and cannot reopen v4.
+ADR-0311 prospectively freezes a candidate-independent LP robustness audit.
+ADR-0312 implements and seals its value-free half. The pure
+`reduced_river_sizing_lp` compiler preserves the legacy matrix bit for bit
+while tagging dimensionless policy rows, chip-valued envelope rows, policy and
+shifted-envelope variables, trusted boxes, and the objective shift separately.
+The isolated structure/corpus modules own 48 exact bounded micro LP inputs, 64
+fresh width-four contexts, the disclosed ADR-0310 regression snapshot, 177
+ordered bases, and five exact row/variable/scaling/redundancy representations
+per base. All 885 materialized representations are hash-bound without a
+backend call. No runner, exact optimum, HiGHS/native result, reconstruction, or
+certificate interval exists. The eventual comparison must use exact micro
+enumeration, original-coordinate feasible sizing reconstruction, and outward-
+rounded dual bounds; it remains solver infrastructure and cannot reopen v4.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

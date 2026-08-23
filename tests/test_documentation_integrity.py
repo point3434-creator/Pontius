@@ -156,13 +156,34 @@ class DocumentationIntegrityTests(unittest.TestCase):
 
     def test_native_simplex_audit_preregistration_is_visible(self) -> None:
         expected = {
-            "README.md": ("ADR-0311", "value-free compiler and corpus"),
+            "README.md": ("ADR-0311", "metamorphic representations"),
             "PROJECT.md": ("48 exact micro LPs", "HiGHS-IPM"),
-            "STATUS.md": ("ADR-0311", "value-free semantic reduced-sizing LP compiler"),
-            "ROADMAP.md": ("five exact metamorphic representations", "no new LP result"),
+            "STATUS.md": ("ADR-0311", "Preregister the native-simplex robustness audit"),
+            "ROADMAP.md": ("five exact metamorphic representations", "ADR-0311"),
             "RUNBOOK.md": ("177-base/885-instance", "Do not edit"),
-            "ARCHITECTURE.md": ("48 exact bounded micro LPs", "outward-rounded dual"),
+            "ARCHITECTURE.md": (
+                "48 exact bounded micro LP inputs",
+                "original-coordinate feasible sizing reconstruction",
+            ),
             "RISK_REGISTER.md": ("R71", "overfit to one known failure"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+    def test_native_simplex_audit_value_free_seal_is_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0312", "885 exact representations"),
+            "PROJECT.md": ("finite 988-context inventory", "runner and result-schema"),
+            "STATUS.md": ("ADR-0312", "2,655-invocation schedule"),
+            "ROADMAP.md": ("ADR-0312", "No optimum or backend result"),
+            "RUNBOOK.md": (
+                "4be6dcc311bc2f885ce9ad312cee8294f38231180ab78bbbfb6497184b1597a3",
+                "2,655-call schedule",
+            ),
+            "ARCHITECTURE.md": ("All 885 materialized representations", "No runner"),
+            "RISK_REGISTER.md": ("R72", "duplicate numerical LP"),
         }
         for relative, phrases in expected.items():
             text = _contract_text(relative)

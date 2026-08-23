@@ -15,16 +15,22 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Proceed only to value-free compiler and corpus construction under the frozen
-mechanics below. Commit their exact source and corpus identities before
-writing the audit runner or opening any new native, HiGHS, exact-enumeration,
-objective, or certificate result. Keep the native solver unchanged, keep v4
-permanently parked, and treat every backend as ineligible until the complete
-conjunctive audit says otherwise.
+Accept and seal ADR-0311's pure unit-tagged reduced-sizing compiler, exact
+micro corpus, fresh width-four corpus, known-regression snapshot, 177 ordered
+base LP identities, and 885 ordered exact-representation identities. The
+structures reconstruct deterministically, the extracted compiler is bit-exact
+to an independent reproduction of the pre-extraction formula, every mixed-unit
+row and variable retains a semantic tag, and the fresh contexts have no
+counterpart in the finite maintained inventory through ADR-0310.
+
+This checkpoint invoked no native or HiGHS backend, enumerated no exact vertex,
+opened no optimum or sizing security value, evaluated no candidate, and built
+no audit runner. The native simplex source remains byte-frozen and ineligible.
+Capacity-filling v4 remains permanently parked.
 
 ## Active next
 
-Implement only the value-free semantic reduced-sizing LP compiler and the two frozen audit-corpus constructors below, prove exact legacy-formula identity, unit tags, deterministic construction, diversity, and finite-inventory disjointness, then commit their source hashes and complete corpus identities before writing the audit runner or opening any native, HiGHS, enumeration, certificate, or objective result; do not modify the native simplex or reopen v4
+Implement only the owned native/HiGHS/exact audit runner and typed result schemas, including exact micro enumeration, original-coordinate sizing reconstruction, outward certificate plumbing, complete failure capture, and mocked or frozen-toy tests; commit its source hash, environment identities, backend options, and expected 2,655-invocation schedule before invoking any sealed audit instance; do not modify the native simplex, change a sealed corpus or representation, open a fresh optimum or sizing value, or reopen v4
 
 ## Revoked authorities
 
@@ -32,7 +38,7 @@ Implement only the value-free semantic reduced-sizing LP compiler and the two fr
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0311](docs/decisions/ADR-0311-preregister-native-simplex-robustness-audit.md) — Preregister the native-simplex robustness audit.
+Latest process decision: [ADR-0312](docs/decisions/ADR-0312-seal-native-simplex-audit-compiler-and-corpora.md) — Seal the native-simplex audit compiler and corpora.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -40,7 +46,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0288](docs/decisions/ADR-0288-complete-reference-hands-pass-the-exact-one-seat-loop.md) | 2026-08-23 | accepted complete-reference correctness result; no strategy-quality, scalability, latency-distribution, or deployment result | Complete reference hands pass the exact one-seat loop |
 | [ADR-0289](docs/decisions/ADR-0289-preregister-the-full-width-belief-blueprint-boundary.md) | 2026-08-23 | accepted executable correctness preregistration before any full-width complete-hand result | Preregister the full-width belief/blueprint boundary |
 | [ADR-0290](docs/decisions/ADR-0290-full-width-belief-and-rational-policy-cross-the-reference-hand.md) | 2026-08-23 | accepted full-width interface result; no normalized full-width marginal, trained-blueprint, action-abstraction, strategy-quality, or deployment result | Full-width belief and rational policy cross the reference hand |
 | [ADR-0291](docs/decisions/ADR-0291-preregister-the-exact-legality-action-abstraction-boundary.md) | 2026-08-23 | accepted executable correctness and reduced-quality preregistration before any new action-abstraction result | Preregister the exact-legality action-abstraction boundary |
@@ -64,18 +69,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md) | 2026-08-23 | accepted value-free structural freeze; every v4 qualification and candidate value remains unopened | Seal capacity-filling v4 structures before qualification |
 | [ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md) | 2026-08-23 | accepted negative qualification result; capacity-filling v4 is rejected and parked before every candidate value and integration path | Reject capacity-filling v4 on qualified-B numerical failure |
 | [ADR-0311](docs/decisions/ADR-0311-preregister-native-simplex-robustness-audit.md) | 2026-08-23 | accepted prospective candidate-independent solver audit before corpus source, corpus construction, audit-runner source, or any new LP result | Preregister the native-simplex robustness audit |
+| [ADR-0312](docs/decisions/ADR-0312-seal-native-simplex-audit-compiler-and-corpora.md) | 2026-08-23 | accepted value-free compiler, corpus, and exact-representation seal before audit-runner source or any new LP result | Seal the native-simplex audit compiler and corpora |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0311](docs/decisions/ADR-0311-preregister-native-simplex-robustness-audit.md) — Preregister the native-simplex robustness audit.
+- Latest ADR: [ADR-0312](docs/decisions/ADR-0312-seal-native-simplex-audit-compiler-and-corpora.md) — Seal the native-simplex audit compiler and corpora.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 311.
-- ADR-header SHA-256: `97da739a51b2424516099c38687ffc7a9bd038e4b3643d2654d69f4878c105a6`.
-- Current blockers: neither prospective corpus exists; the reduced-sizing LP has no pure unit-tagged compiler; no audit runner or candidate-independent result exists; the native solver remains rejected for this workload; no replacement backend is eligible; v1-v4 and every action-abstraction integration path remain parked.
+- Numbered decisions: 312.
+- ADR-header SHA-256: `0be7363220f980dc0aae62ba2de7d9d75bc81522bf0ebb297e0335b052ab072e`.
+- Current blockers: no audit runner or result schema exists; no exact micro optimum, native/HiGHS result, sizing reconstruction, certificate interval, or backend timing has been opened; the native solver remains rejected for this workload and no replacement backend is eligible; v1-v4 and every action-abstraction integration path remain parked.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0311](docs/decisions/ADR-0311-preregister-native-simplex-robustness-audit.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0312](docs/decisions/ADR-0312-seal-native-simplex-audit-compiler-and-corpora.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

@@ -13,12 +13,16 @@ import json
 from dataclasses import dataclass
 from fractions import Fraction
 from hashlib import sha256
-from itertools import pairwise, product
+from itertools import product
 from math import gcd, isfinite
 
 from .linear_program import maximize_linear_program
 from .matrix_game import solve_zero_sum_matrix_game
 from .no_limit_betting import BettingStreet, NoLimitBettingState
+from .reduced_river_sizing_lp import (
+    compile_reduced_river_sizing_lp,
+    validate_reduced_river_bet_sizes,
+)
 from .river import Card, HoleCards, evaluate_seven
 
 
@@ -161,9 +165,9 @@ class ReducedRiverSizingContext:
                 if set(opener_hand) & set(responder_hand):
                     raise ValueError("a reduced joint deal contains overlapping private cards")
 
-        if not isinstance(self.joint_probabilities, tuple) or len(
-            self.joint_probabilities
-        ) != len(opener):
+        if not isinstance(self.joint_probabilities, tuple) or len(self.joint_probabilities) != len(
+            opener
+        ):
             raise TypeError("joint probabilities must have one immutable row per opener hand")
         if any(
             not isinstance(row, tuple) or len(row) != len(responder)
@@ -177,19 +181,13 @@ class ReducedRiverSizingContext:
         ):
             raise TypeError("joint range contains a nonsemantic deal probability")
         total = sum(
-            (
-                probability.fraction
-                for row in self.joint_probabilities
-                for probability in row
-            ),
+            (probability.fraction for row in self.joint_probabilities for probability in row),
             start=Fraction(0),
         )
         if total != 1:
             raise ValueError("joint deal probabilities must sum exactly to one")
         if any(
-            probability.numerator == 0
-            for row in self.joint_probabilities
-            for probability in row
+            probability.numerator == 0 for row in self.joint_probabilities for probability in row
         ):
             raise ValueError("frozen reduced contexts require positive support on every deal")
 
@@ -206,9 +204,7 @@ class ReducedRiverSizingContext:
 
     @property
     def showdown_signs(self) -> tuple[tuple[int, ...], ...]:
-        opener_ranks = tuple(
-            evaluate_seven((*self.board, *hand)) for hand in self.opener_hands
-        )
+        opener_ranks = tuple(evaluate_seven((*self.board, *hand)) for hand in self.opener_hands)
         responder_ranks = tuple(
             evaluate_seven((*self.board, *hand)) for hand in self.responder_hands
         )
@@ -252,8 +248,7 @@ class ReducedRiverSizingContext:
         )
         total = sum((value for row in raw for value in row), start=Fraction(0))
         normalized = tuple(
-            tuple(ExactDealProbability.from_fraction(value / total) for value in row)
-            for row in raw
+            tuple(ExactDealProbability.from_fraction(value / total) for value in row) for row in raw
         )
         return ReducedRiverSizingContext(
             context_id=f"{self.context_id}-leading-2x2",
@@ -297,17 +292,11 @@ def _validate_bet_sizes(
     context: ReducedRiverSizingContext,
     bet_sizes: object,
 ) -> tuple[int, ...]:
-    if not isinstance(bet_sizes, tuple) or not bet_sizes:
-        raise TypeError("reduced bet sizes must be a nonempty immutable tuple")
-    sizes = tuple(
-        _require_integer(value, label="reduced bet size", positive=True)
-        for value in bet_sizes
+    return validate_reduced_river_bet_sizes(
+        minimum_bet=context.minimum_bet,
+        stack=context.stack,
+        bet_sizes=bet_sizes,
     )
-    if any(left >= right for left, right in pairwise(sizes)):
-        raise ValueError("reduced bet sizes must increase strictly")
-    if sizes[0] < context.minimum_bet or sizes[-1] > context.stack:
-        raise ValueError("reduced bet size lies outside the exact legal interval")
-    return sizes
 
 
 def solve_reduced_river_sizing(
@@ -337,86 +326,47 @@ def solve_reduced_river_sizing(
         raise ValueError("reduced sizing maximum pivots must be positive")
     sizes = _validate_bet_sizes(context, bet_sizes)
 
-    opener_count = len(context.opener_hands)
-    responder_count = len(context.responder_hands)
-    action_count = 1 + len(sizes)
-    policy_variables = opener_count * action_count
-    envelope_variables = responder_count * len(sizes)
-    variable_count = policy_variables + envelope_variables
-    objective = [0.0] * variable_count
-    coefficients: list[list[float]] = []
-    bounds: list[float] = []
     signs = context.showdown_signs
+    compiled = compile_reduced_river_sizing_lp(
+        pot=context.pot,
+        stack=context.stack,
+        minimum_bet=context.minimum_bet,
+        joint_probabilities=tuple(
+            tuple(probability.fraction for probability in row)
+            for row in context.joint_probabilities
+        ),
+        showdown_signs=signs,
+        bet_sizes=sizes,
+    )
+    layout = compiled.layout
+    opener_count = layout.opener_count
+    responder_count = layout.responder_count
     half_pot = context.pot / 2.0
-    maximum_stake = half_pot + context.stack
+    maximum_stake = compiled.maximum_stake_chips
 
     def policy_index(opener: int, action: int) -> int:
-        return opener * action_count + action
+        return layout.policy_index(opener, action)
 
     def envelope_index(responder: int, bet_index: int) -> int:
-        return policy_variables + responder * len(sizes) + bet_index
-
-    for opener in range(opener_count):
-        objective[policy_index(opener, 0)] = sum(
-            float(context.joint_probabilities[opener][responder].fraction)
-            * signs[opener][responder]
-            * half_pot
-            for responder in range(responder_count)
-        )
-        row = [0.0] * variable_count
-        for action in range(action_count):
-            row[policy_index(opener, action)] = 1.0
-        coefficients.append(row)
-        bounds.append(1.0)
-        coefficients.append([-value for value in row])
-        bounds.append(-1.0)
-
-    for responder in range(responder_count):
-        for bet_index, bet in enumerate(sizes):
-            envelope = envelope_index(responder, bet_index)
-            objective[envelope] = 1.0
-            fold_row = [0.0] * variable_count
-            call_row = [0.0] * variable_count
-            fold_row[envelope] = 1.0
-            call_row[envelope] = 1.0
-            for opener in range(opener_count):
-                probability = float(
-                    context.joint_probabilities[opener][responder].fraction
-                )
-                variable = policy_index(opener, bet_index + 1)
-                fold_row[variable] = -probability * half_pot
-                call_row[variable] = (
-                    -probability
-                    * signs[opener][responder]
-                    * (half_pot + bet)
-                )
-            coefficients.append(fold_row)
-            bounds.append(maximum_stake)
-            coefficients.append(call_row)
-            bounds.append(maximum_stake)
+        return layout.envelope_index(responder, bet_index)
 
     solved = maximize_linear_program(
-        objective,
-        coefficients,
-        bounds,
+        list(compiled.objective),
+        [list(row) for row in compiled.coefficients],
+        list(compiled.bounds),
         tolerance=solver_tolerance,
         max_pivots=max_pivots,
     )
     policy = tuple(
         tuple(
-            solved.variables[policy_index(opener, action)]
-            for action in range(action_count)
+            solved.variables[policy_index(opener, action)] for action in range(layout.action_count)
         )
         for opener in range(opener_count)
     )
     probability_residual = max(
         max((abs(sum(row) - 1.0) for row in policy), default=0.0),
         max(
-            (
-                max(0.0, -value, value - 1.0)
-                for row in policy
-                for value in row
-            ),
+            (max(0.0, -value, value - 1.0) for row in policy for value in row),
             default=0.0,
         ),
     )
@@ -468,7 +418,7 @@ def solve_reduced_river_sizing(
                 reconstructed += call_value
         best_actions.append(tuple(actions))
 
-    value = solved.objective - envelope_variables * maximum_stake
+    value = solved.objective + compiled.objective_offset_chips
     objective_error = abs(value - reconstructed)
     if objective_error > chip_allowance.chips:
         raise AssertionError("reduced sizing objective exceeds its chip allowance")
@@ -506,11 +456,7 @@ def solve_bounded_normal_form_sizing_teacher(
     if not isinstance(context, ReducedRiverSizingContext):
         raise TypeError("normal-form sizing teacher requires a semantic context")
     sizes = _validate_bet_sizes(context, bet_sizes)
-    if (
-        len(context.opener_hands) > 2
-        or len(context.responder_hands) > 2
-        or len(sizes) > 2
-    ):
+    if len(context.opener_hands) > 2 or len(context.responder_hands) > 2 or len(sizes) > 2:
         raise ValueError("normal-form sizing teacher is bounded to two hands and two bets")
     if not isinstance(solver_tolerance, float) or not isfinite(solver_tolerance):
         raise ValueError("teacher solver tolerance must be a finite float")
@@ -546,9 +492,7 @@ def solve_bounded_normal_form_sizing_teacher(
             value = 0.0
             for opener, action in enumerate(opener_plan):
                 for responder in range(len(context.responder_hands)):
-                    probability = float(
-                        context.joint_probabilities[opener][responder].fraction
-                    )
+                    probability = float(context.joint_probabilities[opener][responder].fraction)
                     if action == 0:
                         utility = signs[opener][responder] * half_pot
                     else:
@@ -556,10 +500,7 @@ def solve_bounded_normal_form_sizing_teacher(
                         if responder_plan[response_index] == 0:
                             utility = half_pot
                         else:
-                            utility = (
-                                signs[opener][responder]
-                                * (half_pot + sizes[action - 1])
-                            )
+                            utility = signs[opener][responder] * (half_pot + sizes[action - 1])
                     value += probability * utility
             row.append(value)
         payoffs.append(row)

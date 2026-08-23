@@ -660,9 +660,13 @@ audit; it cannot repair and retry this v4 panel.
 now freezes that audit before source or values. It prospectively binds one
 known regression, 48 exactly enumerable micro LPs, 128 fresh candidate-free
 sizing LPs, five exact metamorphic representations, and native/HiGHS-DS/
-HiGHS-IPM arms with unit-specific reconstruction and certificate gates. The
-next checkpoint is value-free compiler and corpus construction only; no new LP
-result or backend replacement is authorized.
+HiGHS-IPM arms with unit-specific reconstruction and certificate gates.
+[ADR-0312](docs/decisions/ADR-0312-seal-native-simplex-audit-compiler-and-corpora.md)
+now seals the value-free compiler, both prospective structures, the known
+regression snapshot, all 177 bases, and all 885 exact representations. The
+fresh 64-context structure is disjoint from the finite 988-context inventory
+through ADR-0310. No optimum or backend result exists; the next checkpoint is
+runner and result-schema source with mocks and frozen toys only.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -730,7 +734,8 @@ Its A selection is provisional, no final evaluation panels exist, and every
 representative and candidate value remains unopened. All four exact-legality
 action candidates are parked. Before another sizing campaign can be trusted,
 ADR-0311's candidate-independent native-simplex robustness audit must advance
-through its value-free compiler/corpus and committed-runner boundaries. The
+through its remaining committed-runner and one-shot result boundaries.
+ADR-0312 has sealed the compiler and corpus half without a solver result. The
 passive reference source remains the emitted fallback.
 
 ## C6: Neural blueprint and leaves

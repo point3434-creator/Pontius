@@ -41,6 +41,10 @@ RTX 5080 workstation.
   legality/projector code is a parked control, not the action abstraction of
   the reference loop. A successor must use a preregistered
   development/confirmation split and may not tune to the opened failure.
+- ADR-0294 also rejects the dyadic successor before replay integration because
+  its untouched panel contains only five informative contexts rather than
+  eight. Favorable conditional loss and recovery diagnostics do not waive that
+  power gate. Candidate-blind evaluation-power design must precede v3.
 - The authoritative hard boundary is 15,000 ms of wall-clock time per street,
   including a fixed 1,000 ms reserve for synchronization and action emission.
   Older 5-250 ms targets are superseded historical context and must not govern

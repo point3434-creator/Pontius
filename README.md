@@ -32,6 +32,13 @@ has only one informative context and v1 recovers none of that context's
 full-over-minimum/all-in gain. The code remains a parked oracle and baseline;
 any successor requires a fresh development/confirmation preregistration.
 
+ADR-0294 rejects the dyadic successor on confirmation-panel power before
+replay integration. V2 conditionally recovers 94.51% of the available gain and
+halves v1's aggregate normalized loss, but only five of 24 deterministic
+contexts are informative versus the frozen minimum of eight. Both candidates
+remain parked; the next work is candidate-blind sizing-power diagnostics, not
+another post-outcome fraction adjustment.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

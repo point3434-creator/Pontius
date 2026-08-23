@@ -581,12 +581,20 @@ quality context is nondegenerate, and v1 recovers effectively none of that
 context's full-over-minimum/all-in gain. Small normalized loss does not override
 the failed conjunctive gates.
 
-The next active gate must be a non-rescuing development/confirmation successor.
-It may treat the opened v1 panel only as development evidence, must freeze its
-generator and selection rule before constructing or opening an untouched
-confirmation panel, and must retain exact legality, provenance, width,
-off-tree, chip-unit, and timing contracts. No optimizer, resolver, or h32
-strategy label was opened by either full-width or action-abstraction work.
+[ADR-0293](docs/decisions/ADR-0293-preregister-the-dyadic-pot-odds-confirmation-successor.md)
+freezes a dyadic successor and a deterministic untouched panel. Its outcome
+[ADR-0294](docs/decisions/ADR-0294-reject-dyadic-v2-on-confirmation-power.md)
+rejects v2 before replay integration. Conditional diagnostics are promising:
+94.51% aggregate recovery, maximum normalized loss 0.0282%, and lower aggregate
+loss than v1. But only five of 24 contexts have measurable full-over-narrow
+opportunity versus the frozen minimum of eight. Structural showdown diversity
+did not guarantee sizing informativeness.
+
+The next active gate is evaluation design, not v3 sizing. Preregister a
+candidate-blind power diagnostic using only full and minimum/all-in controls,
+or a richer reduced sizing game, before choosing another mechanism. No
+optimizer, resolver, charged replay hook, or h32 strategy label was opened by
+either action-abstraction candidate.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
@@ -624,15 +632,13 @@ blueprint, ranges, fixed-depth resolving, off-tree handling, and fail-closed
 fallbacks. The resolver must improve the blueprint in reduced exact games and
 against a frozen evaluation league.
 
-The first exact-legality candidate was killed by its frozen reduced-quality
-gate before integration. The next checkpoint remains narrower than blueprint
-training or resolver integration: preregister a successor generator on an
-explicit development/confirmation split. Freeze its mechanism, selection rule,
-integer projection and deduplication, exact call/all-in retention, off-tree
-translation, panel-generation rule, and reduced exact quality oracle before
-opening confirmation values. It must compare with full integer, v1, and
-minimum/all-in controls without retuning; the passive reference source remains
-the emitted fallback.
+The first two exact-legality candidates were killed before integration: v1 on
+reduced sizing recovery and v2 on confirmation power. The next checkpoint
+remains narrower than blueprint training or resolver integration: preregister
+a candidate-blind sizing-power diagnostic. It must establish that a frozen
+panel construction or richer game produces enough full-over-minimum/all-in
+opportunity without evaluating a candidate. Only after that boundary may a v3
+mechanism be frozen. The passive reference source remains the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

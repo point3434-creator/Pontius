@@ -15,23 +15,22 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Keep the immutable v1 lattice, exact rational projector, compact reduced river
-LP, and bounded normal-form teacher as parked research controls. They are not
-exported as the package decision boundary and are not connected to the
-complete-hand replay, convex master, blueprint source, or resolver.
+Park the dyadic source, deterministic confirmation generator, sealed panel,
+and expected-rejection test as research controls. Do not connect v2 to
+`reference_hand_replay`, the convex master, blueprint selection, or resolving.
+ADR-0290 remains the active exact fallback loop.
 
-Treat this invocation as development evidence only. A successor must be
-preregistered as a new hypothesis with a visible development/confirmation
-split: it may use this opened panel to motivate a mechanism, but the final
-algorithm and selection rule must be frozen before any untouched confirmation
-panel is constructed or opened. It must compare against full integer, v1, and
-minimum/all-in controls in identical chip units and retain the exact legality,
-provenance, width, off-tree, and 15-second charged-work contracts. No isolated
-addition of the observed missing three-chip size is authorized.
+The next checkpoint must diagnose evaluation power before proposing another
+sizing mechanism. It may study why structurally diverse showdown matrices
+often make full integer and minimum/all-in values identical, and may
+preregister a candidate-blind full-versus-narrow qualification rule or a richer
+reduced sizing game. It may not rerun v2 on a replacement panel, reduce the
+eight-context threshold, or describe the five-context conditional result as a
+confirmation pass.
 
 ## Active next
 
-Preregister a non-rescuing development/confirmation successor for action abstraction; keep v1 parked and unintegrated, and keep blueprint training, convex-master integration, resolving, and strategy labels closed
+Preregister a candidate-blind sizing-power diagnostic before choosing any v3 mechanism; keep v1 and v2 parked and unintegrated, and keep blueprint training, convex-master integration, resolving, and strategy labels closed
 
 ## Revoked authorities
 
@@ -39,7 +38,7 @@ Preregister a non-rescuing development/confirmation successor for action abstrac
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0292](docs/decisions/ADR-0292-reject-action-abstraction-v1-before-complete-hand-integration.md) — Reject action abstraction v1 before complete-hand integration.
+Latest process decision: [ADR-0294](docs/decisions/ADR-0294-reject-dyadic-v2-on-confirmation-power.md) — Reject dyadic v2 on confirmation power.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -47,8 +46,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0269](docs/decisions/ADR-0269-preregister-target-isolated-closure-census.md) | 2026-08-22 | accepted corrective preregistration before any census-label recomputation | Preregister target-isolated closure census |
-| [ADR-0270](docs/decisions/ADR-0270-current-decision-programs-close-wide-axis-census-does-not.md) | 2026-08-22 | accepted retrospective censored result; current-decision combined-ledger replay authorized | Current-decision programs close; wide-axis census does not |
 | [ADR-0271](docs/decisions/ADR-0271-preregister-current-decision-combined-ledger-replay.md) | 2026-08-22 | accepted executable preregistration before any post-fold strategy label | Preregister current-decision combined-ledger replay |
 | [ADR-0272](docs/decisions/ADR-0272-current-decision-closure-and-safe-retreat-fit-one-street.md) | 2026-08-22 | accepted read-only ledger result; fresh post-fold confirmation preregistration authorized | Current-decision closure and safe retreat fit one street |
 | [ADR-0273](docs/decisions/ADR-0273-preregister-fresh-post-fold-closure-and-value-confirmation.md) | 2026-08-22 | accepted preregistration before any post-fold warm step, optimizer, or strategy label | Preregister fresh post-fold closure and value confirmation |
@@ -71,18 +68,20 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0290](docs/decisions/ADR-0290-full-width-belief-and-rational-policy-cross-the-reference-hand.md) | 2026-08-23 | accepted full-width interface result; no normalized full-width marginal, trained-blueprint, action-abstraction, strategy-quality, or deployment result | Full-width belief and rational policy cross the reference hand |
 | [ADR-0291](docs/decisions/ADR-0291-preregister-the-exact-legality-action-abstraction-boundary.md) | 2026-08-23 | accepted executable correctness and reduced-quality preregistration before any new action-abstraction result | Preregister the exact-legality action-abstraction boundary |
 | [ADR-0292](docs/decisions/ADR-0292-reject-action-abstraction-v1-before-complete-hand-integration.md) | 2026-08-23 | accepted mixed engineering result; exact lattice mechanics pass, candidate sizing quality fails, and v1 is rejected before replay integration | Reject action abstraction v1 before complete-hand integration |
+| [ADR-0293](docs/decisions/ADR-0293-preregister-the-dyadic-pot-odds-confirmation-successor.md) | 2026-08-23 | accepted executable development/confirmation preregistration before any v2 source value or confirmation-panel construction | Preregister the dyadic pot-odds confirmation successor |
+| [ADR-0294](docs/decisions/ADR-0294-reject-dyadic-v2-on-confirmation-power.md) | 2026-08-23 | accepted untouched-confirmation result; dyadic v2 is promising but rejected on the frozen panel-power gate before replay integration | Reject dyadic v2 on confirmation power |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0292](docs/decisions/ADR-0292-reject-action-abstraction-v1-before-complete-hand-integration.md) — Reject action abstraction v1 before complete-hand integration.
+- Latest ADR: [ADR-0294](docs/decisions/ADR-0294-reject-dyadic-v2-on-confirmation-power.md) — Reject dyadic v2 on confirmation power.
 - Governing runtime contract: [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
-- Numbered decisions: 292.
-- ADR-header SHA-256: `4b7ffd262463e7b7c6c8a189f09b746baea0b3a2cb8ac7be2c39b09ca1738d51`.
-- Current blockers: v1 has only one nondegenerate frozen context and recovers none of its full-over-narrow gain; no successor mechanism, untouched confirmation panel, anti-overfit selection rule, or charged replay gate is frozen.
+- Numbered decisions: 294.
+- ADR-header SHA-256: `72115e07639c183f5d841db0026a4d5bc38f5c681b6d49d05167b5d85d9d84fa`.
+- Current blockers: structural showdown diversity produced only five informative contexts rather than eight; no candidate-blind power qualification or richer reduced sizing game is frozen.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0292](docs/decisions/ADR-0292-reject-action-abstraction-v1-before-complete-hand-integration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies
+4. [ADR-0294](docs/decisions/ADR-0294-reject-dyadic-v2-on-confirmation-power.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies

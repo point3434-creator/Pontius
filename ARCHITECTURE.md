@@ -89,6 +89,14 @@ the preregistered reduced-quality gate. Neither module may rewrite public
 betting state, select an emitted action, or enter `reference_hand_replay` until
 a new held-out successor gate passes.
 
+`action_abstraction_confirmation` is the separately parked ADR-0293/0294
+evidence generator. It binds a SHA-256 counter stream, unbiased Fisher-Yates
+shuffle, structural showdown filter, exact joint weights, and 24 ordered
+contexts to one canonical digest. Its dyadic candidate passes conditional
+quality controls but the panel fails its minimum informative-context count.
+The generator therefore supplies a reproducible negative control, not a live
+source or permission to lower the power gate.
+
 `reference_hand_replay` joins those boundaries for one controlled seat. Frozen
 opponent events, public-card reveal and validation, blueprint key/lookup,
 legality, controlled emission, betting transitions, and card-domain audits have

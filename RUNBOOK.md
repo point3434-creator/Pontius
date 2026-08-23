@@ -713,7 +713,8 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     fallback lookup through `pontius.immutable_blueprint`. Never infer a legal
     raise from a simplified river workload or enumerate all full-stack integer
     sizes as a deployable action abstraction.
-13. Keep ADR-0292's v1 sizing lattice outside `reference_hand_replay`, the
-    convex master, and resolver paths. Treat its opened river panel as
-    development evidence only; freeze any successor mechanism and panel
-    generator before constructing or opening untouched confirmation contexts.
+13. Keep ADR-0292's v1 and ADR-0294's v2 sizing lattices outside
+    `reference_hand_replay`, the convex master, and resolver paths. Treat both
+    opened river panels as development evidence only. Before v3, freeze a
+    candidate-blind sizing-power diagnostic; structural showdown diversity is
+    not a substitute for measured full-over-narrow opportunity.

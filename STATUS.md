@@ -15,16 +15,16 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Proceed only to v4 source implementation and source-gate verification. Do not
-construct a frozen stream, open a solver value, or modify a parked candidate.
-The source must implement the exact mechanism above, preserve every v3 action,
-fill every available slot through exact bounded interval candidates, and commit
-its immutable digest in a successor ADR. Only that clean source boundary may
-authorize construction from the already-frozen seeds.
+Freeze the source and proceed only to the three value-free structure builds in
+ADR-0305's order. The structural module must retain the exact frozen seeds and
+generator semantics, import no sizing candidate or value owner, and commit all
+identities and disjointness results before qualification. Do not edit this
+source, construct a replacement seed, inspect a value, connect v4 to the
+reference hand, or treat this source pass as action-abstraction acceptance.
 
 ## Active next
 
-Implement only the exact-rational capacity-filling pot-odds v4 source below, prove exhaustive legality, v3 action-set inclusion, full available-slot use, bounded construction work, projection, provenance, and immutability, then commit its source digest before constructing any of the three already-seeded fresh structures or opening any value; keep every parked candidate and all replay, blueprint, convex-master, resolver, and strategy integration closed
+Construct only ADR-0305's value-free 48-context representative, 96-context qualified-A, and 96-context qualified-B streams from their exact frozen seeds; commit all three identities, attempt counts, within/across-family uniqueness, and zero-counterpart checks before importing a sizing candidate or opening any qualification value
 
 ## Revoked authorities
 
@@ -32,7 +32,7 @@ Implement only the exact-rational capacity-filling pot-odds v4 source below, pro
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md) — Preregister capacity-filling pot-odds v4.
+Latest process decision: [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md) — Freeze capacity-filling v4 source.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -40,7 +40,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) | 2026-08-22 | accepted process and charter correction | Make the fifteen-second street wall authoritative |
 | [ADR-0283](docs/decisions/ADR-0283-withdraw-v1-seed-authority-and-install-v2-trust-controls.md) | 2026-08-22 | accepted corrective process and engineering control; no h32 invocation authorized | Withdraw v1 seed authority and install v2 trust controls |
 | [ADR-0284](docs/decisions/ADR-0284-install-certified-bound-and-semantic-type-successors.md) | 2026-08-22 | accepted corrective engineering controls; historical result labels are preserved but numerical-bound claims are qualified | Install certified-bound and semantic-type successors |
 | [ADR-0285](docs/decisions/ADR-0285-close-second-and-third-round-review-defects.md) | 2026-08-23 | accepted corrective engineering validation; no research invocation or h32 result authorized | Close second- and third-round review defects |
@@ -64,18 +63,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0303](docs/decisions/ADR-0303-seal-fresh-qualified-panel-before-v3-values.md) | 2026-08-23 | accepted candidate-blind qualification pass and final dual-panel freeze; every v3 value remains unopened | Seal fresh qualified panel before v3 values |
 | [ADR-0304](docs/decisions/ADR-0304-reject-collision-repair-v3-on-qualified-recovery.md) | 2026-08-23 | accepted negative result; collision-repair v3 is rejected and parked before every integration path | Reject collision-repair v3 on qualified recovery |
 | [ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md) | 2026-08-23 | accepted prospective mechanism and replicated fresh-panel preregistration before v4 source code, structure construction, or values | Preregister capacity-filling pot-odds v4 |
+| [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md) | 2026-08-23 | accepted value-free source gate; v4 source is frozen before every seeded structure and value | Freeze capacity-filling v4 source |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md) — Preregister capacity-filling pot-odds v4.
+- Latest ADR: [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md) — Freeze capacity-filling v4 source.
 - Governing runtime contract: [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
-- Numbered decisions: 305.
-- ADR-header SHA-256: `6941c89982dfe5345e967d87050a2dbc69224e8f4130928e6b6c3b28e939ea39`.
-- Current blockers: the v4 source and digest do not exist; all three frozen v4 seed streams remain unconstructed; both candidate-blind qualification replications and every v4 value remain unopened; no action abstraction has passed reduced quality and power gates; integration remains unauthorized.
+- Numbered decisions: 306.
+- ADR-header SHA-256: `11d8ca2948ac819f75082f93504aa944277d1338fc2b69f7380e2789836b4fc2`.
+- Current blockers: all three v4 structures remain unconstructed; both candidate-blind qualification replications and every representative, v3-control, and v4 value remain unopened; v4 has not passed sizing quality or power; replay, blueprint, convex-master, resolver, and strategy integration remain unauthorized.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies
+4. [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies

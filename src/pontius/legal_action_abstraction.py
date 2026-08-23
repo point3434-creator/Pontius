@@ -97,6 +97,7 @@ class RaiseSizeOriginKind(StrEnum):
     MINIMUM = "minimum"
     POT_FRACTION = "pot_fraction"
     COLLISION_REPAIR_OVERBET = "collision_repair_overbet"
+    CAPACITY_FILLING_POT_ODDS = "capacity_filling_pot_odds"
     MAXIMUM_CONTESTABLE = "maximum_contestable"
     ALL_IN = "all_in"
 
@@ -105,6 +106,66 @@ class ClipDirection(StrEnum):
     NONE = "none"
     LOW = "low"
     HIGH = "high"
+
+
+@dataclass(frozen=True, slots=True)
+class ExactPotOddsDistance:
+    """One positive exact distance in the bounded responder pot-odds axis."""
+
+    numerator: int
+    denominator: int
+
+    def __post_init__(self) -> None:
+        numerator = _require_integer(
+            self.numerator,
+            label="pot-odds-distance numerator",
+            positive=True,
+        )
+        denominator = _require_integer(
+            self.denominator,
+            label="pot-odds-distance denominator",
+            positive=True,
+        )
+        if numerator >= denominator:
+            raise ValueError("pot-odds distance must lie strictly inside (0, 1)")
+        common = gcd(numerator, denominator)
+        object.__setattr__(self, "numerator", numerator // common)
+        object.__setattr__(self, "denominator", denominator // common)
+
+    @property
+    def fraction(self) -> Fraction:
+        return Fraction(self.numerator, self.denominator)
+
+
+@dataclass(frozen=True, slots=True)
+class CapacityFillingSelection:
+    """Exact maximin refill selected between two retained raise amounts."""
+
+    raise_to: int
+    left_raise_to: int
+    right_raise_to: int
+    score: ExactPotOddsDistance
+
+    def __post_init__(self) -> None:
+        raise_to_amount = _require_integer(
+            self.raise_to,
+            label="capacity-filling raise-to",
+            positive=True,
+        )
+        left = _require_integer(
+            self.left_raise_to,
+            label="capacity-filling left bracket",
+            positive=True,
+        )
+        right = _require_integer(
+            self.right_raise_to,
+            label="capacity-filling right bracket",
+            positive=True,
+        )
+        if not left < raise_to_amount < right:
+            raise ValueError("capacity-filling selection must lie inside its bracket")
+        if not isinstance(self.score, ExactPotOddsDistance):
+            raise TypeError("capacity-filling score must be an exact pot-odds distance")
 
 
 @dataclass(frozen=True, slots=True)
@@ -117,6 +178,8 @@ class RaiseSizeOrigin:
     clip: ClipDirection
     pot_fraction: PotFraction | None = None
     collision_repair_triggered: bool | None = None
+    capacity_refill_rank: int | None = None
+    capacity_refill: CapacityFillingSelection | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.kind, RaiseSizeOriginKind):
@@ -153,6 +216,23 @@ class RaiseSizeOrigin:
             raise ValueError(
                 "only collision-repair provenance may carry a branch decision"
             )
+        if self.kind is RaiseSizeOriginKind.CAPACITY_FILLING_POT_ODDS:
+            rank = _require_integer(
+                self.capacity_refill_rank,
+                label="capacity-refill rank",
+                positive=True,
+            )
+            if not isinstance(self.capacity_refill, CapacityFillingSelection):
+                raise TypeError("capacity refill requires exact selection provenance")
+            if (
+                raw != self.capacity_refill.raise_to
+                or projected != self.capacity_refill.raise_to
+                or self.clip is not ClipDirection.NONE
+            ):
+                raise ValueError("capacity refill changed its exact selected raise")
+            object.__setattr__(self, "capacity_refill_rank", rank)
+        elif self.capacity_refill_rank is not None or self.capacity_refill is not None:
+            raise ValueError("only a capacity refill may carry refill provenance")
         if self.clip is ClipDirection.NONE and raw != projected:
             raise ValueError("an unclipped origin changed its raise amount")
         if self.clip is ClipDirection.LOW and raw >= projected:
@@ -379,6 +459,7 @@ class LegalActionAbstraction:
     pot_fractions: tuple[PotFraction, ...]
     actions: tuple[BettingAction, ...]
     raise_sizes: tuple[AbstractRaiseSize, ...]
+    capacity_filling_parent_source_digest: str | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.betting, NoLimitBettingState):
@@ -402,6 +483,13 @@ class LegalActionAbstraction:
             raise TypeError("abstract raise sizes must be an immutable tuple")
         if any(not isinstance(value, AbstractRaiseSize) for value in self.raise_sizes):
             raise TypeError("action abstraction contains a nonsemantic raise size")
+        if self.capacity_filling_parent_source_digest is not None:
+            _require_digest(
+                self.capacity_filling_parent_source_digest,
+                label="capacity-filling parent source digest",
+            )
+            if self.capacity_filling_parent_source_digest == self.source_digest:
+                raise ValueError("capacity-filling source cannot name itself as parent")
 
         nonraises = tuple(
             _action_for_kind(kind)
@@ -453,6 +541,16 @@ class LegalActionAbstraction:
             )
             if len(adaptive_origins) > 1:
                 raise ValueError("action abstraction repeats collision-repair provenance")
+            refill_origins = tuple(
+                origin
+                for origin in origins
+                if origin.kind is RaiseSizeOriginKind.CAPACITY_FILLING_POT_ODDS
+            )
+            if (
+                self.capacity_filling_parent_source_digest is None
+                and refill_origins
+            ):
+                raise ValueError("capacity refill lacks a bound parent source")
 
             base_raise_to = self.decision.street_contribution + self.decision.call_amount
             pot_after_call = self.betting.pot + self.decision.call_amount
@@ -468,8 +566,7 @@ class LegalActionAbstraction:
                     expected_raw = base_raise_to + _round_half_up(
                         origin.pot_fraction.fraction * pot_after_call
                     )
-                else:
-                    assert origin.kind is RaiseSizeOriginKind.COLLISION_REPAIR_OVERBET
+                elif origin.kind is RaiseSizeOriginKind.COLLISION_REPAIR_OVERBET:
                     assert origin.pot_fraction is not None
                     expected_fraction, expected_collided = (
                         select_collision_repair_overbet(
@@ -488,6 +585,10 @@ class LegalActionAbstraction:
                     expected_raw = base_raise_to + _round_half_up(
                         expected_fraction.fraction * pot_after_call
                     )
+                else:
+                    assert origin.kind is RaiseSizeOriginKind.CAPACITY_FILLING_POT_ODDS
+                    assert origin.capacity_refill is not None
+                    expected_raw = origin.capacity_refill.raise_to
                 expected_projected, expected_clip = _project_to_bounds(
                     expected_raw,
                     bounds.minimum_raise_to,
@@ -499,6 +600,53 @@ class LegalActionAbstraction:
                     or origin.clip is not expected_clip
                 ):
                     raise ValueError("action abstraction contains mismatched raise provenance")
+            if self.capacity_filling_parent_source_digest is not None:
+                if len(adaptive_origins) != 1:
+                    raise ValueError(
+                        "capacity-filling abstraction lacks its collision-repair parent"
+                    )
+                parent_amounts = tuple(
+                    sorted(
+                        {
+                            origin.projected_raise_to
+                            for origin in origins
+                            if origin.kind
+                            is not RaiseSizeOriginKind.CAPACITY_FILLING_POT_ODDS
+                        }
+                    )
+                )
+                ordered_refills = tuple(
+                    sorted(
+                        refill_origins,
+                        key=lambda origin: int(origin.capacity_refill_rank),
+                    )
+                )
+                if tuple(
+                    origin.capacity_refill_rank for origin in ordered_refills
+                ) != tuple(range(1, len(ordered_refills) + 1)):
+                    raise ValueError("capacity-refill ranks must be contiguous")
+                retained = parent_amounts
+                for origin in ordered_refills:
+                    expected_selection = select_capacity_filling_pot_odds_refill(
+                        betting=self.betting,
+                        decision=self.decision,
+                        retained_raise_to=retained,
+                    )
+                    if origin.capacity_refill != expected_selection:
+                        raise ValueError("capacity-refill provenance is not maximin")
+                    retained = tuple(
+                        sorted((*retained, expected_selection.raise_to))
+                    )
+                exact_raise_count = (
+                    bounds.maximum_raise_to - bounds.minimum_raise_to + 1
+                )
+                target_raise_count = min(7, exact_raise_count)
+                if len(self.raise_sizes) != target_raise_count:
+                    raise ValueError("capacity-filling abstraction left a slot unused")
+                if tuple(
+                    int(value.action.raise_to) for value in self.raise_sizes
+                ) != retained:
+                    raise ValueError("capacity refills differ from retained raises")
             if len(self.raise_sizes) > 7 or len(self.actions) > 9:
                 raise ValueError("action abstraction exceeds its frozen width")
 
@@ -551,6 +699,30 @@ class LegalActionAbstraction:
                                 is RaiseSizeOriginKind.COLLISION_REPAIR_OVERBET
                                 else {}
                             ),
+                            **(
+                                {
+                                    "capacity_refill": {
+                                        "left_raise_to": (
+                                            origin.capacity_refill.left_raise_to
+                                        ),
+                                        "raise_to": origin.capacity_refill.raise_to,
+                                        "right_raise_to": (
+                                            origin.capacity_refill.right_raise_to
+                                        ),
+                                        "score": (
+                                            origin.capacity_refill.score.numerator,
+                                            origin.capacity_refill.score.denominator,
+                                        ),
+                                    },
+                                    "capacity_refill_rank": (
+                                        origin.capacity_refill_rank
+                                    ),
+                                }
+                                if origin.kind
+                                is RaiseSizeOriginKind.CAPACITY_FILLING_POT_ODDS
+                                and origin.capacity_refill is not None
+                                else {}
+                            ),
                         }
                         for origin in value.origins
                     ),
@@ -562,6 +734,15 @@ class LegalActionAbstraction:
                 for value in self.pot_fractions
             ),
             "source_digest": self.source_digest,
+            **(
+                {
+                    "capacity_filling_parent_source_digest": (
+                        self.capacity_filling_parent_source_digest
+                    )
+                }
+                if self.capacity_filling_parent_source_digest is not None
+                else {}
+            ),
             "version": "legal-action-abstraction-v1",
         }
         encoded = json.dumps(
@@ -651,6 +832,113 @@ def _project_to_bounds(raw: int, minimum: int, maximum: int) -> tuple[int, ClipD
     if raw > maximum:
         return maximum, ClipDirection.HIGH
     return raw, ClipDirection.NONE
+
+
+def _capacity_filling_pot_odds(
+    *,
+    pot_after_call: int,
+    base_raise_to: int,
+    raise_to_amount: int,
+) -> Fraction:
+    increment = raise_to_amount - base_raise_to
+    if increment <= 0:
+        raise ValueError("capacity-filling raise must exceed the exact call base")
+    return Fraction(increment, pot_after_call + 2 * increment)
+
+
+def select_capacity_filling_pot_odds_refill(
+    *,
+    betting: NoLimitBettingState,
+    decision: LegalBettingDecision,
+    retained_raise_to: tuple[int, ...],
+) -> CapacityFillingSelection:
+    """Select one exact maximin pot-odds refill without scanning chip depth."""
+
+    if not isinstance(betting, NoLimitBettingState):
+        raise TypeError("capacity filling requires exact betting state")
+    if not isinstance(decision, LegalBettingDecision):
+        raise TypeError("capacity filling requires an exact legal decision")
+    if decision != betting.legal_decision():
+        raise ValueError("capacity filling received a stale decision")
+    bounds = decision.raise_bounds
+    if bounds is None:
+        raise ValueError("capacity filling requires a legal raise interval")
+    if not isinstance(retained_raise_to, tuple) or len(retained_raise_to) < 2:
+        raise TypeError("capacity filling requires immutable minimum/all-in bounds")
+    if any(
+        isinstance(amount, bool) or not isinstance(amount, int)
+        for amount in retained_raise_to
+    ):
+        raise TypeError("capacity-filling retained raises must be integers")
+    if tuple(sorted(set(retained_raise_to))) != retained_raise_to:
+        raise ValueError("capacity-filling retained raises must increase strictly")
+    if (
+        retained_raise_to[0] != bounds.minimum_raise_to
+        or retained_raise_to[-1] != bounds.maximum_raise_to
+    ):
+        raise ValueError("capacity filling requires exact minimum/all-in anchors")
+    exact_raise_count = bounds.maximum_raise_to - bounds.minimum_raise_to + 1
+    if len(retained_raise_to) >= exact_raise_count:
+        raise ValueError("capacity-filling raise interval has no unretained integer")
+
+    base_raise_to = decision.street_contribution + decision.call_amount
+    pot_after_call = betting.pot + decision.call_amount
+    best: CapacityFillingSelection | None = None
+    for left, right in pairwise(retained_raise_to):
+        if right - left <= 1:
+            continue
+        left_coordinate = _capacity_filling_pot_odds(
+            pot_after_call=pot_after_call,
+            base_raise_to=base_raise_to,
+            raise_to_amount=left,
+        )
+        right_coordinate = _capacity_filling_pot_odds(
+            pot_after_call=pot_after_call,
+            base_raise_to=base_raise_to,
+            raise_to_amount=right,
+        )
+        midpoint = (left_coordinate + right_coordinate) / 2
+        ideal_increment = Fraction(pot_after_call) * midpoint / (1 - 2 * midpoint)
+        ideal_raise_to = Fraction(base_raise_to) + ideal_increment
+        floor_raise_to = ideal_raise_to.numerator // ideal_raise_to.denominator
+        ceiling_raise_to = -(
+            -ideal_raise_to.numerator // ideal_raise_to.denominator
+        )
+        candidates = {
+            min(right - 1, max(left + 1, floor_raise_to)),
+            min(right - 1, max(left + 1, ceiling_raise_to)),
+        }
+        for candidate in candidates:
+            coordinate = _capacity_filling_pot_odds(
+                pot_after_call=pot_after_call,
+                base_raise_to=base_raise_to,
+                raise_to_amount=candidate,
+            )
+            score_fraction = min(
+                coordinate - left_coordinate,
+                right_coordinate - coordinate,
+            )
+            selection = CapacityFillingSelection(
+                raise_to=candidate,
+                left_raise_to=left,
+                right_raise_to=right,
+                score=ExactPotOddsDistance(
+                    score_fraction.numerator,
+                    score_fraction.denominator,
+                ),
+            )
+            if (
+                best is None
+                or selection.score.fraction > best.score.fraction
+                or (
+                    selection.score.fraction == best.score.fraction
+                    and selection.raise_to < best.raise_to
+                )
+            ):
+                best = selection
+    if best is None:
+        raise AssertionError("capacity-filling anchors hid an unretained integer")
+    return best
 
 
 def select_collision_repair_overbet(
@@ -839,7 +1127,9 @@ __all__ = [
     "DEFAULT_POT_FRACTIONS",
     "AbstractRaiseSize",
     "ActionProjectionAtom",
+    "CapacityFillingSelection",
     "ClipDirection",
+    "ExactPotOddsDistance",
     "ExactProjectionWeight",
     "ImmutableActionAbstractionSource",
     "LegalActionAbstraction",
@@ -848,5 +1138,6 @@ __all__ = [
     "PotFraction",
     "RaiseSizeOrigin",
     "RaiseSizeOriginKind",
+    "select_capacity_filling_pot_odds_refill",
     "select_collision_repair_overbet",
 ]

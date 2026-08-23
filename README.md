@@ -72,7 +72,10 @@ prospective mechanism and wholly fresh panels. ADR-0305 now freezes that
 successor before code: v4 retains v3's set and uses exact-rational maximin
 pot-odds filling to spend otherwise unused slots under the same seven-raise
 ceiling. Three exact fresh streams and two separately gated qualified
-replications are committed prospectively; no v4 structure or value is open.
+replications are committed prospectively. ADR-0306 now freezes the value-free
+v4 source after exhaustive legality, v3-inclusion, exact-capacity, projection,
+and bounded-work checks. No v4 structure or value is open, and the source is
+not connected to replay, blueprint, the convex master, or resolving.
 
 ## Current checkpoint
 

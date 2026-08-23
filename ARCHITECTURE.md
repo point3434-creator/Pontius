@@ -97,6 +97,17 @@ quality controls but the panel fails its minimum informative-context count.
 The generator therefore supplies a reproducible negative control, not a live
 source or permission to lower the power gate.
 
+`collision_repair_action_abstraction` is the rejected and parked v3 candidate.
+`capacity_filling_action_abstraction` is its value-free ADR-0305/0306
+successor, not a member of the live decision spine. V4 rebuilds the immutable
+v3 parent, preserves every parent action, and fills unused slots to at most
+seven raises by exact-rational maximin spacing in responder pot-odds. Its
+midpoint inversion checks only floor and ceiling integers, so work is bounded
+by action width rather than chip depth. Refill rank, bracket, score, parent
+digest, and source digest are immutable and reconstructively validated. The
+source gate passes, but all fresh structures and values remain unopened; no v4
+action may enter replay, blueprint, convex-master, resolver, or strategy paths.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

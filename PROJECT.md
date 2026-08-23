@@ -68,10 +68,12 @@ RTX 5080 workstation.
   floor. ADR-0305 prospectively freezes capacity-filling pot-odds v4: retain
   every v3 action under the same seven-raise ceiling, then fill every unused
   slot by exact-rational farthest-point coverage rather than another fitted
-  fraction. Its source and all three seed-bound structure streams remain
-  unconstructed; replicated qualification and all candidate values remain
-  unopened. V1, v2, and v3 remain parked and no action abstraction is
-  integrated.
+  fraction. ADR-0306 now freezes its exhaustively validated, bounded-work
+  source at SHA-256
+  `37824e44b7793b10b081957fc8be387bdca5c565b4bfe2386ca13f7e1c785c8b`.
+  All three seed-bound structures, replicated qualification, and candidate
+  values remain unopened. V1, v2, and v3 remain parked, v4 remains unaccepted
+  on quality, and no action abstraction is integrated.
 - The authoritative hard boundary is 15,000 ms of wall-clock time per street,
   including a fixed 1,000 ms reserve for synchronization and action emission.
   Older 5-250 ms targets are superseded historical context and must not govern

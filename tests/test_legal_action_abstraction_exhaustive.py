@@ -3,6 +3,10 @@ from __future__ import annotations
 import unittest
 from collections import deque
 
+from pontius.capacity_filling_action_abstraction import (
+    ADR0305_CAPACITY_FILLING_SOURCE_ID,
+    CapacityFillingActionAbstractionSource,
+)
 from pontius.collision_repair_action_abstraction import (
     ADR0300_COLLISION_REPAIR_SOURCE_ID,
     CollisionRepairActionAbstractionSource,
@@ -68,6 +72,9 @@ class ExhaustiveLegalActionAbstractionTests(unittest.TestCase):
         v3_source = CollisionRepairActionAbstractionSource(
             source_id=ADR0300_COLLISION_REPAIR_SOURCE_ID
         )
+        v4_source = CapacityFillingActionAbstractionSource(
+            source_id=ADR0305_CAPACITY_FILLING_SOURCE_ID
+        )
         queue: deque[NoLimitBettingState] = deque(
             NoLimitBettingState.new_hand(
                 button=button,
@@ -100,6 +107,7 @@ class ExhaustiveLegalActionAbstractionTests(unittest.TestCase):
             abstraction = source.build(betting=state, decision=decision)
             v2_abstraction = v2_source.build(betting=state, decision=decision)
             v3_abstraction = v3_source.build(betting=state, decision=decision)
+            v4_abstraction = v4_source.build(betting=state, decision=decision)
             self.assertLessEqual(len(abstraction.actions), 9)
             self.assertLessEqual(len(v3_abstraction.raise_sizes), 7)
             self.assertLessEqual(len(v3_abstraction.actions), 9)
@@ -107,14 +115,35 @@ class ExhaustiveLegalActionAbstractionTests(unittest.TestCase):
                 set(v2_abstraction.actions),
                 set(v3_abstraction.actions),
             )
+            self.assertLessEqual(
+                set(v3_abstraction.actions),
+                set(v4_abstraction.actions),
+            )
+            exact_raise_count = (
+                0
+                if decision.raise_bounds is None
+                else (
+                    decision.raise_bounds.maximum_raise_to
+                    - decision.raise_bounds.minimum_raise_to
+                    + 1
+                )
+            )
+            self.assertEqual(
+                len(v4_abstraction.raise_sizes),
+                min(7, exact_raise_count),
+            )
+            self.assertLessEqual(len(v4_abstraction.actions), 9)
             for retained in abstraction.actions:
                 state.apply_action(retained)
             for retained in v3_abstraction.actions:
+                state.apply_action(retained)
+            for retained in v4_abstraction.actions:
                 state.apply_action(retained)
 
             exact_actions = _all_legal_integer_actions(state)
             self.assertEqual(abstraction.exact_action_count, len(exact_actions))
             self.assertEqual(v3_abstraction.exact_action_count, len(exact_actions))
+            self.assertEqual(v4_abstraction.exact_action_count, len(exact_actions))
             for action in exact_actions:
                 projection = abstraction.project(action)
                 self.assertEqual(projection.exact_action, action)
@@ -122,6 +151,9 @@ class ExhaustiveLegalActionAbstractionTests(unittest.TestCase):
                 v3_projection = v3_abstraction.project(action)
                 self.assertEqual(v3_projection.exact_action, action)
                 self.assertEqual(v3_projection.source_digest, v3_source.digest)
+                v4_projection = v4_abstraction.project(action)
+                self.assertEqual(v4_projection.exact_action, action)
+                self.assertEqual(v4_projection.source_digest, v4_source.digest)
                 queue.append(state.apply_action(action))
                 edge_count += 1
 

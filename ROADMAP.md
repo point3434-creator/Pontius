@@ -637,8 +637,12 @@ now freezes capacity-filling pot-odds v4 before source code. It preserves every
 v3 action and the seven-raise ceiling, then fills deduplicated capacity by an
 exact-rational farthest-point rule. Its 48-context representative stream and
 two separate 96-context qualification streams are already seed-bound, but all
-structures and values remain unopened. Source legality and bounded-work proof
-must commit before construction.
+structures and values remain unopened.
+[ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md)
+now passes and freezes the value-free source after exhaustive legality,
+v3-superset, full-slot, provenance, projection, and bounded-work validation.
+The next gate is only construction and sealing of the three frozen value-free
+streams; qualification and all candidate values remain unopened.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
@@ -679,16 +683,17 @@ against a frozen evaluation league.
 The first three exact-legality candidates were killed before integration: v1
 on reduced sizing recovery, v2 on confirmation power, and v3 on qualified
 aggregate recovery. The next checkpoint remains narrower than blueprint
-training or resolver integration. ADR-0305
-prospectively freezes a same-ceiling capacity-filling successor; it must pass
-source, replicated fresh-panel, and reduced quality gates before any
-compatibility audit. ADR-0297
+training or resolver integration. ADR-0305 prospectively freezes a same-ceiling
+capacity-filling successor; ADR-0306 passes its source gate, but it must still
+pass replicated fresh-panel and reduced quality gates before any compatibility
+audit. ADR-0297
 preregisters a four-by-four private-type game while holding the one-bet tree
 fixed. The three-by-three pool failed its second yield replication and remains
 parked. The width-four game now passes its frozen replicated yield and exact-
-work boundary. Collision-repair v3 and fresh dual-panel gates are now
-preregistered, but the source is not implemented and no evaluation authority
-has opened. The passive reference source remains the emitted fallback.
+work boundary. Collision-repair v3 is implemented but rejected and parked.
+Capacity-filling v4 is implemented only as a frozen value-free source; its
+fresh structures and every value remain unopened. The passive reference source
+remains the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

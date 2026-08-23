@@ -790,3 +790,13 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     ADR-0305. Commit exhaustive source validation and its digest before
     constructing any stream, then commit all three structures before opening
     candidate-blind qualification values.
+24. ADR-0306 freezes that source at SHA-256
+    `37824e44b7793b10b081957fc8be387bdca5c565b4bfe2386ca13f7e1c785c8b`.
+    Reproduce it only through
+    `pontius.capacity_filling_action_abstraction.CapacityFillingActionAbstractionSource`.
+    The next authorized step is value-free construction of exactly ADR-0305's
+    48-context representative, 96-context qualified-A, and 96-context
+    qualified-B streams. Commit all three structure identities, attempt counts,
+    uniqueness, and maintained-inventory disjointness before importing any
+    candidate or opening any qualification value. Keep v4 out of replay,
+    blueprint, convex-master, resolver, and strategy integration.

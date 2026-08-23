@@ -599,10 +599,13 @@ follow-up also opened batch-0 values after its stop point due to unattributed
 failure telemetry. Those values are quarantined, and a new owned runner now
 binds batch, contiguous prefix, and stop reason.
 
-The next active gate remains evaluation design, not v3 sizing: preregister a
-richer reduced sizing-power game and use the owned runner. Do not tune the
-floor, enlarge these pools, or open batch 2. No optimizer, resolver, charged
-replay hook, or h32 strategy label was opened.
+[ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md)
+freezes the smallest richer sizing-power game before any new pool or value:
+four private types per seat with the same one-bet tree, opportunity floor, and
+candidate-blind controls. It adds exact LP-dimension and pivot ceilings. The
+next active gate is to construct and commit all three structural pools, then
+execute the owned replications unchanged. Do not tune the floor, enlarge the
+pools, open ADR-0295 batch 2, or choose v3.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
@@ -642,11 +645,12 @@ against a frozen evaluation league.
 
 The first two exact-legality candidates were killed before integration: v1 on
 reduced sizing recovery and v2 on confirmation power. The next checkpoint
-remains narrower than blueprint training or resolver integration: preregister
-a richer candidate-blind sizing-power game. The one-bet three-by-three pool
-fails its second yield replication and may not be enlarged post-outcome. Only
-after a richer game passes a frozen yield/cost boundary may a v3 mechanism be
-frozen. The passive reference source remains the emitted fallback.
+remains narrower than blueprint training or resolver integration. ADR-0297
+preregisters a four-by-four private-type game while holding the one-bet tree
+fixed. The three-by-three pool failed its second yield replication and remains
+parked. Only after the width-four game passes its frozen replicated yield and
+exact-work boundary may a v3 mechanism be frozen. The passive reference source
+remains the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

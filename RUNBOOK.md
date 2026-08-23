@@ -723,3 +723,8 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     Its batch-bound result owns the contiguous prefix and stop reason. Do not
     use scratch loops, open contexts after target/ambiguity, enlarge ADR-0295's
     pools, or open batch 2.
+15. For ADR-0297, commit the preregistration before constructing width-four
+    pools and commit all three structural pool digests before invoking its
+    value-owning runner. Preserve the one-bet tree and exact frozen thresholds;
+    do not use width-four yield or local diagnostic time as a runtime-quality
+    claim.

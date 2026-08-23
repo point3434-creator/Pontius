@@ -46,6 +46,11 @@ unopened. A follow-up over-open incident is recorded explicitly; the maintained
 successor now owns batch identity and stop state rather than trusting a caller
 loop. The next work must test a richer reduced sizing game before v3.
 
+ADR-0297 now freezes that next test without opening a pool or value. It changes
+only the private-type width from three-by-three to four-by-four, retains the
+candidate-blind full-versus-minimum/all-in comparison, and adds exact LP-work
+ceilings. Structural digests must be committed before its value invocation.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

@@ -15,30 +15,20 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Park the three structural pools, batch-0 qualified panel, batch-0/batch-1
-observations, and expected-rejection controls. Do not lower the opportunity
-floor, increase the 96-context cap, use the tainted post-stop values, open batch
-2, or choose v3 from this result.
+Run the smallest richer-game successor to ADR-0295: retain the opener
+check/bet and responder fold/call tree, exact integer full arm, and
+minimum/all-in narrow arm, but expand the exact joint private range from three
+by three to four by four. This isolates private-type width. It does not test a
+responder-raise branch, production range width, multiplayer play, or a proposed
+bet lattice.
 
-Install a structural successor for evidence opening:
-`run_candidate_blind_sizing_power_qualification` now owns both LP calls,
-classification, sequential context order, and termination. It returns an
-immutable result with explicit batch id, pool digest, contiguous observations,
-qualified indices, stop reason, and result digest. Panel extraction rebinds the
-complete opened observation prefix to the supplied pool. A target-reached
-result is valid only when its twelfth qualifier is its final opened
-observation; a pool-exhausted result is valid only after all 96 contexts and
-fewer than 12 qualifiers; and ambiguity must be the first terminal ambiguity
-before the target. The maintained test uses this runner rather than a caller-
-managed loop.
-
-This corrects the plumbing defect but cannot rescue the failed research gate.
-The next checkpoint must preregister a richer reduced sizing-power game before
-another pool or candidate is opened.
+Preregistration and structural construction are temporally separated from
+value opening. Commit this ADR before constructing a pool. After construction,
+record and commit all structural digests before any full or narrow LP is run.
 
 ## Active next
 
-Preregister a richer reduced sizing-power game before choosing v3; use the owned fail-closed qualification runner, keep batch 2 values unopened, and keep both rejected lattices and all replay, blueprint, convex-master, resolver, and strategy labels closed
+Construct and seal three width-four structural pools, then execute only the frozen candidate-blind full-versus-minimum/all-in replications through an owned runner; keep ADR-0295 batch 2 value-unopened and keep v1, v2, v3, replay, blueprint, convex-master, resolver, and strategy labels closed
 
 ## Revoked authorities
 
@@ -46,7 +36,7 @@ Preregister a richer reduced sizing-power game before choosing v3; use the owned
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0296](docs/decisions/ADR-0296-reject-candidate-blind-power-pools-and-own-stop-state.md) — Reject candidate-blind power pools and own stop state.
+Latest process decision: [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md) — Preregister width-four sizing-power replications.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -54,7 +44,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0273](docs/decisions/ADR-0273-preregister-fresh-post-fold-closure-and-value-confirmation.md) | 2026-08-22 | accepted preregistration before any post-fold warm step, optimizer, or strategy label | Preregister fresh post-fold closure and value confirmation |
 | [ADR-0274](docs/decisions/ADR-0274-post-fold-confirms-safe-value-but-not-universal-one-round-closure.md) | 2026-08-22 | accepted fresh mixed result; universal current-decision closure rejected | Post-fold confirms safe value but not universal one-round closure |
 | [ADR-0275](docs/decisions/ADR-0275-preregister-post-fold-failure-closure-depth-diagnostic.md) | 2026-08-22 | accepted retrospective preregistration before any additional post-fold optimizer label | Preregister post-fold failure closure-depth diagnostic |
 | [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) | 2026-08-22 | accepted retrospective diagnostic; exact global closure remains off-clock | Post-fold failures close in two and three rounds |
@@ -78,18 +67,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0294](docs/decisions/ADR-0294-reject-dyadic-v2-on-confirmation-power.md) | 2026-08-23 | accepted untouched-confirmation result; dyadic v2 is promising but rejected on the frozen panel-power gate before replay integration | Reject dyadic v2 on confirmation power |
 | [ADR-0295](docs/decisions/ADR-0295-preregister-candidate-blind-sizing-power-diagnostic.md) | 2026-08-23 | accepted executable diagnostic preregistration before any new pool construction or full-versus-narrow value | Preregister candidate-blind sizing-power diagnostic |
 | [ADR-0296](docs/decisions/ADR-0296-reject-candidate-blind-power-pools-and-own-stop-state.md) | 2026-08-23 | accepted negative diagnostic and corrective process control; ADR-0295 rejected before v3 | Reject candidate-blind power pools and own stop state |
+| [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md) | 2026-08-23 | accepted executable preregistration before any width-four pool construction or value | Preregister width-four sizing-power replications |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0296](docs/decisions/ADR-0296-reject-candidate-blind-power-pools-and-own-stop-state.md) — Reject candidate-blind power pools and own stop state.
+- Latest ADR: [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md) — Preregister width-four sizing-power replications.
 - Governing runtime contract: [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
-- Numbered decisions: 296.
-- ADR-header SHA-256: `fd053d496bdfdf3d02c7f5cc2e6745a9737ff00377f1be40236ad1ee62952b2f`.
-- Current blockers: the second candidate-blind replication yields only 11 of 12 material contexts within 96, the one-bet three-by-three game remains low-power, and no richer reduced game is frozen.
+- Numbered decisions: 297.
+- ADR-header SHA-256: `50b6e93a94d7d119cc7d3beed19b3e4759f77e9194adf894ca63492cd2865102`.
+- Current blockers: no width-four pool digest or value exists, the replicated yield and exact-work gates have not run, and no v3 mechanism is authorized.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0296](docs/decisions/ADR-0296-reject-candidate-blind-power-pools-and-own-stop-state.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies
+4. [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies

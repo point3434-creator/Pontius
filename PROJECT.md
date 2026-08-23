@@ -49,6 +49,9 @@ RTX 5080 workstation.
   replication yields 11 rather than 12 material contexts. Its owned runner now
   makes batch identity and stop-after-target state semantic evidence. Batch 2
   values remain unopened; a richer reduced game must precede v3.
+- ADR-0297 preregisters the smallest richer game: four private types per seat
+  with the same one-bet tree and candidate-blind controls. Pool construction is
+  still unopened, and its structural digests must be committed before values.
 - The authoritative hard boundary is 15,000 ms of wall-clock time per street,
   including a fixed 1,000 ms reserve for synchronization and action emission.
   Older 5-250 ms targets are superseded historical context and must not govern

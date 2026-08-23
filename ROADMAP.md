@@ -446,15 +446,32 @@ successor path performs zero warm steps and keeps the defensive blueprint as
 its only external policy. These are cache-correctness controls, not h32 timing
 or capacity evidence.
 
-**Immediate gate:** author a separate executable label-free capacity
-preregistration before any GPU work. Freeze distinct one-size and two-size GPU
-primitive manifests, off-clock population and trusted entry hashes, on-clock
-identity/lookup/validation/gain assembly, the active monotonic campaign
-deadline and complete per-unit bounds, and a completed immutable-blueprint
-miss outcome. Preserve the unchanged 15-second street ledger, one-second
-reserve, memory caps, Float64 ceilings, independent proof, and campaign-wide
-prelabel barrier. Do not run h32, open a candidate endpoint, or make an
-action-width quality claim until that preregistration is clean.
+[ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md)
+freezes the first executable GPU stage without authorizing replay. The sealed
+label-free matrix lawfully narrows the scope to all six acting-seat-5 sources,
+the only complete position below 15 seconds under the warm-free, zero-cost-hit
+ceiling. Both one-size and two-size bundles remain in the differential. Their
+distinct primitive manifests bind 106 local source modules plus the arm,
+backend, batching, Float64, and runtime contracts.
+
+The seed executable is structurally unable to trust or consume its own hashes:
+`trusted_seed_manifest_sha256` is null, replay is false, and its all-cache
+barrier ends at observed-untrusted bytes. Six 120-second context units and
+twelve complete 120-second seed units total 2,160 seconds under the unchanged
+3,600-second active monotonic wall, with a byte-truth checkpoint before every
+unit. Each seed unit includes cache construction, source oracle, eleven exact
+rows, six gains, serialization, hashing, parsing, numerical validation, and
+byte comparison. No warm step, master, candidate, certificate, label, or
+policy-emission path exists.
+
+**Immediate gate:** from the clean ADR-0281 preregistration commit, invoke the
+seed-only campaign at most once. On a complete pass, seal the literal result
+and twelve cache-file hashes in a separate result decision; only then author a
+new replay preregistration that charges current identity, lookup, validation,
+and gain assembly on-clock. On any deadline, memory, provenance, row,
+round-trip, or barrier failure, reject the invocation and keep every partial
+file untrusted. Do not invoke ADR-0277, solve a cached master, open a candidate
+endpoint, or make an action-width quality claim.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

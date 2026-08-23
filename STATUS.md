@@ -29,7 +29,7 @@ authorized until that preregistration is clean.
 
 ## Open preregistration
 
-None. The latest preregistration has a newer research result.
+[ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md) — Preregister temporally separated pre-bet row-cache seed (accepted label-free seed-only preregistration before any h32 cache population or capacity replay).
 
 ## Evidence protocol
 
@@ -41,7 +41,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0257](docs/decisions/ADR-0257-preregister-label-blind-latin-e-replication-with-global-barrier.md) | 2026-08-22 | accepted corrective preregistration before any remaining Latin-E final label | Preregister label-blind Latin-E replication with global barrier |
 | [ADR-0258](docs/decisions/ADR-0258-convex-half-retreat-delivers-material-value-on-all-six-latin-e-targets.md) | 2026-08-22 | accepted label-blind six-target result; Latin-F confirmation authorized | Convex half-retreat delivers material value on all six Latin-E targets |
 | [ADR-0259](docs/decisions/ADR-0259-preregister-untouched-latin-f-convex-retreat-confirmation.md) | 2026-08-22 | accepted preregistration before any Latin-F warm step, candidate, or strategy label | Preregister untouched Latin-F convex-retreat confirmation |
 | [ADR-0260](docs/decisions/ADR-0260-latin-f-confirms-convex-breadth-with-two-interior-abstentions.md) | 2026-08-22 | accepted fresh confirmation; prospective live-shadow preregistration authorized | Latin-F confirms convex breadth with two interior abstentions |
@@ -65,12 +64,13 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0278](docs/decisions/ADR-0278-reject-pre-bet-action-width-capacity-invocation-on-campaign-duration.md) | 2026-08-22 | accepted rejection record; ADR-0277 invocation and widened authorization rejected | Reject pre-bet action-width capacity invocation on campaign duration |
 | [ADR-0279](docs/decisions/ADR-0279-install-active-campaign-deadlines-and-prioritize-exact-pre-bet-row-speculation.md) | 2026-08-22 | accepted label-free engineering result; deadline prerequisite closed and CPU/cache differential authorized | Install active campaign deadlines and prioritize exact pre-bet row speculation |
 | [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md) | 2026-08-22 | accepted label-free engineering control; cache mechanics pass and timed capacity remains closed | Exact pre-bet row cache passes CPU/h2 fail-closed control |
+| [ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md) | 2026-08-22 | accepted label-free seed-only preregistration before any h32 cache population or capacity replay | Preregister temporally separated pre-bet row-cache seed |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md) — Exact pre-bet row cache passes CPU/h2 fail-closed control.
-- Numbered decisions: 280.
-- ADR-header SHA-256: `c042be13cf3692ceedf41de97af4128e5d7b7de6b1db9a9587490af426fd1eb8`.
+- Latest ADR: [ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md) — Preregister temporally separated pre-bet row-cache seed.
+- Numbered decisions: 281.
+- ADR-header SHA-256: `b9381c45e8be114562150f7cd2ca225a9711dafea89db00875c8e2a22b866fbc`.
 - Current blockers: none recorded by the latest accepted research decision.
 
 ## Required reading before continuation

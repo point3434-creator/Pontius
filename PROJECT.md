@@ -42,6 +42,11 @@ the early exact laboratories, but they are not the active h32 decision ledger.
   the unit only when its complete preregistered bound still fits, and stops
   before any later work or label if either the unit or campaign wall is crossed.
   This campaign ceiling is separate from the 15-second decision ledger.
+- A speculative cache cannot trust a byte hash first produced by the same
+  invocation that consumes it. Population, external hash sealing, and live
+  replay are separate prospective stages. Until a later clean config pins the
+  complete seed-manifest bytes, every generated entry is unavailable and the
+  immutable blueprint remains the completed fallback.
 
 [ADR-0166](docs/decisions/ADR-0166-prepared-street-fits-two-atomic-certificates-after-one-warm-step.md)
 records the current capacity evidence. It does not authorize deployment, claim

@@ -1,2 +1,17 @@
 /experiments/results/h32-pre-bet-action-width-capacity-v1.json -text
 /experiments/results/h32-pre-bet-action-width-capacity-v1.partial.json -text
+/experiments/configs/h32-pre-bet-initial-row-cache-seed-v1.json -text
+/experiments/results/h32-pre-bet-initial-row-cache-seed-v1.json -text
+/experiments/results/h32-pre-bet-initial-row-cache-seed-v1.partial.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/01-panel-1-balanced-seat5-one-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/01-panel-1-balanced-seat5-two-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/02-panel-1-blocker-heavy-seat5-one-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/02-panel-1-blocker-heavy-seat5-two-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/03-panel-2-blocker-heavy-seat5-one-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/03-panel-2-blocker-heavy-seat5-two-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/04-panel-2-balanced-seat5-one-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/04-panel-2-balanced-seat5-two-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/05-panel-3-balanced-seat5-one-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/05-panel-3-balanced-seat5-two-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/06-panel-3-blocker-heavy-seat5-one-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/06-panel-3-blocker-heavy-seat5-two-size.json -text

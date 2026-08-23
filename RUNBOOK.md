@@ -972,3 +972,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     consumer. Do not rerun the campaign, edit ADR-0318/0319, quote its compact
     LP timings as complete decisions, connect the historical v1 oracle, or
     infer action-width quality or poker strength.
+39. ADR-0321 freezes the next consumer contract before implementation. The
+    additive v2 path is research-only: accept only a two-live-seat river
+    opening with no wager faced and a fully contestable maximum; bind exact
+    joint probabilities, showdown signs, and a caller-supplied ordered subset
+    of kernel-legal raise-to totals containing minimum and maximum; convert
+    those totals to distinct incremental wagers; verify source/runtime before
+    one counted public HiGHS-DS call; and return either certified endpoints,
+    policy, and fold/call responses or a typed no-action rejection requiring
+    the caller-owned legal fallback. Do not emit/apply an action, import the
+    historical native consumer or v1-v4 owners, open a fresh action-width
+    value, or call this fold/call-only model a production six-max decision.

@@ -138,6 +138,12 @@ only a separately preregistered certified-v2 reduced-sizing consumer. No
 consumer, six-player action-width mechanism, complete-decision latency, or
 poker-strength result exists yet.
 
+ADR-0321 now preregisters that additive consumer before source or fresh values.
+It is limited to an exact two-live-seat river opening with a fold/call-only
+responder, keeps kernel raise-to totals distinct from reduced bet increments,
+and can return certified research evidence or a typed no-action rejection. It
+cannot emit a production betting action or stand in for multiway response rows.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

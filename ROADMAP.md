@@ -698,7 +698,11 @@ now seals the value-free compiler, both prospective structures, the known
   and immutable result schema. ADR-0320 retains the single sealed invocation:
   all 177 observations pass with no clips or failures and a maximum
   `8.50e-11`-chip sizing interval. A separately preregistered additive
-  certified-v2 reduced-sizing consumer is now eligible but absent.
+  certified-v2 reduced-sizing consumer is now eligible. ADR-0321 freezes its
+  exact research-only contract before source: two live seats at a river
+  opening, fold/call-only responses, caller-supplied kernel-legal raise-to
+  subsets, distinct raise-to-to-increment conversion, one certified public
+  proposal, and typed no-action rejection to a caller-owned fallback.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -780,10 +784,12 @@ representative and candidate value remains unopened. All four exact-legality
   complete-ledger trigger. The passive reference source remains the emitted
   fallback. ADR-0318 seals the canonical reduced-sizing adapter source, and
   ADR-0319 seals its canonical 177-base validation runner, and ADR-0320 records
-  its complete finite pass. The next boundary is a source-sealed additive v2
-  consumer with exact legal-action/context binding and typed rejection. Any
-  wholly fresh action-width mechanism remains downstream of that consumer and
-  must close both own-column and opponent-row violations.
+  its complete finite pass. ADR-0321 now preregisters the additive v2 consumer
+  with exact legal-action/context binding and typed rejection before source.
+  Because its reduced responder cannot raise, the consumer is explicitly not a
+  six-player action chooser. Any wholly fresh action-width mechanism remains
+  downstream of its source seal and must close both own-column and
+  opponent-row violations before production action selection.
 
 ## C6: Neural blueprint and leaves
 

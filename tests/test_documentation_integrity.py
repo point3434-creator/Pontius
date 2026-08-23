@@ -380,6 +380,21 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_certified_v2_consumer_preregistration_is_bounded_and_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0321", "fold/call-only"),
+            "PROJECT.md": ("research-only boundary", "distinct reduced bet increments"),
+            "STATUS.md": ("ADR-0321", "caller-owned legal fallback"),
+            "ROADMAP.md": ("ADR-0321", "not a six-player action chooser"),
+            "RUNBOOK.md": ("two-live-seat river", "one counted public HiGHS-DS call"),
+            "ARCHITECTURE.md": ("typed no-action rejection", "Actual responder raises"),
+            "RISK_REGISTER.md": ("R83", "raise-to street total"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

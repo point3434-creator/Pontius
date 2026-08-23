@@ -213,6 +213,16 @@ consumer. No module fills that slot yet, and neither the legacy oracle nor a
 six-player resolver imports the adapter. Component timing remains diagnostic,
 not a complete-decision ledger.
 
+ADR-0321 prospectively narrows that slot before implementation. The additive
+consumer is a research evaluator for one exact two-live-seat river opening and
+a fixed fold/call-only response model, not a live decision maker. It must bind
+the complete public state, exact range/payoff matrices, and a caller-supplied
+kernel-legal raise-to subset; convert street-total raise-to amounts into
+separately typed bet increments; verify source/runtime seals before exactly one
+public proposal; and return certified evidence or a typed no-action rejection.
+Actual responder raises and multiway rows remain outside this reduced model, so
+the Legal Decision Spine continues to own every emitted action and fallback.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

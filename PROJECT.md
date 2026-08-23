@@ -137,6 +137,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   sizing interval is `8.50e-11` chips. This finite h4/compact result opens only
   a separately preregistered additive certified-v2 reduced-sizing consumer;
   it is not an action-width, complete-decision latency, or strength result.
+- ADR-0321 now prospectively freezes that consumer as a research-only boundary
+  before source or fresh values. It accepts only an exact two-live-seat river
+  opening shell with a fold/call-only responder, binds a caller-supplied
+  kernel-legal raise-to subset and its distinct reduced bet increments, and
+  returns certified evidence or a typed no-action rejection to the caller-owned
+  legal fallback. It cannot emit a production action or model responder raises.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

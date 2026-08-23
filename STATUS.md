@@ -15,22 +15,27 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes, on the preregistered finite boundary. Accept the retained canonical
-campaign and its frozen assessment. All 177 ordered observations pass: 48
-exact micro LPs and 129 reduced-sizing LPs. Every observation records exactly
-one public HiGHS-DS call, no runner failure, and complete family-specific
-evidence. The conjunctive assessment therefore marks a separately
-preregistered certified-v2 reduced-sizing consumer eligible.
+Implement one new additive research consumer after this preregistration is
+committed. It may evaluate a caller-supplied subset of exact legal integer
+raises in the canonical one-bet river game. It may not choose, emit, or apply a
+`BettingAction`, enter the Legal Decision Spine, import the historical native
+consumer, or name any v1-v4 candidate owner.
 
-This does not connect a consumer or select an action width. The pass is over
-canonical compact LPs in the frozen CPython 3.14.6, NumPy 2.5.2, SciPy 1.18.0,
-and HiGHS 1.12.0 runtime. Transformed matrices, h32/full-range masters,
-multi-street games, legal six-player action construction, complete decisions,
-and strategy quality remain outside the result.
+ADR-0320 remains the eligibility authority: All 177 ordered observations pass
+with one public HiGHS-DS call each under the frozen HiGHS 1.12.0 runtime. This
+keeps the separately preregistered consumer eligible. This ADR consumes that
+bounded eligibility without broadening its finite evidence.
+
+The consumer is an untrusted-proposer boundary. Before its first backend call
+it must verify the committed ADR-0318 adapter/dependency seal, the pinned
+runtime identity, and its own separately committed source manifest. It then
+permits exactly one counted call to SciPy's public HiGHS dual-simplex interface.
+There is no retry, alternate backend, native fallback, relaxed allowance, or
+partial solution path.
 
 ## Active next
 
-Preregister and source-seal only an additive certified-v2 reduced-sizing consumer contract that binds an exact semantic context and an explicitly supplied kernel-derived legal raise-to set, returns the certified behavioral lower bound, outward upper bound, policy, and fold/call responses or a typed rejection to the caller-owned legal fallback, and passes only unsealed differential/corruption controls before any fresh action-width value; edit no ADR-0318/0319 source, historical v1 consumer, retained artifact, allowance, or v1-v4 owner
+Implement and canonical-LF source-seal only the additive ADR-0321 certified-v2 reduced-sizing research consumer and adjacent seal; bind the exact public state, fold/call-only response model, exact joint probabilities and showdown signs, a caller-supplied ordered kernel-legal raise-to subset with mandatory minimum and fully contestable maximum anchors, and the distinct raise-to-to-increment conversion; verify ADR-0318 source/runtime before one counted public HiGHS-DS proposal; return certified endpoints/policy/responses or a failure-complete typed rejection requiring the caller-owned legal fallback; run only unsealed analytic/differential/corruption controls and edit no v1 consumer, v1-v4 owner, retained artifact, adapter, allowance, or live action spine
 
 ## Revoked authorities
 
@@ -38,7 +43,7 @@ Preregister and source-seal only an additive certified-v2 reduced-sizing consume
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0320](docs/decisions/ADR-0320-accept-the-canonical-certified-sizing-validation.md) — Accept the canonical certified-sizing validation.
+Latest process decision: [ADR-0321](docs/decisions/ADR-0321-preregister-the-certified-v2-reduced-sizing-consumer.md) — Preregister the certified-v2 reduced-sizing consumer.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -46,7 +51,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md) | 2026-08-23 | accepted executable preregistration before any width-four pool construction or value | Preregister width-four sizing-power replications |
 | [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md) | 2026-08-23 | accepted structural freeze; all width-four sizing values remain unopened | Seal width-four structural pools before values |
 | [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md) | 2026-08-23 | accepted candidate-blind evaluation-power result; one v3 preregistration is authorized but no mechanism or integration is accepted | Width four passes replicated sizing power |
 | [ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md) | 2026-08-23 | accepted executable mechanism and evaluation preregistration before v3 source implementation or fresh panel construction | Preregister collision-repair v3 and fresh dual panels |
@@ -70,18 +74,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0318](docs/decisions/ADR-0318-source-seal-the-certified-reduced-sizing-highs-adapter.md) | 2026-08-23 | accepted source-only canonical adapter and toy controls before any sealed validation base | Source-seal the certified reduced-sizing HiGHS adapter |
 | [ADR-0319](docs/decisions/ADR-0319-source-seal-the-canonical-sizing-validation-runner.md) | 2026-08-23 | accepted source-only failure-complete runner, schedule, and result schema before any canonical validation invocation | Source-seal the canonical sizing validation runner |
 | [ADR-0320](docs/decisions/ADR-0320-accept-the-canonical-certified-sizing-validation.md) | 2026-08-23 | accepted complete canonical correctness pass; a separately preregistered certified-v2 reduced-sizing consumer is eligible but absent | Accept the canonical certified-sizing validation |
+| [ADR-0321](docs/decisions/ADR-0321-preregister-the-certified-v2-reduced-sizing-consumer.md) | 2026-08-23 | accepted prospective research-consumer contract before source, solver invocation, or fresh action-width value | Preregister the certified-v2 reduced-sizing consumer |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0320](docs/decisions/ADR-0320-accept-the-canonical-certified-sizing-validation.md) — Accept the canonical certified-sizing validation.
+- Latest ADR: [ADR-0321](docs/decisions/ADR-0321-preregister-the-certified-v2-reduced-sizing-consumer.md) — Preregister the certified-v2 reduced-sizing consumer.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 320.
-- ADR-header SHA-256: `d3fbe65dd452456af4ea894577e2491eb183a71e4e619a301e97b3e1e4c4f87e`.
-- Current blockers: no certified-v2 consumer, exact legal-action bridge, typed production rejection/fallback ledger, or complete-decision integration exists; the finite pass covers only 177 canonical compact LPs with 4x4 sizing contexts and 48 micro programs, not h32/full-range action pricing, exact ladder regret, row-column closure, fresh population transfer, earlier streets, a 15-second resolver, or poker strength.
+- Numbered decisions: 321.
+- ADR-header SHA-256: `10cafe48e4fda7ec4cda7647f72db06ef5fc31b803ac6587fd09d7825cad49c7`.
+- Current blockers: the ADR-0321 consumer source and seal do not exist; no exact legal-action binding, typed consumer attempt record, or caller-owned fallback integration exists; the fold/call-only reduced game is not a production six-max decision model and cannot emit a betting action; no fresh action-width value, exact regret curve, own-column/opponent-row closure, h32/full-range result, complete 15-second decision ledger, or strength result is authorized.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0320](docs/decisions/ADR-0320-accept-the-canonical-certified-sizing-validation.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0321](docs/decisions/ADR-0321-preregister-the-certified-v2-reduced-sizing-consumer.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

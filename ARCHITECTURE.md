@@ -193,6 +193,17 @@ candidate owner. The adjacent seal binds the adapter, compiler, certificate,
 runtime versions, and the future 177-base inventory. Only toy controls have run;
 no legacy sizing consumer imports this adapter.
 
+`certified_sizing_validation_runner` is ADR-0319's source-sealed, result-free
+owner of the exact 177-canonical-base schedule. It counts one public HiGHS-DS
+call per base and continues after every typed rejection. Exact micro LPs use
+ADR-0313's generic HiGHS path plus rational vertex enumeration; reduced-sizing
+LPs use ADR-0318 and then bridge only raw primal/multiplier evidence into
+ADR-0313's separate behavioral/outward verifier. The runner admits no
+transformed arm, native backend, legacy consumer, or candidate owner. Its
+correctness gate requires 48 micro and 129 sizing passes; retained wall times
+are diagnostics, not a speed qualification. No canonical invocation exists at
+the source boundary.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

@@ -324,7 +324,7 @@ class DocumentationIntegrityTests(unittest.TestCase):
         expected = {
             "README.md": ("ADR-0318", "untrusted proposer"),
             "PROJECT.md": ("177-canonical-base", "11 controls"),
-            "STATUS.md": ("failure-complete canonical 177-base", "toy controls"),
+            "STATUS.md": ("ADR-0318", "certified-sizing adapter path"),
             "ROADMAP.md": ("ADR-0318", "exact behavioral/outward-bound"),
             "RUNBOOK.md": (
                 "4723a7b153b6285081c67e8e5c20b0f1097c7d8acf9ab4c5482373984947e80f",
@@ -335,6 +335,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
                 "no legacy sizing consumer imports",
             ),
             "RISK_REGISTER.md": ("R80", "policy repair hides a semantic failure"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+    def test_canonical_sizing_validation_source_boundary_is_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0319", "one public HiGHS-DS proposal"),
+            "PROJECT.md": ("one-public-call counter", "129 sizing bases"),
+            "STATUS.md": ("177-base order", "correctness-only conjunctive"),
+            "ROADMAP.md": ("ADR-0319", "exact ordered 177-base schedule"),
+            "RUNBOOK.md": (
+                "5116c1d4b2632da76cf83e6d7d015b190e061330094d27b3c9719631a89252e1",
+                "48 canonical exact-micro paths",
+            ),
+            "ARCHITECTURE.md": (
+                "certified_sizing_validation_runner",
+                "129 sizing passes",
+            ),
+            "RISK_REGISTER.md": ("R81", "loses backend accountability"),
         }
         for relative, phrases in expected.items():
             text = _contract_text(relative)

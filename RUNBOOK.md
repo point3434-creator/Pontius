@@ -949,3 +949,15 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     known regression, 48 exact micro bases, and 128 fresh sizing bases before
     any retained call. Do not edit the adapter, invoke a transformed arm, call
     a v1-v4 owner, or connect `reduced_river_sizing_oracle`.
+37. ADR-0319 source-seals `pontius.certified_sizing_validation_runner` at
+    canonical-LF SHA-256
+    `5116c1d4b2632da76cf83e6d7d015b190e061330094d27b3c9719631a89252e1`.
+    Its schedule SHA-256 is
+    `36f34eb820bfaa4b58747201c9b27779553d0f8e250c73786da34542b5d8cba4`:
+    48 canonical exact-micro paths and 129 canonical certified-sizing paths,
+    each with exactly one counted public HiGHS-DS call. Invoke only
+    `execute_sealed_adr0319_canonical_validation`, exactly once after this
+    source commit, and persist its returned `canonical_bytes` before applying
+    the frozen correctness assessment. Do not tune or rerun after a rejection,
+    use a transformed representation, edit either verifier, connect a legacy
+    consumer, or interpret retained wall time as decision latency.

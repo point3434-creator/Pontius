@@ -124,6 +124,13 @@ the upper bound. Eleven analytic, bounded-teacher, corruption, source, and
 runtime controls pass. No sealed 177-base validation, legacy consumer change,
 candidate value, or production replacement exists yet.
 
+ADR-0319 now source-seals the failure-complete canonical validation runner
+without opening a retained base result. Its immutable schedule counts exactly
+one public HiGHS-DS proposal for each of 177 canonical bases: 48 exact micro
+LPs use exact vertex/certificate authority, while 129 sizing LPs use ADR-0318
+and a second ADR-0313 reconstruction. Nine unsealed controls pass; the next
+boundary is the single sealed invocation, not a consumer or action-width claim.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

@@ -125,6 +125,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   bounded toys only. A failure-complete, source-sealed 177-canonical-base
   runner must be committed before any retained adapter result; no v1 consumer,
   v1-v4 candidate owner, or action value is connected.
+- ADR-0319 source-seals that failure-complete runner, exact canonical schedule,
+  one-public-call counter, typed observations, and correctness-only gate before
+  any retained invocation. The 48 micro bases use exact enumeration plus an
+  outward certificate; the 129 sizing bases pass through ADR-0318 and then the
+  separately sealed ADR-0313 reconstruction. Nine unsealed controls pass. No
+  canonical result or certified-v2 consumer exists yet.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

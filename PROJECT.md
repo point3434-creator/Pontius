@@ -54,6 +54,10 @@ RTX 5080 workstation.
   separated from values. ADR-0298 seals all three structural pools and exact LP
   dimensions. ADR-0299 passes all three replicated width-four yield/work gates
   and authorizes one v3 preregistration on fresh dual panels, not integration.
+- ADR-0300 preregisters collision-repair v3 before source code: preserve v2's
+  distinct two-pot action and use three-halves pot only when two-pot wastes its
+  slot on a mandatory anchor. No source digest, fresh seed, panel, or v3 value
+  exists yet.
 - The authoritative hard boundary is 15,000 ms of wall-clock time per street,
   including a fixed 1,000 ms reserve for synchronization and action emission.
   Older 5-250 ms targets are superseded historical context and must not govern

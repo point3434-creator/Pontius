@@ -612,6 +612,12 @@ gate is to preregister exactly one v3 mechanism before deriving fresh,
 disjoint representative and qualified panels. Do not fit or confirm against
 any opened panel or open ADR-0295 batch 2.
 
+[ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md)
+freezes that mechanism and its dual-panel gates before source implementation.
+The immediate boundary is exhaustive exact-legality and v2-superset validation,
+followed by a source-digest and seed commit. No fresh panel or candidate value
+may precede that boundary.
+
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
 30.56%, and transfer only 0.63%. This retained C4 line should next distinguish
@@ -654,8 +660,9 @@ remains narrower than blueprint training or resolver integration. ADR-0297
 preregisters a four-by-four private-type game while holding the one-bet tree
 fixed. The three-by-three pool failed its second yield replication and remains
 parked. The width-four game now passes its frozen replicated yield and exact-
-work boundary, authorizing only a v3 preregistration and fresh dual-panel gate.
-The passive reference source remains the emitted fallback.
+work boundary. Collision-repair v3 and fresh dual-panel gates are now
+preregistered, but the source is not implemented and no evaluation authority
+has opened. The passive reference source remains the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

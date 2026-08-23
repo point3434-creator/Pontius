@@ -739,3 +739,8 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     never use the reduced oracle's legacy mixed-coordinate maximum as a
     semantic allowance. Treat every ADR-0297 panel as development-only. Freeze
     v3 before deriving fresh representative and qualified-panel seeds.
+18. ADR-0300 permits exactly one v3 rule: preserve a distinct two-pot origin;
+    substitute three-halves pot only when clipped two-pot equals a mandatory
+    minimum, maximum-contestable, or all-in anchor. Commit the source digest and
+    exact fresh seeds before panel construction, then commit candidate-blind
+    representative/qualified panel identities before opening any v3 value.

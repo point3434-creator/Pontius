@@ -15,24 +15,45 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Park all ADR-0297 pools, observations, and panels as candidate-blind
-development evidence. Do not use them to fit or confirm v3. The next checkpoint
-may preregister exactly one legal v3 sizing mechanism. Only after its source is
-frozen may fresh commit-derived seeds construct two disjoint evaluation
-families:
+Freeze exactly one mechanism, collision-repair v3, before implementing its
+source. It is derived only from v2's recorded mechanism and the exact legality
+and provenance rules. No ADR-0297 pool, observation, qualifying index, policy,
+or value may influence the source.
 
-1. an unqualified representative panel for maximum and mean full-versus-v3
-   harm; and
-2. an independently width-four-qualified panel for aggregate recovery where
-   material intermediate-sizing opportunity exists.
+For every exact legal raise decision define:
 
-The candidate must pass both families conjunctively before any reference-hand,
-convex-master, blueprint, resolver, or strategy-label integration is eligible.
-The exact legal action source remains the reference fallback.
+```text
+base_raise_to = acting street contribution + exact call amount
+pot_after_call = current pot + exact call amount
+```
+
+Round every exact rational increment to integer chips by nearest with ties up,
+then clip to the exact legal raise-to interval. Retain the mandatory minimum,
+maximum-contestable, and acting-seat all-in anchors. Retain fixed pot-fraction
+origins `1/4`, `1/2`, and `1`.
+
+For the final adaptive origin, first construct the `2 * pot_after_call` raw
+target. If its clipped raise-to is distinct from all three mandatory anchor
+raise-to amounts, retain fraction `2`. If it coincides with any mandatory
+anchor, instead construct and retain fraction `3/2`. Clip and deduplicate that
+fallback normally. Bind the chosen fraction and collision decision in exact
+provenance.
+
+This rule never removes a v2 action: when v2's two-pot action is distinct, v3
+retains it; when it collides with an anchor, that exact action remains through
+the anchor and v3 may add the three-halves target. Together with identical
+`1/4`, `1/2`, and `1` origins and mandatory anchors, v2's exact action set must
+be a subset of v3's at every legal public decision.
+
+Retain all exact legal non-raise actions and the existing adjacent exact
+barycentric off-tree projection. The source is immutable and digest-bound. At
+most seven distinct raises and nine total actions may survive. No learned
+parameter, card/range input, street-specific table, or result-dependent branch
+is permitted.
 
 ## Active next
 
-Preregister exactly one v3 legal sizing mechanism before constructing fresh representative and independently width-four-qualified confirmation panels; keep every ADR-0291 through ADR-0299 panel development-only and keep replay, blueprint, convex-master, resolver, and strategy integration closed
+Implement and exhaustively validate exactly the collision-repair v3 legal source, then commit its source digest and exact fresh representative/qualified seed texts before constructing either panel; keep every opened panel and all replay, blueprint, convex-master, resolver, and strategy integration closed
 
 ## Revoked authorities
 
@@ -40,7 +61,7 @@ Preregister exactly one v3 legal sizing mechanism before constructing fresh repr
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md) — Width four passes replicated sizing power.
+Latest process decision: [ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md) — Preregister collision-repair v3 and fresh dual panels.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -48,7 +69,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0276](docs/decisions/ADR-0276-post-fold-failures-close-in-two-and-three-rounds.md) | 2026-08-22 | accepted retrospective diagnostic; exact global closure remains off-clock | Post-fold failures close in two and three rounds |
 | [ADR-0277](docs/decisions/ADR-0277-preregister-pre-bet-current-node-action-width-capacity.md) | 2026-08-22 | accepted label-free preregistration before any h32 pre-bet widened warm step, master, or candidate evaluation | Preregister pre-bet current-node action-width capacity |
 | [ADR-0278](docs/decisions/ADR-0278-reject-pre-bet-action-width-capacity-invocation-on-campaign-duration.md) | 2026-08-22 | accepted rejection record; ADR-0277 invocation and widened authorization rejected | Reject pre-bet action-width capacity invocation on campaign duration |
 | [ADR-0279](docs/decisions/ADR-0279-install-active-campaign-deadlines-and-prioritize-exact-pre-bet-row-speculation.md) | 2026-08-22 | accepted label-free engineering result; deadline prerequisite closed and CPU/cache differential authorized | Install active campaign deadlines and prioritize exact pre-bet row speculation |
@@ -72,18 +92,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md) | 2026-08-23 | accepted executable preregistration before any width-four pool construction or value | Preregister width-four sizing-power replications |
 | [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md) | 2026-08-23 | accepted structural freeze; all width-four sizing values remain unopened | Seal width-four structural pools before values |
 | [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md) | 2026-08-23 | accepted candidate-blind evaluation-power result; one v3 preregistration is authorized but no mechanism or integration is accepted | Width four passes replicated sizing power |
+| [ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md) | 2026-08-23 | accepted executable mechanism and evaluation preregistration before v3 source implementation or fresh panel construction | Preregister collision-repair v3 and fresh dual panels |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md) — Width four passes replicated sizing power.
+- Latest ADR: [ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md) — Preregister collision-repair v3 and fresh dual panels.
 - Governing runtime contract: [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
-- Numbered decisions: 299.
-- ADR-header SHA-256: `01034f7cdfcb0805f873b16d48c00e9d187045fafbfdcf19c298b52784d3a822`.
-- Current blockers: no v3 mechanism or fresh dual-panel protocol is frozen, no v3 value exists, and neither candidate quality nor real-time integration has passed.
+- Numbered decisions: 300.
+- ADR-header SHA-256: `1e73c260fbddd36aa2ffe5a3712ece4a5f2f41fd6461babbc3fcbf0488fdd8cc`.
+- Current blockers: the v3 source and digest do not exist, fresh seed texts and panels are not sealed, no v3 value exists, and integration remains unauthorized.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies
+4. [ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies

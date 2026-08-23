@@ -744,3 +744,10 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     minimum, maximum-contestable, or all-in anchor. Commit the source digest and
     exact fresh seeds before panel construction, then commit candidate-blind
     representative/qualified panel identities before opening any v3 value.
+19. ADR-0301 freezes source digest
+    `ebae17f69c4f37377edf0fb0c55a99049c8688c8517dcbc525230d8e418a811a`
+    and the two exact ASCII streams. Construct only the value-free 48-context
+    representative structure and separate 96-context qualified pool first;
+    commit their identities and finite-inventory disjointness checks before
+    opening full/narrow qualification values. Keep the v3 source absent from
+    structural and qualification modules until both final panels are sealed.

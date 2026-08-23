@@ -3,7 +3,14 @@ from __future__ import annotations
 import unittest
 from collections import deque
 
-from pontius.legal_action_abstraction import ImmutableActionAbstractionSource
+from pontius.collision_repair_action_abstraction import (
+    ADR0300_COLLISION_REPAIR_SOURCE_ID,
+    CollisionRepairActionAbstractionSource,
+)
+from pontius.legal_action_abstraction import (
+    ImmutableActionAbstractionSource,
+    PotFraction,
+)
 from pontius.no_limit_betting import (
     CALL,
     CHECK,
@@ -49,6 +56,18 @@ def _all_legal_integer_actions(state: NoLimitBettingState) -> tuple[BettingActio
 class ExhaustiveLegalActionAbstractionTests(unittest.TestCase):
     def test_all_three_chip_states_retain_legal_actions_and_project_every_exact_edge(self) -> None:
         source = ImmutableActionAbstractionSource(source_id="exhaustive-three-chip-v1")
+        v2_source = ImmutableActionAbstractionSource(
+            source_id="adr-0293-dyadic-pot-odds-v2",
+            pot_fractions=(
+                PotFraction(1, 4),
+                PotFraction(1, 2),
+                PotFraction(1, 1),
+                PotFraction(2, 1),
+            ),
+        )
+        v3_source = CollisionRepairActionAbstractionSource(
+            source_id=ADR0300_COLLISION_REPAIR_SOURCE_ID
+        )
         queue: deque[NoLimitBettingState] = deque(
             NoLimitBettingState.new_hand(
                 button=button,
@@ -79,16 +98,30 @@ class ExhaustiveLegalActionAbstractionTests(unittest.TestCase):
             active_count += 1
             decision = state.legal_decision()
             abstraction = source.build(betting=state, decision=decision)
+            v2_abstraction = v2_source.build(betting=state, decision=decision)
+            v3_abstraction = v3_source.build(betting=state, decision=decision)
             self.assertLessEqual(len(abstraction.actions), 9)
+            self.assertLessEqual(len(v3_abstraction.raise_sizes), 7)
+            self.assertLessEqual(len(v3_abstraction.actions), 9)
+            self.assertLessEqual(
+                set(v2_abstraction.actions),
+                set(v3_abstraction.actions),
+            )
             for retained in abstraction.actions:
+                state.apply_action(retained)
+            for retained in v3_abstraction.actions:
                 state.apply_action(retained)
 
             exact_actions = _all_legal_integer_actions(state)
             self.assertEqual(abstraction.exact_action_count, len(exact_actions))
+            self.assertEqual(v3_abstraction.exact_action_count, len(exact_actions))
             for action in exact_actions:
                 projection = abstraction.project(action)
                 self.assertEqual(projection.exact_action, action)
                 self.assertEqual(projection.source_digest, source.digest)
+                v3_projection = v3_abstraction.project(action)
+                self.assertEqual(v3_projection.exact_action, action)
+                self.assertEqual(v3_projection.source_digest, v3_source.digest)
                 queue.append(state.apply_action(action))
                 edge_count += 1
 

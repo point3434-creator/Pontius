@@ -614,9 +614,12 @@ any opened panel or open ADR-0295 batch 2.
 
 [ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md)
 freezes that mechanism and its dual-panel gates before source implementation.
-The immediate boundary is exhaustive exact-legality and v2-superset validation,
-followed by a source-digest and seed commit. No fresh panel or candidate value
-may precede that boundary.
+The successor
+[ADR-0301](docs/decisions/ADR-0301-freeze-collision-repair-v3-source-and-fresh-seeds.md)
+passes exhaustive exact-legality and v2-superset validation and freezes the
+source digest plus two exact fresh seeds. The immediate boundary is a separate
+value-free commit of the 48-context representative structure and 96-context
+qualified pool. No full/narrow qualification or v3 value may precede it.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding

@@ -15,45 +15,15 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Freeze exactly one mechanism, collision-repair v3, before implementing its
-source. It is derived only from v2's recorded mechanism and the exact legality
-and provenance rules. No ADR-0297 pool, observation, qualifying index, policy,
-or value may influence the source.
-
-For every exact legal raise decision define:
-
-```text
-base_raise_to = acting street contribution + exact call amount
-pot_after_call = current pot + exact call amount
-```
-
-Round every exact rational increment to integer chips by nearest with ties up,
-then clip to the exact legal raise-to interval. Retain the mandatory minimum,
-maximum-contestable, and acting-seat all-in anchors. Retain fixed pot-fraction
-origins `1/4`, `1/2`, and `1`.
-
-For the final adaptive origin, first construct the `2 * pot_after_call` raw
-target. If its clipped raise-to is distinct from all three mandatory anchor
-raise-to amounts, retain fraction `2`. If it coincides with any mandatory
-anchor, instead construct and retain fraction `3/2`. Clip and deduplicate that
-fallback normally. Bind the chosen fraction and collision decision in exact
-provenance.
-
-This rule never removes a v2 action: when v2's two-pot action is distinct, v3
-retains it; when it collides with an anchor, that exact action remains through
-the anchor and v3 may add the three-halves target. Together with identical
-`1/4`, `1/2`, and `1` origins and mandatory anchors, v2's exact action set must
-be a subset of v3's at every legal public decision.
-
-Retain all exact legal non-raise actions and the existing adjacent exact
-barycentric off-tree projection. The source is immutable and digest-bound. At
-most seven distinct raises and nine total actions may survive. No learned
-parameter, card/range input, street-specific table, or result-dependent branch
-is permitted.
+Proceed to value-free structural construction. Do not change the source,
+source id, digest semantics, seed text, generator version, inherited structural
+rules, context counts, or temporal boundaries after seeing a structure or
+value. Any drift rejects this invocation rather than creating an implicit v3
+variant.
 
 ## Active next
 
-Implement and exhaustively validate exactly the collision-repair v3 legal source, then commit its source digest and exact fresh representative/qualified seed texts before constructing either panel; keep every opened panel and all replay, blueprint, convex-master, resolver, and strategy integration closed
+Implement the value-free fresh width-four structural generator, construct exactly the frozen 48-context representative family and separate 96-context qualified pool, and commit their identities before opening any full/narrow qualification value; keep collision-repair v3 values and every replay, blueprint, convex-master, resolver, and strategy integration closed
 
 ## Revoked authorities
 
@@ -61,7 +31,7 @@ Implement and exhaustively validate exactly the collision-repair v3 legal source
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md) — Preregister collision-repair v3 and fresh dual panels.
+Latest process decision: [ADR-0301](docs/decisions/ADR-0301-freeze-collision-repair-v3-source-and-fresh-seeds.md) — Freeze collision-repair v3 source and fresh seeds.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -69,7 +39,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0277](docs/decisions/ADR-0277-preregister-pre-bet-current-node-action-width-capacity.md) | 2026-08-22 | accepted label-free preregistration before any h32 pre-bet widened warm step, master, or candidate evaluation | Preregister pre-bet current-node action-width capacity |
 | [ADR-0278](docs/decisions/ADR-0278-reject-pre-bet-action-width-capacity-invocation-on-campaign-duration.md) | 2026-08-22 | accepted rejection record; ADR-0277 invocation and widened authorization rejected | Reject pre-bet action-width capacity invocation on campaign duration |
 | [ADR-0279](docs/decisions/ADR-0279-install-active-campaign-deadlines-and-prioritize-exact-pre-bet-row-speculation.md) | 2026-08-22 | accepted label-free engineering result; deadline prerequisite closed and CPU/cache differential authorized | Install active campaign deadlines and prioritize exact pre-bet row speculation |
 | [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md) | 2026-08-22 | accepted label-free engineering control; cache mechanics pass and timed capacity remains closed | Exact pre-bet row cache passes CPU/h2 fail-closed control |
@@ -93,18 +62,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md) | 2026-08-23 | accepted structural freeze; all width-four sizing values remain unopened | Seal width-four structural pools before values |
 | [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md) | 2026-08-23 | accepted candidate-blind evaluation-power result; one v3 preregistration is authorized but no mechanism or integration is accepted | Width four passes replicated sizing power |
 | [ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md) | 2026-08-23 | accepted executable mechanism and evaluation preregistration before v3 source implementation or fresh panel construction | Preregister collision-repair v3 and fresh dual panels |
+| [ADR-0301](docs/decisions/ADR-0301-freeze-collision-repair-v3-source-and-fresh-seeds.md) | 2026-08-23 | accepted source and seed freeze; no fresh panel or sizing value has been constructed | Freeze collision-repair v3 source and fresh seeds |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md) — Preregister collision-repair v3 and fresh dual panels.
+- Latest ADR: [ADR-0301](docs/decisions/ADR-0301-freeze-collision-repair-v3-source-and-fresh-seeds.md) — Freeze collision-repair v3 source and fresh seeds.
 - Governing runtime contract: [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
-- Numbered decisions: 300.
-- ADR-header SHA-256: `1e73c260fbddd36aa2ffe5a3712ece4a5f2f41fd6461babbc3fcbf0488fdd8cc`.
-- Current blockers: the v3 source and digest do not exist, fresh seed texts and panels are not sealed, no v3 value exists, and integration remains unauthorized.
+- Numbered decisions: 301.
+- ADR-header SHA-256: `6a41cf073ca5c7f720a0c2ff3ad559073bcdbf351e5dda12c0ad0814d38ff2ce`.
+- Current blockers: neither fresh structure exists, the candidate-blind qualified runner has not opened a value, no 24-context qualified panel or disjointness digest exists, no v3 value exists, and integration remains unauthorized.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies
+4. [ADR-0301](docs/decisions/ADR-0301-freeze-collision-repair-v3-source-and-fresh-seeds.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies

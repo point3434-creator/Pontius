@@ -84,10 +84,19 @@ DEFAULT_POT_FRACTIONS: tuple[PotFraction, ...] = (
     PotFraction(3, 2),
 )
 
+COLLISION_REPAIR_CORE_POT_FRACTIONS: tuple[PotFraction, ...] = (
+    PotFraction(1, 4),
+    PotFraction(1, 2),
+    PotFraction(1, 1),
+)
+COLLISION_REPAIR_PRIMARY_OVERBET = PotFraction(2, 1)
+COLLISION_REPAIR_FALLBACK_OVERBET = PotFraction(3, 2)
+
 
 class RaiseSizeOriginKind(StrEnum):
     MINIMUM = "minimum"
     POT_FRACTION = "pot_fraction"
+    COLLISION_REPAIR_OVERBET = "collision_repair_overbet"
     MAXIMUM_CONTESTABLE = "maximum_contestable"
     ALL_IN = "all_in"
 
@@ -107,6 +116,7 @@ class RaiseSizeOrigin:
     projected_raise_to: int
     clip: ClipDirection
     pot_fraction: PotFraction | None = None
+    collision_repair_triggered: bool | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.kind, RaiseSizeOriginKind):
@@ -123,15 +133,26 @@ class RaiseSizeOrigin:
         )
         if not isinstance(self.clip, ClipDirection):
             raise TypeError("raise-size clip direction must be semantic")
-        if (self.kind is RaiseSizeOriginKind.POT_FRACTION) != (
-            self.pot_fraction is not None
-        ):
-            raise ValueError("only a pot-fraction origin may carry a fraction")
+        fraction_kinds = (
+            RaiseSizeOriginKind.POT_FRACTION,
+            RaiseSizeOriginKind.COLLISION_REPAIR_OVERBET,
+        )
+        if (self.kind in fraction_kinds) != (self.pot_fraction is not None):
+            raise ValueError("only a fractional raise origin may carry a fraction")
         if self.pot_fraction is not None and not isinstance(
             self.pot_fraction,
             PotFraction,
         ):
             raise TypeError("raise-size origin fraction must be exact")
+        if self.kind is RaiseSizeOriginKind.COLLISION_REPAIR_OVERBET:
+            if not isinstance(self.collision_repair_triggered, bool):
+                raise TypeError(
+                    "collision-repair provenance requires an exact branch decision"
+                )
+        elif self.collision_repair_triggered is not None:
+            raise ValueError(
+                "only collision-repair provenance may carry a branch decision"
+            )
         if self.clip is ClipDirection.NONE and raw != projected:
             raise ValueError("an unclipped origin changed its raise amount")
         if self.clip is ClipDirection.LOW and raw >= projected:
@@ -425,6 +446,13 @@ class LegalActionAbstraction:
             )
             if fraction_origins != self.pot_fractions:
                 raise ValueError("action abstraction lost or reordered a pot-fraction origin")
+            adaptive_origins = tuple(
+                origin
+                for origin in origins
+                if origin.kind is RaiseSizeOriginKind.COLLISION_REPAIR_OVERBET
+            )
+            if len(adaptive_origins) > 1:
+                raise ValueError("action abstraction repeats collision-repair provenance")
 
             base_raise_to = self.decision.street_contribution + self.decision.call_amount
             pot_after_call = self.betting.pot + self.decision.call_amount
@@ -435,10 +463,30 @@ class LegalActionAbstraction:
                     expected_raw = bounds.maximum_contestable_raise_to
                 elif origin.kind is RaiseSizeOriginKind.ALL_IN:
                     expected_raw = bounds.maximum_raise_to
-                else:
+                elif origin.kind is RaiseSizeOriginKind.POT_FRACTION:
                     assert origin.pot_fraction is not None
                     expected_raw = base_raise_to + _round_half_up(
                         origin.pot_fraction.fraction * pot_after_call
+                    )
+                else:
+                    assert origin.kind is RaiseSizeOriginKind.COLLISION_REPAIR_OVERBET
+                    assert origin.pot_fraction is not None
+                    expected_fraction, expected_collided = (
+                        select_collision_repair_overbet(
+                            betting=self.betting,
+                            decision=self.decision,
+                        )
+                    )
+                    if origin.pot_fraction != expected_fraction:
+                        raise ValueError(
+                            "action abstraction contains the wrong collision-repair branch"
+                        )
+                    if origin.collision_repair_triggered is not expected_collided:
+                        raise ValueError(
+                            "action abstraction contains the wrong collision decision"
+                        )
+                    expected_raw = base_raise_to + _round_half_up(
+                        expected_fraction.fraction * pot_after_call
                     )
                 expected_projected, expected_clip = _project_to_bounds(
                     expected_raw,
@@ -493,6 +541,16 @@ class LegalActionAbstraction:
                             ),
                             "projected_raise_to": origin.projected_raise_to,
                             "raw_raise_to": origin.raw_raise_to,
+                            **(
+                                {
+                                    "collision_repair_triggered": (
+                                        origin.collision_repair_triggered
+                                    )
+                                }
+                                if origin.kind
+                                is RaiseSizeOriginKind.COLLISION_REPAIR_OVERBET
+                                else {}
+                            ),
                         }
                         for origin in value.origins
                     ),
@@ -593,6 +651,51 @@ def _project_to_bounds(raw: int, minimum: int, maximum: int) -> tuple[int, ClipD
     if raw > maximum:
         return maximum, ClipDirection.HIGH
     return raw, ClipDirection.NONE
+
+
+def select_collision_repair_overbet(
+    *,
+    betting: NoLimitBettingState,
+    decision: LegalBettingDecision,
+) -> tuple[PotFraction, bool]:
+    """Select two-pot unless its exact clipped action is already mandatory."""
+
+    if not isinstance(betting, NoLimitBettingState):
+        raise TypeError("collision repair requires exact betting state")
+    if not isinstance(decision, LegalBettingDecision):
+        raise TypeError("collision repair requires an exact legal decision")
+    if decision != betting.legal_decision():
+        raise ValueError("collision repair received a stale decision")
+    bounds = decision.raise_bounds
+    if bounds is None:
+        raise ValueError("collision repair requires a legal raise interval")
+    base_raise_to = decision.street_contribution + decision.call_amount
+    pot_after_call = betting.pot + decision.call_amount
+    primary_raw = base_raise_to + _round_half_up(
+        COLLISION_REPAIR_PRIMARY_OVERBET.fraction * pot_after_call
+    )
+    primary_projected, _primary_clip = _project_to_bounds(
+        primary_raw,
+        bounds.minimum_raise_to,
+        bounds.maximum_raise_to,
+    )
+    contestable, _contestable_clip = _project_to_bounds(
+        bounds.maximum_contestable_raise_to,
+        bounds.minimum_raise_to,
+        bounds.maximum_raise_to,
+    )
+    mandatory = {
+        bounds.minimum_raise_to,
+        contestable,
+        bounds.maximum_raise_to,
+    }
+    collided = primary_projected in mandatory
+    selected = (
+        COLLISION_REPAIR_FALLBACK_OVERBET
+        if collided
+        else COLLISION_REPAIR_PRIMARY_OVERBET
+    )
+    return selected, collided
 
 
 @dataclass(frozen=True, slots=True)
@@ -730,6 +833,9 @@ class ImmutableActionAbstractionSource:
 
 
 __all__ = [
+    "COLLISION_REPAIR_CORE_POT_FRACTIONS",
+    "COLLISION_REPAIR_FALLBACK_OVERBET",
+    "COLLISION_REPAIR_PRIMARY_OVERBET",
     "DEFAULT_POT_FRACTIONS",
     "AbstractRaiseSize",
     "ActionProjectionAtom",
@@ -742,4 +848,5 @@ __all__ = [
     "PotFraction",
     "RaiseSizeOrigin",
     "RaiseSizeOriginKind",
+    "select_collision_repair_overbet",
 ]

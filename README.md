@@ -57,10 +57,11 @@ ADR-0299 records a clean pass: the three batches reach 12 qualifiers after 23,
 The result authorizes only preregistration of one v3 mechanism and fresh dual-
 panel evaluation; none of these development panels may fit or confirm v3.
 
-ADR-0300 now freezes collision-repair v3 before source implementation. It
-retains v2's two-pot action whenever distinct and substitutes three-halves pot
-only when two-pot collides with a mandatory legal anchor. Source, seeds, and
-fresh panels remain unopened and unimplemented at this boundary.
+ADR-0300 freezes collision-repair v3 before source implementation. ADR-0301
+now records its exhaustively validated exact-legal source and immutable digest:
+v2's two-pot action remains whenever distinct, and three-halves pot substitutes
+only on a mandatory-anchor collision. Two exact fresh stream seeds are sealed;
+their structures, all sizing values, and every integration path remain unopened.
 
 ## Current checkpoint
 

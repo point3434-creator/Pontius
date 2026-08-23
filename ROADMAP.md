@@ -624,10 +624,14 @@ now commits the resulting value-free 48-context representative structure and
 contexts.
 [ADR-0303](docs/decisions/ADR-0303-seal-fresh-qualified-panel-before-v3-values.md)
 passes the separate candidate-blind full/narrow screen at 24 qualifiers after
-60 contexts and seals the final panel plus teacher controls. The immediate
-boundary is the one frozen v3 campaign: representative first, then qualified
-only after every representative conjunct passes. Every v3 value remains
-unopened.
+60 contexts and seals the final panel plus teacher controls.
+[ADR-0304](docs/decisions/ADR-0304-reject-collision-repair-v3-on-qualified-recovery.md)
+rejects the resulting v3 campaign before integration. Representative and
+qualified maximum/mean normalized losses pass, but qualified raw-chip recovery
+is `0.800547544995807` versus the frozen `0.90` floor. The next boundary is a
+separate prospective preregistration for one materially different bounded-
+width mechanism and wholly fresh panels; no v3 retuning or panel reuse is
+authorized.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
@@ -665,9 +669,10 @@ blueprint, ranges, fixed-depth resolving, off-tree handling, and fail-closed
 fallbacks. The resolver must improve the blueprint in reduced exact games and
 against a frozen evaluation league.
 
-The first two exact-legality candidates were killed before integration: v1 on
-reduced sizing recovery and v2 on confirmation power. The next checkpoint
-remains narrower than blueprint training or resolver integration. ADR-0297
+The first three exact-legality candidates were killed before integration: v1
+on reduced sizing recovery, v2 on confirmation power, and v3 on qualified
+aggregate recovery. The next checkpoint remains narrower than blueprint
+training or resolver integration. ADR-0297
 preregisters a four-by-four private-type game while holding the one-bet tree
 fixed. The three-by-three pool failed its second yield replication and remains
 parked. The width-four game now passes its frozen replicated yield and exact-

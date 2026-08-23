@@ -64,8 +64,11 @@ only on a mandatory-anchor collision. Two exact fresh stream seeds are sealed;
 ADR-0302 now seals their value-free 48-context representative family and
 separate 96-context qualification pool. ADR-0303's candidate-blind full/narrow
 screen reaches 24 unambiguous qualifiers after 60 contexts and seals the final
-panel before candidate values. The representative family, every v3 value, and
-all integration remain unopened.
+panel before candidate values. ADR-0304 now rejects v3 before integration: its
+normalized-loss gates pass on both families, but the qualified panel recovers
+only 80.05% of the available raw-chip full-over-minimum/all-in gain versus the
+frozen 90% floor. V1, v2, and v3 remain parked; a successor requires a new
+prospective mechanism and wholly fresh panels.
 
 ## Current checkpoint
 

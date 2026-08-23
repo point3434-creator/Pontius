@@ -770,3 +770,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     `build_adr0302_qualified_panel`. Before any v3 value, preserve the exact
     48-then-24 family order and every ADR-0300 conjunct; stop before qualified
     if representative fails.
+22. Reproduce ADR-0304 only through
+    `pontius.collision_repair_v3_evaluation.run_adr0300_collision_repair_v3_evaluation`.
+    The representative, qualified, and stopped-campaign digests are
+    `37217f9b4b1dab282dd0c0a998559d10714de6e593b73d2209b45033a75f8c30`,
+    `fdf2261940947020d38ad518ab37c2a8031dc2b8a161157f1e26e862ed0c83c2`,
+    and `5e27d5767b35ef43d2a75a9c97aca3d46a3ee966037220299d82c8d571a6dbdf`.
+    Preserve the qualified raw-chip recovery failure at
+    `0.800547544995807 < 0.90`; do not substitute normalized loss, a mean of
+    ratios, or local campaign seconds. Keep v3 parked and every integration
+    path closed. Any successor needs a new prospective mechanism and wholly
+    fresh panel authority before source code or values.

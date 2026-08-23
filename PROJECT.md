@@ -61,9 +61,11 @@ RTX 5080 workstation.
   value-free 48-context representative family and separate 96-context
   qualification pool with zero counterpart among 604 maintained prior
   contexts. ADR-0303's candidate-blind runner reaches 24 qualifiers after a
-  contiguous 60-context prefix and seals the final qualified panel. The
-  representative family and every v3 value remain unopened; no integration
-  exists yet.
+  contiguous 60-context prefix and seals the final qualified panel. ADR-0304
+  rejects v3 at the frozen qualified aggregate-recovery gate: both families
+  pass maximum and mean normalized-loss limits, but the qualified family
+  recovers only 80.05% of the available raw-chip sizing gain versus the 90%
+  floor. V1, v2, and v3 remain parked and no action abstraction is integrated.
 - The authoritative hard boundary is 15,000 ms of wall-clock time per street,
   including a fixed 1,000 ms reserve for synchronization and action emission.
   Older 5-250 ms targets are superseded historical context and must not govern

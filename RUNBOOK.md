@@ -938,3 +938,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     candidate value. The behavioral master already uses HiGHS and remains
     parked until a fresh certified-v2 complete ledger reaches the 5%
     perfect-solver materiality trigger.
+36. ADR-0318 source-seals `pontius.certified_reduced_sizing_highs` at
+    canonical-LF SHA-256
+    `4723a7b153b6285081c67e8e5c20b0f1097c7d8acf9ab4c5482373984947e80f`.
+    Its source verifier also binds `linear_program_certificate` and
+    `reduced_river_sizing_lp`; its runtime verifier binds CPython 3.14.6,
+    NumPy 2.5.2, SciPy 1.18.0, and embedded HiGHS 1.12.0. Only toy controls
+    may call the adapter at this boundary. Implement and source-seal a separate
+    failure-complete runner next, freezing the exact canonical order of one
+    known regression, 48 exact micro bases, and 128 fresh sizing bases before
+    any retained call. Do not edit the adapter, invoke a transformed arm, call
+    a v1-v4 owner, or connect `reduced_river_sizing_oracle`.

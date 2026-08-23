@@ -117,6 +117,13 @@ so persistence and specialization are parked under a prospective 5%
 perfect-solver materiality trigger. No solver source, result, consumer, or
 candidate is changed by ADR-0317.
 
+ADR-0318 now source-seals that canonical sizing adapter. HiGHS-DS is an
+untrusted proposer: exact normalized policy evaluation supplies a feasible
+behavioral lower bound, and an outward-rounded trusted-box certificate supplies
+the upper bound. Eleven analytic, bounded-teacher, corruption, source, and
+runtime controls pass. No sealed 177-base validation, legacy consumer change,
+candidate value, or production replacement exists yet.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

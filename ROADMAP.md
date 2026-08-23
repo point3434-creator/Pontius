@@ -691,7 +691,11 @@ now seals the value-free compiler, both prospective structures, the known
   persistence and specialization are parked until a fresh certified-v2 ledger
   crosses a 5% perfect-solver materiality trigger. If that trigger opens,
   persistent warm HiGHS remains the null hypothesis before any untrusted
-  product-of-simplexes proposer.
+  product-of-simplexes proposer. ADR-0318 now source-seals the separate
+  canonical reduced-sizing HiGHS adapter and its exact behavioral/outward-bound
+  acceptance path after toy-only controls. The next boundary is a source-sealed
+  failure-complete runner over the 177 canonical ADR-0312 bases; no sealed base
+  or consumer has opened through ADR-0318.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -771,7 +775,10 @@ representative and candidate value remains unopened. All four exact-legality
   ceiling is below 0.2% on both retained six-target ledgers, so persistent
   HiGHS and any untrusted specialized proposer remain parked under a 5%
   complete-ledger trigger. The passive reference source remains the emitted
-  fallback.
+  fallback. ADR-0318 now seals the canonical reduced-sizing adapter source, but
+  only analytic and bounded toy controls have run. A separate 177-base runner
+  and result gate remain prerequisites to any v2 sizing consumer or wholly
+  fresh action mechanism.
 
 ## C6: Neural blueprint and leaves
 

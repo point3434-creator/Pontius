@@ -306,11 +306,35 @@ class DocumentationIntegrityTests(unittest.TestCase):
         expected = {
             "README.md": ("ADR-0317", "5%"),
             "PROJECT.md": ("compact reduced-sizing LP", "0.063%-0.151%"),
-            "STATUS.md": ("canonical reduced-sizing HiGHS", "0.151 percent"),
+            "STATUS.md": (
+                "ADR-0317",
+                "Separate solver classes and prioritize the certified sizing adapter",
+            ),
             "ROADMAP.md": ("perfect-solver materiality trigger", "rejected native simplex"),
             "RUNBOOK.md": ("177-base schedule", "behavioral master already uses HiGHS"),
             "ARCHITECTURE.md": ("ADR-0317", "Historical behavioral-master v1"),
             "RISK_REGISTER.md": ("R79", "Evidence from one LP class"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+    def test_certified_sizing_adapter_source_boundary_is_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0318", "untrusted proposer"),
+            "PROJECT.md": ("177-canonical-base", "11 controls"),
+            "STATUS.md": ("failure-complete canonical 177-base", "toy controls"),
+            "ROADMAP.md": ("ADR-0318", "exact behavioral/outward-bound"),
+            "RUNBOOK.md": (
+                "4723a7b153b6285081c67e8e5c20b0f1097c7d8acf9ab4c5482373984947e80f",
+                "128 fresh sizing bases",
+            ),
+            "ARCHITECTURE.md": (
+                "certified_reduced_sizing_highs",
+                "no legacy sizing consumer imports",
+            ),
+            "RISK_REGISTER.md": ("R80", "policy repair hides a semantic failure"),
         }
         for relative, phrases in expected.items():
             text = _contract_text(relative)

@@ -15,20 +15,20 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Correct ADR-0316's active direction by separating the solver classes. Prioritize
-one canonical, certified HiGHS dual-simplex adapter for the reduced sizing LP.
-Park behavioral-master persistence and specialization under the `5%`
-perfect-solver materiality trigger, and redirect current optimization attention
-to exact row/oracle work under ADR-0283 through ADR-0285's v2 trust controls.
+Accept and source-seal the canonical adapter and toy controls. It is eligible
+only for a separately source-sealed, failure-complete 177-base validation
+runner. That runner must retain every scheduled observation after an individual
+adapter rejection and use the exact micro/behavioral/certificate authorities
+already frozen by ADR-0311 through ADR-0313.
 
-Commit this ADR and front-door correction before adapter source. Open no
-sealed corpus, fresh sizing value, candidate mechanism, behavioral-master
-result, or policy at this boundary. ADR-0281 remains revoked and v1-v4 remain
-parked.
+Do not edit or connect `reduced_river_sizing_oracle`, invoke ADR-0310, revive
+v4, construct a fresh action mechanism or panel, or call this source a
+production replacement. The historical native failure and ADR-0314 rejection
+remain part of the record.
 
 ## Active next
 
-Implement and source-seal only a prospective canonical reduced-sizing HiGHS dual-simplex adapter with exact behavioral reconstruction, original-unit feasibility checks, an outward-rounded bounded-variable certificate, typed diagnostics, and fail-closed toy controls; change no v1 consumer, invoke no sealed corpus or candidate value before that source boundary, and keep behavioral-master persistence or specialization parked until a fresh certified v2 complete ledger crosses the frozen materiality trigger
+Implement and source-seal only a failure-complete canonical 177-base validation runner over ADR-0312's exact ordered bases: verify the ADR-0318 source/dependency/runtime seal before the first call, invoke one public HiGHS-DS proposal per canonical base, independently recheck exact micro optima or exact behavioral sizing lower bounds and outward upper bounds, retain every typed success or exception in order, and freeze the complete schedule/result schema before any sealed invocation; edit no adapter, v1 consumer, corpus, candidate owner, or allowance and open no v1-v4 value
 
 ## Revoked authorities
 
@@ -36,7 +36,7 @@ Implement and source-seal only a prospective canonical reduced-sizing HiGHS dual
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0317](docs/decisions/ADR-0317-separate-solver-classes-and-prioritize-the-certified-sizing-adapter.md) — Separate solver classes and prioritize the certified sizing adapter.
+Latest process decision: [ADR-0318](docs/decisions/ADR-0318-source-seal-the-certified-reduced-sizing-highs-adapter.md) — Source-seal the certified reduced-sizing HiGHS adapter.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -44,7 +44,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0294](docs/decisions/ADR-0294-reject-dyadic-v2-on-confirmation-power.md) | 2026-08-23 | accepted untouched-confirmation result; dyadic v2 is promising but rejected on the frozen panel-power gate before replay integration | Reject dyadic v2 on confirmation power |
 | [ADR-0295](docs/decisions/ADR-0295-preregister-candidate-blind-sizing-power-diagnostic.md) | 2026-08-23 | accepted executable diagnostic preregistration before any new pool construction or full-versus-narrow value | Preregister candidate-blind sizing-power diagnostic |
 | [ADR-0296](docs/decisions/ADR-0296-reject-candidate-blind-power-pools-and-own-stop-state.md) | 2026-08-23 | accepted negative diagnostic and corrective process control; ADR-0295 rejected before v3 | Reject candidate-blind power pools and own stop state |
 | [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md) | 2026-08-23 | accepted executable preregistration before any width-four pool construction or value | Preregister width-four sizing-power replications |
@@ -68,18 +67,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0315](docs/decisions/ADR-0315-source-seal-artifact-only-native-simplex-gate-correction.md) | 2026-08-23 | accepted source-only post-outcome correction with synthetic controls; authoritative retained-evidence result remains unopened | Source-seal the artifact-only native-simplex gate correction |
 | [ADR-0316](docs/decisions/ADR-0316-accept-corrected-audit-and-bound-replacement-eligibility.md) | 2026-08-23 | accepted post-outcome corrected finite-corpus gate pass; HiGHS dual simplex is eligible only for a later prospective replacement-adapter evaluation | Accept the corrected audit and bound replacement eligibility |
 | [ADR-0317](docs/decisions/ADR-0317-separate-solver-classes-and-prioritize-the-certified-sizing-adapter.md) | 2026-08-23 | accepted optimization triage and prospective adapter preregistration before source | Separate solver classes and prioritize the certified sizing adapter |
+| [ADR-0318](docs/decisions/ADR-0318-source-seal-the-certified-reduced-sizing-highs-adapter.md) | 2026-08-23 | accepted source-only canonical adapter and toy controls before any sealed validation base | Source-seal the certified reduced-sizing HiGHS adapter |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0317](docs/decisions/ADR-0317-separate-solver-classes-and-prioritize-the-certified-sizing-adapter.md) — Separate solver classes and prioritize the certified sizing adapter.
+- Latest ADR: [ADR-0318](docs/decisions/ADR-0318-source-seal-the-certified-reduced-sizing-highs-adapter.md) — Source-seal the certified reduced-sizing HiGHS adapter.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 317.
-- ADR-header SHA-256: `f382bcb76729d1f46cfa0015bdd6e54ac72f26489d4a0791a1cee914b8cc62c5`.
-- Current blockers: no production reduced-sizing HiGHS adapter or adapter-specific sealed result exists; the legacy sizing oracle still invokes rejected native simplex; historical behavioral-master consumers still use the uncertified-v1 bound label; no fresh action mechanism or panel is authorized; behavioral-master replacement has at most 0.151 percent measured complete-ledger headroom on the retained panels.
+- Numbered decisions: 318.
+- ADR-header SHA-256: `4c58edc5659ff4c446b411df5b202432ca3986e0e7bd21a3198afdccd10b2cd0`.
+- Current blockers: the certified adapter has run only analytic and bounded toy controls; no source-sealed 177-base validation runner or adapter-specific retained result exists; no production v2 sizing-oracle consumer is authorized; v1-v4 remain parked; behavioral-master specialization remains below its materiality trigger.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0317](docs/decisions/ADR-0317-separate-solver-classes-and-prioritize-the-certified-sizing-adapter.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0318](docs/decisions/ADR-0318-source-seal-the-certified-reduced-sizing-highs-adapter.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

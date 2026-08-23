@@ -119,6 +119,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   ledgers; persistent or specialized master work remains parked until a fresh
   certified v2 ledger crosses a 5% perfect-solver materiality trigger. This is
   a scheduling boundary, not an adapter, speedup, or candidate result.
+- ADR-0318 implements and canonical-LF source-seals the reduced-sizing
+  HiGHS-DS adapter behind exact normalized behavioral reconstruction and an
+  outward-rounded trusted-box certificate. Its 11 controls are analytic or
+  bounded toys only. A failure-complete, source-sealed 177-canonical-base
+  runner must be committed before any retained adapter result; no v1 consumer,
+  v1-v4 candidate owner, or action value is connected.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

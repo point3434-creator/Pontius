@@ -181,6 +181,18 @@ measured ledgers. That optimization is parked until a prospective certified-v2
 ledger crosses the 5% materiality trigger. Historical behavioral-master v1
 primal objectives remain uncertified as lower bounds under ADR-0284.
 
+`certified_reduced_sizing_highs` is ADR-0318's source-sealed canonical adapter,
+not a production consumer. It recompiles exact sizing inputs through the pure
+unit-tagged compiler and calls only SciPy's public HiGHS-DS interface. Returned
+primal and multiplier vectors are untrusted. Original dimensionless policy and
+chip-envelope checks remain separate; policy rows are converted to exact
+Fractions and normalized; an exact fold/call evaluator supplies the feasible
+maximization lower bound; and the bounded-variable outward certificate supplies
+the upper bound. Its import graph contains neither native simplex nor a
+candidate owner. The adjacent seal binds the adapter, compiler, certificate,
+runtime versions, and the future 177-base inventory. Only toy controls have run;
+no legacy sizing consumer imports this adapter.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

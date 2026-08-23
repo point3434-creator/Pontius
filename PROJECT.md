@@ -143,6 +143,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   kernel-legal raise-to subset and its distinct reduced bet increments, and
   returns certified evidence or a typed no-action rejection to the caller-owned
   legal fallback. It cannot emit a production action or model responder raises.
+- ADR-0322 implements and source-seals that exact boundary. Eleven unsealed
+  analytic/differential/corruption controls pass; unsupported semantics and
+  source/runtime drift make zero backend calls, while accepted or corrupted
+  solver attempts make exactly one. Accepted evidence rebinds its immutable
+  request and LP; every rejection retains its cause chain and owns no action.
+  No fresh action-width value, production integration, or latency claim opens.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

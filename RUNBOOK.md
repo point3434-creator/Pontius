@@ -983,3 +983,16 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     the caller-owned legal fallback. Do not emit/apply an action, import the
     historical native consumer or v1-v4 owners, open a fresh action-width
     value, or call this fold/call-only model a production six-max decision.
+40. ADR-0322 source-seals `pontius.certified_reduced_sizing_consumer_v2` at
+    canonical-LF SHA-256
+    `931d6aa2d919efc3fc39e3d404dfa4bf0f6ced756acc2a918dc6c0cde8b4210a`;
+    its protocol SHA-256 is
+    `688263741a95eaf8405f3b69fd2cf7361d54ec265593883f2a55d767fca32a3c`.
+    Use it only for the exact two-live-seat river fold/call research shell.
+    Supply nominal kernel raise-to totals, never raw increments in their place;
+    preserve full-versus-restricted scope and minimum/fully-contestable maximum
+    anchors. An accepted call returns evidence but no action. A rejection owns
+    no fallback action and requires the caller's legal one. Do not edit the
+    sealed closure, connect the historical oracle, treat the eleven unsealed
+    controls as a sizing result, or open a fresh action-width value without a
+    separate preregistration.

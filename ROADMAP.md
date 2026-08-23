@@ -702,7 +702,9 @@ now seals the value-free compiler, both prospective structures, the known
   exact research-only contract before source: two live seats at a river
   opening, fold/call-only responses, caller-supplied kernel-legal raise-to
   subsets, distinct raise-to-to-increment conversion, one certified public
-  proposal, and typed no-action rejection to a caller-owned fallback.
+  proposal, and typed no-action rejection to a caller-owned fallback. ADR-0322
+  now source-seals that implementation after eleven unsealed semantic and
+  corruption controls. It opens no fresh action-width value.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -788,7 +790,9 @@ representative and candidate value remains unopened. All four exact-legality
   with exact legal-action/context binding and typed rejection before source.
   Because its reduced responder cannot raise, the consumer is explicitly not a
   six-player action chooser. Any wholly fresh action-width mechanism remains
-  downstream of its source seal and must close both own-column and
+  downstream of ADR-0322's now-passing source seal. The next owner must measure
+  exact full-minus-subset chip regret and bounded best-subset teachers
+  separately from fresh population transfer, and close both own-column and
   opponent-row violations before production action selection.
 
 ## C6: Neural blueprint and leaves

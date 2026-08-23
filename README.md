@@ -144,6 +144,12 @@ responder, keeps kernel raise-to totals distinct from reduced bet increments,
 and can return certified research evidence or a typed no-action rejection. It
 cannot emit a production betting action or stand in for multiway response rows.
 
+ADR-0322 now source-seals the implementation. Eleven unsealed controls prove
+exact legal/context binding, nominal amount conversion, one-call solver trust,
+source/runtime fail-closed behavior, complete exception chains, and no action
+emission. No fresh ladder value, complete-decision timing, or strength result
+is part of that engineering pass.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

@@ -395,6 +395,24 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_certified_v2_consumer_source_boundary_is_bounded_and_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0322", "Eleven unsealed controls"),
+            "PROJECT.md": ("ADR-0322", "every rejection retains its cause chain"),
+            "STATUS.md": ("ADR-0322", "no action"),
+            "ROADMAP.md": ("ADR-0322", "best-subset teachers"),
+            "RUNBOOK.md": (
+                "931d6aa2d919efc3fc39e3d404dfa4bf0f6ced756acc2a918dc6c0cde8b4210a",
+                "full-versus-restricted scope",
+            ),
+            "ARCHITECTURE.md": ("recompile and rebind", "eleven tests are unsealed"),
+            "RISK_REGISTER.md": ("R84", "complete exception chain"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

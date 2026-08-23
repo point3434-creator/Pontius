@@ -223,6 +223,16 @@ public proposal; and return certified evidence or a typed no-action rejection.
 Actual responder raises and multiway rows remain outside this reduced model, so
 the Legal Decision Spine continues to own every emitted action and fallback.
 
+`certified_reduced_sizing_consumer_v2` now fills only that research slot under
+ADR-0322's source seal. It rederives the exact decision from an immutable public
+state, validates an explicit full or restricted kernel-legal raise-to tuple,
+and converts nominal street totals to distinct nominal bet increments before
+one counted public adapter call. Accepted records recompile and rebind their
+request, action mapping, and LP identity; failure-complete rejections retain
+their cause chain and require a caller-owned fallback. The module contains no
+action constructor/application or legacy/native/candidate import. Its eleven
+tests are unsealed controls, not a fresh sizing result or live strategy path.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

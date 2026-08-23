@@ -65,7 +65,13 @@ RTX 5080 workstation.
   rejects v3 at the frozen qualified aggregate-recovery gate: both families
   pass maximum and mean normalized-loss limits, but the qualified family
   recovers only 80.05% of the available raw-chip sizing gain versus the 90%
-  floor. V1, v2, and v3 remain parked and no action abstraction is integrated.
+  floor. ADR-0305 prospectively freezes capacity-filling pot-odds v4: retain
+  every v3 action under the same seven-raise ceiling, then fill every unused
+  slot by exact-rational farthest-point coverage rather than another fitted
+  fraction. Its source and all three seed-bound structure streams remain
+  unconstructed; replicated qualification and all candidate values remain
+  unopened. V1, v2, and v3 remain parked and no action abstraction is
+  integrated.
 - The authoritative hard boundary is 15,000 ms of wall-clock time per street,
   including a fixed 1,000 ms reserve for synchronization and action emission.
   Older 5-250 ms targets are superseded historical context and must not govern

@@ -632,6 +632,13 @@ is `0.800547544995807` versus the frozen `0.90` floor. The next boundary is a
 separate prospective preregistration for one materially different bounded-
 width mechanism and wholly fresh panels; no v3 retuning or panel reuse is
 authorized.
+[ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md)
+now freezes capacity-filling pot-odds v4 before source code. It preserves every
+v3 action and the seven-raise ceiling, then fills deduplicated capacity by an
+exact-rational farthest-point rule. Its 48-context representative stream and
+two separate 96-context qualification streams are already seed-bound, but all
+structures and values remain unopened. Source legality and bounded-work proof
+must commit before construction.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
@@ -672,7 +679,10 @@ against a frozen evaluation league.
 The first three exact-legality candidates were killed before integration: v1
 on reduced sizing recovery, v2 on confirmation power, and v3 on qualified
 aggregate recovery. The next checkpoint remains narrower than blueprint
-training or resolver integration. ADR-0297
+training or resolver integration. ADR-0305
+prospectively freezes a same-ceiling capacity-filling successor; it must pass
+source, replicated fresh-panel, and reduced quality gates before any
+compatibility audit. ADR-0297
 preregisters a four-by-four private-type game while holding the one-bet tree
 fixed. The three-by-three pool failed its second yield replication and remains
 parked. The width-four game now passes its frozen replicated yield and exact-

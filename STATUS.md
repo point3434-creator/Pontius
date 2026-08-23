@@ -15,22 +15,16 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-The v3 hypothesis is false on its prospectively sealed qualified panel. Keep
-the source and evaluator as a parked, hash-pinned negative control. Do not
-adjust its three-halves/two-pot branch, append a size, relax `0.90`, select a
-friendlier subset, or reuse either opened family as confirmation.
-
-The result sharpens the next mechanism question: small payoff-span-normalized
-loss can coexist with materially incomplete recovery of the available sizing
-gain. A successor must state which mechanism should recover that missing gain
-under bounded action width, and must commit its source rule and wholly fresh
-panel protocol before code or values. This ADR authorizes writing that
-prospective preregistration only; it does not authorize a specific v4 source,
-new values, a wider lattice, or integration.
+Proceed only to v4 source implementation and source-gate verification. Do not
+construct a frozen stream, open a solver value, or modify a parked candidate.
+The source must implement the exact mechanism above, preserve every v3 action,
+fill every available slot through exact bounded interval candidates, and commit
+its immutable digest in a successor ADR. Only that clean source boundary may
+authorize construction from the already-frozen seeds.
 
 ## Active next
 
-Formulate and commit a separate preregistration for one materially new action-width mechanism and wholly fresh value-unopened representative and qualified panels before source code or values; do not retune collision-repair v3, reuse any opened panel for confirmation, widen its frozen candidate, or connect any parked lattice to replay, blueprint, convex-master, resolver, or strategy paths
+Implement only the exact-rational capacity-filling pot-odds v4 source below, prove exhaustive legality, v3 action-set inclusion, full available-slot use, bounded construction work, projection, provenance, and immutability, then commit its source digest before constructing any of the three already-seeded fresh structures or opening any value; keep every parked candidate and all replay, blueprint, convex-master, resolver, and strategy integration closed
 
 ## Revoked authorities
 
@@ -38,7 +32,7 @@ Formulate and commit a separate preregistration for one materially new action-wi
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0304](docs/decisions/ADR-0304-reject-collision-repair-v3-on-qualified-recovery.md) — Reject collision-repair v3 on qualified recovery.
+Latest process decision: [ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md) — Preregister capacity-filling pot-odds v4.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -46,7 +40,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md) | 2026-08-22 | accepted label-free seed-only preregistration before any h32 cache population or capacity replay; revoked by ADR-0283 | Preregister temporally separated pre-bet row-cache seed |
 | [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) | 2026-08-22 | accepted process and charter correction | Make the fifteen-second street wall authoritative |
 | [ADR-0283](docs/decisions/ADR-0283-withdraw-v1-seed-authority-and-install-v2-trust-controls.md) | 2026-08-22 | accepted corrective process and engineering control; no h32 invocation authorized | Withdraw v1 seed authority and install v2 trust controls |
 | [ADR-0284](docs/decisions/ADR-0284-install-certified-bound-and-semantic-type-successors.md) | 2026-08-22 | accepted corrective engineering controls; historical result labels are preserved but numerical-bound claims are qualified | Install certified-bound and semantic-type successors |
@@ -70,18 +63,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0302](docs/decisions/ADR-0302-seal-fresh-v3-structures-before-qualification-values.md) | 2026-08-23 | accepted value-free structural freeze; every fresh sizing value remains unopened | Seal fresh v3 structures before qualification values |
 | [ADR-0303](docs/decisions/ADR-0303-seal-fresh-qualified-panel-before-v3-values.md) | 2026-08-23 | accepted candidate-blind qualification pass and final dual-panel freeze; every v3 value remains unopened | Seal fresh qualified panel before v3 values |
 | [ADR-0304](docs/decisions/ADR-0304-reject-collision-repair-v3-on-qualified-recovery.md) | 2026-08-23 | accepted negative result; collision-repair v3 is rejected and parked before every integration path | Reject collision-repair v3 on qualified recovery |
+| [ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md) | 2026-08-23 | accepted prospective mechanism and replicated fresh-panel preregistration before v4 source code, structure construction, or values | Preregister capacity-filling pot-odds v4 |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0304](docs/decisions/ADR-0304-reject-collision-repair-v3-on-qualified-recovery.md) — Reject collision-repair v3 on qualified recovery.
+- Latest ADR: [ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md) — Preregister capacity-filling pot-odds v4.
 - Governing runtime contract: [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
-- Numbered decisions: 304.
-- ADR-header SHA-256: `368ddf00cc36d91a24050a73040dbda330178d212b6622aeb2d0f6a40ebd8f69`.
-- Current blockers: collision-repair v1, v2, and v3 are parked; no action abstraction has passed reduced quality and power gates; action width remains absent from the reference hand, convex master, blueprint, and resolver; any successor mechanism, source, fresh seeds, panels, values, and integration require new prospective authority.
+- Numbered decisions: 305.
+- ADR-header SHA-256: `6941c89982dfe5345e967d87050a2dbc69224e8f4130928e6b6c3b28e939ea39`.
+- Current blockers: the v4 source and digest do not exist; all three frozen v4 seed streams remain unconstructed; both candidate-blind qualification replications and every v4 value remain unopened; no action abstraction has passed reduced quality and power gates; integration remains unauthorized.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0304](docs/decisions/ADR-0304-reject-collision-repair-v3-on-qualified-recovery.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies
+4. [ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies

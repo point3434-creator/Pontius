@@ -68,7 +68,11 @@ panel before candidate values. ADR-0304 now rejects v3 before integration: its
 normalized-loss gates pass on both families, but the qualified panel recovers
 only 80.05% of the available raw-chip full-over-minimum/all-in gain versus the
 frozen 90% floor. V1, v2, and v3 remain parked; a successor requires a new
-prospective mechanism and wholly fresh panels.
+prospective mechanism and wholly fresh panels. ADR-0305 now freezes that
+successor before code: v4 retains v3's set and uses exact-rational maximin
+pot-odds filling to spend otherwise unused slots under the same seven-raise
+ceiling. Three exact fresh streams and two separately gated qualified
+replications are committed prospectively; no v4 structure or value is open.
 
 ## Current checkpoint
 

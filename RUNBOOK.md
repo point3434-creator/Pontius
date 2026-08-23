@@ -781,3 +781,12 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     ratios, or local campaign seconds. Keep v3 parked and every integration
     path closed. Any successor needs a new prospective mechanism and wholly
     fresh panel authority before source code or values.
+23. ADR-0305 permits no v4 source except the exact-rational capacity-filling
+    pot-odds rule. Start with every v3 raise, fill to the lesser of seven and
+    exact legal width by closed-form midpoint inversion plus floor/ceiling
+    checks, and tie toward the smaller raise. Never enumerate a chip interval
+    or use floats, cards, ranges, values, or opened panels. The three exact
+    representative/qualified-A/qualified-B seed texts are already frozen in
+    ADR-0305. Commit exhaustive source validation and its digest before
+    constructing any stream, then commit all three structures before opening
+    candidate-blind qualification values.

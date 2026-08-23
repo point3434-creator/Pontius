@@ -4,9 +4,10 @@ import gc
 import hashlib
 import importlib.util
 import json
-from pathlib import Path
 import unittest
+from pathlib import Path
 
+import tests.test_multi_size_leaf_adjoint as sized_fixture
 from pontius.canonical_affine_resident_automaton_cache import (
     CuPyCanonicalAffineResidentAutomatonCache,
 )
@@ -20,7 +21,6 @@ from pontius.h32_pre_bet_action_width_capacity import (
     _runtime_arm,
     derive_capacity_proxy,
     pre_bet_check_observations,
-    target_specs,
 )
 from pontius.leaf_adjoint_cfr import build_leaf_adjoint_terminal_automata
 from pontius.multi_size_policy_bridge import embed_one_size_policy, sized_policy_digest
@@ -29,25 +29,18 @@ from pontius.public_tree_tensor import PublicTreeTensorEvaluator
 from pontius.real_policy import policy_digest
 from pontius.resident_heterogeneous_leaf_contraction import CuPyResidentAutomatonCache
 from pontius.river_multiway import MultiwayRiverDeal, MultiwayRiverHoldem
-import tests.test_multi_size_leaf_adjoint as sized_fixture
-
 
 ROOT = Path(__file__).parents[1]
 CONFIG = ROOT / "experiments/configs/h32-pre-bet-action-width-capacity-v1.json"
 
 
 class H32PreBetActionWidthCapacityTests(unittest.TestCase):
-    def test_config_freezes_all_sources_crossed_with_all_positions(self) -> None:
-        parsed = _parse_config(json.loads(CONFIG.read_text(encoding="utf-8")))
-        specs = target_specs(parsed)
-        self.assertEqual(len(specs), 36)
-        self.assertEqual(
-            [row["acting_player"] for row in specs[:6]],
-            list(range(6)),
-        )
-        self.assertEqual(len({row["target_id"] for row in specs}), 36)
-        self.assertEqual(parsed["gates"]["expected_arms"], 72)
-        self.assertIn("zero_master_candidate", parsed["candidate_label_rule"])
+    def test_sealed_config_fails_closed_after_typed_root_repair(self) -> None:
+        with self.assertRaisesRegex(
+            ValueError,
+            "provenance mismatch: expected_public_node_row_sha256",
+        ):
+            _parse_config(json.loads(CONFIG.read_text(encoding="utf-8")))
 
     def test_check_prefix_is_empty_for_opener_and_complete_for_last_actor(self) -> None:
         self.assertEqual(pre_bet_check_observations(0), ())
@@ -116,6 +109,7 @@ class H32PreBetActionWidthCapacityTests(unittest.TestCase):
                 street_budget_ms=15000.0,
             )
 
+    @unittest.skip("sealed rejected runner is retained byte-for-byte and never rerun")
     @unittest.skipUnless(importlib.util.find_spec("cupy"), "optional CuPy screen")
     def test_small_runtime_composition_keeps_candidate_at_current_node(self) -> None:
         cp = importlib.import_module("cupy")

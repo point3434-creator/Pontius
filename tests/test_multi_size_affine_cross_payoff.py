@@ -6,23 +6,26 @@ import unittest
 
 import numpy as np
 
+import tests.test_multi_size_leaf_adjoint as sized_fixture
 from pontius.canonical_affine_resident_automaton_cache import (
     CuPyCanonicalAffineResidentAutomatonCache,
+)
+from pontius.cross_payoff_adjoint_result import (
+    evaluate_typed_multi_size_affine_cross_payoff,
 )
 from pontius.cupy_sparse_incidence import (
     CuPyBidirectionalIncidence,
     release_cupy_memory_pool,
 )
 from pontius.incremental_policy_tt import compile_policy_probability_tape
-from pontius.multi_size_affine_cross_payoff import (
-    evaluate_multi_size_affine_cross_payoff,
-)
 from pontius.multi_size_leaf_adjoint import multi_size_leaf_adjoint_cfr_traverser
-from pontius.public_node_open_axis import public_node_open_axis_payoff_row
+from pontius.public_node_open_axis import (
+    build_public_node_affine_source_context,
+    public_node_open_axis_payoff_row,
+)
 from pontius.resident_heterogeneous_leaf_contraction import (
     CuPyResidentBeliefCache,
 )
-import tests.test_multi_size_leaf_adjoint as sized_fixture
 
 
 def _endpoint_policy(layout: object, source: dict, node_index: int) -> dict:
@@ -73,7 +76,7 @@ class MultiSizeAffineCrossPayoffTests(unittest.TestCase):
             traverser=acting_player,
             maximum_feature_width_per_batch=96,
         )
-        resident = evaluate_multi_size_affine_cross_payoff(
+        resident = evaluate_typed_multi_size_affine_cross_payoff(
             self.source.layout,
             self.source.workspace,
             self.source.sparse,
@@ -86,6 +89,8 @@ class MultiSizeAffineCrossPayoffTests(unittest.TestCase):
             cupy_sparse=self.gpu,
             maximum_feature_width_per_batch=96,
         )
+        self.assertEqual(resident.acting_player, acting_player)
+        self.assertEqual(resident.payoff_player, payoff_player)
         raw_by_node = {row.node_index: row for row in raw.reads}
         self.assertEqual(set(raw_by_node), {row.node_index for row in resident.reads})
         for row in resident.reads:
@@ -103,17 +108,15 @@ class MultiSizeAffineCrossPayoffTests(unittest.TestCase):
                 rtol=0.0,
             )
 
-        source_value = self.source.layout.evaluate(
-            self.source.policy
-        ).evaluation.utilities[payoff_player]
-        row = public_node_open_axis_payoff_row(
+        context = build_public_node_affine_source_context(
             self.source.layout,
             self.source.probabilities,
             resident,
             acting_player=acting_player,
+            payoff_player=payoff_player,
             public_node=public_node,
-            source_value=source_value,
         )
+        row = public_node_open_axis_payoff_row(context)
         endpoint_policy = _endpoint_policy(
             self.source.layout,
             self.source.policy,
@@ -134,7 +137,7 @@ class MultiSizeAffineCrossPayoffTests(unittest.TestCase):
 
     def test_payoff_role_mismatch_fails_before_contraction(self) -> None:
         with self.assertRaisesRegex(ValueError, "wrong payoff role"):
-            evaluate_multi_size_affine_cross_payoff(
+            evaluate_typed_multi_size_affine_cross_payoff(
                 self.source.layout,
                 self.source.workspace,
                 self.source.sparse,

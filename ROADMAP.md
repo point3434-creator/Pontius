@@ -4,6 +4,13 @@ This file is the compact forward map. The generated [STATUS.md](STATUS.md)
 names the latest accepted decision; the immutable records under
 [`docs/decisions`](docs/decisions) retain the complete experimental history.
 
+The authoritative live target is one shared 15,000 ms wall-clock budget per
+street of cumulative charged agent work, including the frozen emission reserve.
+Opponent/transport idle pauses the ledger; useful background work consumes it;
+and it does not reset at each action on the same street. Older 5-250 ms targets
+are historical only
+([ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md)).
+
 ## C0-C2: Research contract and exact solver laboratory
 
 **Status:** Passed as foundations.
@@ -447,7 +454,7 @@ its only external policy. These are cache-correctness controls, not h32 timing
 or capacity evidence.
 
 [ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md)
-freezes the first executable GPU stage without authorizing replay. The sealed
+historically froze the first executable GPU stage without authorizing replay. The sealed
 label-free matrix lawfully narrows the scope to all six acting-seat-5 sources,
 the only complete position below 15 seconds under the warm-free, zero-cost-hit
 ceiling. Both one-size and two-size bundles remain in the differential. Their
@@ -464,21 +471,130 @@ rows, six gains, serialization, hashing, parsing, numerical validation, and
 byte comparison. No warm step, master, candidate, certificate, label, or
 policy-emission path exists.
 
-**Immediate gate:** from the clean ADR-0281 preregistration commit, invoke the
-seed-only campaign at most once. On a complete pass, seal the literal result
-and twelve cache-file hashes in a separate result decision; only then author a
-new replay preregistration that charges current identity, lookup, validation,
-and gain assembly on-clock. On any deadline, memory, provenance, row,
-round-trip, or barrier failure, reject the invocation and keep every partial
-file untrusted. Do not invoke ADR-0277, solve a cached master, open a candidate
-endpoint, or make an action-width quality claim.
+[ADR-0283](docs/decisions/ADR-0283-withdraw-v1-seed-authority-and-install-v2-trust-controls.md)
+revokes ADR-0281 before invocation. Independent review found that v1 left the
+acting best-response scalar outside the hash-bound cache and accepted it from
+the successor caller; a different finite scalar could therefore shift the
+acting gain after an exact cache hit. The seed runner also left result
+assembly, rehashing, serialization, write, and readback outside any separately
+admitted finalization unit. Nominal campaign slack does not repair either
+semantic boundary.
+
+The additive CPU v2 derives all identity, source-tape, payoff and acting-response
+inputs in a factory-only live context; population generates rows only from
+provenance-bound affine contexts. It binds scalar and rows in one persisted-byte
+hash, returns both or neither, rejects v1 bytes, and removes caller identities,
+rows and scalars from the successor API. The writer returns no replay authority:
+only a separately persisted seal loaded under an already expected seal hash can
+authorize lookup. A reusable deadline-owned publisher uses separately bounded
+data and completion-seal phases while an exclusive lock marks partial or late
+state unconsumable. These are adversarial CPU/fake-clock controls, not an h32
+cache or capacity result. Historical v1 files remain unchanged and are not
+authorized for population or replay.
+
+The generated front door now treats ADR-0282 as an explicit runtime-contract
+head, requires every latest ADR to publish a complete snapshot, and makes
+revocations cumulative and permanently visible rather than recent-ledger
+heuristics.
+
+**Immediate gate:** first preregister a reduced scalability diagnostic for an
+independent row oracle and the complete data/seal finalization envelope. Review
+a replacement v2 h32 seed only after its arm-specific GPU primitive, complete
+import manifests, external-seal plan and measured bounds are frozen. Until
+then, do not run the v1 seed, invoke ADR-0277, solve a cached master, open a
+candidate endpoint, or make an action-width quality claim.
+
+[ADR-0284](docs/decisions/ADR-0284-install-certified-bound-and-semantic-type-successors.md)
+installs the remaining independent-review controls without rewriting sealed
+artifacts. Historical convex masters used feasible primal objectives as lower
+bounds; 18 of 41 retained-census target rows consequently record `U - L < 0`,
+with worst reversal `-6.676663499849411e-09`. The additive master v2 instead
+uses an outward-rounded bounded-variable Lagrangian certificate and keeps raw
+primal/dual quantities separate. Historical JSON cannot be recertified because
+it did not retain the needed dual vectors and matrices.
+
+The same correction makes public-node rows root-only until upstream own reach
+is represented, binds complete source context plus acting/payoff roles,
+separates seven tolerance semantics, and makes host topology the sole index
+authority in the non-consuming device-fold v2. The transitive v2 contraction,
+resident CFR, cross-payoff and selector-affine paths pass reduced GPU/host
+differentials; this is correctness evidence, not an h32 timing result. These
+controls change no sealed strategy label and authorize no rerun. Any future
+optimizer successor must consume the certified master/sequence adapter and
+explicit tolerance schema before making a lower-bound or closure claim.
+
+[ADR-0285](docs/decisions/ADR-0285-close-second-and-third-round-review-defects.md)
+closes the remaining review defects in strict evidence loading, affine/cache
+provenance, deadline admission arithmetic, behavioral-master unit separation,
+negative-reach folding and transitive successor routing. It also installs the
+first executable shared 15-second street ledger. No h32 cache, candidate or
+strategy label was opened.
+
+[ADR-0286](docs/decisions/ADR-0286-install-the-exact-six-seat-legal-decision-spine.md)
+connects that ledger to an immutable six-seat integer-chip betting reference.
+The kernel covers exact action order, fold/check/call/raise-to bounds, the full-
+bet and cumulative short-all-in reopening rules, unmatched returns, independently
+eligible side pots, integer odd chips, settlement, and all street transitions.
+The one-seat controller charges observed-action processing and all foreground
+or background agent work, pauses opponent/transport idle, retains one ledger
+across repeated actions, and fails closed to a caller-supplied legal blueprint
+action. A maintained exhaustive three-chip oracle covers 45,456 semantic states
+and 60,732 transitions for all button positions.
+
+[ADR-0287](docs/decisions/ADR-0287-preregister-the-complete-reference-hand-replay.md)
+froze the complete reference hand replay before results. The successor
+[ADR-0288](docs/decisions/ADR-0288-complete-reference-hands-pass-the-exact-one-seat-loop.md)
+passes that gate. An explicit six-seat deal stays in the replay oracle while
+the controlled decision sees only its two private cards and the revealed board.
+Exact single-opponent domains have widths 1,225/1,081/1,035/990. A digest-bound
+future-blind table can represent every semantic legal action and defaults only
+to the deliberately weak passive rule.
+
+Both frozen hands reproduce their full action order, public-card transitions,
+four immutable street ledgers, showdown, actual pots, payouts, and chip
+conservation. The multiway all-in fixture agrees with a separate test-only
+chip-depth pot/payout oracle. Every charged interval is named and accounts for
+exactly one interval in its closing street snapshot.
+
+[ADR-0289](docs/decisions/ADR-0289-preregister-the-full-width-belief-blueprint-boundary.md)
+froze the next interface before results. The successor
+[ADR-0290](docs/decisions/ADR-0290-full-width-belief-and-rational-policy-cross-the-reference-hand.md)
+passes it. All five opponent axes retain exact 1,225/1,081/1,035/990 street
+widths, hard card disjointness, actor-only rational action updates, board
+filtering, and immutable provenance through the unchanged 20-event hand. A
+separate rational oracle matches reduced production supports, partitions, and
+marginals while proving that independent unary normalization is not the joint
+belief. The full Cartesian tensor and normalized full-width marginals remain
+uncomputed.
+
+This is still C5 foundation, not a C5 pass. The policy is deliberately weak and
+untrained; scalable value contraction, a fixed action abstraction, a trained
+full-game blueprint, and a strategy-producing resolver remain outside the loop.
+
+[ADR-0291](docs/decisions/ADR-0291-preregister-the-exact-legality-action-abstraction-boundary.md)
+froze the first exact-legality action lattice before results. Its successor
+[ADR-0292](docs/decisions/ADR-0292-reject-action-abstraction-v1-before-complete-hand-integration.md)
+rejects v1 before replay integration. The exact lattice and barycentric
+projector pass all 45,456 three-chip states and 60,732 transitions, and the
+compact sizing LP matches bounded complete normal forms. But only one frozen
+quality context is nondegenerate, and v1 recovers effectively none of that
+context's full-over-minimum/all-in gain. Small normalized loss does not override
+the failed conjunctive gates.
+
+The next active gate must be a non-rescuing development/confirmation successor.
+It may treat the opened v1 panel only as development evidence, must freeze its
+generator and selection rule before constructing or opening an untouched
+confirmation panel, and must retain exact legality, provenance, width,
+off-tree, chip-unit, and timing contracts. No optimizer, resolver, or h32
+strategy label was opened by either full-width or action-abstraction work.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
-30.56%, and transfer only 0.63%. The primary C4 screen must distinguish FP64
-arithmetic from memory/sparse-pipeline pressure on the exact workload; a
-resident hand-fold differential is the next concrete software lever now that
-ADR-0210 rejects opponent-call packing. The fold differential must charge host
+30.56%, and transfer only 0.63%. This retained C4 line should next distinguish
+FP64 arithmetic from memory/sparse-pipeline pressure on the exact workload; a
+resident hand-fold differential remains its concrete software lever after
+ADR-0210 rejected opponent-call packing. It remains parked while the C5 action-
+abstraction boundary is active. When resumed, the differential must charge host
 milliseconds removed and device milliseconds added separately, cover both the
 warm step and Tier B, and reprice the complete ledger. If the sparse pipeline
 still controls K afterward, separate arithmetic from memory pressure before a
@@ -500,10 +616,23 @@ decision traces without strategy regression.
 
 ## C5: Pluribus-style control agent
 
+**Status:** Complete explicit-deal one-seat loop with symbolic five-opponent
+ranges passed; complete agent not passed.
+
 Build a complete legal six-max control agent with a fixed abstraction,
 blueprint, ranges, fixed-depth resolving, off-tree handling, and fail-closed
 fallbacks. The resolver must improve the blueprint in reduced exact games and
 against a frozen evaluation league.
+
+The first exact-legality candidate was killed by its frozen reduced-quality
+gate before integration. The next checkpoint remains narrower than blueprint
+training or resolver integration: preregister a successor generator on an
+explicit development/confirmation split. Freeze its mechanism, selection rule,
+integer projection and deduplication, exact call/all-in retention, off-tree
+translation, panel-generation rule, and reduced exact quality oracle before
+opening confirmation values. It must compare with full integer, v1, and
+minimum/all-in controls without retuning; the passive reference source remains
+the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

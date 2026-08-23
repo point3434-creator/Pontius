@@ -9,31 +9,37 @@ Latest accepted research result: [ADR-0280](docs/decisions/ADR-0280-exact-pre-be
 
 Status: accepted label-free engineering control; cache mechanics pass and timed capacity remains closed.
 
+## Governing runtime contract
+
+[ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
+
 ## Current decision
 
-Accept the CPU/h2 exact row-cache mechanics and close ADR-0279's cheapest
-falsifier. Retain the warm-free cache-to-master preparation as a successor-only
-path; do not edit or rerun the sealed ADR-0277 runner. Every cache miss remains
-an immutable-blueprint no-op, and every eventual candidate must still pass the
-unchanged exact independent certificate before any emission.
+Keep the immutable v1 lattice, exact rational projector, compact reduced river
+LP, and bounded normal-form teacher as parked research controls. They are not
+exported as the package decision boundary and are not connected to the
+complete-hand replay, convex master, blueprint source, or resolver.
 
-The next gate is a separate executable label-free capacity preregistration,
-not an immediate GPU run. It must freeze distinct one-size and two-size GPU
-primitive manifests, exact off-clock cache-population and trusted-byte-hash
-mechanics, on-clock identity/lookup/validation/gain-assembly accounting,
-active monotonic campaign deadlines with complete per-unit bounds, the
-unchanged 15-second street ledger and one-second reserve, memory caps,
-Float64 ceilings, and blueprint fallback. It must define a miss as a completed
-fallback outcome and preserve a campaign-wide prelabel barrier. No h32 work is
-authorized until that preregistration is clean.
+Treat this invocation as development evidence only. A successor must be
+preregistered as a new hypothesis with a visible development/confirmation
+split: it may use this opened panel to motivate a mechanism, but the final
+algorithm and selection rule must be frozen before any untouched confirmation
+panel is constructed or opened. It must compare against full integer, v1, and
+minimum/all-in controls in identical chip units and retain the exact legality,
+provenance, width, off-tree, and 15-second charged-work contracts. No isolated
+addition of the observed missing three-chip size is authorized.
 
-## Open preregistration
+## Active next
 
-[ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md) — Preregister temporally separated pre-bet row-cache seed (accepted label-free seed-only preregistration before any h32 cache population or capacity replay).
+Preregister a non-rescuing development/confirmation successor for action abstraction; keep v1 parked and unintegrated, and keep blueprint training, convex-master integration, resolving, and strategy labels closed
+
+## Revoked authorities
+
+- [ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md) — revoked by [ADR-0283](docs/decisions/ADR-0283-withdraw-v1-seed-authority-and-install-v2-trust-controls.md).
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0268](docs/decisions/ADR-0268-reject-partial-closure-census-on-master-verification-failure.md) — Reject partial closure census on master verification failure.
+Latest process decision: [ADR-0292](docs/decisions/ADR-0292-reject-action-abstraction-v1-before-complete-hand-integration.md) — Reject action abstraction v1 before complete-hand integration.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -41,17 +47,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0258](docs/decisions/ADR-0258-convex-half-retreat-delivers-material-value-on-all-six-latin-e-targets.md) | 2026-08-22 | accepted label-blind six-target result; Latin-F confirmation authorized | Convex half-retreat delivers material value on all six Latin-E targets |
-| [ADR-0259](docs/decisions/ADR-0259-preregister-untouched-latin-f-convex-retreat-confirmation.md) | 2026-08-22 | accepted preregistration before any Latin-F warm step, candidate, or strategy label | Preregister untouched Latin-F convex-retreat confirmation |
-| [ADR-0260](docs/decisions/ADR-0260-latin-f-confirms-convex-breadth-with-two-interior-abstentions.md) | 2026-08-22 | accepted fresh confirmation; prospective live-shadow preregistration authorized | Latin-F confirms convex breadth with two interior abstentions |
-| [ADR-0261](docs/decisions/ADR-0261-preregister-decision-aligned-post-call-posterior-panel.md) | 2026-08-22 | accepted label-blind preregistration before any decision-aligned strategy label | Preregister decision-aligned post-call posterior panel |
-| [ADR-0262](docs/decisions/ADR-0262-post-call-panel-is-fresh-current-and-nondegenerate.md) | 2026-08-22 | accepted label-blind result; decision-aligned live-shadow preregistration authorized | Post-call panel is fresh, current, and nondegenerate |
-| [ADR-0263](docs/decisions/ADR-0263-preregister-decision-aligned-live-shadow-trial.md) | 2026-08-22 | accepted preregistration before any decision-aligned warm step, candidate, or strategy label | Preregister decision-aligned live-shadow trial |
-| [ADR-0264](docs/decisions/ADR-0264-current-decision-convex-shadow-delivers-six-safe-candidates-in-five-seconds.md) | 2026-08-22 | accepted prospective shadow result; post-fold preregistration authorized | Current-decision convex shadow delivers six safe candidates in five seconds |
-| [ADR-0265](docs/decisions/ADR-0265-preregister-decision-aligned-post-fold-posterior-panel.md) | 2026-08-22 | accepted label-blind preregistration before any post-fold strategy label | Preregister decision-aligned post-fold posterior panel |
-| [ADR-0266](docs/decisions/ADR-0266-post-fold-panel-is-fresh-current-and-held-label-blind.md) | 2026-08-22 | accepted label-blind result; retrospective closure census authorized | Post-fold panel is fresh, current, and held label-blind |
-| [ADR-0267](docs/decisions/ADR-0267-preregister-retained-full-closure-census.md) | 2026-08-22 | accepted retrospective preregistration before any full-convergence oracle | Preregister retained full-closure census |
-| [ADR-0268](docs/decisions/ADR-0268-reject-partial-closure-census-on-master-verification-failure.md) | 2026-08-22 | accepted process correction; ADR-0267 census result rejected | Reject partial closure census on master verification failure |
 | [ADR-0269](docs/decisions/ADR-0269-preregister-target-isolated-closure-census.md) | 2026-08-22 | accepted corrective preregistration before any census-label recomputation | Preregister target-isolated closure census |
 | [ADR-0270](docs/decisions/ADR-0270-current-decision-programs-close-wide-axis-census-does-not.md) | 2026-08-22 | accepted retrospective censored result; current-decision combined-ledger replay authorized | Current-decision programs close; wide-axis census does not |
 | [ADR-0271](docs/decisions/ADR-0271-preregister-current-decision-combined-ledger-replay.md) | 2026-08-22 | accepted executable preregistration before any post-fold strategy label | Preregister current-decision combined-ledger replay |
@@ -64,18 +59,30 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0278](docs/decisions/ADR-0278-reject-pre-bet-action-width-capacity-invocation-on-campaign-duration.md) | 2026-08-22 | accepted rejection record; ADR-0277 invocation and widened authorization rejected | Reject pre-bet action-width capacity invocation on campaign duration |
 | [ADR-0279](docs/decisions/ADR-0279-install-active-campaign-deadlines-and-prioritize-exact-pre-bet-row-speculation.md) | 2026-08-22 | accepted label-free engineering result; deadline prerequisite closed and CPU/cache differential authorized | Install active campaign deadlines and prioritize exact pre-bet row speculation |
 | [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md) | 2026-08-22 | accepted label-free engineering control; cache mechanics pass and timed capacity remains closed | Exact pre-bet row cache passes CPU/h2 fail-closed control |
-| [ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md) | 2026-08-22 | accepted label-free seed-only preregistration before any h32 cache population or capacity replay | Preregister temporally separated pre-bet row-cache seed |
+| [ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md) | 2026-08-22 | accepted label-free seed-only preregistration before any h32 cache population or capacity replay; revoked by ADR-0283 | Preregister temporally separated pre-bet row-cache seed |
+| [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) | 2026-08-22 | accepted process and charter correction | Make the fifteen-second street wall authoritative |
+| [ADR-0283](docs/decisions/ADR-0283-withdraw-v1-seed-authority-and-install-v2-trust-controls.md) | 2026-08-22 | accepted corrective process and engineering control; no h32 invocation authorized | Withdraw v1 seed authority and install v2 trust controls |
+| [ADR-0284](docs/decisions/ADR-0284-install-certified-bound-and-semantic-type-successors.md) | 2026-08-22 | accepted corrective engineering controls; historical result labels are preserved but numerical-bound claims are qualified | Install certified-bound and semantic-type successors |
+| [ADR-0285](docs/decisions/ADR-0285-close-second-and-third-round-review-defects.md) | 2026-08-23 | accepted corrective engineering validation; no research invocation or h32 result authorized | Close second- and third-round review defects |
+| [ADR-0286](docs/decisions/ADR-0286-install-the-exact-six-seat-legal-decision-spine.md) | 2026-08-23 | accepted reference-game and runtime engineering control; no strategy-quality or deployment result | Install the exact six-seat legal decision spine |
+| [ADR-0287](docs/decisions/ADR-0287-preregister-the-complete-reference-hand-replay.md) | 2026-08-23 | accepted executable correctness preregistration before any reference-hand replay result | Preregister the complete reference-hand replay |
+| [ADR-0288](docs/decisions/ADR-0288-complete-reference-hands-pass-the-exact-one-seat-loop.md) | 2026-08-23 | accepted complete-reference correctness result; no strategy-quality, scalability, latency-distribution, or deployment result | Complete reference hands pass the exact one-seat loop |
+| [ADR-0289](docs/decisions/ADR-0289-preregister-the-full-width-belief-blueprint-boundary.md) | 2026-08-23 | accepted executable correctness preregistration before any full-width complete-hand result | Preregister the full-width belief/blueprint boundary |
+| [ADR-0290](docs/decisions/ADR-0290-full-width-belief-and-rational-policy-cross-the-reference-hand.md) | 2026-08-23 | accepted full-width interface result; no normalized full-width marginal, trained-blueprint, action-abstraction, strategy-quality, or deployment result | Full-width belief and rational policy cross the reference hand |
+| [ADR-0291](docs/decisions/ADR-0291-preregister-the-exact-legality-action-abstraction-boundary.md) | 2026-08-23 | accepted executable correctness and reduced-quality preregistration before any new action-abstraction result | Preregister the exact-legality action-abstraction boundary |
+| [ADR-0292](docs/decisions/ADR-0292-reject-action-abstraction-v1-before-complete-hand-integration.md) | 2026-08-23 | accepted mixed engineering result; exact lattice mechanics pass, candidate sizing quality fails, and v1 is rejected before replay integration | Reject action abstraction v1 before complete-hand integration |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md) — Preregister temporally separated pre-bet row-cache seed.
-- Numbered decisions: 281.
-- ADR-header SHA-256: `b9381c45e8be114562150f7cd2ca225a9711dafea89db00875c8e2a22b866fbc`.
-- Current blockers: none recorded by the latest accepted research decision.
+- Latest ADR: [ADR-0292](docs/decisions/ADR-0292-reject-action-abstraction-v1-before-complete-hand-integration.md) — Reject action abstraction v1 before complete-hand integration.
+- Governing runtime contract: [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md) — Make the fifteen-second street wall authoritative.
+- Numbered decisions: 292.
+- ADR-header SHA-256: `4b7ffd262463e7b7c6c8a189f09b746baea0b3a2cb8ac7be2c39b09ca1738d51`.
+- Current blockers: v1 has only one nondegenerate frozen context and recovers none of its full-over-narrow gain; no successor mechanism, untouched confirmation panel, anti-overfit selection rule, or charged replay gate is frozen.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md) and its dependencies
+4. [ADR-0292](docs/decisions/ADR-0292-reject-action-abstraction-v1-before-complete-hand-integration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0282](docs/decisions/ADR-0282-make-fifteen-second-street-wall-authoritative.md), and their dependencies

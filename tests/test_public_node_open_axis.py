@@ -2,13 +2,19 @@ from __future__ import annotations
 
 import unittest
 
+import tests.test_multi_size_leaf_adjoint as sized_fixture
+from pontius.cross_payoff_adjoint_result import (
+    evaluate_typed_multi_size_cross_payoff_leaf_adjoint,
+)
 from pontius.incremental_policy_tt import compile_policy_probability_tape
-from pontius.multi_size_leaf_adjoint import multi_size_leaf_adjoint_cfr_traverser
 from pontius.public_node_behavioral_axis import (
     compile_public_node_behavioral_axis,
 )
-from pontius.public_node_open_axis import public_node_open_axis_payoff_row
-import tests.test_multi_size_leaf_adjoint as sized_fixture
+from pontius.public_node_open_axis import (
+    PublicNodeAffineSourceContext,
+    build_public_node_affine_source_context,
+    public_node_open_axis_payoff_row,
+)
 
 
 def _changed_node_policy(layout: object, source: dict, node_index: int) -> dict:
@@ -33,26 +39,27 @@ class PublicNodeOpenAxisTests(unittest.TestCase):
         acting_player = 0
         payoff_player = 4
         public_node = 0
-        result = multi_size_leaf_adjoint_cfr_traverser(
+        result = evaluate_typed_multi_size_cross_payoff_leaf_adjoint(
             self.source.layout,
             self.source.workspace,
             self.source.sparse,
             self.source.probabilities,
             self.source.automata[payoff_player],
-            traverser=acting_player,
+            acting_player=acting_player,
+            payoff_player=payoff_player,
             maximum_feature_width_per_batch=96,
         )
-        source_value = self.source.layout.evaluate(
-            self.source.policy
-        ).evaluation.utilities[payoff_player]
-        row = public_node_open_axis_payoff_row(
+        self.assertEqual(result.acting_player, acting_player)
+        self.assertEqual(result.payoff_player, payoff_player)
+        context = build_public_node_affine_source_context(
             self.source.layout,
             self.source.probabilities,
             result,
             acting_player=acting_player,
+            payoff_player=payoff_player,
             public_node=public_node,
-            source_value=source_value,
         )
+        row = public_node_open_axis_payoff_row(context)
         endpoint = _changed_node_policy(
             self.source.layout,
             self.source.policy,
@@ -89,26 +96,25 @@ class PublicNodeOpenAxisTests(unittest.TestCase):
         acting_player = 0
         payoff_player = 4
         public_node = 0
-        result = multi_size_leaf_adjoint_cfr_traverser(
+        result = evaluate_typed_multi_size_cross_payoff_leaf_adjoint(
             self.source.layout,
             self.source.workspace,
             self.source.sparse,
             self.source.probabilities,
             self.source.automata[payoff_player],
-            traverser=acting_player,
+            acting_player=acting_player,
+            payoff_player=payoff_player,
             maximum_feature_width_per_batch=96,
         )
-        source_value = self.source.layout.evaluate(
-            self.source.policy
-        ).evaluation.utilities[payoff_player]
-        row = public_node_open_axis_payoff_row(
+        context = build_public_node_affine_source_context(
             self.source.layout,
             self.source.probabilities,
             result,
             acting_player=acting_player,
+            payoff_player=payoff_player,
             public_node=public_node,
-            source_value=source_value,
         )
+        row = public_node_open_axis_payoff_row(context)
         off_node = next(
             index
             for index, node in enumerate(self.source.layout.nodes)
@@ -128,6 +134,94 @@ class PublicNodeOpenAxisTests(unittest.TestCase):
             contaminated
         ).evaluation.utilities[payoff_player]
         self.assertGreater(abs(row.value(contaminated_probabilities) - exact), 1e-8)
+
+    def test_nonroot_public_node_fails_closed_before_row_extraction(self) -> None:
+        acting_player = 0
+        payoff_player = 4
+        nonroot = next(
+            index
+            for index, node in enumerate(self.source.layout.nodes)
+            if index != 0 and node.player == acting_player
+        )
+        result = evaluate_typed_multi_size_cross_payoff_leaf_adjoint(
+            self.source.layout,
+            self.source.workspace,
+            self.source.sparse,
+            self.source.probabilities,
+            self.source.automata[payoff_player],
+            acting_player=acting_player,
+            payoff_player=payoff_player,
+            maximum_feature_width_per_batch=96,
+        )
+        with self.assertRaisesRegex(ValueError, "only root public node 0"):
+            build_public_node_affine_source_context(
+                self.source.layout,
+                self.source.probabilities,
+                result,
+                acting_player=acting_player,
+                payoff_player=payoff_player,
+                public_node=nonroot,
+            )
+
+    def test_crossed_payoff_result_and_source_role_fails_closed(self) -> None:
+        acting_player = 0
+        result_payoff_player = 4
+        source_payoff_player = 3
+        result = evaluate_typed_multi_size_cross_payoff_leaf_adjoint(
+            self.source.layout,
+            self.source.workspace,
+            self.source.sparse,
+            self.source.probabilities,
+            self.source.automata[result_payoff_player],
+            acting_player=acting_player,
+            payoff_player=result_payoff_player,
+            maximum_feature_width_per_batch=96,
+        )
+        with self.assertRaisesRegex(ValueError, "payoff roles are crossed"):
+            build_public_node_affine_source_context(
+                self.source.layout,
+                self.source.probabilities,
+                result,
+                acting_player=acting_player,
+                payoff_player=source_payoff_player,
+                public_node=0,
+            )
+
+    def test_untyped_raw_traverser_result_is_rejected(self) -> None:
+        acting_player = 0
+        payoff_player = 4
+        result = evaluate_typed_multi_size_cross_payoff_leaf_adjoint(
+            self.source.layout,
+            self.source.workspace,
+            self.source.sparse,
+            self.source.probabilities,
+            self.source.automata[payoff_player],
+            acting_player=acting_player,
+            payoff_player=payoff_player,
+            maximum_feature_width_per_batch=96,
+        )
+        with self.assertRaisesRegex(TypeError, "typed cross-payoff result"):
+            build_public_node_affine_source_context(
+                self.source.layout,
+                self.source.probabilities,
+                result.raw_result,  # type: ignore[arg-type]
+                acting_player=acting_player,
+                payoff_player=payoff_player,
+                public_node=0,
+            )
+
+    def test_context_constructor_and_caller_source_scalar_are_not_available(self) -> None:
+        with self.assertRaisesRegex(TypeError, "factory-only"):
+            PublicNodeAffineSourceContext(  # type: ignore[call-arg]
+                layout=self.source.layout,
+                probabilities=self.source.probabilities,
+                acting_player=0,
+                payoff_player=4,
+                public_node=0,
+                source_value=0.0,
+                action_coefficients=self.source.probabilities[0],
+                identity=object(),
+            )
 
 
 if __name__ == "__main__":

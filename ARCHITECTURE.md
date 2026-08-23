@@ -17,12 +17,105 @@ scheduler       current and speculative value-of-computation queues
 evaluation      exact metrics, responders, leagues, variance control
 ```
 
+## Exact legal decision spine
+
+`no_limit_betting` is the reference public betting kernel for the charter game.
+It uses immutable six-seat states and integer chips; posts the blinds; orders
+preflop action left of the big blind and later action left of the button; and
+tracks stacks, street/hand contributions, folds, per-seat last-action wager,
+the largest full raise increment, and cyclic pending responders. One raise-to
+action represents either an opening bet or a raise. Its legal-decision record
+separates the player's own all-in ceiling from the amount another live stack
+can contest.
+
+The kernel implements the named Poker TDA full-bet profile. Short all-ins do
+not update the full-raise increment. A previously acted seat regains a raise
+only when the cumulative increase since that seat's last action reaches the
+full increment; a seat that has not acted retains its option. Round closure
+returns a unique unmatched top wager. Raw contribution layers are merged when
+their live eligibility sets are equal, preventing a folded-only threshold from
+creating a fictitious separately split side pot. Settlement splits each actual
+pot independently and awards integer odd chips clockwise from the button.
+
+`legal_decision_spine` owns one controlled seat. It applies opponent events,
+opens the controlled legal decision, accepts a resolver candidate only while
+timely and legal, and otherwise applies a caller-supplied immutable-blueprint
+fallback. Its `StreetDeadlineLedger` accumulates explicit monotonic wall-time
+intervals. The production hand factories construct and validate the initial
+preflop state inside the first charged interval. Opponent or transport idle is
+paused; event processing and any foreground or background agent computation
+are charged. The same ledger spans all controlled actions on a street.
+Betting-state transition work is charged to the closing street; an exact
+transition archives its immutable closing snapshot before resetting, and
+fold/showdown freezes the final street record.
+
+`holdem_cards` adds a separate explicit six-seat deal oracle and a future-blind
+`OneSeatCardState`. The latter retains only the controlled private hand and the
+currently revealed board. Its exact single-opponent compatible domains contain
+1,225 combinations preflop, 1,081 on the flop, 1,035 on the turn, and 990 on the
+river.
+
+`full_width_belief` lifts those domains into five ordered opponent axes. Exact
+rational unary weights and action provenance remain available while the
+accepted `FactorizedCardBelief` supplies the rank-one Float64 backend and hard
+pairwise card-disjointness factor. Public actions update only their actor's
+unary; board reveals filter all five axes, including folded seats. Analytic
+compatible counts and Cartesian counts remain distinct. The independent
+`exact_collision_oracle` validates reduced supports, partitions, and marginals;
+the architecture does not materialize or claim normalized full-width
+five-opponent marginals.
+
+`immutable_blueprint` is a digest-bound exact lookup keyed only by that visible
+card state and the complete public betting history. A table hit may name any
+exact legal fold, check, call, or integer raise-to. Missing entries use the
+deliberately weak total rule check, else call, else fold; stale or illegal table
+entries reject rather than silently becoming passive. This reference source is
+not a trained or strategically credible full-game blueprint.
+
+`full_width_reference_policy` is a second immutable reference source used only
+to make action probabilities and the complete legal integer raise interval
+explicit. It uses exact rational weights and a closed-form raise denominator,
+has no deal/future/model/table input, and always makes check or call uniquely
+modal. It is deliberately weak and is not a trained blueprint.
+
+`legal_action_abstraction` and `reduced_river_sizing_oracle` are parked v1
+controls, not members of the live decision spine. The former constructs a
+bounded exact-legal integer lattice with explicit clipping/deduplication
+provenance and an exact barycentric observation projector. The latter compares
+candidate sizes with the complete bounded integer interval in a one-bet river
+security LP and checks bounded projections against a separately enumerated
+normal form. ADR-0292 records that the mechanics pass but the fixed sizes fail
+the preregistered reduced-quality gate. Neither module may rewrite public
+betting state, select an emitted action, or enter `reference_hand_replay` until
+a new held-out successor gate passes.
+
+`reference_hand_replay` joins those boundaries for one controlled seat. Frozen
+opponent events, public-card reveal and validation, blueprint key/lookup,
+legality, controlled emission, betting transitions, and card-domain audits have
+named charged intervals. The explicit full deal remains inside replay/showdown
+oracle scope and never enters a blueprint key. Post-terminal evaluator and
+settlement verification are reported separately from decision time.
+
+The complete explicit-deal reference hand loop now carries symbolic collision-
+aware five-opponent ranges and rational public-action updates. It is still not
+a complete agent or solver. Calibrated ranges, scalable full-width contraction,
+a trained full-game blueprint, action abstraction, and resolver candidates
+remain external. The older river games retain their intentionally restricted
+trees as sealed exact research workloads and are not silently upgraded by this
+layer.
+
 ## Current h32 execution spine
 
 The active boundary is a prepared six-player river decision with 32 hands per
 seat. Off-clock preparation builds the immutable blueprint, factorized belief
 contexts, shared public topology, resident solver state, and incremental
 response caches. Allocator scratch is trimmed before the street becomes ready.
+
+The governing live contract is one shared 15,000 ms of cumulative charged
+wall-clock work per street. All charged work across repeated agent actions on
+that street consumes the same allowance; opponent idle pauses it, useful
+background work consumes it, and a later action does not receive a fresh
+street budget.
 
 Inside the 15-second boundary, the frozen systems control performs one resident
 warm step, constructs deterministic source-relative candidate deltas, and runs
@@ -72,11 +165,13 @@ provenance remains exact. One `MonotonicCampaignDeadline` spans each bounded
 campaign: it checkpoints before every frozen target or arm, requires the entire
 unit bound to fit, and
 stops immediately after a unit or campaign overrun. Campaign time remains
-separate from the 15-second decision ledger. Byte-pinned historical runners
+separate from the shared 15-second street ledger. Byte-pinned historical runners
 remain immutable, with their legacy expressions held in an exact AST exception
 inventory. New device-fold customers likewise use the non-consuming,
 contiguity-guarded `resident_record_to_hand_fold_v2` successor rather than
-altering the pinned fold. [ADR-0233](docs/decisions/ADR-0233-shared-payoff-semantics-and-runner-contracts-retire-repeat-defects.md)
+altering the pinned fold. Its validated host Int32 topology mapping is the sole
+hand-index authority; the device copy is constructed internally after seat and
+range checks. [ADR-0233](docs/decisions/ADR-0233-shared-payoff-semantics-and-runner-contracts-retire-repeat-defects.md)
 is the governing process correction.
 
 GPU semantic equality is numerical under preregistered Float64 ceilings; exact
@@ -425,6 +520,14 @@ primal ceiling. The 15-second ledger currently permits at most one multi-cut
 round. Because that bounded master need not be fully separated, it carries no
 global-optimality claim and is never the safety authority.
 
+Historical v1 masters retain their sealed primal-objective telemetry, but that
+quantity is not a mathematical lower bound. Successors use
+`behavioral_one_seat_master_v2` or the sequence-form adapter in
+`linear_program_certificate`: solver multipliers are projected to valid signs,
+the residual is minimized over proved variable bounds, and Float64 arithmetic
+is rounded outward. Raw primal and dual objectives remain diagnostics; only the
+certificate may be called `L` or used in `U - L`.
+
 The deployable unit is a fixed factor-`0.5` blueprint retreat followed by an
 independent exact all-seat certificate. Acceptance requires exact per-seat cap
 feasibility, positive NashConv improvement, restored interior slack, and both
@@ -482,6 +585,36 @@ all six actual current-decision programs close in zero or one round (four and
 two, respectively). That subgroup authorizes a combined endpoint-closure plus
 retreat-certificate ledger replay, not deployment or a global-population
 claim.
+
+## Pre-bet row-cache trust boundary
+
+The current authorized cache primitive is the additive CPU v2 control, not the
+historical v1 seed path. A factory-built context derives the complete numeric
+layout, game, belief, action schema, policy tapes, source payoffs and acting
+best response. Population generates its rows only from provenance-bound affine
+contexts, and a complete persisted-byte hash binds all rows and the acting
+seat's invariant best-response scalar. The writer returns an unsealed record;
+lookup can consume the bundle only through a separately persisted seal loaded
+under an already expected seal hash. Any miss, v1 file, malformed scalar,
+identity mismatch, self-authored writer hash or byte mismatch yields only the
+immutable blueprint fallback.
+
+Current-node affine extraction is also explicitly root-only. Typed successor
+adjoints bind the complete source tape and numeric layout as well as both the
+acting-policy and payoff roles. The context builder independently checks the
+source payoff and every coefficient against the dense root oracle; stale,
+relabelled, raw and crossed-role results reject. A future nonroot implementation
+must represent upstream own realization reach rather than reuse the root
+coefficient formula.
+
+Off-clock population, external hash sealing, and live replay remain separate
+prospective stages. A future seed runner must use the deadline-owned publisher:
+bounded data and completion-seal phases execute while an exclusive lock makes
+partial state unconsumable, and lock removal occurs only after both phases and
+their campaign checks pass. Failure preserves an unsealed or lock-marked
+diagnostic. Consumers accept only a verified canonical-data/seal pair with no
+lock. The present dense coefficient oracle is a reduced CPU control and has no
+h32 scalability claim; no v2 h32 seed or replay is currently authorized.
 
 ## Runtime target
 

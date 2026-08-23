@@ -54,8 +54,59 @@ $env:PYTHONPATH = "src"
 ```
 
 After adding or changing an accepted ADR, regenerate with the same command
-without `--check`. Documentation integrity tests verify the generated artifact
-and maintained local links.
+without `--check`. Every new latest ADR must carry the complete front-door
+snapshot: research, process, runtime-contract, cumulative revocations, active
+next, and blockers. Omission is a hard generation failure. Documentation
+integrity tests verify the generated artifact and maintained local links.
+
+## Legal decision spine verification
+
+The reference full-hand foundation is `pontius.no_limit_betting`, wrapped for
+one controlled seat by `pontius.legal_decision_spine`. It uses integer chips and
+raise-to totals. Do not feed the simplified `river_multiway` or
+`river_multiway_multi_size` action semantics into this boundary; those modules
+remain intentionally restricted sealed workloads.
+
+Create a live hand with `LegalDecisionSpine.new_hand` or `six_max_100bb`; those
+factories charge initial betting-state construction and validation to preflop.
+The direct constructor is for a replay state paired with its already-owned
+ledger, not a way to move live initialization off-clock.
+
+Run the focused rules, one-seat, timing, card, blueprint, replay, randomized,
+and exhaustive checks with:
+
+```powershell
+$env:PYTHONPATH = "src"
+& $python -B -m unittest tests.test_no_limit_betting tests.test_no_limit_betting_exhaustive tests.test_legal_decision_spine tests.test_street_deadline tests.test_holdem_cards tests.test_immutable_blueprint tests.test_reference_hand_replay -v
+```
+
+For every controlled decision, open the ticket once, place all resolver work
+inside `charge_compute()`, and call `emit_controlled_action` with both the
+candidate and a legal immutable-blueprint fallback. Apply opponent actions only
+through `observe_opponent_action`; the method charges event processing while
+excluding preceding opponent/transport idle. Any useful background work during
+that idle must still be inside `charge_compute()`. Stop every charged interval
+before applying an event or transitioning streets. Call `advance_street` only
+after the betting state reports round completion and the actual next public
+street has arrived. The method charges betting-transition work, archives the
+closing snapshot in `completed_street_deadlines`, and is the only ledger-reset
+path. Fold and showdown terminals likewise archive and freeze the final street.
+
+For complete reference hands, construct one `SixSeatHoldemDeal` only inside the
+replay/oracle boundary and pass decisions through `replay_reference_hand`. The
+controlled `OneSeatCardState` may contain only its private pair and the board
+revealed for its current street. Never pass the explicit deal, opponent cards,
+or future runout into `BlueprintDecisionKey`. Use
+`ImmutableBlueprintActionSource` for the reference fallback: source construction
+is off-clock, but key construction, lookup, legality, and controlled emission
+are charged. Missing entries use its deliberately weak passive total rule;
+illegal entries abort. Do not describe that source as a trained blueprint.
+
+The replay result must retain one closing snapshot for every reached street and
+one named `ReplayChargedOperation` for every ledger interval. Post-terminal
+showdown and settlement verification are harness time, not decision time. Keep
+the independent chip-depth pot/payout oracle in tests; production pot assembly
+cannot certify itself.
 
 ## Bounded campaign admission
 
@@ -74,8 +125,10 @@ wall. Catch `CampaignDeadlineStop` only to persist its `as_record()` telemetry,
 release resources, and retain the preregistered fallback. Execute no later
 target, candidate evaluation, certificate, strategy label, or emission.
 
-The campaign deadline never replaces the per-decision live ledger or its
-emission reserve. A successor config must freeze both independently. The
+The campaign deadline never replaces the one shared per-street live ledger or
+its emission reserve; that 15,000 ms ledger carries across every agent action
+on the street and never resets per decision. A successor config must freeze
+both independently. The
 ADR-0277 runner is sealed historical code and must not be invoked again; any
 successor must import the shared deadline and test its stop path before GPU
 work.
@@ -636,13 +689,31 @@ reserved context from this branch. ADR-0044 is the durable rejection.
 5. Verify against the reference and record the experiment configuration.
 6. Add the immutable decision record, regenerate `STATUS.md`, and run the
    documentation freshness and link checks.
-7. In every new evidence runner, load parents and build result plumbing through
-   `pontius.runner_harness`; do not hand-select `passed` versus `gates.passed`,
-   call `environment_metadata` with invented arguments, or assemble duplicate
-   pass bits independently.
+7. In every new evidence runner, use `pontius.runner_harness_v2` to read one
+   bounded byte snapshot, require a complete schema, and retain its digest.
+   Never accept duplicate/nonfinite JSON, a shallow mutable artifact, or a pass
+   bit without all fields needed by its consumer. Historical pinned runners
+   retain `pontius.runner_harness` only for reproduction.
 8. Convert normalized guards and raw quality only through
    `pontius.payoff_semantics`. The payoff span comes from
    `layout.game.payoff_span`; stack, pot, and action sizes are not substitutes.
-9. Route new GPU record-fold customers through
-   `pontius.resident_record_to_hand_fold_v2`; the predecessor is retained only
-   to reproduce hash-pinned evidence.
+9. Route new GPU record-fold customers transitively through the v2 contraction,
+   CFR or selector modules backed by `pontius.resident_record_to_hand_fold_v2`.
+   Supply distinct typed reach allowances and derive payoff span from the game;
+   the predecessor is retained only to reproduce hash-pinned evidence.
+10. Carry `pontius.street_deadline.StreetDeadlineLedger` across all controlled
+    actions on one street. Charge every interval of event processing,
+    foreground/background agent work, legality, selection, and emission;
+    exclude only opponent/transport idle. Reset only on the exact next street.
+11. Publish successor evidence through `pontius.deadline_owned_result` and load
+    it only through its verified loader. A canonical file with no completion
+    seal, or with a publishing lock, is diagnostic state rather than evidence.
+12. Route full-hand reference actions through `pontius.no_limit_betting` and
+    `pontius.legal_decision_spine`, cards through `pontius.holdem_cards`, and
+    fallback lookup through `pontius.immutable_blueprint`. Never infer a legal
+    raise from a simplified river workload or enumerate all full-stack integer
+    sizes as a deployable action abstraction.
+13. Keep ADR-0292's v1 sizing lattice outside `reference_hand_replay`, the
+    convex master, and resolver paths. Treat its opened river panel as
+    development evidence only; freeze any successor mechanism and panel
+    generator before constructing or opening untouched confirmation contexts.

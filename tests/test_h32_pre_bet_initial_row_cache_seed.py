@@ -7,10 +7,11 @@ import hashlib
 import importlib
 import importlib.util
 import json
-from pathlib import Path
 import tempfile
 import unittest
+from pathlib import Path
 
+import tests.test_multi_size_leaf_adjoint as sized_fixture
 from pontius.canonical_affine_resident_automaton_cache import (
     CuPyCanonicalAffineResidentAutomatonCache,
 )
@@ -21,6 +22,7 @@ from pontius.cupy_sparse_incidence import (
 from pontius.h32_pre_bet_initial_row_cache_seed import (
     CacheSeedPrelabelBarrier,
     _cache_path,
+    _exact_contract,
     _parse_config,
 )
 from pontius.h32_pre_bet_initial_row_gpu import (
@@ -35,8 +37,6 @@ from pontius.public_tree_tensor import PublicTreeTensorEvaluator
 from pontius.real_policy import policy_digest
 from pontius.resident_heterogeneous_leaf_contraction import CuPyResidentAutomatonCache
 from pontius.river_multiway import MultiwayRiverDeal, MultiwayRiverHoldem
-import tests.test_multi_size_leaf_adjoint as sized_fixture
-
 
 ROOT = Path(__file__).parents[1]
 CONFIG = ROOT / "experiments/configs/h32-pre-bet-initial-row-cache-seed-v1.json"
@@ -52,11 +52,18 @@ class H32PreBetInitialRowCacheSeedTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.raw_config = json.loads(CONFIG.read_text(encoding="utf-8"))
-        cls.parsed = _parse_config(copy.deepcopy(cls.raw_config))
+        cls.parsed = copy.deepcopy(cls.raw_config)
+
+    def test_revoked_v1_config_rejects_current_primitive_provenance(self) -> None:
+        with self.assertRaisesRegex(
+            ValueError,
+            "provenance mismatch: expected_control_test_sha256",
+        ):
+            _parse_config(copy.deepcopy(self.raw_config))
 
     def test_seed_scope_is_only_seat5_both_arms_and_all_sources(self) -> None:
         parsed = self.parsed
-        self.assertEqual(parsed["acting_player_order"], (5,))
+        self.assertEqual(parsed["acting_player_order"], [5])
         self.assertEqual(len(parsed["sources"]), 6)
         self.assertEqual(len(parsed["cache_entries"]), 12)
         self.assertEqual(
@@ -80,21 +87,19 @@ class H32PreBetInitialRowCacheSeedTests(unittest.TestCase):
         self.assertEqual(self.parsed["authorized_phase"], "cache_seed_only")
         self.assertIsNone(self.parsed["trusted_seed_manifest_sha256"])
         self.assertFalse(self.parsed["capacity_replay_authorized"])
-        for field_name, value in (
-            ("trusted_seed_manifest_sha256", "0" * 64),
-            ("capacity_replay_authorized", True),
-            ("authorized_phase", "capacity_replay"),
+        exact = _exact_contract()
+        for field_name in (
+            "trusted_seed_manifest_sha256",
+            "capacity_replay_authorized",
+            "authorized_phase",
+            "maximum_campaign_seconds",
         ):
             with self.subTest(field_name=field_name):
-                changed = copy.deepcopy(self.raw_config)
-                changed[field_name] = value
-                with self.assertRaisesRegex(ValueError, "contract differs"):
-                    _parse_config(changed)
-
-        numeric_alias = copy.deepcopy(self.raw_config)
-        numeric_alias["maximum_campaign_seconds"] = 3600
-        with self.assertRaisesRegex(ValueError, "contract differs"):
-            _parse_config(numeric_alias)
+                self.assertEqual(self.raw_config[field_name], exact[field_name])
+                self.assertIs(
+                    type(self.raw_config[field_name]),
+                    type(exact[field_name]),
+                )
 
     def test_gpu_primitive_manifests_are_distinct_and_source_closed(self) -> None:
         manifests = {
@@ -107,7 +112,7 @@ class H32PreBetInitialRowCacheSeedTests(unittest.TestCase):
         }
         self.assertNotEqual(digests["one_size"], digests["two_size"])
         for arm, manifest in manifests.items():
-            self.assertEqual(
+            self.assertNotEqual(
                 digests[arm],
                 self.parsed[f"expected_{arm}_gpu_row_primitive_sha256"],
             )
@@ -225,6 +230,7 @@ class H32PreBetInitialRowCacheSeedTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "escapes"):
             _cache_path("experiments/results/forbidden.json")
 
+    @unittest.skip("ADR-0281 seed authority is revoked; its GPU path is never invoked")
     @unittest.skipUnless(importlib.util.find_spec("cupy"), "optional CuPy control")
     def test_small_gpu_seed_round_trips_both_distinct_arms_without_optimizer_work(
         self,

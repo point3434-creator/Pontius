@@ -5,8 +5,11 @@ import unittest
 
 import numpy as np
 
+import tests.test_leaf_adjoint_cfr as leaf_fixture
+from pontius.cross_payoff_adjoint_result import (
+    evaluate_typed_cross_payoff_leaf_adjoint,
+)
 from pontius.cross_payoff_leaf_adjoint import (
-    evaluate_cross_payoff_leaf_adjoint,
     project_public_node_direction_slope,
     splice_fixed_response_probability_tape,
 )
@@ -18,7 +21,6 @@ from pontius.leaf_adjoint_evaluation import evaluate_leaf_adjoint_seat
 from pontius.selector_stable_affine_response import (
     evaluate_selector_stable_affine_leaf_adjoint_seat,
 )
-import tests.test_leaf_adjoint_cfr as leaf_fixture
 
 
 @unittest.skipUnless(importlib.util.find_spec("scipy"), "optional SciPy screen")
@@ -54,7 +56,7 @@ class CrossPayoffLeafAdjointTests(unittest.TestCase):
 
     def test_cross_payoff_profile_slope_is_exact_for_large_one_node_edit(self) -> None:
         payoff_player = 1
-        adjoint = evaluate_cross_payoff_leaf_adjoint(
+        adjoint = evaluate_typed_cross_payoff_leaf_adjoint(
             self.layout,
             self.workspace,
             self.sparse,
@@ -64,6 +66,8 @@ class CrossPayoffLeafAdjointTests(unittest.TestCase):
             payoff_player=payoff_player,
             maximum_feature_width_per_batch=96,
         )
+        self.assertEqual(adjoint.acting_player, self.acting_player)
+        self.assertEqual(adjoint.payoff_player, payoff_player)
         predicted = project_public_node_direction_slope(
             adjoint,
             self.layout,
@@ -115,7 +119,7 @@ class CrossPayoffLeafAdjointTests(unittest.TestCase):
                 acting_player=self.acting_player,
                 maximum_feature_width_per_batch=96,
             )
-            profile = evaluate_cross_payoff_leaf_adjoint(
+            profile = evaluate_typed_cross_payoff_leaf_adjoint(
                 self.layout,
                 self.workspace,
                 self.sparse,
@@ -142,7 +146,7 @@ class CrossPayoffLeafAdjointTests(unittest.TestCase):
                     cache.source_evaluation.best_response_actions,
                     responding_player=payoff_player,
                 )
-                response = evaluate_cross_payoff_leaf_adjoint(
+                response = evaluate_typed_cross_payoff_leaf_adjoint(
                     self.layout,
                     self.workspace,
                     self.sparse,
@@ -179,7 +183,7 @@ class CrossPayoffLeafAdjointTests(unittest.TestCase):
 
     def test_role_and_one_node_scope_guards_fail_closed(self) -> None:
         with self.assertRaisesRegex(ValueError, "another payoff"):
-            evaluate_cross_payoff_leaf_adjoint(
+            evaluate_typed_cross_payoff_leaf_adjoint(
                 self.layout,
                 self.workspace,
                 self.sparse,
@@ -188,7 +192,7 @@ class CrossPayoffLeafAdjointTests(unittest.TestCase):
                 acting_player=0,
                 payoff_player=2,
             )
-        adjoint = evaluate_cross_payoff_leaf_adjoint(
+        adjoint = evaluate_typed_cross_payoff_leaf_adjoint(
             self.layout,
             self.workspace,
             self.sparse,

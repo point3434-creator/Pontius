@@ -5,26 +5,46 @@
 Build and measure a six-player no-limit Texas hold'em research agent that uses
 an offline blueprint, public-belief search, neural continuation values, adaptive
 actions and trees, and deadline-aware allocation of computation. The primary
-deployment objective is the best attainable strategy quality at each wall-clock
-decision budget on one Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
+deployment objective is the best attainable strategy quality within one hard
+15,000 ms wall-clock budget per street on a Ryzen 9 9900X, 64 GB host-memory,
+RTX 5080 workstation.
 
-## Initial game contract
-
-This is the original charter contract. Its 5-250 ms budgets remain useful for
-the early exact laboratories, but they are not the active h32 decision ledger.
+## Game contract
 
 - Six-player cash-game no-limit Texas hold'em.
 - 100 big-blind starting stacks.
 - No rake and no ante in the first full-game implementation.
 - Exact legal betting, all-in, side-pot, and card-removal rules.
-- Initial online budgets: 5, 20, 50, 100, and 250 milliseconds.
+- One shared 15,000 ms wall-clock budget for all charged agent work on each
+  street. The clock does not reset for another action on the same street.
+- Opponent think and transport idle do not consume that allowance. Every
+  interval of agent work does: initial hand-state construction,
+  observed-action processing, foreground or background computation, legality
+  and candidate selection, certification, fallback preparation,
+  street-transition processing, and emission. Concurrent CPU/GPU work is
+  charged by elapsed wall time rather than summed device time.
 - Cold-cache and warm-cache results are reported separately.
 
 ## Current decision-boundary contract
 
 - The active systems control is a prepared six-player h32 river decision.
-- The hard boundary is 15,000 ms, including a fixed 1,000 ms reserve for
-  synchronization and action emission.
+- The additive exact-game control is ADR-0290's complete explicit-deal
+  reference loop. It joins ADR-0286's six-seat integer-chip legal decision
+  spine to future-blind one-seat cards, five complete opponent axes with hard
+  card disjointness, exact rational public-action updates, a digest-bound
+  deliberately weak policy and fallback, showdown, and settlement. It does not
+  compute normalized full-width marginals and is not a calibrated range,
+  trained full-game blueprint, action abstraction, or strategy-producing
+  resolver.
+- ADR-0292 rejects the first fixed pot-fraction action lattice at its frozen
+  reduced sizing-quality gate before complete-hand integration. Its exact
+  legality/projector code is a parked control, not the action abstraction of
+  the reference loop. A successor must use a preregistered
+  development/confirmation split and may not tune to the opened failure.
+- The authoritative hard boundary is 15,000 ms of wall-clock time per street,
+  including a fixed 1,000 ms reserve for synchronization and action emission.
+  Older 5-250 ms targets are superseded historical context and must not govern
+  any current or future acceptance gate.
 - Belief/topology preparation and immutable-blueprint construction occur before
   the decision clock and are reported separately from charged work.
 - The frozen measured schedule permits one resident warm step, deterministic
@@ -41,12 +61,22 @@ the early exact laboratories, but they are not the active h32 decision ledger.
   The runner atomically checkpoints before each frozen target or arm, admits
   the unit only when its complete preregistered bound still fits, and stops
   before any later work or label if either the unit or campaign wall is crossed.
-  This campaign ceiling is separate from the 15-second decision ledger.
+  This campaign ceiling is separate from the shared 15-second street ledger.
 - A speculative cache cannot trust a byte hash first produced by the same
   invocation that consumes it. Population, external hash sealing, and live
   replay are separate prospective stages. Until a later clean config pins the
   complete seed-manifest bytes, every generated entry is unavailable and the
   immutable blueprint remains the completed fallback.
+- Every semantic input used to assemble a cached result must be inside the
+  externally trusted byte boundary. A cached-row successor may not accept a
+  caller-supplied payoff scalar or another numerically plausible substitute.
+- A canonical campaign result becomes trusted only after separately bounded
+  data and completion-seal phases have built, serialized, exclusively staged,
+  published without clobbering, reread, byte-compared, hashed, and passed the
+  shared campaign deadline. An exclusive publishing lock keeps partial or late
+  states unconsumable; a failed call preserves an unsealed or lock-marked
+  diagnostic. Consumers must use the verified loader and never infer trust from
+  canonical-path existence.
 
 [ADR-0166](docs/decisions/ADR-0166-prepared-street-fits-two-atomic-certificates-after-one-warm-step.md)
 records the current capacity evidence. It does not authorize deployment, claim
@@ -109,6 +139,22 @@ recomputed GPU trajectory. Exact discrete fields, schemas, action identities,
 and combinatorial work counts remain exact gates unless a preregistration says
 otherwise. The executable constants and fail-closed purpose check live in
 `pontius.evidence_protocol`.
+
+### Optimization and semantic-type default
+
+A minimization `lower_bound` must come from a dual/Lagrangian certificate with
+conservative residual and rounding treatment; a feasible primal objective is
+reported as a primal diagnostic or upper bound. Report `U - L` with both
+sources and units explicit. Raw solver agreement is not a certificate.
+
+Numerically equal tolerances with different meanings remain separate config
+fields and nominal types. Relative reversal, absolute reversal, absolute
+optimality gap, selector margin, affine intercept identity, epigraph separation,
+resident primal residual, and negative-reach allowances may not share aliases.
+Dimensionless probability feasibility may not scale with a chip-valued payoff
+cap. Acting and payoff roles are likewise explicit at every cross-payoff
+boundary. A root-only affine formula may not be applied to a nonroot public node
+merely because the source intercept still matches.
 
 The project is for offline research, simulation, and environments that
 explicitly permit automated agents.

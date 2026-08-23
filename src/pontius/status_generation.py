@@ -3,17 +3,31 @@
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass
 import hashlib
-from pathlib import Path
 import re
-
+from dataclasses import dataclass
+from datetime import date
+from pathlib import Path
 
 _ROOT = Path(__file__).parents[2]
 _DECISIONS = _ROOT / "docs/decisions"
 _OUTPUT = _ROOT / "STATUS.md"
-_TITLE = re.compile(r"^# ADR-(\d+):\s+(.+?)\s*$")
-_FIELD = re.compile(r"^-?\s*\*{0,2}(Status|Date):\*{0,2}\s*(.+?)\s*$", re.IGNORECASE)
+_TITLE = re.compile(r"^# ADR-(\d{4}):\s+(.+?)\s*$")
+_FILENAME = re.compile(r"^ADR-(\d{4})-.+\.md$")
+_FIELD = re.compile(
+    r"^-?\s*\*{0,2}([A-Za-z][A-Za-z0-9-]*):\*{0,2}\s*(.+?)\s*$",
+    re.IGNORECASE,
+)
+_ADR_REFERENCE = re.compile(r"\bADR-(\d{4})\b")
+_FRONT_DOOR_FIELDS = (
+    "front-door-kind",
+    "front-door-research",
+    "front-door-process",
+    "front-door-contract",
+    "front-door-revoked",
+    "front-door-active-next",
+    "front-door-blockers",
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -24,6 +38,11 @@ class DecisionHeader:
     date: str
     path: Path
     decision: str
+    metadata: tuple[tuple[str, str], ...]
+
+    def field(self, name: str) -> str | None:
+        key = name.lower()
+        return dict(self.metadata).get(key)
 
 
 def _section(lines: list[str], heading: str) -> str:
@@ -44,16 +63,34 @@ def read_decision_headers(decisions_dir: Path = _DECISIONS) -> tuple[DecisionHea
     """Read every numbered ADR and its durable decision metadata."""
 
     rows = []
-    for path in decisions_dir.glob("ADR-*.md"):
+    for path in sorted(decisions_dir.glob("ADR-*.md")):
         lines = path.read_text(encoding="utf-8").splitlines()
-        title_match = next((_TITLE.match(line) for line in lines if _TITLE.match(line)), None)
+        if not lines:
+            raise ValueError(f"empty decision file: {path}")
+        filename_match = _FILENAME.fullmatch(path.name)
+        if filename_match is None:
+            raise ValueError(f"decision filename is not canonical: {path}")
+        title_match = _TITLE.fullmatch(lines[0])
         if title_match is None:
-            raise ValueError(f"decision lacks a canonical ADR title: {path}")
+            raise ValueError(f"decision lacks a canonical first-line ADR title: {path}")
+        if filename_match.group(1) != title_match.group(1):
+            raise ValueError(f"decision filename/title number mismatch: {path}")
         fields: dict[str, str] = {}
-        for line in lines[:20]:
+        header_end = next(
+            (
+                index
+                for index, line in enumerate(lines[1:], start=1)
+                if re.match(r"^##(?:\s|$)", line)
+            ),
+            len(lines),
+        )
+        for line in lines[1:header_end]:
             match = _FIELD.match(line)
             if match is not None:
-                fields[match.group(1).lower()] = match.group(2).strip()
+                key = match.group(1).lower()
+                if key in fields:
+                    raise ValueError(f"decision repeats metadata field {key!r}: {path}")
+                fields[key] = match.group(2).strip()
         status = fields.get("status") or _section_first_line(lines, "Status") or "unspecified"
         date = fields.get("date", "")
         rows.append(
@@ -64,21 +101,16 @@ def read_decision_headers(decisions_dir: Path = _DECISIONS) -> tuple[DecisionHea
                 date=date,
                 path=path,
                 decision=_section(lines, "Decision"),
+                metadata=tuple(sorted(fields.items())),
             )
         )
     rows.sort(key=lambda row: row.number)
-    if not rows or len({row.number for row in rows}) != len(rows):
+    numbers = [row.number for row in rows]
+    if not numbers or len(numbers) != len(set(numbers)):
         raise ValueError("decision numbers must be nonempty and unique")
+    if numbers != list(range(1, len(numbers) + 1)):
+        raise ValueError("ADR decision numbers must be contiguous from ADR-0001")
     return tuple(rows)
-
-
-def _is_preregistration(row: DecisionHeader) -> bool:
-    text = f"{row.title} {row.status}".lower()
-    return "preregister" in text or "preregistration" in text
-
-
-def _is_process(row: DecisionHeader) -> bool:
-    return "process" in row.status.lower()
 
 
 def _link(row: DecisionHeader, root: Path) -> str:
@@ -88,32 +120,224 @@ def _link(row: DecisionHeader, root: Path) -> str:
 
 def _header_digest(rows: tuple[DecisionHeader, ...], root: Path) -> str:
     payload = "\n".join(
-        f"{row.number}|{row.title}|{row.status}|{row.date}|{row.path.relative_to(root).as_posix()}"
+        "|".join(
+            (
+                str(row.number),
+                row.title,
+                row.status,
+                row.date,
+                row.path.relative_to(root).as_posix(),
+                repr(row.metadata),
+            )
+        )
         for row in rows
     )
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+@dataclass(frozen=True, slots=True)
+class FrontDoorSnapshot:
+    controller: DecisionHeader
+    research: DecisionHeader
+    process: DecisionHeader
+    contract: DecisionHeader
+    revoked_by: tuple[tuple[int, int], ...]
+    active_next: str
+    blockers: str
+
+
+def _single_reference(value: str, field: str) -> int:
+    match = re.fullmatch(r"ADR-(\d{4})", value.strip(), re.IGNORECASE)
+    if match is None:
+        raise ValueError(f"{field} must be one exact ADR-NNNN reference")
+    return int(match.group(1))
+
+
+def _front_door(rows: tuple[DecisionHeader, ...]) -> FrontDoorSnapshot:
+    controllers = []
+    for row in rows:
+        present = tuple(
+            field for field in _FRONT_DOOR_FIELDS if row.field(field) is not None
+        )
+        if present and len(present) != len(_FRONT_DOOR_FIELDS):
+            missing = sorted(set(_FRONT_DOOR_FIELDS) - set(present))
+            raise ValueError(
+                f"ADR-{row.number:04d} has an incomplete front-door snapshot: {missing}"
+            )
+        if present:
+            controllers.append(row)
+    if not controllers:
+        raise ValueError("status generation requires an explicit front-door snapshot")
+    if controllers[-1].number != rows[-1].number:
+        raise ValueError(
+            "the latest ADR must carry a complete front-door snapshot"
+        )
+    by_number = {row.number: row for row in rows}
+
+    def require_current_authority(row: DecisionHeader, *, role: str) -> None:
+        if not row.status.lower().startswith("accepted"):
+            raise ValueError(f"{role} must reference a currently accepted ADR")
+        try:
+            parsed_date = date.fromisoformat(row.date)
+        except ValueError as exc:
+            raise ValueError(f"{role} must carry an ISO decision date") from exc
+        if parsed_date.isoformat() != row.date:
+            raise ValueError(f"{role} must carry a canonical ISO decision date")
+        if not row.decision.strip():
+            raise ValueError(f"{role} must carry a nonempty Decision section")
+
+    def resolve(
+        owner: DecisionHeader,
+        value: str,
+        field: str,
+    ) -> DecisionHeader:
+        number = _single_reference(value, field)
+        if number > owner.number:
+            raise ValueError(f"{field} cannot reference a future ADR")
+        try:
+            return by_number[number]
+        except KeyError as exc:
+            raise ValueError(f"{field} references a missing ADR") from exc
+
+    def declared_revocations(row: DecisionHeader) -> tuple[int, ...]:
+        value = row.field("front-door-revoked")
+        assert value is not None
+        if value.strip().lower() == "none":
+            return ()
+        tokens = tuple(token.strip() for token in value.split(",") if token.strip())
+        if not tokens:
+            raise ValueError("Front-Door-Revoked must name ADRs or explicit none")
+        numbers = tuple(
+            _single_reference(token, "Front-Door-Revoked") for token in tokens
+        )
+        if len(set(numbers)) != len(numbers):
+            raise ValueError("Front-Door-Revoked repeats an ADR")
+        for number in numbers:
+            if number >= row.number:
+                raise ValueError("Front-Door-Revoked must reference an earlier ADR")
+            if number not in by_number:
+                raise ValueError("Front-Door-Revoked references a missing ADR")
+        return numbers
+
+    cumulative_revocations: set[int] = set()
+    first_revoker: dict[int, int] = {}
+    validated_snapshots: list[
+        tuple[
+            DecisionHeader,
+            DecisionHeader,
+            DecisionHeader,
+            DecisionHeader,
+            str,
+            str,
+        ]
+    ] = []
+    for snapshot_controller in controllers:
+        if snapshot_controller.field("front-door-kind") != "controller-v1":
+            raise ValueError("Front-Door-Kind must be exactly controller-v1")
+        require_current_authority(snapshot_controller, role="front-door controller")
+        research_value = snapshot_controller.field("front-door-research")
+        process_value = snapshot_controller.field("front-door-process")
+        contract_value = snapshot_controller.field("front-door-contract")
+        active_next = snapshot_controller.field("front-door-active-next")
+        blockers = snapshot_controller.field("front-door-blockers")
+        assert None not in (
+            research_value,
+            process_value,
+            contract_value,
+            active_next,
+            blockers,
+        )
+        research = resolve(
+            snapshot_controller,
+            str(research_value),
+            "Front-Door-Research",
+        )
+        process = resolve(
+            snapshot_controller,
+            str(process_value),
+            "Front-Door-Process",
+        )
+        contract = resolve(
+            snapshot_controller,
+            str(contract_value),
+            "Front-Door-Contract",
+        )
+        require_current_authority(research, role="Front-Door-Research")
+        require_current_authority(process, role="Front-Door-Process")
+        require_current_authority(contract, role="Front-Door-Contract")
+        declared = set(declared_revocations(snapshot_controller))
+        forgotten = cumulative_revocations - declared
+        if forgotten:
+            rendered = ", ".join(f"ADR-{number:04d}" for number in sorted(forgotten))
+            raise ValueError(
+                "Front-Door-Revoked cannot forget prior revocations: " + rendered
+            )
+        for number in declared - cumulative_revocations:
+            first_revoker[number] = snapshot_controller.number
+        cumulative_revocations = declared
+        if not str(active_next).strip():
+            raise ValueError("Front-Door-Active-Next must be explicit")
+        if not str(blockers).strip():
+            raise ValueError("Front-Door-Blockers must be explicit, including none")
+        for field, head in (
+            ("Front-Door-Research", research),
+            ("Front-Door-Process", process),
+            ("Front-Door-Contract", contract),
+        ):
+            if head.number in declared:
+                raise ValueError(f"{field} references a revoked ADR")
+        for match in _ADR_REFERENCE.finditer(str(active_next)):
+            number = int(match.group(1))
+            if number not in by_number or number > snapshot_controller.number:
+                raise ValueError(
+                    "Front-Door-Active-Next references an unavailable ADR"
+                )
+            if number in declared:
+                raise ValueError("Front-Door-Active-Next references a revoked ADR")
+        validated_snapshots.append(
+            (
+                snapshot_controller,
+                research,
+                process,
+                contract,
+                str(active_next).strip(),
+                str(blockers).strip(),
+            )
+        )
+
+    controller, research, process, contract, active_next, blockers = (
+        validated_snapshots[-1]
+    )
+    revoked_numbers = tuple(sorted(cumulative_revocations))
+
+    return FrontDoorSnapshot(
+        controller=controller,
+        research=research,
+        process=process,
+        contract=contract,
+        revoked_by=tuple((number, first_revoker[number]) for number in revoked_numbers),
+        active_next=active_next,
+        blockers=blockers,
+    )
+
+
 def render_status(root: Path = _ROOT, *, recent_count: int = 24) -> str:
     """Render a compact current status whose freshness is testable."""
 
+    if (
+        isinstance(recent_count, bool)
+        or not isinstance(recent_count, int)
+        or recent_count <= 0
+    ):
+        raise ValueError("recent decision count must be a positive integer")
     rows = read_decision_headers(root / "docs/decisions")
     latest = rows[-1]
-    research_rows = tuple(
-        row
-        for row in rows
-        if not _is_preregistration(row)
-        and not _is_process(row)
-        and "accepted" in row.status.lower()
-    )
-    process_rows = tuple(row for row in rows if _is_process(row))
-    prereg_rows = tuple(row for row in rows if _is_preregistration(row))
-    if not research_rows:
-        raise ValueError("status generation requires an accepted research decision")
-    research = research_rows[-1]
-    process = process_rows[-1] if process_rows else None
-    newest_prereg = prereg_rows[-1] if prereg_rows else None
-    open_prereg = newest_prereg if newest_prereg is not None and newest_prereg.number > research.number else None
+    snapshot = _front_door(rows)
+    rows_by_number = {row.number: row for row in rows}
+    research = snapshot.research
+    process = snapshot.process
+    contract = snapshot.contract
+    revoked_by = dict(snapshot.revoked_by)
     digest = _header_digest(rows, root)
 
     lines = [
@@ -128,22 +352,33 @@ def render_status(root: Path = _ROOT, *, recent_count: int = 24) -> str:
         "",
         f"Status: {research.status}.",
         "",
+        "## Governing runtime contract",
+        "",
+        f"{_link(contract, root)} — {contract.title}.",
+        "",
         "## Current decision",
         "",
     ]
-    lines.extend((research.decision or "The latest research ADR has no explicit Decision section.").splitlines())
-    lines.extend(["", "## Open preregistration", ""])
-    if open_prereg is None:
-        lines.append("None. The latest preregistration has a newer research result.")
+    lines.extend(
+        (
+            snapshot.controller.decision
+            or "The front-door controller has no explicit Decision section."
+        ).splitlines()
+    )
+    lines.extend(["", "## Active next", "", snapshot.active_next])
+    lines.extend(["", "## Revoked authorities", ""])
+    if not snapshot.revoked_by:
+        lines.append("None.")
     else:
-        lines.append(f"{_link(open_prereg, root)} — {open_prereg.title} ({open_prereg.status}).")
+        for revoked_number, revoker_number in snapshot.revoked_by:
+            lines.append(
+                f"- {_link(rows_by_number[revoked_number], root)} — revoked by "
+                f"{_link(rows_by_number[revoker_number], root)}."
+            )
     lines.extend(["", "## Evidence protocol", ""])
-    if process is None:
-        lines.append("See [PROJECT.md](PROJECT.md).")
-    else:
-        lines.append(f"Latest process decision: {_link(process, root)} — {process.title}.")
-        lines.append("")
-        lines.append("Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).")
+    lines.append(f"Latest process decision: {_link(process, root)} — {process.title}.")
+    lines.append("")
+    lines.append("Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).")
     lines.extend(
         [
             "",
@@ -154,8 +389,13 @@ def render_status(root: Path = _ROOT, *, recent_count: int = 24) -> str:
         ]
     )
     for row in rows[-recent_count:]:
+        rendered_status = row.status
+        if row.number in revoked_by:
+            rendered_status = (
+                f"{rendered_status}; revoked by ADR-{revoked_by[row.number]:04d}"
+            )
         lines.append(
-            f"| {_link(row, root)} | {row.date or '—'} | {row.status} | {row.title} |"
+            f"| {_link(row, root)} | {row.date or '—'} | {rendered_status} | {row.title} |"
         )
     lines.extend(
         [
@@ -163,16 +403,17 @@ def render_status(root: Path = _ROOT, *, recent_count: int = 24) -> str:
             "## Repository snapshot",
             "",
             f"- Latest ADR: {_link(latest, root)} — {latest.title}.",
+            f"- Governing runtime contract: {_link(contract, root)} — {contract.title}.",
             f"- Numbered decisions: {len(rows)}.",
             f"- ADR-header SHA-256: `{digest}`.",
-            "- Current blockers: none recorded by the latest accepted research decision.",
+            f"- Current blockers: {snapshot.blockers}.",
             "",
             "## Required reading before continuation",
             "",
             "1. [PROJECT.md](PROJECT.md)",
             "2. [STATUS.md](STATUS.md)",
             "3. [ROADMAP.md](ROADMAP.md)",
-            f"4. {_link(research, root)} and its dependencies",
+            f"4. {_link(snapshot.controller, root)}, {_link(research, root)}, {_link(contract, root)}, and their dependencies",
             "",
         ]
     )

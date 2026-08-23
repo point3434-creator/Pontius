@@ -8,10 +8,29 @@ count.
 The current research spine is an exact six-player river control at 32 hands per
 seat (`h32`). It combines factorized beliefs, shared public topology, resident
 GPU solving, unilateral-deviation certificates, and an immutable-blueprint
-fallback. On two frozen prepared contexts, one resident warm step and two exact
-atomic certificates fit inside a 15-second ledger with a one-second emission
-reserve. That is a systems-capacity result, not a deployment or broad strategy-
+fallback. The authoritative target is one shared 15-second wall-clock budget
+of charged agent work per street, including a one-second emission reserve; it
+pauses during opponent/transport idle and does not reset for another agent
+action on the same street. On two frozen prepared contexts, one
+resident warm step and two exact atomic certificates fit that ledger. This is a
+systems-capacity result, not a complete-street, deployment, or broad strategy-
 quality claim.
+
+ADR-0290 carries ADR-0288's explicit-deal reference loop, built on ADR-0286,
+across five complete 1,225/1,081/1,035/990 opponent axes on every street. Exact
+rational public-action likelihoods update only their actor, hard card
+disjointness is retained, board reveals filter every axis, and the unchanged
+four-street hand remains inside its cumulative 15-second ledgers. The immutable
+policy is deliberately passive and untrained; normalized full-width marginals,
+scalable value contraction, action abstraction, a credible full-game blueprint,
+resolver candidates, and strength evidence remain unconnected.
+
+ADR-0292 rejects the first fixed action-sizing lattice before it reaches that
+loop. Its exact legal lattice and rational off-tree projector pass all 45,456
+three-chip states and 60,732 transitions, but the frozen reduced river panel
+has only one informative context and v1 recovers none of that context's
+full-over-minimum/all-in gain. The code remains a parked oracle and baseline;
+any successor requires a fresh development/confirmation preregistration.
 
 ## Current checkpoint
 

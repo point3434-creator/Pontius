@@ -1,18 +1,19 @@
 from __future__ import annotations
 
-from dataclasses import fields, replace
 import hashlib
 import importlib.util
 import json
 import math
-from pathlib import Path
 import struct
 import tempfile
 import unittest
+from dataclasses import fields, replace
+from pathlib import Path
 
 import numpy as np
 
 from pontius.behavioral_one_seat_master import solve_behavioral_one_seat_master
+from pontius.cross_payoff_adjoint_result import bind_cross_payoff_adjoint_result
 from pontius.dense_root_cross_payoff_control import dense_root_cross_payoff_control
 from pontius.factorized_belief import FactorizedCardBelief
 from pontius.incremental_policy_tt import compile_policy_probability_tape
@@ -27,7 +28,10 @@ from pontius.pre_bet_initial_row_cache import (
     write_pre_bet_initial_row_cache,
 )
 from pontius.public_node_behavioral_axis import compile_public_node_behavioral_axis
-from pontius.public_node_open_axis import public_node_open_axis_payoff_row
+from pontius.public_node_open_axis import (
+    build_public_node_affine_source_context,
+    public_node_open_axis_payoff_row,
+)
 from pontius.public_tree_tensor import PublicTreeTensorEvaluator
 from pontius.river import parse_cards
 from pontius.river_multiway import MultiwayRiverDeal, MultiwayRiverHoldem
@@ -123,21 +127,31 @@ class PreBetInitialRowCacheTests(unittest.TestCase):
 
         sources = []
         rows = []
+        source_contexts = []
         for payoff_player in range(layout.num_players):
-            result = dense_root_cross_payoff_control(
+            raw_result = dense_root_cross_payoff_control(
                 layout,
                 probabilities,
                 acting_player=0,
                 payoff_player=payoff_player,
             )
-            row = public_node_open_axis_payoff_row(
+            result = bind_cross_payoff_adjoint_result(
+                layout,
+                probabilities,
+                raw_result,
+                acting_player=0,
+                payoff_player=payoff_player,
+            )
+            source_context = build_public_node_affine_source_context(
                 layout,
                 probabilities,
                 result,
                 acting_player=0,
+                payoff_player=payoff_player,
                 public_node=0,
-                source_value=result.source_value,
             )
+            row = public_node_open_axis_payoff_row(source_context)
+            source_contexts.append(source_context)
             sources.append(
                 PreBetInitialRowSource(
                     "profile",
@@ -157,20 +171,29 @@ class PreBetInitialRowCacheTests(unittest.TestCase):
                 responding_player=payoff_player,
                 hands_by_player=hands,
             )
-            result = dense_root_cross_payoff_control(
+            raw_result = dense_root_cross_payoff_control(
                 layout,
                 response_probabilities,
                 acting_player=0,
                 payoff_player=payoff_player,
             )
-            row = public_node_open_axis_payoff_row(
+            result = bind_cross_payoff_adjoint_result(
+                layout,
+                response_probabilities,
+                raw_result,
+                acting_player=0,
+                payoff_player=payoff_player,
+            )
+            source_context = build_public_node_affine_source_context(
                 layout,
                 response_probabilities,
                 result,
                 acting_player=0,
+                payoff_player=payoff_player,
                 public_node=0,
-                source_value=result.source_value,
             )
+            row = public_node_open_axis_payoff_row(source_context)
+            source_contexts.append(source_context)
             sources.append(
                 PreBetInitialRowSource(
                     "fixed_response",
@@ -191,6 +214,7 @@ class PreBetInitialRowCacheTests(unittest.TestCase):
         cls.identity = identity
         cls.sources = tuple(sources)
         cls.rows = tuple(rows)
+        cls.source_contexts = tuple(source_contexts)
 
     def _write(self, directory: str) -> tuple[Path, str]:
         path = Path(directory) / "h2-initial-rows.json"

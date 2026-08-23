@@ -131,6 +131,13 @@ LPs use exact vertex/certificate authority, while 129 sizing LPs use ADR-0318
 and a second ADR-0313 reconstruction. Nine unsealed controls pass; the next
 boundary is the single sealed invocation, not a consumer or action-width claim.
 
+ADR-0320 retains that one authorized invocation. All 177 observations pass
+with exactly one public proposal each, including 48/48 micro and 129/129 sizing
+gates; the largest sizing certificate interval is `8.50e-11` chips. This opens
+only a separately preregistered certified-v2 reduced-sizing consumer. No
+consumer, six-player action-width mechanism, complete-decision latency, or
+poker-strength result exists yet.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

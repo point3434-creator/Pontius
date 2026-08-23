@@ -131,6 +131,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   outward certificate; the 129 sizing bases pass through ADR-0318 and then the
   separately sealed ADR-0313 reconstruction. Nine unsealed controls pass. No
   canonical result or certified-v2 consumer exists yet.
+- ADR-0320 retains the one sealed campaign: 177/177 canonical observations,
+  48/48 exact micro gates, and 129/129 sizing adapter plus independent-verifier
+  gates pass with one public call each and no clips or failures. The maximum
+  sizing interval is `8.50e-11` chips. This finite h4/compact result opens only
+  a separately preregistered additive certified-v2 reduced-sizing consumer;
+  it is not an action-width, complete-decision latency, or strength result.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

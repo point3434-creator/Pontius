@@ -961,3 +961,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     the frozen correctness assessment. Do not tune or rerun after a rejection,
     use a transformed representation, edit either verifier, connect a legacy
     consumer, or interpret retained wall time as decision latency.
+38. ADR-0320 retains the sole sealed ADR-0319 campaign at
+    `experiments/results/certified-sizing-canonical-validation-v1.json`,
+    5,022,120 bytes and SHA-256
+    `5a2a75a9cf0ddaf60795597aa6ff3f788d4bfc7ccf5519813f37856dad02f9f5`.
+    The 701-byte assessment SHA-256 is
+    `a3c360c61ae6edd28eb2df68b83339a549d6726a151c60fee46bc488dc54bfd9`.
+    Interpret it only as 177/177 canonical correctness passes and bounded
+    eligibility for a separately preregistered additive v2 reduced-sizing
+    consumer. Do not rerun the campaign, edit ADR-0318/0319, quote its compact
+    LP timings as complete decisions, connect the historical v1 oracle, or
+    infer action-width quality or poker strength.

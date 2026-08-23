@@ -204,6 +204,15 @@ correctness gate requires 48 micro and 129 sizing passes; retained wall times
 are diagnostics, not a speed qualification. No canonical invocation exists at
 the source boundary.
 
+ADR-0320 retains the runner's sole canonical campaign. All 177 tasks pass with
+one public call each; 48 micro exact/certificate checks and 129 sizing
+adapter/independent-reconstruction checks are complete, with no policy or
+multiplier-sign clips. The maximum sizing interval is `8.50e-11` chips. This
+opens only the architecture slot for an additive certified-v2 reduced-sizing
+consumer. No module fills that slot yet, and neither the legacy oracle nor a
+six-player resolver imports the adapter. Component timing remains diagnostic,
+not a complete-decision ledger.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

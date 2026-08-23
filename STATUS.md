@@ -15,35 +15,22 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept and source-seal `pontius.certified_sizing_validation_runner` before the
-first canonical invocation. The runner binds ADR-0312's exact 177-base order
-and selects only each base's canonical representation. It owns a fixed typed
-observation for every scheduled base, canonical exact-float serialization, an
-immutable campaign digest, and a correctness-only conjunctive assessment.
+Yes, on the preregistered finite boundary. Accept the retained canonical
+campaign and its frozen assessment. All 177 ordered observations pass: 48
+exact micro LPs and 129 reduced-sizing LPs. Every observation records exactly
+one public HiGHS-DS call, no runner failure, and complete family-specific
+evidence. The conjunctive assessment therefore marks a separately
+preregistered certified-v2 reduced-sizing consumer eligible.
 
-The schedule has SHA-256
-`36f34eb820bfaa4b58747201c9b27779553d0f8e250c73786da34542b5d8cba4`.
-Its protocol identity has SHA-256
-`51d4f188fbf2e5b78b38fca7712294b2001d0d0959a00c575d17a0b0adc0a5df`.
-The exact family and path counts are:
-
-| Family or path | Bases |
-|---|---:|
-| Known ADR-0310 sizing regression | 1 |
-| Exact micro LP | 48 |
-| Fresh reduced-sizing LP | 128 |
-| Generic exact-micro HiGHS-DS path | 48 |
-| ADR-0318 certified-sizing adapter path | 129 |
-| Total canonical bases and public proposals | 177 |
-
-No row permutation, variable permutation, dyadic scaling, redundancy arm,
-native backend, or HiGHS-IPM arm enters this successor campaign. Those broader
-representation results remain ADR-0314 evidence; this campaign asks whether
-the new canonical consumer boundary itself accepts the canonical distribution.
+This does not connect a consumer or select an action width. The pass is over
+canonical compact LPs in the frozen CPython 3.14.6, NumPy 2.5.2, SciPy 1.18.0,
+and HiGHS 1.12.0 runtime. Transformed matrices, h32/full-range masters,
+multi-street games, legal six-player action construction, complete decisions,
+and strategy quality remain outside the result.
 
 ## Active next
 
-Invoke the source-sealed ADR-0319 entry point exactly once, retain all 177 ordered observations and the immutable campaign bytes despite individual rejection, apply only the frozen correctness gate, and record the result in a successor ADR; edit no runner, adapter, authority, corpus, schedule, option, allowance, runtime identity, legacy consumer, or v1-v4 owner before that invocation
+Preregister and source-seal only an additive certified-v2 reduced-sizing consumer contract that binds an exact semantic context and an explicitly supplied kernel-derived legal raise-to set, returns the certified behavioral lower bound, outward upper bound, policy, and fold/call responses or a typed rejection to the caller-owned legal fallback, and passes only unsealed differential/corruption controls before any fresh action-width value; edit no ADR-0318/0319 source, historical v1 consumer, retained artifact, allowance, or v1-v4 owner
 
 ## Revoked authorities
 
@@ -51,7 +38,7 @@ Invoke the source-sealed ADR-0319 entry point exactly once, retain all 177 order
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0319](docs/decisions/ADR-0319-source-seal-the-canonical-sizing-validation-runner.md) — Source-seal the canonical sizing validation runner.
+Latest process decision: [ADR-0320](docs/decisions/ADR-0320-accept-the-canonical-certified-sizing-validation.md) — Accept the canonical certified-sizing validation.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -59,7 +46,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0296](docs/decisions/ADR-0296-reject-candidate-blind-power-pools-and-own-stop-state.md) | 2026-08-23 | accepted negative diagnostic and corrective process control; ADR-0295 rejected before v3 | Reject candidate-blind power pools and own stop state |
 | [ADR-0297](docs/decisions/ADR-0297-preregister-width-four-sizing-power-replications.md) | 2026-08-23 | accepted executable preregistration before any width-four pool construction or value | Preregister width-four sizing-power replications |
 | [ADR-0298](docs/decisions/ADR-0298-seal-width-four-structural-pools-before-values.md) | 2026-08-23 | accepted structural freeze; all width-four sizing values remain unopened | Seal width-four structural pools before values |
 | [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md) | 2026-08-23 | accepted candidate-blind evaluation-power result; one v3 preregistration is authorized but no mechanism or integration is accepted | Width four passes replicated sizing power |
@@ -83,18 +69,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0317](docs/decisions/ADR-0317-separate-solver-classes-and-prioritize-the-certified-sizing-adapter.md) | 2026-08-23 | accepted optimization triage and prospective adapter preregistration before source | Separate solver classes and prioritize the certified sizing adapter |
 | [ADR-0318](docs/decisions/ADR-0318-source-seal-the-certified-reduced-sizing-highs-adapter.md) | 2026-08-23 | accepted source-only canonical adapter and toy controls before any sealed validation base | Source-seal the certified reduced-sizing HiGHS adapter |
 | [ADR-0319](docs/decisions/ADR-0319-source-seal-the-canonical-sizing-validation-runner.md) | 2026-08-23 | accepted source-only failure-complete runner, schedule, and result schema before any canonical validation invocation | Source-seal the canonical sizing validation runner |
+| [ADR-0320](docs/decisions/ADR-0320-accept-the-canonical-certified-sizing-validation.md) | 2026-08-23 | accepted complete canonical correctness pass; a separately preregistered certified-v2 reduced-sizing consumer is eligible but absent | Accept the canonical certified-sizing validation |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0319](docs/decisions/ADR-0319-source-seal-the-canonical-sizing-validation-runner.md) — Source-seal the canonical sizing validation runner.
+- Latest ADR: [ADR-0320](docs/decisions/ADR-0320-accept-the-canonical-certified-sizing-validation.md) — Accept the canonical certified-sizing validation.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 319.
-- ADR-header SHA-256: `9f2557f27005406174abb4e2d78c7bc4ccf6176e63bf60ddcf45903feed1dd5d`.
-- Current blockers: no canonical ADR-0319 proposal, exact-micro result, adapter-specific sizing result, retained campaign, or correctness assessment exists; the adapter remains toy-only and no certified-v2 production consumer is authorized; v1-v4 and behavioral-master specialization remain parked.
+- Numbered decisions: 320.
+- ADR-header SHA-256: `d3fbe65dd452456af4ea894577e2491eb183a71e4e619a301e97b3e1e4c4f87e`.
+- Current blockers: no certified-v2 consumer, exact legal-action bridge, typed production rejection/fallback ledger, or complete-decision integration exists; the finite pass covers only 177 canonical compact LPs with 4x4 sizing contexts and 48 micro programs, not h32/full-range action pricing, exact ladder regret, row-column closure, fresh population transfer, earlier streets, a 15-second resolver, or poker strength.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0319](docs/decisions/ADR-0319-source-seal-the-canonical-sizing-validation-runner.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0320](docs/decisions/ADR-0320-accept-the-canonical-certified-sizing-validation.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

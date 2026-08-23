@@ -324,7 +324,7 @@ class DocumentationIntegrityTests(unittest.TestCase):
         expected = {
             "README.md": ("ADR-0318", "untrusted proposer"),
             "PROJECT.md": ("177-canonical-base", "11 controls"),
-            "STATUS.md": ("ADR-0318", "certified-sizing adapter path"),
+            "STATUS.md": ("ADR-0318", "HiGHS 1.12.0"),
             "ROADMAP.md": ("ADR-0318", "exact behavioral/outward-bound"),
             "RUNBOOK.md": (
                 "4723a7b153b6285081c67e8e5c20b0f1097c7d8acf9ab4c5482373984947e80f",
@@ -345,7 +345,7 @@ class DocumentationIntegrityTests(unittest.TestCase):
         expected = {
             "README.md": ("ADR-0319", "one public HiGHS-DS proposal"),
             "PROJECT.md": ("one-public-call counter", "129 sizing bases"),
-            "STATUS.md": ("177-base order", "correctness-only conjunctive"),
+            "STATUS.md": ("ADR-0319", "one public HiGHS-DS call"),
             "ROADMAP.md": ("ADR-0319", "exact ordered 177-base schedule"),
             "RUNBOOK.md": (
                 "5116c1d4b2632da76cf83e6d7d015b190e061330094d27b3c9719631a89252e1",
@@ -356,6 +356,24 @@ class DocumentationIntegrityTests(unittest.TestCase):
                 "129 sizing passes",
             ),
             "RISK_REGISTER.md": ("R81", "loses backend accountability"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+    def test_canonical_certified_sizing_pass_is_bounded_and_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0320", "177 observations pass"),
+            "PROJECT.md": ("129/129 sizing", "8.50e-11"),
+            "STATUS.md": ("All 177 ordered observations pass", "consumer eligible"),
+            "ROADMAP.md": ("ADR-0320", "own-column and opponent-row"),
+            "RUNBOOK.md": (
+                "5a2a75a9cf0ddaf60795597aa6ff3f788d4bfc7ccf5519813f37856dad02f9f5",
+                "Do not rerun the campaign",
+            ),
+            "ARCHITECTURE.md": ("sole canonical campaign", "No module fills"),
+            "RISK_REGISTER.md": ("R82", "stale response rows"),
         }
         for relative, phrases in expected.items():
             text = _contract_text(relative)

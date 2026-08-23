@@ -695,8 +695,10 @@ now seals the value-free compiler, both prospective structures, the known
   canonical reduced-sizing HiGHS adapter and its exact behavioral/outward-bound
   acceptance path after toy-only controls. ADR-0319 now source-seals the
   failure-complete runner, one-call counters, exact ordered 177-base schedule,
-  and immutable result schema. The next boundary is its single sealed
-  invocation; no canonical result or consumer has opened through ADR-0319.
+  and immutable result schema. ADR-0320 retains the single sealed invocation:
+  all 177 observations pass with no clips or failures and a maximum
+  `8.50e-11`-chip sizing interval. A separately preregistered additive
+  certified-v2 reduced-sizing consumer is now eligible but absent.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -777,9 +779,11 @@ representative and candidate value remains unopened. All four exact-legality
   HiGHS and any untrusted specialized proposer remain parked under a 5%
   complete-ledger trigger. The passive reference source remains the emitted
   fallback. ADR-0318 seals the canonical reduced-sizing adapter source, and
-  ADR-0319 seals its canonical 177-base validation runner after only unsealed
-  toys. The retained result gate remains a prerequisite to any v2 sizing
-  consumer or wholly fresh action mechanism.
+  ADR-0319 seals its canonical 177-base validation runner, and ADR-0320 records
+  its complete finite pass. The next boundary is a source-sealed additive v2
+  consumer with exact legal-action/context binding and typed rejection. Any
+  wholly fresh action-width mechanism remains downstream of that consumer and
+  must close both own-column and opponent-row violations.
 
 ## C6: Neural blueprint and leaves
 

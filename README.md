@@ -81,7 +81,9 @@ pot-odds filling to spend otherwise unused slots under the same seven-raise
 ceiling. Three exact fresh streams and two separately gated qualified
 replications are committed prospectively. ADR-0306 now freezes the value-free
 v4 source after exhaustive legality, v3-inclusion, exact-capacity, projection,
-and bounded-work checks. No v4 structure or value is open, and the source is
+and bounded-work checks. ADR-0309 now seals the value-free 48/96/96 fresh
+structures, their raw attempt counts, and zero overlap with the finite prior
+inventory. No v4 qualification or candidate value is open, and the source is
 not connected to replay, blueprint, the convex master, or resolving.
 
 ## Current checkpoint

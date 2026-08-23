@@ -107,8 +107,18 @@ seven raises by exact-rational maximin spacing in responder pot-odds. Its
 midpoint inversion checks only floor and ceiling integers, so work is bounded
 by action width rather than chip depth. Refill rank, bracket, score, parent
 digest, and source digest are immutable and reconstructively validated. The
-source gate passes, but all fresh structures and values remain unopened; no v4
-action may enter replay, blueprint, convex-master, resolver, or strategy paths.
+source gate passes and ADR-0309 seals all three fresh structures, but every
+qualification and candidate value remains unopened; no v4 action may enter
+replay, blueprint, convex-master, resolver, or strategy paths.
+
+`fresh_capacity_filling_structures` is ADR-0309's candidate-free structural
+boundary. It reconstructs the frozen representative, qualified-A, and
+qualified-B streams with its own exact probability/context records and imports
+only the exact river card evaluator. Canonical identities bind the ADR-0306
+source, inherited SHA-256/Fisher-Yates semantics, filter, attempts, order, and
+every context field. The three structures are sealed and finite-inventory
+disjoint; no sizing value or candidate dependency is present. Qualification
+must occur in a separate owner after this structural commit.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

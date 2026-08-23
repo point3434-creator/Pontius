@@ -639,13 +639,17 @@ authorized.
 now freezes capacity-filling pot-odds v4 before source code. It preserves every
 v3 action and the seven-raise ceiling, then fills deduplicated capacity by an
 exact-rational farthest-point rule. Its 48-context representative stream and
-two separate 96-context qualification streams are already seed-bound, but all
-structures and values remain unopened.
+two separate 96-context qualification streams were seed-bound there before any
+structure or value.
 [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md)
 now passes and freezes the value-free source after exhaustive legality,
 v3-superset, full-slot, provenance, projection, and bounded-work validation.
-The next gate is only construction and sealing of the three frozen value-free
-streams; qualification and all candidate values remain unopened.
+[ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md)
+now seals the three frozen value-free streams at 48/96/96 contexts after
+239/570/451 raw card candidates. All are mutually unique and have zero
+counterparts in the finite 748-context maintained inventory. The next gate is
+only candidate-blind qualification of A and then, conditional on A passing, B;
+the representative family and every candidate value remain unopened.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -658,8 +662,8 @@ now passes the additive action-clock ledger, preparation bank, and exact-spine
 v2 checkpoint with deterministic boundary, provenance, archive, and fallback
 tests. It establishes accounting mechanics only: complete-hand/live-host
 integration and useful preparation hit/quality evidence remain absent. The next
-gate returns to construction and sealing of the three frozen value-free v4
-streams; qualification and candidate values remain unopened.
+gate returns to ADR-0309's sealed v4 boundary; qualification and candidate
+values remain unopened.
 
 ADR-0198 closes the first compute-attribution subgate. The resident GPU
 pipeline consumes 67.87% of pooled step time, host record-to-hand folding
@@ -709,10 +713,10 @@ fixed. The three-by-three pool failed its second yield replication and remains
 parked. The width-four game now passes its frozen replicated yield and exact-
 work boundary. Collision-repair v3 is implemented but rejected and parked.
 Capacity-filling v4 is implemented only as a frozen value-free source; its
-fresh structures and every value remain unopened. ADR-0308 passes the additive
-action-clock/preparation-bank implementation and returns the active boundary to
-those value-free structures. The passive reference source remains the emitted
-fallback.
+three fresh structures are now sealed by ADR-0309, while every qualification
+and candidate value remains unopened. The active boundary is candidate-blind
+qualification A, then B only if A passes. The passive reference source remains
+the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

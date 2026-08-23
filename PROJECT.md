@@ -79,9 +79,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   fraction. ADR-0306 now freezes its exhaustively validated, bounded-work
   source at SHA-256
   `37824e44b7793b10b081957fc8be387bdca5c565b4bfe2386ca13f7e1c785c8b`.
-  All three seed-bound structures, replicated qualification, and candidate
-  values remain unopened. V1, v2, and v3 remain parked, v4 remains unaccepted
-  on quality, and no action abstraction is integrated.
+  ADR-0309 now seals its 48-context representative and separate 96-context
+  qualified-A and qualified-B structures before every value. They are mutually
+  unique and have no counterpart in the finite 748-context ADR-0291--0304
+  inventory. Both qualification replications and every candidate value remain
+  unopened. V1, v2, and v3 remain parked, v4 remains unaccepted on quality,
+  and no action abstraction is integrated.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

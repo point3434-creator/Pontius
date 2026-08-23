@@ -15,21 +15,19 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept the additive ADR-0307 timing successor. Pontius now has an executable
-15-second continuous response wall for each controlled action, separately
-measured online preparation, exact one-use artifact credit, and an exact legal-
-decision-spine v2. The superseded cumulative-street ledger and controller remain
-unchanged for historical reproduction.
+Accept and seal ADR-0305's three value-free capacity-filling v4 structures.
+They reconstruct from the exact frozen ASCII seeds in the required
+representative, qualified-A, qualified-B order; satisfy the inherited width-
+four card, chip, exact-range, and sign-filter contract; are unique within and
+across families; and have no semantic counterpart in the finite maintained
+ADR-0291 through ADR-0304 context inventory.
 
-This is the resource-accounting foundation for the governing objective:
-maximize marginal chip-valued decision quality per additional millisecond of
-attributable online workstation compute, subject to a hard 15-second response
-deadline on every controlled turn. It does not yet measure a decision-quality
-curve or show that preparation is useful.
+This checkpoint opened no sizing-oracle, qualification, representative, v3,
+or v4 value. The frozen capacity-filling candidate source is unchanged.
 
 ## Active next
 
-Construct and seal only ADR-0305's value-free 48-context representative, 96-context qualified-A, and 96-context qualified-B streams from their frozen seeds; keep every qualification and candidate value unopened and do not reinterpret historical timing under ADR-0307
+Implement a separate candidate-blind owned qualification runner over only the sealed qualified-A pool, stop at its twenty-fourth qualifier, first ambiguity, numerical failure, or exhaustion, and open qualified B only after A passes; keep the representative family and every v3/v4 candidate value unopened until both final panel identities are committed
 
 ## Revoked authorities
 
@@ -37,7 +35,7 @@ Construct and seal only ADR-0305's value-free 48-context representative, 96-cont
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0308](docs/decisions/ADR-0308-install-the-action-clock-and-preparation-bank.md) — Install the action clock and preparation bank.
+Latest process decision: [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md) — Seal capacity-filling v4 structures before qualification.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -45,7 +43,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0285](docs/decisions/ADR-0285-close-second-and-third-round-review-defects.md) | 2026-08-23 | accepted corrective engineering validation; no research invocation or h32 result authorized | Close second- and third-round review defects |
 | [ADR-0286](docs/decisions/ADR-0286-install-the-exact-six-seat-legal-decision-spine.md) | 2026-08-23 | accepted reference-game and runtime engineering control; no strategy-quality or deployment result | Install the exact six-seat legal decision spine |
 | [ADR-0287](docs/decisions/ADR-0287-preregister-the-complete-reference-hand-replay.md) | 2026-08-23 | accepted executable correctness preregistration before any reference-hand replay result | Preregister the complete reference-hand replay |
 | [ADR-0288](docs/decisions/ADR-0288-complete-reference-hands-pass-the-exact-one-seat-loop.md) | 2026-08-23 | accepted complete-reference correctness result; no strategy-quality, scalability, latency-distribution, or deployment result | Complete reference hands pass the exact one-seat loop |
@@ -69,18 +66,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md) | 2026-08-23 | accepted value-free source gate; v4 source is frozen before every seeded structure and value | Freeze capacity-filling v4 source |
 | [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) | 2026-08-23 | accepted charter amendment and executable successor preregistration before action-clock or preparation-bank source | Make the action clock and preparation bank authoritative |
 | [ADR-0308](docs/decisions/ADR-0308-install-the-action-clock-and-preparation-bank.md) | 2026-08-23 | accepted runtime engineering control; no strategy-quality, preparation-utility, complete-hand, or deployment result | Install the action clock and preparation bank |
+| [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md) | 2026-08-23 | accepted value-free structural freeze; every v4 qualification and candidate value remains unopened | Seal capacity-filling v4 structures before qualification |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0308](docs/decisions/ADR-0308-install-the-action-clock-and-preparation-bank.md) — Install the action clock and preparation bank.
+- Latest ADR: [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md) — Seal capacity-filling v4 structures before qualification.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 308.
-- ADR-header SHA-256: `f1cf392fe75508dba872281ad81f42c27f7b79a3d983523b242c0f8002e74841`.
-- Current blockers: all three v4 structures and every v4 value remain unopened; action-clock v2 is not connected to the complete-hand replay or a live host; no prepared artifact has demonstrated useful hit rate or decision-quality gain; no credible blueprint, integrated resolver, or complete bot exists.
+- Numbered decisions: 309.
+- ADR-header SHA-256: `c36065a0ad2cd3c4b38b168db8090c20abe426d81f23c3e599b5789bab7137ff`.
+- Current blockers: neither candidate-blind qualification replication has opened a value; no 24-context qualified-A or qualified-B panel exists; every representative, v3-control, and v4 value remains unopened; v4 has no sizing-quality, replay, convex-master, resolver, blueprint, or strength result.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0308](docs/decisions/ADR-0308-install-the-action-clock-and-preparation-bank.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

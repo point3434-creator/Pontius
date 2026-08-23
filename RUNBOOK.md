@@ -814,12 +814,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     `37824e44b7793b10b081957fc8be387bdca5c565b4bfe2386ca13f7e1c785c8b`.
     Reproduce it only through
     `pontius.capacity_filling_action_abstraction.CapacityFillingActionAbstractionSource`.
-    The next authorized step is value-free construction of exactly ADR-0305's
-    48-context representative, 96-context qualified-A, and 96-context
-    qualified-B streams. Commit all three structure identities, attempt counts,
-    uniqueness, and maintained-inventory disjointness before importing any
-    candidate or opening any qualification value. Keep v4 out of replay,
-    blueprint, convex-master, resolver, and strategy integration.
+    ADR-0309 now seals ADR-0305's 48-context representative, 96-context
+    qualified-A, and 96-context qualified-B streams through
+    `pontius.fresh_capacity_filling_structures`. Their structure digests are
+    `6ab4f7451b008a3a82309473df28384ede65e94da27fccc45a920e6ef4a4ffbc`,
+    `54cd7ed77a7c37a67dc050e8155fbbbcad61e4d952316fa2e3eb5c2f602110ed`,
+    and `23c186d3c393c9d233558c8150e9bb1f7c38f75f6e3cf1d7c7685341057f5870`.
+    Keep v4 out of replay, blueprint, convex-master, resolver, and strategy
+    integration.
 25. ADR-0307 supersedes the cumulative-street timing contract before those v4
     structures. Preserve the old ledger and spine for reproduction. ADR-0308
     now accepts the additive continuous 15-second action-response ledger, one-
@@ -828,8 +830,15 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     credit never extends the response remainder. Use only this successor for
     prospective timing claims.
 26. Resume ADR-0305 only at its three value-free stream constructions, in the
-    frozen representative, qualified-A, qualified-B order. Keep every value
-    unopened. Any later allocation experiment must report the full marginal
-    chip-quality curve over both response and preparation milliseconds, plus
-    misses and invalidation waste; credited compute or hit rate alone is not a
-    quality result.
+    frozen representative, qualified-A, qualified-B order. ADR-0309 records
+    their completed identities and finite disjointness. Any later allocation
+    experiment must report the full marginal chip-quality curve over both
+    response and preparation milliseconds, plus misses and invalidation waste;
+    credited compute or hit rate alone is not a quality result.
+27. Implement v4 qualification only in a separate value-owning module. Convert
+    each sealed structural record one-to-one, bind every semantic field, and
+    import no action candidate. Open qualified A first and stop internally at
+    its twenty-fourth qualifier, first ambiguity, numerical/pivot failure, or
+    exhaustion. Do not open B unless A passes. Commit both final panel
+    identities and leading two-by-two teacher controls before opening the
+    representative family or importing v3/v4 into an evaluator.

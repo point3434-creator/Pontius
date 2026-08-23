@@ -113,6 +113,26 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_capacity_filling_structural_freeze_is_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0309", "48/96/96"),
+            "PROJECT.md": ("qualified-A", "748-context"),
+            "ROADMAP.md": ("239/570/451", "candidate-blind qualification"),
+            "RUNBOOK.md": (
+                "fresh_capacity_filling_structures",
+                "qualified-A",
+            ),
+            "ARCHITECTURE.md": (
+                "fresh_capacity_filling_structures",
+                "finite-inventory disjoint",
+            ),
+            "RISK_REGISTER.md": ("R66", "R69", "value-free fresh stream"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

@@ -870,3 +870,18 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     commit source/environment/options identities before any sealed native,
     HiGHS, exact-enumeration, reconstruction, or certificate invocation. Do
     not edit `pontius.linear_program`, change an input/transform, or reopen v4.
+31. ADR-0313 seals `pontius.native_simplex_audit_runner` at SHA-256
+    `cfb127960e3d501a156f14d22244ecd122874b74fefb668685f9a721503ade16`
+    and its separate invocation seal at
+    `a0305de4af43366f6e2ed2a1d5bcd4fafba01f94d5e7103201bcaa9385ff05e3`.
+    The bound runtime is CPython 3.14.6, NumPy 2.5.2, SciPy 1.18.0, and
+    embedded HiGHS 1.12.0. Invoke only through
+    `execute_sealed_adr0311_audit`, only on complete corpus SHA-256
+    `4be6dcc311bc2f885ce9ad312cee8294f38231180ab78bbbfb6497184b1597a3`,
+    and only as the full variant-major 2,655-observation campaign. Retain every
+    exact-work, backend, residual, reconstruction, certificate, exception, and
+    sign-clip record after any individual failure. Do not sample, run a prefix,
+    tune an option, change an allowance, edit a sealed source, or interpret a
+    partial result. The already-known native failure does not stop later arms.
+    Record the frozen conjunctive pass or rejection before any replacement ADR;
+    no outcome can revive v4 or authorize a consumer migration directly.

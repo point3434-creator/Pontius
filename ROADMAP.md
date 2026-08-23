@@ -663,10 +663,17 @@ sizing LPs, five exact metamorphic representations, and native/HiGHS-DS/
 HiGHS-IPM arms with unit-specific reconstruction and certificate gates.
 [ADR-0312](docs/decisions/ADR-0312-seal-native-simplex-audit-compiler-and-corpora.md)
 now seals the value-free compiler, both prospective structures, the known
-regression snapshot, all 177 bases, and all 885 exact representations. The
-fresh 64-context structure is disjoint from the finite 988-context inventory
-through ADR-0310. No optimum or backend result exists; the next checkpoint is
-runner and result-schema source with mocks and frozen toys only.
+  regression snapshot, all 177 bases, and all 885 exact representations. The
+  fresh 64-context structure is disjoint from the finite 988-context inventory
+  through ADR-0310.
+  No optimum or backend result existed at that ADR-0312 boundary.
+  [ADR-0313](docs/decisions/ADR-0313-seal-native-simplex-audit-runner-before-results.md)
+  now seals the runner and typed result schemas before results. It owns exact
+  micro enumeration, all three fixed adapters, original-coordinate semantic
+  reconstruction and outward bounds, complete failure capture, and the exact
+  2,655-invocation schedule under CPython 3.14.6, NumPy 2.5.2, SciPy 1.18.0,
+  and embedded HiGHS 1.12.0. Only unsealed toys have run. No sealed optimum or
+  backend result exists; the next checkpoint is one complete audit invocation.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -732,11 +739,13 @@ Capacity-filling v4 is implemented as a frozen value-free source but rejected
 by ADR-0310 when qualified B hits the native solver's numerical kill criterion.
 Its A selection is provisional, no final evaluation panels exist, and every
 representative and candidate value remains unopened. All four exact-legality
-action candidates are parked. Before another sizing campaign can be trusted,
-ADR-0311's candidate-independent native-simplex robustness audit must advance
-through its remaining committed-runner and one-shot result boundaries.
-ADR-0312 has sealed the compiler and corpus half without a solver result. The
-passive reference source remains the emitted fallback.
+  action candidates are parked. Before another sizing campaign can be trusted,
+  ADR-0311's candidate-independent native-simplex robustness audit must advance
+  through its remaining one-shot result boundary. ADR-0312 has sealed the
+  compiler and corpus half, and ADR-0313 has separately sealed the runner,
+  environment, options, typed observations, and complete schedule without a
+  sealed solver result. The passive reference source remains the emitted
+  fallback.
 
 ## C6: Neural blueprint and leaves
 

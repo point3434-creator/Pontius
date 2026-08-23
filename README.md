@@ -92,10 +92,13 @@ candidate-independent native-simplex robustness audit, not a v4 retry.
 ADR-0311 now freezes that audit's exact micro and fresh sizing corpora,
 metamorphic representations, backend options, independent bounds, and kill
 criteria before any corpus source or new LP value. ADR-0312 now seals the pure
-unit-tagged compiler, 48 micro inputs, 64 fresh contexts, 177 bases, and 885
-exact representations without invoking a backend or opening an optimum. The
-active boundary is audit-runner and typed result-schema source with mocks and
-frozen toys only.
+  unit-tagged compiler, 48 micro inputs, 64 fresh contexts, 177 bases, and 885
+  exact representations without invoking a backend or opening an optimum. The
+  ADR-0313 runner is now source-sealed with typed failure-complete observations,
+  exact micro enumeration, original-coordinate sizing reconstruction, outward
+  certificate plumbing, frozen environment/options, and the exact 2,655-call
+  schedule. It has run only on unsealed toys. The active boundary is one
+  complete sealed audit invocation; no sealed optimum or backend result exists.
 
 ## Current checkpoint
 

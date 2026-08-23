@@ -140,11 +140,19 @@ shifted-envelope variables, trusted boxes, and the objective shift separately.
 The isolated structure/corpus modules own 48 exact bounded micro LP inputs, 64
 fresh width-four contexts, the disclosed ADR-0310 regression snapshot, 177
 ordered bases, and five exact row/variable/scaling/redundancy representations
-per base. All 885 materialized representations are hash-bound without a
-backend call. No runner, exact optimum, HiGHS/native result, reconstruction, or
-certificate interval exists. The eventual comparison must use exact micro
-enumeration, original-coordinate feasible sizing reconstruction, and outward-
-rounded dual bounds; it remains solver infrastructure and cannot reopen v4.
+  per base. All 885 materialized representations are hash-bound without a
+  backend call. At the ADR-0312 boundary, No runner or sealed value existed.
+  ADR-0313 adds the separately source-sealed
+  `native_simplex_audit_runner`: exact Fraction vertex enumeration, frozen
+  native/HiGHS adapters, transformed and original residuals, primal/dual map
+  reconstruction, original-coordinate feasible sizing reconstruction, exact
+  behavioral lower bounds, outward-
+  rounded original-coordinate upper bounds, immutable failure-complete
+  observations, and the variant-major 2,655-call schedule. The adjacent
+  `native_simplex_audit_seal` prevents a changed runner or runtime identity from
+  invoking the corpus. Only unsealed toy inputs have exercised these paths; no
+  sealed exact optimum, HiGHS/native result, sizing value, or certificate
+  interval exists. This remains solver infrastructure and cannot reopen v4.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

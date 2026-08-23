@@ -95,8 +95,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   unit-specific independent bounds. ADR-0312 now seals the pure compiler, 48
   micro inputs, 64 fresh contexts, 177 bases, and 885 exact representations.
   The fresh contexts have zero counterpart in the finite 988-context inventory
-  through ADR-0310. No optimum or backend result exists; the next boundary is
-  runner and result-schema source with mocks and frozen toys only.
+  through ADR-0310. ADR-0313 now seals the runner and result-schema source at SHA-256
+  `cfb127960e3d501a156f14d22244ecd122874b74fefb668685f9a721503ade16`
+  with exact micro enumeration, original-coordinate primal/dual mapping,
+  feasible behavioral sizing reconstruction, outward certificates, complete
+  failure observations, frozen runtime/options, and the 2,655-call schedule.
+  Only unsealed toys have exercised it. No sealed optimum or backend result
+  exists; the next boundary is the one-shot complete audit invocation.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

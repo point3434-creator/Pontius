@@ -190,6 +190,30 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_native_simplex_audit_runner_seal_is_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0313", "2,655-call schedule"),
+            "PROJECT.md": (
+                "cfb127960e3d501a156f14d22244ecd122874b74fefb668685f9a721503ade16",
+                "one-shot complete audit invocation",
+            ),
+            "STATUS.md": ("ADR-0313", "2,655 scheduled observations"),
+            "ROADMAP.md": ("embedded HiGHS 1.12.0", "Only unsealed toys"),
+            "RUNBOOK.md": (
+                "execute_sealed_adr0311_audit",
+                "full variant-major 2,655-observation campaign",
+            ),
+            "ARCHITECTURE.md": (
+                "native_simplex_audit_runner",
+                "immutable failure-complete observations",
+            ),
+            "RISK_REGISTER.md": ("R73", "wrong-sign hints"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

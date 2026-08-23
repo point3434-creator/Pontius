@@ -15,22 +15,25 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept and seal ADR-0311's pure unit-tagged reduced-sizing compiler, exact
-micro corpus, fresh width-four corpus, known-regression snapshot, 177 ordered
-base LP identities, and 885 ordered exact-representation identities. The
-structures reconstruct deterministically, the extracted compiler is bit-exact
-to an independent reproduction of the pre-extraction formula, every mixed-unit
-row and variable retains a semantic tag, and the fresh contexts have no
-counterpart in the finite maintained inventory through ADR-0310.
+Accept and seal ADR-0311's owned audit runner and typed result schemas before
+the first invocation on any of ADR-0312's 885 representations. The source now
+owns exact rational micro enumeration, all three frozen backend adapters,
+variant-to-original primal and dual reconstruction, unit-specific semantic
+checks, exact behavioral sizing lower bounds, outward-rounded objective upper
+bounds, exception-complete observations, the fixed 2,655-invocation schedule,
+and the conjunctive interpretation gate.
 
-This checkpoint invoked no native or HiGHS backend, enumerated no exact vertex,
-opened no optimum or sizing security value, evaluated no candidate, and built
-no audit runner. The native simplex source remains byte-frozen and ineligible.
-Capacity-filling v4 remains permanently parked.
+This checkpoint imported the optional NumPy/SciPy environment to bind version
+identities and exercised native mechanics only on hand-authored unsealed toys.
+It did not enumerate a sealed micro vertex, invoke native or HiGHS on a sealed
+base or variant, open a sealed objective or sizing value, construct a sealed
+certificate interval, or inspect a fresh candidate. The ADR-0312 corpus and
+all earlier source identities remain unchanged. Capacity-filling v4 remains
+permanently parked.
 
 ## Active next
 
-Implement only the owned native/HiGHS/exact audit runner and typed result schemas, including exact micro enumeration, original-coordinate sizing reconstruction, outward certificate plumbing, complete failure capture, and mocked or frozen-toy tests; commit its source hash, environment identities, backend options, and expected 2,655-invocation schedule before invoking any sealed audit instance; do not modify the native simplex, change a sealed corpus or representation, open a fresh optimum or sizing value, or reopen v4
+Invoke the complete sealed ADR-0311 audit exactly once through the source-sealed entry point, retain all 2,655 scheduled observations and every exact/reconstruction/certificate record despite individual failures, and apply the frozen conjunctive gate; do not edit the runner, native simplex, certificate, corpus, representation, backend option, allowance, environment identity, or gate; do not open any representative or v3/v4 candidate value or reopen v4
 
 ## Revoked authorities
 
@@ -38,7 +41,7 @@ Implement only the owned native/HiGHS/exact audit runner and typed result schema
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0312](docs/decisions/ADR-0312-seal-native-simplex-audit-compiler-and-corpora.md) — Seal the native-simplex audit compiler and corpora.
+Latest process decision: [ADR-0313](docs/decisions/ADR-0313-seal-native-simplex-audit-runner-before-results.md) — Seal the native-simplex audit runner before results.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -46,7 +49,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0289](docs/decisions/ADR-0289-preregister-the-full-width-belief-blueprint-boundary.md) | 2026-08-23 | accepted executable correctness preregistration before any full-width complete-hand result | Preregister the full-width belief/blueprint boundary |
 | [ADR-0290](docs/decisions/ADR-0290-full-width-belief-and-rational-policy-cross-the-reference-hand.md) | 2026-08-23 | accepted full-width interface result; no normalized full-width marginal, trained-blueprint, action-abstraction, strategy-quality, or deployment result | Full-width belief and rational policy cross the reference hand |
 | [ADR-0291](docs/decisions/ADR-0291-preregister-the-exact-legality-action-abstraction-boundary.md) | 2026-08-23 | accepted executable correctness and reduced-quality preregistration before any new action-abstraction result | Preregister the exact-legality action-abstraction boundary |
 | [ADR-0292](docs/decisions/ADR-0292-reject-action-abstraction-v1-before-complete-hand-integration.md) | 2026-08-23 | accepted mixed engineering result; exact lattice mechanics pass, candidate sizing quality fails, and v1 is rejected before replay integration | Reject action abstraction v1 before complete-hand integration |
@@ -70,18 +72,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md) | 2026-08-23 | accepted negative qualification result; capacity-filling v4 is rejected and parked before every candidate value and integration path | Reject capacity-filling v4 on qualified-B numerical failure |
 | [ADR-0311](docs/decisions/ADR-0311-preregister-native-simplex-robustness-audit.md) | 2026-08-23 | accepted prospective candidate-independent solver audit before corpus source, corpus construction, audit-runner source, or any new LP result | Preregister the native-simplex robustness audit |
 | [ADR-0312](docs/decisions/ADR-0312-seal-native-simplex-audit-compiler-and-corpora.md) | 2026-08-23 | accepted value-free compiler, corpus, and exact-representation seal before audit-runner source or any new LP result | Seal the native-simplex audit compiler and corpora |
+| [ADR-0313](docs/decisions/ADR-0313-seal-native-simplex-audit-runner-before-results.md) | 2026-08-23 | accepted source-only audit runner, typed observations, and invocation seal before any sealed exact optimum or backend result | Seal the native-simplex audit runner before results |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0312](docs/decisions/ADR-0312-seal-native-simplex-audit-compiler-and-corpora.md) — Seal the native-simplex audit compiler and corpora.
+- Latest ADR: [ADR-0313](docs/decisions/ADR-0313-seal-native-simplex-audit-runner-before-results.md) — Seal the native-simplex audit runner before results.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 312.
-- ADR-header SHA-256: `0be7363220f980dc0aae62ba2de7d9d75bc81522bf0ebb297e0335b052ab072e`.
-- Current blockers: no audit runner or result schema exists; no exact micro optimum, native/HiGHS result, sizing reconstruction, certificate interval, or backend timing has been opened; the native solver remains rejected for this workload and no replacement backend is eligible; v1-v4 and every action-abstraction integration path remain parked.
+- Numbered decisions: 313.
+- ADR-header SHA-256: `d045f0fe33fea6bdfd8eb8e120b23860bd32db839675867c18782e333d5cf1d6`.
+- Current blockers: no sealed micro optimum, native/HiGHS observation, sizing value, certificate interval, backend timing, or gate result exists; the native simplex remains rejected for this workload; HiGHS dual simplex is not eligible for any consumer; v1-v4 and every action-abstraction integration path remain parked.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0312](docs/decisions/ADR-0312-seal-native-simplex-audit-compiler-and-corpora.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0313](docs/decisions/ADR-0313-seal-native-simplex-audit-runner-before-results.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

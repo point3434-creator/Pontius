@@ -15,35 +15,23 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept and source-seal a separately disclosed artifact-bound semantic-gate
-correction to ADR-0311's known-regression predicate before applying it to
-retained evidence.
-The new `native_simplex_audit_reanalysis` module distinguishes these nominal
-quantities:
+Accept ADR-0315's separately disclosed artifact-bound semantic-gate correction
+on ADR-0314's exact retained artifact. The deterministic assessment has no
+failures and reports
+`highs_dual_simplex_eligible = true`. This grants HiGHS dual simplex only the
+right to enter a later prospective replacement-adapter evaluation. It does not
+install an adapter, select a production solver, change a consumer, or establish
+latency or poker quality.
 
-- the required exception, pivots, allowance, exact maximum residual, and
-  unique maximum-residual row;
-- an optional complete set of rows above the verification allowance; and
-- the three unchanged micro-variant, sizing cross-backend, and sizing
-  cross-variant allowances.
+The pass requires the exact 2,655-invocation schedule and all 2,655 scheduled
+observations.
 
-It preserves the exact 2,655-invocation schedule and requires all 2,655
-scheduled observations before interpreting any gate.
-
-ADR-0310 required row 215 to be the unique maximum-residual row. It did not
-claim that `(215,)` was the complete above-allowance set. The retained real
-contract therefore requires row 215 as the unique argmax and a member of the
-derived failing set while deliberately leaving complete-set identity
-unspecified. A synthetic trace with failing rows `(0, 1, 3)` and unique maximum
-row 3 passes that corrected meaning; the former exclusive `(3,)` predicate
-fails on the same trace.
-
-This is a post-outcome semantic correction, not a reinterpretation of
-ADR-0314. ADR-0314's frozen-gate rejection remains the historical result.
+ADR-0314's literal frozen-gate rejection remains the historical result. The
+corrected pass is a successor result, not a retroactive rewrite.
 
 ## Active next
 
-After committing this source-only boundary, invoke the sealed ADR-0315 analyzer exactly once on ADR-0314's retained 110,068,679-byte artifact, retain only its deterministic corrected assessment, and record the result before any replacement-adapter or specialized-solver preregistration; invoke no backend, exact enumerator, reconstruction, certificate, action candidate, or consumer and do not revive v4
+Preregister before implementation a source/result-separated replacement-adapter and overhead-attribution screen over identical real Pontius master sequences: compare the current rebuild path with persistent modify-in-place HiGHS dual simplex and warm-basis reuse first, census the actual product-of-simplexes and coupling-row structure, and authorize a structure-specialized untrusted proposer only if persistent HiGHS leaves material complete-ledger headroom; require independent semantic certificates, HiGHS fallback, cold/warm and fallback accounting, and marginal chip-valued decision quality per millisecond under ADR-0307's 15-second action wall; open no v1-v4 candidate or consumer result
 
 ## Revoked authorities
 
@@ -51,7 +39,7 @@ After committing this source-only boundary, invoke the sealed ADR-0315 analyzer 
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0315](docs/decisions/ADR-0315-source-seal-artifact-only-native-simplex-gate-correction.md) — Source-seal the artifact-only native-simplex gate correction.
+Latest process decision: [ADR-0316](docs/decisions/ADR-0316-accept-corrected-audit-and-bound-replacement-eligibility.md) — Accept the corrected audit and bound replacement eligibility.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -59,7 +47,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0292](docs/decisions/ADR-0292-reject-action-abstraction-v1-before-complete-hand-integration.md) | 2026-08-23 | accepted mixed engineering result; exact lattice mechanics pass, candidate sizing quality fails, and v1 is rejected before replay integration | Reject action abstraction v1 before complete-hand integration |
 | [ADR-0293](docs/decisions/ADR-0293-preregister-the-dyadic-pot-odds-confirmation-successor.md) | 2026-08-23 | accepted executable development/confirmation preregistration before any v2 source value or confirmation-panel construction | Preregister the dyadic pot-odds confirmation successor |
 | [ADR-0294](docs/decisions/ADR-0294-reject-dyadic-v2-on-confirmation-power.md) | 2026-08-23 | accepted untouched-confirmation result; dyadic v2 is promising but rejected on the frozen panel-power gate before replay integration | Reject dyadic v2 on confirmation power |
 | [ADR-0295](docs/decisions/ADR-0295-preregister-candidate-blind-sizing-power-diagnostic.md) | 2026-08-23 | accepted executable diagnostic preregistration before any new pool construction or full-versus-narrow value | Preregister candidate-blind sizing-power diagnostic |
@@ -83,18 +70,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0313](docs/decisions/ADR-0313-seal-native-simplex-audit-runner-before-results.md) | 2026-08-23 | accepted source-only audit runner, typed observations, and invocation seal before any sealed exact optimum or backend result | Seal the native-simplex audit runner before results |
 | [ADR-0314](docs/decisions/ADR-0314-retain-native-simplex-audit-and-reject-frozen-gate.md) | 2026-08-23 | accepted negative complete audit result; the frozen conjunction rejects on an over-specified known-regression row-set predicate | Retain the native-simplex audit and reject the frozen gate |
 | [ADR-0315](docs/decisions/ADR-0315-source-seal-artifact-only-native-simplex-gate-correction.md) | 2026-08-23 | accepted source-only post-outcome correction with synthetic controls; authoritative retained-evidence result remains unopened | Source-seal the artifact-only native-simplex gate correction |
+| [ADR-0316](docs/decisions/ADR-0316-accept-corrected-audit-and-bound-replacement-eligibility.md) | 2026-08-23 | accepted post-outcome corrected finite-corpus gate pass; HiGHS dual simplex is eligible only for a later prospective replacement-adapter evaluation | Accept the corrected audit and bound replacement eligibility |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0315](docs/decisions/ADR-0315-source-seal-artifact-only-native-simplex-gate-correction.md) — Source-seal the artifact-only native-simplex gate correction.
+- Latest ADR: [ADR-0316](docs/decisions/ADR-0316-accept-corrected-audit-and-bound-replacement-eligibility.md) — Accept the corrected audit and bound replacement eligibility.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 315.
-- ADR-header SHA-256: `434be490cd812053c35d677a8e501648d37ef5e2294fa9343cd5ed35deb595e3`.
-- Current blockers: no authoritative corrected assessment exists yet, so HiGHS dual simplex remains replacement-ineligible; native simplex remains rejected for this workload; no persistent-HiGHS or structure-specialized proposer comparison is preregistered; v1-v4 and every action-abstraction integration path remain parked.
+- Numbered decisions: 316.
+- ADR-header SHA-256: `eb76afe5827789b7cc28239904138a6f86d3c95595573a50364fb96b24496251`.
+- Current blockers: no replacement adapter, persistent-model lifecycle, real-master structural census, latency decomposition, fallback policy, or quality-per-millisecond result exists; SciPy audit timings are not runtime-master evidence; native simplex remains rejected; v1-v4 and every action-abstraction integration path remain parked.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0315](docs/decisions/ADR-0315-source-seal-artifact-only-native-simplex-gate-correction.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0316](docs/decisions/ADR-0316-accept-corrected-audit-and-bound-replacement-eligibility.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

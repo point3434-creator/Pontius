@@ -912,3 +912,18 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     replacement-adapter decision. Do not invoke a solver, exact enumerator,
     reconstruction, or certificate; change an artifact byte or allowance; or
     treat a corrected pass as runtime, quality, or consumer evidence.
+34. ADR-0316 records the one temporally separated artifact-only invocation. The
+    canonical 1,168-byte assessment has SHA-256
+    `f44d518bba0953c064cd04c3015c37ec8abf27a91a96afa9902caf16c8ffe038`;
+    the retained terminal-LF file is 1,169 bytes with SHA-256
+    `d8ce7c26d935768f8476c183950e96e5be2692fac5e821bf9b674d373ae665c1`.
+    It reports a complete 2,655-arm schedule, 885/885 verified HiGHS DS and IPM
+    arms, the nonexclusive 21-row known failure set with unique maximum row 215,
+    zero corrected-gate failures, and DS replacement eligibility. Interpret
+    that eligibility only as authority to preregister a later adapter screen.
+    Before source or results, freeze identical real master sequences and compare
+    rebuild against persistent modify-in-place HiGHS with warm basis reuse;
+    authorize a structure-specialized proposer only behind independent
+    certificates and HiGHS fallback and only if complete-ledger marginal chip
+    quality per millisecond leaves material headroom. Do not use audit timings
+    as runtime evidence or open v1-v4.

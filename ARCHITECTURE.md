@@ -163,7 +163,11 @@ ordered bases, and five exact row/variable/scaling/redundancy representations
   separately from optional complete failing-set identity. Its normalized-LF
   source seal is checked before artifact read; it imports no solver, corpus,
   exact, reconstruction, certificate, or write path. At this source-only
-  boundary only synthetic traces have exercised it.
+  boundary only synthetic traces had exercised it. ADR-0316 now records its
+  one temporally separated artifact read: all 2,655 observations and unchanged
+  conjuncts revalidate, the 21-row failing set has unique maximum row 215, and
+  the corrected gate has zero failures. This authorizes only a prospective
+  replacement-adapter evaluation; no solver is connected to a consumer.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

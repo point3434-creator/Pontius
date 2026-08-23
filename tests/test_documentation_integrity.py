@@ -243,8 +243,8 @@ class DocumentationIntegrityTests(unittest.TestCase):
     def test_artifact_only_gate_correction_and_solver_trust_model_are_visible(self) -> None:
         expected = {
             "README.md": ("ADR-0315", "authoritative retained-evidence read"),
-            "PROJECT.md": ("ADR-0315", "exact-digest authoritative reanalysis"),
-            "STATUS.md": ("ADR-0315", "persistent-HiGHS"),
+            "PROJECT.md": ("ADR-0315", "temporally separated exact-digest reanalysis"),
+            "STATUS.md": ("ADR-0315", "persistent modify-in-place HiGHS"),
             "ROADMAP.md": (
                 "persistent warm HiGHS",
                 "product-of-simplexes proposer",
@@ -262,6 +262,39 @@ class DocumentationIntegrityTests(unittest.TestCase):
                 "post-outcome artifact reanalysis",
                 "R77",
                 "untrusted proposer",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+    def test_corrected_audit_pass_and_bounded_replacement_eligibility_are_visible(
+        self,
+    ) -> None:
+        expected = {
+            "README.md": ("ADR-0316", "prospective replacement-adapter"),
+            "PROJECT.md": ("ADR-0316", "passes with zero failures"),
+            "STATUS.md": (
+                "highs_dual_simplex_eligible = true",
+                "all 2,655 scheduled observations",
+            ),
+            "ROADMAP.md": (
+                "eligible only to enter a later",
+                "persistent warm HiGHS",
+            ),
+            "RUNBOOK.md": (
+                "f44d518bba0953c064cd04c3015c37ec8abf27a91a96afa9902caf16c8ffe038",
+                "nonexclusive 21-row",
+            ),
+            "ARCHITECTURE.md": (
+                "ADR-0316",
+                "corrected gate has zero failures",
+            ),
+            "RISK_REGISTER.md": (
+                "R78",
+                "stale basis/model",
+                "authorize no consumer on audit evidence alone",
             ),
         }
         for relative, phrases in expected.items():

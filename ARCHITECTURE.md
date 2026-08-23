@@ -156,7 +156,14 @@ ordered bases, and five exact row/variable/scaling/redundancy representations
   849 verified returns and 36 exceptions, and no runner failure truncates the
   schedule. The literal gate rejects because it equated the regression's
   unique maximum row with its complete above-allowance row set. This remains
-  solver infrastructure; HiGHS is not a consumer and v4 stays parked.
+  solver infrastructure; HiGHS is not a consumer and v4 stays parked. ADR-0315
+  adds a separate `native_simplex_audit_reanalysis` trust boundary. It accepts
+  only ADR-0314's exact canonical artifact, revalidates the complete schedule
+  and every unchanged HiGHS conjunct, and models unique argmax identity
+  separately from optional complete failing-set identity. Its normalized-LF
+  source seal is checked before artifact read; it imports no solver, corpus,
+  exact, reconstruction, certificate, or write path. At this source-only
+  boundary only synthetic traces have exercised it.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

@@ -678,7 +678,9 @@ now seals the value-free compiler, both prospective structures, the known
   885 arms; native records 849 verified returns and 36 failures. The literal
   frozen gate rejects on its sole `known-native-regression-mismatch` because
   it required maximum row 215 to be the entire above-allowance row set. HiGHS
-  remains ineligible pending a separately sealed artifact-only correction.
+  remains ineligible. ADR-0315 source-seals the separately disclosed artifact-
+  only correction and synthetic controls before authoritative retained-
+  evidence reanalysis. No backend or exact/certificate work is rerun.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -749,8 +751,13 @@ representative and candidate value remains unopened. All four exact-legality
   its one-shot result boundary. ADR-0314 now records that complete campaign but
   rejects the literal gate on an over-specified known-regression row-set
   predicate. All 1,770 HiGHS arms pass, but no backend is replacement-eligible
-  until a separate artifact-only correction is source-sealed and applied. The
-  passive reference source remains the emitted fallback.
+  until ADR-0315's source-sealed artifact-only correction is applied to the
+  exact retained digest and its result is recorded. A later solver gate should
+  test persistent warm HiGHS as the null hypothesis before any untrusted
+  product-of-simplexes proposer, and must score complete-ledger marginal chip
+  quality per millisecond with certificate rejection and HiGHS fallback costs.
+  No such comparison is yet preregistered. The passive reference source remains
+  the emitted fallback.
 
 ## C6: Neural blueprint and leaves
 

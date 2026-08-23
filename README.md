@@ -100,9 +100,11 @@ criteria before any corpus source or new LP value. ADR-0312 now seals the pure
   schedule. ADR-0314 now retains the complete 2,655-observation result. Every
   HiGHS dual-simplex and IPM arm passes, while native records 36 failures. The
   literal gate rejects because it over-specified the known regression's entire
-  failing-row set instead of its recorded unique maximum row 215. HiGHS remains
-  ineligible until a separately sealed artifact-only correction is applied;
-  no backend rerun, v4 revival, or consumer migration is authorized.
+  failing-row set instead of its recorded unique maximum row 215. ADR-0315 now
+  source-seals the artifact-only correction and synthetic controls before any
+  authoritative retained-evidence read. HiGHS remains ineligible until that
+  exact-digest reanalysis is recorded; no backend rerun, v4 revival, or
+  consumer migration is authorized.
 
 ## Current checkpoint
 

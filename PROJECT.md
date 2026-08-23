@@ -104,9 +104,11 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   all 2,655 arms completed, all 885 HiGHS dual-simplex and all 885 IPM arms
   passed, and native recorded 36 failures. The literal conjunction still
   rejects because its known-regression predicate confused unique maximum row
-  215 with the complete above-allowance row set. HiGHS remains ineligible
-  pending a source-sealed, artifact-only semantic-gate correction; no backend
-  rerun or v4 revival is authorized.
+  215 with the complete above-allowance row set. HiGHS remains ineligible.
+  ADR-0315 now source-seals the separate artifact-only correction and synthetic
+  multi-row/unique-maximum controls without reading the retained campaign
+  through it. The next boundary is its exact-digest authoritative reanalysis;
+  no backend rerun, adapter, specialized solver, or v4 revival is authorized.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

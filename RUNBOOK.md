@@ -899,3 +899,16 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     multi-row/unique-maximum control, before authoritative reanalysis. It may
     change no result byte, HiGHS conjunct, option, allowance, native source,
     action candidate, or consumer.
+33. ADR-0315 source-seals `pontius.native_simplex_audit_reanalysis` at
+    canonical-LF SHA-256
+    `0755546e6260708ffb4165ec50ebf4ff88c473354faeb7303e8b84e568fca1be`.
+    It is bound to the exact ADR-0314 byte count/digest, runner/corpus identity,
+    environment/protocol subtree digests, complete variant-major schedule, and
+    unchanged HiGHS gates. It treats required unique maximum row 215 separately
+    from an optional complete failing-row set and proves that distinction with
+    synthetic multi-row controls. After this source-only boundary is committed,
+    invoke only `reanalyze_sealed_adr0314_artifact` once on the retained
+    artifact and persist its deterministic canonical assessment before any
+    replacement-adapter decision. Do not invoke a solver, exact enumerator,
+    reconstruction, or certificate; change an artifact byte or allowance; or
+    treat a corrected pass as runtime, quality, or consumer evidence.

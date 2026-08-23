@@ -240,6 +240,35 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_artifact_only_gate_correction_and_solver_trust_model_are_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0315", "authoritative retained-evidence read"),
+            "PROJECT.md": ("ADR-0315", "exact-digest authoritative reanalysis"),
+            "STATUS.md": ("ADR-0315", "persistent-HiGHS"),
+            "ROADMAP.md": (
+                "persistent warm HiGHS",
+                "product-of-simplexes proposer",
+            ),
+            "RUNBOOK.md": (
+                "reanalyze_sealed_adr0314_artifact",
+                "0755546e6260708ffb4165ec50ebf4ff88c473354faeb7303e8b84e568fca1be",
+            ),
+            "ARCHITECTURE.md": (
+                "native_simplex_audit_reanalysis",
+                "optional complete failing-set identity",
+            ),
+            "RISK_REGISTER.md": (
+                "R76",
+                "post-outcome artifact reanalysis",
+                "R77",
+                "untrusted proposer",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

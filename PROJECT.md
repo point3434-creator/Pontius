@@ -162,6 +162,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   six. Private width, raise width, check, raise-to totals, and payoff span stay
   semantically distinct. No solver call or transfer construction exists; a
   separately source-sealed candidate-blind qualifier is next.
+- ADR-0325 source-seals that qualifier and its 192-task full-then-width-two
+  schedule before a development value. Certified regret subtracts endpoints as
+  `[L_full-U_subset, U_full-L_subset]`; normalized opportunity, chip reversal,
+  and chip ambiguity remain separate types. Every stop and unexpected failure
+  retains its exact prefix and call-accounting status. One sealed invocation is
+  eligible, but no context or panel is yet qualified.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -165,6 +165,13 @@ anchored subsets at raise widths two through six. No sizing solve occurred,
 and the transfer pool still has no constructor. Candidate-blind qualification
 must receive its own source seal before the first value.
 
+ADR-0325 now seals that candidate-blind qualifier without opening the pool.
+Its 192-task schedule pairs each complete universe with its anchored
+raise-width-two subset, classifies only conservative certified chip intervals,
+and owns target, exhaustion, ambiguity, consumer-rejection, and unexpected-
+failure evidence. Exactly one sealed qualification invocation is next; every
+intermediate-width and transfer value remains closed.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

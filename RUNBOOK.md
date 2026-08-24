@@ -1017,3 +1017,13 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     constructor, and do not call ADR-0322 on this pool until the separate
     ordered qualification owner, interval types, one-call evidence, stop state,
     and panel rebinding are source-sealed.
+43. ADR-0325 source-seals `pontius.fresh_action_width_qualification` at
+    `95974fee5a3fe056828bdb899986235f7b482d9e3d36ec066c0d85e822cb4ca7`.
+    Its 192-task schedule digest is
+    `de4b5c39cb973673d51dd9b80be5e47193d6b0ace77c77cd56471dca7eeeb6cc`.
+    Invoke `run_adr0323_development_qualification` at most once and retain its
+    first terminal result. It must run complete then width two per context,
+    subtract `[L_full-U_subset, U_full-L_subset]`, use the context payoff span,
+    and stop on qualifier 16, exhaustion, ambiguity, typed consumer rejection,
+    or runner rejection. Do not retry, alter source, open intermediate widths,
+    construct transfer, or derive a panel unless the result is target-reached.

@@ -257,6 +257,16 @@ mechanism commit, not transfer construction. The qualification owner, regret
 intervals, response-row identities, finite-block prices, and mechanism remain
 separate absent layers.
 
+`fresh_action_width_qualification` now fills the next source-only layer under
+ADR-0325. It builds an immutable 192-task full/width-two schedule, verifies both
+source seals before a public call, and owns conservative certified interval
+subtraction, strict three-way classification, contiguous-prefix stop state, and
+target-only panel extraction. Typed consumer failures retain the failed arm and
+any completed full arm; unexpected failures explicitly distinguish known calls
+from complete call accounting. The result digest binds float hex endpoints and
+semantic request/public/legal/LP identities. No development task has yet been
+invoked.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

@@ -717,6 +717,10 @@ now seals the value-free compiler, both prospective structures, the known
   universes, and a 12,556-subset prospective work ledger. The source contains
   no solver or action path and cannot construct transfer. A separate ordered
   full-versus-width-two qualification runner must be source-sealed next.
+  ADR-0325 now seals that owner and its exact 192-task schedule, conservative
+  chip-interval classifier, complete stop/failure schema, and target-only panel
+  rebinding. The development pool remains value unopened until its one
+  authorized invocation.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -813,7 +817,10 @@ representative and candidate value remains unopened. All four exact-legality
   unopened. ADR-0324 passes that structural gate. The active boundary remains
   value-unopened: source-seal the owned candidate-blind qualifier, conservative
   chip-interval classifier, exact call schedule, stop state, and panel rebinding
-  before its first ADR-0322 invocation.
+  before its first ADR-0322 invocation. ADR-0325 passes that source gate. The
+  immediate checkpoint is exactly one retained invocation; only a target-
+  reached result may freeze the 16-context development panel, and no width
+  three-through-six or transfer value may open alongside it.
 
 ## C6: Neural blueprint and leaves
 

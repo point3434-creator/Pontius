@@ -428,6 +428,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_fresh_action_width_structure_seal_is_bounded_and_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0324", "12,556"),
+            "PROJECT.md": ("7/9/11 raises", "candidate-blind qualifier"),
+            "STATUS.md": ("ADR-0324", "value-unopened"),
+            "ROADMAP.md": ("96-context fresh", "full-versus-width-two"),
+            "RUNBOOK.md": (
+                "429f72fff02de515536db36a4754708e71cf93653ad6574026c1fe3c4de82acf",
+                "not solver calls or latency",
+            ),
+            "ARCHITECTURE.md": (
+                "fresh_action_width_structures",
+                "12,556 future subsets",
+            ),
+            "RISK_REGISTER.md": ("R86", "sign diversity as sizing power"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

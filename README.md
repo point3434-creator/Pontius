@@ -158,6 +158,13 @@ for the proposed size are closed. Development may choose a width, while one
 commit-derived fresh panel only confirms or rejects it. No structure or fresh
 sizing value exists at this boundary.
 
+ADR-0324 now source-seals the value-free development structures. The fresh
+SHA-256 stream retains 96 unique h4 contexts after 440 attempts, with exact
+kernel universes of 7, 9, or 11 raises and 12,556 prospectively enumerated
+anchored subsets at raise widths two through six. No sizing solve occurred,
+and the transfer pool still has no constructor. Candidate-blind qualification
+must receive its own source seal before the first value.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

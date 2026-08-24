@@ -1007,3 +1007,13 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     full-minus-subset intervals as `[L_full-U_subset, U_full-L_subset]`, retain
     distinct chip and normalized controls, and call an added size priced only
     after its exact fold/call response-row set is closed.
+42. ADR-0324 source-seals `pontius.fresh_action_width_structures` at
+    `429f72fff02de515536db36a4754708e71cf93653ad6574026c1fe3c4de82acf`.
+    Its development pool digest is
+    `48e084db53941615f3b1e2d13814718a2c833369b0b5e827f3adc7ee1fc799ed`:
+    96 contexts after 440 attempts and 12,556 anchored subset records across
+    raise widths two through six. These are value-free identities, not solver
+    calls or latency. Preserve the adjacent manifest, do not add a transfer
+    constructor, and do not call ADR-0322 on this pool until the separate
+    ordered qualification owner, interval types, one-call evidence, stop state,
+    and panel rebinding are source-sealed.

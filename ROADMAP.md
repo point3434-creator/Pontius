@@ -712,6 +712,11 @@ now seals the value-free compiler, both prospective structures, the known
   the proposed size's complete fold/call rows are installed and their exact row
   identities retained. Development selects; one commit-derived fresh transfer
   population confirms or rejects. It opens no fresh action-width value.
+  ADR-0324 now source-seals the first value-free layer: one 96-context fresh
+  development population after 440 attempts, exact 7/9/11-raise kernel
+  universes, and a 12,556-subset prospective work ledger. The source contains
+  no solver or action path and cannot construct transfer. A separate ordered
+  full-versus-width-two qualification runner must be source-sealed next.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -805,7 +810,10 @@ representative and candidate value remains unopened. All four exact-legality
   is value-free: implement and seal the independent 96-context development
   structure owner, exact kernel universes, and anchored subset schedules while
   leaving every sizing value and the commit-derived transfer population
-  unopened.
+  unopened. ADR-0324 passes that structural gate. The active boundary remains
+  value-unopened: source-seal the owned candidate-blind qualifier, conservative
+  chip-interval classifier, exact call schedule, stop state, and panel rebinding
+  before its first ADR-0322 invocation.
 
 ## C6: Neural blueprint and leaves
 

@@ -247,6 +247,16 @@ totals, bet increments, chip regret, and normalized opportunity remain distinct
 semantic objects. The future transfer population is derived only from a frozen
 mechanism commit; no transfer structure or value exists yet.
 
+`fresh_action_width_structures` now fills only the value-free portion under
+ADR-0324. It has a local SHA-256 stream, core river sign evaluation, exact
+two-live-seat betting states, complete kernel-derived integer raise totals,
+and lexicographic min/max-anchored subset families. Its immutable pool has 96
+contexts and its work ledger counts 12,556 future subsets without compiling or
+solving an LP. The module exposes only transfer-seed derivation from a future
+mechanism commit, not transfer construction. The qualification owner, regret
+intervals, response-row identities, finite-block prices, and mechanism remain
+separate absent layers.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

@@ -156,6 +156,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   exact opponent-row identity and fold/call closure before a finite-block
   price, and reserves commit-derived fresh transfer after mechanism freeze.
   No source, structure, value, action-width result, or live policy exists yet.
+- ADR-0324 implements and source-seals only that line's value-free development
+  structures: 96 unique h4 contexts, complete exact-kernel integer universes of
+  7/9/11 raises, and 12,556 anchored subsets across raise widths two through
+  six. Private width, raise width, check, raise-to totals, and payoff span stay
+  semantically distinct. No solver call or transfer construction exists; a
+  separately source-sealed candidate-blind qualifier is next.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -323,6 +323,19 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   width three. The next value-bearing boundary is a separately source-sealed
   transfer-confirmation owner that applies the frozen development mechanism
   without width reselection and requires every unchanged conjunct to pass.
+- ADR-0342 passes that source-only confirmation boundary without opening a real
+  value. It reuses 32 exact ADR-0341 full/width-two arms as prior evidence and
+  freezes only 126 prospective width-three candidate calls across the target
+  panel. The same candidate values feed the lower-endpoint/smaller-raise direct
+  mechanism and the exhaustive interval teacher. Payoff span, chip endpoints,
+  normalized regret, reporting equivalence, and the five gate limits remain
+  separate semantics. Completed all-conjunct passage and completed scientific
+  rejection are distinct from consumer, numerical, unexpected, and
+  infrastructure failures. Both complete synthetic terminals and adversarial
+  journal controls pass; their fake endpoints are not research evidence. The
+  real no-clobber artifact remains absent. The next value-bearing act is the
+  sole retained confirmation invocation from this committed source, with no
+  retry or width reselection.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

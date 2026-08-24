@@ -1362,3 +1362,39 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     ADR-0338 context-local width-three mechanism without width reselection and
     preserves the all-conjuncts gate. Do not reinterpret a mean-only, 14-of-16,
     or other partial pass as unrestricted transfer.
+
+60. ADR-0342 passes the source-only transfer-confirmation checkpoint. Preserve
+    `fresh_action_width_transfer_confirmation.py` at canonical-LF SHA-256
+    `ec24d1710598003e7e76ff9b1062829107e28ba1766e680bec2a1411b736e202`,
+    its adjacent seal at
+    `06ba1396e3ce826249188d0279266907e716188e0bef07f88cea0fe8de39336c`,
+    focused test at
+    `35a85de35d8cde7e6ab8504ad0bcb024b5bf2b850697a63874c18c0a7808add4`,
+    protocol SHA-256
+    `0f1cc9b42a4d4c4a394acca073dee64dcd245f6496d89a3bf708dbdfecad4fa9`,
+    and schedule SHA-256
+    `53389f770aa3fa0773d003df11a48858a1cb42ee166cb44bba74dda42805d7fe`.
+    The 32 ADR-0341 full/width-two arms are retained prior evidence and must not
+    be called or counted again. The prospective schedule contains exactly 126
+    context-ordered width-three candidate calls. The real `-text` path is
+    `experiments/results/fresh-action-width-transfer-confirmation-v1.jsonl`
+    and must be absent before launch.
+
+    From one clean commit containing ADR-0342, invoke only the public
+    no-clobber wrapper once:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -c "from pontius.fresh_action_width_transfer_confirmation import run_and_retain_adr0341_transfer_confirmation as run; result = run(); print(type(result).__name__)"
+    ```
+
+    The JSONL bytes, not stdout, are authority. Every later candidate requires
+    the preceding post-`fsync` receipt. A confirmed, all-conjunct rejected,
+    typed consumer-rejected, numerical, unexpected, or infrastructure terminal
+    is final: preserve it without deletion, overwrite, resume, backend change,
+    or retry. Do not invoke any closed qualification, teacher, or direct-
+    mechanism wrapper. Source-seal a solver-free real result before interpreting
+    the outcome. Only exact passage of all five unchanged conjuncts can confirm
+    unrestricted width-three transfer; partial passage remains rejection and
+    cannot authorize abstention, width reselection, blueprint training, or
+    production integration.

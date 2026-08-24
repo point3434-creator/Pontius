@@ -456,6 +456,28 @@ through ADR-0340 before accepting the byte hash and has no runner, consumer,
 solver, action, or writer call. The panel publishes identities only; it cannot
 confirm width three or enter the Legal Decision Spine.
 
+ADR-0342 adds `fresh_action_width_transfer_confirmation` as the prospective
+owner over that exact panel. Its schedule wraps each retained width-two request
+as one response-row-bound incumbent, references each retained full-universe
+interval without another call, and enumerates every anchor-plus-one-interior
+width-three child. This yields 16 baseline tasks, 126 candidate tasks, 126
+complete own-block/fold-call response transitions, and exactly 126 prospective
+call slots; the 32 qualification arms remain separately identified prior
+evidence. The candidate calls both execute the frozen behavioral-lower/smaller-
+raise selection and populate the exhaustive width-three interval teacher.
+
+The owner reconstructs real policy and dual witnesses before admitting values,
+then derives finite-block prices, teacher envelopes, full regret, teacher
+excess, payoff-span normalization, endpoint-summed aggregate recovery, and the
+five unchanged gates. `completed_confirmed` requires all five; a completed
+partial passage is `completed_rejected`, while consumer rejection, numerical
+reduction, unexpected invocation state, and infrastructure failure remain
+distinct. Its exclusive JSONL writer gates each call on the prior post-`fsync`
+receipt and the rebinder rejects a complete foreign-campaign first record
+before torn-prefix recovery. The public wrapper and its sole consumer call site
+are dormant at this source-only checkpoint. No result enters the Legal Decision
+Spine, and the synthetic confirmed/rejected terminals are not research values.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

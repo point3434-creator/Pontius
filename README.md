@@ -327,6 +327,18 @@ fresh transfer panel; it does not confirm width three. Next is a source-only
 transfer-confirmation owner that applies the frozen context-local width-three
 mechanism without width reselection and retains the all-conjuncts gate.
 
+ADR-0342 now source-seals that confirmation owner without opening a real
+width-three value. It reuses the 32 exact retained full/width-two arms as prior
+evidence and schedules only 126 new width-three candidate calls. Those calls
+simultaneously run the frozen lower-endpoint/smaller-raise mechanism and form
+the exhaustive width-three interval teacher. The owner normalizes only by each
+context's explicit payoff span and requires all five unchanged conjuncts;
+partial passage is a completed rejection, not confirmation. Distinct consumer,
+numerical, unexpected, and infrastructure terminals preserve exact durable
+prefixes. Complete confirmed and rejected synthetic journals pass, but are
+systems fixtures only. The prospective real artifact remains absent; next is
+the sole no-clobber confirmation invocation from the committed ADR-0342 source.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

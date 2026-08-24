@@ -823,6 +823,14 @@ now seals the value-free compiler, both prospective structures, the known
   boundary is a source-only transfer-confirmation owner that applies the frozen
   ADR-0338 context-local width-three mechanism without width reselection and
   preserves every unchanged development conjunct.
+  ADR-0342 now passes that source boundary. It binds the 32 retained prior arms,
+  126 prospective width-three candidate calls, complete response-closed
+  transitions, the frozen direct selection, the same-call exhaustive teacher,
+  and all five unchanged gates. Completed confirmation and completed rejection
+  are separate scientific terminals; consumer, numerical, unexpected, and
+  infrastructure failures retain distinct evidence. The prospective path is
+  absent. The active research boundary is the sole no-clobber confirmation
+  invocation from this committed source, followed by a solver-free result seal.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -984,6 +992,13 @@ representative and candidate value remains unopened. All four exact-legality
   before value. Raise width three is fixed, menu content remains context-local,
   and every unchanged conjunct must pass; mean-only, 14-of-16, or any other
   partial passage rejects unrestricted transfer.
+  ADR-0342 now seals that exact owner without a real confirmation value. The 32
+  retained full/width-two calls are prior evidence, while the only prospective
+  ledger is 126 context-ordered width-three candidates. The same values supply
+  the frozen greedy mechanism and exhaustive width-three teacher, and all five
+  conjuncts remain literal. Next invoke the no-clobber owner once from a clean
+  commit and preserve any terminal without retry; no width reselection or
+  post-outcome abstention rule is authorized.
 
 The post-transfer C5 route has three coordinated lanes rather than one serial
 queue:

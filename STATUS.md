@@ -15,34 +15,52 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept the first and only ADR-0340 public transfer-qualification invocation.
-From clean commit `e1c6c14630e3e8cf72be0a40db80b85eed549b58`, with the
-frozen prospective path absent, it reached the preregistered target after 47
-complete contexts and 94 accepted one-call arms. Retain the exact append-and-
-`fsync` JSONL journal and seal a solver-free semantic result owner plus the
-exact 16-context target-only panel.
+Accept and source-seal
+`pontius.fresh_action_width_transfer_confirmation` as the only prospective
+owner of the frozen width-three transfer test. It binds ADR-0338's selected
+development raise width and lower-endpoint/smaller-raise mechanism to
+ADR-0341's exact 16-context target panel. It cannot select width four, replace
+the context-local mechanism with one fixed ladder, soften a gate, add an
+abstention policy, or enter the Legal Decision Spine.
 
-The journal contains 96 canonical records: one header, 94 observations, and
-one terminal. Its terminal reports 16 qualifying and 31 nonqualifying contexts,
-zero ambiguity, no nested reversal, no typed rejection, no unexpected owner
-failure, complete invocation accounting, and `target_reached`. Contexts 0
-through 46 were opened in the sealed complete-universe-then-width-two order.
-Contexts 47 through 95 remain unopened. There was no retry, resume, overwrite,
-alternate backend, post-stop arm, or second public invocation.
+The 16 retained complete-integer-universe and 16 retained anchored-width-two
+arms are prior evidence. They are rebound through ADR-0341 and referenced by
+their exact task, evidence, request, legal-set, LP, journal, terminal, panel,
+and campaign identities. They are not invoked again and are not counted as
+confirmation calls. For each target context, the prospective owner evaluates
+exactly every legal width-three set consisting of the retained minimum and
+maximum anchors plus one interior raise-to total. The legal-universe widths
+produce `9, 7, 9, 7, 7, 7, 7, 9, 9, 9, 9, 7, 7, 9, 9, 5` candidate calls,
+or 126 in total.
 
-This is a transfer qualification result, not the width-three transfer result.
-It establishes only that the untouched ADR-0339 population supplied 16
-contexts with a certified material complete-universe advantage over anchored
-width two. It neither evaluates nor confirms the frozen development width
-three. It cannot select another width, soften a conjunct, create an abstention
-policy, or establish a production action lattice.
+Those same 126 values serve two roles without opening another arm. The frozen
+direct mechanism selects the greatest certified behavioral lower endpoint,
+with an exact tie resolved by the smaller nominal raise-to total. The complete
+candidate set also forms the exhaustive width-three interval teacher. Every
+certified nondominated candidate survives; the reporting-only equivalence
+allowance cannot select or eliminate a candidate.
 
-The partial-result interpretation remains unchanged after value. A later
-width-three confirmation passes unrestricted transfer only if every frozen
-development conjunct passes on this exact panel. Mean-only, 14-of-16, or any
-other partial passage is diagnostic and rejects unrestricted transfer. Any
-abstention mechanism remains a new hypothesis requiring a new preregistration
-and untouched evidence.
+Unrestricted transfer is confirmed only when all five ADR-0338 conjuncts pass
+unchanged on the exact panel:
+
+1. maximum normalized full-regret upper at most `0.005`;
+2. mean normalized full-regret upper at most `0.001`;
+3. conservative aggregate-recovery lower at least `0.90`;
+4. maximum normalized teacher-excess upper at most `0.001`;
+5. mean normalized teacher-excess upper at most `0.0002`.
+
+Chip endpoints are summed before aggregate-recovery division. Every context
+normalizes through its explicit `payoff_span_chips`; stack is not a permitted
+substitute. A completed mean-only, 14-of-16, three-of-five-conjunct, or any
+other partial passage is the typed `completed_rejected` result, not a process
+failure and not unrestricted confirmation. Any abstention successor requires
+a new preregistration and untouched evidence.
+
+No real consumer or solver call occurred. The prospective artifact is absent
+and already has a path-specific `.gitattributes` `-text` rule. The module has
+one dormant consumer call site behind the uninvoked no-clobber wrapper. It
+does not import or call the closed qualification, exhaustive-teacher, or
+direct-mechanism runners and emits no betting action.
 
 The inherited trust chain remains explicit. ADR-0310 made native-simplex
 robustness the next systems question. ADR-0311's directive is Preregister the
@@ -62,16 +80,16 @@ records that No replacement sizing value was opened at its source boundary.
 ADR-0330 remains permanently closed, ADR-0331's append-and-fsync discipline
 and ADR-0332's exclusive `xb` open remain authoritative, ADR-0337 remains the
 response-closed direct mechanism with a dynamic-branch rebinder, ADR-0338 alone
-records the selected development raise width, ADR-0339 alone seals the
-value-free untouched transfer population, and ADR-0340 alone authorized this
-qualification invocation. No result here weakens those authorities.
-ADR-0339's exact non-overlap comparison remains a finite absence claim, not
-representativeness evidence. ADR-0340's 192 prospective tasks remain distinct
-from the 94 calls retained here; a stopped schedule is not a completed one.
+records the selected development raise width, and ADR-0339's exact non-overlap
+comparison remains a finite absence claim, not representativeness evidence.
+ADR-0340's 192 prospective tasks remain distinct from ADR-0341's 94 accepted
+one-call arms and from this owner's 126 prospective candidates. ADR-0341
+qualifies the exact panel but supplies no confirmation value. No result here
+weakens those authorities.
 
 ## Active next
 
-Implement and source-seal only a transfer-confirmation owner against ADR-0341's exact target panel before its first confirmation value; keep raise width three frozen without width reselection, apply the frozen ADR-0338 context-local mechanism rather than inventing a fixed ladder, freeze the exact full-universe comparator and prospective task order, retain the unchanged development conjuncts and the preregistered rule that every conjunct must pass, journal every call before continuation, stop without retry on every semantic or infrastructure terminal, and open no confirmation value until that source checkpoint is committed; value-free responder-raise, full-width capacity, blueprint-kernel, and v0a interface work may proceed independently, but no blueprint training is authorized
+From a clean commit containing ADR-0342 and an absent prospective confirmation artifact, invoke `run_and_retain_adr0341_transfer_confirmation` exactly once; retain and fsync every candidate arm before continuation; stop without retry on confirmed, all-conjunct rejection, typed consumer rejection, numerical rejection, unexpected exception, or infrastructure failure; preserve the exact bytes and then source-seal a solver-free real result before any post-transfer interpretation; value-free responder-raise, full-width capacity, blueprint-kernel, and v0a interface work may proceed independently, but no blueprint training is authorized
 
 ## Revoked authorities
 
@@ -79,7 +97,7 @@ Implement and source-seal only a transfer-confirmation owner against ADR-0341's 
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0341](docs/decisions/ADR-0341-retain-and-seal-the-transfer-qualification-panel.md) — Retain and seal the transfer qualification panel.
+Latest process decision: [ADR-0342](docs/decisions/ADR-0342-source-seal-the-width-three-transfer-confirmation-owner.md) — Source-seal the width-three transfer-confirmation owner.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -87,7 +105,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0318](docs/decisions/ADR-0318-source-seal-the-certified-reduced-sizing-highs-adapter.md) | 2026-08-23 | accepted source-only canonical adapter and toy controls before any sealed validation base | Source-seal the certified reduced-sizing HiGHS adapter |
 | [ADR-0319](docs/decisions/ADR-0319-source-seal-the-canonical-sizing-validation-runner.md) | 2026-08-23 | accepted source-only failure-complete runner, schedule, and result schema before any canonical validation invocation | Source-seal the canonical sizing validation runner |
 | [ADR-0320](docs/decisions/ADR-0320-accept-the-canonical-certified-sizing-validation.md) | 2026-08-23 | accepted complete canonical correctness pass; a separately preregistered certified-v2 reduced-sizing consumer is eligible but absent | Accept the canonical certified-sizing validation |
 | [ADR-0321](docs/decisions/ADR-0321-preregister-the-certified-v2-reduced-sizing-consumer.md) | 2026-08-23 | accepted prospective research-consumer contract before source, solver invocation, or fresh action-width value | Preregister the certified-v2 reduced-sizing consumer |
@@ -111,18 +128,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0339](docs/decisions/ADR-0339-source-seal-the-untouched-action-width-transfer-population.md) | 2026-08-24 | accepted value-free untouched transfer-population source seal; every transfer qualification and transfer value remains unopened | Source-seal the untouched action-width transfer population |
 | [ADR-0340](docs/decisions/ADR-0340-source-seal-the-transfer-qualification-owner.md) | 2026-08-24 | accepted source-only candidate-blind transfer qualification owner and target-panel rebinder; every transfer qualification value remains unopened | Source-seal the transfer qualification owner |
 | [ADR-0341](docs/decisions/ADR-0341-retain-and-seal-the-transfer-qualification-panel.md) | 2026-08-24 | accepted one-shot transfer qualification result and exact 16-context target-only panel seal; width-three transfer confirmation remains unopened | Retain and seal the transfer qualification panel |
+| [ADR-0342](docs/decisions/ADR-0342-source-seal-the-width-three-transfer-confirmation-owner.md) | 2026-08-24 | accepted source-only width-three transfer-confirmation owner with exact prior-evidence reuse and failure-complete journal; every real confirmation value remains unopened | Source-seal the width-three transfer-confirmation owner |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0341](docs/decisions/ADR-0341-retain-and-seal-the-transfer-qualification-panel.md) — Retain and seal the transfer qualification panel.
+- Latest ADR: [ADR-0342](docs/decisions/ADR-0342-source-seal-the-width-three-transfer-confirmation-owner.md) — Source-seal the width-three transfer-confirmation owner.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 341.
-- ADR-header SHA-256: `38576e6854ec27925415b008178d2cd4c95fa87faae4ef0cd2e18a447e11de5a`.
-- Current blockers: no source-sealed transfer-confirmation owner or width-three transfer result, responder-raise closure, repeated-actor multiway existence result, cross-street belief/certificate handoff, full-width capacity result, certified full-width river strategy bridge, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 342.
+- ADR-header SHA-256: `99e262c55e76aff6fe9edd1e3896e1d17d65749ea0c2c5f631032cdfee4b13e5`.
+- Current blockers: no width-three transfer result, responder-raise closure, repeated-actor multiway existence result, cross-street belief/certificate handoff, full-width capacity result, certified full-width river strategy bridge, trained blueprint, v0a/v0b integrated bot, off-tree opponent-action result, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0341](docs/decisions/ADR-0341-retain-and-seal-the-transfer-qualification-panel.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0342](docs/decisions/ADR-0342-source-seal-the-width-three-transfer-confirmation-owner.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

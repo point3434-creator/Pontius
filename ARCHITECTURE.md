@@ -367,6 +367,21 @@ rebinding cannot open a value or action. The retained h4 panel is eligible only
 for a separately source-sealed 2,113-task exhaustive teacher; it does not enter
 the Legal Decision Spine.
 
+ADR-0335 adds that source-sealed teacher as a separate research-only layer.
+`fresh_action_width_nonreplay_teacher` rebuilds the exact ADR-0334 panel and
+freezes 16 full requests plus every 2,097 anchored subset request before a
+value. Accepted real payloads retain exact policy and raw dual witnesses; the
+reader independently reconstructs both endpoints before deriving conservative
+full-minus-subset regret, interval-max teacher envelopes, all nondominated
+survivors, sole-survivor uniqueness, reporting-only equivalence, and
+full-minus-teacher regret. Execution advances incrementally, but the terminal
+reader reconstructs the entire durable journal independently. Only a post-
+`fsync` receipt authorizes another arm, and nested reversal, consumer rejection,
+unexpected owner failure, and phase-typed infrastructure failure remain
+distinct. The 2,115-record completed fixture is explicitly synthetic. No
+teacher value, width, action, transfer, or Legal Decision Spine input exists at
+this boundary.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

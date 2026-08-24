@@ -259,6 +259,17 @@ result. The next boundary is source-only: seal the new panel's 2,113-task
 exhaustive teacher before opening any width-three-through-six value. No selected
 width or production action exists.
 
+ADR-0335 now seals that replacement teacher without opening a value. Its exact
+2,113-task schedule contains one full legal universe per retained context and
+every anchored subset at raise widths two through six. Conservative interval
+subtraction, set-valued nondominance, sole-survivor uniqueness, reporting-only
+equivalence, exact payoff-span normalization, policy/dual witness rebinding,
+post-`fsync` continuation, and distinct semantic/infrastructure stops are
+fixed. A complete 6,616,076-byte synthetic journal proves the success-shaped
+serializer and independent reader with all solver paths unopened. The next
+boundary is the sole no-clobber teacher invocation from a clean commit, not a
+selected width or production action.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

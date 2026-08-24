@@ -247,6 +247,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   opportunity-conditioned h4 heads-up fold/call result. The next checkpoint is
   source-only ownership of its exact 2,113-task exhaustive teacher; no teacher
   value, selected width, transfer, latency, or production action is open.
+- ADR-0335 passes that source-only teacher boundary. The exact new-panel
+  schedule contains 16 complete-universe arms and 2,097 anchored subsets at
+  raise widths two through six. Accepted real evidence must carry an exact
+  policy and dual hint; the solver-free reader reconstructs both endpoints,
+  conservative regrets, interval-max envelopes, every nondominated survivor,
+  sole-survivor uniqueness, and potentially empty reporting equivalence. The
+  next arm is authorized only by the preceding post-`fsync` receipt. A complete
+  2,115-record synthetic journal rebinds without a consumer or solver call.
+  Every replacement teacher value remains unopened; exactly one no-clobber
+  retained invocation from a clean source commit is next.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

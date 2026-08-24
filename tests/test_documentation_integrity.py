@@ -632,6 +632,24 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_nonreplay_exhaustive_teacher_is_source_sealed_and_value_unopened(self) -> None:
+        expected = {
+            "README.md": ("ADR-0335", "6,616,076-byte"),
+            "PROJECT.md": ("ADR-0335", "2,115-record"),
+            "STATUS.md": ("ADR-0335", "2,113-task"),
+            "ROADMAP.md": ("ADR-0335", "sole retained"),
+            "RUNBOOK.md": (
+                "62598e606be983b9fef60a32933bcbbb113ab75aca5aa326bb05d1b2d8b7071f",
+                "JSONL journal, not terminal stdout",
+            ),
+            "ARCHITECTURE.md": ("advances incrementally", "2,115-record"),
+            "RISK_REGISTER.md": ("R96", "bookkeeping becomes quadratic"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

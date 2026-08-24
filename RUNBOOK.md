@@ -1184,3 +1184,28 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     source-seal a new 2,113-task exhaustive teacher over this exact panel. Do
     not reuse ADR-0328's old-panel values, open a scratch teacher, or construct
     direct mechanism, transfer, preparation, or action state.
+53. ADR-0335 source-seals
+    `pontius.fresh_action_width_nonreplay_teacher` at
+    `62598e606be983b9fef60a32933bcbbb113ab75aca5aa326bb05d1b2d8b7071f`.
+    Protocol SHA-256 is
+    `475866512b9c0d7c12cab51e32fa36efdc7be6922c09ea7d8b2a069f521f2a11`
+    and the exact 2,113-task schedule SHA-256 is
+    `94da8f2fbcef3f16e74e729442c8c65bdd0c75be0cb400c4ebee66336b4dcb2d`.
+    Before invocation require a clean commit containing ADR-0335, the exact
+    source closure, the retained ADR-0334 qualification journal, and absence of
+    `experiments/results/fresh-action-width-nonreplay-exhaustive-teacher-v1.jsonl`.
+    Then invoke only the public no-clobber wrapper once:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -c "from pontius.fresh_action_width_nonreplay_teacher import run_and_retain_adr0334_nonreplay_exhaustive_teacher as run; result = run(); print(type(result).__name__)"
+    ```
+
+    The JSONL journal, not terminal stdout, is the authority. Every later arm
+    requires the prior post-`fsync` receipt. Any completed, consumer-rejected,
+    nested-reversal, unexpected-exception, or infrastructure stop closes the
+    campaign without resume, deletion, overwrite, alternate backend, or retry.
+    Retain the exact bytes and source-seal a solver-free result owner before a
+    direct mechanism or transfer value. Do not call the private executor,
+    reinterpret the synthetic 6,616,076-byte control as research, or promote a
+    teacher knee directly into production action width.

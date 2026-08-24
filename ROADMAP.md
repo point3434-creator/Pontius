@@ -1068,6 +1068,16 @@ queue:
   subject and 120-second complete walls are infrastructure-only. Next invoke
   once from the committed source boundary and retain its first terminal; only
   a literal pass may preregister selector stability.
+  ADR-0349 retains the sole clean invocation. All 25 gates pass: the two
+  inherited exact rows close in one 18-pivot master, no row is generated, the
+  exact finite-fixture incumbent is `27/64`, and the final gap is `2^-53`.
+  Float64/Fraction rows and candidate evaluations have zero retained error;
+  conditioning and oracle ledgers rebind exactly. The responder selector does
+  change at the candidate, but its exact gain is zero and no cut is violated.
+  This crosses finite h4 row-growth infrastructure, not selector stability or
+  action latency. Next preregister a selector-window gate with a prospectively
+  frozen policy family, complete tapes, tie rules, fixed-tape exact values, and
+  conservative activation/envelope classifications.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

@@ -395,6 +395,26 @@ responder-row-growth preregistration; selector stability, preparation-bank
 recovery, multiway closure, off-tree actions, and full-width capacity remain
 unopened.
 
+ADR-0348 source-sealed the legal h4 responder-row-growth audit without opening
+its target trajectory. A read-only observer wraps one unchanged production
+generator call and retains complete response signatures, every 32-coordinate
+row, restricted-master diagnostics, exact oracle work, independently rebound
+conditioning, and canonical semantic row bytes. A separate Fraction pass uses
+only subject-selected tapes. The 60-second subject and 120-second complete
+walls are infrastructure guards, not action latency. A pass can authorize only
+a separately preregistered selector-stability successor.
+
+ADR-0349 retains the sole clean invocation in a 50,963-byte artifact. All 25
+gates pass: the two inherited exact rows converge in one 18-pivot master and
+zero rows are generated. The responder tape changes at the candidate but has
+exact gain zero, so no cut is violated; that is not a selector-stability
+result. A solver-free owner rebinds every tape, Fraction row and evaluation,
+the `2^-53` final gap, conditioning, oracle counts, and 21,691 semantic row
+bytes. The 0.686-second subject campaign is infrastructure, not action
+latency, and the exact `27/64` finite objective is not poker quality. Next is a
+prospectively frozen selector-window gate; full-width capacity remains a
+separate lane.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

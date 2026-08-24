@@ -408,6 +408,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   are infrastructure guards, never action latency. Every h4 growth value,
   selector-stability result, action, full-width result, and quality claim
   remains unopened until the sole committed invocation.
+- ADR-0349 retains that sole invocation from clean commit `c807232`. All 25
+  gates pass in 1.233 seconds. The two inherited exact response rows converge
+  in one 18-pivot master with zero generated rows, exact finite-fixture
+  NashConv `27/64`, final gap `2^-53`, zero coefficient/evaluation error, and
+  exact oracle accounting. The responder tape changes at the candidate but
+  has exact gain zero, so it creates no cut; this observation is not a
+  selector-stability result. A solver-free owner rebinds the complete 50,963-
+  byte artifact and rejects fully rehashed row or tape corruption. The 0.686-
+  second subject campaign is infrastructure, not action latency, and the
+  finite objective is not strategy quality. Only a separately preregistered
+  selector-window successor is authorized.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

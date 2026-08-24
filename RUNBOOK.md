@@ -1576,3 +1576,32 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     preregistered selector-stability successor; preparation-bank recovery,
     multiway closure, off-tree actions, full-width capacity, action emission,
     and strength remain separate gates.
+
+67. ADR-0349 permanently closes the ADR-0348 public runner after its sole
+    clean invocation. Never invoke
+    `pontius.legal_responder_raise_h4_row_growth` again. Preserve
+    `experiments/results/legal-responder-raise-h4-row-growth-v1.json` as
+    exactly 50,963 bytes with SHA-256
+    `eb35843218741096f214a6c341a0762b8f1cca09a81a1fdce1db21eaa9fc60b8`
+    and the path-specific `-text` rule.
+
+    Rebind only through
+    `verify_adr0349_legal_h4_row_growth_result_artifact`. Preserve its source
+    at canonical-LF SHA-256
+    `b300b5b5a022a698c7bce2c77a99212da272ecaa50e1964eac76a21c392add53`,
+    adjacent seal at
+    `7edb4892fe5ea6130180650927575dfcad86e86ad44336d081e152c94df4b3ac`,
+    test at
+    `05372ca684bb5deb2a4386cbc948ce4c03d07b3215bd26b9476dc935ef04760d`,
+    and protocol at
+    `d7184b60f9fd3c46ae761864ed28d59cd9e91af0b03eab950aa74fb67aafbd89`.
+
+    Report the pass only as one finite h4 row-growth and infrastructure result.
+    Two inherited rows converge in one master and zero rows are generated. The
+    responder tape changes at the candidate but has exact gain zero; never call
+    that selector stability. Never quote the 0.686-second subject wall as
+    action latency or the exact `27/64` finite objective as poker quality.
+    Next preregister a selector-window policy family, tape/tie semantics,
+    fixed-tape exact checks, activation/envelope directions, and walls before
+    opening values. Keep preparation-bank recovery, multiway closure, off-tree
+    actions, full-width capacity, action emission, and strength separate.

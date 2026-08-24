@@ -568,6 +568,17 @@ master diagnostics, oracle accounting, conditioning, and semantic row bytes.
 It is not connected to the Legal Decision Spine and emits no action, selector-
 stability label, full-width result, or strategy-quality row.
 
+ADR-0349 permanently closes that prospective owner after its sole clean
+invocation. `legal_responder_raise_h4_row_growth_result` is the solver-free
+retained owner for the exact 50,963-byte artifact. It uses only the standard
+library to rehash the ADR-0348 closure and rebind complete response tapes, both
+32-coordinate Fraction rows, two exact evaluations, the one-master
+convergence ledger, conditioning, call-graph oracle counts, semantic row bytes,
+and infrastructure timing. It rejects fully rehashed coefficient and selector-
+tape mutations against the result protocol. It imports no runner, observer,
+game, evaluator, optimizer, action, or write path and cannot enter the Legal
+Decision Spine.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

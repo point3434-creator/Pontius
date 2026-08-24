@@ -918,6 +918,49 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_legal_h4_row_growth_audit_is_source_sealed_and_bounded(self) -> None:
+        expected = {
+            "README.md": ("ADR-0348", "60-second subject"),
+            "PROJECT.md": ("ADR-0348", "read-only observer"),
+            "STATUS.md": ("ADR-0348", "selector-window"),
+            "ROADMAP.md": ("ADR-0348", "oracle-call algebra"),
+            "RUNBOOK.md": (
+                "da6c4067cedd71504eb0c5e0c5034ffdf731839d2df71d33f0a07d12bd25cd99",
+                "first exclusive-create terminal",
+            ),
+            "ARCHITECTURE.md": ("one_seat_row_growth_audit", "process-local lock"),
+            "RISK_REGISTER.md": ("R109", "shadow solver"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+    def test_legal_h4_row_growth_result_is_retained_and_bounded(self) -> None:
+        expected = {
+            "README.md": ("ADR-0349", "50,963-byte"),
+            "PROJECT.md": ("ADR-0349", "zero generated rows"),
+            "STATUS.md": ("ADR-0349", "selector-window"),
+            "ROADMAP.md": ("All 25 gates pass", "not selector stability"),
+            "RUNBOOK.md": (
+                "eb35843218741096f214a6c341a0762b8f1cca09a81a1fdce1db21eaa9fc60b8",
+                "Never invoke",
+            ),
+            "ARCHITECTURE.md": (
+                "legal_responder_raise_h4_row_growth_result",
+                "50,963-byte",
+            ),
+            "RISK_REGISTER.md": ("R110", "zero-growth"),
+            "docs/PREDICTION_LEDGER.md": (
+                "ADR-0349 passes the first frozen h4 row-growth",
+                "no Brier score",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

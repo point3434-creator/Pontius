@@ -372,7 +372,7 @@ differential is authorized. The separate
 [prediction ledger](docs/PREDICTION_LEDGER.md) is reporting-only; forecast 2
 remains open with only its semantic conjunct observed.
 
-ADR-0346 now source-seals the authorized h4 coefficient differential without
+ADR-0346 source-sealed the authorized h4 coefficient differential before
 opening its result. The exact ADR-0345 public tree is widened to four hands per
 player and 16 dyadically weighted legal deals. The repeated actor has 12
 information sets and 32 sequence variables. Four payoff rows and two derived
@@ -380,9 +380,20 @@ gain rows will be compared coefficient-by-coefficient against a separate
 Fraction enumerator, then rebound at six frozen acting policies. A coverage
 response reaches both the full-raise and short-all-in final-response histories.
 The teacher imports neither the Float64 subject nor the evaluator; no endpoint
-responder selector is recomputed. The sole exclusive-create invocation is next.
-This gate carries no row-capacity, selector-stability, latency, action, or
-quality claim.
+responder selector is recomputed. This gate carries no row-capacity, selector-
+stability, latency, action, or quality claim.
+
+ADR-0347 retains the sole clean invocation in a 100,710-byte artifact. All 34
+frozen gates pass. A solver-free owner rebinds all 192 serialized Float64/
+Fraction coefficient pairs, all 36 affine/direct endpoint identities, exact
+profile zero-sum, and both derived gain-row identities without importing the
+closed runner, game, evaluator, teacher, or optimizer. Every retained error is
+zero, and both repeated-actor final-response histories have nonzero coverage.
+This crosses one finite h4 coefficient gate only. The 1.743-second tiny CPU
+campaign is not response-row capacity or action latency. Next is a separate
+responder-row-growth preregistration; selector stability, preparation-bank
+recovery, multiway closure, off-tree actions, and full-width capacity remain
+unopened.
 
 ## Current checkpoint
 

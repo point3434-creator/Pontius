@@ -1487,7 +1487,7 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     multiway closure, off-tree observations, and full-width capacity in their
     own gates. Forecast 2 remains open and unscored.
 
-64. ADR-0346 source-seals the legal h4 coefficient differential. Preserve the
+64. ADR-0346 source-sealed the legal h4 coefficient differential. Preserve the
     config at SHA-256
     `e511be50649a2c1c401948d31c1245f9df890f31aceb4f53a8ef4c63c62803bc`,
     the independent Fraction oracle at
@@ -1501,18 +1501,44 @@ reserved context from this branch. ADR-0044 is the durable rejection.
 
     The result path
     `experiments/results/legal-responder-raise-h4-coefficient-differential-v1.json`
-    must be absent. After committing ADR-0346 from a clean tree, invoke only:
+    was absent at clean source commit `5164ad7` and was invoked only with:
 
     ```powershell
     $env:PYTHONPATH = "src"
     & $python -B -m pontius.legal_responder_raise_h4_coefficient_differential
     ```
 
-    The exclusive-create artifact is authority. Retain pass, gate rejection,
-    config failure, exception, or infrastructure failure without retry. The
+    ADR-0347 now permanently closes that command. Never invoke
+    `pontius.legal_responder_raise_h4_coefficient_differential` again. The
+    exclusive-create artifact is authority. The
     fixture is h4 on the ADR-0345 public tree, not full private width. The
     Fraction teacher must remain free of subject/evaluator imports. Never
     recompute the responder selector at an endpoint or turn exact chance mass
     into a claim of dyadic structure without the power-of-two denominator
     check. A pass opens only a responder-row-growth preregistration; do not
     report direct traversal wall as response capacity or action latency.
+
+65. ADR-0347 retains the sole clean legal h4 coefficient result. Preserve
+    `experiments/results/legal-responder-raise-h4-coefficient-differential-v1.json`
+    as exactly 100,710 bytes with SHA-256
+    `6dcbf8e44f1c3b2bd54694e0c1f6898082e71373846933bfaa116bc4f2c27255`
+    and the path-specific `-text` rule.
+
+    Rebind only through
+    `verify_adr0347_legal_h4_coefficient_result_artifact`. Preserve its source
+    at canonical-LF SHA-256
+    `4c67ce1e724e6196a1fff6d7d6312c7a117fd9ff5ea47c8e82d7a1f21e8e1547`,
+    adjacent seal at
+    `53e597b3483efc6ba2bbc3ca4a5dace8a6422eebac6ba549bb43017dcc9f3113`,
+    test at
+    `36794d5ccc17d3d5a18efb9834a6fbfbb2f91d25679a8d0f9fdf98ecc8dc64fe`,
+    and protocol at
+    `88ff8d65f25d34cd99225d23c5cb3689b72a414e79863e8eb0fccd40565acdd6`.
+
+    Report the pass only as one finite h4 coefficient identity: six rows by 32
+    coordinates, 36 endpoint comparisons, and zero retained error. The
+    solver-free owner rederives exact zero-sum and gain-row algebra but does
+    not replay the legal tree. Never quote the 1.743-second campaign as row
+    capacity or action latency. Next preregister responder-row growth on the
+    unchanged h4 fixture; keep selector stability, preparation-bank recovery,
+    multiway closure, off-tree actions, and full-width capacity separate.

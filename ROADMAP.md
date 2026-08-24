@@ -1040,16 +1040,24 @@ queue:
   selector stability, multiway closure, and off-tree observation remain
   separate gates. The 0.791-second tiny-game campaign is not an action-clock
   or capacity result.
-  ADR-0346 now source-seals that exact next coefficient gate without opening a
+  ADR-0346 source-sealed that exact next coefficient gate before opening a
   result. The same public tree is widened to four-by-four legal private hands
   with 32 exactly dyadic joint weights. The open actor has 12 information sets
   and 32 sequence variables, including 16 final-response variables. A separate
   Fraction enumerator must match all coefficients in four payoff and two gain
   rows and all six frozen endpoint values; its coverage tape reaches both full
   and short-all-in raise histories. The call graph forbids endpoint selector
-  recomputation and any optimizer. Invoke once from the clean ADR-0346 source.
-  Only a pass may open a separately preregistered responder-row growth gate;
-  it is still not row capacity, selector stability, or latency.
+  recomputation and any optimizer.
+  ADR-0347 retains the sole clean invocation. All 34 gates pass: all 192
+  Float64 coefficients equal their reduced Fraction counterparts, all 36
+  affine/direct endpoint identities hold, the exact profile rows are zero-sum,
+  both gain-row identities rederive, and both final-response histories carry
+  nonzero coverage. A solver-free owner rejects byte drift and fully rehashed
+  gain algebra corruption. This crosses h4 coefficient identity, not row
+  capacity, selector stability, or latency. Next preregister responder-row
+  growth on the unchanged h4 tree, keeping its response signatures,
+  conditioning, oracle work, retained bytes, and infrastructure wall separate
+  from selector and action-clock questions.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

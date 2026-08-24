@@ -61,9 +61,10 @@ or row-growth gate rather than a semantic/math gate, and the accepted recovery
 uses preparation-bank response-row work. Otherwise `lost`; it remains open
 until all three events can be judged.
 
-Status: open — ADR-0345 satisfies the first semantic conjunct. The first later
-scaling failure and any accepted preparation-bank recovery remain unobserved,
-so no Brier score is recorded.
+Status: open — ADR-0345 satisfies the first semantic conjunct, and ADR-0347
+extends coefficient identity to h4. Neither result opens
+row growth: the first later scaling failure and any accepted preparation-bank
+recovery remain unobserved, so no Brier score is recorded.
 
 ### 3 — First blueprint run is stopped by its watchdog (60%)
 
@@ -163,4 +164,6 @@ corrected pass are committed for at least one named lane. A semantic,
 statistical, quality, or capacity rejection is not plumbing and does not
 qualify.
 
-Status: open.
+Status: open — ADR-0347's first public invocation passed. Development controls
+repaired before its sealed source commit are not public plumbing rejections;
+the other named lane invocations remain unobserved.

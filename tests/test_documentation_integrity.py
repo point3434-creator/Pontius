@@ -417,7 +417,10 @@ class DocumentationIntegrityTests(unittest.TestCase):
         expected = {
             "README.md": ("ADR-0323", "not action-abstraction v5"),
             "PROJECT.md": ("exhaustive best-subset teachers", "opponent-row identity"),
-            "STATUS.md": ("ADR-0323", "value-free"),
+            "docs/decisions/ADR-0323-preregister-certified-finite-block-action-width-research.md": (
+                "ADR-0323",
+                "value-free",
+            ),
             "ROADMAP.md": ("raise widths two through six", "Development selects"),
             "RUNBOOK.md": ("Check does not count as a raise", "L_full-U_subset"),
             "ARCHITECTURE.md": ("not an ordinary standalone LP column", "finite difference"),
@@ -884,6 +887,31 @@ class DocumentationIntegrityTests(unittest.TestCase):
                 "176 terminal paths",
             ),
             "RISK_REGISTER.md": ("R107", "power-of-two denominators"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+    def test_legal_h4_coefficient_result_is_retained_and_bounded(self) -> None:
+        expected = {
+            "README.md": ("ADR-0347", "100,710-byte"),
+            "PROJECT.md": ("ADR-0347", "192 exact"),
+            "STATUS.md": ("ADR-0347", "responder-row growth"),
+            "ROADMAP.md": ("All 34 gates pass", "not row capacity"),
+            "RUNBOOK.md": (
+                "6dcbf8e44f1c3b2bd54694e0c1f6898082e71373846933bfaa116bc4f2c27255",
+                "Never invoke",
+            ),
+            "ARCHITECTURE.md": (
+                "legal_responder_raise_h4_coefficient_result",
+                "gain-row algebra",
+            ),
+            "RISK_REGISTER.md": ("R108", "fully rehashed"),
+            "docs/PREDICTION_LEDGER.md": (
+                "ADR-0347 extends coefficient identity to h4",
+                "no Brier score",
+            ),
         }
         for relative, phrases in expected.items():
             text = _contract_text(relative)

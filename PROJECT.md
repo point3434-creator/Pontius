@@ -386,6 +386,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   or self-declared gate. A pass can only preregister responder-row growth. It
   cannot establish capacity, selector stability, full width, action-clock
   latency, production action, or quality.
+- ADR-0347 retains the first and only clean invocation. Its 100,710-byte
+  artifact passes all 34 gates. Four payoff and two gain rows expose 192 exact
+  coefficient comparisons, and six acting endpoints across three fixed
+  response contexts expose 36 exact affine/direct comparisons; every retained
+  error and mismatch count is zero. The solver-free owner independently
+  rederives reduced Fraction/Float64 identity, profile zero-sum, endpoint
+  utilities, and gain-row algebra without a runner, game, evaluator, teacher,
+  optimizer, or write path. The result authorizes only a separately sealed
+  responder-row-growth experiment. It supplies no selector, capacity, latency,
+  action, full-width, or quality result.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

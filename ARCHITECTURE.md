@@ -529,7 +529,7 @@ sequence coefficients with `Fraction`. It imports neither
 `one_seat_convex_generation` nor `evaluation`; it is intentionally unsuitable
 for runtime solving.
 
-`legal_responder_raise_h4_coefficient_differential` is the prospective
+`legal_responder_raise_h4_coefficient_differential` was the prospective
 failure-retaining owner for the same kernel-derived public tree at four hands
 per player. Sixteen dyadic deals expand to 176 terminal paths and 32 acting
 sequence variables. One Float64 subject call site and one Fraction teacher
@@ -537,8 +537,19 @@ call site produce four payoff rows; two gain rows are derived without an LP.
 Every coefficient and constant is retained, then checked at six source-sealed
 acting policies. A fixed coverage response reaches both repeated-actor final
 histories. The source responder best response is computed once and never
-reselected at an endpoint. The exclusive output can authorize only a later
-row-growth preregistration and cannot enter the Legal Decision Spine.
+reselected at an endpoint. ADR-0347 permanently closes this owner after its
+sole clean invocation.
+
+`legal_responder_raise_h4_coefficient_result` is ADR-0347's solver-free result
+owner. It reads only the exact 100,710-byte artifact, rehashes the ADR-0346
+config and its complete source closure, and validates all six 32-coordinate
+rows. Hexadecimal Float64 values are converted to exact rationals and compared
+with independently serialized reduced Fractions. The owner rederives profile
+zero-sum, both gain-row algebra identities, and every payoff/gain endpoint from
+the retained exact utility contexts. It imports no runner, game, evaluator,
+coefficient primitive, teacher, or optimizer and has no action or write path.
+It authenticates finite h4 coefficients only and cannot enter the Legal
+Decision Spine.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

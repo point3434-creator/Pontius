@@ -280,6 +280,16 @@ target-panel teacher curve, not a selected mechanism, latency result, or
 production action width. The next checkpoint is a source-sealed additive
 376-call non-replay direct mechanism before any new value.
 
+ADR-0337 now seals that direct owner without opening a price. The complete
+graph has 2,097 anchored arms and 6,543 response-closed one-raise transitions;
+the frozen adaptive path has exactly 376 prospective calls. Selection uses the
+greatest behavioral lower endpoint and then the smaller raise-to total on an
+exact tie. A 378-record solver-free synthetic journal proves post-`fsync`
+continuation, dynamic branch rebinding, all five gate fields, and the complete
+terminal path. Its fake width three is schema evidence only. The next
+checkpoint is the sole no-clobber real invocation from this clean committed
+source, not transfer, capacity, latency, action, or production width.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

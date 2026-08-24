@@ -784,6 +784,13 @@ now seals the value-free compiler, both prospective structures, the known
   until width four. The active boundary is source-only implementation of the
   preregistered 376-call non-replay direct mechanism; its price and selection,
   transfer, latency, and action paths remain unopened.
+  ADR-0337 now passes that source-only boundary. The complete 2,097-arm,
+  6,543-transition graph, exact adaptive 376-call slots, response closure,
+  behavioral-lower/smaller-raise choice, five gates, durable evidence, and
+  378-record synthetic terminal are sealed before price. The active boundary
+  is one retained no-clobber invocation from this clean source commit. No
+  transfer, capacity, latency, action, or production-width path is eligible
+  first.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -919,6 +926,10 @@ representative and candidate value remains unopened. All four exact-legality
   and exact gate/median/tail distinctions. The next checkpoint is a source-only
   additive direct mechanism with 376 prospective calls and a complete durable
   synthetic terminal before its first value.
+  ADR-0337 now seals that exact owner and full graph without opening any of its
+  376 values. The next checkpoint is its sole retained invocation from a clean
+  commit and absent no-clobber artifact; every later mechanism remains closed
+  until the exact journal independently rebinds.
 
 ## C6: Neural blueprint and leaves
 

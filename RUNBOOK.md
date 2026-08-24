@@ -1224,3 +1224,32 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     any new value, source-seal only the additive ADR-0331 direct mechanism with
     its exact 376-call schedule and complete 378-record synthetic journal. Do
     not call the closed ADR-0329 entries or construct transfer/action state.
+55. ADR-0337 passes that source-only boundary. Its source SHA-256 is
+    `80ba2426399eb3329d33c0d69d58bc71112bdcc5a2608be5a3e8b4b49bfc0c9c`,
+    protocol SHA-256 is
+    `13a0e96490abe656db545e64491e395855308b5b25fc17dc97457036502c7820`,
+    and schedule SHA-256 is
+    `887e2b7c5d642adefe9cd2c976eaded3f69a1be204ae517264e8b9d8d4fd20b9`.
+    The graph contains 2,097 arms and 6,543 possible transitions; the exact
+    adaptive path permits 376 public calls and a completed journal has 378
+    records. Before invocation require a clean commit containing ADR-0337,
+    verify the exact ADR-0334 panel and ADR-0336 teacher artifact, and require
+    absence of
+    `experiments/results/fresh-action-width-nonreplay-closed-finite-block-greedy-v1.jsonl`.
+    Then invoke only the public no-clobber wrapper once:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -c "from pontius.fresh_action_width_nonreplay_greedy import run_and_retain_adr0336_nonreplay_closed_finite_block_greedy as run; result = run(); print(type(result).__name__)"
+    ```
+
+    The JSONL journal, not terminal stdout, is the authority. Every next call
+    requires the prior observation's post-`fsync` receipt and the dynamically
+    selected incumbent. Any completed, consumer-rejected, numerical-rejected,
+    unexpected-exception, or infrastructure stop closes the campaign without
+    resume, deletion, overwrite, alternate backend, or retry. Retain the exact
+    bytes and source-seal a solver-free result owner before transfer, capacity,
+    preparation, action, or production-width evidence. Do not call the real
+    wrapper from a dirty tree, invoke either closed ADR-0329 entry, treat the
+    synthetic width three as research, or divide command wall by 376 as live
+    latency.

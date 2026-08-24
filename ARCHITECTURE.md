@@ -394,6 +394,21 @@ cardinality zero is invalid. The layer has no writer, consumer, campaign,
 transfer, preparation, or action dependency and cannot enter the Legal Decision
 Spine.
 
+ADR-0337 adds the separate source-sealed direct closed finite-block layer.
+`fresh_action_width_nonreplay_greedy` freezes every anchored arm and every
+parent-plus-one-raise transition on the exact ADR-0334 panel, but exposes only
+one adaptive 376-slot call ledger. Each transition proves complete h4
+fold/call response-row closure before the augmented certified solve. Selection
+uses only the augmented feasible behavioral lower endpoint and then the
+smaller nominal raise-to total on an exact tie. Width results recompute full
+regret, width-matched teacher excess, chip-summed aggregate recovery, and all
+five inherited gates from retained evidence. Execution is receipt-gated and
+incremental; the reader independently derives the exact next task from the
+prior selected incumbent, rejecting any valid arm from an unrealized branch.
+The complete 378-record fixture is synthetic. No direct price, selected
+development width, transfer, capacity, action, or Legal Decision Spine input
+exists at this boundary.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

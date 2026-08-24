@@ -266,6 +266,18 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   tail. No direct mechanism or production width is selected. The next boundary
   is source-only ownership of ADR-0331's exact 376-call non-replay direct
   mechanism.
+- ADR-0337 passes that source-only direct-mechanism boundary without opening a
+  price or value. It seals 2,097 anchored arms, all 6,543 response-closed
+  parent-plus-one transitions, and the exact adaptive ledger of 16 initial
+  plus 360 candidate calls. Lower behavioral endpoints select, exact ties take
+  the smaller raise-to total, chip endpoints are summed before aggregate-
+  recovery division, and all five nominal gates are independently recomputed.
+  Only the prior post-`fsync` receipt authorizes another call. A complete
+  1,227,894-byte, 378-record synthetic journal proves the success serializer,
+  dynamic-branch rebinder, smaller-raise tie path, and terminal reduction with
+  every consumer and solver path unopened. The next boundary is exactly one
+  no-clobber invocation from this clean committed source; no transfer,
+  capacity, latency, action, or production-width evidence is eligible first.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

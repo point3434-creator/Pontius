@@ -374,6 +374,18 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   width, production action, and strength remain absent. Forecast 2 remains
   reporting-only and open because its capacity and recovery conjuncts are
   unobserved.
+- ADR-0346 source-seals the next legal responder-raise coefficient gate while
+  leaving every result unopened. It widens only the ADR-0345 private axes to
+  h4: 16 legal dyadically weighted deals, 12 acting information sets, and 32
+  repeated-actor sequence variables. The Float64 open-axis traversal is the
+  subject; a separate Fraction sequence/utility/terminal enumerator is the
+  teacher. Four payoff and two gain rows retain all 32 coefficients beside
+  exact numerators and denominators and are checked at six frozen acting
+  policies. Source response tapes are frozen once; endpoint selector
+  recomputation is structurally absent rather than represented by a tolerance
+  or self-declared gate. A pass can only preregister responder-row growth. It
+  cannot establish capacity, selector stability, full width, action-clock
+  latency, production action, or quality.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

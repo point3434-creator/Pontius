@@ -27,3 +27,5 @@
 /experiments/results/fresh-action-width-transfer-qualification-v1.jsonl -text
 /experiments/results/fresh-action-width-transfer-confirmation-v1.jsonl -text
 /experiments/results/responder-raise-semantics-keystone-v1.json -text
+/experiments/configs/legal-responder-raise-h4-coefficient-differential-v1.json -text
+/experiments/results/legal-responder-raise-h4-coefficient-differential-v1.json -text

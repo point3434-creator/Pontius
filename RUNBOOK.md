@@ -1486,3 +1486,33 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     raise coefficient differential. Keep row capacity, selector stability,
     multiway closure, off-tree observations, and full-width capacity in their
     own gates. Forecast 2 remains open and unscored.
+
+64. ADR-0346 source-seals the legal h4 coefficient differential. Preserve the
+    config at SHA-256
+    `e511be50649a2c1c401948d31c1245f9df890f31aceb4f53a8ef4c63c62803bc`,
+    the independent Fraction oracle at
+    `8d70297ab80055c5c77bdeefb82ff6cde817f6c57876059783046669b3a6945a`,
+    its control at
+    `5b0aeba06437386156451a7d66687b0274a14abbb138f96f8b2c1ee2bb84a330`,
+    the prospective runner at
+    `e800aa343803c27744172404e1351e564e2817ce357c59bb602bbd6cb357caee`,
+    and its control at
+    `cbf1386a05fe53efbe6db4b7a0b9bdb3681a015980f4bb36b60a89979dd02502`.
+
+    The result path
+    `experiments/results/legal-responder-raise-h4-coefficient-differential-v1.json`
+    must be absent. After committing ADR-0346 from a clean tree, invoke only:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m pontius.legal_responder_raise_h4_coefficient_differential
+    ```
+
+    The exclusive-create artifact is authority. Retain pass, gate rejection,
+    config failure, exception, or infrastructure failure without retry. The
+    fixture is h4 on the ADR-0345 public tree, not full private width. The
+    Fraction teacher must remain free of subject/evaluator imports. Never
+    recompute the responder selector at an endpoint or turn exact chance mass
+    into a claim of dyadic structure without the power-of-two denominator
+    check. A pass opens only a responder-row-growth preregistration; do not
+    report direct traversal wall as response capacity or action latency.

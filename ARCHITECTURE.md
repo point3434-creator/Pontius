@@ -522,6 +522,24 @@ independent numerical control from the sole invocation; this owner authenticates
 and interprets rather than re-solves. The result opens only an h4 coefficient
 preregistration and conveys no scaling, latency, action, or quality evidence.
 
+`exact_sequence_form_coefficient_oracle` is ADR-0346's small-game independent
+teacher. It reconstructs perfect-recall sequence parents, exact policy and
+chance reach, direct utilities, realization coordinates, and terminal-to-last-
+sequence coefficients with `Fraction`. It imports neither
+`one_seat_convex_generation` nor `evaluation`; it is intentionally unsuitable
+for runtime solving.
+
+`legal_responder_raise_h4_coefficient_differential` is the prospective
+failure-retaining owner for the same kernel-derived public tree at four hands
+per player. Sixteen dyadic deals expand to 176 terminal paths and 32 acting
+sequence variables. One Float64 subject call site and one Fraction teacher
+call site produce four payoff rows; two gain rows are derived without an LP.
+Every coefficient and constant is retained, then checked at six source-sealed
+acting policies. A fixed coverage response reaches both repeated-actor final
+histories. The source responder best response is computed once and never
+reselected at an endpoint. The exclusive output can authorize only a later
+row-growth preregistration and cannot enter the Legal Decision Spine.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

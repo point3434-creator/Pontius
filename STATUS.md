@@ -15,29 +15,22 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Retain the first and only ADR-0344 public invocation from clean commit
-`ff2b8ced243f0eb0d3a7fcffebf2287c4c102aa2`. The exclusive-create result
-path was absent before launch. The invocation completed normally in
-`0.791073200001847` seconds and wrote exactly 7,400 bytes. There was no retry,
-resume, overwrite, parameter change, alternate backend, exception, or
-infrastructure terminal.
+Add `exact_sequence_form_coefficient_oracle`, a deliberately small-game
+Fraction implementation with its own sequence-axis enumeration, policy
+normalization, direct expected-utility traversal, realization construction,
+and terminal-to-last-sequence accumulation. It imports neither
+`one_seat_convex_generation` nor `evaluation`. Its unit control independently
+exercises the repeated-actor legal tree and rejects crossed axes and illegal
+policies.
 
-The artifact reports `passed: true`; all 24 frozen gate fields are literal
-Booleans and true. Its decision is
-`authorize_h4_legal_responder_raise_open_axis_differential`. That authorization
-is prospective only: no h4 coefficient has been opened by this result.
-
-Add `responder_raise_semantics_keystone_result` as a solver-free retained
-result owner. It pins the artifact bytes, source commit, config and source
-closure, public state, structural and provenance identities, complete public
-schema, terminal histories, full-raise and short-all-in counts, complete
-teacher, generated bounds, response rows, repeated-actor witness, realization
-equivalence, Jensen retreat diagnostic, and all-pass gate vector. Its controls
-reject byte mutation and truncation and forbid the closed runner, solver, game
-action, or write paths. This rebinder authenticates and interprets the retained
-artifact; it does not independently solve the game. The preregistered complete
-normal-form teacher inside the sole invocation remains the independent
-numerical control.
+Add one failure-retaining prospective runner,
+`legal_responder_raise_h4_coefficient_differential`. Its subject is exactly one
+call site to `open_axis_payoff_coefficients`; its teacher is exactly one call
+site to the Fraction oracle. The sealed call graph contains no LP, row
+generator, candidate search, policy optimizer, action emitter, or endpoint
+responder-selector call. Config or execution exceptions still consume the
+exclusive result path as typed failures. A pre-existing result path is never
+overwritten.
 
 The inherited trust chain remains explicit. ADR-0310 made native-simplex
 robustness the next systems question. ADR-0311's directive is Preregister the
@@ -65,7 +58,7 @@ the retained confirmation invocation. No result here weakens those authorities.
 
 ## Active next
 
-Preregister and source-seal an h4 legal responder-raise open-axis coefficient differential on ADR-0345's exact frozen public semantics, keeping response-row growth, selector stability, repeated-actor multiway closure, and off-tree observation separate; in parallel preregister the label-free full-width river capacity preflight on the exact 1,225/1,081/1,035/990 belief axes
+From one clean commit containing ADR-0346 and an absent legal h4 coefficient result path, invoke the source-sealed differential exactly once and retain pass, rejection, or typed failure without changing axes, policies, response tapes, endpoints, teacher, tolerances, or claims; a pass authorizes only a separately preregistered legal responder-row growth gate, while full-width river capacity remains a separate parallel lane
 
 ## Revoked authorities
 
@@ -73,7 +66,7 @@ Preregister and source-seal an h4 legal responder-raise open-axis coefficient di
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0345](docs/decisions/ADR-0345-retain-and-seal-the-legal-responder-raise-keystone.md) — Retain and seal the legal responder-raise semantics keystone.
+Latest process decision: [ADR-0346](docs/decisions/ADR-0346-preregister-the-legal-h4-coefficient-differential.md) — Preregister the legal h4 coefficient differential.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -81,7 +74,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0322](docs/decisions/ADR-0322-source-seal-the-certified-v2-reduced-sizing-consumer.md) | 2026-08-23 | accepted source-only research consumer and unsealed controls; no fresh action-width value or production action is opened | Source-seal the certified-v2 reduced-sizing consumer |
 | [ADR-0323](docs/decisions/ADR-0323-preregister-certified-finite-block-action-width-research.md) | 2026-08-23 | accepted prospective action-width research protocol before source, structures, or fresh values | Preregister certified finite-block action-width research |
 | [ADR-0324](docs/decisions/ADR-0324-source-seal-fresh-action-width-development-structures.md) | 2026-08-23 | accepted value-free development source and structural pool seal; every fresh sizing value and transfer structure remains unopened | Source-seal fresh action-width development structures |
 | [ADR-0325](docs/decisions/ADR-0325-source-seal-candidate-blind-action-width-qualification.md) | 2026-08-23 | accepted source-only candidate-blind qualification owner; all 96 development sizing contexts remain value unopened | Source-seal candidate-blind action-width qualification |
@@ -105,18 +97,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0343](docs/decisions/ADR-0343-retain-and-seal-the-width-three-transfer-confirmation.md) | 2026-08-24 | accepted complete real transfer confirmation; all five unchanged conjuncts pass on the exact untouched 16-context panel, confirming unrestricted transfer of the frozen context-local width-three mechanism within this reduced-game scope | Retain and seal the width-three transfer confirmation |
 | [ADR-0344](docs/decisions/ADR-0344-preregister-the-legal-responder-raise-keystone.md) | 2026-08-24 | accepted preregistration and source seal before the first legal responder-raise keystone invocation; no result, strategy label, latency result, or production action exists | Preregister the legal responder-raise sequence-form keystone |
 | [ADR-0345](docs/decisions/ADR-0345-retain-and-seal-the-legal-responder-raise-keystone.md) | 2026-08-24 | accepted finite legal-semantics and sequence-form keystone; the sole source-sealed invocation passes every frozen gate on one deterministic checked-to heads-up river continuation and authorizes only a separately preregistered h4 legal responder-raise open-axis differential | Retain and seal the legal responder-raise semantics keystone |
+| [ADR-0346](docs/decisions/ADR-0346-preregister-the-legal-h4-coefficient-differential.md) | 2026-08-24 | accepted preregistration and source seal before the first legal responder-raise h4 coefficient invocation; every coefficient result, row-growth result, latency result, strategy label, and production action remains unopened | Preregister the legal h4 coefficient differential |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0345](docs/decisions/ADR-0345-retain-and-seal-the-legal-responder-raise-keystone.md) — Retain and seal the legal responder-raise semantics keystone.
+- Latest ADR: [ADR-0346](docs/decisions/ADR-0346-preregister-the-legal-h4-coefficient-differential.md) — Preregister the legal h4 coefficient differential.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 345.
-- ADR-header SHA-256: `472b0eb9cf18a5c3be621e3d5e4c963772d1b65282afc514fe3e09131e275ef3`.
-- Current blockers: no h4 responder-raise coefficient result, responder-row capacity result, selector-stability result in the deeper tree, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief/certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 346.
+- ADR-header SHA-256: `cec387f2e4d0474e0380d1fea4307ea04c75f48e65c334591c561b8ac8179497`.
+- Current blockers: no legal h4 coefficient result, responder-row capacity result, selector-stability result in the deeper tree, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief/certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0345](docs/decisions/ADR-0345-retain-and-seal-the-legal-responder-raise-keystone.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0346](docs/decisions/ADR-0346-preregister-the-legal-h4-coefficient-differential.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

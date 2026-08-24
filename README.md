@@ -372,6 +372,18 @@ differential is authorized. The separate
 [prediction ledger](docs/PREDICTION_LEDGER.md) is reporting-only; forecast 2
 remains open with only its semantic conjunct observed.
 
+ADR-0346 now source-seals the authorized h4 coefficient differential without
+opening its result. The exact ADR-0345 public tree is widened to four hands per
+player and 16 dyadically weighted legal deals. The repeated actor has 12
+information sets and 32 sequence variables. Four payoff rows and two derived
+gain rows will be compared coefficient-by-coefficient against a separate
+Fraction enumerator, then rebound at six frozen acting policies. A coverage
+response reaches both the full-raise and short-all-in final-response histories.
+The teacher imports neither the Float64 subject nor the evaluator; no endpoint
+responder selector is recomputed. The sole exclusive-create invocation is next.
+This gate carries no row-capacity, selector-stability, latency, action, or
+quality claim.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

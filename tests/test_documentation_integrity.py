@@ -869,6 +869,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_legal_h4_coefficient_differential_is_source_sealed_and_bounded(self) -> None:
+        expected = {
+            "README.md": ("ADR-0346", "Fraction enumerator"),
+            "PROJECT.md": ("Four payoff and two gain rows", "selector"),
+            "STATUS.md": ("ADR-0346", "responder-row growth"),
+            "ROADMAP.md": ("32 exactly dyadic", "not row capacity"),
+            "RUNBOOK.md": (
+                "e511be50649a2c1c401948d31c1245f9df890f31aceb4f53a8ef4c63c62803bc",
+                "exclusive-create artifact",
+            ),
+            "ARCHITECTURE.md": (
+                "exact_sequence_form_coefficient_oracle",
+                "176 terminal paths",
+            ),
+            "RISK_REGISTER.md": ("R107", "power-of-two denominators"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

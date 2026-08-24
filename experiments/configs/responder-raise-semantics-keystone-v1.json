@@ -1,0 +1,73 @@
+{
+  "evidence_stage": "preregistered_after_adr0343_before_legal_responder_raise_keystone_run",
+  "expected_parent_decision_sha256": "8bc61b35d467f93d0830a7ec9bf4b33e7cb9daf8f634dc1ca09ef6df4db025da",
+  "expected_legal_kernel_sha256": "9e2c45d575d28c759aea97c4f916a18584241cd84a6731e89bc609f32c2c7396",
+  "expected_legal_game_sha256": "4c8f57f259415ece30b12add42243b65a30d3320924b469209e2d94a68064250",
+  "expected_sequence_form_sha256": "a84126b66aad760dcda28ba4870cd4a5daba18ebe5377fef8b1efa53a04d9231",
+  "expected_legal_game_test_sha256": "0c6a6cb7d63aa7c25ec3570605c8886ceaf780dc9fff3433d52091dc5edc396e",
+  "expected_implementation_sha256": "201b937d351d50e072d4f8f00268b3242855abd8f32c468b3d5870fad1682978",
+  "expected_control_test_sha256": "06b5eb1a490694adc6b0a61f7590fdb26bf01e6183943bcc4792b59ced0acba6",
+  "board": [
+    "2c",
+    "7d",
+    "9h",
+    "Js",
+    "Qc"
+  ],
+  "button": 0,
+  "starting_stack": 6,
+  "small_blind": 1,
+  "big_blind": 2,
+  "expected_root_public_state_sha256": "d6976d35018153790f63698d7231d1f920f21c1dfb865a5a0733bd42d1cbcf52",
+  "expected_table_seats": [
+    2,
+    1
+  ],
+  "expected_root_raise_to_totals": [
+    2,
+    3,
+    4
+  ],
+  "expected_public_schema_sha256": "1b399b2b67b58bd2a8a42d3c0e8ddeb4fbf3d2445f2f059a36c3e5905227d5ff",
+  "root_hand": [
+    "As",
+    "Ad"
+  ],
+  "responder_hand": [
+    "Kh",
+    "Kd"
+  ],
+  "acting_player": 0,
+  "blueprint": "uniform_behavioral",
+  "guard": 0.25,
+  "retreat_factor": 0.8,
+  "max_iterations": 128,
+  "max_pure_plans": 1000,
+  "tolerance": 1e-10,
+  "claims_policy": "legal_semantics_and_finite_algebra_only_no_quality_latency_or_multiway_claim",
+  "gates": {
+    "expected_strategic_nodes": 6,
+    "expected_terminal_nodes": 11,
+    "expected_acting_pure_plans": 16,
+    "expected_response_pure_plans": 18,
+    "expected_short_all_in_raise_branches": 1,
+    "maximum_terminal_oracle_error_chips": 0.0,
+    "maximum_teacher_objective_error": 1e-9,
+    "maximum_exact_incumbent_error": 1e-9,
+    "maximum_final_optimality_gap": 1e-9,
+    "maximum_retreat_jensen_error": 1e-9,
+    "maximum_realization_equivalence_error": 1e-9,
+    "maximum_total_seconds": 60.0,
+    "require_clean_git_state": true,
+    "require_every_action_from_kernel": true,
+    "require_full_raise_branch": true,
+    "require_short_all_in_branch": true,
+    "require_short_all_in_final_response_only": true,
+    "require_legacy_short_all_in_omission_detected": true,
+    "require_repeated_actor_topology": true,
+    "require_behavioral_shortcut_rejection": true,
+    "require_bound_monotonicity": true,
+    "require_exact_digest_dedup_only": true,
+    "require_finite": true
+  }
+}

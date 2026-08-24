@@ -15,28 +15,18 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Retain the first and only ADR-0342 public transfer-confirmation invocation from
-clean commit `45dc67c5e36fc222620449117eaa33948fcb47ef`. The no-clobber path was
-absent before launch. The owner executed all 126 frozen context-ordered
-candidate calls, durably appended and `fsync`ed each observation before the
-next call, completed all 16 target contexts, and emitted
-`completed_confirmed`. There was no retry, resume, overwrite, alternate
-backend, rejected consumer result, numerical reduction failure, unexpected
-exception, uncertain invocation, or infrastructure terminal.
+Add `LegalHeadsUpRiverContinuation` as a small-game bridge from
+`NoLimitBettingState` to the generic extensive-form interface. The bridge does
+not reimplement betting rules. At every node it enumerates fold, check, call,
+and every integer raise-to amount directly from `legal_decision()`, advances
+only through `apply_action()`, and obtains terminal chips only through exact
+six-seat settlement. It accepts exactly two live seats after one live river
+check and requires every omitted folded seat to have committed zero chips, so
+the two exposed utilities remain exactly zero-sum.
 
-All 126 prospective evidences are real accepted one-public-call arms. The 32
-ADR-0341 full/width-two comparators remain prior evidence and were not invoked
-or counted again. The exact journal contains one header, 126 observations, and
-one terminal: 445,731 newline-terminated bytes under the existing `-text`
-rule, with SHA-256
-`c7fb4405177d46f751812c957e5a503c3430fb48427456e333a871e486969130`.
-
-The solver-free `fresh_action_width_transfer_confirmation_result` owner binds
-those bytes to the invocation source, campaign, terminal, schedule, panel,
-every accepted policy/dual witness, all 16 context reductions, selected
-context-local menus, exhaustive teachers, gate digest, and hexadecimal
-diagnostics. Its tests forbid the closed runner, consumer, solver, writer, and
-action paths and reject mutation or truncation before publication.
+The bridge is deliberately not a production tree. Literal enumeration of every
+integer raise is appropriate for this finite semantic control and supplies no
+scaling claim.
 
 The inherited trust chain remains explicit. ADR-0310 made native-simplex
 robustness the next systems question. ADR-0311's directive is Preregister the
@@ -64,7 +54,7 @@ the retained confirmation invocation. No result here weakens those authorities.
 
 ## Active next
 
-Preregister the small-private-width responder-raise semantics arc and the label-free full-width river capacity preflight as separate parallel gates; use repeated-actor sequence form for the first and the exact 1,225/1,081/1,035/990 belief axes for the second; value-free blueprint-kernel, abstraction, slice-audit, and v0a interface engineering may proceed, but no blueprint training, full-width strategy integration, or strength claim is authorized until its remaining seals pass
+From one clean commit containing ADR-0344 and an absent responder-raise result path, invoke the source-sealed legal responder-raise keystone exactly once; retain any pass or failure without changing the tree, guard, tolerances, teacher, or claims; a pass authorizes only a separately preregistered h4 legal responder-raise open-axis differential, while the label-free full-width river capacity preflight remains a separate parallel gate
 
 ## Revoked authorities
 
@@ -72,7 +62,7 @@ Preregister the small-private-width responder-raise semantics arc and the label-
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0343](docs/decisions/ADR-0343-retain-and-seal-the-width-three-transfer-confirmation.md) — Retain and seal the width-three transfer confirmation.
+Latest process decision: [ADR-0344](docs/decisions/ADR-0344-preregister-the-legal-responder-raise-keystone.md) — Preregister the legal responder-raise sequence-form keystone.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -80,7 +70,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0320](docs/decisions/ADR-0320-accept-the-canonical-certified-sizing-validation.md) | 2026-08-23 | accepted complete canonical correctness pass; a separately preregistered certified-v2 reduced-sizing consumer is eligible but absent | Accept the canonical certified-sizing validation |
 | [ADR-0321](docs/decisions/ADR-0321-preregister-the-certified-v2-reduced-sizing-consumer.md) | 2026-08-23 | accepted prospective research-consumer contract before source, solver invocation, or fresh action-width value | Preregister the certified-v2 reduced-sizing consumer |
 | [ADR-0322](docs/decisions/ADR-0322-source-seal-the-certified-v2-reduced-sizing-consumer.md) | 2026-08-23 | accepted source-only research consumer and unsealed controls; no fresh action-width value or production action is opened | Source-seal the certified-v2 reduced-sizing consumer |
 | [ADR-0323](docs/decisions/ADR-0323-preregister-certified-finite-block-action-width-research.md) | 2026-08-23 | accepted prospective action-width research protocol before source, structures, or fresh values | Preregister certified finite-block action-width research |
@@ -104,18 +93,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0341](docs/decisions/ADR-0341-retain-and-seal-the-transfer-qualification-panel.md) | 2026-08-24 | accepted one-shot transfer qualification result and exact 16-context target-only panel seal; width-three transfer confirmation remains unopened | Retain and seal the transfer qualification panel |
 | [ADR-0342](docs/decisions/ADR-0342-source-seal-the-width-three-transfer-confirmation-owner.md) | 2026-08-24 | accepted source-only width-three transfer-confirmation owner with exact prior-evidence reuse and failure-complete journal; every real confirmation value remains unopened | Source-seal the width-three transfer-confirmation owner |
 | [ADR-0343](docs/decisions/ADR-0343-retain-and-seal-the-width-three-transfer-confirmation.md) | 2026-08-24 | accepted complete real transfer confirmation; all five unchanged conjuncts pass on the exact untouched 16-context panel, confirming unrestricted transfer of the frozen context-local width-three mechanism within this reduced-game scope | Retain and seal the width-three transfer confirmation |
+| [ADR-0344](docs/decisions/ADR-0344-preregister-the-legal-responder-raise-keystone.md) | 2026-08-24 | accepted preregistration and source seal before the first legal responder-raise keystone invocation; no result, strategy label, latency result, or production action exists | Preregister the legal responder-raise sequence-form keystone |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0343](docs/decisions/ADR-0343-retain-and-seal-the-width-three-transfer-confirmation.md) — Retain and seal the width-three transfer confirmation.
+- Latest ADR: [ADR-0344](docs/decisions/ADR-0344-preregister-the-legal-responder-raise-keystone.md) — Preregister the legal responder-raise sequence-form keystone.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 343.
-- ADR-header SHA-256: `6dd789b40587d77c598e68fa3572245ab6edad4b342c7e6dbd17d36e63f89701`.
-- Current blockers: no responder-raise closure, repeated-actor multiway existence result, cross-street belief/certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, off-tree opponent-action result, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 344.
+- ADR-header SHA-256: `2fa90b96c8e65a1e07443382095ca411eb20c89f9193ba6962c4057e7a2edcd5`.
+- Current blockers: no legal responder-raise keystone result, h4 responder-raise coefficient result, responder-row capacity result, selector-stability result in the deeper tree, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief/certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0343](docs/decisions/ADR-0343-retain-and-seal-the-width-three-transfer-confirmation.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0344](docs/decisions/ADR-0344-preregister-the-legal-responder-raise-keystone.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

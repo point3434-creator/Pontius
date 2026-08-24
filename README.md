@@ -350,6 +350,18 @@ therefore transfers on this untouched reduced panel. It remains context-local
 reduced-game evidence, not a universal ladder, full-width production strategy,
 complete action-clock result, or strength claim.
 
+ADR-0344 now source-seals the first legal responder-raise keystone without
+opening its result. A new checked-to heads-up river bridge derives all actions
+and chip settlement from the exact six-seat betting kernel. Its frozen
+six-strategic-node tree includes both a full raise and a legal short all-in that
+the intentionally simplified legacy sizing game cannot represent. The opener
+acts twice, so the behavioral shortcut must reject and sequence-form row
+generation must match a separate 16-by-18 complete normal-form teacher. This
+is a one-hand semantic source boundary only: no h4 coefficient, row-capacity,
+multiway, latency, production-action, or strength result exists. The next act
+in this lane is its sole exclusive-create invocation from the committed source.
+The separate [prediction ledger](docs/PREDICTION_LEDGER.md) is reporting-only.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

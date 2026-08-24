@@ -1022,6 +1022,17 @@ queue:
   deeper tree, multiway closure, and legal off-tree observed raises as
   separate preregistered gates. Repeated-actor multiway closure has no
   existence proof in the current stack and remains a research risk.
+  ADR-0344 now source-seals the first finite gate without opening its result.
+  Its checked-to river bridge obtains every integer action and terminal chip
+  settlement from the authoritative six-seat kernel. The frozen tree contains
+  both a full raise from two to four and the legal short all-in from three to
+  four that the deliberately simplified legacy sizing game omits. Logical
+  player zero repeats, so sequence form must match a separately enumerated
+  16-by-18 pure-plan teacher. The one-hand gate does not independently test
+  reopening and cannot establish h4 coefficients, row capacity, selector
+  stability, multiway closure, latency, or quality. Invoke it once from the
+  committed ADR-0344 source; only a pass may open a separately preregistered
+  h4 legal responder-raise coefficient differential.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

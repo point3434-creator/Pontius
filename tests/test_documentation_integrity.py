@@ -822,6 +822,28 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_legal_responder_raise_keystone_is_source_sealed_and_bounded(self) -> None:
+        expected = {
+            "README.md": ("ADR-0344", "short all-in"),
+            "PROJECT.md": ("16-by-18", "reporting-only"),
+            "STATUS.md": ("ADR-0344", "h4 legal responder-raise"),
+            "ROADMAP.md": ("one-hand gate", "full raise from two to four"),
+            "RUNBOOK.md": (
+                "201b937d351d50e072d4f8f00268b3242855abd8f32c468b3d5870fad1682978",
+                "exclusive-create artifact",
+            ),
+            "ARCHITECTURE.md": (
+                "legal_river_continuation",
+                "eleven terminal nodes",
+            ),
+            "RISK_REGISTER.md": ("R105", "prediction ledger"),
+            "docs/PREDICTION_LEDGER.md": ("binary Brier", "Status: open"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

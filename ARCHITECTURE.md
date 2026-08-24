@@ -489,6 +489,28 @@ The result owner has no runner, consumer, solver, writer, action, or fallback
 path. It confirms only reduced-panel transfer of the context-local width-three
 mechanism and does not enter an action into the Legal Decision Spine.
 
+ADR-0344 adds `legal_river_continuation` as an additive small-game adapter from
+the exact six-seat `NoLimitBettingState` to the generic extensive-form game
+interface. It accepts only a checked-to river with two live seats and
+zero-contribution folded seats. Logical player zero is the exact root actor;
+the other live table seat is logical player one. Strategic actions are the
+literal semantic fold/check/call objects plus every integer raise-to in the
+kernel's current bounds. Transitions and terminal net chip returns remain owned
+by the betting kernel and its settlement path. The adapter enumerates literal
+raise intervals and is therefore a semantic control, not a scalable runtime.
+
+`responder_raise_semantics_keystone` is the prospective one-shot ADR-0344
+owner. It freezes a six-chip checked-to continuation with six strategic and
+eleven terminal nodes, including one full raise and one short all-in raise.
+The public schema, root betting state, sources, finite teacher, and result path
+are sealed before invocation. The repeated opener uses the existing sequence-
+form one-seat master; the independent control enumerates 16 acting and 18
+responder pure plans from direct utilities. An exclusive writer prevents
+clobber or retry. No result is yet present, and no output can enter the Legal
+Decision Spine. Reopening strategy, h4 extraction, selector stability,
+response-row capacity, multiway closure, and off-tree observations remain
+separate successors.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

@@ -1428,3 +1428,33 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     responder-raise and full-width capacity gates separately; blueprint
     training still requires its remaining trainer, checkpoint, abstraction,
     and operational slice-audit seals.
+
+62. ADR-0344 source-seals the legal responder-raise sequence-form keystone.
+    Preserve `legal_river_continuation.py` at SHA-256
+    `4c8f57f259415ece30b12add42243b65a30d3320924b469209e2d94a68064250`,
+    `responder_raise_semantics_keystone.py` at SHA-256
+    `201b937d351d50e072d4f8f00268b3242855abd8f32c468b3d5870fad1682978`,
+    its config at SHA-256
+    `5a9899ea0ced855cdb6fa30183ccab9b3235470603d7d45f688355eac15dcafd`,
+    and its two controls at SHA-256
+    `0c6a6cb7d63aa7c25ec3570605c8886ceaf780dc9fff3433d52091dc5edc396e`
+    and
+    `06b5eb1a490694adc6b0a61f7590fdb26bf01e6183943bcc4792b59ced0acba6`.
+    The prospective result path is
+    `experiments/results/responder-raise-semantics-keystone-v1.json` and must
+    be absent before launch.
+
+    After committing the complete ADR-0344 source boundary, invoke only:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m pontius.responder_raise_semantics_keystone
+    ```
+
+    The exclusive-create artifact is authority. Preserve a pass, semantic or
+    numerical rejection, exception, or infrastructure failure without delete,
+    overwrite, parameter change, or retry. A pass authorizes only a separately
+    preregistered h4 legal responder-raise coefficient differential. It does
+    not establish reopening, row capacity, selector stability, multiway
+    closure, latency, action quality, or poker strength. The reporting-only
+    prediction ledger cannot select or reinterpret the result.

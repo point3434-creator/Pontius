@@ -347,6 +347,20 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   is reduced h4 heads-up fold/call transfer evidence, not a fixed universal
   ladder, responder-raise closure, full-width capacity, production action
   width, complete-decision latency, or poker-strength evidence.
+- ADR-0344 source-seals the first legal responder-raise keystone without
+  opening its result. `LegalHeadsUpRiverContinuation` starts after one live
+  river check and derives every fold/check/call/integer raise-to action and
+  terminal chip settlement from the authoritative six-seat betting kernel.
+  The frozen two-live-seat tree distinguishes a full raise-to four after a bet
+  of two from the legal short all-in raise-to four after a bet of three; the
+  latter is intentionally absent from the legacy simplified sizing game.
+  Logical player zero repeats, so the behavioral shortcut must reject and the
+  sequence-form generator must match a separate 16-by-18 complete normal-form
+  teacher. This one-hand source boundary does not test reopening independently
+  and supplies no h4, multiway, capacity, latency, action, or quality result.
+  Its first exclusive-create invocation is the only next value-bearing act in
+  this lane. `docs/PREDICTION_LEDGER.md` is reporting-only and cannot alter any
+  gate or claim.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

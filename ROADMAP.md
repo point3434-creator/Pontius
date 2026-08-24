@@ -791,6 +791,14 @@ now seals the value-free compiler, both prospective structures, the known
   is one retained no-clobber invocation from this clean source commit. No
   transfer, capacity, latency, action, or production-width path is eligible
   first.
+  ADR-0338 now retains that sole invocation: all 376 calls are accepted, the
+  exact 1,437,835-byte journal rebinds solver-free, and all five gates first
+  pass at development raise width three. The context-local menus are not a
+  fixed ladder, and no elapsed field or production claim exists. The active
+  boundary is value-free construction and source sealing of the commit-seeded
+  96-context untouched transfer population plus semantic non-overlap against
+  both complete development pools and the maintained prior inventory. No
+  transfer qualifier or value is eligible first.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -930,6 +938,10 @@ representative and candidate value remains unopened. All four exact-legality
   376 values. The next checkpoint is its sole retained invocation from a clean
   commit and absent no-clobber artifact; every later mechanism remains closed
   until the exact journal independently rebinds.
+  ADR-0338 now closes that invocation with an exact accepted journal and a
+  solver-free width-three development selection. Next construct and source-
+  seal only the untouched transfer pool from the ADR-0337 source commit; prove
+  all-prior semantic non-overlap and open no transfer value.
 
 ## C6: Neural blueprint and leaves
 

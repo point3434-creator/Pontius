@@ -668,6 +668,50 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_nonreplay_direct_mechanism_is_source_sealed_and_value_unopened(
+        self,
+    ) -> None:
+        expected = {
+            "README.md": ("ADR-0337", "6,543"),
+            "PROJECT.md": ("ADR-0337", "1,227,894-byte"),
+            "STATUS.md": ("ADR-0337", "response-closed direct mechanism"),
+            "ROADMAP.md": ("ADR-0337", "376-call"),
+            "RUNBOOK.md": (
+                "80ba2426399eb3329d33c0d69d58bc71112bdcc5a2608be5a3e8b4b49bfc0c9c",
+                "6,543 possible transitions",
+            ),
+            "ARCHITECTURE.md": (
+                "fresh_action_width_nonreplay_greedy",
+                "dynamic-branch rebinder",
+            ),
+            "RISK_REGISTER.md": ("R98", "wrong branch"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+    def test_nonreplay_direct_result_is_rebound_and_development_only(self) -> None:
+        expected = {
+            "README.md": ("ADR-0338", "97.7775%"),
+            "PROJECT.md": ("ADR-0338", "1,437,835-byte"),
+            "STATUS.md": ("ADR-0338", "selected development raise width"),
+            "ROADMAP.md": ("ADR-0338", "untouched transfer"),
+            "RUNBOOK.md": (
+                "7317ff19c02efe9fa084802120289286c2a6eb1885b816087ba58b710ca27353",
+                "Never invoke",
+            ),
+            "ARCHITECTURE.md": (
+                "fresh_action_width_nonreplay_greedy_result",
+                "no writer",
+            ),
+            "RISK_REGISTER.md": ("R99", "fixed production ladder"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

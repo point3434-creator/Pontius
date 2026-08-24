@@ -1253,3 +1253,22 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     wrapper from a dirty tree, invoke either closed ADR-0329 entry, treat the
     synthetic width three as research, or divide command wall by 376 as live
     latency.
+56. ADR-0338 permanently closes that one-shot owner. Never invoke
+    `run_and_retain_adr0336_nonreplay_closed_finite_block_greedy` again.
+    Preserve
+    `experiments/results/fresh-action-width-nonreplay-closed-finite-block-greedy-v1.jsonl`
+    as exactly 1,437,835 bytes and 378 LF-terminated records with SHA-256
+    `8e53b303ddfce361458a725ab1167249b34c5c2321c954ccfa92b7bba07daa4b`.
+    Rebind only through
+    `verify_adr0338_nonreplay_greedy_result_artifact`; its semantic result is
+    `7317ff19c02efe9fa084802120289286c2a6eb1885b816087ba58b710ca27353`.
+    All 376 calls were accepted and raise width three is the smallest width
+    passing all five development gates. It is not a universal ladder,
+    transfer confirmation, production width, capacity result, or action. The
+    artifact contains no elapsed field; never derive latency by dividing a
+    command wall by 376. Before any new value, derive the exact ADR-0323
+    transfer seed only from source commit
+    `b4339f33dec768052208b102ad8a9f510666f40d`, then source-seal a value-free
+    96-context transfer pool and all-prior semantic non-overlap proof. Do not
+    construct a transfer qualifier, invoke a solver, or enter preparation or
+    action code at that source checkpoint.

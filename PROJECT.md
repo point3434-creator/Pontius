@@ -278,6 +278,19 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   every consumer and solver path unopened. The next boundary is exactly one
   no-clobber invocation from this clean committed source; no transfer,
   capacity, latency, action, or production-width evidence is eligible first.
+- ADR-0338 permanently closes that owner after its sole 376-call invocation.
+  The exact 1,437,835-byte, 378-record real journal contains 376 accepted
+  one-call observations, 16 complete adaptive context chains, and no rejection
+  or retry. A solver-free result owner reconstructs every policy/dual witness,
+  finite-block price, selected branch, teacher counterpart, and all five gates.
+  Raise width three is the smallest passing development width: maximum and mean
+  normalized full-regret uppers are about `2.286e-4` and `2.377e-5`, while
+  conservative aggregate-recovery lower is about `0.977775`. The 16 width-
+  three menus are context-local, not one fixed ladder. No elapsed field,
+  transfer confirmation, capacity fit, production width, or action exists.
+  The next boundary is a value-free untouched transfer pool derived from the
+  pre-value ADR-0337 source commit and proven disjoint before any transfer
+  qualifier or solver call.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

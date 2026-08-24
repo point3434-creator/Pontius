@@ -405,9 +405,22 @@ regret, width-matched teacher excess, chip-summed aggregate recovery, and all
 five inherited gates from retained evidence. Execution is receipt-gated and
 incremental; the reader independently derives the exact next task from the
 prior selected incumbent, rejecting any valid arm from an unrealized branch.
+This dynamic-branch rebinder is the journal authority; graph membership alone
+cannot authorize a task.
 The complete 378-record fixture is synthetic. No direct price, selected
 development width, transfer, capacity, action, or Legal Decision Spine input
 exists at this boundary.
+
+ADR-0338 adds a read-only result layer over the retained direct journal.
+`fresh_action_width_nonreplay_greedy_result` verifies the exact binary bytes
+before delegating to ADR-0337's solver-free dynamic-branch reader. It pins all
+376 accepted policy/dual witnesses, 16 context-result digests, four five-gate
+digests, every selected menu and subset index, and the exact maximum
+certificate-gap call. Raise width three is represented by the nominal
+`RaiseActionWidth` type and remains a development-only result. The menus retain
+integer raise-to totals rather than increments and vary by context. This layer
+has no writer, consumer, campaign, preparation, latency, transfer, or action
+dependency and cannot enter the Legal Decision Spine.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

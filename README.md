@@ -290,6 +290,15 @@ terminal path. Its fake width three is schema evidence only. The next
 checkpoint is the sole no-clobber real invocation from this clean committed
 source, not transfer, capacity, latency, action, or production width.
 
+ADR-0338 retains that sole invocation as an exact 1,437,835-byte journal and
+rebinds it without a solver or campaign call. All 376 arms were accepted and
+all five frozen gates first pass at raise width three, including a 97.7775%
+conservative aggregate-recovery lower endpoint. The selected third raise is
+context-dependent across the 16 menus, so this is a development width rather
+than a fixed ladder or production action width. The journal records no
+latency. Next is a source-only, commit-seeded untouched transfer population
+and semantic non-overlap proof before any transfer value.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

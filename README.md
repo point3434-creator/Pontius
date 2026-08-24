@@ -169,8 +169,17 @@ ADR-0325 now seals that candidate-blind qualifier without opening the pool.
 Its 192-task schedule pairs each complete universe with its anchored
 raise-width-two subset, classifies only conservative certified chip intervals,
 and owns target, exhaustion, ambiguity, consumer-rejection, and unexpected-
-failure evidence. Exactly one sealed qualification invocation is next; every
-intermediate-width and transfer value remains closed.
+failure evidence.
+
+ADR-0326 retains its one authorized invocation. The exact prefix stops at
+context 50 with 16 qualifiers, 35 nonqualifiers, zero ambiguity, and 102
+one-call accepted arms. The canonical artifact rebinds every endpoint and
+semantic identity without solving again; result SHA-256 is
+`d8bcf79a08eed1af6fece257b4917424e71123574c4a99b858c7a7e93cf2a7f5`
+and the 16-context development-panel SHA-256 is
+`7757bfb37bc28f4a23707f9b4dfae9401ffb0afa016e87890d18a18117c66792`.
+No intermediate-width value is open. The next checkpoint is source-only: seal
+the 2,495-task exhaustive bounded teacher before invoking it.
 
 ## Current checkpoint
 

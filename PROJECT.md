@@ -166,8 +166,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   schedule before a development value. Certified regret subtracts endpoints as
   `[L_full-U_subset, U_full-L_subset]`; normalized opportunity, chip reversal,
   and chip ambiguity remain separate types. Every stop and unexpected failure
-  retains its exact prefix and call-accounting status. One sealed invocation is
-  eligible, but no context or panel is yet qualified.
+  retains its exact prefix and call-accounting status.
+- ADR-0326 retains that one sealed invocation: the exact prefix ends at context
+  50 with 16 qualifiers, 35 nonqualifiers, zero ambiguity, and 102 accepted
+  one-call arms. A canonical artifact independently rebinds every endpoint and
+  request/legal/LP identity without a solver call, and seals the exact
+  16-context development panel. All width-three-through-six values remain
+  unopened; a source-sealed 2,495-task exhaustive teacher owner is next.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

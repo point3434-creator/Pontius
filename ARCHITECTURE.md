@@ -264,8 +264,16 @@ subtraction, strict three-way classification, contiguous-prefix stop state, and
 target-only panel extraction. Typed consumer failures retain the failed arm and
 any completed full arm; unexpected failures explicitly distinguish known calls
 from complete call accounting. The result digest binds float hex endpoints and
-semantic request/public/legal/LP identities. No development task has yet been
-invoked.
+semantic request/public/legal/LP identities.
+
+`fresh_action_width_qualification_result` is ADR-0326's solver-free retained-
+artifact boundary. It pins the canonical 95,083-byte result, reconstructs all
+51 opened contexts and 102 exact request/legal/LP identities from the betting
+kernel, rechecks every float-hex endpoint and conservative regret direction,
+and rebuilds the qualification and 16-context panel digests. It cannot call the
+campaign runner, a solver, or an action path. The exhaustive teacher remains an
+absent layer; its 2,495-task schedule must be source-sealed before any
+intermediate-width value.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

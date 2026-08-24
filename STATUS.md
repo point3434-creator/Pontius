@@ -15,31 +15,28 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes. Accept and source-seal
-`pontius.fresh_action_width_qualification` and its adjacent manifest. The
-module verifies the ADR-0324 source closure, deterministic pool, pool digest,
-candidate-attempt count, and complete combinatorial work ledger before it can
-build the schedule. Its public value runner additionally verifies its own
-source/protocol seal before the first ADR-0322 call.
+Accept the single ADR-0325 invocation. The frozen pool reaches its sixteenth
+material, unambiguous full-over-width-two context at pool index 50 and stops.
+Seal the exact 16-context development panel. No context after index 50, no
+raise width from three through six, no greedy candidate, and no transfer value
+was opened.
 
-The source constructs exactly 192 prospective tasks: for each of 96 contexts
-in pool order, complete integer universe first and anchored raise-width two
-second. Schedule SHA-256
-`de4b5c39cb973673d51dd9b80be5e47193d6b0ace77c77cd56471dca7eeeb6cc`
-binds every context semantic digest, arm, exact raise totals, scope, label, and
-ordering. Building and testing this schedule invokes no sizing consumer.
+This is a qualification result, not an action-width result. It establishes
+that the reduced game has enough sizing opportunity to support the already
+preregistered bounded teacher. It does not establish which width or mechanism
+is good.
 
-The inherited trust chain remains explicit. ADR-0318 binds HiGHS 1.12.0, and
+The inherited trust chain is unchanged. ADR-0318 binds HiGHS 1.12.0, and
 ADR-0319 requires one public HiGHS-DS call per canonical task. All 177 ordered
-observations pass under ADR-0320 and keep the separate consumer eligible.
-ADR-0321 leaves every legal fallback with the caller-owned legal fallback
-boundary, while ADR-0322 returns research evidence or rejection with no
-action. ADR-0323 governs the value-unopened finite-block research line, and
-ADR-0324 supplies its sealed structures.
+observations pass under ADR-0320 and keep the certified-v2 consumer eligible.
+ADR-0321 retains the caller-owned legal fallback, while ADR-0322 returns
+research evidence or rejection with no action. ADR-0323 remains the value-free
+finite-block protocol; ADR-0324's unopened remainder stays value-unopened; and
+ADR-0325 authorized this qualification exactly once.
 
 ## Active next
 
-Invoke `run_adr0323_development_qualification` exactly once against the committed ADR-0325 source and ADR-0324 pool; process contexts and full-then-width-two tasks only in sealed order; stop at the first 16 qualifiers, pool exhaustion, ambiguity, consumer rejection, or runner rejection; retain every opened certified endpoint, conservative chip-regret interval, classification, public-call count, stop state, result digest, and any complete exception chain; if and only if target-reached, derive and commit the exact 16-context development-panel identity before implementing or opening any exhaustive width-three-through-six teacher, finite-block mechanism, or transfer structure
+Implement and source-seal only the exhaustive bounded development-teacher owner against ADR-0326's exact 16-context panel before invoking it; freeze the complete full-then-anchored-subset task schedule for raise widths two through six, exact-request reuse rule, conservative normalized-regret and set-valued teacher reductions, numerical/failure stop state, and complete result schema; run only value-free schedule, provenance, combinatorial-work, import, endpoint-arithmetic, tie/dominance, failure, and corruption controls, and open no intermediate-width development value, greedy finite-block price, mechanism choice, transfer structure, preparation artifact, or production action
 
 ## Revoked authorities
 
@@ -47,7 +44,7 @@ Invoke `run_adr0323_development_qualification` exactly once against the committe
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0325](docs/decisions/ADR-0325-source-seal-candidate-blind-action-width-qualification.md) — Source-seal candidate-blind action-width qualification.
+Latest process decision: [ADR-0326](docs/decisions/ADR-0326-qualify-and-seal-the-finite-block-development-panel.md) — Qualify and seal the finite-block development panel.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -55,7 +52,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0302](docs/decisions/ADR-0302-seal-fresh-v3-structures-before-qualification-values.md) | 2026-08-23 | accepted value-free structural freeze; every fresh sizing value remains unopened | Seal fresh v3 structures before qualification values |
 | [ADR-0303](docs/decisions/ADR-0303-seal-fresh-qualified-panel-before-v3-values.md) | 2026-08-23 | accepted candidate-blind qualification pass and final dual-panel freeze; every v3 value remains unopened | Seal fresh qualified panel before v3 values |
 | [ADR-0304](docs/decisions/ADR-0304-reject-collision-repair-v3-on-qualified-recovery.md) | 2026-08-23 | accepted negative result; collision-repair v3 is rejected and parked before every integration path | Reject collision-repair v3 on qualified recovery |
 | [ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md) | 2026-08-23 | accepted prospective mechanism and replicated fresh-panel preregistration before v4 source code, structure construction, or values | Preregister capacity-filling pot-odds v4 |
@@ -79,18 +75,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0323](docs/decisions/ADR-0323-preregister-certified-finite-block-action-width-research.md) | 2026-08-23 | accepted prospective action-width research protocol before source, structures, or fresh values | Preregister certified finite-block action-width research |
 | [ADR-0324](docs/decisions/ADR-0324-source-seal-fresh-action-width-development-structures.md) | 2026-08-23 | accepted value-free development source and structural pool seal; every fresh sizing value and transfer structure remains unopened | Source-seal fresh action-width development structures |
 | [ADR-0325](docs/decisions/ADR-0325-source-seal-candidate-blind-action-width-qualification.md) | 2026-08-23 | accepted source-only candidate-blind qualification owner; all 96 development sizing contexts remain value unopened | Source-seal candidate-blind action-width qualification |
+| [ADR-0326](docs/decisions/ADR-0326-qualify-and-seal-the-finite-block-development-panel.md) | 2026-08-23 | accepted one-shot candidate-blind qualification result and exact 16-context development-panel seal; every intermediate-width value remains unopened | Qualify and seal the finite-block development panel |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0325](docs/decisions/ADR-0325-source-seal-candidate-blind-action-width-qualification.md) — Source-seal candidate-blind action-width qualification.
+- Latest ADR: [ADR-0326](docs/decisions/ADR-0326-qualify-and-seal-the-finite-block-development-panel.md) — Qualify and seal the finite-block development panel.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 325.
-- ADR-header SHA-256: `556b01ed6a7a4323cb977eacbdce3c9e6b4e56b0ea46fafc9e3fba776373b79f`.
-- Current blockers: the sealed development qualification has not been invoked and no qualified panel exists; every development sizing value remains unopened; no certified regret curve, exhaustive best-subset teacher, closed finite-block price, frozen greedy mechanism, fresh transfer panel, preparation ledger, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
+- Numbered decisions: 326.
+- ADR-header SHA-256: `665758e3422d14d68cc31c65db22144621945f334b67592ba036eaed7780326f`.
+- Current blockers: no source-sealed exhaustive teacher or width-three-through-six development value exists; no certified regret curve, exhaustive best-subset result, closed finite-block price, frozen greedy mechanism, fresh transfer panel, preparation ledger, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0325](docs/decisions/ADR-0325-source-seal-candidate-blind-action-width-qualification.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0326](docs/decisions/ADR-0326-qualify-and-seal-the-finite-block-development-panel.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

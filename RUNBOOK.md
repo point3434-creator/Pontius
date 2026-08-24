@@ -1027,3 +1027,20 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     and stop on qualifier 16, exhaustion, ambiguity, typed consumer rejection,
     or runner rejection. Do not retry, alter source, open intermediate widths,
     construct transfer, or derive a panel unless the result is target-reached.
+44. ADR-0326 retains the one authorized qualification invocation at result
+    SHA-256
+    `d8bcf79a08eed1af6fece257b4917424e71123574c4a99b858c7a7e93cf2a7f5`
+    and panel SHA-256
+    `7757bfb37bc28f4a23707f9b4dfae9401ffb0afa016e87890d18a18117c66792`.
+    The prefix contains 51 contexts and 102 accepted public calls; the
+    qualifiers are
+    `0,6,11,14,19,20,23,25,27,28,29,32,42,45,49,50`. Verify the committed
+    artifact only through
+    `verify_adr0323_qualification_result_artifact`; it must make no solver call
+    and must reproduce all endpoint, request/legal/LP, result, and panel
+    identities. A rendered terminal truncation is not loss authority: recover
+    only the original raw command record, never rerun a one-shot campaign to
+    reconstruct output. Before any width-three-through-six value, source-seal
+    the exact 2,495-task exhaustive teacher and its failure-complete result
+    boundary. Greedy pricing, transfer, preparation, and action emission remain
+    closed.

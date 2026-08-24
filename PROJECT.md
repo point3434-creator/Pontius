@@ -149,6 +149,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   solver attempts make exactly one. Accepted evidence rebinds its immutable
   request and LP; every rejection retains its cause chain and owns no action.
   No fresh action-width value, production integration, or latency claim opens.
+- ADR-0323 preregisters a fresh certified finite-block action-width research
+  line rather than a fifth fixed ladder. It derives complete integer universes
+  from the exact kernel, separates certified full-minus-subset chip intervals
+  and exhaustive best-subset teachers from a direct greedy proposer, requires
+  exact opponent-row identity and fold/call closure before a finite-block
+  price, and reserves commit-derived fresh transfer after mechanism freeze.
+  No source, structure, value, action-width result, or live policy exists yet.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

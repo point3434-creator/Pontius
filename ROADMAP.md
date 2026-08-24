@@ -704,7 +704,14 @@ now seals the value-free compiler, both prospective structures, the known
   subsets, distinct raise-to-to-increment conversion, one certified public
   proposal, and typed no-action rejection to a caller-owned fallback. ADR-0322
   now source-seals that implementation after eleven unsealed semantic and
-  corruption controls. It opens no fresh action-width value.
+  corruption controls. ADR-0323 now preregisters a fresh finite-block
+  action-width research owner before source, structures, or values. Its local
+  authority is certified full/subset interval arithmetic over complete
+  kernel-legal integer universes, with exhaustive anchored best-subset teachers
+  at raise widths two through six. A direct block price is admitted only after
+  the proposed size's complete fold/call rows are installed and their exact row
+  identities retained. Development selects; one commit-derived fresh transfer
+  population confirms or rejects. It opens no fresh action-width value.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -793,7 +800,12 @@ representative and candidate value remains unopened. All four exact-legality
   downstream of ADR-0322's now-passing source seal. The next owner must measure
   exact full-minus-subset chip regret and bounded best-subset teachers
   separately from fresh population transfer, and close both own-column and
-  opponent-row violations before production action selection.
+  opponent-row violations before production action selection. ADR-0323 now
+  freezes that owner's temporal and mathematical protocol. The immediate gate
+  is value-free: implement and seal the independent 96-context development
+  structure owner, exact kernel universes, and anchored subset schedules while
+  leaving every sizing value and the commit-derived transfer population
+  unopened.
 
 ## C6: Neural blueprint and leaves
 

@@ -996,3 +996,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     sealed closure, connect the historical oracle, treat the eleven unsealed
     controls as a sizing result, or open a fresh action-width value without a
     separate preregistration.
+41. ADR-0323 provides that separate preregistration but opens no value. The
+    next source may construct only a standalone 96-context h4 development pool,
+    exact betting-kernel integer raise universes, and lexicographic anchored
+    subset schedules for raise widths two through six. Check does not count as
+    a raise. Do not import a v1-v4 action owner, prior panel/value, legacy sizing
+    oracle, result artifact, replay, resolver, blueprint, clock, preparation,
+    or action path. Do not construct the transfer pool: its seed is derived
+    only from a later frozen mechanism commit. In later value work, compute
+    full-minus-subset intervals as `[L_full-U_subset, U_full-L_subset]`, retain
+    distinct chip and normalized controls, and call an added size priced only
+    after its exact fold/call response-row set is closed.

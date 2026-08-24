@@ -15,22 +15,35 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes, as a source-only engineering checkpoint. Accept and canonical-LF seal the
-new additive `pontius.certified_reduced_sizing_consumer_v2` and its adjacent
-manifest. ADR-0320 remains the eligibility authority: All 177 ordered
-observations pass with one public HiGHS-DS call each under HiGHS 1.12.0, keeping
-the separately preregistered consumer eligible. ADR-0321 remains the exact
-consumer contract and caller-owned legal fallback boundary.
+Open one new additive research line: certified finite-block action-width
+research. Its local authority is the ADR-0322 certified-v2 consumer applied to
+an exact kernel-derived complete integer raise-to universe and to anchored
+subsets of that same universe. It may not import or rename any v1-v4 action
+owner, tune a pot fraction, emit a betting action, enter the Legal Decision
+Spine, or make a capacity or poker-strength claim.
 
-The new module is a research evaluator only. It constructs or emits no
-`BettingAction`, imports no historical reduced-sizing consumer or v1-v4 owner,
-and has no state mutation path. An accepted result is evidence for one
-fold/call-only reduced game; a rejected result requires the caller-owned legal
-fallback and contains no candidate action.
+This is not action-abstraction v5. It asks two separate questions:
+
+1. how much certified reduced-game chip value is lost at each bounded number
+   of raise actions; and
+2. whether a context-local finite-block selection procedure can find nearly
+   the best subset without enumerating every subset in a later, wider owner.
+
+The exhaustive teacher answers the first question. A direct certified greedy
+procedure is the first untrusted proposer for the second. Reduced-cost or
+specialized pricing remains downstream until it reproduces direct finite-block
+evidence and carries the exact opponent-row identity under which it was priced.
+
+The inherited trust chain remains explicit. ADR-0318 binds HiGHS 1.12.0, and
+ADR-0319 requires one public HiGHS-DS call per canonical task. All 177 ordered
+observations pass under ADR-0320 and keep the separate consumer eligible.
+ADR-0321 leaves every legal fallback with the caller-owned legal fallback
+boundary, while ADR-0322 returns research evidence or rejection with no
+action. This protocol narrows none of those controls.
 
 ## Active next
 
-Preregister before source or values one fresh action-width research owner, not a v5 revival, that consumes only ADR-0322 accepted evidence; freezes bounded reduced-game structures and complete kernel-legal integer universes before solving; reports exact chip-valued full-minus-subset regret and an exhaustive bounded best-subset-by-width teacher separately from population transfer; gives every own-action block-pricing signal the exact incumbent opponent-row-set identity and alternates own-block and opponent-response closure before any completeness claim; reserves one wholly fresh panel for transfer; and charges preparation artifacts and complete online ledgers under ADR-0307 before any capacity or production claim
+Implement and source-seal only the additive value-free ADR-0323 development structure owner; derive every complete integer raise-to universe from the exact betting kernel; generate 96 ordered h4 river contexts from the frozen development seed and structural filter without importing any v1-v4 action owner, historical panel, sizing value, solver, result artifact, replay, resolver, or action-emission path; retain a future transfer-seed derivation from the later frozen mechanism commit but do not construct that transfer pool; run only structure, provenance, import, legality, combinatorial-work, and corruption controls and open no sizing value
 
 ## Revoked authorities
 
@@ -38,7 +51,7 @@ Preregister before source or values one fresh action-width research owner, not a
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0322](docs/decisions/ADR-0322-source-seal-the-certified-v2-reduced-sizing-consumer.md) — Source-seal the certified-v2 reduced-sizing consumer.
+Latest process decision: [ADR-0323](docs/decisions/ADR-0323-preregister-certified-finite-block-action-width-research.md) — Preregister certified finite-block action-width research.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -46,7 +59,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0299](docs/decisions/ADR-0299-width-four-passes-replicated-sizing-power.md) | 2026-08-23 | accepted candidate-blind evaluation-power result; one v3 preregistration is authorized but no mechanism or integration is accepted | Width four passes replicated sizing power |
 | [ADR-0300](docs/decisions/ADR-0300-preregister-collision-repair-v3-and-fresh-dual-panels.md) | 2026-08-23 | accepted executable mechanism and evaluation preregistration before v3 source implementation or fresh panel construction | Preregister collision-repair v3 and fresh dual panels |
 | [ADR-0301](docs/decisions/ADR-0301-freeze-collision-repair-v3-source-and-fresh-seeds.md) | 2026-08-23 | accepted source and seed freeze; no fresh panel or sizing value has been constructed | Freeze collision-repair v3 source and fresh seeds |
 | [ADR-0302](docs/decisions/ADR-0302-seal-fresh-v3-structures-before-qualification-values.md) | 2026-08-23 | accepted value-free structural freeze; every fresh sizing value remains unopened | Seal fresh v3 structures before qualification values |
@@ -70,18 +82,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0320](docs/decisions/ADR-0320-accept-the-canonical-certified-sizing-validation.md) | 2026-08-23 | accepted complete canonical correctness pass; a separately preregistered certified-v2 reduced-sizing consumer is eligible but absent | Accept the canonical certified-sizing validation |
 | [ADR-0321](docs/decisions/ADR-0321-preregister-the-certified-v2-reduced-sizing-consumer.md) | 2026-08-23 | accepted prospective research-consumer contract before source, solver invocation, or fresh action-width value | Preregister the certified-v2 reduced-sizing consumer |
 | [ADR-0322](docs/decisions/ADR-0322-source-seal-the-certified-v2-reduced-sizing-consumer.md) | 2026-08-23 | accepted source-only research consumer and unsealed controls; no fresh action-width value or production action is opened | Source-seal the certified-v2 reduced-sizing consumer |
+| [ADR-0323](docs/decisions/ADR-0323-preregister-certified-finite-block-action-width-research.md) | 2026-08-23 | accepted prospective action-width research protocol before source, structures, or fresh values | Preregister certified finite-block action-width research |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0322](docs/decisions/ADR-0322-source-seal-the-certified-v2-reduced-sizing-consumer.md) — Source-seal the certified-v2 reduced-sizing consumer.
+- Latest ADR: [ADR-0323](docs/decisions/ADR-0323-preregister-certified-finite-block-action-width-research.md) — Preregister certified finite-block action-width research.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 322.
-- ADR-header SHA-256: `dcaa61b8b7b2093aee1fee42c36319c031c701692aa7109b15c6e6beff92ba25`.
-- Current blockers: the source-sealed consumer is a two-live-seat river fold/call-only research evaluator and emits no action; no fresh action-width owner, value-free structures, exact regret curve, bounded optimal-subset teacher, certified own-block pricing, opponent-row closure, population-transfer panel, preparation hit ledger, six-player response model, Legal Decision Spine strategy bridge, h32/full-range integration, earlier streets, complete 15-second decision, or poker-strength result exists.
+- Numbered decisions: 323.
+- ADR-header SHA-256: `eb9a6eff793fc2f9b11b44ef222e314b5b0b78ab874e7193123e6dde85a1fafc`.
+- Current blockers: no ADR-0323 structure source or sealed development pool exists; no candidate-blind qualification owner, qualified development panel, certified regret interval, exhaustive best-subset teacher, closed finite-block price, frozen greedy mechanism, fresh transfer panel, preparation ledger, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0322](docs/decisions/ADR-0322-source-seal-the-certified-v2-reduced-sizing-consumer.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0323](docs/decisions/ADR-0323-preregister-certified-finite-block-action-width-research.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

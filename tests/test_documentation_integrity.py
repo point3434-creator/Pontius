@@ -413,6 +413,21 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_finite_block_action_width_preregistration_is_bounded_and_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0323", "not action-abstraction v5"),
+            "PROJECT.md": ("exhaustive best-subset teachers", "opponent-row identity"),
+            "STATUS.md": ("ADR-0323", "value-free"),
+            "ROADMAP.md": ("raise widths two through six", "Development selects"),
+            "RUNBOOK.md": ("Check does not count as a raise", "L_full-U_subset"),
+            "ARCHITECTURE.md": ("not an ordinary standalone LP column", "finite difference"),
+            "RISK_REGISTER.md": ("R85", "stale-row reduced cost"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

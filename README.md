@@ -150,6 +150,14 @@ source/runtime fail-closed behavior, complete exception chains, and no action
 emission. No fresh ladder value, complete-decision timing, or strength result
 is part of that engineering pass.
 
+ADR-0323 now preregisters a fresh certified finite-block action-width owner,
+not action-abstraction v5. Complete kernel-legal integer universes and
+exhaustive anchored best-subset teachers are the bounded authority; direct
+finite-block prices become valid only after the exact fold/call response rows
+for the proposed size are closed. Development may choose a width, while one
+commit-derived fresh panel only confirms or rejects it. No structure or fresh
+sizing value exists at this boundary.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

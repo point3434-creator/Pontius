@@ -233,6 +233,20 @@ their cause chain and require a caller-owned fallback. The module contains no
 action constructor/application or legacy/native/candidate import. Its eleven
 tests are unsealed controls, not a fresh sizing result or live strategy path.
 
+ADR-0323 prospectively places a new value-free structure and research layer
+above that consumer. The bounded authority is a complete kernel-derived
+integer raise universe plus certified full/subset re-solves and exhaustive
+anchored subsets at raise widths two through six. In the compact formulation,
+one added size introduces opener policy coordinates and responder envelopes/
+constraints together; it is therefore not an ordinary standalone LP column.
+The first pricing mechanism uses a direct closed finite difference and records
+the incumbent and augmented fold/call response-row identities. Any later
+reduced-cost proposer remains untrusted until own blocks and opponent responses
+alternate to closure. Check, private-range width, raise-action width, raise-to
+totals, bet increments, chip regret, and normalized opportunity remain distinct
+semantic objects. The future transfer population is derived only from a frozen
+mechanism commit; no transfer structure or value exists yet.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

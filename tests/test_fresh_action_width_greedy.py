@@ -30,6 +30,7 @@ from pontius.fresh_action_width_greedy import (
     ADR0323_MEAN_NORMALIZED_FULL_REGRET_LIMIT,
     ADR0323_MEAN_NORMALIZED_TEACHER_EXCESS_LIMIT,
     ADR0323_MINIMUM_AGGREGATE_RECOVERY_FLOOR,
+    ADR0330_GREEDY_FAILURE_PARTIAL_SHA256,
     CertifiedGreedyTeacherExcessInterval,
     ClosedFiniteBlockPhase,
     ConservativeAggregateRecoveryInterval,
@@ -50,6 +51,7 @@ from pontius.fresh_action_width_greedy import (
     canonical_greedy_result_bytes,
     certified_closed_finite_block_price,
     certified_greedy_teacher_excess,
+    closed_finite_block_greedy_repair_protocol_sha256,
     closed_finite_block_greedy_protocol_sha256,
     conservative_aggregate_recovery,
     normalize_full_regret,
@@ -59,11 +61,15 @@ from pontius.fresh_action_width_greedy import (
     select_greedy_candidate,
     verify_adr0329_greedy_schedule,
     verify_adr0329_greedy_source_and_dependencies,
+    verify_adr0330_greedy_invocation_failure_witness,
+    verify_adr0330_greedy_repaired_source_and_dependencies,
 )
 from pontius.fresh_action_width_greedy_seal import (
     ADR0329_GREEDY_PROTOCOL_SHA256,
     ADR0329_GREEDY_SCHEDULE_SHA256,
     ADR0329_GREEDY_SOURCE_MANIFEST,
+    ADR0330_GREEDY_REPAIR_PROTOCOL_SHA256,
+    ADR0330_GREEDY_REPAIRED_SOURCE_MANIFEST,
 )
 from pontius.fresh_action_width_qualification import (
     CertifiedChipRegretInterval,
@@ -126,21 +132,33 @@ class FreshActionWidthGreedyTests(unittest.TestCase):
 
     def test_source_protocol_and_schedule_are_sealed(self) -> None:
         self.assertEqual(
-            verify_adr0329_greedy_source_and_dependencies(),
-            ADR0329_GREEDY_SOURCE_MANIFEST["fresh_action_width_greedy.py"],
+            verify_adr0330_greedy_repaired_source_and_dependencies(),
+            ADR0330_GREEDY_REPAIRED_SOURCE_MANIFEST[
+                "fresh_action_width_greedy.py"
+            ],
         )
+        with self.assertRaisesRegex(RuntimeError, "ADR-0329 greedy source"):
+            verify_adr0329_greedy_source_and_dependencies()
         self.assertEqual(
             closed_finite_block_greedy_protocol_sha256(),
             ADR0329_GREEDY_PROTOCOL_SHA256,
+        )
+        self.assertEqual(
+            closed_finite_block_greedy_repair_protocol_sha256(),
+            ADR0330_GREEDY_REPAIR_PROTOCOL_SHA256,
+        )
+        self.assertEqual(
+            verify_adr0330_greedy_invocation_failure_witness(),
+            ADR0330_GREEDY_FAILURE_PARTIAL_SHA256,
         )
         self.assertEqual(self.schedule.digest, ADR0329_GREEDY_SCHEDULE_SHA256)
         verify_adr0329_greedy_schedule(self.schedule)
         source_root = _ROOT / "src" / "pontius"
         actual = {
             name: canonical_lf_source_sha256(source_root / name)
-            for name in ADR0329_GREEDY_SOURCE_MANIFEST
+            for name in ADR0330_GREEDY_REPAIRED_SOURCE_MANIFEST
         }
-        self.assertEqual(actual, ADR0329_GREEDY_SOURCE_MANIFEST)
+        self.assertEqual(actual, ADR0330_GREEDY_REPAIRED_SOURCE_MANIFEST)
 
     def test_complete_adaptive_graph_is_value_free_and_exact(self) -> None:
         self.assertEqual(len(self.schedule.tasks), ADR0323_GREEDY_ARM_COUNT)
@@ -441,27 +459,20 @@ class FreshActionWidthGreedyTests(unittest.TestCase):
             mean_teacher_excess_pass=True,
         )
         self.assertTrue(gate.passes)
+        gate_payload = greedy._width_gate_payload(gate)
+        self.assertEqual(gate_payload["width_gate_sha256"], gate.digest)
+        self.assertEqual(len(gate.digest), 64)
         with self.assertRaisesRegex(ValueError, "booleans"):
             replace(gate, aggregate_recovery_pass=False)
 
-    def test_preflight_failure_is_typed_zero_call_and_cannot_reach_consumer(self) -> None:
-        with (
-            patch.object(
-                greedy,
-                "verify_adr0329_greedy_source_and_dependencies",
-                side_effect=RuntimeError("synthetic source drift"),
-            ),
-            patch.object(
-                greedy,
-                "consume_certified_reduced_sizing_v2",
-                side_effect=_forbidden_consumer,
-            ),
+    def test_closed_campaign_rejects_before_reaching_consumer(self) -> None:
+        with patch.object(
+            greedy,
+            "consume_certified_reduced_sizing_v2",
+            side_effect=_forbidden_consumer,
         ):
-            result = run_adr0323_closed_finite_block_greedy_development()
-        self.assertIsInstance(result, GreedyRunnerRejected)
-        self.assertEqual(result.stage, GreedyRunnerStage.SOURCE_PREFLIGHT)
-        self.assertEqual(result.known_public_highs_ds_invocation_count, 0)
-        self.assertTrue(result.invocation_count_complete)
+            with self.assertRaisesRegex(RuntimeError, "permanently closed"):
+                run_adr0323_closed_finite_block_greedy_development()
 
     def test_execution_failure_requires_exact_sealed_provenance(self) -> None:
         result = GreedyRunnerRejected(
@@ -533,21 +544,11 @@ class FreshActionWidthGreedyTests(unittest.TestCase):
                 retain_greedy_result(result, output_path=output)
 
             reserved = Path(directory) / "reserved.json"
-
-            def _reserved_runner() -> GreedyRunnerRejected:
-                self.assertTrue(reserved.with_suffix(".json.partial").exists())
-                return result
-
-            with patch.object(
-                greedy,
-                "run_adr0323_closed_finite_block_greedy_development",
-                side_effect=_reserved_runner,
-            ):
-                returned = run_and_retain_adr0323_closed_finite_block_greedy_development(
-                    output_path=reserved
+            with self.assertRaisesRegex(RuntimeError, "permanently closed"):
+                run_and_retain_adr0323_closed_finite_block_greedy_development(
+                    output_path=reserved,
                 )
-            self.assertEqual(returned, result)
-            self.assertEqual(reserved.read_bytes(), rendered)
+            self.assertFalse(reserved.exists())
             self.assertFalse(reserved.with_suffix(".json.partial").exists())
 
 

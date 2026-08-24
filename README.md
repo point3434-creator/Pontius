@@ -210,6 +210,16 @@ recompute from retained evidence, and a no-clobber artifact witness exists
 before any future call. The next boundary is its single retained invocation;
 transfer and production remain closed.
 
+ADR-0330 records that invocation as an artifact-boundary failure, not a sizing
+result. The completed-result path certifies that all 400 calls occurred, but a
+self-referential width-gate digest raised `RecursionError` before publication.
+No final artifact, price, curve, or selected width survives; only the exact
+58-byte `.partial` witness remains. The digest cycle is repaired, both public
+campaign entries are permanently closed against replay, and the next eligible
+work is a source-sealed non-replay study on a new untouched population with
+synthetic success serialization and a write-ahead evidence journal before any
+new value.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

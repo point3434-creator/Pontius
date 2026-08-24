@@ -1093,18 +1093,19 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     Schedule SHA-256
     `a6811bbd4131f73735e2336bb064443a7d30b07e73d36abbbab2e7ca6c91569a`
     binds 2,479 unique arms and 7,848 possible parent-plus-one-raise
-    transitions. One realized branch makes exactly 400 calls. Before the one
-    authorized invocation, require a clean worktree and absent final plus
-    `.partial` paths, then call only the retained wrapper:
-
-    ```powershell
-    $env:PYTHONPATH = "src"
-    $env:PONTIUS_GREEDY_RESULT = [IO.Path]::GetFullPath("experiments/results/fresh-action-width-closed-finite-block-greedy-development-v1.json")
-    & $python -B -c "import os; from pathlib import Path; from pontius.fresh_action_width_greedy import run_and_retain_adr0323_closed_finite_block_greedy_development as run; result = run(output_path=Path(os.environ['PONTIUS_GREEDY_RESULT'])); print(type(result).__name__, result.digest, result.public_highs_ds_invocation_count)"
-    ```
-
-    Each candidate must follow own block, complete semantic fold/call response
-    closure, then certified solve. Stop on the first typed rejection; never
-    retry, change the branch, relax a conjunct, or reconstruct output with a
-    second run. Commit exact terminal bytes and a solver-free rebinder before
-    deriving transfer or interpreting a selected development width.
+    transitions. One realized branch makes exactly 400 calls. ADR-0330 records
+    that the sole authorized invocation was made from clean commit
+    `e4735165137eb9b72468439fdf0a23878f7debb0` and failed during final
+    width-gate serialization. **Do not execute this campaign again.** Both
+    public entry points now reject before I/O or solving. Preserve the exact
+    `.json.partial` witness; do not delete it, change the output path, call the
+    private executor, or infer a width from the completed-result traceback.
+48. For any non-replay successor, first canonicalize and rebind a fully
+    populated synthetic completed campaign, including every nested width-gate
+    digest. Then crash-inject after every append to an append-and-fsync
+    write-ahead evidence journal and prove that all completed observations
+    survive process termination. Derive a new population seed from the later
+    committed recovery protocol, never from lost values, and seal its teacher,
+    schedule, artifact paths, and stops before any solver call. The ADR-0329
+    panel, exact output path, and 400 calls are permanently ineligible for a
+    replacement run.

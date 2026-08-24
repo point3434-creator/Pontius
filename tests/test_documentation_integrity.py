@@ -530,21 +530,21 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
-    def test_closed_finite_block_greedy_owner_is_source_sealed(self) -> None:
+    def test_closed_finite_block_greedy_failure_and_repair_are_visible(self) -> None:
         expected = {
-            "README.md": ("ADR-0329", "exactly 400 calls"),
-            "PROJECT.md": ("7,848 possible", "all five frozen conjuncts"),
-            "STATUS.md": ("ADR-0329", "exactly once"),
-            "ROADMAP.md": ("complete adaptive graph", "no-retry development"),
+            "README.md": ("ADR-0330", "58-byte `.partial`"),
+            "PROJECT.md": ("unretained artifact failure", "write-ahead"),
+            "STATUS.md": ("ADR-0330", "permanently closed"),
+            "ROADMAP.md": ("self-referential width-gate", "non-replay"),
             "RUNBOOK.md": (
                 "a6811bbd4131f73735e2336bb064443a7d30b07e73d36abbbab2e7ca6c91569a",
-                "own block, complete semantic fold/call response",
+                "Do not execute this campaign again",
             ),
             "ARCHITECTURE.md": (
                 "fresh_action_width_greedy",
-                "eight-row own block",
+                "exact 58-byte partial witness",
             ),
-            "RISK_REGISTER.md": ("R91", "7,848-edge graph"),
+            "RISK_REGISTER.md": ("R92", "self-free semantic core"),
         }
         for relative, phrases in expected.items():
             text = _contract_text(relative)

@@ -200,6 +200,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   full regret, aggregate recovery, and width-matched teacher excess retain all
   five frozen conjuncts. One no-clobber retained invocation is next; no greedy
   value, selected width, transfer population, capacity result, or action exists.
+- ADR-0330 records the single invocation as an unretained artifact failure.
+  The completed-result path proves the exact 400-call rule was reached, but a
+  width-gate digest included itself and recursed before canonical publication.
+  The final artifact is absent; the exact 58-byte `.partial` contains no values
+  or selection. The serializer now separates digest-core and artifact-envelope
+  payloads, exact witness checks pass, and both public invocation entries are
+  permanently closed. A replay cannot recover the result. Any successor must
+  use a new commit-derived untouched population and source-seal synthetic
+  success serialization plus a write-ahead evidence journal before values.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -303,7 +303,13 @@ disjoint from the incumbent and its semantic union must equal the augmented
 row set before the certified solve phase. The result owner freezes exact
 lower-endpoint/smaller-raise choice, teacher-excess and aggregate-recovery
 arithmetic, all five width gates, typed stops, and pre-call artifact
-reservation. It remains uninvoked and cannot construct transfer or an action.
+reservation. ADR-0330 records its sole invocation as an artifact-publication
+failure: the completed-result path reached all 400 calls, but the width-gate
+digest recursively called its own artifact payload. The repaired digest hashes
+a self-free core and the artifact envelope adds that digest afterward. The
+exact 58-byte partial witness is retained, the final result is absent, and both
+public campaign entries now reject before I/O or solving. No transfer seed,
+greedy width, or action can be constructed from the lost result.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

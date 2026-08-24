@@ -96,6 +96,15 @@ ADR0323_GREEDY_ARTIFACT_RELATIVE_PATH = (
     "experiments/results/"
     "fresh-action-width-closed-finite-block-greedy-development-v1.json"
 )
+ADR0330_GREEDY_FAILURE_PARTIAL_RELATIVE_PATH = (
+    f"{ADR0323_GREEDY_ARTIFACT_RELATIVE_PATH}.partial"
+)
+ADR0330_GREEDY_FAILURE_PARTIAL_BYTES = (
+    b"adr0323 closed finite-block greedy invocation in progress\n"
+)
+ADR0330_GREEDY_FAILURE_PARTIAL_SHA256 = (
+    "957b8b862e2dac5748164aa77eda06e4ffe0e11893f8a4a5b71f717c90a3caaf"
+)
 
 
 def _require_digest(value: object, *, label: str) -> str:
@@ -2034,7 +2043,7 @@ class GreedyWidthGateResult:
 
     @property
     def digest(self) -> str:
-        return _canonical_sha256(_width_gate_payload(self))
+        return _canonical_sha256(_width_gate_digest_payload(self))
 
 
 def build_greedy_width_gate_result(
@@ -2768,8 +2777,30 @@ def closed_finite_block_greedy_protocol_sha256() -> str:
     )
 
 
+def closed_finite_block_greedy_repair_protocol_sha256() -> str:
+    """Bind ADR-0330's serializer repair and permanent no-retry closure."""
+
+    return _canonical_sha256(
+        {
+            "artifact_result": "absent-and-irrecoverable",
+            "historical_protocol_sha256": (
+                closed_finite_block_greedy_protocol_sha256()
+            ),
+            "invocation": "permanently-closed-no-retry",
+            "known_public_call_count": ADR0323_GREEDY_EXECUTED_CALL_COUNT,
+            "partial_bytes_sha256": ADR0330_GREEDY_FAILURE_PARTIAL_SHA256,
+            "partial_relative_path": ADR0330_GREEDY_FAILURE_PARTIAL_RELATIVE_PATH,
+            "serializer": (
+                "width-gate-digest-over-core-payload;artifact-adds-digest-field"
+            ),
+            "values": "not-retained-no-selection-claim",
+            "version": "adr0330-greedy-artifact-failure-repair-v1",
+        }
+    )
+
+
 def verify_adr0329_greedy_source_and_dependencies() -> str:
-    """Verify the complete greedy source closure before any consumer call."""
+    """Verify the historical, invoked ADR-0329 source closure."""
 
     from .fresh_action_width_greedy_seal import (
         ADR0329_GREEDY_ARM_COUNT,
@@ -2795,6 +2826,55 @@ def verify_adr0329_greedy_source_and_dependencies() -> str:
     ):
         raise RuntimeError("ADR-0329 greedy protocol drifted")
     return actual["fresh_action_width_greedy.py"]
+
+
+def verify_adr0330_greedy_repaired_source_and_dependencies() -> str:
+    """Verify the post-failure repair without reopening the campaign."""
+
+    from .fresh_action_width_greedy_seal import (
+        ADR0329_GREEDY_ARM_COUNT,
+        ADR0329_GREEDY_EXECUTED_CALL_COUNT,
+        ADR0329_GREEDY_PROTOCOL_SHA256,
+        ADR0329_GREEDY_TRANSITION_COUNT,
+        ADR0330_GREEDY_REPAIR_PROTOCOL_SHA256,
+        ADR0330_GREEDY_REPAIRED_SOURCE_MANIFEST,
+    )
+
+    root = Path(__file__).resolve().parent
+    actual = {
+        name: canonical_lf_source_sha256(root / name)
+        for name in ADR0330_GREEDY_REPAIRED_SOURCE_MANIFEST
+    }
+    if actual != ADR0330_GREEDY_REPAIRED_SOURCE_MANIFEST:
+        raise RuntimeError("ADR-0330 greedy repaired source closure drifted")
+    if (
+        closed_finite_block_greedy_protocol_sha256()
+        != ADR0329_GREEDY_PROTOCOL_SHA256
+        or closed_finite_block_greedy_repair_protocol_sha256()
+        != ADR0330_GREEDY_REPAIR_PROTOCOL_SHA256
+        or ADR0329_GREEDY_ARM_COUNT != ADR0323_GREEDY_ARM_COUNT
+        or ADR0329_GREEDY_TRANSITION_COUNT != ADR0323_GREEDY_TRANSITION_COUNT
+        or ADR0329_GREEDY_EXECUTED_CALL_COUNT != ADR0323_GREEDY_EXECUTED_CALL_COUNT
+    ):
+        raise RuntimeError("ADR-0330 greedy repaired protocol drifted")
+    return actual["fresh_action_width_greedy.py"]
+
+
+def verify_adr0330_greedy_invocation_failure_witness() -> str:
+    """Verify the exact surviving partial bytes and absent final artifact."""
+
+    repository_root = Path(__file__).resolve().parents[2]
+    final = repository_root / ADR0323_GREEDY_ARTIFACT_RELATIVE_PATH
+    partial = repository_root / ADR0330_GREEDY_FAILURE_PARTIAL_RELATIVE_PATH
+    if final.exists():
+        raise RuntimeError("ADR-0330 final greedy artifact unexpectedly exists")
+    observed = partial.read_bytes()
+    if (
+        observed != ADR0330_GREEDY_FAILURE_PARTIAL_BYTES
+        or sha256(observed).hexdigest() != ADR0330_GREEDY_FAILURE_PARTIAL_SHA256
+    ):
+        raise RuntimeError("ADR-0330 greedy failure witness drifted")
+    return ADR0330_GREEDY_FAILURE_PARTIAL_SHA256
 
 
 def verify_adr0329_greedy_schedule(
@@ -2859,40 +2939,11 @@ def _campaign_result(
 
 def run_adr0323_closed_finite_block_greedy_development(
 ) -> GreedyDevelopmentResult:
-    """Run the sealed development graph once; never retry a rejected arm."""
+    """Reject every post-ADR-0330 attempt to repeat the one-shot campaign."""
 
-    try:
-        source_sha256 = verify_adr0329_greedy_source_and_dependencies()
-        schedule = build_adr0323_closed_finite_block_greedy_schedule()
-        verify_adr0329_greedy_schedule(schedule)
-        teacher_result = verify_adr0323_exhaustive_teacher_result_artifact()
-        if teacher_result.campaign_result_sha256 != (
-            schedule.exhaustive_teacher_result_sha256
-        ):
-            raise RuntimeError("greedy preflight rebound another teacher result")
-        pool = verify_adr0324_structure_source_and_pool()
-    except Exception as error:
-        return GreedyRunnerRejected(
-            stage=GreedyRunnerStage.SOURCE_PREFLIGHT,
-            reason="greedy source, schedule, or teacher preflight failed",
-            pool_sha256=None,
-            qualification_result_sha256=None,
-            panel_sha256=None,
-            exhaustive_teacher_result_sha256=None,
-            schedule_sha256=None,
-            greedy_source_sha256=None,
-            completed_contexts=(),
-            current_task=None,
-            current_transition=None,
-            known_public_highs_ds_invocation_count=0,
-            invocation_count_complete=True,
-            exception_chain=_exception_chain(error),
-        )
-    return _execute_adr0323_closed_finite_block_greedy_development(
-        greedy_source_sha256=source_sha256,
-        pool=pool,
-        schedule=schedule,
-        teacher_result=teacher_result,
+    raise RuntimeError(
+        "ADR-0330 permanently closed the greedy development campaign after "
+        "its artifact-publish failure; retry is forbidden"
     )
 
 
@@ -3331,7 +3382,9 @@ def _recovery_payload(
     }
 
 
-def _width_gate_payload(result: GreedyWidthGateResult) -> dict[str, object]:
+def _width_gate_digest_payload(
+    result: GreedyWidthGateResult,
+) -> dict[str, object]:
     return {
         "aggregate_recovery": _recovery_payload(result.aggregate_recovery),
         "aggregate_recovery_pass": result.aggregate_recovery_pass,
@@ -3359,8 +3412,12 @@ def _width_gate_payload(result: GreedyWidthGateResult) -> dict[str, object]:
         "mean_teacher_excess_pass": result.mean_teacher_excess_pass,
         "passes": result.passes,
         "raise_width": result.raise_width.count,
-        "width_gate_sha256": result.digest,
     }
+
+
+def _width_gate_payload(result: GreedyWidthGateResult) -> dict[str, object]:
+    payload = _width_gate_digest_payload(result)
+    return {**payload, "width_gate_sha256": result.digest}
 
 
 def _partial_context_payload(
@@ -3552,31 +3609,14 @@ def run_and_retain_adr0323_closed_finite_block_greedy_development(
     *,
     output_path: Path,
 ) -> GreedyDevelopmentResult:
-    """Reserve the evidence path before the first future consumer call."""
+    """Reject every attempt to publish a repeat of the closed campaign."""
 
     if not isinstance(output_path, Path):
         raise TypeError("greedy artifact output path must be a Path")
-    temporary = output_path.with_suffix(f"{output_path.suffix}.partial")
-    if output_path.exists() or temporary.exists():
-        raise FileExistsError("greedy artifact or staging path already exists")
-    if not output_path.parent.is_dir():
-        raise FileNotFoundError("greedy artifact parent directory does not exist")
-    with temporary.open("xb") as stream:
-        stream.write(b"adr0323 closed finite-block greedy invocation in progress\n")
-        stream.flush()
-        os.fsync(stream.fileno())
-        result = run_adr0323_closed_finite_block_greedy_development()
-        rendered = canonical_greedy_result_bytes(result)
-        stream.seek(0)
-        stream.truncate()
-        stream.write(rendered)
-        stream.flush()
-        os.fsync(stream.fileno())
-    os.link(temporary, output_path)
-    if output_path.read_bytes() != rendered:
-        raise OSError("persisted greedy artifact differs from canonical bytes")
-    temporary.unlink()
-    return result
+    raise RuntimeError(
+        "ADR-0330 permanently closed the greedy development campaign after "
+        "its artifact-publish failure; retry is forbidden"
+    )
 
 
 __all__ = [
@@ -3595,6 +3635,9 @@ __all__ = [
     "ADR0323_MEAN_NORMALIZED_FULL_REGRET_LIMIT",
     "ADR0323_MEAN_NORMALIZED_TEACHER_EXCESS_LIMIT",
     "ADR0323_MINIMUM_AGGREGATE_RECOVERY_FLOOR",
+    "ADR0330_GREEDY_FAILURE_PARTIAL_BYTES",
+    "ADR0330_GREEDY_FAILURE_PARTIAL_RELATIVE_PATH",
+    "ADR0330_GREEDY_FAILURE_PARTIAL_SHA256",
     "CertifiedFiniteBlockPriceInterval",
     "CertifiedGreedyTeacherExcessInterval",
     "ClosedFiniteBlockCandidateEvidence",
@@ -3635,6 +3678,7 @@ __all__ = [
     "canonical_greedy_result_bytes",
     "certified_closed_finite_block_price",
     "certified_greedy_teacher_excess",
+    "closed_finite_block_greedy_repair_protocol_sha256",
     "closed_finite_block_greedy_protocol_sha256",
     "conservative_aggregate_recovery",
     "greedy_result_payload",
@@ -3646,4 +3690,6 @@ __all__ = [
     "select_greedy_candidate",
     "verify_adr0329_greedy_schedule",
     "verify_adr0329_greedy_source_and_dependencies",
+    "verify_adr0330_greedy_invocation_failure_witness",
+    "verify_adr0330_greedy_repaired_source_and_dependencies",
 ]

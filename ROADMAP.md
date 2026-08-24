@@ -744,8 +744,13 @@ now seals the value-free compiler, both prospective structures, the known
   possible response-closed transitions, the exact 400-call realized-path rule,
   lower-endpoint/smaller-raise choice, all five frozen development conjuncts,
   failure-complete evidence, and no-clobber retention are sealed without
-  opening a greedy value. The active boundary is its one retained invocation;
-  transfer remains unopened.
+  opening a greedy value. ADR-0330 records the one invocation as a terminal
+  artifact-boundary failure: 400 calls reached a completed-result path, but a
+  self-referential width-gate digest prevented publication. No result or width
+  survives, replay is permanently closed, and transfer remains unopened. The
+  active boundary is source-only: seal a genuinely new untouched-population
+  successor with synthetic success serialization and write-ahead evidence
+  survival before any new value.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -854,9 +859,12 @@ representative and candidate value remains unopened. All four exact-legality
   full-regret conjuncts; the active gate is to source-seal the complete direct
   closed finite-block greedy schedule and result owner before values. ADR-0329
   passes that gate with a complete adaptive graph and exact realized-path call
-  ledger. The active gate is one retained no-retry development invocation,
-  followed by exact artifact rebinding and selection or rejection. Transfer
-  remains downstream.
+  ledger. ADR-0330 closes its single invocation without a result after terminal
+  width-gate serialization recurses. The partial witness survives, replay and
+  transfer are forbidden, and no selected width exists. The next gate is a
+  source-sealed non-replay protocol on a new commit-derived population whose
+  synthetic success path and write-ahead journal prove evidence survival before
+  any solver call.
 
 ## C6: Neural blueprint and leaves
 

@@ -15,35 +15,33 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept and source-seal the additive
-`pontius.fresh_action_width_greedy` owner before its first development price or
-candidate value. It freezes the whole adaptive state graph, not only one
-expected path: all 2,479 anchored subset arms at raise widths two through six
-and all 7,848 legal one-raise parent-to-child transitions are immutable before
-the first direct finite difference exists.
+Record the single ADR-0329 direct closed finite-block greedy invocation as a
+terminal artifact-boundary failure. It is not a consumer rejection, numerical
+quality rejection, selected width, or negative curve. Its values and selection
+were not retained and are irrecoverable from repository evidence.
 
-No development consumer was invoked while implementing, testing, or sealing
-this source. Every focused control patches the public consumer to fail if
-value-free graph construction reaches it. The retained ADR-0328 teacher is
-named only by its exact campaign digest in the schedule; the source-only graph
-builder does not read its width values or compute a greedy price.
+Permanently close both public ADR-0329 invocation entry points. Do not delete
+the surviving `.partial`, change the output path, invoke the private executor,
+or repeat the 400 calls. A retry would violate ADR-0329's source-sealed one-shot
+contract and ADR-0288/R88's rule that a rerun cannot reconstruct lost output.
 
-This is still a reduced h4, two-live-seat, river fold/call research owner. It
-cannot emit or apply a betting action, construct transfer, enter the Legal
-Decision Spine, claim a 15-second fit, or select a production action width.
+Repair the serializer because the defect is real and would recur in any later
+owner, but do not treat repair as permission to replay the campaign. Any later
+action-width experiment must be a prospectively sealed, genuinely new study on
+an untouched population with its own evidence-preservation contract.
 
-The inherited authority remains explicit. ADR-0318 binds HiGHS 1.12.0;
+The inherited authority remains visible. ADR-0318 binds HiGHS 1.12.0;
 ADR-0319 requires one public HiGHS-DS call per canonical task; All 177 ordered
 observations pass under ADR-0320, leaving the separate consumer eligible;
 ADR-0321 retains caller-owned legal fallback; and ADR-0322 returns research
-evidence or rejection with no action. ADR-0324's value-unopened remainder stays
-value-unopened, ADR-0326's exact panel remains the only development population,
-ADR-0327's exhaustive bounded development-teacher is unchanged, and ADR-0328's
-solver-free teacher result is the only width authority.
+evidence or rejection with no action. ADR-0324's value-unopened boundary,
+ADR-0325's exactly once invocation rule, and ADR-0326/ADR-0327's exhaustive
+bounded development-teacher chain remain historical prerequisites, not
+permission to reconstruct the lost ADR-0329 result.
 
 ## Active next
 
-With a clean worktree at the committed ADR-0329 source seal, invoke `run_and_retain_adr0323_closed_finite_block_greedy_development` exactly once into its reserved canonical artifact path; traverse only the sealed evidence-selected branch, stop without retry on the first consumer or numerical rejection, retain the first terminal artifact, and then commit its exact bytes plus a solver-free rebinder and the frozen development selection or rejection before constructing any transfer population, preparation artifact, production action, or alternative pricing proposer
+Before any new sizing value, source-seal a non-replay successor on a new commit-derived untouched population; require a fully populated synthetic completed-campaign serialization test plus an append-and-fsync write-ahead evidence journal before its first solver call; bind its own teacher, schedule, seed, artifact, and no-retry failure semantics prospectively; never reuse the ADR-0329 qualified panel as a replacement run, never delete or overwrite the surviving `.partial`, and never infer a greedy width or value from the lost in-memory result
 
 ## Revoked authorities
 
@@ -51,7 +49,7 @@ With a clean worktree at the committed ADR-0329 source seal, invoke `run_and_ret
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0329](docs/decisions/ADR-0329-source-seal-the-direct-closed-finite-block-greedy-owner.md) — Source-seal the direct closed finite-block greedy owner.
+Latest process decision: [ADR-0330](docs/decisions/ADR-0330-close-the-unretained-greedy-invocation-and-repair-serialization.md) — Close the unretained greedy invocation and repair serialization.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -59,7 +57,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md) | 2026-08-23 | accepted value-free source gate; v4 source is frozen before every seeded structure and value | Freeze capacity-filling v4 source |
 | [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) | 2026-08-23 | accepted charter amendment and executable successor preregistration before action-clock or preparation-bank source | Make the action clock and preparation bank authoritative |
 | [ADR-0308](docs/decisions/ADR-0308-install-the-action-clock-and-preparation-bank.md) | 2026-08-23 | accepted runtime engineering control; no strategy-quality, preparation-utility, complete-hand, or deployment result | Install the action clock and preparation bank |
 | [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md) | 2026-08-23 | accepted value-free structural freeze; every v4 qualification and candidate value remains unopened | Seal capacity-filling v4 structures before qualification |
@@ -83,18 +80,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0327](docs/decisions/ADR-0327-source-seal-the-exhaustive-development-teacher.md) | 2026-08-23 | accepted source-only exhaustive-teacher owner and exact 2,495-task schedule seal; every intermediate-width development value remains unopened | Source-seal the exhaustive development teacher |
 | [ADR-0328](docs/decisions/ADR-0328-retain-and-rebind-the-exhaustive-development-teacher.md) | 2026-08-23 | accepted complete one-shot exhaustive-teacher result and solver-free artifact rebinder; no greedy mechanism or production action width is selected | Retain and rebind the exhaustive development teacher |
 | [ADR-0329](docs/decisions/ADR-0329-source-seal-the-direct-closed-finite-block-greedy-owner.md) | 2026-08-23 | accepted source-only complete adaptive greedy graph and failure-complete owner; every greedy price and candidate value remains unopened | Source-seal the direct closed finite-block greedy owner |
+| [ADR-0330](docs/decisions/ADR-0330-close-the-unretained-greedy-invocation-and-repair-serialization.md) | 2026-08-23 | accepted terminal artifact-boundary failure; the ADR-0329 campaign is permanently closed without a retained result or selected width | Close the unretained greedy invocation and repair serialization |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0329](docs/decisions/ADR-0329-source-seal-the-direct-closed-finite-block-greedy-owner.md) — Source-seal the direct closed finite-block greedy owner.
+- Latest ADR: [ADR-0330](docs/decisions/ADR-0330-close-the-unretained-greedy-invocation-and-repair-serialization.md) — Close the unretained greedy invocation and repair serialization.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 329.
-- ADR-header SHA-256: `8813d80608835b66636278f655c29030e824372b48f99a4e5eb78483ab40c755`.
-- Current blockers: no closed finite-block greedy price, recovery/excess curve, or selected development width exists; no fresh transfer panel, preparation ledger, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
+- Numbered decisions: 330.
+- ADR-header SHA-256: `91e31a57a3183dafd00bcc6ae51cafa01695b73223ad0dfd9a9f6a073a30f326`.
+- Current blockers: the only authorized direct greedy invocation has no retained terminal result, so no development-selected width, transfer seed, fresh transfer panel, capacity result, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0329](docs/decisions/ADR-0329-source-seal-the-direct-closed-finite-block-greedy-owner.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0330](docs/decisions/ADR-0330-close-the-unretained-greedy-invocation-and-repair-serialization.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

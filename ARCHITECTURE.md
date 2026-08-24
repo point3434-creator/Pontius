@@ -579,6 +579,35 @@ tape mutations against the result protocol. It imports no runner, observer,
 game, evaluator, optimizer, action, or write path and cannot enter the Legal
 Decision Spine.
 
+`legal_h4_selector_directions` is ADR-0350's selector-free policy-family
+compiler. It produces three one-step DCFR regret vertices partitioned by
+public-history block and reconstructs the retained ADR-0349 restricted-master
+proposal from its sealed response rows. Each endpoint changes exactly one
+public history, has a frozen full-policy digest, and is built before the target
+selector is called.
+
+`exact_selector_window_oracle` and `exact_selector_fan` are finite-game
+evidence primitives. The former independently computes Fraction-exact local
+action values, maximizing sets, fixed-tape values, and profile utilities. The
+latter linearly interpolates one player's sequence-form realization, derives
+rational optimality cells for selected response tapes, and partitions each
+section into `fixed`, `tie_unresolved`, and `switched` regions. Exact tie
+interval measure and boundary points are retained separately. Complete total-
+function identity is conservative certificate semantics; reachable-support
+identity is behavioral reporting only, so an upstream repeated-actor switch
+cannot silently turn dead downstream entries into a certificate fact.
+
+`selector_window` adds the corresponding Float64 fixed-tape scores and a
+conservative margin-reserved window. Zero allowance must reproduce the exact
+legacy margin-over-closing-slope breakpoint; a positive allowance may only
+retreat. `legal_responder_raise_h4_selector_window` is ADR-0350's prospective
+one-shot owner. On four frozen downstream-relevant rays and a 17-point dyadic
+schedule it compares exactly 136 production selector calls with the Fraction
+fan, rebinds fixed-tape affine gain rows to the maximum upper envelope and
+master epigraph direction `z >= row`, and retains both tape identities. It is
+not connected to the Legal Decision Spine and emits no action, full-width
+result, strategy label, or quality row.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

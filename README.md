@@ -415,6 +415,20 @@ latency, and the exact `27/64` finite objective is not poker quality. Next is a
 prospectively frozen selector-window gate; full-width capacity remains a
 separate lane.
 
+ADR-0350 source-seals that selector gate before opening any h4 target value.
+Four selector-free, downstream-relevant sequence-form rays—three public-block
+one-step DCFR regret vertices and the retained-master proposal—are fixed by
+full policy digest. A Fraction normal-fan teacher returns the honest three-
+valued map `fixed` / `tie_unresolved` / `switched`, including exact unresolved
+interval measure and separate tie points. Total-function tape identity alone
+gates certificates; reachable-support identity reports behavioral and phantom
+downstream changes without authority. Exact legacy breakpoints, fixed-tape
+values, maximum-envelope direction, engineered crossing/tie controls, and 136
+production selector calls on an untouched dyadic schedule are frozen. The
+60-second selector and 120-second total walls are infrastructure only. A pass
+can authorize a separate h4 selector-stable affine integration
+preregistration, not full width, action timing, action quality, or strength.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

@@ -961,6 +961,24 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_legal_h4_selector_normal_fan_is_source_sealed_and_bounded(self) -> None:
+        expected = {
+            "README.md": ("ADR-0350", "tie_unresolved"),
+            "PROJECT.md": ("ADR-0350", "136 production selector calls"),
+            "STATUS.md": ("ADR-0350", "selector-stable affine integration"),
+            "ROADMAP.md": ("ADR-0350", "normal-fan"),
+            "RUNBOOK.md": (
+                "08d8d8d9975edd8147065893ef81f0f597fe1a687a5c5a5905fe36e2fec9f866",
+                "first exclusive-create terminal",
+            ),
+            "ARCHITECTURE.md": ("exact_selector_fan", "z >= row"),
+            "RISK_REGISTER.md": ("R111", "Total-function identity"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

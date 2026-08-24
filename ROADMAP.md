@@ -1078,6 +1078,21 @@ queue:
   action latency. Next preregister a selector-window gate with a prospectively
   frozen policy family, complete tapes, tie rules, fixed-tape exact values, and
   conservative activation/envelope classifications.
+  ADR-0350 now source-seals that exact selector normal-fan gate while every h4
+  target value remains unopened. Its selector-free family contains three
+  public-block one-step DCFR regret vertices and the retained-master proposal,
+  each changing exactly one public history. A Fraction mapper uses sequence-
+  form realization interpolation and reports `fixed`, `tie_unresolved`, and
+  `switched` measures plus exact tie points. Total-function tape identity is
+  the certificate authority; reachable-support identity is a separate
+  behavioral column and never gates. Engineered crossing and full-measure tie
+  controls make both unresolved paths real. All four one-public-history rays
+  must reproduce the old exact margin/closing-slope breakpoint, and retained
+  gain rows must form the correctly directed maximum envelope. The 17-point
+  dyadic schedule fixes 136 production selector calls under bounded
+  infrastructure walls. Next invoke once from the clean source commit and
+  retain the first terminal; only a literal pass may preregister h4 selector-
+  stable affine integration.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

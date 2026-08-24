@@ -419,6 +419,22 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   second subject campaign is infrastructure, not action latency, and the
   finite objective is not strategy quality. Only a separately preregistered
   selector-window successor is authorized.
+- ADR-0350 source-seals that successor without opening an h4 target selector
+  value. Four selector-free sequence-form directions have live downstream
+  provenance: three public-block one-step DCFR regret vertices and the
+  reconstructed ADR-0349 restricted-master proposal. For each player, a
+  Fraction oracle charts the exact one-dimensional best-response normal fan
+  as `fixed`, `tie_unresolved`, or `switched`; exact unresolved interval
+  measure and zero-measure tie points are first-class outputs. Complete total-
+  function tape identity alone gates certificates, while reachable-support
+  identity and phantom downstream switches remain reporting-only. Every ray
+  must reproduce the old exact margin-over-closing-slope breakpoint, and every
+  fixed-tape gain row must sit below the maximum best-response envelope with
+  the master epigraph direction `z >= row`. The untouched 17-point dyadic
+  schedule requires exactly 136 production selector calls. Its 60-second
+  selector and 120-second total walls are infrastructure guards, not action
+  latency. A pass can authorize only a separately preregistered h4 selector-
+  stable affine integration gate; full width remains a parallel lane.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

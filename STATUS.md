@@ -15,27 +15,29 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Retain the first and only ADR-0348 public invocation from clean commit
-`c80723285073288db8515f8a6fa4921920489c80`. The exclusive-create result
-path was absent before launch. The invocation completed normally in
-`1.2332000999886077` seconds and wrote exactly 50,963 bytes. There was no
-retry, resume, overwrite, parameter change, alternate backend, exception, or
-infrastructure terminal.
+Add a Fraction-aware selector oracle independent of the production
+`best_response`, an exact sequence-form section mapper, an additive Float64
+fixed-tape selector-score primitive, a selector-free h4 direction compiler,
+and one prospective exclusive-create runner. The exact mapper enumerates a
+covering set of selected optimal tapes and their rational cells, classifies
+every open segment and boundary point, and retains the complete tape and tie
+evidence. It never uses an epsilon to choose a semantic state.
 
-The artifact reports `passed: true`; all 25 frozen gate fields are literal
-Booleans and true. Its decision is
-`authorize_legal_responder_raise_selector_stability_preregistration`. This is
-prospective authorization only. No selector-window or selector-stability
-experiment has run.
+The production selector is called only on the frozen dyadic schedule. At an
+exactly unique point its complete tape must equal the exact legal-order tape.
+At an exact tie it may select any tape that the Fraction oracle proves exactly
+optimal; the tie remains `tie_unresolved` regardless of which maximizer either
+implementation lists first. The audit retains exact fixed-tape values and
+requires the production value to agree within the frozen numerical allowance.
 
-Add `legal_responder_raise_h4_row_growth_result` as a solver-free retained
-result owner. It pins the artifact bytes, invocation commit, config and source
-closure, legal fixture, complete signatures, both 32-coordinate rows, exact
-candidate evaluations, sole restricted-master ledger, conditioning, oracle
-accounting, semantic row bytes, timing, and all-pass gates. It imports and
-calls no closed runner, observer, game, evaluator, optimizer, action, or write
-path. Fully rehashed coefficient and candidate-tape mutations are rejected by
-semantic expectations rather than only by the outer artifact digest.
+Config or execution exceptions consume the exclusive result path as typed
+failures. A pre-existing result path is never overwritten. ADR-0348's runner
+is permanently closed, and ADR-0349's solver-free owner is the only parent
+result authority used here.
+
+This is the prospectively frozen selector-window successor authorized by
+ADR-0349; the normal-fan map strengthens its measurement type without turning
+the inherited candidate tape change into confirmation evidence.
 
 The inherited trust chain remains explicit. ADR-0310 made native-simplex
 robustness the next systems question. ADR-0311's directive is Preregister the
@@ -49,26 +51,25 @@ ADR-0317's directive is Separate solver classes and prioritize the certified
 sizing adapter. ADR-0318 binds HiGHS 1.12.0, ADR-0319 requires one public
 HiGHS-DS call per canonical task, and All 177 ordered observations pass under
 ADR-0320, making the separate consumer eligible. ADR-0321 preserves
-caller-owned legal fallback, ADR-0322 returns research evidence or rejection
-with no action, ADR-0324 remains value-unopened, ADR-0325 was authorized
-exactly once, ADR-0326 and ADR-0327 govern the
-exhaustive bounded development-teacher chain, and ADR-0333 records that No
-replacement sizing value was
-opened at its source boundary. ADR-0330 remains permanently closed, ADR-0331's
-append-and-fsync discipline and ADR-0332's exclusive `xb` open remain
-authoritative, ADR-0337 remains the response-closed direct mechanism with a
-dynamic-branch rebinder, ADR-0338 alone records the selected development raise
-width, and ADR-0339's exact non-overlap comparison remains a finite absence
-claim, not representativeness evidence. ADR-0340's 192 prospective tasks
-remain distinct from ADR-0341's 94 accepted one-call arms and ADR-0343's 126
-confirmation arms. ADR-0342 alone authorized the retained confirmation
-invocation. ADR-0344, ADR-0346, and ADR-0348 remain source-only authorities;
-ADR-0345, ADR-0347, and this decision alone own their respective finite
-results. No result here weakens those authorities.
+caller-owned legal fallback, ADR-0322 returns research evidence or rejection with no
+action, ADR-0324 remains value-unopened, ADR-0325 was authorized exactly once,
+ADR-0326 and ADR-0327 govern the exhaustive bounded development-teacher chain,
+and ADR-0333 records that No replacement sizing value was opened at its source
+boundary. ADR-0330 remains permanently closed, ADR-0331's append-and-fsync
+discipline and ADR-0332's exclusive `xb` open remain authoritative, ADR-0337
+remains the response-closed direct mechanism with a dynamic-branch rebinder,
+ADR-0338 alone records the selected development raise width, and ADR-0339's
+exact non-overlap comparison remains a finite absence claim, not
+representativeness evidence. ADR-0340's 192 prospective tasks remain distinct
+from ADR-0341's 94 accepted one-call arms and ADR-0343's 126 confirmation arms.
+ADR-0342 alone authorized the retained confirmation invocation. ADR-0344,
+ADR-0346, ADR-0348, and this decision remain source-only authorities;
+ADR-0345, ADR-0347, and ADR-0349 alone own their respective finite results. No
+result or source seal here weakens those authorities.
 
 ## Active next
 
-Preregister and source-seal a legal h4 selector-window successor on the unchanged kernel tree using only prospectively frozen acting-policy perturbations, exact full response tapes, tie handling, selector call sites, fixed-tape Fraction values, row activation and envelope classification, and bounded infrastructure walls; the retained candidate tape change is an inherited observation rather than untouched confirmation, and full-width river capacity remains a separate parallel lane
+From one clean commit containing ADR-0350 and an absent legal h4 selector-fan result path, invoke the source-sealed audit exactly once and retain pass, rejection, or typed failure without changing the fixture, four directions, sequence-form coordinate, schedule, tie semantics, tape identities, exact teacher, selector call sites, affine checks, walls, or claims; a literal pass authorizes only a separately preregistered legal h4 selector-stable affine integration gate, while full-width river capacity remains a separate parallel lane
 
 ## Revoked authorities
 
@@ -76,7 +77,7 @@ Preregister and source-seal a legal h4 selector-window successor on the unchange
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0349](docs/decisions/ADR-0349-retain-and-seal-the-legal-h4-row-growth-result.md) — Retain and seal the legal h4 row-growth result.
+Latest process decision: [ADR-0350](docs/decisions/ADR-0350-preregister-the-legal-h4-selector-normal-fan-audit.md) — Preregister the legal h4 selector normal-fan audit.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -84,7 +85,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0326](docs/decisions/ADR-0326-qualify-and-seal-the-finite-block-development-panel.md) | 2026-08-23 | accepted one-shot candidate-blind qualification result and exact 16-context development-panel seal; every intermediate-width value remains unopened | Qualify and seal the finite-block development panel |
 | [ADR-0327](docs/decisions/ADR-0327-source-seal-the-exhaustive-development-teacher.md) | 2026-08-23 | accepted source-only exhaustive-teacher owner and exact 2,495-task schedule seal; every intermediate-width development value remains unopened | Source-seal the exhaustive development teacher |
 | [ADR-0328](docs/decisions/ADR-0328-retain-and-rebind-the-exhaustive-development-teacher.md) | 2026-08-23 | accepted complete one-shot exhaustive-teacher result and solver-free artifact rebinder; no greedy mechanism or production action width is selected | Retain and rebind the exhaustive development teacher |
 | [ADR-0329](docs/decisions/ADR-0329-source-seal-the-direct-closed-finite-block-greedy-owner.md) | 2026-08-23 | accepted source-only complete adaptive greedy graph and failure-complete owner; every greedy price and candidate value remains unopened | Source-seal the direct closed finite-block greedy owner |
@@ -108,18 +108,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0347](docs/decisions/ADR-0347-retain-and-seal-the-legal-h4-coefficient-result.md) | 2026-08-24 | accepted finite legal h4 coefficient identity; the sole source-sealed invocation passes every frozen gate and authorizes only a separately preregistered legal responder-row growth experiment on the same h4 tree | Retain and seal the legal h4 coefficient result |
 | [ADR-0348](docs/decisions/ADR-0348-preregister-the-legal-h4-responder-row-growth-audit.md) | 2026-08-24 | accepted preregistration and source seal before the first legal h4 responder-row growth invocation; every row-growth value, selector-stability result, action-clock result, strategy label, and production action remains unopened | Preregister the legal h4 responder-row growth audit |
 | [ADR-0349](docs/decisions/ADR-0349-retain-and-seal-the-legal-h4-row-growth-result.md) | 2026-08-24 | accepted finite legal h4 row-growth and infrastructure result; the sole source-sealed invocation passes every frozen gate, converges with the two inherited initial rows and zero generated rows, and authorizes only a separately preregistered selector-stability successor | Retain and seal the legal h4 row-growth result |
+| [ADR-0350](docs/decisions/ADR-0350-preregister-the-legal-h4-selector-normal-fan-audit.md) | 2026-08-24 | accepted preregistration and source seal before the first legal h4 selector-fan invocation; every target selector value, natural tie region, breakpoint, production tape, and policy-family result remains unopened | Preregister the legal h4 selector normal-fan audit |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0349](docs/decisions/ADR-0349-retain-and-seal-the-legal-h4-row-growth-result.md) — Retain and seal the legal h4 row-growth result.
+- Latest ADR: [ADR-0350](docs/decisions/ADR-0350-preregister-the-legal-h4-selector-normal-fan-audit.md) — Preregister the legal h4 selector normal-fan audit.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 349.
-- ADR-header SHA-256: `2eae48285b01a5227c5d540d46e188ee6468d0d2f9e3c46805f8420a6c435a01`.
-- Current blockers: no selector-stability result in the deeper tree, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief/certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 350.
+- ADR-header SHA-256: `91f916650fd1ebc5712e3ad0bfa2ccf3d258ad2ec221b4b9a1f44b2740236ad3`.
+- Current blockers: no legal h4 selector-fan result, selector-stable affine integration result on the deeper tree, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief/certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0349](docs/decisions/ADR-0349-retain-and-seal-the-legal-h4-row-growth-result.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0350](docs/decisions/ADR-0350-preregister-the-legal-h4-selector-normal-fan-audit.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

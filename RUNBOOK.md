@@ -1605,3 +1605,45 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     fixed-tape exact checks, activation/envelope directions, and walls before
     opening values. Keep preparation-bank recovery, multiway closure, off-tree
     actions, full-width capacity, action emission, and strength separate.
+
+68. ADR-0350 source-seals the legal h4 selector normal-fan audit. Preserve
+    `experiments/configs/legal-responder-raise-h4-selector-window-v1.json` at
+    SHA-256
+    `08d8d8d9975edd8147065893ef81f0f597fe1a687a5c5a5905fe36e2fec9f866`,
+    the selector-free direction compiler at
+    `0542639a491417be78415ee3019e864d256ff460adae5ae1ddc75f9e4dceaf88`,
+    the exact selector oracle at
+    `5156d8155e017c44587f900a126ddcb67f13b701e643550ad668cee06d5e2e3f`,
+    the exact fan mapper at
+    `03ddc731c1d866b728d24b999be92df89d203a14e4872da5c88a9298fa20deee`,
+    the Float64 window primitive at
+    `81189f1e4d3639e44f87fe6234ec8ec3872451de53356ee137cb84bdb860aa4b`,
+    the engineered controls at
+    `f8d24a6323eec4aeba0a7b72d0f47142dc61a62628a9aac4f6a6786cf253e975`,
+    the prospective runner at
+    `9a252e13bc51b3f713a05c9b4444ad40c544797b5119c1d97d7bb85dd693f070`,
+    and its control at
+    `3ce5a2a92b339048ef187a6ec695ee9547b2837627262f09b7ebfe16fa55ae46`.
+
+    The result path
+    `experiments/results/legal-responder-raise-h4-selector-window-v1.json`
+    must be absent at the clean source commit. After committing the complete
+    ADR-0350 boundary, invoke only:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m pontius.legal_responder_raise_h4_selector_window
+    ```
+
+    Preserve its first exclusive-create terminal without deletion, overwrite,
+    parameter change, alternate backend, schedule repair, or retry. Report
+    exact `fixed` / `tie_unresolved` / `switched` measures and tie points;
+    never break an exact tie with a tolerance. Total-function identity gates
+    certificates; reachable-support identity is reporting-only. Require the
+    four old-breakpoint differentials, fixed-tape value identities, maximum
+    gain-row envelope with master direction `z >= row`, engineered controls,
+    exactly 136 production selector calls, and bounded infrastructure walls.
+    Never call those walls action latency. A literal pass authorizes only a
+    separately preregistered h4 selector-stable affine integration gate;
+    preparation-bank recovery, multiway closure, off-tree actions, full-width
+    capacity, action emission, and strength remain separate.

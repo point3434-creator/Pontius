@@ -750,7 +750,11 @@ now seals the value-free compiler, both prospective structures, the known
   survives, replay is permanently closed, and transfer remains unopened. The
   active boundary is source-only: seal a genuinely new untouched-population
   successor with synthetic success serialization and write-ahead evidence
-  survival before any new value.
+  survival before any new value. ADR-0331 now prospectively freezes that
+  successor's commit-derived seed, all-96 semantic non-overlap gate, self-free
+  hash chain, fsynced append receipts, exact-prefix/torn-tail semantics, and
+  402-record synthetic success requirement. The active gate is its additive
+  value-free source and exact population/journal seal.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -864,7 +868,10 @@ representative and candidate value remains unopened. All four exact-legality
   transfer are forbidden, and no selected width exists. The next gate is a
   source-sealed non-replay protocol on a new commit-derived population whose
   synthetic success path and write-ahead journal prove evidence survival before
-  any solver call.
+  any solver call. ADR-0331 passes that prospective protocol boundary without
+  constructing the population or journal. Implement and source-seal only those
+  value-free owners next; qualification and every new sizing value remain
+  closed.
 
 ## C6: Neural blueprint and leaves
 

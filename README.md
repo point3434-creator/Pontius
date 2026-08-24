@@ -220,6 +220,15 @@ work is a source-sealed non-replay study on a new untouched population with
 synthetic success serialization and a write-ahead evidence journal before any
 new value.
 
+ADR-0331 preregisters that recovery without creating its population or opening
+a value. Its seed derives only from committed ADR-0330 state; all 96 new
+semantic contexts must be disjoint from all 96 original development contexts.
+Before a solver-bearing successor is eligible, one value-free owner must pass
+a canonical 402-record synthetic success journal, self-free hash chaining,
+append/flush/`fsync` receipts, exact prefix recovery, and retained torn-tail
+controls. Qualification, teacher, greedy, transfer, and action paths remain
+closed.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

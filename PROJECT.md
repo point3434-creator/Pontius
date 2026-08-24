@@ -209,6 +209,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   permanently closed. A replay cannot recover the result. Any successor must
   use a new commit-derived untouched population and source-seal synthetic
   success serialization plus a write-ahead evidence journal before values.
+- ADR-0331 prospectively freezes that non-replay recovery. The exact population
+  seed derives from commit `49044e5`; 96 new h4 contexts must be semantically
+  disjoint from the complete original 96-context pool. The first source gate is
+  value-free and must prove a canonical header + 400 observations + terminal
+  journal, self-free hash chaining, append/flush/`fsync` ordering, exact prefix
+  recovery, and byte-preserving torn-tail rejection. No new context, value,
+  panel, width, transfer seed, or action exists yet.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

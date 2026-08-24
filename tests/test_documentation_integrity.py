@@ -551,6 +551,24 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_nonreplay_action_width_recovery_is_preregistered(self) -> None:
+        expected = {
+            "README.md": ("ADR-0331", "402-record synthetic success journal"),
+            "PROJECT.md": ("complete original 96-context pool", "torn-tail"),
+            "STATUS.md": ("ADR-0331", "append-and-fsync"),
+            "ROADMAP.md": ("all-96 semantic non-overlap", "value-free source"),
+            "RUNBOOK.md": (
+                "a419d1651708dae88c451546dae5639c8d1c2840a4441b93b712802a9b2541ba",
+                "exactly 400 observations",
+            ),
+            "ARCHITECTURE.md": ("previous-envelope hash chain", "402-record"),
+            "RISK_REGISTER.md": ("R93", "replay in disguise"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

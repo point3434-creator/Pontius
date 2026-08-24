@@ -15,20 +15,22 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Record the single ADR-0329 direct closed finite-block greedy invocation as a
-terminal artifact-boundary failure. It is not a consumer rejection, numerical
-quality rejection, selected width, or negative curve. Its values and selection
-were not retained and are irrecoverable from repository evidence.
+Preregister a genuinely new action-width development study after ADR-0330's
+unretained one-shot failure. This is not permission to replay ADR-0329. It uses
+a new seed derived only from the committed failure/repair state, constructs a
+new population, and rejects every context whose semantic digest appears
+anywhere in the original 96-context ADR-0323 development pool.
 
-Permanently close both public ADR-0329 invocation entry points. Do not delete
-the surviving `.partial`, change the output path, invoke the private executor,
-or repeat the 400 calls. A retry would violate ADR-0329's source-sealed one-shot
-contract and ADR-0288/R88's rule that a rerun cannot reconstruct lost output.
+The first successor is value-free. It owns only deterministic population
+construction, exact non-overlap proof, append-and-fsync journal mechanics,
+prefix recovery, and a fully populated synthetic success exercise. It may not
+import a sizing result artifact, invoke a consumer or solver, select a panel,
+construct transfer, or emit an action.
 
-Repair the serializer because the defect is real and would recur in any later
-owner, but do not treat repair as permission to replay the campaign. Any later
-action-width experiment must be a prospectively sealed, genuinely new study on
-an untouched population with its own evidence-preservation contract.
+Only after that source and its exact identities are committed may separate
+successors source-seal candidate-blind qualification, an exhaustive teacher,
+and a direct closed finite-block mechanism. Every later value phase remains a
+separate temporal boundary.
 
 The inherited authority remains visible. ADR-0318 binds HiGHS 1.12.0;
 ADR-0319 requires one public HiGHS-DS call per canonical task; All 177 ordered
@@ -36,12 +38,12 @@ observations pass under ADR-0320, leaving the separate consumer eligible;
 ADR-0321 retains caller-owned legal fallback; and ADR-0322 returns research
 evidence or rejection with no action. ADR-0324's value-unopened boundary,
 ADR-0325's exactly once invocation rule, and ADR-0326/ADR-0327's exhaustive
-bounded development-teacher chain remain historical prerequisites, not
-permission to reconstruct the lost ADR-0329 result.
+bounded development-teacher chain remain prerequisites. ADR-0330 permanently
+closes the old campaign and supplies no value or selection to this successor.
 
 ## Active next
 
-Before any new sizing value, source-seal a non-replay successor on a new commit-derived untouched population; require a fully populated synthetic completed-campaign serialization test plus an append-and-fsync write-ahead evidence journal before its first solver call; bind its own teacher, schedule, seed, artifact, and no-retry failure semantics prospectively; never reuse the ADR-0329 qualified panel as a replacement run, never delete or overwrite the surviving `.partial`, and never infer a greedy width or value from the lost in-memory result
+Implement and source-seal only the additive value-free ADR-0331 population and evidence-durability owner; derive 96 ordered h4 river contexts from the exact frozen seed and ADR-0323 generator distribution, reject any semantic overlap with all 96 ADR-0323 development contexts, construct no qualification panel or transfer population, import no sizing result or solver, implement a self-free hash-chain journal whose every append is flushed and fsynced before a successor call can be authorized, recover exact valid prefixes without deleting torn tails, and canonicalize plus rebind one fully populated synthetic 400-observation success journal before any fresh sizing value
 
 ## Revoked authorities
 
@@ -49,7 +51,7 @@ Before any new sizing value, source-seal a non-replay successor on a new commit-
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0330](docs/decisions/ADR-0330-close-the-unretained-greedy-invocation-and-repair-serialization.md) — Close the unretained greedy invocation and repair serialization.
+Latest process decision: [ADR-0331](docs/decisions/ADR-0331-preregister-a-non-replay-action-width-recovery-study.md) — Preregister a non-replay action-width recovery study.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -57,7 +59,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) | 2026-08-23 | accepted charter amendment and executable successor preregistration before action-clock or preparation-bank source | Make the action clock and preparation bank authoritative |
 | [ADR-0308](docs/decisions/ADR-0308-install-the-action-clock-and-preparation-bank.md) | 2026-08-23 | accepted runtime engineering control; no strategy-quality, preparation-utility, complete-hand, or deployment result | Install the action clock and preparation bank |
 | [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md) | 2026-08-23 | accepted value-free structural freeze; every v4 qualification and candidate value remains unopened | Seal capacity-filling v4 structures before qualification |
 | [ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md) | 2026-08-23 | accepted negative qualification result; capacity-filling v4 is rejected and parked before every candidate value and integration path | Reject capacity-filling v4 on qualified-B numerical failure |
@@ -81,18 +82,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0328](docs/decisions/ADR-0328-retain-and-rebind-the-exhaustive-development-teacher.md) | 2026-08-23 | accepted complete one-shot exhaustive-teacher result and solver-free artifact rebinder; no greedy mechanism or production action width is selected | Retain and rebind the exhaustive development teacher |
 | [ADR-0329](docs/decisions/ADR-0329-source-seal-the-direct-closed-finite-block-greedy-owner.md) | 2026-08-23 | accepted source-only complete adaptive greedy graph and failure-complete owner; every greedy price and candidate value remains unopened | Source-seal the direct closed finite-block greedy owner |
 | [ADR-0330](docs/decisions/ADR-0330-close-the-unretained-greedy-invocation-and-repair-serialization.md) | 2026-08-23 | accepted terminal artifact-boundary failure; the ADR-0329 campaign is permanently closed without a retained result or selected width | Close the unretained greedy invocation and repair serialization |
+| [ADR-0331](docs/decisions/ADR-0331-preregister-a-non-replay-action-width-recovery-study.md) | 2026-08-23 | accepted prospective non-replay recovery protocol before population source, journal source, synthetic success evidence, or any new sizing value | Preregister a non-replay action-width recovery study |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0330](docs/decisions/ADR-0330-close-the-unretained-greedy-invocation-and-repair-serialization.md) — Close the unretained greedy invocation and repair serialization.
+- Latest ADR: [ADR-0331](docs/decisions/ADR-0331-preregister-a-non-replay-action-width-recovery-study.md) — Preregister a non-replay action-width recovery study.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 330.
-- ADR-header SHA-256: `91e31a57a3183dafd00bcc6ae51cafa01695b73223ad0dfd9a9f6a073a30f326`.
-- Current blockers: the only authorized direct greedy invocation has no retained terminal result, so no development-selected width, transfer seed, fresh transfer panel, capacity result, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
+- Numbered decisions: 331.
+- ADR-header SHA-256: `c58b056445942cce195731304829772ee871394bc2f1d1e00e8b5bcd0127b6c5`.
+- Current blockers: no ADR-0331 population source or digest, durable journal source or protocol, synthetic completed-journal pass, qualification schedule, qualified panel, exhaustive teacher, direct greedy result, selected width, transfer seed, capacity result, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0330](docs/decisions/ADR-0330-close-the-unretained-greedy-invocation-and-repair-serialization.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0331](docs/decisions/ADR-0331-preregister-a-non-replay-action-width-recovery-study.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

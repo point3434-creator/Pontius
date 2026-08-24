@@ -311,6 +311,16 @@ exact 58-byte partial witness is retained, the final result is absent, and both
 public campaign entries now reject before I/O or solving. No transfer seed,
 greedy width, or action can be constructed from the lost result.
 
+ADR-0331 preregisters an additive replacement architecture without reviving
+that campaign. A new value-free population owner must reproduce the ADR-0323
+generator distribution from a commit-derived seed and reject semantic overlap
+with every original context. Its journal uses a self-free canonical body and
+outer record digest, a previous-envelope hash chain, and an append receipt only
+after flush plus `fsync`. Readers expose an exact verified prefix and preserve
+all invalid trailing bytes. A synthetic 402-record completed path must traverse
+the real canonicalizer and rebinder before any solver-bearing source is
+eligible.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

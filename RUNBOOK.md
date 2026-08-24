@@ -1109,3 +1109,16 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     schedule, artifact paths, and stops before any solver call. The ADR-0329
     panel, exact output path, and 400 calls are permanently ineligible for a
     replacement run.
+49. ADR-0331 freezes the new population seed as
+    `pontius|adr-0331|fresh-action-width-nonreplay|population|recovery-commit=49044e58fc3a2a582fda11daba4f641da5b3e646`.
+    Its ASCII SHA-256 is
+    `a419d1651708dae88c451546dae5639c8d1c2840a4441b93b712802a9b2541ba`.
+    The next checkpoint is source-only. Reproduce 96 ordered contexts under the
+    ADR-0323 generator distribution and reject any semantic digest shared with
+    the complete original 96-context pool. Exercise one synthetic journal with
+    one header, exactly 400 observations, and one terminal record. Every record
+    hashes a self-free body, chains the prior envelope digest, and returns no
+    append receipt until `write`, flush, and `fsync` complete. Prefix recovery
+    must preserve a torn or malformed suffix byte-for-byte. Do not import a
+    consumer, solver, qualification/teacher/greedy result, transfer, resolver,
+    or action path, and open no sizing value.

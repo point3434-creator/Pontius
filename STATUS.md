@@ -15,49 +15,47 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Retain the first and only ADR-0350 public invocation from clean commit
-`fbbf49b261703add2cf4103409e957a89a15cc3b`. The exclusive-create result path
-was absent before launch. The invocation completed normally in
-`55.88032050000038` seconds and wrote exactly 1,493,122 bytes. There was no
-retry, resume, overwrite, parameter change, alternate backend, exception, or
-infrastructure terminal.
+Add `exact_tie_aware_affine_envelope`. At every exact fan boundary and open-
+cell witness it takes the Cartesian closure of the Fraction oracle's local
+maximizing-action sets. Each resulting complete total tape is re-evaluated as
+an immutable fixed response and must remain locally maximal and equal the
+exact best-response value. The product is bounded before construction; an
+overflow or a cross-product tape that is not self-consistent rejects rather
+than truncates.
 
-The artifact reports `passed: true`; all 25 recorded gate fields are literal
-Booleans and true. Its recorded decision is
-`authorize_legal_h4_selector_stable_affine_integration_preregistration`.
-ADR-0351 rejects that authorization. Four of eight exact sections have a
-reachable source tie and tie-unresolved measure one, yet the v1 certificate
-helper reports scale one. Under the already frozen semantic contract, an exact
-total-tape source tie makes a single-tape certificate window zero before the
-future slope is examined. The recorded `conservative_total_tape_window` gate
-therefore answers a weaker question than its name and protocol promised.
+For every retained tape, score the source and endpoint exactly. Sequence-form
+realization interpolation makes each fixed-response value affine along the
+section. Subtract the exact affine profile utility to obtain one deviation-
+gain row. At every critical sample, all active tapes must attain the exact
+gain, no retained row may exceed it, and the maximum retained row must equal
+it. Tapes with identical intercept and slope remain separately retained and
+are additionally reported as an affine-equivalence class. Equivalence is not
+permission to erase tape identity.
 
-Retain the exact normal-fan map as finite scientific evidence. Its exact
-partitions, tie points, tapes, production comparisons, legacy differentials,
-affine rows, and maximum-envelope algebra survive independent rebinding. Do
-not retain the recorded certificate gate or successor decision as authority.
-This is a post-result semantic correction, not an outcome-dependent gate
-relaxation: it changes a recorded pass to rejection and opens no replacement
-value.
+Add `tie_aware_affine_adapter` with three explicit modes:
 
-Add `selector_window_v2`. Source separation is now a prerequisite. If any
-selected-versus-competing source margin is less than or equal to its semantic
-reserve, the certificate returns zero regardless of whether the competing
-slope later closes, remains parallel, or separates. Only a margin strictly
-outside the reserve reaches the breakpoint calculation. The ADR-0350 v1
-helper remains byte-preserved solely for artifact provenance and is closed to
-new certificate consumers.
+- `v2_single_tape` when the exact source active set is a singleton and the v2
+  source-separation certificate has positive scale;
+- `fail_closed` when the exact source is a singleton but its numerical margin
+  does not clear the separately typed reserve; and
+- `tie_aware_maximum_envelope` when the exact source active set has more than
+  one total tape.
 
-Add `legal_responder_raise_h4_selector_fan_result` as a solver-free retained
-owner and corrected assessor. It pins the artifact bytes, invocation commit,
-config and entire ADR-0350 source closure; rebinds exact fractions, cell and
-point partitions, tape digests, source breakpoints, row algebra, scheduled
-values, production call count, total-tape and current-reachable identity
-arithmetic, controls, payload bytes, and bounded walls; and deterministically
-reports four source-tie window violations, `corrected_certificate_pass: false`, and
-`successor_authorized: false`. It imports and calls no closed runner, game,
-evaluator, selector, optimizer, action, or write path. Semantic tie, row, and
-identity mutations are rejected without relying on the artifact's outer hash.
+In the third mode, every v2 tape window must be zero. A later slope may not
+turn a tied source into a unique certificate. The complete affine row library,
+not any deterministic legal-order selector, supplies the value envelope.
+This is the tie-aware legal h4 affine-envelope successor to the rejected
+selector-window line; selector-window v2 remains the only single-tape path.
+
+Add one exclusive-create prospective runner,
+`legal_responder_raise_h4_tie_aware_affine`. It imports neither the closed
+ADR-0350 runner nor the production `best_response` selector. The Float64
+subject is the fixed-response scoring primitive at each retained row's two
+endpoints. The Fraction teacher owns active-set membership, exact values,
+envelope equality, and epigraph direction. The runner emits no action,
+strategy label, or quality row. A config error or exception consumes the
+exclusive result path as a typed failure; a pre-existing path is never
+overwritten.
 
 The inherited trust chain remains explicit. ADR-0310 made native-simplex
 robustness the next systems question. ADR-0311's directive is Preregister the
@@ -71,27 +69,27 @@ ADR-0317's directive is Separate solver classes and prioritize the certified
 sizing adapter. ADR-0318 binds HiGHS 1.12.0, ADR-0319 requires one public
 HiGHS-DS call per canonical task, and All 177 ordered observations pass under
 ADR-0320, making the separate consumer eligible. ADR-0321 preserves
-caller-owned legal fallback, ADR-0322 returns research evidence or rejection
-with no action, ADR-0324 remains value-unopened, ADR-0325 was authorized
-exactly once, ADR-0326 and ADR-0327 govern the exhaustive bounded
-development-teacher chain, and ADR-0333 records that No replacement sizing value was
-opened at its source boundary. ADR-0330 remains permanently closed, ADR-0331's
-append-and-fsync discipline and ADR-0332's exclusive `xb` open remain
-authoritative, ADR-0337 remains the response-closed direct mechanism with a
-dynamic-branch rebinder, ADR-0338 alone records the selected development raise
-width, and ADR-0339's exact non-overlap comparison remains a finite absence
-claim, not representativeness evidence. ADR-0340's 192 prospective tasks
-remain distinct from ADR-0341's 94 accepted one-call arms and ADR-0343's 126
-confirmation arms. ADR-0342 alone authorized the retained confirmation
-invocation. ADR-0344, ADR-0346, ADR-0348, and ADR-0350 remain source-only
-authorities; ADR-0345, ADR-0347, ADR-0349, and this decision alone own their
-respective finite artifacts. This decision's artifact ownership does not
-adopt its recorded successor authorization. No result here weakens the older
-authorities.
+caller-owned legal fallback, ADR-0322 returns research evidence or rejection with no
+action, ADR-0324 remains value-unopened, ADR-0325 was authorized exactly once,
+ADR-0326 and ADR-0327 govern the exhaustive bounded development-teacher chain,
+ADR-0328 retains the exhaustive teacher result and solver-free rebinder,
+and ADR-0333 records that No replacement sizing value was opened at its source
+boundary. ADR-0330 remains permanently closed, ADR-0331's append-and-fsync
+discipline and ADR-0332's exclusive `xb` open remain authoritative, ADR-0337
+remains the response-closed direct mechanism with a dynamic-branch rebinder,
+ADR-0338 alone records the selected development raise width, and ADR-0339's
+exact non-overlap comparison remains a finite absence claim, not
+representativeness evidence. ADR-0340's 192 prospective tasks remain distinct
+from ADR-0341's 94 accepted one-call arms and ADR-0343's 126 confirmation
+arms. ADR-0342 alone authorized the retained confirmation invocation.
+ADR-0344, ADR-0346, ADR-0348, ADR-0350, and this decision remain source-only
+authorities; ADR-0345, ADR-0347, ADR-0349, and ADR-0351 alone own their
+respective retained finite artifacts or interpretations. No result here
+weakens those authorities or revives ADR-0350's rejected certificate decision.
 
 ## Active next
 
-Permanently close the ADR-0350 public runner and preserve its exact artifact as a valid finite fan map with rejected certificate authority; next preregister a tie-aware legal h4 affine-envelope integration recovery that retains every exactly active tied row, uses selector-window v2 only for single-tape certificates whose source margins all clear their semantic reserve, independently rebinds the maximum-envelope and epigraph directions, and opens no new target value until that separate source seal; full-width river capacity remains a parallel lane
+From one clean commit containing ADR-0352 and an absent tie-aware result path, invoke the exclusive legal h4 integration runner exactly once and retain pass, rejection, or typed failure without changing the active-set definition, v2 dispatch, four inherited directions, schedule, identity authority, pruned-tape schema, envelope/epigraph directions, walls, or claim boundary; a pass authorizes only preregistration of a fresh untouched tie-aware affine confirmation, while literal full-width river capacity remains a separate parallel lane
 
 ## Revoked authorities
 
@@ -99,7 +97,7 @@ Permanently close the ADR-0350 public runner and preserve its exact artifact as 
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0351](docs/decisions/ADR-0351-retain-the-legal-h4-fan-map-and-reject-certificate-authority.md) — Retain the legal h4 fan map and reject certificate authority.
+Latest process decision: [ADR-0352](docs/decisions/ADR-0352-preregister-the-legal-h4-tie-aware-affine-envelope-integration.md) — Preregister the legal h4 tie-aware affine-envelope integration.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -107,7 +105,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0328](docs/decisions/ADR-0328-retain-and-rebind-the-exhaustive-development-teacher.md) | 2026-08-23 | accepted complete one-shot exhaustive-teacher result and solver-free artifact rebinder; no greedy mechanism or production action width is selected | Retain and rebind the exhaustive development teacher |
 | [ADR-0329](docs/decisions/ADR-0329-source-seal-the-direct-closed-finite-block-greedy-owner.md) | 2026-08-23 | accepted source-only complete adaptive greedy graph and failure-complete owner; every greedy price and candidate value remains unopened | Source-seal the direct closed finite-block greedy owner |
 | [ADR-0330](docs/decisions/ADR-0330-close-the-unretained-greedy-invocation-and-repair-serialization.md) | 2026-08-23 | accepted terminal artifact-boundary failure; the ADR-0329 campaign is permanently closed without a retained result or selected width | Close the unretained greedy invocation and repair serialization |
 | [ADR-0331](docs/decisions/ADR-0331-preregister-a-non-replay-action-width-recovery-study.md) | 2026-08-23 | accepted prospective non-replay recovery protocol before population source, journal source, synthetic success evidence, or any new sizing value | Preregister a non-replay action-width recovery study |
@@ -131,18 +128,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0349](docs/decisions/ADR-0349-retain-and-seal-the-legal-h4-row-growth-result.md) | 2026-08-24 | accepted finite legal h4 row-growth and infrastructure result; the sole source-sealed invocation passes every frozen gate, converges with the two inherited initial rows and zero generated rows, and authorizes only a separately preregistered selector-stability successor | Retain and seal the legal h4 row-growth result |
 | [ADR-0350](docs/decisions/ADR-0350-preregister-the-legal-h4-selector-normal-fan-audit.md) | 2026-08-24 | accepted preregistration and source seal before the first legal h4 selector-fan invocation; every target selector value, natural tie region, breakpoint, production tape, and policy-family result remains unopened | Preregister the legal h4 selector normal-fan audit |
 | [ADR-0351](docs/decisions/ADR-0351-retain-the-legal-h4-fan-map-and-reject-certificate-authority.md) | 2026-08-24 | accepted retained finite legal h4 selector normal-fan map and post-result semantic rejection; the sole ADR-0350 invocation preserves exact fan evidence but its recorded all-pass vector does not authorize selector-stable affine integration because the v1 certificate failed to collapse four reachable source ties to zero | Retain the legal h4 fan map and reject certificate authority |
+| [ADR-0352](docs/decisions/ADR-0352-preregister-the-legal-h4-tie-aware-affine-envelope-integration.md) | 2026-08-24 | accepted source-only preregistration after ADR-0351's certificate rejection; the exact active-row closure, typed v2-or-envelope adapter, complete source/current pruned-tape serialization, and exclusive runner are sealed, while every h4 integration result remains unopened | Preregister the legal h4 tie-aware affine-envelope integration |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0351](docs/decisions/ADR-0351-retain-the-legal-h4-fan-map-and-reject-certificate-authority.md) — Retain the legal h4 fan map and reject certificate authority.
+- Latest ADR: [ADR-0352](docs/decisions/ADR-0352-preregister-the-legal-h4-tie-aware-affine-envelope-integration.md) — Preregister the legal h4 tie-aware affine-envelope integration.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 351.
-- ADR-header SHA-256: `adaf5903fb2ac1e8fa6a2d08a5750b264c1a6277ec48519f0719d9768a72d664`.
-- Current blockers: no accepted selector-stable or tie-aware affine integration result in the deeper tree, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief/certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 352.
+- ADR-header SHA-256: `4288c88fad570e112d1d234570731793ce6d377a1fa7be38bb53da7e324351eb`.
+- Current blockers: no accepted tie-aware affine integration result or untouched confirmation, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief/certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0351](docs/decisions/ADR-0351-retain-the-legal-h4-fan-map-and-reject-certificate-authority.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0352](docs/decisions/ADR-0352-preregister-the-legal-h4-tie-aware-affine-envelope-integration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

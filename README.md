@@ -438,8 +438,16 @@ reported scale one because a nonclosing slope bypassed the zero source margin.
 A solver-free owner records four such violations and returns no successor
 authority. `selector_window_v2` now fails closed at every source margin inside
 the semantic reserve before inspecting slope. The old helper and public runner
-are permanently closed. Next is a separately preregistered tie-aware active-
-row-envelope recovery, not a single stable-tape integration.
+are permanently closed.
+
+ADR-0352 now source-seals the tie-aware active-row recovery without opening
+its h4 result. Exact local maximizers are closed into complete total tapes and
+all of their affine rows are retained. `selector_window_v2` is available only
+to exact singleton sources; tied sources dispatch to the complete maximum
+envelope after every v2 window fails closed. Both source and current pruned
+tapes are serialized, while total-function identity remains the certificate
+authority. The prospective same-fixture run is development integration only,
+not untouched confirmation, full-width capacity, action latency, or quality.
 
 ## Current checkpoint
 

@@ -1000,6 +1000,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_legal_h4_tie_aware_affine_recovery_is_source_sealed(self) -> None:
+        expected = {
+            "README.md": ("ADR-0352", "complete maximum envelope"),
+            "PROJECT.md": ("ADR-0352", "both source and current pruned tapes"),
+            "STATUS.md": ("ADR-0352", "fresh untouched tie-aware affine"),
+            "ROADMAP.md": ("ADR-0352", "development integration"),
+            "RUNBOOK.md": (
+                "9dae1dbe1c93e1952699f7a2bc11f3837bed2e2cf0296e0bafc5c5b87dceff3f",
+                "first exclusive terminal",
+            ),
+            "ARCHITECTURE.md": (
+                "exact_tie_aware_affine_envelope",
+                "source and current reachable-pruned tapes",
+            ),
+            "RISK_REGISTER.md": ("R113", "contaminated same-fixture"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

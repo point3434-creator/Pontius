@@ -1107,6 +1107,19 @@ queue:
   prerequisite before slope. Next preregister a tie-aware active-row-envelope
   integration recovery; never replay the closed mapper and never manufacture
   a unique tape from an unresolved set.
+  ADR-0352 now source-seals that recovery while leaving every public h4
+  integration value unopened. The exact oracle retains the bounded Cartesian
+  closure of local maximizing total tapes, including distinct tapes with an
+  identical affine row. The adapter uses v2 only for exact singleton sources;
+  ties must fail closed in v2 and enter through the complete maximum envelope.
+  Every identity pair carries both source and current pruned tapes, with total
+  identity authoritative and reachable identity descriptive. The one-shot
+  runner has zero production best-response calls and checks the exact envelope
+  plus master direction `z >= row`. Pre-seal alternate-tape reconnaissance is
+  disclosed and is not a gate, so a later same-fixture pass is development
+  integration only and may authorize only a separately sealed fresh
+  confirmation. Invoke once from the clean source commit and retain the first
+  terminal.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

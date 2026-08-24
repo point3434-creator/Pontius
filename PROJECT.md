@@ -451,6 +451,20 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   returns zero. The byte-preserved v1 helper is closed to new consumers. Next
   preregister a tie-aware active-row-envelope recovery, not a single stable-
   tape integration; full width remains a parallel lane.
+- ADR-0352 source-seals that recovery without opening its public h4 result.
+  The exact small-game oracle takes the bounded Cartesian closure of every
+  local Fraction maximizer at each fan boundary and open-cell witness,
+  rechecks every complete total tape, and retains every affine gain row even
+  when multiple tapes share one row. A typed adapter reserves
+  `selector_window_v2` for exact singleton sources; tied sources require zero
+  v2 windows and the complete maximum envelope. Every scheduled identity pair
+  serializes both source and current pruned tapes, so total-function and
+  reachable-support identity can later rebind independently; only total
+  identity has certificate authority. Synthetic crossing, positive-measure
+  tie, and repeated-actor controls pass. The same-fixture h4 runner remains
+  uninvoked, its result path absent, and any later pass is development
+  integration rather than untouched confirmation because pre-seal alternate-
+  tape reconnaissance is disclosed and excluded from the gates.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

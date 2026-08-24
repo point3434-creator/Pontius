@@ -1685,3 +1685,42 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     certificate consumers. Next preregister a tie-aware active-row-envelope
     recovery. Keep preparation-bank recovery, multiway closure, off-tree
     actions, full-width capacity, action emission, and strength separate.
+
+70. ADR-0352 source-seals the legal h4 tie-aware affine-envelope recovery.
+    Preserve the config at SHA-256
+    `9dae1dbe1c93e1952699f7a2bc11f3837bed2e2cf0296e0bafc5c5b87dceff3f`,
+    exact active-row oracle at
+    `ee922a9cf15be88cc2566a8c0b45496dd0db6cb5856b738f52ecbaf7429c6695`,
+    typed adapter at
+    `3982179667e185148560b8fb3f2e882f29e6ab185c7295be882beab3f0f364c5`,
+    prospective runner at
+    `99b7db5e7ee49d35769fb4f41a72ef251469df8439ac52a924b7edefcdf4f28d`,
+    oracle/adapter control at
+    `00c5f5c736ec5c327f479c715f558560d81707abd15134ac1190b7582b1c4aec`,
+    and runner control at
+    `dd691d01b271dfabb599a68df338602286e304287f35b7ae6fc1fc0a8709d92e`.
+
+    The result path
+    `experiments/results/legal-responder-raise-h4-tie-aware-affine-v1.json`
+    must be absent at the clean source commit. After committing the complete
+    ADR-0352 boundary, invoke at most once:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m pontius.legal_responder_raise_h4_tie_aware_affine
+    ```
+
+    Retain the first exclusive terminal. Never change the active-set
+    definition, four inherited directions, dyadic schedule, v2 dispatch,
+    identity authority, pruned-tape schema, envelope direction, walls, or
+    claims after seeing it. Every tied source must have zero v2 windows and
+    retain all exact local-maximizer total tapes. Every identity comparison
+    must carry both source and current pruned tapes. Require the exact maximum
+    envelope and master direction `z >= row`; reachable identity remains
+    reporting-only.
+
+    Pre-seal alternate-tape endpoint equivalence was development
+    reconnaissance and is excluded from every gate. A pass is same-fixture
+    integration evidence only and may authorize only a fresh untouched
+    confirmation preregistration. It is not full-width capacity, action-clock
+    latency, action emission, decision quality, or poker strength.

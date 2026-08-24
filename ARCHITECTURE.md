@@ -629,6 +629,25 @@ zero before slope is examined. Future tie-aware integration must retain every
 exactly active affine row under the maximum envelope; v2 may certify one tape
 only when every source comparison clears that prerequisite.
 
+ADR-0352 adds the source-sealed recovery without changing the closed v1
+lineage. `exact_tie_aware_affine_envelope` enriches each exact normal-fan
+section with the bounded Cartesian closure of local Fraction maximizers at
+every boundary and open-cell witness. Every resulting complete tape is
+re-evaluated under its own fixed continuation. Its source/endpoint values
+become one exact affine gain row; every active row must equal the exact gain,
+all rows must lie below it, and their maximum must reproduce it. Affine-
+equivalent tapes remain separate members of the active set.
+
+`tie_aware_affine_adapter` is a typed dispatcher. An exact singleton may use
+`selector_window_v2`; a singleton inside the numerical reserve rejects; and
+an exact tied source can use only the complete maximum-row envelope after all
+of its v2 windows return zero. `legal_responder_raise_h4_tie_aware_affine` is
+the prospective exclusive owner. It makes no production best-response call,
+serializes both source and current reachable-pruned tapes for every identity
+pair, and independently checks `z >= row`. The h4 result path remains absent.
+Its eventual same-fixture result can be development integration only, not
+untouched confirmation or a production consumer claim.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

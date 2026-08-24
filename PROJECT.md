@@ -465,6 +465,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   uninvoked, its result path absent, and any later pass is development
   integration rather than untouched confirmation because pre-seal alternate-
   tape reconnaissance is disclosed and excluded from the gates.
+- ADR-0353 retains the first and only ADR-0352 terminal as a bounded scientific
+  rejection. The clean invocation wrote a 961-byte artifact after the exact
+  local-maximizer Cartesian product exceeded the frozen 256-tape per-sample
+  bound. It serialized no completed section, row, adapter decision, envelope,
+  or target cardinality. The runner is permanently closed; increasing the
+  bound and replaying would be a post-outcome relaxation. A solver-free owner
+  binds the failure and complete source closure. The next source-only recovery
+  must represent the total active choice set factorially, keep reachable
+  identity descriptive, and prove a compact affine-row quotient against
+  exhaustive controls before any separately preregistered h4 diagnostic.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

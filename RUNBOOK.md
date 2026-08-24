@@ -1724,3 +1724,22 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     integration evidence only and may authorize only a fresh untouched
     confirmation preregistration. It is not full-width capacity, action-clock
     latency, action emission, decision quality, or poker strength.
+
+71. ADR-0353 permanently closes that one-shot owner. Never invoke
+    `pontius.legal_responder_raise_h4_tie_aware_affine` again. Preserve
+    `experiments/results/legal-responder-raise-h4-tie-aware-affine-v1.json`
+    as exactly 961 bytes with SHA-256
+    `7608abd221114ed6143aa7fbf9af510a09024442f85fd8f4f3f5ed53e036f652`.
+    Rebind it only through
+    `verify_adr0353_legal_h4_tie_aware_affine_result_artifact`; the retained
+    terminal is `reject_legal_h4_tie_aware_affine_integration` after the exact
+    local-maximizer Cartesian product exceeded the frozen 256-tape per-sample
+    bound. The artifact contains no completed section, exact cardinality, row,
+    adapter mode, envelope, or target gate vector. Do not raise the bound,
+    retry, infer where it fired, divide the 64.651-second infrastructure wall
+    into latency, or treat the rejection as a quality prior. Before any new h4
+    value, source-seal a factorized total active-set identity and compact exact
+    affine-row quotient with exhaustive-equivalence, product-overflow,
+    repeated-actor total/reachable, engineered-tie, legacy-breakpoint, and
+    distinct-row fail-closed controls. A separate prospective diagnostic must
+    own the next h4 result path.

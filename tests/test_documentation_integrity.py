@@ -1021,6 +1021,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_legal_h4_tie_aware_bound_rejection_is_retained(self) -> None:
+        expected = {
+            "README.md": ("ADR-0353", "256-tape"),
+            "PROJECT.md": ("ADR-0353", "961-byte"),
+            "STATUS.md": ("ADR-0353", "factorized exact active-set"),
+            "ROADMAP.md": ("ADR-0353", "Never replay"),
+            "RUNBOOK.md": (
+                "7608abd221114ed6143aa7fbf9af510a09024442f85fd8f4f3f5ed53e036f652",
+                "Never invoke",
+            ),
+            "ARCHITECTURE.md": (
+                "legal_responder_raise_h4_tie_aware_affine_result",
+                "factorized",
+            ),
+            "RISK_REGISTER.md": ("R114", "Cartesian materialization"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

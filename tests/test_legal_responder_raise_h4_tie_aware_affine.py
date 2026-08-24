@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import ast
+import hashlib
 import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
+import pontius.legal_responder_raise_h4_tie_aware_affine as _runner_module
 from pontius.legal_responder_raise_h4_tie_aware_affine import (
     _CONFIG,
     _OUTPUT,
@@ -21,11 +24,29 @@ _ROOT = Path(__file__).parents[1]
 _SOURCE = (
     _ROOT / "src/pontius/legal_responder_raise_h4_tie_aware_affine.py"
 )
+_HISTORICAL_CONTROL_SHA256 = (
+    "dd691d01b271dfabb599a68df338602286e304287f35b7ae6fc1fc0a8709d92e"
+)
+_ORIGINAL_SHA256 = _runner_module._sha256
+
+
+def _parse_as_invocation_source(config: dict[str, object]) -> dict[str, object]:
+    """Reproduce config parsing against the sealed historical control hash."""
+
+    def historical_sha256(path: Path) -> str:
+        if path.resolve() == Path(__file__).resolve():
+            return _HISTORICAL_CONTROL_SHA256
+        return _ORIGINAL_SHA256(path)
+
+    with patch.object(_runner_module, "_sha256", side_effect=historical_sha256):
+        return _parse_config(config)
 
 
 class LegalResponderRaiseH4TieAwareAffineTests(unittest.TestCase):
-    def test_frozen_config_parses_without_opening_target(self) -> None:
-        parsed = _parse_config(json.loads(_CONFIG.read_text(encoding="utf-8")))
+    def test_frozen_config_parses_without_invoking_closed_target(self) -> None:
+        parsed = _parse_as_invocation_source(
+            json.loads(_CONFIG.read_text(encoding="utf-8"))
+        )
         self.assertEqual(
             parsed["evidence_stage"],
             "preregistered_after_adr0351_before_tie_aware_h4_run",
@@ -36,7 +57,12 @@ class LegalResponderRaiseH4TieAwareAffineTests(unittest.TestCase):
             parsed["same_fixture_evidence_scope"],
             "development_integration_only_not_untouched_confirmation",
         )
-        self.assertFalse(_OUTPUT.exists())
+        raw = _OUTPUT.read_bytes()
+        self.assertEqual(len(raw), 961)
+        self.assertEqual(
+            hashlib.sha256(raw).hexdigest(),
+            "7608abd221114ed6143aa7fbf9af510a09024442f85fd8f4f3f5ed53e036f652",
+        )
 
     def test_config_has_no_outcome_dependent_tie_or_row_gate(self) -> None:
         config = json.loads(_CONFIG.read_text(encoding="utf-8"))
@@ -59,11 +85,11 @@ class LegalResponderRaiseH4TieAwareAffineTests(unittest.TestCase):
         mutated = dict(config)
         mutated["certificate_identity_authority"] = "reachable_support"
         with self.assertRaises(ValueError):
-            _parse_config(mutated)
+            _parse_as_invocation_source(mutated)
         mutated = dict(config)
         mutated["expected_exact_tie_envelope_sha256"] = "0" * 64
         with self.assertRaises(ValueError):
-            _parse_config(mutated)
+            _parse_as_invocation_source(mutated)
 
     def test_identity_record_serializes_both_pruned_tapes(self) -> None:
         source_total = (("root", "stop"), ("child", "first"))

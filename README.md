@@ -449,6 +449,16 @@ tapes are serialized, while total-function identity remains the certificate
 authority. The prospective same-fixture run is development integration only,
 not untouched confirmation, full-width capacity, action latency, or quality.
 
+ADR-0353 retains that run's first terminal as a bounded rejection. The exact
+local-maximizer Cartesian product exceeded the frozen 256-tape per-sample bound
+before any completed h4 section, affine row, or envelope was serialized. The
+961-byte artifact and clean source closure now have a solver-free owner; the
+public runner is permanently closed. The successor must preserve the total
+active strategy set symbolically, keep reachable-support identity separate,
+and validate a compact affine-row quotient against exhaustive controls before
+another h4 target value is opened. This is representation evidence, not action
+latency, full-width capacity, decision quality, or poker strength.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

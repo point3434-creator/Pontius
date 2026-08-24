@@ -1,0 +1,27 @@
+{
+  "config_sha256": "9dae1dbe1c93e1952699f7a2bc11f3837bed2e2cf0296e0bafc5c5b87dceff3f",
+  "decision": "reject_legal_h4_tie_aware_affine_integration",
+  "environment": {
+    "git": {
+      "commit": "b7c1ecc7f9113cbd8ddb6e27dfa4b2372534c4ff",
+      "dirty": false,
+      "strict_status": true
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "runtime": {
+      "backend": "cpu_float64_fixed_rows_plus_fraction_active_set"
+    }
+  },
+  "failure": {
+    "message": "exact active-tape closure exceeds its frozen bound",
+    "stage": "tie_aware_affine",
+    "type": "RuntimeError"
+  },
+  "implementation_sha256": "99b7db5e7ee49d35769fb4f41a72ef251469df8439ac52a924b7edefcdf4f28d",
+  "passed": false,
+  "schema_version": 1,
+  "status": "legal_responder_raise_h4_tie_aware_affine_failed",
+  "strategy_quality_claim": null,
+  "total_seconds": 64.65051910001785
+}

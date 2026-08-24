@@ -1120,6 +1120,16 @@ queue:
   integration only and may authorize only a separately sealed fresh
   confirmation. Invoke once from the clean source commit and retain the first
   terminal.
+  ADR-0353 retains that terminal as a clean rejection. The 961-byte artifact
+  records only that at least one sampled exact local-maximizer product exceeded
+  the frozen 256-tape bound after 64.651 seconds of complete infrastructure
+  work. It contains no completed direction, section, active-set count, row,
+  envelope, or adapter result. Never replay the owner or raise the observed
+  bound. Next source-seal a factorized total active-set identity and compact
+  exact affine-row quotient, prove both against exhaustive and overflow
+  controls, and open no h4 target value until a separate diagnostic is
+  preregistered. This representation arc remains independent of literal full-
+  width capacity and supplies no action-clock or quality prior.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

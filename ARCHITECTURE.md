@@ -648,6 +648,23 @@ pair, and independently checks `z >= row`. The h4 result path remains absent.
 Its eventual same-fixture result can be development integration only, not
 untouched confirmation or a production consumer claim.
 
+ADR-0353 closes that prospective owner after its sole invocation. The exact
+active-tape enumerator crossed the frozen per-sample bound of 256 before a
+completed h4 section or affine row was serialized. The 961-byte artifact is
+owned only by `legal_responder_raise_h4_tie_aware_affine_result`, a standard-
+library rebinder that imports no runner, oracle, game, evaluator, optimizer,
+action, clock, or write path. The literal Cartesian representation is rejected
+for this integration; the Fraction oracle, v2 rule, and maximum-envelope
+direction remain synthetic mechanism evidence rather than target results.
+
+The next representation boundary is factorized. It must retain an exact total-
+function choice-set identity and arbitrary-precision cardinality without
+materializing every tape, derive reachable-support identity only as a separate
+projection, and quotient equal affine rows while preserving each class's exact
+membership/cardinality. Exhaustive small controls remain the oracle for that
+quotient, and a distinct-row/compact-state bound must fail before truncation.
+No h4 target diagnostic is authorized by the rejection itself.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

@@ -270,6 +270,16 @@ serializer and independent reader with all solver paths unopened. The next
 boundary is the sole no-clobber teacher invocation from a clean commit, not a
 selected width or production action.
 
+ADR-0336 retains that sole invocation: all 2,113 real arms were accepted and
+the exact 8,027,171-byte journal independently rebinds without a solver. Width
+two passes the frozen maximum-regret conjunct but narrowly fails the mean;
+width three is the first width passing both and is also the descriptive median
+knee. Tail positions 9 and 11 retain certified-positive lower regret until
+width four. Wider menus open large set-valued plateaus. This is an h4
+target-panel teacher curve, not a selected mechanism, latency result, or
+production action width. The next checkpoint is a source-sealed additive
+376-call non-replay direct mechanism before any new value.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

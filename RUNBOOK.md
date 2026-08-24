@@ -1209,3 +1209,18 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     direct mechanism or transfer value. Do not call the private executor,
     reinterpret the synthetic 6,616,076-byte control as research, or promote a
     teacher knee directly into production action width.
+54. ADR-0336 permanently closes that one-shot owner. Never invoke
+    `run_and_retain_adr0334_nonreplay_exhaustive_teacher` again. Preserve
+    `experiments/results/fresh-action-width-nonreplay-exhaustive-teacher-v1.jsonl`
+    as exactly 8,027,171 bytes and 2,115 LF-terminated records with SHA-256
+    `3f20b204bca428c2b9e99266688709b6aba65de2f2bff3d38c6f523828c94444`.
+    Rebind only through
+    `verify_adr0336_nonreplay_teacher_result_artifact`; its semantic result is
+    `e4347dbfc6663a636572199f11dcad517fe715d062dcee022566419382f193b0`.
+    Width three is the first inherited maximum-plus-mean gate pass and median
+    knee; width four is the first width with no certified-positive lower-regret
+    context. Do not use either diagnostic as a direct-mechanism selection,
+    divide campaign wall by 2,113 as latency, or rank plateau members. Before
+    any new value, source-seal only the additive ADR-0331 direct mechanism with
+    its exact 376-call schedule and complete 378-record synthetic journal. Do
+    not call the closed ADR-0329 entries or construct transfer/action state.

@@ -257,6 +257,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   2,115-record synthetic journal rebinds without a consumer or solver call.
   Every replacement teacher value remains unopened; exactly one no-clobber
   retained invocation from a clean source commit is next.
+- ADR-0336 retains that sole invocation as an exact 8,027,171-byte,
+  2,115-record journal with 2,113 accepted calls and a completed terminal. Its
+  solver-free result owner separates the inherited maximum-plus-mean gate, the
+  descriptive median knee, and the first all-context zero-lower boundary.
+  Width three is first for the gate and median; width four is first with no
+  certified-positive lower-regret context because positions 9 and 11 form the
+  tail. No direct mechanism or production width is selected. The next boundary
+  is source-only ownership of ADR-0331's exact 376-call non-replay direct
+  mechanism.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

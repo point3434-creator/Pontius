@@ -15,48 +15,58 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept the source-only exhaustive bounded teacher for ADR-0334's exact
-16-context non-replay panel. The owner freezes 2,113 immutable tasks: one
-complete kernel integer raise universe per context, followed by every
-minimum/maximum-anchored subset at raise widths two through six in width and
-lexicographic order. It also freezes the prospective no-clobber artifact,
-write-ahead evidence schema, post-`fsync` continuation authority, independent
-semantic rebinder, conservative interval reductions, typed terminal stops, and
-phase-typed infrastructure failures.
+Accept the first and only ADR-0335 public invocation. From the clean committed
+source boundary at `f8e377d`, it completed the exact 2,113-task schedule and
+retained one header, 2,113 accepted observations, and one completed terminal.
+All 2,113 public-call counts are complete. No consumer rejection, nested-value
+reversal, unexpected exception, infrastructure failure, torn suffix, retry,
+alternate backend, or synthetic observation occurred.
 
-No teacher value was opened. The prospective artifact is absent. The source-
-only controls use explicitly synthetic endpoints, never call the certified-v2
-consumer or HiGHS, and cannot be interpreted as action-width evidence. The
-next successor may make only the one public retained invocation after this
-source, schedule, protocol, tests, ADR, and generated status are committed.
+Commit the exact 8,027,171-byte JSONL journal under a path-specific `-text`
+rule and accept the additive solver-free
+`pontius.fresh_action_width_nonreplay_teacher_result` owner. It first checks the
+exact byte count, SHA-256, final-LF record shape, source closure, and protocol,
+then invokes ADR-0335's independent semantic reader. That reader reconstructs
+every behavioral-policy lower endpoint and dual-certified upper endpoint,
+regret direction, payoff-span normalization, interval-max envelope, survivor
+set, reporting-equivalence set, and nested digest without a solver call.
 
-ADR-0334 remains the sole panel authority. The old ADR-0328 exhaustive teacher
-is not imported as evidence and cannot supply a value on this new panel.
-ADR-0330's failed greedy campaign remains permanently closed. ADR-0331/0332's
-exclusive durable journal contract remains authoritative, ADR-0333's exact
-policy/dual endpoint witnesses and rejection contracts are reused, and
-ADR-0334's exact retained qualification bytes and ordered target-only panel
-bind every task. ADR-0307 remains the live 15-second action-response contract;
-this offline source checkpoint does not measure or enlarge that wall.
+This result separates three quantities that happen to agree at width three on
+this panel but have different authority:
+
+1. the **inherited maximum-plus-mean full-regret gate** first passes at width
+   three;
+2. the **descriptive median lower-regret knee** first occurs at width three;
+   and
+3. the **first width with no context having certified-positive lower regret**
+   is width four.
+
+Neither the median nor the all-context diagnostic may substitute for the
+preregistered gate. Their numerical agreement or disagreement is evidence,
+not type conversion. Width three is a teacher result, not a direct-mechanism
+selection or a production action width.
 
 The inherited authority remains explicit. ADR-0310 rejected the prior
 capacity-filling line and made native-simplex robustness the next systems
 question. ADR-0311's directive is Preregister the native-simplex robustness
 audit. ADR-0318 binds HiGHS 1.12.0, ADR-0319 requires one public HiGHS-DS
-call per canonical task,
-and All 177 ordered observations pass under ADR-0320, making the separate
-consumer eligible.
-ADR-0321 preserves caller-owned legal fallback; ADR-0322 returns research
-evidence or rejection with no action. ADR-0324's unopened remainder stays
-value-unopened, ADR-0326 made an exhaustive bounded development-teacher
-eligible, and ADR-0327 sealed it. ADR-0331 requires append-and-fsync evidence,
-ADR-0332 permits only an exclusive `xb` open, and ADR-0333 records that No
-replacement sizing value was opened at its source boundary. ADR-0335 weakens
-none of those authorities.
+call per canonical task, and All 177 ordered observations pass under ADR-0320,
+making the separate consumer eligible. ADR-0321 preserves caller-owned legal
+fallback; ADR-0322 returns research evidence or rejection with no action.
+The retained front door also preserves the older source gates verbatim:
+ADR-0312, Seal the native-simplex audit compiler and corpora; ADR-0324 remains
+value-unopened; ADR-0325 was authorized exactly once; ADR-0326 and ADR-0327
+govern the exhaustive bounded development-teacher chain; ADR-0332 requires an
+exclusive `xb` open; and ADR-0333 records that No replacement sizing value was
+opened at its source boundary.
+ADR-0330 permanently closes the lost direct-greedy invocation, and ADR-0331's
+prospective replacement mechanism semantics remain the only eligible next
+mechanism. ADR-0307 remains the live 15-second action-response contract; this
+offline campaign neither measures nor enlarges that wall.
 
 ## Active next
 
-From a clean commit containing this source seal, invoke `run_and_retain_adr0334_nonreplay_exhaustive_teacher` exactly once at the frozen prospective path; retain and fsync every accepted or rejected arm before the next call, make no retry after any terminal or infrastructure stop, and source-seal the exact journal plus solver-free result owner before opening a direct mechanism, transfer structure, preparation artifact, or production action
+Implement and source-seal only the additive ADR-0331 non-replay direct closed finite-block mechanism owner on this exact retained panel before its first price or candidate-value call; freeze all response-closed own-raise transitions, the exact 376-call realized schedule, behavioral-lower then smaller-raise selection, five inherited development gates, append-and-fsync evidence, complete synthetic terminal, and no-retry semantics; do not call either permanently closed ADR-0329 entry point or open transfer, capacity, preparation, action, or production-width evidence first
 
 ## Revoked authorities
 
@@ -64,7 +74,7 @@ From a clean commit containing this source seal, invoke `run_and_retain_adr0334_
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0335](docs/decisions/ADR-0335-source-seal-the-non-replay-exhaustive-teacher.md) — Source-seal the non-replay exhaustive teacher.
+Latest process decision: [ADR-0336](docs/decisions/ADR-0336-retain-and-rebind-the-non-replay-exhaustive-teacher.md) — Retain and rebind the non-replay exhaustive teacher.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -72,7 +82,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0312](docs/decisions/ADR-0312-seal-native-simplex-audit-compiler-and-corpora.md) | 2026-08-23 | accepted value-free compiler, corpus, and exact-representation seal before audit-runner source or any new LP result | Seal the native-simplex audit compiler and corpora |
 | [ADR-0313](docs/decisions/ADR-0313-seal-native-simplex-audit-runner-before-results.md) | 2026-08-23 | accepted source-only audit runner, typed observations, and invocation seal before any sealed exact optimum or backend result | Seal the native-simplex audit runner before results |
 | [ADR-0314](docs/decisions/ADR-0314-retain-native-simplex-audit-and-reject-frozen-gate.md) | 2026-08-23 | accepted negative complete audit result; the frozen conjunction rejects on an over-specified known-regression row-set predicate | Retain the native-simplex audit and reject the frozen gate |
 | [ADR-0315](docs/decisions/ADR-0315-source-seal-artifact-only-native-simplex-gate-correction.md) | 2026-08-23 | accepted source-only post-outcome correction with synthetic controls; authoritative retained-evidence result remains unopened | Source-seal the artifact-only native-simplex gate correction |
@@ -96,18 +105,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0333](docs/decisions/ADR-0333-source-seal-the-non-replay-candidate-blind-qualification.md) | 2026-08-24 | accepted source-only replacement qualification owner; every replacement sizing value and qualified panel remains unopened | Source-seal the non-replay candidate-blind qualification |
 | [ADR-0334](docs/decisions/ADR-0334-retain-and-seal-the-non-replay-qualification-panel.md) | 2026-08-24 | accepted one-shot non-replay qualification result and exact 16-context target-only panel seal; replacement exhaustive-teacher values remain unopened | Retain and seal the non-replay qualification panel |
 | [ADR-0335](docs/decisions/ADR-0335-source-seal-the-non-replay-exhaustive-teacher.md) | 2026-08-24 | accepted source-only non-replay exhaustive-teacher owner and exact 2,113-task schedule seal; every replacement teacher value remains unopened | Source-seal the non-replay exhaustive teacher |
+| [ADR-0336](docs/decisions/ADR-0336-retain-and-rebind-the-non-replay-exhaustive-teacher.md) | 2026-08-24 | accepted complete one-shot non-replay exhaustive-teacher result and solver-free result owner; no direct mechanism or production action width is selected | Retain and rebind the non-replay exhaustive teacher |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0335](docs/decisions/ADR-0335-source-seal-the-non-replay-exhaustive-teacher.md) — Source-seal the non-replay exhaustive teacher.
+- Latest ADR: [ADR-0336](docs/decisions/ADR-0336-retain-and-rebind-the-non-replay-exhaustive-teacher.md) — Retain and rebind the non-replay exhaustive teacher.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 335.
-- ADR-header SHA-256: `e90502be3fbe3e9e66eb14fb78706cb00b2c664c17d761069b709aae0173a9af`.
-- Current blockers: no replacement exhaustive-teacher result or width-three-through-six value exists; no replacement teacher curve, direct greedy result, selected width, transfer seed, capacity result, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
+- Numbered decisions: 336.
+- ADR-header SHA-256: `910c1329d6580ed02ba565488f2332227e41c811f87c8a1a7042b60d4047388a`.
+- Current blockers: no replacement direct greedy price, recovery/excess curve, or selected development width exists; no transfer seed or fresh transfer result, responder-raise closure, six-player response model, capacity result, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0335](docs/decisions/ADR-0335-source-seal-the-non-replay-exhaustive-teacher.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0336](docs/decisions/ADR-0336-retain-and-rebind-the-non-replay-exhaustive-teacher.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

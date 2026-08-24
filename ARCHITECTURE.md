@@ -382,6 +382,18 @@ distinct. The 2,115-record completed fixture is explicitly synthetic. No
 teacher value, width, action, transfer, or Legal Decision Spine input exists at
 this boundary.
 
+ADR-0336 adds a read-only result layer over that journal. The exact artifact is
+retained as binary bytes; `fresh_action_width_nonreplay_teacher_result` checks
+the byte and record identities before invoking the solver-free semantic reader.
+Its width summaries carry separately typed inherited mean/maximum gate fields,
+a descriptive median knee, and an all-context zero-lower boundary. The gate and
+median coincide at width three; the all-context boundary is width four because
+panel positions 9 and 11 remain a positive-lower tail at width three. Reporting
+equivalence cardinality zero remains representable, while nondominated
+cardinality zero is invalid. The layer has no writer, consumer, campaign,
+transfer, preparation, or action dependency and cannot enter the Legal Decision
+Spine.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

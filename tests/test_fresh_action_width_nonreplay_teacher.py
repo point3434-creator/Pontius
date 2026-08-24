@@ -167,6 +167,7 @@ class FreshActionWidthNonReplayTeacherTests(unittest.TestCase):
             imported.isdisjoint(
                 {
                     "fresh_action_width_greedy",
+                    "fresh_action_width_nonreplay_teacher_result",
                     "preparation_bank",
                     "resolver",
                     "strategy_bridge",
@@ -177,11 +178,13 @@ class FreshActionWidthNonReplayTeacherTests(unittest.TestCase):
         self.assertNotIn("BettingAction", names)
         self.assertNotIn("apply_action", attributes)
         self.assertEqual(1, consumer_calls)
-        prospective = (
-            Path(teacher.__file__).resolve().parents[2]
-            / ADR0335_TEACHER_ARTIFACT_RELATIVE_PATH
+        artifact_relative = Path(ADR0335_TEACHER_ARTIFACT_RELATIVE_PATH)
+        self.assertFalse(artifact_relative.is_absolute())
+        self.assertEqual(
+            "experiments/results/"
+            "fresh-action-width-nonreplay-exhaustive-teacher-v1.jsonl",
+            artifact_relative.as_posix(),
         )
-        self.assertFalse(prospective.exists())
         with self.assertRaises(TypeError):
             ADR0335_TEACHER_PROTOCOL["task_count"] = 1  # type: ignore[index]
 

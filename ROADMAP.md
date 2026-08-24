@@ -778,7 +778,12 @@ now seals the value-free compiler, both prospective structures, the known
   infrastructure failures. Its 2,115-record completed fixture is synthetic and
   opens no value. The active boundary is one retained no-clobber invocation
   from a clean source commit; no direct mechanism, transfer, latency, or action
-  path is eligible first.
+  path is eligible first. ADR-0336 now retains the completed real journal and
+  solver-free curve. The frozen maximum-plus-mean gate and descriptive median
+  knee first pass at width three, while two positive-lower tail contexts persist
+  until width four. The active boundary is source-only implementation of the
+  preregistered 376-call non-replay direct mechanism; its price and selection,
+  transfer, latency, and action paths remain unopened.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -910,7 +915,10 @@ representative and candidate value remains unopened. All four exact-legality
   that exact owner and schedule, including a full success-shaped durable
   control and solver-free semantic reader. The next checkpoint is its sole
   retained invocation; all replacement teacher values and later mechanisms
-  remain unopened until that call.
+  remain unopened until that call. ADR-0336 now seals the completed invocation
+  and exact gate/median/tail distinctions. The next checkpoint is a source-only
+  additive direct mechanism with 376 prospective calls and a complete durable
+  synthetic terminal before its first value.
 
 ## C6: Neural blueprint and leaves
 

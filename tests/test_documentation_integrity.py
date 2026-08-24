@@ -650,6 +650,24 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_nonreplay_exhaustive_teacher_result_is_rebound_and_bounded(self) -> None:
+        expected = {
+            "README.md": ("ADR-0336", "mean"),
+            "PROJECT.md": ("ADR-0336", "376-call"),
+            "STATUS.md": ("ADR-0336", "width three"),
+            "ROADMAP.md": ("ADR-0336", "positive-lower tail"),
+            "RUNBOOK.md": (
+                "e4347dbfc6663a636572199f11dcad517fe715d062dcee022566419382f193b0",
+                "Never invoke",
+            ),
+            "ARCHITECTURE.md": ("descriptive median knee", "width four"),
+            "RISK_REGISTER.md": ("R97", "descriptive median knee"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

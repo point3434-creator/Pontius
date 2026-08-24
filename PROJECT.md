@@ -227,6 +227,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   Every fixture value, including its synthetic width three, is fake. The next
   gate is source-only replacement qualification; no sizing value or panel is
   open.
+- ADR-0333 passes that source-only qualification gate. The exact new-pool
+  schedule contains 192 complete-universe-then-anchored-width-two tasks and
+  the public owner has one consumer call site, no-clobber creation, exact
+  receipt-gated continuation, exact rejection contracts, and distinct target,
+  exhaustion, ambiguity, nested-reversal, rejection, and unexpected stops.
+  Accepted evidence carries exact policy plus raw dual hints; the solver-free
+  rebinder reconstructs both interval endpoints and the terminal reduction.
+  Synthetic target/failure controls, all complete prefixes, torn tails,
+  rehashed semantic corruption, and append failures pass. No replacement
+  sizing value, qualifier, or panel is open; one retained invocation is next.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

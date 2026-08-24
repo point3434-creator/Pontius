@@ -239,6 +239,17 @@ distinct gates, and one terminal. The fixture's fake width three is not sizing
 evidence. Replacement qualification remains value-unopened and must receive a
 separate source seal next.
 
+ADR-0333 now supplies that source seal without opening a replacement value.
+Its exact 192-task schedule runs complete universe then anchored width two per
+context and stops at qualifier 16 or the first distinct exhaustion, ambiguity,
+nested-reversal, typed-rejection, or unexpected-exception boundary. Every next
+call requires the preceding post-`fsync` receipt. Accepted evidence retains an
+exact policy and dual hint so the solver-free reader reconstructs both certified
+endpoints rather than trusting journal hashes. Synthetic target, failure, torn-
+tail, fully rehashed corruption, and append-failure controls pass. The next
+boundary is the one public no-clobber qualification invocation; no qualified
+panel, teacher value, selected width, or production action exists yet.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

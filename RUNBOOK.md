@@ -1139,3 +1139,28 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     classifier, receipt-gated call owner, failure-complete reduction, and
     prospective output path before its first consumer call; qualification,
     teacher, direct mechanism, transfer, and action values remain closed.
+51. ADR-0333 source-seals
+    `pontius.fresh_action_width_nonreplay_qualification` at
+    `c4979aa8b84ca30c80a3a4a01f4d345bd312dfef044d57243d723c71ac39cf5d`.
+    Protocol SHA-256 is
+    `3506b0a33aec61b85b1a0a9ade7e1d86c8a944ad79cecbb1253b611d46c69c61`
+    and the exact 192-task schedule SHA-256 is
+    `132513efa7cdf32298e5d19cb60afa69fda2580a8e98c9b3e4724781d07a50b2`.
+    Before invocation require a clean commit containing ADR-0333, the exact
+    sealed source closure, and absence of
+    `experiments/results/fresh-action-width-nonreplay-qualification-v1.jsonl`.
+    Then invoke only the public no-clobber wrapper once:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -c "from pontius.fresh_action_width_nonreplay_qualification import run_and_retain_adr0331_nonreplay_qualification as run; result = run(); print(type(result).__name__)"
+    ```
+
+    The journal, not terminal stdout, is the authority. Every next consumer
+    call requires the prior post-`fsync` receipt. Any target, exhaustion,
+    ambiguity, nested reversal, typed rejection, unexpected exception, or
+    infrastructure failure closes the campaign without resume, deletion,
+    overwrite, or retry. Retain the exact artifact bytes and source-seal a
+    solver-free result/panel rebinder before opening a teacher value. Do not
+    call the private executor, infer values from synthetic controls, or promote
+    the h4 heads-up fold/call result into action width, latency, or strength.

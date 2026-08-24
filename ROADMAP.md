@@ -760,7 +760,13 @@ now seals the value-free compiler, both prospective structures, the known
   synthetic fixture survives all 402 complete-prefix cuts plus representative
   torn lines. No value was opened. The active boundary is source-only
   candidate-blind qualification on the sealed new pool before its first
-  consumer call.
+  consumer call. ADR-0333 now seals that qualification owner and its exact
+  policy/dual witness rebinder, receipt-gated 192-task schedule, semantic stop
+  categories, and phase-typed failure-complete journal reduction without
+  opening a value. The active boundary is its one no-clobber retained
+  invocation; any stop closes the campaign without retry, and even a target
+  stop cannot open teacher values until a separate exact-journal and panel
+  seal.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -881,6 +887,12 @@ representative and candidate value remains unopened. All four exact-legality
   exclusion, durable append receipts, byte-preserving recovery, and a complete
   synthetic success rebinder. Source-seal only the replacement qualification
   owner next; its first value-bearing invocation remains a later checkpoint.
+  ADR-0333 passes that source-only boundary with the exact 192-task order,
+  conservative classifier, distinct reversal/rejection/unexpected stops,
+  solver-free policy/dual endpoint reconstruction, post-`fsync` next-call
+  authorization, and raw-prefix failure reduction. The next checkpoint is the
+  one retained public qualification invocation; no panel or teacher value is
+  open.
 
 ## C6: Neural blueprint and leaves
 

@@ -335,6 +335,23 @@ fixture width are explicitly outside the research plane. Qualification,
 teacher, direct mechanism, transfer, and action owners remain separate absent
 layers.
 
+ADR-0333 adds only the source-sealed non-replay qualification layer.
+`fresh_action_width_nonreplay_qualification` binds the ADR-0332 pool to 192
+ordered complete-universe/anchored-width-two requests and owns the sole future
+ADR-0322 call site. Its write-ahead state machine admits the next arm only from
+the preceding header or observation's post-`fsync` receipt. Accepted payloads
+carry the exact policy and raw inequality-multiplier hint; the solver-free
+rebinder independently reconstructs the behavioral lower bound and outward
+certificate upper bound before deriving conservative regret. Typed consumer
+rejection, nested-value reversal, ambiguity, unexpected owner failure, and
+post-launch infrastructure failure remain different states. The latter
+retains raw bytes, exact generic prefix/suffix, last-receipted semantic
+evidence, and unknown unreceipted invocation status instead of masquerading as
+preflight. The adjacent seal fixes the source graph, protocol, 192-task
+schedule, prospective JSONL path, and synthetic target/failure identities.
+No real qualification journal or panel exists yet, and this reduced h4
+fold/call owner remains outside the Legal Decision Spine.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

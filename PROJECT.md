@@ -216,6 +216,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   journal, self-free hash chaining, append/flush/`fsync` ordering, exact prefix
   recovery, and byte-preserving torn-tail rejection. No new context, value,
   panel, width, transfer seed, or action exists yet.
+- ADR-0332 passes that value-free gate. The commit-derived compiler accepts 96
+  unique contexts after 551 attempts and proves zero semantic overlap with all
+  96 original contexts; its frozen anchored-subset ledger contains 12,352
+  subsets. The general journal permits only exclusive construction, returns a
+  receipt after write/flush/`fsync`, and preserves exact verified prefixes plus
+  untouched tails. A 610,098-byte systems fixture traverses one header, 400
+  observations, four populated width summaries with five distinct gates, and
+  one terminal; all 402 crash prefixes and representative torn lines pass.
+  Every fixture value, including its synthetic width three, is fake. The next
+  gate is source-only replacement qualification; no sizing value or panel is
+  open.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

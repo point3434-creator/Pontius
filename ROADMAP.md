@@ -754,7 +754,13 @@ now seals the value-free compiler, both prospective structures, the known
   successor's commit-derived seed, all-96 semantic non-overlap gate, self-free
   hash chain, fsynced append receipts, exact-prefix/torn-tail semantics, and
   402-record synthetic success requirement. The active gate is its additive
-  value-free source and exact population/journal seal.
+  value-free source and exact population/journal seal. ADR-0332 passes that
+  gate: 96 new contexts are unique and fully disjoint after 551 attempts, the
+  journal has no nonexclusive production constructor, and the 610,098-byte
+  synthetic fixture survives all 402 complete-prefix cuts plus representative
+  torn lines. No value was opened. The active boundary is source-only
+  candidate-blind qualification on the sealed new pool before its first
+  consumer call.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -871,7 +877,10 @@ representative and candidate value remains unopened. All four exact-legality
   any solver call. ADR-0331 passes that prospective protocol boundary without
   constructing the population or journal. Implement and source-seal only those
   value-free owners next; qualification and every new sizing value remain
-  closed.
+  closed. ADR-0332 now passes that implementation boundary with exact all-96
+  exclusion, durable append receipts, byte-preserving recovery, and a complete
+  synthetic success rebinder. Source-seal only the replacement qualification
+  owner next; its first value-bearing invocation remains a later checkpoint.
 
 ## C6: Neural blueprint and leaves
 

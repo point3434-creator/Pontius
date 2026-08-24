@@ -15,35 +15,49 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Preregister a genuinely new action-width development study after ADR-0330's
-unretained one-shot failure. This is not permission to replay ADR-0329. It uses
-a new seed derived only from the committed failure/repair state, constructs a
-new population, and rejects every context whose semantic digest appears
-anywhere in the original 96-context ADR-0323 development pool.
+Accept the first ADR-0331 checkpoint. The repository now contains a sealed,
+value-free replacement population and a general append-and-`fsync` evidence
+journal. It also exercises the complete future success shape synthetically
+before any replacement consumer call. This is a source and systems result, not
+an action-width result.
 
-The first successor is value-free. It owns only deterministic population
-construction, exact non-overlap proof, append-and-fsync journal mechanics,
-prefix recovery, and a fully populated synthetic success exercise. It may not
-import a sizing result artifact, invoke a consumer or solver, select a panel,
-construct transfer, or emit an action.
+`fresh_action_width_nonreplay` reproduces the exact ADR-0323 digest stream,
+card/deal construction, structural showdown filter, pot/stack ranges, exact
+joint probabilities, kernel-derived legal universe, and accept-until-96 rule
+from the ADR-0331 seed. It reconstructs the complete sealed ADR-0323 pool and
+rejects any new context whose label-free semantic digest appears among those
+96 contexts. The resulting 96 contexts are unique and disjoint from all 96
+original contexts.
 
-Only after that source and its exact identities are committed may separate
-successors source-seal candidate-blind qualification, an exhaustive teacher,
-and a direct closed finite-block mechanism. Every later value phase remains a
-separate temporal boundary.
+The durable journal is a reusable infrastructure primitive. Its record digest
+hashes a canonical self-free body; an outer envelope adds that digest; and each
+successor body binds the SHA-256 of the preceding complete envelope line,
+including its final LF. Production construction is possible only through an
+exclusive `xb` open. One complete line is written, flushed, and `fsync`ed
+before a receipt exists. A short write or durability exception poisons the
+writer. Readers never edit input and return the exact longest verified prefix
+plus every untouched invalid or torn trailing byte.
 
-The inherited authority remains visible. ADR-0318 binds HiGHS 1.12.0;
+The inherited authority remains explicit. ADR-0318 binds HiGHS 1.12.0;
 ADR-0319 requires one public HiGHS-DS call per canonical task; All 177 ordered
-observations pass under ADR-0320, leaving the separate consumer eligible;
-ADR-0321 retains caller-owned legal fallback; and ADR-0322 returns research
-evidence or rejection with no action. ADR-0324's value-unopened boundary,
-ADR-0325's exactly once invocation rule, and ADR-0326/ADR-0327's exhaustive
-bounded development-teacher chain remain prerequisites. ADR-0330 permanently
-closes the old campaign and supplies no value or selection to this successor.
+observations pass under ADR-0320, leaving the separately bounded consumer
+eligible. ADR-0321 retains the caller-owned legal fallback, and ADR-0322 returns
+research evidence or rejection with no action. ADR-0323 remains value-free;
+ADR-0324 remains value-unopened; ADR-0325's invocation ownership is exactly
+once; and ADR-0326/ADR-0327 retain the exhaustive bounded development-teacher
+chain. ADR-0328 only authorizes direct closed finite-block greedy research,
+while ADR-0330 permanently closed its failed invocation. ADR-0331's
+append-and-fsync evidence rule governs this replacement and every later call.
+
+The next authorized boundary is source-only candidate-blind qualification on
+this population. It may define the exact schedule, classifier, journal
+payloads, stop state, failure reduction, and prospective artifact identity. It
+may not make the first consumer call or inspect a sizing value until that
+source is independently committed.
 
 ## Active next
 
-Implement and source-seal only the additive value-free ADR-0331 population and evidence-durability owner; derive 96 ordered h4 river contexts from the exact frozen seed and ADR-0323 generator distribution, reject any semantic overlap with all 96 ADR-0323 development contexts, construct no qualification panel or transfer population, import no sizing result or solver, implement a self-free hash-chain journal whose every append is flushed and fsynced before a successor call can be authorized, recover exact valid prefixes without deleting torn tails, and canonicalize plus rebind one fully populated synthetic 400-observation success journal before any fresh sizing value
+Source-seal only the ADR-0331 candidate-blind qualification owner on the exact ADR-0332 population; freeze its complete-universe-then-anchored-width-two order, first-16-qualifier stop, conservative interval classifier, append-receipt-before-next-call rule, failure-complete journal reduction, no-retry semantics, and prospective output identity before any consumer call or replacement sizing value
 
 ## Revoked authorities
 
@@ -51,7 +65,7 @@ Implement and source-seal only the additive value-free ADR-0331 population and e
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0331](docs/decisions/ADR-0331-preregister-a-non-replay-action-width-recovery-study.md) — Preregister a non-replay action-width recovery study.
+Latest process decision: [ADR-0332](docs/decisions/ADR-0332-seal-the-non-replay-population-and-durable-evidence-journal.md) — Seal the non-replay population and durable evidence journal.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -59,7 +73,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0308](docs/decisions/ADR-0308-install-the-action-clock-and-preparation-bank.md) | 2026-08-23 | accepted runtime engineering control; no strategy-quality, preparation-utility, complete-hand, or deployment result | Install the action clock and preparation bank |
 | [ADR-0309](docs/decisions/ADR-0309-seal-capacity-filling-v4-structures-before-qualification.md) | 2026-08-23 | accepted value-free structural freeze; every v4 qualification and candidate value remains unopened | Seal capacity-filling v4 structures before qualification |
 | [ADR-0310](docs/decisions/ADR-0310-reject-capacity-filling-v4-on-qualified-b-numerical-failure.md) | 2026-08-23 | accepted negative qualification result; capacity-filling v4 is rejected and parked before every candidate value and integration path | Reject capacity-filling v4 on qualified-B numerical failure |
 | [ADR-0311](docs/decisions/ADR-0311-preregister-native-simplex-robustness-audit.md) | 2026-08-23 | accepted prospective candidate-independent solver audit before corpus source, corpus construction, audit-runner source, or any new LP result | Preregister the native-simplex robustness audit |
@@ -83,18 +96,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0329](docs/decisions/ADR-0329-source-seal-the-direct-closed-finite-block-greedy-owner.md) | 2026-08-23 | accepted source-only complete adaptive greedy graph and failure-complete owner; every greedy price and candidate value remains unopened | Source-seal the direct closed finite-block greedy owner |
 | [ADR-0330](docs/decisions/ADR-0330-close-the-unretained-greedy-invocation-and-repair-serialization.md) | 2026-08-23 | accepted terminal artifact-boundary failure; the ADR-0329 campaign is permanently closed without a retained result or selected width | Close the unretained greedy invocation and repair serialization |
 | [ADR-0331](docs/decisions/ADR-0331-preregister-a-non-replay-action-width-recovery-study.md) | 2026-08-23 | accepted prospective non-replay recovery protocol before population source, journal source, synthetic success evidence, or any new sizing value | Preregister a non-replay action-width recovery study |
+| [ADR-0332](docs/decisions/ADR-0332-seal-the-non-replay-population-and-durable-evidence-journal.md) | 2026-08-24 | accepted value-free population and evidence-durability source seal; every replacement qualification and sizing value remains unopened | Seal the non-replay population and durable evidence journal |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0331](docs/decisions/ADR-0331-preregister-a-non-replay-action-width-recovery-study.md) — Preregister a non-replay action-width recovery study.
+- Latest ADR: [ADR-0332](docs/decisions/ADR-0332-seal-the-non-replay-population-and-durable-evidence-journal.md) — Seal the non-replay population and durable evidence journal.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 331.
-- ADR-header SHA-256: `c58b056445942cce195731304829772ee871394bc2f1d1e00e8b5bcd0127b6c5`.
-- Current blockers: no ADR-0331 population source or digest, durable journal source or protocol, synthetic completed-journal pass, qualification schedule, qualified panel, exhaustive teacher, direct greedy result, selected width, transfer seed, capacity result, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
+- Numbered decisions: 332.
+- ADR-header SHA-256: `35f7f2700ba80dcf8217240b728da9953b771880218bd248c84a43eaf3bc6e3c`.
+- Current blockers: no ADR-0331 qualification schedule, qualified panel, exhaustive teacher, direct greedy result, selected width, transfer seed, capacity result, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0331](docs/decisions/ADR-0331-preregister-a-non-replay-action-width-recovery-study.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0332](docs/decisions/ADR-0332-seal-the-non-replay-population-and-durable-evidence-journal.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

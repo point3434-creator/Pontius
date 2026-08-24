@@ -229,6 +229,16 @@ append/flush/`fsync` receipts, exact prefix recovery, and retained torn-tail
 controls. Qualification, teacher, greedy, transfer, and action paths remain
 closed.
 
+ADR-0332 passes that value-free source gate. The new compiler accepts 96 unique
+h4 contexts after 551 attempts and proves semantic disjointness from every one
+of the original 96 contexts. The durable journal is exclusive/no-clobber,
+returns receipts only after flush plus `fsync`, and preserves exact verified
+prefixes with untouched torn tails. Its 610,098-byte systems-only fixture
+rebinds one header, 400 observations, four populated width summaries, five
+distinct gates, and one terminal. The fixture's fake width three is not sizing
+evidence. Replacement qualification remains value-unopened and must receive a
+separate source seal next.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

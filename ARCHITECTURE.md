@@ -321,6 +321,20 @@ all invalid trailing bytes. A synthetic 402-record completed path must traverse
 the real canonicalizer and rebinder before any solver-bearing source is
 eligible.
 
+ADR-0332 installs and seals that layer. `fresh_action_width_nonreplay`
+constructs 96 ordered, unique contexts disjoint from the complete original
+96-context pool and owns only value-free work identities. The adjacent
+`durable_evidence_journal` accepts production construction only through
+exclusive create, poisons after any failed append, and makes a post-`fsync`
+receipt the only durable-success token. Generic recovery authenticates record
+structure and preserves raw failure bytes; a campaign-specific rebinder remains
+responsible for semantic task order and terminal reduction. The fully populated
+synthetic path proves all 402 records, four nested summaries, and five distinct
+gate fields serialize and rebind without recursion. Synthetic endpoints and its
+fixture width are explicitly outside the research plane. Qualification,
+teacher, direct mechanism, transfer, and action owners remain separate absent
+layers.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

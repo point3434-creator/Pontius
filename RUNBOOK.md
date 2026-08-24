@@ -1122,3 +1122,20 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     must preserve a torn or malformed suffix byte-for-byte. Do not import a
     consumer, solver, qualification/teacher/greedy result, transfer, resolver,
     or action path, and open no sizing value.
+50. ADR-0332 source-seals `pontius.durable_evidence_journal` at
+    `a9f815a41abc8d9977375e0c8e71f66f788dd8d811d016735cb08ffa06bf5c11`
+    and `pontius.fresh_action_width_nonreplay` at
+    `b870feb17d6e344b130f7b30d8b776be5b40537e3e71b7a14b9b4d2bcbae3e92`.
+    The new population digest is
+    `441790b2e24fa2187ad7c64b456d75b3ccd8e9d9951ce340eabc16eb4255821c`:
+    96 unique contexts after 551 attempts, disjoint from all 96 sealed
+    ADR-0323 contexts. The 402-record synthetic journal is 610,098 bytes with
+    SHA-256
+    `66c9b441fa71597280d4b7ee7a64a70079e212b5594332a8f4e1cc4dc0e9e136`.
+    These are value-free source and systems identities. Do not interpret any
+    synthetic endpoint, gate, or fixture width as sizing evidence. Do not
+    invoke ADR-0322 on the new pool yet. Source-seal the replacement
+    complete-universe-then-width-two qualification schedule, conservative
+    classifier, receipt-gated call owner, failure-complete reduction, and
+    prospective output path before its first consumer call; qualification,
+    teacher, direct mechanism, transfer, and action values remain closed.

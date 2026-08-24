@@ -814,6 +814,15 @@ now seals the value-free compiler, both prospective structures, the known
   The active research boundary is its sole no-clobber retained invocation from
   a clean commit; no transfer teacher or direct-mechanism value is eligible in
   the same checkpoint.
+  ADR-0341 now retains that sole invocation. The exact 378,108-byte journal
+  reaches the first-16 target after 47 contexts and 94 accepted one-call arms;
+  31 contexts are nonqualifying, no semantic or infrastructure failure occurs,
+  and the remaining 49 transfer contexts stay unopened. The solver-free result
+  owner seals the exact target-only panel and payoff-span-normalized threshold
+  separation. Qualification is not width-three confirmation. The active
+  boundary is a source-only transfer-confirmation owner that applies the frozen
+  ADR-0338 context-local width-three mechanism without width reselection and
+  preserves every unchanged development conjunct.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -970,6 +979,11 @@ representative and candidate value remains unopened. All four exact-legality
   source and an absent path. Whatever terminal or infrastructure state occurs
   is final without retry; only an exact first-16 target may later authorize a
   separately source-sealed real panel result.
+  ADR-0341 now seals that exact result and identity-only panel after the target
+  is reached in 47 contexts. Next source-seal the transfer-confirmation owner
+  before value. Raise width three is fixed, menu content remains context-local,
+  and every unchanged conjunct must pass; mean-only, 14-of-16, or any other
+  partial passage rejects unrestricted transfer.
 
 The post-transfer C5 route has three coordinated lanes rather than one serial
 queue:

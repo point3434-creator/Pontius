@@ -447,6 +447,15 @@ consumer call site behind the uninvoked public wrapper; it imports no prior
 result, teacher, greedy, capacity, preparation, or action path and cannot enter
 the Legal Decision Spine.
 
+ADR-0341 adds `fresh_action_width_transfer_qualification_result` as a read-only,
+solver-free authority over the retained real journal. It pins the exact bytes,
+record shape, campaign, target terminal, source commit, accepted one-call
+evidences, contiguous 47-context prefix, 16/31 classifications, target panel,
+and payoff-span-normalized threshold diagnostics. It reconstructs evidence
+through ADR-0340 before accepting the byte hash and has no runner, consumer,
+solver, action, or writer call. The panel publishes identities only; it cannot
+confirm width three or enter the Legal Decision Spine.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

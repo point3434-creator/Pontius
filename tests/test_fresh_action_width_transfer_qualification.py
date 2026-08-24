@@ -268,7 +268,8 @@ class FreshActionWidthTransferQualificationTests(unittest.TestCase):
         self.assertEqual(1, call_names.count("consume_certified_reduced_sizing_v2"))
         self.assertNotIn("run_and_retain_adr0331_nonreplay_qualification", source)
         prospective = root.parents[1] / ADR0340_TRANSFER_QUALIFICATION_ARTIFACT_RELATIVE_PATH
-        self.assertFalse(prospective.exists())
+        # ADR-0341 permanently retained the once-prospective no-clobber path.
+        self.assertTrue(prospective.is_file())
         attributes = (root.parents[1] / ".gitattributes").read_text(encoding="utf-8")
         self.assertIn(f"/{ADR0340_TRANSFER_QUALIFICATION_ARTIFACT_RELATIVE_PATH} -text", attributes)
 

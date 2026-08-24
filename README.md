@@ -318,6 +318,15 @@ systems evidence only; the prospective real artifact remains absent. Next is
 the sole no-clobber transfer-qualification invocation from this committed
 source, not a teacher, width-three result, latency claim, or action.
 
+ADR-0341 retains that one permitted invocation as an exact 378,108-byte
+journal. It reached the frozen first-16 target after 47 contexts and 94 accepted
+one-call arms; 31 contexts were nonqualifying, with no ambiguity, rejection, or
+retry. The solver-free result owner seals the exact target panel and rejects
+byte, campaign, terminal, witness, or panel-identity drift. This qualifies a
+fresh transfer panel; it does not confirm width three. Next is a source-only
+transfer-confirmation owner that applies the frozen context-local width-three
+mechanism without width reselection and retains the all-conjuncts gate.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

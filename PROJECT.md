@@ -313,6 +313,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   first record rather than reducing it to an empty prefix. The prospective
   artifact remains absent and the next research act is exactly one retained
   no-clobber invocation from this clean committed source.
+- ADR-0341 retains that sole invocation as an exact 378,108-byte, 96-record
+  journal. All 94 one-call arms were accepted; the frozen first-16 target was
+  reached after 47 complete contexts, with 31 nonqualifiers and no ambiguity,
+  rejection, retry, or post-stop call. A solver-free result owner reconstructs
+  every policy/dual witness, stop, and unit-correct regret before publishing the
+  exact identity-only target panel. The panel is structurally diverse but still
+  opportunity-conditioned h4 heads-up fold/call evidence. It does not test
+  width three. The next value-bearing boundary is a separately source-sealed
+  transfer-confirmation owner that applies the frozen development mechanism
+  without width reselection and requires every unchanged conjunct to pass.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

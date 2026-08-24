@@ -1325,3 +1325,40 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     target stop. Do not open a transfer teacher/direct value in the same
     checkpoint. A mean-only, 14-of-16, or other later partial width-three pass
     remains rejection of unrestricted transfer.
+
+59. ADR-0341 retains the sole transfer-qualification invocation from source
+    commit `e1c6c14630e3e8cf72be0a40db80b85eed549b58`. Never invoke
+    `run_and_retain_adr0339_transfer_qualification` again. Preserve the exact
+    `experiments/results/fresh-action-width-transfer-qualification-v1.jsonl`
+    bytes: 378,108 bytes, 96 records, SHA-256
+    `e6f25068d8362fa2bc9b40fe292506371d6d808b4696bb83c09f75ad3c8d812a`.
+    The solver-free terminal has campaign SHA-256
+    `444289ef7f1964b194255a03564ae1628ff207e2eff3cff678755978023f8b78`,
+    terminal SHA-256
+    `3770f8dc40a9edbbac5afc7d5986ceb36e566ce552eb35921ead0b644c5575f8`,
+    94 accepted one-call evidences, 47 complete contexts, 16 qualifiers, 31
+    nonqualifiers, complete invocation accounting, and exact `target_reached`.
+    The identity-only target panel SHA-256 is
+    `dd46e2917757ae0ba02e620f6298be8eac7629e92db573cea291bf1160b157bf`.
+
+    Preserve `fresh_action_width_transfer_qualification_result.py` at
+    canonical-LF SHA-256
+    `ed54b5676073ec019f3b544515f5a89c07b68eff5a7158b771a2d7914d83da55`,
+    its adjacent seal at
+    `a23559fb20e8e3ea6ff23ebfa20618022f3f7072cdc5e53f30b33eaaa0b08653`,
+    focused test at
+    `6c79d648fdd88668d826d8ce0c1bb404b337f1294fdaf47ae83b6010b38e13ee`,
+    and result protocol at
+    `45b8e3ae8cadd93afa9ab60c8b4f18bd977ff35e38130ac0e35def81352fedc7`.
+    Reproduce only through the read-only owner:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -c "from pontius.fresh_action_width_transfer_qualification_result import verify_adr0341_transfer_qualification_result_artifact as verify; result = verify(); print(result.journal.stop_reason.value, result.panel.digest)"
+    ```
+
+    This result qualifies a panel; it does not confirm width three. Before any
+    confirmation value, source-seal a separate owner that applies the frozen
+    ADR-0338 context-local width-three mechanism without width reselection and
+    preserves the all-conjuncts gate. Do not reinterpret a mean-only, 14-of-16,
+    or other partial pass as unrestricted transfer.

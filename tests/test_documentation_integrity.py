@@ -758,6 +758,29 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_transfer_qualification_result_and_panel_are_bounded_and_visible(
+        self,
+    ) -> None:
+        expected = {
+            "README.md": ("ADR-0341", "378,108-byte"),
+            "PROJECT.md": ("ADR-0341", "94 one-call arms"),
+            "STATUS.md": ("ADR-0341", "94 accepted one-call arms"),
+            "ROADMAP.md": ("ADR-0341", "remaining 49 transfer contexts"),
+            "RUNBOOK.md": (
+                "e6f25068d8362fa2bc9b40fe292506371d6d808b4696bb83c09f75ad3c8d812a",
+                "Never invoke",
+            ),
+            "ARCHITECTURE.md": (
+                "fresh_action_width_transfer_qualification_result",
+                "payoff-span-normalized",
+            ),
+            "RISK_REGISTER.md": ("R102", "promoted into width-three confirmation"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

@@ -191,6 +191,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   unopened. Across widths three through six, 49 of 64 context-widths are
   plateaus, with survivor median 8 and maximum 56. The next gate is source-only
   direct closed finite-block greedy ownership; transfer remains closed.
+- ADR-0329 source-seals that complete adaptive owner without opening a price.
+  It enumerates 2,479 exact subset arms and all 7,848 possible parent-plus-one-
+  raise transitions before values; any realized width-two-through-six path is
+  exactly 400 calls. Incumbent, augmented, and own-block response identities
+  are semantic fold/call memberships rather than LP row counts. Selection uses
+  the greatest behavioral lower endpoint and exact smaller-raise tie break;
+  full regret, aggregate recovery, and width-matched teacher excess retain all
+  five frozen conjuncts. One no-clobber retained invocation is next; no greedy
+  value, selected width, transfer population, capacity result, or action exists.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

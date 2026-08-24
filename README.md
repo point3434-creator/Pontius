@@ -200,6 +200,16 @@ but it is not a selected action width: the direct closed finite-block greedy
 recovery and teacher-excess gates remain unopened. The next checkpoint is
 source-only again: seal that greedy owner before any price or candidate value.
 
+ADR-0329 passes that source-only checkpoint without opening a greedy value.
+The owner freezes all 2,479 exact subset arms and every 7,848 possible
+one-raise transition, including incumbent/augmented request, legal-set, LP,
+semantic response-row-set, and own-block identities. One realized path will
+make exactly 400 calls. Each proposal has complete h4 fold/call closure before
+pricing, exact ties choose the smaller raise, all five development conjuncts
+recompute from retained evidence, and a no-clobber artifact witness exists
+before any future call. The next boundary is its single retained invocation;
+transfer and production remain closed.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

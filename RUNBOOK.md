@@ -1088,3 +1088,23 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     teacher-excess arithmetic, stop state, and result schema. Do not construct
     transfer, relax a gate, use campaign wall time as decision latency, or let
     cost edit the teacher survivor set.
+47. ADR-0329 source-seals `pontius.fresh_action_width_greedy` at
+    `6e824b83c8789ae64f1859aa5536769a815aca5dd0480500268e335a3a6244f5`.
+    Schedule SHA-256
+    `a6811bbd4131f73735e2336bb064443a7d30b07e73d36abbbab2e7ca6c91569a`
+    binds 2,479 unique arms and 7,848 possible parent-plus-one-raise
+    transitions. One realized branch makes exactly 400 calls. Before the one
+    authorized invocation, require a clean worktree and absent final plus
+    `.partial` paths, then call only the retained wrapper:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    $env:PONTIUS_GREEDY_RESULT = [IO.Path]::GetFullPath("experiments/results/fresh-action-width-closed-finite-block-greedy-development-v1.json")
+    & $python -B -c "import os; from pathlib import Path; from pontius.fresh_action_width_greedy import run_and_retain_adr0323_closed_finite_block_greedy_development as run; result = run(output_path=Path(os.environ['PONTIUS_GREEDY_RESULT'])); print(type(result).__name__, result.digest, result.public_highs_ds_invocation_count)"
+    ```
+
+    Each candidate must follow own block, complete semantic fold/call response
+    closure, then certified solve. Stop on the first typed rejection; never
+    retry, change the branch, relax a conjunct, or reconstruct output with a
+    second run. Commit exact terminal bytes and a solver-free rebinder before
+    deriving transfer or interpreting a selected development width.

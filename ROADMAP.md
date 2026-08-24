@@ -740,7 +740,12 @@ now seals the value-free compiler, both prospective structures, the known
   because greedy recovery and width-matched teacher excess remain unopened.
   The active boundary is source-only direct closed finite-block greedy
   ownership before any price, candidate value, transfer construction, or
-  action path.
+  action path. ADR-0329 now passes that source gate: 2,479 exact arms, 7,848
+  possible response-closed transitions, the exact 400-call realized-path rule,
+  lower-endpoint/smaller-raise choice, all five frozen development conjuncts,
+  failure-complete evidence, and no-clobber retention are sealed without
+  opening a greedy value. The active boundary is its one retained invocation;
+  transfer remains unopened.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -847,7 +852,10 @@ representative and candidate value remains unopened. All four exact-legality
   teacher invocation. ADR-0328 completes that invocation and seals its exact
   artifact plus solver-free rebinder. Width three passes only the exhaustive
   full-regret conjuncts; the active gate is to source-seal the complete direct
-  closed finite-block greedy schedule and result owner before values. Transfer
+  closed finite-block greedy schedule and result owner before values. ADR-0329
+  passes that gate with a complete adaptive graph and exact realized-path call
+  ledger. The active gate is one retained no-retry development invocation,
+  followed by exact artifact rebinding and selection or rejection. Transfer
   remains downstream.
 
 ## C6: Neural blueprint and leaves

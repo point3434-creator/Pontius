@@ -15,43 +15,35 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept the first and only ADR-0327 invocation. It completed all 2,495 ordered
-certified-v2 tasks across ADR-0326's exact 16-context development panel with 2,495
-accounted public HiGHS-DS calls, no consumer or numerical rejection, and no
-staging witness left behind. Commit the exact 4,975,258-byte canonical artifact
-and the additive solver-free `pontius.fresh_action_width_teacher_result`
-rebinder.
+Accept and source-seal the additive
+`pontius.fresh_action_width_greedy` owner before its first development price or
+candidate value. It freezes the whole adaptive state graph, not only one
+expected path: all 2,479 anchored subset arms at raise widths two through six
+and all 7,848 legal one-raise parent-to-child transitions are immutable before
+the first direct finite difference exists.
 
-The rebinder reconstructs every task from the sealed schedule and rederives
-each request, public-state, legal-raise-set, and compiled-LP identity. It checks
-all 2,495 canonical endpoint/gap records, independently recomputes every signed
-and nonnegative regret interval, payoff-span normalization, interval-max
-teacher envelope, strict-dominance survivor set, reporting-only equivalence
-set, unique-survivor field, and observation/width/context/campaign digest. Its
-tests patch both public consumer and HiGHS solver entry points to fail if
-reached. Rebinding therefore opens no new value and makes no solver call.
+No development consumer was invoked while implementing, testing, or sealing
+this source. Every focused control patches the public consumer to fail if
+value-free graph construction reaches it. The retained ADR-0328 teacher is
+named only by its exact campaign digest in the schedule; the source-only graph
+builder does not read its width values or compute a greedy price.
 
-The exhaustive curve answers only the width-matched teacher question. Width
-three is the first teacher width whose full-regret maximum and mean upper
-endpoints pass ADR-0323's `0.005` and `0.001` conjuncts. It is not the selected
-development width: the direct closed finite-block greedy recovery and
-width-matched teacher-excess conjuncts remain unopened and retain full veto
-power. No post-outcome threshold, shortcut price, transfer construction, or
-runtime election is authorized.
+This is still a reduced h4, two-live-seat, river fold/call research owner. It
+cannot emit or apply a betting action, construct transfer, enter the Legal
+Decision Spine, claim a 15-second fit, or select a production action width.
 
 The inherited authority remains explicit. ADR-0318 binds HiGHS 1.12.0;
-ADR-0319 requires one public HiGHS-DS call per canonical task; and All 177
-ordered observations pass under ADR-0320, leaving the separate consumer
-eligible. ADR-0321 preserves the caller-owned legal fallback, while ADR-0322
-returns research evidence or rejection with no action. ADR-0324's unopened
-transfer remainder stays value-unopened; ADR-0325 authorized its qualifier
-exactly once; ADR-0326 retained the exact panel; and ADR-0327's exhaustive
-bounded development-teacher is the only value owner invoked here. None of
-those controls is weakened.
+ADR-0319 requires one public HiGHS-DS call per canonical task; All 177 ordered
+observations pass under ADR-0320, leaving the separate consumer eligible;
+ADR-0321 retains caller-owned legal fallback; and ADR-0322 returns research
+evidence or rejection with no action. ADR-0324's value-unopened remainder stays
+value-unopened, ADR-0326's exact panel remains the only development population,
+ADR-0327's exhaustive bounded development-teacher is unchanged, and ADR-0328's
+solver-free teacher result is the only width authority.
 
 ## Active next
 
-Implement and source-seal only the direct closed finite-block greedy development owner before its first price or candidate-value invocation; begin from each anchored width-two subset, freeze the exact omitted-raise order and incumbent/augmented request plus opponent-response-row-set identities, close every proposed own block under complete fold/call response rows, select by greatest certified behavioral lower endpoint with the exact smaller-raise tie break, retain width-matched exhaustive-teacher excess, and open no transfer population, preparation artifact, production action, or greedy value until that owner and its complete schedule are committed
+With a clean worktree at the committed ADR-0329 source seal, invoke `run_and_retain_adr0323_closed_finite_block_greedy_development` exactly once into its reserved canonical artifact path; traverse only the sealed evidence-selected branch, stop without retry on the first consumer or numerical rejection, retain the first terminal artifact, and then commit its exact bytes plus a solver-free rebinder and the frozen development selection or rejection before constructing any transfer population, preparation artifact, production action, or alternative pricing proposer
 
 ## Revoked authorities
 
@@ -59,7 +51,7 @@ Implement and source-seal only the direct closed finite-block greedy development
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0328](docs/decisions/ADR-0328-retain-and-rebind-the-exhaustive-development-teacher.md) — Retain and rebind the exhaustive development teacher.
+Latest process decision: [ADR-0329](docs/decisions/ADR-0329-source-seal-the-direct-closed-finite-block-greedy-owner.md) — Source-seal the direct closed finite-block greedy owner.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -67,7 +59,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md) | 2026-08-23 | accepted prospective mechanism and replicated fresh-panel preregistration before v4 source code, structure construction, or values | Preregister capacity-filling pot-odds v4 |
 | [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md) | 2026-08-23 | accepted value-free source gate; v4 source is frozen before every seeded structure and value | Freeze capacity-filling v4 source |
 | [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) | 2026-08-23 | accepted charter amendment and executable successor preregistration before action-clock or preparation-bank source | Make the action clock and preparation bank authoritative |
 | [ADR-0308](docs/decisions/ADR-0308-install-the-action-clock-and-preparation-bank.md) | 2026-08-23 | accepted runtime engineering control; no strategy-quality, preparation-utility, complete-hand, or deployment result | Install the action clock and preparation bank |
@@ -91,18 +82,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0326](docs/decisions/ADR-0326-qualify-and-seal-the-finite-block-development-panel.md) | 2026-08-23 | accepted one-shot candidate-blind qualification result and exact 16-context development-panel seal; every intermediate-width value remains unopened | Qualify and seal the finite-block development panel |
 | [ADR-0327](docs/decisions/ADR-0327-source-seal-the-exhaustive-development-teacher.md) | 2026-08-23 | accepted source-only exhaustive-teacher owner and exact 2,495-task schedule seal; every intermediate-width development value remains unopened | Source-seal the exhaustive development teacher |
 | [ADR-0328](docs/decisions/ADR-0328-retain-and-rebind-the-exhaustive-development-teacher.md) | 2026-08-23 | accepted complete one-shot exhaustive-teacher result and solver-free artifact rebinder; no greedy mechanism or production action width is selected | Retain and rebind the exhaustive development teacher |
+| [ADR-0329](docs/decisions/ADR-0329-source-seal-the-direct-closed-finite-block-greedy-owner.md) | 2026-08-23 | accepted source-only complete adaptive greedy graph and failure-complete owner; every greedy price and candidate value remains unopened | Source-seal the direct closed finite-block greedy owner |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0328](docs/decisions/ADR-0328-retain-and-rebind-the-exhaustive-development-teacher.md) — Retain and rebind the exhaustive development teacher.
+- Latest ADR: [ADR-0329](docs/decisions/ADR-0329-source-seal-the-direct-closed-finite-block-greedy-owner.md) — Source-seal the direct closed finite-block greedy owner.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 328.
-- ADR-header SHA-256: `28fd113a08a6e93556ce9b4f9d3e3c012b385f1661ebe3db7ce9a746b1d747bf`.
-- Current blockers: no source-sealed closed finite-block greedy owner or price exists; no greedy recovery/excess result, selected development width, frozen mechanism commit, fresh transfer panel, preparation ledger, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
+- Numbered decisions: 329.
+- ADR-header SHA-256: `8813d80608835b66636278f655c29030e824372b48f99a4e5eb78483ab40c755`.
+- Current blockers: no closed finite-block greedy price, recovery/excess curve, or selected development width exists; no fresh transfer panel, preparation ledger, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0328](docs/decisions/ADR-0328-retain-and-rebind-the-exhaustive-development-teacher.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0329](docs/decisions/ADR-0329-source-seal-the-direct-closed-finite-block-greedy-owner.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

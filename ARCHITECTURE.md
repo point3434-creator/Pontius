@@ -293,6 +293,18 @@ It exposes immutable diagnostics only. The measured teacher curve makes width
 three the first full-regret-only pass and finds 49 plateaus among 64 nontrivial
 context-widths; neither fact is a greedy mechanism or production-width choice.
 
+ADR-0329 adds the adjacent source-sealed
+`fresh_action_width_greedy` owner. Its value-free adaptive graph contains every
+anchored subset task and every legal parent-plus-one-raise edge, so the
+eventual evidence-selected branch cannot invent a request after seeing a
+price. `OpponentResponseRowIdentity` binds context, raise-to total, distinct
+increment, responder type, and fold/call action; an eight-row own block must be
+disjoint from the incumbent and its semantic union must equal the augmented
+row set before the certified solve phase. The result owner freezes exact
+lower-endpoint/smaller-raise choice, teacher-excess and aggregate-recovery
+arithmetic, all five width gates, typed stops, and pre-call artifact
+reservation. It remains uninvoked and cannot construct transfer or an action.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

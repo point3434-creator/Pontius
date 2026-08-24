@@ -488,6 +488,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_exhaustive_teacher_source_seal_is_bounded_and_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0327", "reporting-only equivalence set"),
+            "PROJECT.md": ("2,479 anchored", "cardinality is the flatness"),
+            "STATUS.md": ("ADR-0327", "one retained development-teacher invocation"),
+            "ROADMAP.md": ("potentially empty reporting equivalence", "plateau cardinality"),
+            "RUNBOOK.md": (
+                "14250c3dbe504318640fc0ca35098c5c014e03eca23d3ea8fee4ec470705b8fd",
+                "staging marker is created and fsynced",
+            ),
+            "ARCHITECTURE.md": (
+                "fresh_action_width_teacher",
+                "no secondary runtime rule can edit",
+            ),
+            "RISK_REGISTER.md": ("R89", "permit an empty equivalence set"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

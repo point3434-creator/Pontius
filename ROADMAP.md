@@ -725,6 +725,14 @@ now seals the value-free compiler, both prospective structures, the known
   identity rebinds from the canonical artifact without solving. The next gate
   is source-only again: seal the panel's 2,495-task exhaustive teacher before
   any width-three-through-six value.
+  ADR-0327 now passes that source gate. It freezes the exact 16-full/2,479-
+  subset order, one-call/no-retry ownership, conservative chip and normalized
+  regret, interval teacher envelopes, strict dominance, sole-survivor
+  uniqueness, potentially empty reporting equivalence, and no-clobber result
+  retention. The active gate is one retained invocation through the sealed
+  artifact wrapper. It may measure plateau cardinality and the regret curve but
+  cannot choose a greedy mechanism, construct transfer, or make a production
+  action-width claim.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -824,10 +832,11 @@ representative and candidate value remains unopened. All four exact-legality
   before its first ADR-0322 invocation. ADR-0325 passes that source gate. The
   single retained invocation now passes under ADR-0326 and freezes the exact
   16-context development panel after a 51-context prefix. The active boundary
-  is not another value run: implement and source-seal the complete 2,495-task
-  exhaustive full/subset teacher, set-valued dominance/equivalence reductions,
-  and failure-complete result owner before opening any width-three-through-six
-  value. Greedy pricing and transfer remain downstream.
+  passes under ADR-0327: the complete 2,495-task exhaustive full/subset teacher,
+  set-valued dominance/equivalence reductions, failure-complete result owner,
+  and canonical no-clobber retention path are source-sealed without opening an
+  intermediate-width value. The active boundary is exactly one retained
+  teacher invocation. Greedy pricing and transfer remain downstream.
 
 ## C6: Neural blueprint and leaves
 

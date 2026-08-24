@@ -181,6 +181,16 @@ and the 16-context development-panel SHA-256 is
 No intermediate-width value is open. The next checkpoint is source-only: seal
 the 2,495-task exhaustive bounded teacher before invoking it.
 
+ADR-0327 now passes that source-only checkpoint. The sealed owner freezes all
+2,495 full-then-subset requests, conservative normalized regret, set-valued
+teacher intervals, strict dominance, sole-survivor uniqueness, and a
+reporting-only equivalence set that may honestly be empty. Nondominated-set
+cardinality is retained as the plateau measurement; no milliseconds-based
+secondary rule can edit it. A no-clobber staging marker is persisted before
+any future value call and canonical bytes are verified before publication. No
+development intermediate-width value was opened. The next boundary is exactly
+one retained teacher invocation, not greedy pricing or an action-width selection.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

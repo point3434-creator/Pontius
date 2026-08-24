@@ -1044,3 +1044,27 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     the exact 2,495-task exhaustive teacher and its failure-complete result
     boundary. Greedy pricing, transfer, preparation, and action emission remain
     closed.
+45. ADR-0327 source-seals `pontius.fresh_action_width_teacher` at
+    `14250c3dbe504318640fc0ca35098c5c014e03eca23d3ea8fee4ec470705b8fd`.
+    Its exact schedule digest is
+    `0998564a13428bfea300086011a9c5bce649ff3ec1bd00d20a632992dcd43f45`:
+    16 complete-universe tasks and 2,479 anchored subsets in width then
+    lexicographic order. The source retains interval-max teachers, every
+    certified nondominated subset, sole-survivor uniqueness, and reporting-
+    only equivalence that may be empty; payoff-span normalization is separate.
+    Before the one authorized value run, require a clean worktree and absent
+    final plus `.partial` paths. Invoke only the no-clobber retained wrapper:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    $env:PONTIUS_TEACHER_RESULT = [IO.Path]::GetFullPath("experiments/results/fresh-action-width-exhaustive-development-teacher-v1.json")
+    & $python -B -c "import os; from pathlib import Path; from pontius.fresh_action_width_teacher import run_and_retain_adr0323_exhaustive_development_teacher as run; result = run(output_path=Path(os.environ['PONTIUS_TEACHER_RESULT'])); print(type(result).__name__, result.digest, result.public_highs_ds_invocation_count)"
+    ```
+
+    The staging marker is created and fsynced before the first consumer call.
+    Any final or staging file rejects before values; any failure leaves evidence
+    that forbids silent retry. Do not invoke the raw runner for terminal output,
+    alter a stopped campaign, or substitute a backend. Commit exact artifact
+    bytes and a solver-free rebinder before interpreting the curve or opening
+    greedy pricing. Runtime cost may later choose only inside retained value
+    freedom; it cannot edit the teacher set.

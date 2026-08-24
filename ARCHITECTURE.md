@@ -271,9 +271,19 @@ artifact boundary. It pins the canonical 95,083-byte result, reconstructs all
 51 opened contexts and 102 exact request/legal/LP identities from the betting
 kernel, rechecks every float-hex endpoint and conservative regret direction,
 and rebuilds the qualification and 16-context panel digests. It cannot call the
-campaign runner, a solver, or an action path. The exhaustive teacher remains an
-absent layer; its 2,495-task schedule must be source-sealed before any
-intermediate-width value.
+campaign runner, a solver, or an action path. The exhaustive teacher is now an
+adjacent source-sealed layer under ADR-0327. `fresh_action_width_teacher`
+reconstructs the exact 16-context panel and freezes 16 complete-universe plus
+2,479 anchored-subset tasks before values. It owns conservative chip and
+payoff-span-normalized regret, interval-max teacher envelopes, strict certified
+dominance, all nondominated survivors, sole-survivor uniqueness, and a
+reporting-only equivalence set that may be empty. Nondominated-set cardinality
+is preserved as the plateau measurement; no secondary runtime rule can edit
+the teacher set. Typed consumer/numerical stops retain exact partial evidence.
+Its authorized wrapper reserves a no-clobber staging artifact before the first
+consumer call and publishes canonical byte-verified JSON. The layer remains
+uninvoked and cannot price a greedy block, select an action width, construct
+transfer, or emit an action.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

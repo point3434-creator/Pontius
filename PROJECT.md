@@ -173,6 +173,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   request/legal/LP identity without a solver call, and seals the exact
   16-context development panel. All width-three-through-six values remain
   unopened; a source-sealed 2,495-task exhaustive teacher owner is next.
+- ADR-0327 source-seals that teacher owner without opening a development
+  intermediate-width value. Its exact schedule has 16 full and 2,479 anchored-
+  subset tasks; every subset retains conservative chip and payoff-span-
+  normalized regret. Teacher maxima are interval envelopes, all certified
+  nondominated subsets survive, uniqueness requires one survivor, and the
+  reporting-only equivalence set may be empty. Its cardinality is the flatness
+  measurement. A no-clobber canonical artifact staging path is reserved before
+  any future consumer call, so an incomplete attempt blocks silent retry. One
+  retained invocation is next; greedy pricing and transfer remain closed.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

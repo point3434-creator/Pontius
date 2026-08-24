@@ -1068,3 +1068,23 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     bytes and a solver-free rebinder before interpreting the curve or opening
     greedy pricing. Runtime cost may later choose only inside retained value
     freedom; it cannot edit the teacher set.
+46. ADR-0328 retains the sole teacher invocation at campaign-result SHA-256
+    `6da6f43a02c6a0f97237bcdc9c66f845bac5735c290236d0ffdab481b7f82765`.
+    The canonical artifact is 4,975,258 bytes with SHA-256
+    `f94a76d283c18b681998d1c54e6037a21575b214fe613e0f58221734f4314661`;
+    all 2,495 calls completed and the `.partial` witness is absent. Verify it
+    only through the solver-free owner:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -c "from pontius.fresh_action_width_teacher_result import verify_adr0323_exhaustive_teacher_result_artifact as verify; result = verify(); print(result.campaign_result_sha256, len(result.contexts), result.public_highs_ds_invocation_count)"
+    ```
+
+    The retained curve makes width three the first full-regret-only pass; this
+    is not an action-width selection. Before another development value,
+    source-seal the direct closed finite-block greedy owner, its exact omitted-
+    raise order, incumbent/augmented request and response-row-set identities,
+    complete fold/call closure, lower-endpoint/smaller-raise selection rule,
+    teacher-excess arithmetic, stop state, and result schema. Do not construct
+    transfer, relax a gate, use campaign wall time as decision latency, or let
+    cost edit the teacher survivor set.

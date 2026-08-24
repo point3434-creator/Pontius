@@ -182,6 +182,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   measurement. A no-clobber canonical artifact staging path is reserved before
   any future consumer call, so an incomplete attempt blocks silent retry. One
   retained invocation is next; greedy pricing and transfer remain closed.
+- ADR-0328 retains that sole invocation as a complete 2,495-call result and
+  commits its exact 4,975,258-byte artifact. A solver-free owner rederives all
+  task, request/public/legal/LP, endpoint, regret, normalization, set-valued
+  envelope, and nested-digest evidence. Width three is the first exhaustive
+  teacher to pass the frozen full-regret maximum and mean limits; it is not a
+  selected action width because greedy recovery and width-matched excess are
+  unopened. Across widths three through six, 49 of 64 context-widths are
+  plateaus, with survivor median 8 and maximum 56. The next gate is source-only
+  direct closed finite-block greedy ownership; transfer remains closed.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -282,8 +282,16 @@ is preserved as the plateau measurement; no secondary runtime rule can edit
 the teacher set. Typed consumer/numerical stops retain exact partial evidence.
 Its authorized wrapper reserves a no-clobber staging artifact before the first
 consumer call and publishes canonical byte-verified JSON. The layer remains
-uninvoked and cannot price a greedy block, select an action width, construct
-transfer, or emit an action.
+unable to price a greedy block, select an action width, construct transfer, or
+emit an action. ADR-0328 now retains its sole completed invocation in the
+4,975,258-byte canonical artifact. The adjacent
+`fresh_action_width_teacher_result` owner reconstructs every schedule task and
+request/public/legal/LP identity, checks all float-hex endpoints, independently
+recomputes regret, payoff-span normalization, envelope and survivor semantics,
+and rebuilds every nested digest without importing a consumer or solver call.
+It exposes immutable diagnostics only. The measured teacher curve makes width
+three the first full-regret-only pass and finds 49 plateaus among 64 nontrivial
+context-widths; neither fact is a greedy mechanism or production-width choice.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

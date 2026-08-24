@@ -733,6 +733,14 @@ now seals the value-free compiler, both prospective structures, the known
   artifact wrapper. It may measure plateau cardinality and the regret curve but
   cannot choose a greedy mechanism, construct transfer, or make a production
   action-width claim.
+  ADR-0328 now retains that sole invocation: all 2,495 calls complete, the
+  canonical artifact and solver-free rebinder reproduce every semantic and
+  numerical identity, and width three is the first exhaustive-teacher width to
+  pass the full-regret-only maximum/mean limits. It is not a selected width
+  because greedy recovery and width-matched teacher excess remain unopened.
+  The active boundary is source-only direct closed finite-block greedy
+  ownership before any price, candidate value, transfer construction, or
+  action path.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -836,7 +844,11 @@ representative and candidate value remains unopened. All four exact-legality
   set-valued dominance/equivalence reductions, failure-complete result owner,
   and canonical no-clobber retention path are source-sealed without opening an
   intermediate-width value. The active boundary is exactly one retained
-  teacher invocation. Greedy pricing and transfer remain downstream.
+  teacher invocation. ADR-0328 completes that invocation and seals its exact
+  artifact plus solver-free rebinder. Width three passes only the exhaustive
+  full-regret conjuncts; the active gate is to source-seal the complete direct
+  closed finite-block greedy schedule and result owner before values. Transfer
+  remains downstream.
 
 ## C6: Neural blueprint and leaves
 

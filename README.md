@@ -191,6 +191,15 @@ any future value call and canonical bytes are verified before publication. No
 development intermediate-width value was opened. The next boundary is exactly
 one retained teacher invocation, not greedy pricing or an action-width selection.
 
+ADR-0328 retains that sole invocation. All 2,495 calls completed, and the
+4,975,258-byte canonical artifact independently rebinds every task,
+request/legal/LP identity, endpoint, regret, normalization, survivor set, and
+nested digest without a solver call. Width three is the first exhaustive-
+teacher width to pass the preregistered full-regret maximum and mean limits,
+but it is not a selected action width: the direct closed finite-block greedy
+recovery and teacher-excess gates remain unopened. The next checkpoint is
+source-only again: seal that greedy owner before any price or candidate value.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

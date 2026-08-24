@@ -492,7 +492,7 @@ class DocumentationIntegrityTests(unittest.TestCase):
         expected = {
             "README.md": ("ADR-0327", "reporting-only equivalence set"),
             "PROJECT.md": ("2,479 anchored", "cardinality is the flatness"),
-            "STATUS.md": ("ADR-0327", "one retained development-teacher invocation"),
+            "STATUS.md": ("ADR-0327", "exhaustive bounded development-teacher"),
             "ROADMAP.md": ("potentially empty reporting equivalence", "plateau cardinality"),
             "RUNBOOK.md": (
                 "14250c3dbe504318640fc0ca35098c5c014e03eca23d3ea8fee4ec470705b8fd",
@@ -503,6 +503,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
                 "no secondary runtime rule can edit",
             ),
             "RISK_REGISTER.md": ("R89", "permit an empty equivalence set"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+    def test_exhaustive_teacher_result_is_rebound_and_not_overpromoted(self) -> None:
+        expected = {
+            "README.md": ("ADR-0328", "not a selected action width"),
+            "PROJECT.md": ("4,975,258-byte", "49 of 64 context-widths"),
+            "STATUS.md": ("ADR-0328", "direct closed finite-block greedy"),
+            "ROADMAP.md": ("all 2,495 calls complete", "full-regret-only"),
+            "RUNBOOK.md": (
+                "6da6f43a02c6a0f97237bcdc9c66f845bac5735c290236d0ffdab481b7f82765",
+                "solver-free owner",
+            ),
+            "ARCHITECTURE.md": (
+                "fresh_action_width_teacher_result",
+                "49 plateaus",
+            ),
+            "RISK_REGISTER.md": ("R90", "campaign wall"),
         }
         for relative, phrases in expected.items():
             text = _contract_text(relative)

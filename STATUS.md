@@ -15,34 +15,43 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept and source-seal the additive `pontius.fresh_action_width_teacher` owner
-before its first development-panel invocation. It binds ADR-0326's exact
-16-context panel to one immutable schedule of 2,495 certified-v2 tasks, owns
-all conservative interval reductions and terminal states, and cannot emit or
-apply a betting action.
+Accept the first and only ADR-0327 invocation. It completed all 2,495 ordered
+certified-v2 tasks across ADR-0326's exact 16-context development panel with 2,495
+accounted public HiGHS-DS calls, no consumer or numerical rejection, and no
+staging witness left behind. Commit the exact 4,975,258-byte canonical artifact
+and the additive solver-free `pontius.fresh_action_width_teacher_result`
+rebinder.
 
-No width-three-through-six value was opened while implementing, testing, or
-sealing this owner. The only accepted solver values used by focused controls
-are a tiny two-private-type schema toy outside the development panel. Schedule
-construction rebinds requests and LP identities but never calls the public
-consumer.
+The rebinder reconstructs every task from the sealed schedule and rederives
+each request, public-state, legal-raise-set, and compiled-LP identity. It checks
+all 2,495 canonical endpoint/gap records, independently recomputes every signed
+and nonnegative regret interval, payoff-span normalization, interval-max
+teacher envelope, strict-dominance survivor set, reporting-only equivalence
+set, unique-survivor field, and observation/width/context/campaign digest. Its
+tests patch both public consumer and HiGHS solver entry points to fail if
+reached. Rebinding therefore opens no new value and makes no solver call.
 
-The next boundary is the one retained development-teacher invocation. It is
-not a greedy price, action-width selection, transfer experiment, capacity
-measurement, six-player response model, or production integration.
+The exhaustive curve answers only the width-matched teacher question. Width
+three is the first teacher width whose full-regret maximum and mean upper
+endpoints pass ADR-0323's `0.005` and `0.001` conjuncts. It is not the selected
+development width: the direct closed finite-block greedy recovery and
+width-matched teacher-excess conjuncts remain unopened and retain full veto
+power. No post-outcome threshold, shortcut price, transfer construction, or
+runtime election is authorized.
 
-The inherited authority remains explicit: ADR-0318 binds HiGHS 1.12.0;
+The inherited authority remains explicit. ADR-0318 binds HiGHS 1.12.0;
 ADR-0319 requires one public HiGHS-DS call per canonical task; and All 177
 ordered observations pass under ADR-0320, leaving the separate consumer
 eligible. ADR-0321 preserves the caller-owned legal fallback, while ADR-0322
 returns research evidence or rejection with no action. ADR-0324's unopened
-remainder stays value-unopened, ADR-0326's exact panel remains the only input,
-and its exhaustive bounded development-teacher boundary is the source now
-sealed here. None of those controls is weakened.
+transfer remainder stays value-unopened; ADR-0325 authorized its qualifier
+exactly once; ADR-0326 retained the exact panel; and ADR-0327's exhaustive
+bounded development-teacher is the only value owner invoked here. None of
+those controls is weakened.
 
 ## Active next
 
-With a clean worktree at the committed ADR-0327 source seal, invoke `run_and_retain_adr0323_exhaustive_development_teacher` exactly once into a new canonical result path; accept only its no-clobber byte-verified terminal artifact, never retry or substitute a backend after any stop, and then commit the exact artifact plus a solver-free result rebinder and successor decision before opening any greedy finite-block price, mechanism choice, transfer structure, preparation artifact, or production action
+Implement and source-seal only the direct closed finite-block greedy development owner before its first price or candidate-value invocation; begin from each anchored width-two subset, freeze the exact omitted-raise order and incumbent/augmented request plus opponent-response-row-set identities, close every proposed own block under complete fold/call response rows, select by greatest certified behavioral lower endpoint with the exact smaller-raise tie break, retain width-matched exhaustive-teacher excess, and open no transfer population, preparation artifact, production action, or greedy value until that owner and its complete schedule are committed
 
 ## Revoked authorities
 
@@ -50,7 +59,7 @@ With a clean worktree at the committed ADR-0327 source seal, invoke `run_and_ret
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0327](docs/decisions/ADR-0327-source-seal-the-exhaustive-development-teacher.md) — Source-seal the exhaustive development teacher.
+Latest process decision: [ADR-0328](docs/decisions/ADR-0328-retain-and-rebind-the-exhaustive-development-teacher.md) — Retain and rebind the exhaustive development teacher.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -58,7 +67,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0304](docs/decisions/ADR-0304-reject-collision-repair-v3-on-qualified-recovery.md) | 2026-08-23 | accepted negative result; collision-repair v3 is rejected and parked before every integration path | Reject collision-repair v3 on qualified recovery |
 | [ADR-0305](docs/decisions/ADR-0305-preregister-capacity-filling-pot-odds-v4.md) | 2026-08-23 | accepted prospective mechanism and replicated fresh-panel preregistration before v4 source code, structure construction, or values | Preregister capacity-filling pot-odds v4 |
 | [ADR-0306](docs/decisions/ADR-0306-freeze-capacity-filling-v4-source.md) | 2026-08-23 | accepted value-free source gate; v4 source is frozen before every seeded structure and value | Freeze capacity-filling v4 source |
 | [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) | 2026-08-23 | accepted charter amendment and executable successor preregistration before action-clock or preparation-bank source | Make the action clock and preparation bank authoritative |
@@ -82,18 +90,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0325](docs/decisions/ADR-0325-source-seal-candidate-blind-action-width-qualification.md) | 2026-08-23 | accepted source-only candidate-blind qualification owner; all 96 development sizing contexts remain value unopened | Source-seal candidate-blind action-width qualification |
 | [ADR-0326](docs/decisions/ADR-0326-qualify-and-seal-the-finite-block-development-panel.md) | 2026-08-23 | accepted one-shot candidate-blind qualification result and exact 16-context development-panel seal; every intermediate-width value remains unopened | Qualify and seal the finite-block development panel |
 | [ADR-0327](docs/decisions/ADR-0327-source-seal-the-exhaustive-development-teacher.md) | 2026-08-23 | accepted source-only exhaustive-teacher owner and exact 2,495-task schedule seal; every intermediate-width development value remains unopened | Source-seal the exhaustive development teacher |
+| [ADR-0328](docs/decisions/ADR-0328-retain-and-rebind-the-exhaustive-development-teacher.md) | 2026-08-23 | accepted complete one-shot exhaustive-teacher result and solver-free artifact rebinder; no greedy mechanism or production action width is selected | Retain and rebind the exhaustive development teacher |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0327](docs/decisions/ADR-0327-source-seal-the-exhaustive-development-teacher.md) — Source-seal the exhaustive development teacher.
+- Latest ADR: [ADR-0328](docs/decisions/ADR-0328-retain-and-rebind-the-exhaustive-development-teacher.md) — Retain and rebind the exhaustive development teacher.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 327.
-- ADR-header SHA-256: `b37f2f1d676efed49c7d064935baec916f1fb146eb4527dbf4c95912135e7de3`.
-- Current blockers: no width-three-through-six development value or certified regret curve exists; no exhaustive teacher result, greedy finite-block price, frozen mechanism, fresh transfer panel, preparation ledger, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
+- Numbered decisions: 328.
+- ADR-header SHA-256: `28fd113a08a6e93556ce9b4f9d3e3c012b385f1661ebe3db7ce9a746b1d747bf`.
+- Current blockers: no source-sealed closed finite-block greedy owner or price exists; no greedy recovery/excess result, selected development width, frozen mechanism commit, fresh transfer panel, preparation ledger, six-player response model, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0327](docs/decisions/ADR-0327-source-seal-the-exhaustive-development-teacher.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0328](docs/decisions/ADR-0328-retain-and-rebind-the-exhaustive-development-teacher.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

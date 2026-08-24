@@ -15,59 +15,62 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Retain the first and only ADR-0346 public invocation from clean commit
-`5164ad75a56b3bc3e3c76df1e4e85c8c2955f3ba`. The exclusive-create result
-path was absent before launch. The invocation completed normally in
-`1.7429398999956902` seconds and wrote exactly 100,710 bytes. There was no
-retry, resume, overwrite, parameter change, alternate backend, exception, or
-infrastructure terminal.
+Add `one_seat_row_growth_audit`, a read-only observer around exactly one call
+to the source-sealed production
+`solve_one_seat_with_row_generation`. The production primitive is unchanged.
+During one single-threaded laboratory call, the observer records its existing
+evaluation, master, response-row, best-response, expected-utility, and
+open-axis coefficient boundaries. It calls the original objects at every
+boundary and returns the production result itself; it is neither a shadow
+solver nor an alternate row generator. A process-local lock prevents two
+observed calls from overlapping.
 
-The artifact reports `passed: true`; all 34 frozen gate fields are literal
-Booleans and true. Its decision is
-`authorize_legal_responder_raise_h4_row_growth_preregistration`. This is a
-prospective authorization only. No responder-row generation or capacity value
-has been opened by this result.
+Add one failure-retaining prospective runner,
+`legal_responder_raise_h4_row_growth`. The runner invokes the observer exactly
+once. It never calls `best_response` outside that observed production call.
+Every response tape selected by the subject is retained in full and then held
+fixed while the independent Fraction enumerator rechecks the corresponding
+gain row. Every candidate tape already returned by the subject is likewise
+held fixed while exact terminal enumeration rechecks utilities, response
+values, deviation gains, caps, convergence classification, and the retained
+incumbent. Config or execution exceptions consume the exclusive result path as
+typed failures. A pre-existing result path is never overwritten.
 
-Add `legal_responder_raise_h4_coefficient_result` as a solver-free retained
-result owner. It pins the artifact bytes, invocation commit, config and source
-closure, public and private game identities, complete h4 axis, policy and tape
-digests, exact row digests, all 192 coefficient records, all 36 endpoint
-records, and the all-pass gate vector. It independently converts every
-serialized hexadecimal Float64 to an exact rational, checks every reduced
-Fraction record, rederives exact profile zero-sum and both gain-row algebraic
-identities, and cross-binds payoff and gain endpoints to the three retained
-direct-utility contexts. It imports and calls no closed runner, game,
-evaluator, coefficient primitive, Fraction teacher, optimizer, action path, or
-write path. A fully rehashed gain mutation is rejected by the independent
-algebra, not merely by the outer artifact digest.
+ADR-0347's prospective coefficient runner is permanently closed. Its
+solver-free result owner remains the parent authority and must pass before the
+new subject call begins. No code in this decision invokes or imports the
+closed runner.
 
 The inherited trust chain remains explicit. ADR-0310 made native-simplex
 robustness the next systems question. ADR-0311's directive is Preregister the
-native-simplex robustness audit. ADR-0312's directive is Seal the native-simplex audit compiler and corpora.
-ADR-0313's directive is Seal the native-simplex audit runner before results.
-ADR-0314's decision is Retain the native-simplex audit and reject the frozen gate.
-ADR-0315's directive is Source-seal the artifact-only native-simplex gate correction.
-ADR-0316's decision is Accept the corrected audit and bound replacement eligibility.
-ADR-0317's directive is Separate solver classes and prioritize the certified sizing adapter.
-ADR-0318 binds HiGHS 1.12.0, ADR-0319 requires one public HiGHS-DS call per
-canonical task, and All 177 ordered observations pass under ADR-0320, making
-the separate consumer eligible. ADR-0321 preserves caller-owned legal fallback,
-ADR-0322 returns research evidence or rejection with no action, ADR-0324
-remains value-unopened, ADR-0325 was authorized exactly once, ADR-0326 and
-ADR-0327 govern the exhaustive bounded development-teacher chain, and ADR-0333
-records that No replacement sizing value was opened at its source boundary.
-ADR-0330 remains permanently closed, ADR-0331's append-and-fsync discipline
-and ADR-0332's exclusive `xb` open remain authoritative, ADR-0337 remains the
-response-closed direct mechanism with a dynamic-branch rebinder, ADR-0338 alone
-records the selected development raise width, and ADR-0339's exact non-overlap
-comparison remains a finite absence claim, not representativeness evidence.
-ADR-0340's 192 prospective tasks remain distinct from ADR-0341's 94 accepted
-one-call arms and ADR-0343's 126 confirmation arms. ADR-0342 alone authorized
-the retained confirmation invocation. No result here weakens those authorities.
+native-simplex robustness audit. ADR-0312's directive is Seal the
+native-simplex audit compiler and corpora. ADR-0313's directive is Seal the
+native-simplex audit runner before results. ADR-0314's decision is Retain the
+native-simplex audit and reject the frozen gate. ADR-0315's directive is
+Source-seal the artifact-only native-simplex gate correction. ADR-0316's
+decision is Accept the corrected audit and bound replacement eligibility.
+ADR-0317's directive is Separate solver classes and prioritize the certified
+sizing adapter. ADR-0318 binds HiGHS 1.12.0, ADR-0319 requires one public
+HiGHS-DS call per canonical task, and All 177 ordered observations pass under
+ADR-0320, making the separate consumer eligible. ADR-0321 preserves
+caller-owned legal fallback, ADR-0322 returns research evidence or rejection with no
+action, ADR-0324 remains value-unopened, ADR-0325 was authorized exactly once,
+ADR-0326 and ADR-0327 govern the exhaustive bounded development-teacher chain,
+and ADR-0333 records that No replacement sizing value was opened at its source
+boundary. ADR-0330 remains permanently closed, ADR-0331's append-and-fsync
+discipline and ADR-0332's exclusive `xb` open remain authoritative, ADR-0337
+remains the response-closed direct mechanism with a dynamic-branch rebinder,
+ADR-0338 alone records the selected development raise width, and ADR-0339's
+exact non-overlap comparison remains a finite absence claim, not
+representativeness evidence. ADR-0340's 192 prospective tasks remain distinct
+from ADR-0341's 94 accepted one-call arms and ADR-0343's 126 confirmation arms.
+ADR-0342 alone authorized the retained confirmation invocation. ADR-0344 and
+ADR-0346 remain source-only authorities, while ADR-0345 and ADR-0347 alone own
+their retained finite results. No result here weakens those authorities.
 
 ## Active next
 
-Preregister and source-seal legal responder-row growth on ADR-0347's exact h4 tree, measuring response signatures, generated rows, conditioning, oracle work, retained bytes, convergence, and bounded infrastructure wall without adding selector, latency, action, or quality claims; in parallel preregister the label-free full-width river capacity preflight on the exact 1,225/1,081/1,035/990 belief axes
+From one clean commit containing ADR-0348 and an absent legal h4 row-growth result path, invoke the source-sealed audit exactly once and retain pass, rejection, or typed failure without changing the fixture, source policy, initial rows, guard, iteration bound, tolerance, observer, exact checks, byte definition, walls, or claims; a pass authorizes only a separately preregistered selector-stability successor, while full-width river capacity remains a separate parallel lane
 
 ## Revoked authorities
 
@@ -75,7 +78,7 @@ Preregister and source-seal legal responder-row growth on ADR-0347's exact h4 tr
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0347](docs/decisions/ADR-0347-retain-and-seal-the-legal-h4-coefficient-result.md) — Retain and seal the legal h4 coefficient result.
+Latest process decision: [ADR-0348](docs/decisions/ADR-0348-preregister-the-legal-h4-responder-row-growth-audit.md) — Preregister the legal h4 responder-row growth audit.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -83,7 +86,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0324](docs/decisions/ADR-0324-source-seal-fresh-action-width-development-structures.md) | 2026-08-23 | accepted value-free development source and structural pool seal; every fresh sizing value and transfer structure remains unopened | Source-seal fresh action-width development structures |
 | [ADR-0325](docs/decisions/ADR-0325-source-seal-candidate-blind-action-width-qualification.md) | 2026-08-23 | accepted source-only candidate-blind qualification owner; all 96 development sizing contexts remain value unopened | Source-seal candidate-blind action-width qualification |
 | [ADR-0326](docs/decisions/ADR-0326-qualify-and-seal-the-finite-block-development-panel.md) | 2026-08-23 | accepted one-shot candidate-blind qualification result and exact 16-context development-panel seal; every intermediate-width value remains unopened | Qualify and seal the finite-block development panel |
 | [ADR-0327](docs/decisions/ADR-0327-source-seal-the-exhaustive-development-teacher.md) | 2026-08-23 | accepted source-only exhaustive-teacher owner and exact 2,495-task schedule seal; every intermediate-width development value remains unopened | Source-seal the exhaustive development teacher |
@@ -107,13 +109,14 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0345](docs/decisions/ADR-0345-retain-and-seal-the-legal-responder-raise-keystone.md) | 2026-08-24 | accepted finite legal-semantics and sequence-form keystone; the sole source-sealed invocation passes every frozen gate on one deterministic checked-to heads-up river continuation and authorizes only a separately preregistered h4 legal responder-raise open-axis differential | Retain and seal the legal responder-raise semantics keystone |
 | [ADR-0346](docs/decisions/ADR-0346-preregister-the-legal-h4-coefficient-differential.md) | 2026-08-24 | accepted preregistration and source seal before the first legal responder-raise h4 coefficient invocation; every coefficient result, row-growth result, latency result, strategy label, and production action remains unopened | Preregister the legal h4 coefficient differential |
 | [ADR-0347](docs/decisions/ADR-0347-retain-and-seal-the-legal-h4-coefficient-result.md) | 2026-08-24 | accepted finite legal h4 coefficient identity; the sole source-sealed invocation passes every frozen gate and authorizes only a separately preregistered legal responder-row growth experiment on the same h4 tree | Retain and seal the legal h4 coefficient result |
+| [ADR-0348](docs/decisions/ADR-0348-preregister-the-legal-h4-responder-row-growth-audit.md) | 2026-08-24 | accepted preregistration and source seal before the first legal h4 responder-row growth invocation; every row-growth value, selector-stability result, action-clock result, strategy label, and production action remains unopened | Preregister the legal h4 responder-row growth audit |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0347](docs/decisions/ADR-0347-retain-and-seal-the-legal-h4-coefficient-result.md) — Retain and seal the legal h4 coefficient result.
+- Latest ADR: [ADR-0348](docs/decisions/ADR-0348-preregister-the-legal-h4-responder-row-growth-audit.md) — Preregister the legal h4 responder-row growth audit.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 347.
-- ADR-header SHA-256: `839ee936cce663e68fffdaabe7938081cfe965835435f712c56c0a644769ff5a`.
+- Numbered decisions: 348.
+- ADR-header SHA-256: `d67b94ee0b627ed34ea86be4c83643dd27fd74efa99b24a16f978163fe0d9a0e`.
 - Current blockers: no legal responder-row capacity result, selector-stability result in the deeper tree, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief/certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
@@ -121,4 +124,4 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0347](docs/decisions/ADR-0347-retain-and-seal-the-legal-h4-coefficient-result.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0348](docs/decisions/ADR-0348-preregister-the-legal-h4-responder-row-growth-audit.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

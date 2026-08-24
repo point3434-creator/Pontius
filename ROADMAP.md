@@ -1058,6 +1058,16 @@ queue:
   growth on the unchanged h4 tree, keeping its response signatures,
   conditioning, oracle work, retained bytes, and infrastructure wall separate
   from selector and action-clock questions.
+  ADR-0348 now source-seals that exact growth audit with no h4 trajectory
+  opened. One read-only observer calls the unchanged production generator
+  once; every complete signature and gain row is retained and independently
+  checked with Fraction coefficients and fixed-tape terminal values. Exact
+  feasibility/convergence classification, final incumbent feasibility,
+  restricted-master diagnostics, oracle-call algebra, independently rebound
+  conditioning, and canonical retained-row bytes are frozen. The 60-second
+  subject and 120-second complete walls are infrastructure-only. Next invoke
+  once from the committed source boundary and retain its first terminal; only
+  a literal pass may preregister selector stability.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

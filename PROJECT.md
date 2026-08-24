@@ -396,6 +396,18 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   optimizer, or write path. The result authorizes only a separately sealed
   responder-row-growth experiment. It supplies no selector, capacity, latency,
   action, full-width, or quality result.
+- ADR-0348 source-seals that responder-row-growth experiment before opening
+  any h4 target trajectory. The unchanged h4 fixture, dyadic source policy,
+  two inherited initial response signatures and exact gain rows, guard,
+  tolerance, and 128-iteration ceiling are frozen. A read-only observer wraps
+  one production generator call and retains every full signature, generated
+  row, master diagnostic, oracle count, conditioning value, and canonical row
+  byte. A separate Fraction pass checks fixed-tape coefficients, candidates,
+  caps, convergence classifications, and the retained incumbent without any
+  out-of-band selector call. The 60-second subject and 120-second total walls
+  are infrastructure guards, never action latency. Every h4 growth value,
+  selector-stability result, action, full-width result, and quality claim
+  remains unopened until the sole committed invocation.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

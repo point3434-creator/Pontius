@@ -551,6 +551,23 @@ coefficient primitive, teacher, or optimizer and has no action or write path.
 It authenticates finite h4 coefficients only and cannot enter the Legal
 Decision Spine.
 
+`one_seat_row_growth_audit` is ADR-0348's laboratory-only read observer for
+the source-sealed production generator. It temporarily instruments the
+generator's existing module boundaries under a process-local lock, always
+calls the original evaluation/master/row/oracle functions, and returns the
+production result plus an immutable transcript. It adds no solver, row rule,
+action path, fallback, or persistent state.
+
+`legal_responder_raise_h4_row_growth` is ADR-0348's prospective one-shot owner
+on ADR-0347's unchanged h4 fixture. It makes one observed production call,
+retains every exact response signature and all 32 coefficients of every row,
+and uses the independent Fraction enumerator to check the subject-selected
+tapes without reselecting them. It separately records production-call and
+complete-infrastructure walls, exact convergence/incumbent checks, restricted-
+master diagnostics, oracle accounting, conditioning, and semantic row bytes.
+It is not connected to the Legal Decision Spine and emits no action, selector-
+stability label, full-width result, or strategy-quality row.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

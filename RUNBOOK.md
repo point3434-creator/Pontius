@@ -1542,3 +1542,37 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     capacity or action latency. Next preregister responder-row growth on the
     unchanged h4 fixture; keep selector stability, preparation-bank recovery,
     multiway closure, off-tree actions, and full-width capacity separate.
+
+66. ADR-0348 source-seals the legal h4 responder-row growth audit. Preserve
+    `experiments/configs/legal-responder-raise-h4-row-growth-v1.json` at
+    SHA-256
+    `da6c4067cedd71504eb0c5e0c5034ffdf731839d2df71d33f0a07d12bd25cd99`,
+    `one_seat_row_growth_audit.py` at SHA-256
+    `f5c6f80bc46a6b8887f9241998207bbb8828fff136a6f1a389475b1aead349eb`,
+    its control at
+    `14d6bb929af5167d336f8abc724558e2710748efc8b1fc905bb8c120f3a2ed1e`,
+    the prospective runner at
+    `89f425d5bf5ddca7a1e2ef0eb343d0f34b1ce39cc9b7ee31a3fc4364905b9e58`,
+    and its control at
+    `14c698b38669aeeb624bf844494468856f37eb80c8278ccde6035415f59ac591`.
+
+    The result path
+    `experiments/results/legal-responder-raise-h4-row-growth-v1.json` must be
+    absent at the clean source commit. After committing the complete ADR-0348
+    boundary, invoke only:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m pontius.legal_responder_raise_h4_row_growth
+    ```
+
+    Preserve its first exclusive-create terminal without deletion, overwrite,
+    parameter change, alternate backend, or retry. The observer must call the
+    unchanged production generator once; the Fraction audit consumes only its
+    already selected tapes. Report complete response signatures, generated
+    rows, conditioning, oracle work, semantic retained bytes, convergence, and
+    bounded infrastructure walls. Never call either wall action latency or
+    infer strategy quality. A literal pass authorizes only a separately
+    preregistered selector-stability successor; preparation-bank recovery,
+    multiway closure, off-tree actions, full-width capacity, action emission,
+    and strength remain separate gates.

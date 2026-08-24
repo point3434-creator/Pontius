@@ -1022,7 +1022,7 @@ queue:
   deeper tree, multiway closure, and legal off-tree observed raises as
   separate preregistered gates. Repeated-actor multiway closure has no
   existence proof in the current stack and remains a research risk.
-  ADR-0344 now source-seals the first finite gate without opening its result.
+  ADR-0344 source-sealed the first finite gate before opening its result.
   Its checked-to river bridge obtains every integer action and terminal chip
   settlement from the authoritative six-seat kernel. The frozen tree contains
   both a full raise from two to four and the legal short all-in from three to
@@ -1030,9 +1030,16 @@ queue:
   player zero repeats, so sequence form must match a separately enumerated
   16-by-18 pure-plan teacher. The one-hand gate does not independently test
   reopening and cannot establish h4 coefficients, row capacity, selector
-  stability, multiway closure, latency, or quality. Invoke it once from the
-  committed ADR-0344 source; only a pass may open a separately preregistered
-  h4 legal responder-raise coefficient differential.
+  stability, multiway closure, latency, or quality.
+  ADR-0345 now retains the sole clean invocation. All 24 gates pass: the six-
+  node/eleven-terminal kernel schema, full and short-all-in branches, exact
+  chip oracle, repeated-actor shortcut rejection, and the 16-by-18 complete-
+  teacher agreement all hold. This crosses the one-hand gate and authorizes
+  only a separately preregistered h4 legal responder-raise open-axis
+  coefficient differential on the same public semantics. Response-row growth,
+  selector stability, multiway closure, and off-tree observation remain
+  separate gates. The 0.791-second tiny-game campaign is not an action-clock
+  or capacity result.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

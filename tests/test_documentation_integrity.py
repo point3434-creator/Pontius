@@ -844,6 +844,31 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_legal_responder_raise_keystone_result_is_retained_and_bounded(self) -> None:
+        expected = {
+            "README.md": ("ADR-0345", "7,400-byte"),
+            "PROJECT.md": ("ADR-0345", "16-by-18"),
+            "STATUS.md": ("ADR-0345", "h4 legal responder-raise"),
+            "ROADMAP.md": ("All 24 gates pass", "not an action-clock"),
+            "RUNBOOK.md": (
+                "a7cbb0efca87ad3bf9e2a2105d10aa137daf68a763b68518d68e893bfc74be11",
+                "Never invoke",
+            ),
+            "ARCHITECTURE.md": (
+                "responder_raise_semantics_keystone_result",
+                "authenticates",
+            ),
+            "RISK_REGISTER.md": ("R106", "0.791-second"),
+            "docs/PREDICTION_LEDGER.md": (
+                "ADR-0345 satisfies the first semantic conjunct",
+                "no Brier score",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

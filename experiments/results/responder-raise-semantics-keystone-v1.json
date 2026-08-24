@@ -1,0 +1,245 @@
+{
+  "config_sha256": "5a9899ea0ced855cdb6fa30183ccab9b3235470603d7d45f688355eac15dcafd",
+  "decision": "authorize_h4_legal_responder_raise_open_axis_differential",
+  "environment": {
+    "git": {
+      "commit": "ff2b8ced243f0eb0d3a7fcffebf2287c4c102aa2",
+      "dirty": false,
+      "strict_status": true
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "runtime": {
+      "backend": "cpu_float64_exact_small_game"
+    }
+  },
+  "game_provenance_sha256": "8f70f4d0121979959f91f0ca308aaaa77204132e8718b0d807d7ce7c6a7498d1",
+  "game_structural_sha256": "2eacfe54c73ea0030b45d472aaef86106e6a1ebf276d59bf196852cd35c6acaf",
+  "gates": {
+    "behavioral_shortcut_rejection": true,
+    "bound_monotonicity": true,
+    "clean_git": true,
+    "every_action_from_kernel": true,
+    "exact_digest_dedup_only": true,
+    "final_gap": true,
+    "finite": true,
+    "full_raise_branch": true,
+    "generated_converged": true,
+    "incumbent_identity": true,
+    "legacy_short_all_in_omission_detected": true,
+    "passed": true,
+    "public_schema": true,
+    "realization_equivalence": true,
+    "repeated_actor_topology": true,
+    "retreat_jensen": true,
+    "short_all_in_branch": true,
+    "short_all_in_final_response_only": true,
+    "strategic_node_count": true,
+    "teacher_objective_identity": true,
+    "teacher_plan_counts": true,
+    "terminal_node_count": true,
+    "terminal_oracle_identity": true,
+    "total_time": true
+  },
+  "generated": {
+    "baseline_nash_conv": 2.958333333333333,
+    "caps": [
+      1.8749999999999996,
+      1.5833333333333335
+    ],
+    "conditioning_by_player": [
+      {
+        "effective_condition_number": 1.0,
+        "minimum_normalized_separation": null,
+        "numerical_rank": 1,
+        "rows": 1
+      },
+      {
+        "effective_condition_number": 2.0789586406963174,
+        "minimum_normalized_separation": 1.8023353196993694,
+        "numerical_rank": 2,
+        "rows": 2
+      }
+    ],
+    "converged": true,
+    "exact_duplicate_response_hits": 0,
+    "iterations": [
+      {
+        "added_targets": [
+          1
+        ],
+        "candidate_feasible": false,
+        "candidate_nash_conv": 2.333333333333333,
+        "converged": false,
+        "cut_extraction_seconds": 0.004333999997470528,
+        "exact_oracle_seconds": 0.010695000004488975,
+        "incumbent_updated": false,
+        "incumbent_upper_bound": 2.958333333333333,
+        "iteration": 1,
+        "master_lower_bound": 2.3592239273284576e-15,
+        "master_solve_seconds": 0.00017660000594332814,
+        "maximum_cap_violation": 0.7499999999999996,
+        "maximum_epigraph_violation": 2.333333333333333,
+        "optimality_gap": 2.958333333333331,
+        "realization_equivalence_max_error": 8.881784197001252e-16,
+        "response_rows_added": 1,
+        "response_rows_before": 2
+      },
+      {
+        "added_targets": [],
+        "candidate_feasible": true,
+        "candidate_nash_conv": 2.333333333333333,
+        "converged": true,
+        "cut_extraction_seconds": 4.00003045797348e-07,
+        "exact_oracle_seconds": 0.010917000006884336,
+        "incumbent_updated": true,
+        "incumbent_upper_bound": 2.333333333333333,
+        "iteration": 2,
+        "master_lower_bound": 2.333333333333334,
+        "master_solve_seconds": 0.00013299999409355223,
+        "maximum_cap_violation": 0.0,
+        "maximum_epigraph_violation": 5.551115123125783e-17,
+        "optimality_gap": 0.0,
+        "realization_equivalence_max_error": 8.881784197001252e-16,
+        "response_rows_added": 0,
+        "response_rows_before": 3
+      }
+    ],
+    "lower_bound": 2.333333333333334,
+    "optimality_gap": 0.0,
+    "response_rows_by_player": [
+      1,
+      2
+    ],
+    "upper_bound": 2.333333333333333
+  },
+  "implementation_sha256": "201b937d351d50e072d4f8f00268b3242855abd8f32c468b3d5870fad1682978",
+  "legal_game_sha256": "4c8f57f259415ece30b12add42243b65a30d3320924b469209e2d94a68064250",
+  "limitations": [
+    "This is one deterministic checked-to heads-up river continuation.",
+    "Private width is one hand per player and supplies no population evidence.",
+    "The result does not establish multiway closure, selector stability, or latency.",
+    "The result emits no production action and carries no poker-strength label."
+  ],
+  "maximum_realization_equivalence_error": 8.881784197001252e-16,
+  "methodology": {
+    "betting_authority": "NoLimitBettingState",
+    "open_axis": "one_seat_sequence_form_realization",
+    "quality_rows": 0,
+    "strategy_labels": 0,
+    "teacher": "complete_mixed_normal_form_direct_utility_evaluation"
+  },
+  "passed": true,
+  "quality_rows_serialized": 0,
+  "retreat": {
+    "factor": 0.8,
+    "maximum_jensen_error": 1.1102230246251565e-16
+  },
+  "root_public_state_sha256": "d6976d35018153790f63698d7231d1f920f21c1dfb865a5a0733bd42d1cbcf52",
+  "root_raise_to_totals": [
+    2,
+    3,
+    4
+  ],
+  "schema_version": 1,
+  "semantics": {
+    "every_action_from_kernel": true,
+    "full_raise_branches": 1,
+    "maximum_terminal_oracle_error_chips": 0.0,
+    "public_schema": {
+      "p0:raise-to-2": {
+        "acting_player": 1,
+        "actions": [
+          "fold",
+          "call",
+          "raise-to-4"
+        ]
+      },
+      "p0:raise-to-2/p1:raise-to-4": {
+        "acting_player": 0,
+        "actions": [
+          "fold",
+          "call"
+        ]
+      },
+      "p0:raise-to-3": {
+        "acting_player": 1,
+        "actions": [
+          "fold",
+          "call",
+          "raise-to-4"
+        ]
+      },
+      "p0:raise-to-3/p1:raise-to-4": {
+        "acting_player": 0,
+        "actions": [
+          "fold",
+          "call"
+        ]
+      },
+      "p0:raise-to-4": {
+        "acting_player": 1,
+        "actions": [
+          "fold",
+          "call"
+        ]
+      },
+      "root": {
+        "acting_player": 0,
+        "actions": [
+          "check",
+          "raise-to-2",
+          "raise-to-3",
+          "raise-to-4"
+        ]
+      }
+    },
+    "public_schema_sha256": "1b399b2b67b58bd2a8a42d3c0e8ddeb4fbf3d2445f2f059a36c3e5905227d5ff",
+    "short_all_in_final_response_only": true,
+    "short_all_in_raise_branches": 1,
+    "strategic_nodes": 6,
+    "terminal_histories": [
+      "p0:check",
+      "p0:raise-to-2/p1:call",
+      "p0:raise-to-2/p1:fold",
+      "p0:raise-to-2/p1:raise-to-4/p0:call",
+      "p0:raise-to-2/p1:raise-to-4/p0:fold",
+      "p0:raise-to-3/p1:call",
+      "p0:raise-to-3/p1:fold",
+      "p0:raise-to-3/p1:raise-to-4/p0:call",
+      "p0:raise-to-3/p1:raise-to-4/p0:fold",
+      "p0:raise-to-4/p1:call",
+      "p0:raise-to-4/p1:fold"
+    ],
+    "terminal_nodes": 11
+  },
+  "status": "legal_responder_raise_semantics_keystone_executed",
+  "strategy_labels_generated": 0,
+  "strategy_quality_claim": null,
+  "table_seats": [
+    2,
+    1
+  ],
+  "teacher": {
+    "acting_pure_plans": 16,
+    "exact_nash_conv": 2.333333333333333,
+    "maximum_exact_error": 0.0,
+    "objective": 2.333333333333333,
+    "response_pure_plans": [
+      0,
+      18
+    ],
+    "simplex_pivots": 5
+  },
+  "topology": {
+    "behavioral_shortcut_rejected": true,
+    "path_single_visit": false,
+    "repeated_player": 0,
+    "witness": [
+      "RiverDeal(player0=(49, 51), player1=(45, 46))",
+      "raise-to-2",
+      "raise-to-4"
+    ]
+  },
+  "total_seconds": 0.791073200001847
+}

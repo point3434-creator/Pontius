@@ -1458,3 +1458,31 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     not establish reopening, row capacity, selector stability, multiway
     closure, latency, action quality, or poker strength. The reporting-only
     prediction ledger cannot select or reinterpret the result.
+
+63. ADR-0345 permanently closes the ADR-0344 public runner after its sole
+    clean invocation. Never invoke
+    `pontius.responder_raise_semantics_keystone` again. Preserve
+    `experiments/results/responder-raise-semantics-keystone-v1.json` as exactly
+    7,400 bytes with SHA-256
+    `a7cbb0efca87ad3bf9e2a2105d10aa137daf68a763b68518d68e893bfc74be11`
+    and the path-specific `-text` rule.
+
+    Rebind only through
+    `verify_adr0345_responder_raise_semantics_result_artifact`. Preserve its
+    source at canonical-LF SHA-256
+    `757c593081d78e7823cfa680b782385ddbb33badfe70d8ef907478c1ce8791b7`,
+    adjacent seal at
+    `58a0fa199904d9cefba553e9788b95e55d23318b2913aa53653566193b9b416f`,
+    test at
+    `847245475a6a5ae398b8b83c6b25b62fabc5a01c650eb49802c0a2d4e4d2adb0`,
+    and protocol at
+    `e459d7ea2d2e9ea6f63918fa1fac7985f7411a3d4f07e3935d897a11a45e0793`.
+
+    Report the pass only as one deterministic legal-semantics and finite-
+    algebra witness. The complete teacher objective is
+    `2.333333333333333`; the generated lower value differs upward by less than
+    `1e-15`, inside the frozen tolerance. Never quote the 0.791-second command
+    wall as action latency. Next source-seal a separate h4 legal responder-
+    raise coefficient differential. Keep row capacity, selector stability,
+    multiway closure, off-tree observations, and full-width capacity in their
+    own gates. Forecast 2 remains open and unscored.

@@ -347,7 +347,7 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   is reduced h4 heads-up fold/call transfer evidence, not a fixed universal
   ladder, responder-raise closure, full-width capacity, production action
   width, complete-decision latency, or poker-strength evidence.
-- ADR-0344 source-seals the first legal responder-raise keystone without
+- ADR-0344 source-sealed the first legal responder-raise keystone before
   opening its result. `LegalHeadsUpRiverContinuation` starts after one live
   river check and derives every fold/check/call/integer raise-to action and
   terminal chip settlement from the authoritative six-seat betting kernel.
@@ -358,9 +358,22 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   sequence-form generator must match a separate 16-by-18 complete normal-form
   teacher. This one-hand source boundary does not test reopening independently
   and supplies no h4, multiway, capacity, latency, action, or quality result.
-  Its first exclusive-create invocation is the only next value-bearing act in
-  this lane. `docs/PREDICTION_LEDGER.md` is reporting-only and cannot alter any
-  gate or claim.
+  Its sole exclusive-create invocation was the only value-bearing act under
+  that authority. `docs/PREDICTION_LEDGER.md` is reporting-only and cannot
+  alter any gate or claim.
+- ADR-0345 retains that invocation from clean commit `ff2b8ce`. The exact
+  7,400-byte artifact passes every frozen gate: six strategic and eleven
+  terminal nodes, full and short-all-in branches, zero stored terminal-oracle
+  error, repeated-actor shortcut rejection, and agreement between sequence-
+  form generation and the independent 16-by-18 complete teacher. The retained
+  objective is `2.333333333333333`; realization and retreat errors are below
+  `9e-16`. A solver-free owner binds the artifact and every ADR-0344 source.
+  The 0.791-second small-game wall is not an action-latency result. Only a new
+  h4 legal responder-raise coefficient preregistration is authorized; row
+  capacity, selector stability, multiway closure, off-tree actions, full
+  width, production action, and strength remain absent. Forecast 2 remains
+  reporting-only and open because its capacity and recovery conjuncts are
+  unobserved.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -350,17 +350,27 @@ therefore transfers on this untouched reduced panel. It remains context-local
 reduced-game evidence, not a universal ladder, full-width production strategy,
 complete action-clock result, or strength claim.
 
-ADR-0344 now source-seals the first legal responder-raise keystone without
-opening its result. A new checked-to heads-up river bridge derives all actions
+ADR-0344 source-sealed the first legal responder-raise keystone before opening
+its result. A new checked-to heads-up river bridge derives all actions
 and chip settlement from the exact six-seat betting kernel. Its frozen
 six-strategic-node tree includes both a full raise and a legal short all-in that
 the intentionally simplified legacy sizing game cannot represent. The opener
 acts twice, so the behavioral shortcut must reject and sequence-form row
 generation must match a separate 16-by-18 complete normal-form teacher. This
-is a one-hand semantic source boundary only: no h4 coefficient, row-capacity,
-multiway, latency, production-action, or strength result exists. The next act
-in this lane is its sole exclusive-create invocation from the committed source.
-The separate [prediction ledger](docs/PREDICTION_LEDGER.md) is reporting-only.
+is a one-hand semantic boundary only: no h4 coefficient, row-capacity,
+multiway, latency, production-action, or strength result follows.
+
+ADR-0345 retains the sole invocation from clean commit `ff2b8ce`. All 24
+frozen gates pass in a 7,400-byte artifact: six strategic and eleven terminal
+nodes match, the independent chip oracle has zero stored error, the legacy
+short-all-in omission is detected, the behavioral shortcut rejects, and the
+sequence-form result matches the 16-by-18 complete teacher at
+`2.333333333333333` within the frozen tolerance. A solver-free owner seals the
+artifact and source closure. The `0.791`-second tiny-game campaign is not an
+action-latency result. Only a separately preregistered h4 coefficient
+differential is authorized. The separate
+[prediction ledger](docs/PREDICTION_LEDGER.md) is reporting-only; forecast 2
+remains open with only its semantic conjunct observed.
 
 ## Current checkpoint
 

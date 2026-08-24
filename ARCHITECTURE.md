@@ -499,17 +499,28 @@ kernel's current bounds. Transitions and terminal net chip returns remain owned
 by the betting kernel and its settlement path. The adapter enumerates literal
 raise intervals and is therefore a semantic control, not a scalable runtime.
 
-`responder_raise_semantics_keystone` is the prospective one-shot ADR-0344
-owner. It freezes a six-chip checked-to continuation with six strategic and
+`responder_raise_semantics_keystone` was the one-shot ADR-0344 owner. It
+freezes a six-chip checked-to continuation with six strategic and
 eleven terminal nodes, including one full raise and one short all-in raise.
 The public schema, root betting state, sources, finite teacher, and result path
-are sealed before invocation. The repeated opener uses the existing sequence-
+were sealed before invocation. The repeated opener uses the existing sequence-
 form one-seat master; the independent control enumerates 16 acting and 18
 responder pure plans from direct utilities. An exclusive writer prevents
-clobber or retry. No result is yet present, and no output can enter the Legal
-Decision Spine. Reopening strategy, h4 extraction, selector stability,
-response-row capacity, multiway closure, and off-tree observations remain
-separate successors.
+clobber or retry. ADR-0345 permanently closes this runner after its sole clean
+invocation; no output can enter the Legal Decision Spine. Reopening strategy,
+h4 extraction, selector stability, response-row capacity, multiway closure,
+and off-tree observations remain separate successors.
+
+`responder_raise_semantics_keystone_result` is ADR-0345's solver-free retained
+owner. It reads only the exact 7,400-byte artifact, rehashes the ADR-0344 config
+and all seven source-sealed inputs, and rebinds the six-node public schema,
+eleven terminals, one full raise, one short all-in, zero-error chip oracle,
+repeated-actor witness, complete teacher, generated bounds, response rows,
+Jensen diagnostic, and all-pass gate vector. It has no prospective runner,
+solver, game-action, write, or fallback path. The complete teacher remains the
+independent numerical control from the sole invocation; this owner authenticates
+and interprets rather than re-solves. The result opens only an h4 coefficient
+preregistration and conveys no scaling, latency, action, or quality evidence.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

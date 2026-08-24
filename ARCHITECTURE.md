@@ -349,8 +349,23 @@ retains raw bytes, exact generic prefix/suffix, last-receipted semantic
 evidence, and unknown unreceipted invocation status instead of masquerading as
 preflight. The adjacent seal fixes the source graph, protocol, 192-task
 schedule, prospective JSONL path, and synthetic target/failure identities.
-No real qualification journal or panel exists yet, and this reduced h4
-fold/call owner remains outside the Legal Decision Spine.
+At the ADR-0333 source-only boundary no real qualification journal or panel
+existed, and this reduced h4 fold/call owner remained outside the Legal
+Decision Spine.
+
+ADR-0334 adds the read-only retained-result layer.
+`fresh_action_width_nonreplay_qualification_result` binds the exact
+391,986-byte/100-record journal, calls only the sealed semantic rebinder, and
+requires the exact target campaign, terminal, 98 accepted one-call arms, 49
+context outcomes, 16/33 classification split, and complete call accounting.
+It exposes a panel only from that exact target terminal. The panel core binds
+the population, qualification schedule, journal, terminal, ordered pool
+indices, and ordered semantic context digests; its constructor rejects Boolean
+indices, duplicates, range errors, and journal/panel cross-identity. Source
+closure and tests tripwire the qualification runner, consumer, and solver, so
+rebinding cannot open a value or action. The retained h4 panel is eligible only
+for a separately source-sealed 2,113-task exhaustive teacher; it does not enter
+the Legal Decision Spine.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

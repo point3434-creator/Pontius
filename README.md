@@ -246,9 +246,18 @@ nested-reversal, typed-rejection, or unexpected-exception boundary. Every next
 call requires the preceding post-`fsync` receipt. Accepted evidence retains an
 exact policy and dual hint so the solver-free reader reconstructs both certified
 endpoints rather than trusting journal hashes. Synthetic target, failure, torn-
-tail, fully rehashed corruption, and append-failure controls pass. The next
-boundary is the one public no-clobber qualification invocation; no qualified
-panel, teacher value, selected width, or production action exists yet.
+tail, fully rehashed corruption, and append-failure controls pass.
+
+ADR-0334 retains that one public invocation without retry. Its exact
+391,986-byte journal contains one header, 98 accepted one-call observations,
+and one target terminal after 49 complete contexts: 16 qualifying, 33
+nonqualifying, and zero ambiguous. A solver-free rebinder reconstructs every
+policy lower bound, dual-certified upper bound, classification, terminal, and
+the exact 16-context target-only panel while the campaign, consumer, and solver
+paths are disabled. The journal records no elapsed time and is not a latency
+result. The next boundary is source-only: seal the new panel's 2,113-task
+exhaustive teacher before opening any width-three-through-six value. No selected
+width or production action exists.
 
 ## Current checkpoint
 

@@ -46,6 +46,9 @@ from pontius.fresh_action_width_nonreplay_qualification_seal import (
     ADR0331_QUALIFICATION_TASK_COUNT as SEALED_TASK_COUNT,
     ADR0333_SYNTHETIC_CONTROL_IDENTITIES,
 )
+from pontius.fresh_action_width_nonreplay_qualification_result import (
+    ADR0334_QUALIFICATION_ARTIFACT_SHA256,
+)
 from pontius.fresh_action_width_qualification import (
     ADR0323_OPPORTUNITY_FLOOR,
     ActionWidthQualificationArm,
@@ -220,11 +223,14 @@ class FreshActionWidthNonReplayQualificationTests(unittest.TestCase):
         self.assertNotIn("BettingAction", names)
         self.assertNotIn("apply_action", attributes)
         self.assertEqual(1, consumer_calls)
-        self.assertFalse(
-            (
-                Path(qualification.__file__).resolve().parents[2]
-                / ADR0331_QUALIFICATION_ARTIFACT_RELATIVE_PATH
-            ).exists()
+        retained_artifact = (
+            Path(qualification.__file__).resolve().parents[2]
+            / ADR0331_QUALIFICATION_ARTIFACT_RELATIVE_PATH
+        )
+        self.assertTrue(retained_artifact.is_file())
+        self.assertEqual(
+            sha256(retained_artifact.read_bytes()).hexdigest(),
+            ADR0334_QUALIFICATION_ARTIFACT_SHA256,
         )
         with self.assertRaises(TypeError):
             ADR0331_QUALIFICATION_PROTOCOL["task_count"] = 1  # type: ignore[index]

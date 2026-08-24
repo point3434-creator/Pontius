@@ -611,6 +611,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_nonreplay_qualification_result_and_panel_are_bounded_and_visible(self) -> None:
+        expected = {
+            "README.md": ("ADR-0334", "391,986-byte"),
+            "PROJECT.md": ("ADR-0334", "98 accepted one-call arms"),
+            "STATUS.md": ("ADR-0334", "2,113-task"),
+            "ROADMAP.md": ("ADR-0334", "target-only panel"),
+            "RUNBOOK.md": (
+                "be33cfc4fa5955409ea478552fcdf52de62812ce37fdee94190726537b11f956",
+                "Do not invoke it again",
+            ),
+            "ARCHITECTURE.md": (
+                "fresh_action_width_nonreplay_qualification_result",
+                "solver-free",
+            ),
+            "RISK_REGISTER.md": ("R95", "old ADR-0328 teacher"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

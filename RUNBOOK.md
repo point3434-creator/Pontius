@@ -1164,3 +1164,23 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     solver-free result/panel rebinder before opening a teacher value. Do not
     call the private executor, infer values from synthetic controls, or promote
     the h4 heads-up fold/call result into action width, latency, or strength.
+52. ADR-0334 records that the command in item 51 ran exactly once from clean
+    commit `2d492efb58c849dd63748313624678bc2583d747` and reached
+    `target_reached`. **Do not invoke it again.** Retain
+    `experiments/results/fresh-action-width-nonreplay-qualification-v1.jsonl`
+    byte-for-byte: 391,986 bytes, 100 final-LF records, SHA-256
+    `be33cfc4fa5955409ea478552fcdf52de62812ce37fdee94190726537b11f956`.
+    The exact terminal SHA-256 is
+    `ef824c1ce71c6bb6751b2a89d68aa8dc739bb24b0a519b67cfad2c9093b9f876`
+    and the exact target-only panel SHA-256 is
+    `4fcdb9927fe7626acdf8752a96c1fb71ab085d61e93ad54bd2c8e72f34dc0b71`.
+    Verify retained evidence only with
+    `verify_adr0334_nonreplay_qualification_result_artifact`; it is
+    solver-free and must succeed when the public qualification wrapper,
+    certified consumer, and SciPy solver are forbidden. The result is 98
+    accepted one-call arms, 49 complete contexts, 16 qualifiers, 33
+    nonqualifiers, and zero ambiguity. It has no elapsed field: do not derive a
+    latency or 15-second capacity claim. Before any later value, implement and
+    source-seal a new 2,113-task exhaustive teacher over this exact panel. Do
+    not reuse ADR-0328's old-panel values, open a scratch teacher, or construct
+    direct mechanism, transfer, preparation, or action state.

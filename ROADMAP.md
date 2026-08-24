@@ -763,10 +763,14 @@ now seals the value-free compiler, both prospective structures, the known
   consumer call. ADR-0333 now seals that qualification owner and its exact
   policy/dual witness rebinder, receipt-gated 192-task schedule, semantic stop
   categories, and phase-typed failure-complete journal reduction without
-  opening a value. The active boundary is its one no-clobber retained
-  invocation; any stop closes the campaign without retry, and even a target
-  stop cannot open teacher values until a separate exact-journal and panel
-  seal.
+  opening a value. ADR-0334 now records the one no-clobber retained invocation:
+  the
+  exact 100-record journal has 98 accepted arms, 49 complete contexts, 16
+  qualifiers, 33 nonqualifiers, zero ambiguity, and a target terminal. The
+  solver-free result owner reproduces every witness, classification, terminal,
+  and exact target-only panel. The active boundary is source-only again: seal
+  the new panel's 2,113-task exhaustive teacher before any teacher value;
+  direct mechanism, transfer, latency, and action paths remain closed.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -890,9 +894,11 @@ representative and candidate value remains unopened. All four exact-legality
   ADR-0333 passes that source-only boundary with the exact 192-task order,
   conservative classifier, distinct reversal/rejection/unexpected stops,
   solver-free policy/dual endpoint reconstruction, post-`fsync` next-call
-  authorization, and raw-prefix failure reduction. The next checkpoint is the
-  one retained public qualification invocation; no panel or teacher value is
-  open.
+  authorization, and raw-prefix failure reduction. ADR-0334 completes the one
+  retained public qualification invocation and seals the exact target-only
+  panel from 98 accepted arms without replay. The next checkpoint is a
+  source-sealed replacement exhaustive teacher with 2,113 frozen tasks; no
+  width-three-through-six value or later mechanism is open.
 
 ## C6: Neural blueprint and leaves
 

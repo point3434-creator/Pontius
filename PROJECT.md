@@ -235,8 +235,18 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   Accepted evidence carries exact policy plus raw dual hints; the solver-free
   rebinder reconstructs both interval endpoints and the terminal reduction.
   Synthetic target/failure controls, all complete prefixes, torn tails,
-  rehashed semantic corruption, and append failures pass. No replacement
-  sizing value, qualifier, or panel is open; one retained invocation is next.
+  rehashed semantic corruption, and append failures pass.
+- ADR-0334 retains the first and only replacement qualification invocation.
+  Its 100-record, 391,986-byte journal contains 98 accepted one-call arms over
+  contexts 0 through 48 and an exact target terminal: 16 qualifiers, 33
+  nonqualifiers, zero ambiguity, and complete invocation accounting. The
+  solver-free result owner rebinds policy and dual witnesses, every
+  classification, the terminal, and an exact target-only panel while all
+  value-producing paths are tripwired. The panel spans all four pots, all three
+  effective stacks, and legal raise counts 7/9/11, but remains an
+  opportunity-conditioned h4 heads-up fold/call result. The next checkpoint is
+  source-only ownership of its exact 2,113-task exhaustive teacher; no teacher
+  value, selected width, transfer, latency, or production action is open.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

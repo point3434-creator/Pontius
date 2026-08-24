@@ -712,6 +712,29 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_untouched_transfer_population_is_source_sealed_and_value_free(
+        self,
+    ) -> None:
+        expected = {
+            "README.md": ("ADR-0339", "13,587"),
+            "PROJECT.md": ("ADR-0339", "1,244-context"),
+            "STATUS.md": ("ADR-0339", "finite absence claim"),
+            "ROADMAP.md": ("ADR-0339", "14-of-16"),
+            "RUNBOOK.md": (
+                "6704084f2bddfac2d58e3066b9844bc0fc633346bf3b00a7034ccc9b154e622f",
+                "478 raw candidates",
+            ),
+            "ARCHITECTURE.md": (
+                "fresh_action_width_transfer_structures",
+                "nonzero-base control",
+            ),
+            "RISK_REGISTER.md": ("R100", "collision-skipping"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

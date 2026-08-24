@@ -422,6 +422,18 @@ integer raise-to totals rather than increments and vary by context. This layer
 has no writer, consumer, campaign, preparation, latency, transfer, or action
 dependency and cannot enter the Legal Decision Spine.
 
+ADR-0339 adds the separate value-free
+`fresh_action_width_transfer_structures` owner and adjacent source seal. The
+owner derives its stream only from ADR-0337's pre-value source commit, retains
+the first 96 structurally admissible contexts without collision skipping, and
+binds their exact kernel raise universes and 13,587 anchored subsets. Its
+cross-family inventory adapter explicitly converts a raise-to total to the
+historical bet-increment meaning; a nonzero-base control prevents the two-chip
+root coincidence from becoming authority. Exhaustive structural comparison
+finds no counterpart among the exact 1,244 enumerated prior contexts. The
+module imports no qualifier, solver, teacher, greedy result, capacity,
+preparation, or action owner and supplies no value to the Legal Decision Spine.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

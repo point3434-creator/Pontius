@@ -299,6 +299,15 @@ than a fixed ladder or production action width. The journal records no
 latency. Next is a source-only, commit-seeded untouched transfer population
 and semantic non-overlap proof before any transfer value.
 
+ADR-0339 now seals that untouched transfer population without opening a value.
+The pre-value source-commit seed yields the first 96 admissible contexts after
+478 raw candidates, 13,587 prospective anchored subsets, and zero counterparts
+in the exact 1,244-context enumerated prior inventory. A nonzero-base control
+proves raise-to-to-increment conversion explicitly. Width three remains only
+the selected development width. Next is a separately source-sealed,
+candidate-blind transfer qualifier; no qualifier, transfer result, capacity
+claim, or action exists yet.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

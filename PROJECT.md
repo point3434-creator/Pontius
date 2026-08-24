@@ -291,6 +291,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   The next boundary is a value-free untouched transfer pool derived from the
   pre-value ADR-0337 source commit and proven disjoint before any transfer
   qualifier or solver call.
+- ADR-0339 passes that value-free transfer-population boundary. Its exact
+  pre-value commit seed reaches the first 96 structurally admissible contexts
+  after 478 candidates, exposes 13,587 unopened anchored subsets, and has no
+  semantic counterpart in the enumerated 1,244-context prior inventory. The
+  comparison is a finite absence claim, not representativeness evidence. An
+  explicit nonzero-base control also proves that minimum raise-to is converted
+  to the historical minimum-bet increment rather than copied through the
+  current numerical coincidence. No transfer qualifier, value, width-three
+  confirmation, capacity result, or action exists. The next value-bearing
+  path remains closed until a separate candidate-blind transfer qualifier is
+  source-sealed.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

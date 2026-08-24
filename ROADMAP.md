@@ -799,6 +799,14 @@ now seals the value-free compiler, both prospective structures, the known
   96-context untouched transfer population plus semantic non-overlap against
   both complete development pools and the maintained prior inventory. No
   transfer qualifier or value is eligible first.
+  ADR-0339 now passes that source-only boundary. The first 96 admissible
+  contexts occur after 478 candidates, expose 13,587 unopened anchored
+  subsets, and have zero counterparts in the exact 1,244-context enumerated
+  exclusion inventory. The active boundary is a separate source-sealed
+  candidate-blind qualifier over this exact order. It must freeze the
+  complete-universe-then-width-two schedule, unchanged classifier, first-16
+  stop, durable receipts, and solver-free panel rebinding before any transfer
+  value.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -942,12 +950,54 @@ representative and candidate value remains unopened. All four exact-legality
   solver-free width-three development selection. Next construct and source-
   seal only the untouched transfer pool from the ADR-0337 source commit; prove
   all-prior semantic non-overlap and open no transfer value.
+  ADR-0339 now seals that exact 96-context pool after 478 candidates, its
+  13,587 prospective subset ledger, and zero intersections with the finite
+  1,244-context exclusion inventory. Next source-seal only the candidate-blind
+  transfer qualifier. Before any transfer value, freeze the interpretation:
+  width three confirms only by passing every unchanged conjunct; a mean-only,
+  14-of-16, or other partial pass is diagnostic and rejects unrestricted
+  transfer. Any abstention policy is a new hypothesis requiring a new
+  preregistration and untouched evidence.
+
+The post-transfer C5 route has three coordinated lanes rather than one serial
+queue:
+
+- **Response semantics:** add responder raises first at small private width.
+  Repeated action by a seat invalidates the path-single-visit behavioral
+  shortcut, so the existing repeated-actor sequence-form keystone becomes the
+  starting formulation. Treat response-row growth, selector stability in a
+  deeper tree, multiway closure, and legal off-tree observed raises as
+  separate preregistered gates.
+- **Capacity preflight:** in parallel with response semantics, price one
+  label-free full-width river contraction and warm step on the exact
+  1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
+  memory diagnostic only; it supplies no strategy-quality prior. A failure
+  triggers representation work before more h32 optimization.
+- **Blueprint and integration:** value-free blueprint kernel, abstraction,
+  and isomorphism engineering may proceed independently now; training starts
+  only after untouched transfer confirms the frozen width. Before every street
+  has a resolver, assemble a v0 complete-hand bot from the legal spine, an
+  early immutable blueprint on unresolved streets, and the strongest certified
+  river path. It is an integration testbed, not a strength claim.
+
+Before turn resolving, preregister cross-street range handoff, certificate
+expiry, and anchor-epoch rules. Before real play or league evaluation, bind an
+off-tree opponent-action update/re-solve contract for arbitrary legal integer
+raises. Before claiming preparation value, freeze what the preparation bank
+builds, its exact keys, invalidation and eviction rules, and a cheap baseline
+that warms the highest-blueprint-probability opponent continuations. Before
+strength evaluation, freeze the opponent pool: passive source, blueprint-only,
+prior versions, and simple exploiters at minimum.
 
 ## C6: Neural blueprint and leaves
 
-Add river-to-flop teachers and policy/value/action/uncertainty models only after
-the exact runtime and decision contract are stable. Pass on root-strategy harm
-at equal latency, not value-function mean-squared error alone.
+Begin value-free compiled MCCFR, card-abstraction, isomorphism, checkpoint, and
+data-contract engineering while C5 transfer work proceeds. Start the first
+long training run only after untouched transfer confirms the frozen action
+width, so the action lattice is not chosen from opened transfer outcomes. Add
+river-to-flop teachers and policy/value/action/uncertainty models behind the
+exact runtime contract. Pass on root-strategy harm at equal latency, not
+value-function mean-squared error alone.
 
 ## C7: Adaptive public-belief search
 
@@ -960,6 +1010,11 @@ at multiple budgets with no material rare-branch vulnerability.
 Add range-aware caches, topology/embedding reuse, pondering, and preemptible
 future-state work. Future decisions must improve without degrading current-
 decision p95 latency or reusing a strategy across incompatible beliefs.
+Preregister the preparation-bank filling policy separately: candidate events,
+exact provenance keys, resource caps, invalidation, eviction, miss accounting,
+and preemption. The transparent baseline prewarms the legal opponent
+continuations with highest immutable-blueprint probability; a learned policy
+must beat that baseline rather than an empty bank.
 
 ## C9: Learned value-of-computation scheduler
 
@@ -972,3 +1027,6 @@ heuristic on hidden games and full traces; otherwise retain the heuristic.
 Require exact reduced-game results, adversarial responders, complete cross-play
 matrices, paired-deal confidence intervals, latency and memory profiles, and all
 major ablations before a defensible final report.
+Freeze the league cast before evaluating the candidate: passive source,
+blueprint-only control, prior Pontius checkpoints, and simple targeted
+exploiters, with AIVAT-compatible hand histories and seat-balanced paired deals.

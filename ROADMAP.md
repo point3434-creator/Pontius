@@ -831,6 +831,13 @@ now seals the value-free compiler, both prospective structures, the known
   infrastructure failures retain distinct evidence. The prospective path is
   absent. The active research boundary is the sole no-clobber confirmation
   invocation from this committed source, followed by a solver-free result seal.
+  ADR-0343 now retains that exact invocation and result seal. All 126 candidate
+  arms are accepted; the 16 contexts complete; every direct selection equals
+  the unique exhaustive-teacher winner; and all five unchanged transfer
+  conjuncts pass. Width three is therefore confirmed on the untouched reduced
+  panel without width reselection or abstention. The C5 path now opens the
+  separately preregistered responder-raise and full-width-capacity lanes in
+  parallel, while value-free blueprint and v0a engineering may continue.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -999,6 +1006,11 @@ representative and candidate value remains unopened. All four exact-legality
   conjuncts remain literal. Next invoke the no-clobber owner once from a clean
   commit and preserve any terminal without retry; no width reselection or
   post-outcome abstention rule is authorized.
+  ADR-0343 retains `completed_confirmed` from that sole invocation. The exact
+  journal contains 126 accepted observations and all five conjuncts pass on all
+  16 contexts. This closes untouched reduced-panel transfer in favor of the
+  frozen context-local width-three mechanism. It does not close response-side
+  width, responder raises, full-range capacity, or production integration.
 
 The post-transfer C5 route has three coordinated lanes rather than one serial
 queue:

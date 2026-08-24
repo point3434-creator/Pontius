@@ -336,6 +336,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   real no-clobber artifact remains absent. The next value-bearing act is the
   sole retained confirmation invocation from this committed source, with no
   retry or width reselection.
+- ADR-0343 retains that sole invocation and confirms unrestricted transfer of
+  the frozen context-local raise-width-three mechanism on the exact untouched
+  16-context reduced panel. All 126 prospective one-call arms are accepted,
+  all 16 exhaustive teachers uniquely agree with the direct selection, and all
+  five unchanged conjuncts pass: maximum and mean normalized full regret,
+  conservative aggregate recovery, and maximum and mean normalized teacher
+  excess. The exact 445,731-byte journal and every policy/dual witness, menu,
+  context, gate, and terminal rebind through a solver-free result owner. This
+  is reduced h4 heads-up fold/call transfer evidence, not a fixed universal
+  ladder, responder-raise closure, full-width capacity, production action
+  width, complete-decision latency, or poker-strength evidence.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

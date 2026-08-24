@@ -292,7 +292,8 @@ class FreshActionWidthTransferConfirmationTests(unittest.TestCase):
         ):
             self.assertNotIn(forbidden, source)
         prospective = root.parents[1] / ADR0342_TRANSFER_CONFIRMATION_ARTIFACT_RELATIVE_PATH
-        self.assertFalse(prospective.exists())
+        # ADR-0343 permanently retained the once-prospective no-clobber path.
+        self.assertTrue(prospective.is_file())
         attributes = (root.parents[1] / ".gitattributes").read_text(encoding="utf-8")
         self.assertIn(
             f"/{ADR0342_TRANSFER_CONFIRMATION_ARTIFACT_RELATIVE_PATH} -text",

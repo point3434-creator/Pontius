@@ -339,6 +339,17 @@ prefixes. Complete confirmed and rejected synthetic journals pass, but are
 systems fixtures only. The prospective real artifact remains absent; next is
 the sole no-clobber confirmation invocation from the committed ADR-0342 source.
 
+ADR-0343 now retains that sole invocation. All 126 real candidate calls are
+accepted, the exact 16-context panel completes, and every unchanged conjunct
+passes. The conservative gate reports maximum normalized full-regret upper
+`0.00032224468507681322`, mean upper `0.000049192473917409513`, aggregate-
+recovery lower `0.9723098159302147`, and maximum/mean teacher-excess uppers
+below `1.56e-14`. A solver-free owner rebinds the exact 445,731-byte journal,
+all witnesses, context-local menus, teachers, and gate identities. Width three
+therefore transfers on this untouched reduced panel. It remains context-local
+reduced-game evidence, not a universal ladder, full-width production strategy,
+complete action-clock result, or strength claim.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

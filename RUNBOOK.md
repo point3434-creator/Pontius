@@ -1398,3 +1398,33 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     unrestricted width-three transfer; partial passage remains rejection and
     cannot authorize abstention, width reselection, blueprint training, or
     production integration.
+
+61. ADR-0343 permanently closes that public owner and retains its only real
+    invocation. Preserve
+    `experiments/results/fresh-action-width-transfer-confirmation-v1.jsonl`
+    at exactly 445,731 newline-terminated bytes, 128 records, and SHA-256
+    `c7fb4405177d46f751812c957e5a503c3430fb48427456e333a871e486969130`.
+    Do not delete, overwrite, resume, or invoke the wrapper again. Preserve
+    `fresh_action_width_transfer_confirmation_result.py` at canonical-LF
+    SHA-256
+    `c1a74d810cc82ec97d2f769e019a2afd5585351377192990ca37c3cb79de5bc6`,
+    its adjacent seal at
+    `8f7725b4266ade14c1b2ae067b8302475911582ccca9199757260b51f84af544`,
+    focused test at
+    `1f989e32c79e26fd1b02e23a6456b21af8f7c6dd7277c9724c83e47ba7b7f405`,
+    the ADR-0343-closed owner test at
+    `6b48a6d872466a98a2616619776f35933fc6998db2c10c2c30387ded6f7f9d71`,
+    and result protocol at
+    `69a97f9d91f9acbe90a2661c58b397edbee3b79af02a604b07b391c4aa63268c`.
+
+    Rebind the result only through
+    `verify_adr0343_transfer_confirmation_result_artifact`. Its exact terminal
+    is `completed_confirmed`: 126 accepted one-call arms, 16 complete contexts,
+    and all five unchanged conjuncts pass. Report this only as unrestricted
+    transfer of the frozen context-local width-three mechanism on the untouched
+    reduced panel. Do not report one fixed ladder, derive latency by dividing
+    the campaign wall by calls, or claim responder raises, full width, earlier
+    streets, production integration, or poker strength. Next preregister the
+    responder-raise and full-width capacity gates separately; blueprint
+    training still requires its remaining trainer, checkpoint, abstraction,
+    and operational slice-audit seals.

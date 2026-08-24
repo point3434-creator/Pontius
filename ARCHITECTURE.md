@@ -478,6 +478,17 @@ before torn-prefix recovery. The public wrapper and its sole consumer call site
 are dormant at this source-only checkpoint. No result enters the Legal Decision
 Spine, and the synthetic confirmed/rejected terminals are not research values.
 
+ADR-0343 closes that owner after its only public invocation and adds
+`fresh_action_width_transfer_confirmation_result` as the solver-free retained
+result boundary. It pins the 445,731-byte/128-record journal, source commit,
+campaign, terminal, 126 accepted one-call witnesses, 16 context digests,
+context-local selected menus, exhaustive teachers, and gate diagnostics. The
+rebinder reaches `completed_confirmed`: all five unchanged conjuncts pass and
+every context's unique teacher winner matches the frozen direct mechanism.
+The result owner has no runner, consumer, solver, writer, action, or fallback
+path. It confirms only reduced-panel transfer of the context-local width-three
+mechanism and does not enter an action into the Legal Decision Spine.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

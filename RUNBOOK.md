@@ -1647,3 +1647,41 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     separately preregistered h4 selector-stable affine integration gate;
     preparation-bank recovery, multiway closure, off-tree actions, full-width
     capacity, action emission, and strength remain separate.
+
+69. ADR-0351 permanently closes the ADR-0350 public runner after its sole
+    clean invocation. Never invoke
+    `pontius.legal_responder_raise_h4_selector_window` again. Preserve
+    `experiments/results/legal-responder-raise-h4-selector-window-v1.json` as
+    exactly 1,493,122 bytes with SHA-256
+    `7a1d08f1245b93b2a880f92af6c737677b7cd85b5c59a05205a8263adafcbee7`
+    and the path-specific `-text` rule.
+
+    Rebind only through
+    `verify_adr0351_legal_h4_selector_fan_result_artifact`. Preserve its source
+    at canonical-LF SHA-256
+    `9ed770a532cb2a665dbe6b01c2385f66b763ab02d86750e9b44642a5df894d9a`,
+    adjacent seal at
+    `34f02b4c9c80d56c6bd9ea2c78b9599f890110e5fafcea634d41a3e432b2383b`,
+    test at
+    `780f8686f3e44c52179b04d85b68215fc6a09ae3f67fb003bdb41591179c719b`,
+    and protocol at
+    `12e95e2ca5adfd14dc5557101a099dbefbffa20062e079bf18d3db14d59c6f0f`.
+
+    Do not repeat the artifact's nominal all-pass decision. Retain the exact
+    map but report four reachable source-tie/nonzero-window violations,
+    `corrected_certificate_pass: false`, and no successor authority. All four
+    acting-player sections have tie-unresolved measure one. The responder
+    source endpoints are `15/19`, `139/163`, `1`, and `1`; two switch and two
+    end at total-only tie points. Never call either infrastructure wall action
+    latency or treat these breakpoints as quality.
+
+    Preserve `selector_window_v2.py` at canonical-LF SHA-256
+    `78af151aaaf6dfdc69ce7f2fba141a16fc76edfef4b43be4732380140b03f644`
+    and its test at
+    `0c801113496a06377a4ce192d0aa3beafb642a7c0040edffc3baa5a114ff7999`.
+    The v2 rule requires every source margin to clear its semantic reserve
+    before slope is examined; ties and reserve overlaps return zero. The v1
+    helper remains byte-preserved only for provenance and is closed to new
+    certificate consumers. Next preregister a tie-aware active-row-envelope
+    recovery. Keep preparation-bank recovery, multiway closure, off-tree
+    actions, full-width capacity, action emission, and strength separate.

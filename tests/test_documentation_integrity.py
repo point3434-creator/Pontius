@@ -979,6 +979,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_legal_h4_selector_fan_result_is_retained_but_authority_rejected(self) -> None:
+        expected = {
+            "README.md": ("ADR-0351", "four such violations"),
+            "PROJECT.md": ("ADR-0351", "corrected_certificate_pass: false"),
+            "STATUS.md": ("ADR-0351", "tie-aware legal h4 affine-envelope"),
+            "ROADMAP.md": ("ADR-0351", "authorizes nothing"),
+            "RUNBOOK.md": (
+                "7a1d08f1245b93b2a880f92af6c737677b7cd85b5c59a05205a8263adafcbee7",
+                "Never invoke",
+            ),
+            "ARCHITECTURE.md": (
+                "legal_responder_raise_h4_selector_fan_result",
+                "selector_window_v2",
+            ),
+            "RISK_REGISTER.md": ("R112", "nonzero-window"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

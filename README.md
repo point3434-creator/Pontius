@@ -429,6 +429,18 @@ production selector calls on an untouched dyadic schedule are frozen. The
 can authorize a separate h4 selector-stable affine integration
 preregistration, not full width, action timing, action quality, or strength.
 
+ADR-0351 retains the sole 1,493,122-byte artifact but rejects that recorded
+authorization. The exact fan map passes independent rebinding, including all
+136 production values, exact breakpoints, active affine rows, and maximum-
+envelope direction. Its own honest output exposed the bug: every acting-player
+section has reachable `tie_unresolved` measure one, while the v1 certificate
+reported scale one because a nonclosing slope bypassed the zero source margin.
+A solver-free owner records four such violations and returns no successor
+authority. `selector_window_v2` now fails closed at every source margin inside
+the semantic reserve before inspecting slope. The old helper and public runner
+are permanently closed. Next is a separately preregistered tie-aware active-
+row-envelope recovery, not a single stable-tape integration.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

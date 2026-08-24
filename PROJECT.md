@@ -435,6 +435,22 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   selector and 120-second total walls are infrastructure guards, not action
   latency. A pass can authorize only a separately preregistered h4 selector-
   stable affine integration gate; full width remains a parallel lane.
+- ADR-0351 retains the sole 1,493,122-byte invocation but rejects its recorded
+  integration authority after mandatory interpretation exposed a semantic
+  gate defect. The exact map is valid: all eight fan sections, 136 production
+  selector values, legacy breakpoints, fixed-tape rows, maximum envelopes, and
+  independently checkable identity arithmetic rebind; source-reachable-only
+  columns remain authenticated to the sealed mapper because v1 omitted each
+  pointwise pruned source tape. But all four acting-player sections have reachable
+  tie-unresolved measure one while the v1 certificate helper returned scale
+  one. It counted the zero margin and then let a nonclosing slope bypass the
+  fail-closed source-separation requirement. The corrected result owner
+  reports four violations, `corrected_certificate_pass: false`, and no
+  successor authority. `selector_window_v2` structurally checks every source
+  margin against its reserve before consulting slope; a tie or reserve overlap
+  returns zero. The byte-preserved v1 helper is closed to new consumers. Next
+  preregister a tie-aware active-row-envelope recovery, not a single stable-
+  tape integration; full width remains a parallel lane.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

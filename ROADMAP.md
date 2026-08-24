@@ -1093,6 +1093,20 @@ queue:
   infrastructure walls. Next invoke once from the clean source commit and
   retain the first terminal; only a literal pass may preregister h4 selector-
   stable affine integration.
+  ADR-0351 retains that sole invocation and overturns its nominal all-pass
+  successor decision. The exact map survives: player zero is reachable tie-
+  unresolved over the full interval on all four directions; responder
+  breakpoints are exactly `15/19`, `139/163`, `1`, and `1`; the first two
+  sections switch beyond their facet and the last two expose total-only
+  endpoint ties with four and eleven phantom entry changes. All 136 production
+  values, legacy differentials, affine rows, and maximum envelopes rebind.
+  The v1 certificate does not: it returned scale one for four exact source
+  ties because a nonclosing slope bypassed source separation. The solver-free
+  owner therefore records four violations, rejects certificate passage, and
+  authorizes nothing. `selector_window_v2` now makes margin-above-reserve a
+  prerequisite before slope. Next preregister a tie-aware active-row-envelope
+  integration recovery; never replay the closed mapper and never manufacture
+  a unique tape from an unresolved set.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

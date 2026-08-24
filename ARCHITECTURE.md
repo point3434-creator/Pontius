@@ -608,6 +608,27 @@ master epigraph direction `z >= row`, and retains both tape identities. It is
 not connected to the Legal Decision Spine and emits no action, full-width
 result, strategy label, or quality row.
 
+ADR-0351 closes that prospective owner after its sole invocation. The exact
+fan map remains retained evidence, but the recorded certificate gate and
+integration authorization are rejected. `legal_responder_raise_h4_selector_fan_result`
+is the standard-library-only owner: it rehashes the complete ADR-0350 closure
+and rebinds rational fan partitions, total tapes, scheduled production tapes,
+affine row algebra, maximum envelopes, total/current-reachable identity
+arithmetic, controls, payload bytes, and walls. Source-reachable-only fields
+are authenticated rather than independently rederived because v1 omitted the
+pointwise pruned source tape. It then applies the corrected semantic rule and reports four
+reachable source-tie/nonzero-window violations. It imports no runner, game,
+evaluator, selector, optimizer, action, or write path.
+
+The original `selector_window` conservative helper is closed for artifact
+provenance. Its order was wrong for certificate semantics: it inspected a
+nonclosing slope after observing a zero source margin and could leave the
+default window at one. `selector_window_v2` makes source separation strictly
+outside the semantic reserve a prerequisite. A tie or reserve overlap returns
+zero before slope is examined. Future tie-aware integration must retain every
+exactly active affine row under the maximum envelope; v2 may certify one tape
+only when every source comparison clears that prerequisite.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

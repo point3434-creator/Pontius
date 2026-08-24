@@ -807,6 +807,13 @@ now seals the value-free compiler, both prospective structures, the known
   complete-universe-then-width-two schedule, unchanged classifier, first-16
   stop, durable receipts, and solver-free panel rebinding before any transfer
   value.
+  ADR-0340 now passes that source boundary. The exact transfer-bound 192-task
+  schedule, six semantic stops, post-`fsync` continuation, phase-typed raw-
+  prefix failures, policy/dual evidence reuse, cross-campaign rejection, and
+  target-only panel schema are sealed. The prospective artifact is absent.
+  The active research boundary is its sole no-clobber retained invocation from
+  a clean commit; no transfer teacher or direct-mechanism value is eligible in
+  the same checkpoint.
 
 [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md)
 now amends the governing resource contract before more v4 work. Each controlled
@@ -958,6 +965,11 @@ representative and candidate value remains unopened. All four exact-legality
   14-of-16, or other partial pass is diagnostic and rejects unrestricted
   transfer. Any abstention policy is a new hypothesis requiring a new
   preregistration and untouched evidence.
+  ADR-0340 now seals that exact transfer qualifier without opening value. The
+  next checkpoint is one retained public invocation from a clean committed
+  source and an absent path. Whatever terminal or infrastructure state occurs
+  is final without retry; only an exact first-16 target may later authorize a
+  separately source-sealed real panel result.
 
 The post-transfer C5 route has three coordinated lanes rather than one serial
 queue:
@@ -967,7 +979,8 @@ queue:
   shortcut, so the existing repeated-actor sequence-form keystone becomes the
   starting formulation. Treat response-row growth, selector stability in a
   deeper tree, multiway closure, and legal off-tree observed raises as
-  separate preregistered gates.
+  separate preregistered gates. Repeated-actor multiway closure has no
+  existence proof in the current stack and remains a research risk.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -975,15 +988,23 @@ queue:
   triggers representation work before more h32 optimization.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
-  only after untouched transfer confirms the frozen width. Before every street
-  has a resolver, assemble a v0 complete-hand bot from the legal spine, an
-  early immutable blueprint on unresolved streets, and the strongest certified
-  river path. It is an integration testbed, not a strength claim.
+  only after untouched transfer confirms the frozen width. Assemble **v0a**
+  now as the exact legal spine plus immutable blueprint lookup through complete
+  hands, including a deliberately uncertified river strategy, with certified
+  legality, state transition, clocking, provenance, and fallback. It retires
+  interface risk, not strategic risk. **v0b** later swaps in the certified
+  full-width river strategy bridge after that bridge earns its own seal.
+  Neither is a strength claim.
 
 Before turn resolving, preregister cross-street range handoff, certificate
-expiry, and anchor-epoch rules. Before real play or league evaluation, bind an
-off-tree opponent-action update/re-solve contract for arbitrary legal integer
-raises. Before claiming preparation value, freeze what the preparation bank
+expiry, and anchor-epoch rules; this handoff has no current existence proof.
+Before real play or league evaluation, run one preregistered off-tree bake-off
+over pseudo-harmonic translation, a continuous-size interpolated action-
+likelihood model, and an exact re-solve trigger. An adversarial bettor chooses
+legal off-menu integers to maximize posterior error relative to exact ground
+truth; compare belief total variation, downstream certified chip-value damage,
+and charged wall time. No incumbent is adopted silently. Before claiming
+preparation value, freeze what the preparation bank
 builds, its exact keys, invalidation and eviction rules, and a cheap baseline
 that warms the highest-blueprint-probability opponent continuations. Before
 strength evaluation, freeze the opponent pool: passive source, blueprint-only,
@@ -994,10 +1015,13 @@ prior versions, and simple exploiters at minimum.
 Begin value-free compiled MCCFR, card-abstraction, isomorphism, checkpoint, and
 data-contract engineering while C5 transfer work proceeds. Start the first
 long training run only after untouched transfer confirms the frozen action
-width, so the action lattice is not chosen from opened transfer outcomes. Add
-river-to-flop teachers and policy/value/action/uncertainty models behind the
-exact runtime contract. Pass on root-strategy harm at equal latency, not
-value-function mean-squared error alone.
+width and five prerequisites are sealed: trainer semantics, checkpoint/resume
+identity, abstraction identity, the transfer-confirmed action lattice, and an
+operational slice-certification audit pipeline capable of aborting a
+pathological run early. No compute rental precedes that gate. Add river-to-flop
+teachers and policy/value/action/uncertainty models behind the exact runtime
+contract. Pass on root-strategy harm at equal latency, not value-function mean-
+squared error alone.
 
 ## C7: Adaptive public-belief search
 

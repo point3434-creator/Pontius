@@ -434,6 +434,19 @@ finds no counterpart among the exact 1,244 enumerated prior contexts. The
 module imports no qualifier, solver, teacher, greedy result, capacity,
 preparation, or action owner and supplies no value to the Legal Decision Spine.
 
+ADR-0340 adds `fresh_action_width_transfer_qualification` as the independent
+controller over that pool. It reuses ADR-0333's exact arm-evidence codec and
+policy/dual validator, but owns a new 192-task schedule, protocol, campaign,
+prospective `xb` journal, stop reduction, execution-failure boundary, and
+target-only panel type. A panel can exist only for an exact first-16 target
+terminal and carries context and artifact identities without endpoints,
+regrets, policies, or values. Complete first records are checked for protocol
+and campaign identity before generic torn-prefix recovery, so wrong synthetic/real provenance
+cannot become an empty prefix. The source contains one dormant
+consumer call site behind the uninvoked public wrapper; it imports no prior
+result, teacher, greedy, capacity, preparation, or action path and cannot enter
+the Legal Decision Spine.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

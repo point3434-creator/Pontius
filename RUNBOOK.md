@@ -1294,3 +1294,34 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     width three; any partial pass rejects unrestricted transfer and cannot be
     rewritten as an abstention policy. The ADR-0337 real wrapper remains
     permanently closed and must never be invoked again.
+58. ADR-0340 passes the transfer-qualification source checkpoint without a
+    consumer or solver call. Preserve
+    `fresh_action_width_transfer_qualification.py` at canonical-LF SHA-256
+    `6233c8161084c0bab07f902c8d6033e8aa555d51ace552017ca97f53fe402bd5`,
+    its adjacent seal at
+    `0fd8a115705772b9a11fc5d3a77f0e0c613bbd966f94dc01cfa6066d22727711`,
+    protocol SHA-256
+    `d3b39c8cb99825844bbe4210fc235eee12e8f525e69bbd55187007d6361154f8`,
+    and schedule SHA-256
+    `d54267fc71c165637fbf1ea73c7e29be7a6d0471a01396ca788099625087b680`.
+    The schedule is exactly 192 tasks over ADR-0339 pool
+    `4b72d0196d31b029c55e64a3425fc610f46e4128d38782b09e45e8643c8da083`.
+    The prospective `-text` artifact path is
+    `experiments/results/fresh-action-width-transfer-qualification-v1.jsonl`.
+    Require a clean commit containing ADR-0340 and exact absence of that path,
+    then invoke only the public no-clobber wrapper once:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -c "from pontius.fresh_action_width_transfer_qualification import run_and_retain_adr0339_transfer_qualification as run; result = run(); print(type(result).__name__)"
+    ```
+
+    The JSONL bytes, not terminal stdout, are authority. Every next arm requires
+    the preceding post-`fsync` receipt. Target, exhaustion, ambiguity, nested
+    reversal, consumer rejection, unexpected exception, or infrastructure
+    failure closes the campaign without deletion, overwrite, resume, alternate
+    backend, or retry. Preserve the exact bytes and source-seal a solver-free
+    real result; construct a real target panel only for the exact first-16
+    target stop. Do not open a transfer teacher/direct value in the same
+    checkpoint. A mean-only, 14-of-16, or other later partial width-three pass
+    remains rejection of unrestricted transfer.

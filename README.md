@@ -308,6 +308,16 @@ the selected development width. Next is a separately source-sealed,
 candidate-blind transfer qualifier; no qualifier, transfer result, capacity
 claim, or action exists yet.
 
+ADR-0340 now source-seals the separate 192-task transfer qualifier and a
+solver-free target-only panel rebinder. It preserves the full-then-width-two
+order, unchanged classifier, first-16 stop, exact post-`fsync` receipts, typed
+semantic/infrastructure failures, and independent real policy/dual witness
+checks. A pre-seal repair makes a complete wrong-campaign first record reject
+instead of appearing as an empty prefix. The 111,357-byte synthetic target is
+systems evidence only; the prospective real artifact remains absent. Next is
+the sole no-clobber transfer-qualification invocation from this committed
+source, not a teacher, width-three result, latency claim, or action.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

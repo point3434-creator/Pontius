@@ -302,6 +302,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   confirmation, capacity result, or action exists. The next value-bearing
   path remains closed until a separate candidate-blind transfer qualifier is
   source-sealed.
+- ADR-0340 passes that source-only qualifier boundary without opening a
+  transfer value. It binds the exact 192-task complete-universe-then-width-two
+  schedule, unchanged ADR-0323 classifier, first-16 stop, post-`fsync`
+  authorization, six distinct semantic terminals, phase-typed infrastructure
+  failure, and solver-free target-panel rebinding. Its inherited evidence
+  codec still reconstructs real policy and dual witnesses. Synthetic controls
+  exercise all terminals; their target panel contains identities only. A
+  cross-campaign defect found before seal now rejects a complete wrong-mode
+  first record rather than reducing it to an empty prefix. The prospective
+  artifact remains absent and the next research act is exactly one retained
+  no-clobber invocation from this clean committed source.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -15,43 +15,45 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept and source-seal the additive value-free
-`pontius.fresh_action_width_transfer_structures` owner. It derives the exact
-ADR-0323 transfer seed solely from pre-value ADR-0337 mechanism source commit
-`b4339f33dec768052208b102ad8a9f510666f40d`. The seed contains no ADR-0338
-artifact, selected width, menu, endpoint, gate, result digest, or result commit.
+Accept and source-seal the separate
+`pontius.fresh_action_width_transfer_qualification` owner for ADR-0339's exact
+untouched population. Its 192 prospective tasks process all 96 contexts in
+order, complete kernel-derived integer raise universe first and anchored raise
+width two second. It inherits ADR-0323's exact conservative interval direction,
+payoff-span normalization, nominal opportunity floor, separately typed chip
+ambiguity guard, nested-value reversal allowance, and first-16 stop without
+changing a threshold or classification.
 
-The owner reproduces ADR-0323's SHA-256 stream, h4 card construction, exact
-positive rational joint range, pots, effective stacks, structural showdown
-filter, and betting-kernel legal universes. It retains the first 96
-structurally admissible contexts. It does not skip, reseed, or replace a
-candidate because of a semantic collision; any collision makes the completed
-pool invalid and kills this source boundary.
+The new owner reuses only ADR-0333's sealed arm-evidence codec and independent
+policy/dual witness validator. It owns a new transfer-pool-bound schedule,
+protocol, campaign digest, header, terminal, public wrapper, prospective
+artifact path, semantic reduction, execution-failure types, and target-only
+panel. It does not import an old qualification result, teacher, greedy owner or
+result, capacity, preparation, action-clock, or betting-action path. The old
+non-replay runner is neither imported nor callable through this module.
 
-Every transfer context is unique and has zero semantic counterpart in either
-complete action-width development population. An independent exhaustive
-control also compares the transfer pool with the maintained 988-context
-historical inventory and ADR-0311's separate 64-context fresh audit inventory.
-All four intersections are empty. This is a finite absence claim over exactly
-1,244 previously exposed contexts, not evidence of IID sampling or poker-field
-representativeness.
+No transfer consumer or solver call occurred. No transfer endpoint,
+qualification outcome, real panel member, width-three transfer result, or
+production action was observed. The prospective path is absent and has a
+path-specific `.gitattributes` `-text` rule before its first possible byte.
+ADR-0339's exact structural non-overlap remains a finite absence claim, not
+representativeness evidence or a transfer result.
 
-The first 96 admissible contexts occur after exactly 478 raw card candidates
-and expose 13,587 prospective anchored subsets. Those counts are structural
-provenance only; they are not calls, decisions, latency, or quality evidence.
-
-No transfer qualifier, consumer, solver, teacher, direct mechanism, result
-artifact, preparation path, or betting action is imported or invoked. Cards,
-weights, legality, identities, and combinatorial schedules are structural
-inputs only and open no security value.
+The partial-result interpretation remains frozen before value. Qualification
+only selects a target panel by unchanged full-versus-width-two opportunity; it
+does not itself test width three. In the later confirmation, width three passes
+unrestricted transfer only if every unchanged development conjunct passes.
+Mean-only, 14-of-16, or any other partial passage is diagnostic and rejects
+unrestricted transfer. An abstention mechanism requires a new preregistration
+and untouched evidence.
 
 The inherited trust chain remains explicit. ADR-0310 made native-simplex
 robustness the next systems question. ADR-0311's directive is Preregister the
 native-simplex robustness audit. ADR-0312's directive is Seal the native-simplex audit compiler and corpora.
 ADR-0313's directive is Seal the native-simplex audit runner before results.
 ADR-0314's decision is Retain the native-simplex audit and reject the frozen gate.
-ADR-0315's directive is Source-seal the artifact-only native-simplex
-gate correction.
+ADR-0315's directive is Source-seal the artifact-only native-simplex gate correction.
+ADR-0316's decision is Accept the corrected audit and bound replacement eligibility.
 ADR-0318 binds HiGHS 1.12.0, ADR-0319 requires one public HiGHS-DS call per
 canonical task, and All 177 ordered observations pass under ADR-0320, making
 the separate consumer eligible. ADR-0321 preserves caller-owned legal fallback,
@@ -60,15 +62,15 @@ remains value-unopened, ADR-0325 was authorized exactly once, ADR-0326 and
 ADR-0327 govern the exhaustive bounded development-teacher chain, and ADR-0333
 records that No replacement sizing value was opened at its source boundary.
 ADR-0330 remains permanently closed, ADR-0331's append-and-fsync discipline
-and ADR-0332's exclusive `xb` open remain authoritative, ADR-0334 supplies the
-2,113-task target panel, ADR-0335 owns the 2,113-task schedule, ADR-0336 records
-width three, and ADR-0337 remains the response-closed direct mechanism with a
-dynamic-branch rebinder. ADR-0338 alone records the selected development raise
-width. No result here weakens those authorities.
+and ADR-0332's exclusive `xb` open remain authoritative, ADR-0337 remains the
+response-closed direct mechanism with a dynamic-branch rebinder, ADR-0338 alone
+records the selected development raise width, and ADR-0339 alone seals the
+value-free untouched transfer population. No result here weakens those
+authorities.
 
 ## Active next
 
-Implement and source-seal only a candidate-blind transfer-qualification owner on the exact ADR-0339 pool; freeze complete-universe-then-anchored-width-two order, the unchanged ADR-0323 interval classifier and first-16-qualifier stop, append-receipt-before-next-call authority, complete semantic and infrastructure stop schemas, solver-free target-panel rebinding, and a prospective no-clobber artifact path before any transfer consumer call or value; import no teacher, greedy result, capacity, preparation, or action path
+From a clean commit containing ADR-0340 and an absent prospective artifact, invoke `run_and_retain_adr0339_transfer_qualification` exactly once; retain and fsync every accepted or rejected arm before the next call; stop without retry on target, exhaustion, ambiguity, nested reversal, consumer rejection, unexpected exception, or infrastructure failure; preserve the exact bytes; then source-seal the solver-free journal result and a real target-only panel only if the frozen first-16 target was reached before opening any transfer teacher or direct-mechanism value; value-free blueprint/v0a interface engineering may proceed independently, but no blueprint training is authorized
 
 ## Revoked authorities
 
@@ -76,7 +78,7 @@ Implement and source-seal only a candidate-blind transfer-qualification owner on
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0339](docs/decisions/ADR-0339-source-seal-the-untouched-action-width-transfer-population.md) — Source-seal the untouched action-width transfer population.
+Latest process decision: [ADR-0340](docs/decisions/ADR-0340-source-seal-the-transfer-qualification-owner.md) — Source-seal the transfer qualification owner.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -84,7 +86,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0316](docs/decisions/ADR-0316-accept-corrected-audit-and-bound-replacement-eligibility.md) | 2026-08-23 | accepted post-outcome corrected finite-corpus gate pass; HiGHS dual simplex is eligible only for a later prospective replacement-adapter evaluation | Accept the corrected audit and bound replacement eligibility |
 | [ADR-0317](docs/decisions/ADR-0317-separate-solver-classes-and-prioritize-the-certified-sizing-adapter.md) | 2026-08-23 | accepted optimization triage and prospective adapter preregistration before source | Separate solver classes and prioritize the certified sizing adapter |
 | [ADR-0318](docs/decisions/ADR-0318-source-seal-the-certified-reduced-sizing-highs-adapter.md) | 2026-08-23 | accepted source-only canonical adapter and toy controls before any sealed validation base | Source-seal the certified reduced-sizing HiGHS adapter |
 | [ADR-0319](docs/decisions/ADR-0319-source-seal-the-canonical-sizing-validation-runner.md) | 2026-08-23 | accepted source-only failure-complete runner, schedule, and result schema before any canonical validation invocation | Source-seal the canonical sizing validation runner |
@@ -108,18 +109,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0337](docs/decisions/ADR-0337-source-seal-the-non-replay-direct-mechanism.md) | 2026-08-24 | accepted source-only additive non-replay direct closed finite-block owner; every replacement direct-mechanism price and candidate value remains unopened | Source-seal the non-replay direct mechanism |
 | [ADR-0338](docs/decisions/ADR-0338-retain-and-rebind-the-non-replay-direct-mechanism.md) | 2026-08-24 | accepted complete one-shot non-replay direct-mechanism result and solver-free result owner; raise width three is the selected development width, not a production width | Retain and rebind the non-replay direct mechanism |
 | [ADR-0339](docs/decisions/ADR-0339-source-seal-the-untouched-action-width-transfer-population.md) | 2026-08-24 | accepted value-free untouched transfer-population source seal; every transfer qualification and transfer value remains unopened | Source-seal the untouched action-width transfer population |
+| [ADR-0340](docs/decisions/ADR-0340-source-seal-the-transfer-qualification-owner.md) | 2026-08-24 | accepted source-only candidate-blind transfer qualification owner and target-panel rebinder; every transfer qualification value remains unopened | Source-seal the transfer qualification owner |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0339](docs/decisions/ADR-0339-source-seal-the-untouched-action-width-transfer-population.md) — Source-seal the untouched action-width transfer population.
+- Latest ADR: [ADR-0340](docs/decisions/ADR-0340-source-seal-the-transfer-qualification-owner.md) — Source-seal the transfer qualification owner.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 339.
-- ADR-header SHA-256: `71c0c6b8eb19c0598fc350cbccfc9c9e35597eca5b37982510a2a7e8fead39f8`.
-- Current blockers: no source-sealed transfer qualification schedule, qualified transfer panel, transfer teacher or direct result, responder-raise closure, six-player response model, capacity result, live strategy bridge, h32/full-range result, earlier street, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 340.
+- ADR-header SHA-256: `cc8af49f27f8489e0102729555496ee0605a799cdf3f7631f80539a288e0913b`.
+- Current blockers: no transfer qualification result or real target panel, transfer teacher or direct confirmation, responder-raise closure, repeated-actor multiway existence result, cross-street belief/certificate handoff, full-width capacity result, certified full-width river strategy bridge, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0339](docs/decisions/ADR-0339-source-seal-the-untouched-action-width-transfer-population.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0340](docs/decisions/ADR-0340-source-seal-the-transfer-qualification-owner.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

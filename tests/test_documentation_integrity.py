@@ -735,6 +735,29 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_transfer_qualification_owner_is_source_sealed_and_value_unopened(
+        self,
+    ) -> None:
+        expected = {
+            "README.md": ("ADR-0340", "111,357-byte"),
+            "PROJECT.md": ("ADR-0340", "cross-campaign defect"),
+            "STATUS.md": ("ADR-0340", "192 prospective tasks"),
+            "ROADMAP.md": ("ADR-0340", "v0a"),
+            "RUNBOOK.md": (
+                "6233c8161084c0bab07f902c8d6033e8aa555d51ace552017ca97f53fe402bd5",
+                "run_and_retain_adr0339_transfer_qualification",
+            ),
+            "ARCHITECTURE.md": (
+                "fresh_action_width_transfer_qualification",
+                "wrong synthetic/real provenance",
+            ),
+            "RISK_REGISTER.md": ("R101", "empty torn prefix"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
     def test_review_successors_and_claim_boundaries_remain_visible(self) -> None:
         expected = {
             "PROJECT.md": ("completion-seal phases", "probability feasibility"),

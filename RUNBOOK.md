@@ -2321,3 +2321,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     digests report but do not decide equality. Do not import CuPy, invoke the
     consumed literal owner, allocate a declared full-width row, or call this a
     live, 45-card, solve, action-clock, quality, or truncation result.
+104. ADR-0389 preregisters the actual-context CUDA consumer. Preserve config
+    SHA-256
+    `7328188d9f731415d4d70d5434b72463b982bc4b3627203347c7157a253486dd`
+    before source. The next source seal may implement additive offset-aware
+    CUDA kernels and run only the complete ten-card and 25-card bounded device
+    controls on the exact RTX 5080/CuPy 14.2.0 runtime. It must leave
+    `artifacts/legal_river_quotient_cuda_consumer_v1.jsonl` absent, actual
+    entry counters zero, and the durable actual owner inert. Do not invoke the
+    actual 45-card path, reuse consumed private owners, compare the 600-second
+    laboratory guard with the 15-second action wall, or infer solve speed,
+    action quality, truncation value, blueprint strength, or poker strength.

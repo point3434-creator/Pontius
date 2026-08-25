@@ -1371,10 +1371,13 @@ queue:
   ADR-0388 now source-seals that CuPy-free answer: 58 expanded physical rows
   yield 15.974 MB host and 9.911 GB device peaks under the fixed caps, and the
   complete exact bounded differential passes. Live admission and every
-  45-card value remain absent. The next checkpoint is a prospective
-  actual-context CUDA-consumer contract before device source or value—not a
-  resolver iteration, action-clock comparison, quality inference, or
-  truncation choice.
+  45-card value remain absent. ADR-0389 now prospectively freezes the
+  actual-context CUDA-consumer: offset-aware 128+48 kernels, deterministic
+  streamed fold/transpose work, 25 named allocation births, contemporaneous
+  live admission, complete ten-card plus multi-chunk 25-card conformance, and
+  a durable actual owner whose public result remains absent. Implement and
+  source-seal that bounded device mechanism next; do not invoke the actual
+  45-card path or infer resolver timing, action quality, or truncation value.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1418,10 +1421,12 @@ queue:
   unopened. ADR-0387 prospectively fixes the source-only rank-175/width-176
   consumer-capacity and feature-slicing contract. ADR-0388 passes its CuPy-free
   source model, named lifetime sweep, bounded exact differential, and
-  fail-closed fixed allocation verdict. The immediate checkpoint is a
-  separately preregistered actual-context device consumer with fresh live
-  admission and bounded device differentials before any 45-card value—not
-  automatic truncation, a resolver iteration, action timing, or quality.
+  fail-closed fixed allocation verdict. ADR-0389 separately preregisters the
+  actual-context device consumer, fresh live-admission lifecycle, bounded
+  device differentials, and inert one-shot actual owner. The immediate
+  checkpoint is its source seal with only ten-card and 25-card device values
+  open; every actual 45-card value, automatic truncation, resolver iteration,
+  action timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

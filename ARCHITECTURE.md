@@ -1700,6 +1700,24 @@ independent direct-mask oracle over the complete ten-card population proves
 the global 128+48 forward/fold/adjoint and transpose seam exactly; it does not
 stand in for the legal 45-card context or a runtime result.
 
+ADR-0389 freezes the device-consumer seam before implementation. The additive
+CUDA module cannot reuse the older zero-based monolithic kernels: source,
+signed-target, fold, and covector operations carry an explicit global feature
+offset, active width, and 128-column physical stride. Reach is written only by
+slice 1; numerator and reach normalize once after both slices. Forward records,
+complete six-label query occupancies, and source occupancies retain different
+chunk types. The adjoint source contraction is fused over the 90 exact pairing
+weights and streamed unique adjoint, so neither source coefficients nor a
+record-expanded source adjoint is materialized. Fixed pairwise reductions and
+two byte-identical passes replace atomic floating accumulation.
+
+The future owner has 25 named numeric births and phase-exact telemetry from
+zero pools through absolute release. The 9,910,940,332-byte prospective peak
+must pass contemporaneous free-memory admission, not merely repeat source
+arithmetic. Complete ten-card exact and 25-card multi-chunk device controls
+precede any actual-context authority. Source sealing leaves the durable actual
+result absent; a later one-shot invocation is a distinct boundary.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

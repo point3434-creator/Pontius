@@ -729,6 +729,14 @@ transpose identities. This is source capacity and bounded algebra only: no
 45-card value, device result, iteration, action, timing, quality, or truncation
 decision exists.
 
+ADR-0389 preregisters the additive actual-context CUDA consumer before source
+or device values. It freezes globally offset-aware 128+48 kernels, distinct
+forward/query/source chunk types, numerator/reach and transpose units, exact
+work ledgers, 25 named allocation births, live-admission telemetry, complete
+ten-card and multi-chunk 25-card device controls, and a durable one-shot owner
+whose result remains absent. The next checkpoint is its bounded source seal,
+not the actual 45-card invocation, a solve, an action, or a quality inference.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

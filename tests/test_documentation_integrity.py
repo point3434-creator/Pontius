@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import re
 import unittest
 from pathlib import Path
@@ -1403,10 +1404,16 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "src/pontius/gpu_quotient_staged_scaling_v2_runner.py",
             "src/pontius/gpu_quotient_staged_scaling_v2_result.py",
             "tests/test_gpu_quotient_staged_scaling_v2.py",
-            "artifacts/README.md",
         ):
             payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
             self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
+        # The tracked marker is append-only across later artifact owners. Its
+        # historical ADR binds the bytes present at ADR-0376, not the digest of
+        # today's additive marker.
+        self.assertIn(
+            "0f13d3c3acfd929be0c41c0ebf4998cbe64f9af99fe366744ab576cd256a7c33",
+            adr,
+        )
 
     def test_passing_staged_gpu_quotient_result_is_retained(self) -> None:
         expected = {
@@ -1947,6 +1954,232 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "58 unique physical rows",
             "2.220446049250313e-16",
             "live admission is `None`",
+            "invoke exactly once",
+            "exclusive untouched legal h4",
+            "selector-window",
+            "2,113-task",
+            "exhaustive bounded development-teacher",
+            "response-closed direct mechanism",
+            "caller-owned legal fallback",
+            "GetProcessMemoryInfo failed",
+            "representation_rejected_before_target_allocation",
+            "no action",
+        ):
+            self.assertIn(phrase, adr)
+
+    def test_actual_context_quotient_cuda_consumer_is_preregistered(self) -> None:
+        expected = {
+            "README.md": ("ADR-0389", "25 named allocation births"),
+            "PROJECT.md": ("ADR-0389", "multi-chunk 25-card"),
+            "STATUS.md": (
+                "ADR-0389",
+                "accepted prospective actual-context quotient CUDA-consumer",
+            ),
+            "ROADMAP.md": ("ADR-0389", "offset-aware 128+48"),
+            "RUNBOOK.md": (
+                "ADR-0389",
+                "7328188d9f731415d4d70d5434b72463b982bc4b3627203347c7157a253486dd",
+            ),
+            "ARCHITECTURE.md": ("ADR-0389", "fused over the 90"),
+            "RISK_REGISTER.md": ("R153", "correct 57"),
+            "artifacts/README.md": (
+                "ADR-0389",
+                "legal_river_quotient_cuda_consumer_v1.jsonl",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        config_path = (
+            _ROOT
+            / "experiments/configs/legal-river-quotient-cuda-consumer-v1.json"
+        )
+        payload = config_path.read_bytes().replace(b"\r\n", b"\n")
+        self.assertEqual(
+            hashlib.sha256(payload).hexdigest(),
+            "7328188d9f731415d4d70d5434b72463b982bc4b3627203347c7157a253486dd",
+        )
+        parsed = json.loads(payload)
+        source_paths = {
+            "adr0384": _ROOT
+            / "docs/decisions/ADR-0384-retain-the-passing-literal-45-quotient-target.md",
+            "adr0388": _ROOT
+            / "docs/decisions/ADR-0388-source-seal-the-actual-context-quotient-consumer-capacity.md",
+            "artifact_marker": _ROOT / "artifacts/README.md",
+            "consumer_capacity_config": _ROOT
+            / "experiments/configs/legal-river-quotient-consumer-capacity-v1.json",
+            "consumer_capacity_source": _ROOT
+            / "src/pontius/legal_river_quotient_consumer_capacity.py",
+            "durable_evidence_journal": _ROOT
+            / "src/pontius/durable_evidence_journal.py",
+            "gitattributes": _ROOT / ".gitattributes",
+            "gpu_occupied_card_quotient": _ROOT
+            / "src/pontius/gpu_occupied_card_quotient.py",
+            "gpu_quotient_validation_seam": _ROOT
+            / "src/pontius/gpu_quotient_validation_seam.py",
+            "legal_river_bridge_config": _ROOT
+            / "experiments/configs/legal-river-quotient-bridge-v1.json",
+            "legal_river_bridge_source": _ROOT
+            / "src/pontius/legal_river_quotient_bridge.py",
+            "literal_45_result_reader": _ROOT
+            / "src/pontius/literal_45_quotient_target_result.py",
+            "occupied_card_quotient": _ROOT
+            / "src/pontius/occupied_card_quotient.py",
+            "structured_showdown_automaton": _ROOT
+            / "src/pontius/structured_showdown_automaton.py",
+            "windows_process_memory": _ROOT
+            / "src/pontius/windows_process_memory.py",
+        }
+        self.assertEqual(set(parsed["expected_sources"]), set(source_paths))
+        for label, path in source_paths.items():
+            source = path.read_bytes().replace(b"\r\n", b"\n")
+            self.assertEqual(
+                hashlib.sha256(source).hexdigest(),
+                parsed["expected_sources"][label],
+            )
+
+        geometry = parsed["geometry"]
+        streaming = parsed["streaming"]
+        work = parsed["actual_work"]
+        self.assertEqual(geometry["source_occupancies"], math.comb(45, 6))
+        self.assertEqual(geometry["query_occupancies"], math.comb(45, 4))
+        self.assertEqual(
+            geometry["source_recurrence_rows"],
+            sum(math.comb(45, level) for level in range(7)),
+        )
+        self.assertEqual(
+            geometry["adjoint_recurrence_rows"],
+            sum(math.comb(45, level) for level in range(5)),
+        )
+        self.assertEqual(streaming["forward_query_chunk_count"], 14)
+        self.assertEqual(streaming["forward_final_query_record_chunk"], 42_002)
+        self.assertEqual(streaming["adjoint_query_chunk_count"], 14)
+        self.assertEqual(streaming["adjoint_final_query_record_chunk"], 42_054)
+        self.assertEqual(streaming["adjoint_source_chunk_count"], 249)
+        self.assertEqual(
+            work["adjoint_terms_per_six_card_source_mask"],
+            sum(math.comb(6, level) for level in range(5)),
+        )
+        self.assertEqual(work["adjoint_source_contract_chunk_invocations"], 996)
+        self.assertFalse(any("per_full_feature_pass" in key for key in work))
+        self.assertEqual(work["source_pairing_visits_per_slice"], 8_145_060 * 90)
+        self.assertEqual(
+            work["source_pairing_visits_per_complete_feature_partition"],
+            8_145_060 * 90 * 2,
+        )
+        self.assertEqual(
+            work["source_pairing_visits_per_frozen_execution"],
+            8_145_060 * 90 * 2 * 2,
+        )
+        self.assertEqual(
+            work["signed_query_vector_terms_per_slice"],
+            893_970 * 16,
+        )
+        self.assertEqual(
+            work["signed_query_vector_terms_per_complete_feature_partition"],
+            893_970 * 16 * 2,
+        )
+        self.assertEqual(
+            work["signed_query_scalar_additions_per_complete_feature_partition"],
+            893_970 * 16 * 176,
+        )
+        self.assertEqual(
+            work["adjoint_signed_source_vector_terms_per_slice"],
+            8_145_060 * 57,
+        )
+        self.assertEqual(
+            work[
+                "adjoint_signed_source_vector_terms_per_complete_feature_partition"
+            ],
+            8_145_060 * 57 * 2,
+        )
+        self.assertEqual(
+            work[
+                "adjoint_signed_source_scalar_additions_per_complete_feature_partition"
+            ],
+            8_145_060 * 57 * 176,
+        )
+
+        allocations = parsed["actual_allocation_model"]
+        phases = parsed["telemetry_contract"]["named_device_bytes_by_phase"]
+        self.assertEqual(len(parsed["device_allocation_births"]), 25)
+        self.assertEqual(len(set(parsed["device_allocation_births"])), 25)
+        self.assertEqual(allocations["complete_named_host_peak_bytes"], 15_980_816)
+        self.assertEqual(allocations["named_device_peak_bytes"], 9_910_940_332)
+        self.assertEqual(phases["forward_released"], 82_997_932)
+        self.assertEqual(phases["adjoint_source_allocated"], 351_819_436)
+        self.assertEqual(phases["released"], 0)
+        lifecycle = parsed["result_accumulator_lifecycle"]
+        self.assertEqual(
+            lifecycle["device_float64_slots"],
+            [
+                "forward_unnormalized_numerator_or_adjoint_transpose_dot",
+                "forward_reach_or_adjoint_positive_zero_guard",
+            ],
+        )
+        self.assertEqual(
+            lifecycle["host_scalar_result_order"],
+            [
+                "forward_slice_0_unnormalized_numerator",
+                "forward_slice_1_unnormalized_numerator",
+                "forward_total_unnormalized_numerator",
+                "forward_total_reach",
+                "forward_conditional_value_chips",
+                "transpose_slice_0_dot",
+                "transpose_slice_1_dot",
+                "transpose_total_dot",
+            ],
+        )
+        self.assertTrue(
+            lifecycle["forbid_double_counting_repeat_or_slice_contributions"]
+        )
+
+        samples = parsed["samples"]
+        sample_specs = {
+            "actual_source_occupancy_ranks": ("actual_source", 8_145_060),
+            "actual_query_occupancy_ranks": ("actual_query_occupancy", 148_995),
+            "actual_query_record_ranks": ("actual_query_record", 893_970),
+            "bounded_25_source_occupancy_ranks": ("bounded25_source", 177_100),
+            "bounded_25_query_occupancy_ranks": (
+                "bounded25_query_occupancy",
+                12_650,
+            ),
+            "bounded_25_query_record_ranks": ("bounded25_query_record", 75_900),
+        }
+        for field, (lane, population) in sample_specs.items():
+            expected_ranks = samples[field]
+            reconstructed = [0, population - 1]
+            occupied = set(reconstructed)
+            for index in range(len(expected_ranks) - 2):
+                label = f"{samples['derivation_seed']}|{lane}|{index}"
+                candidate = int.from_bytes(
+                    hashlib.sha256(label.encode("ascii")).digest()[:8],
+                    "big",
+                ) % population
+                while candidate in occupied:
+                    candidate = (candidate + 1) % population
+                reconstructed.append(candidate)
+                occupied.add(candidate)
+            self.assertEqual(reconstructed, expected_ranks)
+            self.assertEqual(samples["lane_labels"][field], lane)
+
+        self.assertTrue(
+            all(value is None or value is False for value in parsed["claims"].values())
+        )
+        attributes = (_ROOT / ".gitattributes").read_text(encoding="utf-8")
+        self.assertIn(
+            "/artifacts/legal_river_quotient_cuda_consumer_v1.jsonl -text",
+            attributes,
+        )
+        adr = _contract_text(
+            "docs/decisions/ADR-0389-preregister-the-actual-context-quotient-cuda-consumer.md"
+        )
+        for phrase in (
+            "25 named numeric allocation births",
+            "9,910,940,332",
+            "57 terms, never 63",
             "invoke exactly once",
             "exclusive untouched legal h4",
             "selector-window",

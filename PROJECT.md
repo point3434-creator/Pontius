@@ -814,6 +814,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   controls pass. Live allocator admission, device execution, every 45-card
   quotient value, solve, action, 15-second result, quality, and truncation
   authority remain absent.
+- ADR-0389 preregisters the actual-context CUDA-consumer boundary before
+  source or device values. The new additive module must use globally
+  offset-aware 128+48 kernels, complete-label and source-occupancy streaming,
+  one post-slice normalization, deterministic reductions, 25 named numeric
+  births, contemporaneous live admission, and complete ten-card plus
+  multi-chunk 25-card device differentials. Its inert one-shot owner and
+  solver-free reader are source-seal work; the actual 45-card result path
+  remains absent and unauthorized until a later clean committed invocation.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

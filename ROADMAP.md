@@ -1289,6 +1289,13 @@ queue:
   are now the binding capacity risk. Preregister a direct-automaton GPU
   numerical/throughput keystone next; do not jump from source bytes to a
   literal target, complete action, or quality claim.
+  ADR-0371 now preregisters that bounded GPU keystone. It replaces direct
+  subset updates with the exact cardinality-layer recurrence, freezes the
+  complete ten-card device population and separate numerical/work/allocation
+  gates, and requires direct automaton, forward, adjoint, affine-fold,
+  permutation, refresh, conflict, and mutation controls. Implement and source-
+  seal only that bounded mechanism next; the 45-card target remains
+  structurally unavailable.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1303,7 +1310,9 @@ queue:
   separate seal before any GPU or literal target work. ADR-0368 completes the
   reference validation. ADR-0369 preregisters and ADR-0370 seals the
   pre-allocation quotient model. A bounded-exact GPU numerical/throughput
-  keystone is now the only open capacity-lane checkpoint.
+  keystone is now the only open capacity-lane checkpoint. ADR-0371 freezes its
+  ten-card population and exact recurrence before device source; implementation
+  and bounded validation are next, not a literal capacity call.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

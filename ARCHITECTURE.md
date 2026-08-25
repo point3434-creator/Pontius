@@ -1504,6 +1504,24 @@ prospectively sealed GPU numerical/throughput keystone over the direct
 structured automaton. It must preserve the exact bounded oracle and work
 counters before any literal full-width target allocation.
 
+ADR-0371 freezes the first device mechanism prospectively. Its forward table
+uses the exact cardinality recurrence
+`Z_k(T) = sum_x Z_(k+1)(T union x) / (s-k)` and signed subset evaluation;
+the adjoint uses the same operator after labeled-query aggregation. Implicit
+colex ranks own every row, and deterministic row-feature kernels require no
+Float64 atomics or incidence table. The direct showdown automaton constructs
+source state-plus-reach coefficients, while query evaluation applies the
+remaining transitions and folds sunk payoff from reach.
+
+The only executable population is the complete ten-card reduced universe.
+All 45-card row, byte, batch, and work values are pure preallocation arithmetic:
+at width 176 the recurrence owns 9,789,072,480 scalar edge additions, and a
+128-feature table would own 9,759,784,960 bytes. Neither number is device
+evidence. Source changes rebuild all levels; query-only changes may reuse them.
+A reject-before-CuPy guard, exact work ledger, independently named Float64
+envelopes, warm byte identity, forward/adjoint dot products, and deliberate
+recurrence/sign/seam mutations are part of the mechanism boundary.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

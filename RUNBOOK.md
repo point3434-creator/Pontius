@@ -2079,3 +2079,23 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     time, invoke either closed capacity owner, allocate the literal target, or
     infer quality. The next owner must first preregister a GPU numerical and
     throughput keystone with reduced exact controls.
+86. ADR-0371 preregisters that bounded device keystone. Before implementation,
+    verify the generated front door and prospective boundary without importing
+    CuPy:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest `
+      tests.test_status_generation `
+      tests.test_documentation_integrity `
+      tests.test_adr_chain `
+      tests.test_full_width_occupied_card_quotient_capacity `
+      tests.test_occupied_card_quotient
+    ```
+
+    The future device entry point is restricted to the complete ten-card
+    universe. Its 30-second laboratory guard is a hang detector, not an action
+    wall. The 45-card 9,789,072,480-add recurrence and 9,759,784,960-byte
+    128-feature table are arithmetic-only controls; never allocate or time
+    them under this ADR. An oversize preallocation control must reject before
+    CuPy import or any numeric device allocation.

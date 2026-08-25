@@ -668,6 +668,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   strength claim follows. Standard discovery ran 1,747 tests: 1,744 passed,
   two skipped, and only the already sealed ADR-0365 result-absence lifecycle
   predicate failed after encountering ADR-0366's retained result.
+- ADR-0371 prospectively freezes the bounded GPU quotient keystone before its
+  source exists. A cardinality-layer zeta recurrence computes the same exact
+  containment marginals with 55,619,730 vector edges on the 45-card geometry,
+  or 9,789,072,480 scalar additions at fixture width 176; this is logical work,
+  not a measured speedup. The only natural device population is the complete
+  ten-card reduced universe. Direct structured-automaton consumption, the
+  sunk/reach affine fold, forward/adjoint identity, topology-stable full source
+  refresh, deterministic warm output, independent numerical envelopes, exact
+  work counters, mutation controls, and reject-before-CuPy preallocation are
+  conjunctive. No literal 45-card allocation or timing is authorized.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

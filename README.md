@@ -593,6 +593,15 @@ full-width solve and not support truncation. Full discovery added no new
 regression: 1,744 of 1,747 tests passed, two skipped, and the sole failure is
 the already recorded immutable pre-invocation result-absence predicate.
 
+ADR-0371 now freezes the bounded GPU mechanism before device source. Its exact
+cardinality-layer recurrence lowers the fixture's logical containment bill to
+9,789,072,480 scalar edge additions, but that arithmetic reduction is not a
+speed measurement. The complete ten-card universe is the only executable
+population. Direct-automaton forward/adjoint and affine-fold differentials,
+full source refresh, deterministic repeatability, separate numerical
+envelopes, exact work accounting, mutation controls, and reject-before-CuPy
+allocation guards must all pass before any staged or literal-width experiment.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

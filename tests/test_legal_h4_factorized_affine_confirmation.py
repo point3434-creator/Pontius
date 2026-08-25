@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 from copy import deepcopy
+import hashlib
 import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -12,6 +13,7 @@ from pontius.legal_h4_factorized_affine_confirmation import (
     ConfirmationRejected,
     _CONFIG,
     _OUTPUT,
+    _canonical_lf_sha256,
     _parse_config,
     run_legal_h4_factorized_affine_confirmation,
 )
@@ -28,6 +30,28 @@ def _config() -> dict[str, object]:
 
 
 class LegalH4FactorizedAffineConfirmationTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        control = Path(__file__).resolve()
+
+        def invocation_snapshot_hash(path: Path) -> str:
+            if path.resolve() == control:
+                return "38913f8cd1aeb541dc52facb7ea587287ae967cb4d5d22f1bf58edda069ff220"
+            return _canonical_lf_sha256(path)
+
+        # The one-shot runner is closed. These source-bound controls exercise
+        # its invocation snapshot while this successor file now asserts the
+        # retained result's exact bytes instead of prospective absence.
+        cls.hash_patcher = patch(
+            "pontius.legal_h4_factorized_affine_confirmation._canonical_lf_sha256",
+            side_effect=invocation_snapshot_hash,
+        )
+        cls.hash_patcher.start()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.hash_patcher.stop()
+
     def test_default_paths_and_exact_retention_attributes_are_frozen(self) -> None:
         self.assertTrue(_CONFIG.is_file())
         self.assertEqual(
@@ -35,7 +59,13 @@ class LegalH4FactorizedAffineConfirmationTests(unittest.TestCase):
             ROOT
             / "experiments/results/legal-h4-factorized-affine-confirmation-v1.json",
         )
-        self.assertFalse(_OUTPUT.exists())
+        self.assertTrue(_OUTPUT.is_file())
+        raw = _OUTPUT.read_bytes()
+        self.assertEqual(len(raw), 7_361_728)
+        self.assertEqual(
+            hashlib.sha256(raw).hexdigest(),
+            "afa0459542cbdbf99be3d30a8902dcadf24e160e3b81f2eb671dea8a6c0ae33c",
+        )
         attributes = (ROOT / ".gitattributes").read_text(encoding="utf-8")
         self.assertIn(
             "/experiments/configs/legal-h4-factorized-affine-confirmation-v1.json -text",

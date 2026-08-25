@@ -1219,6 +1219,21 @@ queue:
   cardinality or timing is gated. Invoke exactly once from the clean committed
   source boundary, retain the first terminal, and keep literal full-width
   capacity, the 15-second action clock, action quality and strength separate.
+  ADR-0362 now retains that sole 7,361,728-byte terminal exactly as a recorded
+  rejection and permanently closes its writer. A standard-library result owner
+  independently rebinds all 32 reconstruction-complete sections, every exact
+  fan/face/cardinality/work/epigraph seam, the audited row-growth records,
+  coordinate and timing aggregates, claims, emissions, and gates. The only
+  false recorded scientific-adjacent gate is a deterministic Python chained-
+  comparison encoding defect: the artifact itself records zero actions, zero
+  quality rows, zero strategy labels, and a null quality claim. ADR-0361 is not
+  relabeled a pass; ADR-0362 separately accepts its complete fresh finite h4
+  mechanism payload. Natural dispatch is 28 singleton-v2 sections and four
+  factorized source-tie sections, with maximum source total/reachable
+  cardinality two and zero Cartesian materialization. The 94.489-second
+  32-build sum remains laboratory infrastructure, not per-solve or action
+  latency. Next make the long-deferred literal full-width capacity preflight a
+  source-sealed label-free boundary.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

@@ -772,6 +772,23 @@ retains only the first pass, scientific rejection, typed failure,
 infrastructure failure or byte-bound terminal. No fresh target has been opened
 at this architecture checkpoint.
 
+ADR-0362 retains the sole terminal from that owner without modifying its
+recorded rejection. The new
+`legal_h4_factorized_affine_confirmation_result` boundary is standard-library,
+read-only, and byte-bound. It reconstructs every serialized source/non-source
+factor graph, total and reachable cardinality, exact fan partition, affine row,
+point-face seam, epigraph residual, compact convex piece, work ledger,
+row-growth audit, coordinate, aggregate, and gate. It exposes recorded and
+artifact-only corrected gate vectors as different types. The correction shows
+that all four emission fields are zero/null and that the sealed writer's
+mapping-to-mapping-to-Boolean chained comparison necessarily returned false;
+it never rewrites `passed` or the decision in the retained artifact. An AST
+control makes the consumed writer the sole named mapping-literal comparison
+chain and rejects any new instance. Game-derived live coefficients,
+selector-window input score tables, and live timing reexecution remain
+authenticated to the sealed source. The accepted conclusion is fresh finite
+h4 factorized-affine mechanism evidence only.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

@@ -568,6 +568,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   cardinalities and timings remain observations rather than gates. The absent
   `-text` result path accepts one clean-commit `O_EXCL` terminal only; the
   32-build laboratory walls are not action-clock or full-width evidence.
+- ADR-0362 retains the sole 7,361,728-byte first terminal as the rejection it
+  recorded and permanently closes the ADR-0361 writer. A standard-library
+  result owner independently reconstructs all 32 complete sections and the
+  exact fan, face, cardinality, work, row-growth, epigraph, compact-envelope,
+  coordinate, timing, emission, and gate semantics serialized in them. Every
+  intended scientific conjunct passes. The sole false recorded gate comes
+  from a chained comparison that compares the correct zero/null emission
+  mapping to `True`; the artifact emitted no action or quality label. ADR-0361
+  is not retroactively relabeled. ADR-0362 separately accepts fresh finite h4
+  mechanism evidence and leaves literal full-width capacity, the 15-second
+  action clock, multiway closure, action quality, and strength unproved.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

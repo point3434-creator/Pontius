@@ -490,6 +490,16 @@ responder crossings remain exactly `15/19` and `139/163`. This is a finite
 same-fixture development diagnostic, not action latency or poker quality; it
 opens only a separately preregistered tie-aware affine integration successor.
 
+ADR-0357 source-seals that integration mechanism without opening another h4
+value. `factorized_tie_aware_affine` treats the exact normal fan as the ray
+authority and the two-pass factorized face as the point authority. Exact
+source ties enter a maximum envelope with zero elected-tape scoring; exact
+singletons alone may use selector-window v2. Synthetic controls match an
+exhaustive small oracle, preserve repeated-actor 4-versus-3 identity, and
+integrate a 4,096-member face with zero Cartesian tape materialization. A
+separate exclusive h4 owner must still be preregistered, and any same-fixture
+pass remains development-only pending untouched confirmation.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

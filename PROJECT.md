@@ -518,6 +518,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   only a separately preregistered tie-aware affine integration successor and
   supplies no full-width, 15-second, quality, or strength evidence. Its exact
   artifact path is `-text`, preserving the retained SHA across checkouts.
+- ADR-0357 source-seals the factorized tie-aware affine consumer while every
+  new legal h4 integration value remains unopened. The exact normal fan owns
+  the complete ray and the two-pass factorized face owns each point. Exact
+  source ties dispatch directly to a maximum envelope with zero fixed-tape
+  Float64 scores; exact singleton sources alone call selector-window v2. The
+  consumer rederives both cardinality columns, checks the interior and
+  one-sided endpoint slope seams, proves the exact `z >= row` epigraph direction,
+  and rejects Cartesian materialization. Synthetic controls integrate 4,096
+  total functions without tapes and preserve repeated-actor total/reachable
+  identity. This is source-only mechanism evidence; a separately
+  preregistered h4 owner and later untouched confirmation remain required.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

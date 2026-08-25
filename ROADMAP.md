@@ -1164,6 +1164,19 @@ queue:
   preregister the tie-aware affine integration consumer; any same-fixture pass
   remains development-only and needs untouched confirmation before
   generalization. Literal full-width capacity remains a parallel lane.
+  ADR-0357 now source-seals that consumer without opening a new h4 target. The
+  exact fan is the ray authority and the two-pass factorized face is the point
+  authority. Exact source ties dispatch to a complete factorized maximum
+  envelope with zero fixed-tape scores; exact singleton sources alone use
+  selector-window v2. The consumer rederives total and reachable cardinality,
+  checks interior and one-sided endpoint slope seams, continuous convex
+  pieces, and `z >= row`, and reports zero materialized tapes. Its versioned
+  conformance controls cover future crossing, positive and separating ties,
+  repeated actors, a 4,096-member face, epigraph direction, and singleton
+  dispatch without mutating ADR-0354's historical registry. Next preregister
+  one exclusive legal h4 integration owner. Any same-fixture pass is still
+  development-only and requires untouched confirmation; literal full-width
+  capacity remains independent.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

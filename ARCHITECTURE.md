@@ -705,6 +705,18 @@ a 104,976-member total face with reachable cardinality one and zero tape
 materialization. The result owner is not connected to the action path; a new
 source-sealed integration consumer must be preregistered separately.
 
+ADR-0357 adds `factorized_tie_aware_affine` as that reusable consumer but does
+not open its h4 target. It accepts only an already-composed
+`ExactDirectionalFaceFanSection`: the fan locates every ray piece, while the
+point face preserves the complete active factor set and directional slope
+interval. The adapter rederives total and reachable cardinalities, validates
+continuous convex pieces and the exact maximum epigraph, and uses one-sided
+inward slopes at domain endpoints. Its modes are nominal: exact source ties
+use the factorized envelope with no fixed-tape score call; exact singletons
+use selector-window v2 or fail closed. `tie_semantics_conformance_v2` extends
+the sealed historical registry without editing it. No Cartesian enumerator or
+closed ADR-0352/ADR-0355 owner appears in the new call graph.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

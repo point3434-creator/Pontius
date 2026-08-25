@@ -1108,6 +1108,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_factorized_tie_aware_affine_integration_is_source_sealed(self) -> None:
+        expected = {
+            "README.md": ("ADR-0357", "4,096-member face"),
+            "PROJECT.md": ("ADR-0357", "one-sided endpoint slope seams"),
+            "STATUS.md": ("ADR-0357", "exclusive legal h4"),
+            "ROADMAP.md": ("ADR-0357", "zero fixed-tape scores"),
+            "RUNBOOK.md": (
+                "8a5b053e1b792ae879f5d10cd8c7614ae69e33fe2033db0d0337388375e83d6a",
+                "No legal h4 target invocation is authorized",
+            ),
+            "ARCHITECTURE.md": (
+                "factorized_tie_aware_affine",
+                "tie_semantics_conformance_v2",
+            ),
+            "RISK_REGISTER.md": ("R118", "inward one-sided owner"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

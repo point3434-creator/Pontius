@@ -1842,3 +1842,25 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     separate tie-aware affine integration owner using fan-as-ray and
     face-as-point authority; require untouched confirmation after any
     same-fixture development pass and keep full-width capacity independent.
+
+75. ADR-0357 source-seals the factorized tie-aware affine integration
+    mechanism; it is not a legal h4 result. Verify the source boundary with:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m unittest `
+      tests.test_factorized_tie_aware_affine `
+      tests.test_tie_semantics_conformance_v2 `
+      tests.test_factorized_tie_aware_affine_seal
+    ```
+
+    The source protocol SHA-256 is
+    `8a5b053e1b792ae879f5d10cd8c7614ae69e33fe2033db0d0337388375e83d6a`.
+    Do not edit ADR-0354's historical tie registry or directional-face source,
+    and never invoke the closed ADR-0352 or ADR-0355 owners. No legal h4 target
+    invocation is authorized by this step. First preregister a separate
+    exclusive owner with an absent result path, fixed four-direction/eight-
+    section workload, typed singleton/tie dispatch, complete integration
+    schema, and bounded laboratory walls. Any later same-fixture pass remains
+    development evidence and cannot substitute for untouched confirmation,
+    full-width capacity, action latency, decision quality, or strength.

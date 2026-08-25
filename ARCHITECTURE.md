@@ -1536,6 +1536,19 @@ oracles and mutations. Neither is a 45-card, solve, or action wall. The next
 architecture boundary is a prospectively frozen non-45-card scaling ladder;
 the public keystone itself has no arguments and cannot accept the target.
 
+ADR-0373 freezes the new orchestration layer without changing that sealed
+primitive. It generates complete 10/16/22/28/34/40-card axes, a 43-strength-
+code direct automaton with source rank 127, and one 128-feature resident batch.
+Each stage owns independent cold, warm full rebuild, changed-source full
+refresh, query-only reuse, and unique-adjoint phases. Selected direct scans use
+implicit colex source rows and bypass the recurrence; the width-128 adjoint
+never expands 90 labels but retains their modeled write count.
+
+The staged layer must pre-price all numeric arrays, release memory pools between
+stages, repeat live admission, and append/fsync one durable record only after a
+stage's numerical, work, allocation, wall, and identity gates close. It stops
+on the first typed rejection and is structurally unable to admit 45 cards.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

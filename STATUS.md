@@ -15,26 +15,27 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept `gpu_occupied_card_quotient` as the bounded device mechanism. All 22
-conjunctive gates pass on the complete ten-card universe. Colexicographic rows,
-the cardinality recurrence, signed query evaluation, direct source automaton,
-sunk/reach affine fold, exact labeled-record adjoint, topology-stable full
-source refresh, query-only reuse, source-seat permutation, deterministic warm
-outputs, fixed/live allocation, exact work ledgers, and every engineered
-mutation behave as frozen.
+Preregister one exclusive staged systems experiment. It owns six complete,
+non-sampled card universes and stops at 40 cards. It cannot call the sealed
+ten-card public runner with altered inputs and may not modify ADR-0372's source
+or tests. A new additive orchestration layer may consume only the sealed CUDA
+primitives whose hashes are bound above.
 
-The public device function accepts no arguments and constructs only the
-ten-card fixture. `bounded_device_allocation` rejects a 45-card request before
-the CuPy import-call counter changes. Full-width quantities remain pure integer
-arithmetic. This seal therefore authorizes a separately preregistered staged
-scaling ladder, not the literal target.
+The real result path is
+`artifacts/gpu_occupied_card_quotient_staged_scaling_v1.jsonl`; it and its
+`.partial` counterpart must remain absent through a later clean source-seal
+commit. The first real owner opens with exclusive create, appends and `fsync`s
+one header and each completed stage, then appends exactly one terminal. A
+stage rejection is a completed scientific terminal, not permission to retry.
+An infrastructure exception retains its durable prefix and closes v1.
 
 ADR-0363 and ADR-0365 remain permanently consumed. ADR-0364 remains the v1
 `GetProcessMemoryInfo failed` terminal. ADR-0366 remains
-`representation_rejected_before_target_allocation` for the explicit-half-
-assignment lineage with zero target calls. ADR-0368 remains exact algebra
-authority. ADR-0370 remains the source byte/work model. ADR-0371 is satisfied
-by this implementation and opens no result owner or action.
+`representation_rejected_before_target_allocation` with zero target calls.
+ADR-0368 remains exact algebra authority; ADR-0370 remains source capacity
+arithmetic; ADR-0372 remains the complete ten-card GPU mechanism. No literal
+full-width owner, old capacity owner, solver, action, or truncation path is
+called here.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -79,8 +80,9 @@ its pre-capacity typed failure; ADR-0365 owns and consumes the sole v2 capacity
 invocation; ADR-0366 retains its exact representation rejection. ADR-0367
 preregisters and ADR-0368 seals the bounded quotient algebra; ADR-0369
 preregisters and ADR-0370 seals only the source byte/work model. ADR-0371
-preregisters and ADR-0372 seals only the complete ten-card GPU mechanism. No
-earlier owner is revived.
+preregisters and ADR-0372 seals only the complete ten-card GPU mechanism.
+ADR-0373 opens only a still-unimplemented non-target staged owner. No earlier
+owner is revived.
 
 The required literal lifecycle markers remain: caller-owned legal fallback;
 exclusive untouched legal h4; GetProcessMemoryInfo failed;
@@ -90,7 +92,7 @@ authority.
 
 ## Active next
 
-Preserve ADR-0368's exact oracle, ADR-0370's source byte/work model, and ADR-0372's bounded device mechanism, then prospectively preregister a non-45-card staged GPU quotient scaling ladder with frozen universes and feature batches, direct-automaton topology generation, fixed and live admission, repeated phase medians, cold/full-source-refresh/query-only ledgers, exact work-normalized throughput, numerical/digest checks, and a fail-closed stop before any literal target; do not extrapolate the ten-card wall or select truncation
+Implement and source-seal the ADR-0373 staged-scaling config, complete-axis topology compiler, exact allocation/work model, direct sampled and adjoint controls, CUDA runner, append-and-fsync first-terminal journal, solver-free result reader, and synthetic pass/rejection/crash controls while the real result path remains absent; do not invoke any staged workload or modify the sealed ADR-0372 source
 
 ## Revoked authorities
 
@@ -98,7 +100,7 @@ Preserve ADR-0368's exact oracle, ADR-0370's source byte/work model, and ADR-037
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0372](docs/decisions/ADR-0372-seal-the-bounded-gpu-occupied-card-quotient-keystone.md) — Seal the bounded GPU occupied-card quotient keystone.
+Latest process decision: [ADR-0373](docs/decisions/ADR-0373-preregister-the-staged-gpu-quotient-scaling-ladder.md) — Preregister the staged GPU quotient scaling ladder.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -106,7 +108,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0349](docs/decisions/ADR-0349-retain-and-seal-the-legal-h4-row-growth-result.md) | 2026-08-24 | accepted finite legal h4 row-growth and infrastructure result; the sole source-sealed invocation passes every frozen gate, converges with the two inherited initial rows and zero generated rows, and authorizes only a separately preregistered selector-stability successor | Retain and seal the legal h4 row-growth result |
 | [ADR-0350](docs/decisions/ADR-0350-preregister-the-legal-h4-selector-normal-fan-audit.md) | 2026-08-24 | accepted preregistration and source seal before the first legal h4 selector-fan invocation; every target selector value, natural tie region, breakpoint, production tape, and policy-family result remains unopened | Preregister the legal h4 selector normal-fan audit |
 | [ADR-0351](docs/decisions/ADR-0351-retain-the-legal-h4-fan-map-and-reject-certificate-authority.md) | 2026-08-24 | accepted retained finite legal h4 selector normal-fan map and post-result semantic rejection; the sole ADR-0350 invocation preserves exact fan evidence but its recorded all-pass vector does not authorize selector-stable affine integration because the v1 certificate failed to collapse four reachable source ties to zero | Retain the legal h4 fan map and reject certificate authority |
 | [ADR-0352](docs/decisions/ADR-0352-preregister-the-legal-h4-tie-aware-affine-envelope-integration.md) | 2026-08-24 | accepted source-only preregistration after ADR-0351's certificate rejection; the exact active-row closure, typed v2-or-envelope adapter, complete source/current pruned-tape serialization, and exclusive runner are sealed, while every h4 integration result remains unopened | Preregister the legal h4 tie-aware affine-envelope integration |
@@ -130,18 +131,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0370](docs/decisions/ADR-0370-seal-the-full-width-occupied-card-quotient-preallocation-model.md) | 2026-08-25 | accepted source-only numeric-array and logical-work result; the target-specific quotient layout passes frozen fixture and safe feature-envelope byte/reserve gates, while GPU numerical identity, throughput, live admission, literal target allocation, action, quality, truncation, and strength remain unopened | Seal the full-width occupied-card quotient preallocation model |
 | [ADR-0371](docs/decisions/ADR-0371-preregister-the-gpu-occupied-card-quotient-keystone.md) | 2026-08-25 | accepted prospective bounded-device mechanism boundary; no literal 45-card allocation, staged-width extrapolation, action latency, quality, truncation, or strength result is opened | Preregister the GPU occupied-card quotient keystone |
 | [ADR-0372](docs/decisions/ADR-0372-seal-the-bounded-gpu-occupied-card-quotient-keystone.md) | 2026-08-25 | accepted bounded GPU numerical and throughput mechanism result; all 22 frozen natural, exact, current-stack, refresh, repeatability, allocation, work, and adversarial gates pass on the complete ten-card population, while staged width, literal 45-card capacity, action latency, quality, truncation, and strength remain unopened | Seal the bounded GPU occupied-card quotient keystone |
+| [ADR-0373](docs/decisions/ADR-0373-preregister-the-staged-gpu-quotient-scaling-ladder.md) | 2026-08-25 | accepted prospective source-only scaling boundary; the six non-target stages, device/software identity, direct-automaton family, repetitions, numerical/work/allocation gates, durable terminal, and stops are frozen while every staged timing, admission, throughput, terminal, and literal 45-card result remains unopened | Preregister the staged GPU quotient scaling ladder |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0372](docs/decisions/ADR-0372-seal-the-bounded-gpu-occupied-card-quotient-keystone.md) — Seal the bounded GPU occupied-card quotient keystone.
+- Latest ADR: [ADR-0373](docs/decisions/ADR-0373-preregister-the-staged-gpu-quotient-scaling-ladder.md) — Preregister the staged GPU quotient scaling ladder.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 372.
-- ADR-header SHA-256: `caca0ab08204028b0f9bd553f3b5b13337e79e2eab16a1c697750b685c739169`.
-- Current blockers: no staged-width GPU quotient result, literal live-memory admission, literal scalable full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 373.
+- ADR-header SHA-256: `e44ab62615fcd319bea4661eae60f6c95ffee85382d961d64a0563bf345f6668`.
+- Current blockers: no source-sealed staged-scaling owner, staged-width GPU quotient result, literal live-memory admission, literal scalable full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0372](docs/decisions/ADR-0372-seal-the-bounded-gpu-occupied-card-quotient-keystone.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0373](docs/decisions/ADR-0373-preregister-the-staged-gpu-quotient-scaling-ladder.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

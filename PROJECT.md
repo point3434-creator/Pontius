@@ -687,6 +687,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   action estimate. A semantic correction compares the current normalized chip
   value rather than non-invariant raw factor scales. Next preregister a non-45-
   card staged scaling ladder; literal capacity and truncation remain closed.
+- ADR-0373 prospectively freezes that staged ladder before source or device
+  calls. Complete 10/16/22/28/34/40-card axes use one direct-automaton component
+  with source rank 127 and width 128. Cold, five warm, three full source-
+  refresh, five query-only, and one-plus-three unique-adjoint observations are
+  separately timed and ledgered per stage. Direct source/query samples,
+  affine rows, full forward/adjoint dot products, byte identity, live/fixed
+  admission, durable first-terminal evidence, 120-second stage and 600-second
+  campaign stops are conjunctive. The public owner rejects 45 cards; implement
+  and source-seal it with the real journal absent before any invocation.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

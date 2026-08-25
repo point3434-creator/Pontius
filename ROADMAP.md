@@ -1303,6 +1303,12 @@ queue:
   reduced cold/warm/source-refresh device sums are 0.4435/0.2958/0.4346 ms;
   none may be extrapolated to 45 cards. Preregister a staged non-45-card
   scaling ladder next, with fixed populations and stop rules before allocation.
+  ADR-0373 now freezes that ladder at complete 10/16/22/28/34/40-card axes and
+  width 128. Every stage separates cold, five warm, three source-refresh, five
+  query-only, and one-plus-three adjoint observations; exact selected direct
+  scans, affine rows, dot products, allocation, work, repeatability, durable
+  evidence, and shared stops gate continuation. Implement and source-seal the
+  owner with its real journal absent; no stage or 45-card call is open yet.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1322,6 +1328,8 @@ queue:
   and bounded validation are next, not a literal capacity call. ADR-0372 seals
   that bounded validation; the open checkpoint is now a prospectively frozen
   staged-width/live-admission ladder, still stopping before the literal target.
+  ADR-0373 preregisters its six stages and terminal semantics. The immediate
+  checkpoint is source plus synthetic journal/control sealing, not invocation.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

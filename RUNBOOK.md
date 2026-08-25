@@ -2120,3 +2120,12 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     public runner accepts no arguments. Do not edit it to admit 45 cards,
     divide its ten-card walls into target estimates, or compare the 4.679-
     second conformance campaign with the 14-second action compute wall.
+88. ADR-0373 prospectively fixes the staged scaling schedule at cards
+    `10,16,22,28,34,40`, direct source rank 127, and feature width 128. Before
+    any GPU stage, implement and source-seal a strict config, compiler, exact
+    allocation/work model, selected direct-scan control, unique adjoint,
+    append-and-fsync runner, solver-free reader, and synthetic pass/rejection/
+    crash suite. Confirm both
+    `artifacts/gpu_occupied_card_quotient_staged_scaling_v1.jsonl` and its
+    `.partial` path are absent. Do not manually call a private stage, admit 45
+    cards, retain only the fastest repetition, or continue after a rejection.

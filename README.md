@@ -610,6 +610,13 @@ and five adversarial mutations agree. Cold/warm/source-refresh device sums are
 0.4435/0.2958/0.4346 ms, explicitly reduced units with no 45-card or action
 interpretation. A staged non-45-card scaling preregistration is next.
 
+ADR-0373 now freezes that scaling experiment before implementation: complete
+10/16/22/28/34/40-card axes, a rank-127/width-128 direct automaton, repeated
+cold/warm/full-refresh/query-only/adjoint units, exact selected direct scans,
+full dot products, allocation and work ledgers, durable first-terminal
+evidence, and fail-closed stage/campaign walls. Its owner must be source-sealed
+with the real journal absent and can never accept 45 cards.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

@@ -2193,3 +2193,11 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     scan validation wall, and keep both separate from a solve, iteration, or
     action. Do not call 45 cards. Preregister and source-seal its exact array-
     lifetime and streamed-validation boundary first.
+93. ADR-0378 authorizes source-only liveness engineering. Do not import CuPy,
+    add 45 cards to either staged owner, allocate target topology, or write a
+    CUDA target kernel. The source model must name every host/device row and
+    phase lifetime, use a 67,108,864-byte validation chunk, retain complete
+    host baselines for literal byte comparison, forbid device baseline copies
+    and full elementwise-product temporaries, and release forward state before
+    the unique adjoint. Validate only with pure arithmetic and bounded chunk
+    controls. A passing model is not live admission or a 15-second action.

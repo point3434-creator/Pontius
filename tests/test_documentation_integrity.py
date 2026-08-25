@@ -1451,6 +1451,21 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "dd5b6d04cd45db0c3a95acdd1bcd05355c72be0852701df347696442261a2b72",
         )
 
+    def test_literal_45_quotient_liveness_boundary_is_preregistered(self) -> None:
+        expected = {
+            "README.md": ("ADR-0378", "64-MiB staging window"),
+            "PROJECT.md": ("ADR-0378", "full dot-product temporary"),
+            "STATUS.md": ("ADR-0378", "source-only literal-target liveness"),
+            "ROADMAP.md": ("ADR-0378", "device reference duplication"),
+            "RUNBOOK.md": ("ADR-0378", "67,108,864-byte"),
+            "ARCHITECTURE.md": ("ADR-0378", "lifetime graph"),
+            "RISK_REGISTER.md": ("R140", "literal byte comparison"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

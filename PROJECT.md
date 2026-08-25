@@ -736,6 +736,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   action, or 15-second result. Next freeze literal-45 production and validation
   lifetimes separately plus streamed-validation identity before any target
   allocation; truncation remains an independent hypothesis.
+- ADR-0378 prospectively freezes the literal-45 liveness question before any
+  target code or allocation. Production arrays, complete host-held validation
+  references, 64-MiB chunk staging, streamed dot scratch, and post-forward
+  adjoint arrays receive distinct semantic roles and phase lifetimes. Full
+  device output copies, simultaneous forward/adjoint state, a full dot-product
+  temporary, and digest-only repeatability are forbidden. Implement a CuPy-
+  free lifetime sweep and bounded chunk controls next; no capacity verdict is
+  open at this preregistration.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

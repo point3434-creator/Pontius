@@ -1593,6 +1593,16 @@ only/adjoint lifetimes from validation-only reference, direct-scan, and dot-
 product lifetimes, then proves a streamed validation seam on bounded games.
 No literal 45-card allocation or runtime path exists yet.
 
+ADR-0378 freezes the successor architecture as an explicit lifetime graph.
+The forward table and exact compatible outputs are production state. Complete
+repeatability references live on the host and are compared through one fixed
+64-MiB staging window. The dot check streams bounded products and retains only
+a scalar; a full product temporary is not an unnamed allocator detail. After
+the forward dot, forward device state dies before one unique adjoint is born,
+while the host source baseline supplies the transpose operand. Semantic roles,
+not coincident byte counts, determine ownership. This is a future source model,
+not yet a target-capable runtime.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

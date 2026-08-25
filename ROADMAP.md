@@ -1335,6 +1335,12 @@ queue:
   independent validation oracle, not production work or action latency. Before
   any 45-card allocation, preregister exact production-versus-validation array
   lifetimes and a streamed-validation identity/capacity boundary.
+  ADR-0378 now preregisters that source-only boundary. Its phase ledger keeps
+  production forward, complete host references, 64-MiB staging, streamed dot,
+  forward release, and one-output adjoint roles separate; it forbids device
+  reference duplication and full product temporaries. Implement and source-
+  seal the CuPy-free lifetime sweep and bounded chunk controls next. A target
+  entry point, live admission, or target timing is still forbidden.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1363,6 +1369,8 @@ queue:
   prospectively frozen literal-45 liveness and streamed-validation model that
   separates production residency from independent-oracle co-residency. It is
   not yet a target call, solve, action-quality inference, or truncation choice.
+  ADR-0378 freezes its typed phases and kill criteria. The immediate checkpoint
+  is the pure source model and controls, not CUDA or an allocation.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

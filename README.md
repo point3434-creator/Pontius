@@ -642,6 +642,14 @@ solve or 15-second action measurement. Literal 45 cards remain uncalled. The
 next capacity boundary derives production and validation lifetimes separately
 and proves streamed validation before any target owner can be sealed.
 
+ADR-0378 freezes that boundary without opening a target. The future source
+model must sweep typed host/device array births and deaths, keep one complete
+host reference plus a 64-MiB staging window, forbid full device references and
+full dot-product temporaries, and release the forward state before allocating
+the unique adjoint. It must prove bounded chunk coverage and literal byte
+comparison without CuPy. Arithmetic passage will still not be live admission
+or action latency.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

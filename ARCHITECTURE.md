@@ -1623,6 +1623,17 @@ state must be observably released before the unique adjoint is born. Pool
 used/total and physical free memory are evidence at each transition, while 45
 cards and every target compiler path remain structurally unreachable.
 
+ADR-0381 implements and validates that architecture. The device owns one
+overwritten unary, one forward recurrence, compatible/scalar outputs, and
+static topology until the forward dot. Host references and one 64-MiB window
+provide literal-byte authority. The 22-card source requires two chunks. After
+the dot, the device retains only the query covector and cardinality offsets;
+all forward ownership and cached blocks die before the aggregated query,
+four-card recurrence, and unique adjoint are born. Seventeen allocator
+snapshots prove the phase order and exact final release. This bounded seam is
+now reusable validation infrastructure, but target construction remains
+absent.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

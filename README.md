@@ -667,6 +667,14 @@ the unique adjoint is allocated; and allocator pools plus physical free memory
 are sampled after every ownership transition. The public seam takes no
 arguments, and any other width—including 45—must fail before CuPy import.
 
+ADR-0381 now passes the bounded CUDA seam. All 32 gates pass at both 10 and 22
+cards; complete ten-card exact errors peak at `2.05e-15`, and the 22-card dot
+error is `5.68e-14`. The mandatory 76,403,712-byte source reference crosses
+two chunks, the observed pool-total high-water is 204,377,088 bytes against a
+271,464,560-byte conservative bound, and the allocator returns to its exact
+starting state. This validates validation plumbing—not literal 45-card
+capacity. A separately preregistered one-shot target owner is next.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

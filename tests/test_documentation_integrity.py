@@ -1539,6 +1539,57 @@ class DocumentationIntegrityTests(unittest.TestCase):
         ):
             self.assertIn(phrase, adr)
 
+    def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
+        expected = {
+            "README.md": ("ADR-0381", "204,377,088 bytes"),
+            "PROJECT.md": ("ADR-0381", "63-versus-57"),
+            "STATUS.md": ("ADR-0381", "one-shot literal-45 CUDA owner"),
+            "ROADMAP.md": ("ADR-0381", "complete exact 10-card"),
+            "RUNBOOK.md": (
+                "cbbd58c56d3fa9031594d6d034acb0a21a6ecc63d597583cf6098f2b0215258d",
+                "32 gates per population",
+            ),
+            "ARCHITECTURE.md": ("ADR-0381", "Seventeen allocator snapshots"),
+            "RISK_REGISTER.md": (
+                "R144",
+                "sizes zero through four",
+                "R145",
+                "zero-release gate",
+            ),
+            "tests/test_affine_resident_leaf_adjoint_cfr.py": (
+                "tearDownClass",
+                "free_all_blocks",
+            ),
+            "tests/test_canonical_affine_resident_automaton_cache.py": (
+                "tearDownClass",
+                "free_all_blocks",
+            ),
+            "src/pontius/gpu_quotient_validation_seam.py": (
+                "run_bounded_quotient_validation_seam",
+                "_streamed_device_host_dot",
+                "sum(comb(SOURCE_CARDS, level) for level in range(QUERY_CARDS + 1))",
+            ),
+            "tests/test_gpu_quotient_validation_seam.py": (
+                "test_literal_bytes_not_digest_decide_later_chunk_mutation",
+                "test_every_frozen_gate_passes_in_order",
+                "_run_isolated_device_payload",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr = _contract_text(
+            "docs/decisions/ADR-0381-seal-the-bounded-quotient-validation-seam.md"
+        )
+        for relative in (
+            "src/pontius/gpu_quotient_validation_seam.py",
+            "tests/test_gpu_quotient_validation_seam.py",
+        ):
+            payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
+
 
 if __name__ == "__main__":
     unittest.main()

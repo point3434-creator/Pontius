@@ -760,6 +760,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   every transition. Every other width, including 45, must reject before CuPy
   import. A pass can authorize only a separately sealed one-shot target owner;
   it cannot establish target capacity, timing, action quality, or truncation.
+- ADR-0381 seals the bounded result. Every 10/22-card gate passes: complete
+  ten-card exact forward/fold/adjoint errors stay below `2.1e-15`, the 22-card
+  source crosses the 64-MiB seam in exactly two chunks, forward and reverse
+  dots agree within `5.7e-14`, and the largest pool total is 204,377,088 bytes
+  under a 271,464,560-byte model. Forward state is observably dead before the
+  unique adjoint is born, and pools plus physical free memory return exactly
+  to baseline. The pre-seal reverse-work formula's 63-versus-57 subset defect
+  is recorded; no scientific setting changed. Next preregister a separate
+  one-shot literal owner—45 remains uncalled.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import gc
 import importlib.util
 import unittest
 
@@ -116,6 +117,18 @@ class CanonicalAffineResidentCacheTests(unittest.TestCase):
             )
             for seat in range(6)
         )
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cp, _ = _cupy_modules()
+        cp.cuda.get_current_stream().synchronize()
+        for name in ("canonical_caches", "raw_caches", "belief_cache", "gpu"):
+            if hasattr(cls, name):
+                delattr(cls, name)
+        gc.collect()
+        cp.get_default_memory_pool().free_all_blocks()
+        cp.get_default_pinned_memory_pool().free_all_blocks()
+        cp.cuda.get_current_stream().synchronize()
 
     def test_five_way_scale_family_shares_one_device_basis(self) -> None:
         cp, _ = _cupy_modules()

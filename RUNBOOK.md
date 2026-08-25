@@ -2226,3 +2226,22 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     memory observations after every ownership transition. Reject 16, 28, 34,
     40, and 45 before importing CuPy. Do not create or invoke a literal-target
     owner; a bounded pass can authorize only its later preregistration.
+96. ADR-0381 seals the bounded mechanism. Verify both real CUDA populations:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest tests.test_gpu_quotient_validation_seam
+    ```
+
+    The source/test hashes are
+    `cbbd58c56d3fa9031594d6d034acb0a21a6ecc63d597583cf6098f2b0215258d`
+    and `92b96af26a4a57989a7fbdf08966bf95a77dfac718f4b48785ca6c6bd16c3bbc`.
+    Expect 13 tests, complete 10/22 populations, one/two source chunks, 32
+    gates per population, zero final pool state, and no artifact. Do not call
+    45 through this module. Its pass authorizes only a new prospective target-
+    owner preregistration and gives no target/action timing prior. The device
+    owner is exercised once in a fresh `-B` child so its absolute default-pool
+    release evidence cannot inherit live arrays from historical unittest class
+    fixtures. Final whole-repository discovery ran 1,816 tests in 914.653
+    seconds: 1,813 passed, two historical optional tests skipped, and only the
+    immutable ADR-0365 retained-result absence predicate failed.

@@ -15,26 +15,23 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Preregister one additive bounded device keystone. Its public function accepts
-no arguments and executes only complete 10- and 22-card fixture populations in
-that order. Any allocation helper called with another width, including 45,
-must reject before importing CuPy. It may reuse the hash-sealed source,
-recurrence, signed-query, affine-fold, direct-scan, comparison, and adjoint
-kernels. It may not edit or invoke either consumed staged owner, create a
-journal, compile a target fixture, or allocate a target-shaped array.
+Accept `gpu_quotient_validation_seam` as the bounded validation mechanism. Its
+only public device function takes no arguments and runs the complete ordered
+populations 10 and 22. Every one of 32 conjunctive gates passes for each
+population. Requests for 16, 28, 34, 40, and 45 reject before the seam imports
+CuPy. No result file, journal, target compiler, consumed staged owner, or
+literal-target array exists.
 
-The 22-card source reference is exactly `C(22,6) * 128 * 8 = 76,403,712`
-bytes, so the frozen 67,108,864-byte window produces two nonempty chunks. The
-10-card population supplies a complete exact reduced oracle; 22 cards supplies
-the multi-chunk and scaling control. Neither population is a proxy for target
-latency or capacity.
+This pass authorizes only a prospective preregistration for a separate
+one-shot literal-45 owner. It is not authority to add 45 to this function or
+to call any target-shaped helper.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
 Preregister the native-simplex robustness audit. ADR-0312's directive is Seal
-the native-simplex audit compiler and corpora. ADR-0313's directive is Seal the
-native-simplex audit runner before results. ADR-0314's decision is Retain the
-native-simplex audit and reject the frozen gate. ADR-0315's directive is
+the native-simplex audit compiler and corpora. ADR-0313's directive is Seal
+the native-simplex audit runner before results. ADR-0314's decision is Retain
+the native-simplex audit and reject the frozen gate. ADR-0315's directive is
 Source-seal the artifact-only native-simplex gate correction. ADR-0316's
 decision is Accept the corrected audit and bound replacement eligibility.
 ADR-0317's directive is Separate solver classes and prioritize the certified
@@ -47,46 +44,51 @@ once. ADR-0326 and ADR-0327 govern the exhaustive bounded development-teacher
 chain. ADR-0328 retains that exhaustive teacher and solver-free rebinder
 before the direct closed finite-block greedy line. ADR-0330 remains
 permanently closed; ADR-0331's append-and-fsync discipline, ADR-0332's
-exclusive `xb` open, and ADR-0333's statement that No replacement sizing value
-was opened remain authoritative. ADR-0334 and ADR-0335 bind the 2,113-task
-non-replay chain; ADR-0336 records width three; ADR-0337 owns the response-closed direct mechanism; and ADR-0338 alone records the selected development
-raise width. ADR-0339's exact comparison remains a finite absence claim.
-ADR-0340's 192 prospective tasks remain distinct from ADR-0341's 94 accepted
-one-call arms and ADR-0343's 126 confirmation arms; ADR-0342 alone authorized
-that retained confirmation invocation. ADR-0344 and ADR-0345 own the finite h4
-legal responder-raise keystone line. ADR-0346 and ADR-0347 lead only to
-responder-row growth; ADR-0348 and ADR-0349 lead only to selector-window work.
-ADR-0350 opened selector-stable affine integration as a question; ADR-0351
-replaced it with the tie-aware legal h4 affine-envelope requirement. ADR-0352's
-owner is closed by ADR-0353 before any fresh untouched tie-aware affine result.
-ADR-0354 source-seals the factorized exact active-set directional-face diagnostic;
-ADR-0355's owner is closed by ADR-0356. ADR-0357 seals the factorized affine
-consumer and requires an exclusive legal h4 owner. ADR-0358 owns its one same-
-fixture integration invocation, and ADR-0359 permanently closes it while
-requiring a fresh value-unopened confirmation. ADR-0360 fixes that population;
-ADR-0361 owns and consumes the sole invocation; ADR-0362 alone performs the
-artifact-only scientific assessment. ADR-0363 owns and consumes the sole v1
-full-width capacity invocation; ADR-0364 retains its pre-capacity typed
-failure; ADR-0365 owns and consumes the sole v2 capacity invocation; ADR-0366
-retains its exact representation rejection. ADR-0367 preregisters and ADR-0368
-seals the bounded quotient algebra; ADR-0369 preregisters and ADR-0370 seals
-only the source byte/work model. ADR-0371 preregisters and ADR-0372 seals only
-the complete ten-card GPU mechanism. ADR-0373 freezes the staged population,
-ADR-0374 source-seals v1, ADR-0375 permanently closes its first invocation,
-ADR-0376 source-seals and consumes v2, ADR-0377 assesses its retained result,
-ADR-0378 freezes the target liveness boundary, ADR-0379 seals only its pure
-source result, and ADR-0380 opens only this bounded device question. No earlier
-owner is revived.
+exclusive `xb` open, and ADR-0333's statement that No replacement sizing
+value was opened remain authoritative. ADR-0334 and ADR-0335 bind the 2,113-
+task non-replay chain; ADR-0336 records width three; ADR-0337 owns the
+response-closed direct mechanism; and ADR-0338 alone records the selected
+development raise width. ADR-0339's exact comparison remains a finite absence
+claim. ADR-0340's 192 prospective tasks remain distinct from ADR-0341's 94
+accepted one-call arms and ADR-0343's 126 confirmation arms; ADR-0342 alone
+authorized that retained confirmation invocation. ADR-0344 and ADR-0345 own
+the finite h4 legal responder-raise keystone line. ADR-0346 and ADR-0347 lead
+only to responder-row growth; ADR-0348 and ADR-0349 lead only to selector-
+window work. ADR-0350 opened selector-stable affine integration as a question;
+ADR-0351 replaced it with the tie-aware legal h4 affine-envelope requirement.
+ADR-0352's owner is closed by ADR-0353 before any fresh untouched tie-aware
+affine result. ADR-0354 source-seals the factorized exact active-set
+directional-face diagnostic; ADR-0355's owner is closed by ADR-0356, which
+retains the directional-face result before tie-aware affine integration.
+ADR-0357 seals the factorized affine consumer and requires an exclusive legal
+h4 owner.
+ADR-0358 owns its one same-fixture integration invocation, and ADR-0359
+permanently closes it while requiring a fresh value-unopened confirmation.
+ADR-0360 fixes that population; ADR-0361 owns and consumes the sole invocation;
+ADR-0362 alone performs the artifact-only scientific assessment. ADR-0363
+owns and consumes the sole v1 full-width capacity invocation; ADR-0364 retains
+its pre-capacity typed failure; ADR-0365 owns and consumes the sole v2 capacity
+invocation; ADR-0366 retains its exact representation rejection. ADR-0367
+preregisters and ADR-0368 seals the bounded quotient algebra; ADR-0369
+preregisters and ADR-0370 seals only the source byte/work model. ADR-0371
+preregisters and ADR-0372 seals only the complete ten-card GPU mechanism.
+ADR-0373 freezes the staged population, ADR-0374 source-seals v1, ADR-0375
+permanently closes its first invocation, ADR-0376 source-seals and consumes v2,
+ADR-0377 assesses its retained result, ADR-0378 freezes the target liveness
+boundary, ADR-0379 seals only its pure source result, ADR-0380 freezes this
+bounded seam, and ADR-0381 seals only its bounded result. No earlier owner is
+revived.
 
 ADR-0363 and ADR-0365 remain permanently consumed. ADR-0364 remains the
 `GetProcessMemoryInfo failed` terminal. ADR-0366 remains
 `representation_rejected_before_target_allocation` with zero target calls.
 ADR-0375 remains the zero-stage missing-parent failure. The required lifecycle
-markers remain invoke exactly once, exclusive untouched legal h4, selector-window, 2,113-task, and caller-owned legal fallback.
+markers remain invoke exactly once, exclusive untouched legal h4,
+selector-window, 2,113-task, and caller-owned legal fallback.
 
 ## Active next
 
-Implement and source-seal one additive no-argument bounded CUDA validation-seam mechanism over the complete ordered populations 10 and 22, using the sealed quotient kernels, one active-unary buffer, complete host-held chunkwise references, explicit streamed-dot operands without a full product, forward release before one unique adjoint, raw pool/free-memory observations after every ownership transition, exact/numerical differentials, and adversarial seam controls; reject every other width before CuPy import and do not create a target owner or artifact
+Prospectively preregister a separate one-shot literal-45 CUDA owner before target source or allocation, binding ADR-0379's typed phase model and narrow 244,970,204-byte numeric margin, ADR-0381's exact streamed validation and observed allocator semantics, the fixed workstation identity, a fresh live cap/reserve admission immediately before allocation, one no-argument public path, exclusive first-terminal retention, immutable fallback and claims boundaries, and fail-closed release/rebinding; do not invoke 45 cards, infer timing from 22 cards, or select truncation during that preregistration
 
 ## Revoked authorities
 
@@ -94,7 +96,7 @@ Implement and source-seal one additive no-argument bounded CUDA validation-seam 
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0380](docs/decisions/ADR-0380-preregister-the-bounded-quotient-validation-seam.md) — Preregister the bounded quotient validation seam.
+Latest process decision: [ADR-0381](docs/decisions/ADR-0381-seal-the-bounded-quotient-validation-seam.md) — Seal the bounded quotient validation seam.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -102,7 +104,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0357](docs/decisions/ADR-0357-seal-the-factorized-tie-aware-affine-integration.md) | 2026-08-24 | accepted source-only successor to ADR-0356; the fan-as-ray/face-as-point affine consumer, typed source dispatch, epigraph differential, versioned tie-conformance registry, and source seal are committed while every new legal h4 integration result remains unopened | Seal the factorized tie-aware affine integration |
 | [ADR-0358](docs/decisions/ADR-0358-preregister-the-legal-h4-factorized-affine-integration.md) | 2026-08-24 | accepted source-only preregistration after ADR-0357; one exclusive four-direction/eight-section legal h4 integration owner, exact parent-section rebinding, typed source dispatch, complete point/ray/cardinality/work/epigraph schema, honest subject clocks, and first-terminal retention are sealed while every new legal h4 integration outcome remains unopened | Preregister the legal h4 factorized affine integration |
 | [ADR-0359](docs/decisions/ADR-0359-retain-and-rebind-the-legal-h4-factorized-affine-integration.md) | 2026-08-24 | accepted retained finite same-fixture legal h4 development integration; the sole ADR-0358 invocation passes every frozen gate and a standard-library result owner independently rebinds the serialized source faces, compact envelopes, seams, dispatch, work, aggregates, provenance, claims and gates while explicitly typing three non-reconstructible summary fields as authenticated-only | Retain and rebind the legal h4 factorized affine integration |
 | [ADR-0360](docs/decisions/ADR-0360-source-seal-the-fresh-legal-h4-factorized-affine-confirmation-population.md) | 2026-08-25 | accepted value-unopened source-only confirmation population and successor contract; no fresh legal h4 direction endpoint, best response, selector, affine section, timing, action, quality row, or strategy label has been opened | Source-seal the fresh legal h4 factorized-affine confirmation population |
@@ -126,18 +127,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0378](docs/decisions/ADR-0378-preregister-the-literal-45-quotient-liveness-boundary.md) | 2026-08-25 | accepted prospective source-only literal-target liveness and streamed-validation boundary; no target allocation, CUDA source, live admission, timing, solve, action, quality, truncation, or strength result is opened | Preregister the literal-45 quotient liveness boundary |
 | [ADR-0379](docs/decisions/ADR-0379-seal-the-literal-45-quotient-liveness-model.md) | 2026-08-25 | accepted source-only exact literal-45 numeric-lifetime result; the typed streamed-validation schedule passes fixed host/device caps and minimum-physical reserve arithmetic with a 244,970,204-byte device-cap margin, while target CUDA semantics, allocator high-water, live admission, timing, solve, action, quality, truncation, and strength remain unopened | Seal the literal-45 quotient liveness model |
 | [ADR-0380](docs/decisions/ADR-0380-preregister-the-bounded-quotient-validation-seam.md) | 2026-08-25 | accepted prospective bounded-device validation-seam boundary; complete 10/22-card populations, multi-chunk host references, streamed dot semantics, forward-release ordering, allocation telemetry, numerical gates, mutations, and target rejection are frozen before source, while literal 45 cards, live target admission, solve, action, quality, truncation, and strength remain unopened | Preregister the bounded quotient validation seam |
+| [ADR-0381](docs/decisions/ADR-0381-seal-the-bounded-quotient-validation-seam.md) | 2026-08-25 | accepted bounded CUDA validation-seam result; complete 10/22-card forward, refresh, query-only, streamed-dot, release, unique-adjoint, exact-oracle, allocator, telemetry, and mutation gates pass, while literal 45-card allocation, live target admission, target timing, solve, action, quality, truncation, and strength remain unopened | Seal the bounded quotient validation seam |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0380](docs/decisions/ADR-0380-preregister-the-bounded-quotient-validation-seam.md) — Preregister the bounded quotient validation seam.
+- Latest ADR: [ADR-0381](docs/decisions/ADR-0381-seal-the-bounded-quotient-validation-seam.md) — Seal the bounded quotient validation seam.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 380.
-- ADR-header SHA-256: `4200a1dfdc3a8b2b42a712be79d15b22494bfe43ceb3694b8f07828021ab9a75`.
-- Current blockers: no source-sealed target validation-seam CUDA mechanism, literal 45-card allocator high-water or live-memory admission, literal scalable full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 381.
+- ADR-header SHA-256: `559ca8dbea03f940a2c3eeb30e76b453992287dd4b097719e9e23dbb4348dc57`.
+- Current blockers: no preregistered or source-sealed literal-45 owner, literal 45-card allocator high-water or live-memory admission, literal scalable full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0380](docs/decisions/ADR-0380-preregister-the-bounded-quotient-validation-seam.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0381](docs/decisions/ADR-0381-seal-the-bounded-quotient-validation-seam.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

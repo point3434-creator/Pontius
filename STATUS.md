@@ -15,37 +15,18 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-No. Retain the additive implementation and its controls as a bounded numerical
-rejection, refuse the actual-owner source seal, and leave the reserved result
-absent. This is a clean scientific failure of one frozen conjunct, not an
-infrastructure failure and not evidence against the occupied-card quotient
-architecture.
+Preregister one additive paired high/low CUDA-tile boundary. The config is the
+authority for logical-to-physical mapping, arithmetic primitives, temporary
+reuse, global reductions, typed work, memory, exact diagnostics, bounded
+populations, runtime, mutations, terminals, and claims. It was frozen after
+ADR-0390's clean committed rejection with the successor module, controls, and
+runner absent; no new device value, owner, reader, or result exists.
 
-The complete ten-card population passes every gate. Its device source,
-compatible, fold, and adjoint rows match the independent `Fraction` authority;
-both feature-slice orders pass; repeat snapshots are byte-identical; the
-engineered missing label changes the result; inactive poison remains unread;
-and the forward/transpose absolute residual is
-`0x1.c000000000000p-34`, below `2e-10`.
-
-The complete 25-card population covers 177,100 source occupancies, 12,650 query
-occupancies, and 75,900 labeled records. Production and alternate chunk
-decompositions produce byte-identical row streams and scalar results. Frozen
-source samples match exact `Fraction` rows; independently scanned compatible,
-fold, and adjoint samples pass their absolute and relative ceilings; nonzero
-query and source offsets are observed; repeat, accumulator, poison,
-forward-release-before-adjoint, device-cap, pool-release, chip-unit, and
-180,000-ms population-wall gates pass.
-
-The remaining forward numerator is
-`0x1.9a7e7b97a67d1p+32` (`6886947735.650346`) and the transpose is
-`0x1.9a7e7b97a67d0p+32` (`6886947735.650345`). Their absolute residual is
-exactly `0x1.0000000000000p-20` (`9.5367431640625e-7`), one Float64 ULP at
-this magnitude. The scale-normalized residual is
-`1.3847561401831852e-16`, comfortably below `2e-11`, but ADR-0389 froze
-absolute and relative as distinct conjuncts. The absolute `2e-10` conjunct is
-therefore false. Relative passage cannot stand in for it, and the tolerance is
-not amended after outcome.
+This is not a tolerance correction. ADR-0389's `2e-10` absolute and `2e-11`
+scale-normalized relative transpose limits remain separate mandatory
+conjuncts. The successor may change only how the same linear operator carries
+rounding information. It must reproduce the complete ten-card and 25-card
+semantics under those original ceilings or be retained as another rejection.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -84,7 +65,8 @@ bounded CUDA, staged, liveness, validation, and literal-target ladder.
 ADR-0385 froze the legal bridge question; ADR-0386 source-sealed only its host
 answer; ADR-0387 froze the consumer-capacity question; ADR-0388 source-sealed
 only that CuPy-free answer; ADR-0389 froze the additive CUDA-consumer question;
-and ADR-0390 rejects its source seal. No earlier owner is revived.
+ADR-0390 rejected its source seal; and ADR-0391 opens only this bounded
+arithmetic-repair question. No earlier owner is revived.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -98,7 +80,7 @@ to selector-window work. ADR-0351 requires the tie-aware legal h4 affine-
 envelope. ADR-0354 through ADR-0359 own the factorized face and affine
 consumer chain. ADR-0380 freezes the complete ordered populations 10 and 22.
 ADR-0383's owner was invoke exactly once and remains consumed by ADR-0384.
-ADR-0390 imports neither that owner nor its target. The phrases exclusive
+ADR-0391 imports neither that owner nor its target. The phrases exclusive
 untouched legal h4, selector-window, 2,113-task, exhaustive bounded
 development-teacher, response-closed direct mechanism, and caller-owned legal
 fallback retain their prior meanings.
@@ -116,7 +98,7 @@ the literal-45 config; ADR-0383 source-sealed it; ADR-0384 closed it.
 
 ## Active next
 
-Preserve ADR-0390's one-ULP bounded numerical rejection and keep the actual owner absent; preregister, before successor source or any 45-card value, one same-memory compensated-tile CUDA arithmetic boundary that uses the 128-column physical workspace as at most 64 paired high/low logical features, independently reconstructs exact binary-rational forward and transpose scalar sums, retains nonzero-offset, complete-label, global-tree, repeat, allocation, release, and chunk-byte controls, rejects unless complete 10- and 25-card absolute and relative conjuncts both pass without relaxing ADR-0389, and keeps resolver iterations, solves, actions, the 15-second wall, decision quality, truncation selection, blueprint work, and poker strength closed
+Implement and source-seal only the additive ADR-0391 bounded arithmetic successor: preserve the rejected ADR-0390 parent byte-for-byte, map global logical ranges `[0,64)`, `[64,128)`, and `[128,176)` to adjacent high/low pairs in one 128-column workspace, keep pairs unevaluated through source, recurrence, fold, adjoint, and deterministic global reduction, independently reconstruct exact binary-rational contribution sums, retain all ADR-0389 offsets, label groups, chunk-byte, repeat, allocation, release, runtime, and original absolute-plus-relative gates on complete ten-card and multi-chunk 25-card populations, stop on the first false gate, and create no actual owner, reader, artifact, 45-card value, resolver result, action, 15-second comparison, quality inference, truncation choice, blueprint result, or poker-strength claim
 
 ## Revoked authorities
 
@@ -124,7 +106,7 @@ Preserve ADR-0390's one-ULP bounded numerical rejection and keep the actual owne
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0390](docs/decisions/ADR-0390-retain-the-bounded-cuda-consumer-numerical-rejection.md) — Retain the bounded CUDA-consumer numerical rejection.
+Latest process decision: [ADR-0391](docs/decisions/ADR-0391-preregister-the-paired-high-low-cuda-tile-repair.md) — Preregister the paired high/low CUDA-tile repair.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -132,7 +114,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0367](docs/decisions/ADR-0367-preregister-the-occupied-card-quotient-keystone.md) | 2026-08-25 | accepted prospective source-only algebra boundary; no full-width allocation, runtime, action, quality, truncation, or strength result is opened | Preregister the occupied-card quotient keystone |
 | [ADR-0368](docs/decisions/ADR-0368-seal-the-exact-occupied-card-quotient-keystone.md) | 2026-08-25 | accepted source-only exact bounded algebra keystone; literal compatibility, transpose, dense, current FactorTT/open-mode, permutation, refresh, fixed-card, sparse/zero, multi-component, and invalid-scope controls pass, while every full-width allocation, runtime, action, quality, truncation, and strength result remains unopened | Seal the exact occupied-card quotient keystone |
 | [ADR-0369](docs/decisions/ADR-0369-preregister-the-full-width-occupied-card-quotient-preallocation-model.md) | 2026-08-25 | accepted prospective source-only arithmetic boundary; no device kernel, literal target allocation, latency, action, quality, truncation, or strength result is opened | Preregister the full-width occupied-card quotient preallocation model |
 | [ADR-0370](docs/decisions/ADR-0370-seal-the-full-width-occupied-card-quotient-preallocation-model.md) | 2026-08-25 | accepted source-only numeric-array and logical-work result; the target-specific quotient layout passes frozen fixture and safe feature-envelope byte/reserve gates, while GPU numerical identity, throughput, live admission, literal target allocation, action, quality, truncation, and strength remain unopened | Seal the full-width occupied-card quotient preallocation model |
@@ -156,18 +137,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0388](docs/decisions/ADR-0388-source-seal-the-actual-context-quotient-consumer-capacity.md) | 2026-08-25 | accepted source-sealed CuPy-free actual-context quotient consumer-capacity result; 58 independently expanded shape/dtype rows place the legal rank-175/width-176 bridge under the fixed host/device caps with forward storage dead before adjoint birth, and the complete exact ten-card 128+48 forward/fold/adjoint differential passes, while live allocation, device execution, every 45-card quotient value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remain unopened | Source-seal the actual-context quotient consumer capacity |
 | [ADR-0389](docs/decisions/ADR-0389-preregister-the-actual-context-quotient-cuda-consumer.md) | 2026-08-25 | accepted prospective actual-context quotient CUDA-consumer boundary; exact source rebinding, offset-aware 128+48 kernels, complete-label streaming, numerator/reach fold and transpose semantics, named live allocation, bounded ten-card and 25-card device conformance, deterministic reductions, durable one-shot ownership, and semantic adversaries are frozen before consumer source or device values, while live admission, every actual 45-card quotient value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remain unopened | Preregister the actual-context quotient CUDA consumer |
 | [ADR-0390](docs/decisions/ADR-0390-retain-the-bounded-cuda-consumer-numerical-rejection.md) | 2026-08-25 | accepted bounded-device source-seal rejection; the complete ten-card offset-aware CUDA consumer passes every frozen exact, transpose, lifecycle, and adversarial gate, and the complete multi-chunk 25-card consumer passes every semantic, direct-row, byte-identity, allocation, release, and wall gate except ADR-0389's separate `2e-10` absolute transpose ceiling, which misses by exactly one Float64 ULP, while the actual 45-card entry, durable owner, result artifact, live admission, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remain unopened | Retain the bounded CUDA-consumer numerical rejection |
+| [ADR-0391](docs/decisions/ADR-0391-preregister-the-paired-high-low-cuda-tile-repair.md) | 2026-08-25 | accepted prospective bounded-arithmetic boundary; three globally indexed logical tiles map 176 features into adjacent high/low Float64 pairs in the existing 128-column physical workspace, exact binary-rational pair authority, deterministic global pair reduction, unchanged numerical ceilings, complete ten-card and multi-chunk 25-card controls, typed work, allocation, runtime, and semantic adversaries are frozen before successor source or device values, while every actual 45-card value, owner, reader, artifact, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the paired high/low CUDA-tile repair |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0390](docs/decisions/ADR-0390-retain-the-bounded-cuda-consumer-numerical-rejection.md) — Retain the bounded CUDA-consumer numerical rejection.
+- Latest ADR: [ADR-0391](docs/decisions/ADR-0391-preregister-the-paired-high-low-cuda-tile-repair.md) — Preregister the paired high/low CUDA-tile repair.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 390.
-- ADR-header SHA-256: `b71ab61030913a0a8bbd58fc34ccb247134112aa787e0dd58b64fea0c073e1de`.
-- Current blockers: the actual-context CUDA consumer is not source-sealed because the 25-card absolute transpose conjunct rejects by one ULP; no inert actual owner or full-width actual-context quotient value, no general odd-chip or side-pot leaf automaton, no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 391.
+- ADR-header SHA-256: `afdbd67c7bac9a0fb8e5933af344599d66357044296afd2ee4032a2422563838`.
+- Current blockers: no source-sealed paired high/low CUDA-tile repair; the rejected parent still misses the 25-card absolute transpose conjunct by one ULP; no actual owner or full-width actual-context quotient value, no general odd-chip or side-pot leaf automaton, no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0390](docs/decisions/ADR-0390-retain-the-bounded-cuda-consumer-numerical-rejection.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0391](docs/decisions/ADR-0391-preregister-the-paired-high-low-cuda-tile-repair.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

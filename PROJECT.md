@@ -833,6 +833,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   tolerance stays frozen, all actual counters stay zero, and no owner or
   45-card artifact exists. A successor must preregister same-memory paired
   high/low feature tiles or another structural arithmetic repair before source.
+- ADR-0391 prospectively freezes that repair. Three globally indexed logical
+  tiles of widths 64/64/48 map each feature to adjacent high/low Float64
+  components in the same 128-column physical workspace. Error-free primitive
+  controls, exact `Fraction.from_float(high)+Fraction.from_float(low)` scalar
+  authority, canonical global pair trees, temporary reuse, typed work, and a
+  predicted 9,910,940,380-byte device peak are fixed before successor source.
+  Both original numerical conjuncts and every complete 10/25 semantic,
+  byte-identity, runtime, memory, and wall gate remain mandatory. Even a pass
+  cannot create an actual owner or 45-card value without another ADR.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

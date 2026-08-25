@@ -1586,6 +1586,130 @@ class DocumentationIntegrityTests(unittest.TestCase):
         ):
             self.assertIn(phrase, adr)
 
+    def test_paired_high_low_cuda_tile_repair_is_preregistered(self) -> None:
+        expected = {
+            "README.md": ("ADR-0391", "`[0,64)`, `[64,128)`, and `[128,176)`"),
+            "PROJECT.md": ("ADR-0391", "9,910,940,380-byte device peak"),
+            "STATUS.md": (
+                "ADR-0391",
+                "accepted prospective bounded-arithmetic boundary",
+            ),
+            "ROADMAP.md": ("ADR-0391", "64/64/48"),
+            "RUNBOOK.md": ("ADR-0391", "reach pair 94/95"),
+            "ARCHITECTURE.md": ("ADR-0391", "interleaved `(high, low)`"),
+            "RISK_REGISTER.md": ("R155", "drops the low lane"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        config_path = (
+            _ROOT
+            / "experiments/configs/legal-river-quotient-cuda-compensated-tiles-v1.json"
+        )
+        payload = config_path.read_bytes().replace(b"\r\n", b"\n")
+        config_hash = hashlib.sha256(payload).hexdigest()
+        adr = _contract_text(
+            "docs/decisions/ADR-0391-preregister-the-paired-high-low-cuda-tile-repair.md"
+        )
+        self.assertIn(config_hash, adr)
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+
+        sealed_dependencies = {
+            "adr0390": (
+                "docs/decisions/"
+                "ADR-0390-retain-the-bounded-cuda-consumer-numerical-rejection.md"
+            ),
+            "parent_consumer_config": (
+                "experiments/configs/legal-river-quotient-cuda-consumer-v1.json"
+            ),
+            "parent_consumer_source": "src/pontius/legal_river_quotient_cuda_consumer.py",
+            "parent_consumer_controls": "tests/test_legal_river_quotient_cuda_consumer.py",
+            "consumer_capacity_source": "src/pontius/legal_river_quotient_consumer_capacity.py",
+            "legal_river_bridge_config": "experiments/configs/legal-river-quotient-bridge-v1.json",
+            "legal_river_bridge_source": "src/pontius/legal_river_quotient_bridge.py",
+            "gitattributes": ".gitattributes",
+            "artifact_marker": "artifacts/README.md",
+        }
+        for key, relative in sealed_dependencies.items():
+            dependency = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertEqual(
+                hashlib.sha256(dependency).hexdigest(),
+                config["expected_sources"][key],
+                relative,
+            )
+
+        tiles = config["logical_tile_contract"]
+        self.assertEqual([0, 175], tiles["global_state_feature_range"])
+        self.assertEqual([[0, 64], [64, 128], [128, 176]], tiles["ordered_global_logical_ranges"])
+        self.assertEqual([64, 64, 48], tiles["ordered_logical_widths"])
+        self.assertEqual([128, 128, 96], tiles["ordered_physical_active_widths"])
+        self.assertEqual([94, 95], tiles["reach_physical_columns_in_owner_tile"])
+        self.assertEqual(128, tiles["physical_stride_width"])
+
+        parent_config = json.loads(
+            (_ROOT / sealed_dependencies["parent_consumer_config"]).read_text(
+                encoding="utf-8"
+            )
+        )
+        work = config["typed_work_contract"]
+        source_pairings_per_tile = (
+            parent_config["geometry"]["source_occupancies"]
+            * parent_config["geometry"]["source_pairings_per_occupancy"]
+        )
+        self.assertEqual(source_pairings_per_tile, work["actual_source_pairing_visits_per_tile"])
+        self.assertEqual(
+            source_pairings_per_tile * work["tile_count"],
+            work["actual_source_pairing_visits_per_complete_partition"],
+        )
+        self.assertEqual(
+            2 * work["logical_feature_visits_per_complete_partition"],
+            work["physical_high_low_component_visits_per_complete_partition"],
+        )
+
+        limits = config["numerical_limits"]
+        self.assertEqual(2e-10, limits["bounded_transpose_dot_absolute"])
+        self.assertEqual(2e-11, limits["bounded_scale_normalized_relative"])
+        self.assertTrue(limits["require_absolute_and_relative_as_distinct_conjuncts"])
+        self.assertEqual(
+            9910940380,
+            config["allocation_contract"][
+                "successor_predicted_named_device_peak_bytes"
+            ],
+        )
+        allocation = config["allocation_contract"]
+        self.assertEqual(
+            allocation["parent_named_device_peak_bytes"]
+            - allocation["parent_result_accumulator_bytes"]
+            + allocation["successor_result_accumulator_bytes"],
+            allocation["successor_predicted_named_device_peak_bytes"],
+        )
+        self.assertEqual(
+            config["global_reduction_contract"]["result_float64_slots"] * 8,
+            allocation["successor_result_accumulator_bytes"],
+        )
+        self.assertEqual(
+            180000,
+            config["bounded_device_controls"]["multichunk_population_25"][
+                "population_wall_limit_ms"
+            ],
+        )
+
+        scope = config["scope"]
+        for key in (
+            "successor_source_relative_path",
+            "successor_controls_relative_path",
+            "successor_runner_relative_path",
+        ):
+            self.assertFalse((_ROOT / scope[key]).exists(), scope[key])
+        self.assertFalse(
+            (_ROOT / config["parent_identity"]["reserved_actual_result_relative_path"]).exists()
+        )
+        self.assertFalse(config["claims"]["compensated_tile_source_exists"])
+        self.assertIsNone(config["claims"]["bounded_device_conformance_result"])
+        self.assertFalse(config["claims"]["actual_owner_exists"])
+
     def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
         expected = {
             "README.md": ("ADR-0381", "204,377,088 bytes"),

@@ -2349,3 +2349,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     zero; and the reserved artifact remains absent. Never edit the tolerance,
     invoke a 45-card path, or create an actual owner to turn this reproduction
     green. A compensated-tile successor requires its own prospective config.
+106. ADR-0391 preregisters that successor; it does not provide an executable
+    repair. Preserve config canonical-LF SHA-256
+    `431846ffeb2064486f1768c4847a820d010d6bc8b39840f26a06c72f43e5256c`
+    and keep the successor source, controls, runner, actual owner, reader, and
+    reserved result absent. The next source seal may run only the complete
+    ten-card and 25-card bounded campaign. It must use logical widths 64/64/48,
+    physical widths 128/128/96, reach pair 94/95 in tile 2, explicit-FMA pair
+    arithmetic, canonical global pair trees, and the unchanged `2e-10`
+    absolute plus `2e-11` relative conjuncts. Never collapse pairs before
+    gating, relax the 180-second population wall, inspect a 45-card value, or
+    infer solve speed, action timing, quality, truncation, or poker strength.

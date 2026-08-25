@@ -747,6 +747,15 @@ The ceiling was not relaxed: no actual owner was source-sealed, the reserved
 artifact is absent, and all 45-card counters remain zero. The next question is
 a preregistered same-memory compensated-feature tiling, not a full-width call.
 
+ADR-0391 now preregisters that arithmetic repair without opening its source.
+Global logical ranges `[0,64)`, `[64,128)`, and `[128,176)` map to adjacent
+high/low Float64 pairs in the existing 128-column workspace. Pairs stay
+unevaluated through the operator and deterministic global reduction; exact
+binary-rational contribution sums independently audit the reducer. The
+original absolute and relative ceilings, complete 10/25 populations, chunks,
+runtime, memory, and wall gates remain unchanged. No successor module, actual
+owner, reader, artifact, or 45-card value exists yet.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

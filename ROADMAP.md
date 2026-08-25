@@ -1383,9 +1383,12 @@ queue:
   offset, allocation, release, and wall gate passes except the separately
   frozen absolute transpose conjunct: adjacent Float64 totals differ by
   `0x1p-20` against `2e-10`. The relative conjunct passes but cannot replace
-  it. Keep the actual owner and result absent. Next preregister a same-memory
-  paired high/low feature-tile successor and kill it unless both original
-  numerical conjuncts pass on complete 10/25 populations under the cap.
+  it. Keep the actual owner and result absent. ADR-0391 now preregisters the
+  same-memory paired high/low successor: three logical tiles of widths
+  64/64/48 reuse 128 physical columns, retain unevaluated pairs through the
+  operator, and add exact binary-rational contribution-sum authority. Implement
+  only its bounded source seal next and kill it unless both original numerical
+  conjuncts and every complete 10/25 semantic, byte, cap, and wall gate pass.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1433,8 +1436,9 @@ queue:
   actual-context device consumer, fresh live-admission lifecycle, bounded
   device differentials, and inert one-shot actual owner. The immediate
   source seal is rejected by ADR-0390 on one 25-card absolute numerical gate
-  after all other bounded gates pass. The immediate checkpoint is a
-  prospectively frozen compensated-tile arithmetic successor; every actual
+  after all other bounded gates pass. ADR-0391 prospectively freezes the
+  compensated-tile arithmetic successor. The immediate checkpoint is its
+  bounded additive source and complete 10/25 conformance only; every actual
   45-card value, owner, automatic truncation, resolver iteration, action
   timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

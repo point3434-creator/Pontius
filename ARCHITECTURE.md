@@ -1737,6 +1737,23 @@ That successor requires a new preregistration and must re-prove memory/work,
 global offsets, direct rows, chunk identity, and both absolute/relative
 conjuncts before any actual owner exists.
 
+ADR-0391 freezes that successor architecture before source. Logical tiles
+`[0,64)`, `[64,128)`, and `[128,176)` use interleaved `(high, low)` physical
+pairs; the final tile occupies 96 columns and owns reach at physical 94/95.
+Source products, both recurrences, signed extraction, fold, adjoint, fused
+source contraction, and the global online tree retain the pair. Consumed
+compatible and unique-adjoint rows hold scalar low components, so no new full
+record array or recurrence table appears. Eight fixed scalar slots store tile
+partials by logical ordinal and are reused after the forward/adjoint phase
+boundary, raising the modeled peak by only 48 bytes to 9,910,940,380.
+
+The deciding scalar is the exact binary-rational value of both pair components,
+not a prematurely collapsed Float64. Complete bounded contribution streams are
+also summed independently with `Fraction.from_float`; that audits reduction
+but is not mislabeled exact operator ground truth. Original direct-row oracles,
+absolute and relative conjuncts, chunk/repeat/tile byte identities, and memory
+and wall controls remain independent gates.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

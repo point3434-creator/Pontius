@@ -1407,6 +1407,50 @@ class DocumentationIntegrityTests(unittest.TestCase):
             payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
             self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
 
+    def test_passing_staged_gpu_quotient_result_is_retained(self) -> None:
+        expected = {
+            "README.md": ("ADR-0377", "49,557.238 ms"),
+            "PROJECT.md": ("ADR-0377", "10.046424 GB"),
+            "STATUS.md": ("ADR-0377", "126 frozen gates"),
+            "ROADMAP.md": ("ADR-0377", "streamed-validation"),
+            "RUNBOOK.md": (
+                "dd5b6d04cd45db0c3a95acdd1bcd05355c72be0852701df347696442261a2b72",
+                "Never invoke either staged owner again",
+            ),
+            "ARCHITECTURE.md": ("ADR-0377", "10,046,423,704 bytes"),
+            "RISK_REGISTER.md": ("R139", "per-iteration"),
+            "docs/PREDICTION_LEDGER.md": ("0.0225", "ADR-0364"),
+            ".gitattributes": (
+                "/artifacts/gpu_occupied_card_quotient_staged_scaling_v2.jsonl -text",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr_path = (
+            _ROOT
+            / "docs/decisions/ADR-0377-retain-the-passing-staged-gpu-quotient-scaling-result.md"
+        )
+        adr = adr_path.read_text(encoding="utf-8")
+        for relative in (
+            "experiments/configs/gpu-quotient-staged-scaling-v2.json",
+            "src/pontius/gpu_quotient_staged_scaling_v2_runner.py",
+            "src/pontius/gpu_quotient_staged_scaling_v2_result.py",
+            "tests/test_gpu_quotient_staged_scaling_v2.py",
+            "tests/test_gpu_quotient_staged_scaling_v2_result.py",
+        ):
+            payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
+
+        artifact = _ROOT / "artifacts/gpu_occupied_card_quotient_staged_scaling_v2.jsonl"
+        self.assertEqual(artifact.stat().st_size, 65_114)
+        self.assertEqual(
+            hashlib.sha256(artifact.read_bytes()).hexdigest(),
+            "dd5b6d04cd45db0c3a95acdd1bcd05355c72be0852701df347696442261a2b72",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

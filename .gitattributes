@@ -42,3 +42,4 @@
 /experiments/results/full-width-river-capacity-preflight-v1.json -text
 /experiments/configs/full-width-river-capacity-preflight-v2.json -text
 /experiments/results/full-width-river-capacity-preflight-v2.json -text
+/artifacts/gpu_occupied_card_quotient_staged_scaling_v2.jsonl -text

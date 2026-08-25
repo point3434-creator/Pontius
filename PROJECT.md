@@ -726,6 +726,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   Full discovery ran 1,785 tests: 1,782 passed, two optional tests skipped,
   and only the already retained immutable ADR-0365 result-absence predicate
   failed against ADR-0366's retained result.
+- ADR-0377 retains the sole v2 invocation as a complete six-stage pass. All
+  126 gates reconstruct true through 40 cards; requested peak storage grows to
+  10.046424 GB while live free memory remains 15.710814 GB and device pools
+  return to zero. At 40 cards the production-relevant cold/warm/full-refresh/
+  query-only/adjoint medians are 361.201/327.622/296.192/32.319/1,015.458 ms;
+  the independent direct-scan oracle takes 49,557.238 ms and dominates the
+  59,661.607 ms stage wall. These are non-target lane units, not a solve,
+  action, or 15-second result. Next freeze literal-45 production and validation
+  lifetimes separately plus streamed-validation identity before any target
+  allocation; truncation remains an independent hypothesis.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

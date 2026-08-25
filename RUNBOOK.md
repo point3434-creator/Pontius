@@ -2175,3 +2175,21 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     target stages. It does not authorize a 45-card call, compare this campaign
     wall with the 15-second action-response wall, select truncation, or imply
     decision quality or poker strength.
+92. ADR-0377 retains the sole v2 invocation. Never invoke either staged owner
+    again. Preserve the exact 65,114-byte artifact at
+    `artifacts/gpu_occupied_card_quotient_staged_scaling_v2.jsonl`, SHA-256
+    `dd5b6d04cd45db0c3a95acdd1bcd05355c72be0852701df347696442261a2b72`,
+    source commit `e7a4975c1a26704e2d0625f599dabf6d70f4b77b`, and campaign
+    `eee4dff5f95ddfebb9db037d8876028178cd1cc757dfc1487b5fe9de486cbf5f`.
+    Rebind it without CuPy:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest tests.test_gpu_quotient_staged_scaling_v2_result
+    ```
+
+    All six stages and 126 gates pass through 40 cards. Keep device-event
+    forward/refresh/query/adjoint units separate from the independent direct-
+    scan validation wall, and keep both separate from a solve, iteration, or
+    action. Do not call 45 cards. Preregister and source-seal its exact array-
+    lifetime and streamed-validation boundary first.

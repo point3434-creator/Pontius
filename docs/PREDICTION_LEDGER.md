@@ -155,6 +155,8 @@ results, unequal compute, or mixed chip/NashConv units cannot resolve it.
 
 Status: open.
 
+## Resolved forecasts
+
 ### 10 — A first lane invocation rejects on plumbing, then passes corrected (85%)
 
 > At least one first frozen invocation in the responder-raise, literal
@@ -167,7 +169,12 @@ corrected pass are committed for at least one named lane. A semantic,
 statistical, quality, or capacity rejection is not plumbing and does not
 qualify.
 
-Status: open — ADR-0345, ADR-0347, and ADR-0349 all passed their first frozen
-responder-raise invocations. Development controls repaired before their sealed
-source commits are not public plumbing rejections; the full-width and
-blueprint/integration lane invocations remain unobserved.
+Status: **won** — ADR-0364 retains the first literal full-width-capacity owner
+as the typed plumbing terminal `GetProcessMemoryInfo failed`, before any
+reduced control or target accounting. ADR-0365 source-seals the additive typed-
+telemetry successor, and ADR-0366 records that its sole invocation passes every
+protocol and target-accounting gate before reaching the scientifically valid
+`representation_rejected_before_target_allocation` terminal. The corrected
+owner therefore passed the plumbing/protocol boundary; its later
+representation rejection does not undo that conjunct and does not resolve
+Forecast 1a. Binary Brier loss: `(0.85 - 1)^2 = 0.0225`.

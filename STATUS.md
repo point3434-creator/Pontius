@@ -15,12 +15,38 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes. Accept the v2 config, runner, solver-free reader, tracked artifact marker,
-and eight focused controls as the sole bootstrap-safe successor. Keep both v1
-paths absent forever. Keep the v2 result and partial paths absent at this
-source boundary. After this ADR is committed in a clean tree, invoke the v2
-public module once and retain whatever first terminal or pre-terminal storage
-failure actually occurs. There is no retry entitlement.
+Retain the exact 65,114-byte journal and permanently close the ADR-0376 owner.
+The solver-free reader reconstructs a `completed_pass` terminal with all six
+stages `10/16/22/28/34/40`, all 126 stage gates true, no failed stage, and the
+campaign wall `0x1.48e769c0eb5e0p+16` (84,199.41309996648 ms). The source was
+clean at commit `e7a4975c1a26704e2d0625f599dabf6d70f4b77b`; the header and
+journal envelope agree on the campaign identity; every stage releases both
+device pools to zero; and every claim field remains null or false.
+
+Accept this as numerical identity, live admission, and lane-specific device
+throughput evidence only for the six frozen non-target populations on the
+named RTX 5080. The exact occupied-card quotient scales cleanly through 40
+available cards under the frozen rank-127, width-128 experiment. Do not infer
+the result at 45 cards. Do not divide campaign or stage walls into a solve or
+iteration estimate. Do not compare the independent direct-scan validation
+oracle with a production resolver path or the 15-second action-response wall.
+
+The 40-card stage separates the next problem. Its largest production-relevant
+device medians are 361.201017 ms cold, 327.621854 ms warm, 296.192160 ms full
+source refresh, 32.318944 ms query-only, and 1,015.458251 ms adjoint. Its
+49,557.238281 ms independent direct scan dominates the 59,661.6072 ms stage
+wall. This is evidence that validation/reference work dominates that one
+stage's host wall; it is not evidence that a complete solve or action fits.
+
+Before any literal 45-card device call, prospectively freeze a pure arithmetic
+and liveness boundary. Derive the complete 45-card array lifetimes for
+production forward/source-refresh/query-only/adjoint lanes separately from
+validation-only direct-scan, dot-product, and retained-reference lanes. Then
+prove on bounded populations that streaming or chunking the independent
+validation preserves the sealed operator and numerical envelopes. Only a
+later clean source seal may authorize one literal allocation. Support
+truncation remains a separate hypothesis; this result neither selects nor
+rejects it.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -33,17 +59,16 @@ decision is Accept the corrected audit and bound replacement eligibility.
 ADR-0317's directive is Separate solver classes and prioritize the certified
 sizing adapter. ADR-0318 binds HiGHS 1.12.0, ADR-0319 requires one public
 HiGHS-DS call per canonical task, and All 177 ordered observations pass under
-ADR-0320, making the separate consumer eligible. ADR-0321 preserves
-caller-owned legal fallback, ADR-0322 returns research evidence or rejection
-with no action, ADR-0324 remains value-unopened, and ADR-0325 was authorized
-exactly once. ADR-0326 and ADR-0327 govern the exhaustive bounded
-development-teacher chain. ADR-0328 retains that exhaustive teacher and solver-free
-rebinder before the direct closed finite-block greedy line. ADR-0330 remains
+ADR-0320, making the separate consumer eligible. ADR-0321 preserves caller-
+owned legal fallback, ADR-0322 returns research evidence or rejection with no
+action, ADR-0324 remains value-unopened, and ADR-0325 was authorized exactly
+once. ADR-0326 and ADR-0327 govern the exhaustive bounded development-teacher
+chain. ADR-0328 retains that exhaustive teacher and solver-free rebinder
+before the direct closed finite-block greedy line. ADR-0330 remains
 permanently closed; ADR-0331's append-and-fsync discipline, ADR-0332's
 exclusive `xb` open, and ADR-0333's statement that No replacement sizing value
 was opened remain authoritative. ADR-0334 and ADR-0335 bind the 2,113-task
-non-replay chain; ADR-0336 records width three; ADR-0337 owns the
-response-closed direct mechanism; and ADR-0338 alone records the selected development
+non-replay chain; ADR-0336 records width three; ADR-0337 owns the response-closed direct mechanism; and ADR-0338 alone records the selected development
 raise width. ADR-0339's exact comparison remains a finite absence claim.
 ADR-0340's 192 prospective tasks remain distinct from ADR-0341's 94 accepted
 one-call arms and ADR-0343's 126 confirmation arms; ADR-0342 alone authorized
@@ -67,67 +92,19 @@ seals the bounded quotient algebra; ADR-0369 preregisters and ADR-0370 seals
 only the source byte/work model. ADR-0371 preregisters and ADR-0372 seals only
 the complete ten-card GPU mechanism. ADR-0373 freezes the staged population,
 ADR-0374 source-seals v1, ADR-0375 permanently closes its first invocation
-before the journal, and ADR-0376 source-seals only the additive bootstrap-safe
-v2 owner. No earlier owner is revived.
+before the journal, ADR-0376 source-seals and consumes the additive bootstrap-
+safe v2 owner, and ADR-0377 alone assesses its retained non-target result. No
+earlier owner is revived.
 
 ADR-0363 and ADR-0365 remain permanently consumed. ADR-0364 remains the
 `GetProcessMemoryInfo failed` terminal. ADR-0366 remains
 `representation_rejected_before_target_allocation` with zero target calls.
-The required lifecycle markers remain invoke exactly once, exclusive untouched
-legal h4, selector-window, 2,113-task, and caller-owned legal fallback.
-
-This is a lifecycle correction only. The v2 owner imports the sealed ADR-0374
-scientific mechanism but does not import or call the v1 owner. The config
-repeats, and its parser checks, the exact six stages `10/16/22/28/34/40`,
-source rank 127, feature width 128, repetition counts `5/3/5/3`, 120,000 ms
-per-stage guard, 600,000 ms campaign guard, staged protocol, durable-journal
-protocol, claims boundary, and all inherited source/config/reader/test hashes.
-It cannot accept the literal 45-card target.
-
-The repository now owns `artifacts/README.md`. Before Git or stage authority,
-the public command checks that the marker and result share the exact tracked
-parent, the marker bytes match the config, the v2 result and derived partial
-are absent, and both permanently closed v1 paths remain absent. The subsequent
-strict Git check uses `git ls-files --error-unmatch` to prove the marker is
-tracked exactly, not merely present or ignored. The owner never creates the
-parent and its source contains no v1-runner import.
-
-The literal-path control is lifecycle-aware. Before a result it exercises the
-public bootstrap and proves that no output is created. After a retained
-complete result, it instead solver-freely rebinds that result to the exact
-config and terminal class. It therefore does not become another obsolete
-post-outcome absence failure. A missing parent, wrong marker, wrong partial
-derivation, existing result, existing partial, or populated v1 path fails
-before a stage call.
-
-The v2 journal has its own header, terminal, campaign identity, and result
-path. Its header binds ADR-0375 and the marker. Its reader now also proves that
-the campaign identity in the journal envelope equals the campaign declared by
-the semantic header; the inherited v1 reader did not check that seam. The
-reader reconstructs every inherited stage payload and distinguishes three
-first-stop cases: a scientific rejection at the recorded stage, a campaign
-wall crossed before the next stage, and a campaign wall crossed immediately
-after a successfully recorded stage. Torn suffixes, rehashed semantic
-mutations, envelope/header campaign disagreement, replay, stage exceptions,
-and both wall seams fail or type exactly in controls.
-
-The known parent defect is eliminated prospectively, not erased historically.
-ADR-0375 remains the only account of v1's zero-stage missing-parent failure,
-and commit `898ed38afa1ae9fd062035b11a5529f8db9017a1` remains its invoked source.
-No v1 byte has changed. The old absence is not a stage rejection, and v2 has
-not inherited a favorable or unfavorable systems prior from it.
-
-Full standard discovery on this final source ran 1,785 tests in 897.171
-seconds: 1,782 passed, two optional tests skipped, and the sole failure was the
-already retained immutable predicate
-`test_full_width_river_capacity_preflight_v2.FullWidthRiverCapacityPreflightV2Tests.test_parent_failure_is_exact_and_v2_result_is_absent`.
-That test still expects ADR-0365's now-consumed result to be absent after
-ADR-0366 correctly retained it. No new regression appeared. This is a
-repository audit, not staged GPU evidence.
+ADR-0375 remains the zero-stage missing-parent failure. The required lifecycle
+markers remain invoke exactly once, exclusive untouched legal h4, selector-window, 2,113-task, and caller-owned legal fallback.
 
 ## Active next
 
-From the clean committed ADR-0376 boundary, rebind the frozen config, verify the tracked marker plus absent v2 and closed-v1 paths, and invoke `python -B -m pontius.gpu_quotient_staged_scaling_v2_runner` exactly once; retain its first exclusive terminal without repair, retry, skip, continuation, or v1 revival, then assess only those retained bytes with the v2 solver-free reader; do not call 45 cards or infer action-clock, quality, truncation, or strength
+Prospectively preregister a pure-arithmetic literal-45 liveness and streamed-validation capacity boundary that derives exact production and validation array lifetimes separately, proves streaming or chunked independent validation preserves the sealed operator, prices fixed and live reserve before allocation, and keeps the public 45-card device call structurally unavailable until a later clean source seal; do not extrapolate 40 cards, mix validation walls with production work, select truncation, or compare any unit with the 15-second action wall
 
 ## Revoked authorities
 
@@ -135,7 +112,7 @@ From the clean committed ADR-0376 boundary, rebind the frozen config, verify the
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0376](docs/decisions/ADR-0376-source-seal-the-bootstrap-safe-staged-scaling-v2-owner.md) — Source-seal the bootstrap-safe staged-scaling v2 owner.
+Latest process decision: [ADR-0377](docs/decisions/ADR-0377-retain-the-passing-staged-gpu-quotient-scaling-result.md) — Retain the passing staged GPU quotient scaling result.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -143,7 +120,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0353](docs/decisions/ADR-0353-retain-the-legal-h4-tie-aware-bound-rejection.md) | 2026-08-24 | accepted retained first-terminal rejection; the sole ADR-0352 invocation is permanently closed after the exact local-maximizer Cartesian product exceeded its frozen per-sample bound before any tie-aware section or affine-envelope result was serialized | Retain the legal h4 tie-aware active-tape-bound rejection |
 | [ADR-0354](docs/decisions/ADR-0354-seal-the-exact-directional-face-oracle.md) | 2026-08-24 | accepted source-only successor to ADR-0353; the factorized exact face oracle, normal-fan composition, work ledger, shared tie-semantics conformance registry, and source seal are committed while every legal h4 target value remains unopened | Seal the exact directional-face oracle |
 | [ADR-0355](docs/decisions/ADR-0355-preregister-the-legal-h4-directional-face-diagnostic.md) | 2026-08-24 | accepted source-only preregistration after ADR-0354; the exact four-direction/eight-section/136-schedule-call diagnostic, complete factor/cardinality/work/seam schema, strict config loader, exclusive first-terminal owner, and claims boundary are sealed while every legal h4 directional-face target outcome remains unopened | Preregister the legal h4 directional-face diagnostic |
 | [ADR-0356](docs/decisions/ADR-0356-retain-and-rebind-the-legal-h4-directional-face-diagnostic.md) | 2026-08-24 | accepted retained finite legal h4 directional-face development diagnostic; the sole ADR-0355 invocation passes every frozen gate and the solver-free result owner rebinds the complete artifact, authorizing only a separately preregistered tie-aware affine integration successor | Retain and rebind the legal h4 directional-face diagnostic |
@@ -167,18 +143,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0374](docs/decisions/ADR-0374-source-seal-the-staged-gpu-quotient-scaling-owner.md) | 2026-08-25 | accepted source-only pre-invocation seal; the complete-axis compiler, exact lane-specific work and allocation models, CUDA owner, durable first-terminal journal, solver-free rebinder, and synthetic controls are committed while every real staged admission, timing, throughput, terminal, literal 45-card result, action, quality, truncation, and strength result remains unopened | Source-seal the staged GPU quotient scaling owner |
 | [ADR-0375](docs/decisions/ADR-0375-retain-the-staged-scaling-pre-journal-bootstrap-failure.md) | 2026-08-25 | accepted retained first-invocation infrastructure failure; ADR-0374's clean v1 owner is permanently closed after its exclusive journal open found the frozen result parent absent, with no result bytes, header, GPU stage call, staged admission, timing, throughput, or literal 45-card result | Retain the staged-scaling pre-journal bootstrap failure |
 | [ADR-0376](docs/decisions/ADR-0376-source-seal-the-bootstrap-safe-staged-scaling-v2-owner.md) | 2026-08-25 | accepted source-only pre-invocation seal; the additive v2 owner binds a tracked artifact parent, preserves the permanently closed v1 paths and every ADR-0373 scientific field, and has not opened a real v2 journal, GPU stage, staged admission, timing, throughput, literal 45-card result, action, decision-quality, truncation, or poker-strength result | Source-seal the bootstrap-safe staged-scaling v2 owner |
+| [ADR-0377](docs/decisions/ADR-0377-retain-the-passing-staged-gpu-quotient-scaling-result.md) | 2026-08-25 | accepted retained six-stage non-target GPU numerical, live-admission, and throughput result; all 126 frozen gates pass through 40 cards, while literal 45-card admission, one solve or action, decision quality, truncation, and poker strength remain unopened | Retain the passing staged GPU quotient scaling result |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0376](docs/decisions/ADR-0376-source-seal-the-bootstrap-safe-staged-scaling-v2-owner.md) — Source-seal the bootstrap-safe staged-scaling v2 owner.
+- Latest ADR: [ADR-0377](docs/decisions/ADR-0377-retain-the-passing-staged-gpu-quotient-scaling-result.md) — Retain the passing staged GPU quotient scaling result.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 376.
-- ADR-header SHA-256: `471d1c915eb84647ea1e54ed3b29452ba9c885c588ce13543e9b3c39e63c7b42`.
-- Current blockers: no staged-width GPU quotient result, literal 45-card live-memory admission, literal scalable full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 377.
+- ADR-header SHA-256: `936c349bf70e5ae6f58f43c8539212b648f19277e82deebfdb6161342c72bba5`.
+- Current blockers: no literal 45-card live-memory admission, literal scalable full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0376](docs/decisions/ADR-0376-source-seal-the-bootstrap-safe-staged-scaling-v2-owner.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0377](docs/decisions/ADR-0377-retain-the-passing-staged-gpu-quotient-scaling-result.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

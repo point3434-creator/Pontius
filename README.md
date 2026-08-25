@@ -632,6 +632,16 @@ action-quality result. Full discovery passed 1,782 of 1,785 tests with two
 optional skips; its sole failure is the already recorded immutable ADR-0365
 pre-invocation absence predicate encountering ADR-0366's retained result.
 
+ADR-0377 retains the sole v2 journal as a complete non-target pass. All 126
+gates pass at 10/16/22/28/34/40 cards, every pool returns to zero, and the
+40-card requested peak is 10.046424 GB against 15.710814 GB live free memory.
+The 40-card warm, full-refresh, query-only, and adjoint medians are 327.622,
+296.192, 32.319, and 1,015.458 ms. Its 49,557.238 ms independent direct scan
+is validation infrastructure and dominates the stage wall; none of these is a
+solve or 15-second action measurement. Literal 45 cards remain uncalled. The
+next capacity boundary derives production and validation lifetimes separately
+and proves streamed validation before any target owner can be sealed.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

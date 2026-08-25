@@ -1581,6 +1581,18 @@ rebinding, so a valid outcome does not manufacture another stale test. This is
 still orchestration only: the inherited six-stage GPU mechanism is unchanged
 and no stage has run at the source boundary.
 
+ADR-0377 supplies the first retained staged observation. The exact append-only
+journal contains a header, six ordered observations, and one completed-pass
+terminal; the solver-free reader reconstructs all 126 gates and binds the
+artifact to the clean ADR-0376 source commit. Every stage releases both memory
+pools. The 40-card allocation model requests 10,046,423,704 bytes and observed
+pool use stays below it. The independent direct-scan validation path, not the
+forward or refresh kernels, dominates the largest host wall. Consequently the
+next architecture boundary separates production forward/source-refresh/query-
+only/adjoint lifetimes from validation-only reference, direct-scan, and dot-
+product lifetimes, then proves a streamed validation seam on bounded games.
+No literal 45-card allocation or runtime path exists yet.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

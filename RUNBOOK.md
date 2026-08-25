@@ -1812,3 +1812,30 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     slope, or cell-count expectation is a gate. Never invoke the closed
     ADR-0352 owner, and do not interpret the result as action-clock, full-width,
     multiway, decision-quality, or strength evidence.
+
+74. ADR-0356 retains the sole ADR-0355 invocation from clean commit
+    `5331d0a6e142a97be10678d59e76aa7f1cc9a63e`. **Never invoke that runner
+    again.** Preserve
+    `experiments/results/legal-responder-raise-h4-directional-face-v1.json`
+    byte-for-byte: 3,888,072 bytes, SHA-256
+    `5e3473639e67e0a24e21f3c516239c35d4bb7ccb17a6de8d74a5320428af1b49`.
+    Verify the retained result with:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m unittest `
+      tests.test_legal_responder_raise_h4_directional_face_result
+    ```
+
+    The result owner canonical-LF SHA-256 is
+    `2bef9c0130b45010d34729abfb31a2cf634ed46cfbee9eeba90b4b76be251765`
+    and its protocol SHA-256 is
+    `42d97ff763bed912393cc6a92f9167565637fa46288730ffab1e5f30582a340a`.
+    Report the pass only as one finite h4 development diagnostic: eight
+    sections, 136 schedule calls, 164 face observations, two crossings,
+    104,976 maximum total cardinality, two maximum reachable cardinality,
+    147,418 logical work units, and zero materialized tapes. Never divide the
+    59-second campaign into action or solve latency. Next preregister a
+    separate tie-aware affine integration owner using fan-as-ray and
+    face-as-point authority; require untouched confirmation after any
+    same-fixture development pass and keep full-width capacity independent.

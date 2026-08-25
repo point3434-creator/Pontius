@@ -481,6 +481,15 @@ observations rather than gates. The clean committed invocation will write one
 exclusive terminal; this is still finite h4 infrastructure, not full-width or
 15-second decision evidence.
 
+ADR-0356 retains and solver-free rebinds that sole 3,888,072-byte terminal.
+All eight fan/face sections and 136 scheduled calls pass with zero tapes
+materialized. The largest exact total face has 104,976 members but only one
+reachable-support behavior, demonstrating why the Cartesian predecessor died
+and why factorized face calculus is the right representation. The two live
+responder crossings remain exactly `15/19` and `139/163`. This is a finite
+same-fixture development diagnostic, not action latency or poker quality; it
+opens only a separately preregistered tie-aware affine integration successor.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

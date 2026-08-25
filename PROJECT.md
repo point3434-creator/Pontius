@@ -506,6 +506,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   the mechanism manifests and passing controls were unaffected. Next invoke
   once from the clean source commit. No target, action-clock, full-width,
   quality, or strength result exists at this checkpoint.
+- ADR-0356 retains the sole clean invocation and independently rebinds its
+  3,888,072-byte artifact without scientific imports. All 20 gate entries,
+  eight sections, 136 scheduled calls, and 164 total face observations pass.
+  The largest factorized face contains 104,976 total-function tapes with only
+  one reachable-support behavior; the aggregate reachable maximum is two and
+  the work ledger reports zero materialized response tapes. The exact fan has
+  two crossings at the inherited `15/19` and `139/163` breakpoints. Its
+  roughly 59-second bounded diagnostic walls cover the full campaign, not one
+  decision or solve. This finite same-fixture development result authorizes
+  only a separately preregistered tie-aware affine integration successor and
+  supplies no full-width, 15-second, quality, or strength evidence.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

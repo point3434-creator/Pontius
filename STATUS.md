@@ -15,33 +15,14 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Add `legal_responder_raise_h4_directional_face` as a new exclusive owner. It
-imports ADR-0354's exact point oracle and the existing exact normal fan. It
-does not import or call `legal_responder_raise_h4_tie_aware_affine`, its closed
-public wrapper, the Cartesian active-tape enumerator, a numerical optimizer, or
-the production Float64 best-response selector.
-
-The fixture, acting player, source policy, and directions remain exactly those
-already bound by ADR-0350/0351:
-
-1. one-step DCFR regret vertex at `p0:raise-to-2/p1:raise-to-4`;
-2. one-step DCFR regret vertex at `p0:raise-to-3/p1:raise-to-4`;
-3. one-step DCFR regret vertex at `root`; and
-4. the retained ADR-0349 restricted-master proposal at `root`.
-
-For each of four directions and both target players, compose the exact fan and
-directional face once. Separately evaluate the face at all 17 unchanged dyadic
-schedule points from `0/16` through `16/16`. The frozen target workload is
-therefore eight composed sections and 136 scheduled point calls. The number of
-fan cells, boundaries, open-cell witnesses, crossings, ties, face members, and
-logical work are outcomes. No expected value for any of them appears in the
-configuration or gates.
-
-The prospective result path is absent. A dirty Git state consumes a typed
-terminal before target work begins. A pass, gate rejection, configuration
-failure, exact-oracle exception, state/fan bound, wall, or serialization-byte
-failure is retained by one exclusive `O_EXCL` write. There is no retry,
-overwrite, resume, alternate backend, or private target rehearsal.
+Retain the first and only artifact and accept the finite development diagnostic.
+All 20 gate entries are literally true. The four inherited directions, both
+target players, eight fan/face sections, 136 independently scheduled point
+faces, and all 164 composed-plus-scheduled face observations rebind. The result
+contains zero materialized response tapes. The largest exact total-function
+face has 104,976 members while its reachable-support cardinality is one; the
+aggregate reachable maximum is two. Thus ADR-0353's 256-tape failure was an
+enumeration failure, not a bound on the active face.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -77,9 +58,16 @@ requirement, ADR-0352's owner is closed by ADR-0353 before any fresh untouched
 tie-aware affine result, and ADR-0354 source-seals the factorized exact
 active-set directional calculus. No authority is revived here.
 
+ADR-0355's **invoke exactly once** authority is consumed permanently. Never
+invoke that runner again. ADR-0348 and ADR-0349 remain selector-window
+predecessors only. ADR-0352 remains closed before any fresh untouched tie-aware
+affine result, and ADR-0353's rejected enumerator remains replaced only by
+ADR-0354's factorized exact active-set directional calculus. No revoked or
+closed authority is revived.
+
 ## Active next
 
-From one clean commit containing ADR-0355 and an absent result path, invoke exactly once: `pontius.legal_responder_raise_h4_directional_face`; retain its first pass, rejection, or typed failure without changing the four inherited directions, 17-point schedule, factor/cardinality/work/seam schema, explicit-tree or fan-piece bounds, walls, result-byte bound, or claims policy; never call the closed ADR-0352 runner, and keep literal full-width river capacity independent
+Preregister and source-seal a separate legal h4 tie-aware affine integration owner that uses the exact normal fan as ray authority and the two-pass factorized face oracle as point authority, never materializes a Cartesian tape product, treats any same-fixture pass as development integration only, and requires a separately sealed untouched confirmation before generalization; keep literal full-width river capacity independent
 
 ## Revoked authorities
 
@@ -87,7 +75,7 @@ From one clean commit containing ADR-0355 and an absent result path, invoke exac
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0355](docs/decisions/ADR-0355-preregister-the-legal-h4-directional-face-diagnostic.md) — Preregister the legal h4 directional-face diagnostic.
+Latest process decision: [ADR-0356](docs/decisions/ADR-0356-retain-and-rebind-the-legal-h4-directional-face-diagnostic.md) — Retain and rebind the legal h4 directional-face diagnostic.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -95,7 +83,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0332](docs/decisions/ADR-0332-seal-the-non-replay-population-and-durable-evidence-journal.md) | 2026-08-24 | accepted value-free population and evidence-durability source seal; every replacement qualification and sizing value remains unopened | Seal the non-replay population and durable evidence journal |
 | [ADR-0333](docs/decisions/ADR-0333-source-seal-the-non-replay-candidate-blind-qualification.md) | 2026-08-24 | accepted source-only replacement qualification owner; every replacement sizing value and qualified panel remains unopened | Source-seal the non-replay candidate-blind qualification |
 | [ADR-0334](docs/decisions/ADR-0334-retain-and-seal-the-non-replay-qualification-panel.md) | 2026-08-24 | accepted one-shot non-replay qualification result and exact 16-context target-only panel seal; replacement exhaustive-teacher values remain unopened | Retain and seal the non-replay qualification panel |
 | [ADR-0335](docs/decisions/ADR-0335-source-seal-the-non-replay-exhaustive-teacher.md) | 2026-08-24 | accepted source-only non-replay exhaustive-teacher owner and exact 2,113-task schedule seal; every replacement teacher value remains unopened | Source-seal the non-replay exhaustive teacher |
@@ -119,18 +106,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0353](docs/decisions/ADR-0353-retain-the-legal-h4-tie-aware-bound-rejection.md) | 2026-08-24 | accepted retained first-terminal rejection; the sole ADR-0352 invocation is permanently closed after the exact local-maximizer Cartesian product exceeded its frozen per-sample bound before any tie-aware section or affine-envelope result was serialized | Retain the legal h4 tie-aware active-tape-bound rejection |
 | [ADR-0354](docs/decisions/ADR-0354-seal-the-exact-directional-face-oracle.md) | 2026-08-24 | accepted source-only successor to ADR-0353; the factorized exact face oracle, normal-fan composition, work ledger, shared tie-semantics conformance registry, and source seal are committed while every legal h4 target value remains unopened | Seal the exact directional-face oracle |
 | [ADR-0355](docs/decisions/ADR-0355-preregister-the-legal-h4-directional-face-diagnostic.md) | 2026-08-24 | accepted source-only preregistration after ADR-0354; the exact four-direction/eight-section/136-schedule-call diagnostic, complete factor/cardinality/work/seam schema, strict config loader, exclusive first-terminal owner, and claims boundary are sealed while every legal h4 directional-face target outcome remains unopened | Preregister the legal h4 directional-face diagnostic |
+| [ADR-0356](docs/decisions/ADR-0356-retain-and-rebind-the-legal-h4-directional-face-diagnostic.md) | 2026-08-24 | accepted retained finite legal h4 directional-face development diagnostic; the sole ADR-0355 invocation passes every frozen gate and the solver-free result owner rebinds the complete artifact, authorizing only a separately preregistered tie-aware affine integration successor | Retain and rebind the legal h4 directional-face diagnostic |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0355](docs/decisions/ADR-0355-preregister-the-legal-h4-directional-face-diagnostic.md) — Preregister the legal h4 directional-face diagnostic.
+- Latest ADR: [ADR-0356](docs/decisions/ADR-0356-retain-and-rebind-the-legal-h4-directional-face-diagnostic.md) — Retain and rebind the legal h4 directional-face diagnostic.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 355.
-- ADR-header SHA-256: `952d47eba14c372aa4f85df8124247f9aeb17a75e1cb3b775eb0d14f9fff81ea`.
-- Current blockers: no legal h4 directional-face result, accepted tie-aware affine integration or untouched confirmation, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 356.
+- ADR-header SHA-256: `0a57fcf5c83b8dec0aa2ed62c41e072debb8e1590f6438347641727c2775a688`.
+- Current blockers: no accepted tie-aware affine integration or untouched confirmation, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0355](docs/decisions/ADR-0355-preregister-the-legal-h4-directional-face-diagnostic.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0356](docs/decisions/ADR-0356-retain-and-rebind-the-legal-h4-directional-face-diagnostic.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

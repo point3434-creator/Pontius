@@ -1154,6 +1154,16 @@ queue:
   guards are not face bounds. Invoke once only after the source boundary is
   committed clean; preserve pass, rejection, or typed failure and never call
   ADR-0352. A pass can open only a later integration preregistration.
+  ADR-0356 retains that sole invocation as a finite development pass. Its
+  solver-free owner rebinds all eight sections, 136 schedule calls, 164 face
+  observations, two exact crossings, complete fan geometry, factor products,
+  reachable quotients, affine envelopes, work identities, nested digests and
+  gates. The largest exact total face has 104,976 members with reachable
+  cardinality one; no tape product is materialized. The roughly 59-second
+  walls are whole-diagnostic infrastructure, not action latency. Next
+  preregister the tie-aware affine integration consumer; any same-fixture pass
+  remains development-only and needs untouched confirmation before
+  generalization. Literal full-width capacity remains a parallel lane.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

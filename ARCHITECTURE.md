@@ -686,14 +686,24 @@ seal.
 ADR-0355 adds the prospective legal h4 diagnostic around that source without
 opening it. `legal_responder_raise_h4_directional_face` reconstructs the
 retained h4 fixture and four selector-free directions, composes the exact fan
-and face for both target players, and separately evaluates 136 scheduled point faces.
-The artifact schema carries complete fan geometry, active factors,
+and face for both target players, and separately evaluates 136 scheduled
+point faces. The artifact schema carries complete fan geometry, active factors,
 dual cardinalities, slope extrema, factor digests, logical work and bigint bit
 lengths. A strict single-snapshot config loader, clean-Git precondition,
 exclusive result creation, and result-byte terminal surround the subject. No
 target cardinality or geometry is frozen as a gate. The public ADR-0352 runner
 remains absent from the call graph, and the prospective result path remains
 absent until the committed one-shot invocation.
+
+ADR-0356 closes that owner and installs
+`legal_responder_raise_h4_directional_face_result` as the read-only authority.
+It imports no scientific or write path and reconstructs exact Fractions,
+factor and reachable-support dynamic programs, two tape projections, 147,418
+logical work units, fan partitions, tie states, maximum envelopes, schedule
+locations, nested digests, aggregates and gates. The retained artifact exposes
+a 104,976-member total face with reachable cardinality one and zero tape
+materialization. The result owner is not connected to the action path; a new
+source-sealed integration consumer must be preregistered separately.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

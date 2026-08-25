@@ -1084,6 +1084,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_legal_h4_directional_face_result_is_retained_and_rebound(self) -> None:
+        expected = {
+            "README.md": ("ADR-0356", "104,976"),
+            "PROJECT.md": ("ADR-0356", "zero materialized response tapes"),
+            "STATUS.md": ("ADR-0356", "tie-aware affine integration"),
+            "ROADMAP.md": ("ADR-0356", "104,976"),
+            "RUNBOOK.md": (
+                "5e3473639e67e0a24e21f3c516239c35d4bb7ccb17a6de8d74a5320428af1b49",
+                "Never invoke",
+            ),
+            "ARCHITECTURE.md": (
+                "legal_responder_raise_h4_directional_face_result",
+                "147,418",
+            ),
+            "RISK_REGISTER.md": ("R117", "104,976"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1864,3 +1864,31 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     schema, and bounded laboratory walls. Any later same-fixture pass remains
     development evidence and cannot substitute for untouched confirmation,
     full-width capacity, action latency, decision quality, or strength.
+
+76. ADR-0358 preregisters the exclusive legal h4 factorized-affine owner. Its
+    config SHA-256 is
+    `e77f22b739ac714d952f0575735b5705c0b17913cf7930705dfb1588f307263c`.
+    Before invocation, verify the result path is absent, the tree is clean, and
+    the source boundary passes:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m unittest `
+      tests.test_legal_responder_raise_h4_factorized_affine
+    Test-Path experiments/results/legal-responder-raise-h4-factorized-affine-v1.json
+    git status --short
+    ```
+
+    Then invoke exactly once:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m pontius.legal_responder_raise_h4_factorized_affine
+    ```
+
+    Retain the first terminal without retry or gate repair. Never invoke the
+    closed ADR-0352 or ADR-0355 owners. Interpret a pass only as inspected
+    same-fixture h4 development integration; it is not untouched confirmation,
+    full-width capacity, action or solve latency, decision quality, or poker
+    strength. The subject wall is the sum of eight live builds and must never
+    be divided into a per-solve or action-clock comparison.

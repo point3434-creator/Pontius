@@ -500,6 +500,17 @@ integrate a 4,096-member face with zero Cartesian tape materialization. A
 separate exclusive h4 owner must still be preregistered, and any same-fixture
 pass remains development-only pending untouched confirmation.
 
+ADR-0358 preregisters that exclusive legal h4 owner while leaving its result
+path absent. It freezes the four inherited directions by two target players,
+reproduces every ADR-0356 section digest, dispatches exact source ties to the
+factorized envelope and exact singletons to selector-window v2 or typed closure,
+and retains complete point/ray/cardinality/work/epigraph summaries. The 180-
+second subject wall is the sum of eight live builds only. Natural modes,
+windows, pieces, cardinalities, crossings, and runtimes are outcomes rather
+than gates. Invoke exactly once from a clean committed boundary; any pass is
+same-fixture development integration, not confirmation, action latency, full-
+width capacity, decision quality, or strength.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

@@ -529,6 +529,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   total functions without tapes and preserve repeated-actor total/reachable
   identity. This is source-only mechanism evidence; a separately
   preregistered h4 owner and later untouched confirmation remain required.
+- ADR-0358 preregisters that exclusive four-direction/eight-section legal h4
+  owner while every target outcome remains unopened. It rebinds each retained
+  ADR-0356 section digest, requires nominal tie/singleton dispatch, the complete
+  exact maximum epigraph, separate total/reachable cardinalities, zero
+  materialized tapes, semantic section identity, and zero action or quality
+  output. Its subject time is honestly the sum of the eight live integration
+  builds rather than surrounding plumbing. No natural mode, window, piece,
+  crossing, cardinality, or runtime is gated. The absent `-text` result path
+  accepts one exclusive terminal from a clean commit; a pass remains inspected
+  same-fixture development evidence and can open only untouched confirmation.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

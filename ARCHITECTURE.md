@@ -717,6 +717,18 @@ use selector-window v2 or fail closed. `tie_semantics_conformance_v2` extends
 the sealed historical registry without editing it. No Cartesian enumerator or
 closed ADR-0352/ADR-0355 owner appears in the new call graph.
 
+ADR-0358 surrounds that reusable source with
+`legal_responder_raise_h4_factorized_affine`, a prospective one-shot laboratory
+owner disconnected from the action path. It reconstructs the four inherited
+directions and both target players, performs exactly eight live adapter builds,
+and requires each newly serialized section to reproduce the retained ADR-0356
+section digest. Its integration records preserve source-face factors, dual
+cardinalities, fan pieces and points, exact maximum-epigraph orientation,
+typed singleton/tie dispatch, and a logical work ledger with zero materialized
+tapes. Module-level controls exclude both closed owners and Cartesian products.
+The target emits no action, strategy label, or quality row; a retained pass can
+only motivate a separately sealed untouched confirmation.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

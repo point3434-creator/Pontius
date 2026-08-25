@@ -34,3 +34,5 @@
 /experiments/configs/legal-responder-raise-h4-tie-aware-affine-v1.json -text
 /experiments/results/legal-responder-raise-h4-tie-aware-affine-v1.json -text
 /experiments/results/legal-responder-raise-h4-directional-face-v1.json -text
+/experiments/configs/legal-responder-raise-h4-factorized-affine-v1.json -text
+/experiments/results/legal-responder-raise-h4-factorized-affine-v1.json -text

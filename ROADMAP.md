@@ -1177,6 +1177,16 @@ queue:
   one exclusive legal h4 integration owner. Any same-fixture pass is still
   development-only and requires untouched confirmation; literal full-width
   capacity remains independent.
+  ADR-0358 now preregisters that owner with its result path absent. The frozen
+  workload is four inherited directions by two target players, one live
+  factorized integration build per section, exact reproduction of all eight
+  ADR-0356 section digests, and complete point/ray/cardinality/work/epigraph
+  summaries. Exact ties and singletons have typed dispatch but their counts,
+  windows, pieces, crossings, cardinalities, and runtime remain outcome-only.
+  The subject wall sums only the eight builds; it is laboratory infrastructure,
+  not action latency. Invoke the owner exactly once from the clean source
+  commit, retain any terminal, and call a pass same-fixture development only.
+  Untouched confirmation and literal full-width capacity remain separate.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

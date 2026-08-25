@@ -15,11 +15,14 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Add `factorized_tie_aware_affine`. It consumes
-`ExactDirectionalFaceFanSection`, whose exact normal fan remains the ray
-authority and whose two-pass factorized directional face remains the point
-authority. It does not import ADR-0352's bounded enumerator or adapter, call
-`itertools.product`, or construct a response-tape Cartesian product.
+Add `legal_responder_raise_h4_factorized_affine` as one new exclusive owner.
+This is the exclusive legal h4 owner preregistered by this decision.
+It rebuilds the unchanged legal h4 fixture, source policy, three one-step DCFR
+regret-vertex directions, and retained restricted-master proposal. For each of
+the four directions and both target players it performs one live
+`build_factorized_tie_aware_affine_section` call: eight target builds total.
+It imports the read-only ADR-0356 and ADR-0349 result owners, but neither the
+closed ADR-0352 owner nor the closed ADR-0355 runner.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -33,71 +36,33 @@ ADR-0317's directive is Separate solver classes and prioritize the certified
 sizing adapter. ADR-0318 binds HiGHS 1.12.0, ADR-0319 requires one public
 HiGHS-DS call per canonical task, and All 177 ordered observations pass under
 ADR-0320, making the separate consumer eligible. ADR-0321 preserves
-caller-owned legal fallback, ADR-0322 returns research evidence or rejection with no
-action, ADR-0324 remains value-unopened, and ADR-0325 was authorized exactly
-once. ADR-0326 and ADR-0327 govern the exhaustive bounded development-teacher
-chain. ADR-0328 retains that exhaustive teacher and solver-free rebinder before
-the direct closed finite-block greedy line. ADR-0330 remains permanently
-closed; ADR-0331's append-and-fsync discipline, ADR-0332's exclusive `xb`
-open, and ADR-0333's statement that No replacement sizing value was opened
-remain authoritative. ADR-0334 and ADR-0335 bind the 2,113-task non-replay
-chain; ADR-0336 records width three; ADR-0337 owns the response-closed direct
-mechanism; and ADR-0338 alone records the selected development raise width.
-ADR-0339's exact comparison remains a finite absence claim. ADR-0340's 192
-prospective tasks remain distinct from ADR-0341's 94 accepted one-call arms
-and ADR-0343's 126 confirmation arms; ADR-0342 alone authorized that retained
-confirmation invocation. ADR-0344 and ADR-0345 own the finite h4 legal
-responder-raise keystone line. ADR-0346 and ADR-0347 lead only to responder-row
-growth; ADR-0348 and ADR-0349 lead only to selector-window work. ADR-0350
-opened selector-stable affine integration as a question; ADR-0351 replaced it
-with the tie-aware legal h4 affine-envelope requirement. ADR-0352's owner is
-closed by ADR-0353 before any fresh untouched tie-aware affine result.
+caller-owned legal fallback, ADR-0322 returns research evidence or rejection
+with no action, ADR-0324 remains value-unopened, and ADR-0325 was authorized
+exactly once. ADR-0326 and ADR-0327 govern the exhaustive bounded
+development-teacher chain. ADR-0328 retains that exhaustive teacher and solver-free
+rebinder before the direct closed finite-block greedy line. ADR-0330 remains
+permanently closed; ADR-0331's append-and-fsync discipline, ADR-0332's
+exclusive `xb` open, and ADR-0333's statement that No replacement sizing value
+was opened remain authoritative. ADR-0334 and ADR-0335 bind the 2,113-task
+non-replay chain; ADR-0336 records width three; ADR-0337 owns the
+response-closed direct mechanism; and ADR-0338 alone records the selected development
+raise width. ADR-0339's exact comparison remains a finite absence claim.
+ADR-0340's 192 prospective tasks remain distinct from ADR-0341's 94 accepted
+one-call arms and ADR-0343's 126 confirmation arms; ADR-0342 alone authorized
+that retained confirmation invocation. ADR-0344 and ADR-0345 own the finite h4
+legal responder-raise keystone line. ADR-0346 and ADR-0347 lead only to
+responder-row growth; ADR-0348 and ADR-0349 lead only to selector-window work.
+ADR-0350 opened selector-stable affine integration as a question; ADR-0351
+replaced it with the tie-aware legal h4 affine-envelope requirement. ADR-0352's
+owner is closed by ADR-0353 before any fresh untouched tie-aware affine result.
 ADR-0354 source-seals the factorized exact active-set directional calculus;
-ADR-0355's directive was invoke exactly once, and its one-shot owner is closed
-by ADR-0356, whose retained diagnostic alone authorizes this source-only
-successor. No authority is revived here.
-
-For every fan boundary and open-segment witness, the consumer independently
-rederives the total-function factor product and reachable-support dynamic
-quotient, validates both extremal tapes against the factorized face, rechecks
-response/profile/gain algebra, and requires exactly two point-authority passes
-and zero materialized tapes. It evaluates every retained fan row, requires the
-maximum to equal the point face's exact deviation gain, and proves the master
-orientation `z >= row` through nonnegative exact residuals with at least one
-zero residual.
-
-On every interior boundary, the active fan-row slopes must reproduce both
-point-face slope extrema. At scale zero, only the maximum slope must own the
-right-hand ray; smaller source-tied slopes remain represented by the point
-face even if they never own positive measure inside `[0, 1]`. At scale one,
-the symmetric rule requires the minimum slope on the left-hand ray. This is a
-one-sided domain fact, not a relaxation of face identity. Open pieces require
-a unique slope, continuous joins, nondecreasing slopes, and exact coverage of
-the complete interval.
-
-Dispatch is nominally typed:
-
-- an exact source total-function cardinality greater than one enters
-  `factorized_tie_aware_maximum_envelope`, performs zero Float64 fixed-tape
-  scores and zero selector-window-v2 calls, and retains no elected source tape
-  as authority;
-- an exact singleton source performs exactly two fixed-tape score calls and
-  one selector-window-v2 call; a positive window enters `v2_single_tape`,
-  while zero enters the distinct `fail_closed_single_tape` mode; and
-- the Float64 v2 window may never exceed the exact source fan cell. The
-  selector-margin allowance can only shrink or close a singleton window. It
-  cannot decide exact active membership, break a tie, or open the factorized
-  mode.
-
-Total-function identity remains the certificate authority. Reachable-support
-cardinality remains a separately rederived reporting quotient. The typed
-result carries the exact envelope domain, authorities, epigraph direction,
-pieces, source face, selector-window result when applicable, and an explicit
-integration work ledger.
+ADR-0355's directive was invoke exactly once, and its owner is closed by
+ADR-0356. ADR-0357 source-seals the factorized fan-as-ray/face-as-point consumer
+and authorizes this preregistration only. No authority is revived here.
 
 ## Active next
 
-Separately preregister one exclusive legal h4 factorized tie-aware affine integration owner over the exact four inherited directions and both target players, with selector-window v2 only for exact singleton sources, factorized maximum envelopes for exact source ties, complete point/ray/cardinality/work/epigraph summaries, a new absent result path, and no call to any closed ADR-0352 or ADR-0355 owner; treat any same-fixture pass as development integration only and keep literal full-width river capacity independent
+From one clean commit containing ADR-0358 and an absent result path, invoke exactly once: `pontius.legal_responder_raise_h4_factorized_affine`; retain its first pass, scientific rejection, configuration failure, exception, infrastructure failure, or byte-bound terminal without changing the four inherited directions, two target players, selector allowance, typed dispatch, exact parent-section identity, point/ray/cardinality/work/epigraph schema, bounds, walls, output path, or claims policy; never call the closed ADR-0352 or ADR-0355 owners, and keep literal full-width river capacity independent
 
 ## Revoked authorities
 
@@ -105,7 +70,7 @@ Separately preregister one exclusive legal h4 factorized tie-aware affine integr
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0357](docs/decisions/ADR-0357-seal-the-factorized-tie-aware-affine-integration.md) — Seal the factorized tie-aware affine integration.
+Latest process decision: [ADR-0358](docs/decisions/ADR-0358-preregister-the-legal-h4-factorized-affine-integration.md) — Preregister the legal h4 factorized affine integration.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -113,7 +78,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0334](docs/decisions/ADR-0334-retain-and-seal-the-non-replay-qualification-panel.md) | 2026-08-24 | accepted one-shot non-replay qualification result and exact 16-context target-only panel seal; replacement exhaustive-teacher values remain unopened | Retain and seal the non-replay qualification panel |
 | [ADR-0335](docs/decisions/ADR-0335-source-seal-the-non-replay-exhaustive-teacher.md) | 2026-08-24 | accepted source-only non-replay exhaustive-teacher owner and exact 2,113-task schedule seal; every replacement teacher value remains unopened | Source-seal the non-replay exhaustive teacher |
 | [ADR-0336](docs/decisions/ADR-0336-retain-and-rebind-the-non-replay-exhaustive-teacher.md) | 2026-08-24 | accepted complete one-shot non-replay exhaustive-teacher result and solver-free result owner; no direct mechanism or production action width is selected | Retain and rebind the non-replay exhaustive teacher |
 | [ADR-0337](docs/decisions/ADR-0337-source-seal-the-non-replay-direct-mechanism.md) | 2026-08-24 | accepted source-only additive non-replay direct closed finite-block owner; every replacement direct-mechanism price and candidate value remains unopened | Source-seal the non-replay direct mechanism |
@@ -137,18 +101,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0355](docs/decisions/ADR-0355-preregister-the-legal-h4-directional-face-diagnostic.md) | 2026-08-24 | accepted source-only preregistration after ADR-0354; the exact four-direction/eight-section/136-schedule-call diagnostic, complete factor/cardinality/work/seam schema, strict config loader, exclusive first-terminal owner, and claims boundary are sealed while every legal h4 directional-face target outcome remains unopened | Preregister the legal h4 directional-face diagnostic |
 | [ADR-0356](docs/decisions/ADR-0356-retain-and-rebind-the-legal-h4-directional-face-diagnostic.md) | 2026-08-24 | accepted retained finite legal h4 directional-face development diagnostic; the sole ADR-0355 invocation passes every frozen gate and the solver-free result owner rebinds the complete artifact, authorizing only a separately preregistered tie-aware affine integration successor | Retain and rebind the legal h4 directional-face diagnostic |
 | [ADR-0357](docs/decisions/ADR-0357-seal-the-factorized-tie-aware-affine-integration.md) | 2026-08-24 | accepted source-only successor to ADR-0356; the fan-as-ray/face-as-point affine consumer, typed source dispatch, epigraph differential, versioned tie-conformance registry, and source seal are committed while every new legal h4 integration result remains unopened | Seal the factorized tie-aware affine integration |
+| [ADR-0358](docs/decisions/ADR-0358-preregister-the-legal-h4-factorized-affine-integration.md) | 2026-08-24 | accepted source-only preregistration after ADR-0357; one exclusive four-direction/eight-section legal h4 integration owner, exact parent-section rebinding, typed source dispatch, complete point/ray/cardinality/work/epigraph schema, honest subject clocks, and first-terminal retention are sealed while every new legal h4 integration outcome remains unopened | Preregister the legal h4 factorized affine integration |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0357](docs/decisions/ADR-0357-seal-the-factorized-tie-aware-affine-integration.md) — Seal the factorized tie-aware affine integration.
+- Latest ADR: [ADR-0358](docs/decisions/ADR-0358-preregister-the-legal-h4-factorized-affine-integration.md) — Preregister the legal h4 factorized affine integration.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 357.
-- ADR-header SHA-256: `bb2b23268adf08df72e6250811f7b68fa196abf5ab3cebd7ab043c8eea9307a4`.
-- Current blockers: no legal h4 factorized tie-aware affine integration result or untouched confirmation, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 358.
+- ADR-header SHA-256: `e4b7fb71fd12f14675eff76163b6445089df87b9951bb7d534ee3477fbc19667`.
+- Current blockers: no legal h4 factorized affine integration result or untouched confirmation, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0357](docs/decisions/ADR-0357-seal-the-factorized-tie-aware-affine-integration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0358](docs/decisions/ADR-0358-preregister-the-legal-h4-factorized-affine-integration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

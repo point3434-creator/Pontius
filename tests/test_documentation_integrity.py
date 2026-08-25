@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import re
 import unittest
 from pathlib import Path
@@ -1281,6 +1282,41 @@ class DocumentationIntegrityTests(unittest.TestCase):
             text = _contract_text(relative)
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+    def test_exact_occupied_card_quotient_keystone_is_source_sealed(self) -> None:
+        expected = {
+            "README.md": ("ADR-0368", "labeled-record transpose"),
+            "PROJECT.md": ("ADR-0368", "630 labeled records"),
+            "STATUS.md": ("ADR-0368", "exact bounded algebra keystone"),
+            "ROADMAP.md": ("ADR-0368", "pre-allocation quotient model"),
+            "RUNBOOK.md": ("ADR-0368", "tests.test_occupied_card_quotient"),
+            "ARCHITECTURE.md": ("ADR-0368", "seven masks"),
+            "RISK_REGISTER.md": ("R129", "scalable builder"),
+            "src/pontius/occupied_card_quotient.py": (
+                "every source seat is closed",
+                "apply_adjoint_exact",
+            ),
+            "tests/test_occupied_card_quotient.py": (
+                "test_source_seat_permutation_and_one_seat_refresh_are_canonical",
+                "test_factor_tt_open_mode_and_dense_oracles_match_the_quotient",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr_path = (
+            _ROOT
+            / "docs/decisions/ADR-0368-seal-the-exact-occupied-card-quotient-keystone.md"
+        )
+        adr = adr_path.read_text(encoding="utf-8")
+        for relative in (
+            "src/pontius/occupied_card_quotient.py",
+            "tests/test_occupied_card_quotient.py",
+        ):
+            payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
 
 
 if __name__ == "__main__":

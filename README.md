@@ -562,6 +562,18 @@ FactorTT/open-mode differentials, source-seat permutation, fixed-card
 projection, and cold-versus-topology-stable one-seat refresh. No source,
 full-width capacity, latency, action, or truncation result is opened yet.
 
+ADR-0368 closes that algebra gate. The exact bounded reference matches literal
+compatibility, its labeled-record transpose, dense six-seat enumeration, and
+the current FactorTT `left_to_right` open-mode path. Three-source-seat
+permutation and one-seat refresh are canonically identical to their controls;
+unsafe open-source or fixed-card requests fail closed. This proves the quotient
+mechanism on finite games, not scalable construction. Complete full-width
+memory, scratch, work, placement, and reserve bounds come next, before any GPU
+or literal target source. A complete repository audit passed 1,732 of 1,733
+tests with two expected skips; the one deterministic failure is the immutable
+ADR-0365 pre-invocation test still requiring ADR-0366's now-retained result to
+be absent. The sealed control is preserved and the lifecycle defect is explicit.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

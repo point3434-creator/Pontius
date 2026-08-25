@@ -2017,3 +2017,23 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     source-seat permutation, and topology-stable one-seat refresh. The
     90-fold multiplicity and 164,221 containment keys are arithmetic, not a
     capacity or latency result; support truncation remains unauthorized.
+
+83. ADR-0368 seals the repeatable bounded algebra oracle. Verify it and the
+    inherited contraction seams without invoking either closed capacity owner:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest `
+      tests.test_occupied_card_quotient `
+      tests.test_factor_tt_contraction `
+      tests.test_open_mode_factor_tt `
+      tests.test_sparse_incidence_open_mode `
+      tests.test_sparse_open_mode_factor_tt `
+      tests.test_full_width_factor_tt_capacity
+    ```
+
+    Interpret passage only as bounded exact algebra and finite Float64
+    differential evidence. The reference still stores labeled records. Next
+    source-seal full-width bytes and logical work before writing any GPU or
+    literal target source; do not time `Fraction` as an action unit and do not
+    introduce support truncation.

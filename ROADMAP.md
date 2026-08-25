@@ -1266,7 +1266,16 @@ queue:
   half. Its exact 6/4-card containment algebra, transpose, fixed-card
   projection, source-seat permutation, and topology-stable refresh controls
   must pass on bounded games before a literal memory/work seal. No full-width
-  target or truncation path is open.
+  target or truncation path is open. ADR-0368 now passes that bounded gate:
+  literal and randomized exact compatibility, the labeled-record transpose,
+  dense and current FactorTT/open-mode differentials, permutation, refresh,
+  fixed-card, and invalid-scope controls all hold. The oracle still walks
+  bounded labeled records. Derive complete full-width bytes, scratch, work,
+  placement, and reserves next; do not write a GPU or target owner yet. The
+  full repository audit also exposes one inherited lifecycle defect: the
+  hash-bound ADR-0365 pre-invocation test still asserts v2-result absence after
+  ADR-0366 retained it. Preserve that sealed file; any maintained-suite repair
+  must rebind this one exact consumed predicate rather than waive failures.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1278,7 +1287,9 @@ queue:
   non-enumerative successor before another full-width probe. ADR-0367
   preregisters its occupied-card quotient keystone; implement and validate the
   exact CPU reference next, then derive complete pre-allocation bounds under a
-  separate seal before any GPU or literal target work.
+  separate seal before any GPU or literal target work. ADR-0368 completes the
+  reference validation; the pre-allocation quotient model is now the only open
+  capacity-lane checkpoint.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

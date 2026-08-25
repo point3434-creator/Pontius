@@ -1440,6 +1440,31 @@ three-source-seat permutation, and topology-stable one-seat refresh. It has no
 full-width call site. Only after that algebra seal may a separate bound price
 all persistent, scratch, cold, and warm work before a GPU keystone.
 
+ADR-0368 seals that reference as `occupied_card_quotient`. Its topology owns
+original and projected masks, canonical source occupancies, labeled-to-mask
+group IDs, exact multiplicities, and the source/query/open seat contract.
+Exact coefficients serialize as numerator/denominator pairs, making the
+three-source-seat permutation and topology-stable refresh controls
+byte-comparable. The forward operator and record-level transpose share the
+same containment/inclusion-exclusion primitive; a work record keeps labeled
+source rows, unique masks, marginal visits, labeled queries, signed terms, and
+feature width distinct.
+
+The bounded six-seat differential places targets 3, 4, and 5 on the right,
+projects one fixed controlled hand only after absence checks, and sums three
+closed source seats. Its 630 source records quotient to seven masks at exact
+multiplicity 90. Per-hand reach/value rows match dense enumeration and the
+current reverse/open `left_to_right` path, while scalar output matches both
+existing scalar oracles. Randomized exact rational controls, literal transpose
+and dot-product checks, sparse zeros, unsafe projection, and source-open
+rejections keep the proof independent of that Float64 fixture.
+
+This module is not deployed. It still stores bounded labeled source records
+and its refresh recomputes all coefficients. The next architecture layer must
+price a non-enumerative full-width builder, combination indexing, both
+directional feature tables, labeled query grouping, scratch, automata, tensor
+trains, results, and CPU/GPU placement before a device implementation exists.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

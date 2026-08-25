@@ -15,18 +15,21 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Preregister one source-only, repeatable small-game algebra keystone. The
-candidate is the **occupied-card quotient**. It may aggregate labeled source
-assignments that share the same occupied-card mask, then perform exact
-card-disjointness through subset-containment marginals and inclusion-exclusion.
-It may not quotient a seat whose private-hand axis is open in that pass.
+Accept `occupied_card_quotient` as the exact small-game semantic oracle and
+close ADR-0367's algebra gate. The implementation aggregates source records
+only after every seat-specific feature is present, evaluates disjointness by
+exact `Fraction` containment marginals plus inclusion-exclusion, and implements
+the labeled-record transpose. Its public compiler rejects every open seat that
+is not on the query side and rejects unsafe fixed-card projection.
 
-No literal full-width topology, GPU kernel, retained target artifact, timing
-campaign, or action is authorized by this ADR. ADR-0363 and ADR-0365 remain
-permanently closed. ADR-0366's representation rejection remains exact and is
-not relabeled: ADR-0364 remains the pre-capacity `GetProcessMemoryInfo failed`
-terminal, while ADR-0366 remains
-`representation_rejected_before_target_allocation` with zero target calls.
+This is a source seal, not an owner invocation or retained research artifact.
+The reference remains bounded and has no full-width call site. It deliberately
+retains labeled source masks and recomputes every coefficient in its refresh;
+those choices make it an oracle, not the scalable implementation.
+
+ADR-0364 remains the pre-capacity `GetProcessMemoryInfo failed` terminal.
+ADR-0366 remains `representation_rejected_before_target_allocation` with zero
+target calls. ADR-0363 and ADR-0365 remain permanently closed.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -68,8 +71,8 @@ owns and consumes the sole invocation; ADR-0362 alone performs the artifact-
 only scientific assessment. ADR-0363 owns and consumes the sole v1 full-width
 capacity invocation; ADR-0364 retains its pre-capacity typed failure; ADR-0365
 owns and consumes the sole v2 capacity invocation; ADR-0366 retains its exact
-representation rejection. ADR-0367 opens only this bounded source gate. No
-earlier owner is revived.
+representation rejection. ADR-0367 preregisters and ADR-0368 seals only this
+bounded algebra. No earlier owner is revived.
 
 ADR-0355 and ADR-0358 each said invoke exactly once; both owners stay closed.
 ADR-0360 required an exclusive untouched legal h4 owner; ADR-0361 consumed it.
@@ -77,7 +80,7 @@ ADR-0363 and ADR-0365 each owned one capacity invocation; both are consumed.
 
 ## Active next
 
-Implement a pure exact small-game occupied-card quotient reference and require dense, current FactorTT/open-mode, transpose, source-seat permutation, topology-stable one-seat refresh, fixed-card projection, sparse/zero, multi-component, and card-conflict identities before deriving the literal full-width memory/work seal; do not allocate a full-width target or introduce support truncation
+Preserve the bounded exact ADR-0368 oracle and derive a separately source-sealed literal full-width occupied-card quotient memory/work model for both directions, all required feature widths, labeled query records, coefficient aggregation and refresh, containment layout, automata, tensor trains, results, scratch, CPU/GPU placement, and reserves before writing or invoking any device or full-width target; keep support truncation separate
 
 ## Revoked authorities
 
@@ -85,7 +88,7 @@ Implement a pure exact small-game occupied-card quotient reference and require d
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0367](docs/decisions/ADR-0367-preregister-the-occupied-card-quotient-keystone.md) — Preregister the occupied-card quotient keystone.
+Latest process decision: [ADR-0368](docs/decisions/ADR-0368-seal-the-exact-occupied-card-quotient-keystone.md) — Seal the exact occupied-card quotient keystone.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -93,7 +96,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0344](docs/decisions/ADR-0344-preregister-the-legal-responder-raise-keystone.md) | 2026-08-24 | accepted preregistration and source seal before the first legal responder-raise keystone invocation; no result, strategy label, latency result, or production action exists | Preregister the legal responder-raise sequence-form keystone |
 | [ADR-0345](docs/decisions/ADR-0345-retain-and-seal-the-legal-responder-raise-keystone.md) | 2026-08-24 | accepted finite legal-semantics and sequence-form keystone; the sole source-sealed invocation passes every frozen gate on one deterministic checked-to heads-up river continuation and authorizes only a separately preregistered h4 legal responder-raise open-axis differential | Retain and seal the legal responder-raise semantics keystone |
 | [ADR-0346](docs/decisions/ADR-0346-preregister-the-legal-h4-coefficient-differential.md) | 2026-08-24 | accepted preregistration and source seal before the first legal responder-raise h4 coefficient invocation; every coefficient result, row-growth result, latency result, strategy label, and production action remains unopened | Preregister the legal h4 coefficient differential |
 | [ADR-0347](docs/decisions/ADR-0347-retain-and-seal-the-legal-h4-coefficient-result.md) | 2026-08-24 | accepted finite legal h4 coefficient identity; the sole source-sealed invocation passes every frozen gate and authorizes only a separately preregistered legal responder-row growth experiment on the same h4 tree | Retain and seal the legal h4 coefficient result |
@@ -117,18 +119,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0365](docs/decisions/ADR-0365-source-seal-the-typed-telemetry-full-width-capacity-successor.md) | 2026-08-25 | accepted source-only typed-Windows-telemetry successor; v1 remains closed and every v2 capacity target value remains unopened | Source-seal the typed-telemetry full-width capacity successor |
 | [ADR-0366](docs/decisions/ADR-0366-retain-the-full-width-factor-tt-representation-rejection.md) | 2026-08-25 | accepted finite label-free representation rejection; every v2 protocol and target gate passes, the current explicit-half-assignment FactorTT lineage is rejected before target allocation, and no complete-solve, action, quality, truncation, or strength claim is opened | Retain the full-width FactorTT representation rejection |
 | [ADR-0367](docs/decisions/ADR-0367-preregister-the-occupied-card-quotient-keystone.md) | 2026-08-25 | accepted prospective source-only algebra boundary; no full-width allocation, runtime, action, quality, truncation, or strength result is opened | Preregister the occupied-card quotient keystone |
+| [ADR-0368](docs/decisions/ADR-0368-seal-the-exact-occupied-card-quotient-keystone.md) | 2026-08-25 | accepted source-only exact bounded algebra keystone; literal compatibility, transpose, dense, current FactorTT/open-mode, permutation, refresh, fixed-card, sparse/zero, multi-component, and invalid-scope controls pass, while every full-width allocation, runtime, action, quality, truncation, and strength result remains unopened | Seal the exact occupied-card quotient keystone |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0367](docs/decisions/ADR-0367-preregister-the-occupied-card-quotient-keystone.md) — Preregister the occupied-card quotient keystone.
+- Latest ADR: [ADR-0368](docs/decisions/ADR-0368-seal-the-exact-occupied-card-quotient-keystone.md) — Seal the exact occupied-card quotient keystone.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 367.
-- ADR-header SHA-256: `0ea34f0fd16257f1ba13c39d6c4bd673423e84b3d4ca3b1e44258f98f9165ae3`.
-- Current blockers: no source-sealed occupied-card quotient implementation, exact pre-allocation quotient memory/work bound, GPU placement or warm-cache result, scalable exact full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 368.
+- ADR-header SHA-256: `17da786386fd8b84fc42d6de309a48edeb5a622875664c268ee6064f8fb0ad79`.
+- Current blockers: no exact pre-allocation occupied-card quotient memory/work bound, GPU placement or warm-cache result, scalable exact full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0367](docs/decisions/ADR-0367-preregister-the-occupied-card-quotient-keystone.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0368](docs/decisions/ADR-0368-seal-the-exact-occupied-card-quotient-keystone.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

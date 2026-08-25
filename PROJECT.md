@@ -630,6 +630,21 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   and current FactorTT/open-mode oracles, the exact transpose, source-seat
   permutation, fixed-card projection, and topology-stable one-seat refresh.
   No literal full-width target or truncation mechanism is open.
+- ADR-0368 seals that bounded exact oracle. Seven quotient controls plus 17
+  inherited contraction controls pass: exact literal forward and labeled-
+  record transpose/dot-product identities; deterministic small-universe
+  properties; byte-identical three-source-seat permutation and topology-stable
+  one-seat refresh; safe fixed-card projection; invalid-scope rejection; and a
+  six-seat two-component rank-three differential against dense and current
+  `left_to_right` FactorTT open mode. Its finite poker source quotients 630
+  labeled records to seven masks at multiplicity 90. The implementation still
+  stores bounded labeled records and is not a scalable runtime. Next derive
+  complete full-width persistent/scratch/work/placement bounds under a
+  separate source seal; no device or full-width target is authorized. The
+  1,733-test repository audit passes 1,732 with two expected skips; its sole
+  failure is ADR-0365's immutable pre-invocation absence assertion encountering
+  ADR-0366's correctly retained result. That hash-bound lifecycle defect is
+  recorded, not edited or generalized into a failure waiver.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

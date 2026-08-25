@@ -754,7 +754,23 @@ then exclusive direction generation (three DCFR history vertices plus one
 audited row-growth proposal) then 32 factorized fan/face sections. Its artifact
 schema carries the complete section rather than summaries: every fan row,
 every point face and information-set factor, every compact piece, and every
-fan-row/point epigraph residual. No confirmation runner or result exists yet.
+fan-row/point epigraph residual. ADR-0360 itself adds no confirmation runner or
+result.
+
+ADR-0361 adds the exclusive
+`legal_h4_factorized_affine_confirmation` owner while leaving its result path
+absent. Direction endpoints are generated only inside that terminal; the
+row-growth proposal is admitted only after independent exact response-row,
+evaluation, cap, feasibility, convergence and master-certificate checks. The
+`complete_factorized_affine_evidence` boundary serializes the complete fan,
+all source and non-source faces, compact pieces, selector-window record and
+the full exact row-by-point residual matrix. Total-function identity remains
+certificate authority, reachable support remains reporting-only, and the
+owner statically excludes the closed ADR-0358 result line and Cartesian tape
+enumeration. Dirty source stops before target work and `O_EXCL` plus `fsync`
+retains only the first pass, scientific rejection, typed failure,
+infrastructure failure or byte-bound terminal. No fresh target has been opened
+at this architecture checkpoint.
 
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full

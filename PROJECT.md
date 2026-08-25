@@ -560,6 +560,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   and 32 expected sections. Every non-source factor, fan row and exact
   epigraph residual must be serialized. One failed context or section rejects
   the whole future confirmation; no partial pass or abstention is implied.
+- ADR-0361 preregisters the sole exclusive owner over that population without
+  opening a fresh target. Its downstream compiler exactly rebinds every
+  row-growth response row, evaluation, cap and master certificate; its complete
+  serializer retains every source and non-source face, fan row, compact piece
+  and row-by-point residual. Natural endpoints, ties, modes, geometry,
+  cardinalities and timings remain observations rather than gates. The absent
+  `-text` result path accepts one clean-commit `O_EXCL` terminal only; the
+  32-build laboratory walls are not action-clock or full-width evidence.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

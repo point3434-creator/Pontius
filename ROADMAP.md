@@ -1208,6 +1208,17 @@ queue:
   exact epigraph residual matrix. Any single failure rejects confirmation;
   dropping, reseeding, retrying, gate repair, and partial-pass abstention are
   closed. Next preregister the exclusive owner before any target call.
+  ADR-0361 now preregisters that owner with the result path still absent. Its
+  frozen direction compiler independently rebinds response rows, evaluation,
+  cap semantics, feasibility, convergence and master certificates before the
+  row-growth proposal is eligible. Its complete evidence serializer retains
+  every fan row, every source and non-source factor, every compact piece and
+  the full row-by-point exact epigraph matrix; a rehashed semantic mutation
+  still fails live identity. The only workload is four contexts by four
+  directions by two target players. No natural endpoint, mode, geometry,
+  cardinality or timing is gated. Invoke exactly once from the clean committed
+  source boundary, retain the first terminal, and keep literal full-width
+  capacity, the 15-second action clock, action quality and strength separate.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

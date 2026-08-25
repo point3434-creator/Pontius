@@ -36,3 +36,5 @@
 /experiments/results/legal-responder-raise-h4-directional-face-v1.json -text
 /experiments/configs/legal-responder-raise-h4-factorized-affine-v1.json -text
 /experiments/results/legal-responder-raise-h4-factorized-affine-v1.json -text
+/experiments/configs/legal-h4-factorized-affine-confirmation-v1.json -text
+/experiments/results/legal-h4-factorized-affine-confirmation-v1.json -text

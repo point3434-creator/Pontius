@@ -1296,6 +1296,13 @@ queue:
   permutation, refresh, conflict, and mutation controls. Implement and source-
   seal only that bounded mechanism next; the 45-card target remains
   structurally unavailable.
+  ADR-0372 now passes all 22 gates on the complete ten-card population. Exact
+  forward/adjoint, direct automaton, affine fold, current-stack normalized chip
+  value, source permutation, full refresh, query-only reuse, deterministic
+  warm output, allocation/work ledgers, and five mutations all pass. The
+  reduced cold/warm/source-refresh device sums are 0.4435/0.2958/0.4346 ms;
+  none may be extrapolated to 45 cards. Preregister a staged non-45-card
+  scaling ladder next, with fixed populations and stop rules before allocation.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1312,7 +1319,9 @@ queue:
   pre-allocation quotient model. A bounded-exact GPU numerical/throughput
   keystone is now the only open capacity-lane checkpoint. ADR-0371 freezes its
   ten-card population and exact recurrence before device source; implementation
-  and bounded validation are next, not a literal capacity call.
+  and bounded validation are next, not a literal capacity call. ADR-0372 seals
+  that bounded validation; the open checkpoint is now a prospectively frozen
+  staged-width/live-admission ladder, still stopping before the literal target.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

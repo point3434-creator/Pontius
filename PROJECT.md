@@ -678,6 +678,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   refresh, deterministic warm output, independent numerical envelopes, exact
   work counters, mutation controls, and reject-before-CuPy preallocation are
   conjunctive. No literal 45-card allocation or timing is authorized.
+- ADR-0372 seals that complete ten-card mechanism on the RTX 5080. All 22
+  numerical, exact/current-stack, forward/adjoint, affine-fold, permutation,
+  full-refresh/query-only, repeatability, allocation, work, and mutation gates
+  pass. Worst forward absolute error is `6.228351168147128e-14`; cold/warm/
+  source-refresh four-phase device sums are 0.4435/0.2958/0.4346 ms on the
+  reduced population. Those are bounded CUDA-event units, not a target or
+  action estimate. A semantic correction compares the current normalized chip
+  value rather than non-invariant raw factor scales. Next preregister a non-45-
+  card staged scaling ladder; literal capacity and truncation remain closed.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

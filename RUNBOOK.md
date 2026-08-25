@@ -2099,3 +2099,24 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     128-feature table are arithmetic-only controls; never allocate or time
     them under this ADR. An oversize preallocation control must reject before
     CuPy import or any numeric device allocation.
+87. ADR-0372 seals the bounded implementation at canonical-LF source/test
+    hashes `280c61c610562974c46b745436eaab8f7106d51d0c3975eed7a4cff23e3e9a61`
+    and `6faac8dfc9947b194e87e0f1250b861332d24463fefb42ed74c773da4e1fe59f`.
+    Verify the complete device population and its load-bearing seams with:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest `
+      tests.test_gpu_occupied_card_quotient `
+      tests.test_occupied_card_quotient `
+      tests.test_full_width_occupied_card_quotient_capacity `
+      tests.test_structured_showdown_automaton `
+      tests.test_factor_tt_contraction
+    ```
+
+    This is 41 focused tests on the final source. The GPU report must contain
+    22 true gates, exact frozen output digests, zero query-only source and
+    recurrence work, and distinct cold/warm/source-refresh/adjoint walls. Its
+    public runner accepts no arguments. Do not edit it to admit 45 cards,
+    divide its ten-card walls into target estimates, or compare the 4.679-
+    second conformance campaign with the 14-second action compute wall.

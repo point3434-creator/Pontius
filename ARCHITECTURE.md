@@ -1522,6 +1522,20 @@ A reject-before-CuPy guard, exact work ledger, independently named Float64
 envelopes, warm byte identity, forward/adjoint dot products, and deliberate
 recurrence/sign/seam mutations are part of the mechanism boundary.
 
+ADR-0372 seals the implementation on the complete ten-card population. Direct
+source coefficients, both recurrence directions, record-level adjoint, query
+affine fold, and the current FactorTT normalized chip value match their
+independent authorities within the frozen envelopes. Row-feature ownership is
+deterministic and source contains neither Float64 atomics nor explicit source-
+mask/incidence arrays. A source change rebuilds every coefficient and level;
+a query-only change reuses them and reports zero source/recurrence work.
+
+The measured 0.4435/0.2958/0.4346 ms cold/warm/source-refresh device sums are
+ten-card CUDA-event units. The 4.679-second conformance wall includes exact
+oracles and mutations. Neither is a 45-card, solve, or action wall. The next
+architecture boundary is a prospectively frozen non-45-card scaling ladder;
+the public keystone itself has no arguments and cannot accept the target.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

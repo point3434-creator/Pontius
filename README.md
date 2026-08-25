@@ -602,6 +602,14 @@ full source refresh, deterministic repeatability, separate numerical
 envelopes, exact work accounting, mutation controls, and reject-before-CuPy
 allocation guards must all pass before any staged or literal-width experiment.
 
+ADR-0372 closes that bounded gate: all 22 controls pass on the complete ten-
+card population on the RTX 5080. Exact forward and record-level adjoint,
+direct automaton, sunk/reach fold, current-stack normalized chip value, full
+source refresh, query-only reuse, warm byte identity, fixed/live admission,
+and five adversarial mutations agree. Cold/warm/source-refresh device sums are
+0.4435/0.2958/0.4346 ms, explicitly reduced units with no 45-card or action
+interpretation. A staged non-45-card scaling preregistration is next.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

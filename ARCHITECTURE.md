@@ -1346,6 +1346,41 @@ diagnostic. Consumers accept only a verified canonical-data/seal pair with no
 lock. The present dense coefficient oracle is a reduced CPU control and has no
 h32 scalability claim; no v2 h32 seed or replay is currently authorized.
 
+## Literal full-width capacity boundary
+
+ADR-0363 adds a pre-allocation authority in front of the current FactorTT
+lineage. A live one-seat river belief remains five complete 990-combo opponent
+axes conditioned on the known controlled hand. Capacity evaluation inserts
+that hand as one singleton so the payoff object has six seat modes in semantic
+seat order. The current 3/3 topology recursively stores every compatible
+assignment within each half; it may not begin that construction merely because
+the compact unary belief itself is small.
+
+`full_width_factor_tt_capacity` derives exact persistent numeric-array bytes
+from labeled compatible-half counts, mode widths, fixed dtypes, subset-table
+widths, and component count. It separately reports the frozen-order base
+topology, the bidirectional open-mode topology, an optimistic scalar ordering,
+and the resident belief cache. Those numbers are lower bounds, not peak memory:
+Python construction objects, incidence key sets, sparse operators, workspaces,
+automata, tensor trains, results, and scratch remain explicitly outside them.
+
+The one-shot owner compares those necessary lower bounds with fixed host/device
+numeric caps and live physical reserves before calling a target topology
+compiler. Any failed conjunct yields a zero-allocation representation terminal.
+Only an admitted target can compile the full current stack, run an internal
+scalar differential, prime one resident leaf contraction, and measure one
+identical warm contraction. A reduced 12-hand-per-opponent GPU control exercises
+that whole operational path and checks the accounting against live object
+bytes. The warm unit is intentionally narrower than a CFR iteration, master,
+certificate, solve, or complete action, and its 14-second ceiling preserves the
+separate one-second action-emission reserve.
+
+This boundary emits no action or quality label. A failure routes work to a new
+representation design, but does not select certified truncation or prove that
+full-width solving is impossible. A pass would establish only the measured
+leaf-contraction scope; the complete full-width river strategy bridge remains
+separate.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

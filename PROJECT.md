@@ -579,6 +579,18 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   is not retroactively relabeled. ADR-0362 separately accepts fresh finite h4
   mechanism evidence and leaves literal full-width capacity, the 15-second
   action clock, multiway closure, action quality, and strength unproved.
+- ADR-0363 source-seals the independent literal full-width river capacity
+  owner; its result path remains absent. The label-free target carries the
+  accepted 1,225/1,081/1,035/990 five-opponent axes to a fixed-hero six-seat
+  river showdown. An exact pre-allocation ledger prices the current explicit
+  three-seat-half FactorTT arrays before any target allocation, then admits one
+  scalar check, one resident prime, and one identical warm leaf contraction
+  only if fixed host/device caps and live reserves all clear. A reduced GPU
+  control exercises that complete path. The warm unit is not a CFR iteration,
+  solve, or action. Pre-seal static target-shape reconnaissance is disclosed
+  and excluded from the outcome-neutral config and gates. Invoke the owner once
+  from its clean commit; retain any capacity rejection or typed failure without
+  retry, and do not infer strategy quality or authorize truncation.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -1232,8 +1232,18 @@ queue:
   factorized source-tie sections, with maximum source total/reachable
   cardinality two and zero Cartesian materialization. The 94.489-second
   32-build sum remains laboratory infrastructure, not per-solve or action
-  latency. Next make the long-deferred literal full-width capacity preflight a
-  source-sealed label-free boundary.
+  latency. ADR-0363 now makes the long-deferred literal full-width capacity
+  preflight a source-sealed label-free boundary with its result still absent.
+  It carries all four exact opponent-axis widths into a fixed-hero river target,
+  computes an exact persistent-array lower bound before the current explicit
+  half-assignment topology can allocate, and conditionally permits only one
+  scalar differential, one resident prime, and one identical warm leaf
+  contraction. Fixed 48 GB host/12 GB device numeric caps, physical reserves,
+  the 14-second compute share, a reduced complete-path GPU control, zero
+  actions/quality labels, an exclusive typed terminal, and the distinction
+  between a warm leaf contraction and a CFR step are frozen. Pre-seal static
+  target-shape reconnaissance is disclosed but supplies no gate or target
+  evidence. Invoke the owner exactly once from the clean source commit next.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

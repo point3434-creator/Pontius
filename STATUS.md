@@ -15,38 +15,11 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Retain the exact first terminal as a rejection. Do not edit its bytes, change
-its `passed: false`, change its decision string, patch its sealed runner, or
-invoke that runner again. ADR-0361 promised first-terminal retention with no
-gate repair, so its historical decision remains exactly
-`reject_untouched_legal_h4_factorized_affine_confirmation`.
-
-Separately accept ADR-0362's artifact-only assessment. The retained payload
-contains all four contexts, four directions per context, both target players,
-and all 32 reconstruction-complete section records. Every recorded scientific,
-identity, work, wall, coordinate, and infrastructure gate is true. The only
-false non-summary gate is `zero_actions_and_quality_rows`, although the exact
-serialized fields are:
-
-- `actions_emitted = 0`;
-- `quality_rows_serialized = 0`;
-- `strategy_labels_generated = 0`; and
-- `strategy_quality_claim = null`.
-
-The sealed runner encoded that check as the Python chain
-`emissions == expected_emissions == required_true`. Python interprets it as
-`(emissions == expected_emissions) and (expected_emissions == True)`. The
-second comparison is necessarily false because a mapping is not `True`.
-Recomputing the intended parenthesized predicate over retained bytes returns
-true. Replacing only that interpretation makes the complete recomputed gate
-vector true, but it does not retroactively make ADR-0361 a passing artifact.
-
-The distinction is authoritative:
-
-1. **Recorded terminal:** rejected, immutable, non-replayable.
-2. **Scientific payload:** independently rebound and accepted by ADR-0362.
-3. **Corrected predicate:** an artifact-only diagnostic explaining the
-   rejection, not a rewritten historical gate.
+Accept the source-only owner, exact allocation model, reduced complete-path
+control, outcome-neutral config, resource guards, exclusive writer, and claims
+boundary below. Keep the literal result path absent at this commit. Invoke the
+owner exactly once from the resulting clean commit and retain its first
+terminal without repair or retry.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -89,15 +62,11 @@ only scientific assessment. No earlier owner is revived.
 
 ADR-0355 and ADR-0358 each said invoke exactly once; both owners stay closed.
 ADR-0360 required an exclusive untouched legal h4 owner; ADR-0361 consumed it.
-
-This supplies fresh finite h4 mechanism evidence for the factorized
-fan-as-ray/face-as-point composition. It does not supply literal full-width
-capacity, 15-second action latency, an action, decision quality, poker
-strength, multiway response closure, or cross-street handoff.
+ADR-0363 authorizes only the one literal label-free capacity invocation below.
 
 ## Active next
 
-Preregister and source-seal the independent label-free literal full-width river capacity preflight on the exact 1,225/1,081/1,035/990 belief axes; measure representation, resident/warm contraction work, peak host and device memory, and laboratory wall time without strategy labels or quality priors; preserve ADR-0361's rejected terminal and closed writer, and keep repeated-actor multiway closure, off-tree opponent-action handling, cross-street handoff, the certified river bridge, blueprint training, v0 integration, and strength evaluation separate
+From this clean committed source boundary, invoke `python -B -m pontius.full_width_river_capacity_preflight` exactly once; retain the first exclusive pass, capacity rejection, or typed failure without retry; interpret a lower-bound rejection only as failure of the current explicit-half-assignment FactorTT representation, not as evidence for truncation, strategy quality, or complete 15-second decision capacity
 
 ## Revoked authorities
 
@@ -105,7 +74,7 @@ Preregister and source-seal the independent label-free literal full-width river 
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0362](docs/decisions/ADR-0362-retain-the-rejected-terminal-and-rebind-its-scientific-payload.md) — Retain the rejected terminal and rebind its scientific payload.
+Latest process decision: [ADR-0363](docs/decisions/ADR-0363-preregister-the-literal-full-width-river-capacity-preflight.md) — Preregister the literal full-width river capacity preflight.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -113,7 +82,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0339](docs/decisions/ADR-0339-source-seal-the-untouched-action-width-transfer-population.md) | 2026-08-24 | accepted value-free untouched transfer-population source seal; every transfer qualification and transfer value remains unopened | Source-seal the untouched action-width transfer population |
 | [ADR-0340](docs/decisions/ADR-0340-source-seal-the-transfer-qualification-owner.md) | 2026-08-24 | accepted source-only candidate-blind transfer qualification owner and target-panel rebinder; every transfer qualification value remains unopened | Source-seal the transfer qualification owner |
 | [ADR-0341](docs/decisions/ADR-0341-retain-and-seal-the-transfer-qualification-panel.md) | 2026-08-24 | accepted one-shot transfer qualification result and exact 16-context target-only panel seal; width-three transfer confirmation remains unopened | Retain and seal the transfer qualification panel |
 | [ADR-0342](docs/decisions/ADR-0342-source-seal-the-width-three-transfer-confirmation-owner.md) | 2026-08-24 | accepted source-only width-three transfer-confirmation owner with exact prior-evidence reuse and failure-complete journal; every real confirmation value remains unopened | Source-seal the width-three transfer-confirmation owner |
@@ -137,18 +105,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0360](docs/decisions/ADR-0360-source-seal-the-fresh-legal-h4-factorized-affine-confirmation-population.md) | 2026-08-25 | accepted value-unopened source-only confirmation population and successor contract; no fresh legal h4 direction endpoint, best response, selector, affine section, timing, action, quality row, or strategy label has been opened | Source-seal the fresh legal h4 factorized-affine confirmation population |
 | [ADR-0361](docs/decisions/ADR-0361-preregister-the-untouched-legal-h4-factorized-affine-confirmation.md) | 2026-08-25 | accepted source-only preregistration after ADR-0360; the exclusive 32-section owner, frozen downstream direction compiler, reconstruction-complete evidence serializer, exact provenance snapshot, laboratory walls, and first-terminal retention are sealed while every fresh direction endpoint, factorized section, target timing, natural mode, cardinality, action, quality row, and strategy label remains unopened | Preregister the untouched legal h4 factorized-affine confirmation |
 | [ADR-0362](docs/decisions/ADR-0362-retain-the-rejected-terminal-and-rebind-its-scientific-payload.md) | 2026-08-25 | accepted artifact-only scientific assessment; ADR-0361's sole terminal remains a recorded rejection, its writer is permanently consumed, and no byte or historical gate is repaired, while a sealed standard-library owner independently establishes that all 32 fresh legal h4 factorized-affine sections and every intended scientific conjunct completed and that the sole false recorded gate is a deterministic chained-comparison plumbing defect over four actually zero/null emission fields | Retain the rejected terminal and rebind its scientific payload |
+| [ADR-0363](docs/decisions/ADR-0363-preregister-the-literal-full-width-river-capacity-preflight.md) | 2026-08-25 | accepted source-only label-free capacity preregistration before the sole literal full-width invocation | Preregister the literal full-width river capacity preflight |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0362](docs/decisions/ADR-0362-retain-the-rejected-terminal-and-rebind-its-scientific-payload.md) — Retain the rejected terminal and rebind its scientific payload.
+- Latest ADR: [ADR-0363](docs/decisions/ADR-0363-preregister-the-literal-full-width-river-capacity-preflight.md) — Preregister the literal full-width river capacity preflight.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 362.
-- ADR-header SHA-256: `b64ac30638b76f23ba841133e0d622c4308f955f8ba27e6e6113dc31abaac18d`.
-- Current blockers: no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, full-width capacity result, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 363.
+- ADR-header SHA-256: `24a49149b77f5c1d6f35f95a3b823ae3d13ac9a096cba6c022a0ba25dcedbaf7`.
+- Current blockers: no literal full-width capacity result, scalable replacement contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0362](docs/decisions/ADR-0362-retain-the-rejected-terminal-and-rebind-its-scientific-payload.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0363](docs/decisions/ADR-0363-preregister-the-literal-full-width-river-capacity-preflight.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

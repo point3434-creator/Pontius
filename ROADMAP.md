@@ -1187,6 +1187,17 @@ queue:
   not action latency. Invoke the owner exactly once from the clean source
   commit, retain any terminal, and call a pass same-fixture development only.
   Untouched confirmation and literal full-width capacity remain separate.
+  ADR-0359 now retains the only invocation as a finite same-fixture pass. All
+  22 gates are true; the observed dispatch is four factorized source ties and
+  four positive v2 singletons. Twelve fan rows reduce to ten interval-owning
+  compact pieces because two rows tie only at scale one. The 18.152-second
+  subject number sums eight h4 builds and is neither per-solve nor action-clock
+  latency. The result owner independently reconstructs every serialized source
+  face and compact envelope but honestly marks omitted non-source factors,
+  non-quotient rows, and the live section digest authenticated-only. Next
+  source-seal a fresh value-unopened confirmation population and a complete
+  reconstruction-ready artifact schema. Never replay ADR-0358; keep literal
+  full-width capacity independent.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

@@ -729,6 +729,19 @@ tapes. Module-level controls exclude both closed owners and Cartesian products.
 The target emits no action, strategy label, or quality row; a retained pass can
 only motivate a separately sealed untouched confirmation.
 
+ADR-0359 closes that writer and installs
+`legal_responder_raise_h4_factorized_affine_result` as a standard-library,
+read-only authority. It reconstructs the source factor graph and reachable
+quotient, reduced Fraction algebra, logical work, compact convex envelope,
+point gains, crossings, inward endpoint and interior seams, typed dispatch,
+parent identities, aggregates, walls, claims and gates. The retained schema
+contains 12 fan rows but only ten interval-owning envelope pieces: two rows are
+endpoint-only. Because raw non-source factors and the two non-quotient rows
+were not serialized, their internals and the live reproduced-section digest
+remain source-authenticated rather than independently reconstructed. A future
+confirmation artifact must serialize every factor and row to remove that
+authority limit.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

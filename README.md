@@ -511,6 +511,16 @@ than gates. Invoke exactly once from a clean committed boundary; any pass is
 same-fixture development integration, not confirmation, action latency, full-
 width capacity, decision quality, or strength.
 
+ADR-0359 retains that sole 259,550-byte terminal as a same-fixture development
+pass. All 22 gates are true: four exact source ties use the factorized envelope,
+four exact singletons use positive v2 windows, and zero tapes or actions are
+materialized. The summaries contain 12 fan rows but ten interval-owning convex
+pieces; two rows tie only at the endpoint. A standard-library owner rederives
+the source faces, compact envelopes, seams, dispatch, work, aggregates and
+gates while labeling omitted non-source factors, non-quotient rows, and the
+live section digest authenticated-only. Untouched confirmation must use a
+fresh sealed population and a complete reconstruction-ready schema.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

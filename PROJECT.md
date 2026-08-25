@@ -539,6 +539,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   crossing, cardinality, or runtime is gated. The absent `-text` result path
   accepts one exclusive terminal from a clean commit; a pass remains inspected
   same-fixture development evidence and can open only untouched confirmation.
+- ADR-0359 retains that sole terminal. Four exact source ties dispatch to the
+  factorized envelope and four singleton sources dispatch to positive v2
+  windows; all 22 gates pass with zero materialized tapes and no action or
+  quality output. The artifact distinguishes 12 fan rows from ten compact
+  interval pieces, including two endpoint-only tied rows. Its standard-library
+  owner independently rebuilds source-face algebra/cardinality/work, the
+  compact convex envelope, seams, dispatch, aggregates and gates. Non-source
+  point factors, non-quotient row residuals, and the live reproduced-section
+  digest remain explicitly authenticated-only because the preregistered schema
+  omitted their raw inputs. Fresh untouched confirmation must repair that
+  schema limit before any new value opens.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

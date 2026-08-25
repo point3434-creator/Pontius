@@ -1154,6 +1154,31 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_legal_h4_factorized_affine_result_is_retained_and_calibrated(self) -> None:
+        expected = {
+            "README.md": ("ADR-0359", "12 fan rows"),
+            "PROJECT.md": ("ADR-0359", "authenticated-only"),
+            "STATUS.md": ("ADR-0359", "fresh value-unopened"),
+            "ROADMAP.md": ("ADR-0359", "18.152-second"),
+            "RUNBOOK.md": (
+                "301f7c9c865b8ae2cfcc39e6c6ebca32db68d4fd15e8e6255976ace587c35eea",
+                "Never invoke",
+            ),
+            "ARCHITECTURE.md": (
+                "legal_responder_raise_h4_factorized_affine_result",
+                "endpoint-only",
+            ),
+            "RISK_REGISTER.md": ("R120", "ten interval pieces"),
+            ".gitattributes": (
+                "/experiments/configs/legal-responder-raise-h4-factorized-affine-v1.json -text",
+                "/experiments/results/legal-responder-raise-h4-factorized-affine-v1.json -text",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

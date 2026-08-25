@@ -1892,3 +1892,26 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     full-width capacity, action or solve latency, decision quality, or poker
     strength. The subject wall is the sum of eight live builds and must never
     be divided into a per-solve or action-clock comparison.
+
+77. ADR-0359 permanently closes the ADR-0358 owner and retains its exact
+    259,550-byte result, SHA-256
+    `301f7c9c865b8ae2cfcc39e6c6ebca32db68d4fd15e8e6255976ace587c35eea`.
+    Never invoke `pontius.legal_responder_raise_h4_factorized_affine` again.
+    Verify the result authority only through:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m unittest `
+      tests.test_legal_responder_raise_h4_factorized_affine_result
+    ```
+
+    The read-only result protocol SHA-256 is
+    `8d78d45a45e9988950747e40d4ee04c3e71176bdde32ef39c275d54aecb7ebda`.
+    Report exactly 22 passing gates, four factorized source ties, four positive
+    v2 singletons, 12 fan rows, ten compact envelope pieces, 28 point-face
+    observations, and zero tapes/actions. The 18.152-second subject total is
+    eight same-fixture h4 builds, not per-solve or 15-second action latency.
+    Preserve the authenticated-only limitation for non-source face internals,
+    non-quotient fan-row residuals, and the reproduced-section digest. The next
+    target requires a fresh value-unopened population and a separately sealed
+    complete-schema confirmation owner.

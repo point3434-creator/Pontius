@@ -544,6 +544,14 @@ GPU runtime seam, exact v1 lineage, and a new exclusive result path are bound.
 The 512 MiB reader-delta allowance is telemetry-only. Invoke v2 once from its
 clean source commit; it still answers only ADR-0363's narrow capacity question.
 
+ADR-0366 retains v2's sole passing guard and representation rejection. Exact
+persistent numeric lower bounds are 249.486 GB base, 437.434 GB bidirectional,
+202.627 GB optimistic scalar, and 14.679 GB resident belief; every cap/reserve
+check rejects before all target allocations and contractions. This retires the
+current explicit-half-assignment storage, not exact full width itself. The next
+gate is an exact non-enumerative card-conflict representation; truncation has
+not been authorized.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

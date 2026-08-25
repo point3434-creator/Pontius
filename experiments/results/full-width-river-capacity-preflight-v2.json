@@ -1,0 +1,339 @@
+{
+  "campaign_wall_seconds": 1.0642936999793164,
+  "claims": {
+    "action_clock_claim": "one_warm_contraction_only_if_executed_not_a_complete_decision_iteration_or_solve",
+    "capacity_admitted": false,
+    "certified_truncation_authorized": false,
+    "representation_result_only": true,
+    "strategy_quality_prior": null
+  },
+  "config_sha256": "23cb6ea4521dc26c5fc1c3962574443b7a1d1b841f9e54c03355f9af9a58ff58",
+  "control": {
+    "cartesian_assignments": 248832,
+    "hand_counts": [
+      12,
+      12,
+      12,
+      1,
+      12,
+      12
+    ],
+    "opponent_hands_per_axis": 12,
+    "wall_seconds": 0.22395449999021366,
+    "workload": {
+      "actions_emitted": 0,
+      "allocation_model_matches": {
+        "base_topology": true,
+        "base_workspace": true,
+        "bidirectional_topology": true,
+        "open_workspace": true,
+        "resident_belief": true
+      },
+      "automaton_maximum_state_rank": 34,
+      "automaton_numeric_bytes": 2868,
+      "base_workspace_numeric_bytes": 31824,
+      "bidirectional_topology_numeric_bytes": 865880,
+      "construction_ms": 51.56580003676936,
+      "finite": true,
+      "maximum_gpu_pool_total_bytes": 5259776,
+      "maximum_gpu_pool_used_bytes": 4910080,
+      "open_workspace_numeric_bytes": 84400,
+      "prime_contraction_ms": 169.27120002219453,
+      "prime_warm_maximum_repeat_error": 0.0,
+      "quality_rows_emitted": 0,
+      "resident_automaton_numeric_bytes": 406560,
+      "resident_belief_numeric_bytes": 29048,
+      "scalar_middle_rank": 35,
+      "scalar_resident_expectation_error": 0.0,
+      "sparse_operator_numeric_bytes": 1768772,
+      "strategy_labels_emitted": 0,
+      "strategy_quality_evaluations": 0,
+      "tensor_train_storage_bytes": 112976,
+      "topology_numeric_bytes": 485720,
+      "warm_contraction_ms": 2.029600029345602
+    }
+  },
+  "emissions": {
+    "actions": 0,
+    "quality_claim": null,
+    "strategy_labels": 0,
+    "strategy_quality_rows": 0
+  },
+  "evidence_stage": "source_sealed_after_adr0364_before_any_v2_live_literal_full_width_hardware_capacity_invocation",
+  "experiment_type": "label_free_literal_full_width_river_capacity_preflight_v2",
+  "final_memory": {
+    "device_free_bytes": 15641608192,
+    "device_total_bytes": 17094475776,
+    "host_available_physical_bytes": 40974712832,
+    "host_total_physical_bytes": 66129715200,
+    "process_counter_struct_bytes": 80,
+    "process_id": 42252,
+    "process_pagefile_bytes": 1736372224,
+    "process_peak_pagefile_bytes": 1740574720,
+    "process_peak_working_set_bytes": 588328960,
+    "process_private_bytes": 1736372224,
+    "process_working_set_bytes": 584187904
+  },
+  "gates": {
+    "campaign_within_bound": true,
+    "clean_git_state": true,
+    "finite": true,
+    "frozen_hardware": true,
+    "target_gates": true,
+    "typed_memory_telemetry_control": true,
+    "zero_actions_strategy_labels_and_quality_rows": true
+  },
+  "implementation_sha256": "19f89f5124b703b01986c5478ddfbdd7a13c37e6dfc1550062963e51ba488821",
+  "parent_v1_result_sha256": "ff1c757fb1c388c239ca3c7fdacad15bffa6ee62e00b882827ffb5626f40a906",
+  "passed": true,
+  "runtime_at_target_admission": {
+    "compute_capability": "120",
+    "cuda_driver": 13030,
+    "cuda_runtime": 13020,
+    "cupy": "14.2.0",
+    "device_free_bytes": 15641608192,
+    "device_name": "NVIDIA GeForce RTX 5080",
+    "device_total_bytes": 17094475776,
+    "host_available_physical_bytes": 40974659584,
+    "host_total_physical_bytes": 66129715200,
+    "numpy": "2.5.2",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "process_counter_struct_bytes": 80,
+    "process_id": 42252,
+    "process_pagefile_bytes": 1736372224,
+    "process_peak_pagefile_bytes": 1740574720,
+    "process_peak_working_set_bytes": 588328960,
+    "process_private_bytes": 1736372224,
+    "process_working_set_bytes": 584142848,
+    "python": "3.14.6",
+    "scipy": "1.18.0"
+  },
+  "schema_version": "full-width-river-capacity-preflight-v2-result-v1",
+  "source_commit": "6fb001d58272856c35a437d49a7407c13ba77d48",
+  "source_dirty": false,
+  "target": {
+    "admission_checks": {
+      "bidirectional_topology_preserves_live_host_reserve": false,
+      "bidirectional_topology_within_host_numeric_cap": false,
+      "optimistic_scalar_within_host_numeric_cap": false,
+      "resident_belief_preserves_live_device_reserve": false,
+      "resident_belief_within_device_numeric_cap": false
+    },
+    "allocation_lower_bound": {
+      "axis_masks_numeric_bytes": 39608,
+      "base_topology_numeric_bytes": 249485611328,
+      "base_workspace_numeric_bytes": null,
+      "bidirectional_topology_numeric_bytes": 437433864128,
+      "component_count": 1,
+      "excluded_from_numeric_lower_bound": [
+        "python_container_overhead",
+        "construction_temporaries",
+        "incidence_key_sets",
+        "workspace_when_incidence_cardinality_is_unavailable",
+        "sparse_cpu_and_gpu_operators",
+        "showdown_automata_and_tensor_trains",
+        "contraction_products_results_and_scratch"
+      ],
+      "hand_counts": [
+        990,
+        990,
+        990,
+        1,
+        990,
+        990
+      ],
+      "left": {
+        "half_numeric_bytes": 14661108000,
+        "query_ids_numeric_bytes": 187662182400,
+        "query_signs_numeric_bytes": 46915545600,
+        "records": 733055400,
+        "seats": 3,
+        "source_ids_numeric_bytes": 187662182400,
+        "subset_count": 64
+      },
+      "open_workspace_numeric_bytes": null,
+      "optimistic_scalar_topology_numeric_bytes": 202627279808,
+      "resident_belief_numeric_bytes": 14678987408,
+      "reverse_topology_numeric_bytes": 187948252800,
+      "right": {
+        "half_numeric_bytes": 17879400,
+        "query_ids_numeric_bytes": 228856320,
+        "query_signs_numeric_bytes": 57214080,
+        "records": 893970,
+        "seats": 3,
+        "source_ids_numeric_bytes": 228856320,
+        "subset_count": 64
+      },
+      "semantics": "exact_persistent_numeric_arrays_only_lower_bound_excludes_python_temporaries_sparse_operators_automata_and_scratch",
+      "split_index": 3
+    },
+    "capacity_admitted": false,
+    "gates": {
+      "conditional_warm_contraction": true,
+      "exact_compatible_record_arithmetic": true,
+      "exact_street_axes": true,
+      "finite": true,
+      "optimistic_scalar_cross_check": true,
+      "preallocation_guard_before_target_topology": true,
+      "reduced_complete_path_control": true,
+      "target_unit_within_bound": true,
+      "typed_terminal": true,
+      "zero_actions_strategy_labels_and_quality_rows": true,
+      "zero_cartesian_materialization": true
+    },
+    "gates_passed": true,
+    "resource_caps": {
+      "emission_reserve_ms": 1000.0,
+      "maximum_device_resident_numeric_bytes": 12000000000,
+      "maximum_host_persistent_numeric_bytes": 48000000000,
+      "maximum_warm_contraction_ms": 14000.0,
+      "minimum_device_free_reserve_bytes": 2000000000,
+      "minimum_host_free_reserve_bytes": 8000000000,
+      "street_action_wall_ms": 15000.0
+    },
+    "river_semantics": {
+      "available_cards": 45,
+      "belief_digest": "1ed46f070fbaa381397b4ffc7adeba8c84e49f3da9b84d3451d58e91248d15eb",
+      "board": [
+        "2c",
+        "7d",
+        "9h",
+        "Js",
+        "Qc"
+      ],
+      "cartesian_assignments": 950990049900000,
+      "compatible_assignments": 361767238232400,
+      "controlled_hand": [
+        "Ks",
+        "Td"
+      ],
+      "controlled_seat": 3,
+      "opponent_axes": 5,
+      "opponent_hand_count": 990
+    },
+    "street_inventory": [
+      {
+        "cartesian_assignments": 2758547353515625,
+        "compatible_assignments": 1164876344478000,
+        "digest": "2a1dfd8e41f39afb8fbe3eb36faf94d9cd2711a3b5e9add24d32e6632abee4d2",
+        "known_cards": 2,
+        "opponent_hand_counts": [
+          1225,
+          1225,
+          1225,
+          1225,
+          1225
+        ],
+        "persistent_numeric_bytes": 98008,
+        "street": "preflop"
+      },
+      {
+        "cartesian_assignments": 1476143130389401,
+        "compatible_assignments": 587192769563400,
+        "digest": "e40d7ef21d28803d1d5876dadcfbbd22e6edf6f3d5f31d3a019559115320e2d1",
+        "known_cards": 5,
+        "opponent_hand_counts": [
+          1081,
+          1081,
+          1081,
+          1081,
+          1081
+        ],
+        "persistent_numeric_bytes": 86488,
+        "street": "flop"
+      },
+      {
+        "cartesian_assignments": 1187686305646875,
+        "compatible_assignments": 462258137741400,
+        "digest": "891a3f72bca5b284c87c4e5f4388537cbb1d98267c5502595be01b4a05db2599",
+        "known_cards": 6,
+        "opponent_hand_counts": [
+          1035,
+          1035,
+          1035,
+          1035,
+          1035
+        ],
+        "persistent_numeric_bytes": 82808,
+        "street": "turn"
+      },
+      {
+        "cartesian_assignments": 950990049900000,
+        "compatible_assignments": 361767238232400,
+        "digest": "1ed46f070fbaa381397b4ffc7adeba8c84e49f3da9b84d3451d58e91248d15eb",
+        "known_cards": 7,
+        "opponent_hand_counts": [
+          990,
+          990,
+          990,
+          990,
+          990
+        ],
+        "persistent_numeric_bytes": 79208,
+        "street": "river"
+      }
+    ],
+    "target_priming_contractions": 0,
+    "target_scalar_contractions": 0,
+    "target_topology_builds": 0,
+    "target_wall_seconds": 0.04558259999612346,
+    "target_warm_contractions": 0,
+    "terminal": "representation_rejected_before_target_allocation",
+    "workload": null
+  },
+  "target_semantics": "exact_adr0363_target_unchanged_only_windows_process_memory_abi_replaced",
+  "telemetry_contract": "explicit_win64_signatures_psapi_kernel32_and_powershell_sampling_control",
+  "typed_memory_telemetry_control": {
+    "gates": {
+      "counter_structure_is_80_bytes": true,
+      "nonnegative_counters": true,
+      "peak_working_set_not_below_working_set": true,
+      "process_identity": true,
+      "psapi_kernel32_within_sampling_allowance": true,
+      "win32_powershell_within_sampling_allowance": true
+    },
+    "maximum_delta_bytes": 536870912,
+    "passed": true,
+    "powershell": {
+      "process_id": 42252,
+      "process_peak_working_set_bytes": 41754624,
+      "process_private_bytes": 803917824,
+      "process_working_set_bytes": 41717760
+    },
+    "psapi_kernel32_absolute_deltas": {
+      "process_peak_working_set_bytes": 4096,
+      "process_private_bytes": 0,
+      "process_working_set_bytes": 4096
+    },
+    "snapshot": {
+      "host_available_physical_bytes": 41525972992,
+      "host_total_physical_bytes": 66129715200,
+      "kernel32": {
+        "process_pagefile_bytes": 803627008,
+        "process_peak_pagefile_bytes": 803627008,
+        "process_peak_working_set_bytes": 41611264,
+        "process_private_bytes": 803627008,
+        "process_working_set_bytes": 41611264
+      },
+      "process_counter_struct_bytes": 80,
+      "process_id": 42252,
+      "process_pagefile_bytes": 803627008,
+      "process_peak_pagefile_bytes": 803627008,
+      "process_peak_working_set_bytes": 41611264,
+      "process_private_bytes": 803627008,
+      "process_working_set_bytes": 41611264,
+      "psapi": {
+        "process_pagefile_bytes": 803627008,
+        "process_peak_pagefile_bytes": 803627008,
+        "process_peak_working_set_bytes": 41607168,
+        "process_private_bytes": 803627008,
+        "process_working_set_bytes": 41607168
+      }
+    },
+    "win32_powershell_absolute_deltas": {
+      "process_peak_working_set_bytes": 143360,
+      "process_private_bytes": 290816,
+      "process_working_set_bytes": 106496
+    }
+  }
+}

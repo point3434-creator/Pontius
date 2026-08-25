@@ -15,11 +15,17 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept the additive typed telemetry primitive, outcome-neutral v2 overlay,
-new exclusive owner, controls, and source seal below. Keep the v2 result path
-absent at this commit. Invoke the v2 owner exactly once from the resulting
-clean commit and retain its first terminal without repair or retry. Never edit
-or invoke the v1 runner.
+Retain the exact 11,602-byte first terminal and permanently close the ADR-0365
+owner. Accept its recorded pass and its typed target terminal
+`representation_rejected_before_target_allocation`. Every protocol gate and
+every target gate is true. The rejection is the intended safe outcome of a
+successful pre-allocation measurement, not a failed experiment.
+
+The current explicit-half-assignment FactorTT lineage does not fit the literal
+full-width target under the frozen workstation caps. No target topology,
+scalar contraction, resident priming call, or warm contraction executed. Begin
+a separately preregistered exact non-enumerative representation successor.
+Do not automatically authorize certified support truncation.
 
 ADR-0364's retained v1 terminal remains exactly `GetProcessMemoryInfo failed`;
 it contains no control or target payload and answers no capacity question.
@@ -63,16 +69,16 @@ fresh value-unopened confirmation. ADR-0360 fixes that population; ADR-0361
 owns and consumes the sole invocation; ADR-0362 alone performs the artifact-
 only scientific assessment. ADR-0363 owns and consumes the sole v1 full-width
 capacity invocation; ADR-0364 retains its pre-capacity typed failure; ADR-0365
-alone source-seals the additive v2 successor. No earlier owner is revived.
+owns and consumes the sole v2 capacity invocation; ADR-0366 retains its exact
+representation rejection. No earlier owner is revived.
 
 ADR-0355 and ADR-0358 each said invoke exactly once; both owners stay closed.
 ADR-0360 required an exclusive untouched legal h4 owner; ADR-0361 consumed it.
-ADR-0363 required one literal capacity owner invocation; it is consumed and
-cannot serve as v2 authority.
+ADR-0363 and ADR-0365 each owned one capacity invocation; both are consumed.
 
 ## Active next
 
-From this clean committed ADR-0365 source boundary, verify the v2 result path is absent and invoke `python -B -m pontius.full_width_river_capacity_preflight_v2` exactly once; retain its first exclusive pass, pre-allocation representation rejection, or typed failure without retry; never invoke or edit v1, and interpret any result only within ADR-0363's unchanged representation/warm-leaf scope
+Preserve the exact ADR-0366 rejection and permanently close both capacity owners; preregister an exact non-enumerative full-width river contraction representation that eliminates card-conflict factors without storing compatible three-opponent half assignments, proves reduced-case identity against the current FactorTT and dense oracles, derives pre-allocation memory/work bounds, and keeps certified support truncation as a separate later hypothesis; open no new full-width target before that source seal
 
 ## Revoked authorities
 
@@ -80,7 +86,7 @@ From this clean committed ADR-0365 source boundary, verify the v2 result path is
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0365](docs/decisions/ADR-0365-source-seal-the-typed-telemetry-full-width-capacity-successor.md) — Source-seal the typed-telemetry full-width capacity successor.
+Latest process decision: [ADR-0366](docs/decisions/ADR-0366-retain-the-full-width-factor-tt-representation-rejection.md) — Retain the full-width FactorTT representation rejection.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -88,7 +94,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0342](docs/decisions/ADR-0342-source-seal-the-width-three-transfer-confirmation-owner.md) | 2026-08-24 | accepted source-only width-three transfer-confirmation owner with exact prior-evidence reuse and failure-complete journal; every real confirmation value remains unopened | Source-seal the width-three transfer-confirmation owner |
 | [ADR-0343](docs/decisions/ADR-0343-retain-and-seal-the-width-three-transfer-confirmation.md) | 2026-08-24 | accepted complete real transfer confirmation; all five unchanged conjuncts pass on the exact untouched 16-context panel, confirming unrestricted transfer of the frozen context-local width-three mechanism within this reduced-game scope | Retain and seal the width-three transfer confirmation |
 | [ADR-0344](docs/decisions/ADR-0344-preregister-the-legal-responder-raise-keystone.md) | 2026-08-24 | accepted preregistration and source seal before the first legal responder-raise keystone invocation; no result, strategy label, latency result, or production action exists | Preregister the legal responder-raise sequence-form keystone |
 | [ADR-0345](docs/decisions/ADR-0345-retain-and-seal-the-legal-responder-raise-keystone.md) | 2026-08-24 | accepted finite legal-semantics and sequence-form keystone; the sole source-sealed invocation passes every frozen gate on one deterministic checked-to heads-up river continuation and authorizes only a separately preregistered h4 legal responder-raise open-axis differential | Retain and seal the legal responder-raise semantics keystone |
@@ -112,18 +117,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0363](docs/decisions/ADR-0363-preregister-the-literal-full-width-river-capacity-preflight.md) | 2026-08-25 | accepted source-only label-free capacity preregistration before the sole literal full-width invocation | Preregister the literal full-width river capacity preflight |
 | [ADR-0364](docs/decisions/ADR-0364-retain-the-full-width-capacity-telemetry-failure.md) | 2026-08-25 | accepted retained first-terminal plumbing rejection; the sole ADR-0363 owner invocation failed before reduced control or literal target accounting, answers no capacity question, and is permanently closed | Retain the full-width capacity telemetry failure |
 | [ADR-0365](docs/decisions/ADR-0365-source-seal-the-typed-telemetry-full-width-capacity-successor.md) | 2026-08-25 | accepted source-only typed-Windows-telemetry successor; v1 remains closed and every v2 capacity target value remains unopened | Source-seal the typed-telemetry full-width capacity successor |
+| [ADR-0366](docs/decisions/ADR-0366-retain-the-full-width-factor-tt-representation-rejection.md) | 2026-08-25 | accepted finite label-free representation rejection; every v2 protocol and target gate passes, the current explicit-half-assignment FactorTT lineage is rejected before target allocation, and no complete-solve, action, quality, truncation, or strength claim is opened | Retain the full-width FactorTT representation rejection |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0365](docs/decisions/ADR-0365-source-seal-the-typed-telemetry-full-width-capacity-successor.md) — Source-seal the typed-telemetry full-width capacity successor.
+- Latest ADR: [ADR-0366](docs/decisions/ADR-0366-retain-the-full-width-factor-tt-representation-rejection.md) — Retain the full-width FactorTT representation rejection.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 365.
-- ADR-header SHA-256: `49609b5f19b5a8317b24865a4672dcaea6e13a87abf96e64685ba06cc5fcff20`.
-- Current blockers: no literal full-width capacity result, scalable replacement contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 366.
+- ADR-header SHA-256: `f0bebc7b215a4110a825d5bfc721499e495c94770b16dc5d988f9b2c4fd2d29a`.
+- Current blockers: no scalable exact replacement contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0365](docs/decisions/ADR-0365-source-seal-the-typed-telemetry-full-width-capacity-successor.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0366](docs/decisions/ADR-0366-retain-the-full-width-factor-tt-representation-rejection.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

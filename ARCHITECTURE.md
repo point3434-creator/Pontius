@@ -1401,6 +1401,18 @@ model, and delegates only the unchanged reduced control and target functions.
 It owns new telemetry, Git, protocol, failure, and exclusive-write seams. Its
 result path remains absent until the one clean-commit invocation.
 
+ADR-0366 records that invocation's passing guard and rejecting admission. The
+literal left half has 733,055,400 compatible three-opponent records; its 64-way
+query/source tables dominate storage. Exact persistent numeric lower bounds are
+249,485,611,328 bytes for the base topology and 437,433,864,128 bytes
+bidirectionally. An optimistic singleton placement still needs
+202,627,279,808 bytes, while the resident belief alone needs 14,678,987,408
+bytes. All host/device cap and reserve checks reject before allocation, so no
+target topology or contraction exists. The replacement architecture must
+eliminate card-conflict factors without explicit compatible-half records and
+must preserve forward plus reverse/open semantics under reduced exact oracles.
+Support truncation is not part of this conclusion.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

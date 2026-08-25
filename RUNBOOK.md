@@ -1987,3 +1987,23 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     they do not enlarge resource caps, action time, or claims. Any v2 terminal
     remains one representation/warm-leaf diagnostic, not a complete solve,
     action, decision-quality result, or strength claim.
+
+81. ADR-0366 permanently closes v2 and retains its exact 11,602-byte result,
+    SHA-256
+    `b486e3ac0269122fc3d578f9fc708ae9bd7472760c7b0603670464df1906b991`.
+    Never invoke either capacity owner again. Verify the artifact through:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest `
+      tests.test_full_width_river_capacity_preflight_v2_result
+    ```
+
+    Report the terminal exactly as
+    `representation_rejected_before_target_allocation`: every protocol/target
+    gate passes, all five admission checks reject, and target topology/scalar/
+    prime/warm call counts are zero. The exact lower bounds are 249,485,611,328
+    base bytes, 437,433,864,128 bidirectional bytes, 202,627,279,808 optimistic
+    scalar bytes, and 14,678,987,408 resident-belief bytes. The reduced-control
+    2.0296 ms warm call is not full-width or action latency. Next source-seal an
+    exact non-enumerative representation; do not infer or select truncation.

@@ -1243,6 +1243,30 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_full_width_factor_tt_representation_rejection_is_retained(self) -> None:
+        expected = {
+            "README.md": ("ADR-0366", "437.434 GB"),
+            "PROJECT.md": ("ADR-0366", "five cap/reserve conjuncts"),
+            "STATUS.md": (
+                "ADR-0366",
+                "representation_rejected_before_target_allocation",
+            ),
+            "ROADMAP.md": ("ADR-0366", "202.627 GB"),
+            "RUNBOOK.md": (
+                "b486e3ac0269122fc3d578f9fc708ae9bd7472760c7b0603670464df1906b991",
+                "Never invoke either capacity owner again",
+            ),
+            "ARCHITECTURE.md": ("ADR-0366", "733,055,400"),
+            "RISK_REGISTER.md": ("R127", "discarded-mass-to-chip-value"),
+            ".gitattributes": (
+                "/experiments/results/full-width-river-capacity-preflight-v2.json -text",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

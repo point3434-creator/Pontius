@@ -609,6 +609,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   model, the new ABI source, owner, and controls, then delegates only to v1's
   unchanged reduced control and target functions. Its new `-text` result path
   is absent. Invoke v2 once from the clean source commit; v1 stays closed.
+- ADR-0366 retains v2's sole 11,602-byte passing terminal and closes both
+  capacity owners. The current representation is rejected before allocation:
+  its exact numeric-array lower bounds are 249.486 GB base, 437.434 GB
+  bidirectional, 202.627 GB even under the optimistic scalar ordering, and
+  14.679 GB for the resident belief. All five cap/reserve conjuncts reject and
+  all target/protocol gates pass; zero target contractions execute. This kills
+  explicit compatible-half assignment storage, not literal full width under a
+  different exact representation. The next gate is non-enumerative exact
+  card-conflict elimination. Truncation remains separately uncertified.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

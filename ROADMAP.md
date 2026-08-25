@@ -1253,13 +1253,23 @@ queue:
   PowerShell sampling control, exact v1 lineage rebinding, outcome-free pinned
   GPU seam, and additive exclusive writer are sealed. The v2 target remains
   unopened; invoke it exactly once from the clean ADR-0365 commit next.
+  ADR-0366 now retains that sole invocation: every gate passes, but all five
+  admission checks reject before allocation. The current base/bidirectional
+  lower bounds are 249.486/437.434 GB, optimistic scalar is 202.627 GB, and
+  resident belief is 14.679 GB; zero literal target calls execute. Retire the
+  explicit-half-assignment representation. Next preregister an exact
+  non-enumerative card-conflict contraction with reduced dense/current-FactorTT
+  identity and pre-allocation work/memory bounds. Do not silently select
+  truncation.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
   memory diagnostic only; it supplies no strategy-quality prior. A failure
   triggers representation work before more h32 optimization. The ADR-0363
   invocation did not reach that question; first retire its typed-Windows ABI
-  plumbing defect behind a new source seal.
+  plumbing defect behind a new source seal. ADR-0366 completes that recovery
+  and rejects the current representation; this lane now moves to an exact
+  non-enumerative successor before another full-width probe.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

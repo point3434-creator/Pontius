@@ -1626,12 +1626,11 @@ class DocumentationIntegrityTests(unittest.TestCase):
         ):
             self.assertIn(phrase, adr)
 
-    def test_literal_45_quotient_owner_is_source_sealed_but_uninvoked(self) -> None:
+    def test_literal_45_quotient_source_seal_remains_historical(self) -> None:
         expected = {
             "README.md": ("ADR-0383", "35-allocation"),
             "PROJECT.md": ("ADR-0383", "all target counters zero"),
-            "STATUS.md": ("ADR-0383", "one clean public invocation"),
-            "ROADMAP.md": ("ADR-0383", "artifact-only assessment"),
+            "ROADMAP.md": ("ADR-0383", "inert config/mechanism/runner"),
             "RUNBOOK.md": ("ADR-0383", "literal_45_quotient_target_runner"),
             "ARCHITECTURE.md": ("ADR-0383", "Stored pass labels"),
             "RISK_REGISTER.md": ("R147", "one-sided tolerance"),
@@ -1655,7 +1654,7 @@ class DocumentationIntegrityTests(unittest.TestCase):
         for relative in paths:
             payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
             self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
-        self.assertFalse(
+        self.assertTrue(
             (_ROOT / "artifacts/literal_45_quotient_target_v1.jsonl").exists()
         )
         for phrase in (
@@ -1670,6 +1669,53 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "representation_rejected_before_target_allocation",
             "35 ordered named numeric births",
             "never created",
+        ):
+            self.assertIn(phrase, adr)
+
+    def test_literal_45_quotient_result_is_retained_and_bounded(self) -> None:
+        expected = {
+            "README.md": ("ADR-0384", "all 27 gates"),
+            "PROJECT.md": ("ADR-0384", "11,620,834,304"),
+            "STATUS.md": ("ADR-0384", "actual-context quotient bridge"),
+            "ROADMAP.md": ("ADR-0384", "actual legal river-context"),
+            "RUNBOOK.md": ("ADR-0384", "historical lifecycle tombstone"),
+            "ARCHITECTURE.md": ("ADR-0384", "viable full-width river"),
+            "RISK_REGISTER.md": ("R148", "per-solve"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        artifact = _ROOT / "artifacts/literal_45_quotient_target_v1.jsonl"
+        raw = artifact.read_bytes()
+        self.assertEqual(len(raw), 21_663)
+        self.assertEqual(
+            hashlib.sha256(raw).hexdigest(),
+            "a8c4a91416c35ca94c53349a2bb2c1182d0defea7e8d81dd71ff949d98a11970",
+        )
+        adr = _contract_text(
+            "docs/decisions/ADR-0384-retain-the-passing-literal-45-quotient-target.md"
+        )
+        assessment = (
+            _ROOT / "tests/test_literal_45_quotient_target_assessment.py"
+        ).read_bytes().replace(b"\r\n", b"\n")
+        for phrase in (
+            hashlib.sha256(assessment).hexdigest(),
+            "completed_pass",
+            "All 27 gates",
+            "invoke exactly once",
+            "exclusive untouched legal h4",
+            "selector-window",
+            "2,113-task",
+            "exhaustive bounded development-teacher",
+            "response-closed direct mechanism",
+            "caller-owned legal fallback",
+            "GetProcessMemoryInfo failed",
+            "representation_rejected_before_target_allocation",
+            "219,667.20090003219",
+            "116,178.429688",
+            "no action",
         ):
             self.assertIn(phrase, adr)
 

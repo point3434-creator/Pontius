@@ -1653,6 +1653,14 @@ forward/adjoint seam has only the query
 covector plus cardinality offsets live across it. Stored pass labels and
 reporting digests have no authority.
 
+ADR-0384 retains the only invocation and closes the owner. The exact
+literal-45 geometry runs through all 17 ownership transitions with a maximum
+11,620,834,304-byte pool total, then returns default and pinned pools to zero.
+The independent reader reconstructs all 27 gates from the 21,663-byte journal.
+This makes the occupied-card quotient a viable full-width river contraction
+primitive; an actual legal-context adapter into leaf-adjoint evaluation is a
+separate architecture boundary, as are resolver rounds and action timing.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

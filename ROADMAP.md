@@ -1354,9 +1354,11 @@ queue:
   unique adjoint is allocated. ADR-0382 preregisters the separate one-shot
   literal owner, and ADR-0383 source-seals its inert config/mechanism/runner/
   reader with 13 source-only controls after the frozen synthetic injected
-  lifecycle boundary. The next checkpoint is the sole clean public invocation
-  followed by artifact-only assessment; do not make a private target call,
-  retry, or select truncation from a systems terminal.
+  lifecycle boundary. ADR-0384 retains the sole completed invocation and
+  closes the owner: all 27 gates pass at literal width, with 11.620834 GB
+  maximum pool total and zero release. Next bridge one frozen legal river
+  context into this representation under reduced exact controls; do not replay
+  the owner or select truncation, action capacity, or quality from this pass.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1391,9 +1393,12 @@ queue:
   CUDA proof of the rescheduled validation seam and allocator behavior.
   ADR-0381 passes that proof without a target call, ADR-0382 prospectively
   freezes the one-shot literal owner, and ADR-0383 source-seals it with the
-  result absent. The immediate checkpoint is now exactly one clean no-argument
-  invocation and then a separate assessment—not extrapolation from 22 cards,
-  an automatic truncation choice, or an action-capacity claim.
+  result absent. ADR-0384 now retains its sole `completed_pass`: all 27 gates
+  pass, maximum pool total is 11.620834 GB, and absolute pool release closes.
+  The 219.667-second campaign includes a 116.178-second independent direct
+  oracle and is not action latency. The immediate checkpoint is a source-only
+  actual legal river-context quotient bridge with reduced exact differentials,
+  not automatic truncation, a resolver iteration, or a quality claim.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

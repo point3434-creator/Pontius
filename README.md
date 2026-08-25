@@ -689,6 +689,14 @@ header before config, Git, target import, or CuPy; the result is still absent.
 The next boundary is one clean public invocation followed by a separate
 artifact-only assessment, with no retry or smaller-width substitution.
 
+ADR-0384 retains the sole literal-45 invocation. Its 21,663-byte journal
+rebinds to `completed_pass` with all 27 gates true: exact full-width river
+quotient forward/adjoint identity, live admission, modeled ownership, and
+absolute pool release pass on the named RTX 5080. The 219.667-second campaign
+and its 116.178-second direct validation oracle are laboratory evidence, not a
+solve or action result. The next boundary is an actual legal river-context
+quotient bridge, not truncation selection or a quality claim.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

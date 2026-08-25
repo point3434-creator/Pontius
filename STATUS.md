@@ -15,25 +15,27 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept the additive config, target, runner, reader, and controls as the sole
-literal-45 source boundary. Do not invoke it in this decision. The public
-command is exactly:
+Retain the exact 21,663-byte journal and permanently close the ADR-0383
+owner. The standard-library reader reconstructs `completed_pass` with reason
+`all_literal_45_target_gates_passed`. All 27 gates are true. The journal binds
+the clean source commit, config, campaign, exact runtime, one execution, 35
+ordered allocation attempts, 19 scientific calls, 17 telemetry transitions,
+complete chunk covers, numerical observations, ownership, and release. No
+stored digest, terminal label, or `passed` bit decides that result.
 
-```powershell
-$env:PYTHONPATH = "src;."
-& .\.venv\Scripts\python.exe -B -m pontius.literal_45_quotient_target_runner
-```
+Accept this as a passing live capacity and numerical-identity result for the
+literal full-width river quotient primitive on the named Ryzen 9900X / RTX
+5080 workstation. The previous explicit-half-assignment FactorTT
+representation rejection no longer establishes that full-width river
+occupancy itself requires truncation. Certified truncation remains an
+unselected optimization hypothesis, not an authorized recovery and not a
+current prerequisite for this primitive.
 
-It accepts no arguments and owns only
-`artifacts/literal_45_quotient_target_v1.jsonl`. The path has one exact
-`-text` rule, is absent at source seal, and is opened with exclusive `xb`.
-The owner fsyncs a value-free header before loading the config, reading Git
-provenance, importing the target, importing CuPy, compiling the target
-fixture, or allocating a target-shaped numeric array. Every later config,
-Git, runtime, telemetry, admission, import, allocation, scientific, release,
-and protocol failure therefore has a durable place to terminate. An existing
-or torn path consumes the authority; there is no partial, repair, rename, or
-retry path.
+Do not promote the result into an actual poker-context bridge, a CFR or master
+iteration, a solve, an action, an action-width result, a comparison with the
+15-second action wall, decision quality, or strength. The fixture has exact
+full-width river card geometry and a structured affine automaton, but it is
+not a calibrated live belief or a complete resolver customer.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -69,8 +71,9 @@ assessment. ADR-0363 and ADR-0365 remain consumed; ADR-0364 remains exactly
 `representation_rejected_before_target_allocation` with zero target calls.
 ADR-0367 through ADR-0377 own the bounded quotient algebra and CUDA ladder.
 ADR-0378/0379 own only source-level literal liveness. ADR-0380/0381 own only
-the bounded validation seam. ADR-0382 preregisters this owner; ADR-0383 seals
-its source without invoking it. No earlier owner is revived.
+the bounded validation seam. ADR-0382 preregistered the literal owner,
+ADR-0383 source-sealed it, and ADR-0384 alone retains its terminal. No earlier
+owner is revived.
 
 For machine-checked continuity, the canonical historical wording is retained
 without compression. ADR-0317's directive is Separate solver classes and
@@ -86,21 +89,28 @@ legal h4 affine-envelope. ADR-0352's owner is closed by ADR-0353 before any
 fresh untouched tie-aware affine result. ADR-0354 source-seals the factorized
 exact active-set directional-face diagnostic; ADR-0355's owner is closed by
 ADR-0356, which retains the directional-face diagnostic result before
-tie-aware affine integration. ADR-0357 seals the factorized affine consumer and
-requires an exclusive legal h4 owner. ADR-0358 owns its one same-fixture
+tie-aware affine integration. ADR-0357 seals the factorized affine consumer
+and requires an exclusive legal h4 owner. ADR-0358 owns its one same-fixture
 integration invocation, and ADR-0359 permanently closes it while requiring a
 fresh value-unopened confirmation. ADR-0380 freezes the complete ordered
-populations 10 and 22. ADR-0383 source-seals the literal-45 config and owner;
-the active boundary is one clean public invocation after commit.
+populations 10 and 22. ADR-0383 source-sealed the literal-45 config and owner;
+ADR-0384 closes the invocation and opens only the source-only actual-context
+quotient bridge boundary.
 
-The required lifecycle markers remain invoke exactly once, exclusive
-untouched legal h4, selector-window, 2,113-task, exhaustive bounded
-development-teacher, response-closed direct mechanism, and caller-owned legal
-fallback.
+ADR-0363 and ADR-0365 remain consumed. ADR-0364 remains exactly
+`GetProcessMemoryInfo failed`; ADR-0366 remains exactly
+`representation_rejected_before_target_allocation` with zero calls into its
+old target. ADR-0375 remains the zero-stage missing-parent terminal. ADR-0383
+was invoked exactly once and is now consumed. No earlier owner, private path,
+smaller population, retry, allocation order, tolerance, or post-outcome
+configuration was opened. The required lifecycle markers remain invoke
+exactly once, exclusive untouched legal h4, selector-window, 2,113-task,
+exhaustive bounded development-teacher, response-closed direct mechanism,
+and caller-owned legal fallback.
 
 ## Active next
 
-After ADR-0383 and its exact source hashes are committed at a clean boundary, invoke exactly once the no-argument repository `.venv` command `python -B -m pontius.literal_45_quotient_target_runner`; accept its first exclusive durable terminal without retry, repair, alternate path, smaller population, allocator/order substitution, private target call, tolerance change, or post-outcome configuration, then perform a separate artifact-only assessment before any capacity, truncation, timing, solve, action, quality, or strength claim
+Prospectively preregister a source-only actual-context quotient bridge keystone before opening values: bind one frozen legal one-seat river context and its full 990-combo opponent axes into the occupied-card forward/adjoint representation, prove reduced-game equality against the existing exact leaf-adjoint/evaluation lineage, separate preparation construction from resident and warm work, and keep resolver iterations, action emission, quality labels, the 15-second action wall, truncation selection, and blueprint training outside that keystone
 
 ## Revoked authorities
 
@@ -108,7 +118,7 @@ After ADR-0383 and its exact source hashes are committed at a clean boundary, in
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0383](docs/decisions/ADR-0383-source-seal-the-one-shot-literal-45-quotient-owner.md) — Source-seal the one-shot literal-45 quotient owner.
+Latest process decision: [ADR-0384](docs/decisions/ADR-0384-retain-the-passing-literal-45-quotient-target.md) — Retain the passing literal-45 quotient target.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -116,7 +126,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0360](docs/decisions/ADR-0360-source-seal-the-fresh-legal-h4-factorized-affine-confirmation-population.md) | 2026-08-25 | accepted value-unopened source-only confirmation population and successor contract; no fresh legal h4 direction endpoint, best response, selector, affine section, timing, action, quality row, or strategy label has been opened | Source-seal the fresh legal h4 factorized-affine confirmation population |
 | [ADR-0361](docs/decisions/ADR-0361-preregister-the-untouched-legal-h4-factorized-affine-confirmation.md) | 2026-08-25 | accepted source-only preregistration after ADR-0360; the exclusive 32-section owner, frozen downstream direction compiler, reconstruction-complete evidence serializer, exact provenance snapshot, laboratory walls, and first-terminal retention are sealed while every fresh direction endpoint, factorized section, target timing, natural mode, cardinality, action, quality row, and strategy label remains unopened | Preregister the untouched legal h4 factorized-affine confirmation |
 | [ADR-0362](docs/decisions/ADR-0362-retain-the-rejected-terminal-and-rebind-its-scientific-payload.md) | 2026-08-25 | accepted artifact-only scientific assessment; ADR-0361's sole terminal remains a recorded rejection, its writer is permanently consumed, and no byte or historical gate is repaired, while a sealed standard-library owner independently establishes that all 32 fresh legal h4 factorized-affine sections and every intended scientific conjunct completed and that the sole false recorded gate is a deterministic chained-comparison plumbing defect over four actually zero/null emission fields | Retain the rejected terminal and rebind its scientific payload |
 | [ADR-0363](docs/decisions/ADR-0363-preregister-the-literal-full-width-river-capacity-preflight.md) | 2026-08-25 | accepted source-only label-free capacity preregistration before the sole literal full-width invocation | Preregister the literal full-width river capacity preflight |
@@ -140,18 +149,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0381](docs/decisions/ADR-0381-seal-the-bounded-quotient-validation-seam.md) | 2026-08-25 | accepted bounded CUDA validation-seam result; complete 10/22-card forward, refresh, query-only, streamed-dot, release, unique-adjoint, exact-oracle, allocator, telemetry, and mutation gates pass, while literal 45-card allocation, live target admission, target timing, solve, action, quality, truncation, and strength remain unopened | Seal the bounded quotient validation seam |
 | [ADR-0382](docs/decisions/ADR-0382-preregister-the-one-shot-literal-45-quotient-owner.md) | 2026-08-25 | accepted prospective one-shot literal-45 CUDA owner boundary; exact target geometry, fresh-process lifecycle, live host/device admission, streamed validation, phase telemetry, durable first-terminal evidence, numerical gates, release rules, and claims are frozen before target source or allocation, while every literal target result, timing, solve, action, quality, truncation, and strength claim remains unopened | Preregister the one-shot literal-45 quotient owner |
 | [ADR-0383](docs/decisions/ADR-0383-source-seal-the-one-shot-literal-45-quotient-owner.md) | 2026-08-25 | accepted source-sealed but uninvoked literal-45 CUDA owner; exact target fixture, named allocation births, independent samples, live admission, streamed validation, ownership telemetry, durable first-terminal journal, CuPy-free rebinding, and permanent failure classes are implemented and controlled while the public result remains absent and every target value, timing, allocation observation, scalable-contraction, solve, action, quality, truncation, and strength claim remains unopened | Source-seal the one-shot literal-45 quotient owner |
+| [ADR-0384](docs/decisions/ADR-0384-retain-the-passing-literal-45-quotient-target.md) | 2026-08-25 | accepted retained one-shot literal-45 full-width river quotient primitive result; the sole owner terminates `completed_pass`, all 27 independently reconstructed gates pass, exact forward/adjoint identity and live allocator admission/release are established on the named workstation, and the owner is permanently consumed, while an actual poker-context adapter, resolver iteration, solve, action, 15-second decision, decision quality, truncation authority, and strength remain unopened | Retain the passing literal-45 quotient target |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0383](docs/decisions/ADR-0383-source-seal-the-one-shot-literal-45-quotient-owner.md) — Source-seal the one-shot literal-45 quotient owner.
+- Latest ADR: [ADR-0384](docs/decisions/ADR-0384-retain-the-passing-literal-45-quotient-target.md) — Retain the passing literal-45 quotient target.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 383.
-- ADR-header SHA-256: `ff74c2a52b33df7d0bca4209f4a3bec1198b0b604427e5d8aa3643c15fd597d9`.
-- Current blockers: no literal-45 owner invocation, live target admission, allocator high-water, literal scalable full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 384.
+- ADR-header SHA-256: `8e24ab73a83a804960d269e998aad17c42f1ca2c6a12560e10f9751ad55d8faa`.
+- Current blockers: no actual-context full-width quotient bridge, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0383](docs/decisions/ADR-0383-source-seal-the-one-shot-literal-45-quotient-owner.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0384](docs/decisions/ADR-0384-retain-the-passing-literal-45-quotient-target.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

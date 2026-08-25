@@ -2267,3 +2267,13 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     Final discovery at this boundary ran 1,831 tests in 909.737 seconds:
     1,828 passed, two historical optional tests skipped, and only the preserved
     immutable ADR-0365 retained-result absence assertion failed after ADR-0366.
+99. ADR-0384 retains the sole 21,663-byte literal-45 journal and permanently
+    closes the owner. Rebind it only through
+    `literal_45_quotient_target_result`; do not import the target, invoke the
+    runner, repair the artifact, or rerun. The reconstructed terminal is
+    `completed_pass`, all 27 gates pass, maximum pool total is 11,620,834,304
+    bytes, and release returns both pools to zero. The 219,667.201-ms campaign
+    and 116,178.430-ms direct oracle are reporting-only laboratory units, not
+    an iteration, solve, action, 15-second comparison, or quality prior. The
+    config-bound ADR-0383 absent-result test is now a historical lifecycle
+    tombstone and remains unedited.

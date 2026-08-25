@@ -1774,3 +1774,41 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     typed compact-state and fan-piece failures, bounded infrastructure walls,
     and the source-only claims boundary. Preserve its first terminal without
     retry. The full-width capacity preflight remains a separate lane.
+
+73. ADR-0355 source-seals the legal h4 directional-face diagnostic. The
+    prospective result path
+    `experiments/results/legal-responder-raise-h4-directional-face-v1.json`
+    must be absent at the clean source commit. Verify the source boundary with:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m unittest `
+      tests.test_legal_responder_raise_h4_directional_face `
+      tests.test_exact_directional_face_oracle `
+      tests.test_tie_semantics_conformance `
+      tests.test_exact_directional_face_oracle_seal
+    ```
+
+    The config SHA-256 is
+    `5305d2fa43b386d1a7b58bf2dc96943d581013e80ad5f9966438bf11b3289fa7`,
+    the prospective runner canonical-LF SHA-256 is
+    `c7196eb26081c136da37b6ef0098c9ad9813bc78205ab4ea2f6b491a93848c5f`,
+    and its control canonical-LF SHA-256 is
+    `42ce8ff836b0eb6aae57cb87ac4ae113ab85982e3b6a3e6c82edf478867f891f`.
+    Confirm the result path is absent, commit all source and documentation,
+    and require a clean worktree. Then invoke exactly once:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m pontius.legal_responder_raise_h4_directional_face
+    ```
+
+    Retain the first terminal without retry. Do not alter the four inherited
+    directions, 17-point schedule, two-pass face semantics, total/reachable
+    columns, factor/work/seam schema, 100,000 explicit-tree-node guard, 256
+    fan-piece guard, 180-second subject wall, 240-second analysis wall, 16 MiB
+    scientific payload ceiling, 32 MiB result ceiling, or claims
+    boundary after target work begins. No target cardinality, crossing, tie,
+    slope, or cell-count expectation is a gate. Never invoke the closed
+    ADR-0352 owner, and do not interpret the result as action-clock, full-width,
+    multiway, decision-quality, or strength evidence.

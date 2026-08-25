@@ -1063,6 +1063,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_legal_h4_directional_face_diagnostic_is_preregistered(self) -> None:
+        expected = {
+            "README.md": ("ADR-0355", "136 scheduled exact point calls"),
+            "PROJECT.md": ("ADR-0355", "scratch command"),
+            "STATUS.md": ("ADR-0355", "invoke exactly once"),
+            "ROADMAP.md": ("ADR-0355", "outcome is gated"),
+            "RUNBOOK.md": (
+                "5305d2fa43b386d1a7b58bf2dc96943d581013e80ad5f9966438bf11b3289fa7",
+                "Never invoke the closed",
+            ),
+            "ARCHITECTURE.md": (
+                "legal_responder_raise_h4_directional_face",
+                "136 scheduled point faces",
+            ),
+            "RISK_REGISTER.md": ("R116", "escape-sequence text"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

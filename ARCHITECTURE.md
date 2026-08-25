@@ -683,6 +683,18 @@ every named consumer. The legacy Cartesian envelope is used only on bounded
 synthetic controls. No legal h4 value or result path is opened by this source
 seal.
 
+ADR-0355 adds the prospective legal h4 diagnostic around that source without
+opening it. `legal_responder_raise_h4_directional_face` reconstructs the
+retained h4 fixture and four selector-free directions, composes the exact fan
+and face for both target players, and separately evaluates 136 scheduled point faces.
+The artifact schema carries complete fan geometry, active factors,
+dual cardinalities, slope extrema, factor digests, logical work and bigint bit
+lengths. A strict single-snapshot config loader, clean-Git precondition,
+exclusive result creation, and result-byte terminal surround the subject. No
+target cardinality or geometry is frozen as a gate. The public ADR-0352 runner
+remains absent from the call graph, and the prospective result path remains
+absent until the committed one-shot invocation.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

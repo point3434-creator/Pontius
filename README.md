@@ -471,6 +471,16 @@ named consumer to pass its applicable controls. Next comes a separately
 preregistered legal h4 directional-face diagnostic, never a replay of the
 closed ADR-0352 runner.
 
+ADR-0355 now seals that next one-shot diagnostic while all legal h4 face
+outcomes remain unopened. It freezes four inherited directions, two target
+players, eight composed fan/face sections, and 136 scheduled exact point calls.
+The result must retain both cardinalities, both lexicographic extrema, every
+active factor, complete fan geometry, and measurable work with zero tape
+materialization. Cardinality, ties, crossings, slopes, and cell counts are
+observations rather than gates. The clean committed invocation will write one
+exclusive terminal; this is still finite h4 infrastructure, not full-width or
+15-second decision evidence.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

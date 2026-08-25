@@ -491,6 +491,21 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   direction. Next preregister a new exclusive legal h4 directional-face
   diagnostic; do not call the closed ADR-0352 runner. This source seal is not
   target, latency, full-width, quality, or strength evidence.
+- ADR-0355 preregisters the first legal h4 use of that calculus while keeping
+  every target outcome closed. The exact inherited workload is four already-
+  retained directions by two target players, with eight fan/face compositions
+  and 136 point-face calls on the unchanged 17-point dyadic schedule. Every
+  factor, both arbitrary-precision cardinalities, both slope-extremal tapes,
+  the work ledger and bit lengths, complete fan geometry, and their seam are
+  serialized. Target cardinality, ties, crossings, slopes, and cell counts are
+  outcomes, never expected gates. A dirty tree fails before target work and
+  the absent result path accepts only one exclusive terminal. The explicit-
+  tree and fan-piece guards remain distinct from face cardinality. ADR-0355
+  also prospectively corrects ADR-0354's one miscomputed metadata hash: the
+  scratch command edited literal `\r\n` source text instead of line endings;
+  the mechanism manifests and passing controls were unaffected. Next invoke
+  once from the clean source commit. No target, action-clock, full-width,
+  quality, or strength result exists at this checkpoint.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

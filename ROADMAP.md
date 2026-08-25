@@ -1144,6 +1144,16 @@ queue:
   the four inherited directions and schedule. Do not invoke ADR-0352 again,
   and do not treat this source-only mechanism seal as h4, full-width, action-
   clock, quality, or strength evidence.
+  ADR-0355 now preregisters that diagnostic and leaves its result path absent.
+  The target is the exact four inherited directions by two players: eight
+  composed fan/face sections and 136 separate calls on the unchanged dyadic
+  schedule. Complete factor identities, total and reachable cardinalities,
+  both slope extrema, fan cells/facets, seam checks, logical operations and
+  integer bit lengths are retained. No cardinality, tie, crossing, slope, or
+  cell-count outcome is gated. The 100,000 explicit-node and 256 fan-piece
+  guards are not face bounds. Invoke once only after the source boundary is
+  committed clean; preserve pass, rejection, or typed failure and never call
+  ADR-0352. A pass can open only a later integration preregistration.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

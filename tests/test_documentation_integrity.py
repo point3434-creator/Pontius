@@ -1368,6 +1368,45 @@ class DocumentationIntegrityTests(unittest.TestCase):
             payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
             self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
 
+    def test_bootstrap_safe_staged_scaling_v2_owner_is_source_sealed(self) -> None:
+        expected = {
+            "README.md": ("ADR-0376", "tracked"),
+            "PROJECT.md": ("ADR-0376", "before/after-stage wall seams"),
+            "STATUS.md": ("ADR-0376", "bootstrap-safe"),
+            "ROADMAP.md": ("ADR-0376", "one clean exclusive invocation"),
+            "RUNBOOK.md": ("ADR-0376", "Never invoke v1 again"),
+            "ARCHITECTURE.md": ("ADR-0376", "envelope campaign"),
+            "RISK_REGISTER.md": ("R138", "post-outcome solver-free rebinding"),
+            "artifacts/README.md": ("ADR-0375", "v2 result identity"),
+            "src/pontius/gpu_quotient_staged_scaling_v2_runner.py": (
+                "validate_public_bootstrap(config)",
+                "artifact_marker_tracked",
+            ),
+            "src/pontius/gpu_quotient_staged_scaling_v2_result.py": (
+                "envelope/header campaign seam",
+                "campaign_wall_crossed_after_stage",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr_path = (
+            _ROOT
+            / "docs/decisions/ADR-0376-source-seal-the-bootstrap-safe-staged-scaling-v2-owner.md"
+        )
+        adr = adr_path.read_text(encoding="utf-8")
+        for relative in (
+            "experiments/configs/gpu-quotient-staged-scaling-v2.json",
+            "src/pontius/gpu_quotient_staged_scaling_v2_runner.py",
+            "src/pontius/gpu_quotient_staged_scaling_v2_result.py",
+            "tests/test_gpu_quotient_staged_scaling_v2.py",
+            "artifacts/README.md",
+        ):
+            payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
+
 
 if __name__ == "__main__":
     unittest.main()

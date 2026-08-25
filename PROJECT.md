@@ -714,6 +714,18 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   additive, use a new result identity, hash-bind a tracked parent artifact,
   and prove the literal public-path bootstrap before any staged call; the
   scientific stage contract remains exactly ADR-0373's.
+- ADR-0376 source-seals that additive v2 owner. A tracked `artifacts/README.md`
+  is hash-bound by config and verified with exact `git ls-files` provenance;
+  the new public path, derived partial, and both permanently closed v1 paths
+  are checked before Git or stage authority. Eight lifecycle-aware controls
+  pass without a device call, including missing/drifted/existing bootstrap,
+  exclusive replay, first rejection, durable exception, torn/mutated journal,
+  campaign-envelope identity, and distinct before/after-stage wall seams. The
+  six stages and every ADR-0373 scientific field are unchanged. Invoke the
+  clean v2 owner once next; no staged observation exists at this source seal.
+  Full discovery ran 1,785 tests: 1,782 passed, two optional tests skipped,
+  and only the already retained immutable ADR-0365 result-absence predicate
+  failed against ADR-0366's retained result.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

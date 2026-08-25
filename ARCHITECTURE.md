@@ -1569,6 +1569,18 @@ V1 is closed. The next owner must add a tracked hash-bound parent and a new
 result identity, validate the literal bootstrap before stage authority, and
 inherit the ADR-0373 science without editing the sealed v1 files.
 
+ADR-0376 supplies that additive lifecycle architecture. The repository-owned
+artifact marker is both content-hashed and verified as exactly Git-tracked.
+V2 validates its literal result/partial parent and the continued absence of
+both v1 paths before stage authority, then uses its own campaign, header,
+terminal, and exclusive result identities. Its reader binds the journal
+envelope campaign to the semantic header and treats before-stage and after-
+stage campaign-wall crossings as different terminal seams. The public-path
+test transitions from an absence/bootstrap assertion to exact retained-result
+rebinding, so a valid outcome does not manufacture another stale test. This is
+still orchestration only: the inherited six-stage GPU mechanism is unchanged
+and no stage has run at the source boundary.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

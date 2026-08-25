@@ -617,6 +617,21 @@ full dot products, allocation and work ledgers, durable first-terminal
 evidence, and fail-closed stage/campaign walls. Its owner must be source-sealed
 with the real journal absent and can never accept 45 cards.
 
+ADR-0374 implements that owner and source-seals its complete work, allocation,
+raw-evidence, CUDA-ownership, durable-journal, and solver-free reconstruction
+path before any real stage. ADR-0375 retains its sole invocation as a zero-
+stage missing-parent infrastructure failure and permanently closes v1 rather
+than retrying it.
+
+ADR-0376 source-seals the additive recovery. The repository now owns a tracked,
+hash-bound artifact marker; v2 checks that marker, its fresh exclusive paths,
+and both closed v1 paths before stage authority. Eight focused controls pass
+without a real device call, and every ADR-0373 scientific field is unchanged.
+The next capacity act is one clean v2 invocation, not a 45-card probe or an
+action-quality result. Full discovery passed 1,782 of 1,785 tests with two
+optional skips; its sole failure is the already recorded immutable ADR-0365
+pre-invocation absence predicate encountering ADR-0366's retained result.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

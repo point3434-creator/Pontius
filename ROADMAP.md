@@ -1321,6 +1321,13 @@ queue:
   v1. Source-seal an additive v2 with a tracked hash-bound parent, a new
   exclusive result path, and literal bootstrap/no-stage controls while keeping
   every ADR-0373 scientific field unchanged.
+  ADR-0376 now completes that source seal. The tracked marker, literal v2
+  bootstrap, permanently absent v1 paths, clean Git provenance, independent
+  campaign identity, exclusive journal, lifecycle-aware result control, and
+  solver-free terminal seams are hash-bound while all six stages remain
+  unopened. Invoke the clean committed v2 owner exactly once next and retain
+  its first result; do not retry, skip a stage, call 45 cards, or infer action
+  quality from this capacity lane.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1342,9 +1349,10 @@ queue:
   staged-width/live-admission ladder, still stopping before the literal target.
   ADR-0373 preregisters its six stages and terminal semantics. The immediate
   source-plus-control checkpoint completed under ADR-0374, but ADR-0375
-  retains its sole pre-journal missing-parent failure. The immediate checkpoint
-  is a separately sealed bootstrap-safe v2 owner, then its one clean exclusive
-  invocation—not a v1 retry, 45-card call, or action-quality inference.
+  retains its sole pre-journal missing-parent failure. ADR-0376 now seals the
+  bootstrap-safe v2 owner and tracked result parent. The immediate checkpoint
+  is its one clean exclusive invocation—not a v1 retry, 45-card call, or
+  action-quality inference.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

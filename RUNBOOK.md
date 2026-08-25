@@ -2129,3 +2129,49 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     `artifacts/gpu_occupied_card_quotient_staged_scaling_v1.jsonl` and its
     `.partial` path are absent. Do not manually call a private stage, admit 45
     cards, retain only the fastest repetition, or continue after a rejection.
+89. ADR-0374 source-seals the v1 staged owner. Verify its sixteen controls and
+    the inherited bounded mechanism without invoking the public owner:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest `
+      tests.test_gpu_quotient_staged_scaling `
+      tests.test_gpu_occupied_card_quotient `
+      tests.test_occupied_card_quotient `
+      tests.test_full_width_occupied_card_quotient_capacity `
+      tests.test_structured_showdown_automaton `
+      tests.test_factor_tt_contraction
+    ```
+
+    V1 was subsequently consumed by ADR-0375 before journal creation because
+    its public `artifacts/` parent was absent. Never invoke v1 again and never
+    create either v1 result path. That terminal is infrastructure-only and
+    contains no staged or GPU observation.
+90. ADR-0375 requires an additive bootstrap-safe successor. Preserve the
+    missing-parent exception, invoked commit
+    `898ed38afa1ae9fd062035b11a5529f8db9017a1`, and absent v1 paths exactly.
+    Do not reconstruct a v1 terminal or treat parent creation as permission to
+    rerun it. Any successor must own a new config, campaign, header, terminal,
+    result path, tracked-parent binding, and solver-free reader while importing
+    the unchanged ADR-0373 mechanism only.
+91. ADR-0376 seals that v2 successor. Before its sole public invocation, verify
+    the eight focused controls without importing CuPy:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest tests.test_gpu_quotient_staged_scaling_v2
+    ```
+
+    Then, only from the clean committed ADR-0376 source with both v2 paths and
+    both v1 paths absent, invoke exactly once:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m pontius.gpu_quotient_staged_scaling_v2_runner
+    ```
+
+    Retain the first bytes or pre-terminal storage failure without retry. A
+    completed pass authorizes only solver-free assessment of the six non-
+    target stages. It does not authorize a 45-card call, compare this campaign
+    wall with the 15-second action-response wall, select truncation, or imply
+    decision quality or poker strength.

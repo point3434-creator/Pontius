@@ -13,6 +13,7 @@
 - Result owner seal canonical-LF SHA-256: `79ed7bfc126325ca2d4a9468c79a7f9dc2a8d166a0eb7660a052465ee14fbcd4`
 - Result control canonical-LF SHA-256: `95d5292900a687f0823babf0b70dbd1812db631cab115aa8f9c3f9d14facd4b6`
 - Result protocol SHA-256: `42d97ff763bed912393cc6a92f9167565637fa46288730ffab1e5f30582a340a`
+- Artifact Git attribute: `/experiments/results/legal-responder-raise-h4-directional-face-v1.json -text`
 - Front-Door-Kind: controller-v1
 - Front-Door-Research: ADR-0280
 - Front-Door-Process: ADR-0356
@@ -73,6 +74,10 @@ question, ADR-0351 replaced it with the tie-aware legal h4 affine-envelope
 requirement, ADR-0352's owner is closed by ADR-0353 before any fresh untouched
 tie-aware affine result, and ADR-0354 source-seals the factorized exact
 active-set directional calculus. No authority is revived here.
+
+The retained artifact path is committed under an explicit `-text` attribute.
+This preserves its LF byte identity across Windows checkouts; the portability
+rule changes no scientific byte, gate, result, or interpretation.
 
 ADR-0355's **invoke exactly once** authority is consumed permanently. Never
 invoke that runner again. ADR-0348 and ADR-0349 remain selector-window

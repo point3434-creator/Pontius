@@ -516,7 +516,8 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   roughly 59-second bounded diagnostic walls cover the full campaign, not one
   decision or solve. This finite same-fixture development result authorizes
   only a separately preregistered tie-aware affine integration successor and
-  supplies no full-width, 15-second, quality, or strength evidence.
+  supplies no full-width, 15-second, quality, or strength evidence. Its exact
+  artifact path is `-text`, preserving the retained SHA across checkouts.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

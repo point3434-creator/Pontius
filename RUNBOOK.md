@@ -1819,6 +1819,9 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     `experiments/results/legal-responder-raise-h4-directional-face-v1.json`
     byte-for-byte: 3,888,072 bytes, SHA-256
     `5e3473639e67e0a24e21f3c516239c35d4bb7ccb17a6de8d74a5320428af1b49`.
+    Its exact `.gitattributes` entry is
+    `/experiments/results/legal-responder-raise-h4-directional-face-v1.json -text`;
+    never remove that byte-preservation rule.
     Verify the retained result with:
 
     ```powershell

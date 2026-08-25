@@ -58,6 +58,10 @@ requirement, ADR-0352's owner is closed by ADR-0353 before any fresh untouched
 tie-aware affine result, and ADR-0354 source-seals the factorized exact
 active-set directional calculus. No authority is revived here.
 
+The retained artifact path is committed under an explicit `-text` attribute.
+This preserves its LF byte identity across Windows checkouts; the portability
+rule changes no scientific byte, gate, result, or interpretation.
+
 ADR-0355's **invoke exactly once** authority is consumed permanently. Never
 invoke that runner again. ADR-0348 and ADR-0349 remain selector-window
 predecessors only. ADR-0352 remains closed before any fresh untouched tie-aware

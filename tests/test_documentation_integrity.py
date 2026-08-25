@@ -1099,6 +1099,9 @@ class DocumentationIntegrityTests(unittest.TestCase):
                 "147,418",
             ),
             "RISK_REGISTER.md": ("R117", "104,976"),
+            ".gitattributes": (
+                "legal-responder-raise-h4-directional-face-v1.json -text",
+            ),
         }
         for relative, phrases in expected.items():
             text = _contract_text(relative)

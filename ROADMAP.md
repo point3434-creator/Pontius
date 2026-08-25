@@ -1243,12 +1243,19 @@ queue:
   actions/quality labels, an exclusive typed terminal, and the distinction
   between a warm leaf contraction and a CFR step are frozen. Pre-seal static
   target-shape reconnaissance is disclosed but supplies no gate or target
-  evidence. Invoke the owner exactly once from the clean source commit next.
+  evidence. ADR-0364 now retains the sole 798-byte invocation terminal as a
+  pre-capacity plumbing rejection and closes v1 permanently. The untyped
+  Windows process-memory call failed before the reduced control or target;
+  typed PSAPI and Kernel32 diagnostics both succeed, so the next capacity act
+  is a separately source-sealed v2 telemetry owner with unchanged target
+  semantics and a new absent result path—not a v1 retry.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
   memory diagnostic only; it supplies no strategy-quality prior. A failure
-  triggers representation work before more h32 optimization.
+  triggers representation work before more h32 optimization. The ADR-0363
+  invocation did not reach that question; first retire its typed-Windows ABI
+  plumbing defect behind a new source seal.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

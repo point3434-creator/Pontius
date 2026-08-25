@@ -1939,3 +1939,23 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     or treat the future laboratory wall as action-clock evidence. Next create a
     separate preregistered exclusive owner and absent result path before any
     target call.
+
+79. ADR-0364 permanently closes the ADR-0363 full-width-capacity v1 owner and
+    retains its exact 798-byte typed-failure artifact, SHA-256
+    `ff1c757fb1c388c239ca3c7fdacad15bffa6ee62e00b882827ffb5626f40a906`.
+    Never invoke `pontius.full_width_river_capacity_preflight` again. Verify
+    only the retained bytes and bounded interpretation:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest `
+      tests.test_full_width_river_capacity_preflight_result
+    ```
+
+    The terminal says `GetProcessMemoryInfo failed` and contains no control or
+    target payload, so it is not a representation, memory, contraction, or
+    latency result. The earlier incorrect shell commit check did not enter
+    Python; the corrected command invoked the owner exactly once. A successor
+    must use explicitly typed Win32 signatures, bind v1's config/runner/result,
+    use a new absent exclusive path, and earn a clean source seal before any
+    v2 target invocation.

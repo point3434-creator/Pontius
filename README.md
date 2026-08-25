@@ -531,6 +531,13 @@ sections, complete raw fan/face/epigraph serialization, zero tape
 materialization, bounded laboratory walls, and all-or-nothing interpretation.
 The next step is a separate one-shot owner preregistration, not an invocation.
 
+ADR-0364 retains and closes the sole ADR-0363 full-width-capacity invocation.
+Its exact 798-byte artifact is a typed Windows telemetry failure: the untyped
+`GetProcessMemoryInfo` boundary rejected before the reduced control or literal
+target, so no capacity result exists. Explicitly typed PSAPI and Kernel32
+diagnostics both succeed. The successor must be an additive source-sealed v2
+owner with a new exclusive path; never patch or invoke v1 again.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

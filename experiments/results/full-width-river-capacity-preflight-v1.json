@@ -1,0 +1,21 @@
+{
+  "config_sha256": "76d4314b9e509effec1608995d88490a0ad71685b27de2297c3c5d2b4e855fa5",
+  "emissions": {
+    "actions": 0,
+    "quality_claim": null,
+    "strategy_labels": 0,
+    "strategy_quality_rows": 0
+  },
+  "evidence_stage": "preregistered_after_adr0362_before_any_live_literal_full_width_hardware_capacity_invocation",
+  "experiment_type": "label_free_literal_full_width_river_capacity_preflight",
+  "failure": {
+    "message": "GetProcessMemoryInfo failed",
+    "type": "OSError"
+  },
+  "implementation_sha256": "37580cfd6042b12dc0a864b515d5f4e79e0e1733ca5471fa29d41b3d7ad46c90",
+  "passed": false,
+  "schema_version": "full-width-river-capacity-preflight-result-v1",
+  "source_commit": "c7d96241e8642aa85964865a0c90e591a6788f9c",
+  "source_dirty": false,
+  "terminal": "typed_failure"
+}

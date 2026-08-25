@@ -1381,6 +1381,16 @@ full-width solving is impossible. A pass would establish only the measured
 leaf-contraction scope; the complete full-width river strategy bridge remains
 separate.
 
+ADR-0364 closes the v1 owner before this architecture reached its capacity
+branch. The first runtime snapshot called the 64-bit Windows process-memory
+API through undeclared ctypes signatures and retained
+`GetProcessMemoryInfo failed`; no reduced control, allocation record, resource
+admission, topology, or contraction appears in the artifact. A typed diagnostic
+declaring `HANDLE`, pointer, `DWORD`, and `BOOL` signatures succeeds through
+both PSAPI and Kernel32 with the same 80-byte counters structure. The additive
+v2 boundary must own that typed ABI and an independent live sanity check while
+reusing only hash-bound v1 semantics. The v1 module and result are immutable.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

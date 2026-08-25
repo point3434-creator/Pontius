@@ -1200,6 +1200,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_full_width_capacity_telemetry_failure_is_retained_and_bounded(self) -> None:
+        expected = {
+            "README.md": ("ADR-0364", "798-byte"),
+            "PROJECT.md": ("ADR-0364", "pre-capacity plumbing rejection"),
+            "STATUS.md": ("ADR-0364", "GetProcessMemoryInfo failed"),
+            "ROADMAP.md": ("ADR-0364", "separately source-sealed v2"),
+            "RUNBOOK.md": (
+                "ff1c757fb1c388c239ca3c7fdacad15bffa6ee62e00b882827ffb5626f40a906",
+                "Never invoke `pontius.full_width_river_capacity_preflight` again",
+            ),
+            "ARCHITECTURE.md": ("ADR-0364", "80-byte counters structure"),
+            "RISK_REGISTER.md": ("R125", "default integer ABI"),
+            ".gitattributes": (
+                "/experiments/results/full-width-river-capacity-preflight-v1.json -text",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

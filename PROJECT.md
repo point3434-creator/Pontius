@@ -591,6 +591,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   and excluded from the outcome-neutral config and gates. Invoke the owner once
   from its clean commit; retain any capacity rejection or typed failure without
   retry, and do not infer strategy quality or authorize truncation.
+- ADR-0364 retains that sole 798-byte first terminal and permanently closes
+  the ADR-0363 owner. It is a pre-capacity plumbing rejection:
+  `GetProcessMemoryInfo` failed during the first runtime snapshot, before the
+  reduced GPU control, street inventory, allocation ledger, admission guard,
+  topology, or contraction. The artifact contains no control or target fields
+  and therefore answers no capacity question. Independent typed PSAPI and
+  Kernel32 calls both succeed with the same 80-byte structure, isolating the
+  untyped 64-bit ctypes ABI as the binding defect. A separately source-sealed
+  v2 owner with a new exclusive path is required; v1 is never patched or run
+  again.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

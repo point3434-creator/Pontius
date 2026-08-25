@@ -682,6 +682,13 @@ telemetry, and fail-closed release. Target pass, rejection, OOM, and
 infrastructure failure are all permanent first outcomes. Literal 45-card
 values remain unopened until a separate source seal is committed.
 
+ADR-0383 commits that source seal without invoking it. The config hash-binds
+the target, no-argument owner, standard-library rebinder, exact 35-allocation/
+19-scientific-call ledgers, and source-only controls. The owner fsyncs its
+header before config, Git, target import, or CuPy; the result is still absent.
+The next boundary is one clean public invocation followed by a separate
+artifact-only assessment, with no retry or smaller-width substitution.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

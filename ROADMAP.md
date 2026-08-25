@@ -1351,9 +1351,12 @@ queue:
   high-water observations. ADR-0381 now seals its pass: complete exact 10-card
   and multi-chunk 22-card gates close, the observed pool-total high-water is
   204.377 MB under a 271.465 MB model, and every forward array dies before the
-  unique adjoint is allocated. ADR-0382 now preregisters the separate one-shot
-  literal owner. The next checkpoint is its source-only config/mechanism/
-  runner/reader seal with the real artifact absent; do not open 45 cards yet.
+  unique adjoint is allocated. ADR-0382 preregisters the separate one-shot
+  literal owner, and ADR-0383 source-seals its inert config/mechanism/runner/
+  reader with 13 source-only controls after the frozen synthetic injected
+  lifecycle boundary. The next checkpoint is the sole clean public invocation
+  followed by artifact-only assessment; do not make a private target call,
+  retry, or select truncation from a systems terminal.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1386,10 +1389,11 @@ queue:
   was the pure source model and controls. ADR-0379 passes that fixed numeric
   gate with a narrow device margin. ADR-0380 prospectively freezes the bounded
   CUDA proof of the rescheduled validation seam and allocator behavior.
-  ADR-0381 passes that proof without a target call, and ADR-0382 prospectively
-  freezes the one-shot literal owner. The immediate checkpoint is now its
-  source seal with only synthetic injected lifecycle outcomes, not a literal
-  invocation, extrapolation from 22 cards, or an action-capacity claim.
+  ADR-0381 passes that proof without a target call, ADR-0382 prospectively
+  freezes the one-shot literal owner, and ADR-0383 source-seals it with the
+  result absent. The immediate checkpoint is now exactly one clean no-argument
+  invocation and then a separate assessment—not extrapolation from 22 cards,
+  an automatic truncation choice, or an action-capacity claim.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

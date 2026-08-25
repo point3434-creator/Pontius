@@ -2255,3 +2255,15 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     seal tests must not import CuPy or allocate/call 45. Do not invoke a private
     target, infer target values from 22/40 cards, or compare the 600-second
     laboratory guard with the 15-second action wall.
+98. ADR-0383 source-seals the literal-45 owner without invoking it. Its config,
+    target adapter, no-argument runner, standard-library reader, 35 named
+    allocation births, 19 scientific calls, and two source-only test modules
+    are hash-bound; the public artifact remains absent. After this boundary is
+    committed and clean, run exactly
+    `python -B -m pontius.literal_45_quotient_target_runner` from the repository
+    `.venv`. Do not pass arguments, call the target privately, create another
+    path, retry any terminal, alter an allocator/order/width/tolerance, or
+    interpret the 600-second laboratory guard as a 15-second action result.
+    Final discovery at this boundary ran 1,831 tests in 909.737 seconds:
+    1,828 passed, two historical optional tests skipped, and only the preserved
+    immutable ADR-0365 retained-result absence assertion failed after ADR-0366.

@@ -775,6 +775,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   one exclusive/fsynced journal, five permanent terminal classes, and absolute
   allocator release. The source-seal tests may use only injected synthetic
   outcomes; no literal target allocation or value is open.
+- ADR-0383 source-seals the inert owner and independent standard-library
+  reader. Fresh imports leave CuPy absent and all target counters zero; 35
+  ordered named numeric births, 19 scientific calls, exact ownership transitions,
+  nonnegative error intervals, and infrastructure-only wall/release failures
+  are mechanically controlled. The public result remains absent until one
+  post-commit no-argument invocation.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

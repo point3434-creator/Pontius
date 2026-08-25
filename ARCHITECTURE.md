@@ -1642,6 +1642,17 @@ adjoint ownership seam, and retain one permanent pass/rejection/failure
 terminal. The owner, target adapter, and artifact do not yet exist; this is an
 architecture freeze, not allocator evidence.
 
+ADR-0383 implements that boundary while leaving it uninvoked. The source
+layer is deliberately split: a lazy target adapter owns the 45-card numeric
+mechanism; an exclusive no-argument runner fsyncs the header before loading
+any fallible dependency; and a standard-library reader reconstructs every
+terminal from raw admission, allocation, ownership, numerical, chunk, wall,
+and release fields. Thirty-five allocation births are typed to their exact
+ordinal, predecessor transition, and partial-work state, and the
+forward/adjoint seam has only the query
+covector plus cardinality offsets live across it. Stored pass labels and
+reporting digests have no authority.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

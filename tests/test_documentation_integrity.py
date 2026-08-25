@@ -1626,6 +1626,53 @@ class DocumentationIntegrityTests(unittest.TestCase):
         ):
             self.assertIn(phrase, adr)
 
+    def test_literal_45_quotient_owner_is_source_sealed_but_uninvoked(self) -> None:
+        expected = {
+            "README.md": ("ADR-0383", "35-allocation"),
+            "PROJECT.md": ("ADR-0383", "all target counters zero"),
+            "STATUS.md": ("ADR-0383", "one clean public invocation"),
+            "ROADMAP.md": ("ADR-0383", "artifact-only assessment"),
+            "RUNBOOK.md": ("ADR-0383", "literal_45_quotient_target_runner"),
+            "ARCHITECTURE.md": ("ADR-0383", "Stored pass labels"),
+            "RISK_REGISTER.md": ("R147", "one-sided tolerance"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr = _contract_text(
+            "docs/decisions/ADR-0383-source-seal-the-one-shot-literal-45-quotient-owner.md"
+        )
+        paths = (
+            "experiments/configs/literal-45-quotient-target-v1.json",
+            "src/pontius/literal_45_quotient_target.py",
+            "src/pontius/literal_45_quotient_target_runner.py",
+            "src/pontius/literal_45_quotient_target_result.py",
+            "tests/test_literal_45_quotient_target.py",
+            "tests/test_literal_45_quotient_target_result.py",
+        )
+        for relative in paths:
+            payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
+        self.assertFalse(
+            (_ROOT / "artifacts/literal_45_quotient_target_v1.jsonl").exists()
+        )
+        for phrase in (
+            "invoke exactly once",
+            "exclusive untouched legal h4",
+            "selector-window",
+            "2,113-task",
+            "exhaustive bounded development-teacher",
+            "response-closed direct mechanism",
+            "caller-owned legal fallback",
+            "GetProcessMemoryInfo failed",
+            "representation_rejected_before_target_allocation",
+            "35 ordered named numeric births",
+            "never created",
+        ):
+            self.assertIn(phrase, adr)
+
 
 if __name__ == "__main__":
     unittest.main()

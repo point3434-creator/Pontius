@@ -1042,6 +1042,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_exact_directional_face_oracle_is_source_sealed(self) -> None:
+        expected = {
+            "README.md": ("ADR-0354", "two independent"),
+            "PROJECT.md": ("ADR-0354", "1,073,741,824"),
+            "STATUS.md": ("ADR-0354", "directional-face diagnostic"),
+            "ROADMAP.md": ("ADR-0354", "billion-tape"),
+            "RUNBOOK.md": (
+                "cfd37e22b4e3e09321b20f6d6f3bef93f4b8fd35af6ecd13d2166ba3aee7dabf",
+                "zero materialized response tapes",
+            ),
+            "ARCHITECTURE.md": (
+                "exact_directional_face_oracle",
+                "tie_semantics_conformance",
+            ),
+            "RISK_REGISTER.md": ("R115", "point instrument"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

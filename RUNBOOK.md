@@ -1743,3 +1743,34 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     repeated-actor total/reachable, engineered-tie, legacy-breakpoint, and
     distinct-row fail-closed controls. A separate prospective diagnostic must
     own the next h4 result path.
+
+72. ADR-0354 is a source-only seal. Verify its mechanism boundary with:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m unittest `
+      tests.test_exact_directional_face_oracle_seal `
+      tests.test_exact_directional_face_oracle `
+      tests.test_tie_semantics_conformance `
+      tests.test_exact_tie_aware_affine_envelope `
+      tests.test_selector_window_v2 `
+      tests.test_exact_selector_fan
+    ```
+
+    The source-seal SHA-256 is
+    `6e7ace7dff1785954905a2f87fde4ff8913559281de9a2a99e987fbb89d2fc3b`
+    and its protocol SHA-256 is
+    `cfd37e22b4e3e09321b20f6d6f3bef93f4b8fd35af6ecd13d2166ba3aee7dabf`.
+    Expect two independent lexicographic passes, separate total-function and
+    reachable-support cardinalities, exact integer bit-length telemetry, a
+    linear logical-work ledger, and exactly zero materialized response tapes.
+    The 100,000 default is an explicit-tree-node bound and 256 is a normal-fan
+    piece bound; neither limits active-face cardinality.
+
+    Do not run an h4 target from this checkpoint and never invoke the closed
+    ADR-0352 owner. Before the next value, commit a separate preregistration
+    with the four inherited directions and schedule, a new exclusive result
+    path, both cardinality columns, both extrema, complete work/seam fields,
+    typed compact-state and fan-piece failures, bounded infrastructure walls,
+    and the source-only claims boundary. Preserve its first terminal without
+    retry. The full-width capacity preflight remains a separate lane.

@@ -665,6 +665,24 @@ membership/cardinality. Exhaustive small controls remain the oracle for that
 quotient, and a distinct-row/compact-state bound must fail before truncation.
 No h4 target diagnostic is authorized by the rejection itself.
 
+ADR-0354 implements and source-seals that boundary as a directional calculus.
+`exact_directional_face_oracle` builds one bounded explicit finite tree and
+runs two independent exact lexicographic backward passes over the factorized
+local-maximizer face: both maximize response value, while separate selections
+minimize and maximize directional slope. It reports total-function and
+reachable-support cardinalities independently, uses arbitrary-precision
+integers, and records a linear logical-operation ledger plus the cardinality
+bit lengths; no response-tape product is materialized. The point oracle cannot
+locate later basis changes, so `compose_exact_directional_face_fan_section`
+retains `exact_selector_fan` as the ray authority and checks every boundary,
+open-cell row, and future-crossing seam. The 256 bound in that composition is
+a fan-piece guard, not a face-cardinality limit. A mechanical
+`tie_semantics_conformance` registry applies source-tie, positive-measure,
+future-crossing, repeated-actor identity, and high-cardinality controls to
+every named consumer. The legacy Cartesian envelope is used only on bounded
+synthetic controls. No legal h4 value or result path is opened by this source
+seal.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

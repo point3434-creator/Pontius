@@ -459,6 +459,18 @@ and validate a compact affine-row quotient against exhaustive controls before
 another h4 target value is opened. This is representation evidence, not action
 latency, full-width capacity, decision quality, or poker strength.
 
+ADR-0354 source-seals the factorized successor with no h4 target value opened.
+It uses two independent exact lexicographic passes to compute the minimum and maximum
+directional slopes of the complete active response face without materializing
+its Cartesian tape product. Total-function and reachable-support cardinalities
+remain separate arbitrary-precision outputs, and the work ledger reports both
+linear logical operations and integer bit lengths. The exact selector fan
+still owns the full ray; the composed seam control catches a source-dominated
+row crossing at one half. A shared tie-semantics registry now requires every
+named consumer to pass its applicable controls. Next comes a separately
+preregistered legal h4 directional-face diagnostic, never a replay of the
+closed ADR-0352 runner.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

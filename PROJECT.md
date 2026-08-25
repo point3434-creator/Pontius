@@ -475,6 +475,22 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   must represent the total active choice set factorially, keep reachable
   identity descriptive, and prove a compact affine-row quotient against
   exhaustive controls before any separately preregistered h4 diagnostic.
+- ADR-0354 source-seals the representation successor without opening an h4
+  target. `exact_directional_face_oracle` computes the complete active face's
+  minimum and maximum exact directional slopes in two independent
+  lexicographic backward passes; it never materializes a response-tape
+  product. The exact total-function cardinality and the reachable-support
+  quotient are separate arbitrary-precision columns. A logical-work ledger
+  proves operations linear in the explicit tree and reports integer bit
+  lengths; a 30-level control represents 1,073,741,824 total tapes over 61
+  nodes with zero tapes materialized. The existing exact normal fan remains
+  the ray instrument, so a composed future-crossing control detects an
+  initially dominated row crossing at `1/2`. A conformance registry now makes
+  the applicable tie controls mandatory for every named consumer. Float64 tie
+  counts are explicitly uninformative about structural uniqueness in either
+  direction. Next preregister a new exclusive legal h4 directional-face
+  diagnostic; do not call the closed ADR-0352 runner. This source seal is not
+  target, latency, full-width, quality, or strength evidence.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

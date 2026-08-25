@@ -1130,6 +1130,20 @@ queue:
   controls, and open no h4 target value until a separate diagnostic is
   preregistered. This representation arc remains independent of literal full-
   width capacity and supplies no action-clock or quality prior.
+  ADR-0354 now source-seals that successor without opening a legal h4 target.
+  One point instrument runs two independent exact lexicographic backward
+  passes to minimize and maximize slope over the factorized active face; the
+  existing exact normal fan remains the ray instrument that sees inactive
+  rows crossing later. Total-function and reachable-support cardinalities are
+  separate arbitrary-precision columns. A measurable work ledger reports
+  zero materialized tapes, linear logical operations in the explicit tree,
+  and exact-integer bit lengths; the billion-tape control passes over 61 tree
+  nodes. The composed future-crossing seam, repeated-actor quotient, zero-
+  support, positive-measure tie, and shared consumer-conformance controls pass.
+  Next preregister one new exclusive legal h4 directional-face diagnostic over
+  the four inherited directions and schedule. Do not invoke ADR-0352 again,
+  and do not treat this source-only mechanism seal as h4, full-width, action-
+  clock, quality, or strength evidence.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

@@ -797,6 +797,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   has zero chip error per legal deal, exact literal forward/transpose
   identities, and sub-`2e-11` inherited-consumer differentials. No full-width
   quotient value, solve, action, 15-second result, or quality claim exists.
+- ADR-0387 preregisters the actual-context consumer-capacity seam before its
+  source or any value. The exact global feature partition is 128+48, with
+  reach at global index 175 owned once and conditional normalization forbidden
+  until partial numerator/reach recombination. Forward streams 65,536 labeled
+  records; adjoint streams 10,922 complete six-label occupancies rather than
+  reusing that numerical knob. Named lifetime rows, forward-before-adjoint
+  release, fixed caps, a complete ten-card rank-175 exact differential, and
+  allocation/semantic mutations are frozen. No CuPy, capacity verdict,
+  full-width contraction, iteration, action, timing, or quality result exists.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

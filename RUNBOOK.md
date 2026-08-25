@@ -2298,3 +2298,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     Final discovery ran 1,845 tests in 922.346 seconds: 1,841 passed, two
     historical optional GPU tests skipped, and only the two immutable
     ADR-0365/0366 and ADR-0383/0384 post-result absence tombstones failed.
+102. ADR-0387 preregisters the actual-context consumer-capacity seam. Preserve
+    config SHA-256
+    `7cc8fec2b6cb6b7b135f2f7ea5dd74e1a5a3cd4b4a2c48d2b6f8ddde141bb71d`
+    before source. Treat `[0,128)` and `[128,176)` as global feature ranges;
+    reach feature 175 appears only in the second, and normalization happens
+    only after both partial numerator/reach contributions combine. Forward
+    uses 65,536 labeled-record chunks; adjoint uses 10,922 complete query
+    occupancies (65,532 labels) and 32,768 source occupancies. Run only the
+    CuPy-free named-lifetime model and complete ten-card exact differential;
+    do not import the consumed literal owner, allocate the declared shapes, or
+    open a full-width value, iteration, action, timing, or quality field.

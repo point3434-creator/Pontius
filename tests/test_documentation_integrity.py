@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import unittest
 from pathlib import Path
@@ -1809,6 +1810,105 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "representation_rejected_before_target_allocation",
             "1.7053025658242404e-13",
             "0.0009707317118028413",
+            "no action",
+        ):
+            self.assertIn(phrase, adr)
+
+    def test_actual_context_quotient_consumer_capacity_is_preregistered(self) -> None:
+        expected = {
+            "README.md": ("ADR-0387", "reach feature 175"),
+            "PROJECT.md": ("ADR-0387", "10,922 complete six-label occupancies"),
+            "STATUS.md": ("ADR-0387", "consumer-capacity"),
+            "ROADMAP.md": ("ADR-0387", "global 128+48 partition"),
+            "RUNBOOK.md": (
+                "ADR-0387",
+                "7cc8fec2b6cb6b7b135f2f7ea5dd74e1a5a3cd4b4a2c48d2b6f8ddde141bb71d",
+            ),
+            "ARCHITECTURE.md": ("ADR-0387", "forward release before adjoint birth"),
+            "RISK_REGISTER.md": ("R151", "slice-local state 0"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        config_path = (
+            _ROOT
+            / "experiments/configs/legal-river-quotient-consumer-capacity-v1.json"
+        )
+        config = config_path.read_bytes().replace(b"\r\n", b"\n")
+        self.assertEqual(
+            hashlib.sha256(config).hexdigest(),
+            "7cc8fec2b6cb6b7b135f2f7ea5dd74e1a5a3cd4b4a2c48d2b6f8ddde141bb71d",
+        )
+        parsed = json.loads(config)
+        source_paths = {
+            "adr0386": _ROOT
+            / "docs/decisions/ADR-0386-source-seal-the-actual-context-quotient-bridge.md",
+            "bridge_config": _ROOT
+            / "experiments/configs/legal-river-quotient-bridge-v1.json",
+            "full_width_quotient_capacity": _ROOT
+            / "src/pontius/full_width_occupied_card_quotient_capacity.py",
+            "gpu_occupied_card_quotient": _ROOT
+            / "src/pontius/gpu_occupied_card_quotient.py",
+            "gpu_quotient_staged_scaling": _ROOT
+            / "src/pontius/gpu_quotient_staged_scaling.py",
+            "legal_river_quotient_bridge": _ROOT
+            / "src/pontius/legal_river_quotient_bridge.py",
+            "literal_45_quotient_liveness": _ROOT
+            / "src/pontius/literal_45_quotient_liveness.py",
+            "occupied_card_quotient": _ROOT
+            / "src/pontius/occupied_card_quotient.py",
+            "structured_showdown_automaton": _ROOT
+            / "src/pontius/structured_showdown_automaton.py",
+        }
+        self.assertEqual(set(parsed["expected_sources"]), set(source_paths))
+        for label, path in source_paths.items():
+            payload = path.read_bytes().replace(b"\r\n", b"\n")
+            self.assertEqual(
+                hashlib.sha256(payload).hexdigest(),
+                parsed["expected_sources"][label],
+            )
+        self.assertEqual(
+            parsed["feature_slices"]["ordered_ranges"], [[0, 128], [128, 176]]
+        )
+        self.assertEqual(parsed["feature_slices"]["ordered_widths"], [128, 48])
+        self.assertEqual(parsed["geometry"]["reach_global_feature_index"], 175)
+        self.assertEqual(parsed["geometry"]["total_feature_width"], 176)
+        self.assertEqual(
+            parsed["streaming"]["adjoint_query_occupancy_chunk"]
+            * parsed["streaming"]["query_labels_per_occupancy"],
+            parsed["streaming"]["adjoint_query_record_chunk"],
+        )
+        self.assertNotEqual(
+            parsed["streaming"]["forward_query_record_chunk"],
+            parsed["streaming"]["adjoint_query_record_chunk"],
+        )
+        self.assertTrue(
+            parsed["lifetime_model"][
+                "require_expand_derived_named_arrays_before_phase_sweep"
+            ]
+        )
+        self.assertTrue(
+            all(value is None or value is False for value in parsed["claims"].values())
+        )
+        adr = _contract_text(
+            "docs/decisions/ADR-0387-preregister-the-actual-context-quotient-consumer-capacity-seam.md"
+        )
+        for phrase in (
+            "[0, 128)",
+            "[128, 176)",
+            "10,922 occupancies",
+            "per-slice conditional values",
+            "invoke exactly once",
+            "exclusive untouched legal h4",
+            "selector-window",
+            "2,113-task",
+            "exhaustive bounded development-teacher",
+            "response-closed direct mechanism",
+            "caller-owned legal fallback",
+            "GetProcessMemoryInfo failed",
+            "representation_rejected_before_target_allocation",
             "no action",
         ):
             self.assertIn(phrase, adr)

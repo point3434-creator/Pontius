@@ -1364,9 +1364,12 @@ queue:
   ADR-0386 now source-seals that bridge: the actual context compiles to a
   complete rank 175/width 176 host fixture, and exact settlement/literal/
   transpose plus bounded open-mode/leaf-adjoint and seat-permutation controls
-  pass with CuPy absent. The next capacity-lane checkpoint must be
-  prospectively frozen around this wider consumer and feature-sliced
-  ownership before any full-width value.
+  pass with CuPy absent. ADR-0387 now prospectively freezes that wider
+  consumer: a global 128+48 partition, reach-once fold semantics, separate
+  forward-record and adjoint-occupancy chunks, forward-before-adjoint release,
+  exact phase arithmetic, and an independent ten-card rank-175 differential.
+  Implement and source-seal only that capacity model next; no CuPy or
+  full-width value is yet authorized.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1407,9 +1410,11 @@ queue:
   oracle and is not action latency. ADR-0385 prospectively fixes the source-
   only actual legal river-context bridge and its reduced exact differentials.
   ADR-0386 completes that source seal with the full-width value still
-  unopened. The immediate checkpoint is a prospective source-only rank-175/
-  width-176 consumer-capacity and feature-slicing contract—not automatic
-  truncation, a resolver iteration, action timing, or quality.
+  unopened. ADR-0387 prospectively fixes the source-only rank-175/width-176
+  consumer-capacity and feature-slicing contract. The immediate checkpoint is
+  its CuPy-free source model, named lifetime sweep, bounded exact differential,
+  and fail-closed allocation verdict—not automatic truncation, a resolver
+  iteration, action timing, or quality.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

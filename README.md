@@ -711,6 +711,15 @@ and paired-seat controls pass. Consumer-resident NumPy payload is 15,888,996
 bytes, retained validation is 84,972 bytes, and the 79,216-byte warm view is
 explicitly nonadditive. No action, action timing, or quality result is opened.
 
+ADR-0387 prospectively freezes the next source-only consumer-capacity seam.
+Global feature ranges `[0,128)` and `[128,176)` partition every state plus the
+single reach feature 175 exactly once; partial numerator/reach values normalize
+only after recombination. Forward records and adjoint occupancies now have
+separate typed chunk contracts, full compatible/covector/unique-adjoint arrays
+are forbidden, and forward storage must die before adjoint birth. The capacity
+verdict, CuPy execution, full-width value, resolver, action, and 15-second gate
+all remain unopened.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

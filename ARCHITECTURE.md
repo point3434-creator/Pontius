@@ -1678,6 +1678,17 @@ are resident buffers, while Python card/hand structure is counted in entries
 rather than guessed as numeric bytes. Odd-chip and side-pot leaves remain a
 separate unresolved architecture problem.
 
+ADR-0387 freezes the proposed consumer schedule before implementation. The
+176 global columns are partitioned as `[0,128)` and `[128,176)`; the second
+slice alone owns reach feature 175, and both slices contribute partial
+numerator/reach before one final normalization. A 128-column physical
+workspace is reused, with the 48-column slice recorded as a nonadditive active
+view. Forward signs and folds bounded record chunks; adjoint aggregates only
+whole six-label occupancies and streams unique source occupancies. Full
+compatible, query-covector, unique-adjoint, and record-expanded-adjoint arrays
+are architectural rejections. Phase ownership requires complete forward
+release before adjoint birth, and the source capacity verdict remains open.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

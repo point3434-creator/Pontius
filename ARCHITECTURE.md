@@ -1560,6 +1560,15 @@ counters, and host walls are serialized so a CuPy-free reader can reconstruct
 every gate aggregate and terminal seam. This remains a source architecture:
 the real staged journal is absent, and no timing or live-capacity result exists.
 
+ADR-0375 exposes a lifecycle seam outside that scientific architecture. The
+sole v1 command reached exclusive writer construction while its frozen
+`artifacts/` parent directory was absent. Because writer creation wrapped the
+runner's stage-level exception boundary, no header or infrastructure terminal
+could be persisted; the call graph proves the stage executor was not reached.
+V1 is closed. The next owner must add a tracked hash-bound parent and a new
+result identity, validate the literal bootstrap before stage authority, and
+inherit the ADR-0373 science without editing the sealed v1 files.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

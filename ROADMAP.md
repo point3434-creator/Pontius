@@ -1316,6 +1316,11 @@ queue:
   tear, mutation, and replay controls pass. The real journal remains absent.
   Invoke the clean committed owner exactly once next and retain its first
   terminal; do not continue after rejection or infer the literal target.
+  ADR-0375 now closes that v1 invocation before journal creation: the frozen
+  `artifacts/` parent was absent, so no header or GPU stage ran. Do not retry
+  v1. Source-seal an additive v2 with a tracked hash-bound parent, a new
+  exclusive result path, and literal bootstrap/no-stage controls while keeping
+  every ADR-0373 scientific field unchanged.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1336,9 +1341,10 @@ queue:
   that bounded validation; the open checkpoint is now a prospectively frozen
   staged-width/live-admission ladder, still stopping before the literal target.
   ADR-0373 preregisters its six stages and terminal semantics. The immediate
-  source-plus-control checkpoint is complete under ADR-0374. The immediate
-  checkpoint is its one clean, exclusive staged invocation and artifact-only
-  assessment, not a 45-card call or action-quality inference.
+  source-plus-control checkpoint completed under ADR-0374, but ADR-0375
+  retains its sole pre-journal missing-parent failure. The immediate checkpoint
+  is a separately sealed bootstrap-safe v2 owner, then its one clean exclusive
+  invocation—not a v1 retry, 45-card call, or action-quality inference.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

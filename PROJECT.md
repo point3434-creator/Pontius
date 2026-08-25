@@ -707,6 +707,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   logic—were repaired before sealing and before any staged call. The next act
   is the sole clean committed invocation; 45 cards, the action clock, quality,
   truncation, and strength remain unopened.
+- ADR-0375 retains that sole v1 invocation as pre-journal infrastructure
+  failure. The frozen `artifacts/` parent did not exist, so exclusive writer
+  creation raised before a header, stage loop, or GPU call. Both result paths
+  remain absent, but v1 is consumed and cannot be retried. A successor must be
+  additive, use a new result identity, hash-bind a tracked parent artifact,
+  and prove the literal public-path bootstrap before any staged call; the
+  scientific stage contract remains exactly ADR-0373's.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

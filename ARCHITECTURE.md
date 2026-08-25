@@ -1465,6 +1465,29 @@ price a non-enumerative full-width builder, combination indexing, both
 directional feature tables, labeled query grouping, scratch, automata, tensor
 trains, results, and CPU/GPU placement before a device implementation exists.
 
+ADR-0369 freezes that arithmetic layer before implementation. Each one-seat
+pass permutes its open target onto the query/right half, so the concrete
+operator always maps six-card source occupancies to labeled four-card query
+records. Its reverse is the exact adjoint of that same matrix. It never creates
+the invalid fixed-split alternative with a 733,055,400-record open-query axis.
+
+Source occupancies and containment keys use implicit collision-free
+combination ranks. Query masks and two labeled hand indices remain explicit.
+The proposed device dataflow streams 32,768 source occupancies into one dense
+feature chunk, accumulates the global 164,221-row containment table, then
+streams 65,536 labeled queries at a time. Source and query scratch phases are
+mutually exclusive. The structured showdown automaton is consumed directly;
+allocated tensor-train bytes are zero, while the forbidden dense one-hot export
+is still priced as an exclusion control.
+
+For each term and mixture component, one column belongs to every state after
+the three closed source seats and one to reach. Sunk payoff is an affine fold
+of reach rather than a duplicate feature. The frozen fixture expects source
+rank 175 and feature width 176; a separate safe hand-axis envelope is 2,971.
+Both are arithmetic inputs to a memory model, not throughput evidence. Any
+source-seat unary change rebuilds coefficients and containment marginals in
+full; only query-only changes may reuse them.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

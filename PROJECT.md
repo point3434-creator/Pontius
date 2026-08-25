@@ -645,6 +645,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   failure is ADR-0365's immutable pre-invocation absence assertion encountering
   ADR-0366's correctly retained result. That hash-bound lifecycle defect is
   recorded, not edited or generalized into a failure waiver.
+- ADR-0369 prospectively freezes the separate preallocation model. The runtime-
+  shaped matrix has 8,145,060 six-card source occupancies and 893,970 labeled
+  four-card query records; its adjoint is the same matrix transposed, not a
+  fixed reverse split with an open source seat. Combination ranks make source
+  masks and sparse incidence implicit, while 32,768-source and 65,536-query
+  chunks bound scratch. The model must price the exact fixture width of 176,
+  the safe 2,971-column feature envelope, structured automata, forbidden tensor-
+  train export, results, refresh, both operator directions, and every named
+  host/device array. A source-seat refresh is explicitly a full arithmetic
+  rebuild. No operation count may be converted to the 14-second compute wall;
+  no device source or literal full-width target is authorized.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

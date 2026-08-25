@@ -1318,6 +1318,21 @@ class DocumentationIntegrityTests(unittest.TestCase):
             payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
             self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
 
+    def test_full_width_quotient_preallocation_model_is_preregistered(self) -> None:
+        expected = {
+            "README.md": ("ADR-0369", "2,971-column envelope"),
+            "PROJECT.md": ("ADR-0369", "full arithmetic rebuild"),
+            "STATUS.md": ("ADR-0369", "source-only arithmetic boundary"),
+            "ROADMAP.md": ("ADR-0369", "source/query chunks"),
+            "RUNBOOK.md": ("ADR-0369", "14-second action budget"),
+            "ARCHITECTURE.md": ("ADR-0369", "forbidden dense one-hot export"),
+            "RISK_REGISTER.md": ("R131", "invalid open-source split"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

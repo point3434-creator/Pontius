@@ -1276,6 +1276,13 @@ queue:
   hash-bound ADR-0365 pre-invocation test still asserts v2-result absence after
   ADR-0366 retained it. Preserve that sealed file; any maintained-suite repair
   must rebind this one exact consumed predicate rather than waive failures.
+  ADR-0369 now freezes that pre-allocation checkpoint prospectively. It models
+  one target-specific six-card-source/four-card-labeled-query matrix and its
+  exact adjoint, implicit combinadic source/containment keys, 32,768/65,536
+  source/query chunks, exact fixture width 176, safe feature envelope 2,971,
+  full source-refresh work, automata, forbidden tensor-train export, results,
+  placement, and reserves. Implement and source-seal arithmetic only; memory
+  passage cannot authorize a GPU target or imply passage under 14 seconds.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1288,8 +1295,8 @@ queue:
   preregisters its occupied-card quotient keystone; implement and validate the
   exact CPU reference next, then derive complete pre-allocation bounds under a
   separate seal before any GPU or literal target work. ADR-0368 completes the
-  reference validation; the pre-allocation quotient model is now the only open
-  capacity-lane checkpoint.
+  reference validation. ADR-0369 preregisters the pre-allocation quotient
+  model; its source seal is now the only open capacity-lane checkpoint.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

@@ -574,6 +574,15 @@ tests with two expected skips; the one deterministic failure is the immutable
 ADR-0365 pre-invocation test still requiring ADR-0366's now-retained result to
 be absent. The sealed control is preserved and the lifecycle defect is explicit.
 
+ADR-0369 now freezes the next checkpoint without opening hardware work. The
+preallocation proposal uses implicit combination-ranked six-card source masks,
+retains the 893,970 labeled four-card query records, and prices the exact
+transpose of that same operator. It must account for the 176-column reference-
+hand feature width, a safe 2,971-column envelope, streamed source/query scratch,
+automata, forbidden tensor-train export, results, full source refresh, and
+host/device reserves. A passing byte model will still leave GPU numerical
+identity and the 14-second throughput question unanswered.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

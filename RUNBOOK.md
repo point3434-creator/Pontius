@@ -2037,3 +2037,22 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     source-seal full-width bytes and logical work before writing any GPU or
     literal target source; do not time `Fraction` as an action unit and do not
     introduce support truncation.
+
+84. ADR-0369 opens only a pure arithmetic source seal. The proposed model must
+    keep every open seat on the labeled query/right side, use implicit
+    combination ranks for six-card source occupancies and containment keys,
+    retain the two labeled query hand indices, and distinguish the operator
+    from its exact adjoint. Verify the model and bounded algebra together with:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest `
+      tests.test_full_width_occupied_card_quotient_capacity `
+      tests.test_occupied_card_quotient
+    ```
+
+    Until that source exists, this command's first module is expected to be
+    absent. Do not create a GPU array, invoke either closed capacity owner, or
+    compare logical additions with the 14-second action budget. A later source
+    seal must report fixture and safe-width byte peaks, full source-refresh
+    work, excluded nonnumeric classes, and zero allocated tensor-train bytes.

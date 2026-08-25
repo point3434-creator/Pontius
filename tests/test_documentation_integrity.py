@@ -1267,6 +1267,21 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_occupied_card_quotient_keystone_is_preregistered(self) -> None:
+        expected = {
+            "README.md": ("ADR-0367", "query/right half"),
+            "PROJECT.md": ("ADR-0367", "8,145,060"),
+            "STATUS.md": ("ADR-0367", "occupied-card quotient"),
+            "ROADMAP.md": ("ADR-0367", "topology-stable refresh"),
+            "RUNBOOK.md": ("ADR-0367", "no literal full-width target"),
+            "ARCHITECTURE.md": ("ADR-0367", "exact transpose"),
+            "RISK_REGISTER.md": ("R128", "erases an open seat"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

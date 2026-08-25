@@ -1260,7 +1260,13 @@ queue:
   explicit-half-assignment representation. Next preregister an exact
   non-enumerative card-conflict contraction with reduced dense/current-FactorTT
   identity and pre-allocation work/memory bounds. Do not silently select
-  truncation.
+  truncation. ADR-0367 now freezes the first source-only mechanism: aggregate
+  labeled source assignments by occupied-card union, but only when every
+  source seat is fully summed and the requested open axis is on the query/right
+  half. Its exact 6/4-card containment algebra, transpose, fixed-card
+  projection, source-seat permutation, and topology-stable refresh controls
+  must pass on bounded games before a literal memory/work seal. No full-width
+  target or truncation path is open.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1269,7 +1275,10 @@ queue:
   invocation did not reach that question; first retire its typed-Windows ABI
   plumbing defect behind a new source seal. ADR-0366 completes that recovery
   and rejects the current representation; this lane now moves to an exact
-  non-enumerative successor before another full-width probe.
+  non-enumerative successor before another full-width probe. ADR-0367
+  preregisters its occupied-card quotient keystone; implement and validate the
+  exact CPU reference next, then derive complete pre-allocation bounds under a
+  separate seal before any GPU or literal target work.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

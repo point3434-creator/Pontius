@@ -618,6 +618,18 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   explicit compatible-half assignment storage, not literal full width under a
   different exact representation. The next gate is non-enumerative exact
   card-conflict elimination. Truncation remains separately uncertified.
+- ADR-0367 prospectively freezes the occupied-card quotient algebra before an
+  implementation or target. A directional quotient is valid only when every
+  source-half seat is fully summed and every open private-hand axis is on the
+  query/right half; target-specific alternation must enforce that precondition.
+  Three labeled opponent pairs quotient from 733,055,400 assignments to
+  8,145,060 six-card masks, and two pairs from 893,970 assignments to 148,995
+  four-card masks. Exact inclusion-exclusion needs containment keys only
+  through four cards in this 6/4 seam, but that arithmetic is not a complete
+  allocation or latency result. The next source-only keystone must match dense
+  and current FactorTT/open-mode oracles, the exact transpose, source-seat
+  permutation, fixed-card projection, and topology-stable one-seat refresh.
+  No literal full-width target or truncation mechanism is open.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -552,6 +552,16 @@ current explicit-half-assignment storage, not exact full width itself. The next
 gate is an exact non-enumerative card-conflict representation; truncation has
 not been authorized.
 
+ADR-0367 preregisters that representation's first algebra gate. Labeled
+three-pair source deals may be summed into their six-card occupied masks only
+when all three source seats are closed; every requested open seat must be on
+the query/right half. The resulting disjointness operator is an exact
+subset-containment inclusion-exclusion transform whose reverse is its
+transpose. The frozen small-game controls include dense and current
+FactorTT/open-mode differentials, source-seat permutation, fixed-card
+projection, and cold-versus-topology-stable one-seat refresh. No source,
+full-width capacity, latency, action, or truncation result is opened yet.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

@@ -1413,6 +1413,33 @@ eliminate card-conflict factors without explicit compatible-half records and
 must preserve forward plus reverse/open semantics under reduced exact oracles.
 Support truncation is not part of this conclusion.
 
+ADR-0367 preregisters the replacement's first algebra layer. In a directional
+pass, all source-half seats must be fully summed; every open private-hand mode
+must live on the query/right half. Each target therefore owns a split or seat
+permutation that puts it on the query side. After multiplying every
+seat-specific unary, mixture-component, and tensor-train factor, labeled
+source assignments with the same occupied-card union may be summed losslessly:
+cross-half compatibility observes only that union. An open source seat rejects
+instead of entering the quotient.
+
+The reference operator stores canonical occupied masks and exact coefficients.
+Containment marginals `Z[T] = sum(M superset T, C[M])` answer a query mask `L`
+by `sum(T subset L, (-1)^|T| Z[T])`. Reversing source and query is the exact
+transpose of this disjointness matrix, not a second compatibility rule. The
+fixed controlled hand may be projected out only after proving its cards absent
+from every source axis. For the frozen three-opponent/two-opponent variable
+split, source masks carry six or four cards and both directions need subset
+keys only through cardinality four. The resulting 164,221-key combinatorial
+count excludes feature arrays, query records, scratch, automata, tensor trains,
+refresh work, and placement, so it is not yet an allocation result.
+
+The first implementation is deliberately a bounded exact CPU differential.
+It must reproduce literal compatibility, dense poker enumeration, current
+FactorTT/open-mode results, the transpose dot product, bit-identical
+three-source-seat permutation, and topology-stable one-seat refresh. It has no
+full-width call site. Only after that algebra seal may a separate bound price
+all persistent, scratch, cold, and warm work before a GPU keystone.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

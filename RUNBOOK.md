@@ -2007,3 +2007,13 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     scalar bytes, and 14,678,987,408 resident-belief bytes. The reduced-control
     2.0296 ms warm call is not full-width or action latency. Next source-seal an
     exact non-enumerative representation; do not infer or select truncation.
+
+82. ADR-0367 authorizes no owner invocation and no literal full-width target.
+    Preserve both closed capacity owners. Implement only the bounded exact
+    occupied-card quotient reference whose source seats are all closed and
+    whose open axes are all on the query/right half. Before any memory or GPU
+    successor, require literal/dense/current-FactorTT forward identity, the
+    exact transpose dot product, safe fixed-card projection, bit-identical
+    source-seat permutation, and topology-stable one-seat refresh. The
+    90-fold multiplicity and 164,221 containment keys are arithmetic, not a
+    capacity or latency result; support truncation remains unauthorized.

@@ -696,6 +696,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   admission, durable first-terminal evidence, 120-second stage and 600-second
   campaign stops are conjunctive. The public owner rejects 45 cards; implement
   and source-seal it with the real journal absent before any invocation.
+- ADR-0374 source-seals that owner without opening one staged value. The
+  complete-axis compiler, lane-specific cold/refresh/query-only/adjoint work,
+  all resident unary/factor arrays, exact fixed/live admission, one-thread-per-
+  selected-query-feature direct scan, raw repetition identities, append/fsync
+  journal, and CuPy-free gate rebinder are hash-bound. Sixteen staged controls
+  and the 41-test load-bearing group pass; both real paths remain absent. Four
+  pre-result defects—tautological provenance, query-vs-query-feature CUDA
+  ownership, two omitted resident unary arrays, and summary-trusting reader
+  logic—were repaired before sealing and before any staged call. The next act
+  is the sole clean committed invocation; 45 cards, the action clock, quality,
+  truncation, and strength remain unopened.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -1309,6 +1309,13 @@ queue:
   scans, affine rows, dot products, allocation, work, repeatability, durable
   evidence, and shared stops gate continuation. Implement and source-seal the
   owner with its real journal absent; no stage or 45-card call is open yet.
+  ADR-0374 now completes that source seal. Exact lane-specific work and every
+  resident unary/factor array are priced; raw timing and repeatability rows
+  feed a CuPy-free gate reconstruction; exclusive append/fsync terminals and
+  synthetic pass, scientific rejection, allocation/wall rejection, crash,
+  tear, mutation, and replay controls pass. The real journal remains absent.
+  Invoke the clean committed owner exactly once next and retain its first
+  terminal; do not continue after rejection or infer the literal target.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1329,7 +1336,9 @@ queue:
   that bounded validation; the open checkpoint is now a prospectively frozen
   staged-width/live-admission ladder, still stopping before the literal target.
   ADR-0373 preregisters its six stages and terminal semantics. The immediate
-  checkpoint is source plus synthetic journal/control sealing, not invocation.
+  source-plus-control checkpoint is complete under ADR-0374. The immediate
+  checkpoint is its one clean, exclusive staged invocation and artifact-only
+  assessment, not a 45-card call or action-quality inference.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

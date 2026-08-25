@@ -1549,6 +1549,17 @@ stages, repeat live admission, and append/fsync one durable record only after a
 stage's numerical, work, allocation, wall, and identity gates close. It stops
 on the first typed rejection and is structurally unable to admit 45 cards.
 
+ADR-0374 implements and source-seals that layer. Its pure allocation model
+prices the original, source-refresh, and query-only unaries simultaneously
+with the mode factors and all phase-specific workspaces; the 40-card peak is
+10,046,423,704 bytes before live admission. Cold, warm-full, source-refresh,
+query-only, and adjoint counters have distinct semantic field names. The
+selected direct oracle launches one thread per query-feature and bypasses the
+recurrence. Raw event observations, bit-identity observations, errors, pool
+counters, and host walls are serialized so a CuPy-free reader can reconstruct
+every gate aggregate and terminal seam. This remains a source architecture:
+the real staged journal is absent, and no timing or live-capacity result exists.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

@@ -1913,6 +1913,53 @@ class DocumentationIntegrityTests(unittest.TestCase):
         ):
             self.assertIn(phrase, adr)
 
+    def test_actual_context_quotient_consumer_capacity_is_source_sealed(self) -> None:
+        expected = {
+            "README.md": ("ADR-0388", "9,910,940,332"),
+            "PROJECT.md": ("ADR-0388", "58 named physical rows"),
+            "STATUS.md": ("ADR-0388", "source-sealed CuPy-free"),
+            "ROADMAP.md": ("ADR-0388", "actual-context CUDA-consumer"),
+            "RUNBOOK.md": (
+                "ADR-0388",
+                "57f8a809041af0f02a371e0f19d3910301d7ba6585eeddc34e969da5bef234f2",
+            ),
+            "ARCHITECTURE.md": ("ADR-0388", "58 unique physical"),
+            "RISK_REGISTER.md": ("R152", "2.089-GB numeric margin"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr = _contract_text(
+            "docs/decisions/ADR-0388-source-seal-the-actual-context-quotient-consumer-capacity.md"
+        )
+        for relative in (
+            "src/pontius/legal_river_quotient_consumer_capacity.py",
+            "tests/test_legal_river_quotient_consumer_capacity.py",
+        ):
+            payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
+        for phrase in (
+            "15,973,968",
+            "9,910,940,332",
+            "2,089,059,668",
+            "58 unique physical rows",
+            "2.220446049250313e-16",
+            "live admission is `None`",
+            "invoke exactly once",
+            "exclusive untouched legal h4",
+            "selector-window",
+            "2,113-task",
+            "exhaustive bounded development-teacher",
+            "response-closed direct mechanism",
+            "caller-owned legal fallback",
+            "GetProcessMemoryInfo failed",
+            "representation_rejected_before_target_allocation",
+            "no action",
+        ):
+            self.assertIn(phrase, adr)
+
 
 if __name__ == "__main__":
     unittest.main()

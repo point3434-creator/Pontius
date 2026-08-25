@@ -2309,3 +2309,15 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     CuPy-free named-lifetime model and complete ten-card exact differential;
     do not import the consumed literal owner, allocate the declared shapes, or
     open a full-width value, iteration, action, timing, or quality field.
+103. ADR-0388 source-seals that source-only seam. Run
+    `tests.test_legal_river_quotient_consumer_capacity` with the repository
+    `.venv`, `PYTHONPATH=src;.`, and `-B`. Its complete report must retain 58
+    physical rows, host/device peaks 15,973,968/9,910,940,332 bytes, forward
+    death before adjoint birth, live admission `None`, and all claims null or
+    false. The bounded exact forward/adjoint row digests are respectively
+    `57f8a809041af0f02a371e0f19d3910301d7ba6585eeddc34e969da5bef234f2`
+    and
+    `edc515bc581585c0f3a6feb039b0c6796afdfba306b50d3a082de42b06b2b433`;
+    digests report but do not decide equality. Do not import CuPy, invoke the
+    consumed literal owner, allocate a declared full-width row, or call this a
+    live, 45-card, solve, action-clock, quality, or truncation result.

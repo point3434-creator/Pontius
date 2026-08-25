@@ -15,19 +15,20 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Preregister one additive, CuPy-free capacity seam. Its source successor may
-recompile the ADR-0386 host bridge, inspect exact shapes and NumPy payloads,
-derive typed array rows, sweep their phase lifetimes, and run a bounded exact
-control. It may not import CuPy, call a device, allocate a declared full-width
-shape, execute a 45-card forward, fold, transpose, resolver, master, or action
-path, or import either entry point of the permanently consumed literal target.
+Accept `legal_river_quotient_consumer_capacity` as the source-only answer. The
+module replays ADR-0386's legal river bridge, compares every semantic and
+numeric payload with an independent replay, expands all three aggregate bridge
+classes into physical NumPy shape/dtype rows, validates the prospective
+thirteen-class proposal, and derives every host/device phase total by sweeping
+the 58 expanded row lifetimes. Aggregate byte totals are cross-checks only.
 
-The seam answers only whether one proposed consumer schedule is completely
-priced by source arithmetic and whether feature slicing is algebraically
-lossless on a bounded independent population. Even a passing successor will
-not establish live allocator admission or execution. A later prospective
-owner must separately source-seal a CUDA consumer before any actual-context
-full-width value can exist.
+The source imports neither CuPy nor the permanently consumed literal-45 owner.
+It contains no device entry point and executes no 45-card forward, fold,
+adjoint, resolver, master, solve, or action path. Full-width dimensions appear
+only as integer shapes on `NumericLifetimeRow`. A fresh `-B` child process
+imports the module, builds the source report, deliberately rejects an
+oversized recurrence, and observes both CuPy and the literal owner absent
+before and after. This is source-path evidence, not live admission.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -64,8 +65,8 @@ assessment. ADR-0363 and ADR-0365 remain consumed; ADR-0364 remains exactly
 ADR-0367 through ADR-0384 own and close the quotient algebra, capacity,
 bounded CUDA, staged, liveness, validation, and literal-target ladder.
 ADR-0385 froze the legal bridge question; ADR-0386 source-sealed only its host
-answer; and ADR-0387 opens only this source-capacity question. No earlier
-owner is revived.
+answer; ADR-0387 froze this source-capacity question; and ADR-0388 seals only
+its source answer. No earlier owner is revived.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -79,7 +80,7 @@ to selector-window work. ADR-0351 requires the tie-aware legal h4 affine-
 envelope. ADR-0354 through ADR-0359 own the factorized face and affine
 consumer chain. ADR-0380 freezes the complete ordered populations 10 and 22.
 ADR-0383's owner was invoke exactly once and remains consumed by ADR-0384.
-ADR-0387 imports neither that owner nor its target. The phrases exclusive
+ADR-0388 imports neither that owner nor its target. The phrases exclusive
 untouched legal h4, selector-window, 2,113-task, exhaustive bounded
 development-teacher, response-closed direct mechanism, and caller-owned legal
 fallback retain their prior meanings.
@@ -97,7 +98,7 @@ the literal-45 config; ADR-0383 source-sealed it; ADR-0384 closed it.
 
 ## Active next
 
-Implement and source-seal, without importing CuPy or opening a full-width quotient value, the ADR-0387 actual-context consumer-capacity model: recompile and identity-check ADR-0386, derive every named host/device row and phase peak, preserve the global `[0,128)` plus `[128,176)` partition with reach feature 175 owned once, stream and fold 65,536 forward records before reuse, aggregate adjoint covectors only in 10,922 complete six-label occupancies, release forward state before adjoint birth, prove the complete ten-card rank-175 exact monolithic-versus-sliced forward/fold/adjoint and transpose differential, and fail closed on every allocation, unit, overlap, normalization, group-boundary, dependency, or forbidden-call mutation
+Prospectively preregister, before CUDA consumer source or any 45-card value, one actual-context device-consumer boundary that rebinds ADR-0386 and ADR-0388, admits contemporaneous host/device memory, implements the global 128+48 forward/fold/adjoint schedule with complete-label streaming and absolute ownership telemetry, differentially proves the device seam on bounded populations, records every failure before scientific work, and keeps resolver iterations, solves, actions, the 15-second wall, decision quality, truncation selection, blueprint work, and poker strength closed
 
 ## Revoked authorities
 
@@ -105,7 +106,7 @@ Implement and source-seal, without importing CuPy or opening a full-width quotie
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0387](docs/decisions/ADR-0387-preregister-the-actual-context-quotient-consumer-capacity-seam.md) — Preregister the actual-context quotient consumer-capacity seam.
+Latest process decision: [ADR-0388](docs/decisions/ADR-0388-source-seal-the-actual-context-quotient-consumer-capacity.md) — Source-seal the actual-context quotient consumer capacity.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -113,7 +114,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0364](docs/decisions/ADR-0364-retain-the-full-width-capacity-telemetry-failure.md) | 2026-08-25 | accepted retained first-terminal plumbing rejection; the sole ADR-0363 owner invocation failed before reduced control or literal target accounting, answers no capacity question, and is permanently closed | Retain the full-width capacity telemetry failure |
 | [ADR-0365](docs/decisions/ADR-0365-source-seal-the-typed-telemetry-full-width-capacity-successor.md) | 2026-08-25 | accepted source-only typed-Windows-telemetry successor; v1 remains closed and every v2 capacity target value remains unopened | Source-seal the typed-telemetry full-width capacity successor |
 | [ADR-0366](docs/decisions/ADR-0366-retain-the-full-width-factor-tt-representation-rejection.md) | 2026-08-25 | accepted finite label-free representation rejection; every v2 protocol and target gate passes, the current explicit-half-assignment FactorTT lineage is rejected before target allocation, and no complete-solve, action, quality, truncation, or strength claim is opened | Retain the full-width FactorTT representation rejection |
 | [ADR-0367](docs/decisions/ADR-0367-preregister-the-occupied-card-quotient-keystone.md) | 2026-08-25 | accepted prospective source-only algebra boundary; no full-width allocation, runtime, action, quality, truncation, or strength result is opened | Preregister the occupied-card quotient keystone |
@@ -137,18 +137,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0385](docs/decisions/ADR-0385-preregister-the-actual-context-quotient-bridge.md) | 2026-08-25 | accepted prospective source-only legal river-context quotient bridge; one exact six-way checked river, full action-conditioned 990-combo opponent axes, table-to-contraction seat mapping, flat-pot settlement preconditions, reduced leaf-adjoint differentials, preparation/resident/warm ownership, and fail-closed controls are frozen before bridge source or reduced values, while every full-width contraction value, resolver iteration, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the actual-context quotient bridge |
 | [ADR-0386](docs/decisions/ADR-0386-source-seal-the-actual-context-quotient-bridge.md) | 2026-08-25 | accepted source-sealed actual-context quotient bridge; the frozen legal six-way river and its action-conditioned five-opponent full-width belief compile to one CuPy-free rank-175/width-176 host fixture, all reduced literal, transpose, integer-settlement, open-mode, leaf-adjoint, seat-permutation, warm-integrity, provenance, and ownership controls pass, while every full-width quotient value, device execution, resolver iteration, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Source-seal the actual-context quotient bridge |
 | [ADR-0387](docs/decisions/ADR-0387-preregister-the-actual-context-quotient-consumer-capacity-seam.md) | 2026-08-25 | accepted prospective source-only actual-context quotient consumer-capacity boundary; the global 128+48 feature partition, streamed forward/fold/adjoint ownership, exact phase lifetimes, bounded independent differential, fixed allocation arithmetic, and semantic adversaries are frozen before source, while CuPy, every full-width quotient value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remain unopened | Preregister the actual-context quotient consumer-capacity seam |
+| [ADR-0388](docs/decisions/ADR-0388-source-seal-the-actual-context-quotient-consumer-capacity.md) | 2026-08-25 | accepted source-sealed CuPy-free actual-context quotient consumer-capacity result; 58 independently expanded shape/dtype rows place the legal rank-175/width-176 bridge under the fixed host/device caps with forward storage dead before adjoint birth, and the complete exact ten-card 128+48 forward/fold/adjoint differential passes, while live allocation, device execution, every 45-card quotient value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remain unopened | Source-seal the actual-context quotient consumer capacity |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0387](docs/decisions/ADR-0387-preregister-the-actual-context-quotient-consumer-capacity-seam.md) — Preregister the actual-context quotient consumer-capacity seam.
+- Latest ADR: [ADR-0388](docs/decisions/ADR-0388-source-seal-the-actual-context-quotient-consumer-capacity.md) — Source-seal the actual-context quotient consumer capacity.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 387.
-- ADR-header SHA-256: `d44e3ebe207c8bdea69afc5e8f727817bb0cb998cb81d05164715beaf9996738`.
-- Current blockers: no source-sealed actual-context rank-175/width-176 consumer-capacity seam, no full-width actual-context quotient value, no general odd-chip or side-pot leaf automaton, no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 388.
+- ADR-header SHA-256: `e05cda13aaa1501b160f710605e8917bd8952f152583a68d91f03e6f3db5a106`.
+- Current blockers: no source-sealed or live-admitted actual-context CUDA consumer, no full-width actual-context quotient value, no general odd-chip or side-pot leaf automaton, no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0387](docs/decisions/ADR-0387-preregister-the-actual-context-quotient-consumer-capacity-seam.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0388](docs/decisions/ADR-0388-source-seal-the-actual-context-quotient-consumer-capacity.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

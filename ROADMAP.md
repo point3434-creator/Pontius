@@ -1368,8 +1368,13 @@ queue:
   consumer: a global 128+48 partition, reach-once fold semantics, separate
   forward-record and adjoint-occupancy chunks, forward-before-adjoint release,
   exact phase arithmetic, and an independent ten-card rank-175 differential.
-  Implement and source-seal only that capacity model next; no CuPy or
-  full-width value is yet authorized.
+  ADR-0388 now source-seals that CuPy-free answer: 58 expanded physical rows
+  yield 15.974 MB host and 9.911 GB device peaks under the fixed caps, and the
+  complete exact bounded differential passes. Live admission and every
+  45-card value remain absent. The next checkpoint is a prospective
+  actual-context CUDA-consumer contract before device source or value—not a
+  resolver iteration, action-clock comparison, quality inference, or
+  truncation choice.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1411,10 +1416,12 @@ queue:
   only actual legal river-context bridge and its reduced exact differentials.
   ADR-0386 completes that source seal with the full-width value still
   unopened. ADR-0387 prospectively fixes the source-only rank-175/width-176
-  consumer-capacity and feature-slicing contract. The immediate checkpoint is
-  its CuPy-free source model, named lifetime sweep, bounded exact differential,
-  and fail-closed allocation verdict—not automatic truncation, a resolver
-  iteration, action timing, or quality.
+  consumer-capacity and feature-slicing contract. ADR-0388 passes its CuPy-free
+  source model, named lifetime sweep, bounded exact differential, and
+  fail-closed fixed allocation verdict. The immediate checkpoint is a
+  separately preregistered actual-context device consumer with fresh live
+  admission and bounded device differentials before any 45-card value—not
+  automatic truncation, a resolver iteration, action timing, or quality.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

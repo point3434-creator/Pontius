@@ -1689,6 +1689,17 @@ compatible, query-covector, unique-adjoint, and record-expanded-adjoint arrays
 are architectural rejections. Phase ownership requires complete forward
 release before adjoint birth, and the source capacity verdict remains open.
 
+ADR-0388 implements the source schedule without importing CuPy or evaluating a
+45-card quotient. The parent bridge's aggregate ledgers expand into 58 unique
+physical shape/dtype rows; warm buffers remain nonadditive aliases. A lifetime
+sweep places the host peak at 15,973,968 bytes and the device peak at
+9,910,940,332 bytes in the first forward source phase. Forward operator/fold
+rows are absent before adjoint birth. Fixed numeric and minimum-physical
+reserve gates pass, but live allocator admission remains unknown. An
+independent direct-mask oracle over the complete ten-card population proves
+the global 128+48 forward/fold/adjoint and transpose seam exactly; it does not
+stand in for the legal 45-card context or a runtime result.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

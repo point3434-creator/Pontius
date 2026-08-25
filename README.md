@@ -720,6 +720,15 @@ are forbidden, and forward storage must die before adjoint birth. The capacity
 verdict, CuPy execution, full-width value, resolver, action, and 15-second gate
 all remain unopened.
 
+ADR-0388 source-seals that CuPy-free seam. Fifty-eight physical shape/dtype
+rows produce a 15,973,968-byte host peak and a 9,910,940,332-byte device peak;
+the fixed cap and minimum-physical reserve inequalities pass, with live
+admission still absent. A complete exact ten-card rank-175 control proves the
+128+48 forward, normalize-once fold, adjoint, reversed-order, chunk, and
+transpose identities. This is source capacity and bounded algebra only: no
+45-card value, device result, iteration, action, timing, quality, or truncation
+decision exists.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

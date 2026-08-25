@@ -806,6 +806,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   release, fixed caps, a complete ten-card rank-175 exact differential, and
   allocation/semantic mutations are frozen. No CuPy, capacity verdict,
   full-width contraction, iteration, action, timing, or quality result exists.
+- ADR-0388 source-seals the CuPy-free capacity answer. Every aggregate bridge
+  class expands into 58 named physical rows; independently swept host/device
+  peaks are 15,973,968 and 9,910,940,332 bytes, and all fixed cap/reserve
+  inequalities pass. Complete exact ten-card rank-175 monolithic-versus-128+48
+  forward/fold/adjoint, reversed-order, chunk, normalize-once, and transpose
+  controls pass. Live allocator admission, device execution, every 45-card
+  quotient value, solve, action, 15-second result, quality, and truncation
+  authority remain absent.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

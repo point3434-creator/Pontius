@@ -2277,3 +2277,13 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     an iteration, solve, action, 15-second comparison, or quality prior. The
     config-bound ADR-0383 absent-result test is now a historical lifecycle
     tombstone and remains unedited.
+100. ADR-0385 preregisters a source-only actual-context quotient bridge. The
+    frozen context is seat 0 holding `AsAd` on `2c 7d 9h Js Qc`, button 0,
+    200-chip stacks, 5/10 blinds, a 60-chip flat pot, five complete 990-hand
+    action-conditioned opponent axes, and check as the terminal target action.
+    Implement only after preserving config SHA-256
+    `af145f4d56cdbdcfb5a0d7ee36613677ad79f57620629266c729997785a1f1f6`.
+    Source-seal with CuPy absent and reduced literal/open-mode/leaf-adjoint/
+    integer-settlement differentials; do not run a full-width quotient value.
+    Odd-chip exposure, unequal contributions, side pots, stale axes, or a
+    source-side target are typed rejections, not tolerance cases.

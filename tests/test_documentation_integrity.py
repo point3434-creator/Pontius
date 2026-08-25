@@ -1719,6 +1719,52 @@ class DocumentationIntegrityTests(unittest.TestCase):
         ):
             self.assertIn(phrase, adr)
 
+    def test_actual_context_quotient_bridge_is_preregistered(self) -> None:
+        expected = {
+            "README.md": ("ADR-0385", "odd-chip and side-pot"),
+            "PROJECT.md": ("ADR-0385", "60-chip flat pot"),
+            "STATUS.md": ("ADR-0385", "actual-context quotient bridge"),
+            "ROADMAP.md": ("ADR-0385", "reduced leaf-adjoint"),
+            "RUNBOOK.md": (
+                "ADR-0385",
+                "af145f4d56cdbdcfb5a0d7ee36613677ad79f57620629266c729997785a1f1f6",
+            ),
+            "ARCHITECTURE.md": ("ADR-0385", "integer odd-chip settlement"),
+            "RISK_REGISTER.md": ("R149", "physical card IDs"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        config = (
+            _ROOT / "experiments/configs/legal-river-quotient-bridge-v1.json"
+        ).read_bytes().replace(b"\r\n", b"\n")
+        self.assertEqual(
+            hashlib.sha256(config).hexdigest(),
+            "af145f4d56cdbdcfb5a0d7ee36613677ad79f57620629266c729997785a1f1f6",
+        )
+        adr = _contract_text(
+            "docs/decisions/ADR-0385-preregister-the-actual-context-quotient-bridge.md"
+        )
+        for phrase in (
+            "dd0f894e572d2217ad27bb6a3fe56e92192860320106cb778c25776745613cd5",
+            "lcm(1,2,3,4,5,6) = 60",
+            "1,024 Cartesian assignments",
+            "contract_heterogeneous_leaf_terms",
+            "invoke exactly once",
+            "exclusive untouched legal h4",
+            "selector-window",
+            "2,113-task",
+            "exhaustive bounded development-teacher",
+            "response-closed direct mechanism",
+            "caller-owned legal fallback",
+            "GetProcessMemoryInfo failed",
+            "representation_rejected_before_target_allocation",
+            "no action",
+        ):
+            self.assertIn(phrase, adr)
+
 
 if __name__ == "__main__":
     unittest.main()

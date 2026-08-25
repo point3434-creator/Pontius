@@ -787,6 +787,11 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   This establishes one literal full-width river quotient primitive on the
   named workstation, not an actual poker-context bridge, solve, action,
   15-second decision, quality result, truncation authority, or strength.
+- ADR-0385 preregisters the first actual-context adapter without opening a
+  full-width value. One six-way checked river binds an action-conditioned
+  five-opponent 990-combo belief to the quotient's logical axes. Exact
+  integer-chip identity is limited to a single 60-chip flat pot; odd chips,
+  unequal sunk contributions, and side pots reject before automaton use.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -697,6 +697,13 @@ and its 116.178-second direct validation oracle are laboratory evidence, not a
 solve or action result. The next boundary is an actual legal river-context
 quotient bridge, not truncation selection or a quality claim.
 
+ADR-0385 preregisters that source-only bridge around one action-conditioned,
+six-way legal river context with five complete 990-hand opponent axes. It
+freezes the table-seat/local-card mapping and a reduced leaf-adjoint
+differential before bridge source. The current showdown automaton is admitted
+only for a 60-chip flat pot whose every possible tie split is integral;
+odd-chip and side-pot contexts fail closed rather than being approximated.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

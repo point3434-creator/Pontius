@@ -1661,6 +1661,14 @@ This makes the occupied-card quotient a viable full-width river contraction
 primitive; an actual legal-context adapter into leaf-adjoint evaluation is a
 separate architecture boundary, as are resolver rounds and action timing.
 
+ADR-0385 freezes that adapter boundary. Table seats `(1,2,3,0,4,5)` map to
+logical contraction axes so the controlled singleton remains query-side;
+physical cards outside the board and controlled hand map bijectively to the
+45 local quotient cards. The first payoff seam is deliberately one flat,
+six-way 60-chip pot: only there does the current fractional showdown automaton
+equal the betting kernel's integer odd-chip settlement for every tie count.
+Side pots, unequal sunk contributions, and nonintegral tie shares reject.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

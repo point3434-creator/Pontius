@@ -1765,6 +1765,54 @@ class DocumentationIntegrityTests(unittest.TestCase):
         ):
             self.assertIn(phrase, adr)
 
+    def test_actual_context_quotient_bridge_is_source_sealed(self) -> None:
+        expected = {
+            "README.md": ("ADR-0386", "15,888,996"),
+            "PROJECT.md": ("ADR-0386", "zero chip error"),
+            "STATUS.md": ("ADR-0386", "source-sealed actual-context quotient bridge"),
+            "ROADMAP.md": ("ADR-0386", "rank 175"),
+            "RUNBOOK.md": ("ADR-0386", "full-width quotient value"),
+            "ARCHITECTURE.md": ("ADR-0386", "nonadditive"),
+            "RISK_REGISTER.md": ("R150", "Python-object"),
+            "src/pontius/legal_river_quotient_bridge.py": (
+                "compile_warm_inputs",
+                "warm bridge automaton identity differs",
+            ),
+            "tests/test_legal_river_quotient_bridge.py": (
+                "test_source_seat_permutation_is_semantic_only_when_data_moves_with_it",
+                "test_source_import_and_full_compile_leave_cupy_and_owner_absent",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr = _contract_text(
+            "docs/decisions/ADR-0386-source-seal-the-actual-context-quotient-bridge.md"
+        )
+        for relative in (
+            "src/pontius/legal_river_quotient_bridge.py",
+            "tests/test_legal_river_quotient_bridge.py",
+        ):
+            payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
+        for phrase in (
+            "invoke exactly once",
+            "exclusive untouched legal h4",
+            "selector-window",
+            "2,113-task",
+            "exhaustive bounded development-teacher",
+            "response-closed direct mechanism",
+            "caller-owned legal fallback",
+            "GetProcessMemoryInfo failed",
+            "representation_rejected_before_target_allocation",
+            "1.7053025658242404e-13",
+            "0.0009707317118028413",
+            "no action",
+        ):
+            self.assertIn(phrase, adr)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -704,6 +704,13 @@ differential before bridge source. The current showdown automaton is admitted
 only for a 60-chip flat pot whose every possible tie split is integral;
 odd-chip and side-pot contexts fail closed rather than being approximated.
 
+ADR-0386 source-seals the bridge without executing a full-width quotient. The
+actual-context host fixture is rank 175/width 176 with 893,970 complete query
+labels; exact reduced settlement, quotient, transpose, open-mode, leaf-adjoint,
+and paired-seat controls pass. Consumer-resident NumPy payload is 15,888,996
+bytes, retained validation is 84,972 bytes, and the 79,216-byte warm view is
+explicitly nonadditive. No action, action timing, or quality result is opened.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

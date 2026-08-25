@@ -2287,3 +2287,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     integer-settlement differentials; do not run a full-width quotient value.
     Odd-chip exposure, unequal contributions, side pots, stale axes, or a
     source-side target are typed rejections, not tolerance cases.
+101. ADR-0386 source-seals that bridge. Its only full-width work is CuPy-free
+    host compilation of the exact rank-175/width-176 fixture; it does not run
+    a full-width quotient value. Run the bridge and inherited compatibility
+    controls with the repository `.venv`, `PYTHONPATH=src;.`, and `-B`.
+    Reduced legal settlement is exact per deal; Float64 open-mode and
+    leaf-adjoint comparisons retain the frozen `2e-11` ceiling. Do not add the
+    79,216-byte warm view to the 15,888,996-byte resident view, call either a
+    process-memory measurement, or compare source-test walls with 15 seconds.
+    Final discovery ran 1,845 tests in 922.346 seconds: 1,841 passed, two
+    historical optional GPU tests skipped, and only the two immutable
+    ADR-0365/0366 and ADR-0383/0384 post-result absence tombstones failed.

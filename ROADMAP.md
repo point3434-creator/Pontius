@@ -1361,6 +1361,12 @@ queue:
   provenance, a settlement-safe 60-chip flat pot, and reduced leaf-adjoint
   differentials. Implement and source-seal it without a full-width quotient
   value; do not replay the owner or select truncation, capacity, or quality.
+  ADR-0386 now source-seals that bridge: the actual context compiles to a
+  complete rank 175/width 176 host fixture, and exact settlement/literal/
+  transpose plus bounded open-mode/leaf-adjoint and seat-permutation controls
+  pass with CuPy absent. The next capacity-lane checkpoint must be
+  prospectively frozen around this wider consumer and feature-sliced
+  ownership before any full-width value.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1400,8 +1406,10 @@ queue:
   The 219.667-second campaign includes a 116.178-second independent direct
   oracle and is not action latency. ADR-0385 prospectively fixes the source-
   only actual legal river-context bridge and its reduced exact differentials.
-  The immediate checkpoint is its implementation/source seal—not a full-width
-  contraction value, automatic truncation, resolver iteration, or quality.
+  ADR-0386 completes that source seal with the full-width value still
+  unopened. The immediate checkpoint is a prospective source-only rank-175/
+  width-176 consumer-capacity and feature-slicing contract—not automatic
+  truncation, a resolver iteration, action timing, or quality.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

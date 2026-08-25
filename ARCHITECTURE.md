@@ -1669,6 +1669,15 @@ six-way 60-chip pot: only there does the current fractional showdown automaton
 equal the betting kernel's integer odd-chip settlement for every tie count.
 Side pots, unequal sunk contributions, and nonintegral tie shares reject.
 
+ADR-0386 implements and source-seals the boundary. The full host fixture is
+rank 175/width 176 but produces no quotient value. Warm rebinding reconstructs
+the legal provenance and verifies card, hand, topology, terminal, and
+automaton identities before replacing unary or mode factors. Ownership is
+unit-typed: resident and warm byte views are nonadditive because warm buffers
+are resident buffers, while Python card/hand structure is counted in entries
+rather than guessed as numeric bytes. Odd-chip and side-pot leaves remain a
+separate unresolved architecture problem.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

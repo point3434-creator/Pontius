@@ -792,6 +792,11 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   five-opponent 990-combo belief to the quotient's logical axes. Exact
   integer-chip identity is limited to a single 60-chip flat pot; odd chips,
   unequal sunk contributions, and side pots reject before automaton use.
+- ADR-0386 source-seals that adapter with CuPy absent. The complete host
+  fixture has rank 175, width 176, and 893,970 query labels. The reduced seam
+  has zero chip error per legal deal, exact literal forward/transpose
+  identities, and sub-`2e-11` inherited-consumer differentials. No full-width
+  quotient value, solve, action, 15-second result, or quality claim exists.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

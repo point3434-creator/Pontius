@@ -675,6 +675,13 @@ two chunks, the observed pool-total high-water is 204,377,088 bytes against a
 starting state. This validates validation plumbing—not literal 45-card
 capacity. A separately preregistered one-shot target owner is next.
 
+ADR-0382 now preregisters that owner without implementing or invoking it. The
+future no-argument `.venv`/`-B` command gets one exclusive durable terminal,
+fresh host/device admission, exact 125-chunk source streaming, named allocator
+telemetry, and fail-closed release. Target pass, rejection, OOM, and
+infrastructure failure are all permanent first outcomes. Literal 45-card
+values remain unopened until a separate source seal is committed.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

@@ -2245,3 +2245,13 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     fixtures. Final whole-repository discovery ran 1,816 tests in 914.653
     seconds: 1,813 passed, two historical optional tests skipped, and only the
     immutable ADR-0365 retained-result absence predicate failed.
+97. ADR-0382 preregisters, but does not implement or invoke, the literal-45
+    owner. The future public command is
+    `python -B -m pontius.literal_45_quotient_target_runner`, with no arguments
+    and one exclusive `artifacts/literal_45_quotient_target_v1.jsonl` terminal.
+    Before that command can exist, source-seal its value-free config, target
+    adapter, runner, CuPy-free reader, synthetic lifecycle controls, hashes,
+    tracked parent, and `-text` rule while the result remains absent. Source-
+    seal tests must not import CuPy or allocate/call 45. Do not invoke a private
+    target, infer target values from 22/40 cards, or compare the 600-second
+    laboratory guard with the 15-second action wall.

@@ -1590,6 +1590,42 @@ class DocumentationIntegrityTests(unittest.TestCase):
             payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
             self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
 
+    def test_literal_45_quotient_owner_is_preregistered(self) -> None:
+        expected = {
+            "README.md": ("ADR-0382", "permanent first outcomes"),
+            "PROJECT.md": ("ADR-0382", "125 source chunks"),
+            "STATUS.md": ("ADR-0382", "literal-45 config"),
+            "ROADMAP.md": ("ADR-0382", "synthetic injected lifecycle"),
+            "RUNBOOK.md": (
+                "ADR-0382",
+                "literal_45_quotient_target_runner",
+            ),
+            "ARCHITECTURE.md": ("ADR-0382", "8.34-GB source reference"),
+            "RISK_REGISTER.md": ("R146", "12-GB workload"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr = _contract_text(
+            "docs/decisions/ADR-0382-preregister-the-one-shot-literal-45-quotient-owner.md"
+        )
+        for phrase in (
+            "invoke exactly once",
+            "exclusive untouched legal h4",
+            "selector-window",
+            "2,113-task",
+            "exhaustive bounded development-teacher",
+            "response-closed direct mechanism",
+            "caller-owned legal fallback",
+            "GetProcessMemoryInfo failed",
+            "representation_rejected_before_target_allocation",
+            "125 chunks",
+            "600,000 ms",
+        ):
+            self.assertIn(phrase, adr)
+
 
 if __name__ == "__main__":
     unittest.main()

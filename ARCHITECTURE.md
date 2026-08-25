@@ -1634,6 +1634,14 @@ snapshots prove the phase order and exact final release. This bounded seam is
 now reusable validation infrastructure, but target construction remains
 absent.
 
+ADR-0382 prospectively wraps the literal form in a clean-process evidence
+boundary. A no-argument owner will make its journal durable before target
+import, perform typed host/device admission before large allocation, stream
+the 8.34-GB source reference in 125 chunks, preserve the same forward-to-
+adjoint ownership seam, and retain one permanent pass/rejection/failure
+terminal. The owner, target adapter, and artifact do not yet exist; this is an
+architecture freeze, not allocator evidence.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

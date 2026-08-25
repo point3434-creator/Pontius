@@ -1710,6 +1710,78 @@ class DocumentationIntegrityTests(unittest.TestCase):
         self.assertIsNone(config["claims"]["bounded_device_conformance_result"])
         self.assertFalse(config["claims"]["actual_owner_exists"])
 
+    def test_paired_tile_preregistration_correction_is_prospective(self) -> None:
+        expected = {
+            "README.md": ("ADR-0392", "two-residual paired-division"),
+            "PROJECT.md": ("ADR-0392", "query weights require"),
+            "STATUS.md": (
+                "ADR-0392",
+                "accepted prospective preregistration-completeness correction",
+            ),
+            "ROADMAP.md": ("ADR-0392", "composite v1+v2 authority"),
+            "RUNBOOK.md": ("ADR-0392", "`q1/r1/q2/r2/q3`"),
+            "ARCHITECTURE.md": ("ADR-0392", "two residual corrections"),
+            "RISK_REGISTER.md": ("R156", "unspecified reciprocal"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        v1_path = (
+            _ROOT
+            / "experiments/configs/legal-river-quotient-cuda-compensated-tiles-v1.json"
+        )
+        v2_path = (
+            _ROOT
+            / "experiments/configs/legal-river-quotient-cuda-compensated-tiles-v2.json"
+        )
+        v2 = json.loads(v2_path.read_text(encoding="utf-8"))
+        v2_hash = hashlib.sha256(
+            v2_path.read_bytes().replace(b"\r\n", b"\n")
+        ).hexdigest()
+        adr = _contract_text(
+            "docs/decisions/ADR-0392-correct-the-paired-tile-preregistration-before-source.md"
+        )
+        self.assertIn(v2_hash, adr)
+        self.assertEqual(
+            hashlib.sha256(v1_path.read_bytes().replace(b"\r\n", b"\n")).hexdigest(),
+            v2["parent_identity"]["v1_config_canonical_lf_sha256"],
+        )
+
+        corrected = v2["corrected_arithmetic_contract"]
+        self.assertIn(
+            "pair_divide_positive_small_integer",
+            corrected["required_primitives_replacement"],
+        )
+        divide = corrected["pair_divide_positive_small_integer_contract"]
+        self.assertEqual([1, 2, 3, 4, 5, 6], divide["allowed_divisors"])
+        self.assertEqual("q1=high/divisor", divide["step_1"])
+        self.assertEqual(
+            [0, 1, 2],
+            corrected["source_weight_contract_replacement"]["seat_order"],
+        )
+        self.assertEqual(
+            [3, 4, 5], corrected["query_weight_contract"]["seat_order"]
+        )
+        self.assertTrue(
+            corrected["normalization_contract_replacement"][
+                "no_device_pair_divide_pair_primitive_authorized"
+            ]
+        )
+
+        identity = v2["parent_identity"]
+        for key in (
+            "successor_source_relative_path",
+            "successor_controls_relative_path",
+            "successor_runner_relative_path",
+            "reserved_actual_result_relative_path",
+        ):
+            self.assertFalse((_ROOT / identity[key]).exists(), identity[key])
+        self.assertFalse(v2["claims"]["successor_source_exists"])
+        self.assertIsNone(v2["claims"]["primitive_control_result"])
+        self.assertIsNone(v2["claims"]["bounded_device_conformance_result"])
+
     def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
         expected = {
             "README.md": ("ADR-0381", "204,377,088 bytes"),

@@ -1389,6 +1389,9 @@ queue:
   operator, and add exact binary-rational contribution-sum authority. Implement
   only its bounded source seal next and kill it unless both original numerical
   conjuncts and every complete 10/25 semantic, byte, cap, and wall gate pass.
+  ADR-0392 first corrects the prospective arithmetic contract with paired
+  division by exact integers 1–6 and frozen source/query factor order; source
+  must implement the composite v1+v2 authority, not negotiate either choice.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1437,8 +1440,10 @@ queue:
   device differentials, and inert one-shot actual owner. The immediate
   source seal is rejected by ADR-0390 on one 25-card absolute numerical gate
   after all other bounded gates pass. ADR-0391 prospectively freezes the
-  compensated-tile arithmetic successor. The immediate checkpoint is its
-  bounded additive source and complete 10/25 conformance only; every actual
+  compensated-tile arithmetic successor, and ADR-0392 corrects its missing
+  paired-division and query-weight details before source. The immediate
+  checkpoint is the composite bounded additive source and complete 10/25
+  conformance only; every actual
   45-card value, owner, automatic truncation, resolver iteration, action
   timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

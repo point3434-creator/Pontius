@@ -1754,6 +1754,15 @@ but is not mislabeled exact operator ground truth. Original direct-row oracles,
 absolute and relative conjuncts, chunk/repeat/tile byte identities, and memory
 and wall controls remain independent gates.
 
+ADR-0392 closes two arithmetic holes before implementation. Each zeta-level
+pair sum is divided by its exact integer denominator with two residual
+corrections, never by an opportunistic reciprocal multiply. Source weights
+apply unary then mode factors for seats 0–2; query weights begin at the mixture
+and apply unary then mode for seats 3–5. Query covectors remain paired, and
+both fold and source-adjoint contraction multiply pairs in increasing global-
+feature order. The post-tile chip ratio is formed from exact pair fractions;
+no device pair/pair division or collapsed value gains authority.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

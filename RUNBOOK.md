@@ -2360,3 +2360,13 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     absolute plus `2e-11` relative conjuncts. Never collapse pairs before
     gating, relax the 180-second population wall, inspect a 45-card value, or
     infer solve speed, action timing, quality, truncation, or poker strength.
+107. ADR-0392 is the mandatory pre-source overlay on ADR-0391. Preserve v2
+    config canonical-LF SHA-256
+    `58df9401ff34d18159e33e82db09efd13925abf95a7040fb39508ca8d99bd01f`
+    alongside the unchanged v1 hash. The successor must implement pair division
+    for exact integers 1–6 using the frozen `q1/r1/q2/r2/q3` sequence; source
+    weights use seats 0–2 and query weights seats 3–5, always unary then mode,
+    with the mixture starting the query pair. Run divisor and factor-order
+    mutations before operator controls. Reciprocal multiplication, the parent
+    Float64 query helper, pre-products, collapsed normalization, or any source
+    or device result predating this committed correction invalidate the seal.

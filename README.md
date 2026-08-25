@@ -756,6 +756,13 @@ original absolute and relative ceilings, complete 10/25 populations, chunks,
 runtime, memory, and wall gates remain unchanged. No successor module, actual
 owner, reader, artifact, or 45-card value exists yet.
 
+ADR-0392 repairs one pre-source completeness omission: paired recurrences need
+division by exact integers 1–6, and query weights need a frozen factor order.
+The additive v2 overlay fixes a two-residual paired-division sequence, source
+and query seat/factor order, paired covectors, pair-times-pair fold/adjoint
+products, and exact-rational normalization. No successor source or value was
+opened; every ADR-0391 limit and claim boundary remains unchanged.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

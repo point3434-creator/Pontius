@@ -1,0 +1,123 @@
+{
+  "schema_version": "legal-river-quotient-cuda-compensated-tiles-correction-v2",
+  "evidence_stage": "preregistered_correction_after_adr0391_before_successor_source_primitive_values_or_device_values",
+  "campaign_id": "pontius-adr0392-legal-river-quotient-cuda-compensated-tiles-v2",
+  "parent_identity": {
+    "adr0391_canonical_lf_sha256": "d5ed915e4bbf5b35652afc61eb84bc9ae6beaf08f7952747a489dd3ab36698de",
+    "v1_config_relative_path": "experiments/configs/legal-river-quotient-cuda-compensated-tiles-v1.json",
+    "v1_config_canonical_lf_sha256": "431846ffeb2064486f1768c4847a820d010d6bc8b39840f26a06c72f43e5256c",
+    "v1_preregistration_commit": "3ab54a5055527e3a0c9d884b1edd427e9538e317",
+    "successor_source_relative_path": "src/pontius/legal_river_quotient_cuda_compensated_tiles.py",
+    "successor_controls_relative_path": "tests/test_legal_river_quotient_cuda_compensated_tiles.py",
+    "successor_runner_relative_path": "experiments/run_legal_river_quotient_cuda_compensated_tiles.py",
+    "require_successor_paths_absent": true,
+    "reserved_actual_result_relative_path": "artifacts/legal_river_quotient_cuda_consumer_v1.jsonl",
+    "require_reserved_actual_result_absent": true
+  },
+  "composite_authority": {
+    "base": "the_complete_canonical_v1_config",
+    "overlay": "this_v2_correction",
+    "all_v1_fields_remain_binding_except_required_primitives_source_weight_contract_and_normalization_contract_replaced_below": true,
+    "v2_may_not_relax_remove_or_reinterpret_any_v1_gate_limit_population_tile_chunk_runtime_memory_or_claim": true,
+    "future_source_must_load_verify_and_report_both_config_hashes": true
+  },
+  "omission": {
+    "classification": "pre_source_preregistration_completeness_defect",
+    "recurrence_fact": "zeta_levels_divide_pair_sums_by_positive_exact_integers_source_cards_minus_level",
+    "v1_missing_choice": "no_pair_divide_float64_primitive_or_rounding_sequence_was_frozen",
+    "query_fact": "query_weights_multiply_mixture_by_unary_and_mode_factors_for_seats_3_4_5",
+    "v1_missing_choice_2": "query_weight_pair_construction_order_was_only_implicit",
+    "source_or_device_value_observed_before_correction": false,
+    "parent_rejection_values_are_historical_input_not_successor_outcomes": true
+  },
+  "corrected_arithmetic_contract": {
+    "required_primitives_replacement": [
+      "two_sum",
+      "two_product_explicit_fma",
+      "renormalize_pair",
+      "pair_add",
+      "pair_subtract",
+      "pair_times_float64",
+      "pair_times_pair",
+      "pair_divide_positive_small_integer"
+    ],
+    "source_weight_contract_replacement": {
+      "initial_pair": [1.0, 0.0],
+      "seat_order": [0, 1, 2],
+      "per_seat_factor_order": ["unary_weight", "mode_factor"],
+      "operation": "successive_pair_times_float64",
+      "total_float64_multipliers_per_source_pairing": 6,
+      "forbid_pre_multiplying_unary_by_mode_as_one_float64": true
+    },
+    "query_weight_contract": {
+      "initial_pair": ["mixture_weight", 0.0],
+      "seat_order": [3, 4, 5],
+      "per_seat_factor_order": ["unary_weight", "mode_factor"],
+      "operation": "successive_pair_times_float64",
+      "total_float64_multipliers_after_mixture": 6,
+      "forbid_parent_float64_query_weight_helper": true,
+      "forbid_pre_multiplying_unary_by_mode_as_one_float64": true
+    },
+    "pair_divide_positive_small_integer_contract": {
+      "allowed_divisors": [1, 2, 3, 4, 5, 6],
+      "divisor_representation": "exact_positive_float64_integer",
+      "step_1": "q1=high/divisor",
+      "step_2": "r1=pair_subtract(input,two_product(q1,divisor))",
+      "step_3": "q2=r1.high/divisor",
+      "step_4": "r2=pair_subtract(r1,two_product(q2,divisor))",
+      "step_5": "q3=(r2.high+r2.low)/divisor",
+      "step_6": "result=pair_add(pair_add((q1,0),(q2,0)),(q3,0))",
+      "require_no_reciprocal_multiply_substitution": true,
+      "require_no_high_only_remainder": true,
+      "require_fraction_reference_error_reporting": true
+    },
+    "zeta_recurrence_contract": "pair_add_each_child_in_card_order_then_pair_divide_positive_small_integer_by_source_cards_minus_level",
+    "query_covector_contract": "query_weight_pair_times_one_float64_payoff_with_the_result_stored_as_a_pair",
+    "fold_contract": "pair_times_pair_of_compatible_coefficient_and_query_covector_then_pair_add_in_increasing_global_feature_order",
+    "source_adjoint_contract": "pair_times_pair_of_reconstructed_source_coefficient_and_unique_adjoint_then_pair_add_in_increasing_global_feature_order",
+    "normalization_contract_replacement": {
+      "combine_tile_numerator_pairs_in_canonical_tile_order": [0, 1, 2],
+      "reach_pair_owned_only_by_tile": 2,
+      "gate_numerator_and_reach_as_exact_Fraction_pair_values": true,
+      "conditional_chip_value": "exact_numerator_pair_fraction_divided_by_exact_positive_reach_pair_fraction",
+      "conditional_float64_hex_is_reporting_only": true,
+      "no_device_pair_divide_pair_primitive_authorized": true
+    }
+  },
+  "additional_primitive_controls": {
+    "pair_divide_divisors": [1, 2, 3, 4, 5, 6],
+    "pair_divide_input_families": [
+      "zero",
+      "nonzero_high_zero_low",
+      "nonzero_high_nonzero_low",
+      "near_cancellation_remainder",
+      "minimum_and_maximum_observed_recurrence_exponents"
+    ],
+    "query_weight_records": [0, 1, 17, 127, 511, 1258, 1259],
+    "require_exact_factor_order_replay_against_Fraction_from_float": true,
+    "require_nonzero_query_weight_low_lane": true,
+    "require_reciprocal_multiply_high_only_remainder_parent_float_query_weight_and_factor_preproduct_mutations_to_reject": true
+  },
+  "additional_kill_criteria": {
+    "pair_divide_primitive_absent_or_sequence_changed": true,
+    "source_or_query_factor_order_changed": true,
+    "query_weight_collapsed_before_covector_storage": true,
+    "conditional_value_formed_from_collapsed_numerator_or_reach_before_gate": true,
+    "any_successor_primitive_or_device_value_observed_before_this_correction_is_committed": true
+  },
+  "claims": {
+    "successor_source_exists": false,
+    "primitive_control_result": null,
+    "bounded_device_conformance_result": null,
+    "actual_owner_exists": false,
+    "actual_45_card_value": null,
+    "resolver_iteration_result": null,
+    "solve_result": null,
+    "action_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

@@ -842,6 +842,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   Both original numerical conjuncts and every complete 10/25 semantic,
   byte-identity, runtime, memory, and wall gate remain mandatory. Even a pass
   cannot create an actual owner or 45-card value without another ADR.
+- ADR-0392 corrects ADR-0391 before source: zeta recurrences require a frozen
+  paired division by exact positive integers, and query weights require an
+  explicit mixture/seat/unary/mode multiplication order. The v2 overlay fixes
+  a two-residual divide, paired covectors, pair-times-pair forward/transpose
+  products, and exact-rational post-tile normalization. It changes no v1
+  population, ceiling, memory, wall, or claims gate and opens no result.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

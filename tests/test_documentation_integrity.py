@@ -1547,6 +1547,45 @@ class DocumentationIntegrityTests(unittest.TestCase):
         ):
             self.assertIn(phrase, adr)
 
+    def test_bounded_cuda_consumer_numerical_rejection_is_retained(self) -> None:
+        expected = {
+            "README.md": ("ADR-0390", "absolute `0x1p-20` residual"),
+            "PROJECT.md": ("ADR-0390", "distinct `2e-10` absolute conjunct"),
+            "STATUS.md": (
+                "ADR-0390",
+                "accepted bounded-device source-seal rejection",
+            ),
+            "ROADMAP.md": ("ADR-0390", "same-memory paired high/low"),
+            "RUNBOOK.md": ("ADR-0390", "0x1.9a7e7b97a67d1p+32"),
+            "ARCHITECTURE.md": ("ADR-0390", "global online pair tree"),
+            "RISK_REGISTER.md": ("R154", "one-ULP residual"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr = _contract_text(
+            "docs/decisions/ADR-0390-retain-the-bounded-cuda-consumer-numerical-rejection.md"
+        )
+        source_paths = (
+            "src/pontius/legal_river_quotient_cuda_consumer.py",
+            "tests/test_legal_river_quotient_cuda_consumer.py",
+        )
+        for relative in source_paths:
+            payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
+        for phrase in (
+            "0x1.0000000000000p-20",
+            "1.3847561401831852e-16",
+            "actual execution, numeric-allocation, and scientific counters at zero",
+            "reserved result absent",
+            "tolerance is not amended after outcome",
+            "same-memory compensated-tile",
+            "No earlier one-shot owner is imported",
+        ):
+            self.assertIn(phrase, adr)
+
     def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
         expected = {
             "README.md": ("ADR-0381", "204,377,088 bytes"),

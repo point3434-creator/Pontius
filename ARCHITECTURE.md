@@ -1718,6 +1718,25 @@ arithmetic. Complete ten-card exact and 25-card multi-chunk device controls
 precede any actual-context authority. Source sealing leaves the durable actual
 result absent; a later one-shot invocation is a distinct boundary.
 
+ADR-0390 rejects that source seal at the bounded numerical boundary. The
+offset-aware operator, global online pair tree, normalize-once fold, streamed
+unique adjoint, and ownership seam all survive complete controls. The global
+tree stores its carry only in dead owned storage—source levels above every
+forward target subset and consumed query-covector rows during adjoint—so chunk
+cuts cannot change bytes and no allocation is added. A fused adjoint thread
+reconstructs one 128-wide local coefficient row in forward pairing order;
+compiler-selected local storage is still not a materialized source matrix.
+
+At 25 cards, however, the forward and transpose unnormalized chip-mass totals
+round to adjacent Float64 values. Exact summation of their already-rounded
+contribution rows preserves that distinction, locating the residual inside
+the operator arithmetic rather than the global reducer. The next architecture
+hypothesis is paired high/low feature tiling: use the same physical 128 columns
+for at most 64 logical compensated features, never a second recurrence table.
+That successor requires a new preregistration and must re-prove memory/work,
+global offsets, direct rows, chunk identity, and both absolute/relative
+conjuncts before any actual owner exists.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

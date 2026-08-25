@@ -737,6 +737,16 @@ ten-card and multi-chunk 25-card device controls, and a durable one-shot owner
 whose result remains absent. The next checkpoint is its bounded source seal,
 not the actual 45-card invocation, a solve, an action, or a quality inference.
 
+ADR-0390 retains that bounded source seal as a numerical rejection. The exact
+ten-card campaign passes, and the 25-card campaign passes offsets, direct rows,
+folds, adjoints, global chunk-independent byte identity, allocation, release,
+and wall controls. Its unnormalized forward and transpose scalars are adjacent
+Float64 values, leaving an absolute `0x1p-20` residual against ADR-0389's
+separate `2e-10` ceiling even though the relative residual is `1.385e-16`.
+The ceiling was not relaxed: no actual owner was source-sealed, the reserved
+artifact is absent, and all 45-card counters remain zero. The next question is
+a preregistered same-memory compensated-feature tiling, not a full-width call.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

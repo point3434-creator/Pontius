@@ -822,6 +822,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   multi-chunk 25-card device differentials. Its inert one-shot owner and
   solver-free reader are source-seal work; the actual 45-card result path
   remains absent and unauthorized until a later clean committed invocation.
+- ADR-0390 refuses that source seal on its sole red conjunct. Complete ten-card
+  CUDA conformance passes, and the complete multi-chunk 25-card population has
+  byte-identical default/alternate rows and scalars plus passing exact source,
+  independent forward/fold/adjoint, offset, poison, repeat, allocation,
+  release, and wall controls. The 25-card forward numerator
+  `0x1.9a7e7b97a67d1p+32` and transpose
+  `0x1.9a7e7b97a67d0p+32` differ by one ULP (`0x1p-20`): the relative envelope
+  passes, but ADR-0389's distinct `2e-10` absolute conjunct rejects. The
+  tolerance stays frozen, all actual counters stay zero, and no owner or
+  45-card artifact exists. A successor must preregister same-memory paired
+  high/low feature tiles or another structural arithmetic repair before source.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

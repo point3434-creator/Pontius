@@ -1378,6 +1378,14 @@ queue:
   a durable actual owner whose public result remains absent. Implement and
   source-seal that bounded device mechanism next; do not invoke the actual
   45-card path or infer resolver timing, action quality, or truncation value.
+  ADR-0390 now retains the bounded source-seal rejection. Complete ten-card
+  conformance passes, and every 25-card semantic, direct, byte-identity,
+  offset, allocation, release, and wall gate passes except the separately
+  frozen absolute transpose conjunct: adjacent Float64 totals differ by
+  `0x1p-20` against `2e-10`. The relative conjunct passes but cannot replace
+  it. Keep the actual owner and result absent. Next preregister a same-memory
+  paired high/low feature-tile successor and kill it unless both original
+  numerical conjuncts pass on complete 10/25 populations under the cap.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1424,9 +1432,11 @@ queue:
   fail-closed fixed allocation verdict. ADR-0389 separately preregisters the
   actual-context device consumer, fresh live-admission lifecycle, bounded
   device differentials, and inert one-shot actual owner. The immediate
-  checkpoint is its source seal with only ten-card and 25-card device values
-  open; every actual 45-card value, automatic truncation, resolver iteration,
-  action timing, and quality inference remains closed.
+  source seal is rejected by ADR-0390 on one 25-card absolute numerical gate
+  after all other bounded gates pass. The immediate checkpoint is a
+  prospectively frozen compensated-tile arithmetic successor; every actual
+  45-card value, owner, automatic truncation, resolver iteration, action
+  timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

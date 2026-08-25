@@ -2332,3 +2332,20 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     actual 45-card path, reuse consumed private owners, compare the 600-second
     laboratory guard with the 15-second action wall, or infer solve speed,
     action quality, truncation value, blueprint strength, or poker strength.
+105. ADR-0390 retains the bounded source-seal rejection. Reproduce only with
+    the repository `.venv`, `-B`, the frozen RTX 5080/CUDA/CuPy runtime, and:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest tests.test_legal_river_quotient_cuda_consumer
+    ```
+
+    The expected authority is not a passing source seal: all complete
+    ten-card gates pass, while the 25-card suite fails only
+    `transpose_identity` because `0x1.9a7e7b97a67d1p+32` and
+    `0x1.9a7e7b97a67d0p+32` differ by `0x1p-20`, above the frozen `2e-10`
+    absolute ceiling. The default/alternate decomposition and repeats remain
+    byte-identical; actual execution/allocation/scientific counters remain
+    zero; and the reserved artifact remains absent. Never edit the tolerance,
+    invoke a 45-card path, or create an actual owner to turn this reproduction
+    green. A compensated-tile successor requires its own prospective config.

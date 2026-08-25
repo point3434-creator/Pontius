@@ -1221,6 +1221,28 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_typed_telemetry_capacity_successor_is_source_sealed(self) -> None:
+        expected = {
+            "README.md": ("ADR-0365", "512 MiB"),
+            "PROJECT.md": ("ADR-0365", "same-PID PowerShell"),
+            "STATUS.md": ("ADR-0365", "invoke exactly once"),
+            "ROADMAP.md": ("ADR-0365", "80-byte explicitly typed Win64 ABI"),
+            "RUNBOOK.md": (
+                "23cb6ea4521dc26c5fc1c3962574443b7a1d1b841f9e54c03355f9af9a58ff58",
+                "Never invoke v1",
+            ),
+            "ARCHITECTURE.md": ("ADR-0365", "sampling-skew gate"),
+            "RISK_REGISTER.md": ("R126", "same-PID PowerShell"),
+            ".gitattributes": (
+                "/experiments/configs/full-width-river-capacity-preflight-v2.json -text",
+                "/experiments/results/full-width-river-capacity-preflight-v2.json -text",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

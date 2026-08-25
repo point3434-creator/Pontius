@@ -1391,6 +1391,16 @@ both PSAPI and Kernel32 with the same 80-byte counters structure. The additive
 v2 boundary must own that typed ABI and an independent live sanity check while
 reusing only hash-bound v1 semantics. The v1 module and result are immutable.
 
+ADR-0365 implements that additive boundary. `windows_process_memory` owns the
+declared Win64 structures and signatures, reads both PSAPI and Kernel32, and
+cross-checks the same Python PID through hidden no-profile PowerShell. The
+512 MiB delta is a sampling-skew gate isolated from all resource and decision
+quantities. `full_width_river_capacity_preflight_v2` loads the exact v1 config
+through its sealed parser, verifies the exact v1 runner/result and allocation
+model, and delegates only the unchanged reduced control and target functions.
+It owns new telemetry, Git, protocol, failure, and exclusive-write seams. Its
+result path remains absent until the one clean-commit invocation.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

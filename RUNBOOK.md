@@ -1959,3 +1959,31 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     must use explicitly typed Win32 signatures, bind v1's config/runner/result,
     use a new absent exclusive path, and earn a clean source seal before any
     v2 target invocation.
+
+80. ADR-0365 source-seals the additive typed-telemetry v2 owner. The v2 result
+    path must remain absent through this commit. Verify the complete source
+    boundary without invoking the target:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest `
+      tests.test_windows_process_memory `
+      tests.test_full_width_river_capacity_preflight_v2
+    Test-Path experiments/results/full-width-river-capacity-preflight-v2.json
+    git status --short
+    ```
+
+    The config SHA-256 is
+    `23cb6ea4521dc26c5fc1c3962574443b7a1d1b841f9e54c03355f9af9a58ff58`.
+    After the source commit is clean and only then, invoke exactly once:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m pontius.full_width_river_capacity_preflight_v2
+    ```
+
+    Retain the first terminal without retry. Never invoke v1. The typed ABI and
+    512 MiB cross-reader sampling allowance supply telemetry confidence only;
+    they do not enlarge resource caps, action time, or claims. Any v2 terminal
+    remains one representation/warm-leaf diagnostic, not a complete solve,
+    action, decision-quality result, or strength claim.

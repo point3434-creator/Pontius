@@ -1248,7 +1248,11 @@ queue:
   Windows process-memory call failed before the reduced control or target;
   typed PSAPI and Kernel32 diagnostics both succeed, so the next capacity act
   is a separately source-sealed v2 telemetry owner with unchanged target
-  semantics and a new absent result path—not a v1 retry.
+  semantics and a new absent result path—not a v1 retry. ADR-0365 now passes
+  that source boundary: an 80-byte explicitly typed Win64 ABI, same-PID
+  PowerShell sampling control, exact v1 lineage rebinding, outcome-free pinned
+  GPU seam, and additive exclusive writer are sealed. The v2 target remains
+  unopened; invoke it exactly once from the clean ADR-0365 commit next.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

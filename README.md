@@ -538,6 +538,12 @@ target, so no capacity result exists. Explicitly typed PSAPI and Kernel32
 diagnostics both succeed. The successor must be an additive source-sealed v2
 owner with a new exclusive path; never patch or invoke v1 again.
 
+ADR-0365 source-seals that v2 successor without opening a target. Explicit
+Win64 signatures, dual native readers, same-PID PowerShell control, the pinned
+GPU runtime seam, exact v1 lineage, and a new exclusive result path are bound.
+The 512 MiB reader-delta allowance is telemetry-only. Invoke v2 once from its
+clean source commit; it still answers only ADR-0363's narrow capacity question.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

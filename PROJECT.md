@@ -601,6 +601,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   untyped 64-bit ctypes ABI as the binding defect. A separately source-sealed
   v2 owner with a new exclusive path is required; v1 is never patched or run
   again.
+- ADR-0365 source-seals that additive v2 owner while every new capacity value
+  remains unopened. An explicitly typed Win64 module binds both PSAPI and
+  Kernel32 plus a same-PID PowerShell sampling control; its 512 MiB allowance
+  is telemetry-skew-only and cannot alter capacity or action gates. The v2
+  overlay hashes ADR-0364, the exact v1 config/runner/result, the allocation
+  model, the new ABI source, owner, and controls, then delegates only to v1's
+  unchanged reduced control and target functions. Its new `-text` result path
+  is absent. Invoke v2 once from the clean source commit; v1 stays closed.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

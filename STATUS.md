@@ -15,18 +15,14 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Retain the exact 798-byte first terminal as a rejection and permanently close
-the ADR-0363 owner. Do not edit the artifact, patch the v1 runner, invoke it
-again, or infer a host/device capacity outcome from absent target fields.
+Accept the additive typed telemetry primitive, outcome-neutral v2 overlay,
+new exclusive owner, controls, and source seal below. Keep the v2 result path
+absent at this commit. Invoke the v2 owner exactly once from the resulting
+clean commit and retain its first terminal without repair or retry. Never edit
+or invoke the v1 runner.
 
-The terminal records a clean source commit, the exact sealed config and runner
-hashes, `passed: false`, `terminal: typed_failure`, and the sole error
-`OSError: GetProcessMemoryInfo failed`. It contains no `control`, `target`,
-`runtime_at_target_admission`, or campaign wall. It therefore failed during
-the first Windows host-memory snapshot, before the reduced GPU control, street
-inventory, exact allocation ledger, admission predicate, topology compiler,
-scalar contraction, resident priming call, or warm contraction. Full-width
-capacity remains completely unanswered.
+ADR-0364's retained v1 terminal remains exactly `GetProcessMemoryInfo failed`;
+it contains no control or target payload and answers no capacity question.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -66,16 +62,17 @@ integration invocation, and ADR-0359 permanently closes it while requiring a
 fresh value-unopened confirmation. ADR-0360 fixes that population; ADR-0361
 owns and consumes the sole invocation; ADR-0362 alone performs the artifact-
 only scientific assessment. ADR-0363 owns and consumes the sole v1 full-width
-capacity invocation; ADR-0364 retains its pre-capacity typed failure. No
-earlier owner is revived.
+capacity invocation; ADR-0364 retains its pre-capacity typed failure; ADR-0365
+alone source-seals the additive v2 successor. No earlier owner is revived.
 
 ADR-0355 and ADR-0358 each said invoke exactly once; both owners stay closed.
 ADR-0360 required an exclusive untouched legal h4 owner; ADR-0361 consumed it.
-ADR-0363 required one literal capacity owner invocation; it is now consumed.
+ADR-0363 required one literal capacity owner invocation; it is consumed and
+cannot serve as v2 authority.
 
 ## Active next
 
-Preserve ADR-0363's exact 798-byte typed failure and permanently closed v1 owner; separately source-seal a v2 full-width capacity owner around an explicitly typed 64-bit Windows process-memory ABI, bind the v1 config/result/runner and unchanged target semantics, keep the v2 result path absent, and open no new capacity target value before that clean commit
+From this clean committed ADR-0365 source boundary, verify the v2 result path is absent and invoke `python -B -m pontius.full_width_river_capacity_preflight_v2` exactly once; retain its first exclusive pass, pre-allocation representation rejection, or typed failure without retry; never invoke or edit v1, and interpret any result only within ADR-0363's unchanged representation/warm-leaf scope
 
 ## Revoked authorities
 
@@ -83,7 +80,7 @@ Preserve ADR-0363's exact 798-byte typed failure and permanently closed v1 owner
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0364](docs/decisions/ADR-0364-retain-the-full-width-capacity-telemetry-failure.md) — Retain the full-width capacity telemetry failure.
+Latest process decision: [ADR-0365](docs/decisions/ADR-0365-source-seal-the-typed-telemetry-full-width-capacity-successor.md) — Source-seal the typed-telemetry full-width capacity successor.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -91,7 +88,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0341](docs/decisions/ADR-0341-retain-and-seal-the-transfer-qualification-panel.md) | 2026-08-24 | accepted one-shot transfer qualification result and exact 16-context target-only panel seal; width-three transfer confirmation remains unopened | Retain and seal the transfer qualification panel |
 | [ADR-0342](docs/decisions/ADR-0342-source-seal-the-width-three-transfer-confirmation-owner.md) | 2026-08-24 | accepted source-only width-three transfer-confirmation owner with exact prior-evidence reuse and failure-complete journal; every real confirmation value remains unopened | Source-seal the width-three transfer-confirmation owner |
 | [ADR-0343](docs/decisions/ADR-0343-retain-and-seal-the-width-three-transfer-confirmation.md) | 2026-08-24 | accepted complete real transfer confirmation; all five unchanged conjuncts pass on the exact untouched 16-context panel, confirming unrestricted transfer of the frozen context-local width-three mechanism within this reduced-game scope | Retain and seal the width-three transfer confirmation |
 | [ADR-0344](docs/decisions/ADR-0344-preregister-the-legal-responder-raise-keystone.md) | 2026-08-24 | accepted preregistration and source seal before the first legal responder-raise keystone invocation; no result, strategy label, latency result, or production action exists | Preregister the legal responder-raise sequence-form keystone |
@@ -115,18 +111,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0362](docs/decisions/ADR-0362-retain-the-rejected-terminal-and-rebind-its-scientific-payload.md) | 2026-08-25 | accepted artifact-only scientific assessment; ADR-0361's sole terminal remains a recorded rejection, its writer is permanently consumed, and no byte or historical gate is repaired, while a sealed standard-library owner independently establishes that all 32 fresh legal h4 factorized-affine sections and every intended scientific conjunct completed and that the sole false recorded gate is a deterministic chained-comparison plumbing defect over four actually zero/null emission fields | Retain the rejected terminal and rebind its scientific payload |
 | [ADR-0363](docs/decisions/ADR-0363-preregister-the-literal-full-width-river-capacity-preflight.md) | 2026-08-25 | accepted source-only label-free capacity preregistration before the sole literal full-width invocation | Preregister the literal full-width river capacity preflight |
 | [ADR-0364](docs/decisions/ADR-0364-retain-the-full-width-capacity-telemetry-failure.md) | 2026-08-25 | accepted retained first-terminal plumbing rejection; the sole ADR-0363 owner invocation failed before reduced control or literal target accounting, answers no capacity question, and is permanently closed | Retain the full-width capacity telemetry failure |
+| [ADR-0365](docs/decisions/ADR-0365-source-seal-the-typed-telemetry-full-width-capacity-successor.md) | 2026-08-25 | accepted source-only typed-Windows-telemetry successor; v1 remains closed and every v2 capacity target value remains unopened | Source-seal the typed-telemetry full-width capacity successor |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0364](docs/decisions/ADR-0364-retain-the-full-width-capacity-telemetry-failure.md) — Retain the full-width capacity telemetry failure.
+- Latest ADR: [ADR-0365](docs/decisions/ADR-0365-source-seal-the-typed-telemetry-full-width-capacity-successor.md) — Source-seal the typed-telemetry full-width capacity successor.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 364.
-- ADR-header SHA-256: `020e1eef77ebaa1a9fec830fd3baa2dd4c63cbebac19cd7e9a5ad324a1ed0d55`.
-- Current blockers: no sealed typed-Windows-telemetry v2 owner, literal full-width capacity result, scalable replacement contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 365.
+- ADR-header SHA-256: `49609b5f19b5a8317b24865a4672dcaea6e13a87abf96e64685ba06cc5fcff20`.
+- Current blockers: no literal full-width capacity result, scalable replacement contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0364](docs/decisions/ADR-0364-retain-the-full-width-capacity-telemetry-failure.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0365](docs/decisions/ADR-0365-source-seal-the-typed-telemetry-full-width-capacity-successor.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

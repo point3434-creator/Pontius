@@ -744,6 +744,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   temporary, and digest-only repeatability are forbidden. Implement a CuPy-
   free lifetime sweep and bounded chunk controls next; no capacity verdict is
   open at this preregistration.
+- ADR-0379 seals that pure model. A phase sweep prices the 45-card forward at
+  10,772,495,644 bytes, the streamed-dot device peak at 11,755,029,796 bytes,
+  the post-release adjoint at 9,645,290,380 bytes, and the host peak at
+  9,353,336,216 bytes. Fixed caps and minimum-physical reserve arithmetic pass,
+  but only 244,970,204 device bytes remain under the numeric cap. The old
+  validation schedule rederives at 20.349 GB before a possible 915 MB product
+  temporary. Next prove the new seam and allocator high-water on bounded CUDA
+  populations; no literal allocation or action result exists.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -2201,3 +2201,20 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     and full elementwise-product temporaries, and release forward state before
     the unique adjoint. Validate only with pure arithmetic and bounded chunk
     controls. A passing model is not live admission or a 15-second action.
+94. ADR-0379 seals the pure liveness model. Verify it without CuPy:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest tests.test_literal_45_quotient_liveness
+    ```
+
+    The source/test hashes are
+    `d1a4f3d759fc3d5a2c37277be5957ca7d4ea53621e6ca4178f06d8851ebef367`
+    and `58a0023b3b9e47ff9b55b7fa2a346f6931f43553ecd0c7ec9d0c606bcedfc6bf`.
+    Preserve the exact 11,755,029,796-byte device peak and its 244,970,204-
+    byte numeric-cap margin. Do not call 45 cards. Preregister a bounded 10/22-
+    card CUDA validation-seam mechanism before writing device source, and keep
+    allocator high-water, live admission, target timing, and action timing
+    distinct. Full discovery on the final source ran 1,801 tests in 900.425
+    seconds: 1,798 passed, two optional tests skipped, and only the immutable
+    ADR-0365 pre-result absence predicate failed.

@@ -1603,6 +1603,16 @@ while the host source baseline supplies the transpose operand. Semantic roles,
 not coincident byte counts, determine ownership. This is a future source model,
 not yet a target-capable runtime.
 
+ADR-0379 implements the graph as pure source arithmetic. Unique typed rows are
+swept over ten phases; the peak is reconstructed from live rows rather than a
+parallel total. The 45-card forward, streamed-dot peak, and post-release
+adjoint are 10,772,495,644, 11,755,029,796, and 9,645,290,380 bytes. One
+9,353,336,216-byte host peak holds complete reference state and a fixed staging
+window. The old validation schedule is retained only as a 20,349,274,988-byte
+counterfactual, or 21,264,700,268 bytes with its possible full product. The
+new source has no device entry; a bounded CUDA seam must prove that real
+allocations follow this graph.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

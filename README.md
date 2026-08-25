@@ -650,6 +650,15 @@ the unique adjoint. It must prove bounded chunk coverage and literal byte
 comparison without CuPy. Arithmetic passage will still not be live admission
 or action latency.
 
+ADR-0379 now passes the exact source model. The 45-card streamed schedule's
+device peak is 11,755,029,796 bytes at the forward-dot phase and its host peak
+is 9,353,336,216 bytes; forward state dies before the 9,645,290,380-byte
+adjoint phase. The 12 GB numeric cap margin is only 244,970,204 bytes, and
+allocator/runtime classes remain excluded. This is fixed arithmetic, not live
+admission. A bounded 10/22-card CUDA seam must validate complete host-held byte
+references, streamed dot numerics, lifecycle, and real allocation high-water
+before a literal owner can be considered.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

@@ -15,27 +15,28 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Preregister one CuPy-free source model. It must derive the exact 45-card host
-and device lifetimes from named arrays and an ordered phase schedule. It may
-implement bounded pure-reference chunk controls. It may not import CuPy, add a
-45-card branch to the staged runner, compile target topology, allocate a target
-array, emit CUDA source, time a device, or open a result artifact.
+Accept `literal_45_quotient_liveness` as a source-only fixed numeric-lifetime
+result. Nine controls pass. The module imports no CuPy, exposes no target
+runtime entry, allocates none of its large declared shapes, and computes every
+peak by sweeping unique semantic rows over their frozen birth and death phases.
+All live-admission and external claim fields remain null or false.
 
-ADR-0377 is authoritative only through 40 cards. Its passing curve motivates
-this question but supplies no favorable 45-card prior. The retained v1 and v2
-staged owners are permanently consumed, and their source remains unchanged.
-The new boundary changes validation residency only. The source-coefficient,
-cardinality-recurrence, signed-query, affine-fold, and unique-adjoint operators
-remain exactly the ADR-0372/ADR-0374 mechanisms.
+The new schedule passes the 48-billion-byte host numeric cap, 12-billion-byte
+device numeric cap, and both minimum-physical reserve inequalities. The device
+peak is 11,755,029,796 bytes at `forward_dot`, leaving only 244,970,204 bytes
+under the numeric cap. That margin is too narrow to absorb an unmodeled full
+temporary and is not authority over allocator fragmentation, cached pool
+blocks, CUDA context/module storage, registers/local memory, page tables, OS
+activity, or unrelated processes. A later bounded CUDA mechanism must show its
+actual allocation graph and high-water before any target owner is allowed.
 
-The call-graph audit identifies two validation-only lifetimes that the staged
-allocator conservatively co-resides on device: complete baseline copies for
-repeatability, and simultaneous forward plus adjoint state for a dot-product
-check. The expression `state.compatible * query_covectors` can also create a
-full product temporary that the old arithmetic model did not name. Its absence
-from instantaneous pool snapshots is not a proof that it has no peak. The
-source model must eliminate these validation lifetimes explicitly rather than
-assuming allocator luck or enlarging the cap.
+The old ADR-0374 validation schedule independently reconstructs every retained
+10/16/22/28/34/40 requested peak exactly. Applied arithmetically at 45, its
+named rows peak at 20,349,274,988 bytes. Adding the full elementwise product
+that `compatible * query_covectors` may create yields a 21,264,700,268-byte
+counterfactual. Neither number was allocated or observed. They explain why
+validation must be rescheduled; they do not revise ADR-0377's recorded 40-card
+observations or imply a defect in its numerical result.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -82,8 +83,8 @@ only the source byte/work model. ADR-0371 preregisters and ADR-0372 seals only
 the complete ten-card GPU mechanism. ADR-0373 freezes the staged population,
 ADR-0374 source-seals v1, ADR-0375 permanently closes its first invocation,
 ADR-0376 source-seals and consumes v2, ADR-0377 assesses its retained result,
-and ADR-0378 opens only this source-liveness question. No earlier owner is
-revived.
+ADR-0378 freezes the new liveness boundary, and ADR-0379 seals only its pure
+source result. No earlier owner is revived.
 
 ADR-0363 and ADR-0365 remain permanently consumed. ADR-0364 remains the
 `GetProcessMemoryInfo failed` terminal. ADR-0366 remains
@@ -93,7 +94,7 @@ markers remain invoke exactly once, exclusive untouched legal h4, selector-windo
 
 ## Active next
 
-Implement and source-seal a CuPy-free exact literal-45 lifetime ledger with typed production and validation roles, phase-indexed host/device births and deaths, complete host reference and 64-MiB staging rows, a no-full-product streamed dot contract, independent combinatorial and bounded chunk-equivalence controls, and fixed-cap/reserve verdicts; keep every GPU target entry point structurally absent and do not use the arithmetic verdict as live admission, latency, action, quality, or truncation evidence
+Prospectively preregister a bounded 10/22-card CUDA validation-seam keystone that implements one active-unary buffer, complete host-held chunkwise byte references, a no-full-product streamed forward dot, forward-state release before one unique adjoint, transpose-dot rebinding through the host source reference, exact old-operator differentials, raw allocation high-water observations, and full pool release; keep 45 cards structurally rejected until that mechanism is source-sealed and passes, then require a separate one-shot literal-target owner
 
 ## Revoked authorities
 
@@ -101,7 +102,7 @@ Implement and source-seal a CuPy-free exact literal-45 lifetime ledger with type
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0378](docs/decisions/ADR-0378-preregister-the-literal-45-quotient-liveness-boundary.md) — Preregister the literal-45 quotient liveness boundary.
+Latest process decision: [ADR-0379](docs/decisions/ADR-0379-seal-the-literal-45-quotient-liveness-model.md) — Seal the literal-45 quotient liveness model.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -109,7 +110,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0355](docs/decisions/ADR-0355-preregister-the-legal-h4-directional-face-diagnostic.md) | 2026-08-24 | accepted source-only preregistration after ADR-0354; the exact four-direction/eight-section/136-schedule-call diagnostic, complete factor/cardinality/work/seam schema, strict config loader, exclusive first-terminal owner, and claims boundary are sealed while every legal h4 directional-face target outcome remains unopened | Preregister the legal h4 directional-face diagnostic |
 | [ADR-0356](docs/decisions/ADR-0356-retain-and-rebind-the-legal-h4-directional-face-diagnostic.md) | 2026-08-24 | accepted retained finite legal h4 directional-face development diagnostic; the sole ADR-0355 invocation passes every frozen gate and the solver-free result owner rebinds the complete artifact, authorizing only a separately preregistered tie-aware affine integration successor | Retain and rebind the legal h4 directional-face diagnostic |
 | [ADR-0357](docs/decisions/ADR-0357-seal-the-factorized-tie-aware-affine-integration.md) | 2026-08-24 | accepted source-only successor to ADR-0356; the fan-as-ray/face-as-point affine consumer, typed source dispatch, epigraph differential, versioned tie-conformance registry, and source seal are committed while every new legal h4 integration result remains unopened | Seal the factorized tie-aware affine integration |
 | [ADR-0358](docs/decisions/ADR-0358-preregister-the-legal-h4-factorized-affine-integration.md) | 2026-08-24 | accepted source-only preregistration after ADR-0357; one exclusive four-direction/eight-section legal h4 integration owner, exact parent-section rebinding, typed source dispatch, complete point/ray/cardinality/work/epigraph schema, honest subject clocks, and first-terminal retention are sealed while every new legal h4 integration outcome remains unopened | Preregister the legal h4 factorized affine integration |
@@ -133,18 +133,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0376](docs/decisions/ADR-0376-source-seal-the-bootstrap-safe-staged-scaling-v2-owner.md) | 2026-08-25 | accepted source-only pre-invocation seal; the additive v2 owner binds a tracked artifact parent, preserves the permanently closed v1 paths and every ADR-0373 scientific field, and has not opened a real v2 journal, GPU stage, staged admission, timing, throughput, literal 45-card result, action, decision-quality, truncation, or poker-strength result | Source-seal the bootstrap-safe staged-scaling v2 owner |
 | [ADR-0377](docs/decisions/ADR-0377-retain-the-passing-staged-gpu-quotient-scaling-result.md) | 2026-08-25 | accepted retained six-stage non-target GPU numerical, live-admission, and throughput result; all 126 frozen gates pass through 40 cards, while literal 45-card admission, one solve or action, decision quality, truncation, and poker strength remain unopened | Retain the passing staged GPU quotient scaling result |
 | [ADR-0378](docs/decisions/ADR-0378-preregister-the-literal-45-quotient-liveness-boundary.md) | 2026-08-25 | accepted prospective source-only literal-target liveness and streamed-validation boundary; no target allocation, CUDA source, live admission, timing, solve, action, quality, truncation, or strength result is opened | Preregister the literal-45 quotient liveness boundary |
+| [ADR-0379](docs/decisions/ADR-0379-seal-the-literal-45-quotient-liveness-model.md) | 2026-08-25 | accepted source-only exact literal-45 numeric-lifetime result; the typed streamed-validation schedule passes fixed host/device caps and minimum-physical reserve arithmetic with a 244,970,204-byte device-cap margin, while target CUDA semantics, allocator high-water, live admission, timing, solve, action, quality, truncation, and strength remain unopened | Seal the literal-45 quotient liveness model |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0378](docs/decisions/ADR-0378-preregister-the-literal-45-quotient-liveness-boundary.md) — Preregister the literal-45 quotient liveness boundary.
+- Latest ADR: [ADR-0379](docs/decisions/ADR-0379-seal-the-literal-45-quotient-liveness-model.md) — Seal the literal-45 quotient liveness model.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 378.
-- ADR-header SHA-256: `d509f42d59fbfdc8be0551beb6e9a650604fc9b33a92fa35af307add51e03c4a`.
-- Current blockers: no source-sealed literal-45 lifetime verdict, target validation-seam CUDA mechanism, literal 45-card live-memory admission, literal scalable full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 379.
+- ADR-header SHA-256: `a084d26b40c2706bf7c06d0bb581be9590aececf8025eef1a7206b42d3290652`.
+- Current blockers: no source-sealed target validation-seam CUDA mechanism, literal 45-card allocator high-water or live-memory admission, literal scalable full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0378](docs/decisions/ADR-0378-preregister-the-literal-45-quotient-liveness-boundary.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0379](docs/decisions/ADR-0379-seal-the-literal-45-quotient-liveness-model.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

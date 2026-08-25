@@ -1466,6 +1466,50 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_literal_45_quotient_liveness_model_is_source_sealed(self) -> None:
+        expected = {
+            "README.md": ("ADR-0379", "244,970,204 bytes"),
+            "PROJECT.md": ("ADR-0379", "11,755,029,796 bytes"),
+            "STATUS.md": ("ADR-0379", "244,970,204-byte"),
+            "ROADMAP.md": ("ADR-0379", "allocator/runtime storage"),
+            "RUNBOOK.md": (
+                "d1a4f3d759fc3d5a2c37277be5957ca7d4ea53621e6ca4178f06d8851ebef367",
+                "Do not call 45 cards",
+            ),
+            "ARCHITECTURE.md": ("ADR-0379", "21,264,700,268 bytes"),
+            "RISK_REGISTER.md": (
+                "R141",
+                "one-chunk control",
+                "R142",
+                "fresh `-B` subprocess",
+            ),
+            "src/pontius/literal_45_quotient_liveness.py": (
+                "host_large_reference_buffer",
+                "device_dot_partial_scratch",
+                "live_admission_pass=None",
+            ),
+            "tests/test_literal_45_quotient_liveness.py": (
+                "test_old_schedule_reconstructs_every_retained_stage_and_exposes_hidden_product",
+                "test_forward_release_precedes_unique_adjoint_and_host_buffer_bridges_dot",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr_path = (
+            _ROOT
+            / "docs/decisions/ADR-0379-seal-the-literal-45-quotient-liveness-model.md"
+        )
+        adr = adr_path.read_text(encoding="utf-8")
+        for relative in (
+            "src/pontius/literal_45_quotient_liveness.py",
+            "tests/test_literal_45_quotient_liveness.py",
+        ):
+            payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
+
 
 if __name__ == "__main__":
     unittest.main()

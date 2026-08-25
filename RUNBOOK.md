@@ -2218,3 +2218,11 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     distinct. Full discovery on the final source ran 1,801 tests in 900.425
     seconds: 1,798 passed, two optional tests skipped, and only the immutable
     ADR-0365 pre-result absence predicate failed.
+95. ADR-0380 is a preregistration, not an executable target. Implement only a
+    no-argument bounded CUDA seam that runs complete 10/22-card populations,
+    crosses the 67,108,864-byte staging boundary at 22 cards, retains complete
+    host bytes, streams both dot checks without a device product, releases
+    forward state before allocating the unique adjoint, and records pool/free-
+    memory observations after every ownership transition. Reject 16, 28, 34,
+    40, and 45 before importing CuPy. Do not create or invoke a literal-target
+    owner; a bounded pass can authorize only its later preregistration.

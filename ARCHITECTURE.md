@@ -1613,6 +1613,16 @@ counterfactual, or 21,264,700,268 bytes with its possible full product. The
 new source has no device entry; a bounded CUDA seam must prove that real
 allocations follow this graph.
 
+ADR-0380 fixes that bounded seam's architecture before source. Its only public
+operation runs complete 10- then 22-card populations. A single active-unary
+buffer is overwritten for refresh classes; complete source, compatible,
+numerator, and reach references live on the host; a 64-MiB staging window
+forces the 22-card source through two ordered chunks; and Float64 dot partials
+are combined on the host without a full device product. Source and compatible
+state must be observably released before the unique adjoint is born. Pool
+used/total and physical free memory are evidence at each transition, while 45
+cards and every target compiler path remain structurally unreachable.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

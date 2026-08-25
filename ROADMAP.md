@@ -1345,8 +1345,11 @@ queue:
   11.755030 GB, with forward state released before a 9.645290 GB adjoint.
   Fixed cap/reserve arithmetic passes, but device numeric headroom is only
   244,970,204 bytes and excluded allocator/runtime storage remains unmeasured.
-  Next preregister a bounded 10/22-card CUDA validation-seam keystone with raw
-  high-water observations; do not open 45 cards yet.
+  ADR-0380 now preregisters the bounded 10/22-card CUDA validation-seam
+  keystone with complete host references, a mandatory two-chunk seam, one
+  overwritten unary, streamed host dots, phase-ordered release, and raw
+  high-water observations. Implement and source-seal that no-argument seam;
+  do not open 45 cards yet.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1377,9 +1380,10 @@ queue:
   not yet a target call, solve, action-quality inference, or truncation choice.
   ADR-0378 freezes its typed phases and kill criteria. The immediate checkpoint
   was the pure source model and controls. ADR-0379 passes that fixed numeric
-  gate with a narrow device margin. The immediate checkpoint is now a bounded
-  CUDA proof of the rescheduled validation seam and allocator behavior, not a
-  literal allocation.
+  gate with a narrow device margin. ADR-0380 prospectively freezes the bounded
+  CUDA proof of the rescheduled validation seam and allocator behavior. Its
+  implementation and source seal are the immediate checkpoint, not a literal
+  allocation.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

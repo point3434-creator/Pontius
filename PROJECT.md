@@ -752,6 +752,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   validation schedule rederives at 20.349 GB before a possible 915 MB product
   temporary. Next prove the new seam and allocator high-water on bounded CUDA
   populations; no literal allocation or action result exists.
+- ADR-0380 preregisters that bounded CUDA seam before device source. It fixes
+  the complete 10/22-card populations, forces the 22-card source reference
+  across two 64-MiB chunks, permits one overwritten active-unary buffer, and
+  requires complete literal-byte references, streamed host dots, forward-state
+  death before unique-adjoint birth, and raw allocator/free-memory telemetry at
+  every transition. Every other width, including 45, must reject before CuPy
+  import. A pass can authorize only a separately sealed one-shot target owner;
+  it cannot establish target capacity, timing, action quality, or truncation.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -659,6 +659,14 @@ admission. A bounded 10/22-card CUDA seam must validate complete host-held byte
 references, streamed dot numerics, lifecycle, and real allocation high-water
 before a literal owner can be considered.
 
+ADR-0380 freezes that bounded seam before implementation. Complete 10- and
+22-card populations exercise both exact reduced closure and a two-chunk
+76,403,712-byte source reference. One device unary is overwritten between
+classes; complete host bytes remain authoritative; forward operands die before
+the unique adjoint is allocated; and allocator pools plus physical free memory
+are sampled after every ownership transition. The public seam takes no
+arguments, and any other width—including 45—must fail before CuPy import.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

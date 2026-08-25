@@ -1510,6 +1510,35 @@ class DocumentationIntegrityTests(unittest.TestCase):
             payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
             self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
 
+    def test_bounded_quotient_validation_seam_is_preregistered(self) -> None:
+        expected = {
+            "README.md": ("ADR-0380", "two-chunk"),
+            "PROJECT.md": ("ADR-0380", "before CuPy"),
+            "STATUS.md": ("ADR-0380", "complete ordered populations 10 and 22"),
+            "ROADMAP.md": ("ADR-0380", "one overwritten unary"),
+            "RUNBOOK.md": ("ADR-0380", "Reject 16, 28, 34"),
+            "ARCHITECTURE.md": ("ADR-0380", "physical free memory"),
+            "RISK_REGISTER.md": ("R143", "76,403,712-byte"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr = _contract_text(
+            "docs/decisions/ADR-0380-preregister-the-bounded-quotient-validation-seam.md"
+        )
+        for phrase in (
+            "exhaustive bounded development-teacher",
+            "response-closed direct mechanism",
+            "caller-owned legal fallback",
+            "GetProcessMemoryInfo failed",
+            "representation_rejected_before_target_allocation",
+            "Any allocation helper called with another width, including 45",
+            "math.fsum",
+        ):
+            self.assertIn(phrase, adr)
+
 
 if __name__ == "__main__":
     unittest.main()

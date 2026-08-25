@@ -1333,6 +1333,41 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_full_width_quotient_preallocation_model_is_source_sealed(self) -> None:
+        expected = {
+            "README.md": ("ADR-0370", "81,711,241,920"),
+            "PROJECT.md": ("ADR-0370", "492.449 MB"),
+            "STATUS.md": ("ADR-0370", "numeric-array and logical-work result"),
+            "ROADMAP.md": ("ADR-0370", "GPU numerical/throughput keystone"),
+            "RUNBOOK.md": ("ADR-0370", "8,126,480,964-byte"),
+            "ARCHITECTURE.md": ("ADR-0370", "129,017,750,400"),
+            "RISK_REGISTER.md": ("R132", "advertised peak FLOPS"),
+            "src/pontius/full_width_occupied_card_quotient_capacity.py": (
+                "device_adjoint_phase_numeric_bytes",
+                "source_seat_refresh_work",
+            ),
+            "tests/test_full_width_occupied_card_quotient_capacity.py": (
+                "test_fixture_rank_trace_and_automaton_bytes_are_independently_derived",
+                "test_chunk_changes_only_scratch_not_semantics_or_persistent_storage",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr_path = (
+            _ROOT
+            / "docs/decisions/ADR-0370-seal-the-full-width-occupied-card-quotient-preallocation-model.md"
+        )
+        adr = adr_path.read_text(encoding="utf-8")
+        for relative in (
+            "src/pontius/full_width_occupied_card_quotient_capacity.py",
+            "tests/test_full_width_occupied_card_quotient_capacity.py",
+        ):
+            payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
+
 
 if __name__ == "__main__":
     unittest.main()

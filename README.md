@@ -583,6 +583,16 @@ automata, forbidden tensor-train export, results, full source refresh, and
 host/device reserves. A passing byte model will still leave GPU numerical
 identity and the 14-second throughput question unanswered.
 
+ADR-0370 completes that source arithmetic. The fixture layout peaks at
+492,448,676 device bytes; the safe 2,971-column envelope peaks at
+8,126,480,964, so both pass the unchanged fixed byte/reserve gates. The result
+is deliberately not called runtime capacity: one source refresh still carries
+81,711,241,920 containment additions, with no measured kernel or latency. The
+next gate is a bounded-exact GPU numerical/throughput keystone, not a literal
+full-width solve and not support truncation. Full discovery added no new
+regression: 1,744 of 1,747 tests passed, two skipped, and the sole failure is
+the already recorded immutable pre-invocation result-absence predicate.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

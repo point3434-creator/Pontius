@@ -656,6 +656,18 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   host/device array. A source-seat refresh is explicitly a full arithmetic
   rebuild. No operation count may be converted to the 14-second compute wall;
   no device source or literal full-width target is authorized.
+- ADR-0370 seals that arithmetic model. The exact fixture has source rank 175,
+  width 176, 15.159 MB persistent host/device arrays, and a 492.449 MB device
+  peak after separately pricing source, forward-query, and adjoint phases. A
+  safe width-2,971 feature envelope peaks at 8.126 GB device and 3.185 GB host,
+  so both fixed cap/reserve gates pass. The direct structured automaton replaces
+  an explicitly priced but forbidden tensor-train export. Memory is no longer
+  the immediate blocker for this layout; 81,711,241,920 dense containment
+  additions per cold/source-refresh pass are the binding unmeasured throughput
+  risk. No GPU, live-memory, latency, complete-action, quality, truncation, or
+  strength claim follows. Standard discovery ran 1,747 tests: 1,744 passed,
+  two skipped, and only the already sealed ADR-0365 result-absence lifecycle
+  predicate failed after encountering ADR-0366's retained result.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

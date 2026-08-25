@@ -2056,3 +2056,26 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     compare logical additions with the 14-second action budget. A later source
     seal must report fixture and safe-width byte peaks, full source-refresh
     work, excluded nonnumeric classes, and zero allocated tensor-train bytes.
+
+85. ADR-0370 seals that source-only model. Verify its exact hashes and the
+    bounded algebra without invoking a device target:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest `
+      tests.test_full_width_occupied_card_quotient_capacity `
+      tests.test_occupied_card_quotient `
+      tests.test_full_width_factor_tt_capacity `
+      tests.test_structured_showdown_automaton `
+      tests.test_factor_tt_contraction `
+      tests.test_open_mode_factor_tt `
+      tests.test_sparse_incidence_open_mode `
+      tests.test_sparse_open_mode_factor_tt
+    ```
+
+    Interpret the 492,448,676-byte fixture and 8,126,480,964-byte safe-envelope
+    device peaks only as fixed numeric-array passage. The source-refresh ledger
+    still contains 81,711,241,920 containment additions. Do not quote a warm
+    time, invoke either closed capacity owner, allocate the literal target, or
+    infer quality. The next owner must first preregister a GPU numerical and
+    throughput keystone with reduced exact controls.

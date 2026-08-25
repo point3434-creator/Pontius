@@ -1488,6 +1488,22 @@ Both are arithmetic inputs to a memory model, not throughput evidence. Any
 source-seat unary change rebuilds coefficients and containment marginals in
 full; only query-only changes may reuse them.
 
+ADR-0370 validates this layout as source arithmetic. The exact reference-hand
+state trace is `59/117/175/4/5`, giving 176 state-plus-reach columns. Host peak
+is 199,708,580 bytes and the separately priced adjoint sets the 492,448,676-byte
+device peak. The safe 2,971-column envelope remains below the fixed gates at
+3,184,828,548 host bytes and 8,126,480,964 device bytes. Persistent labeled
+source and sparse-incidence storage, plus allocated tensor-train storage, are
+all exactly zero.
+
+That byte passage does not settle execution. A source-seat refresh revisits
+733,055,400 labeled pairings and performs 81,711,241,920 containment scalar
+additions at fixture width; the record-level adjoint can stream
+129,017,750,400 label scalar writes. The next architecture boundary is a
+prospectively sealed GPU numerical/throughput keystone over the direct
+structured automaton. It must preserve the exact bounded oracle and work
+counters before any literal full-width target allocation.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

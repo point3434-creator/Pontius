@@ -15,18 +15,26 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Preregister one pure arithmetic model. It owns no result file and authorizes no
-one-shot invocation. It may inspect immutable full-width axis and showdown
-semantics to derive ranks, but it may not create an explicit compatible-half
-topology, device array, CuPy cache, GPU kernel, contraction, action, strategy
-label, quality row, or support truncation.
+Accept `full_width_occupied_card_quotient_capacity` as the source-only
+preallocation and logical-work authority. Both the exact reference-hand layout
+and the safe one-term feature-width envelope pass every fixed byte and minimum-
+capacity reserve conjunct. The result retires the 437.434 GB explicit-half-
+assignment representation as the current memory blocker for this proposed
+layout. It does **not** establish that the replacement can execute quickly,
+accurately, or at all on the RTX 5080.
+
+The deployment-shaped operator remains one target-specific matrix with six-
+card source occupancies and labeled four-card query records. Its reverse is the
+exact adjoint of that matrix. No open source seat, fixed reverse split, sparse
+incidence matrix, persistent source-mask array, or 733,055,400-record topology
+has returned. The adjoint receives its own streamed host/device buffers and
+peak, rather than being declared free because it shares algebra.
 
 ADR-0363 and ADR-0365 remain permanently consumed. ADR-0364 remains the
-pre-capacity `GetProcessMemoryInfo failed` telemetry terminal. ADR-0366 remains
-the exact `representation_rejected_before_target_allocation` rejection of the
-explicit-half-assignment FactorTT representation. ADR-0368 remains the bounded
-algebra authority. This successor must not patch, replay, or reinterpret any of
-those owners.
+pre-capacity `GetProcessMemoryInfo failed` terminal. ADR-0366 remains
+`representation_rejected_before_target_allocation` with zero target calls.
+ADR-0368 remains the bounded exact algebra authority. ADR-0369 is satisfied by
+this source seal and authorizes no owner invocation.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -68,24 +76,17 @@ owns and consumes the sole invocation; ADR-0362 alone performs the artifact-
 only scientific assessment. ADR-0363 owns and consumes the sole v1 full-width
 capacity invocation; ADR-0364 retains its pre-capacity typed failure; ADR-0365
 owns and consumes the sole v2 capacity invocation; ADR-0366 retains its exact
-representation rejection. ADR-0367 preregisters and ADR-0368 seals only the
-bounded quotient algebra. ADR-0369 opens only this source arithmetic gate. No
-earlier owner is revived.
+representation rejection. ADR-0367 preregisters and ADR-0368 seals the bounded
+quotient algebra; ADR-0369 preregisters and ADR-0370 seals only the source byte/
+work model. No earlier owner is revived.
 
 ADR-0355 and ADR-0358 each said invoke exactly once; both owners stay closed.
 ADR-0360 required an exclusive untouched legal h4 owner; ADR-0361 consumed it.
 ADR-0363 and ADR-0365 each owned one capacity invocation; both are consumed.
 
-The model must preserve the target-specific validity precondition. For every
-one-seat pass the requested open seat is permuted onto the query/right half.
-The source is always three fully summed opponent seats occupying six variable
-cards. The query is the fixed controlled hand plus two labeled opponent pairs;
-after safely projecting the fixed hand, its variable occupancy has four cards.
-Seat-specific weights and payoff features enter before source aggregation.
-
 ## Active next
 
-Implement and source-seal a pure exact preallocation model for the target-specific six-card-source/four-card-labeled-query occupied-card operator and its adjoint, including fixture and safe feature-width envelopes, immutable combination ranks, streamed cold and refresh work, automaton and forbidden tensor-train storage, results, scratch, CPU/GPU placement, caps, reserves, and exclusions; do not write or invoke a GPU kernel or literal full-width target
+Preserve the exact ADR-0368 oracle and ADR-0370 byte/work model, then prospectively source-seal a GPU occupied-card quotient keystone with direct structured-automaton consumption, collision-free implicit ranks, bounded forward/adjoint and affine-fold differentials, topology-stable full source refresh, frozen numerical tolerances, device work counters, and preallocation guards before any literal full-width target invocation; treat 81.711 billion fixture containment additions and source refresh as the binding unmeasured throughput risk
 
 ## Revoked authorities
 
@@ -93,7 +94,7 @@ Implement and source-seal a pure exact preallocation model for the target-specif
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0369](docs/decisions/ADR-0369-preregister-the-full-width-occupied-card-quotient-preallocation-model.md) — Preregister the full-width occupied-card quotient preallocation model.
+Latest process decision: [ADR-0370](docs/decisions/ADR-0370-seal-the-full-width-occupied-card-quotient-preallocation-model.md) — Seal the full-width occupied-card quotient preallocation model.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -101,7 +102,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0346](docs/decisions/ADR-0346-preregister-the-legal-h4-coefficient-differential.md) | 2026-08-24 | accepted preregistration and source seal before the first legal responder-raise h4 coefficient invocation; every coefficient result, row-growth result, latency result, strategy label, and production action remains unopened | Preregister the legal h4 coefficient differential |
 | [ADR-0347](docs/decisions/ADR-0347-retain-and-seal-the-legal-h4-coefficient-result.md) | 2026-08-24 | accepted finite legal h4 coefficient identity; the sole source-sealed invocation passes every frozen gate and authorizes only a separately preregistered legal responder-row growth experiment on the same h4 tree | Retain and seal the legal h4 coefficient result |
 | [ADR-0348](docs/decisions/ADR-0348-preregister-the-legal-h4-responder-row-growth-audit.md) | 2026-08-24 | accepted preregistration and source seal before the first legal h4 responder-row growth invocation; every row-growth value, selector-stability result, action-clock result, strategy label, and production action remains unopened | Preregister the legal h4 responder-row growth audit |
 | [ADR-0349](docs/decisions/ADR-0349-retain-and-seal-the-legal-h4-row-growth-result.md) | 2026-08-24 | accepted finite legal h4 row-growth and infrastructure result; the sole source-sealed invocation passes every frozen gate, converges with the two inherited initial rows and zero generated rows, and authorizes only a separately preregistered selector-stability successor | Retain and seal the legal h4 row-growth result |
@@ -125,18 +125,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0367](docs/decisions/ADR-0367-preregister-the-occupied-card-quotient-keystone.md) | 2026-08-25 | accepted prospective source-only algebra boundary; no full-width allocation, runtime, action, quality, truncation, or strength result is opened | Preregister the occupied-card quotient keystone |
 | [ADR-0368](docs/decisions/ADR-0368-seal-the-exact-occupied-card-quotient-keystone.md) | 2026-08-25 | accepted source-only exact bounded algebra keystone; literal compatibility, transpose, dense, current FactorTT/open-mode, permutation, refresh, fixed-card, sparse/zero, multi-component, and invalid-scope controls pass, while every full-width allocation, runtime, action, quality, truncation, and strength result remains unopened | Seal the exact occupied-card quotient keystone |
 | [ADR-0369](docs/decisions/ADR-0369-preregister-the-full-width-occupied-card-quotient-preallocation-model.md) | 2026-08-25 | accepted prospective source-only arithmetic boundary; no device kernel, literal target allocation, latency, action, quality, truncation, or strength result is opened | Preregister the full-width occupied-card quotient preallocation model |
+| [ADR-0370](docs/decisions/ADR-0370-seal-the-full-width-occupied-card-quotient-preallocation-model.md) | 2026-08-25 | accepted source-only numeric-array and logical-work result; the target-specific quotient layout passes frozen fixture and safe feature-envelope byte/reserve gates, while GPU numerical identity, throughput, live admission, literal target allocation, action, quality, truncation, and strength remain unopened | Seal the full-width occupied-card quotient preallocation model |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0369](docs/decisions/ADR-0369-preregister-the-full-width-occupied-card-quotient-preallocation-model.md) — Preregister the full-width occupied-card quotient preallocation model.
+- Latest ADR: [ADR-0370](docs/decisions/ADR-0370-seal-the-full-width-occupied-card-quotient-preallocation-model.md) — Seal the full-width occupied-card quotient preallocation model.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 369.
-- ADR-header SHA-256: `b92774af53018f8da765f20d1508958dad1233eb02f1867c1ee04dd7dbde1f61`.
-- Current blockers: no source-sealed occupied-card quotient preallocation verdict, GPU numerical/throughput keystone, live-memory admission, scalable exact full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 370.
+- ADR-header SHA-256: `93b1878d12a3c66e41ac8fdb1e89a6ab2b3cf5610f6852276b9bdec88c416a43`.
+- Current blockers: no GPU occupied-card quotient numerical/throughput keystone, live-memory admission, literal scalable full-width contraction, certified truncation mechanism, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0369](docs/decisions/ADR-0369-preregister-the-full-width-occupied-card-quotient-preallocation-model.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0370](docs/decisions/ADR-0370-seal-the-full-width-occupied-card-quotient-preallocation-model.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

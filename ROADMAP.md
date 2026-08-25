@@ -1198,6 +1198,16 @@ queue:
   source-seal a fresh value-unopened confirmation population and a complete
   reconstruction-ready artifact schema. Never replay ADR-0358; keep literal
   full-width capacity independent.
+  ADR-0360 now seals that population and schema with every fresh target value
+  still unopened. It retains the first four SHA-derived h4 contexts from the
+  pre-result source commit, proves exact legality and normalized semantic
+  non-overlap with the one development fixture, and freezes four downstream
+  directions per context: three one-step DCFR regret-history vertices and one
+  converged audited row-growth proposal. The later 32-section artifact must
+  contain every fan row, every source and non-source face factor, and the full
+  exact epigraph residual matrix. Any single failure rejects confirmation;
+  dropping, reseeding, retrying, gate repair, and partial-pass abstention are
+  closed. Next preregister the exclusive owner before any target call.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and

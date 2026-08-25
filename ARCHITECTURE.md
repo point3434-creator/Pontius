@@ -742,6 +742,20 @@ remain source-authenticated rather than independently reconstructed. A future
 confirmation artifact must serialize every factor and row to remove that
 authority limit.
 
+ADR-0360 adds the value-unopened
+`legal_h4_factorized_affine_confirmation_population` boundary. It derives four
+ordered collision-free card/range contexts only from the clean pre-result
+mechanism commit, uses exact dyadic 4-by-4 joint mass and the established legal
+checked-to responder-raise tree, and constructs context-bound full-support
+source policies without calling a value owner. Its semantic identity reduces
+probabilities before comparison, so an unreduced numerator/denominator pair
+cannot masquerade as a new context. The sealed successor graph is population
+then exclusive direction generation (three DCFR history vertices plus one
+audited row-growth proposal) then 32 factorized fan/face sections. Its artifact
+schema carries the complete section rather than summaries: every fan row,
+every point face and information-set factor, every compact piece, and every
+fan-row/point epigraph residual. No confirmation runner or result exists yet.
+
 `sizing_power_diagnostic` is the parked candidate-blind ADR-0295/0296
 successor. It can generate sealed structural pools and compare only full
 integer with minimum/all-in values. Its owned qualification runner returns a

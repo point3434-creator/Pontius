@@ -550,6 +550,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   digest remain explicitly authenticated-only because the preregistered schema
   omitted their raw inputs. Fresh untouched confirmation must repair that
   schema limit before any new value opens.
+- ADR-0360 repairs the prospective schema and source-seals the untouched
+  population without opening any new direction or target value. It takes the
+  first four SHA-derived card/range contexts from the clean pre-result ADR-0358
+  commit with no outcome filter, skip, replacement, or reseed; binds exact
+  dyadic ranges, legal h4 state, full-support source policies, normalized
+  semantic non-overlap with the single exposed development fixture, three
+  fixed regret-history vertices plus one audited converged row-growth proposal,
+  and 32 expected sections. Every non-source factor, fan row and exact
+  epigraph residual must be serialized. One failed context or section rejects
+  the whole future confirmation; no partial pass or abstention is implied.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -1915,3 +1915,27 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     non-quotient fan-row residuals, and the reproduced-section digest. The next
     target requires a fresh value-unopened population and a separately sealed
     complete-schema confirmation owner.
+
+78. ADR-0360 source-seals the fresh population and successor contract without
+    opening any confirmation target value. Verify only the structural boundary:
+
+    ```powershell
+    $env:PYTHONPATH = "src"
+    & $python -B -m unittest `
+      tests.test_legal_h4_factorized_affine_confirmation_population
+    ```
+
+    The seed SHA-256 is
+    `6bae36a91d135a16f8a4484a44a5c5fa775215eebf15e9e74626ef52767eef0e`,
+    protocol SHA-256 is
+    `c75ef3f8eb5011775049080b98302fec0d3f6c72bf6cf58bacfa1146fe0752fa`,
+    and the exact 4,991-byte population SHA-256 is
+    `902f714a11df4c861312e782b10e08ccdc62c3254b7515bdb1f73caddef32988`.
+    No invocation is authorized here. Preserve the first four contexts, the
+    three regret histories plus audited row-growth direction recipe, all 32
+    future sections, complete raw fan/face/residual schema, zero tape
+    materialization, and all-or-nothing interpretation. Do not import or replay
+    ADR-0358, inspect a direction endpoint in scratch, skip or reseed a context,
+    or treat the future laboratory wall as action-clock evidence. Next create a
+    separate preregistered exclusive owner and absent result path before any
+    target call.

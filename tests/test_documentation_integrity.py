@@ -1179,6 +1179,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             for phrase in phrases:
                 self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
 
+    def test_fresh_legal_h4_factorized_affine_confirmation_population_is_sealed(self) -> None:
+        expected = {
+            "README.md": ("ADR-0360", "first-in-stream"),
+            "PROJECT.md": ("ADR-0360", "normalized semantic non-overlap"),
+            "STATUS.md": ("ADR-0360", "exclusive untouched legal h4"),
+            "ROADMAP.md": ("ADR-0360", "32-section artifact"),
+            "RUNBOOK.md": (
+                "902f714a11df4c861312e782b10e08ccdc62c3254b7515bdb1f73caddef32988",
+                "No invocation is authorized",
+            ),
+            "ARCHITECTURE.md": (
+                "legal_h4_factorized_affine_confirmation_population",
+                "complete section rather than summaries",
+            ),
+            "RISK_REGISTER.md": ("R121", "reduce all probability pairs"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -521,6 +521,16 @@ gates while labeling omitted non-source factors, non-quotient rows, and the
 live section digest authenticated-only. Untouched confirmation must use a
 fresh sealed population and a complete reconstruction-ready schema.
 
+ADR-0360 source-seals that fresh population without opening a target value.
+Four first-in-stream legal h4 contexts are derived only from the clean
+pre-result ADR-0358 source commit; none is filtered, skipped, or replaced by an
+observed mode or value, and all are semantically distinct from the one exposed
+development fixture. The successor contract freezes three one-step regret
+vertices plus one converged row-growth proposal per context, 32 total affine
+sections, complete raw fan/face/epigraph serialization, zero tape
+materialization, bounded laboratory walls, and all-or-nothing interpretation.
+The next step is a separate one-shot owner preregistration, not an invocation.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

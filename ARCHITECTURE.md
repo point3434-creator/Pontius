@@ -2044,6 +2044,17 @@ reproduced hashes. Canonical-LF authority must now agree between the production
 helper and a byte-by-byte CRLF normalizer that never spells escaped source
 tokens.
 
+ADR-0425 source-seals the fresh launch and evidence boundary. A standard-library
+root script derives and installs the exact repository `src`, then becomes the
+only entry for the public parent, no-CUDA handshake child, and campaign child.
+The V2 reader first validates the fresh protocol, campaign, header, dependency,
+wrapper, and unique-bootstrap lifecycle. It then projects only ten literal
+lifecycle paths into an in-memory V1 envelope; every post-bootstrap science
+event and the outer terminal remain unchanged for the owner-free V1 semantic
+reader. The scrubbed two-launcher probe and 38 combined controls pass without a
+CuPy import, device operation, or result. This is launch/evidence readiness,
+not a device, capacity, action-clock, or quality result.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

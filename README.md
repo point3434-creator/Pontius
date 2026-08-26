@@ -891,7 +891,11 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   validated V2 lifecycle identity fields required for V1 semantic projection;
   all post-bootstrap evidence remains unchanged. ADR-0424 corrects three false
   inherited parent hashes produced by an over-escaped shell audit; no V1 file
-  changed. V2 source seal now requires independent byte-loop hash agreement.
+  changed. ADR-0425 completes the corrected V2 source seal: 20 V2 and 18 parent
+  controls pass, including the scrubbed external-working-directory two-launcher
+  probe, with no CuPy, device, or result operation. The next bounded act is one
+  no-argument invocation from the clean seal commit and an independent outcome
+  read; it is not a capacity, action-latency, or quality result.
 
 ## Current checkpoint
 

@@ -1068,6 +1068,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   zero CuPy/device/result work; the two exact hash controls rejected. Add an
   independent byte-loop hash differential and source-seal only the corrected
   config.
+- ADR-0425 completes that launcher-safe V2 source seal. Twenty focused V2
+  controls and all 18 unchanged V1 controls pass; the literal root launcher
+  crosses the public parent and internal child from an external working
+  directory with package-path state scrubbed, while CuPy, the science adapter,
+  and every result path remain unopened. The reader validates V2 lifecycle
+  identity before projecting its exact ten-path allowlist to the unchanged V1
+  semantic oracle. The next authority is one clean no-argument root-launcher
+  invocation from the sealed commit, with the first V2 terminal permanent.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

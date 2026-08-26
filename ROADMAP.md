@@ -1490,7 +1490,11 @@ queue:
   for the V1 semantic oracle. ADR-0424 then corrects three false inherited V1
   parent hashes exposed by the uncommitted source controls; the files and
   science did not change. Implement against ADR-0424's config hash and require
-  an independent byte-loop hash differential before source seal.
+  an independent byte-loop hash differential before source seal. ADR-0425 now
+  completes that seal after 20 V2 and 18 unchanged V1 controls plus a scrubbed
+  external-working-directory two-launcher probe. Invoke its root launcher once
+  from the clean seal commit, retain the first terminal without retry, and
+  independently rebind it before any new projection or population-25 work.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1580,10 +1584,12 @@ queue:
   control, and complete-10/22 shared population paths. Its source-only owner/
   reader seal is completed by ADR-0420 after 18 controls. ADR-0421 consumes its
   public command at package resolution before owner import, leaving the result
-  absent. The immediate capacity-lane checkpoint is a new-identity, launcher-
-  safe source seal under ADR-0422's already-frozen root-launcher and scrubbed-
-  probe contract as corrected by ADR-0423's lifecycle allowlist and ADR-0424's
-  parent hashes; it neither reopens V4 nor selects a new projection rule.
+  absent. ADR-0425 completes the new-identity launcher-safe source seal under
+  ADR-0422's root-launcher contract as corrected by ADR-0423's lifecycle
+  allowlist and ADR-0424's parent hashes. The immediate capacity-lane
+  checkpoint is its one clean no-argument root-launcher invocation and
+  independent retained-outcome read; it neither reopens V4 nor selects a new
+  projection rule.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

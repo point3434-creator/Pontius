@@ -1,0 +1,97 @@
+{
+  "schema_version": "legal-river-quotient-cuda-compensated-work-preflight-owner-v4-envelope-correction-v2",
+  "evidence_stage": "pre_source_correction_after_adr0413_before_v4_source_probe_compilation_resource_gate_calibration_projection_or_result",
+  "campaign_id": "pontius-adr0414-work-preflight-v4-bounded-evidence-envelope-correction-v2",
+  "parent_identity": {
+    "adr0413_relative_path": "docs/decisions/ADR-0413-preregister-the-repaired-executed-cubin-work-preflight-v4.md",
+    "adr0413_canonical_lf_sha256": "73e2142de693cf2a801af0a60674c24192d9b957542b9aaaa571c0e6951f5bec",
+    "v4_base_config_relative_path": "experiments/configs/legal-river-quotient-cuda-compensated-work-preflight-owner-v4.json",
+    "v4_base_config_canonical_lf_sha256": "80aad86a806275c4b8979025237b555332e97a84ec1090845ee12616701b4b43",
+    "preregistration_commit": "795e8a80599d0a16f3c723dac040dfe26700f834",
+    "successor_drafts_exist_uncommitted": true,
+    "successor_source_probe_compilation_or_value_observed": false,
+    "prospective_result_relative_path": "artifacts/work_preflight/legal_river_quotient_cuda_compensated_work_preflight_v4.jsonl",
+    "prospective_result_must_remain_absent": true,
+    "reserved_actual_result_relative_path": "artifacts/legal_river_quotient_cuda_consumer_v1.jsonl",
+    "reserved_actual_result_must_remain_absent": true
+  },
+  "composite_authority": {
+    "base": "the_complete_canonical_adr0413_v4_config",
+    "overlay": "this_v2_bounded_evidence_envelope_correction",
+    "all_exact_repair_resource_science_lifecycle_partial_outcome_kill_and_claim_fields_remain_binding": true,
+    "this_overlay_replaces_only_the_infeasible_journal_capacity_and_adds_transport_chunk_and_parser_admission_bounds": true,
+    "future_adapter_owner_reader_and_controls_must_load_hash_validate_and_report_both_config_hashes": true
+  },
+  "omission": {
+    "classification": "pre_source_evidence_envelope_capacity_defect",
+    "base_per_external_stream_byte_limit": 8388608,
+    "base_external_command_count": 2,
+    "streams_per_command": 2,
+    "maximum_raw_external_stream_bytes": 33554432,
+    "maximum_base64_characters_before_json_envelopes": 44739248,
+    "base_maximum_journal_bytes": 16777216,
+    "base_maximum_child_line_characters": 1048576,
+    "first_impossibility": "four_maximum_raw_streams_cannot_fit_the_base_journal_after_lossless_base64_encoding",
+    "second_impossibility": "one_maximum_successful_resource_stdout_cannot_fit_the_base_single_line_scientific_event",
+    "no_source_probe_compilation_resource_or_calibration_value_was_observed_before_correction": true
+  },
+  "corrected_journal_contract": {
+    "maximum_journal_bytes": 67108864,
+    "stream_chunk_raw_bytes": 196608,
+    "maximum_chunks_per_stream": 43,
+    "maximum_command_streams": 4,
+    "maximum_encoded_stream_characters": 44739248,
+    "maximum_stream_chunk_event_overhead_bytes": 4096,
+    "maximum_chunk_event_overhead_bytes": 704512,
+    "encoded_stream_plus_chunk_overhead_bytes": 45443760,
+    "journal_headroom_after_four_maximum_streams_and_chunk_overhead_bytes": 21665104,
+    "each_chunk_event_must_fit_the_unchanged_child_line_ceiling": true,
+    "writer_must_prospectively_reserve_an_infrastructure_terminal_before_every_append": true,
+    "full_stdout_and_stderr_bytes_hashes_lengths_chunk_ordinals_and_command_terminal_must_be_durable_before_interpretation": true,
+    "missing_duplicate_reordered_or_changed_chunk_is_rejected": true,
+    "journal_cap_is_not_a_stream_cap_and_stream_cap_is_not_a_parser_admission_cap": true
+  },
+  "parser_admission_contract": {
+    "maximum_combined_version_output_bytes": 32768,
+    "maximum_resource_stdout_bytes": 262144,
+    "accepted_text_bytes": "strict_ascii_tab_lf_cr_and_printable_0x20_through_0x7e",
+    "maximum_json_escape_expansion_factor": 2,
+    "qualifying_scientific_event_must_fit_the_unchanged_1048576_character_child_line": true,
+    "oversized_or_nonconforming_but_bounded_raw_streams_are_retained_then_rejected_before_scientific_event": true,
+    "parser_admission_bounds_do_not_truncate_or_replace_the_8388608_byte_capture_limit": true
+  },
+  "additional_source_controls": {
+    "four_full_synthetic_streams_fit_the_corrected_journal_reserve_arithmetic": true,
+    "one_more_chunk_or_overhead_ceiling_breach_fails_closed": true,
+    "chunk_round_trip_and_sha256_identity_for_both_streams_and_both_commands": true,
+    "child_line_limit_is_tested_independently_from_stream_and_journal_limits": true,
+    "qualifying_version_and_resource_boundaries_pass_at_limit_and_fail_one_byte_above": true,
+    "non_ascii_and_forbidden_ascii_control_bytes_fail_after_raw_retention": true
+  },
+  "additional_kill_criteria": {
+    "base_16_mib_journal_is_silently_treated_as_sufficient": true,
+    "a_stream_is_truncated_to_fit_a_child_line_or_journal": true,
+    "raw_bytes_are_interpreted_before_all_chunks_are_durable": true,
+    "parser_admission_limit_is_used_as_the_capture_limit": true,
+    "journal_limit_is_used_as_a_resource_or_capacity_gate": true,
+    "any_non_envelope_adr0413_field_changes": true
+  },
+  "claims": {
+    "v4_source_sealed": false,
+    "adapter_probe_result": null,
+    "repaired_executed_cubin_result": null,
+    "resource_gate_result": null,
+    "calibration_result": null,
+    "capacity_projection": null,
+    "complete_25_numerical_value": null,
+    "actual_45_card_value": null,
+    "resolver_iteration_result": null,
+    "solve_result": null,
+    "action_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

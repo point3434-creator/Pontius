@@ -1942,6 +1942,13 @@ payload/stream/journal limits, the 10/22 calibration, the 16-phase partition,
 and the arithmetic-only population-25 projection remain separate contracts.
 No V4 source or result exists at this boundary.
 
+ADR-0414 repairs one pre-source envelope contradiction. Two commands expose
+four 8 MiB streams, whose lossless base64 cannot fit the original 16 MiB V4
+journal, and a maximum successful stream cannot fit a one-line science event.
+The composite design therefore chunks raw streams under a 64 MiB journal and
+applies smaller parser-admission bounds only after every chunk is durable. The
+scientific and resource contracts do not change.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

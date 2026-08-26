@@ -854,7 +854,9 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   the fresh V4 consumer: repair occurs before module load, the same repaired
   bytes are executed and inspected, and the unchanged ADR-0394/0395 science
   remains the only resource and capacity authority. V4 source and results are
-  still absent.
+  still absent. ADR-0414 corrects its pre-source transport arithmetic with
+  chunked raw streams, a 64 MiB journal, and distinct parser-admission bounds;
+  no evidence was opened by that correction.
 
 ## Current checkpoint
 

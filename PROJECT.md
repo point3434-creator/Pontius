@@ -979,6 +979,11 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   inspected. The ADR-0395 two-instrument maxima and every ADR-0394 population,
   phase, ratio, wall, and integer-only population-25 rule remain unchanged.
   V4 source, resource, calibration, and projection evidence are still absent.
+- ADR-0414 corrects V4's evidence-envelope arithmetic before source. Four
+  independently capped command streams are retained in exact chunks under a
+  64 MiB journal; smaller strict-ASCII parser-admission bounds protect the
+  unchanged 1 MiB child-line event only after raw retention. Capture, parser,
+  child-line, and journal limits can no longer substitute for one another.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

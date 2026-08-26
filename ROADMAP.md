@@ -1446,9 +1446,12 @@ queue:
   preregisters the additive repaired-executed-cubin V4 owner: the exact live
   prefix receives one zero before module load, the same repaired bytes are
   executed and inspected, and all ADR-0394/0395 resource and capacity rules
-  remain unchanged. Implement and source-seal that fresh owner and independent
-  reader next, with both result paths absent. Do not patch CuPy, use driver-only
-  evidence, or construct a 25-card fixture outside that successor.
+  remain unchanged. ADR-0414 corrects the pre-source envelope: exact command
+  streams are chunked under a 64 MiB journal, and parser admission remains
+  distinct from 8 MiB capture and the 1 MiB child line. Implement and source-
+  seal that composite owner and independent reader next, with both result paths
+  absent. Do not patch CuPy, use driver-only evidence, or construct a 25-card
+  fixture outside that successor.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1521,7 +1524,8 @@ queue:
   further tool or driver operation. ADR-0410 completes that freeze and
   ADR-0411 source-seals it without operation. ADR-0412 retains the single
   passing invocation and closes that owner. ADR-0413 prospectively freezes the
-  additive repaired-executed-cubin V4 adapter. Its source seal is next. Every
+  additive repaired-executed-cubin V4 adapter, and ADR-0414 corrects only its
+  bounded evidence envelope before source. The composite source seal is next. Every
   actual 45-card value, owner,
   automatic truncation,
   resolver iteration, action timing, and quality inference remains closed.

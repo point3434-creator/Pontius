@@ -1988,6 +1988,15 @@ without importing CuPy. Device compilation, host launch integration, output
 separation, resource rows, and numerical identity remain obligations of a
 fresh preregistered differential owner.
 
+ADR-0419 freezes that owner before implementation. The first compiler payload
+is durable evidence before a complete-ELF or narrowly structural one-zero
+container path can load it. The exact retained V4 cubin is control-only on
+complete 10; complete 10/22 population execution uses generated copies of the
+outer runner and forward helper, with exactly one inspected substitution in
+each and no parent-module patch. The fused launch has a named argument schema:
+feature count is slot 9 and logical width is slot 11. A 15-phase partition
+merges direct query and fold, but carries no capacity projection authority.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

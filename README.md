@@ -869,10 +869,11 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   the direct-fold coefficient vector also owns the eight selected query pairs,
   deleting their second source traversal without changing pair order.
   ADR-0418 completes its additive CPU/static source seal after nine focused
-  controls and zero CuPy/device operations. The next checkpoint is a fresh
-  preregistration for the exclusive complete-10 differential and complete-
-  10/22 shared-path owner; no replacement capacity rule, population-25 value,
-  action, or quality result exists.
+  controls and zero CuPy/device operations. ADR-0419 now preregisters the
+  exclusive complete-10 byte differential, complete-10/22 shared-path owner,
+  exact compiler-container evidence, and 15-phase validation ledger. Its
+  source-only adapter/owner/reader seal is next; no replacement capacity rule,
+  population-25 value, action, or quality result exists.
 
 ## Current checkpoint
 

@@ -15,62 +15,100 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes. Accept the additive source-only implementation. It changes exactly one
-parent CUDA kernel span, leaves the future reference-query control byte
-identical, and makes the selected boundary query values read-only copies of the
-fully accumulated fold coefficients. No owner, reader, compiler, module,
-launch, result, or capacity rule is created here.
+Preregister exactly one complete-10/22 bounded device differential. No source
+or device work is admitted at this decision. The source seal must come from a
+later clean commit, and only its fresh no-argument owner may open the exclusive
+result once.
 
-### One traversal, one accumulation authority
+### Retain the compiler truth before completing a container
 
-The parent direct-query and direct-fold kernels each walk the same compatible
-source rows for each selected query and tile. The sealed fold replacement keeps
-one thread per query, the strict increasing source-rank traversal, the logical
-feature loop, every high/low primitive, and the complete fold payoff and reach
-order. Only after that source loop has closed does it copy the configured
-boundary coefficient pairs into a distinct query-output pointer; the fold
-calculation then proceeds unchanged.
+The owner compiles exactly ADR-0418's built CUDA source once with the unchanged
+ordered NVRTC options. The raw payload is chunked, flushed, fsynced, and
+ACKed before parsing, editing, or loading. Two modes—and only two—are admitted:
+a structurally complete ELF used unchanged, or a payload whose section table
+is complete and whose declared program table is exactly one byte longer
+because only the high byte of the last program header's alignment field is
+absent. The latter path is admitted only when the present low seven bytes
+encode zero, one, or a power of two no larger than 2^32; it appends one zero
+and reparses every header and file-backed bound.
 
-The reference `direct_selected_queries_tile` source remains byte-for-byte
-identical and is not production authority. A later separately preregistered
-owner may launch it only as a typed complete-ten differential. The population
-path must use the shared fold output, allocate query and fold outputs
-separately, and contain no second direct-query traversal.
+This is a prospective format predicate, not reuse of ADR-0410's artifact-bound
+identity and not a general normalizer. Any other length, field, suffix, parse,
+module, function, or resource outcome is a permanent typed rejection. The
+loaded object, retained object, and object inspected by CUDA 13.3
+`cuobjdump` must be identical.
 
-### Exact work and source closure
+### Complete ten owns the byte differential
 
-The work derivation is recomputed from `math.comb`, not trusted from the
-config. Across the frozen four executions and three tiles, the mechanism
-deletes 40,320, 14,325,696, and 34,003,200 source unrankings at the complete
-10-card, complete 22-card, and geometry-only 25-card widths. It also deletes
-512, 9,504,768, and 27,783,168 compatible boundary pair additions,
-respectively, replacing each complete campaign with 512 finished-pair copies.
-All fold source unrankings and all 176 fold coefficient additions remain.
+The independent reference is the exact retained 514,040-byte V4 cubin, not a
+second fresh compilation. It may expose only the old direct query and direct
+fold functions, only during the complete-ten control, on the same shared-built
+source table, selected records, and three logical tiles. Three reference-query,
+three reference-fold, and three shared-fold launches are frozen.
 
-The source builder rejects zero or multiple parent fold spans and verifies
-identical prefix, suffix, and reference-query bytes. Its brace-aware static
-check requires the copy loop after the complete source loop and before the
-fold numerator, with no pair arithmetic in the copy. The implementation adds
-no CuPy, subprocess, compilation, module, launch, owner, reader, exclusive
-writer, or result surface.
+For every tile, the old query pairs must equal the shared query output byte for
+byte and the old fold pairs must equal the shared fold output byte for byte.
+Feature order and shapes are exact; shared query and fold allocations are
+distinct; a shared repeat is byte-identical. Both reference functions become
+unreachable after that control and are excluded from population timing and
+work.
 
-### Controls and limits of this seal
+### Complete 10/22 population execution
 
-Nine focused controls pass. A pure CPU sequence model gives byte-identical
-reference and shared query-pair digests while retaining nonzero low lanes.
-Engineered early-copy, reversed-source, shifted-boundary, aliased-signature,
-copy-arithmetic, and duplicate-parent-kernel mutations reject. A fresh
-subprocess import reports no CuPy module and zero parent import calls; both
-prospective result paths remain absent.
+Both immutable chunk families run on complete 10 and complete 22, including
+the existing default/alternate byte-identity, exact-Fraction, absolute and
+relative, poison, offset, replay, forward/transpose, lifecycle, and pool-release
+gates. A generated outer population function changes only
+`collect_direct = fixture.available_cards == 25` to literal true. A generated
+forward helper changes only the direct helper identity to the shared
+fold-and-query launcher. Parent modules are never monkey-patched.
 
-This is a source seal, not execution evidence. It establishes no device
-differential and no complete 10/22 successor numerical result. The 25-card
-figures are combinatorial geometry only: there is no capacity projection and
-no complete 25-card numerical value. There is no actual 45-card value, resolver
-iteration, solve, action, 15-second result, decision-quality claim, truncation
-authority, blueprint result, or poker-strength claim.
+Each population therefore launches the shared fold twelve times—two repeats,
+three tiles, and two families—and launches the reference query and fold zero
+times. Complete 25 is rejected before fixture construction, compilation,
+allocation, launch, digest, scalar, or gate.
+
+### Fifteen phases, with the shifted indexes named
+
+The old `direct_query` and `direct_fold` phases become the single
+`shared_direct_fold_and_query` phase. The other fourteen phases and their
+order remain unchanged. Consecutive device events and host stamps partition
+each family wall; their sum must reconstruct it exactly. These timings are
+bounded validation diagnostics only. This ADR contains no projection ratios,
+target capacity wall, action-clock comparison, or endpoint rule.
+
+The work ledger reads the fused signature by semantic name and freezes its
+argument positions: source rows 2, available cards 3, query count 7, boundary
+feature count 9, and logical width 11. This explicitly prevents the new feature
+count at slot 9 from being mistaken for the old logical width merely because
+both are small integers. The reader rederives source unrankings, compatible
+coefficient additions, boundary copies, and final products from arguments and
+combinatorics.
+
+### Evidence, terminals, and the next seal
+
+The new owner uses a fresh result path with exclusive `xb` creation,
+append/flush/fsync/ACK evidence, a 64 MiB journal, a 240-second laboratory wall,
+90 seconds per population, and a 270-second parent hard stop. Raw compiler and
+command streams precede interpretation. The first terminal—pass, compiler/
+container, resource, differential, scientific, wall, or infrastructure
+rejection—is permanent.
+
+The independent reader imports no CuPy, owner, or adapter. It reconstructs raw
+payload chunks, container classification, command streams, resource maxima,
+complete-ten control, phase transitions, work counts, numerical gates, and
+terminal from retained evidence. The source seal must cover synthetic success,
+each typed failure, torn/reordered/oversized evidence, altered source
+substitutions, the slot-9/slot-11 coincidence control, reference leakage,
+population 25, output aliasing, and a real no-CuPy handshake. It may perform no
+real compile, load, launch, or result operation.
+
+No capacity estimator is chosen here. Even a passing device result will require
+a later preregistration before any phase wall becomes capacity authority.
 
 ### Continuity
+
+ADR-0419 prospectively freezes only the fresh shared-direct device differential; no adapter, owner, reader, control, result, or device value exists at this decision.
 
 The generated-front-door historical labels remain literal. ADR-0328 precedes
 the direct closed finite-block greedy line. ADR-0367 preregisters the occupied-
@@ -189,7 +227,7 @@ source-sealed CuPy-free consumer-capacity result.
 
 ## Active next
 
-Prospectively preregister a new exclusive bounded device-differential owner, independent standard-library reader, and fresh result identity; bind ADR-0418 and its exact built CUDA-source digest, keep the unchanged direct-query kernel control-only on complete 10, launch only the fused fold kernel in complete 10/22 population paths, require distinct query/fold storage plus byte-identical complete-10 boundary pairs, retain the existing Fraction, numerical, resource, order, and work gates, structurally forbid every population-25 fixture/compiler/allocation/launch/value path, and select no capacity projection before that separate source seal
+Implement and source-seal only the additive shared-direct device adapter, no-argument exclusive owner, independent standard-library reader, and synthetic/fake-device controls from ADR-0419; bind every parent and built-source hash, make raw compiler bytes durable before the sole complete-or-one-zero container classification, load the retained V4 cubin only for the complete-10 query/fold control, generate the population runner through exactly two inspected source substitutions without monkey-patching parent modules, reindex the fused-fold work ledger explicitly, prove a contiguous 15-phase partition and zero population reference-query launches, exercise every terminal synthetically plus a real no-CuPy child handshake, and keep the real result and every population-25 path absent
 
 ## Revoked authorities
 
@@ -197,7 +235,7 @@ Prospectively preregister a new exclusive bounded device-differential owner, ind
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0418](docs/decisions/ADR-0418-source-seal-the-shared-selected-direct-oracle.md) — Source-seal the shared selected direct oracle.
+Latest process decision: [ADR-0419](docs/decisions/ADR-0419-preregister-the-shared-direct-device-differential.md) — Preregister the shared-direct device differential.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -205,7 +243,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0395](docs/decisions/ADR-0395-correct-the-work-preflight-resource-instrument-before-result.md) | 2026-08-25 | accepted prospective pre-result instrument correction; the unchanged five caller-supplied NVRTC options, retained ELF cubin identity, independent raw `cuobjdump` reparse, driver/cubin register and backing maxima, and explicit device-reserve arithmetic replace ADR-0394's unavailable compiler-spill wording before source seal, real compilation, calibration, projection, or result, while every ADR-0394 arithmetic, population, phase, ratio, wall, lifecycle, and claims boundary remains binding and every complete 25-card numerical value, actual 45-card value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Correct the work-preflight resource instrument before result |
 | [ADR-0396](docs/decisions/ADR-0396-source-seal-the-work-decomposed-paired-capacity-preflight.md) | 2026-08-25 | accepted source-only composite work-preflight seal; the additive source-rank-major direct controls, exact 10/22 work ledger, constituent-complete conservative ratios, contiguous synchronized host-phase partition, corrected dual resource instrument, exclusive subprocess-bounded owner, append-and-fsync journal, and independent standard-library reader pass every synthetic/source control while both result paths remain absent, no real compilation, calibration, or 25-card fixture has been invoked, and every complete 25-card numerical value, actual 45-card value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Source-seal the work-decomposed paired capacity preflight |
 | [ADR-0397](docs/decisions/ADR-0397-retain-the-work-preflight-worker-module-bootstrap-failure.md) | 2026-08-25 | accepted retained first-invocation infrastructure failure; ADR-0396's clean v1 owner is permanently closed after its durable header and provenance were followed by `python -m __main__` module-resolution failure, with zero worker import, compiler observation, calibration fixture, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result | Retain the work-preflight worker-module bootstrap failure |
 | [ADR-0398](docs/decisions/ADR-0398-preregister-the-bootstrap-safe-work-preflight-v2-owner.md) | 2026-08-25 | accepted prospective lifecycle-only preregistration; a new owner/result/protocol/campaign/header identity, literal worker module, fresh-challenge no-CUDA subprocess handshake, and solver-free v2 lifecycle reader are frozen before successor source, child execution, compiler observation, calibration, phase row, projection, or result, while ADR-0394/ADR-0395 science remains byte-bound and every complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains unopened | Preregister the bootstrap-safe work-preflight v2 owner |
@@ -229,18 +266,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0416](docs/decisions/ADR-0416-retain-the-repaired-work-preflight-v4-capacity-rejection.md) | 2026-08-26 | accepted retained sole V4 completed-capacity rejection; the repaired 514,040-byte executed cubin, all four resource gates, all primitive and order controls, both complete 10/22 calibration populations, and every numerical conjunct pass, but the unchanged worse-endpoint projection is 7,260.753615922 seconds against the frozen 180-second population wall, so the V4 owner is permanently consumed and every complete 25-card numerical value, actual 45-card value, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Retain the repaired work-preflight V4 capacity rejection |
 | [ADR-0417](docs/decisions/ADR-0417-preregister-the-shared-selected-direct-oracle.md) | 2026-08-26 | accepted prospective exact-work boundary; the selected direct-query row is frozen as a read-only projection of the fully accumulated direct-fold coefficient vector, so one source-rank traversal must produce both query and fold outputs without reassociation, deleting 34,003,200 projection-only source unrankings and 27,783,168 redundant boundary pair additions while every parent source, consumed owner, numerical gate, resource ceiling, capacity rule, complete 25-card value, actual 45-card value, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unchanged or unopened | Preregister the shared selected direct oracle |
 | [ADR-0418](docs/decisions/ADR-0418-source-seal-the-shared-selected-direct-oracle.md) | 2026-08-26 | accepted source-only exact-work seal; one additive CUDA-source builder replaces exactly the selected direct-fold kernel, preserves the reference direct-query kernel byte for byte, copies eight selected boundary pairs only after the unchanged source-rank accumulation, and passes nine focused source, sequence, mutation, provenance, and side-effect controls while every device differential, complete 10/22 successor value, capacity projection, complete 25-card numerical value, actual 45-card value, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Source-seal the shared selected direct oracle |
+| [ADR-0419](docs/decisions/ADR-0419-preregister-the-shared-direct-device-differential.md) | 2026-08-26 | accepted prospective bounded-device validation boundary; a fresh exclusive owner must durably retain the exact shared-source compiler payload before admitting either an unchanged complete ELF or one structurally bounded final-alignment zero completion, compare the retained V4 query and fold kernels byte-for-byte with the shared fold on complete 10, execute only the shared fold in two complete 10/22 population families under a contiguous 15-phase work ledger, and preserve all numerical and resource gates while every successor source, owner, reader, control, device result, capacity projection, complete 25-card numerical value, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the shared-direct device differential |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0418](docs/decisions/ADR-0418-source-seal-the-shared-selected-direct-oracle.md) — Source-seal the shared selected direct oracle.
+- Latest ADR: [ADR-0419](docs/decisions/ADR-0419-preregister-the-shared-direct-device-differential.md) — Preregister the shared-direct device differential.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 418.
-- ADR-header SHA-256: `251998ec540d7483f10db495633f72dc9b47ada7812abeb310ba384c8439e16a`.
-- Current blockers: no device differential, complete 10/22 shared-direct successor result, or replacement capacity projection exists; the sole V4 path remains consumed with a conservative capacity rejection; no complete 25-card numerical result, actual owner, or full-width actual-context quotient value exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 419.
+- ADR-header SHA-256: `a3c421abf4ccf3e4bcb93fe6c60422fe65d496042d865632733b3f8b70630dfd`.
+- Current blockers: no source-sealed shared-direct device adapter, exclusive owner, independent reader, or device differential exists; the sole V4 path remains consumed with a conservative capacity rejection, and no replacement capacity projection is selected; no complete 25-card numerical result, actual owner, or full-width actual-context quotient value exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0418](docs/decisions/ADR-0418-source-seal-the-shared-selected-direct-oracle.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0419](docs/decisions/ADR-0419-preregister-the-shared-direct-device-differential.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

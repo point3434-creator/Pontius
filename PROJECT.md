@@ -1013,6 +1013,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   focused controls pass with zero CuPy imports, compiles, loads, or launches.
   A new exclusive complete-10 differential and complete-10/22 shared-path
   owner must be preregistered next; no capacity projection is selected.
+- ADR-0419 preregisters that device differential without opening source or
+  CUDA. Raw compiler bytes must become durable before the sole complete-ELF or
+  bounded one-zero container classification; the retained V4 cubin supplies
+  complete-10 query/fold byte controls, while complete 10/22 population paths
+  launch only the shared fold under a contiguous 15-phase ledger. Slot 9 is
+  boundary-feature count and slot 11 is logical width. No projection rule is
+  present; implement and source-seal this owner/reader boundary next.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

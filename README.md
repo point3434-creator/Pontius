@@ -878,9 +878,12 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   command to an early failure terminal. The timing ledger now synchronizes
   before host stamps while keeping full population elapsed wall distinct from
   phase sums. No real compile, module load, launch, replacement capacity rule,
-  population-25 value, action,
-  or quality result exists. The next authority is one clean no-argument owner
-  invocation from the sealed commit, never a retry.
+  population-25 value, action, or quality result exists. ADR-0421 now consumes
+  the first public command as
+  a pre-import launcher failure: repository Python could not discover `src`
+  without ambient `PYTHONPATH`, so no owner journal or device work exists. The
+  next authority is a fresh, prospectively sealed repository-root launcher
+  proven through a scrubbed-environment handshake, never a retry of ADR-0420.
 
 ## Current checkpoint
 

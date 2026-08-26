@@ -1032,6 +1032,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   walls and binds cleanup without a completed resource command to an early
   failure terminal; one clean no-argument invocation from the
   ADR-0420 commit is next and may never be retried.
+- ADR-0421 retains that sole public command as a launcher-resolution failure.
+  Repository Python exited `1` with `No module named 'pontius'` before owner
+  import because the sealed command depended on an ambient `PYTHONPATH` that
+  was absent. No journal, handshake, CuPy import, compiler observation, module
+  load, launch, phase, population, or device value exists, and both protected
+  result paths remain absent. The ADR-0420 command and result identity are
+  permanently consumed. Preregister a new-identity repository-root launcher
+  and require a scrubbed-environment handshake through its literal public path;
+  do not retry ADR-0420 by setting `PYTHONPATH`.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -2012,6 +2012,15 @@ an early failure terminal; the real result, population 25, and every capacity
 or action claim remain absent until one separately invoked owner terminal
 exists.
 
+ADR-0421 permanently closes that public owner identity before import. The
+literal `python -m pontius...` command was not self-contained: repository
+Python's path omitted `src` when no ambient `PYTHONPATH` existed, so package
+resolution failed before exclusive journal creation or the internal handshake.
+The internal parent-to-child harness therefore remains unexercised on device,
+and the prospective result remains absent but consumed. Any successor needs a
+sealed repository-root launcher and must execute that exact launcher in a
+scrubbed, device-free handshake before source seal.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

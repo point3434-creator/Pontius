@@ -896,11 +896,13 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   probe, with no CuPy, device, or result operation. ADR-0426 retains its sole
   invocation as a population-10 sample-plan rejection: execution selected seven
   rows while evidence expected the frozen sixteen, so no population row or
-  projection survived and population 22 never opened. V2 is closed; the next
-  boundary is ADR-0427's fresh shared-plan source seal: identical immutable
-  rank/feature/shape objects must feed execution and evidence and fail historical
-  drift before CuPy. This is not a retry or a capacity, action-latency, or
-  quality inference.
+  projection survived and population 22 never opened. V2 is closed. ADR-0428
+  now source-seals ADR-0427's fresh shared-plan boundary: identical immutable
+  rank/feature/shape objects feed execution and evidence through every generated
+  wrapper seam, and historical drift fails before CuPy. Twenty-one focused
+  controls and the scrubbed two-launcher probe pass. The next authority is one
+  clean V3 invocation; this is not a retry or a capacity, action-latency,
+  quality, or exact-integer inference.
 
 ## Current checkpoint
 

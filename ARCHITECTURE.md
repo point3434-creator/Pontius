@@ -2074,6 +2074,16 @@ the compiled function globals and force the historical 7/16 helper, rank,
 feature, and shape mutations to reject before any CuPy import. V3 otherwise
 inherits the V2 device science and lifecycle through fresh identities.
 
+ADR-0428 source-seals the implementation. The read-only resolver is injected
+into the generated population function and exact evidence calculator, while
+explicit identity gates also bind the population-evidence wrapper, family
+runner, and top-level validation function. Every normal and direct sample shape
+is checked before Fraction evidence. The fresh reader independently validates
+V3 lifecycle, then changes only the frozen header/wrapper/bootstrap identity
+paths in memory for the owner-free V2 semantic oracle; post-bootstrap science
+and the outer terminal are byte-semantically unchanged. No CuPy or result work
+occurs during the seal. One later clean V3 invocation is the only open authority.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

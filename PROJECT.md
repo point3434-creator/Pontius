@@ -1092,6 +1092,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   and all four sample shapes reject before CuPy. V2 remains closed, and the
   source-only checkpoint may add only the fresh adapter/launcher/owner/reader/
   controls and scrubbed no-device launch probe.
+- ADR-0428 completes that source seal. Twenty-one focused controls bind the
+  immutable plan not only at execution and evidence endpoints but through the
+  population-evidence, family-runner, and top-level validation seams. The old
+  seven-row helper and rank/feature/shape mutations reject before CuPy; the
+  independent V3 reader accepts complete and failure synthetic journals while
+  preserving every post-bootstrap event. A scrubbed external-working-directory
+  probe crosses both literal launchers without CuPy, science import, or result.
+  The next authority is exactly one clean V3 invocation; its first terminal is
+  permanent, and the exact-integer proposal remains a separate unimplemented
+  hypothesis.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

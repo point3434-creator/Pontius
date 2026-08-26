@@ -2451,3 +2451,9 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     `CudaRuntimeIdentity` broke the evidence normalizer and masked the original
     compiler/resource exception. Never infer that cause or retry v2. A v3 must
     use new identities and prove real-type failure reporting before campaign.
+116. ADR-0401 freezes v3 before source. Admit only the exact six-field
+    `CudaRuntimeIdentity` through `dataclasses.fields`; reject generic `vars`,
+    `__dict__`, `asdict`, subclasses, and unknown objects. Source seal must run
+    the literal no-CUDA serializer-probe child through the unchanged scientific
+    `send`, retain `RuntimeError: forced_serializer_probe_compiler_failure`,
+    restore every patched identity, and leave the real v3 result absent.

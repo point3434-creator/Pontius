@@ -1418,7 +1418,6 @@ class DocumentationIntegrityTests(unittest.TestCase):
         expected = {
             "README.md": ("ADR-0377", "49,557.238 ms"),
             "PROJECT.md": ("ADR-0377", "10.046424 GB"),
-            "STATUS.md": ("ADR-0377", "126 frozen gates"),
             "ROADMAP.md": ("ADR-0377", "streamed-validation"),
             "RUNBOOK.md": (
                 "dd5b6d04cd45db0c3a95acdd1bcd05355c72be0852701df347696442261a2b72",
@@ -1818,19 +1817,19 @@ class DocumentationIntegrityTests(unittest.TestCase):
 
     def test_work_decomposed_paired_capacity_preflight_is_preregistered(self) -> None:
         expected = {
-            "README.md": ("ADR-0400", "four-record journal"),
-            "PROJECT.md": ("ADR-0400", "masked and unclassified"),
+            "README.md": ("ADR-0401", "six-field `CudaRuntimeIdentity`"),
+            "PROJECT.md": ("ADR-0401", "generic object conversion"),
             "STATUS.md": (
-                "ADR-0400",
-                "accepted retained first-invocation infrastructure failure",
+                "ADR-0401",
+                "accepted prospective serializer-only recovery",
             ),
-            "ROADMAP.md": ("ADR-0400", "slots dataclass"),
+            "ROADMAP.md": ("ADR-0401", "real no-CUDA forced-failure probe"),
             "RUNBOOK.md": (
-                "ADR-0400",
-                "9b9a3f606004a281773f6dc83c86fe2f70811ab825fbf1e0b8b47c1c75abdad3",
+                "ADR-0401",
+                "forced_serializer_probe_compiler_failure",
             ),
-            "ARCHITECTURE.md": ("ADR-0400", "frozen slots dataclass"),
-            "RISK_REGISTER.md": ("R162", "concrete-type inventory"),
+            "ARCHITECTURE.md": ("ADR-0401", "restores the original in `finally`"),
+            "RISK_REGISTER.md": ("R163", "process-local evidence adapter"),
             "artifacts/work_preflight/README.md": (
                 "ADR-0394",
                 "legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
@@ -2251,6 +2250,155 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "No laboratory observation survived",
         ):
             self.assertIn(phrase, outcome)
+
+    def test_work_preflight_v3_serializer_recovery_is_preregistered(self) -> None:
+        relative = (
+            "experiments/configs/"
+            "legal-river-quotient-cuda-compensated-work-preflight-owner-v3.json"
+        )
+        raw = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+        self.assertEqual(
+            hashlib.sha256(raw).hexdigest(),
+            "2c1a407dbd2a84e3d49d30544f47fef6bb6fffa74274e22d75acbf8ece2f00c1",
+        )
+        config = json.loads(raw)
+        self.assertEqual(
+            config["schema_version"],
+            "legal-river-quotient-cuda-compensated-work-preflight-owner-config-v3",
+        )
+        self.assertEqual(
+            config["evidence_stage"],
+            "preregistered_after_adr0400_before_v3_source_probe_campaign_or_result",
+        )
+
+        parent = config["parent_identity"]
+        bound_paths = {
+            "adr0394": "adr0394_relative_path",
+            "adr0395": "adr0395_relative_path",
+            "adr0398": "adr0398_relative_path",
+            "adr0399": "adr0399_relative_path",
+            "adr0400": "adr0400_relative_path",
+            "v1_scientific_config": "v1_scientific_config_relative_path",
+            "resource_correction_config": "resource_correction_config_relative_path",
+            "v2_owner_config": "v2_owner_config_relative_path",
+            "scientific_source": "scientific_source_relative_path",
+            "v2_runner": "v2_runner_relative_path",
+            "v2_reader": "v2_reader_relative_path",
+            "v2_controls": "v2_controls_relative_path",
+        }
+        for label, path_field in bound_paths.items():
+            current = (_ROOT / parent[path_field]).read_bytes().replace(b"\r\n", b"\n")
+            self.assertEqual(
+                hashlib.sha256(current).hexdigest(),
+                parent[f"{label}_canonical_lf_sha256"],
+                label,
+            )
+
+        for version, expected in {
+            "v1": (
+                "fd8c71ddb534320577dfc9a390946fc3dffe3fe806bf93d456ac33e55fe8e830",
+                5322,
+                3,
+            ),
+            "v2": (
+                "9b9a3f606004a281773f6dc83c86fe2f70811ab825fbf1e0b8b47c1c75abdad3",
+                8508,
+                4,
+            ),
+        }.items():
+            retained = config["retained_artifacts"][version]
+            artifact = _ROOT / retained["relative_path"]
+            artifact_raw = artifact.read_bytes()
+            self.assertEqual(hashlib.sha256(artifact_raw).hexdigest(), expected[0])
+            self.assertEqual(len(artifact_raw), expected[1])
+            self.assertEqual(len(artifact_raw.splitlines()), expected[2])
+            self.assertEqual(retained["phase_count"], 0)
+            self.assertIsNone(retained["projection"])
+
+        scope = config["successor_scope"]
+        for field in (
+            "v3_adapter_relative_path",
+            "v3_runner_relative_path",
+            "v3_reader_relative_path",
+            "v3_controls_relative_path",
+            "v3_result_relative_path",
+            "reserved_actual_result_relative_path",
+        ):
+            self.assertFalse((_ROOT / scope[field]).exists(), scope[field])
+
+        identity = config["new_identity_contract"]
+        self.assertEqual(
+            hashlib.sha256(identity["owner_protocol_seed"].encode("ascii")).hexdigest(),
+            "294272bfa2a3402e60698f2835a8716e17ab83c76debf32012d8c324b30f65c9",
+        )
+        self.assertEqual(
+            hashlib.sha256(identity["campaign_seed"].encode("ascii")).hexdigest(),
+            "da157b3e01c8f219feb9df032ed942af9cd7e7911b6ad0d76e3a2a8356aefd7e",
+        )
+
+        serializer = config["serializer_contract"]
+        self.assertEqual(
+            serializer["approved_dataclass_fully_qualified_name"],
+            "pontius.legal_river_quotient_cuda_consumer.CudaRuntimeIdentity",
+        )
+        self.assertEqual(
+            serializer["approved_dataclass_fields_in_declared_order"],
+            [
+                "device_name",
+                "compute_capability",
+                "device_total_bytes",
+                "cuda_driver_version",
+                "cuda_runtime_version",
+                "cupy_version",
+            ],
+        )
+        for field in (
+            "approved_dataclass_requires_exact_type_not_subclass",
+            "recognize_with_dataclasses_is_dataclass_and_enumerate_dataclasses_fields",
+            "generic_vars_or___dict___object_fallback_forbidden",
+            "unknown_dataclass_namedtuple_slots_or_object_family_rejected",
+            "legacy_plain_success_domain_must_be_byte_identical_on_complete_synthetic_event_corpus",
+            "scientific_plain_identity_must_be_checked_before_install_and_restored_in_finally",
+        ):
+            self.assertTrue(serializer[field], field)
+
+        probe = config["serializer_probe"]
+        self.assertEqual(probe["child_mode"], "serializer_probe")
+        self.assertEqual(
+            probe["forced_exception_message"],
+            "forced_serializer_probe_compiler_failure",
+        )
+        self.assertEqual(
+            probe["expected_event_reason"],
+            "RuntimeError: forced_serializer_probe_compiler_failure",
+        )
+        self.assertEqual(probe["expected_terminal"], "compiler_or_primitive_rejection")
+        self.assertTrue(probe["must_import_no_cupy_and_execute_no_compiler"])
+        self.assertTrue(probe["must_call_the_unchanged_run_calibration_preflight_send_closure"])
+        self.assertTrue(probe["source_global_bounded_call_counter_and_all_patched_identities_must_restore"])
+
+        science = config["inherited_science"]
+        self.assertEqual(science["calibration_populations"], [10, 22])
+        self.assertEqual(science["projection_population_integer_only"], 25)
+        self.assertEqual(science["phase_count"], 16)
+        self.assertEqual(science["safety_multiplier_fraction"], [5, 4])
+        self.assertEqual(science["target_projection_wall_limit_ns"], 180_000_000_000)
+        self.assertIsNone(science["exact_spill_load_store_count"])
+        self.assertTrue(
+            all(value is None or value is False for value in config["claims"].values())
+        )
+
+        adr = _contract_text(
+            "docs/decisions/ADR-0401-preregister-the-work-preflight-v3-evidence-serializer-recovery.md"
+        )
+        for phrase in (
+            "exact class, not a subclass",
+            "generic `vars()`/`__dict__` fallbacks",
+            "forced_serializer_probe_compiler_failure",
+            "No adapter, probe, child, or campaign exists",
+            "Prospective v3 result",
+        ):
+            self.assertIn(phrase, adr)
 
     def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
         expected = {

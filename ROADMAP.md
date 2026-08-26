@@ -1419,8 +1419,9 @@ queue:
   source seal now passes under ADR-0399 with 16 controls and no campaign call.
   ADR-0400 retains the sole invocation: handshake passes, then the typed
   compiler-failure reporter masks its antecedent on a slots dataclass. V2 is
-  closed. The immediate checkpoint is a preregistered additive v3 evidence-
-  serializer recovery; do not open a 25-card fixture or numerical value.
+  closed. ADR-0401 preregisters an exact-type additive v3 evidence serializer
+  and real no-CUDA forced-failure probe. The immediate checkpoint is its source
+  seal; do not open a 25-card fixture or numerical value.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1482,7 +1483,8 @@ queue:
   additive bootstrap-safe v2 lifecycle, and ADR-0399 source-seals it after a
   real no-CUDA child handshake. ADR-0400 retains its sole call as an evidence-
   serializer infrastructure failure with no phase or projection. The immediate
-  checkpoint is a new-identity v3 serializer seal; every actual
+  v3 contract is frozen by ADR-0401; the immediate checkpoint is its serializer
+  adapter, real failure-probe, owner, and reader source seal. Every actual
   45-card value, owner, automatic truncation, resolver iteration, action
   timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

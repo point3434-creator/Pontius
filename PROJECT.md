@@ -902,6 +902,11 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   resource exception. That earlier cause is masked and unclassified. The
   artifact has two lifecycle events, zero phases, and no projection; v2 is
   permanently closed.
+- ADR-0401 preregisters v3 before source. It admits exactly one concrete slots
+  dataclass through declared fields, forbids generic object conversion, keeps
+  the scientific file immutable, and requires a real no-CUDA forced-failure
+  child through the scientific `send` closure and shared transport. The exact
+  sentinel reason must survive and every patched source identity must restore.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

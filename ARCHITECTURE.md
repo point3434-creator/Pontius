@@ -1836,6 +1836,13 @@ the antecedent was masked. Any v3 must add a schema-aware dataclass encoder in
 new source, inventory every concrete emitted type, and test the reporter with
 the real runtime type through the exact send/framing seam.
 
+ADR-0401 freezes the additive design. The adapter admits the exact runtime
+dataclass and its six declared fields only; generic object serialization is
+forbidden. In an isolated child it temporarily replaces only the scientific
+normalizer, restores the original in `finally`, and proves the real exception
+handler with a no-CUDA sentinel compiler failure. V3 handshake, probe, and
+campaign share one new transport and evidence identity.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

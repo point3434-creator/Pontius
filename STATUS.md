@@ -15,110 +15,95 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Retain the exact v2 artifact as an infrastructure failure and permanently
-close the owner. Do not edit or invoke the v2 runner, overwrite or rename the
-artifact, or attempt to recreate the masked compiler/resource reason. The
-four-record journal is complete and independently rebinds.
+Yes as a preregistration only. Freeze the v3 config, new lifecycle identities,
+and new absent result path. Both prior owner paths remain permanently closed.
+No adapter, probe, child, or campaign exists at this checkpoint.
 
-The solver-free reader reconstructs exactly:
-
-```text
-terminal=infrastructure_failure
-passed=False
-event_count=2
-handshake=True
-phase_count=0
-projection=None
-```
-
-The new lifecycle repair worked. Provenance binds clean source commit
-`c7a702c6676919b21e242f224e1189e0142c029a`, both old configs, unchanged
-science, v1/v2 code and controls, the exact v1 artifact, and absence of the
-reserved actual path. The next observation binds equal parent/child challenge
-digests, the literal v2 spec, runtime `__main__`, `-B`, and absence of CuPy and
-the scientific source in the handshake child. Thus ADR-0397's `-m __main__`
-defect is retired in v2; this terminal is a different failure family.
-
-Campaign mode then imported the unchanged scientific source, loaded CuPy,
-constructed its typed `CudaRuntimeIdentity`, and entered the compiler/resource
-inspection block. Some operation inside that block raised. The exception
-handler attempted to emit a typed `compiler_resource_failure` event containing
-the runtime identity. Before the outer runner could frame or journal it,
-`send()` called the sealed `_plain` normalizer.
-
-`CudaRuntimeIdentity` is declared `@dataclass(frozen=True, slots=True)`. It has
-the six expected fields and no `__dict__`. `_plain` recognizes mappings,
-sequences, scalar types, and objects with `__dict__`; its final branch therefore
-raised:
+The approved serializer domain is deliberately narrow. Existing scalar,
+finite-float-as-hex, `Fraction`, NumPy scalar, mapping, and non-byte sequence
+rules must remain byte-identical on every payload in the complete synthetic
+success corpus. Exactly one new concrete type is admitted:
 
 ```text
-TypeError: unsupported work-preflight evidence type: CudaRuntimeIdentity
+pontius.legal_river_quotient_cuda_consumer.CudaRuntimeIdentity
 ```
 
-That TypeError replaced the exception already being handled. The original
-compiler/resource exception was not included in any framed event or durable
-record and cannot be inferred from the terminal. It is an absence claim, not
-permission to call it a compiler rejection. At least the compiler/resource
-block was attempted; no durable evidence establishes which operation failed,
-whether a compiler payload existed, or whether any resource gate was reached.
+It must be the exact class, not a subclass, and must remain a dataclass. The
+encoder recognizes it through `dataclasses.is_dataclass`, checks the declared
+field tuple exactly, enumerates `dataclasses.fields` in order, and recursively
+normalizes these six fields:
 
-No laboratory observation survived. No calibration population, phase row,
-population evidence, projection, compiler resource row, complete 25-card
-number, or actual-context value is present. `phase_count=0` is not evidence
-that phases are fast. The five-second controller wall is invocation plumbing,
-not resolver latency, per-iteration time, per-solve time, or action-clock use.
+```text
+device_name
+compute_capability
+device_total_bytes
+cuda_driver_version
+cuda_runtime_version
+cupy_version
+```
 
-### Failure classification
+Unknown dataclasses, slots objects, named tuples, arbitrary objects, and generic
+`vars()`/`__dict__` fallbacks reject. `dataclasses.asdict` is also forbidden:
+its recursive copying widens the accepted domain and can silently change
+container identity. The adapter owns one explicit schema, not Python-object
+serialization in general.
 
-This is rejected-invocation plumbing tax in the evidence-serialization layer,
-with a masked and therefore unclassified antecedent. It is not a scientific
-calibration rejection and not a systems prior. V2's shared subprocess harness
-successfully eliminated the worker-birth failure; it did not exercise the
-first real scientific failure payload before source seal.
+The scientific source file remains byte-for-byte immutable. A new adapter may
+install its normalizer only inside the isolated v3 campaign/probe child, after
+checking the source's original `_plain` identity and hash. It restores the
+exact original function in `finally` and proves restoration. No other thread
+may share that module. This is a runtime evidence-boundary substitution, not a
+scientific or arithmetic modification; it must be named as such in provenance.
 
-The source tests generated the `runtime` field as a plain dictionary. Their
-synthetic compiler failures and complete passages therefore covered the event
-schema but not the producer's concrete runtime type. The real no-CUDA
-handshake correctly forbade importing the scientific source, so it could not
-cover this separate serializer seam. Both controls were correct within their
-declared scope; the missing control was a constructed real-type payload passed
-through the exact scientific `send` normalizer and child framing.
+Source seal requires a real serializer-probe child. That child imports no
+CuPy and calls no compiler. It constructs the exact approved runtime dataclass,
+then temporarily substitutes only four external seams around the unchanged
+`run_calibration_preflight`: CuPy loader, runtime-identity constructor, runtime
+verifier, and kernel-compiler entry. The last raises exactly:
 
-The structural successor fix is an exact type-to-evidence boundary, not a
-generic `vars()` extension and not an in-place v2 patch. A v3-only adapter must
-recognize `dataclasses.is_dataclass`, enumerate `dataclasses.fields` in the
-declared field order, recursively normalize each value, and reject unknown
-object families. Its conformance inventory must include every concrete type
-that can cross `send`, with an explicit `CudaRuntimeIdentity` control. A forced
-compiler/resource exception must then traverse the real scientific send plus
-child framing and retain the original exception text without CuPy or compiler
-execution. The control must prove the reporter cannot mask the reported error.
+```text
+RuntimeError: forced_serializer_probe_compiler_failure
+```
 
-Because the scientific file is hash-bound by both retained artifacts, do not
-edit it. The additive v3 implementation must isolate any serializer adaptation
-in new source, make that runtime substitution explicit and temporary inside
-the new campaign child, restore it on every exit, and prove arithmetic and
-event payloads outside serialization are byte-identical. A broader scientific
-change is a different experiment.
+The unchanged scientific exception handler and `send` closure must produce one
+`laboratory` event whose subkind is `compiler_resource_failure`, whose runtime
+is the exact six-field plain mapping, and whose reason is the exact line above.
+The scientific terminal must be `compiler_or_primitive_rejection`. Every
+patched identity, the source call counter, and `_plain` must restore on exit.
+Thus the probe tests the reporter that failed, not a hand-built imitation of
+its output.
 
-The immutable v2 source-seal suite now passes 13 of 16 controls. Its exact
-three historical failures are the pre-result predicates
-`test_config_and_additive_paths_rebind`,
-`test_real_no_cuda_handshake_crosses_literal_subprocess_seam`, and
-`test_public_owner_is_no_argument_and_real_result_remains_absent`; each fails
-only because the retained v2 result now exists. The hash-bound control file is
-not edited. No handshake, transport, reader, scientific-view, or mutation
-control regressed.
+Handshake, serializer probe, and campaign modes share one new literal-module
+transport. The same Popen command, 64-entry cancellable stdout queue, strict
+ASCII framing, bounded concurrent stderr, exact deadline after stdout EOF,
+terminal-order enforcement, return checks, pipe cleanup, and thread cleanup
+apply to all three. The source-seal control spawns the actual `-B -m` probe
+without a result. The public owner later repeats and journals handshake and
+probe, in that order, before campaign mode is eligible. Probe time is inside
+the unchanged 240-second laboratory wall but is never a scientific phase or
+capacity input.
 
-### Preserved scientific boundary
+The v3 reader first owns its new protocol, campaign, header, provenance, both
+retained artifacts, handshake, serializer probe, order, dependencies, and
+terminal. Only then may it build an in-memory v2 lifecycle validation view
+with the v3-only probe omitted. The immutable v2 reader then checks handshake
+and constructs its own v1 scientific validation view. Neither compatibility
+view is written or called evidence. Nested reuse cannot relax any v3 gate.
 
-ADR-0394's complete populations 10/22, source-rank-major direct controls,
-complete work ledgers, 16 semantic phases, worse-endpoint ratios, fixed `5/4`
-guard plus 1 ms, 90-second population wall, 240-second laboratory wall, and
-180-second projection ceiling remain unchanged. ADR-0395's ELF, raw CUDA-13.3
-resource text, dual driver/cubin maxima, 255-register, 4,096-byte backing,
-131,072-thread, 2 GB reserve, and null exact spill-traffic contract remain
-unchanged. Population 25 remains integer geometry/work/projection only.
+The real campaign remains one-shot after a separate source-seal commit. Its
+new result is exclusive append-and-fsync evidence. Any handshake, probe,
+serializer, compiler, calibration, wall, or journal failure is the permanent
+first terminal. No v3 result may be retried after learning the now-hidden
+compiler exception.
+
+Every ADR-0394 and ADR-0395 scientific field remains binding: complete 10/22
+populations, both chunk families, tile orders, repeats, all three tiles,
+source-rank-major direct controls, exact work ledgers, 16 semantic phases,
+contiguous synchronized host boundaries, worse-endpoint ratios, `5/4` plus
+1 ms, 90/240/180-second walls, ELF and raw CUDA-13.3 resource evidence,
+driver/cubin maxima, 255 registers, 4,096-byte backing, 131,072 resident
+threads, 2 GB reserve, and null exact spill traffic. Population 25 remains
+integer geometry/work/projection only.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -164,9 +149,9 @@ rejected its source seal; ADR-0391 froze the first paired-tile boundary;
 ADR-0392 corrected its pre-source arithmetic completeness; ADR-0393 retained
 the first implementation as a wall rejection; ADR-0394 freezes the work-
 preflight question; ADR-0395 corrects only its resource instrument before
-result; ADR-0396 source-seals v1; ADR-0397 closes its sole invocation at worker
-bootstrap; ADR-0398 freezes v2; ADR-0399 source-seals it; and ADR-0400 closes
-its sole invocation at evidence serialization. No earlier owner is revived.
+result; ADR-0396 source-seals v1; ADR-0397 closes v1; ADR-0398/0399 own v2;
+ADR-0400 closes v2; and ADR-0401 freezes only v3's evidence boundary. No
+earlier owner is revived.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -180,7 +165,7 @@ to selector-window work. ADR-0351 requires the tie-aware legal h4 affine-
 envelope. ADR-0354 through ADR-0359 own the factorized face and affine
 consumer chain. ADR-0380 freezes the complete ordered populations 10 and 22.
 ADR-0383's owner was invoke exactly once and remains consumed by ADR-0384.
-ADR-0400 imports neither that owner nor its target. The phrases exclusive
+ADR-0401 imports neither that owner nor its target. The phrases exclusive
 untouched legal h4, selector-window, 2,113-task, exhaustive bounded
 development-teacher, response-closed direct mechanism, and caller-owned legal
 fallback retain their prior meanings.
@@ -198,7 +183,7 @@ the literal-45 config; ADR-0383 source-sealed it; ADR-0384 closed it.
 
 ## Active next
 
-Preserve the immutable ADR-0400 four-record v2 terminal and both closed v1/v2 owners, then preregister and source-seal an additive v3 evidence-serialization recovery with new config/protocol/campaign/header/result identities; keep the scientific arithmetic source immutable; require an exact schema-aware encoder for frozen slots dataclasses, a constructed `CudaRuntimeIdentity` differential through the real send/framing seam, and a forced compiler-failure control proving the original exception remains durably visible; bind both retained artifacts and every unchanged hash; do not edit or retry v2, run campaign mode before a new seal, open population 25 numerically, publish externally, or infer action-clock, quality, truncation, blueprint, or poker strength
+Implement and source-seal the additive ADR-0401 adapter, v3 owner, solver-free reader, and controls while the v3 result remains absent; do not edit or import either consumed runner or the scientific source file; make only exact `CudaRuntimeIdentity` dataclass fields encodable, reject every unknown object family, prove byte identity on the complete legacy-success corpus, and spawn a real no-CUDA serializer-probe child that forces `RuntimeError: forced_serializer_probe_compiler_failure` through the unchanged scientific `send` closure and shared transport with the original reason durably visible; bind both retained artifacts and require another clean commit before campaign
 
 ## Revoked authorities
 
@@ -206,7 +191,7 @@ Preserve the immutable ADR-0400 four-record v2 terminal and both closed v1/v2 ow
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0400](docs/decisions/ADR-0400-retain-the-work-preflight-v2-evidence-serializer-failure.md) — Retain the work-preflight v2 evidence-serializer failure.
+Latest process decision: [ADR-0401](docs/decisions/ADR-0401-preregister-the-work-preflight-v3-evidence-serializer-recovery.md) — Preregister the work-preflight v3 evidence-serializer recovery.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -214,7 +199,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0377](docs/decisions/ADR-0377-retain-the-passing-staged-gpu-quotient-scaling-result.md) | 2026-08-25 | accepted retained six-stage non-target GPU numerical, live-admission, and throughput result; all 126 frozen gates pass through 40 cards, while literal 45-card admission, one solve or action, decision quality, truncation, and poker strength remain unopened | Retain the passing staged GPU quotient scaling result |
 | [ADR-0378](docs/decisions/ADR-0378-preregister-the-literal-45-quotient-liveness-boundary.md) | 2026-08-25 | accepted prospective source-only literal-target liveness and streamed-validation boundary; no target allocation, CUDA source, live admission, timing, solve, action, quality, truncation, or strength result is opened | Preregister the literal-45 quotient liveness boundary |
 | [ADR-0379](docs/decisions/ADR-0379-seal-the-literal-45-quotient-liveness-model.md) | 2026-08-25 | accepted source-only exact literal-45 numeric-lifetime result; the typed streamed-validation schedule passes fixed host/device caps and minimum-physical reserve arithmetic with a 244,970,204-byte device-cap margin, while target CUDA semantics, allocator high-water, live admission, timing, solve, action, quality, truncation, and strength remain unopened | Seal the literal-45 quotient liveness model |
 | [ADR-0380](docs/decisions/ADR-0380-preregister-the-bounded-quotient-validation-seam.md) | 2026-08-25 | accepted prospective bounded-device validation-seam boundary; complete 10/22-card populations, multi-chunk host references, streamed dot semantics, forward-release ordering, allocation telemetry, numerical gates, mutations, and target rejection are frozen before source, while literal 45 cards, live target admission, solve, action, quality, truncation, and strength remain unopened | Preregister the bounded quotient validation seam |
@@ -238,18 +222,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0398](docs/decisions/ADR-0398-preregister-the-bootstrap-safe-work-preflight-v2-owner.md) | 2026-08-25 | accepted prospective lifecycle-only preregistration; a new owner/result/protocol/campaign/header identity, literal worker module, fresh-challenge no-CUDA subprocess handshake, and solver-free v2 lifecycle reader are frozen before successor source, child execution, compiler observation, calibration, phase row, projection, or result, while ADR-0394/ADR-0395 science remains byte-bound and every complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains unopened | Preregister the bootstrap-safe work-preflight v2 owner |
 | [ADR-0399](docs/decisions/ADR-0399-source-seal-the-bootstrap-safe-work-preflight-v2-owner.md) | 2026-08-25 | accepted source-only bootstrap-safe v2 seal; the additive owner, new lifecycle journal, solver-free reader, shared bounded child transport, fresh-challenge no-CUDA handshake, immutable-v1 rebinding, and 16 focused controls pass while the v2 result remains absent, campaign mode has not run, the scientific source is unchanged, and no compiler observation, calibration value, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result is opened | Source-seal the bootstrap-safe work-preflight v2 owner |
 | [ADR-0400](docs/decisions/ADR-0400-retain-the-work-preflight-v2-evidence-serializer-failure.md) | 2026-08-25 | accepted retained first-invocation infrastructure failure; ADR-0399's bootstrap-safe v2 owner is permanently closed after clean provenance and the fresh-challenge child handshake passed, then campaign failure reporting attempted to encode a slots `CudaRuntimeIdentity` through a `__dict__`-only fallback and masked an antecedent compiler/resource exception, with zero durable laboratory event, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result | Retain the work-preflight v2 evidence-serializer failure |
+| [ADR-0401](docs/decisions/ADR-0401-preregister-the-work-preflight-v3-evidence-serializer-recovery.md) | 2026-08-25 | accepted prospective serializer-only recovery; an approved concrete dataclass inventory, exact field-wise evidence encoder, process-local scientific normalizer substitution, real no-CUDA forced compiler-failure probe through the unchanged scientific `send` closure and shared child transport, new owner/result identities, and nested v2/v1 rebinding are frozen before successor source, probe execution, campaign, compiler observation, calibration, phase row, projection, or result, while both prior artifacts and every ADR-0394/ADR-0395 scientific field remain immutable | Preregister the work-preflight v3 evidence-serializer recovery |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0400](docs/decisions/ADR-0400-retain-the-work-preflight-v2-evidence-serializer-failure.md) — Retain the work-preflight v2 evidence-serializer failure.
+- Latest ADR: [ADR-0401](docs/decisions/ADR-0401-preregister-the-work-preflight-v3-evidence-serializer-recovery.md) — Preregister the work-preflight v3 evidence-serializer recovery.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 400.
-- ADR-header SHA-256: `6ed8b9b451934c412174d4e1c33d2e530650d238b023ced5f0ea23abb61b9236`.
-- Current blockers: no retained 10/22-card calibration or conservative complete-25 capacity verdict exists; v1 and v2 are permanently consumed by separate plumbing failures; the antecedent v2 compiler/resource exception is unclassified; no source-sealed additive v3 serializer recovery, complete 25-card numerical result, actual owner, or full-width actual-context quotient value; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 401.
+- ADR-header SHA-256: `ba1580771a23945860c38ed5117a7128d52260076fa6582ead7ee55151e84b0b`.
+- Current blockers: no source-sealed v3 serializer recovery, retained 10/22-card calibration, conservative complete-25 capacity verdict, complete 25-card numerical result, actual owner, or full-width actual-context quotient value; the v2 antecedent remains unknowable; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0400](docs/decisions/ADR-0400-retain-the-work-preflight-v2-evidence-serializer-failure.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0401](docs/decisions/ADR-0401-preregister-the-work-preflight-v3-evidence-serializer-recovery.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

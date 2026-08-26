@@ -808,7 +808,11 @@ fresh handshake passed, then the compiler-failure reporter tried to normalize
 a frozen slots `CudaRuntimeIdentity` through a `__dict__`-only fallback and
 masked the antecedent exception. The four-record journal has zero phase rows
 and no projection. V2 is permanently closed; a new additive serializer
-recovery must be sealed before any further campaign.
+recovery must be sealed before any further campaign. ADR-0401 now freezes that
+v3 recovery before source: only the exact six-field `CudaRuntimeIdentity` is
+newly encodable, unknown objects reject, and a real no-CUDA child must force a
+compiler failure through the unchanged scientific reporter with its original
+reason intact. Every v3 source and result path remains absent.
 
 ## Current checkpoint
 

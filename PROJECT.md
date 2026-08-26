@@ -1196,6 +1196,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   `-text`, the public launcher and no-CUDA handshake are frozen, and candidate
   selection, population 25, actual-45 numerics, 15-second fit, action, and
   quality remain closed.
+- ADR-0440 corrects that prospective preflight before source seal or operation.
+  Positional and resident-nine RRNS retain one contiguous twelve-phase trace;
+  batched-five-then-four RRNS now has a contiguous twenty-phase trace with a
+  completed first-batch drain, reuse of the same table/stream workspace, and a
+  fully charged second pass. Scalar output transfer is named before host
+  reconstruction. Forward level six remains the captured high/low pair
+  buffer, while fixed-width forward storage contains levels zero through five
+  only. The correction changes no compiler, wall, population, evidence, or
+  claims boundary and opens no CUDA or numerical result.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

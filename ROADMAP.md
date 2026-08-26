@@ -1649,6 +1649,14 @@ queue:
   query may occur until that seal is cleanly committed. Population 25,
   actual-45 values, candidate selection, resolver integration,
   latency-to-action, and quality remain closed.
+  ADR-0440 corrects only the prospective phase topology before that source
+  seal. Positional and resident-nine RRNS keep twelve contiguous phases;
+  batched-five-then-four RRNS gets twenty contiguous phases so its first five
+  channels drain before the same workspace is reused for the remaining four.
+  Scalar transfer now precedes reconstruction explicitly, and source level six
+  remains captured high/low pairs while fixed-width forward storage covers
+  levels zero through five. No compiler, CuPy, device, population, or result
+  call occurred during the correction.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

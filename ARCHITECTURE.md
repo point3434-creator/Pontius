@@ -2208,6 +2208,17 @@ events are reporting only. This preflight can make an arm eligible but cannot
 select it or establish population-25, actual-45, resolver, 15-second, action,
 quality, truncation, blueprint, or strength behavior.
 
+ADR-0440 repairs the phase topology before source seal. A single-pass arm has
+one twelve-interval partition. Batched-five-then-four RRNS cannot honestly use
+that same topology while also draining its first outputs, reusing one table
+workspace, and replaying the recurrence. It therefore has one ordered twenty-
+interval partition: channels `0,1,2,3,8`, drain/reuse, then channels
+`4,5,6,7`, followed by scalar transfer/reconstruction, verification transfer/
+differential, and cleanup. No interval is reentered or merged across a gap.
+The source-side memory contract also keeps source level six as captured
+high/low pairs; fixed-width forward storage begins only at level five. This is
+the ADR-0438 hybrid made explicit, not a timing-conditioned optimization.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

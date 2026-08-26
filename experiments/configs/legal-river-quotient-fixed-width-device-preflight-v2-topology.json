@@ -1,0 +1,125 @@
+{
+  "schema_version": "legal-river-quotient-fixed-width-device-preflight-topology-correction-v2",
+  "evidence_stage": "prospective_correction_after_unsealed_source_trace_before_source_seal_compile_cupy_import_device_query_module_load_launch_or_result",
+  "decision": "replace_the_impossible_single_phase_partition_for_the_batched_five_then_four_schedule_with_two_consecutive_fully_charged_pass_ledgers_and_name_every_transfer_before_host_reconstruction",
+  "parent_identity": {
+    "adr0439_relative_path": "docs/decisions/ADR-0439-preregister-the-fixed-width-compiled-device-preflight.md",
+    "adr0439_canonical_lf_sha256": "861e10e5ab9d924554ba588d7f69735b39da343547c53329033837de596c1f71",
+    "v1_config_relative_path": "experiments/configs/legal-river-quotient-fixed-width-device-preflight-v1.json",
+    "v1_config_canonical_lf_sha256": "84da7e82ef07620b0d7869a1e52da6a80f5f3815c0e4dc7007068ce6664ed6af",
+    "preregistration_commit": "096d4ae0a78fa9de3c3c3838c8a64997b716816d"
+  },
+  "discovery_timing": {
+    "prospective_source_draft_existed_uncommitted": true,
+    "source_seal_existed": false,
+    "compiler_executions": 0,
+    "cupy_imports": 0,
+    "device_queries": 0,
+    "module_loads": 0,
+    "kernel_launches": 0,
+    "result_writes": 0,
+    "population_25_numeric_calls": 0,
+    "actual_45_numeric_calls": 0
+  },
+  "defect": {
+    "v1_single_partition_requires_each_candidate_to_visit_each_of_twelve_phases_once": true,
+    "v1_batched_schedule_requires_a_second_recurrence_and_replay": true,
+    "v1_batched_memory_requires_the_second_pass_to_reuse_the_first_pass_table_workspace_after_output_drain": true,
+    "a_second_recurrence_cannot_return_to_an_already_closed_contiguous_phase_and_cannot_begin_before_the_first_pass_drains_the_reused_workspace": true,
+    "charging_second_pass_work_to_the_wrong_phase_or_allocating_two_simultaneous_table_workspaces_would_change_the_frozen_claim": true,
+    "the_v1_reconstruction_phase_name_precedes_its_explicit_output_transfer_phase_and_is_semantically_ambiguous": true
+  },
+  "supersession_scope": {
+    "only_v1_candidate_phase_partition_and_phase_timing_wording_are_superseded": true,
+    "all_compiler_binary_resource_hardware_population_order_repeat_wall_evidence_lifecycle_kill_and_claim_boundaries_remain_unchanged": true,
+    "candidate_selection_remains_null": true,
+    "population_25_and_every_actual_45_numeric_value_remain_forbidden": true
+  },
+  "single_pass_candidate_phases_in_order": [
+    "candidate_state_validation_and_input_digest",
+    "device_allocation_and_input_transfer",
+    "family_admission_pair_encoding_and_label_aggregation",
+    "forward_recurrence",
+    "forward_selective_queries",
+    "forward_streamed_global_scan_and_scalar_contract",
+    "adjoint_recurrence",
+    "adjoint_selective_queries",
+    "adjoint_streamed_global_scan_and_scalar_contract",
+    "scalar_output_transfer_reconstruction_divisibility_fault_check_and_rounding",
+    "verification_output_transfer_and_exact_differential",
+    "candidate_cleanup"
+  ],
+  "single_pass_arms": [
+    "positional",
+    "resident_nine_RRNS"
+  ],
+  "batched_candidate_phases_in_order": [
+    "candidate_state_validation_and_input_digest",
+    "device_allocation_and_input_transfer",
+    "first_batch_family_admission_pair_encoding_and_label_aggregation",
+    "first_batch_forward_recurrence",
+    "first_batch_forward_selective_queries",
+    "first_batch_forward_streamed_global_scan_and_scalar_contract",
+    "first_batch_adjoint_recurrence",
+    "first_batch_adjoint_selective_queries",
+    "first_batch_adjoint_streamed_global_scan_and_scalar_contract",
+    "first_batch_output_drain_and_workspace_reuse_boundary",
+    "second_batch_family_admission_pair_encoding_and_label_aggregation",
+    "second_batch_forward_recurrence",
+    "second_batch_forward_selective_queries",
+    "second_batch_forward_streamed_global_scan_and_scalar_contract",
+    "second_batch_adjoint_recurrence",
+    "second_batch_adjoint_selective_queries",
+    "second_batch_adjoint_streamed_global_scan_and_scalar_contract",
+    "scalar_output_transfer_reconstruction_divisibility_fault_check_and_rounding",
+    "verification_output_transfer_and_exact_differential",
+    "candidate_cleanup"
+  ],
+  "batched_schedule_contract": {
+    "first_batch_global_channel_indices_in_order": [0, 1, 2, 3, 8],
+    "second_batch_global_channel_indices_in_order": [4, 5, 6, 7],
+    "redundant_channel_exists_only_in_the_first_batch": true,
+    "the_first_batch_is_drained_before_the_second_batch_reuses_the_same_table_and_stream_workspace_storage_identities": true,
+    "only_bounded_residue_outputs_digests_and_scalar_residues_survive_the_reuse_boundary": true,
+    "the_second_pass_rereads_the_same_captured_high_low_buffers_without_a_second_capture_allocation": true,
+    "every_second_pass_encode_edge_load_store_selective_stream_contract_transfer_and_cleanup_interval_is_charged": true
+  },
+  "hybrid_level_six_contract": {
+    "source_level_six_remains_the_captured_high_low_pair_buffer": true,
+    "fixed_width_forward_workspace_contains_only_levels_zero_through_five": true,
+    "level_five_row_owners_encode_level_six_children_directly_from_the_captured_pair_buffer": true,
+    "adjoint_workspace_contains_fixed_width_levels_zero_through_four": true,
+    "materializing_a_fixed_width_forward_level_six_table_rejects_the_symbolic_memory_gate": true
+  },
+  "partition_authority": {
+    "every_arm_uses_its_exact_arm_specific_phase_list": true,
+    "every_phase_interval_is_the_difference_of_consecutive_monotonic_integer_host_stamps": true,
+    "a_cuda_synchronize_precedes_every_boundary_that_closes_device_work": true,
+    "the_sum_of_all_arm_specific_phase_intervals_equals_that_candidate_population_repeat_wall_exactly": true,
+    "batched_phase_count_is_20": true,
+    "single_pass_phase_count_is_12": true,
+    "no_phase_is_reentered_and_no_noncontiguous_intervals_are_merged_under_one_phase_name": true,
+    "scalar_output_transfer_must_complete_before_host_reconstruction_divisibility_or_rounding": true,
+    "verification_output_transfer_precedes_the_independent_exact_differential": true
+  },
+  "required_correction_controls": {
+    "a_batched_trace_forced_into_the_v1_twelve_phase_shape_rejects": true,
+    "second_pass_recurrence_before_first_pass_drain_rejects": true,
+    "simultaneous_first_and_second_table_workspace_lifetimes_reject": true,
+    "missing_first_batch_drain_or_second_batch_replay_interval_rejects": true,
+    "reconstruction_before_scalar_output_transfer_rejects": true,
+    "each_arm_specific_partition_exact_sum_and_last_phase_mutations_reject": true,
+    "fixed_width_level_six_materialization_rejects": true
+  },
+  "claims": {
+    "topology_correction_frozen": true,
+    "source_seal": null,
+    "compiled": false,
+    "device_result": null,
+    "candidate_selected": null,
+    "population_25_numeric_value": null,
+    "actual_45_numeric_value": null,
+    "action_clock_result": null,
+    "decision_quality_result": null
+  }
+}

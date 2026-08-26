@@ -2145,6 +2145,17 @@ parent. The literal-token rewrite survives only as a mutation that must
 reproduce and reject the historical false values. No operator, bound,
 rounding, population, work, memory, delta, device, or claims contract changes.
 
+ADR-0435 source-seals that CPU operator. Its complete input carries explicit
+query-label identity as well as masks: every four-card occupancy must contain
+labels `{0,1,2,3,4,5}` exactly once before aggregation. This prevents a count
+of six duplicate records from standing in for semantic coverage. The natural
+complete-ten captured-pair population and signed complete-twelve population
+match independent literal Fraction authorities; direct factorial induction,
+fixed-width emulation, exact rounding, and delta/cold identity controls pass.
+The sealed module remains an unbounded-integer authority only. Positional
+limbs, residue channels, selective adjoint queries, child-rank traversal, and
+device execution remain separate prospective mechanisms.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

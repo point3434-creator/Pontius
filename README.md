@@ -915,6 +915,11 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   implementation and science are unchanged; two-config rebinding plus an
   independent byte-loop hash differential is now required. Population 25,
   CUDA, the actual consumer, timing, and quality remain closed.
+  ADR-0435 passes that corrected source gate: exact captured-pair encoding,
+  distinct forward/adjoint integer recurrences, literal identities, semantic
+  limb bounds, one correctly rounded terminal value, explicit six-label
+  coverage, natural-ten and signed-twelve controls, and symbolic literal-45
+  work all pass. This is a CPU semantic keystone, not a device or bot result.
 
 ## Current checkpoint
 

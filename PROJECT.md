@@ -1146,6 +1146,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   rewrite is now a rejecting mutation. The source remains unsealed after a
   discovery run in which 10/12 controls passed and exactly two provenance
   rebinds rejected.
+- ADR-0435 completes the corrected CPU source seal. Fourteen controls pass on
+  the natural complete-ten paired capture, a signed complete-twelve adversary,
+  both literal factorial recurrences, exact forward/adjoint/disjointness
+  identities, signed table-versus-scalar limb bounds, exact binary64 rounding,
+  literal-45 work/memory formulas, and cold-versus-delta identity. Query label
+  identity is now explicit: each occupancy must carry labels zero through five
+  exactly once, so six duplicate records cannot impersonate semantic coverage.
+  This opens only a new fixed-width/device-work preregistration; it supplies no
+  population-25, CUDA, actual 45-card, latency, action, or quality result.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

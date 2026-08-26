@@ -1620,9 +1620,15 @@ queue:
   pair exact-integer operator. ADR-0434 rejects three false inherited source
   hashes before seal, preserves the uncommitted implementation and all frozen
   science, and binds corrected canonical-LF provenance through a second config.
-  Rebind both configs, prove production-versus-independent byte normalization,
-  and rerun the unchanged CPU keystone before source seal; a pass opens only a
-  separate fixed-limb/device-work preflight.
+  ADR-0435 rebinds both configs and passes the unchanged CPU keystone plus the
+  explicit query-label repair under 14 focused controls. Stop at that source
+  seal. On resumption, prospectively compare selective 57-read adjoint/16-read
+  forward queries with dense evidence-only sweeps, positional limbs with a
+  proved residue representation, and resident tables with row-owned incremental
+  child ranking. Float exploration may reduce exact work only if final exact
+  authority also proves global separation or a bound over omitted rows. Freeze
+  per-family canonical exponent admission and separate frexp reporting before
+  any fixed-width/device source; no population-25 or CUDA value is yet open.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

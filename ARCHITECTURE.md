@@ -1958,6 +1958,16 @@ the three selected resource rows, and the componentwise driver/cubin maxima
 before passing an in-memory scientific-only view to the immutable phase and
 projection rebinder. The real V4 result remains absent at the seal.
 
+ADR-0416 retains V4's sole invocation. The executed repaired cubin passes the
+resource contract, both complete 10/22 populations pass the paired numerical
+and order contracts, and the reader reconstructs all 3,052 phase rows. The
+capacity authority nevertheless rejects: the frozen worse-endpoint projection
+is 7,260.753615922 seconds against 180 seconds, with no population-25 fixture
+or value opened. The consumed V4 architecture cannot be tuned or replayed.
+Any successor must prospectively remove or factor exact work in the measured
+dominant phases while preserving the operator, canonical accumulation order,
+resource pairing, and independent reader.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

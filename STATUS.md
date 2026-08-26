@@ -15,111 +15,103 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes. Source-seal only the additive adapter, fresh owner, independent reader,
-and adversarial controls. Keep both prospective result paths absent. The sole
-next authority is the later clean no-argument invocation named in the header.
+Retain the first terminal exactly as `completed_capacity_rejection`. The owner
+ran once from the clean ADR-0415 source-seal commit and is now permanently
+consumed. The independent reader recovers all 3,070 records, 3,068 ordered
+observations, 3,052 raw phase rows, both complete calibration populations, the
+projection, and the matching inner and outer terminals. Five additive
+result-only controls pin the retained identity and claims boundary.
 
-### Repair before execution, not beside it
+The outcome is a capacity rejection under ADR-0394's deliberately conservative
+admission rule. It is not a compiler, resource, arithmetic, order, numerical,
+population-wall, or infrastructure failure. It does not prove that a complete
+25-card computation is impossible; it proves that this implementation and
+this frozen estimator do not earn authority to open it.
 
-The adapter loads and hash-validates both V4 configs plus the immutable
-scientific source, suffix reconstructor, suffix reader, and retained passing
-suffix artifact. In the one fresh campaign child it substitutes exactly three
-process-local seams around one immutable scientific call: evidence
-serialization, kernel compilation/module loading, and bounded resource
-inspection.
+### Repaired executed binary and resources pass
 
-The live NVRTC return must equal the exact 514,039-byte retained prefix. The
-hash-bound ADR-0411 structural parser may append exactly one zero and no other
-normalization. `Module.load` receives the repaired object before any resource
-inspection; all fifteen frozen function names must resolve; the identical
-Python bytes object is retained in the scientific cubin cache and later written
-for `cuobjdump`. The original prefix is never loaded or inspected. Every seam
-identity and cache is restored in `finally`.
+The live 514,039-byte NVRTC prefix received exactly one zero before module
+load. The resulting 514,040-byte object has SHA-256
+`97693be7baafd882ad64a1a7da0ede23dc927efd872b0d15697b2486957ea894`;
+the identical object was loaded, retained, and inspected, and all fifteen
+function names resolved. Both bounded `cuobjdump` commands completed with
+return code zero, their complete stdout streams were retained, and the
+temporary file was durably recorded as created and removed.
 
-This source seal does not patch CuPy, alter site-packages, change compiler
-options, or claim a general cubin repair. It implements only the artifact-bound
-transform already qualified by ADR-0412.
+The independently reparsed direct-kernel maxima are:
 
-### Durable raw evidence before interpretation
+| Direct kernel | effective registers | effective backing bytes |
+|---|---:|---:|
+| `direct_selected_queries_tile` | 38 | 128 |
+| `direct_selected_fold_tile` | 48 | 1,024 |
+| `direct_selected_adjoint_tile` | 38 | 128 |
 
-The fresh owner uses a literal importable worker module, `python -B`, a new
-protocol/campaign/header/result identity, an exclusive `xb` journal, and a
-shared 240-second laboratory wall. Handshake and adapter-probe children import
-neither CuPy nor the scientific module before their respective boundaries.
-The public adapter probe exercises the exact repair/load/retain/inspect path
-with fake compiler, module, functions, driver properties, and bounded command
-outcomes.
+All register, backing, resident-thread, and device-reserve gates pass. The
+runtime reports 84 multiprocessors, 1,536 maximum threads per multiprocessor,
+129,024 maximum resident threads, at most 528,482,304 bytes under the frozen
+4,096-byte-per-thread ceiling, and a 2,000,000,000-byte reserve. Exact spill
+load/store traffic remains structurally unavailable and null.
 
-Every child event blocks for an exact indexed ACK. The parent sends that ACK
-only after the durable writer has appended, flushed, and fsynced the event.
-Consequently repair evidence returns before temporary creation, every command
-chunk is durable before command interpretation, and cleanup is durable before
-the child can terminate.
+### Both calibration populations pass
 
-Each stdout and stderr stream retains its independent 8 MiB capture ceiling.
-Ordered 196,608-byte raw chunks carry command, stream, ordinal, total length,
-and total SHA-256 under the corrected 64 MiB journal. The owner computes the
-actual next canonical line and reserves a worst-form infrastructure terminal
-before each append. Only after complete raw retention may strict-ASCII parser
-admission apply its separate 32 KiB combined-version and 256 KiB resource-
-stdout ceilings. No cap truncates or stands in for another.
+The complete ten-card campaign took 7,030,927,700 ns and passed all 36 stored
+population gates, including exact Fraction controls. The complete 22-card
+campaign took 56,209,478,000 ns and passed all 29 applicable gates. Both pass
+the 16-phase partition, exact executed-work ledgers, default/alternate byte
+identity, source offsets, snapshot/restore, pool release, direct forward/fold/
+adjoint comparisons, and absolute-plus-relative numerical conjuncts.
 
-### Independent authority
+Those are bounded calibration results. The 22-card conditional value is not a
+25-card result, an actual-context value, a resolver value, or a poker result.
 
-The reader imports no CuPy, adapter, owner, or scientific runtime. It
-independently recovers every journal record and semantic digest, rebinds the
-retained V3 rejection and passing suffix artifact, reconstructs the exact
-repaired ELF header/table geometry from retained bytes, and validates the
-repair event against all fifteen function names and unchanged compiler
-options.
+### The frozen projection rejects
 
-For each external command it base64-decodes every chunk, rejects missing,
-duplicate, reordered, oversized, orphaned, or post-terminal data, reconstructs
-both complete streams, and checks terminal hashes and lengths. It admits the
-resource event only after matching the reconstructed version/resource text,
-reparsing raw per-function fields, selecting the three direct rows, and
-rederiving:
+Every one of the sixteen phase rows selected its ten-card candidate under the
+prospectively frozen maximum-over-endpoints rule. After the exact phase ratios,
+the fixed 5/4 guard, and 1 ms per phase, the complete projection is
+7,260,753,615,922 ns, or 7,260.753615922 seconds, against
+180,000,000,000 ns. It exceeds the wall by 7,080.753615922 seconds and is
+40.337520088 times the limit.
 
-```text
-effective registers = max(driver registers, cubin REG)
-effective backing   = max(driver local bytes, cubin STACK + cubin LOCAL)
-```
+Four phase families contribute 6,499.542419084 seconds, or 89.5161% of the
+projected wall:
 
-It then independently reconstructs all four 255/4,096/residency gates. Exact
-spill traffic remains null. Only after this V4-specific validation does an
-in-memory compatibility view enter the hash-bound V1 scientific rebinder,
-which rechecks phase names, population width, contiguous boundaries, work
-ledgers, population aggregates, projection arithmetic, and terminal. The
-compatibility view cannot create repair or command evidence and is never
-written to disk.
+| Phase | frozen upper |
+|---|---:|
+| `direct_fold` | 2,640.480457000 s |
+| `direct_query` | 1,942.753945000 s |
+| `adjoint_source_contract_and_global_tree` | 1,091.576773750 s |
+| `adjoint_recurrence_and_signed_sources` | 824.731243334 s |
 
-### Controls, including the failure found before seal
+The ten-card endpoint is visibly conservative because fixed and small-
+population costs are scaled by large exact-work ratios, but that observation
+cannot edit the frozen rule after outcome. As a reporting-only robustness
+check, even replacing every maximum with the 22-card candidate would yield
+196.213399834 seconds after the same guard and per-phase additions, still
+above 180 seconds. That counterfactual has no gate authority and does not
+convert the rejection into a near-pass.
 
-Seventeen focused controls pass. They cover fresh standard-library owner/reader
-imports; both configs and immutable artifacts; AST closure against consumed
-owners; exact serializer admission; the complete fake repaired-cubin path;
-the real literal `-B` handshake and adapter-probe transports; separate payload,
-stream, parser, child-line, and journal caps; corrected envelope arithmetic;
-a full synthetic repair/command/resource/68-phase/two-population/projection
-rebind; changed, duplicate, and reordered chunks; both directions of the
-driver/cubin maximum plus nonzero STACK and LOCAL; population 25, unknown
-phase, and phase-sum corruptions; suffix, dependency, and claims mutations;
-probe and compiler failure terminals; exclusive creation; torn suffix; and
-absence of both real result paths.
+No population-25 fixture was compiled, allocated, launched, digested, or
+gated. The only population-25 object is exact integer geometry and projection
+arithmetic. The reserved actual result remains absent.
 
-The first literal handshake found one pre-seal validator defect. Under
-`python -m literal.module`, `__spec__.name` is the literal module while runtime
-`__name__` is correctly `__main__`. The draft validator had required the
-literal string in both fields. The control rejected, the validator was fixed
-to preserve the two distinct semantics, and both literal handshake and probe
-now pass. No campaign, compiler, module, resource tool, or result was opened by
-that correction.
+### Interpretation and next boundary
 
-The historical V1/V2/V3/suffix aggregate is also reported rather than hidden:
-89 tests ran, 79 passed, and 10 old source-seal tests failed solely because
-they still assert that their now-consumed result artifacts are absent. Those
-tests are useful historical seals but cannot be relabeled as current post-
-outcome regression gates. The V4 controls do not depend on that false absence.
+The result retires the repaired-cubin and resource uncertainty for this exact
+implementation and confirms that the quotient arithmetic survives complete
+10/22 execution. It also supplies a measured work ledger rather than a quality
+prior. It does not authorize brute-force population 25, automatic support
+truncation, a looser estimator, or a larger laboratory wall.
+
+The next admissible move is prospective structural engineering. First trace the
+four dominant phases to their exact loops and counters. A successor is eligible
+only if it names work that can be removed, shared, factored, or certified by an
+equivalent exact oracle while preserving the operator and canonical
+accumulation order. It must be a new config, source identity, owner identity,
+result path, source seal, and one-shot invocation. Merely dropping the ten-card
+endpoint, scaling a fixed cost differently after seeing it, changing 5/4,
+sampling fewer rows without an exact certificate, or calling truncation the
+answer fails this boundary.
 
 ### Continuity
 
@@ -140,7 +132,7 @@ ADR-0404 through ADR-0406 own and close the exact-cubin diagnostic. ADR-0407
 through ADR-0409 own and close the empty selector. ADR-0410/0411 freeze and
 seal only the suffix diagnostic; ADR-0412 consumes its owner and retains its
 result; ADR-0413 freezes V4; ADR-0414 corrects only its evidence envelope; and
-ADR-0415 source-seals the composite successor without invocation. No earlier
+ADR-0415 source-seals the composite successor without invocation; ADR-0416 consumes it and retains the frozen capacity rejection. No earlier
 owner is revived.
 
 All 177 ordered observations pass under ADR-0320. The phrases exclusive
@@ -192,7 +184,7 @@ bridge. ADR-0387 freezes the consumer-capacity seam; ADR-0388 records the
 source-sealed CuPy-free consumer-capacity result; ADR-0389 remains the accepted
 prospective actual-context quotient CUDA-consumer boundary; ADR-0390 rejects
 its source seal; ADR-0391 remains an accepted prospective bounded-arithmetic
-boundary and freezes the first paired-tile boundary; ADR-0392
+boundary and freezes the first paired-tile boundary; ADR-0392 remains the accepted prospective preregistration-completeness correction and
 corrects its pre-source arithmetic completeness; ADR-0393 retains the first
 implementation as a wall rejection; ADR-0394/0395 freeze the work and resource
 questions; ADR-0396 through ADR-0403 own and close the three consumed preflight
@@ -200,8 +192,8 @@ owners; ADR-0404 through ADR-0406 own and close the exact-cubin diagnostic;
 ADR-0407 through ADR-0409 own and close its empty artifact selector; ADR-0410
 freezes only the suffix diagnostic; ADR-0411 source-seals it without operation;
 ADR-0412 retains its sole result; ADR-0413 opens V4 prospectively; ADR-0414
-corrects its bounded evidence envelope only; and ADR-0415 seals the composite
-source without running it. No earlier owner is revived.
+corrects its bounded evidence envelope only; ADR-0415 seals the composite
+source without running it; and ADR-0416 retains its sole capacity rejection. No earlier owner is revived.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -214,8 +206,7 @@ to responder-row growth. ADR-0348 and ADR-0349 lead only to selector-window
 work. ADR-0351 requires the tie-aware legal h4 affine-envelope. ADR-0354 through
 ADR-0359 own the factorized face and affine consumer chain. ADR-0380 freezes
 the complete ordered populations 10 and 22. ADR-0383's owner was invoke exactly
-once and remains consumed by ADR-0384. ADR-0415 imports neither that owner nor
-its target. The phrases exclusive untouched legal h4, selector-window,
+once and remains consumed by ADR-0384. ADR-0416 imports neither that owner nor its target. The phrases exclusive untouched legal h4, selector-window,
 2,113-task, exhaustive bounded development-teacher, response-closed direct
 mechanism, and caller-owned legal fallback retain their prior meanings.
 
@@ -241,7 +232,7 @@ source-sealed CuPy-free consumer-capacity result.
 
 ## Active next
 
-From the clean ADR-0415 source-seal commit, invoke exactly once and with no arguments `.venv\Scripts\python.exe -B -m pontius.legal_river_quotient_cuda_compensated_work_preflight_v4_runner`; retain its first terminal and exact journal without retry, resume, skip, continuation, threshold change, parser tailoring, compiler-option change, or alternate repair; independently rebind the retained V3 rejection and suffix qualification, exact repaired ELF identity, every raw command chunk and terminal, cleanup, resource rows and two-instrument maxima, all admitted 10/22 population and 16-phase rows, projection, and terminal; then write the outcome ADR while every complete 25-card numerical value, actual 45-card value, solve, action, 15-second result, decision quality, truncation choice, blueprint value, and poker-strength claim remains closed
+Use only ADR-0416's retained phase ledger to audit the exact call graph and work counters of `direct_query`, `direct_fold`, `adjoint_recurrence_and_signed_sources`, and `adjoint_source_contract_and_global_tree`; then prospectively preregister at most one additive structural exact-work successor before source, naming the redundant work it removes and preserving the operator, canonical accumulation order, numerical gates, repaired executed-cubin resource contract, 10/22 evidence, 25-card no-fixture lock, and independent-reader authority; do not rerun V4, substitute the favorable endpoint, relax the wall or safety factor, open population 25, or select truncation from this rejection
 
 ## Revoked authorities
 
@@ -249,7 +240,7 @@ From the clean ADR-0415 source-seal commit, invoke exactly once and with no argu
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0415](docs/decisions/ADR-0415-source-seal-the-repaired-executed-cubin-work-preflight-v4.md) — Source-seal the repaired executed-cubin work preflight V4.
+Latest process decision: [ADR-0416](docs/decisions/ADR-0416-retain-the-repaired-work-preflight-v4-capacity-rejection.md) — Retain the repaired work-preflight V4 capacity rejection.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -257,7 +248,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0392](docs/decisions/ADR-0392-correct-the-paired-tile-preregistration-before-source.md) | 2026-08-25 | accepted prospective preregistration-completeness correction; paired division by positive recurrence integers, exact source/query factor order, paired query covectors, pair-times-pair fold and adjoint products, and exact-rational post-tile normalization are frozen before successor source, primitive outcomes, or device values, while every ADR-0391 tile, numerical, chunk, byte, runtime, memory, wall, and claims boundary remains binding and every actual 45-card value, owner, reader, artifact, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Correct the paired-tile preregistration before source |
 | [ADR-0393](docs/decisions/ADR-0393-retain-the-paired-tile-wall-rejection.md) | 2026-08-25 | accepted bounded-device source-seal rejection; strict paired high/low primitives, query weights, and complete ten-card forward/adjoint conformance pass every opened arithmetic, exact-row, transpose, byte, offset, poison, lifecycle, mutation, release, and original absolute-plus-relative gate, but the first frozen complete 25-card source-seal invocation remains nonterminal beyond the 180,000-ms population ceiling and is stopped at the 600,000-ms laboratory boundary before any 25-card scalar or terminal evidence exists, while every actual 45-card value, owner, reader, artifact, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Retain the paired-tile wall rejection |
 | [ADR-0394](docs/decisions/ADR-0394-preregister-the-work-decomposed-paired-capacity-preflight.md) | 2026-08-25 | accepted prospective work-decomposed bounded-capacity preregistration; source-rank-major direct query, fold, and adjoint controls, complete 10/22-card work ledgers, an exclusive 16-phase host-wall partition, and a conservative arithmetic-only complete 25-card projection are frozen before successor source, calibration, device timing, projection, or any complete 25-card numerical value, while every actual 45-card value, owner, reserved actual artifact, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the work-decomposed paired capacity preflight |
 | [ADR-0395](docs/decisions/ADR-0395-correct-the-work-preflight-resource-instrument-before-result.md) | 2026-08-25 | accepted prospective pre-result instrument correction; the unchanged five caller-supplied NVRTC options, retained ELF cubin identity, independent raw `cuobjdump` reparse, driver/cubin register and backing maxima, and explicit device-reserve arithmetic replace ADR-0394's unavailable compiler-spill wording before source seal, real compilation, calibration, projection, or result, while every ADR-0394 arithmetic, population, phase, ratio, wall, lifecycle, and claims boundary remains binding and every complete 25-card numerical value, actual 45-card value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Correct the work-preflight resource instrument before result |
@@ -281,18 +271,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0413](docs/decisions/ADR-0413-preregister-the-repaired-executed-cubin-work-preflight-v4.md) | 2026-08-26 | accepted prospective additive repaired-executed-cubin boundary; a fresh V4 owner must require the exact 514,039-byte live compiler prefix, append exactly one zero before module load, load, retain, and inspect the identical 514,040-byte repaired ELF under bounded and semantically separate payload, stream, and journal limits, then apply the unchanged ADR-0395 driver/cubin maxima and ADR-0394 10/22-card 16-phase projection without changing immutable science, while every V4 source, probe, compilation, resource gate, calibration, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains unopened | Preregister the repaired executed-cubin work preflight V4 |
 | [ADR-0414](docs/decisions/ADR-0414-correct-the-v4-bounded-evidence-envelope-before-source.md) | 2026-08-26 | accepted prospective pre-source evidence-envelope correction; ADR-0413's four possible 8 MiB command streams now use exact chunked retention inside a 64 MiB journal, while much smaller strict-ASCII parser-admission bounds keep the unchanged one-line scientific event within its 1 MiB transport ceiling; every exact repair, executed-byte, resource formula, threshold, scientific population, phase, ratio, wall, lifecycle, partial-outcome, kill, and claims field remains binding, and every V4 probe, real compilation, resource gate, calibration, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains unopened | Correct the V4 bounded-evidence envelope before source |
 | [ADR-0415](docs/decisions/ADR-0415-source-seal-the-repaired-executed-cubin-work-preflight-v4.md) | 2026-08-26 | accepted source-only composite V4 seal; the exact 514,039-byte live compiler prefix is structurally repaired by one zero before module load, the same 514,040-byte object is loaded, retained, and inspected, all four bounded command streams are losslessly ACK-journaled in ordered chunks, the independent standard-library reader reconstructs raw evidence and rederives the ADR-0395 two-instrument maxima before admitting the immutable ADR-0394 science, and 17 focused controls pass while every real V4 compilation, resource gate, calibration, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains unopened | Source-seal the repaired executed-cubin work preflight V4 |
+| [ADR-0416](docs/decisions/ADR-0416-retain-the-repaired-work-preflight-v4-capacity-rejection.md) | 2026-08-26 | accepted retained sole V4 completed-capacity rejection; the repaired 514,040-byte executed cubin, all four resource gates, all primitive and order controls, both complete 10/22 calibration populations, and every numerical conjunct pass, but the unchanged worse-endpoint projection is 7,260.753615922 seconds against the frozen 180-second population wall, so the V4 owner is permanently consumed and every complete 25-card numerical value, actual 45-card value, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Retain the repaired work-preflight V4 capacity rejection |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0415](docs/decisions/ADR-0415-source-seal-the-repaired-executed-cubin-work-preflight-v4.md) — Source-seal the repaired executed-cubin work preflight V4.
+- Latest ADR: [ADR-0416](docs/decisions/ADR-0416-retain-the-repaired-work-preflight-v4-capacity-rejection.md) — Retain the repaired work-preflight V4 capacity rejection.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 415.
-- ADR-header SHA-256: `780cfef31ef994e68b1ec084ffb0decda88c13edc9f036210381f2a1d7c33371`.
-- Current blockers: no retained V4 repaired-executed-cubin resource-gate verdict, retained 10/22-card calibration, conservative complete-25 capacity verdict, complete 25-card numerical result, actual owner, or full-width actual-context quotient value exists; all three earlier work-preflight owners and every cubin diagnostic owner are permanently consumed; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 416.
+- ADR-header SHA-256: `1238bcd9ac963f8af20d276c7769d5ede72e457a840b9e2c08674f9ea4b42a45`.
+- Current blockers: the sole V4 path is consumed with a conservative capacity rejection; no prospectively frozen structural successor, passing complete-25 capacity verdict, complete 25-card numerical result, actual owner, or full-width actual-context quotient value exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0415](docs/decisions/ADR-0415-source-seal-the-repaired-executed-cubin-work-preflight-v4.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0416](docs/decisions/ADR-0416-retain-the-repaired-work-preflight-v4-capacity-rejection.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

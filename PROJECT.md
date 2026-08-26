@@ -978,7 +978,8 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   load, and the identical repaired bytes must be loaded, retained, and boundedly
   inspected. The ADR-0395 two-instrument maxima and every ADR-0394 population,
   phase, ratio, wall, and integer-only population-25 rule remain unchanged.
-  V4 source, resource, calibration, and projection evidence are still absent.
+  At that preregistration checkpoint, V4 source, resource, calibration, and
+  projection evidence were absent.
 - ADR-0414 corrects V4's evidence-envelope arithmetic before source. Four
   independently capped command streams are retained in exact chunks under a
   64 MiB journal; smaller strict-ASCII parser-admission bounds protect the
@@ -988,9 +989,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   Repair occurs before module load, every raw command chunk is fsynced before
   child progress, and the independent standard-library reader rederives the
   exact ELF identity and driver/cubin maxima before admitting the immutable
-  10/22-card, 16-phase science. The real V4 result and reserved actual result
-  remain absent; only one clean no-argument invocation may open the next
-  resource/calibration/capacity terminal.
+  10/22-card, 16-phase science. At that seal, the real V4 result and reserved
+  actual result were absent and only one clean no-argument invocation could
+  open the next resource/calibration/capacity terminal.
+- ADR-0416 retains that sole invocation as `completed_capacity_rejection`.
+  The repaired executed cubin, all four resource gates, the complete 10/22
+  calibrations, and every numerical and order conjunct pass. The unchanged
+  worse-endpoint projection is 7,260.753615922 seconds against 180 seconds;
+  no population-25 fixture ran. V4 is consumed. The next boundary is a fresh
+  preregistration for structural exact-work reduction in the four phases that
+  account for 89.5161% of the projection, not a retry, endpoint substitution,
+  wall relaxation, truncation decision, action result, or quality claim.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

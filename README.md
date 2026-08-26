@@ -853,14 +853,19 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   not the resource, capacity, latency, or quality gates. ADR-0413 now freezes
   the fresh V4 consumer: repair occurs before module load, the same repaired
   bytes are executed and inspected, and the unchanged ADR-0394/0395 science
-  remains the only resource and capacity authority. V4 source and results are
-  still absent. ADR-0414 corrects its pre-source transport arithmetic with
-  chunked raw streams, a 64 MiB journal, and distinct parser-admission bounds;
+  remains the only resource and capacity authority. V4 source and results were
+  absent at that checkpoint. ADR-0414 corrects its pre-source transport
+  arithmetic with chunked raw streams, a 64 MiB journal, and distinct parser-
+  admission bounds;
   no evidence was opened by that correction. ADR-0415 now source-seals the
   composite repair-before-load adapter, ACK-gated chunked owner, independent
-  reader, and 17 focused controls. The real V4 result is still absent; the
-  immediate checkpoint is its sole clean no-argument invocation and retained
-  first terminal, not a 25-card call, action, or quality claim.
+  reader, and 17 focused controls. ADR-0416 retains its sole clean invocation
+  as `completed_capacity_rejection`: the repaired cubin, resource gates, and
+  complete 10/22 numerical campaigns pass, but the frozen projection is
+  7,260.753615922 seconds against 180 seconds. Population 25 never ran. The
+  immediate checkpoint is a prospectively frozen structural-work successor
+  for the four dominant phases, not a replay, threshold change, truncation
+  decision, action, or quality claim.
 
 ## Current checkpoint
 

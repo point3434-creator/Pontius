@@ -2102,6 +2102,17 @@ nonnegative difference between complete population wall and contiguous phase
 sum at fixed evidence scope. Maximum endpoint, 5/4 guard, 1 ms component guard,
 and 180-second limit remain integer-only and independently rederived.
 
+ADR-0431 source-seals the implementation while keeping the deterministic real
+projection unopened. The assessor's import boundary is file/process/device
+free; its explicit artifact path first invokes the complete V3 semantic reader
+and then independently reconstructs raw phase partitions, exact work, phase
+sums, population walls, and outside envelopes. Fourteen ratios reproduce the
+parent constituent algebra; the fused ratio is the maximum of five named work
+constituents, including fixed boundary copies. The result reader shares no
+assessor or owner code and independently derives the canonical result and
+terminal. The owner requires clean tracked dependencies and writes once with
+`xb`, flush, and fsync. Population 25 remains integer geometry only.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

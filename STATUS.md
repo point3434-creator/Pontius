@@ -15,87 +15,98 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Preregister one fresh GPU-free artifact-only assessor. This decision freezes
-its inputs, arithmetic, lifecycle, output type, and kill criteria before any
-assessor source or projected value exists. It performs no assessment and opens
-no capacity result.
+Source-seal the assessor and keep the result absent. Importing the assessor
+touches no file, result, process, NumPy, CuPy, or device stack. Population 25 is
+admitted only by `math.comb` geometry and exact integer work ratios. The owner
+is a separate no-argument module: it requires a clean tracked source commit,
+the exact retained V3 artifact, absent protected results, and an exclusive
+`xb` result path. It builds the complete result in memory, writes canonical
+JSON once, flushes and fsyncs it, and never replaces it.
 
-The assessor must raw-hash and independently rebind ADR-0429's complete V3
-journal. It extracts exactly the accepted population-10 and population-22
-events, rederives their raw phase sums and executed-work ledgers, and rejects
-any lifecycle, dependency, phase, work, population, terminal, or claim drift.
-The stored owner pass is not authority.
+The assessor first calls the source-sealed V3 lifecycle/semantic reader, then
+independently walks the raw journal. It reconstructs all 3,028 phase rows,
+both population events, family partitions, ordered transitions, exact phase
+sums, complete work ledgers, campaign walls, and the nonnegative difference
+between population elapsed wall and campaign wall. Stored pass bits are never
+projection authority.
 
-### Frozen device-work projection
+Fourteen unchanged ratios independently reproduce ADR-0394's constituent,
+geometry, live-shape, work, and chunk derivation. The fused phase has five
+explicit constituents: compatible sources, source unrankings, compatible
+176-feature coefficient additions, final feature products, and fixed 512
+boundary-pair copies. Its frozen maximum is exactly `54264/1` from population
+10 and `54264/18564` from population 22. The degenerate ten-card ratio is
+retained without reinterpretation. The outside-phase component is exactly
+one-to-one at both endpoints.
 
-The fifteen V3 device-work phase names remain ordered and complete. Fourteen
-unchanged phases reuse ADR-0394's prospectively derived 25/10 and 25/22 maximum
-constituent ratios exactly. `shared_direct_fold_and_query` replaces the old
-query/fold pair. Its ratio is independently rederived as the maximum over
-compatible sources per query occupancy, shared source unrankings, compatible
-176-feature coefficient additions, final feature products, and the fixed 512
-boundary-pair copies. That maximum equals the old direct-fold ratio:
-`54264/1` at the ten-card endpoint and `54264/18564` at the 22-card endpoint.
-The equality is a derived work identity, not permission to import the old
-timing result.
+Every candidate, maximum, ceiling, 5/4 guard, 1 ms addition, component sum,
+and wall comparison is an integer operation. No numerical tolerance exists in
+the decision path, so there is no tolerance reuse or scale-relative decision
+knob. The independent reader contains its own geometry, work, ratio, raw-row,
+projection, claims, and terminal derivations and imports neither assessor nor
+owner. It rejects noncanonical JSON, duplicate keys, changed dependencies,
+stored-input drift, omitted or duplicated components, endpoint drift, changed
+claims, and any terminal not implied by the recomputation.
 
-For each endpoint and component, the candidate is the ceiling of observed host
-nanoseconds times its frozen ratio. The deciding candidate is the larger of the
-10 and 22 values. The component upper is
-`ceil(deciding_candidate * 5 / 4) + 1,000,000 ns`. Device-component uppers use
-integer arithmetic only; no float may decide.
+Fourteen focused controls pass. They include a scrubbed package-environment
+repository-root import of the exact public `src.pontius` owner path, plus the
+exact inclusive wall triplet
+`179,999,999,999` pass, `180,000,000,000` pass, and `180,000,000,001` reject;
+ceiling-versus-floor controls; a shared ratio below one constituent; endpoint
+swap, drop, and duplication; negative outside wall; synthetic pass and
+rejection; altered claims and terminal; exclusive-create replacement refusal;
+independent source/reader agreement; and a campaign where all fifteen phase
+observations are zero while the outside envelope alone exceeds the wall and
+rejects. The explicit retained-artifact control fully rebinds V3 and extracts
+endpoint evidence but never calls the projection function. Therefore no real
+capacity value exists at this seal.
 
-### Price the outside-phase wall
+### Prediction ledger, still blind
 
-V3 separately records phase-sum `campaign_host_ns` and complete
-`population_elapsed_host_ns`. Their nonnegative difference includes fixed-scope
-host orchestration, family seams, and exact 16-source/16-query/eight-feature
-evidence outside the device phase partition. It may not vanish from a fit gate.
+The 80% forecast that population 22 completes inside 90 seconds is a hit at
+`49,419,289,000 ns`. The retained journal's single resource event reports
+stack-plus-local maxima of 128, 1,024, and 128 bytes for query, fold, and
+adjoint respectively, so the forecast that the 4 KiB ceiling holds is also a
+hit; this is read from exact retained evidence rather than inferred from a pass.
 
-The assessor adds `population_envelope_outside_phase_partition` as a sixteenth
-component. Its endpoint observation is exactly population elapsed minus phase
-sum. The frozen scope is the same two families, two repeats, three tiles,
-sixteen source rows, sixteen query rows, and eight boundary features, so its
-ratio is one-to-one for both endpoints. The larger observed gap still decides
-and receives the same 5/4 plus 1 ms guard. A negative gap, hidden gap, device-
-phase subtraction, or double count rejects.
-
-The complete target projection is the sum of all sixteen component uppers and
-passes if and only if it is at most `180,000,000,000 ns`. The assessor reports
-both endpoint candidates, deciding endpoint, upper, and contribution for every
-component. A 22-only counterfactual is reporting-only and cannot decide.
-
-### Source/result separation
-
-The assessor, runner, reader, controls, and result paths are fresh and absent.
-Import is standard-library/CuPy/device/process/result free. The no-argument
-runner may later read only the hash-bound config and V3 artifact, build the
-complete assessment in memory, then create the canonical JSON result with
-exclusive `xb`. The independent reader must rebind the original V3 journal and
-rederive every ratio, candidate, upper, total, and terminal rather than trust
-stored gates. The first assessment is permanent.
-
-Source controls use synthetic journals and explicit dependency binding. Import
-and ordinary source seal may not consume the real projection. Mutations must
-cover omitted/doubled components, swapped endpoints, a ratio below a
-constituent, floor instead of ceiling, negative outside gap, changed guard or
-wall, duplicate/partial populations, altered science or claims, and result
-lifecycle. Population 25 remains integer geometry only: no fixture, compiler,
-allocation, launch, scalar, digest, or numerical value is permitted.
+The original projection-pass forecast remains recorded at 65%. After the
+already disclosed V3 population-22 wall and 76.9% shared-phase concentration,
+but before any assessor invocation or real projection, the updated forecast is
+30% that the frozen projection is at or below 180 seconds. Conditional on
+rejection, the forecast is 85% that the shared direct phase supplies the
+decisive mass. These probabilities are reporting only and cannot alter the
+frozen ratios, endpoint maximum, guards, wall, or interpretation.
 
 ### Continuity
 
-ADR-0430 follows ADR-0429 without replaying V3. ADR-0429 alone retains the
-complete shared-direct validation. ADR-0428 source-seals its immutable sample
-plan and lifecycle. ADR-0426 retains the V2 sample-plan rejection. No result is
-repaired, resumed, spliced, or reinterpreted.
+ADR-0431 implements ADR-0430 without replaying V3 or opening its deterministic
+projection. ADR-0429 alone retains the complete V3 validation; ADR-0428 seals
+its sample-plan/lifecycle source; ADR-0426 retains the V2 sample-plan
+rejection. The source-only control reads the immutable V3 bytes solely to
+reconstruct already accepted evidence. It does not create a new device result.
 
 ADR-0384 retains the passing literal-45 quotient target and opens only the
 actual-context quotient bridge. ADR-0388 records a source-sealed CuPy-free
 consumer-capacity result. ADR-0389 remains prospective; ADR-0390 rejects its
 source seal; ADR-0393 retains a wall rejection; ADR-0416 retains the old frozen
-capacity rejection. No capacity result is action latency, no systems result is
-a quality prior, and no rejected owner is replayed.
+capacity rejection. No capacity projection is resolver or action latency, no
+systems result is a quality prior, and no rejected owner is replayed.
+
+The exact-integer proposal remains a separate mechanism hypothesis. Its
+division-free full-operator algebra, signed limb and carry bounds, correctly
+rounded terminal conversion, forward/transpose identity, device work, memory,
+and sparse-update preconditions remain unproved and unpriced. A later outcome
+may motivate that gate but cannot retroactively change this assessment.
+
+The governing runtime remains ADR-0307's continuous 15,000 ms action-response
+wall with immutable legal fallback. All 177 ordered observations pass under
+ADR-0320. ADR-0328 retains the exhaustive teacher and solver-free rebinder.
+ADR-0338 records development width three. ADR-0351 requires the tie-aware legal
+h4 affine envelope; ADR-0356 retains the factorized directional-face result;
+ADR-0359 retains same-fixture integration; ADR-0362 retains untouched
+confirmation. ADR-0367 through ADR-0384 own and close the quotient algebra,
+capacity, bounded CUDA, staged, liveness, validation, and literal-target
+ladder. Their claim boundaries remain unchanged.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -175,16 +186,9 @@ boundary. ADR-0379 retains the 244,970,204-byte margin. ADR-0382 preregistered
 the literal-45 config. ADR-0386 records the source-sealed actual-context
 quotient bridge. ADR-0405 remains an accepted source seal.
 
-The exact-integer proposal remains a separate mechanism hypothesis. This
-assessor neither validates nor rejects its algebra, limb count, rounding,
-memory, device work, sparse updates, or wall time. A failing float/paired fit
-projection may motivate a later algebra-first integer preregistration but cannot
-pre-accept it; a passing projection does not erase its possible optimization
-value.
-
 ## Active next
 
-Implement and source-seal only ADR-0430's GPU-free artifact assessor, no-argument exclusive runner, independent result reader, synthetic controls, and exact config hash `720049432e3e8d85680a5781769f149d249920e3519b057d6df8ef0feedbceac`; keep the real V3 artifact unread during import and source seal except through explicit synthetic/current-source binding controls, independently reconstruct its raw lifecycle and population rows, rederive all fifteen device ratios plus the one-to-one outside-phase ratio, fail every omission, endpoint, rounding, negative-gap, duplicate, partial, claim, and result-lifecycle mutation, and keep the real assessment result, capacity verdict, population 25, CUDA, actual consumer, action, quality, exact-integer, truncation, blueprint, and strength fields absent until another clean committed checkpoint
+From ADR-0431's clean committed source seal, with the capacity result and reserved actual result absent and the retained V3 journal exact, invoke `.venv\Scripts\python.exe -B -m src.pontius.legal_river_quotient_shared_direct_artifact_capacity_runner` exactly once from the repository root with no arguments or package-path variables; retain its first canonical JSON terminal without retry, independently rebind the result against the complete V3 journal and current source hashes, and do not open population 25, CUDA, the actual consumer, exact-integer implementation, truncation, action, quality, blueprint, or strength in the same checkpoint
 
 ## Revoked authorities
 
@@ -192,7 +196,7 @@ Implement and source-seal only ADR-0430's GPU-free artifact assessor, no-argumen
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0430](docs/decisions/ADR-0430-preregister-the-shared-direct-artifact-capacity-assessor.md) — Preregister the shared-direct artifact capacity assessor.
+Latest process decision: [ADR-0431](docs/decisions/ADR-0431-source-seal-the-shared-direct-artifact-capacity-assessor.md) — Source-seal the shared-direct artifact capacity assessor.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -200,7 +204,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0407](docs/decisions/ADR-0407-preregister-the-artifact-only-exact-cubin-inspector-selector.md) | 2026-08-26 | accepted prospective artifact-only selection boundary; one standard-library selector may later classify ADR-0406's immutable corpus under candidate roles, parser grammar, quantity pairing, componentwise maxima, empty-selection semantics, and source/result separation frozen before selector source or authoritative assessment, while every inspector choice, resource gate, calibration population, phase, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains null | Preregister the artifact-only exact-cubin inspector selector |
 | [ADR-0408](docs/decisions/ADR-0408-source-seal-the-artifact-only-exact-cubin-inspector-selector.md) | 2026-08-26 | accepted source-only artifact-selector seal; the standard-library selector, committed source digest, synthetic candidate/parser/quantity/lifecycle controls, and exclusive canonical result writer are hash-bound before the authoritative ADR-0406 artifact is read through the selector or any selection assessment exists, while every inspector choice, resource gate, calibration population, phase, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains null | Source-seal the artifact-only exact-cubin inspector selector |
 | [ADR-0409](docs/decisions/ADR-0409-retain-the-empty-exact-cubin-inspector-selection.md) | 2026-08-26 | accepted deterministic artifact-only empty selection; the sole ADR-0408 invocation rebinds the exact ADR-0406 corpus, accepts the CUDA 13.3.73 identity, rejects the only semantically eligible complete resource candidate on its retained nonzero return code, and returns `no_qualified_inspector` with every selected row, combined row, resource gate, calibration, and projection null | Retain the empty exact-cubin inspector selection |
 | [ADR-0410](docs/decisions/ADR-0410-preregister-the-one-byte-elf-suffix-diagnostic.md) | 2026-08-26 | accepted prospective exact-artifact suffix boundary; one new-identity diagnostic may append exactly one zero byte under the fully frozen ELF64 structural predicate, retain that repaired payload before operation, send the same bytes to CUDA 13.3 tools and the CUDA module loader, and compare all named kernels and direct driver rows without compilation or launch, while every suffix result, qualified instrument, resource gate, calibration population, phase, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains null | Preregister the one-byte ELF suffix diagnostic |
@@ -224,18 +227,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0428](docs/decisions/ADR-0428-source-seal-the-shared-sample-plan-v3-successor.md) | 2026-08-26 | accepted source-only shared-sample-plan seal; one immutable population-keyed plan now supplies the exact source ranks, labeled query records, boundary features, and comparison shapes to both generated execution and evidence, every generated wrapper seam is identity-checked before CuPy, the historical seven-row helper and rank/feature/shape mutations reject, the independent V3 lifecycle reader and exact V3-to-V2 semantic projection pass synthetic controls, and the scrubbed external-working-directory two-launcher probe passes while the real V3 journal, device differential, population values, replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, integer-operator result, truncation choice, blueprint result, and poker-strength claim remain unopened | Source-seal the shared sample-plan V3 successor |
 | [ADR-0429](docs/decisions/ADR-0429-retain-the-passing-shared-sample-plan-v3-validation.md) | 2026-08-26 | accepted retained sole V3 completed-validation pass; the clean launcher-safe owner, exact compiler container, resource gates, primitive controls, retained complete-ten differential, query-weight control, immutable shared sample plans, both complete population-10/22 families, exact work ledgers, numerical gates, release gates, population walls, outer terminal, and independent lifecycle/semantic rebind pass, while V3 is permanently consumed and every replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, exact-integer result, truncation choice, blueprint result, and poker-strength claim remains unopened | Retain the passing shared-sample-plan V3 validation |
 | [ADR-0430](docs/decisions/ADR-0430-preregister-the-shared-direct-artifact-capacity-assessor.md) | 2026-08-26 | accepted prospective GPU-free artifact-only capacity boundary; ADR-0429's immutable complete V3 journal, exact 10/22 population and phase evidence, fifteen device-work components, one explicit outside-phase wall component, frozen 25-card geometry ratios, maximum-over-endpoints rule, 5/4 guard, 1 ms per-component addition, 180-second wall, independent raw-journal reader, canonical result, and exclusive one-shot identity are frozen before assessor source or any projection, while V3 remains permanently consumed and every capacity verdict, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, exact-integer result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the shared-direct artifact capacity assessor |
+| [ADR-0431](docs/decisions/ADR-0431-source-seal-the-shared-direct-artifact-capacity-assessor.md) | 2026-08-26 | accepted source-only artifact-capacity seal; the GPU-free assessor, no-argument exclusive owner, independent standard-library reader, exact integer projection arithmetic, complete raw V3 phase/work/envelope reconstruction, all sixteen charged components, maximum constituent and maximum endpoint rules, inclusive 180-second boundary, synthetic mutation suite, and permanent result lifecycle are implemented and pass controls while the real capacity assessment, population-25 fixture or numerical value, CUDA work, actual 45-card consumer, resolver iteration, action, 15-second result, decision-quality result, exact-integer mechanism result, truncation choice, blueprint result, and poker-strength claim remain unopened | Source-seal the shared-direct artifact capacity assessor |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0430](docs/decisions/ADR-0430-preregister-the-shared-direct-artifact-capacity-assessor.md) — Preregister the shared-direct artifact capacity assessor.
+- Latest ADR: [ADR-0431](docs/decisions/ADR-0431-source-seal-the-shared-direct-artifact-capacity-assessor.md) — Source-seal the shared-direct artifact capacity assessor.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 430.
-- ADR-header SHA-256: `438c1db1ca29371a0b401fce643fcaad8ef064da76557fc4480431454938bc0c`.
-- Current blockers: no source-sealed shared-direct artifact assessor or capacity projection exists; V3 is consumed after a complete 10/22 validation pass; no complete 25-card numerical result, actual 45-card owner, or full-width actual-context quotient value exists; no exact-integer algebra, overflow, rounding, work, resource, or device result exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 431.
+- ADR-header SHA-256: `5600b183403a57277a01353c1b6527164ce62306c98bd18ee498006be04fb2da`.
+- Current blockers: no retained shared-direct artifact-capacity terminal exists; V3 is consumed after a complete 10/22 validation pass; no complete 25-card numerical result, actual 45-card owner, or full-width actual-context quotient value exists; no exact-integer algebra, overflow, rounding, work, resource, or device result exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0430](docs/decisions/ADR-0430-preregister-the-shared-direct-artifact-capacity-assessor.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0431](docs/decisions/ADR-0431-source-seal-the-shared-direct-artifact-capacity-assessor.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

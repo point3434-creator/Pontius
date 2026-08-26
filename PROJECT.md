@@ -1115,8 +1115,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   ratio rule; the fused shared phase is priced by its complete work constituents.
   A sixteenth component explicitly prices population wall outside the phase sum
   at fixed scope, then every component receives the unchanged 5/4 plus 1 ms
-  guard against the 180-second limit. No assessor or projected value exists yet,
-  and population 25 remains geometry only.
+  guard against the 180-second limit.
+- ADR-0431 implements and source-seals that assessor without opening its real
+  projection. The assessor independently reconstructs all 3,028 raw V3 phase
+  rows, both complete work ledgers, and both outside-phase envelopes; its
+  independent reader rederives all ratios, candidates, uppers, claims, and the
+  terminal. Exact inclusive-wall and envelope-alone rejection controls pass.
+  One clean exclusive artifact-only invocation is next; population 25 remains
+  geometry only and no CUDA, action, quality, or exact-integer result exists.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

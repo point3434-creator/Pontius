@@ -1503,11 +1503,14 @@ queue:
   both population plan objects, every generated wrapper seam, and all actual/
   direct shapes are identity-checked before CuPy. ADR-0429 consumes the sole V3
   invocation and retains a complete 10/22 pass, including exact work, numerical,
-  resource, wall, and release gates. ADR-0430 now freezes the fresh GPU-free,
+  resource, wall, and release gates. ADR-0430 freezes the fresh GPU-free,
   artifact-only fit assessor before source: fifteen exact-work phase ratios plus
   one explicit outside-phase wall component, maximum endpoints, 5/4 guard,
-  1 ms per component, and 180 seconds. Implement and source-seal only that
-  assessor next; do not open population 25 or exact-integer source.
+  1 ms per component, and 180 seconds. ADR-0431 now source-seals that assessor,
+  independent reader, exclusive owner, and synthetic mutation boundary while
+  keeping the real projection absent. The immediate checkpoint is its one clean
+  artifact-only invocation and independent result rebind; do not open population
+  25, CUDA, or exact-integer source in that checkpoint.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1603,10 +1606,11 @@ queue:
   with a population-10 sample-plan mismatch before a population summary. The
   immutable-plan implementation and all generated-seam identity controls are
   now source-sealed by ADR-0428. ADR-0429 retains the independently rebound V3
-  complete 10/22 pass and permanently consumes it. The immediate capacity-lane
-  checkpoint is ADR-0430's source-only implementation of the prospectively
-  frozen artifact assessor over that exact journal. No projected answer exists;
-  it neither reopens V2/V4 nor invokes population 25.
+  complete 10/22 pass and permanently consumes it. ADR-0430 freezes and
+  ADR-0431 implements the artifact-only assessor over that exact journal. The
+  immediate capacity-lane checkpoint is its one clean exclusive invocation and
+  independent rebind. No projected answer exists yet; the source seal neither
+  reopens V2/V4 nor invokes population 25.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

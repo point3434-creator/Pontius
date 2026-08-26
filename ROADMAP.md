@@ -1441,9 +1441,11 @@ queue:
   payload, with exact repaired-byte tool and module identity. ADR-0410 now
   freezes that boundary. ADR-0411 now source-seals its one-zero transform,
   exclusive owner, independent reader, and 22 controls with all real tools,
-  module loads, launches, and results absent. Invoke that owner exactly once
-  from the clean seal commit next. Do not patch CuPy, use driver-only evidence,
-  open calibration, or construct a 25-card fixture.
+  module loads, launches, and results absent. ADR-0412 retains its sole clean
+  invocation as a passing exact repaired-byte instrument seam. Preregister a
+  new additive repaired-byte work-preflight adapter before resource-gate,
+  calibration, or projection work. Do not patch CuPy, use driver-only evidence,
+  or construct a 25-card fixture outside that successor.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1514,8 +1516,9 @@ queue:
   is completed by ADR-0408, and ADR-0409 closes its one deterministic result
   with an empty selection. Freeze the bounded suffix hypothesis before any
   further tool or driver operation. ADR-0410 completes that freeze and
-  ADR-0411 source-seals it without operation. Its single clean no-argument
-  invocation is next. Every actual 45-card value, owner,
+  ADR-0411 source-seals it without operation. ADR-0412 retains the single
+  passing invocation and closes that owner. A prospectively frozen additive
+  repaired-byte adapter is next. Every actual 45-card value, owner,
   automatic truncation,
   resolver iteration, action timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

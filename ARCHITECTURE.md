@@ -1926,6 +1926,13 @@ derives the terminal from raw streams. Equal 8 MiB payload and stream limits
 are represented by different APIs, so later tuning one cannot silently retune
 the other. Imports and controls remain device-free; the real result is absent.
 
+ADR-0412 retains the sole result. One appended zero completes the exact
+program-table boundary and makes the same 514,040 bytes acceptable to
+cuobjdump, nvdisasm, and the CUDA module loader. All fifteen names resolve and
+driver rows are unchanged. The resulting REG/STACK/LOCAL parser is qualified
+as an instrument only; resource thresholds, calibration phases, and capacity
+projection remain consumers that require their own additive adapter.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

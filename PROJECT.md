@@ -968,6 +968,11 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   8 MiB payload and command-stream caps now have separate typed encode/decode
   paths. No real CUDA tool, module load, launch, or result has run. The sole
   next authority is one clean no-argument invocation from the seal commit.
+- ADR-0412 retains that sole invocation as `suffix_reconstruction_pass`. The
+  exact repaired bytes pass cuobjdump resource/ELF, both nvdisasm payload
+  operations, all fifteen module lookups, and original-driver-row equality.
+  The repaired-byte resource instrument is qualified; the 255/4096 gate,
+  calibration, capacity projection, action, and quality remain null.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

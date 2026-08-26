@@ -847,7 +847,10 @@ repaired hash, the same bytes for offline inspection and module load, and exact
 driver-row preservation. ADR-0411 now source-seals the exact transform,
 exclusive owner, independent reader, and 22 controls. Payload and stream caps
 are semantically separate despite their current equal values. No real tool,
-module load, launch, or suffix result exists yet.
+module load, launch, or suffix result existed at that seal. ADR-0412 now
+retains the sole invocation as `suffix_reconstruction_pass`: exact repaired
+bytes pass the required tool and module seams. This qualifies an instrument,
+not the resource, capacity, latency, or quality gates.
 
 ## Current checkpoint
 

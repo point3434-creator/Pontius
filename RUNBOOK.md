@@ -2462,3 +2462,12 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     V3→V2→V1 rebinding. From the clean seal commit, invoke the no-argument V3
     owner once. Retain its first terminal verbatim; never replay after learning
     the real compiler/resource outcome.
+118. ADR-0403 permanently consumes V3. Preserve the exact 15,783-byte,
+    seven-record artifact SHA-256
+    `b84d9cd22042427c88f9c42b2da7acd176cdd0d5dec654c7f361bae7fa79cd0d`.
+    Bootstrap and the serializer probe passed; CUDA 13.3
+    `cuobjdump --dump-resource-usage` then returned status 4294967295 before
+    any resource row, phase, or projection. Do not rerun V3 or infer the cause.
+    A successor must first preregister a diagnostic-only inspector
+    qualification that retains the exact cubin and raw return code/stdout/
+    stderr before selecting any resource authority.

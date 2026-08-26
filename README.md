@@ -813,8 +813,12 @@ v3 recovery before source: only the exact six-field `CudaRuntimeIdentity` is
 newly encodable, unknown objects reject, and a real no-CUDA child must force a
 compiler failure through the unchanged scientific reporter with its original
 reason intact. ADR-0402 source-seals that recovery: all 16 corrected controls
-pass, including the literal child and complete nested rebinding; the v3 result
-remains absent until one clean no-argument invocation.
+pass, including the literal child and complete nested rebinding. ADR-0403 now
+retains the sole V3 invocation as a seven-record resource-inspector rejection:
+bootstrap and serializer probe passed, then CUDA 13.3 `cuobjdump` returned
+status 4294967295 before any resource row, calibration phase, or projection.
+V3 is permanently closed; the next gate is an additive exact-cubin inspector
+qualification that retains the cubin and raw tool streams before selection.
 
 ## Current checkpoint
 

@@ -1817,19 +1817,19 @@ class DocumentationIntegrityTests(unittest.TestCase):
 
     def test_work_decomposed_paired_capacity_preflight_is_preregistered(self) -> None:
         expected = {
-            "README.md": ("ADR-0402", "16 corrected controls"),
-            "PROJECT.md": ("ADR-0402", "three-mode literal owner"),
+            "README.md": ("ADR-0403", "seven-record resource-inspector rejection"),
+            "PROJECT.md": ("ADR-0403", "status 4294967295"),
             "STATUS.md": (
-                "ADR-0402",
-                "accepted source seal",
+                "ADR-0403",
+                "accepted retained first-invocation",
             ),
-            "ROADMAP.md": ("ADR-0402", "sole clean no-argument"),
+            "ROADMAP.md": ("ADR-0403", "diagnostic-only exact-cubin"),
             "RUNBOOK.md": (
-                "ADR-0402",
-                "V3→V2→V1 rebinding",
+                "ADR-0403",
+                "15,783-byte",
             ),
-            "ARCHITECTURE.md": ("ADR-0402", "named tuple"),
-            "RISK_REGISTER.md": ("R164", "permitted protocol branch"),
+            "ARCHITECTURE.md": ("ADR-0403", "raw nonzero streams"),
+            "RISK_REGISTER.md": ("R165", "external binary inspector"),
             "artifacts/work_preflight/README.md": (
                 "ADR-0394",
                 "legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
@@ -2323,11 +2323,18 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "v3_controls_relative_path",
         ):
             self.assertTrue((_ROOT / scope[field]).is_file(), scope[field])
-        for field in (
-            "v3_result_relative_path",
-            "reserved_actual_result_relative_path",
-        ):
-            self.assertFalse((_ROOT / scope[field]).exists(), scope[field])
+        result = _ROOT / scope["v3_result_relative_path"]
+        result_raw = result.read_bytes()
+        self.assertEqual(len(result_raw), 15783)
+        self.assertEqual(len(result_raw.splitlines()), 7)
+        self.assertEqual(
+            hashlib.sha256(result_raw).hexdigest(),
+            "b84d9cd22042427c88f9c42b2da7acd176cdd0d5dec654c7f361bae7fa79cd0d",
+        )
+        self.assertFalse(
+            (_ROOT / scope["reserved_actual_result_relative_path"]).exists(),
+            scope["reserved_actual_result_relative_path"],
+        )
 
         identity = config["new_identity_contract"]
         self.assertEqual(
@@ -2428,6 +2435,23 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "invoke exactly once",
         ):
             self.assertIn(phrase, seal)
+
+        outcome = _contract_text(
+            "docs/decisions/ADR-0403-retain-the-work-preflight-v3-resource-inspector-rejection.md"
+        )
+        for phrase in (
+            "b84d9cd22042427c88f9c42b2da7acd176cdd0d5dec654c7f361bae7fa79cd0d",
+            "Result bytes: `15783`",
+            "Journal records: `7`",
+            "serializer_probe=True",
+            "4294967295",
+            "phase_count=0",
+            "projection=None",
+            "why the tool rejected this cubin is not",
+            "29613",
+            "do not fall back silently to driver-only evidence",
+        ):
+            self.assertIn(phrase, outcome)
 
     def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
         expected = {

@@ -1421,9 +1421,11 @@ queue:
   compiler-failure reporter masks its antecedent on a slots dataclass. V2 is
   closed. ADR-0401 preregisters an exact-type additive v3 evidence serializer
   and real no-CUDA forced-failure probe. ADR-0402 source-seals it after 16
-  corrected controls. The immediate checkpoint is its sole clean no-argument
-  invocation and exact rebinding; do not open a 25-card fixture or numerical
-  value outside that sealed campaign.
+  corrected controls. ADR-0403 retains its sole invocation: both lifecycle
+  gates pass, then CUDA 13.3 resource inspection returns status 4294967295
+  before any phase or projection. V3 is closed. The immediate checkpoint is a
+  new-identity, diagnostic-only exact-cubin inspector qualification; do not
+  open calibration or a 25-card fixture while selecting that instrument.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1485,10 +1487,12 @@ queue:
   additive bootstrap-safe v2 lifecycle, and ADR-0399 source-seals it after a
   real no-CUDA child handshake. ADR-0400 retains its sole call as an evidence-
   serializer infrastructure failure with no phase or projection. The immediate
-  v3 contract is frozen by ADR-0401 and source-sealed by ADR-0402; the immediate
-  checkpoint is its one authorized invocation and outcome retention. Every actual
-  45-card value, owner, automatic truncation, resolver iteration, action
-  timing, and quality inference remains closed.
+  v3 contract is frozen by ADR-0401, source-sealed by ADR-0402, and permanently
+  consumed by ADR-0403's resource-inspector rejection. The immediate checkpoint
+  is a prospectively frozen exact-cubin inspector qualification with raw tool
+  streams retained before another capacity owner. Every actual 45-card value,
+  owner, automatic truncation, resolver iteration, action timing, and quality
+  inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

@@ -36,7 +36,9 @@ preflight fails its preregistered charged-wall gate; `lost` if it passes that
 gate. The forecast also predicts a 10–300x h32 cost and possible VRAM strain;
 record those as calibration diagnostics without changing the binary result.
 
-Status: open.
+Status: open — ADR-0403 rejects the resource-inspector seam before any
+calibration phase or projected wall exists, so it cannot resolve this clock
+forecast in either direction.
 
 ### 1b — Certified truncation becomes the accepted answer (65%)
 

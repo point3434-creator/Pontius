@@ -911,6 +911,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   three-mode literal owner, and nested V3-to-V2-to-V1 reader are hash-bound;
   the real no-CUDA probe preserves the sentinel reason and restores every
   identity. No campaign child or v3 result exists at the seal.
+- ADR-0403 retains V3's sole call. Literal bootstrap and the exact-type
+  serializer probe pass; the real campaign reaches an ELF-loaded cubin and
+  then CUDA 13.3 `cuobjdump --dump-resource-usage` returns status 4294967295.
+  No raw resource row, calibration phase, or projection exists. V3 is closed;
+  any successor must first qualify an exact-cubin inspector under a new
+  identity while retaining raw return code, stdout, stderr, and cubin bytes.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

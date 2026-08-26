@@ -1849,6 +1849,14 @@ as a permitted sequence. The independent reader validates V3 lifecycle and
 probe evidence before creating in-memory V2 and V1 validation views. Sixteen
 corrected controls pass; the real campaign and result remain unopened.
 
+ADR-0403 closes that real campaign at the next independent boundary. The
+serializer and transport retain the actual typed CUDA failure, but the CUDA
+13.3 resource-usage subprocess returns status 4294967295. Because the sealed
+instrument used `check=True`, its stdout/stderr and temporary cubin do not
+survive. A successor must therefore qualify the inspection seam before
+capacity work: exact cubin retention, raw nonzero streams, independent parse,
+three direct-kernel rows, and conservative driver/cubin maxima are required.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

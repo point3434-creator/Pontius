@@ -1949,6 +1949,15 @@ The composite design therefore chunks raw streams under a 64 MiB journal and
 applies smaller parser-admission bounds only after every chunk is durable. The
 scientific and resource contracts do not change.
 
+ADR-0415 source-seals that composite design. A fresh child repairs the exact
+live compiler prefix before loading it, resolves all fifteen functions, and
+retains the same repaired bytes for bounded inspection. Indexed ACKs make the
+parent's append/flush/fsync completion a prerequisite for every child step.
+The standard-library reader reconstructs all raw chunks, the repaired ELF,
+the three selected resource rows, and the componentwise driver/cubin maxima
+before passing an in-memory scientific-only view to the immutable phase and
+projection rebinder. The real V4 result remains absent at the seal.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

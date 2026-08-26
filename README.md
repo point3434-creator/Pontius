@@ -856,7 +856,11 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   remains the only resource and capacity authority. V4 source and results are
   still absent. ADR-0414 corrects its pre-source transport arithmetic with
   chunked raw streams, a 64 MiB journal, and distinct parser-admission bounds;
-  no evidence was opened by that correction.
+  no evidence was opened by that correction. ADR-0415 now source-seals the
+  composite repair-before-load adapter, ACK-gated chunked owner, independent
+  reader, and 17 focused controls. The real V4 result is still absent; the
+  immediate checkpoint is its sole clean no-argument invocation and retained
+  first terminal, not a 25-card call, action, or quality claim.
 
 ## Current checkpoint
 

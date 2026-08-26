@@ -984,6 +984,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   64 MiB journal; smaller strict-ASCII parser-admission bounds protect the
   unchanged 1 MiB child-line event only after raw retention. Capture, parser,
   child-line, and journal limits can no longer substitute for one another.
+- ADR-0415 source-seals the composite V4 boundary after 17 focused controls.
+  Repair occurs before module load, every raw command chunk is fsynced before
+  child progress, and the independent standard-library reader rederives the
+  exact ELF identity and driver/cubin maxima before admitting the immutable
+  10/22-card, 16-phase science. The real V4 result and reserved actual result
+  remain absent; only one clean no-argument invocation may open the next
+  resource/calibration/capacity terminal.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

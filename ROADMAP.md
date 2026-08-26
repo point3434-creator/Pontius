@@ -1448,10 +1448,12 @@ queue:
   executed and inspected, and all ADR-0394/0395 resource and capacity rules
   remain unchanged. ADR-0414 corrects the pre-source envelope: exact command
   streams are chunked under a 64 MiB journal, and parser admission remains
-  distinct from 8 MiB capture and the 1 MiB child line. Implement and source-
-  seal that composite owner and independent reader next, with both result paths
-  absent. Do not patch CuPy, use driver-only evidence, or construct a 25-card
-  fixture outside that successor.
+  distinct from 8 MiB capture and the 1 MiB child line. ADR-0415 now source-
+  seals that composite adapter, owner, reader, and 17 controls with both result
+  paths absent. Invoke its fresh no-argument owner exactly once from the clean
+  seal commit, retain and independently rebind the first terminal, and do not
+  patch CuPy, use driver-only evidence, retry a rejection, or construct a
+  25-card fixture outside the frozen arithmetic projection.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1525,8 +1527,9 @@ queue:
   ADR-0411 source-seals it without operation. ADR-0412 retains the single
   passing invocation and closes that owner. ADR-0413 prospectively freezes the
   additive repaired-executed-cubin V4 adapter, and ADR-0414 corrects only its
-  bounded evidence envelope before source. The composite source seal is next. Every
-  actual 45-card value, owner,
+  bounded evidence envelope before source. ADR-0415 completes the composite
+  source seal; its single clean invocation and first-terminal retention are
+  next. Every actual 45-card value, owner,
   automatic truncation,
   resolver iteration, action timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

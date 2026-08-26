@@ -2113,6 +2113,15 @@ assessor or owner code and independently derives the canonical result and
 terminal. The owner requires clean tracked dependencies and writes once with
 `xb`, flush, and fsync. Population 25 remains integer geometry only.
 
+ADR-0432 consumes the owner and retains a `completed_capacity_rejection`.
+Every component's maximum comes from population 10; the 4,999.487-second sum is
+27.775 times the 180-second validation wall. The fused phase supplies 51.5622%
+and is independently fatal, but the remaining rows still total 2,421.641
+seconds. The 168.156-second 22-only projection stays reporting-only. This
+closes the paired/shared representation under the frozen estimator, not all
+exact representations. An exact-integer successor must begin with complete
+CPU algebra, signed carry/rounding bounds, and source-only work/memory pricing.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

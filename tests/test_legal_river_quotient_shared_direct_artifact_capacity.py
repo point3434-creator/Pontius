@@ -20,6 +20,9 @@ ROOT = Path(__file__).parents[1]
 CONFIG = ROOT / source.CONFIG_RELATIVE_PATH
 INPUT = ROOT / source.INPUT_RELATIVE_PATH
 RESULT = ROOT / source.RESULT_RELATIVE_PATH
+RETAINED_RESULT_SHA256 = (
+    "9e6e3d45797eb9aeea8e91994f67e7ff641747a80a8d240799adfab1325961af"
+)
 SOURCE = ROOT / "src/pontius/legal_river_quotient_shared_direct_artifact_capacity.py"
 RUNNER = ROOT / "src/pontius/legal_river_quotient_shared_direct_artifact_capacity_runner.py"
 READER = ROOT / "src/pontius/legal_river_quotient_shared_direct_artifact_capacity_result.py"
@@ -101,7 +104,8 @@ class SharedDirectArtifactCapacityTests(unittest.TestCase):
             source.CONFIG_SHA256,
         )
         source.verify_preregistered_contract(self.config)
-        self.assertFalse(RESULT.exists())
+        if RESULT.exists():
+            self.assertEqual(sha256(RESULT.read_bytes()).hexdigest(), RETAINED_RESULT_SHA256)
         self.assertFalse((ROOT / source.RESERVED_ACTUAL_RESULT_RELATIVE_PATH).exists())
         self.assertEqual(source.COMPONENT_ORDER, reader.COMPONENT_ORDER)
         self.assertEqual(runner.DEPENDENCY_RELATIVE_PATHS, reader.DEPENDENCY_RELATIVE_PATHS)
@@ -121,10 +125,11 @@ class SharedDirectArtifactCapacityTests(unittest.TestCase):
         )
         self.assertTrue({"cupy", "numpy", "subprocess"}.isdisjoint(imports))
         with tempfile.TemporaryDirectory() as directory:
+            retained = RESULT.read_bytes() if RESULT.exists() else None
             script = (
                 "import pathlib,sys; "
                 "import pontius.legal_river_quotient_shared_direct_artifact_capacity as m; "
-                "print(int('cupy' in sys.modules), int(pathlib.Path(m.ROOT / m.RESULT_RELATIVE_PATH).exists()))"
+                "print(int('cupy' in sys.modules))"
             )
             environment = dict(os.environ)
             environment["PYTHONPATH"] = str(ROOT / "src")
@@ -136,16 +141,18 @@ class SharedDirectArtifactCapacityTests(unittest.TestCase):
                 capture_output=True,
                 text=True,
             )
-        self.assertEqual(completed.stdout.strip(), "0 0")
+        self.assertEqual(completed.stdout.strip(), "0")
+        self.assertEqual(RESULT.read_bytes() if RESULT.exists() else None, retained)
 
     def test_repository_root_public_owner_module_resolves_without_package_environment(self) -> None:
         environment = dict(os.environ)
         environment.pop("PYTHONPATH", None)
         environment.pop("PYTHONHOME", None)
+        retained = RESULT.read_bytes() if RESULT.exists() else None
         script = (
             "import importlib, pathlib, sys; "
             "m=importlib.import_module('src.pontius.legal_river_quotient_shared_direct_artifact_capacity_runner'); "
-            "print(int('cupy' in sys.modules), int(pathlib.Path(m.RESULT_PATH).exists()))"
+            "print(int('cupy' in sys.modules))"
         )
         completed = subprocess.run(
             [sys.executable, "-B", "-c", script],
@@ -155,7 +162,8 @@ class SharedDirectArtifactCapacityTests(unittest.TestCase):
             capture_output=True,
             text=True,
         )
-        self.assertEqual(completed.stdout.strip(), "0 0")
+        self.assertEqual(completed.stdout.strip(), "0")
+        self.assertEqual(RESULT.read_bytes() if RESULT.exists() else None, retained)
 
     def test_all_ratios_rederive_and_unchanged_phases_match_parent(self) -> None:
         import pontius.legal_river_quotient_cuda_compensated_work_preflight as parent
@@ -343,6 +351,20 @@ class SharedDirectArtifactCapacityTests(unittest.TestCase):
         )
         with self.assertRaisesRegex(ValueError, "artifact identity differs"):
             source.extract_bound_endpoints(raw[:-1], rebind_current_sources=False)
+
+    def test_retained_result_rebinds_after_the_one_shot_boundary(self) -> None:
+        if not RESULT.exists():
+            self.skipTest("authoritative artifact-only result remains unopened")
+        raw = RESULT.read_bytes()
+        self.assertEqual(len(raw), 9_182)
+        self.assertEqual(sha256(raw).hexdigest(), RETAINED_RESULT_SHA256)
+        rebound = reader.rebind_capacity_result_bytes(
+            raw, rebind_current_sources=False
+        )
+        self.assertEqual(rebound.terminal, "completed_capacity_rejection")
+        self.assertFalse(rebound.passed)
+        self.assertEqual(rebound.projected_host_ns, 4_999_486_743_986)
+        self.assertEqual(rebound.deciding_endpoints, ("10",) * 16)
 
 
 if __name__ == "__main__":

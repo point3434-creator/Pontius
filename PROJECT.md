@@ -1121,8 +1121,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   rows, both complete work ledgers, and both outside-phase envelopes; its
   independent reader rederives all ratios, candidates, uppers, claims, and the
   terminal. Exact inclusive-wall and envelope-alone rejection controls pass.
-  One clean exclusive artifact-only invocation is next; population 25 remains
-  geometry only and no CUDA, action, quality, or exact-integer result exists.
+- ADR-0432 retains the sole artifact-only rejection: every one of the sixteen
+  components is decided by population 10 and the conservative projection is
+  4,999.487 seconds against 180 seconds. The shared row is the largest and
+  independently fatal but not the only blocker; the nonauthoritative 22-only
+  counterfactual is 168.156 seconds. Population 25 remains geometry only and
+  no CUDA, action, quality, truncation, or exact-integer result exists. The next
+  boundary is a CPU-first full-operator integer algebra and work gate.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

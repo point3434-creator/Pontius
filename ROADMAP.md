@@ -1507,10 +1507,12 @@ queue:
   artifact-only fit assessor before source: fifteen exact-work phase ratios plus
   one explicit outside-phase wall component, maximum endpoints, 5/4 guard,
   1 ms per component, and 180 seconds. ADR-0431 now source-seals that assessor,
-  independent reader, exclusive owner, and synthetic mutation boundary while
-  keeping the real projection absent. The immediate checkpoint is its one clean
-  artifact-only invocation and independent result rebind; do not open population
-  25, CUDA, or exact-integer source in that checkpoint.
+  independent reader, exclusive owner, and synthetic mutation boundary.
+  ADR-0432 retains its sole rejection at 4,999.487 seconds; all sixteen rows are
+  decided by population 10, while the reporting-only 22 endpoint would pass at
+  168.156 seconds. Do not substitute that favorable endpoint. The immediate
+  checkpoint is a prospective CPU-first exact-integer algebra/work boundary;
+  do not open population 25 or CUDA before that gate.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1606,11 +1608,12 @@ queue:
   with a population-10 sample-plan mismatch before a population summary. The
   immutable-plan implementation and all generated-seam identity controls are
   now source-sealed by ADR-0428. ADR-0429 retains the independently rebound V3
-  complete 10/22 pass and permanently consumes it. ADR-0430 freezes and
-  ADR-0431 implements the artifact-only assessor over that exact journal. The
-  immediate capacity-lane checkpoint is its one clean exclusive invocation and
-  independent rebind. No projected answer exists yet; the source seal neither
-  reopens V2/V4 nor invokes population 25.
+  complete 10/22 pass and permanently consumes it. ADR-0430 freezes, ADR-0431
+  implements, and ADR-0432 consumes the artifact-only assessor over that exact
+  journal. Its conservative capacity result rejects and is permanently closed;
+  it neither reopens V2/V4 nor invokes population 25. The immediate capacity-
+  lane checkpoint is a preregistered CPU algebra, limb, rounding, and work model
+  for the exact-integer operator hypothesis before any implementation or CUDA.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

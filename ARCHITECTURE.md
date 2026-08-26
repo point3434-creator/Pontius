@@ -2084,6 +2084,15 @@ paths in memory for the owner-free V2 semantic oracle; post-bootstrap science
 and the outer terminal are byte-semantically unchanged. No CuPy or result work
 occurs during the seal. One later clean V3 invocation is the only open authority.
 
+ADR-0429 consumes that authority and retains a passing complete 10/22 device
+validation. The same immutable plan reaches generated execution and evidence,
+both population rows survive all exact numerical/work/lifecycle checks, and the
+independent nested reader accepts the complete journal. The 49.419-second
+population-22 value is the whole validation population wall, not a resolver
+iteration or action response. V3 contains no capacity projection and cannot be
+scaled to population 25 by inference; the next boundary is a separately frozen,
+artifact-only fit assessor.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

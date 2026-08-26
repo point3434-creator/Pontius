@@ -15,44 +15,50 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Source-seal the V3 shared-sample-plan successor. One frozen
-`CalibrationSamplePlan` per population is compiled from ADR-0427's literal
-arrays and exposed through a read-only mapping. The same resolver is bound into
-the generated population runner and the exact error-evidence function. The
-population-evidence wrapper, family runner, and top-level validation function
-also carry explicit object-identity gates for their fresh seams; endpoint
-agreement cannot hide a stale intermediate global.
+Retain V3's first terminal exactly as `completed_validation_pass` and consume
+the owner permanently. The artifact is complete, raw-hash-bound, and
+independently rebound through the fresh V3 lifecycle reader, its exact
+V3-to-V2 projection, and the unchanged owner-free V1 semantic authority.
+Source commit, dependencies, protocol, campaign, wrapper identities, and every
+post-bootstrap event rebind.
 
-Before any CuPy import or device work, V3 verifies the retained V2 artifact and
-source hashes, exact 10/22 ranks, eight boundary features, all normal/direct
-array shapes, resolver identity, plan-object identity, and complete generated
-wrapper chain. The old seven-row execution helper fails with a labeled
-`actual=(7, 8, 2) expected=(16, 8, 2)` error. Extra rank, feature, and changed
-shape controls also fail before CuPy.
+Both accepted population rows pass every frozen gate. Population 10 completes
+in 9.348 seconds and population 22 in 49.419 seconds under their 90-second
+laboratory population walls. The immutable shared sample-plan repair therefore
+retires ADR-0426's observed seven-row-versus-sixteen-row defect for these two
+calibration populations: execution and evidence agree, both families release,
+and complete population evidence survives. This is a bounded validation result,
+not certification of untested populations or the actual consumer.
 
-The fresh root launcher, exclusive owner, and independent reader are sealed.
-The reader validates V3 protocol, campaign, header, dependencies, wrapper, and
-bootstrap identity before projecting only the frozen lifecycle allowlist into
-an in-memory V2 journal. Every post-bootstrap event and the outer terminal stay
-unchanged. Minimal-failure and complete synthetic journals pass that nested
-V3-to-V2-to-V1 interpretation; lifecycle and science mutations fail closed.
-The reader does not open the retained V2 result when current-source rebinding is
-disabled.
+The compiler payload and one-zero-completed loaded cubin reproduce their exact
+retained identities. All four resource gates pass; the maximum observed direct
+kernel uses 48 registers and 1,024 bytes of stack-plus-local backing per thread.
+Primitive arithmetic, direct-order adversaries, retained complete-ten query/fold
+byte identity, query weights, work counts, fifteen-phase partitions, numerical
+envelopes, allocation separation, lifecycle, and absolute pool release pass.
+The independent reader accepts 3,052 records containing 3,028 phase rows and
+populations `(10, 22)`.
 
-Twenty-one focused controls pass. The literal launcher also crosses public and
-child processes from outside the repository with package-path variables
-removed and user site disabled; neither process imports CuPy or the science
-adapter, and no result is created. This is source and evidence readiness only.
-It authorizes one later clean V3 invocation under a separate retained-outcome
-decision. Its first terminal is permanent.
+No capacity formula was applied. The 49.419-second population-22 wall is a
+complete validation-campaign wall, not per-iteration resolver latency, action
+latency, or a 15-second decision. Population 25 was structurally forbidden;
+there is no complete 25-card value, actual 45-card value, capacity projection,
+or truncation decision. The next step must freeze an artifact-only projection
+before reading a projected answer or opening any larger device population.
+
+A shell-side precondition script first rejected a mistyped expansion of the
+new source commit before the root launcher was reached. It created no process,
+journal, or result. After the actual full commit was read and every guard again
+passed, the recorded root command ran once. This is retained as process
+diagnostic evidence, not counted as a V3 invocation or scientific terminal.
 
 ### Continuity
 
-ADR-0428 follows ADR-0427 without reviving V2. ADR-0427 freezes the immutable
-sample-plan contract; ADR-0428 implements and source-seals it without device
-operation. ADR-0426 retains V2's seven-row-versus-sixteen-row rejection and
-keeps its completed phase rows diagnostic only. ADR-0425 seals V2's launcher
-and lifecycle boundary but no longer authorizes operation.
+ADR-0429 follows ADR-0428 without changing its source. ADR-0428 source-seals the
+shared immutable sample plan and fresh lifecycle. ADR-0429 alone consumes the
+V3 owner and retains its accepted complete 10/22 result. ADR-0427 remains the
+prospective contract. ADR-0426 retains V2's sample-plan rejection and V2 is not
+revived, repaired, or used as a partial population.
 
 ADR-0384 retains the passing literal-45 quotient target and opens only the
 actual-context quotient bridge. ADR-0388 records a source-sealed CuPy-free
@@ -60,19 +66,6 @@ consumer-capacity result. ADR-0389 remains prospective; ADR-0390 rejects its
 source seal; ADR-0393 retains a wall rejection; ADR-0416 retains a frozen
 capacity rejection. No capacity result is action latency, no systems result is
 a quality prior, and no rejected owner is replayed.
-
-The governing runtime remains ADR-0307's continuous 15,000 ms action-response
-wall with immutable legal fallback. The phrases exclusive untouched legal h4,
-selector-window, 2,113-task, exhaustive bounded development-teacher,
-response-closed direct mechanism, caller-owned legal fallback,
-`GetProcessMemoryInfo failed`, and
-`representation_rejected_before_target_allocation` retain their prior meanings.
-All 177 ordered observations pass under ADR-0320. ADR-0328 retains the
-exhaustive teacher and solver-free rebinder. ADR-0351 requires the tie-aware
-legal h4 affine-envelope. ADR-0352 remains closed before any fresh untouched
-tie-aware affine result. ADR-0355's owner was invoke exactly once; ADR-0358 was
-invoke exactly once. ADR-0382 preregistered the literal-45 config; ADR-0383
-source-sealed it; ADR-0384 closed it.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -142,23 +135,28 @@ The exact historical continuity strings remain explicit. ADR-0353 precedes
 ADR-0354's factorized exact active-set directional-face diagnostic. ADR-0356
 retains that directional-face diagnostic before tie-aware affine integration.
 ADR-0357 requires an exclusive legal h4 owner, and ADR-0359 requires a fresh
-value-unopened confirmation. ADR-0367 preregisters the occupied-card quotient.
+value-unopened confirmation. ADR-0352 remains closed before any fresh untouched
+tie-aware affine result. ADR-0355's owner was invoke exactly once; ADR-0358 was
+invoke exactly once. ADR-0367 preregisters the occupied-card quotient.
 ADR-0368 seals the exact bounded algebra keystone. ADR-0369 freezes the
 source-only arithmetic boundary. ADR-0370 seals the numeric-array and
 logical-work result. ADR-0378 freezes the source-only literal-target liveness
-boundary. ADR-0379 retains the 244,970,204-byte margin. ADR-0386 records the
-source-sealed actual-context quotient bridge.
+boundary. ADR-0379 retains the 244,970,204-byte margin. ADR-0382 preregistered
+the literal-45 config. ADR-0386 records the source-sealed actual-context
+quotient bridge. ADR-0405 remains an accepted source seal.
 
-The exact-integer operator described after ADR-0427 is a plausible future
-mechanism hypothesis, not part of this seal. Its division-free scaling,
-multi-limb overflow window, correctly rounded output, forward/transpose
-identity, device work, memory, and sparse-update value require a separate
-derivation and preregistration. Headline GPU integer throughput is not accepted
-as a work or wall-time measurement.
+The exact-integer proposal remains a distinct hypothesis. Float64 inputs being
+exact binary rationals does not by itself prove that every operator coefficient
+can share one division-free scale, that five signed 64-bit limbs cannot
+overflow, that a final division rounds correctly, or that multi-limb kernels
+receive headline integer throughput. Exact sparse updates additionally require
+the changed source and every fixed-side assumption to be typed. Those questions
+must be derived and preregistered before implementation; V3 supplies no integer
+result.
 
 ## Active next
 
-From ADR-0428's clean committed source seal, with the V3 result absent, the retained V2 artifact exact, V1 and the reserved actual result absent, Git strictly clean, and `PONTIUS_ADR0427_PUBLIC_LAUNCHER_PROBE`, `PONTIUS_ADR0427_SHARED_DIRECT_CHILD_MODE`, `PONTIUS_ADR0427_SHARED_DIRECT_CHALLENGE`, `PYTHONPATH`, and `PYTHONHOME` absent, invoke `\.venv\Scripts\python.exe -B run_legal_river_quotient_cuda_shared_direct_device_v3.py` exactly once; retain its first terminal without retry, independently rebind the journal, and do not open population 25, choose a replacement projection, or implement the exact-integer hypothesis in the same checkpoint
+Do not rerun V3 or infer 25/45-card, action-clock, or decision-quality behavior from its validation walls. Before any population-25 fixture, CUDA call, actual 45-card owner, or exact-integer implementation, preregister one fresh GPU-free artifact-only capacity assessor that hash-binds ADR-0429's complete journal, independently extracts both accepted population rows and exact phase/work/resource ledgers, freezes one conservative shared-direct fit projection and partial/failure semantics before source, reports counterfactuals separately, and leaves the exact-integer operator as a distinct algebra-first successor hypothesis if the frozen projection rejects
 
 ## Revoked authorities
 
@@ -166,7 +164,7 @@ From ADR-0428's clean committed source seal, with the V3 result absent, the reta
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0428](docs/decisions/ADR-0428-source-seal-the-shared-sample-plan-v3-successor.md) — Source-seal the shared sample-plan V3 successor.
+Latest process decision: [ADR-0429](docs/decisions/ADR-0429-retain-the-passing-shared-sample-plan-v3-validation.md) — Retain the passing shared-sample-plan V3 validation.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -174,7 +172,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0405](docs/decisions/ADR-0405-source-seal-the-exact-cubin-inspector-diagnostic.md) | 2026-08-26 | accepted source seal; the device-free importer, exact compile adapter, ACK-gated cubin-first child, five-command binary capture, exclusive durable owner, standard-library reader, and 15 corrected adversarial controls are hash-bound before any real CUDA diagnostic child, cubin, external inspector result, calibration, population, phase, projection, selected inspector, resource gate, capacity, action, quality, truncation, blueprint, or strength result | Source-seal the exact-cubin inspector diagnostic |
 | [ADR-0406](docs/decisions/ADR-0406-retain-the-exact-cubin-inspector-diagnostic.md) | 2026-08-26 | accepted retained diagnostic capture; the sole ADR-0405 invocation durably preserves one exact driver-loadable ELF-magic payload, all three direct-kernel driver rows, both CUDA 13.3 tool identities, all three nonzero payload-operation outcomes, cleanup, and the first terminal, while `selected_inspector`, every resource gate, calibration population, phase, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remain null | Retain the exact-cubin inspector diagnostic |
 | [ADR-0407](docs/decisions/ADR-0407-preregister-the-artifact-only-exact-cubin-inspector-selector.md) | 2026-08-26 | accepted prospective artifact-only selection boundary; one standard-library selector may later classify ADR-0406's immutable corpus under candidate roles, parser grammar, quantity pairing, componentwise maxima, empty-selection semantics, and source/result separation frozen before selector source or authoritative assessment, while every inspector choice, resource gate, calibration population, phase, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains null | Preregister the artifact-only exact-cubin inspector selector |
 | [ADR-0408](docs/decisions/ADR-0408-source-seal-the-artifact-only-exact-cubin-inspector-selector.md) | 2026-08-26 | accepted source-only artifact-selector seal; the standard-library selector, committed source digest, synthetic candidate/parser/quantity/lifecycle controls, and exclusive canonical result writer are hash-bound before the authoritative ADR-0406 artifact is read through the selector or any selection assessment exists, while every inspector choice, resource gate, calibration population, phase, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains null | Source-seal the artifact-only exact-cubin inspector selector |
@@ -198,18 +195,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0426](docs/decisions/ADR-0426-retain-the-v2-population-sample-plan-rejection.md) | 2026-08-26 | accepted retained sole launcher-safe V2 population-scientific rejection; the root launch tree, fresh bootstrap, compiler container, module load, resource inspection, primitive controls, retained complete-ten differential, and query-weight controls pass, and both population-10 execution families reach final release, but evidence assembly rejects before a population row because the generated runner captured the parent's seven-row sample helper while the frozen evidence authority expected sixteen rows, so V2 is permanently consumed and every population-22 result, replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Retain the V2 population sample-plan rejection |
 | [ADR-0427](docs/decisions/ADR-0427-preregister-the-shared-sample-plan-v3-successor.md) | 2026-08-26 | accepted prospective sample-plan binding successor; one fresh config, immutable population-10/22 source/query/boundary plan, pre-device generated-global and shape checks, additive adapter, root launcher, owner, reader, controls, protocol, campaign, header, and result identities are frozen before source, while V2 remains permanently consumed and every new source, probe, device result, population value, replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the shared sample-plan V3 successor |
 | [ADR-0428](docs/decisions/ADR-0428-source-seal-the-shared-sample-plan-v3-successor.md) | 2026-08-26 | accepted source-only shared-sample-plan seal; one immutable population-keyed plan now supplies the exact source ranks, labeled query records, boundary features, and comparison shapes to both generated execution and evidence, every generated wrapper seam is identity-checked before CuPy, the historical seven-row helper and rank/feature/shape mutations reject, the independent V3 lifecycle reader and exact V3-to-V2 semantic projection pass synthetic controls, and the scrubbed external-working-directory two-launcher probe passes while the real V3 journal, device differential, population values, replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, integer-operator result, truncation choice, blueprint result, and poker-strength claim remain unopened | Source-seal the shared sample-plan V3 successor |
+| [ADR-0429](docs/decisions/ADR-0429-retain-the-passing-shared-sample-plan-v3-validation.md) | 2026-08-26 | accepted retained sole V3 completed-validation pass; the clean launcher-safe owner, exact compiler container, resource gates, primitive controls, retained complete-ten differential, query-weight control, immutable shared sample plans, both complete population-10/22 families, exact work ledgers, numerical gates, release gates, population walls, outer terminal, and independent lifecycle/semantic rebind pass, while V3 is permanently consumed and every replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, exact-integer result, truncation choice, blueprint result, and poker-strength claim remains unopened | Retain the passing shared-sample-plan V3 validation |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0428](docs/decisions/ADR-0428-source-seal-the-shared-sample-plan-v3-successor.md) — Source-seal the shared sample-plan V3 successor.
+- Latest ADR: [ADR-0429](docs/decisions/ADR-0429-retain-the-passing-shared-sample-plan-v3-validation.md) — Retain the passing shared-sample-plan V3 validation.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 428.
-- ADR-header SHA-256: `54a083903d5d058149c5970caf02f068d61659bafaeba303c055aa7aa34bf1ff`.
-- Current blockers: no real V3 complete 10/22 shared-path result exists and its one clean invocation remains unopened; V2 is consumed with a sample-plan rejection; no replacement capacity estimator or projection is selected, and no complete 25-card numerical result, actual 45-card owner, or full-width actual-context quotient value exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 429.
+- ADR-header SHA-256: `7435344b80455613902c5fb0e38d74cbf4d4e022c96c6d86d4c839b45cc50ebb`.
+- Current blockers: V3 is consumed after a complete 10/22 validation pass but no replacement capacity estimator or projection is selected; no complete 25-card numerical result, actual 45-card owner, or full-width actual-context quotient value exists; no exact-integer algebra, overflow, rounding, work, resource, or device result exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0428](docs/decisions/ADR-0428-source-seal-the-shared-sample-plan-v3-successor.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0429](docs/decisions/ADR-0429-retain-the-passing-shared-sample-plan-v3-validation.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

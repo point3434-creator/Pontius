@@ -1102,6 +1102,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   The next authority is exactly one clean V3 invocation; its first terminal is
   permanent, and the exact-integer proposal remains a separate unimplemented
   hypothesis.
+- ADR-0429 retains V3's sole invocation as a complete 10/22 validation pass.
+  The independent reader accepts 3,052 records, both population rows, 3,028
+  phase rows, exact work and numerical gates, and absolute release. Population
+  elapsed validation walls are 9.348 and 49.419 seconds under the frozen
+  90-second laboratory ceiling; neither is resolver or action latency. V3 is
+  consumed. Before any population-25 or actual-consumer work, freeze a separate
+  artifact-only capacity projection; the exact-integer pipeline remains an
+  algebra-first hypothesis with no current result.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

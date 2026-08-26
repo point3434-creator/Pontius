@@ -1501,10 +1501,12 @@ queue:
   ADR-0428 now source-seals that boundary after 21 focused controls and a
   scrubbed external-working-directory two-launcher probe. The shared resolver,
   both population plan objects, every generated wrapper seam, and all actual/
-  direct shapes are identity-checked before CuPy. The immediate checkpoint is
-  one clean, exact V3 invocation from the committed seal; retain its first
-  terminal without retry and do not open a new projection, population-25 work,
-  or the separate exact-integer hypothesis in that invocation.
+  direct shapes are identity-checked before CuPy. ADR-0429 consumes the sole V3
+  invocation and retains a complete 10/22 pass, including exact work, numerical,
+  resource, wall, and release gates. The next checkpoint is a fresh GPU-free,
+  artifact-only shared-direct fit projection frozen before source. It must not
+  open population 25 or treat validation wall as action latency; the exact-
+  integer mechanism remains a distinct algebra-first hypothesis.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1599,9 +1601,11 @@ queue:
   allowlist and ADR-0424's parent hashes. ADR-0426 consumes its sole invocation
   with a population-10 sample-plan mismatch before a population summary. The
   immutable-plan implementation and all generated-seam identity controls are
-  now source-sealed by ADR-0428. The immediate capacity-lane checkpoint is its
-  sole clean V3 invocation and independent journal rebind. It neither reopens
-  V2/V4 nor selects a new projection rule.
+  now source-sealed by ADR-0428. ADR-0429 retains the independently rebound V3
+  complete 10/22 pass and permanently consumes it. The immediate capacity-lane
+  checkpoint is a prospectively frozen artifact-only assessor over that exact
+  journal; no projection rule is selected yet, and it neither reopens V2/V4 nor
+  invokes population 25.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

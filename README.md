@@ -900,9 +900,10 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   now source-seals ADR-0427's fresh shared-plan boundary: identical immutable
   rank/feature/shape objects feed execution and evidence through every generated
   wrapper seam, and historical drift fails before CuPy. Twenty-one focused
-  controls and the scrubbed two-launcher probe pass. The next authority is one
-  clean V3 invocation; this is not a retry or a capacity, action-latency,
-  quality, or exact-integer inference.
+  controls and the scrubbed two-launcher probe pass. ADR-0429 retains the sole
+  V3 invocation as a complete 10/22 validation pass and consumes it. No capacity
+  projection, population-25 value, action-latency, quality, or exact-integer
+  inference exists; freeze an artifact-only fit assessor next.
 
 ## Current checkpoint
 

@@ -2253,6 +2253,16 @@ may parameterize only owner identity/lifecycle fields around the byte-identical
 ADR-0441 scientific module; its standard-library reader independently validates
 that allowlist and may not project scientific observations or terminals.
 
+ADR-0444 source-seals the implementation. The environment wrapper double-hashes
+bound host files around activation, replaces ambient state, and injects the
+pre-activation public origin into the inherited durable owner. Owner globals
+are scoped and restored. The reader verifies the untouched v2 chain and host
+header before rebuilding a private chain with exactly one header module-name
+projection; its parent-reader bindings are lock-scoped and restored. Synthetic
+controls prove the scientific observations and terminals are preserved and the
+retained v1 result remains independently readable. This opens one v2 invocation
+only, not a candidate or production consumer.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

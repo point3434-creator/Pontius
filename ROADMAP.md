@@ -1685,6 +1685,13 @@ queue:
   state, bind every named host file, charge activation and clean-Git work to
   the public envelope, reuse the exact ADR-0441 science, and perform no compile
   or device operation before its own clean committed source seal.
+  ADR-0444 completes that source seal. Sixteen focused controls bind the exact
+  host files, two independent activation parses, hostile ambient-state
+  rejection, public-clock origin, absolute Git, wrapper restoration, original-
+  journal validation, the one-field reader projection, and v1 result survival.
+  The next checkpoint is one invocation of the clean committed v2 root owner;
+  its first public or journal terminal is permanent. No compile or device
+  result exists at this source-seal checkpoint.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

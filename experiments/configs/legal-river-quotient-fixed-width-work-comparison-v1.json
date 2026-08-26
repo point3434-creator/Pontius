@@ -1,0 +1,521 @@
+{
+  "schema_version": "legal-river-quotient-fixed-width-work-comparison-v1",
+  "evidence_stage": "preregistered_after_adr0435_before_fixed_width_source_or_any_device_operation",
+  "decision": "compare_positional_limbs_and_proved_redundant_residues_under_one_unbounded_integer_authority_while_separating_selective_queries_global_certificate_coverage_and_physical_materialization",
+  "parent_commit": "043ce5dc8118f3589cfa126f53f2ef71176cb47f",
+  "expected_parents": {
+    "adr0435": {
+      "relative_path": "docs/decisions/ADR-0435-source-seal-the-captured-pair-exact-integer-operator-keystone.md",
+      "canonical_lf_sha256": "108b9ac5e7f18c1aaa9c838305367bf4526e84beb112c9e0f67269a28eed76eb"
+    },
+    "base_config": {
+      "relative_path": "experiments/configs/legal-river-quotient-exact-integer-operator-keystone-v1.json",
+      "canonical_lf_sha256": "64b545b17b67f2828e3f58bfc4518dc2615b5fe7cc3dcbd921a3c36477e32fc6"
+    },
+    "provenance_correction_config": {
+      "relative_path": "experiments/configs/legal-river-quotient-exact-integer-operator-keystone-v2-provenance.json",
+      "canonical_lf_sha256": "cf652a2c4e36001081e38aa37e3f306fa5aeb805d67788ff1028a672bab03467"
+    },
+    "exact_integer_source": {
+      "relative_path": "src/pontius/legal_river_quotient_exact_integer_operator.py",
+      "canonical_lf_sha256": "a373376d5a2a3b470013c4fb00a3146eee3971047558e25f63219e4107d65485"
+    },
+    "exact_integer_controls": {
+      "relative_path": "tests/test_legal_river_quotient_exact_integer_operator.py",
+      "canonical_lf_sha256": "dbfc6988dd126353a586de6a476ea6df553b51b8bb2a392a9df6e838f7ee7dcb"
+    }
+  },
+  "prospective_paths": {
+    "source": "src/pontius/legal_river_quotient_fixed_width_work_comparison.py",
+    "controls": "tests/test_legal_river_quotient_fixed_width_work_comparison.py",
+    "both_paths_absent_at_preregistration": true,
+    "runner_owner_reader_result_and_artifact_paths": null,
+    "source_seal_is_repeatable_cpu_only_and_has_no_scientific_result_file": true
+  },
+  "scope": {
+    "exactness_begins_after_captured_high_low_binary64_pairs": true,
+    "unbounded_python_integer_operator_from_adr0435_is_the_semantic_authority": true,
+    "reuse_only_the_already_open_complete_10_and_signed_12_control_populations": true,
+    "literal_45_work_is_integer_geometry_only": true,
+    "population_25_fixture_or_numerical_value_forbidden": true,
+    "actual_45_card_numerical_value_forbidden": true,
+    "numpy_cupy_cuda_driver_compiler_device_query_allocation_module_load_and_kernel_launch_forbidden": true,
+    "resolver_iteration_solve_action_clock_quality_truncation_blueprint_and_strength_results_forbidden": true
+  },
+  "semantic_quantities_that_must_remain_distinct": {
+    "selective_operator_query": "one_requested_coordinate_after_the_opposite_transform_is_built",
+    "logical_global_certificate_coverage": "every_legal_omitted_coordinate_is_exactly_priced_or_covered_by_a_conservative_exact_bound",
+    "physical_dense_materialization": "allocation_of_every_output_coordinate_times_every_feature",
+    "global_coverage_does_not_require_dense_materialization": true,
+    "a_streamed_full_scan_is_global_without_being_dense_resident": true,
+    "an_active_basis_replay_is_not_global_separation": true
+  },
+  "literal_45_geometry": {
+    "available_cards": 45,
+    "feature_width": 176,
+    "source_occupancies": 8145060,
+    "query_occupancies": 148995,
+    "labeled_query_records": 893970,
+    "forward_rows_levels_0_through_5": 1385980,
+    "adjoint_rows_levels_0_through_4": 164221,
+    "forward_recurrence_vector_edges": 55619730,
+    "adjoint_recurrence_vector_edges": 640575,
+    "forward_signed_subset_row_terms_all_queries": 2383920,
+    "adjoint_signed_subset_row_terms_all_sources": 464268420,
+    "query_label_vector_additions": 744975,
+    "forward_scalar_products_all_queries": 26223120,
+    "adjoint_scalar_products_all_sources": 1433530560,
+    "source_pairing_visits_before_the_90_fold_quotient": 733055400,
+    "source_axis_is_already_the_8145060_row_90_fold_mask_quotient": true,
+    "no_operator_may_reexpand_the_90_pair_assignments": true
+  },
+  "selective_oracle_contract": {
+    "forward_after_G_is_built": {
+      "one_query_subset_rows": 16,
+      "one_query_subset_feature_entries": 2816,
+      "one_query_scalar_products_if_fully_contracted": 176
+    },
+    "adjoint_after_H_is_built": {
+      "one_source_subset_rows": 57,
+      "one_source_subset_feature_entries": 10032,
+      "one_source_scalar_products_if_fully_contracted": 176
+    },
+    "all_query_forward_scan": {
+      "subset_feature_entries": 419569920,
+      "scalar_products": 26223120
+    },
+    "all_source_adjoint_scan": {
+      "subset_feature_entries": 81711241920,
+      "scalar_products": 1433530560
+    },
+    "build_G_feature_additions": 9789072480,
+    "build_H_feature_additions": 112741200,
+    "selected_coordinate_results_may_be_returned_without_allocating_the_full_output_axis": true,
+    "streamed_global_scans_must_bind_complete_domain_cardinality_order_and_chunk_digest": true,
+    "no_selective_count_is_a_prior_on_how_many_coordinates_a_certificate_will_need": true
+  },
+  "exact_certificate_contract": {
+    "float64_or_other_approximate_work_may_only_propose_warm_iterates_rows_columns_or_bases": true,
+    "final_authority_reconstructs_the_retained_primal_and_dual_objects_in_exact_arithmetic": true,
+    "final_authority_checks_complete_primal_feasibility_dual_feasibility_objectives_and_the_frozen_exact_gap_or_order_relation": true,
+    "final_authority_also_requires_one_of": [
+      "exact_full_legal_separation_and_pricing_over_every_omitted_row_and_column",
+      "a_conservative_exact_bound_that_proves_every_omitted_row_and_column_cannot_violate_closure"
+    ],
+    "a_sampled_omission_check_or_restricted_basis_certificate_is_insufficient": true,
+    "a_full_scan_may_stream_one_coordinate_at_a_time": true,
+    "a_conservative_bound_must_name_its_complete_domain_prove_its_envelope_direction_and_imply_no_positive_reduced_cost_or_unseparated_violation_under_the_frozen_typed_decision_rule": true,
+    "reporting_tolerances_may_not_decide_exact_closure": true,
+    "any_exact_replay_or_global_closure_failure_rejects_the_proposal_and_preserves_caller_owned_legal_fallback": true,
+    "this_source_seal_does_not_implement_or_claim_a_complete_resolver_certificate": true
+  },
+  "fixed_width_admission": {
+    "families": [
+      "source_rows",
+      "labeled_query_covectors",
+      "labeled_query_weights"
+    ],
+    "each_family_has_an_independent_inclusive_canonical_odd_mantissa_exponent_window": true,
+    "window_admission_precedes_fixed_width_arithmetic": true,
+    "one_step_below_or_above_any_window_rejects_before_encoding": true,
+    "a_complete_scan_or_an_immutable_provenance_bound_is_required_before_replay": true,
+    "the_scan_and_any_replay_are_separately_charged_in_a_future_runtime": true,
+    "family_exponent_bound_and_maximum_encoded_magnitude_bind_one_epoch": true,
+    "a_lower_exponent_larger_magnitude_topology_feature_mapping_or_pair_capture_change_forces_cold_rebind": true,
+    "no_window_or_limb_count_transfers_from_complete_10_or_signed_12_to_population_25_or_actual_45": true,
+    "known_control_only_windows": {
+      "source_rows": [-113, 21],
+      "labeled_query_covectors": [-111, 17],
+      "labeled_query_weights": [-112, 0]
+    },
+    "known_control_windows_are_retrospective_conformance_fixtures_not_unknown_population_promises": true
+  },
+  "required_exponent_telemetry": {
+    "one_row_per_semantic_family_and_separate_high_low_component_columns": true,
+    "counts": [
+      "total_components",
+      "finite_nonzero_components",
+      "positive_zero_components",
+      "negative_zero_components",
+      "subnormal_nonzero_components",
+      "positive_nonzero_components",
+      "negative_nonzero_components"
+    ],
+    "reporting_only_fields": [
+      "stored_component_frexp_minimum",
+      "stored_component_frexp_maximum"
+    ],
+    "authoritative_admission_fields": [
+      "canonical_odd_mantissa_exponent_minimum",
+      "canonical_odd_mantissa_exponent_maximum",
+      "family_fixed_point_exponent",
+      "maximum_absolute_encoded_pair",
+      "derived_semantic_bound",
+      "required_signed_bits",
+      "mathematical_limbs_or_working_channels",
+      "guard_or_redundant_capacity"
+    ],
+    "frexp_fields_never_admit_reject_size_or_select_a_representation": true,
+    "canonical_fields_never_borrow_a_window_from_another_family": true,
+    "all_zero_family_reports_null_nonzero_extrema_and_family_exponent_zero": true,
+    "nonfinite_component_rejects_before_telemetry_can_be_evidence": true
+  },
+  "source_seal_bound_profile_from_frozen_windows": {
+    "derivation_precedes_and_may_not_read_observed_control_telemetry": true,
+    "maximum_abs_encoded_pair_formula_per_family": "2_times_(2^53_minus_1)_times_2^(window_max_minus_window_min)",
+    "joint_control_geometry_available_cards": 12,
+    "joint_control_geometry_feature_width": 176,
+    "joint_geometry_is_a_conservative_control_envelope_not_a_new_population": true,
+    "input_maxima": {
+      "source_rows": "392318858461667504183593873070355827694447464012671090688",
+      "labeled_query_covectors": "6129982163463554752868654266724309807725741625197985792",
+      "labeled_query_weights": "93536104789177776380442112224186856196987024310272"
+    },
+    "forward_table_or_signed_partial_abs_bound": "1241736265294193050841576639532444637352249557295785522558402560",
+    "adjoint_table_or_signed_partial_abs_bound": "62363986538212820633784541047946438259878604998114228253491200",
+    "table_abs_bound_B": "1241736265294193050841576639532444637352249557295785522558402560",
+    "numerator_abs_bound": "25343000991712832203818620656858029851242844262588928043335390731684288131505326860132036232212990202232374539530220339200",
+    "reach_abs_bound": "2197179013314059188480257611435806088121834170826038711143440830203341408773363881556080578215598210615017157427200",
+    "scalar_abs_bound_B": "25343000991712832203818620656858029851242844262588928043335390731684288131505326860132036232212990202232374539530220339200",
+    "required_signed_bits": {
+      "forward_table_or_partial": 211,
+      "adjoint_table_or_partial": 207,
+      "numerator": 405,
+      "reach": 381
+    },
+    "guard_inclusive_positional_limbs": {
+      "forward_table_or_partial": 5,
+      "adjoint_table_or_partial": 5,
+      "numerator": 8,
+      "reach": 7
+    },
+    "RRNS_table_and_scalar_M_at_least_2B_plus_1_checks_use_these_exact_B_values": true,
+    "any_window_change_requires_new_input_maxima_semantic_bounds_limb_counts_and_modulus_product_proofs_before_work": true
+  },
+  "legacy_diagnostic_profile_only": {
+    "provenance": "ADR0433_reporting_only_calculation_from_the_old_complete_10_stored_component_envelope",
+    "capture_required_signed_bits": 211,
+    "maximum_table_required_signed_bits": 245,
+    "maximum_product_required_signed_bits": 421,
+    "maximum_scalar_required_signed_bits": 480,
+    "positional_table_mathematical_limbs": 4,
+    "positional_table_guard_inclusive_limbs": 5,
+    "positional_scalar_mathematical_limbs": 8,
+    "positional_scalar_guard_inclusive_limbs": 9,
+    "conservative_table_abs_bound_for_representation_controls": "2^244-1",
+    "conservative_scalar_abs_bound_for_representation_controls": "2^479-1",
+    "does_not_bind_the_RRNS_detection_theorem_population_25_actual_45_or_device_fit": true
+  },
+  "positional_candidate": {
+    "name": "signed_twos_complement_little_endian_uint64_limbs",
+    "word_bits": 64,
+    "word_byte_order": "little_endian_least_significant_limb_first",
+    "signed_encoding": "fixed_width_twos_complement",
+    "mathematical_limb_count": "ceil(required_signed_bits/64)",
+    "allocated_limb_count": "mathematical_limb_count_plus_one_guard_limb",
+    "guard_invariant": "the_high_guard_limb_is_only_the_exact_sign_extension_of_the_mathematical_limbs_after_every_named_operation",
+    "positive_and_negative_bounds_are_checked_before_each_narrowing_or_store": true,
+    "addition_subtraction_negation_small_signed_weight_and_schoolbook_full_product_are_defined_limbwise": true,
+    "signed_full_product_extracts_exact_magnitudes_runs_unsigned_schoolbook_products_then_restores_the_sign_and_prices_each_step": true,
+    "all_carries_borrows_high_products_and_signed_extensions_are_preserved": true,
+    "intermediate_width_comes_from_the_matching_table_partial_product_numerator_or_reach_bound_not_from_the_destination_value_type": true,
+    "one_limb_short_and_non_sign_guard_mutations_must_reject": true,
+    "every_reduced_control_operation_must_equal_the_unbounded_integer_authority": true,
+    "no_register_local_global_or_speed_claim": true
+  },
+  "rrns_candidate": {
+    "name": "fixed_62_bit_prime_residues_with_one_redundant_channel",
+    "residue_storage_bits": 64,
+    "canonical_nonnegative_residue_interval": "0_through_p_minus_1",
+    "every_channel_value_is_the_residue_of_the_same_true_scaled_integer_under_its_frozen_modulus": true,
+    "every_channel_executes_the_identical_integer_operator_modulo_its_own_modulus": true,
+    "working_primes_ascending": [
+      4611686018427387701,
+      4611686018427387709,
+      4611686018427387733,
+      4611686018427387737,
+      4611686018427387751,
+      4611686018427387761,
+      4611686018427387787,
+      4611686018427387817
+    ],
+    "redundant_prime": 4611686018427387847,
+    "each_prime_is_less_than_2^62": true,
+    "each_prime_is_odd_so_every_working_product_is_odd": true,
+    "each_prime_is_coprime_to_720": true,
+    "redundant_prime_is_strictly_greater_than_every_working_prime": true,
+    "primality_authority": {
+      "method": "deterministic_Miller_Rabin_for_unsigned_64_bit_integers",
+      "bases": [2, 325, 9375, 28178, 450775, 9780504, 1795265022],
+      "exact_small_prime_division_precheck": [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37],
+      "independent_pairwise_gcd_and_python_pow_witness_controls": true,
+      "a_failed_prime_or_coprimality_check_closes_rrns_before_operator_work": true
+    },
+    "table_code": {
+      "working_prime_indices": [0, 1, 2, 3],
+      "redundant_prime": 4611686018427387847,
+      "working_product": "452312848583266316186654203243362666169393410644045316780443067237187778989",
+      "working_product_times_redundant": "2085924839766513393654799458400981248934274398342792949425895480331999304216623398998820546683",
+      "working_product_bit_length": 248,
+      "source_seal_bound_profile_required_signed_bits": 211,
+      "uniqueness_requires_working_product_at_least_two_times_the_exact_table_abs_bound_plus_one": true,
+      "single_changed_channel_detection_also_requires_redundant_prime_greater_than_largest_table_working_prime": true
+    },
+    "scalar_code": {
+      "working_prime_indices": [0, 1, 2, 3, 4, 5, 6, 7],
+      "redundant_prime": 4611686018427387847,
+      "working_product": "204586912993508812043508485118496662844709132114800433332239463747232312205699250187701080588702939650380528873037247710183279517534963194862850023041",
+      "working_product_times_redundant": "943490606205385073529510144640134895001631038460625060574412997627462000496198142126130572581648466253536935282978239424023472018062687400292081545965832472369393382727",
+      "working_product_bit_length": 496,
+      "source_seal_bound_profile_required_signed_bits": 405,
+      "uniqueness_requires_working_product_at_least_two_times_the_exact_scalar_abs_bound_plus_one": true,
+      "single_changed_channel_detection_also_requires_redundant_prime_greater_than_largest_scalar_working_prime": true
+    },
+    "fault_model": {
+      "claim": "detect_every_final_changed_residue_at_a_checked_reconstruction_when_all_changes_are_confined_to_exactly_one_channel",
+      "preconditions": [
+        "the_true_scaled_integer_lies_inside_the_frozen_symmetric_abs_bound",
+        "the_working_product_is_at_least_two_times_the_abs_bound_plus_one",
+        "the_redundant_prime_is_strictly_greater_than_every_working_prime",
+        "all_changes_are_confined_to_exactly_one_named_channel",
+        "the_final_residue_at_the_checked_site_differs_from_the_correct_canonical_residue",
+        "all_unmutated_channels_the_reconstruction_and_the_checks_are_correct"
+      ],
+      "full_CRT_range_proof": "a_one_channel_corruption_changes_the_full_codeword_reconstruction_by_a_nonzero_multiple_of_the_product_of_all_unmutated_channels_which_is_at_least_the_working_product_and_therefore_at_least_2B_plus_1_so_the_result_cannot_remain_in_abs_range_B",
+      "base_extension_proof": "for_a_working_channel_j_the_working_only_decode_differs_from_truth_by_t_times_M_over_m_j_with_nonzero_abs_t_less_than_m_j;_passing_the_redundant_check_requires_m_R_divides_t_but_m_R_is_greater_than_m_j_which_is_impossible;_a_redundant_only_change_mismatches_directly",
+      "multiple_in_channel_errors_are_covered_only_when_their_composed_final_residue_is_changed": true,
+      "errors_that_cancel_modulo_the_channel_leave_no_erroneous_checked_residue_and_are_not_called_detected_faults": true,
+      "no_claim_for_two_channel_faults_correlated_faults_decoder_faults_or_common_algorithm_defects": true,
+      "every_channel_gets_a_changed_residue_mutation_at_zero_positive_negative_and_bound_edges": true,
+      "detected_terminal": "rrns_channel_fault_detected",
+      "detected_terminal_is_fail_closed_without_retry_silent_recomputation_or_correction": true
+    },
+    "signed_crt": {
+      "working_decode_interval": "minus_(M_minus_1)_over_2_through_plus_(M_minus_1)_over_2_inclusive",
+      "full_codeword_decode_interval": "minus_(M_times_mR_minus_1)_over_2_through_plus_(M_times_mR_minus_1)_over_2_inclusive",
+      "supported_check_forms": [
+        "full_codeword_CRT_then_reject_if_absolute_value_exceeds_B",
+        "working_only_CRT_reject_if_absolute_value_exceeds_B_then_predict_and_compare_redundant_residue"
+      ],
+      "both_check_forms_are_implemented_and_must_agree_on_every_source_seal_fault_control": true,
+      "a_future_run_freezes_exactly_one_check_form_before_operation": true,
+      "checks_execute_at_every_integer_reconstruction_site_and_nowhere_is_an_unchecked_reconstruction_consumed": true,
+      "intermediate_cells_have_separate_keystone_width_proofs_and_are_not_reconstructed_only_for_a_range_check": true,
+      "scaled_integer_is_reconstructed_before_any_divisibility_check": true,
+      "720_divisibility_is_checked_on_the_reconstructed_scaled_integer": true,
+      "no_constant_or_executed_operation_may_have_the_semantic_role_of_a_modular_inverse_of_720_or_any_factor_of_720": true
+    },
+    "modular_arithmetic": {
+      "cpu_semantic_reference_uses_unbounded_integer_modulo": true,
+      "prospective_device_multiplication": "64_bit_Montgomery_form_with_R_equal_2^64",
+      "montgomery_nprime": "minus_p_inverse_modulo_2^64_derived_separately_for_each_prime",
+      "product_and_reduction_require_exact_64x64_to_128_low_and_high_halves": true,
+      "truncated_uint64_a_times_b_is_forbidden": true,
+      "post_reduction_value_is_less_than_2p_and_one_conditional_subtraction_canonicalizes_it": true,
+      "Montgomery_constants_conversion_roundtrip_and_boundary_products_must_match_unbounded_modulo_for_every_prime": true,
+      "each_prime_exercises_zero_one_p_minus_1_and_(p_minus_1)_times_(p_minus_1)": true
+    },
+    "schedules_to_price_without_selecting": {
+      "resident_nine": "retain_all_nine_table_residues_concurrently",
+      "batched_five_then_four": "retain_the_first_four_working_channels_plus_the_common_redundant_channel_then_recompute_the_recurrence_for_working_prime_indices_four_through_seven_when_scalar_channels_are_required",
+      "batched_schedule_may_not_invent_unpriced_base_extension": true,
+      "every_recomputed_edge_load_store_and_residue_operation_is_counted": true
+    },
+    "no_reliability_speed_or_device_fit_claim_beyond_the_explicit_fault_model": true
+  },
+  "colex_row_owned_candidate": {
+    "colex_rank_of_sorted_k_subset": "sum_i_0_to_k_minus_1 C(card_i,i+1)",
+    "child_inserted_at_position_j": "sum_i_less_j C(t_i,i+1)+C(x,j+1)+sum_i_at_least_j C(t_i,i+2)",
+    "row_owner_unranks_the_parent_once": true,
+    "children_x_are_visited_in_ascending_card_order": true,
+    "insertion_position_advances_at_most_k_times_per_parent": true,
+    "prefix_and_shifted_suffix_constants_are_built_once_per_parent": true,
+    "each_child_then_uses_one_binomial_lookup_and_a_bounded_number_of_integer_additions": true,
+    "constant_time_claim_is_only_amortized_within_one_sequential_row_owner_not_random_unranking_across_threads": true,
+    "compare_against": {
+      "rank_to_cards_uint8_bytes_source": 48870360,
+      "rank_to_mask_uint64_bytes_source": 65160480,
+      "rank_to_cards_uint8_bytes_query": 595980,
+      "rank_to_mask_uint64_bytes_query": 1191960,
+      "levels_0_through_5_mask_uint64_bytes": 11087840,
+      "forward_adjacency_uint32_bytes": 222478920,
+      "adjoint_adjacency_uint32_bytes": 2562300
+    },
+    "controls": {
+      "exhaustive_parent_child_rank_identity_for_n10_and_n12_levels_0_through_5": true,
+      "literal_45_boundary_parent_ranks_first_last_and_midpoint_at_each_level_with_all_children": true,
+      "lexicographic_for_colex_off_by_one_wrong_insert_position_and_duplicate_child_mutations": true,
+      "independent_direct_combination_enumeration_is_authority": true
+    },
+    "no_latency_or_register_claim_before_compilation": true
+  },
+  "device_work_ledger_without_device_operation": {
+    "report_separately_for_positional_resident_rrns_and_batched_rrns": true,
+    "operator_modes": [
+      "cold_build_G",
+      "cold_build_H",
+      "one_selective_forward_query",
+      "one_selective_adjoint_query",
+      "streamed_all_query_forward_scan",
+      "streamed_all_source_adjoint_scan",
+      "exact_terminal_decode_and_round",
+      "cold_release"
+    ],
+    "primitive_counters": [
+      "source_and_query_pair_capture_or_residue_conversion_reads",
+      "uint64_load_bytes",
+      "uint64_store_bytes",
+      "word_adds_and_carry_or_borrow_steps",
+      "wide_64x64_low_high_products",
+      "small_weight_products",
+      "modular_adds_conditional_subtractions_and_Montgomery_reductions",
+      "CRT_or_base_extension_steps",
+      "colex_unrank_binomial_lookups_and_child_rank_additions",
+      "redundant_residue_checks",
+      "recomputed_edges_under_channel_batching"
+    ],
+    "every_counter_is_an_exact_integer_formula_rederived_from_geometry_and_width_or_channel_count": true,
+    "no_heterogeneous_counter_sum_or_vendor_peak_rate_converts_this_ledger_to_time": true,
+    "no_candidate_is_ranked_by_operation_count_alone": true,
+    "a_future_device_gate_must_compile_and_report_registers_local_bytes_spill_load_store_bytes_and_measured_phase_walls": true,
+    "future_phase_boundaries_must_partition_total_elapsed_wall_by_construction": true,
+    "future_45_card_owner_requires_a_separate_complete_memory_work_and_15000_ms_action_fit_preregistration": true
+  },
+  "memory_ledger": {
+    "positional_table_bytes_per_feature_cell_under_legacy_diagnostic": 40,
+    "positional_scalar_bytes_per_accumulator_under_legacy_diagnostic": 72,
+    "rrns_table_code_bytes_per_feature_cell": 40,
+    "rrns_resident_nine_bytes_per_feature_cell": 72,
+    "rrns_scalar_code_bytes_per_accumulator": 72,
+    "batched_rrns_peak_must_include_first_batch_residency_second_batch_scratch_and_input_replay": true,
+    "forward_and_adjoint_liveness_are_derived_separately": true,
+    "pair_level_6_rank_tables_automata_outputs_scratch_allocator_state_and_reserve_remain_named_terms": true,
+    "dense_output_bytes_are_never_charged_when_the_frozen_mode_is_selective_or_streamed": true,
+    "streaming_chunk_bytes_are_always_charged": true,
+    "no_12GB_or_48GB_fit_claim_at_source_seal": true
+  },
+  "known_control_population_telemetry": {
+    "complete_10": {
+      "source_rows": {
+        "canonical_exponent_min_max": [-113, -42],
+        "frexp_exponent_min_max": [-61, 5],
+        "nonzero_components": 1644,
+        "zero_components": 72276
+      },
+      "labeled_query_covectors": {
+        "canonical_exponent_min_max": [-111, 2],
+        "frexp_exponent_min_max": [-59, 6],
+        "nonzero_components": 263086,
+        "zero_components": 180434
+      },
+      "labeled_query_weights": {
+        "canonical_exponent_min_max": [-112, 0],
+        "frexp_exponent_min_max": [-61, 1],
+        "nonzero_components": 2058,
+        "zero_components": 462
+      }
+    },
+    "signed_12": {
+      "source_rows": {
+        "canonical_exponent_min_max": [-104, 21],
+        "frexp_exponent_min_max": [-103, 22],
+        "nonzero_components": 8806,
+        "zero_components": 434
+      },
+      "labeled_query_covectors": {
+        "canonical_exponent_min_max": [-109, 17],
+        "frexp_exponent_min_max": [-108, 18],
+        "nonzero_components": 28138,
+        "zero_components": 1562
+      },
+      "labeled_query_weights": {
+        "canonical_exponent_min_max": [-103, -2],
+        "frexp_exponent_min_max": [-102, 0],
+        "nonzero_components": 5940,
+        "zero_components": 0
+      }
+    },
+    "these_values_are_controls_derived_from_already_open_parent_populations_not_fresh_research_labels": true
+  },
+  "required_source_seal_controls": {
+    "config_and_every_parent_hash_rebind_with_production_CRLF_normalization_and_an_independent_byte_loop": true,
+    "literal_backslash_r_backslash_n_rewrite_is_a_required_rejecting_hash_mutation": true,
+    "isolated_import_is_standard_library_process_device_and_result_free": true,
+    "positional_add_subtract_negate_small_weight_schoolbook_product_and_accumulator_match_unbounded_integers": true,
+    "positional_sign_extension_guard_one_limb_short_long_carry_long_borrow_negative_and_cancellation_controls": true,
+    "all_nine_primes_pass_the_frozen_deterministic_primality_and_pairwise_coprimality_checks": true,
+    "all_Montgomery_constants_and_boundary_products_match_unbounded_modulo_for_every_prime": true,
+    "table_and_scalar_working_product_at_least_2B_plus_1_and_redundant_largest_inequalities_are_rederived_as_integers": true,
+    "every_single_channel_changed_residue_mutation_is_detected_under_the_frozen_fault_model": true,
+    "both_full_CRT_range_and_working_decode_base_extension_checks_detect_every_frozen_single_channel_fault_and_agree": true,
+    "an_in_bound_consistent_wrong_value_encoded_across_all_channels_passes_RRNS_and_is_rejected_by_the_unbounded_differential_authority": true,
+    "a_two_channel_mutation_is_reporting_only_and_cannot_expand_the_fault_claim": true,
+    "redundant_not_largest_duplicate_composite_and_insufficient_working_product_config_mutations_reject": true,
+    "synthetic_reconstruction_with_absolute_value_greater_than_B_rejects": true,
+    "redundant_channel_only_corruption_is_detected_by_both_check_forms": true,
+    "scaled_720_divisibility_survives_encoding_and_a_nondivisible_reconstruction_rejects": true,
+    "a_config_or_source_path_with_the_semantic_role_of_inverting_720_or_its_factors_and_any_truncated_64_bit_product_are_structurally_rejected": true,
+    "positional_and_both_rrns_schedules_match_the_unbounded_operator_on_complete_10_and_signed_12": true,
+    "forward_adjoint_literal_and_terminal_binary64_bits_remain_identical_to_ADR0435": true,
+    "selective_16_and_57_row_queries_match_dense_parent_outputs_on_every_reduced_coordinate": true,
+    "streamed_global_scan_matches_dense_reduced_controls_without_dense_literal_45_allocation": true,
+    "active_basis_only_and_one_omitted_coordinate_mutations_fail_the_certificate_contract": true,
+    "colex_row_owned_child_ranks_match_independent_enumeration_and_every_frozen_mutation_fails": true,
+    "per_family_frexp_and_canonical_telemetry_reproduce_the_frozen_known_controls": true,
+    "family_window_edges_admit_and_one_step_beyond_each_edge_rejects_before_fixed_width_work": true,
+    "source_seal_input_maxima_table_scalar_bounds_bits_limbs_and_2B_plus_1_checks_rederive_from_frozen_windows_without_observed_telemetry": true,
+    "literal_45_geometry_work_memory_selective_and_global_formulas_rederive_without_numerical_population": true,
+    "population_25_CUDA_device_actual_45_action_quality_and_strength_paths_remain_absent": true
+  },
+  "source_seal_exit": {
+    "on_complete_pass": "source_seal_both_candidates_as_CPU_exact_and_retain_separate_symbolic_work_memory_ledgers_without_selecting_a_speed_winner",
+    "on_mathematical_RRNS_failure": "close_RRNS_and_require_a_new_preregistration_before_any_residue_successor_while_preserving_only_separately_passing_positional_evidence",
+    "on_positional_failure": "retain_the_typed_failure_and_do_not_open_device_work",
+    "on_any_provenance_or_scope_failure": "no_source_seal",
+    "next_if_sealed": "preregister_one_compiled_device_resource_and_bounded_wall_preflight_with_no_population_25_or_actual_45_value",
+    "no_result_artifact_or_candidate_winner_at_source_seal": true
+  },
+  "kill_criteria": {
+    "restricted_basis_exactness_is_presented_as_global_certificate_closure": true,
+    "logical_global_coverage_is_conflated_with_physical_dense_materialization": true,
+    "a_selective_query_count_is_used_as_the_unproved_complete_certificate_bill": true,
+    "frexp_reporting_admits_or_sizes_fixed_width_arithmetic": true,
+    "one_semantic_family_borrows_another_family_exponent_window": true,
+    "a_table_bound_or_code_is_reused_for_a_product_or_scalar": true,
+    "RRNS_reconstructs_outside_its_signed_uniqueness_interval": true,
+    "RRNS_claims_detection_when_the_final_checked_residue_is_unchanged_or_beyond_the_frozen_single_channel_model": true,
+    "a_constant_or_operation_semantically_inverts_720_or_one_of_its_factors_before_exact_reconstruction_and_divisibility_testing": true,
+    "a_modular_product_truncates_before_reduction": true,
+    "a_batched_RRNS_schedule_omits_recomputation_or_base_extension_work": true,
+    "row_owned_amortized_child_ranking_is_called_random_access_constant_time": true,
+    "heterogeneous_operation_counts_or_vendor_peak_rates_are_called_latency": true,
+    "a_fixed_width_source_seal_is_called_device_fit_or_action_clock_evidence": true,
+    "the_90_fold_quotient_is_reexpanded": true,
+    "population_25_CUDA_actual_45_action_quality_truncation_blueprint_or_strength_is_opened": true
+  },
+  "claims": {
+    "prospective_source_exists": false,
+    "prospective_controls_exist": false,
+    "positional_fixed_width_correctness": null,
+    "RRNS_fixed_width_correctness": null,
+    "RRNS_single_channel_fault_detection_under_frozen_model": null,
+    "colex_row_owned_child_ranking_correctness": null,
+    "selective_oracle_correctness": null,
+    "global_certificate_implementation": null,
+    "device_work_ledger_sealed": null,
+    "candidate_selected": null,
+    "device_compiled": false,
+    "device_fit": null,
+    "device_speed": null,
+    "population_25_numerical_value": null,
+    "actual_45_card_value": null,
+    "resolver_iteration_result": null,
+    "solve_result": null,
+    "action_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

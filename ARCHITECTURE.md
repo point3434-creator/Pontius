@@ -2156,6 +2156,19 @@ The sealed module remains an unbounded-integer authority only. Positional
 limbs, residue channels, selective adjoint queries, child-rank traversal, and
 device execution remain separate prospective mechanisms.
 
+ADR-0436 prospectively types those mechanisms before source. A selective
+forward or adjoint query reads 16 or 57 transformed subset rows; exact global
+certificate closure still covers every legal omission, but may stream rather
+than retain the dense output. Signed positional limbs and a fixed RRNS code
+share one unbounded-integer authority. RRNS uses eight ascending working primes
+and one larger redundant prime, exact `M >= 2B+1` admission, full-CRT range and
+working-CRT/base-extension checks, and claims detection only when one channel's
+final checked residue changes. It neither corrects nor detects a correlated
+all-channel logic error. Row-owned colex child ranking, resident table options,
+canonical per-family exponent admission, reporting-only `frexp`, and separate
+primitive work counters remain CPU source-seal subjects; device compilation,
+fit, speed, population 25, and actual 45-card values remain closed.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

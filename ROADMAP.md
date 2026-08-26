@@ -1621,14 +1621,18 @@ queue:
   hashes before seal, preserves the uncommitted implementation and all frozen
   science, and binds corrected canonical-LF provenance through a second config.
   ADR-0435 rebinds both configs and passes the unchanged CPU keystone plus the
-  explicit query-label repair under 14 focused controls. Stop at that source
-  seal. On resumption, prospectively compare selective 57-read adjoint/16-read
-  forward queries with dense evidence-only sweeps, positional limbs with a
-  proved residue representation, and resident tables with row-owned incremental
-  child ranking. Float exploration may reduce exact work only if final exact
-  authority also proves global separation or a bound over omitted rows. Freeze
-  per-family canonical exponent admission and separate frexp reporting before
-  any fixed-width/device source; no population-25 or CUDA value is yet open.
+  explicit query-label repair under 14 focused controls. ADR-0436 now freezes
+  the next source-only comparison: signed positional limbs versus a 4+1 table/
+  8+1 scalar RRNS code whose redundant prime is larger than every working
+  prime; exact `M >= 2B+1` admission and two equivalent check forms delimit a
+  one-changed-channel detection claim. Selective 57-read adjoint/16-read
+  forward queries do not substitute for global separation, while streamed
+  complete-domain coverage does not require dense materialization. The same
+  gate freezes exact final primal/dual replay plus global omitted-coordinate
+  closure, row-owned incremental colex ranking, per-family canonical exponent
+  admission, reporting-only `frexp`, and incomparable primitive work ledgers.
+  Implement and source-seal only those CPU controls next; no population-25,
+  CUDA, actual-45, latency, action, or quality value is yet open.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

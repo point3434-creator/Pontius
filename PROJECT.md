@@ -1155,6 +1155,18 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   exactly once, so six duplicate records cannot impersonate semantic coverage.
   This opens only a new fixed-width/device-work preregistration; it supplies no
   population-25, CUDA, actual 45-card, latency, action, or quality result.
+- ADR-0436 freezes that comparison before source. Positional 64-bit limbs and
+  an eight-working-plus-one-larger-redundant-prime RRNS candidate share the
+  ADR-0435 unbounded authority. The RRNS claim is detection, not correction,
+  and only when one channel's final checked residue changes under exact
+  `M >= 2B+1` admission; a correlated all-channel error is deliberately left
+  to the differential oracle. Selective 16/57-row queries remain distinct
+  from exact global certificate closure, and global logical coverage remains
+  distinct from dense physical output. Row-owned colex ranks, family-separated
+  canonical exponent admission versus reporting-only `frexp`, and symbolic
+  heterogeneous work ledgers are frozen. No source, device operation,
+  population-25 value, actual-45 value, latency, action, or quality result yet
+  exists.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

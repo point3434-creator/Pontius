@@ -897,8 +897,10 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   invocation as a population-10 sample-plan rejection: execution selected seven
   rows while evidence expected the frozen sixteen, so no population row or
   projection survived and population 22 never opened. V2 is closed; the next
-  boundary is a fresh shared-plan preregistration, not a retry or a capacity,
-  action-latency, or quality inference.
+  boundary is ADR-0427's fresh shared-plan source seal: identical immutable
+  rank/feature/shape objects must feed execution and evidence and fail historical
+  drift before CuPy. This is not a retry or a capacity, action-latency, or
+  quality inference.
 
 ## Current checkpoint
 

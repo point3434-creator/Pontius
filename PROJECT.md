@@ -1085,6 +1085,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   population 22, every projection, and population 25 remain unopened. A fresh
   successor must share one immutable sample plan between execution and evidence
   and prove that binding before CuPy or device work.
+- ADR-0427 preregisters that fresh V3 boundary before source. Literal 16-row
+  source/query populations and eight boundary features for both 10 and 22 cards
+  form one frozen plan object per population. Generated execution and evidence
+  must receive the identical object; generated-global identity, ranks, features,
+  and all four sample shapes reject before CuPy. V2 remains closed, and the
+  source-only checkpoint may add only the fresh adapter/launcher/owner/reader/
+  controls and scrubbed no-device launch probe.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -2065,6 +2065,15 @@ population object exists. A successor must compile one immutable sample-plan
 object and inject its identity into execution and evidence; helper selection,
 rank arrays, and comparison shapes become pre-device invariants.
 
+ADR-0427 freezes that V3 seam prospectively. `CalibrationSamplePlan` is one
+frozen object per population in a read-only mapping, containing the literal
+source ranks, labeled query records, boundary features, and expected source/
+query/fold/adjoint pair shapes. The generated runner's global resolver and the
+evidence calculator must consume those exact objects. Source controls inspect
+the compiled function globals and force the historical 7/16 helper, rank,
+feature, and shape mutations to reject before any CuPy import. V3 otherwise
+inherits the V2 device science and lifecycle through fresh identities.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

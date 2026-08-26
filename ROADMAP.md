@@ -1496,8 +1496,10 @@ queue:
   invocation: every pre-population device seam and both population-10 families
   complete, but evidence assembly rejects the inherited 7-row execution sample
   plan against the frozen 16-row evidence plan. V2 is closed. Preregister one
-  fresh immutable sample-plan successor before source; do not rerun V2 or open
-  a new projection or population-25 work.
+  fresh immutable sample-plan successor before source; ADR-0427 now freezes its
+  literal 10/22 ranks, features, shapes, identities, and pre-device adversaries.
+  Implement and source-seal only that boundary next; do not rerun V2 or open a
+  new projection or population-25 work.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1591,10 +1593,10 @@ queue:
   ADR-0422's root-launcher contract as corrected by ADR-0423's lifecycle
   allowlist and ADR-0424's parent hashes. ADR-0426 consumes its sole invocation
   with a population-10 sample-plan mismatch before a population summary. The
-  immediate capacity-lane checkpoint is a prospectively frozen fresh successor
-  that injects one exact source/query sample plan into both generated execution
-  and evidence and rejects any shape drift before device work; it neither
-  reopens V2/V4 nor selects a new projection rule.
+  immediate capacity-lane checkpoint is ADR-0427's source-only implementation:
+  inject one exact source/query sample plan into both generated execution and
+  evidence, prove object/global/rank/shape identity, and reject every historical
+  drift before CuPy. It neither reopens V2/V4 nor selects a new projection rule.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

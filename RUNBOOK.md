@@ -2427,3 +2427,10 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     only, invoke the public no-argument owner exactly once. Never compile,
     allocate, launch, digest, reduce, or gate population 25; it remains integer
     geometry/work/projection only.
+112. ADR-0397 permanently consumes the v1 path. Preserve artifact SHA-256
+    `fd8c71ddb534320577dfc9a390946fc3dffe3fe806bf93d456ac33e55fe8e830`
+    and its exact three-record header/provenance/infrastructure terminal. Never
+    delete, rename, repair, or rerun it. A successor needs a new config,
+    campaign, header, and result identity; a literal importable worker-module
+    name; and a no-CUDA handshake through the real subprocess seam. Injected
+    campaign-executor tests alone do not close worker bootstrap.

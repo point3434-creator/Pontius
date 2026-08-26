@@ -1411,9 +1411,12 @@ queue:
   source-seals the composite owner and standard-library reader: 18 device-free
   and synthetic controls pass, every projected ratio dominates its work,
   live-shape, and relevant chunk-count constituents, and both result paths
-  remain absent. The immediate checkpoint is the one-shot no-argument 10/22
-  calibration from a clean committed seal; do not open a 25-card fixture or
-  numerical value.
+  remain absent at the source seal. ADR-0397 retains the sole v1 command as a
+  worker-module bootstrap failure before import or CUDA: context-sensitive
+  `__name__` produced `python -m __main__`. V1 is permanently closed. The
+  immediate checkpoint is a preregistered and source-sealed additive v2 with a
+  literal worker module, new result identity, and actual no-CUDA subprocess
+  handshake; do not open a 25-card fixture or numerical value.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1470,8 +1473,9 @@ queue:
   conservative 180-second projection without opening source or timing.
   ADR-0395 corrects its resource instrument before result, and ADR-0396
   source-seals the exact work/phase/resource owner and independent reader with
-  the one-shot result absent. The immediate checkpoint is the single 10/22
-  calibration invocation; every actual
+  the one-shot result absent. ADR-0397 retains v1's sole command as a durable
+  pre-worker infrastructure failure and closes it. The immediate checkpoint
+  is an additive v2 bootstrap-safe source seal; every actual
   45-card value, owner, automatic truncation, resolver iteration, action
   timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

@@ -15,103 +15,83 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes, for source authority only. Retain the additive implementation and its 18
-device-free/synthetic controls. Do not invoke the real owner at this
-checkpoint. The result path remains absent, so this decision contains no
-device timing, calibration value, projected wall, capacity verdict, or
-complete 25-card numerical evidence.
+Retain the durable v1 artifact as an infrastructure failure and permanently
+close the v1 owner. Do not edit the runner, delete or rename the artifact, or
+retry the same path. The result contains a valid exclusive header, one clean
+provenance observation, and the first terminal; its failure is evidence.
 
-The successor derives all 10-, 22-, and projection-only 25-card geometry and
-work independently from combinations. Its fixture compiler checks membership
-in `(10, 22)` before it calls any parent compiler. Twenty-five cards therefore
-has a necessary integer representation for projection but no fixture,
-allocation, kernel, scalar, digest, or numerical gate. The standard-library
-reader applies the same lock: any raw numerical phase outside populations 10
-and 22 is a typed rejection, while the final target-25 projection is rebuilt
-only from integer ratios and raw 10/22 host rows.
+The independent standard-library reader reconstructs exactly:
 
-Exactly three kernels differ from the hash-bound ADR-0391/ADR-0392 parent.
-Direct query and fold unrank a source once per selected query, tile, and source
-rank, then update features in increasing order. Direct adjoint unranks its
-selected source once per tile and builds one query weight per compatible
-record before updating boundary features. Pair additions remain canonical:
-sources increase within every coefficient, query records increase within
-every adjoint feature, and final fold products increase by global feature.
-Source-rank, query-record, boundary-feature, and feature-major-unrank mutations
-all reject in the pure order control. The future complete-ten laboratory also
-runs the untouched parent direct kernels against the successor and requires
-byte identity on every tile; the parent is not edited into a shim.
+```text
+terminal=infrastructure_failure
+passed=False
+event_count=1
+phase_count=0
+projection=None
+```
 
-The inherited production orchestration is cloned from the hash-bound parent
-at runtime with four mechanically checked substitutions: admit direct controls
-for both calibration populations and expose forward release, mutation, and
-final-release timing seams. This avoids copying or changing the paired
-production arithmetic. A proxy around the exact kernel map records work from
-the launch arguments that actually execute. The aggregate must equal every
-ADR-0394 complete-campaign count; a configuration-derived recount cannot
-certify itself. Each named counter is also owned by exactly one semantic
-phase. The producer refuses a counter under any other phase, and the reader
-independently applies the same typed rejection. In particular, source-pairing
-and source-weight work belongs to source contraction, not to the preceding
-adjoint recurrence merely because both happen to share the same scale ratio.
+The terminal reason is:
 
-The projection ratios are reconstructed rather than copied. For every phase
-and both endpoints, producer and reader separately enumerate the executed-work
-counters, live shapes, and relevant frozen chunk counts, prove that the stored
-ratio dominates each constituent by exact cross multiplication, and select
-the largest without reducing away its provenance. In particular, the
-alternate 25/22 adjoint-source chunk ratio `11/5` is priced in the phases that
-use that chunk axis. It is structurally absent from direct adjoint, whose
-selected control is segmented only by family, repeat, and tile.
+```text
+RuntimeError: work-preflight worker exited 1: ...python.exe: Error while
+finding module specification for '__main__' (ValueError:
+__main__.__spec__ is None)
+```
 
-Host timing is one contiguous partition by construction. Before every host
-terminal, the single current CUDA stream is bounded by consecutive events and
-synchronized; then `perf_counter_ns` closes the raw segment. The inherited
-chunk loop interleaves signed-target and fold work, so one conceptual phase may
-have multiple raw segments. Fusing those noncontiguous intervals into one
-wall span would hide intervening work. The reader therefore sums raw segments
-only after it proves within-family ordinal continuity, no gaps or overlaps,
-exact `stop-start`, exact wall reconstruction, complete 16-phase coverage,
-the frozen semantic transition graph, phase-local counter ownership, and
-exact executed work. CUDA-event nanoseconds remain reporting-only.
+The parent was invoked with `python -m`, so its runtime `__name__` was
+`__main__`. `_subprocess_campaign_executor` then used `__name__` as the child
+module argument and launched `python -m __main__`. Module resolution failed
+before `_worker_main`, before the work-preflight source import, and before
+CuPy. No compiler resource event, calibration fixture, raw phase, population
+evidence, projection, or terminal-evidence observation exists. This is
+control-flow evidence from the sealed command plus retained bytes, not a GPU
+observation.
 
-Compiler inspection implements the ADR-0395 correction without changing the
-five caller-supplied NVRTC options. CuPy-owned target-architecture, default-
-execution-space, and optional PCH handling are disclosed separately. The
-retained payload must begin with ELF magic before `Module.load`, closing the
-PTX-plus-driver-JIT seam. CUDA 13.3 `cuobjdump --version` and raw
-`--dump-resource-usage` stdout are retained, and the standard-library reader
-re-parses the latter independently. For every direct kernel the deciding
-register count is the maximum of driver and exact-cubin instruments, capped at
-255; backing is the maximum of driver local-size bytes and cubin `STACK +
-LOCAL`, capped at 4,096 bytes per thread. Runtime SM count times maximum
-threads per SM must not exceed 131,072, so ceiling backing is at most
-536,870,912 bytes inside the inherited 2,000,000,000-byte device reserve.
-Exact spill-load/store traffic remains structurally unavailable and `null`.
+### Failure classification
 
-The no-argument owner creates the reserved path with exclusive `xb`, appends
-and fsyncs its header before either config, Git, source hashes, worker import,
-or CUDA, then executes the real campaign in a child process. Both stdout and
-stderr are drained concurrently; stderr retention is bounded, and the
-controller kills a stalled worker at 240 seconds. Each emitted raw phase and
-population record is journaled before later work. The reader binds both
-configs, the correction ADR, source, controls, runner, reader, parent
-source/controls, local artifact marker, source commit, chain identities, event
-order, and terminal. Synthetic controls exercise non-ELF compiler rejection,
-dual-resource and residency reconstruction, raw-tool mutation, compiler and
-calibration rejection, capacity pass and rejection, laboratory wall,
-infrastructure failure, exclusive replay, torn suffix, fully rehashed pass
-mutation, work mutation, wrong-phase counter ownership, semantic phase-order
-mutation, missing phase, phase-sum breach, projection mutation, and rogue
-25-card numerical-row rejection. Presence of the reserved actual authority is
-journaled as a breach and stops before campaign execution.
+This is rejected-invocation plumbing tax. The public owner correctly created
+and fsynced its header before config or Git, rebound both config hashes,
+verified clean commit `26ad49be41c95ddaacbf0c8de344efee080f845b`, retained
+all dependency hashes, and recorded that the reserved actual artifact was
+absent. The failure happened only when the bounded controller attempted to
+birth its child.
 
-The fixed projection remains the materiality gate. Each phase uses the worse
-of its 10- and 22-card exact-ratio candidates, then `ceil(5/4 * candidate) +
-1,000,000 ns`; all 16 uppers must sum to at most 180,000,000,000 ns. If the
-projection rejects, this mechanism closes without a 25-card numerical retry.
-No post-result threshold, chunk, traversal, arithmetic, timing category, or
-claim may be renegotiated.
+The focused source tests injected a campaign executor into
+`execute_owner_to_path`. They proved durable owner and reader semantics but
+bypassed the actual `_subprocess_campaign_executor` command. The static
+no-argument control checked the public entry point but did not execute a
+no-CUDA child handshake through the real process seam. The shared journal
+harness reduced schema and durability tax, but it could not catch a subprocess
+path the controls never traversed.
+
+The structural successor fix is not changing one string and replaying v1. A
+new owner must use a literal importable module identity, a new result and
+campaign identity, and a real child-process handshake that imports no CuPy and
+runs no calibration. That control must traverse the same subprocess framing,
+stdout/stderr draining, timeout, and terminal-return path as the scientific
+worker. V2 must bind the immutable v1 artifact and every unchanged scientific
+source/config hash. Any scientific change makes it a different experiment.
+
+The immutable v1 source-seal suite now passes 15 of 18 controls. Its exact
+three failures are the historical pre-result assertions in
+`test_fresh_import_is_device_free_and_contract_rebinds`,
+`test_static_source_has_no_25_fixture_or_actual_owner_path`, and
+`test_public_runner_is_no_argument_and_real_artifacts_remain_absent`; each
+fails only because the retained v1 result now exists. The test file is
+artifact-hash-bound and is not edited into a post-outcome branch. No numerical,
+phase, reader, or source contract control regressed.
+
+### Preserved scientific boundary
+
+ADR-0394's source-rank-major direct traversal, complete 10/22 populations,
+two chunk families, opposite tile orders, two repeats, three tiles, exact work
+ledger, 16 semantic phase names, worse-endpoint ratios, fixed `5/4` guard,
+1,000,000-ns phase allowance, 90-second population wall, 240-second laboratory
+wall, and 180-second projection limit remain unopened and unchanged.
+ADR-0395's ELF, CUDA-13.3 raw resource text, dual driver/cubin maxima, 255-
+register, 4,096-byte backing, resident-thread, device-reserve, and null spill-
+traffic contract also remains unopened and unchanged. Population 25 remains
+integer geometry/work/projection only.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -149,16 +129,16 @@ ADR-0367 through ADR-0384 own and close the quotient algebra, capacity,
 bounded CUDA, staged, liveness, validation, and literal-target ladder.
 ADR-0368 seals only the exact bounded algebra keystone for the occupied-card
 quotient within that chain. ADR-0369 is the source-only arithmetic boundary.
-ADR-0370 seals the numeric-array and logical-work result.
-ADR-0385 froze the legal bridge question; ADR-0386 source-sealed only its host
-answer; ADR-0387 froze the consumer-capacity question; ADR-0388 source-sealed
-only that CuPy-free answer; ADR-0389 froze the additive CUDA-consumer question;
-ADR-0390 rejected its source seal; ADR-0391 froze the first paired-tile
-boundary; ADR-0392 corrected its pre-source arithmetic completeness;
-ADR-0393 retained the first implementation as a wall rejection; ADR-0394
-freezes the work-preflight question; ADR-0395 corrects only its resource
-instrument before result; and ADR-0396 seals only the still-uninvoked composite
-source, owner, and reader. No earlier owner is revived.
+ADR-0370 seals the numeric-array and logical-work result. ADR-0385 froze the
+legal bridge question; ADR-0386 source-sealed only its host answer; ADR-0387
+froze the consumer-capacity question; ADR-0388 source-sealed only that CuPy-
+free answer; ADR-0389 froze the additive CUDA-consumer question; ADR-0390
+rejected its source seal; ADR-0391 froze the first paired-tile boundary;
+ADR-0392 corrected its pre-source arithmetic completeness; ADR-0393 retained
+the first implementation as a wall rejection; ADR-0394 freezes the work-
+preflight question; ADR-0395 corrects only its resource instrument before
+result; ADR-0396 source-seals v1; and ADR-0397 permanently closes its sole
+invocation at the worker-module bootstrap. No earlier owner is revived.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -172,7 +152,7 @@ to selector-window work. ADR-0351 requires the tie-aware legal h4 affine-
 envelope. ADR-0354 through ADR-0359 own the factorized face and affine
 consumer chain. ADR-0380 freezes the complete ordered populations 10 and 22.
 ADR-0383's owner was invoke exactly once and remains consumed by ADR-0384.
-ADR-0396 imports neither that owner nor its target. The phrases exclusive
+ADR-0397 imports neither that owner nor its target. The phrases exclusive
 untouched legal h4, selector-window, 2,113-task, exhaustive bounded
 development-teacher, response-closed direct mechanism, and caller-owned legal
 fallback retain their prior meanings.
@@ -190,7 +170,7 @@ the literal-45 config; ADR-0383 source-sealed it; ADR-0384 closed it.
 
 ## Active next
 
-From the clean committed ADR-0396 source seal, invoke the no-argument composite ADR-0394/ADR-0395 owner exactly once with the repository virtual environment and `-B`; retain its first exclusive append-and-fsync terminal without retry, repair, skip, or continuation; allow numerical fixtures and kernels only for complete populations 10 and 22; require the independent reader to reconstruct every raw host-phase partition, executed-work total, constituent ratio, corrected resource conjunct, phase upper, and terminal; keep population 25 integer-projection-only throughout this invocation; and preserve the reserved actual artifact, every complete 25-card numerical value, actual owner, resolver/action/15-second result, quality inference, truncation choice, blueprint result, and poker-strength claim as absent
+Preserve the immutable ADR-0397 v1 terminal and closed v1 owner, then preregister and source-seal an additive v2 bootstrap-safe owner with a new config/campaign/header/result identity, a literal importable worker-module identity instead of context-sensitive `__name__`, an actual child-process no-CUDA handshake through the public subprocess seam, and exact binding to the unchanged ADR-0394/ADR-0395 science plus the retained v1 bytes; do not edit or retry v1, open population 25 numerically, publish externally, or infer action-clock, quality, truncation, blueprint, or poker strength
 
 ## Revoked authorities
 
@@ -198,7 +178,7 @@ From the clean committed ADR-0396 source seal, invoke the no-argument composite 
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0396](docs/decisions/ADR-0396-source-seal-the-work-decomposed-paired-capacity-preflight.md) — Source-seal the work-decomposed paired capacity preflight.
+Latest process decision: [ADR-0397](docs/decisions/ADR-0397-retain-the-work-preflight-worker-module-bootstrap-failure.md) — Retain the work-preflight worker-module bootstrap failure.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -206,7 +186,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0373](docs/decisions/ADR-0373-preregister-the-staged-gpu-quotient-scaling-ladder.md) | 2026-08-25 | accepted prospective source-only scaling boundary; the six non-target stages, device/software identity, direct-automaton family, repetitions, numerical/work/allocation gates, durable terminal, and stops are frozen while every staged timing, admission, throughput, terminal, and literal 45-card result remains unopened | Preregister the staged GPU quotient scaling ladder |
 | [ADR-0374](docs/decisions/ADR-0374-source-seal-the-staged-gpu-quotient-scaling-owner.md) | 2026-08-25 | accepted source-only pre-invocation seal; the complete-axis compiler, exact lane-specific work and allocation models, CUDA owner, durable first-terminal journal, solver-free rebinder, and synthetic controls are committed while every real staged admission, timing, throughput, terminal, literal 45-card result, action, quality, truncation, and strength result remains unopened | Source-seal the staged GPU quotient scaling owner |
 | [ADR-0375](docs/decisions/ADR-0375-retain-the-staged-scaling-pre-journal-bootstrap-failure.md) | 2026-08-25 | accepted retained first-invocation infrastructure failure; ADR-0374's clean v1 owner is permanently closed after its exclusive journal open found the frozen result parent absent, with no result bytes, header, GPU stage call, staged admission, timing, throughput, or literal 45-card result | Retain the staged-scaling pre-journal bootstrap failure |
 | [ADR-0376](docs/decisions/ADR-0376-source-seal-the-bootstrap-safe-staged-scaling-v2-owner.md) | 2026-08-25 | accepted source-only pre-invocation seal; the additive v2 owner binds a tracked artifact parent, preserves the permanently closed v1 paths and every ADR-0373 scientific field, and has not opened a real v2 journal, GPU stage, staged admission, timing, throughput, literal 45-card result, action, decision-quality, truncation, or poker-strength result | Source-seal the bootstrap-safe staged-scaling v2 owner |
@@ -230,18 +209,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0394](docs/decisions/ADR-0394-preregister-the-work-decomposed-paired-capacity-preflight.md) | 2026-08-25 | accepted prospective work-decomposed bounded-capacity preregistration; source-rank-major direct query, fold, and adjoint controls, complete 10/22-card work ledgers, an exclusive 16-phase host-wall partition, and a conservative arithmetic-only complete 25-card projection are frozen before successor source, calibration, device timing, projection, or any complete 25-card numerical value, while every actual 45-card value, owner, reserved actual artifact, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the work-decomposed paired capacity preflight |
 | [ADR-0395](docs/decisions/ADR-0395-correct-the-work-preflight-resource-instrument-before-result.md) | 2026-08-25 | accepted prospective pre-result instrument correction; the unchanged five caller-supplied NVRTC options, retained ELF cubin identity, independent raw `cuobjdump` reparse, driver/cubin register and backing maxima, and explicit device-reserve arithmetic replace ADR-0394's unavailable compiler-spill wording before source seal, real compilation, calibration, projection, or result, while every ADR-0394 arithmetic, population, phase, ratio, wall, lifecycle, and claims boundary remains binding and every complete 25-card numerical value, actual 45-card value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Correct the work-preflight resource instrument before result |
 | [ADR-0396](docs/decisions/ADR-0396-source-seal-the-work-decomposed-paired-capacity-preflight.md) | 2026-08-25 | accepted source-only composite work-preflight seal; the additive source-rank-major direct controls, exact 10/22 work ledger, constituent-complete conservative ratios, contiguous synchronized host-phase partition, corrected dual resource instrument, exclusive subprocess-bounded owner, append-and-fsync journal, and independent standard-library reader pass every synthetic/source control while both result paths remain absent, no real compilation, calibration, or 25-card fixture has been invoked, and every complete 25-card numerical value, actual 45-card value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Source-seal the work-decomposed paired capacity preflight |
+| [ADR-0397](docs/decisions/ADR-0397-retain-the-work-preflight-worker-module-bootstrap-failure.md) | 2026-08-25 | accepted retained first-invocation infrastructure failure; ADR-0396's clean v1 owner is permanently closed after its durable header and provenance were followed by `python -m __main__` module-resolution failure, with zero worker import, compiler observation, calibration fixture, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result | Retain the work-preflight worker-module bootstrap failure |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0396](docs/decisions/ADR-0396-source-seal-the-work-decomposed-paired-capacity-preflight.md) — Source-seal the work-decomposed paired capacity preflight.
+- Latest ADR: [ADR-0397](docs/decisions/ADR-0397-retain-the-work-preflight-worker-module-bootstrap-failure.md) — Retain the work-preflight worker-module bootstrap failure.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 396.
-- ADR-header SHA-256: `05dcfe581b8c5098d311348719ec76d8d15c9984335c91f2aa1f7dd9c39f7f93`.
-- Current blockers: no retained 10/22-card calibration or conservative complete-25 capacity verdict exists; ADR-0393 remains rejected on wall and ADR-0390's one-ULP absolute seam remains unrepaired; no complete 25-card numerical result, actual owner, or full-width actual-context quotient value, no general odd-chip or side-pot leaf automaton, no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 397.
+- ADR-header SHA-256: `73d4d573767518be923826f22bcc33158639b48d7b6672abd42945e893660045`.
+- Current blockers: no retained 10/22-card calibration or conservative complete-25 capacity verdict exists; v1 is permanently consumed by bootstrap failure; no source-sealed additive v2 owner, complete 25-card numerical result, actual owner, or full-width actual-context quotient value, no general odd-chip or side-pot leaf automaton, no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0396](docs/decisions/ADR-0396-source-seal-the-work-decomposed-paired-capacity-preflight.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0397](docs/decisions/ADR-0397-retain-the-work-preflight-worker-module-bootstrap-failure.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

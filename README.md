@@ -792,8 +792,13 @@ ADR-0396 source-seals that composite implementation. Its 18 device-free and
 synthetic controls pass, including exact phase boundaries, every constituent
 work/live-shape/chunk ratio, rogue-25 rejection, resource mutations, and owner
 failure terminals. The one-shot result, every 25-card numerical value, and
-every action-time or quality claim remain absent; the next checkpoint is the
-single 10/22 calibration invocation.
+every action-time or quality claim remained absent at that source boundary.
+ADR-0397 now retains the sole v1 invocation as a 5,322-byte infrastructure
+terminal: the public module's context-sensitive `__name__` became `__main__`,
+so its child attempted `python -m __main__` and failed before worker import,
+CuPy, calibration, or any phase row. V1 is permanently closed. The next
+boundary is an additive, new-identity v2 with a literal worker module and a
+real no-CUDA child-process handshake; it may not change the frozen science.
 
 ## Current checkpoint
 

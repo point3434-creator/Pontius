@@ -878,6 +878,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   reader with 18 source/synthetic controls passing. Both result paths remain
   absent; no calibration, complete-25 numerical value, action timing, quality
   prior, or truncation authority opens.
+- ADR-0397 retains the sole v1 work-preflight invocation as a durable
+  infrastructure failure. The runner spawned `python -m __main__` because it
+  derived the child module from runtime `__name__`; resolution failed before
+  worker import, CuPy, any 10/22 calibration, or phase evidence. The immutable
+  5,322-byte journal has header, clean provenance, and terminal only. V1 is
+  permanently closed; only a new-identity additive v2 with a literal worker
+  module and real no-CUDA subprocess handshake may reopen the unchanged
+  experiment.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

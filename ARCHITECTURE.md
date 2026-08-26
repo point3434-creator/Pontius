@@ -1803,7 +1803,16 @@ inherited 2 GB device reserve. Exact spill traffic is deliberately unavailable.
 ADR-0396 source-seals this composite without device execution. Both producer
 and reader also enumerate every phase's work, live-shape, and relevant chunk-
 count ratios; raw shared host boundaries make gaps, overlaps, and false sums
-detectable. The one-shot 10/22 result remains absent.
+detectable. The one-shot 10/22 result was absent at that source boundary.
+
+ADR-0397 permanently closes that v1 owner after its first public command. The
+durable parent reached clean provenance, but the controller derived its child
+module from runtime `__name__`; under `python -m`, this became `__main__`, and
+the child failed module resolution before importing the worker or CuPy. The
+retained journal therefore has no phase or projection authority. A successor
+must use a new lifecycle identity, a literal importable worker module, and a
+real no-CUDA subprocess handshake while reusing the unchanged scientific
+source by hash.
 
 ## Runtime target
 

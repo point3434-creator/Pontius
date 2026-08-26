@@ -1819,19 +1819,19 @@ class DocumentationIntegrityTests(unittest.TestCase):
 
     def test_work_decomposed_paired_capacity_preflight_is_preregistered(self) -> None:
         expected = {
-            "README.md": ("ADR-0396", "18 device-free"),
-            "PROJECT.md": ("ADR-0396", "constituent-complete ratio audit"),
+            "README.md": ("ADR-0397", "python -m __main__"),
+            "PROJECT.md": ("ADR-0397", "5,322-byte journal"),
             "STATUS.md": (
-                "ADR-0396",
-                "accepted source-only composite work-preflight seal",
+                "ADR-0397",
+                "accepted retained first-invocation infrastructure failure",
             ),
-            "ROADMAP.md": ("ADR-0396", "18 device-free"),
+            "ROADMAP.md": ("ADR-0397", "worker-module bootstrap failure"),
             "RUNBOOK.md": (
-                "ADR-0396",
-                "a522858696c8266485f7aac4b9c2dbb5f0d0c35e59d3e1515f4674d802ac890c",
+                "ADR-0397",
+                "fd8c71ddb534320577dfc9a390946fc3dffe3fe806bf93d456ac33e55fe8e830",
             ),
-            "ARCHITECTURE.md": ("ADR-0396", "536,870,912"),
-            "RISK_REGISTER.md": ("R159", "exact spill traffic"),
+            "ARCHITECTURE.md": ("ADR-0397", "literal importable worker module"),
+            "RISK_REGISTER.md": ("R160", "actual child framing"),
             "artifacts/work_preflight/README.md": (
                 "ADR-0394",
                 "legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
@@ -2016,7 +2016,13 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "successor_reader_relative_path",
         ):
             self.assertTrue((_ROOT / scope[field]).is_file(), scope[field])
-        self.assertFalse((_ROOT / scope["prospective_result_relative_path"]).exists())
+        result = _ROOT / scope["prospective_result_relative_path"]
+        self.assertTrue(result.is_file())
+        self.assertEqual(
+            hashlib.sha256(result.read_bytes()).hexdigest(),
+            "fd8c71ddb534320577dfc9a390946fc3dffe3fe806bf93d456ac33e55fe8e830",
+        )
+        self.assertEqual(len(result.read_bytes().splitlines()), 3)
         self.assertFalse(
             (_ROOT / config["parent_identity"]["reserved_actual_result_relative_path"])
             .exists()

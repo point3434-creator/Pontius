@@ -1392,6 +1392,16 @@ queue:
   ADR-0392 first corrects the prospective arithmetic contract with paired
   division by exact integers 1–6 and frozen source/query factor order; source
   must implement the composite v1+v2 authority, not negotiate either choice.
+  ADR-0393 now retains that implementation as a wall rejection: primitives,
+  query weights, and complete ten-card conformance pass, but the first complete
+  25-card campaign remains nonterminal beyond 180 seconds and is stopped at
+  the 600-second laboratory boundary before any 25-card scalar opens. Preserve
+  the rejection and actual-owner absence. The next checkpoint is a prospective
+  work-decomposed successor: freeze source-rank-major direct-oracle traversal,
+  per-phase work/timing controls, compiler-local accounting, and a conservative
+  full-campaign projection that must fit 180 seconds before another complete
+  numerical invocation. It may not relax pair arithmetic or either original
+  numerical conjunct.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1441,9 +1451,11 @@ queue:
   source seal is rejected by ADR-0390 on one 25-card absolute numerical gate
   after all other bounded gates pass. ADR-0391 prospectively freezes the
   compensated-tile arithmetic successor, and ADR-0392 corrects its missing
-  paired-division and query-weight details before source. The immediate
-  checkpoint is the composite bounded additive source and complete 10/25
-  conformance only; every actual
+  paired-division and query-weight details before source. ADR-0393 retains the
+  paired implementation as a nonterminal wall rejection before any complete
+  25-card scalar. The immediate checkpoint is now a preregistered
+  work-decomposed capacity successor that must pass a conservative 180-second
+  projection before another complete numerical campaign; every actual
   45-card value, owner, automatic truncation, resolver iteration, action
   timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

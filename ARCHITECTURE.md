@@ -1763,6 +1763,18 @@ both fold and source-adjoint contraction multiply pairs in increasing global-
 feature order. The post-tile chip ratio is formed from exact pair fractions;
 no device pair/pair division or collapsed value gains authority.
 
+ADR-0393 retains this implementation but rejects its source seal on wall time.
+The pair arithmetic is sound on all opened controls: complete ten-card forward
+and adjoint represented values differ by only about `1.45e-25`, and every
+opened byte/lifecycle seam passes. The complete 25-card campaign never reaches
+a scalar before its frozen wall. Static inspection finds that the new direct
+fold oracle repeats combinatorial source unranking once per selected feature,
+about 498.7 million source-row visits per three-tile sample before repeat and
+alternate execution; this is a plausible cost source, not a measured phase
+attribution. The rejected implementation cannot be repaired in place. A
+successor first needs phase-separated work authority and a conservative
+complete-wall projection, then a distinct numerical invocation.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

@@ -848,6 +848,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   a two-residual divide, paired covectors, pair-times-pair forward/transpose
   products, and exact-rational post-tile normalization. It changes no v1
   population, ceiling, memory, wall, or claims gate and opens no result.
+- ADR-0393 rejects that paired source seal on capacity before a complete
+  25-card numerical result. Strict primitives, query weights, and every opened
+  complete ten-card exact-row, transpose, byte, offset, poison, lifecycle,
+  mutation, and release gate pass, with a represented residual near
+  `1.45e-25`. The first frozen 25-card campaign exceeds its 180,000-ms wall
+  and remains nonterminal at the 600,000-ms laboratory stop; no 25-card scalar
+  is available. The source is retained, the invocation is closed, and no
+  actual owner, 45-card value, resolver/action timing, quality, or truncation
+  authority opens. A successor must preregister phase work and clear a
+  conservative capacity preflight before another complete 25-card value.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

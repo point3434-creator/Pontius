@@ -1697,12 +1697,9 @@ class DocumentationIntegrityTests(unittest.TestCase):
         )
 
         scope = config["scope"]
-        for key in (
-            "successor_source_relative_path",
-            "successor_controls_relative_path",
-            "successor_runner_relative_path",
-        ):
-            self.assertFalse((_ROOT / scope[key]).exists(), scope[key])
+        self.assertTrue((_ROOT / scope["successor_source_relative_path"]).is_file())
+        self.assertTrue((_ROOT / scope["successor_controls_relative_path"]).is_file())
+        self.assertFalse((_ROOT / scope["successor_runner_relative_path"]).exists())
         self.assertFalse(
             (_ROOT / config["parent_identity"]["reserved_actual_result_relative_path"]).exists()
         )
@@ -1771,16 +1768,54 @@ class DocumentationIntegrityTests(unittest.TestCase):
         )
 
         identity = v2["parent_identity"]
-        for key in (
-            "successor_source_relative_path",
-            "successor_controls_relative_path",
-            "successor_runner_relative_path",
-            "reserved_actual_result_relative_path",
-        ):
-            self.assertFalse((_ROOT / identity[key]).exists(), identity[key])
+        self.assertTrue((_ROOT / identity["successor_source_relative_path"]).is_file())
+        self.assertTrue((_ROOT / identity["successor_controls_relative_path"]).is_file())
+        self.assertFalse((_ROOT / identity["successor_runner_relative_path"]).exists())
+        self.assertFalse((_ROOT / identity["reserved_actual_result_relative_path"]).exists())
         self.assertFalse(v2["claims"]["successor_source_exists"])
         self.assertIsNone(v2["claims"]["primitive_control_result"])
         self.assertIsNone(v2["claims"]["bounded_device_conformance_result"])
+
+    def test_paired_tile_wall_rejection_is_retained(self) -> None:
+        expected = {
+            "README.md": ("ADR-0393", "nonterminal"),
+            "PROJECT.md": ("ADR-0393", "180,000-ms wall"),
+            "STATUS.md": (
+                "ADR-0393",
+                "accepted bounded-device source-seal rejection",
+            ),
+            "ROADMAP.md": ("ADR-0393", "work-decomposed successor"),
+            "RUNBOOK.md": (
+                "ADR-0393",
+                "wall_kill_before_complete_25_terminal",
+            ),
+            "ARCHITECTURE.md": ("ADR-0393", "498.7 million"),
+            "RISK_REGISTER.md": ("R157", "combinatorial validation work"),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        adr = _contract_text(
+            "docs/decisions/ADR-0393-retain-the-paired-tile-wall-rejection.md"
+        )
+        for relative in (
+            "src/pontius/legal_river_quotient_cuda_compensated_tiles.py",
+            "tests/test_legal_river_quotient_cuda_compensated_tiles.py",
+        ):
+            payload = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(payload).hexdigest(), adr)
+        for phrase in (
+            "wall_kill_before_complete_25_terminal",
+            "No 25-card numerator, reach, transpose",
+            "498713600",
+            "1994854400",
+            "1.454028420503369e-25",
+            "No systems result in this decision is a decision-quality prior",
+            "reserved actual result remains absent",
+        ):
+            self.assertIn(phrase, adr)
 
     def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
         expected = {

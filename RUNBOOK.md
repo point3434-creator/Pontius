@@ -2370,3 +2370,24 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     mutations before operator controls. Reciprocal multiplication, the parent
     Float64 query helper, pre-products, collapsed normalization, or any source
     or device result predating this committed correction invalidate the seal.
+108. ADR-0393 permanently closes that paired-tile source-seal invocation as
+    `wall_kill_before_complete_25_terminal`. Do not rerun the complete 25-card
+    campaign or edit its loop order, chunks, arithmetic, tolerances, 180-second
+    population wall, or 600-second laboratory wall. The complete 25-card
+    numerator, reach, transpose, gate vector, pool peak, and numerical verdict
+    are absent. Recheck only the retained source contract, strict primitives,
+    and complete ten-card boundary with:
+
+    ```powershell
+    $env:PYTHONPATH = "src;."
+    & $python -B -m unittest `
+      tests.test_legal_river_quotient_cuda_compensated_tiles
+    ```
+
+    Expect eight tests: five device-free/source controls and three bounded
+    RTX-5080 controls. The complete-ten represented transpose residual is
+    about `1.45e-25`; this does not answer complete-25 capacity or numerics.
+    The reserved actual artifact and all actual counters remain absent/zero.
+    Before any successor source, preregister phase-separated work and a
+    conservative complete-campaign projection below 180,000 ms; do not call
+    validation wall time an action or quality measurement.

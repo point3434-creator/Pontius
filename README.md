@@ -763,6 +763,17 @@ and query seat/factor order, paired covectors, pair-times-pair fold/adjoint
 products, and exact-rational normalization. No successor source or value was
 opened; every ADR-0391 limit and claim boundary remains unchanged.
 
+ADR-0393 retains the implemented paired-tile line as a wall rejection. All 54
+strict primitives, paired query weights, and the complete ten-card exact-row,
+transpose, tile-order, repeat, offset, poison, mutation, and release controls
+pass; its exact represented forward/transpose residual is about `1.45e-25`.
+The first frozen complete 25-card invocation, however, remained nonterminal
+beyond the 180-second population wall and was stopped at the 600-second
+laboratory boundary before any 25-card scalar existed. No retry, actual owner,
+reader, artifact, 45-card value, action-time result, or quality claim exists.
+The next boundary is a preregistered work-decomposed successor whose capacity
+projection must pass before another complete numerical invocation.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

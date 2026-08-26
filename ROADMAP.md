@@ -1770,8 +1770,16 @@ queue:
   honest no-prune terminal. ADR-0454 source-seals that reduced exact mechanism,
   a best-first proposal search, an independent full reconstruction, an
   exclusive clean-commit owner, and nine focused adversarial controls without
-  opening a result. Invoke that owner exactly once next and retain its first
-  terminal; pruning has no materiality or production claim at this gate.
+  opening a result. ADR-0455 closes that one-shot owner uninvoked while
+  preserving its source as the prefix-arm authority: the trace found that
+  production `b(S)` has no producer yet, so its identity, algebra, refresh
+  cadence, exponent admission, and width must precede consumer optimization.
+  The new four-arm boundary freezes contract-first direct scan, an exact rank-
+  truncated zeta circuit, the ADR-0454 prefix oracle, and one count-triggered
+  prefix-to-zeta hybrid. Mixed lattice plus sparse-master-support provenance is
+  a first-class base outcome rather than being rounded to opaque. Implement and
+  source-seal only the base audit, reduced exact topologies, switch, ledgers,
+  and controls next; do not open a bake-off result.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

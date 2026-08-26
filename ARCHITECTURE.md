@@ -2368,6 +2368,26 @@ heterogeneous work receipts. The first clean exclusive owner invocation is the
 only open step; per-level caps and provenance-bound `h` maxima remain later
 hypotheses rather than adaptations to this frozen campaign.
 
+ADR-0455 supersedes that invocation step before any result while retaining
+ADR-0454's source as one comparison arm. The trace found no production producer
+for ADR-0453's typed `b(S)` slot. Producer identity now precedes topology:
+lattice-decomposable, genuinely opaque, lattice plus an exact sparse correction
+on master support, or absent. Base and H epochs remain distinct even when their
+seeds share one circuit, and production base exponents receive their own
+admission and width proof.
+
+Four exact closures are frozen: scalar contract-first 57-term scan, a rank-
+truncated subset-zeta circuit, the sealed prefix traversal, and a prefix-to-zeta
+hybrid with count-only early and hard switch points fixed before results. The
+zeta H seeds are `(1,-24,360,-2880,8640)` at scale 24. They propagate over
+55,619,730 literal-45 cover edges instead of 464,268,420 independent subset
+incidences; that 8.347-fold logical reduction is not a speed claim. Witness and
+prove-none modes, cold and provenance-hit base refresh, and both eligible
+arithmetic schedules remain separate. Per-level widths replace one borrowed
+table width, later timing must retain an intercept rather than force scaling
+through zero, and the unknown number of certificates per action prevents any
+14-second claim at this boundary.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

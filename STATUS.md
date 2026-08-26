@@ -15,55 +15,74 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-No. Retain the first result and close both current arms before target
-allocation. Positional projects to 3,186.554546230 seconds of runtime-component
-work against 14 seconds; batched-five-then-four RRNS projects to
-9,908.352862122 seconds. These are 227.6110 and 707.7395 times the component
-allowance. Symbolic memory remains eligible for both, so memory does not decide
-this result. No candidate is selected.
+Preregister the algebra and lifecycle before source. The first gate is a
+CPU-only exact mechanism keystone on complete 10-card and 12-card domains. It
+tests existence and semantics, not production speed. Pruning materiality is a
+reported diagnostic with no pass authority; a correct no-prune result is an
+honest terminal, not a threshold renegotiation.
 
-The binding work is unambiguous. Positional's complete adjoint global scan has
-a guarded upper of 2,890.023432 seconds and accounts for 90.6943% of its
-runtime projection. Batched RRNS's two adjoint global scans sum to
-9,192.051284 seconds and account for 92.7707%. The next-largest phases are an
-order of magnitude smaller in aggregate. The failure therefore points at
-all-source adjoint evaluation, not a generic fixed-width or memory failure.
+For every six-card source mask `S`, define one exact integer price
 
-The complete-10-only and signed-12-only runtime counterfactuals remain
-reporting-only. Positional reports 2,135,810,945,210 ns and
-3,186,554,368,105 ns. Batched RRNS reports 1,686,493,649,203 ns and
-9,908,329,850,247 ns. Neither counterfactual decides; every authoritative phase
-still takes the larger endpoint locally. Laboratory-validation projections are
-reported separately and never enter the 14-second conjunct.
+`p(S) = b(S) + sum_{T subset S, |T| <= 4} c[|T|] h(T)`,
 
-This result does not measure a literal-45 kernel. It extrapolates the retained
-complete-10 and signed-12 device phases under a conservative, prospectively
-frozen maximum-constituent, maximum-endpoint, `5/4` plus 1 ms rule. The correct
-claim is that neither existing arm earns a live target attempt under that
-rule. It is not evidence that a structurally different selective or pruned
-global-pricing mechanism cannot fit, and it is not a latency or quality prior.
+with `c = (30, -120, 360, -720, 720)`. Here `h(T)` is the exact scalar formed
+by contracting the already-built adjoint H row with the live pricing vector,
+and `b(S)` is a semantically separate source-local base with its own provenance
+and refresh boundary. This is the scalar form of the retained 57-read
+selective adjoint. One warm query reads exactly 57 distinct subset scalars plus
+one base and returns one price; it makes no statement about another source.
 
-The source-sealed independent reader rebinds the raw ADR-0448 artifact and
-historical source blobs before reconstructing the result. The additive outcome
-assessor then binds the exact 55,997 result bytes and checks both arm totals,
-memory rows, dominant phases, empty survivor set, null selection, and terminal.
-A one-byte result mutation and path substitution reject. The consumed runner,
-projector, reader, configs, thresholds, and result remain untouched.
+Global closure uses a combination-prefix tree. A node contains a sorted chosen
+prefix `P`, a next-card floor `a`, and `r = 6 - |P|` remaining choices from the
+tail. Its descendants are the complete six-card masks that extend that prefix.
+The node upper bound is the exact maximum source base over its descendants,
+plus every signed subset term guaranteed by `T subset P`, plus only the
+positive part of each nonfixed term that can occur in at least one descendant.
+Ignoring negative possible terms and counting mutually incompatible positive
+terms can make the bound loose but cannot make it low. At a leaf all terms are
+fixed and the bound must equal the exact price.
 
-The next mechanism must preserve the correction already learned in this lane.
-Warm iterations may use selector-local query oracles, but a certificate over
-only the final active basis is insufficient: it says nothing about omitted
-rows. Final authority must run exact global pricing/separation or prove a
-conservative bound over the entire omitted domain. The dense sweep may be paid
-at most once per certificate, not silently deleted. Since even one sweep is
-the projected whale, a successor needs structural pruning, factorized block
-bounds, or another exact global-closure mechanism and must earn a new work gate
-before target allocation.
+The base maximum is not free. Building or verifying its prefix tree reads the
+source bases and is charged unless an exact provenance-bound prepared artifact
+hits. A changed base identity invalidates it. Live subset contractions, prefix
+bounds, possible-term examinations, exact leaves, pruned leaves, and frontier
+occupancy are separate ledger quantities; they are never summed into a
+synthetic operation count or converted to latency.
+
+Three modes remain distinct. Warm selective query returns one price. Proposal
+separation may stop after finding one exact positive coordinate and may claim
+only that witness. Final global closure succeeds only after every source is
+visited or covered by a conservative bound at or below zero. An exact-argmax
+control runs to the exhaustive maximum and full tie set; it may prune equality
+only when no unvisited-tie claim is requested. Exactness on an active basis or
+generated set is never global closure.
+
+Six deterministic integer families run on both domains: all-zero tie, all
+nonpositive, late positive at the final colex source, a middle source-base
+spike, signed cancellation with deliberately loose bounds, and a SHA-256-
+derived mixed family. No runtime random seed exists. Exhaustive authority
+checks every source and every 57-term price. Every prefix upper must dominate
+every descendant; every leaf must equal its price; argmax values and ties,
+positive-coordinate closure, proposal witnesses, domain partition, and work
+receipts must agree exactly.
+
+Controls mutate the coefficient sign, omit level four, make the zero threshold
+strict, use an active-only domain, falsify a base upper, drop source/base/subset
+rows, and exercise the late-positive and cancellation traps. No-prune must
+retain the full exact-leaf count rather than quietly reporting a selective
+success. A result that is correct but materially unhelpful opens only a later
+consumer-bound work decision; it does not authorize a target attempt.
+
+ADR-0452 remains binding. The current positional and batched arms failed their
+artifact-only projection, and a new topology cannot revive either consumed
+owner. This gate changes what a future certificate computes, not the prior
+result. Literal-45 exponent admission, fixed-width representation choice,
+device mapping, and action-clock accounting remain later gates.
 
 ADR-0307 remains the action-clock authority: 15 seconds continuous wall per
-controlled action with a one-second emission reserve. A component projection
-is necessary at most and cannot be called per iteration, per solve, or per
-action.
+controlled action with a one-second emission reserve. Selective work, base-
+bound refresh, and final closure must eventually share that real ledger; none
+is made free by calling it a certificate or preparation.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -126,8 +145,8 @@ split-environment successor, ADR-0447 source-seals it without compilation or
 device work, ADR-0448 alone retains its passing first device-preflight
 terminal without selecting a candidate or opening actual-45 numerics,
 ADR-0449 freezes the artifact projection, ADR-0450 corrects its runtime and
-artifact accounting, ADR-0451 seals the projector, and ADR-0452 alone retains
-the rejection.
+artifact accounting, ADR-0451 seals the projector, ADR-0452 retains its
+rejection, and ADR-0453 alone opens the selective-separation mechanism question.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -161,7 +180,7 @@ ADR-0405 remains an accepted source seal.
 
 ## Active next
 
-Preregister only a structurally different exact certificate-topology successor before source: warm resolver exploration may request selector-local 16-row forward and 57-row adjoint values, but final authority must perform exact global pricing/separation over every omitted source or prove a conservative omitted-domain bound; the dense all-source adjoint may occur at most once per certificate and must be replaced or pruned structurally enough to earn a fresh artifact-only work projection before any target allocation, actual exponent admission, literal-45 numerical work, resolver integration, action, quality, truncation, blueprint, or strength result
+Implement and source-seal only ADR-0453's standard-library exact selective-price oracle, conservative prefix-bound separator, exhaustive authority, heterogeneous work ledger, exclusive no-argument owner, independent reader, and adversarial controls against config hash `80e821708763ee53ad34c19999b838be4f9428113136a315bbe53ed23edef2c0`; use only the frozen deterministic 10-card and 12-card integer families, permit and report no-prune honestly, and stop before the first one-shot result, population 25, literal-45 numerical input, CUDA, device operation, fixed-width selection, resolver integration, action, quality, truncation, blueprint, or strength result
 
 ## Revoked authorities
 
@@ -169,7 +188,7 @@ Preregister only a structurally different exact certificate-topology successor b
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0452](docs/decisions/ADR-0452-retain-the-literal-45-fit-projection-rejection.md) — Retain the literal-45 fit-projection rejection.
+Latest process decision: [ADR-0453](docs/decisions/ADR-0453-preregister-selective-certified-global-separation.md) — Preregister selective certified global separation.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -177,7 +196,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0429](docs/decisions/ADR-0429-retain-the-passing-shared-sample-plan-v3-validation.md) | 2026-08-26 | accepted retained sole V3 completed-validation pass; the clean launcher-safe owner, exact compiler container, resource gates, primitive controls, retained complete-ten differential, query-weight control, immutable shared sample plans, both complete population-10/22 families, exact work ledgers, numerical gates, release gates, population walls, outer terminal, and independent lifecycle/semantic rebind pass, while V3 is permanently consumed and every replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, exact-integer result, truncation choice, blueprint result, and poker-strength claim remains unopened | Retain the passing shared-sample-plan V3 validation |
 | [ADR-0430](docs/decisions/ADR-0430-preregister-the-shared-direct-artifact-capacity-assessor.md) | 2026-08-26 | accepted prospective GPU-free artifact-only capacity boundary; ADR-0429's immutable complete V3 journal, exact 10/22 population and phase evidence, fifteen device-work components, one explicit outside-phase wall component, frozen 25-card geometry ratios, maximum-over-endpoints rule, 5/4 guard, 1 ms per-component addition, 180-second wall, independent raw-journal reader, canonical result, and exclusive one-shot identity are frozen before assessor source or any projection, while V3 remains permanently consumed and every capacity verdict, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, exact-integer result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the shared-direct artifact capacity assessor |
 | [ADR-0431](docs/decisions/ADR-0431-source-seal-the-shared-direct-artifact-capacity-assessor.md) | 2026-08-26 | accepted source-only artifact-capacity seal; the GPU-free assessor, no-argument exclusive owner, independent standard-library reader, exact integer projection arithmetic, complete raw V3 phase/work/envelope reconstruction, all sixteen charged components, maximum constituent and maximum endpoint rules, inclusive 180-second boundary, synthetic mutation suite, and permanent result lifecycle are implemented and pass controls while the real capacity assessment, population-25 fixture or numerical value, CUDA work, actual 45-card consumer, resolver iteration, action, 15-second result, decision-quality result, exact-integer mechanism result, truncation choice, blueprint result, and poker-strength claim remain unopened | Source-seal the shared-direct artifact capacity assessor |
 | [ADR-0432](docs/decisions/ADR-0432-retain-the-shared-direct-artifact-capacity-rejection.md) | 2026-08-26 | accepted retained sole artifact-only capacity rejection; ADR-0431's clean no-argument owner completely rebinds the consumed V3 journal and applies all sixteen frozen integer components, every component is decided by the population-10 endpoint, the authoritative projection is 4,999,486,743,986 ns against 180,000,000,000 ns, the reporting-only population-22 counterfactual is 168,155,864,702 ns and remains nonauthoritative, the independent reader reconstructs the result and terminal, and the result is permanently consumed while population 25 remains geometry-only and every complete 25-card numerical value, CUDA call, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, exact-integer result, truncation choice, blueprint result, and poker-strength claim remains unopened | Retain the shared-direct artifact capacity rejection |
@@ -201,18 +219,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0450](docs/decisions/ADR-0450-correct-the-fit-projection-runtime-accounting-before-source.md) | 2026-08-26 | accepted prospective pre-source accounting and artifact-identity correction; ADR-0449's independent exact-differential phase is reclassified as mandatory laboratory validation outside the 14-second production-component sum, every runtime certificate and fault phase remains charged, the result moves to a pre-existing `*.jsonl -text` path, and a repository-root no-argument launcher identity is added before assessor source or projection, while every arm, endpoint, timing maximum, work ratio, guard, memory, width, action-clock, outcome, and claims boundary otherwise remains unchanged and every projection, live allocation, actual-45 numeric, selection, action, quality, truncation, blueprint, and strength result remains unopened | Correct the fit-projection runtime accounting before source |
 | [ADR-0451](docs/decisions/ADR-0451-source-seal-the-corrected-literal-45-fit-projector.md) | 2026-08-26 | accepted artifact-free and device-free source seal; the corrected ADR-0449/ADR-0450 literal-45 projector now has an exact repository-root no-argument launcher, an exclusive one-result owner, an independent raw-parent reader, exact integer-combinatorial work derivation, all six timed observations and both reporting-only endpoint counterfactuals, separate 11/19-phase runtime ledgers and one mandatory laboratory-validation phase per arm, and 10 passing focused adversarial controls, while the retained parent journal has not been read by this lifecycle, the projection result remains absent, and live allocation, exponent admission, actual-45 numerics, candidate selection, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Source-seal the corrected literal-45 fit projector |
 | [ADR-0452](docs/decisions/ADR-0452-retain-the-literal-45-fit-projection-rejection.md) | 2026-08-26 | accepted retained sole artifact-only fit-projection rejection; the clean ADR-0451 owner consumed the exact ADR-0448 journal once, both positional and batched-five-then-four RRNS preserve symbolic-memory eligibility but project far above the 14-second component allowance, the independent reader and additive artifact-bound assessor reproduce every timing, work ratio, phase upper, counterfactual, memory conjunct, survivor set, and terminal, no arm survives and no candidate is selected, while the result is a conservative projection rather than measured literal-45 latency and every live allocation, actual-width exponent admission, actual-45 numerical value, resolver iteration, action, quality, truncation, blueprint, and strength result remains unopened | Retain the literal-45 fit-projection rejection |
+| [ADR-0453](docs/decisions/ADR-0453-preregister-selective-certified-global-separation.md) | 2026-08-26 | accepted prospective CPU-only exact selective-pricing and conservative prefix-bound global-separation boundary; one price is frozen as one source-local base plus the exact signed 57-subset contraction, warm queries make no global claim, final closure must cover or conservatively prune every six-card source, a loose or no-prune result is allowed and reported honestly, and exhaustive complete-10/complete-12 controls, mutation gates, work ledgers, exclusive lifecycle, and claims limits are frozen before successor source or values while population 25, literal-45 numerics, CUDA, device work, fixed-width selection, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister selective certified global separation |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0452](docs/decisions/ADR-0452-retain-the-literal-45-fit-projection-rejection.md) — Retain the literal-45 fit-projection rejection.
+- Latest ADR: [ADR-0453](docs/decisions/ADR-0453-preregister-selective-certified-global-separation.md) — Preregister selective certified global separation.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 452.
-- ADR-header SHA-256: `e3a5bcb8528f0673774d937084771d44b5faad73ee26e7012ef809b111a835c7`.
-- Current blockers: both current fixed-width arms are rejected before target allocation by the frozen projection and no alternative certificate topology is preregistered; no arm has passed actual-width exponent admission or live allocation; actual source/covector/weight exponent windows and resulting limb/channel bounds remain unbound; resident-nine RRNS remains rejected; no selected fixed-width candidate, population-25 result, actual-45 numerical result, global resolver-certificate integration, full-width actual-context quotient value, complete resolver iteration, or 15-second action result exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, production action width, or poker-strength result exists.
+- Numbered decisions: 453.
+- ADR-header SHA-256: `e31bd6a5a14f0f32e877dbf6241e23a871d2a2d83332222452456e953848f7fa`.
+- Current blockers: no source-sealed selective global-separation mechanism or result exists; both current fixed-width arms remain rejected before target allocation; no arm has passed actual-width exponent admission or live allocation; actual source/covector/weight exponent windows and resulting limb/channel bounds remain unbound; resident-nine RRNS remains rejected; no selected fixed-width candidate, population-25 result, actual-45 numerical result, global resolver-certificate integration, full-width actual-context quotient value, complete resolver iteration, or 15-second action result exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0452](docs/decisions/ADR-0452-retain-the-literal-45-fit-projection-rejection.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0453](docs/decisions/ADR-0453-preregister-selective-certified-global-separation.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

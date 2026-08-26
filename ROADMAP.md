@@ -1763,6 +1763,12 @@ queue:
   global pricing/separation or prove a conservative omitted-domain bound, at
   most once per certificate, and the replacement must earn a new artifact-only
   work gate before target allocation.
+  ADR-0453 now preregisters the CPU-only mechanism keystone. It freezes the
+  exact 57-term scalar price, selector-local warm-query boundary, conservative
+  prefix-tree upper bound, exhaustive complete-10/complete-12 authority, late-
+  positive/tie/cancellation/base-spike controls, separate work counters, and an
+  honest no-prune terminal. Implement and source-seal only this reduced exact
+  mechanism next; pruning has no materiality or production claim at this gate.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

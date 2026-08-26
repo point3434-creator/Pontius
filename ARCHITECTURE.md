@@ -2349,6 +2349,15 @@ may use selector-local queries during warm exploration, but final authority
 must still close every omitted row through exact global separation or a
 conservative bound. Active-basis exactness cannot stand in for global closure.
 
+ADR-0453 freezes that successor's first algebraic gate. One source price is a
+source-local base plus the exact signed contraction of its 57 H-table subsets.
+Warm calls query one source only. Final closure traverses a six-card prefix tree
+whose node bound includes the maximum descendant base, every guaranteed signed
+term, and the positive part of every term possible in any descendant. The
+bound may be loose and may prune nothing, but it may never be low; at a leaf it
+equals exact price. Complete 10-card and 12-card exhaustive authorities decide
+correctness before any consumer, device, or literal-45 work is opened.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

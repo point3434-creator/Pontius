@@ -1,0 +1,154 @@
+{
+  "schema_version": "legal-river-quotient-selective-certified-separation-config-v1",
+  "evidence_stage": "preregistered_after_adr0452_before_successor_source_result_or_values",
+  "decision": "prove_selector_local_warm_pricing_plus_conservative_prefix_bound_global_separation_on_reduced_exact_domains",
+  "parents": {
+    "adr0452_relative_path": "docs/decisions/ADR-0452-retain-the-literal-45-fit-projection-rejection.md",
+    "adr0452_canonical_lf_sha256": "7a4f73963470ced719320c44336c3af707e5c1ce9c272140672d9f3f3dacfde5",
+    "retained_projection_relative_path": "artifacts/work_preflight/legal_river_quotient_fixed_width_actual45_fit_projection_v1.jsonl",
+    "retained_projection_bytes": 55997,
+    "retained_projection_raw_sha256": "afebfee99349d1e36077084619fc213dbe2b8eee8da8fe8a55c62cc41b0ececa",
+    "projection_outcome_relative_path": "src/pontius/legal_river_quotient_fixed_width_actual45_fit_projection_outcome.py",
+    "projection_outcome_canonical_lf_sha256": "850ca2355305fff3e54c000e7472b7d51a54323dea6dd9798f0dd95fdb4227c3",
+    "exact_integer_operator_relative_path": "src/pontius/legal_river_quotient_exact_integer_operator.py",
+    "exact_integer_operator_canonical_lf_sha256": "a373376d5a2a3b470013c4fb00a3146eee3971047558e25f63219e4107d65485",
+    "fixed_width_work_relative_path": "src/pontius/legal_river_quotient_fixed_width_work_comparison.py",
+    "fixed_width_work_canonical_lf_sha256": "f4aaec75ffadaa1a13d540c356e829927612a2f693220ec66d403f9be9113e83",
+    "fixed_width_config_relative_path": "experiments/configs/legal-river-quotient-fixed-width-work-comparison-v1.json",
+    "fixed_width_config_canonical_lf_sha256": "89a8e4d8561f97f79cdb5447add02cf130d0e535dd1e3e6da3e49d80d7802ffc"
+  },
+  "scope": {
+    "standard_library_CPU_only": true,
+    "available_card_domains": [10, 12],
+    "source_card_width": 6,
+    "subset_level_maximum": 4,
+    "one_exact_selective_price_reads_57_subset_scalars_plus_one_source_base": true,
+    "no_CuPy_CUDA_device_compilation_allocation_or_kernel": true,
+    "no_population_25_or_literal_45_numerical_population": true,
+    "no_fixed_width_candidate_selection": true,
+    "no_resolver_action_quality_truncation_blueprint_or_strength_result": true
+  },
+  "exact_price_contract": {
+    "source_domain": "every_six_card_mask_in_increasing_colex_order",
+    "subset_domain": "every_mask_of_cardinality_zero_through_four",
+    "level_coefficients_zero_through_four": [30, -120, 360, -720, 720],
+    "contracted_subset_scalar": "h_T_is_an_exact_integer_already_contracting_the_H_row_with_the_live_pricing_vector",
+    "source_local_base": "b_S_is_one_exact_integer_with_its_own_refresh_and_provenance_identity",
+    "price_formula": "p_S_equals_b_S_plus_sum_over_T_subset_S_cardinality_at_most_four_of_level_coefficient_times_h_T",
+    "selective_price_must_read_exactly_57_distinct_subset_scalars": true,
+    "no_active_basis_or_generated_row_set_can_define_the_complete_source_domain": true
+  },
+  "prefix_tree_contract": {
+    "node": "sorted_selected_prefix_P_next_card_floor_a_and_remaining_count_r_equal_six_minus_size_P",
+    "descendants": "all_six_card_masks_P_union_R_where_R_is_an_r_subset_of_cards_a_through_n_minus_one",
+    "base_upper": "exact_maximum_b_S_over_every_descendant_or_a_separately_verified_conservative_upper",
+    "fixed_terms": "all_T_subset_P_cardinality_at_most_four_are_present_in_every_descendant_and_enter_with_sign",
+    "possible_nonfixed_terms": "T_not_subset_P_is_possible_only_if_T_minus_P_lies_in_the_tail_its_size_is_at_most_r_and_the_tail_can_fill_the_remaining_slots",
+    "upper_bound": "base_upper_plus_all_fixed_signed_terms_plus_max_zero_term_for_every_possible_nonfixed_term",
+    "leaf_bound_equals_exact_price": true,
+    "prune_for_exact_argmax": "upper_bound_strictly_below_current_exact_incumbent_or_at_most_incumbent_when_no_unvisited_tie_claim_is_needed",
+    "prune_for_zero_threshold_separation": "upper_bound_at_or_below_zero_proves_the_block_contains_no_positive_reduced_cost",
+    "unresolved_or_missing_bound_fails_closed": true,
+    "child_order": "descending_exact_upper_bound_then_increasing_colex_first_descendant",
+    "no_prune_is_a_valid_mechanism_outcome_not_a_correctness_failure": true
+  },
+  "certificate_modes": {
+    "warm_selective_query": "returns_one_exact_price_without_global_claim",
+    "proposal_separation": "may_stop_after_the_first_exact_positive_leaf_and_returns_only_that_violating_coordinate",
+    "final_global_closure": "must_exhaust_or_conservatively_prune_every_source_block_and may_return_closed_only_when_no_positive_coordinate_exists",
+    "exact_argmax_control": "must_match_exhaustive_maximum_and_full_maximizer_set_on_reduced_domains",
+    "restricted_basis_only": "forbidden"
+  },
+  "frozen_families": [
+    "all_zero_tie",
+    "all_nonpositive",
+    "late_positive",
+    "source_base_spike",
+    "signed_cancellation_loose_bound",
+    "deterministic_mixed_hash"
+  ],
+  "family_generation": {
+    "all_inputs_are_exact_integers": true,
+    "hash_family": "sha256_of_schema_family_cards_and_mask_framing_mapped_to_the_closed_integer_interval_minus_2048_through_2048",
+    "late_positive_coordinate": "last_increasing_colex_source_mask",
+    "base_spike_coordinate": "middle_increasing_colex_source_mask",
+    "no_runtime_randomness_or_seed": true,
+    "both_10_and_12_card_domains_run_every_family": true
+  },
+  "work_ledger": {
+    "separate_counts": [
+      "source_base_values_read_to_build_or_verify_base_bounds",
+      "prefix_nodes_bound",
+      "possible_subset_terms_examined_for_bounds",
+      "exact_leaf_prices",
+      "selective_subset_scalar_reads",
+      "pruned_source_leaves",
+      "visited_source_leaves",
+      "maximum_frontier_nodes"
+    ],
+    "base_bound_construction_is_charged_unless_an_exact_provenance_bound_prepared_artifact_hits": true,
+    "no_heterogeneous_total_or_latency_inference": true,
+    "report_exhaustive_counterfactual_57_times_source_count": true,
+    "reported_pruning_is_diagnostic_not_a_literal_45_or_quality_prior": true
+  },
+  "required_controls": {
+    "selective_price_matches_direct_57_term_sum_for_every_source_in_both_domains_and_all_families": true,
+    "every_node_upper_is_at_least_every_descendant_exact_price": true,
+    "every_leaf_upper_equals_its_exact_price": true,
+    "exact_argmax_and_all_ties_match_exhaustive_authority": true,
+    "final_zero_threshold_closure_matches_exhaustive_positive_set": true,
+    "proposal_mode_never_returns_a_nonpositive_or_absent_coordinate": true,
+    "all_zero_tie_is_preserved_as_a_tie_and_may_prune_at_the_root_for_zero_threshold_closure": true,
+    "late_positive_and_source_base_spike_cannot_be_hidden_by_early_pruning": true,
+    "signed_cancellation_control_permits_a_loose_bound_without_a_false_prune": true,
+    "no_prune_control_completes_with_an_honest_full_leaf_count": true,
+    "missing_source_subset_or_base_row_rejects": true,
+    "wrong_level_sign_omitted_level_four_strict_zero_threshold_active_only_domain_and_false_base_upper_mutations_reject": true,
+    "colex_domain_count_is_math_comb_n_6_and_every_source_is_visited_or_covered_by_exactly_one_pruned_block": true,
+    "source_and_reader_are_independent_and_result_is_exclusive": true
+  },
+  "outcome_contract": {
+    "correctness_pass_requires_every_required_control": true,
+    "pruning_materiality_has_no_pass_authority_in_this_keystone": true,
+    "no_prune_terminal": "completed_exact_separation_no_material_pruning",
+    "some_prune_terminal": "completed_exact_separation_with_pruning",
+    "correctness_rejection_terminal": "exact_separation_rejected",
+    "a_passing_result_opens_only_a_consumer_bound_work_gate": true,
+    "candidate_selected": null
+  },
+  "prospective_identity": {
+    "source_relative_path": "src/pontius/legal_river_quotient_selective_certified_separation.py",
+    "runner_relative_path": "src/pontius/legal_river_quotient_selective_certified_separation_runner.py",
+    "reader_relative_path": "src/pontius/legal_river_quotient_selective_certified_separation_result.py",
+    "controls_relative_path": "tests/test_legal_river_quotient_selective_certified_separation.py",
+    "launcher_relative_path": "run_legal_river_quotient_selective_certified_separation.py",
+    "result_relative_path": "artifacts/work_preflight/legal_river_quotient_selective_certified_separation_v1.jsonl",
+    "result_open_mode": "exclusive_xb",
+    "all_paths_absent_at_preregistration": true
+  },
+  "kill_criteria": {
+    "an_active_restriction_is_called_global_closure": true,
+    "a_possible_positive_term_is_omitted_from_a_block_upper": true,
+    "a_negative_possible_term_is_forced_into_an_upper_as_though_guaranteed": true,
+    "a_leaf_bound_differs_from_exact_price": true,
+    "a_positive_coordinate_is_pruned_or_a_tie_is_invented_or_dropped": true,
+    "base_bound_build_or_refresh_work_is_hidden": true,
+    "pruning_on_synthetic_controls_is_called_production_speed_or_quality": true,
+    "population_25_literal_45_numeric_CUDA_resolver_action_quality_truncation_blueprint_or_strength_work_occurs": true
+  },
+  "claims": {
+    "preregistration_frozen": true,
+    "source_seal": null,
+    "result": null,
+    "exact_global_separation_mechanism": null,
+    "material_pruning": null,
+    "literal_45_fit": null,
+    "candidate_selected": null,
+    "resolver_iteration_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

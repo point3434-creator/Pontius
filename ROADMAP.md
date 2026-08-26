@@ -1730,6 +1730,16 @@ queue:
   the retained artifact, preserve both arms, separately gate symbolic and live
   memory, charge complete work, and freeze how any 15-second inference and
   partial or tied outcome is handled.
+  ADR-0449 now preregisters the first, device-free fit screen. It carries both
+  eligible arms, uses all six timed observations at both reduced endpoints,
+  projects every ordered phase by its largest exact literal-45 work ratio,
+  applies a `5/4` plus 1 ms guard per phase, and compares each complete
+  component projection with 14 seconds so the one-second emission reserve is
+  not spent twice. Zero, one, two, and tied survivors are frozen without
+  selection. Implement and source-seal only the artifact assessor next; no
+  projection label or live target work exists yet. A passing projection would
+  still require prospectively frozen actual input exponent windows and a
+  separate live-memory screen before any literal-45 arithmetic.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

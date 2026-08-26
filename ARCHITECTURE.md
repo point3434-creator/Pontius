@@ -2308,6 +2308,17 @@ carry both eligible arms and distinguish symbolic fit, live allocation,
 operator work, resolver iteration, and the authoritative 15-second action
 clock.
 
+ADR-0449 freezes the first part of that boundary as a GPU-free artifact-only
+admission screen. It projects every retained timed phase of positional and
+batched RRNS independently from both reduced endpoints to exact literal-45
+integer work constituents, takes the largest constituent ratio and endpoint,
+then applies a `5/4` plus 1 ms per-phase guard. The arm-local sum is compared
+with 14 seconds, preserving the action clock's one-second emission reserve.
+This is a conservative policy for deciding whether a live attempt is worth
+running, not measured literal-45 latency or action fit. The retained symbolic
+memory peaks remain required but are not live allocations, and actual input
+exponent windows remain a separate prerequisite before any target arithmetic.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

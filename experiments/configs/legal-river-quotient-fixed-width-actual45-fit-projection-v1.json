@@ -1,0 +1,432 @@
+{
+  "schema_version": "legal-river-quotient-fixed-width-actual45-fit-projection-config-v1",
+  "evidence_stage": "preregistered_after_adr0448_before_projection_source_result_or_any_literal_45_device_work",
+  "decision": "artifact_only_guarded_projection_before_any_live_literal_45_attempt",
+  "retained_parent": {
+    "outcome_commit": "0dd89e2ed45bf7948e65246c83971dc606fa91e5",
+    "outcome_adr_relative_path": "docs/decisions/ADR-0448-retain-the-passing-split-runtime-fixed-width-device-preflight.md",
+    "outcome_adr_canonical_lf_sha256": "030984cab34351593b3b9e3eb068bc42bacc61ae7b13bfe5d1d5a5f11e489d20",
+    "artifact_relative_path": "artifacts/work_preflight/legal_river_quotient_fixed_width_device_preflight_v3.jsonl",
+    "artifact_bytes": 4175066,
+    "artifact_raw_sha256": "6f0b53f95a5d538f7a3673fe411de4b40724fbf00cfc56c62360352cab3770bb",
+    "artifact_source_commit": "f271e6deeefe11f228d582c9734a166c0ba32b45",
+    "artifact_records": 59,
+    "artifact_observations": 57,
+    "terminal": "completed_device_preflight",
+    "outcome_assessor_relative_path": "src/pontius/legal_river_quotient_fixed_width_device_preflight_v3_outcome.py",
+    "outcome_assessor_canonical_lf_sha256": "943dd47b078379b9e3386524d6928505fa12eaeb28032befcc53f48a7c4491f7",
+    "fixed_width_work_source_relative_path": "src/pontius/legal_river_quotient_fixed_width_work_comparison.py",
+    "fixed_width_work_source_canonical_lf_sha256": "f4aaec75ffadaa1a13d540c356e829927612a2f693220ec66d403f9be9113e83",
+    "device_source_relative_path": "src/pontius/legal_river_quotient_fixed_width_device_preflight.py",
+    "device_source_canonical_lf_sha256": "5b448e3a7d6607cb9392505e35f4428b0bec460caedca3c881b52a81145e1df1",
+    "action_clock_relative_path": "src/pontius/action_clock.py",
+    "action_clock_canonical_lf_sha256": "d1540ec3ce25b8247cf990b8649e3af0ebe9f3d25a98322aaf141afddf9a55bb",
+    "v3_identity_is_permanently_consumed": true
+  },
+  "scope": {
+    "GPU_free_standard_library_artifact_assessment_only": true,
+    "authorized_arms": [
+      "positional",
+      "batched_five_then_four_RRNS"
+    ],
+    "resident_nine_RRNS_remains_rejected": true,
+    "reduced_population_times_are_arm_local_calibration_only": true,
+    "no_cross_arm_ranking_or_aggregation": true,
+    "no_CuPy_import_compilation_device_query_allocation_module_load_or_kernel_launch": true,
+    "no_population_25_fixture_digest_or_value": true,
+    "no_literal_45_fixture_capture_exponent_scan_numeric_buffer_digest_or_value": true,
+    "no_resolver_iteration_solve_action_quality_truncation_blueprint_or_strength_result": true,
+    "systems_evidence_is_not_a_decision_quality_prior": true
+  },
+  "calibration_contract": {
+    "populations": {
+      "complete_10": {
+        "available_cards": 10,
+        "feature_width": 176,
+        "source_occupancies": 210,
+        "query_occupancies": 210,
+        "labeled_query_records": 1260
+      },
+      "signed_12": {
+        "available_cards": 12,
+        "feature_width": 5,
+        "source_occupancies": 924,
+        "query_occupancies": 495,
+        "labeled_query_records": 2970
+      }
+    },
+    "timed_observations_per_arm_population": 6,
+    "warmup_observations_per_arm_population": 1,
+    "warmups_are_excluded_from_projection": true,
+    "both_ascending_and_descending_colex_are_required": true,
+    "elapsed_input_per_phase_population_arm": "maximum_integer_elapsed_ns_over_the_six_timed_observations",
+    "positional_phase_count": 12,
+    "batched_phase_count": 20,
+    "phase_order_and_names_must_equal_the_retained_artifact": true,
+    "stored_eligibility_exactness_and_timing_summaries_are_not_authority": true
+  },
+  "literal_45_geometry": {
+    "available_cards": 45,
+    "feature_width": 176,
+    "ordered_feature_tiles": [
+      [0, 64],
+      [64, 128],
+      [128, 176]
+    ],
+    "feature_tile_count": 3,
+    "source_occupancies": 8145060,
+    "source_pairings_per_occupancy": 90,
+    "query_occupancies": 148995,
+    "query_labels_per_occupancy": 6,
+    "labeled_query_records": 893970,
+    "forward_rows_levels_0_through_5": 1385980,
+    "adjoint_rows_levels_0_through_4": 164221,
+    "forward_recurrence_vector_edges": 55619730,
+    "adjoint_recurrence_vector_edges": 640575,
+    "forward_signed_subset_row_terms_all_queries": 2383920,
+    "adjoint_signed_subset_row_terms_all_sources": 464268420,
+    "query_label_vector_additions": 744975,
+    "forward_scalar_products_all_queries": 26223120,
+    "adjoint_scalar_products_all_sources": 1433530560,
+    "query_chunk": 4096,
+    "source_chunk": 4096,
+    "fixed_width_level_6_materialized": false,
+    "geometry_is_work_and_memory_shape_only_not_a_numerical_population": true
+  },
+  "projection_constituent_counts": {
+    "complete_10": {
+      "captured_pair_components": 519960,
+      "family_encoding_entries": 259980,
+      "forward_recurrence_vector_entries": 672320,
+      "forward_recurrence_launches": 6,
+      "forward_selective_subset_entries": 2816,
+      "forward_selective_scalar_products": 176,
+      "forward_global_subset_entries": 591360,
+      "forward_global_scalar_and_reach_products": 37170,
+      "forward_stream_chunks": 1,
+      "adjoint_recurrence_and_label_vector_entries": 413600,
+      "adjoint_label_scalar_additions": 1050,
+      "adjoint_recurrence_launches": 4,
+      "adjoint_selective_subset_entries": 10032,
+      "adjoint_selective_scalar_products": 176,
+      "adjoint_global_subset_entries": 2106720,
+      "adjoint_global_scalar_products": 36960,
+      "adjoint_stream_chunks": 1,
+      "feature_tiles": 1,
+      "fixed_scalar_sites": 3
+    },
+    "signed_12": {
+      "captured_pair_components": 44880,
+      "family_encoding_entries": 22440,
+      "forward_recurrence_vector_entries": 61440,
+      "forward_recurrence_launches": 6,
+      "forward_selective_subset_entries": 80,
+      "forward_selective_scalar_products": 5,
+      "forward_global_subset_entries": 39600,
+      "forward_global_scalar_and_reach_products": 2970,
+      "forward_stream_chunks": 1,
+      "adjoint_recurrence_and_label_vector_entries": 26295,
+      "adjoint_label_scalar_additions": 2475,
+      "adjoint_recurrence_launches": 4,
+      "adjoint_selective_subset_entries": 285,
+      "adjoint_selective_scalar_products": 5,
+      "adjoint_global_subset_entries": 263340,
+      "adjoint_global_scalar_products": 4620,
+      "adjoint_stream_chunks": 1,
+      "feature_tiles": 1,
+      "fixed_scalar_sites": 3
+    },
+    "literal_45": {
+      "captured_pair_components": 3183526500,
+      "family_encoding_entries": 1591763250,
+      "forward_recurrence_vector_entries": 9789072480,
+      "forward_recurrence_launches": 18,
+      "forward_selective_subset_entries": 2816,
+      "forward_selective_scalar_products": 176,
+      "forward_global_subset_entries": 419569920,
+      "forward_global_scalar_and_reach_products": 26372115,
+      "forward_stream_chunks": 111,
+      "adjoint_recurrence_and_label_vector_entries": 243856800,
+      "adjoint_label_scalar_additions": 744975,
+      "adjoint_recurrence_launches": 12,
+      "adjoint_selective_subset_entries": 10032,
+      "adjoint_selective_scalar_products": 176,
+      "adjoint_global_subset_entries": 81711241920,
+      "adjoint_global_scalar_products": 1433530560,
+      "adjoint_stream_chunks": 5967,
+      "feature_tiles": 3,
+      "fixed_scalar_sites": 9
+    },
+    "all_counts_are_rederived_from_integer_combinatorics_and_frozen_tile_chunk_rules": true,
+    "no_device_timing_is_derived_from_a_sum_of_heterogeneous_constituents": true
+  },
+  "phase_driver_contract": {
+    "candidate_state_validation_and_input_digest": [
+      "captured_pair_components",
+      "feature_tiles"
+    ],
+    "device_allocation_and_input_transfer": [
+      "captured_pair_components",
+      "family_encoding_entries",
+      "feature_tiles"
+    ],
+    "family_admission_pair_encoding_and_label_aggregation": [
+      "family_encoding_entries",
+      "feature_tiles"
+    ],
+    "forward_recurrence": [
+      "forward_recurrence_vector_entries",
+      "forward_recurrence_launches"
+    ],
+    "forward_selective_queries": [
+      "forward_selective_subset_entries",
+      "forward_selective_scalar_products",
+      "feature_tiles"
+    ],
+    "forward_streamed_global_scan_and_scalar_contract": [
+      "forward_global_subset_entries",
+      "forward_global_scalar_and_reach_products",
+      "forward_stream_chunks"
+    ],
+    "adjoint_recurrence": [
+      "adjoint_recurrence_and_label_vector_entries",
+      "adjoint_label_scalar_additions",
+      "adjoint_recurrence_launches"
+    ],
+    "adjoint_selective_queries": [
+      "adjoint_selective_subset_entries",
+      "adjoint_selective_scalar_products",
+      "feature_tiles"
+    ],
+    "adjoint_streamed_global_scan_and_scalar_contract": [
+      "adjoint_global_subset_entries",
+      "adjoint_global_scalar_products",
+      "adjoint_stream_chunks"
+    ],
+    "scalar_output_transfer_reconstruction_divisibility_fault_check_and_rounding": [
+      "fixed_scalar_sites",
+      "feature_tiles"
+    ],
+    "verification_output_transfer_and_exact_differential": [
+      "captured_pair_components",
+      "feature_tiles"
+    ],
+    "candidate_cleanup": [
+      "captured_pair_components",
+      "family_encoding_entries",
+      "feature_tiles"
+    ],
+    "first_batch_family_admission_pair_encoding_and_label_aggregation": [
+      "family_encoding_entries",
+      "feature_tiles"
+    ],
+    "first_batch_forward_recurrence": [
+      "forward_recurrence_vector_entries",
+      "forward_recurrence_launches"
+    ],
+    "first_batch_forward_selective_queries": [
+      "forward_selective_subset_entries",
+      "forward_selective_scalar_products",
+      "feature_tiles"
+    ],
+    "first_batch_forward_streamed_global_scan_and_scalar_contract": [
+      "forward_global_subset_entries",
+      "forward_global_scalar_and_reach_products",
+      "forward_stream_chunks"
+    ],
+    "first_batch_adjoint_recurrence": [
+      "adjoint_recurrence_and_label_vector_entries",
+      "adjoint_label_scalar_additions",
+      "adjoint_recurrence_launches"
+    ],
+    "first_batch_adjoint_selective_queries": [
+      "adjoint_selective_subset_entries",
+      "adjoint_selective_scalar_products",
+      "feature_tiles"
+    ],
+    "first_batch_adjoint_streamed_global_scan_and_scalar_contract": [
+      "adjoint_global_subset_entries",
+      "adjoint_global_scalar_products",
+      "adjoint_stream_chunks"
+    ],
+    "first_batch_output_drain_and_workspace_reuse_boundary": [
+      "captured_pair_components",
+      "fixed_scalar_sites",
+      "feature_tiles"
+    ],
+    "second_batch_family_admission_pair_encoding_and_label_aggregation": [
+      "family_encoding_entries",
+      "feature_tiles"
+    ],
+    "second_batch_forward_recurrence": [
+      "forward_recurrence_vector_entries",
+      "forward_recurrence_launches"
+    ],
+    "second_batch_forward_selective_queries": [
+      "forward_selective_subset_entries",
+      "forward_selective_scalar_products",
+      "feature_tiles"
+    ],
+    "second_batch_forward_streamed_global_scan_and_scalar_contract": [
+      "forward_global_subset_entries",
+      "forward_global_scalar_and_reach_products",
+      "forward_stream_chunks"
+    ],
+    "second_batch_adjoint_recurrence": [
+      "adjoint_recurrence_and_label_vector_entries",
+      "adjoint_label_scalar_additions",
+      "adjoint_recurrence_launches"
+    ],
+    "second_batch_adjoint_selective_queries": [
+      "adjoint_selective_subset_entries",
+      "adjoint_selective_scalar_products",
+      "feature_tiles"
+    ],
+    "second_batch_adjoint_streamed_global_scan_and_scalar_contract": [
+      "adjoint_global_subset_entries",
+      "adjoint_global_scalar_products",
+      "adjoint_stream_chunks"
+    ],
+    "every_retained_phase_name_has_exactly_one_driver_row": true,
+    "a_driver_ratio_is_the_exact_positive_target_count_over_positive_calibration_count": true,
+    "phase_ratio_is_the_maximum_of_its_named_constituent_ratios": true,
+    "positive_target_work_with_zero_calibration_work_is_unprojectable_and_rejects": true,
+    "a_zero_target_and_zero_calibration_constituent_is_omitted_not_encoded_as_zero_over_zero": true,
+    "fixed_batch_channel_factors_cancel_only_within_the_same_arm_and_same_named_pass": true
+  },
+  "guarded_projection": {
+    "endpoint_phase_candidate_rule": "ceil(maximum_timed_phase_elapsed_ns_times_phase_ratio)",
+    "deciding_endpoint_rule": "maximum_of_complete_10_and_signed_12_endpoint_phase_candidates",
+    "phase_upper_rule": "ceil(deciding_endpoint_phase_candidate_times_5_over_4)_plus_1000000ns",
+    "safety_multiplier_fraction": [5, 4],
+    "per_phase_absolute_guard_ns": 1000000,
+    "arm_projection_rule": "sum_of_every_ordered_phase_upper_for_that_arm",
+    "all_arithmetic_is_exact_integer_or_exact_rational_until_ceiling": true,
+    "exact_boundary_passes_and_one_nanosecond_over_rejects": true,
+    "report_every_repeat_maximum_constituent_ratio_endpoint_candidate_deciding_endpoint_phase_upper_and_fraction_of_arm_total": true,
+    "report_complete_10_only_and_signed_12_only_counterfactuals_without_gate_authority": true,
+    "projection_is_a_conservative_admission_policy_not_a_proof_that_runtime_scales_linearly": true,
+    "a_projection_rejection_forbids_the_live_attempt_but_is_not_a_measured_literal_45_latency": true,
+    "a_projection_pass_only_opens_a_separately_source_sealed_live_screen": true
+  },
+  "memory_and_width_contract": {
+    "retained_symbolic_device_total_bytes": 17094475776,
+    "device_reserve_bytes": 2000000000,
+    "retained_symbolic_peaks": {
+      "positional": 13265364040,
+      "batched_five_then_four_RRNS": 13275877664
+    },
+    "retained_symbolic_headroom_after_reserve": {
+      "positional": 1829111736,
+      "batched_five_then_four_RRNS": 1818598112
+    },
+    "retained_symbolic_memory_is_a_required_conjunct_but_not_live_allocation": true,
+    "actual_45_component_exponent_windows_and_limb_or_channel_bounds_are_unbound": true,
+    "a_future_live_screen_requires_a_prospective_provenance_bound_actual_input_scan_before_fixed_width_arithmetic": true,
+    "one_window_per_source_rows_labeled_query_covectors_and_labeled_query_weights": true,
+    "frexp_reporting_cannot_admit_or_size": true,
+    "any_width_or_channel_change_invalidates_this_projection_before_live_allocation": true,
+    "future_live_memory_requires_empty_pool_birth_named_buffer_receipts_observed_peak_and_2000000000_byte_reserve": true,
+    "future_live_memory_equality_passes_and_one_byte_over_or_any_allocation_failure_rejects": true,
+    "live_memory_result_at_this_stage": null
+  },
+  "action_clock_contract": {
+    "controlled_action_wall_ns": 15000000000,
+    "emission_reserve_ns": 1000000000,
+    "maximum_charged_component_work_ns": 14000000000,
+    "component_projection_passes_if_and_only_if_at_or_below_14000000000ns": true,
+    "preparation_compute_does_not_extend_or_pause_the_action_wall": true,
+    "only_an_exact_provenance_bound_prepared_artifact_hit_may_remove_named_work_from_a_later_online_ledger": true,
+    "this_gate_projects_one_complete_cold_operator_component_from_captured_pair_inputs": true,
+    "component_admission_is_necessary_not_sufficient_for_a_complete_action": true,
+    "belief_legality_master_iterations_certification_fallback_synchronization_and_emission_are_not_in_this_component": true,
+    "no_projected_or_measured_component_wall_is_called_per_solve_or_per_action": true
+  },
+  "outcome_contract": {
+    "arm_projection_conjuncts": [
+      "exact_parent_artifact_rebind",
+      "arm_was_eligible_under_adr0448",
+      "complete_timed_observation_and_phase_domains",
+      "all_constituent_counts_and_phase_ratios_rederived",
+      "retained_symbolic_memory_eligible",
+      "guarded_component_projection_at_or_below_14000000000ns"
+    ],
+    "zero_projection_eligible_arms_terminal": "projection_rejected_before_target_allocation",
+    "one_projection_eligible_arm_terminal": "projection_admits_one_arm_for_separate_live_screen",
+    "two_projection_eligible_arms_terminal": "projection_admits_two_arms_for_separate_live_screen",
+    "an_ineligible_arm_does_not_poison_an_independently_passing_arm": true,
+    "one_surviving_arm_is_not_called_selected_or_adopted": true,
+    "an_exact_tie_preserves_both_arms_without_a_tiebreak": true,
+    "partial_outcomes_are_reported_per_conjunct_without_threshold_repair": true,
+    "candidate_selected": null,
+    "live_target_authorized_by_this_preregistration": false
+  },
+  "prospective_identity": {
+    "assessor_relative_path": "src/pontius/legal_river_quotient_fixed_width_actual45_fit_projection.py",
+    "runner_relative_path": "src/pontius/legal_river_quotient_fixed_width_actual45_fit_projection_runner.py",
+    "reader_relative_path": "src/pontius/legal_river_quotient_fixed_width_actual45_fit_projection_result.py",
+    "controls_relative_path": "tests/test_legal_river_quotient_fixed_width_actual45_fit_projection.py",
+    "result_relative_path": "artifacts/work_preflight/legal_river_quotient_fixed_width_actual45_fit_projection_v1.json",
+    "all_prospective_source_control_and_result_paths_absent_at_preregistration": true,
+    "result_open_mode": "exclusive_xb",
+    "result_path_is_Git_attributes_minus_text_before_source_seal": true
+  },
+  "lifecycle_and_reader_contract": {
+    "imports_are_artifact_result_process_CuPy_and_device_free": true,
+    "source_seal_uses_synthetic_artifact_rows_and_explicit_current_parent_bindings": true,
+    "real_runner_is_no_argument_and_reads_only_the_hash_bound_config_and_retained_artifact": true,
+    "real_artifact_is_read_only_after_a_clean_committed_source_seal": true,
+    "result_is_canonical_JSON_with_exact_integer_nanoseconds_and_decimal_exact_rational_ratios": true,
+    "first_result_is_permanent_without_retry_resume_rewrite_reweight_or_reselection": true,
+    "independent_reader_rebinds_the_raw_parent_and_rederives_every_count_ratio_upper_total_conjunct_and_terminal": true,
+    "stored_parent_or_result_pass_bits_have_no_authority": true,
+    "no_live_target_owner_exists_or_is_invoked_in_this_lifecycle": true
+  },
+  "required_controls": {
+    "exact_parent_bytes_size_chain_commit_dependencies_event_inventory_and_outcome": true,
+    "exact_two_arm_six_timed_observation_per_population_domain": true,
+    "warmup_exclusion_both_colex_directions_phase_counts_names_and_order": true,
+    "integer_combinatorics_rederive_every_frozen_constituent_count": true,
+    "every_phase_driver_is_complete_and_every_named_constituent_exists": true,
+    "maximum_constituent_ratio_endpoint_ceiling_endpoint_maximum_5_over_4_and_1ms_rules": true,
+    "phase_and_arm_sum_identities": true,
+    "retained_symbolic_memory_values_and_eligibility": true,
+    "synthetic_zero_one_two_survivor_and_exact_tie_outcomes": true,
+    "synthetic_13999999999_14000000000_and_14000000001ns_component_boundaries": true,
+    "omitted_phase_duplicate_phase_warmup_substitution_dropped_endpoint_ratio_below_constituent_floor_guard_and_wall_mutations_reject": true,
+    "resident_nine_reintroduction_cross_arm_ranking_actual_value_action_fit_quality_and_live_memory_claim_mutations_reject": true,
+    "import_source_seal_and_controls_do_not_read_the_real_artifact_create_the_result_or_touch_CUDA": true
+  },
+  "kill_criteria": {
+    "the_consumed_v3_owner_is_replayed_edited_or_partially_rebound": true,
+    "resident_nine_RRNS_is_reintroduced_or_either_eligible_arm_is_dropped_before_its_own_conjuncts": true,
+    "a_warmup_or_favorable_repeat_replaces_the_per_phase_timed_maximum": true,
+    "one_calibration_endpoint_is_dropped_or_a_counterfactual_decides": true,
+    "a_phase_driver_omits_a_larger_constituent_or_mixes_work_between_arms": true,
+    "a_positive_target_zero_calibration_driver_is_ignored": true,
+    "ceiling_becomes_floor_or_the_5_over_4_1ms_14s_or_1s_constants_change": true,
+    "symbolic_memory_is_called_live_or_an_unbound_actual_exponent_window_is_assumed": true,
+    "projection_failure_is_called_measured_literal_45_latency_or_projection_pass_is_called_action_fit": true,
+    "a_component_systems_result_selects_strategy_or_supplies_a_quality_prior": true,
+    "population_25_literal_45_numeric_CUDA_resolver_action_quality_truncation_blueprint_or_strength_work_occurs": true
+  },
+  "claims": {
+    "preregistration_frozen": true,
+    "prospective_assessor_exists": false,
+    "source_seal": null,
+    "projection_result": null,
+    "projection_eligible_arms": null,
+    "candidate_selected": null,
+    "literal_45_live_allocation": null,
+    "literal_45_numeric_value": null,
+    "actual_45_component_exponent_admission": null,
+    "resolver_iteration_result": null,
+    "solve_result": null,
+    "action_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

@@ -2169,6 +2169,16 @@ canonical per-family exponent admission, reporting-only `frexp`, and separate
 primitive work counters remain CPU source-seal subjects; device compilation,
 fit, speed, population 25, and actual 45-card values remain closed.
 
+ADR-0437 makes the comparison's self-seal provenance control nonvacuous. The
+forbidden literal-token rewrite is evaluated over every bound file, but only a
+file whose frozen raw occurrence count is positive is rejecting-mutation
+evidence. Existing token-free parents retain identity digests; five existing
+parents retain exact positive counts and changed mutation digests. The new
+comparison source and controls must each contain exactly one occurrence, then
+change bytes and digest under the forbidden rewrite. Production CRLF
+replacement and the independent state-machine byte loop must agree on
+normalized bytes while sharing no helper or replacement implementation.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

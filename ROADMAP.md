@@ -1631,8 +1631,13 @@ queue:
   gate freezes exact final primal/dual replay plus global omitted-coordinate
   closure, row-owned incremental colex ranking, per-family canonical exponent
   admission, reporting-only `frexp`, and incomparable primitive work ledgers.
-  Implement and source-seal only those CPU controls next; no population-25,
-  CUDA, actual-45, latency, action, or quality value is yet open.
+  ADR-0437 adds a pre-source provenance-completeness overlay: scan all seventeen
+  existing transitive parents, require every recorded token-bearing forbidden
+  rewrite to change bytes and digest, and require exactly one armed occurrence
+  in each new self-sealed file. The second correct normalizer must be an
+  independently written forward byte loop, not a wrapper or second replacement.
+  Implement and source-seal only the corrected CPU controls next; no population-
+  25, CUDA, actual-45, latency, action, or quality value is yet open.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

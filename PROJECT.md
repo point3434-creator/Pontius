@@ -1167,6 +1167,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   heterogeneous work ledgers are frozen. No source, device operation,
   population-25 value, actual-45 value, latency, action, or quality result yet
   exists.
+- ADR-0437 corrects one provenance-control vacancy before source. The forbidden
+  literal-escape rewrite must first prove its real target is armed. Seventeen
+  existing transitive bound files now have frozen raw-token counts, canonical
+  digests, and mutation digests; exactly five existing files are token-bearing.
+  The future comparison source and controls must each contain exactly one token
+  by construction, and their rewrites must change bytes and digests. The
+  production CRLF replacement and independent forward byte loop may not share
+  implementation. This changes no arithmetic or candidate gate and opens no
+  value or device work.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

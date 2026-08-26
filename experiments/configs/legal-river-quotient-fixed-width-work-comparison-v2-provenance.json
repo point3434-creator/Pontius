@@ -1,0 +1,235 @@
+{
+  "schema_version": "legal-river-quotient-fixed-width-work-comparison-v2-provenance",
+  "evidence_stage": "preregistered_completeness_correction_after_adr0436_before_comparison_source_or_controls",
+  "decision": "require_every_literal_escape_rewrite_control_to_prove_its_target_contains_the_trigger_before_hash_divergence_can_pass",
+  "parent_commit": "1142c2c0066e65e84fd8902d29999131ad21fef9",
+  "parent_v1_config": {
+    "relative_path": "experiments/configs/legal-river-quotient-fixed-width-work-comparison-v1.json",
+    "canonical_lf_sha256": "89a8e4d8561f97f79cdb5447add02cf130d0e535dd1e3e6da3e49d80d7802ffc"
+  },
+  "parent_adr": {
+    "relative_path": "docs/decisions/ADR-0436-preregister-the-fixed-width-and-certificate-work-comparison.md",
+    "canonical_lf_sha256": "ae874339b98b65fb77825763eaf9bd31f49d361b3ae2adf3c3ec2e2d3da23e9e"
+  },
+  "discovery_receipt": {
+    "prospective_comparison_source_absent": true,
+    "prospective_comparison_controls_absent": true,
+    "fixed_width_or_RRNS_implementation_existed": false,
+    "new_complete_10_or_signed_12_comparison_value_opened": false,
+    "population_25_fixture_or_value_opened": false,
+    "cuda_or_device_operation_occurred": false,
+    "actual_45_card_value_opened": false,
+    "source_seal_result_or_artifact_existed": false,
+    "correction_is_fully_pre_source_and_value_unopened": true
+  },
+  "defect": {
+    "family": "R198_rejecting_mutation_is_vacuously_green_when_its_trigger_is_absent",
+    "parent_requirement": "literal_backslash_r_backslash_n_rewrite_is_a_required_rejecting_hash_mutation",
+    "missing_precondition": "the_target_raw_bytes_contain_at_least_one_exact_backslash_r_backslash_n_token",
+    "concealment": "on_a_token_free_target_the_forbidden_rewrite_is_the_identity_so_a_test_that_only_checks_a_generic_hash_relation_does_not_exercise_R183",
+    "why_self_seal_is_exposed": "the_prospective_source_will_contain_the_CRLF_bytes_literal_in_its_production_normalizer_and_the_controls_will_contain_an_independent_live_CRLF_fixture",
+    "v1_config_and_adr0436_remain_immutable": true,
+    "all_v1_arithmetic_certificate_rank_telemetry_work_memory_kill_and_claim_contracts_remain_binding": true
+  },
+  "literal_token_contract": {
+    "token_bytes_decimal": [92, 114, 92, 110],
+    "replacement_bytes_decimal": [92, 110],
+    "token_name": "literal_backslash_r_backslash_n",
+    "mutation_algorithm": "replace_every_exact_four_byte_token_with_the_two_byte_literal_backslash_n_token",
+    "mutation_is_never_a_canonical_line_ending_normalizer_or_hash_authority": true,
+    "target_must_be_read_as_raw_bytes": true,
+    "occurrence_count_is_computed_before_mutation": true,
+    "minimum_occurrence_count": 1,
+    "zero_occurrences_terminate_as": "unarmed_literal_escape_mutation",
+    "mutation_must_change_raw_bytes": true,
+    "mutation_digest_must_differ_from_both_correct_canonical_LF_digests": true,
+    "occurrence_count_mutated_digest_and_canonical_digest_are_recorded_at_source_seal": true
+  },
+  "correct_normalizer_independence": {
+    "production_algorithm": "replace_only_the_exact_two_bytes_13_10_with_one_byte_10",
+    "independent_algorithm": "single_forward_byte_loop_that_emits_10_for_13_followed_by_10_and_otherwise_emits_the_current_byte",
+    "independent_algorithm_may_not_call_the_production_helper": true,
+    "independent_algorithm_may_not_use_bytes_replace_bytearray_replace_str_replace_or_a_copied_replacement_expression": true,
+    "both_algorithms_read_the_same_raw_bytes_independently": true,
+    "both_algorithms_must_emit_identical_normalized_bytes_before_hash_comparison": true,
+    "both_algorithms_must_emit_the_same_SHA256_for_every_bound_parent_and_both_prospective_self_seal_files": true,
+    "one_algorithm_derived_from_or_wrapping_the_other_rejects": true
+  },
+  "armed_self_seal_targets": {
+    "comparison_source": {
+      "relative_path": "src/pontius/legal_river_quotient_fixed_width_work_comparison.py",
+      "required_raw_token_occurrences": 1,
+      "source_of_occurrence": "production_canonical_LF_bytes_literal"
+    },
+    "comparison_controls": {
+      "relative_path": "tests/test_legal_river_quotient_fixed_width_work_comparison.py",
+      "required_raw_token_occurrences": 1,
+      "source_of_occurrence": "dedicated_live_CRLF_fixture_used_by_the_independent_normalizer_controls"
+    },
+    "both_paths_are_absent_at_this_correction": true,
+    "exact_counts_are_frozen_before_source_and_may_not_change_during_implementation": true
+  },
+  "frozen_existing_transitive_bound_file_scan": {
+    "adr0368": {
+      "relative_path": "docs/decisions/ADR-0368-seal-the-exact-occupied-card-quotient-keystone.md",
+      "required_occurrences": 0,
+      "canonical_lf_sha256": "fa6b9d4356ce08adc573c7d0d152d1b247f749e6fe2cd875dca9a6c8365e07b7",
+      "forbidden_mutation_sha256": "fa6b9d4356ce08adc573c7d0d152d1b247f749e6fe2cd875dca9a6c8365e07b7"
+    },
+    "adr0393": {
+      "relative_path": "docs/decisions/ADR-0393-retain-the-paired-tile-wall-rejection.md",
+      "required_occurrences": 0,
+      "canonical_lf_sha256": "66f05e7b6620c40e2406a7306de104fa05d5e3f417cbf1f6e52ec559f882be12",
+      "forbidden_mutation_sha256": "66f05e7b6620c40e2406a7306de104fa05d5e3f417cbf1f6e52ec559f882be12"
+    },
+    "adr0432": {
+      "relative_path": "docs/decisions/ADR-0432-retain-the-shared-direct-artifact-capacity-rejection.md",
+      "required_occurrences": 0,
+      "canonical_lf_sha256": "6dede90c5fe288ed4ec3517f725465786fa2627ed72819ff8df0a1d3bd83c1f0",
+      "forbidden_mutation_sha256": "6dede90c5fe288ed4ec3517f725465786fa2627ed72819ff8df0a1d3bd83c1f0"
+    },
+    "occupied_card_quotient": {
+      "relative_path": "src/pontius/occupied_card_quotient.py",
+      "required_occurrences": 0,
+      "canonical_lf_sha256": "1ed5c2fcae98a2809c7fea0952af47fa9cd0f9857692ec0ae4db1e1efb1ed2b3",
+      "forbidden_mutation_sha256": "1ed5c2fcae98a2809c7fea0952af47fa9cd0f9857692ec0ae4db1e1efb1ed2b3"
+    },
+    "gpu_occupied_card_quotient": {
+      "relative_path": "src/pontius/gpu_occupied_card_quotient.py",
+      "required_occurrences": 0,
+      "canonical_lf_sha256": "280c61c610562974c46b745436eaab8f7106d51d0c3975eed7a4cff23e3e9a61",
+      "forbidden_mutation_sha256": "280c61c610562974c46b745436eaab8f7106d51d0c3975eed7a4cff23e3e9a61"
+    },
+    "legal_river_quotient_bridge": {
+      "relative_path": "src/pontius/legal_river_quotient_bridge.py",
+      "required_occurrences": 1,
+      "canonical_lf_sha256": "606c46df54d14991639b514bb258a75b9fcc08cc0d7f49087539c7b7a5398936",
+      "forbidden_mutation_sha256": "ccb796bfec054d14fe3112070cbbf7edf6dda3ccc3285fcb803e4c69afabac94"
+    },
+    "legal_river_quotient_bridge_config": {
+      "relative_path": "experiments/configs/legal-river-quotient-bridge-v1.json",
+      "required_occurrences": 0,
+      "canonical_lf_sha256": "af145f4d56cdbdcfb5a0d7ee36613677ad79f57620629266c729997785a1f1f6",
+      "forbidden_mutation_sha256": "af145f4d56cdbdcfb5a0d7ee36613677ad79f57620629266c729997785a1f1f6"
+    },
+    "legal_river_quotient_cuda_consumer": {
+      "relative_path": "src/pontius/legal_river_quotient_cuda_consumer.py",
+      "required_occurrences": 2,
+      "canonical_lf_sha256": "012a3517a862ecd37a3099e8a3f4a84cb14e1419f83aa406f88d6429a2dae09c",
+      "forbidden_mutation_sha256": "1b013f8f9ddc3552c5751d07d0f65a7f5f08480eb522ea1241508998d7b4ee23"
+    },
+    "legal_river_quotient_cuda_compensated_tiles": {
+      "relative_path": "src/pontius/legal_river_quotient_cuda_compensated_tiles.py",
+      "required_occurrences": 2,
+      "canonical_lf_sha256": "03a7efb35243b8d13d495a7f80838170055096c8e9ae73d2cc723e3d29f1020d",
+      "forbidden_mutation_sha256": "8b3eb19fd6a0cbff8a8efbeda94b861fb8710a46bbad61bceb5b506de65b8c6d"
+    },
+    "legal_river_quotient_cuda_compensated_tiles_v2_config": {
+      "relative_path": "experiments/configs/legal-river-quotient-cuda-compensated-tiles-v2.json",
+      "required_occurrences": 0,
+      "canonical_lf_sha256": "58df9401ff34d18159e33e82db09efd13925abf95a7040fb39508ca8d99bd01f",
+      "forbidden_mutation_sha256": "58df9401ff34d18159e33e82db09efd13925abf95a7040fb39508ca8d99bd01f"
+    },
+    "adr0435": {
+      "relative_path": "docs/decisions/ADR-0435-source-seal-the-captured-pair-exact-integer-operator-keystone.md",
+      "required_occurrences": 0,
+      "canonical_lf_sha256": "108b9ac5e7f18c1aaa9c838305367bf4526e84beb112c9e0f67269a28eed76eb",
+      "forbidden_mutation_sha256": "108b9ac5e7f18c1aaa9c838305367bf4526e84beb112c9e0f67269a28eed76eb"
+    },
+    "exact_integer_base_config": {
+      "relative_path": "experiments/configs/legal-river-quotient-exact-integer-operator-keystone-v1.json",
+      "required_occurrences": 0,
+      "canonical_lf_sha256": "64b545b17b67f2828e3f58bfc4518dc2615b5fe7cc3dcbd921a3c36477e32fc6",
+      "forbidden_mutation_sha256": "64b545b17b67f2828e3f58bfc4518dc2615b5fe7cc3dcbd921a3c36477e32fc6"
+    },
+    "exact_integer_provenance_config": {
+      "relative_path": "experiments/configs/legal-river-quotient-exact-integer-operator-keystone-v2-provenance.json",
+      "required_occurrences": 0,
+      "canonical_lf_sha256": "cf652a2c4e36001081e38aa37e3f306fa5aeb805d67788ff1028a672bab03467",
+      "forbidden_mutation_sha256": "cf652a2c4e36001081e38aa37e3f306fa5aeb805d67788ff1028a672bab03467"
+    },
+    "exact_integer_source": {
+      "relative_path": "src/pontius/legal_river_quotient_exact_integer_operator.py",
+      "required_occurrences": 3,
+      "canonical_lf_sha256": "a373376d5a2a3b470013c4fb00a3146eee3971047558e25f63219e4107d65485",
+      "forbidden_mutation_sha256": "870990bf21945e463a933b4f49e9afd881c08d423e1efca4319d1ad10e1e12a1"
+    },
+    "exact_integer_controls": {
+      "relative_path": "tests/test_legal_river_quotient_exact_integer_operator.py",
+      "required_occurrences": 2,
+      "canonical_lf_sha256": "dbfc6988dd126353a586de6a476ea6df553b51b8bb2a392a9df6e838f7ee7dcb",
+      "forbidden_mutation_sha256": "301ff94435ed2ec452d4df78626d82b39362be9f0836dbea58df33c3f8fbe447"
+    },
+    "adr0436": {
+      "relative_path": "docs/decisions/ADR-0436-preregister-the-fixed-width-and-certificate-work-comparison.md",
+      "required_occurrences": 0,
+      "canonical_lf_sha256": "ae874339b98b65fb77825763eaf9bd31f49d361b3ae2adf3c3ec2e2d3da23e9e",
+      "forbidden_mutation_sha256": "ae874339b98b65fb77825763eaf9bd31f49d361b3ae2adf3c3ec2e2d3da23e9e"
+    },
+    "comparison_v1_config": {
+      "relative_path": "experiments/configs/legal-river-quotient-fixed-width-work-comparison-v1.json",
+      "required_occurrences": 0,
+      "canonical_lf_sha256": "89a8e4d8561f97f79cdb5447add02cf130d0e535dd1e3e6da3e49d80d7802ffc",
+      "forbidden_mutation_sha256": "89a8e4d8561f97f79cdb5447add02cf130d0e535dd1e3e6da3e49d80d7802ffc"
+    }
+  },
+  "required_correction_controls": {
+    "both_immutable_configs_and_both_ADRs_rebind_before_source_work": true,
+    "production_and_independent_correct_normalizers_agree_on_every_bound_parent": true,
+    "every_existing_transitive_bound_file_reproduces_its_frozen_occurrence_count_canonical_digest_and_forbidden_mutation_digest": true,
+    "the_existing_token_bearing_set_is_exactly_bridge_consumer_compensated_tiles_exact_integer_source_and_exact_integer_controls": true,
+    "each_prospective_self_seal_file_has_exactly_one_occurrence_before_its_mutation_is_evaluated": true,
+    "each_self_seal_mutation_changes_bytes_and_digest": true,
+    "a_token_free_synthetic_fixture_terminates_unarmed_instead_of_passing": true,
+    "a_one_token_fixture_and_a_two_token_fixture_report_exact_counts_and_changed_hashes": true,
+    "the_controls_independent_normalizer_is_AST_separate_and_does_not_call_or_copy_the_production_normalizer": true,
+    "a_wrapped_or_replace_based_second_normalizer_mutation_rejects": true,
+    "no_parent_file_is_edited_to_create_a_token_or_match_a_digest": true,
+    "no_science_value_device_or_result_path_is_opened_by_provenance_controls": true
+  },
+  "source_seal_record_requirements": {
+    "record_both_config_hashes": true,
+    "record_ADR0436_and_ADR0437_hashes": true,
+    "record_source_and_control_canonical_LF_hashes_from_both_correct_implementations": true,
+    "record_source_and_control_literal_token_occurrence_counts": true,
+    "record_source_and_control_forbidden_mutation_hashes": true,
+    "require_each_forbidden_mutation_hash_differs_from_its_canonical_hash": true,
+    "no_shell_quoted_one_off_digest_is_authority": true
+  },
+  "unchanged_science": {
+    "all_ADR0436_positional_RRNS_selective_global_certificate_colex_telemetry_work_memory_and_fault_contracts_remain_binding": true,
+    "no_prime_bound_window_threshold_population_algorithm_check_form_work_count_or_claim_changed": true,
+    "no_candidate_result_or_value_can_select_token_counts_or_hash_algorithms": true,
+    "a_pass_still_opens_only_a_separate_compiled_device_resource_and_bounded_wall_preregistration": true
+  },
+  "kill_criteria": {
+    "a_rejecting_mutation_runs_without_first_proving_its_trigger_occurs": true,
+    "zero_occurrences_are_called_a_passing_mutation_control": true,
+    "the_second_correct_normalizer_calls_wraps_or_copies_the_first": true,
+    "a_mutation_that_does_not_change_bytes_or_digest_is_accepted": true,
+    "a_parent_is_edited_to_arm_the_trap_or_match_metadata": true,
+    "a_shell_quoted_hash_receipt_is_promoted_to_authority": true,
+    "any_ADR0436_science_or_claim_boundary_changes": true,
+    "population_25_CUDA_actual_45_action_quality_truncation_blueprint_or_strength_is_opened": true
+  },
+  "claims": {
+    "provenance_completeness_correction_recorded": true,
+    "comparison_source_exists": false,
+    "comparison_controls_exist": false,
+    "source_seal": null,
+    "positional_fixed_width_correctness": null,
+    "RRNS_fixed_width_correctness": null,
+    "device_compiled": false,
+    "device_fit": null,
+    "device_speed": null,
+    "population_25_numerical_value": null,
+    "actual_45_card_value": null,
+    "resolver_iteration_result": null,
+    "action_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

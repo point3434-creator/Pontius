@@ -884,6 +884,9 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   without ambient `PYTHONPATH`, so no owner journal or device work exists. The
   next authority is a fresh, prospectively sealed repository-root launcher
   proven through a scrubbed-environment handshake, never a retry of ADR-0420.
+  ADR-0422 now freezes the V2 root-launcher, recursive child-launch, fresh
+  journal identity, and checked V1-reader transduction before source. Implement
+  and source-seal those paths next with all result paths absent.
 
 ## Current checkpoint
 

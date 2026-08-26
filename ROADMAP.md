@@ -1482,6 +1482,9 @@ queue:
   the ADR-0420 identity is consumed. The next checkpoint is a prospectively
   frozen repository-root launcher with a fresh owner/result identity and a
   scrubbed-environment handshake through the exact public launch seam.
+  ADR-0422 now freezes that V2 identity and exact launcher/reader contract
+  before source. Implement and source-seal it next; no V2 probe or campaign is
+  authorized from the preregistration commit.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1572,8 +1575,9 @@ queue:
   reader seal is completed by ADR-0420 after 18 controls. ADR-0421 consumes its
   public command at package resolution before owner import, leaving the result
   absent. The immediate capacity-lane checkpoint is a new-identity, launcher-
-  safe preregistration and source seal; it neither reopens V4 nor selects a new
-  projection rule. Before any later literal 45-card consumer owner is
+  safe source seal under ADR-0422's already-frozen root-launcher and scrubbed-
+  probe contract; it neither reopens V4 nor selects a new projection rule.
+  Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

@@ -2021,6 +2021,15 @@ and the prospective result remains absent but consumed. Any successor needs a
 sealed repository-root launcher and must execute that exact launcher in a
 scrubbed, device-free handshake before source seal.
 
+ADR-0422 prospectively makes the repository-root script the sole process-birth
+primitive for the V2 parent and children. It derives `src` from its own sealed
+path and does not inherit package discovery as authority. A scrubbed public
+probe must traverse both launcher levels from outside the repository before
+science. V2 changes journal protocol/campaign/header/result identities only;
+its standard-library reader validates that envelope and then delegates
+unchanged event semantics to the source-sealed V1 reader through a checked in-
+memory transduction. The consumed V1 runner and all result paths stay closed.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

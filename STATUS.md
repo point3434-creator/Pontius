@@ -15,78 +15,91 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Retain the failed command as a first-invocation infrastructure result and
-permanently close the ADR-0420 public owner identity. Do not retry the command,
-set `PYTHONPATH` and call the same module, or create a post-hoc journal at the
-consumed result path. The absence of a journal is itself part of the outcome:
-the interpreter failed before owner import and therefore before exclusive file
-creation.
+Preregister one launcher-only V2 recovery under entirely fresh owner and
+evidence identities. No successor source or launcher probe is admitted at this
+decision. The V1 runner and absent result identity remain permanently closed.
 
-The exact process output was:
+### One root launcher owns every process birth
+
+The authoritative command is:
 
 ```text
-C:\Users\point\OneDrive\Documents\ChatGPT\Pontius\.venv\Scripts\python.exe:
-Error while finding module specification for
-'pontius.legal_river_quotient_cuda_shared_direct_device_runner'
-(ModuleNotFoundError: No module named 'pontius')
+.venv\Scripts\python.exe -B run_legal_river_quotient_cuda_shared_direct_device_v2.py
 ```
 
-The process returned exit code `1`. A read-only post-outcome check found no
-shell `PYTHONPATH`; the repository interpreter's `sys.path` contained the
-repository root and its virtual-environment paths but not the repository's
-`src` directory. Both the prospective shared-direct result and reserved actual
-consumer result remained absent. Git remained at clean source commit
-`468fddf035add619a79c898dc4692dbe7b75b488`.
+Before importing Pontius, the root script may import only the standard library.
+It derives the repository root from its own resolved file, verifies the root
+markers, derives the exact resolved `src` directory, prepends that directory
+once, changes the working directory to the resolved root, and executes only
+the literal V2 runner module. It accepts no arguments. It neither consults an
+editable installation nor treats ambient `PYTHONPATH`, `.pth`, `sitecustomize`,
+user site, or current working directory as authority.
 
-### Failure classification
+The same root-script path must birth the public parent, handshake child, and
+campaign child. The V2 runner may not spawn `python -m pontius...` directly.
+This makes package discovery a property of one sealed file rather than three
+shell environments.
 
-This is rejected-invocation plumbing tax at the public-launch boundary. It is
-not an owner terminal, compiler-container rejection, resource rejection,
-numerical result, or device observation. Python could not discover the
-`pontius` package, so no Pontius module imported, no bootstrap child started,
-and no CuPy, compiler, module, kernel, phase, or population path could execute.
+### Scrubbed public-to-child handshake before science
 
-The shared child runner reduced schema, durability, framing, and internal
-module-birth risk once the parent package was importable. It could not protect
-a failure before that parent import. The source-seal commands and focused tests
-explicitly installed `PYTHONPATH=src;.` before importing the owner. The real
-no-CuPy handshake therefore traversed the internal parent-to-child seam but not
-the literal public shell-to-parent seam. The missing control was execution of
-the exact public launcher under an environment with `PYTHONPATH` removed.
+The source seal must execute the literal root launcher in a fresh process from
+a working directory outside the repository. `PYTHONPATH` and `PYTHONHOME` are
+removed, user site is disabled, `-B` is present, and a fresh random challenge
+is supplied. The public probe must traverse the root launcher, V2 parent
+module, the real stdout/stderr/timeout/framing seam, a second root-launcher
+process, and the V2 child handshake.
 
-This is the same broad ambient-module-resolution defect family exposed by
-ADR-0397, at a different edge. ADR-0397 retired a runtime-derived child module
-name after the parent had launched. ADR-0421 shows that a literal child module
-does not make the public parent import self-contained. A named module is only
-launchable when its package root is installed or explicitly placed on
-`sys.path`.
+Parent and child must report runtime `__main__`, the exact literal V2 spec,
+and identical resolved root, `src`, launcher, interpreter, and challenge
+identities. The child command is exact. CuPy and ADR-0420's science adapter must
+remain unimported. Stdout is one canonical JSON line, stderr is empty, and all
+V1, V2, and reserved actual result paths remain absent. A test that imports the
+runner directly or injects a subprocess executor does not satisfy this gate.
 
-The structural successor is not an operator instruction to remember an
-environment variable. A new-identity repository-root launcher must derive and
-validate its exact repository and `src` paths from its own sealed location,
-prepend only that `src` path before importing a fresh runner module, reject
-arguments, and preserve `-B`. Its handshake-only mode must traverse the exact
-launcher under a scrubbed environment, prove the fresh runner's literal spec
-and runtime identities, and prove CuPy and all device science remain absent.
-The scientific campaign, compiler-container classifier, resource rules,
-complete-ten control, complete 10/22 populations, numerical gates, walls, and
-claims must remain byte- or hash-bound to ADR-0419/0420.
+### Fresh owner; unchanged campaign
 
-### Preserved scientific boundary
+V2 receives new protocol, campaign, header, result, and dependency identities.
+Its parent lifecycle remains exclusive `xb`, append/flush/fsync/ACK, bounded by
+the unchanged journal and parent walls, with the first terminal permanent. The
+fresh runner may import ADR-0420's unchanged adapter only inside its campaign
+child. It may not import or invoke the consumed V1 runner.
 
-ADR-0420's 18 focused controls and 12 source gates remain valid source-only
-evidence. They do not become device evidence because the public command failed.
-The exact generated CUDA source, complete/one-zero container classifier,
-retained V4 complete-ten reference, shared population path, 15-phase ledger,
-90-second validation wall, resource ceilings, numerical conjuncts, and
-population-25 prohibition were never exercised. No replacement projection is
-selected. The integer-operator proposal remains an untested future mechanism,
-not an explanation of or recovery from this launcher failure.
+Every campaign event payload and scientific terminal schema remains exactly
+V1. The built CUDA hash, ordered compiler options, complete/one-zero container
+classifier, retained V4 complete-ten query/fold reference, complete 10/22
+families/chunks/repeats/tiles, shared-fold-only population path, numerical and
+resource gates, 15-phase transitions and work, synchronization-first stamps,
+full population elapsed wall, forbidden population 25, and null capacity
+projection are imported by exact config/source hash. A science change closes
+this launcher recovery.
+
+### V2 reader as a checked envelope transducer
+
+The fresh reader imports no CuPy, adapter, or owner. It may import the sealed
+standard-library V1 reader as a semantic oracle; it may not read a V1 result.
+It independently validates V2 protocol/campaign/header/result/dependency
+identity, then constructs an in-memory V1-form envelope solely for the parent
+reader. Observation events and the outer scientific terminal must be byte- or
+canonical-JSON identical before and after transduction. Only protocol,
+campaign, and header identity may change.
+
+Synthetic controls must show the V2 reader and V1 semantic reader accept and
+reject the same compiler, container, resource, complete-ten, phase, work,
+population, numerical, and terminal mutations. Any trusted retained gate,
+changed observation, widened terminal, or parent-result read kills V2.
+
+### Scope
+
+This recovery answers only whether the public process tree is self-contained
+and whether the frozen device experiment can receive a fresh trustworthy owner.
+It does not select a capacity estimator or integer arithmetic mechanism. The
+exact-integer operator proposal remains a later algebra/bit-width/work/memory
+hypothesis regardless of whether this V2 validation passes or rejects.
 
 ### Continuity
 
-ADR-0421 records only the failed public launch from the ADR-0420 source seal;
-the owner module, journal, and every device value remain absent.
+ADR-0422 freezes only a launcher-safe successor identity; no successor source,
+probe, journal, or device value exists at this decision.
 
 The generated-front-door historical labels remain literal. ADR-0328 precedes
 the direct closed finite-block greedy line. ADR-0367 preregisters the occupied-
@@ -109,8 +122,9 @@ ADR-0415 source-seals the composite successor without invocation; ADR-0416
 consumes it and retains the frozen capacity rejection; ADR-0417 opens only the
 shared-direct-oracle source question; ADR-0418 source-seals that answer without
 device work; ADR-0419 freezes the separate device differential; ADR-0420
-source-seals that differential without invoking it; and ADR-0421 consumes its
-public command before owner import. No earlier owner is revived.
+source-seals that differential without invoking it; ADR-0421 consumes its
+public command before owner import; and ADR-0422 freezes only its launcher-safe
+successor. No earlier owner is revived.
 
 All 177 ordered observations pass under ADR-0320. The phrases exclusive
 untouched legal h4, selector-window, 2,113-task, exhaustive bounded development-
@@ -177,8 +191,8 @@ seals the composite source without running it; ADR-0416 retains its sole
 capacity rejection; ADR-0417 prospectively freezes only the shared selected
 direct oracle; ADR-0418 source-seals that oracle without device work; ADR-0419
 freezes the bounded device differential; ADR-0420 seals its source without
-invocation; and ADR-0421 closes the failed public command. No earlier owner is
-revived.
+invocation; ADR-0421 closes the failed public command; and ADR-0422 freezes its
+new-identity launcher recovery. No earlier owner is revived.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -191,7 +205,7 @@ to responder-row growth. ADR-0348 and ADR-0349 lead only to selector-window
 work. ADR-0351 requires the tie-aware legal h4 affine-envelope. ADR-0354 through
 ADR-0359 own the factorized face and affine consumer chain. ADR-0380 freezes
 the complete ordered populations 10 and 22. ADR-0383's owner was invoke exactly
-once and remains consumed by ADR-0384. ADR-0421 imports neither that owner nor
+once and remains consumed by ADR-0384. ADR-0422 imports neither that owner nor
 its target. The phrases exclusive untouched legal h4, selector-window,
 2,113-task, exhaustive bounded development-teacher, response-closed direct
 mechanism, and caller-owned legal fallback retain their prior meanings.
@@ -218,7 +232,7 @@ source-sealed CuPy-free consumer-capacity result.
 
 ## Active next
 
-Preserve the absent-but-consumed ADR-0420 result identity and exact failed public command, then preregister an additive launcher-only successor with new config/protocol/campaign/header/result identities; require a repository-root launcher that explicitly installs the sealed `src` directory for the child interpreter, a no-argument public path, and a scrubbed-environment no-CuPy handshake through that literal launcher before source seal; bind ADR-0420 and this failure without changing the frozen device science, opening population 25, selecting a projection, invoking the actual consumer, or inferring action latency or decision quality
+Implement and source-seal only the fresh V2 root launcher, owner, envelope reader, and controls from the hash-bound ADR-0422 config; make the root script the sole parent and child process entry, derive and prepend its exact `src` path without ambient package-path authority, run the literal public-to-child handshake from outside the repository with `PYTHONPATH` and `PYTHONHOME` removed and user site disabled, bind every V1 source and failure hash, differentially prove that V2 transduction changes only journal envelope/header identity before the independent V1 semantic reader, and keep both V1/V2 results, population 25, device work, projection selection, actual consumer, action latency, and decision quality absent
 
 ## Revoked authorities
 
@@ -226,7 +240,7 @@ Preserve the absent-but-consumed ADR-0420 result identity and exact failed publi
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0421](docs/decisions/ADR-0421-retain-the-shared-direct-public-launch-failure.md) — Retain the shared-direct public-launch failure.
+Latest process decision: [ADR-0422](docs/decisions/ADR-0422-preregister-the-launcher-safe-shared-direct-v2-owner.md) — Preregister the launcher-safe shared-direct V2 owner.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -234,7 +248,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0398](docs/decisions/ADR-0398-preregister-the-bootstrap-safe-work-preflight-v2-owner.md) | 2026-08-25 | accepted prospective lifecycle-only preregistration; a new owner/result/protocol/campaign/header identity, literal worker module, fresh-challenge no-CUDA subprocess handshake, and solver-free v2 lifecycle reader are frozen before successor source, child execution, compiler observation, calibration, phase row, projection, or result, while ADR-0394/ADR-0395 science remains byte-bound and every complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains unopened | Preregister the bootstrap-safe work-preflight v2 owner |
 | [ADR-0399](docs/decisions/ADR-0399-source-seal-the-bootstrap-safe-work-preflight-v2-owner.md) | 2026-08-25 | accepted source-only bootstrap-safe v2 seal; the additive owner, new lifecycle journal, solver-free reader, shared bounded child transport, fresh-challenge no-CUDA handshake, immutable-v1 rebinding, and 16 focused controls pass while the v2 result remains absent, campaign mode has not run, the scientific source is unchanged, and no compiler observation, calibration value, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result is opened | Source-seal the bootstrap-safe work-preflight v2 owner |
 | [ADR-0400](docs/decisions/ADR-0400-retain-the-work-preflight-v2-evidence-serializer-failure.md) | 2026-08-25 | accepted retained first-invocation infrastructure failure; ADR-0399's bootstrap-safe v2 owner is permanently closed after clean provenance and the fresh-challenge child handshake passed, then campaign failure reporting attempted to encode a slots `CudaRuntimeIdentity` through a `__dict__`-only fallback and masked an antecedent compiler/resource exception, with zero durable laboratory event, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result | Retain the work-preflight v2 evidence-serializer failure |
 | [ADR-0401](docs/decisions/ADR-0401-preregister-the-work-preflight-v3-evidence-serializer-recovery.md) | 2026-08-25 | accepted prospective serializer-only recovery; an approved concrete dataclass inventory, exact field-wise evidence encoder, process-local scientific normalizer substitution, real no-CUDA forced compiler-failure probe through the unchanged scientific `send` closure and shared child transport, new owner/result identities, and nested v2/v1 rebinding are frozen before successor source, probe execution, campaign, compiler observation, calibration, phase row, projection, or result, while both prior artifacts and every ADR-0394/ADR-0395 scientific field remain immutable | Preregister the work-preflight v3 evidence-serializer recovery |
@@ -258,18 +271,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0419](docs/decisions/ADR-0419-preregister-the-shared-direct-device-differential.md) | 2026-08-26 | accepted prospective bounded-device validation boundary; a fresh exclusive owner must durably retain the exact shared-source compiler payload before admitting either an unchanged complete ELF or one structurally bounded final-alignment zero completion, compare the retained V4 query and fold kernels byte-for-byte with the shared fold on complete 10, execute only the shared fold in two complete 10/22 population families under a contiguous 15-phase work ledger, and preserve all numerical and resource gates while every successor source, owner, reader, control, device result, capacity projection, complete 25-card numerical value, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the shared-direct device differential |
 | [ADR-0420](docs/decisions/ADR-0420-source-seal-the-shared-direct-device-differential.md) | 2026-08-26 | accepted source-only bounded-device seal; the additive adapter, no-argument exclusive owner, independent standard-library reader, fake compiler/module control, complete synthetic journal, exact complete/one-zero ELF classifiers, complete-10 retained-cubin differential path, and complete-10/22 shared population path pass 18 focused controls while the real device result, replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remain unopened | Source-seal the shared-direct device differential |
 | [ADR-0421](docs/decisions/ADR-0421-retain-the-shared-direct-public-launch-failure.md) | 2026-08-26 | accepted retained first-invocation launcher-resolution failure; ADR-0420's clean source-seal commit and public owner identity are permanently consumed after repository Python could not resolve the `pontius` package before importing the owner, with no journal, handshake, CuPy import, compiler observation, module load, kernel launch, complete 10/22 value, capacity projection, population-25 fixture or value, actual 45-card consumer, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, or poker-strength claim | Retain the shared-direct public-launch failure |
+| [ADR-0422](docs/decisions/ADR-0422-preregister-the-launcher-safe-shared-direct-v2-owner.md) | 2026-08-26 | accepted prospective launcher-only recovery; a fresh repository-root launcher, V2 owner, V2 envelope reader, controls, config/protocol/campaign/header/result identities, and scrubbed-environment public-to-child handshake are frozen before successor source or operation, while ADR-0420's adapter and all compiler-container, resource, complete-ten, complete 10/22, numerical, phase, wall, terminal, and claims semantics remain unchanged and every V2 result, capacity projection, population-25 fixture or value, actual 45-card consumer, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the launcher-safe shared-direct V2 owner |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0421](docs/decisions/ADR-0421-retain-the-shared-direct-public-launch-failure.md) — Retain the shared-direct public-launch failure.
+- Latest ADR: [ADR-0422](docs/decisions/ADR-0422-preregister-the-launcher-safe-shared-direct-v2-owner.md) — Preregister the launcher-safe shared-direct V2 owner.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 421.
-- ADR-header SHA-256: `e5d2916d48072a3179cde0c5f0daff00e050632682e84a6298eec3a4938928a0`.
-- Current blockers: ADR-0420's public owner command and prospective result identity are permanently consumed without a journal; no launcher-safe successor is preregistered or source-sealed; no device differential or complete 10/22 shared-path result exists; no replacement capacity estimator or projection is selected, and no complete 25-card numerical result, actual 45-card owner, or full-width actual-context quotient value exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 422.
+- ADR-header SHA-256: `5b92b6b00222c2421d1d61cbf566dd11acd2c603ac7a7918b207824e82776e7d`.
+- Current blockers: no V2 launcher, owner, reader, control, source seal, scrubbed launch result, or device differential exists; the V1 public owner identity is permanently consumed without a journal; no replacement capacity estimator or projection is selected, and no complete 25-card numerical result, actual 45-card owner, or full-width actual-context quotient value exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0421](docs/decisions/ADR-0421-retain-the-shared-direct-public-launch-failure.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0422](docs/decisions/ADR-0422-preregister-the-launcher-safe-shared-direct-v2-owner.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

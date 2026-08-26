@@ -1041,6 +1041,16 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   permanently consumed. Preregister a new-identity repository-root launcher
   and require a scrubbed-environment handshake through its literal public path;
   do not retry ADR-0420 by setting `PYTHONPATH`.
+- ADR-0422 preregisters that launcher-only V2 recovery under a new config,
+  protocol, campaign, header, result, owner, reader, and control identity. One
+  repository-root script must install the exact sealed `src` path for the
+  public parent and every child. Its source seal must traverse the literal
+  parent-to-child launcher from outside the repository with `PYTHONPATH` and
+  `PYTHONHOME` removed, user site disabled, and CuPy/science absent. Scientific
+  event payloads remain V1; the V2 reader may reuse the source-sealed CuPy-free
+  V1 semantic reader only behind an independently checked envelope/header
+  transduction. Implement and source-seal this boundary with every result path
+  absent; do not operate it from the preregistration commit.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

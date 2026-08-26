@@ -1819,19 +1819,19 @@ class DocumentationIntegrityTests(unittest.TestCase):
 
     def test_work_decomposed_paired_capacity_preflight_is_preregistered(self) -> None:
         expected = {
-            "README.md": ("ADR-0394", "34,003,200"),
-            "PROJECT.md": ("ADR-0394", "16 nonoverlapping host phases"),
+            "README.md": ("ADR-0396", "18 device-free"),
+            "PROJECT.md": ("ADR-0396", "constituent-complete ratio audit"),
             "STATUS.md": (
-                "ADR-0394",
-                "accepted prospective work-decomposed bounded-capacity preregistration",
+                "ADR-0396",
+                "accepted source-only composite work-preflight seal",
             ),
-            "ROADMAP.md": ("ADR-0394", "exact complete 10/22"),
+            "ROADMAP.md": ("ADR-0396", "18 device-free"),
             "RUNBOOK.md": (
-                "ADR-0394",
-                "88a16d62cf978ec61b7481c79b841eda6a2844a41f374c122a21be5310550d3c",
+                "ADR-0396",
+                "a522858696c8266485f7aac4b9c2dbb5f0d0c35e59d3e1515f4674d802ac890c",
             ),
-            "ARCHITECTURE.md": ("ADR-0394", "5/4"),
-            "RISK_REGISTER.md": ("R158", "favorable work units"),
+            "ARCHITECTURE.md": ("ADR-0396", "536,870,912"),
+            "RISK_REGISTER.md": ("R159", "exact spill traffic"),
             "artifacts/work_preflight/README.md": (
                 "ADR-0394",
                 "legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
@@ -2014,9 +2014,9 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "successor_controls_relative_path",
             "successor_runner_relative_path",
             "successor_reader_relative_path",
-            "prospective_result_relative_path",
         ):
-            self.assertFalse((_ROOT / scope[field]).exists(), scope[field])
+            self.assertTrue((_ROOT / scope[field]).is_file(), scope[field])
+        self.assertFalse((_ROOT / scope["prospective_result_relative_path"]).exists())
         self.assertFalse(
             (_ROOT / config["parent_identity"]["reserved_actual_result_relative_path"])
             .exists()
@@ -2038,6 +2038,63 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "No work or timing number in this decision is resolver latency",
         ):
             self.assertIn(phrase, adr)
+
+        correction_path = (
+            _ROOT
+            / "experiments/configs/"
+            "legal-river-quotient-cuda-compensated-work-preflight-v2.json"
+        )
+        correction_payload = correction_path.read_bytes().replace(b"\r\n", b"\n")
+        self.assertEqual(
+            hashlib.sha256(correction_payload).hexdigest(),
+            "a522858696c8266485f7aac4b9c2dbb5f0d0c35e59d3e1515f4674d802ac890c",
+        )
+        correction = json.loads(correction_payload)
+        self.assertEqual(
+            correction["corrected_resource_contract"][
+                "stack_plus_local_backing_limit_bytes_per_thread"
+            ],
+            4096,
+        )
+        self.assertIsNone(
+            correction["corrected_resource_contract"]["exact_spill_load_store_count"]
+        )
+        self.assertEqual(
+            correction["reserve_arithmetic"][
+                "maximum_resident_backing_at_4096_bytes_per_thread"
+            ],
+            536_870_912,
+        )
+
+        correction_adr = _contract_text(
+            "docs/decisions/ADR-0395-correct-the-work-preflight-resource-instrument-before-result.md"
+        )
+        for phrase in (
+            "unavailable compiler-spill wording",
+            "Exact spill-load/store traffic is structurally unavailable",
+            "536,870,912",
+            "No number here is resolver latency",
+        ):
+            self.assertIn(phrase, correction_adr)
+
+        seal = _contract_text(
+            "docs/decisions/ADR-0396-source-seal-the-work-decomposed-paired-capacity-preflight.md"
+        )
+        for relative in (
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight.py",
+            "tests/test_legal_river_quotient_cuda_compensated_work_preflight.py",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_runner.py",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_result.py",
+        ):
+            current = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(current).hexdigest(), seal)
+        for phrase in (
+            "18 passed",
+            "result paths remain absent",
+            "raw `--dump-resource-usage` stdout",
+            "no real compilation",
+        ):
+            self.assertIn(phrase, seal)
 
     def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
         expected = {

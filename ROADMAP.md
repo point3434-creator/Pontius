@@ -1404,9 +1404,16 @@ queue:
   numerical conjunct. ADR-0394 now freezes that boundary: exact complete 10/22
   calibration campaigns feed a 16-phase host-wall ledger, every projected
   phase uses prospectively fixed exact-work ratios plus a 5/4 guard, and 25
-  cards remain pure geometry. Implement and source-seal the additive owner and
-  CuPy-free reader with their result absent next; do not invoke calibration at
-  the source-seal checkpoint.
+  cards remain pure geometry. ADR-0395 corrects the unavailable spill-
+  attribute wording before result by freezing ELF executed-binary identity,
+  independent raw CUDA-13.3 resource reparse, driver/cubin maxima, and a
+  4,096-byte backing ceiling with explicit reserve arithmetic. ADR-0396 now
+  source-seals the composite owner and standard-library reader: 18 device-free
+  and synthetic controls pass, every projected ratio dominates its work,
+  live-shape, and relevant chunk-count constituents, and both result paths
+  remain absent. The immediate checkpoint is the one-shot no-argument 10/22
+  calibration from a clean committed seal; do not open a 25-card fixture or
+  numerical value.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1460,9 +1467,11 @@ queue:
   paired implementation as a nonterminal wall rejection before any complete
   25-card scalar. ADR-0394 preregisters the work-decomposed capacity successor,
   source-rank-major direct controls, complete 10/22 calibration, and a
-  conservative 180-second projection without opening source or timing. The
-  immediate checkpoint is its source seal with the one-shot result absent;
-  every actual
+  conservative 180-second projection without opening source or timing.
+  ADR-0395 corrects its resource instrument before result, and ADR-0396
+  source-seals the exact work/phase/resource owner and independent reader with
+  the one-shot result absent. The immediate checkpoint is the single 10/22
+  calibration invocation; every actual
   45-card value, owner, automatic truncation, resolver iteration, action
   timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

@@ -771,8 +771,8 @@ The first frozen complete 25-card invocation, however, remained nonterminal
 beyond the 180-second population wall and was stopped at the 600-second
 laboratory boundary before any 25-card scalar existed. No retry, actual owner,
 reader, artifact, 45-card value, action-time result, or quality claim exists.
-The next boundary is a preregistered work-decomposed successor whose capacity
-projection must pass before another complete numerical invocation.
+The active boundary is the source-sealed work-decomposed successor whose
+capacity projection must pass before another complete numerical invocation.
 
 ADR-0394 now freezes that preflight before successor source or timing. The
 direct controls become source-rank-major while preserving source, query, and
@@ -781,8 +781,19 @@ direct-fold source unranking from 1,994,854,400 visits to 34,003,200 without
 discarding the 611,229,696 coefficient additions. Complete 10- and 22-card
 campaigns will populate an exclusive 16-phase host-wall ledger; only exact
 integer work ratios, a frozen 5/4 guard, and pure 25-card geometry may produce
-the preflight projection. Its source, one-shot result, every 25-card numerical
-value, and every action-time or quality claim remain absent.
+the preflight projection.
+
+ADR-0395 corrects one prospective instrument omission before result: exact
+spill traffic is unavailable under the frozen compiler path, so the composite
+contract instead requires an ELF cubin, independent raw CUDA-13.3 `cuobjdump`
+reparse, the maximum of driver/cubin register and backing instruments, and a
+4,096-byte-per-thread ceiling priced inside the inherited device reserve.
+ADR-0396 source-seals that composite implementation. Its 18 device-free and
+synthetic controls pass, including exact phase boundaries, every constituent
+work/live-shape/chunk ratio, rogue-25 rejection, resource mutations, and owner
+failure terminals. The one-shot result, every 25-card numerical value, and
+every action-time or quality claim remain absent; the next checkpoint is the
+single 10/22 calibration invocation.
 
 ## Current checkpoint
 

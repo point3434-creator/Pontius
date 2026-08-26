@@ -2410,3 +2410,20 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     seconds, or projected 25-card campaign over 180 seconds is a permanent
     rejection. A projection pass is not a 25-card numerical, action-time, or
     quality result.
+110. ADR-0395 corrects the unavailable spill-attribute wording before any
+    result. Preserve correction-config canonical-LF SHA-256
+    `a522858696c8266485f7aac4b9c2dbb5f0d0c35e59d3e1515f4674d802ac890c`.
+    Do not add a sixth caller NVRTC option. Require an ELF retained payload,
+    CUDA-13.3 tool identity and raw resource stdout, independent reader
+    reparse, driver/cubin maxima, at most 255 registers and 4,096 backing bytes
+    per thread, and the frozen 131,072-thread/2-GB-reserve arithmetic. Exact
+    spill traffic stays `null`; do not rename stack/local bytes as spill counts.
+111. ADR-0396 source-seals the composite owner and reader. Before invocation,
+    require a clean commit, run the 18 device-free/synthetic controls with the
+    repository virtual environment and `-B`, verify both
+    `artifacts/work_preflight/legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl`
+    and `artifacts/legal_river_quotient_cuda_consumer_v1.jsonl` are absent, and
+    verify the four actual counters remain zero. Then, at a distinct checkpoint
+    only, invoke the public no-argument owner exactly once. Never compile,
+    allocate, launch, digest, reduce, or gate population 25; it remains integer
+    geometry/work/projection only.

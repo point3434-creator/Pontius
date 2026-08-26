@@ -1,0 +1,107 @@
+{
+  "schema_version": "legal-river-quotient-cuda-compensated-work-preflight-resource-correction-v2",
+  "evidence_stage": "pre_result_correction_after_adr0394_and_before_source_seal_real_compilation_or_calibration",
+  "campaign_id": "pontius-adr0395-legal-river-quotient-cuda-compensated-work-preflight-resource-correction-v2",
+  "parent_identity": {
+    "adr0394_canonical_lf_sha256": "362f21a4f246f8598adc5445f3323088c1e38b389f4f07b3ae600c831c57de44",
+    "v1_config_relative_path": "experiments/configs/legal-river-quotient-cuda-compensated-work-preflight-v1.json",
+    "v1_config_canonical_lf_sha256": "88a16d62cf978ec61b7481c79b841eda6a2844a41f374c122a21be5310550d3c",
+    "v1_preregistration_commit": "fc1892e15522eed4b9935de0404131646820c451",
+    "successor_draft_exists_uncommitted": true,
+    "successor_device_compilation_or_value_observed": false,
+    "prospective_result_relative_path": "artifacts/work_preflight/legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
+    "prospective_result_must_remain_absent": true,
+    "reserved_actual_result_relative_path": "artifacts/legal_river_quotient_cuda_consumer_v1.jsonl",
+    "reserved_actual_result_must_remain_absent": true
+  },
+  "composite_authority": {
+    "base": "the_complete_canonical_v1_config",
+    "overlay": "this_v2_resource_instrument_correction",
+    "all_v1_arithmetic_population_phase_ratio_wall_lifecycle_and_claim_fields_remain_binding": true,
+    "v2_may_not_relax_remove_or_reinterpret_any_v1_numerical_semantic_timing_or_claim_gate": true,
+    "future_source_owner_and_reader_must_load_verify_and_report_both_config_hashes": true
+  },
+  "omission": {
+    "classification": "pre_result_instrument_completeness_defect",
+    "v1_missing_fact": "neither_NVRTC_nor_cuobjdump_exposes_exact_spill_load_or_store_counts_under_the_frozen_caller_options",
+    "v1_unfrozen_choice": "no_literal_backing_ceiling_or_executed_binary_identity_gate_was_frozen",
+    "v1_ambiguous_phrase_replaced": "compiler_register_local_and_spill_attributes",
+    "source_or_device_value_observed_before_correction": false,
+    "parent_wall_rejection_values_are_historical_input_not_successor_outcomes": true
+  },
+  "corrected_resource_contract": {
+    "caller_supplied_nvrtc_options_unchanged": [
+      "--std=c++14",
+      "--ftz=false",
+      "--prec-div=true",
+      "--prec-sqrt=true",
+      "--fmad=false"
+    ],
+    "cupy_owned_internal_options_are_not_caller_options": true,
+    "record_cupy_version_and_disclose_internal_target_arch_execution_space_and_optional_pch_handling": true,
+    "retained_payload_must_begin_with_elf_magic_before_module_load": true,
+    "retained_elf_payload_sha256_must_be_reported": true,
+    "inspect_the_retained_executed_elf_payload_with_cuda_13_3_cuobjdump_dump_resource_usage": true,
+    "record_cuobjdump_version_output_and_raw_resource_stdout": true,
+    "cupy_free_reader_must_independently_parse_raw_resource_stdout": true,
+    "new_direct_kernels": [
+      "direct_selected_queries_tile",
+      "direct_selected_fold_tile",
+      "direct_selected_adjoint_tile"
+    ],
+    "driver_attributes_per_kernel": [
+      "local_size_bytes",
+      "registers",
+      "shared_size_bytes",
+      "maximum_threads_per_block"
+    ],
+    "cuobjdump_fields_per_kernel": ["REG", "STACK", "LOCAL"],
+    "register_gate": "max(driver_registers,cuobjdump_REG)<=255",
+    "register_limit_per_thread": 255,
+    "backing_gate": "max(driver_local_size_bytes,cuobjdump_STACK_plus_LOCAL)<=4096",
+    "stack_plus_local_backing_limit_bytes_per_thread": 4096,
+    "exact_spill_load_store_count": null,
+    "spill_traffic_is_structurally_unavailable_and_must_not_be_invented": true,
+    "stack_or_local_bytes_must_not_be_relabelled_as_exact_spill_traffic": true
+  },
+  "reserve_arithmetic": {
+    "frozen_device_reserve_bytes": 2000000000,
+    "maximum_resident_thread_bound": 131072,
+    "maximum_resident_backing_at_4096_bytes_per_thread": 536870912,
+    "reserve_headroom_bytes": 1463129088,
+    "require_runtime_multiprocessor_count_times_maximum_threads_per_multiprocessor_at_or_below_bound": true,
+    "require_backing_bound_at_or_below_frozen_device_reserve": true,
+    "population_pool_peak_and_all_inherited_memory_gates_remain_separate_conjuncts": true
+  },
+  "additional_source_controls": {
+    "reject_ptx_or_any_non_elf_retained_payload_before_module_load": true,
+    "reject_missing_or_changed_cuobjdump_version_or_raw_resource_text": true,
+    "reject_driver_or_cuobjdump_register_limit_breach": true,
+    "reject_driver_or_cuobjdump_backing_limit_breach": true,
+    "reject_runtime_resident_thread_bound_breach": true,
+    "reject_reader_resource_reparse_or_reconstruction_disagreement": true
+  },
+  "additional_kill_criteria": {
+    "retained_compiler_payload_is_not_elf": true,
+    "resource_tool_or_output_is_absent_malformed_or_not_independently_rebound": true,
+    "register_or_backing_gate_false_for_any_new_direct_kernel": true,
+    "runtime_resident_thread_or_device_reserve_gate_false": true,
+    "exact_spill_traffic_claimed_from_an_instrument_that_does_not_report_it": true,
+    "any_real_compilation_calibration_projection_or_result_predates_this_correction": true
+  },
+  "claims": {
+    "successor_source_sealed": false,
+    "real_compiler_resource_result": null,
+    "calibration_result": null,
+    "complete_25_numerical_value": null,
+    "actual_45_card_value": null,
+    "resolver_iteration_result": null,
+    "solve_result": null,
+    "action_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

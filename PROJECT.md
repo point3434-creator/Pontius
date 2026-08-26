@@ -867,6 +867,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   one-shot journal, and a CuPy-free reader are frozen. Population 25 is
   arithmetic-only until a later authority, so no 25-card numerical value,
   actual owner, action-clock result, quality prior, or truncation choice opens.
+- ADR-0395 corrects the preregistered compiler-resource instrument before any
+  result: five caller NVRTC options remain unchanged, the retained payload
+  must be ELF, raw CUDA-13.3 `cuobjdump` output is independently rebound, and
+  driver/cubin register and stack-plus-local maxima are gated against 255
+  registers and 4,096 bytes per thread with explicit device-reserve arithmetic.
+  Exact spill traffic remains unavailable and must not be invented. ADR-0396
+  source-seals the composite source, exclusive subprocess owner, exact raw
+  phase/work ledger, constituent-complete ratio audit, and standard-library
+  reader with 18 source/synthetic controls passing. Both result paths remain
+  absent; no calibration, complete-25 numerical value, action timing, quality
+  prior, or truncation authority opens.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

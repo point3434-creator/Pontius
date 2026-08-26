@@ -1784,7 +1784,7 @@ compatible record before updating ordered boundary features. Coefficients are
 still summed by increasing source rank and folded by increasing global feature,
 so traversal optimization does not reassociate the pair arithmetic.
 
-The future preflight partitions each complete 10/22 campaign into 16
+The source-sealed preflight partitions each complete 10/22 campaign into 16
 contiguous host-wall phases. Raw executed-work counters and synchronized
 `perf_counter_ns` spans are deciding; CUDA events are diagnostic. Each
 complete-25 phase upper is the worse 10- or 22-card exact-work projection,
@@ -1792,6 +1792,18 @@ multiplied by 5/4 and increased by 1 ms. Their sum must fit 180 seconds before
 a later 25-card numerical authority can even be proposed. Population 25 has no
 fixture/compiler/device path in this boundary, and a capacity pass would still
 say nothing about its numerical seam, resolver latency, or decision quality.
+
+ADR-0395 corrects the compiler-resource seam prospectively: the retained
+compiler payload must be an ELF cubin before load, raw CUDA-13.3 `cuobjdump`
+resource text and driver function attributes are both retained, and the
+standard-library reader reconstructs the per-kernel maxima. The gates are 255
+registers and 4,096 stack-plus-local backing bytes per thread; a 131,072-thread
+resident upper bound prices at most 536,870,912 backing bytes inside the
+inherited 2 GB device reserve. Exact spill traffic is deliberately unavailable.
+ADR-0396 source-seals this composite without device execution. Both producer
+and reader also enumerate every phase's work, live-shape, and relevant chunk-
+count ratios; raw shared host boundaries make gaps, overlaps, and false sums
+detectable. The one-shot 10/22 result remains absent.
 
 ## Runtime target
 

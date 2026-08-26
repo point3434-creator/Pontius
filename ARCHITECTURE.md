@@ -1882,6 +1882,16 @@ for all three direct kernels, and permit an empty result; driver attributes
 remain independent evidence and cannot silently satisfy the dual-instrument
 contract.
 
+ADR-0407 fixes the artifact-only selector architecture. Of the five retained
+commands, only `cuobjdump_resource_usage` may supply the complete external
+resource instrument; tool identities, ELF output, and default `nvdisasm` are
+supporting evidence. The selector is standard-library and process-free,
+requires exact three-kernel `REG`/`STACK`/`LOCAL` rows, pairs them with driver
+register/local quantities by name and unit, and computes componentwise maxima.
+Instrument qualification is separate from the 255-register and 4,096-byte
+resource verdict. Its output algebra explicitly includes
+`no_qualified_inspector`.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

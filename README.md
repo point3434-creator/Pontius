@@ -832,7 +832,10 @@ complete raw corpus. The driver accepts the exact ELF-magic payload, while
 CUDA 13.3 `cuobjdump` and `nvdisasm` reject that same file through their payload
 operations. No inspector or resource gate follows from the capture pass. The
 next boundary is a preregistered GPU-free selector over only the immutable
-artifact, with an honest empty-selection terminal.
+artifact, with an honest empty-selection terminal. ADR-0407 now freezes that
+selector: only a zero-return, complete three-kernel `REG`/`STACK`/`LOCAL`
+resource operation may qualify, and qualification cannot depend on whether the
+reported values pass their later ceilings. Source and result remain unopened.
 
 ## Current checkpoint
 

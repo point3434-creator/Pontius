@@ -936,6 +936,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   The next step is a prospectively frozen GPU-free selector over only the
   immutable artifact; it must type an empty selection honestly and may not
   substitute driver-only evidence.
+- ADR-0407 preregisters that artifact-only selector before source. CUDA 13.3's
+  documented per-function `REG`/`STACK`/`LOCAL` output makes only the retained
+  `cuobjdump_resource_usage` operation semantically eligible; version, ELF,
+  driver, and default `nvdisasm` evidence remain supporting facts. Selection
+  requires exact identity, return code zero, and complete independently parsed
+  rows for all three direct kernels. `no_qualified_inspector` is first-class,
+  and resource ceilings cannot decide whether an instrument is valid.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

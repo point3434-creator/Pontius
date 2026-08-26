@@ -896,6 +896,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   challenge control proves literal worker birth with CuPy and science unloaded.
   All 16 focused controls pass and the v2 result remains absent. Only the clean
   committed no-argument owner is eligible for one invocation.
+- ADR-0400 retains that sole invocation as a distinct infrastructure failure.
+  Bootstrap passed, but a slots `CudaRuntimeIdentity` could not cross the
+  `__dict__`-only evidence normalizer while reporting an earlier compiler/
+  resource exception. That earlier cause is masked and unclassified. The
+  artifact has two lifecycle events, zero phases, and no projection; v2 is
+  permanently closed.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

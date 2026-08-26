@@ -1374,7 +1374,6 @@ class DocumentationIntegrityTests(unittest.TestCase):
         expected = {
             "README.md": ("ADR-0376", "tracked"),
             "PROJECT.md": ("ADR-0376", "before/after-stage wall seams"),
-            "STATUS.md": ("ADR-0376", "bootstrap-safe"),
             "ROADMAP.md": ("ADR-0376", "one clean exclusive invocation"),
             "RUNBOOK.md": ("ADR-0376", "Never invoke v1 again"),
             "ARCHITECTURE.md": ("ADR-0376", "envelope campaign"),
@@ -1819,19 +1818,19 @@ class DocumentationIntegrityTests(unittest.TestCase):
 
     def test_work_decomposed_paired_capacity_preflight_is_preregistered(self) -> None:
         expected = {
-            "README.md": ("ADR-0399", "16 focused controls pass"),
-            "PROJECT.md": ("ADR-0399", "One shared"),
+            "README.md": ("ADR-0400", "four-record journal"),
+            "PROJECT.md": ("ADR-0400", "masked and unclassified"),
             "STATUS.md": (
-                "ADR-0399",
-                "accepted source-only bootstrap-safe v2 seal",
+                "ADR-0400",
+                "accepted retained first-invocation infrastructure failure",
             ),
-            "ROADMAP.md": ("ADR-0399", "sole clean no-argument invocation"),
+            "ROADMAP.md": ("ADR-0400", "slots dataclass"),
             "RUNBOOK.md": (
-                "ADR-0399",
-                "pontius.legal_river_quotient_cuda_compensated_work_preflight_v2_runner",
+                "ADR-0400",
+                "9b9a3f606004a281773f6dc83c86fe2f70811ab825fbf1e0b8b47c1c75abdad3",
             ),
-            "ARCHITECTURE.md": ("ADR-0399", "bounded cancellable stdout queue"),
-            "RISK_REGISTER.md": ("R161", "ADR-0399's source seal"),
+            "ARCHITECTURE.md": ("ADR-0400", "frozen slots dataclass"),
+            "RISK_REGISTER.md": ("R162", "concrete-type inventory"),
             "artifacts/work_preflight/README.md": (
                 "ADR-0394",
                 "legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
@@ -2159,7 +2158,14 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "v2_controls_relative_path",
         ):
             self.assertTrue((_ROOT / scope[field]).is_file(), scope[field])
-        self.assertFalse((_ROOT / scope["v2_result_relative_path"]).exists())
+        v2_result = _ROOT / scope["v2_result_relative_path"]
+        self.assertTrue(v2_result.is_file())
+        self.assertEqual(len(v2_result.read_bytes()), 8508)
+        self.assertEqual(len(v2_result.read_bytes().splitlines()), 4)
+        self.assertEqual(
+            hashlib.sha256(v2_result.read_bytes()).hexdigest(),
+            "9b9a3f606004a281773f6dc83c86fe2f70811ab825fbf1e0b8b47c1c75abdad3",
+        )
         self.assertFalse((_ROOT / scope["reserved_actual_result_relative_path"]).exists())
 
         identity = config["new_identity_contract"]
@@ -2231,6 +2237,20 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "not pre-judged to pass",
         ):
             self.assertIn(phrase, source_seal)
+
+        outcome = _contract_text(
+            "docs/decisions/ADR-0400-retain-the-work-preflight-v2-evidence-serializer-failure.md"
+        )
+        for phrase in (
+            "event_count=2",
+            "handshake=True",
+            "phase_count=0",
+            "masked and therefore unclassified antecedent",
+            "frozen slots dataclass",
+            "13 of 16 controls",
+            "No laboratory observation survived",
+        ):
+            self.assertIn(phrase, outcome)
 
     def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
         expected = {

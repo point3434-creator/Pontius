@@ -2445,3 +2445,9 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     `python -B -m pontius.legal_river_quotient_cuda_compensated_work_preflight_v2_runner`.
     Retain its first exclusive terminal without retry or repair. Population 25
     remains integer projection only throughout this invocation.
+115. ADR-0400 permanently consumes v2. Preserve the exact 8,508-byte artifact
+    SHA-256 `9b9a3f606004a281773f6dc83c86fe2f70811ab825fbf1e0b8b47c1c75abdad3`.
+    Its handshake passed, but no laboratory row survived: a slots
+    `CudaRuntimeIdentity` broke the evidence normalizer and masked the original
+    compiler/resource exception. Never infer that cause or retry v2. A v3 must
+    use new identities and prove real-type failure reporting before campaign.

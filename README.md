@@ -803,8 +803,12 @@ handshake with a fresh challenge through the actual shared subprocess seam.
 It may not change the frozen science. ADR-0399 source-seals that recovery: 16
 focused controls pass, including the real device-free worker birth, exact wall
 and pipe cleanup, adversarial framing/order/mutation failures, and a complete
-synthetic scientific rebind. The v2 result remains absent. The next boundary
-is its sole no-argument campaign invocation from the clean source commit.
+synthetic scientific rebind. ADR-0400 now retains the sole v2 invocation. Its
+fresh handshake passed, then the compiler-failure reporter tried to normalize
+a frozen slots `CudaRuntimeIdentity` through a `__dict__`-only fallback and
+masked the antecedent exception. The four-record journal has zero phase rows
+and no projection. V2 is permanently closed; a new additive serializer
+recovery must be sealed before any further campaign.
 
 ## Current checkpoint
 

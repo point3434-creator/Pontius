@@ -1417,8 +1417,10 @@ queue:
   preregisters an additive v2 with a literal worker module, new result identity,
   and actual fresh-challenge no-CUDA subprocess handshake. The immediate
   source seal now passes under ADR-0399 with 16 controls and no campaign call.
-  The immediate checkpoint is its sole clean no-argument invocation; do not
-  open a 25-card fixture or numerical value.
+  ADR-0400 retains the sole invocation: handshake passes, then the typed
+  compiler-failure reporter masks its antecedent on a slots dataclass. V2 is
+  closed. The immediate checkpoint is a preregistered additive v3 evidence-
+  serializer recovery; do not open a 25-card fixture or numerical value.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1478,8 +1480,9 @@ queue:
   the one-shot result absent. ADR-0397 retains v1's sole command as a durable
   pre-worker infrastructure failure and closes it. ADR-0398 freezes the
   additive bootstrap-safe v2 lifecycle, and ADR-0399 source-seals it after a
-  real no-CUDA child handshake. The immediate checkpoint is the one-shot v2
-  calibration owner; every actual
+  real no-CUDA child handshake. ADR-0400 retains its sole call as an evidence-
+  serializer infrastructure failure with no phase or projection. The immediate
+  checkpoint is a new-identity v3 serializer seal; every actual
   45-card value, owner, automatic truncation, resolver iteration, action
   timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

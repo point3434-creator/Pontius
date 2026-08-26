@@ -1828,6 +1828,14 @@ public owner journals the independently known parent challenge digest beside
 the child reply before any campaign child can start. Sixteen controls pass;
 campaign mode and the real v2 artifact remain unopened.
 
+ADR-0400 shows the transport succeeded but the next typed boundary did not.
+The scientific failure reporter's `_plain` fallback recognizes objects via
+`__dict__`; `CudaRuntimeIdentity` is a frozen slots dataclass and therefore
+rejected. Because this occurred while handling a compiler/resource exception,
+the antecedent was masked. Any v3 must add a schema-aware dataclass encoder in
+new source, inventory every concrete emitted type, and test the reporter with
+the real runtime type through the exact send/framing seam.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

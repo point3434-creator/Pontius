@@ -2275,6 +2275,17 @@ zero-event terminal without editing either consumed v2 module. A successor
 must bind parent and child environments separately and make zero-event terminal
 handling part of the reader contract.
 
+ADR-0446 freezes that split before successor source. The parent remains the
+exact 55-key compiler mapping. The child has its own 55-key activated
+projection and exact 63-key complete domain: one CUDA-wheel prefix changes
+`PATH`, six static Python/CUDA bootstrap variables are fixed, campaign mode is
+fixed, and only the resolved spool path is dynamic. Five repository-required
+DLLs are size/hash-bound, the prefix occurs once, and the same host compiler
+tools must resolve behind it. The fresh reader has two explicit lifecycle
+branches: fully validate zero-event infrastructure terminals, or require
+bootstrap first and reuse the unchanged scientific reader after a measured
+header-only projection.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

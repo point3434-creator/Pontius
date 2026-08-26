@@ -1703,6 +1703,13 @@ queue:
   preregistration binding separate parent/child environment identities, the
   exact runtime directory/files, unchanged compiler resolution, and complete
   zero-event reader semantics. No retry or device result exists.
+  ADR-0446 now freezes that successor before source: distinct exact parent and
+  child environment digests, one allowlisted `PATH` relation, a 63-key child
+  domain, five size/hash-bound CUDA-wheel DLLs, unchanged `cl/link/rc`
+  resolution, fresh v3 identities, and an explicit zero-event reader branch.
+  Implement and source-seal only those wrappers and controls next. Compilation,
+  CuPy scientific import, device work, v3 result creation, candidate selection,
+  population 25, and actual 45 remain closed until the clean source commit.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

@@ -1,0 +1,215 @@
+{
+  "schema_version": "legal-river-quotient-fixed-width-device-preflight-child-runtime-successor-v4",
+  "evidence_stage": "prospective_after_adr0445_retained_zero_event_infrastructure_rejection_before_successor_source_compile_device_query_or_result",
+  "decision": "create_one_fresh_successor_that_binds_parent_compiler_and_post_import_child_runtime_as_distinct_exact_environments_and_reuses_all_adr0441_science",
+  "parent_commit": "b326ac2ffc7dee1adfe68110c7e7d92c19af581b",
+  "parent_chain": {
+    "adr0444": {
+      "relative_path": "docs/decisions/ADR-0444-source-seal-the-msvc-bound-fixed-width-device-successor.md",
+      "canonical_lf_sha256": "aa7d08d3592a805b6d6285334cf5ac2e8e80bea5dfaf131c0f425ef0cec2926e"
+    },
+    "adr0445": {
+      "relative_path": "docs/decisions/ADR-0445-retain-the-msvc-bound-zero-event-infrastructure-rejection.md",
+      "canonical_lf_sha256": "9b9f76653a4b42d442e2f092fa72fa852cd23e26a45745c4808d12da93b332e4"
+    },
+    "msvc_config": {
+      "relative_path": "experiments/configs/legal-river-quotient-fixed-width-device-preflight-v3-msvc-environment.json",
+      "canonical_lf_sha256": "21b74a0f7f13e8eac894d4ecf2c4dd05cde3925ab24449f11944d954ec59067c"
+    },
+    "v2_runner": {
+      "relative_path": "src/pontius/legal_river_quotient_fixed_width_device_preflight_v2_runner.py",
+      "canonical_lf_sha256": "9b9b79ea2d0032d4970a1a45b75482b75e5a3516259e10de268f5df6a3cba426"
+    },
+    "v2_reader": {
+      "relative_path": "src/pontius/legal_river_quotient_fixed_width_device_preflight_v2_result.py",
+      "canonical_lf_sha256": "d9e1a4a646788192c5354dbc1e0c6a3956121c7c18b640d9db4f9e747fd290f3"
+    },
+    "v2_outcome_assessor": {
+      "relative_path": "src/pontius/legal_river_quotient_fixed_width_device_preflight_v2_outcome.py",
+      "canonical_lf_sha256": "1cce12a1949bbbae43b137c690f9e04281e1a39c4483ff35a8bef0d4bb463732"
+    },
+    "v2_outcome_controls": {
+      "relative_path": "tests/test_legal_river_quotient_fixed_width_device_preflight_v2_outcome.py",
+      "canonical_lf_sha256": "7b2696a4dfa65835d97247431edb94b997215f85e5eb8368f5e834764845a2ed"
+    },
+    "consumed_v2_result": {
+      "relative_path": "artifacts/work_preflight/legal_river_quotient_fixed_width_device_preflight_v2.jsonl",
+      "raw_sha256": "af5210920d61ef4a39dc027d303a83b64b09ada794f67526ee856ac0e5901085",
+      "bytes": 10557,
+      "terminal": "infrastructure_failure",
+      "event_count": 0
+    },
+    "package_initializer": {
+      "relative_path": "src/pontius/__init__.py",
+      "canonical_lf_sha256": "5dd4371cf5f30af8ccd637a1650da55700baf23be2665f16975cd5167f469031"
+    },
+    "cuda_dll_bootstrap": {
+      "relative_path": "src/pontius/cuda_dll_bootstrap.py",
+      "canonical_lf_sha256": "66d6bcfaadbaf47f110854380c227163cf052414f494a510dd53a4ea2ef91bef"
+    },
+    "scientific_source": {
+      "relative_path": "src/pontius/legal_river_quotient_fixed_width_device_preflight.py",
+      "canonical_lf_sha256": "5b448e3a7d6607cb9392505e35f4428b0bec460caedca3c881b52a81145e1df1"
+    }
+  },
+  "diagnosed_defects": {
+    "owner": "the_55_key_parent_vcvars64_environment_digest_was_reused_after_package_initialization_had_deterministically_changed_child_PATH",
+    "reader": "the_v2_reader_required_one_or_more_observations_before_examining_a_complete_owner_terminal_even_though_the_owner_schema_permits_zero_event_infrastructure_failure",
+    "defect_family": "one_semantic_environment_identity_reused_for_two_process_phases_plus_a_reader_assuming_a_later_lifecycle_state",
+    "v2_owner_reader_command_protocol_campaign_and_result_are_permanently_consumed": true
+  },
+  "parent_compiler_environment": {
+    "activated_key_count": 55,
+    "full_sha256": "6b3ccdc1ac479b5b4b9626161cdd5ca28f5d5043f6b87cc65a6f27f8e1a3cfe6",
+    "selected_sha256": "a313c9a0fc817a9375912aba0e9acce6984e7d9bb5b28b3ccf56e7ef23a7c1a0",
+    "first_PATH_entry_is_bound_msvc_directory": true,
+    "activation_is_reconstructed_from_system32_only_baseline": true,
+    "activation_and_clean_git_are_inside_public_wall": true,
+    "exact_host_file_rows_and_versions_remain_the_adr0443_values": true
+  },
+  "child_runtime_environment": {
+    "activated_key_count": 55,
+    "activated_projection_full_sha256": "287903a61870ad16883bfcb764f50758857cdc463fe803c5b21ee41ff2a6a874",
+    "activated_projection_selected_sha256": "10068a92a3a2fe39269b77c2c22e07e0889261f0dcc696f074a2f786c1167270",
+    "complete_environment_key_count": 63,
+    "only_changed_parent_activated_key": "PATH",
+    "PATH_relation": "child_PATH_equals_exact_runtime_directory_semicolon_parent_PATH",
+    "runtime_prefix_occurrence_count": 1,
+    "first_PATH_entry_is_exact_runtime_directory": true,
+    "second_PATH_entry_is_exact_bound_msvc_directory": true,
+    "cl_link_and_rc_resolve_to_the_same_bound_host_files_through_child_PATH": true,
+    "static_added_environment": {
+      "CUDA_PATH": "C:\\Users\\point\\OneDrive\\Documents\\ChatGPT\\Pontius\\.venv\\Lib\\site-packages\\nvidia\\cu13",
+      "PONTIUS_CUDA_DLL_DIRECTORY": "C:\\Users\\point\\OneDrive\\Documents\\ChatGPT\\Pontius\\.venv\\Lib\\site-packages\\nvidia\\cu13\\bin\\x86_64",
+      "PONTIUS_CUDA_DLL_SOURCE": "active_python_environment",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONNOUSERSITE": "1",
+      "PYTHONPATH": "C:\\Users\\point\\OneDrive\\Documents\\ChatGPT\\Pontius\\src"
+    },
+    "dynamic_added_environment": {
+      "mode_name": "PONTIUS_ADR0446_DEVICE_PREFLIGHT_MODE",
+      "mode_value": "campaign_child_v3",
+      "spool_name": "PONTIUS_ADR0446_DEVICE_PREFLIGHT_SPOOL",
+      "spool_must_be_one_existing_resolved_owner_created_directory": true,
+      "challenge_name": "PONTIUS_ADR0446_DEVICE_PREFLIGHT_CHALLENGE",
+      "challenge_must_be_absent_in_campaign_child": true
+    },
+    "all_other_parent_activated_keys_are_byte_identical": true,
+    "no_unlisted_case_insensitive_environment_key_is_permitted": true
+  },
+  "bound_runtime_directory": {
+    "path": "C:\\Users\\point\\OneDrive\\Documents\\ChatGPT\\Pontius\\.venv\\Lib\\site-packages\\nvidia\\cu13\\bin\\x86_64",
+    "source": "active_python_environment",
+    "cupy_distribution": "cupy-cuda13x==14.2.0",
+    "cuda_runtime_distribution": "nvidia-cuda-runtime==13.3.29",
+    "cuda_nvrtc_distribution": "nvidia-cuda-nvrtc==13.3.33",
+    "required_files": [
+      {
+        "name": "cudart64_13.dll",
+        "bytes": 551024,
+        "sha256": "b00ca6f53699120da815bf3e06e2e4285fae2f201235b883dcbb50eec51e2a2a"
+      },
+      {
+        "name": "nvJitLink_130_0.dll",
+        "bytes": 92465776,
+        "sha256": "727a0acfc4495b229143b53843004eef36e0a3463fb2e1c7c4215468607fd613"
+      },
+      {
+        "name": "nvrtc-builtins64_133.dll",
+        "bytes": 6684784,
+        "sha256": "82c703802846329d3bab3d8df06f8c956516a0eeec568033092d6c0a69b2733a"
+      },
+      {
+        "name": "nvrtc64_130_0.dll",
+        "bytes": 101385328,
+        "sha256": "c7af6b5dbd001852d1b4a18effc6fbcfc94787eddadffea629a8333cb25b05fe"
+      },
+      {
+        "name": "cusparse64_12.dll",
+        "bytes": 166481008,
+        "sha256": "fa7629e5eda676ccb685119490d2db88881b044cccf4023a9c326ad7513c425b"
+      }
+    ],
+    "required_file_hashes_are_checked_in_parent_source_probe_and_campaign_child_before_science": true,
+    "directory_contains_13_files_and_1476455856_bytes_reporting_only": true,
+    "unlisted_directory_files_have_no_identity_or_fault_detection_claim": true
+  },
+  "fresh_identity": {
+    "launcher": "run_legal_river_quotient_fixed_width_device_preflight_v3.py",
+    "runner": "src/pontius/legal_river_quotient_fixed_width_device_preflight_v3_runner.py",
+    "reader": "src/pontius/legal_river_quotient_fixed_width_device_preflight_v3_result.py",
+    "controls": "tests/test_legal_river_quotient_fixed_width_device_preflight_v3.py",
+    "result": "artifacts/work_preflight/legal_river_quotient_fixed_width_device_preflight_v3.jsonl",
+    "protocol_campaign_header_dependency_module_and_result_identities_are_fresh": true,
+    "all_five_fresh_paths_are_absent_at_preregistration": true,
+    "result_git_attribute_literal": "*.jsonl -text"
+  },
+  "reuse_boundary": {
+    "scientific_source_literal_CUDA_translation_unit_compiler_options_arms_populations_orders_repeats_resources_arithmetic_memory_phases_walls_eligibility_and_claims_are_unchanged": true,
+    "v3_runner_is_an_additive_wrapper_over_the_v2_host_wrapper_and_adr0441_scientific_owner": true,
+    "v3_header_adds_exact_child_runtime_evidence_and_names_the_consumed_v2_predecessor": true,
+    "reader_projection_may_remove_only_the_child_runtime_header_field_and_replace_only_the_literal_worker_module_and_predecessor_header_fields_after_full_fresh_validation": true,
+    "no_scientific_observation_or_terminal_payload_field_may_change": true,
+    "candidate_selection_remains_null": true
+  },
+  "reader_lifecycle": {
+    "complete_zero_observation_infrastructure_failure_is_validated_and_returned": true,
+    "when_observations_exist_bootstrap_must_be_first": true,
+    "zero_observation_success_or_normal_no_candidate_terminal_rejects": true,
+    "event_count_must_equal_observation_count": true,
+    "null_laboratory_and_outside_laboratory_are_required_before_bootstrap": true,
+    "header_source_dependency_parent_compiler_child_runtime_clock_claims_reason_and_raw_chain_are_validated_on_every_terminal": true,
+    "consumed_v1_and_v2_results_remain_readable_before_and_after_projection": true,
+    "parent_reader_bindings_are_lock_scoped_and_restored": true
+  },
+  "source_seal_controls": {
+    "config_parent_commit_parent_sources_and_consumed_v2_result_rebind": true,
+    "two_independent_child_runtime_projection_builders_match_both_digests": true,
+    "complete_environment_casefold_domain_and_exact_static_added_values_match": true,
+    "one_PATH_delta_one_prefix_occurrence_and_parent_suffix_identity_match": true,
+    "runtime_required_file_size_and_sha256_rows_rebind": true,
+    "missing_changed_extra_or_wrong_size_runtime_file_rejects": true,
+    "unknown_environment_key_changed_non_PATH_key_duplicate_prefix_missing_prefix_and_compiler_shadowing_reject": true,
+    "synthetic_zero_event_one_event_torn_extended_count_drift_and_zero_event_success_reader_controls": true,
+    "external_directory_root_probe_reaches_validated_child_runtime_without_compiler_CuPy_scientific_source_device_or_result_operation": true,
+    "public_origin_precedes_activation_and_runtime_file_checks": true,
+    "v2_outcome_is_independently_readable_and_unchanged_before_and_after_every_wrapper": true,
+    "all_adr0441_scientific_and_adr0444_host_wrapper_controls_remain_green": true,
+    "compile_cupy_device_population_25_actual_45_and_v3_result_counts_are_zero_at_source_seal": true
+  },
+  "lifecycle": {
+    "literal_public_command": ".venv\\Scripts\\python.exe -B run_legal_river_quotient_fixed_width_device_preflight_v3.py",
+    "public_command_accepts_no_arguments": true,
+    "real_owner_requires_exact_clean_v3_source_commit_and_absent_v3_result": true,
+    "first_public_or_journal_terminal_consumes_the_v3_identity": true,
+    "no_retry_resume_repair_skip_reader_change_environment_fallback_or_alternate_compiler": true,
+    "one_or_more_eligible_arms_opens_only_a_separate_selector_or_actual_45_fit_preregistration": true
+  },
+  "kill_criteria": {
+    "retry_edit_or_reinterpret_v1_or_v2": true,
+    "permit_any_child_activated_delta_other_than_exact_PATH_prefix": true,
+    "permit_any_unlisted_child_environment_key_or_wrong_static_value": true,
+    "runtime_prefix_is_absent_duplicated_or_not_first": true,
+    "child_compiler_tools_do_not_resolve_to_exact_bound_files": true,
+    "required_runtime_file_is_absent_or_differs": true,
+    "activation_import_runtime_validation_or_clean_git_work_is_outside_public_clock": true,
+    "scientific_source_or_any_scientific_gate_changes": true,
+    "reader_projects_any_scientific_observation_or_terminal_field": true,
+    "candidate_selection_population_25_actual_45_resolver_action_quality_truncation_blueprint_or_strength_opens": true
+  },
+  "claims": {
+    "split_environment_successor_preregistered": true,
+    "successor_source_exists": false,
+    "successor_source_seal": null,
+    "successor_compiled": false,
+    "successor_device_result": null,
+    "candidate_selected": null,
+    "population_25_numeric_value": null,
+    "actual_45_numeric_value": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

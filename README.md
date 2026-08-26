@@ -796,9 +796,11 @@ every action-time or quality claim remained absent at that source boundary.
 ADR-0397 now retains the sole v1 invocation as a 5,322-byte infrastructure
 terminal: the public module's context-sensitive `__name__` became `__main__`,
 so its child attempted `python -m __main__` and failed before worker import,
-CuPy, calibration, or any phase row. V1 is permanently closed. The next
-boundary is an additive, new-identity v2 with a literal worker module and a
-real no-CUDA child-process handshake; it may not change the frozen science.
+CuPy, calibration, or any phase row. V1 is permanently closed. ADR-0398 now
+preregisters the additive recovery while every v2 source and result path is
+absent: new lifecycle identities, a literal worker module, and a no-CUDA child
+handshake with a fresh challenge through the actual shared subprocess seam.
+It may not change the frozen science. The next boundary is its source seal.
 
 ## Current checkpoint
 

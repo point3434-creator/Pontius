@@ -1819,19 +1819,19 @@ class DocumentationIntegrityTests(unittest.TestCase):
 
     def test_work_decomposed_paired_capacity_preflight_is_preregistered(self) -> None:
         expected = {
-            "README.md": ("ADR-0397", "python -m __main__"),
-            "PROJECT.md": ("ADR-0397", "5,322-byte journal"),
+            "README.md": ("ADR-0398", "handshake with a fresh challenge"),
+            "PROJECT.md": ("ADR-0398", "injected executors are not bootstrap proof"),
             "STATUS.md": (
-                "ADR-0397",
-                "accepted retained first-invocation infrastructure failure",
+                "ADR-0398",
+                "accepted prospective lifecycle-only preregistration",
             ),
-            "ROADMAP.md": ("ADR-0397", "worker-module bootstrap failure"),
+            "ROADMAP.md": ("ADR-0398", "actual fresh-challenge"),
             "RUNBOOK.md": (
-                "ADR-0397",
-                "fd8c71ddb534320577dfc9a390946fc3dffe3fe806bf93d456ac33e55fe8e830",
+                "ADR-0398",
+                "pontius.legal_river_quotient_cuda_compensated_work_preflight_v2_runner",
             ),
-            "ARCHITECTURE.md": ("ADR-0397", "literal importable worker module"),
-            "RISK_REGISTER.md": ("R160", "actual child framing"),
+            "ARCHITECTURE.md": ("ADR-0398", "fresh challenge"),
+            "RISK_REGISTER.md": ("R161", "one child-process function"),
             "artifacts/work_preflight/README.md": (
                 "ADR-0394",
                 "legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
@@ -2101,6 +2101,113 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "no real compilation",
         ):
             self.assertIn(phrase, seal)
+
+    def test_bootstrap_safe_work_preflight_v2_is_preregistered(self) -> None:
+        relative = (
+            "experiments/configs/"
+            "legal-river-quotient-cuda-compensated-work-preflight-owner-v2.json"
+        )
+        raw = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+        self.assertEqual(
+            hashlib.sha256(raw).hexdigest(),
+            "e7f2a60035aad77d20461b4e5288bd85375f751b2d9ec410d2f197cfcacaf334",
+        )
+        config = json.loads(raw)
+        self.assertEqual(
+            config["schema_version"],
+            "legal-river-quotient-cuda-compensated-work-preflight-owner-config-v2",
+        )
+
+        parent = config["parent_identity"]
+        bound_paths = {
+            "adr0394": "adr0394_relative_path",
+            "adr0395": "adr0395_relative_path",
+            "adr0396": "adr0396_relative_path",
+            "adr0397": "adr0397_relative_path",
+            "v1_preregistration_config": "v1_preregistration_config_relative_path",
+            "resource_correction_config": "resource_correction_config_relative_path",
+            "scientific_source": "scientific_source_relative_path",
+            "v1_runner": "v1_runner_relative_path",
+            "v1_reader": "v1_reader_relative_path",
+            "v1_controls": "v1_controls_relative_path",
+            "durable_journal": "durable_journal_relative_path",
+        }
+        for label, path_field in bound_paths.items():
+            current = (_ROOT / parent[path_field]).read_bytes().replace(b"\r\n", b"\n")
+            self.assertEqual(
+                hashlib.sha256(current).hexdigest(),
+                parent[f"{label}_canonical_lf_sha256"],
+                label,
+            )
+
+        retained = config["retained_v1_terminal"]
+        v1_result = _ROOT / retained["result_relative_path"]
+        self.assertTrue(v1_result.is_file())
+        self.assertEqual(len(v1_result.read_bytes()), retained["result_bytes"])
+        self.assertEqual(
+            hashlib.sha256(v1_result.read_bytes()).hexdigest(), retained["result_sha256"]
+        )
+        self.assertEqual(len(v1_result.read_bytes().splitlines()), retained["record_count"])
+        self.assertEqual(retained["terminal"], "infrastructure_failure")
+        self.assertEqual(retained["phase_count"], 0)
+        self.assertIsNone(retained["projection"])
+
+        scope = config["successor_scope"]
+        for field in (
+            "v2_runner_relative_path",
+            "v2_reader_relative_path",
+            "v2_controls_relative_path",
+            "v2_result_relative_path",
+        ):
+            self.assertFalse((_ROOT / scope[field]).exists(), scope[field])
+        self.assertFalse((_ROOT / scope["reserved_actual_result_relative_path"]).exists())
+
+        identity = config["new_identity_contract"]
+        self.assertEqual(
+            hashlib.sha256(identity["owner_protocol_seed"].encode("ascii")).hexdigest(),
+            identity["owner_protocol_sha256"],
+        )
+        self.assertEqual(
+            hashlib.sha256(identity["campaign_seed"].encode("ascii")).hexdigest(),
+            identity["campaign_sha256"],
+        )
+        handshake = config["bootstrap_handshake"]
+        self.assertEqual(
+            handshake["literal_worker_module"],
+            "pontius.legal_river_quotient_cuda_compensated_work_preflight_v2_runner",
+        )
+        self.assertNotIn("__name__", handshake["literal_worker_module"])
+        self.assertEqual(handshake["challenge_bytes"], 32)
+        self.assertTrue(
+            handshake[
+                "handshake_and_campaign_share_one_popen_framing_stdout_stderr_timeout_and_return_function"
+            ]
+        )
+        self.assertTrue(handshake["source_seal_must_spawn_a_real_handshake_child_without_cuda_or_result_creation"])
+
+        science = config["inherited_science"]
+        self.assertEqual(science["calibration_populations"], [10, 22])
+        self.assertEqual(science["projection_population_integer_only"], 25)
+        self.assertEqual(science["phase_count"], 16)
+        self.assertEqual(science["safety_multiplier_fraction"], [5, 4])
+        self.assertEqual(science["target_projection_wall_limit_ns"], 180_000_000_000)
+        self.assertIsNone(science["exact_spill_load_store_count"])
+        self.assertTrue(
+            all(value is None or value is False for value in config["claims"].values())
+        )
+
+        adr = _contract_text(
+            "docs/decisions/ADR-0398-preregister-the-bootstrap-safe-work-preflight-v2-owner.md"
+        )
+        for phrase in (
+            "No command may derive it from runtime `__name__`",
+            "fresh 32-byte challenge",
+            "same `Popen` construction",
+            "in-memory validation view",
+            "No source-seal test may select campaign child mode",
+            '"Preregistered" is not "source-sealed,"',
+        ):
+            self.assertIn(phrase, adr)
 
     def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
         expected = {

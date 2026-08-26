@@ -1413,10 +1413,11 @@ queue:
   live-shape, and relevant chunk-count constituents, and both result paths
   remain absent at the source seal. ADR-0397 retains the sole v1 command as a
   worker-module bootstrap failure before import or CUDA: context-sensitive
-  `__name__` produced `python -m __main__`. V1 is permanently closed. The
-  immediate checkpoint is a preregistered and source-sealed additive v2 with a
-  literal worker module, new result identity, and actual no-CUDA subprocess
-  handshake; do not open a 25-card fixture or numerical value.
+  `__name__` produced `python -m __main__`. V1 is permanently closed. ADR-0398
+  preregisters an additive v2 with a literal worker module, new result identity,
+  and actual fresh-challenge no-CUDA subprocess handshake. The immediate
+  checkpoint is its source seal; do not open a 25-card fixture or numerical
+  value.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1474,8 +1475,9 @@ queue:
   ADR-0395 corrects its resource instrument before result, and ADR-0396
   source-seals the exact work/phase/resource owner and independent reader with
   the one-shot result absent. ADR-0397 retains v1's sole command as a durable
-  pre-worker infrastructure failure and closes it. The immediate checkpoint
-  is an additive v2 bootstrap-safe source seal; every actual
+  pre-worker infrastructure failure and closes it. ADR-0398 freezes the
+  additive bootstrap-safe v2 lifecycle. The immediate checkpoint is its source
+  seal with a real no-CUDA child handshake; every actual
   45-card value, owner, automatic truncation, resolver iteration, action
   timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

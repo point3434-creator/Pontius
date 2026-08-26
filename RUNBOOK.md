@@ -2434,3 +2434,9 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     campaign, header, and result identity; a literal importable worker-module
     name; and a no-CUDA handshake through the real subprocess seam. Injected
     campaign-executor tests alone do not close worker bootstrap.
+113. ADR-0398 freezes the v2 recovery before code. Use the literal module
+    `pontius.legal_river_quotient_cuda_compensated_work_preflight_v2_runner`.
+    At source seal, spawn its fresh-challenge handshake through the same Popen,
+    strict framing, concurrent stdout/stderr drain, deadline, and return path
+    as campaign mode; require CuPy and the scientific source to remain unloaded
+    and create no real result. Commit that source seal before one-shot use.

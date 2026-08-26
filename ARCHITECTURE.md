@@ -1814,6 +1814,13 @@ must use a new lifecycle identity, a literal importable worker module, and a
 real no-CUDA subprocess handshake while reusing the unchanged scientific
 source by hash.
 
+ADR-0398 freezes that successor architecture before code. Handshake and
+campaign modes share one subprocess transport; a fresh challenge and explicit
+module/import facts make real worker birth observable without CUDA. The v2
+reader first owns the new lifecycle grammar, then passes only the unchanged
+scientific event view to the hash-bound v1 scientific rebinder in memory. The
+view is never evidence and cannot repair or rewrite either journal.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

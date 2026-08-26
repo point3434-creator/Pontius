@@ -889,7 +889,9 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   and source-seal those paths next with all result paths absent. ADR-0423
   corrects the reader seam before source by allowing only the independently
   validated V2 lifecycle identity fields required for V1 semantic projection;
-  all post-bootstrap evidence remains unchanged.
+  all post-bootstrap evidence remains unchanged. ADR-0424 corrects three false
+  inherited parent hashes produced by an over-escaped shell audit; no V1 file
+  changed. V2 source seal now requires independent byte-loop hash agreement.
 
 ## Current checkpoint
 

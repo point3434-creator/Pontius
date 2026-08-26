@@ -1,0 +1,238 @@
+# ADR-0424: Correct the V1 parent hash bindings before V2 source seal
+
+- Status: accepted pre-seal provenance correction; ADR-0420's recorded adapter/runner/reader hashes and ADR-0423's inherited V2 parent bindings used an over-escaped audit expression that rewrote literal source text instead of CRLF bytes, so the three false hashes are superseded by independently reproduced canonical-LF hashes before V2 source seal, while the committed V1 files, frozen device science, V2 lifecycle contract, every result path, population 25, capacity projection, actual consumer, action, quality, blueprint, and strength claim remain unchanged or unopened
+- Date: 2026-08-26
+- Follows: ADR-0423
+- Rejected V2 config canonical-LF SHA-256: `3d52a719ae6e44ea5bfccd51c576396c54cb58bd2dcf17315f03b3f2a6f86e39`
+- Corrected V2 config canonical-LF SHA-256: `b8e0d9a5edafa16cdca26d3a5320826b43ccc973140706f8dc042b93b5a90bf9`
+- V1 adapter false hash: `a064c9485c3cc9f9a9e7dbbe03719070ae93c9672cc23895d22ff8638283c25b`
+- V1 adapter canonical-LF SHA-256: `1024cf00087f1cc64db48a4f360a282fe534de375493522dfff1aa6593d52508`
+- V1 runner false hash: `dcf5f0166adcadf23123ace98dedf2bbf799abcd521ec585d5f143bdc2e7f3db`
+- V1 runner canonical-LF SHA-256: `2e87edf3c1ceee9bb18d01c0c75521a7dfca706f5015744662b1225f271106a2`
+- V1 reader false hash: `ce7f820ade6472990df88634fe2d2c9215b5ef97a255ab9caafa07edfc8912b9`
+- V1 reader canonical-LF SHA-256: `1688e53ac7490033fc2fed9b7510f3e97804c71e20380658ccab41a367e0a652`
+- V1 controls canonical-LF SHA-256: `1e6537145a5e0e7f46dcb2b657e8fa6dc9ad19c85000cb796dbe66830644228c`, unchanged
+- Committed V1 file changes: `0`
+- Uncommitted V2 source present at discovery: root launcher, owner, reader, and controls
+- Source-only probe at discovery: scrubbed two-launcher handshake passed; `14/16` focused controls passed and exactly two parent-hash controls rejected
+- Real CuPy imports: `0`
+- Real CUDA compilations: `0`
+- Real CUDA module loads: `0`
+- Real CUDA kernel launches: `0`
+- V1 result: absent and permanently closed
+- V2 result: absent
+- Reserved actual result: absent
+- Front-Door-Kind: controller-v1
+- Front-Door-Research: ADR-0280
+- Front-Door-Process: ADR-0424
+- Front-Door-Contract: ADR-0307
+- Front-Door-Revoked: ADR-0281
+- Front-Door-Active-Next: Bind V2 source only to ADR-0424's corrected config hash and corrected V1 parent hashes; add an in-language canonical-LF differential that compares the production helper with an independent byte-loop implementation and a literal-source-text mutation control; then finish and source-seal the already-uncommitted launcher/owner/reader/control implementation under a clean commit, rerun the scrubbed public-to-child probe, and keep every V1/V2/reserved result, device operation, population 25, projection selection, actual consumer, action latency, and decision quality absent
+- Front-Door-Blockers: V2 source exists only as uncommitted, unsealed work and its parent-hash controls currently reject until constants/config are rebound; no corrected-hash source seal or device differential exists; the V1 public owner identity is permanently consumed without a journal; no replacement capacity estimator or projection is selected, and no complete 25-card numerical result, actual 45-card owner, or full-width actual-context quotient value exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists
+
+## Question
+
+Why did the new exact parent-hash control reject three unchanged ADR-0420
+files, and may V2 source seal against the recorded values anyway?
+
+## Decision
+
+The recorded values are false canonical-LF hashes. Supersede them before V2
+source seal. Do not edit the committed V1 files and do not weaken the exact
+parent control.
+
+The rejected expression passed an over-escaped bytes literal through a shell.
+Instead of replacing the two-byte CRLF sequence with LF, it replaced the four
+literal source characters backslash, `r`, backslash, `n` with backslash, `n`.
+The affected V1 files contain those literal characters inside their own bytes-
+normalization code. Reproducing that textual rewrite yields the three false
+hashes exactly: two matches in the adapter, two in the runner, and three in the
+reader.
+
+The correct canonical-LF algorithm operates on file bytes in Python and
+replaces byte `13` followed by byte `10` with byte `10`. The committed files
+already use LF for ordinary lines; their literal source strings remain data and
+must not change. The corrected hashes above are reproduced by the production
+helper and by an independent byte loop that never spells either escape
+sequence.
+
+### Scope of the correction
+
+ADR-0420's code commit and 114 passing controls are unchanged. Its hash lines
+for adapter, runner, and reader are corrected by this successor record rather
+than edited historically. The V1 runner's runtime dependency hasher and V1
+reader both contain real in-language CRLF byte literals, so a future journal
+would have recorded and rebound the committed bytes correctly. The false
+values lived in review metadata and the newly inherited V2 config.
+
+ADR-0424 changes exactly the three V2 parent hash values and therefore the V2
+config hash. It changes no source, science, lifecycle allowlist, event schema,
+threshold, wall, population, result, or claim.
+
+### Discovery timing
+
+This is not labeled pre-source. The root launcher, V2 owner, V2 reader, and V2
+controls existed uncommitted when the new parent-hash gate fired. A scrubbed
+external-working-directory two-launcher probe had passed without CuPy, science,
+or result creation. Fourteen focused controls passed; the exact two failures
+were `test_corrected_config_and_all_result_absences` and
+`test_parent_hashes_rebind_exactly_from_the_corrected_config`, both at the same
+first mismatching parent hash. No source seal, commit, device operation, or
+result existed. The failed controls prevented false provenance from reaching a
+seal.
+
+The source-seal suite must add a structural regression control: an independent
+byte loop over every bound source must equal the production canonical helper,
+and replacing the literal four-character source token must demonstrably
+produce a different digest whenever that token occurs. Shell-quoted one-off
+hash commands are reporting aids only, never authority.
+
+### Continuity
+
+ADR-0424 corrects only V1 parent-hash provenance before V2 source seal; no
+journal or device value exists at this decision.
+
+The generated-front-door historical labels remain literal. ADR-0328 precedes
+the direct closed finite-block greedy line. ADR-0367 preregisters the occupied-
+card quotient. ADR-0368 seals the exact bounded algebra keystone. ADR-0369
+freezes the source-only arithmetic boundary. ADR-0370 seals the numeric-array
+and logical-work result. ADR-0378 freezes the source-only literal-target
+liveness boundary. ADR-0379 retains the 244,970,204-byte margin. ADR-0381
+source-seals the one-shot literal-45 CUDA owner. ADR-0384 retains the passing
+literal-45 result and opens the actual-context quotient bridge. ADR-0385
+preregisters the actual-context quotient bridge. ADR-0386 records the source-
+sealed actual-context quotient bridge. ADR-0387 freezes the consumer-capacity
+seam. ADR-0388 records the source-sealed CuPy-free consumer-capacity answer.
+ADR-0383's owner was invoke exactly once and remains consumed by ADR-0384.
+ADR-0396 through ADR-0403 own and close the three work-preflight owners.
+ADR-0404 through ADR-0406 own and close the exact-cubin diagnostic. ADR-0407
+through ADR-0409 own and close the empty selector. ADR-0410/0411 freeze and
+seal only the suffix diagnostic; ADR-0412 consumes its owner and retains its
+result; ADR-0413 freezes V4; ADR-0414 corrects only its evidence envelope;
+ADR-0415 source-seals the composite successor without invocation; ADR-0416
+consumes it and retains the frozen capacity rejection; ADR-0417 opens only the
+shared-direct-oracle source question; ADR-0418 source-seals that answer without
+device work; ADR-0419 freezes the separate device differential; ADR-0420
+source-seals that differential without invoking it; ADR-0421 consumes its
+public command before owner import; ADR-0422 freezes its launcher-safe
+successor; ADR-0423 corrects its lifecycle-reader allowlist; and ADR-0424
+corrects only inherited V1 hash provenance before V2 source seal. No earlier
+owner is revived.
+
+All 177 ordered observations pass under ADR-0320. The phrases exclusive
+untouched legal h4, selector-window, 2,113-task, exhaustive bounded development-
+teacher, response-closed direct mechanism, and caller-owned legal fallback
+retain their prior meanings. ADR-0351 requires the tie-aware legal h4 affine-
+envelope. ADR-0352 remains closed before any fresh untouched tie-aware affine
+result. ADR-0355's owner was invoke exactly once; ADR-0358 was invoke exactly
+once. ADR-0382 preregistered the literal-45 config; ADR-0383 source-sealed it;
+ADR-0384 closed it.
+
+The inherited front-door trust chain remains explicit. ADR-0310 made native-
+simplex robustness the next systems question. ADR-0311's directive is
+Preregister the native-simplex robustness audit. ADR-0312's directive is Seal
+the native-simplex audit compiler and corpora. ADR-0313's directive is Seal the
+native-simplex audit runner before results. ADR-0314's decision is Retain the
+native-simplex audit and reject the frozen gate. ADR-0315's directive is
+Source-seal the artifact-only native-simplex gate correction. ADR-0316's
+decision is Accept the corrected audit and bound replacement eligibility.
+ADR-0317 separates solver classes; ADR-0318 binds HiGHS 1.12.0; ADR-0319
+requires one public HiGHS-DS call per canonical task; and All 177 ordered
+observations pass under ADR-0320. ADR-0321 preserves caller-owned legal
+fallback, ADR-0322 returns research evidence or rejection with no action,
+ADR-0324 remains value-unopened, and ADR-0325 was authorized exactly once.
+ADR-0326/0327 govern the exhaustive bounded development-teacher; ADR-0328
+retains it and the solver-free rebinder; ADR-0330 remains permanently closed;
+ADR-0331's append-and-fsync discipline, ADR-0332's exclusive `xb` open, and
+ADR-0333's No replacement sizing value was opened statement remain binding.
+ADR-0334/0335 bind the 2,113-task non-replay chain; ADR-0336 records width
+three; ADR-0337 owns the response-closed direct mechanism; ADR-0338 alone
+records the selected development raise width; and ADR-0339 remains a finite
+absence claim. ADR-0340's 192 prospective tasks remain distinct from ADR-0341's
+94 accepted one-call arms and ADR-0343's 126 confirmation arms; ADR-0342 alone
+authorized the retained confirmation. ADR-0344/0345 own the finite h4 responder-
+raise keystone. ADR-0346/0347 lead only to responder-row growth; ADR-0348/0349
+lead only to selector-window work. ADR-0350 opened selector-stable affine
+integration; ADR-0351 replaced it with tie-aware legal h4 affine envelopes;
+ADR-0352 is closed by ADR-0353; ADR-0354/0355/0356 own the factorized exact face
+result; ADR-0357/0358/0359 own and close same-fixture integration; and ADR-0360/
+0361/0362 alone own the untouched confirmation and assessment. ADR-0363 and
+ADR-0365 remain consumed; ADR-0364 remains exactly `GetProcessMemoryInfo failed`;
+ADR-0366 remains exactly `representation_rejected_before_target_allocation`
+with zero target calls. ADR-0367 through ADR-0384 own and close the quotient
+algebra, capacity, bounded CUDA, staged, liveness, validation, and literal-
+target ladder. ADR-0384 retains the passing literal-45 result and opens only
+the actual-context quotient bridge. ADR-0385 preregisters the actual-context
+quotient bridge. ADR-0386 records the source-sealed actual-context quotient
+bridge. ADR-0387 freezes the consumer-capacity seam; ADR-0388 records the
+source-sealed CuPy-free consumer-capacity result; ADR-0389 remains the accepted
+prospective actual-context quotient CUDA-consumer boundary; ADR-0390 rejects
+its source seal; ADR-0391 remains an accepted prospective bounded-arithmetic
+boundary and freezes the first paired-tile boundary; ADR-0392 remains the
+accepted prospective preregistration-completeness correction and corrects its
+pre-source arithmetic completeness; ADR-0393 remains the accepted bounded-
+device source-seal rejection and retains the first implementation as a wall
+rejection. ADR-0390 and ADR-0393 retain the exact historical status label
+accepted bounded-device source-seal rejection. ADR-0394/0395 freeze the work
+and resource questions; ADR-0396 through ADR-0403 own and close the three
+consumed preflight owners; ADR-0404 through ADR-0406 own and close the exact-
+cubin diagnostic; ADR-0407 through ADR-0409 own and close its empty artifact
+selector; ADR-0410 freezes only the suffix diagnostic; ADR-0411 source-seals it
+without operation; ADR-0412 retains its sole result; ADR-0413 opens V4
+prospectively; ADR-0414 corrects its bounded evidence envelope only; ADR-0415
+seals the composite source without running it; ADR-0416 retains its sole
+capacity rejection; ADR-0417 prospectively freezes only the shared selected
+direct oracle; ADR-0418 source-seals that oracle without device work; ADR-0419
+freezes the bounded device differential; ADR-0420 seals its source without
+invocation; ADR-0421 closes the failed public command; ADR-0422 freezes V2;
+ADR-0423 corrects its lifecycle transduction; and ADR-0424 corrects the parent
+hashes. No earlier owner is revived.
+
+For machine-checked continuity, ADR-0317's directive remains Separate solver
+classes and prioritize the certified sizing adapter. All 177 ordered
+observations pass under ADR-0320, making the separate consumer eligible.
+ADR-0326 and ADR-0327 govern the exhaustive bounded development-teacher chain.
+ADR-0328 retains that exhaustive teacher and solver-free rebinder. ADR-0334 and
+ADR-0335 bind the 2,113-task non-replay chain. ADR-0344 and ADR-0345 own the
+finite h4 legal responder-raise keystone line. ADR-0346 and ADR-0347 lead only
+to responder-row growth. ADR-0348 and ADR-0349 lead only to selector-window
+work. ADR-0351 requires the tie-aware legal h4 affine-envelope. ADR-0354 through
+ADR-0359 own the factorized face and affine consumer chain. ADR-0380 freezes
+the complete ordered populations 10 and 22. ADR-0383's owner was invoke exactly
+once and remains consumed by ADR-0384. ADR-0424 imports neither that owner nor
+its target. The phrases exclusive untouched legal h4, selector-window,
+2,113-task, exhaustive bounded development-teacher, response-closed direct
+mechanism, and caller-owned legal fallback retain their prior meanings.
+
+The exact historical continuity strings remain explicit. ADR-0328 retains the
+exhaustive teacher and solver-free rebinder before the direct closed finite-
+block greedy line. ADR-0351 requires the tie-aware legal h4 affine-envelope.
+ADR-0352 remains closed before any fresh untouched tie-aware affine result.
+ADR-0353 precedes ADR-0354's factorized exact active-set directional-face
+diagnostic. ADR-0355's owner was invoke exactly once; ADR-0356 retains that
+directional-face diagnostic before tie-aware affine integration. ADR-0357
+requires an exclusive legal h4 owner, ADR-0358 was invoke exactly once, and
+ADR-0359 requires a fresh value-unopened confirmation. ADR-0382 preregistered
+the literal-45 config; ADR-0383 source-sealed it; ADR-0384 closed it.
+
+The generated-front-door historical labels also remain literal. ADR-0328
+precedes the direct closed finite-block greedy line. ADR-0367 preregisters the
+occupied-card quotient. ADR-0368 seals the exact bounded algebra keystone.
+ADR-0369 freezes the source-only arithmetic boundary. ADR-0370 seals the
+numeric-array and logical-work result. ADR-0378 freezes the source-only literal-
+target liveness boundary. ADR-0379 retains the 244,970,204-byte margin.
+ADR-0381 source-seals the one-shot literal-45 CUDA owner. ADR-0388 records a
+source-sealed CuPy-free consumer-capacity result.
+
+## Kill criteria
+
+Kill V2 if it binds any false hash, edits a V1 file to make a false hash true,
+uses shell-quoted escape replacement as hash authority, omits the independent
+byte-loop differential, or relaxes any ADR-0422/0423 launcher, reader, science,
+result, population-25, projection, action, quality, or claims boundary.
+
+## Claims boundary
+
+ADR-0424 corrects provenance metadata only. It supplies no source seal, device
+result, capacity projection, complete 25-card value, actual consumer, action,
+quality, integer-operator result, blueprint, or poker strength.

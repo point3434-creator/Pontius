@@ -15,54 +15,60 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-No. Correct the config before source. ADR-0422 froze two individually sensible
-requirements that cannot coexist: the V2 handshake must name the fresh V2
-runner, while the source-sealed V1 reader requires the old V1 literal/spec
-module names and ADR-0422 allowed only header transduction.
+The recorded values are false canonical-LF hashes. Supersede them before V2
+source seal. Do not edit the committed V1 files and do not weaken the exact
+parent control.
 
-Reject the old config hash and accept the corrected hash. No source, probe, or
-result was opened under the inconsistent contract.
+The rejected expression passed an over-escaped bytes literal through a shell.
+Instead of replacing the two-byte CRLF sequence with LF, it replaced the four
+literal source characters backslash, `r`, backslash, `n` with backslash, `n`.
+The affected V1 files contain those literal characters inside their own bytes-
+normalization code. Reproducing that textual rewrite yields the three false
+hashes exactly: two matches in the adapter, two in the runner, and three in the
+reader.
 
-### Exact lifecycle allowlist
+The correct canonical-LF algorithm operates on file bytes in Python and
+replaces byte `13` followed by byte `10` with byte `10`. The committed files
+already use LF for ordinary lines; their literal source strings remain data and
+must not change. The corrected hashes above are reproduced by the production
+helper and by an independent byte loop that never spells either escape
+sequence.
 
-The V2 reader must independently validate the V2 journal first. Only then may
-it construct the in-memory parent-reader view. The complete transduction
-allowlist is:
+### Scope of the correction
 
-1. journal protocol and campaign SHA-256 identities;
-2. header schema, config, preregistration, dependency inventory, and result
-   path identities;
-3. each observation wrapper's config SHA-256; and
-4. the bootstrap event's `literal_module` and `spec_name`.
+ADR-0420's code commit and 114 passing controls are unchanged. Its hash lines
+for adapter, runner, and reader are corrected by this successor record rather
+than edited historically. The V1 runner's runtime dependency hasher and V1
+reader both contain real in-language CRLF byte literals, so a future journal
+would have recorded and rebound the committed bytes correctly. The false
+values lived in review metadata and the newly inherited V2 config.
 
-The V2 bootstrap values must equal the literal V2 runner module before they are
-projected to the literal V1 runner values expected by the parent reader. The
-challenge digest, runtime `__main__`, `cupy_imported=False`, and every other
-bootstrap field remain identical. Every post-bootstrap event payload and the
-outer owner terminal remain canonical-JSON identical. The parent reader may
-therefore reuse its compiler/container/resource/complete-ten/phase/work/
-population/numerical/terminal semantics without being asked to accept false
-V1 lifecycle provenance.
+ADR-0424 changes exactly the three V2 parent hash values and therefore the V2
+config hash. It changes no source, science, lifecycle allowlist, event schema,
+threshold, wall, population, result, or claim.
 
-A source control must enumerate the changed JSON paths exactly and reject one
-extra changed field. Separate controls must mutate challenge, runtime, CuPy,
-one compiler field, one phase field, one population gate, and the outer
-terminal through the V2 reader and observe rejection. The V1 reader remains an
-untrusted semantic dependency until the V2 lifecycle layer has passed its own
-validation.
+### Discovery timing
 
-### Unchanged boundary
+This is not labeled pre-source. The root launcher, V2 owner, V2 reader, and V2
+controls existed uncommitted when the new parent-hash gate fired. A scrubbed
+external-working-directory two-launcher probe had passed without CuPy, science,
+or result creation. Fourteen focused controls passed; the exact two failures
+were `test_corrected_config_and_all_result_absences` and
+`test_parent_hashes_rebind_exactly_from_the_corrected_config`, both at the same
+first mismatching parent hash. No source seal, commit, device operation, or
+result existed. The failed controls prevented false provenance from reaching a
+seal.
 
-The root launcher, recursive parent/child launch, scrubbed external-cwd probe,
-fresh identities, exclusive owner, walls, immutable ADR-0420 adapter, complete
-10/22 device science, population-25 prohibition, null projection, and claims
-boundary remain exactly ADR-0422. This correction does not authorize source or
-operation and does not broaden the envelope into a general schema translator.
+The source-seal suite must add a structural regression control: an independent
+byte loop over every bound source must equal the production canonical helper,
+and replacing the literal four-character source token must demonstrably
+produce a different digest whenever that token occurs. Shell-quoted one-off
+hash commands are reporting aids only, never authority.
 
 ### Continuity
 
-ADR-0423 corrects only a pre-source V2 reader contract; no launcher, owner,
-reader, probe, journal, or device value exists at this decision.
+ADR-0424 corrects only V1 parent-hash provenance before V2 source seal; no
+journal or device value exists at this decision.
 
 The generated-front-door historical labels remain literal. ADR-0328 precedes
 the direct closed finite-block greedy line. ADR-0367 preregisters the occupied-
@@ -87,8 +93,9 @@ shared-direct-oracle source question; ADR-0418 source-seals that answer without
 device work; ADR-0419 freezes the separate device differential; ADR-0420
 source-seals that differential without invoking it; ADR-0421 consumes its
 public command before owner import; ADR-0422 freezes its launcher-safe
-successor; and ADR-0423 corrects only the lifecycle-reader allowlist before
-source. No earlier owner is revived.
+successor; ADR-0423 corrects its lifecycle-reader allowlist; and ADR-0424
+corrects only inherited V1 hash provenance before V2 source seal. No earlier
+owner is revived.
 
 All 177 ordered observations pass under ADR-0320. The phrases exclusive
 untouched legal h4, selector-window, 2,113-task, exhaustive bounded development-
@@ -155,9 +162,9 @@ seals the composite source without running it; ADR-0416 retains its sole
 capacity rejection; ADR-0417 prospectively freezes only the shared selected
 direct oracle; ADR-0418 source-seals that oracle without device work; ADR-0419
 freezes the bounded device differential; ADR-0420 seals its source without
-invocation; ADR-0421 closes the failed public command; ADR-0422 freezes its new
-identity; and ADR-0423 corrects only its lifecycle transduction. No earlier
-owner is revived.
+invocation; ADR-0421 closes the failed public command; ADR-0422 freezes V2;
+ADR-0423 corrects its lifecycle transduction; and ADR-0424 corrects the parent
+hashes. No earlier owner is revived.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -170,7 +177,7 @@ to responder-row growth. ADR-0348 and ADR-0349 lead only to selector-window
 work. ADR-0351 requires the tie-aware legal h4 affine-envelope. ADR-0354 through
 ADR-0359 own the factorized face and affine consumer chain. ADR-0380 freezes
 the complete ordered populations 10 and 22. ADR-0383's owner was invoke exactly
-once and remains consumed by ADR-0384. ADR-0423 imports neither that owner nor
+once and remains consumed by ADR-0384. ADR-0424 imports neither that owner nor
 its target. The phrases exclusive untouched legal h4, selector-window,
 2,113-task, exhaustive bounded development-teacher, response-closed direct
 mechanism, and caller-owned legal fallback retain their prior meanings.
@@ -197,7 +204,7 @@ source-sealed CuPy-free consumer-capacity result.
 
 ## Active next
 
-Implement and source-seal ADR-0422 only under ADR-0423's corrected config; independently validate the fresh V2 protocol/campaign/header/wrapper/bootstrap identities, transduce exactly the frozen lifecycle allowlist for the source-sealed V1 semantic reader, prove by canonical before/after differentials that challenge/runtime/CuPy and every post-bootstrap event plus outer terminal are unchanged, traverse the same root launcher twice under the scrubbed public handshake, and keep the V1/V2/reserved results, device work, population 25, projection selection, actual consumer, action latency, and decision quality absent
+Bind V2 source only to ADR-0424's corrected config hash and corrected V1 parent hashes; add an in-language canonical-LF differential that compares the production helper with an independent byte-loop implementation and a literal-source-text mutation control; then finish and source-seal the already-uncommitted launcher/owner/reader/control implementation under a clean commit, rerun the scrubbed public-to-child probe, and keep every V1/V2/reserved result, device operation, population 25, projection selection, actual consumer, action latency, and decision quality absent
 
 ## Revoked authorities
 
@@ -205,7 +212,7 @@ Implement and source-seal ADR-0422 only under ADR-0423's corrected config; indep
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0423](docs/decisions/ADR-0423-correct-the-v2-reader-lifecycle-transduction-before-source.md) — Correct the V2 reader lifecycle transduction before source.
+Latest process decision: [ADR-0424](docs/decisions/ADR-0424-correct-the-v1-parent-hash-bindings-before-v2-source-seal.md) — Correct the V1 parent hash bindings before V2 source seal.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -213,7 +220,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0400](docs/decisions/ADR-0400-retain-the-work-preflight-v2-evidence-serializer-failure.md) | 2026-08-25 | accepted retained first-invocation infrastructure failure; ADR-0399's bootstrap-safe v2 owner is permanently closed after clean provenance and the fresh-challenge child handshake passed, then campaign failure reporting attempted to encode a slots `CudaRuntimeIdentity` through a `__dict__`-only fallback and masked an antecedent compiler/resource exception, with zero durable laboratory event, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result | Retain the work-preflight v2 evidence-serializer failure |
 | [ADR-0401](docs/decisions/ADR-0401-preregister-the-work-preflight-v3-evidence-serializer-recovery.md) | 2026-08-25 | accepted prospective serializer-only recovery; an approved concrete dataclass inventory, exact field-wise evidence encoder, process-local scientific normalizer substitution, real no-CUDA forced compiler-failure probe through the unchanged scientific `send` closure and shared child transport, new owner/result identities, and nested v2/v1 rebinding are frozen before successor source, probe execution, campaign, compiler observation, calibration, phase row, projection, or result, while both prior artifacts and every ADR-0394/ADR-0395 scientific field remain immutable | Preregister the work-preflight v3 evidence-serializer recovery |
 | [ADR-0402](docs/decisions/ADR-0402-source-seal-the-work-preflight-v3-evidence-serializer-recovery.md) | 2026-08-26 | accepted source seal; the exact-type adapter, fresh three-mode owner, standard-library nested reader, real no-CUDA forced-failure child, and 16 corrected adversarial controls are hash-bound before any v3 campaign child, compiler observation, calibration, phase row, projection, or result, while the two consumed artifacts and immutable scientific source remain unchanged | Source-seal the work-preflight v3 evidence-serializer recovery |
 | [ADR-0403](docs/decisions/ADR-0403-retain-the-work-preflight-v3-resource-inspector-rejection.md) | 2026-08-26 | accepted retained first-invocation compiler/resource-instrument rejection; ADR-0402's serializer-safe v3 owner is permanently closed after clean provenance, literal bootstrap, and the real no-CUDA serializer probe passed, then the actual CUDA 13.3 `cuobjdump --dump-resource-usage` command returned exit status 4294967295 on the temporary ELF cubin before any raw resource row, calibration population, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result | Retain the work-preflight v3 resource-inspector rejection |
@@ -237,18 +243,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0421](docs/decisions/ADR-0421-retain-the-shared-direct-public-launch-failure.md) | 2026-08-26 | accepted retained first-invocation launcher-resolution failure; ADR-0420's clean source-seal commit and public owner identity are permanently consumed after repository Python could not resolve the `pontius` package before importing the owner, with no journal, handshake, CuPy import, compiler observation, module load, kernel launch, complete 10/22 value, capacity projection, population-25 fixture or value, actual 45-card consumer, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, or poker-strength claim | Retain the shared-direct public-launch failure |
 | [ADR-0422](docs/decisions/ADR-0422-preregister-the-launcher-safe-shared-direct-v2-owner.md) | 2026-08-26 | accepted prospective launcher-only recovery; a fresh repository-root launcher, V2 owner, V2 envelope reader, controls, config/protocol/campaign/header/result identities, and scrubbed-environment public-to-child handshake are frozen before successor source or operation, while ADR-0420's adapter and all compiler-container, resource, complete-ten, complete 10/22, numerical, phase, wall, terminal, and claims semantics remain unchanged and every V2 result, capacity projection, population-25 fixture or value, actual 45-card consumer, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the launcher-safe shared-direct V2 owner |
 | [ADR-0423](docs/decisions/ADR-0423-correct-the-v2-reader-lifecycle-transduction-before-source.md) | 2026-08-26 | accepted prospective pre-source completeness correction; ADR-0422's impossible combination of fresh V2 bootstrap identity and header-only V1-reader transduction is replaced by an exact lifecycle allowlist covering journal protocol/campaign, V2 header, observation-wrapper config hash, and bootstrap literal/spec module names, while every challenge, runtime, CuPy flag, post-bootstrap observation, outer terminal, compiler-container, resource, complete-ten, complete 10/22, numerical, phase, wall, claim, and kill boundary remains unchanged and every successor source, probe, result, capacity projection, population-25 fixture or value, actual consumer, action, quality, blueprint, and strength result remains unopened | Correct the V2 reader lifecycle transduction before source |
+| [ADR-0424](docs/decisions/ADR-0424-correct-the-v1-parent-hash-bindings-before-v2-source-seal.md) | 2026-08-26 | accepted pre-seal provenance correction; ADR-0420's recorded adapter/runner/reader hashes and ADR-0423's inherited V2 parent bindings used an over-escaped audit expression that rewrote literal source text instead of CRLF bytes, so the three false hashes are superseded by independently reproduced canonical-LF hashes before V2 source seal, while the committed V1 files, frozen device science, V2 lifecycle contract, every result path, population 25, capacity projection, actual consumer, action, quality, blueprint, and strength claim remain unchanged or unopened | Correct the V1 parent hash bindings before V2 source seal |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0423](docs/decisions/ADR-0423-correct-the-v2-reader-lifecycle-transduction-before-source.md) — Correct the V2 reader lifecycle transduction before source.
+- Latest ADR: [ADR-0424](docs/decisions/ADR-0424-correct-the-v1-parent-hash-bindings-before-v2-source-seal.md) — Correct the V1 parent hash bindings before V2 source seal.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 423.
-- ADR-header SHA-256: `cd5e1d428977a6996f0cffe548fc40874aef13621714a747a34f7de6f20c335e`.
-- Current blockers: no corrected-config V2 launcher, owner, reader, control, source seal, scrubbed launch result, or device differential exists; the V1 public owner identity is permanently consumed without a journal; no replacement capacity estimator or projection is selected, and no complete 25-card numerical result, actual 45-card owner, or full-width actual-context quotient value exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 424.
+- ADR-header SHA-256: `6eab4ea9811741bb4d066481a1718d496735916e74cf8e63863e315df5dc3748`.
+- Current blockers: V2 source exists only as uncommitted, unsealed work and its parent-hash controls currently reject until constants/config are rebound; no corrected-hash source seal or device differential exists; the V1 public owner identity is permanently consumed without a journal; no replacement capacity estimator or projection is selected, and no complete 25-card numerical result, actual 45-card owner, or full-width actual-context quotient value exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0423](docs/decisions/ADR-0423-correct-the-v2-reader-lifecycle-transduction-before-source.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0424](docs/decisions/ADR-0424-correct-the-v1-parent-hash-bindings-before-v2-source-seal.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

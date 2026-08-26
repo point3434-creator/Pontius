@@ -2037,6 +2037,13 @@ project only journal protocol/campaign, header identity, wrapper config hash,
 and bootstrap literal/spec names. Challenge, runtime, CuPy, every later event,
 and the outer terminal are invariant across the seam.
 
+ADR-0424 corrects the V2 parent provenance before source seal. Three ADR-0420
+metadata hashes came from a shell expression that rewrote literal escape text,
+not line endings. The committed V1 bytes stay fixed; V2 binds the independently
+reproduced hashes. Canonical-LF authority must now agree between the production
+helper and a byte-by-byte CRLF normalizer that never spells escaped source
+tokens.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

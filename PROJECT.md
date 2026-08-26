@@ -1059,6 +1059,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   projected in memory. Challenge, runtime, CuPy, every post-bootstrap event,
   and the outer terminal remain unchanged. No source or probe existed under the
   rejected config hash; implement only the corrected hash next.
+- ADR-0424 corrects three inherited V1 parent hashes after the uncommitted V2
+  parent-hash gate rejected them. An over-escaped shell audit had rewritten the
+  literal source characters `\r\n` instead of CRLF bytes, reproducing the three
+  false ADR-0420 metadata values exactly. The committed V1 files and science
+  are unchanged; the corrected V2 config binds their true canonical-LF hashes.
+  At discovery the scrubbed launcher probe and 14 of 16 controls passed, with
+  zero CuPy/device/result work; the two exact hash controls rejected. Add an
+  independent byte-loop hash differential and source-seal only the corrected
+  config.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -1919,6 +1919,13 @@ complete cuobjdump resource/ELF operations, all fifteen functions, and exact
 equality with the original three driver rows. Resource ceilings remain a later
 consumer concern.
 
+ADR-0411 source-seals that shape. The child cannot create a temporary or load
+a module until the repaired payload event is fsynced and ACKed; every later
+event receives the same barrier. The reader independently reconstructs ELF and
+derives the terminal from raw streams. Equal 8 MiB payload and stream limits
+are represented by different APIs, so later tuning one cannot silently retune
+the other. Imports and controls remain device-free; the real result is absent.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

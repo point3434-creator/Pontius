@@ -963,6 +963,11 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   fifteen names, and exact original driver rows are frozen. A pass can qualify
   only the repaired-byte resource instrument; all 255/4096, calibration,
   capacity, latency, and quality gates remain null.
+- ADR-0411 source-seals that diagnostic after 22 synthetic/device-free
+  controls and catches one pre-result semantic-coincidence defect: equal
+  8 MiB payload and command-stream caps now have separate typed encode/decode
+  paths. No real CUDA tool, module load, launch, or result has run. The sole
+  next authority is one clean no-argument invocation from the seal commit.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

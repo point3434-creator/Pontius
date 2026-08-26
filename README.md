@@ -844,7 +844,10 @@ gate is still unopened. A narrow one-byte ELF suffix hypothesis is the next
 prospective diagnostic; it is not yet an accepted repair or capacity result.
 ADR-0410 now freezes that diagnostic down to one exact appended zero, one
 repaired hash, the same bytes for offline inspection and module load, and exact
-driver-row preservation. No source or result exists yet.
+driver-row preservation. ADR-0411 now source-seals the exact transform,
+exclusive owner, independent reader, and 22 controls. Payload and stream caps
+are semantically separate despite their current equal values. No real tool,
+module load, launch, or suffix result exists yet.
 
 ## Current checkpoint
 

@@ -15,97 +15,110 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Preregister the bounded diagnostic before source, tool invocation, module load,
-or result. The original payload and its ELF header fields are already opened
-facts from ADR-0406 and the post-ADR-0409 design trace; they are frozen inputs,
-not blinded predictions. The still-unopened question is whether the sole
-permitted reconstruction actually passes the offline and driver seams.
+Yes. Source-seal only the exact diagnostic. Do not invoke its real child at
+this checkpoint. The result path
+`artifacts/work_preflight/legal_river_exact_cubin_zero_suffix_diagnostic_v1.jsonl`
+and reserved actual path remain absent.
 
-The config binds the immutable diagnostic artifact, empty selector result,
-source hashes, and reserved-path absence. The original 514,039 bytes are never
-modified or written. The in-memory candidate is exactly the original prefix
-plus byte `00`, producing 514,040 bytes and SHA-256
+### Sole structural transform
+
+The producer parses ELF64 little-endian bytes through fixed standard-library
+structures. It requires the exact original SHA-256 and 514,039-byte length,
+exact 64-byte header, five complete program rows, 55-byte final partial row,
+seven retained low alignment bytes, section-table end, tail, and every frozen
+field. It then performs the only transform represented in source:
+`original + b"\x00"`.
+
+The reconstructed 514,040 bytes must have SHA-256
 `97693be7baafd882ad64a1a7da0ede23dc927efd872b0d15697b2486957ea894`.
-No other suffix, prefix, truncation, search, padding loop, or parser recovery is
-representable.
+All six program rows must match. Every file-backed section and program range
+must be bounded, every program memory size must dominate its file size, every
+nonzero alignment must be one or a power of two, and the section-name table
+must be file-backed and bounded. The function has no suffix parameter, loop,
+candidate list, normalizer, truncator, or patch path.
 
-### Frozen structural predicate
+Synthetic controls construct a small ELF with the same one-byte-short table
+shape. They pass only the exact zero completion and reject already-complete,
+two-byte-short, extra-byte, nonzero-claim, partial-field, hash, tail, program,
+section-bound, name-table, memory-size, and alignment mutations. No retained
+payload is opened through this control lane.
 
-The standard-library parser uses ELF64 little-endian header format
-`<16sHHIQQQIHHHHHH`. The exact header is frozen: CUDA machine 190, executable
-type 2, 64-byte ELF header, six 56-byte program headers at offset 513,704, and
-116 64-byte section headers at offset 506,280. The section table ends exactly
-at 513,704. The declared program table ends at 514,040, exactly one byte after
-the immutable input.
+### Semantic limits do not share authority
 
-Five program headers are complete. The final header has its first seven fields
-`(1, 4, 413440, 0, 0, 14784, 14784)` and seven retained alignment bytes
-`08 00 00 00 00 00 00`. The sole suffix completes `p_align=8`. After append,
-all six program headers must equal the frozen rows; every file-backed section
-and program file range must fit; every memory size must dominate its file
-size; every nonzero alignment must be one or a power of two; and the section-
-name table must be file-backed and bounded. Any mismatch is terminal, not an
-invitation to try another byte.
+The first implementation draft exposed a new instance of the numerical-
+coincidence defect family before source seal: repaired payloads and external
+command streams both currently have an 8 MiB ceiling, and one generic encoder
+let that equality hide two semantic quantities. The sealed source replaces it
+with separate `encode_payload` and `encode_stream` APIs. The independent
+reader likewise requires an explicit semantic maximum at every decode call.
+A control temporarily separates the numerical values and proves each path
+obeys only its own limit. The instance is fixed structurally; no result was
+opened under the conflated helper.
 
-### Exact same bytes
+### Durable same-byte owner
 
-The complete base64 repaired payload, raw hash, byte count, header fields, and
-table rows must be durably appended, flushed, and fsynced before the child may
-create a temporary file or load a module. Every payload command uses that one
-byte-identical temporary file. The CUDA module loader receives the same
-in-memory bytes and repeats their hash and size in its durable event. Temporary
-deletion waits until every command and module event is acknowledged after
-fsync.
+The public owner accepts no arguments and exclusively creates one new journal.
+Its fresh `-B` child completes a no-CUDA challenge handshake before importing
+the retained parent reader or CuPy. The reconstructed base64 payload, original
+identity, repaired identity, ELF fields, six program rows, section-table hash,
+section count, and section-name row are appended, flushed, fsynced, and ACKed
+before a temporary file exists.
 
-The module may load and query functions only. Compilation and every kernel
-launch are forbidden. All fifteen immutable names must resolve. Driver
-`LOCAL_SIZE_BYTES`, `NUM_REGS`, `SHARED_SIZE_BYTES`, and
-`MAX_THREADS_PER_BLOCK` for the three direct kernels must exactly equal the
-original retained rows: `(128,38,0,1024)`, `(1024,48,0,1024)`, and
-`(128,38,0,1024)` under their named fields.
+The child writes one temporary `.cubin`, reads it back byte-for-byte, makes
+that identity durable, and then runs the six frozen CUDA 13.3 commands in
+order with binary streams, `check=False`, concurrent bounded drains, raw
+base64/hash/count evidence, and an ACK after every event. A nonzero return does
+not stop later commands. Timeout or output overflow is typed and stops the
+unsafe continuation.
 
-### External operations and pass type
+After all six completed outcomes, one local CuPy import constructs a
+`cp.cuda.function.Module`, calls `load` with the same in-memory repaired bytes,
+resolves the exact fifteen names, and queries only four direct driver
+attributes for the three direct kernels. There is no compiler call and no
+kernel launch. The original three driver rows must match exactly. Cleanup is
+durable before terminal evidence. The parent sends each ACK only after the
+journal append returns from flush and fsync, enforces the 180-second laboratory
+wall, prospectively reserves terminal space under the 64 MiB journal cap, and
+kills silent or post-terminal children.
 
-Six fixed commands run with binary streams, `check=False`, concurrent bounded
-drains, and permanent raw capture: cuobjdump identity, resource usage, ELF
-dump; nvdisasm identity, default disassembly, and no-dataflow disassembly. The
-last two payload operations are supporting evidence. A suffix pass requires
-exact CUDA 13.3.73 cuobjdump identity, zero-return resource and ELF operations,
-and complete independently parsed `REG`/`STACK`/`LOCAL` rows for all three
-direct kernels, plus every structural/same-byte/module/driver conjunct.
+### Independent reader and terminal derivation
 
-The pass may name
-`cuobjdump_resource_usage_on_exact_zero_suffix_payload` as a qualified
-instrument for a later repaired-byte adapter. It does not evaluate the 255 or
-4,096 ceilings. Resource values cannot decide whether the suffix or instrument
-is semantically valid; `resource_gate_result` remains null.
+The reader imports the standard library and durable-journal parser only. It
+does not import CuPy, the producer, or the owner. It independently recovers the
+hash chain, validates current source identities and both immutable parent
+artifacts, decodes every binary envelope, rehashes the repaired prefix and
+suffix, re-parses the ELF header/program/section tables, checks the one
+temporary path across every payload command, and checks module byte identity,
+the fifteen-name inventory, zero launches, and direct-driver rows.
 
-The fresh no-bytecode child and parent use a challenge handshake and post-
-fsync ACK after every event. Per stream and repaired payload caps are 8 MiB,
-the complete journal cap is 64 MiB, each command wall is 30 seconds, and the
-laboratory wall is 180 seconds. All six command outcomes are retained after a
-nonzero return. Timeouts, output limits, structure, tools, module load, driver
-rows, wall, diagnostic, and infrastructure failures have distinct terminals.
-The first terminal is permanent.
+It separately implements ADR-0407's strict-ASCII `Function ...: REG/STACK/LOCAL`
+grammar. It derives timeout, output, module, driver, tool, and passing terminals
+from raw evidence rather than trusting either terminal event. Required
+cuobjdump identity/resource/ELF outcomes decide instrument qualification;
+nvdisasm remains supporting evidence. Resource magnitudes never decide suffix
+validity: an adversarial control with values above both future ceilings still
+qualifies the instrument. The 255/4,096 resource gate remains null.
 
-### Source-seal requirements
+### Controls and closure
 
-Controls must use synthetic ELF and literal device-free child modes only.
-They cover exact one-byte repair and zero/two/extra/nonzero/wrong-field
-rejections; section/program/name-table bounds; alignment and size mutations;
-prefix/tail/hash identity; temporary/module/event byte identity; complete and
-incomplete resource rows; required-tool and supporting-tool outcomes; module,
-kernel, and driver mutations; ceiling independence; handshake, silence,
-post-terminal, replay, torn-tail, and journal-cap behavior; and AST closure
-against compilation, calibration, population, consumed, and reserved paths.
-No real tool, module load, or result may occur at source seal.
+Twenty-two focused controls pass. They cover the structural mutations,
+separate semantic limits, binary envelope mutation, complete/incomplete and
+large resource rows, required-versus-supporting failures, timeout/output/module/
+driver typing, temporary/module/kernel identity, candidate order and exact
+path reuse, literal device-free child completion, mutated handshake and frame,
+silent-child deadline, post-terminal rejection, exclusive creation, first-
+terminal permanence, torn tail, replay, journal cap, source/config/artifact
+rebinding, result absence, and AST closure against compilation, calibration,
+population construction, and actual-owner entry. The full 96 documentation and
+generated-front-door checks also pass. Ruff is unavailable in this environment;
+that absence is recorded rather than replaced with an invented lint result.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
 Preregister the native-simplex robustness audit. ADR-0312's directive is Seal
-the native-simplex audit compiler and corpora. ADR-0313's directive is Seal
-the native-simplex audit runner before results. ADR-0314's decision is Retain
-the native-simplex audit and reject the frozen gate. ADR-0315's directive is
+the native-simplex audit compiler and corpora. ADR-0313's directive is Seal the
+native-simplex audit runner before results. ADR-0314's decision is Retain the
+native-simplex audit and reject the frozen gate. ADR-0315's directive is
 Source-seal the artifact-only native-simplex gate correction. ADR-0316's
 decision is Accept the corrected audit and bound replacement eligibility.
 ADR-0317 separates solver classes; ADR-0318 binds HiGHS 1.12.0; ADR-0319
@@ -137,24 +150,16 @@ bounded CUDA, staged, liveness, validation, and literal-target ladder.
 ADR-0384 retains the passing literal-45 result and opens only the
 actual-context quotient bridge. ADR-0385 preregisters the actual-context
 quotient bridge. ADR-0386 records the source-sealed actual-context quotient
-bridge.
-ADR-0368 seals only the exact bounded algebra keystone for the occupied-card
-quotient within that chain. ADR-0369 is the source-only arithmetic boundary.
-ADR-0370 seals the numeric-array and logical-work result. ADR-0378 remains the
-accepted prospective source-only literal-target liveness and streamed-
-validation boundary, and ADR-0379 retains its 244,970,204-byte device-cap
-margin without live admission. ADR-0381 source-seals the bounded validation
-seam before the one-shot literal-45 CUDA owner. ADR-0385 froze the legal bridge
-question; ADR-0386 source-sealed only its host answer; ADR-0387 froze the
-consumer-capacity question; ADR-0388 source-sealed only that CuPy-free answer;
-ADR-0389 froze the additive CUDA-consumer question; ADR-0390 rejected its
-source seal; ADR-0391 froze the first paired-tile boundary; ADR-0392 corrected
-its pre-source arithmetic completeness; ADR-0393 retained the first
-implementation as a wall rejection; ADR-0394/0395 freeze the work and resource
-questions; ADR-0396 through ADR-0403 own and close the three consumed preflight
-owners; ADR-0404 through ADR-0406 own and close the exact-cubin diagnostic;
-ADR-0407 through ADR-0409 own and close its empty artifact selector; and
-ADR-0410 freezes only the suffix diagnostic. No earlier owner is revived.
+bridge. ADR-0387 freezes the consumer-capacity seam; ADR-0388 source-seals
+only its CuPy-free answer; ADR-0389 freezes the additive CUDA-consumer
+question; ADR-0390 rejects its source seal; ADR-0391 freezes the first paired-
+tile boundary; ADR-0392 corrects its pre-source arithmetic completeness;
+ADR-0393 retains the first implementation as a wall rejection; ADR-0394/0395
+freeze the work and resource questions; ADR-0396 through ADR-0403 own and
+close the three consumed preflight owners; ADR-0404 through ADR-0406 own and
+close the exact-cubin diagnostic; ADR-0407 through ADR-0409 own and close its
+empty artifact selector; ADR-0410 freezes only the suffix diagnostic; and
+ADR-0411 source-seals it without operation. No earlier owner is revived.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -168,14 +173,14 @@ to selector-window work. ADR-0351 requires the tie-aware legal h4 affine-
 envelope. ADR-0354 through ADR-0359 own the factorized face and affine
 consumer chain. ADR-0380 freezes the complete ordered populations 10 and 22.
 ADR-0383's owner was invoke exactly once and remains consumed by ADR-0384.
-ADR-0410 imports neither that owner nor its target. The phrases exclusive
+ADR-0411 imports neither that owner nor its target. The phrases exclusive
 untouched legal h4, selector-window, 2,113-task, exhaustive bounded
 development-teacher, response-closed direct mechanism, and caller-owned legal
 fallback retain their prior meanings.
 
 The exact historical continuity strings remain explicit. ADR-0328 retains the
-exhaustive teacher and solver-free rebinder before the direct closed
-finite-block greedy line. ADR-0351 requires the tie-aware legal h4 affine-envelope.
+exhaustive teacher and solver-free rebinder before the direct closed finite-
+block greedy line. ADR-0351 requires the tie-aware legal h4 affine-envelope.
 ADR-0352 remains closed before any fresh untouched tie-aware affine result.
 ADR-0353 precedes ADR-0354's factorized exact active-set directional-face
 diagnostic. ADR-0355's owner was invoke exactly once; ADR-0356 retains that
@@ -184,9 +189,17 @@ requires an exclusive legal h4 owner, ADR-0358 was invoke exactly once, and
 ADR-0359 requires a fresh value-unopened confirmation. ADR-0382 preregistered
 the literal-45 config; ADR-0383 source-sealed it; ADR-0384 closed it.
 
+The generated-front-door historical labels also remain literal. ADR-0328
+precedes the direct closed finite-block greedy line. ADR-0367 preregisters the
+occupied-card quotient. ADR-0368 seals the exact bounded algebra keystone.
+ADR-0369 freezes the source-only arithmetic boundary. ADR-0370 seals the
+numeric-array and logical-work result. ADR-0378 freezes the source-only
+literal-target liveness boundary. ADR-0379 retains the 244,970,204-byte margin.
+ADR-0381 source-seals the one-shot literal-45 CUDA owner.
+
 ## Active next
 
-Implement only the ADR-0410 structural reconstructor, six-command binary diagnostic, exact repaired-byte module loader, exclusive ACK-gated journal owner, standard-library reader, and synthetic/device-free controls; source-seal them with every real external command, module load, and result absent; require exactly one appended zero under every frozen ELF/header/table/bounds predicate, the same repaired hash for temporary inspection and module load, complete zero-return CUDA 13.3 cuobjdump identity/resource/ELF operations, all fifteen named functions, exact equality with the original three driver rows, and ceiling-independent suffix validity; do not patch CuPy, compile, launch a kernel, run calibration, construct a population fixture, invoke any consumed or reserved owner, relax the dual instrument, or infer resource passage, capacity, latency, action quality, truncation, blueprint value, or poker strength
+From the clean ADR-0411 source-seal commit, invoke exactly once and with no arguments `python -B -m pontius.legal_river_exact_cubin_zero_suffix_diagnostic_runner`; retain its first terminal and exact journal without retry, resume, skip, continuation, suffix search, source change, threshold interpretation, or parser tailoring; independently rebind the repaired payload, all six raw command outcomes, all fifteen function names, direct-driver equality, exact resource grammar, cleanup, and derived terminal; then write the outcome ADR while every resource ceiling, resource gate, calibration, population, phase, projection, complete 25-card numerical value, actual 45-card value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains closed
 
 ## Revoked authorities
 
@@ -194,7 +207,7 @@ Implement only the ADR-0410 structural reconstructor, six-command binary diagnos
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0410](docs/decisions/ADR-0410-preregister-the-one-byte-elf-suffix-diagnostic.md) — Preregister the one-byte ELF suffix diagnostic.
+Latest process decision: [ADR-0411](docs/decisions/ADR-0411-source-seal-the-one-byte-elf-suffix-diagnostic.md) — Source-seal the one-byte ELF suffix diagnostic.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -202,7 +215,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0387](docs/decisions/ADR-0387-preregister-the-actual-context-quotient-consumer-capacity-seam.md) | 2026-08-25 | accepted prospective source-only actual-context quotient consumer-capacity boundary; the global 128+48 feature partition, streamed forward/fold/adjoint ownership, exact phase lifetimes, bounded independent differential, fixed allocation arithmetic, and semantic adversaries are frozen before source, while CuPy, every full-width quotient value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remain unopened | Preregister the actual-context quotient consumer-capacity seam |
 | [ADR-0388](docs/decisions/ADR-0388-source-seal-the-actual-context-quotient-consumer-capacity.md) | 2026-08-25 | accepted source-sealed CuPy-free actual-context quotient consumer-capacity result; 58 independently expanded shape/dtype rows place the legal rank-175/width-176 bridge under the fixed host/device caps with forward storage dead before adjoint birth, and the complete exact ten-card 128+48 forward/fold/adjoint differential passes, while live allocation, device execution, every 45-card quotient value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remain unopened | Source-seal the actual-context quotient consumer capacity |
 | [ADR-0389](docs/decisions/ADR-0389-preregister-the-actual-context-quotient-cuda-consumer.md) | 2026-08-25 | accepted prospective actual-context quotient CUDA-consumer boundary; exact source rebinding, offset-aware 128+48 kernels, complete-label streaming, numerator/reach fold and transpose semantics, named live allocation, bounded ten-card and 25-card device conformance, deterministic reductions, durable one-shot ownership, and semantic adversaries are frozen before consumer source or device values, while live admission, every actual 45-card quotient value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remain unopened | Preregister the actual-context quotient CUDA consumer |
 | [ADR-0390](docs/decisions/ADR-0390-retain-the-bounded-cuda-consumer-numerical-rejection.md) | 2026-08-25 | accepted bounded-device source-seal rejection; the complete ten-card offset-aware CUDA consumer passes every frozen exact, transpose, lifecycle, and adversarial gate, and the complete multi-chunk 25-card consumer passes every semantic, direct-row, byte-identity, allocation, release, and wall gate except ADR-0389's separate `2e-10` absolute transpose ceiling, which misses by exactly one Float64 ULP, while the actual 45-card entry, durable owner, result artifact, live admission, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remain unopened | Retain the bounded CUDA-consumer numerical rejection |
@@ -226,18 +238,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0408](docs/decisions/ADR-0408-source-seal-the-artifact-only-exact-cubin-inspector-selector.md) | 2026-08-26 | accepted source-only artifact-selector seal; the standard-library selector, committed source digest, synthetic candidate/parser/quantity/lifecycle controls, and exclusive canonical result writer are hash-bound before the authoritative ADR-0406 artifact is read through the selector or any selection assessment exists, while every inspector choice, resource gate, calibration population, phase, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains null | Source-seal the artifact-only exact-cubin inspector selector |
 | [ADR-0409](docs/decisions/ADR-0409-retain-the-empty-exact-cubin-inspector-selection.md) | 2026-08-26 | accepted deterministic artifact-only empty selection; the sole ADR-0408 invocation rebinds the exact ADR-0406 corpus, accepts the CUDA 13.3.73 identity, rejects the only semantically eligible complete resource candidate on its retained nonzero return code, and returns `no_qualified_inspector` with every selected row, combined row, resource gate, calibration, and projection null | Retain the empty exact-cubin inspector selection |
 | [ADR-0410](docs/decisions/ADR-0410-preregister-the-one-byte-elf-suffix-diagnostic.md) | 2026-08-26 | accepted prospective exact-artifact suffix boundary; one new-identity diagnostic may append exactly one zero byte under the fully frozen ELF64 structural predicate, retain that repaired payload before operation, send the same bytes to CUDA 13.3 tools and the CUDA module loader, and compare all named kernels and direct driver rows without compilation or launch, while every suffix result, qualified instrument, resource gate, calibration population, phase, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains null | Preregister the one-byte ELF suffix diagnostic |
+| [ADR-0411](docs/decisions/ADR-0411-source-seal-the-one-byte-elf-suffix-diagnostic.md) | 2026-08-26 | accepted source-only exact-suffix seal; the sole-zero structural reconstructor, semantically separate payload and stream limits, repaired-payload-first ACK protocol, six-command binary owner, no-launch fifteen-function module seam, independent standard-library rebinder, and 22 synthetic/device-free adversarial controls are hash-bound before any real external command, CUDA module load, or suffix result, while the repaired binary remains unaccepted and every resource gate, calibration, capacity, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains null | Source-seal the one-byte ELF suffix diagnostic |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0410](docs/decisions/ADR-0410-preregister-the-one-byte-elf-suffix-diagnostic.md) — Preregister the one-byte ELF suffix diagnostic.
+- Latest ADR: [ADR-0411](docs/decisions/ADR-0411-source-seal-the-one-byte-elf-suffix-diagnostic.md) — Source-seal the one-byte ELF suffix diagnostic.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 410.
-- ADR-header SHA-256: `43524bc8c85c45574f48f0503fdcc8b8990b439af17efc1c248e3c77328276c8`.
-- Current blockers: no source-sealed or retained suffix diagnostic, accepted repaired exact binary, qualified exact-binary resource instrument, resource-gate verdict, retained 10/22-card calibration, conservative complete-25 capacity verdict, complete 25-card numerical result, actual owner, or full-width actual-context quotient value exists; the three work-preflight owners, exact-cubin diagnostic owner, and artifact selector are permanently consumed; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 411.
+- ADR-header SHA-256: `daa9897dfe83104d051eaf9c842d183a629541c955f8ab38e4a2af97cceb4b58`.
+- Current blockers: no retained suffix diagnostic, accepted repaired exact binary, qualified exact-binary resource instrument, resource-gate verdict, retained 10/22-card calibration, conservative complete-25 capacity verdict, complete 25-card numerical result, actual owner, or full-width actual-context quotient value exists; the three work-preflight owners, exact-cubin diagnostic owner, and artifact selector are permanently consumed; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0410](docs/decisions/ADR-0410-preregister-the-one-byte-elf-suffix-diagnostic.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0411](docs/decisions/ADR-0411-source-seal-the-one-byte-elf-suffix-diagnostic.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

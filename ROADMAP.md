@@ -1468,7 +1468,15 @@ queue:
   as a complete-10 byte control, uses the shared fold for complete 10/22
   population work, and records 15 contiguous validation phases with no
   projection rule. The immediate checkpoint is its fake-device/synthetic
-  source seal; population 25 and the real result remain absent.
+  source seal; population 25 and the real result remain absent. ADR-0420 now
+  completes that seal after 18 controls, including a complete 86-observation
+  synthetic rebind, fake complete/one-zero compiler paths, exact fused-slot
+  work, and a synchronization-first host ledger with a distinct population
+  elapsed wall, cross-family overlap rejection, and commandless-cleanup
+  terminal binding. The immediate checkpoint is exactly one clean no-argument
+  invocation from the sealed commit, followed by independent rebinding and an
+  outcome ADR. No retry, projection selection, or population-25 opening is
+  permitted at that checkpoint.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1556,8 +1564,12 @@ queue:
   CuPy or result operation. ADR-0419 now preregisters the bounded device
   differential, exact compiler-container evidence, complete-10 reference
   control, and complete-10/22 shared population paths. Its source-only owner/
-  reader seal is the immediate capacity-lane checkpoint; it neither reopens V4
-  nor selects a new projection rule.
+  reader seal is completed by ADR-0420 after 18 controls. Its real result is
+  absent; the immediate capacity-lane checkpoint is the one clean exclusive
+  invocation and independent outcome rebind. It neither reopens V4 nor selects
+  a new projection rule. Before any later literal 45-card consumer owner is
+  invoked, freeze a separate exact work, memory, and 15-second fit projection;
+  a live 45-card wall kill may not substitute for that preflight.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

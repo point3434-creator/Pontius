@@ -872,8 +872,15 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   controls and zero CuPy/device operations. ADR-0419 now preregisters the
   exclusive complete-10 byte differential, complete-10/22 shared-path owner,
   exact compiler-container evidence, and 15-phase validation ledger. Its
-  source-only adapter/owner/reader seal is next; no replacement capacity rule,
-  population-25 value, action, or quality result exists.
+  source-only adapter/owner/reader seal is completed by ADR-0420 after 18
+  controls. The independent reader rebinds a complete 86-observation synthetic
+  pass, rejects cross-family wall overlap, and binds cleanup without a resource
+  command to an early failure terminal. The timing ledger now synchronizes
+  before host stamps while keeping full population elapsed wall distinct from
+  phase sums. No real compile, module load, launch, replacement capacity rule,
+  population-25 value, action,
+  or quality result exists. The next authority is one clean no-argument owner
+  invocation from the sealed commit, never a retry.
 
 ## Current checkpoint
 

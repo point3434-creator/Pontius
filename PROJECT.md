@@ -1020,6 +1020,18 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   launch only the shared fold under a contiguous 15-phase ledger. Slot 9 is
   boundary-feature count and slot 11 is logical width. No projection rule is
   present; implement and source-seal this owner/reader boundary next.
+- ADR-0420 completes that source-only seal after 18 focused controls. Raw
+  compiler bytes are ACK-durable before an exact complete/one-zero ELF
+  classifier, the retained V4 cubin is complete-ten control-only, and generated
+  complete 10/22 population code structurally excludes the reference query and
+  population 25. The independent standard-library reader reconstructs a full
+  86-observation synthetic pass. A pre-evidence review also separates full
+  population elapsed wall from summed phase intervals and moves host stamps
+  after CUDA synchronization. No real compile, load, launch, result, or
+  replacement projection exists. The reader also rejects overlapping family
+  walls and binds cleanup without a completed resource command to an early
+  failure terminal; one clean no-argument invocation from the
+  ADR-0420 commit is next and may never be retried.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

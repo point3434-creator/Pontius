@@ -1997,6 +1997,21 @@ each and no parent-module patch. The fused launch has a named argument schema:
 feature count is slot 9 and logical width is slot 11. A 15-phase partition
 merges direct query and fold, but carries no capacity projection authority.
 
+ADR-0420 source-seals the additive device boundary. The owner ACK-gates raw
+compiler chunks before a generic complete-ELF or narrowly bounded one-zero
+classifier and loads the exact retained object. The retained V4 query kernel is
+reachable only inside the complete-ten differential; generated complete 10/22
+population code replaces the helper and collection predicate without parent
+module patching and rejects reference-query launches. The reader is standard-
+library and independently rebuilds compiler, command, resource, complete-ten,
+phase, work, Fraction, and terminal semantics. Host boundaries now synchronize
+before stamping, and full population elapsed wall is a separate semantic
+quantity from summed contiguous phase time. Eighteen fake-device and synthetic
+controls also reject cross-family wall overlap and bind commandless cleanup to
+an early failure terminal; the real result, population 25, and every capacity
+or action claim remain absent until one separately invoked owner terminal
+exists.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

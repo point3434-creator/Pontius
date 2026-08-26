@@ -950,6 +950,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   nonzero, ELF/driver-only, and nvdisasm-register-only evidence. The real
   artifact has not been read through the selector and the canonical result
   remains absent at the seal.
+- ADR-0409 retains the sole selector assessment as
+  `no_qualified_inspector`. CUDA 13.3.73 identity passes, but the only complete
+  resource candidate has retained return code 4294967295; all selected,
+  combined, resource-gate, calibration, and projection fields are null. A
+  separate unsealed design trace finds a one-byte ELF table deficit aligned
+  with CuPy 14.2.0's unconditional cubin suffix removal. That is only the next
+  bounded hypothesis: no byte has been appended and no repair is accepted.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

@@ -839,6 +839,9 @@ reported values pass their later ceilings. Source and result remain unopened.
 ADR-0408 now source-seals the selector after 12 synthetic controls. The exact
 input assessment has not run, the result remains absent, and the only next
 authority is its one clean deterministic no-argument invocation.
+ADR-0409 retains that invocation as `no_qualified_inspector`. The resource
+gate is still unopened. A narrow one-byte ELF suffix hypothesis is the next
+prospective diagnostic; it is not yet an accepted repair or capacity result.
 
 ## Current checkpoint
 

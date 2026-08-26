@@ -2395,12 +2395,27 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "invoke exactly once",
         ):
             self.assertIn(phrase, selector_seal)
-        self.assertFalse(
-            (
-                _ROOT
-                / selector_config["selector_scope"]["result_relative_path"]
-            ).exists()
+        selector_result = (
+            _ROOT / selector_config["selector_scope"]["result_relative_path"]
         )
+        self.assertTrue(selector_result.is_file())
+        selector_result_raw = selector_result.read_bytes()
+        self.assertEqual(len(selector_result_raw), 3164)
+        self.assertEqual(
+            hashlib.sha256(selector_result_raw).hexdigest(),
+            "ebc66a0d06a84eeb16d5c2d6adf6376227011ef3982c8fcdd09e97496c276d1f",
+        )
+        selector_outcome = _contract_text(
+            "docs/decisions/ADR-0409-retain-the-empty-exact-cubin-inspector-selection.md"
+        )
+        for phrase in (
+            "no_qualified_inspector",
+            "resource_return_code_nonzero",
+            "selected_inspector=null",
+            "one-byte-truncated ELF",
+            "preregistration hypothesis only",
+        ):
+            self.assertIn(phrase, selector_outcome)
 
     def test_work_preflight_v3_serializer_recovery_is_preregistered(self) -> None:
         relative = (

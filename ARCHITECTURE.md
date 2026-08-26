@@ -1901,6 +1901,15 @@ instrument and that incomplete instruments remain unselected even when nearby
 driver or register evidence exists. The authoritative result remains absent at
 the seal.
 
+ADR-0409 closes the selector with `no_qualified_inspector`; no resource row or
+gate exists. A later suffix diagnostic may examine one exact structural
+hypothesis only: the retained ELF declares a program-header table one byte
+longer than its buffer, while the published CuPy 14.2.0 NVRTC wrapper removes
+one terminal byte. Any successor must freeze generic ELF bounds and the sole
+zero suffix before operation, then inspect and load the identical repaired
+bytes. It may not normalize generally, patch site-packages, or infer that the
+hypothesis has already passed.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

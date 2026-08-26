@@ -1128,6 +1128,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   counterfactual is 168.156 seconds. Population 25 remains geometry only and
   no CUDA, action, quality, truncation, or exact-integer result exists. The next
   boundary is a CPU-first full-operator integer algebra and work gate.
+- ADR-0433 freezes that CPU-first gate before source. Its exactness boundary is
+  the already-captured high/low source rows, query covectors, and query weights,
+  not the original unrounded factors. A common scale of 720 clears both
+  recurrences, but the forward weights `{1,6,30,120,360}` and adjoint weights
+  `{30,120,360,720,720}` are deliberately different. Signed partial, product,
+  scalar, guard-limb, exact-rounding, rank, liveness, fixed-side, and sparse-
+  delta answers are frozen. Under the old ten-card envelope, table cells price
+  at four limbs plus one guard while scalar accumulators price at eight plus
+  one; no 25/45-card or device-fit inference follows.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

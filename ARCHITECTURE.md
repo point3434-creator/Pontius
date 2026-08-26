@@ -2122,6 +2122,20 @@ closes the paired/shared representation under the frozen estimator, not all
 exact representations. An exact-integer successor must begin with complete
 CPU algebra, signed carry/rounding bounds, and source-only work/memory pricing.
 
+ADR-0433 freezes that successor's first boundary. The integer authority begins
+at exact dyadic values of captured high/low rows, covectors, and weights; it
+does not retroactively make pair capture exact to original factors. A global
+720 scale removes internal division, with six-card forward weights
+`{1,6,30,120,360}` and four-card adjoint weights
+`{30,120,360,720,720}`. Their resulting bilinear integers must match exactly.
+Family-wide fixed-point exponents, signed partial and scalar bounds, one guard
+limb, and integer-only ties-to-even terminal rounding are explicit. The old
+ten-card exponent envelope implies five guard-inclusive table limbs but nine
+for scalar accumulators; every future fixed-limb config still needs its own
+prospectively frozen per-run exponent admission. Literal-45 rank, recurrence,
+memory-liveness, fixed-side, and sparse-delta counts remain symbolic CPU work,
+not a device-fit, latency, population-25, or quality result.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

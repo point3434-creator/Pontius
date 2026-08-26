@@ -905,7 +905,12 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   projection, population-25 value, action-latency, quality, or exact-integer
   inference exists. ADR-0430 now freezes an artifact-only fit assessor with all
   phase ratios, outside-phase wall, guards, lifecycle, and result identities
-  fixed before source or projected value.
+  fixed before source or projected value. ADR-0431 source-seals it and ADR-0432
+  retains the sole 4,999.487-second conservative rejection. ADR-0433 now
+  preregisters a CPU-only captured-pair exact-integer successor: distinct
+  forward/adjoint factorial weights, signed guard-limb bounds, exact terminal
+  rounding, and literal 45-card work/memory formulas are fixed before source.
+  Population 25, CUDA, the actual consumer, timing, and quality remain closed.
 
 ## Current checkpoint
 

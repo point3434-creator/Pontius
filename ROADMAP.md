@@ -1511,8 +1511,12 @@ queue:
   ADR-0432 retains its sole rejection at 4,999.487 seconds; all sixteen rows are
   decided by population 10, while the reporting-only 22 endpoint would pass at
   168.156 seconds. Do not substitute that favorable endpoint. The immediate
-  checkpoint is a prospective CPU-first exact-integer algebra/work boundary;
-  do not open population 25 or CUDA before that gate.
+  checkpoint is now ADR-0433's frozen CPU-first captured-pair exact-integer
+  algebra/work boundary. Implement only its pure CPU reference and controls:
+  different forward/adjoint factorial scales, signed partial/product/scalar
+  bounds plus guard limbs, exact binary64 rounding, reduced direct identities,
+  and symbolic literal-45 rank/memory/delta work. Do not open population 25,
+  CUDA, device fit, or timing before that gate.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1611,9 +1615,10 @@ queue:
   complete 10/22 pass and permanently consumes it. ADR-0430 freezes, ADR-0431
   implements, and ADR-0432 consumes the artifact-only assessor over that exact
   journal. Its conservative capacity result rejects and is permanently closed;
-  it neither reopens V2/V4 nor invokes population 25. The immediate capacity-
-  lane checkpoint is a preregistered CPU algebra, limb, rounding, and work model
-  for the exact-integer operator hypothesis before any implementation or CUDA.
+  it neither reopens V2/V4 nor invokes population 25. ADR-0433 now
+  preregisters the CPU algebra, limb, rounding, and work model for a captured-
+  pair exact-integer operator. Implement and source-seal that repeatable CPU
+  keystone next; a pass opens only a separate fixed-limb/device-work preflight.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

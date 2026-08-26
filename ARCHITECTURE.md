@@ -1821,6 +1821,13 @@ reader first owns the new lifecycle grammar, then passes only the unchanged
 scientific event view to the hash-bound v1 scientific rebinder in memory. The
 view is never evidence and cannot repair or rewrite either journal.
 
+ADR-0399 implements and source-seals this split. The shared transport has a
+bounded cancellable stdout queue, bounded concurrent stderr, exact deadline
+after stdout EOF, strict terminal ordering, and explicit pipe cleanup. The
+public owner journals the independently known parent challenge digest beside
+the child reply before any campaign child can start. Sixteen controls pass;
+campaign mode and the real v2 artifact remain unopened.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

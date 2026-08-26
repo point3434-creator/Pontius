@@ -15,76 +15,85 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes as a preregistration, not yet as source, handshake evidence, calibration,
-or capacity evidence. Freeze the additive v2 config and reserve a new exclusive
-result path. The v1 runner, reader, controls, scientific source, configs, ADRs,
-and exact three-record artifact are immutable inputs. The successor may not
-import or invoke the v1 runner. It reuses the scientific source read-only by
-hash and owns new lifecycle code.
+Yes at the source boundary only. Accept the additive v2 runner, reader, and 16
+focused controls. The v2 result remains absent. The source seal ran a real
+`-B -m` handshake child, but it did not select campaign mode, import CuPy or
+the scientific source in that child, compile a kernel, construct a calibration
+fixture, or create a durable result. Only a later clean commit may consume the
+new owner once.
 
-V2 has a genuinely new evidence identity. Its protocol, campaign, header,
-observation, provenance, terminal, event prefix, runner, reader, controls, and
-result path all differ from v1. The old result cannot satisfy any v2 presence
-or terminal check. The v2 header binds the ADR-0398 config, the committed
-preregistration boundary, the immutable v1 artifact, the unchanged science,
-and the still-absent reserved actual authority.
-
-The worker module is a frozen literal:
+The worker command is literal, not contextual:
 
 ```text
-pontius.legal_river_quotient_cuda_compensated_work_preflight_v2_runner
+python -B -m pontius.legal_river_quotient_cuda_compensated_work_preflight_v2_runner
 ```
 
-No command may derive it from runtime `__name__`. Both handshake and campaign
-children pass through one subprocess function: the same `Popen` construction,
-strict ASCII event framing, concurrently drained bounded stdout and stderr,
-deadline loop, return-code check, and terminal extraction. Only the child mode
-and remaining wall differ.
+Handshake and campaign use the same `_run_child_process` function. That one
+transport owns the Popen command, strict ASCII framing, a 64-entry bounded
+stdout queue, concurrently drained 4,096-character stderr, exact monotonic
+deadline, return-code and child-terminal checks, and pipe/thread cleanup. A
+queue reader has explicit cancellation, stdout EOF does not stop the deadline
+while the child remains alive, and any event after a child terminal rejects.
+These are lifecycle controls shared automatically by the future scientific
+child, not a parallel test-only path.
 
-Before source seal, a focused control must spawn that literal module for a
-real no-CUDA handshake. The parent supplies a fresh 32-byte challenge; the
-child returns its SHA-256, its literal `__spec__.name`, runtime name
-`__main__`, and explicit facts that neither CuPy nor the scientific source is
-loaded. The control accepts no result path and creates no journal. A string
-inspection, mocked `Popen`, or injected campaign executor does not satisfy
-this gate. The public owner repeats the same handshake after durable provenance
-and journals the accepted observation before it may spawn the campaign child.
-Any handshake failure becomes a first infrastructure terminal and stops before
-scientific import.
+The real handshake uses `secrets.token_bytes(32)`. The child reports the
+SHA-256 of that challenge, its literal `__spec__.name`, runtime name
+`__main__`, package `pontius`, `-B` state, single argv entry, and absence of
+both CuPy and the scientific module. The parent validates the response before
+journaling a wrapper that contains its independently known challenge digest
+beside the child payload. The reader reconstructs equality of those two
+digests and all module/import facts; a stored pass bit is not enough.
 
-The challenge proves that the framed reply came from the newly born child,
-not from a canned fixture. It is lifecycle evidence only. Its elapsed time is
-inside the unchanged 240-second laboratory wall when the public owner runs,
-but it is not one of the 16 scientific phases and cannot be projected as
-capacity work. Ten seconds bounds the source-seal handshake; the real owner
-passes only the remaining laboratory allowance to each child.
+The public owner writes and fsyncs its new header before config, Git, retained-
+v1, handshake, or campaign work. It then binds the ADR-0398 config, a strict
+clean Git boundary, all current dependency hashes, and ADR-0397's exact
+5,322-byte three-record terminal. Provenance precedes the repeated real
+handshake; scientific events cannot appear before that handshake. The full
+handshake plus campaign shares the unchanged 240-second laboratory wall, and
+campaign receives only the remaining allowance.
 
-The v2 reader owns the new lifecycle grammar independently. It rebinds the new
-protocol/campaign/header, challenge response, module identity, import-absence
-facts, event order, terminal, all current dependency hashes, retained v1
-bytes, and the absence claim for the reserved actual path. Only after those
-checks pass may it construct an in-memory validation view of the unchanged
-scientific events and submit that view to the hash-bound v1 scientific
-rebinder. This view is not evidence, is never written, does not claim a v1
-producer, and cannot repair either journal. It exists solely to reuse the
-already audited phase/work/resource/projection grammar without duplicating it.
+The v2 reader is standard-library and CuPy-free. It independently owns the v2
+protocol, campaign, header, provenance, dependency set, retained-v1 bytes,
+handshake, order, last-event identity, and terminal. Only afterward does it
+construct an in-memory v1-shaped validation view of non-handshake events and
+call the immutable v1 scientific rebinder with current-source trust disabled.
+The v2 reader has already rebound every current dependency itself. The view is
+never written, never claims a v1 producer, and cannot repair either journal.
 
-Every ADR-0394 and ADR-0395 scientific field remains binding: complete 10 and
-22 calibration populations; both chunk families, tile orders, repeats, and
-three tiles; source-rank-major direct controls; exact work counters; 16
-semantic phases; contiguous synchronized host boundaries; worse-endpoint
-constituent ratios; fixed `5/4` guard plus 1 ms per phase; 90-second population,
-240-second laboratory, and 180-second projection walls; retained ELF and CUDA
-13.3 resource text; driver/cubin maxima; 255-register, 4,096-byte backing,
-131,072-thread, and 2 GB reserve gates; and structurally null exact spill
-traffic. Population 25 remains integer geometry, work, chunk, and projection
-arithmetic only. There is no scientific mitigation in this successor.
+No v1 owner code was imported. The successor source contains neither the v1
+runner import nor `[sys.executable, "-B", "-m", __name__]`. The scientific
+source, v1 runner, v1 reader, v1 controls, configs, and artifact retain their
+ADR-0396/ADR-0397 hashes. The only code change is a new lifecycle owner and
+reader around the unchanged scientific call.
 
-This split is deliberate. ADR-0398 commits the contract while every successor
-source path and the v2 result are absent. A later source seal may run only the
-device-free handshake and synthetic controls. Only a still later clean commit
-may invoke the no-argument owner once. A failed handshake, campaign, or journal
-is retained without repair, retry, skip, continuation, or identity reuse.
+The 16 focused controls cover fresh device-free import; exact config and v1
+rebinding; additive source structure; the real cryptographically fresh child;
+wrong/stale challenge response; CuPy and scientific-source import claims;
+literal command construction; unframed and malformed stdout; bounded stderr;
+nonzero return; exact timeout; event-after-terminal rejection; synthetic
+complete scientific passage; pre-handshake and post-handshake infrastructure
+terminals; challenge, dependency, and order mutations with full rehashing;
+exclusive replay; v1 drift; torn suffix; reserved-actual presence; and public
+no-argument/result-absence checks. `ResourceWarning` was an error. An initial
+control run exposed unclosed pipe objects; the final transport closes them and
+the warning-clean suite passes.
+
+The immutable v1 test file remains unedited. Its 18 tests run with exactly the
+three ADR-0397 historical pre-result predicates marked expected: fresh import
+expects the consumed v1 result absent, the static source test expects it
+absent, and the public-runner test expects it absent. The other 15 pass. The
+paired scientific and durable-journal suites pass 16 of 16. These are source
+and regression controls, not device or capacity evidence.
+
+Every ADR-0394 and ADR-0395 scientific field remains binding: populations 10
+and 22; both chunk families, tile orders, repeats, and all three tiles; source-
+rank-major direct controls; exact work counters; 16 semantic phases; contiguous
+synchronized host boundaries; worse-endpoint ratios; fixed `5/4` plus 1 ms;
+90-second population, 240-second laboratory, and 180-second projection walls;
+ELF and raw CUDA-13.3 resource evidence; driver/cubin maxima; 255-register,
+4,096-byte backing, 131,072-thread, and 2 GB reserve gates; and null exact spill
+traffic. Population 25 remains integer geometry/work/projection only.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -130,9 +139,9 @@ rejected its source seal; ADR-0391 froze the first paired-tile boundary;
 ADR-0392 corrected its pre-source arithmetic completeness; ADR-0393 retained
 the first implementation as a wall rejection; ADR-0394 freezes the work-
 preflight question; ADR-0395 corrects only its resource instrument before
-result; ADR-0396 source-seals v1; ADR-0397 permanently closes its sole
-invocation at worker bootstrap; and ADR-0398 freezes only the additive v2
-lifecycle recovery. No earlier owner is revived.
+result; ADR-0396 source-seals v1; ADR-0397 closes its sole invocation at worker
+bootstrap; ADR-0398 freezes the additive lifecycle recovery; and ADR-0399
+source-seals only that recovery. No earlier owner is revived.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -146,7 +155,7 @@ to selector-window work. ADR-0351 requires the tie-aware legal h4 affine-
 envelope. ADR-0354 through ADR-0359 own the factorized face and affine
 consumer chain. ADR-0380 freezes the complete ordered populations 10 and 22.
 ADR-0383's owner was invoke exactly once and remains consumed by ADR-0384.
-ADR-0398 imports neither that owner nor its target. The phrases exclusive
+ADR-0399 imports neither that owner nor its target. The phrases exclusive
 untouched legal h4, selector-window, 2,113-task, exhaustive bounded
 development-teacher, response-closed direct mechanism, and caller-owned legal
 fallback retain their prior meanings.
@@ -164,7 +173,7 @@ the literal-45 config; ADR-0383 source-sealed it; ADR-0384 closed it.
 
 ## Active next
 
-Implement and source-seal the additive ADR-0398 v2 owner, solver-free lifecycle reader, and controls while the v2 result remains absent; use the literal module `pontius.legal_river_quotient_cuda_compensated_work_preflight_v2_runner`; prove a fresh-challenge no-CUDA handshake through the actual shared Popen/framing/stdout/stderr/timeout/return seam without importing CuPy or the scientific source or creating evidence; bind the immutable v1 artifact and unchanged ADR-0394/ADR-0395 files by hash; keep population 25 integer-only and require another clean committed boundary before any one-shot v2 campaign
+From the clean committed ADR-0399 source seal, verify the immutable v1 journal and absent v2/reserved paths, then invoke `python -B -m pontius.legal_river_quotient_cuda_compensated_work_preflight_v2_runner` exactly once; retain its first exclusive append-and-fsync terminal without retry, repair, skip, continuation, or v1 revival; require the solver-free v2 reader to rebind the journaled fresh-challenge handshake and every unchanged scientific row; keep population 25 integer-projection-only and do not infer action-clock, quality, truncation, blueprint, or poker strength
 
 ## Revoked authorities
 
@@ -172,7 +181,7 @@ Implement and source-seal the additive ADR-0398 v2 owner, solver-free lifecycle 
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0398](docs/decisions/ADR-0398-preregister-the-bootstrap-safe-work-preflight-v2-owner.md) — Preregister the bootstrap-safe work-preflight v2 owner.
+Latest process decision: [ADR-0399](docs/decisions/ADR-0399-source-seal-the-bootstrap-safe-work-preflight-v2-owner.md) — Source-seal the bootstrap-safe work-preflight v2 owner.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -180,7 +189,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0375](docs/decisions/ADR-0375-retain-the-staged-scaling-pre-journal-bootstrap-failure.md) | 2026-08-25 | accepted retained first-invocation infrastructure failure; ADR-0374's clean v1 owner is permanently closed after its exclusive journal open found the frozen result parent absent, with no result bytes, header, GPU stage call, staged admission, timing, throughput, or literal 45-card result | Retain the staged-scaling pre-journal bootstrap failure |
 | [ADR-0376](docs/decisions/ADR-0376-source-seal-the-bootstrap-safe-staged-scaling-v2-owner.md) | 2026-08-25 | accepted source-only pre-invocation seal; the additive v2 owner binds a tracked artifact parent, preserves the permanently closed v1 paths and every ADR-0373 scientific field, and has not opened a real v2 journal, GPU stage, staged admission, timing, throughput, literal 45-card result, action, decision-quality, truncation, or poker-strength result | Source-seal the bootstrap-safe staged-scaling v2 owner |
 | [ADR-0377](docs/decisions/ADR-0377-retain-the-passing-staged-gpu-quotient-scaling-result.md) | 2026-08-25 | accepted retained six-stage non-target GPU numerical, live-admission, and throughput result; all 126 frozen gates pass through 40 cards, while literal 45-card admission, one solve or action, decision quality, truncation, and poker strength remain unopened | Retain the passing staged GPU quotient scaling result |
 | [ADR-0378](docs/decisions/ADR-0378-preregister-the-literal-45-quotient-liveness-boundary.md) | 2026-08-25 | accepted prospective source-only literal-target liveness and streamed-validation boundary; no target allocation, CUDA source, live admission, timing, solve, action, quality, truncation, or strength result is opened | Preregister the literal-45 quotient liveness boundary |
@@ -204,18 +212,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0396](docs/decisions/ADR-0396-source-seal-the-work-decomposed-paired-capacity-preflight.md) | 2026-08-25 | accepted source-only composite work-preflight seal; the additive source-rank-major direct controls, exact 10/22 work ledger, constituent-complete conservative ratios, contiguous synchronized host-phase partition, corrected dual resource instrument, exclusive subprocess-bounded owner, append-and-fsync journal, and independent standard-library reader pass every synthetic/source control while both result paths remain absent, no real compilation, calibration, or 25-card fixture has been invoked, and every complete 25-card numerical value, actual 45-card value, resolver iteration, solve, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Source-seal the work-decomposed paired capacity preflight |
 | [ADR-0397](docs/decisions/ADR-0397-retain-the-work-preflight-worker-module-bootstrap-failure.md) | 2026-08-25 | accepted retained first-invocation infrastructure failure; ADR-0396's clean v1 owner is permanently closed after its durable header and provenance were followed by `python -m __main__` module-resolution failure, with zero worker import, compiler observation, calibration fixture, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result | Retain the work-preflight worker-module bootstrap failure |
 | [ADR-0398](docs/decisions/ADR-0398-preregister-the-bootstrap-safe-work-preflight-v2-owner.md) | 2026-08-25 | accepted prospective lifecycle-only preregistration; a new owner/result/protocol/campaign/header identity, literal worker module, fresh-challenge no-CUDA subprocess handshake, and solver-free v2 lifecycle reader are frozen before successor source, child execution, compiler observation, calibration, phase row, projection, or result, while ADR-0394/ADR-0395 science remains byte-bound and every complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, and strength result remains unopened | Preregister the bootstrap-safe work-preflight v2 owner |
+| [ADR-0399](docs/decisions/ADR-0399-source-seal-the-bootstrap-safe-work-preflight-v2-owner.md) | 2026-08-25 | accepted source-only bootstrap-safe v2 seal; the additive owner, new lifecycle journal, solver-free reader, shared bounded child transport, fresh-challenge no-CUDA handshake, immutable-v1 rebinding, and 16 focused controls pass while the v2 result remains absent, campaign mode has not run, the scientific source is unchanged, and no compiler observation, calibration value, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result is opened | Source-seal the bootstrap-safe work-preflight v2 owner |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0398](docs/decisions/ADR-0398-preregister-the-bootstrap-safe-work-preflight-v2-owner.md) — Preregister the bootstrap-safe work-preflight v2 owner.
+- Latest ADR: [ADR-0399](docs/decisions/ADR-0399-source-seal-the-bootstrap-safe-work-preflight-v2-owner.md) — Source-seal the bootstrap-safe work-preflight v2 owner.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 398.
-- ADR-header SHA-256: `ac35c151f55a24022e84cd1ef5dfbcc22fe75f796536ee29acb23252850047a3`.
-- Current blockers: no source-sealed bootstrap-safe v2 owner, retained 10/22-card calibration, conservative complete-25 capacity verdict, complete 25-card numerical result, actual owner, or full-width actual-context quotient value; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 399.
+- ADR-header SHA-256: `33f8f9cb19a66c0801295a533ec5ceeb8383a1e5d2379710796320a4fe8cdf57`.
+- Current blockers: no retained v2 10/22-card calibration, conservative complete-25 capacity verdict, complete 25-card numerical result, actual owner, or full-width actual-context quotient value; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0398](docs/decisions/ADR-0398-preregister-the-bootstrap-safe-work-preflight-v2-owner.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0399](docs/decisions/ADR-0399-source-seal-the-bootstrap-safe-work-preflight-v2-owner.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

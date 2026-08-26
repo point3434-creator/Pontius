@@ -800,7 +800,11 @@ CuPy, calibration, or any phase row. V1 is permanently closed. ADR-0398 now
 preregisters the additive recovery while every v2 source and result path is
 absent: new lifecycle identities, a literal worker module, and a no-CUDA child
 handshake with a fresh challenge through the actual shared subprocess seam.
-It may not change the frozen science. The next boundary is its source seal.
+It may not change the frozen science. ADR-0399 source-seals that recovery: 16
+focused controls pass, including the real device-free worker birth, exact wall
+and pipe cleanup, adversarial framing/order/mutation failures, and a complete
+synthetic scientific rebind. The v2 result remains absent. The next boundary
+is its sole no-argument campaign invocation from the clean source commit.
 
 ## Current checkpoint
 

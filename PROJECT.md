@@ -891,6 +891,11 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   seam, new evidence identities, immutable-v1 binding, and CuPy/science import-
   absence gates are frozen. The source seal must spawn the real handshake child
   without creating the v2 result; injected executors are not bootstrap proof.
+- ADR-0399 source-seals the additive owner and solver-free reader. One shared
+  bounded subprocess transport serves handshake and campaign; the real fresh-
+  challenge control proves literal worker birth with CuPy and science unloaded.
+  All 16 focused controls pass and the v2 result remains absent. Only the clean
+  committed no-argument owner is eligible for one invocation.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

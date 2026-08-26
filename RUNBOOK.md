@@ -2440,3 +2440,8 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     strict framing, concurrent stdout/stderr drain, deadline, and return path
     as campaign mode; require CuPy and the scientific source to remain unloaded
     and create no real result. Commit that source seal before one-shot use.
+114. ADR-0399 is that source seal. From its clean commit only, confirm the exact
+    v1 artifact and absent v2/reserved paths, then run the public command once:
+    `python -B -m pontius.legal_river_quotient_cuda_compensated_work_preflight_v2_runner`.
+    Retain its first exclusive terminal without retry or repair. Population 25
+    remains integer projection only throughout this invocation.

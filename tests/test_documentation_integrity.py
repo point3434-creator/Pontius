@@ -1819,19 +1819,19 @@ class DocumentationIntegrityTests(unittest.TestCase):
 
     def test_work_decomposed_paired_capacity_preflight_is_preregistered(self) -> None:
         expected = {
-            "README.md": ("ADR-0398", "handshake with a fresh challenge"),
-            "PROJECT.md": ("ADR-0398", "injected executors are not bootstrap proof"),
+            "README.md": ("ADR-0399", "16 focused controls pass"),
+            "PROJECT.md": ("ADR-0399", "One shared"),
             "STATUS.md": (
-                "ADR-0398",
-                "accepted prospective lifecycle-only preregistration",
+                "ADR-0399",
+                "accepted source-only bootstrap-safe v2 seal",
             ),
-            "ROADMAP.md": ("ADR-0398", "actual fresh-challenge"),
+            "ROADMAP.md": ("ADR-0399", "sole clean no-argument invocation"),
             "RUNBOOK.md": (
-                "ADR-0398",
+                "ADR-0399",
                 "pontius.legal_river_quotient_cuda_compensated_work_preflight_v2_runner",
             ),
-            "ARCHITECTURE.md": ("ADR-0398", "fresh challenge"),
-            "RISK_REGISTER.md": ("R161", "one child-process function"),
+            "ARCHITECTURE.md": ("ADR-0399", "bounded cancellable stdout queue"),
+            "RISK_REGISTER.md": ("R161", "ADR-0399's source seal"),
             "artifacts/work_preflight/README.md": (
                 "ADR-0394",
                 "legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
@@ -2157,9 +2157,9 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "v2_runner_relative_path",
             "v2_reader_relative_path",
             "v2_controls_relative_path",
-            "v2_result_relative_path",
         ):
-            self.assertFalse((_ROOT / scope[field]).exists(), scope[field])
+            self.assertTrue((_ROOT / scope[field]).is_file(), scope[field])
+        self.assertFalse((_ROOT / scope["v2_result_relative_path"]).exists())
         self.assertFalse((_ROOT / scope["reserved_actual_result_relative_path"]).exists())
 
         identity = config["new_identity_contract"]
@@ -2208,6 +2208,29 @@ class DocumentationIntegrityTests(unittest.TestCase):
             '"Preregistered" is not "source-sealed,"',
         ):
             self.assertIn(phrase, adr)
+
+        source_seal = _contract_text(
+            "docs/decisions/ADR-0399-source-seal-the-bootstrap-safe-work-preflight-v2-owner.md"
+        )
+        for relative in (
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_v2_runner.py",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_v2_result.py",
+            "tests/test_legal_river_quotient_cuda_compensated_work_preflight_v2.py",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight.py",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_runner.py",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_result.py",
+            "tests/test_legal_river_quotient_cuda_compensated_work_preflight.py",
+        ):
+            current = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(current).hexdigest(), source_seal)
+        for phrase in (
+            "16 passed",
+            "Campaign-child calls at this boundary: `0`",
+            "stdout EOF does not stop the deadline",
+            "v2 result remains absent",
+            "not pre-judged to pass",
+        ):
+            self.assertIn(phrase, source_seal)
 
     def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
         expected = {

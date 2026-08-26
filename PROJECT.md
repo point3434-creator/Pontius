@@ -1110,6 +1110,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   consumed. Before any population-25 or actual-consumer work, freeze a separate
   artifact-only capacity projection; the exact-integer pipeline remains an
   algebra-first hypothesis with no current result.
+- ADR-0430 freezes that artifact-only question before source or projection.
+  Fifteen device-work components keep the prior maximum-over-endpoints exact-
+  ratio rule; the fused shared phase is priced by its complete work constituents.
+  A sixteenth component explicitly prices population wall outside the phase sum
+  at fixed scope, then every component receives the unchanged 5/4 plus 1 ms
+  guard against the 180-second limit. No assessor or projected value exists yet,
+  and population 25 remains geometry only.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

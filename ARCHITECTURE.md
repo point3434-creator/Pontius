@@ -2093,6 +2093,15 @@ iteration or action response. V3 contains no capacity projection and cannot be
 scaled to population 25 by inference; the next boundary is a separately frozen,
 artifact-only fit assessor.
 
+ADR-0430 freezes the assessor architecture before source. A device-free reader
+rehydrates the immutable V3 journal, extracts exact population phase/work rows,
+and prices fifteen device phases with frozen 25/10 and 25/22 constituent ratios.
+The fused shared phase uses the complete fold-plus-copy work envelope. A
+sixteenth `population_envelope_outside_phase_partition` component prices the
+nonnegative difference between complete population wall and contiguous phase
+sum at fixed evidence scope. Maximum endpoint, 5/4 guard, 1 ms component guard,
+and 180-second limit remain integer-only and independently rederived.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

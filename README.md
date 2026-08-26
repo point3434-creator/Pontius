@@ -903,7 +903,9 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   controls and the scrubbed two-launcher probe pass. ADR-0429 retains the sole
   V3 invocation as a complete 10/22 validation pass and consumes it. No capacity
   projection, population-25 value, action-latency, quality, or exact-integer
-  inference exists; freeze an artifact-only fit assessor next.
+  inference exists. ADR-0430 now freezes an artifact-only fit assessor with all
+  phase ratios, outside-phase wall, guards, lifecycle, and result identities
+  fixed before source or projected value.
 
 ## Current checkpoint
 

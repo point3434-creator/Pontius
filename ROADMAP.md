@@ -1503,10 +1503,11 @@ queue:
   both population plan objects, every generated wrapper seam, and all actual/
   direct shapes are identity-checked before CuPy. ADR-0429 consumes the sole V3
   invocation and retains a complete 10/22 pass, including exact work, numerical,
-  resource, wall, and release gates. The next checkpoint is a fresh GPU-free,
-  artifact-only shared-direct fit projection frozen before source. It must not
-  open population 25 or treat validation wall as action latency; the exact-
-  integer mechanism remains a distinct algebra-first hypothesis.
+  resource, wall, and release gates. ADR-0430 now freezes the fresh GPU-free,
+  artifact-only fit assessor before source: fifteen exact-work phase ratios plus
+  one explicit outside-phase wall component, maximum endpoints, 5/4 guard,
+  1 ms per component, and 180 seconds. Implement and source-seal only that
+  assessor next; do not open population 25 or exact-integer source.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1603,9 +1604,9 @@ queue:
   immutable-plan implementation and all generated-seam identity controls are
   now source-sealed by ADR-0428. ADR-0429 retains the independently rebound V3
   complete 10/22 pass and permanently consumes it. The immediate capacity-lane
-  checkpoint is a prospectively frozen artifact-only assessor over that exact
-  journal; no projection rule is selected yet, and it neither reopens V2/V4 nor
-  invokes population 25.
+  checkpoint is ADR-0430's source-only implementation of the prospectively
+  frozen artifact assessor over that exact journal. No projected answer exists;
+  it neither reopens V2/V4 nor invokes population 25.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

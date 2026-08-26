@@ -1657,6 +1657,17 @@ queue:
   remains captured high/low pairs while fixed-width forward storage covers
   levels zero through five. No compiler, CuPy, device, population, or result
   call occurred during the correction.
+  ADR-0441 now completes the corrected no-CUDA source seal after 17 focused
+  controls. The root launcher, durable owner, scientific source, independent
+  reader, one-cubin/three-stream contract, arm-specific phase ledgers, and
+  symbolic literal-45 liveness are bound. Reduced host-authority manifests are
+  durable before candidate evidence, and the reader independently replays the
+  32 RRNS changed-residue controls instead of trusting stored pass bits. The
+  immediate checkpoint is exactly one clean no-argument invocation from that
+  committed identity, followed by independent assessment and an outcome ADR.
+  No retry, candidate selection, population 25, actual-45 numerical work,
+  resolver integration, 15-second fit, action, quality, truncation, blueprint,
+  or strength claim is authorized by the source seal.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

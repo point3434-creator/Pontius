@@ -2219,6 +2219,19 @@ The source-side memory contract also keeps source level six as captured
 high/low pairs; fixed-width forward storage begins only at level five. This is
 the ADR-0438 hybrid made explicit, not a timing-conditioned optimization.
 
+ADR-0441 source-seals that corrected experiment without importing CuPy or
+touching a compiler, device, or result. One repository-root launcher reaches
+an exclusive append/fsync/ACK owner; one literal translation unit contains all
+sixteen kernels; and one standard-library reader reconstructs provenance,
+resource maxima, symbolic buffer liveness, execution schedules, phase walls,
+and eligibility. Each population's host-authority digest/scalar manifest is
+durable before its candidate evidence. RRNS candidate records carry original
+table and scalar codewords, so the reader independently replays every frozen
+single-channel mutation and the correlated all-channel boundary rather than
+accepting stored verification booleans. The seal authorizes one reduced-device
+preflight invocation only; it establishes no candidate winner, actual-45 fit,
+15-second action latency, or decision quality.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

@@ -2030,6 +2030,13 @@ its standard-library reader validates that envelope and then delegates
 unchanged event semantics to the source-sealed V1 reader through a checked in-
 memory transduction. The consumed V1 runner and all result paths stay closed.
 
+ADR-0423 repairs that prospective transduction before source. The V1 semantic
+reader cannot accept a truthful V2 bootstrap without projecting its module
+identity. V2 must therefore validate fresh lifecycle provenance itself, then
+project only journal protocol/campaign, header identity, wrapper config hash,
+and bootstrap literal/spec names. Challenge, runtime, CuPy, every later event,
+and the outer terminal are invariant across the seam.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

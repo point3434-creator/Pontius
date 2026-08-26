@@ -886,7 +886,10 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   proven through a scrubbed-environment handshake, never a retry of ADR-0420.
   ADR-0422 now freezes the V2 root-launcher, recursive child-launch, fresh
   journal identity, and checked V1-reader transduction before source. Implement
-  and source-seal those paths next with all result paths absent.
+  and source-seal those paths next with all result paths absent. ADR-0423
+  corrects the reader seam before source by allowing only the independently
+  validated V2 lifecycle identity fields required for V1 semantic projection;
+  all post-bootstrap evidence remains unchanged.
 
 ## Current checkpoint
 

@@ -1051,6 +1051,14 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   V1 semantic reader only behind an independently checked envelope/header
   transduction. Implement and source-seal this boundary with every result path
   absent; do not operate it from the preregistration commit.
+- ADR-0423 corrects a pre-source contradiction in that reader contract. A
+  fresh bootstrap cannot both report V2 module identity and remain untouched
+  for a V1 reader that requires V1 identity. The corrected config independently
+  validates V2 lifecycle provenance, then permits only protocol/campaign,
+  header, observation-wrapper config, and bootstrap literal/spec identity to be
+  projected in memory. Challenge, runtime, CuPy, every post-bootstrap event,
+  and the outer terminal remain unchanged. No source or probe existed under the
+  rejected config hash; implement only the corrected hash next.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

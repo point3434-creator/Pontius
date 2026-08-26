@@ -1484,7 +1484,10 @@ queue:
   scrubbed-environment handshake through the exact public launch seam.
   ADR-0422 now freezes that V2 identity and exact launcher/reader contract
   before source. Implement and source-seal it next; no V2 probe or campaign is
-  authorized from the preregistration commit.
+  authorized from the preregistration commit. ADR-0423 corrects its impossible
+  header-only reader projection before source: V2 lifecycle identity is first
+  validated, then only the exact four lifecycle identity classes are projected
+  for the V1 semantic oracle. Implement against the corrected config hash.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1576,7 +1579,8 @@ queue:
   public command at package resolution before owner import, leaving the result
   absent. The immediate capacity-lane checkpoint is a new-identity, launcher-
   safe source seal under ADR-0422's already-frozen root-launcher and scrubbed-
-  probe contract; it neither reopens V4 nor selects a new projection rule.
+  probe contract as corrected by ADR-0423's lifecycle allowlist; it neither
+  reopens V4 nor selects a new projection rule.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

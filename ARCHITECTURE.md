@@ -2295,6 +2295,19 @@ projection before the existing v2-to-v1 semantic chain. All projected globals,
 including the fresh preregistration commit, are lock-scoped and restored. One
 clean v3 invocation is now eligible; no arm or production consumer is selected.
 
+ADR-0448 consumes that identity with a passing compiled-device preflight. One
+CUDA 13.3 cubin executes all three fixed-width schedules exactly on complete-10
+and signed-12, with no recorded spill loads or stores. Positional and batched-
+five-then-four RRNS pass the frozen resource, wall, exactness, fault-contract,
+and symbolic literal-45 memory conjuncts; resident-nine RRNS fails only because
+its symbolic 16.414 GB peak exceeds available memory after reserve by 1.319 GB.
+The retained reduced-population walls cross by population, so no post-outcome
+aggregation elects a winner. The artifact-bound assessor preserves the exact
+journal and historical source blobs. A prospective actual-45 fit boundary must
+carry both eligible arms and distinguish symbolic fit, live allocation,
+operator work, resolver iteration, and the authoritative 15-second action
+clock.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

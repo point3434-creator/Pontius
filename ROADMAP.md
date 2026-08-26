@@ -1718,6 +1718,18 @@ queue:
   checkpoint is exactly one invocation of the clean committed v3 root owner;
   its first terminal is permanent. No compilation or device result exists at
   this checkpoint.
+  ADR-0448 retains that first terminal as `completed_device_preflight`. One
+  634,144-byte cubin passes all sixteen resource rows and all 42 exact reduced-
+  population candidate observations. Positional and batched-five-then-four
+  RRNS are eligible; resident-nine RRNS is rejected only by the frozen
+  symbolic literal-45 memory gate, exceeding memory after reserve by
+  1,319,284,904 bytes. No candidate is selected: the two eligible arms cross on
+  complete-10 versus signed-12 timing, and those campaign totals are neither
+  actual-45 nor action-clock measurements. Next preregister a two-arm actual-45
+  fit boundary before source, allocation, kernel launch, or value. It must bind
+  the retained artifact, preserve both arms, separately gate symbolic and live
+  memory, charge complete work, and freeze how any 15-second inference and
+  partial or tied outcome is handled.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

@@ -1979,6 +1979,15 @@ Population execution may not launch the reference query kernel. The source
 seal is CPU/static only; device identity, resources, capacity, and action time
 remain unopened.
 
+ADR-0418 seals that additive source boundary. The generated CUDA keeps the
+parent prefix, suffix, and direct-query kernel bytes unchanged; only the
+direct-fold kernel gains a distinct query output and copies its boundary slots
+after the full coefficient pass. The CPU sequence oracle, brace-aware source
+checker, exact work derivation, and adversarial order/index/alias controls pass
+without importing CuPy. Device compilation, host launch integration, output
+separation, resource rows, and numerical identity remain obligations of a
+fresh preregistered differential owner.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

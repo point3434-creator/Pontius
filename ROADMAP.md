@@ -1460,10 +1460,14 @@ queue:
   wall or safety factor, or infer truncation, action latency, or quality.
   ADR-0417 selects that one successor: the finished direct-fold coefficient
   vector must also emit the eight selected direct-query pairs, byte-identically
-  and without a second source traversal. Implement and source-seal only its
-  additive, CuPy-free source builder, exact sequence model, static work ledger,
-  alias/order mutations, and absence gates. A real differential and any new
-  capacity estimator remain later, separately preregistered questions.
+  and without a second source traversal. ADR-0418 completes the additive,
+  CuPy-free source seal: the reference query span is byte-identical, the fold
+  span alone changes, the CPU sequence and mutation controls pass, and no
+  device or result path opened. The immediate checkpoint is to preregister a
+  fresh exclusive device differential and independent reader. It may use the
+  reference query only as a complete-10 control, must use the shared fold path
+  for complete 10/22 population work, and may not open population 25 or select
+  a replacement capacity projection.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1547,8 +1551,10 @@ queue:
   resolver iteration, action timing, and quality inference remains closed.
   ADR-0417 now prospectively freezes the shared selected direct oracle that
   removes the duplicated query traversal while preserving fold arithmetic.
-  Its source-only seal is the immediate capacity-lane checkpoint; it neither
-  reopens V4 nor selects a new projection rule.
+  ADR-0418 now source-seals that oracle after nine CPU/static controls with no
+  CuPy or result operation. A separately preregistered bounded device
+  differential is the immediate capacity-lane checkpoint; it neither reopens
+  V4 nor selects a new projection rule.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

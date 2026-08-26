@@ -1007,6 +1007,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   27,783,168 redundant boundary pair additions. Source, controls, device
   differential, owner, result, and replacement capacity rule remain absent;
   implement and source-seal only this exact common-subexpression boundary next.
+- ADR-0418 completes that source-only seal. The builder changes exactly the
+  direct-fold kernel span, preserves the reference query kernel byte for byte,
+  and copies boundary pairs only after full source-rank accumulation. Nine
+  focused controls pass with zero CuPy imports, compiles, loads, or launches.
+  A new exclusive complete-10 differential and complete-10/22 shared-path
+  owner must be preregistered next; no capacity projection is selected.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

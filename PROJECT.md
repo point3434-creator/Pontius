@@ -1185,6 +1185,17 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   telemetry, and symbolic work/memory ledgers pass. The final combined run is
   59/59. No compilation, device fit/speed, population-25 value, actual-45
   value, candidate winner, action, or quality result exists.
+- ADR-0439 freezes the separate compiled-device preflight before source or
+  operation. One literal CUDA 13.3 NVCC translation unit must contain the
+  positional, resident-nine RRNS, and batched-five-then-four RRNS arms; the
+  same exact cubin is retained, inspected, and loaded. Ptxas spill bytes,
+  cubin/driver stack-local backing, and static SASS local instruction sites
+  remain distinct. Exact buffer birth/death events determine symbolic
+  literal-45 peak memory, while complete 10 and signed 12 alone supply device
+  numerical and bounded-wall controls. The result path is prospectively
+  `-text`, the public launcher and no-CUDA handshake are frozen, and candidate
+  selection, population 25, actual-45 numerics, 15-second fit, action, and
+  quality remain closed.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

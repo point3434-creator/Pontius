@@ -1638,13 +1638,17 @@ queue:
   independently written forward byte loop, not a wrapper or second replacement.
   ADR-0438 records the corrected CPU source seal: 25 comparison controls plus
   34 parent/quotient regressions pass, both positional and RRNS candidates are
-  exact on complete 10 and signed 12, and no speed winner is selected. The next
-  eligible step is a separate compiled-device resource and bounded-wall
-  preregistration for both candidates. It must freeze register/local/spill
-  evidence, complete batched replay charges, exact output verification, and
-  phase-partitioned walls before any compile or operation. Population 25,
-  actual-45 values, resolver integration, latency-to-action, and quality remain
-  closed.
+  exact on complete 10 and signed 12, and no speed winner is selected. ADR-0439
+  now freezes the separate compiled-device resource and bounded-wall preflight
+  before successor source or operation. One direct CUDA 13.3 cubin contains
+  every arm; raw ptxas/cubin/SASS/driver evidence, same-byte execution,
+  zero-spill ceilings, exact literal-45 buffer liveness, complete batched replay
+  charges, exact reduced-population verification, public launch, durable
+  evidence, and gap-free host-wall partitions are prospective conjuncts. The
+  next step is implementation and a no-CUDA source seal; no compile or device
+  query may occur until that seal is cleanly committed. Population 25,
+  actual-45 values, candidate selection, resolver integration,
+  latency-to-action, and quality remain closed.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

@@ -2190,6 +2190,24 @@ map. Literal-45 work and memory remain formulas, with batched channel traffic,
 replay, and forward/adjoint scratch stated separately. Neither representation
 is selected before compiled resource and bounded-wall evidence.
 
+ADR-0439 prospectively freezes that compiled evidence boundary. All schedule
+arms share one literal CUDA 13.3 NVCC translation unit and direct `sm_120`
+cubin. Raw compiler logs and cubin bytes become durable before parsing; the
+same bytes reach ptxas-log interpretation, cuobjdump, nvdisasm, and the module
+loader. Ptxas spill bytes, cubin/driver stack-local backing, and static local
+instruction sites are separate types, with conservative cross-instrument
+maxima for registers and backing and no fallback for missing fields.
+
+Device-memory admission is an exact lifetime sweep over named buffers, not a
+sum of mutually exclusive workspaces. Forward and adjoint tables cannot
+coexist, and the batched RRNS table can be overwritten only after its first-
+batch output is drained; its second recurrence traffic remains fully charged.
+Only complete 10 and signed 12 may execute. Consecutive synchronized host
+boundaries partition every candidate and the whole laboratory exactly; device
+events are reporting only. This preflight can make an arm eligible but cannot
+select it or establish population-25, actual-45, resolver, 15-second, action,
+quality, truncation, blueprint, or strength behavior.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

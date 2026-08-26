@@ -1,0 +1,455 @@
+{
+  "schema_version": "legal-river-quotient-fixed-width-device-preflight-v1",
+  "evidence_stage": "preregistered_after_adr0438_before_any_successor_source_compile_cuda_import_device_query_or_operation",
+  "decision": "compile_positional_and_rrns_arms_from_one_frozen_integer_operator_translation_unit_then_measure_exact_resources_memory_liveness_and_bounded_reduced_population_walls_without_selecting_a_candidate_or_opening_population_25_or_an_actual_45_card_value",
+  "parent_commit": "41a6b8222b5d81b8d7457ea91a9aa2fc212edb6e",
+  "expected_parents": {
+    "adr0438": {
+      "relative_path": "docs/decisions/ADR-0438-source-seal-the-fixed-width-and-certificate-work-comparison.md",
+      "canonical_lf_sha256": "3e3a57fb4db4d52a83f85aa55d3b1ab5d4e7c839ea742b84ffa28c0ed997fc69"
+    },
+    "comparison_config": {
+      "relative_path": "experiments/configs/legal-river-quotient-fixed-width-work-comparison-v1.json",
+      "canonical_lf_sha256": "89a8e4d8561f97f79cdb5447add02cf130d0e535dd1e3e6da3e49d80d7802ffc"
+    },
+    "comparison_provenance_config": {
+      "relative_path": "experiments/configs/legal-river-quotient-fixed-width-work-comparison-v2-provenance.json",
+      "canonical_lf_sha256": "b29598d9755767aceedca497f0aaf3b66fd0901a98f9a084b64034e072e52da1"
+    },
+    "comparison_source": {
+      "relative_path": "src/pontius/legal_river_quotient_fixed_width_work_comparison.py",
+      "canonical_lf_sha256": "f4aaec75ffadaa1a13d540c356e829927612a2f693220ec66d403f9be9113e83"
+    },
+    "comparison_controls": {
+      "relative_path": "tests/test_legal_river_quotient_fixed_width_work_comparison.py",
+      "canonical_lf_sha256": "87316a3846d28d73a706933656d13dfb11b650590addbff1434ad646de0dc887"
+    },
+    "retained_v4_artifact": {
+      "relative_path": "artifacts/work_preflight/legal_river_quotient_cuda_compensated_work_preflight_v4.jsonl",
+      "raw_sha256": "4c038ffd45aa1b23e5e4aaf8cef4fbeafaf489a141e58335baf1b66e598816c6"
+    },
+    "work_preflight_gitattributes": {
+      "relative_path": "artifacts/work_preflight/.gitattributes",
+      "canonical_lf_sha256": "e66225813ee8a9f06320b4e2f9e8ae4f9851352316b1dc5a3297f8e88c1b3ef1"
+    }
+  },
+  "prospective_paths": {
+    "launcher": "run_legal_river_quotient_fixed_width_device_preflight.py",
+    "source": "src/pontius/legal_river_quotient_fixed_width_device_preflight.py",
+    "runner": "src/pontius/legal_river_quotient_fixed_width_device_preflight_runner.py",
+    "reader": "src/pontius/legal_river_quotient_fixed_width_device_preflight_result.py",
+    "controls": "tests/test_legal_river_quotient_fixed_width_device_preflight.py",
+    "result": "artifacts/work_preflight/legal_river_quotient_fixed_width_device_preflight_v1.jsonl",
+    "all_launcher_source_runner_reader_control_and_result_paths_absent_at_preregistration": true,
+    "result_git_attribute_file": "artifacts/work_preflight/.gitattributes",
+    "result_git_attribute_literal": "*.jsonl -text"
+  },
+  "scope": {
+    "reuse_only_already_open_complete_10_and_signed_12_numerical_populations": true,
+    "literal_45_is_symbolic_geometry_work_and_memory_liveness_only": true,
+    "population_25_fixture_compilation_allocation_launch_digest_or_value_forbidden": true,
+    "actual_45_card_fixture_allocation_launch_digest_or_value_forbidden": true,
+    "no_resolver_iteration_solve_action_15_second_fit_quality_truncation_blueprint_or_strength_result": true,
+    "systems_results_are_not_quality_priors": true,
+    "candidate_selection_and_adoption_remain_null": true
+  },
+  "arms": [
+    {
+      "arm": "positional",
+      "representation": "signed_twos_complement_little_endian_uint64_limbs",
+      "table_limbs": 5,
+      "numerator_limbs": 8,
+      "reach_limbs": 7,
+      "guard_limb_semantics": "exact_sign_extension_only"
+    },
+    {
+      "arm": "resident_nine_RRNS",
+      "representation": "nine_resident_62_bit_prime_residue_channels",
+      "table_working_channels": 4,
+      "scalar_working_channels": 8,
+      "redundant_channels": 1,
+      "recurrence_passes": 1
+    },
+    {
+      "arm": "batched_five_then_four_RRNS",
+      "representation": "five_then_four_62_bit_prime_residue_channel_batches",
+      "first_batch_channels": 5,
+      "second_batch_channels": 4,
+      "redundant_channel_is_present_only_in_first_batch": true,
+      "recurrence_passes": 2,
+      "second_recurrence_capture_reads_edges_loads_stores_and_output_transfer_are_all_charged": true
+    }
+  ],
+  "common_operator_contract": {
+    "one_literal_cuda_translation_unit_contains_every_arm": true,
+    "all_arms_begin_at_the_same_captured_high_low_binary64_pairs": true,
+    "family_window_admission_exact_pair_encoding_and_six_label_aggregation_remain_inside_each_arm": true,
+    "forward_and_adjoint_factorial_scales_and_terminal_rounding_are_byte_bound_to_adr0438": true,
+    "no_modular_inverse_of_720_or_any_factor_of_720": true,
+    "no_truncated_64_bit_modular_product": true,
+    "row_owned_colex_ranking_and_16_57_row_selective_access_are_unchanged": true,
+    "streamed_global_scan_binds_complete_reduced_domain_order_cardinality_and_digest": true,
+    "no_arm_may_call_host_unbounded_arithmetic_inside_its_device_operator": true,
+    "host_unbounded_arithmetic_is_the_independent_verification_authority": true,
+    "literal_cuda_source_utf8_sha256_is_recorded_at_source_seal_and_result": true
+  },
+  "required_entry_kernels": [
+    "positional_encode_aggregate",
+    "positional_forward_level",
+    "positional_forward_selective",
+    "positional_forward_stream",
+    "positional_adjoint_level",
+    "positional_adjoint_selective",
+    "positional_adjoint_stream",
+    "positional_contract",
+    "rrns_encode_aggregate",
+    "rrns_forward_level",
+    "rrns_forward_selective",
+    "rrns_forward_stream",
+    "rrns_adjoint_level",
+    "rrns_adjoint_selective",
+    "rrns_adjoint_stream",
+    "rrns_contract"
+  ],
+  "entry_kernel_contract": {
+    "every_required_name_is_extern_C_global_and_resolves_from_the_exact_loaded_cubin": true,
+    "no_other_global_entry_kernel_is_permitted": true,
+    "every_required_entry_has_complete_ptxas_cuobjdump_sass_and_driver_evidence": true,
+    "device_helpers_are_force_inlined_or_counted_inside_the_calling_entry_resource_row": true,
+    "resident_and_batched_RRNS_use_the_same_rrns_entries_with_frozen_channel_ranges_and_different_schedules": true
+  },
+  "compiler_and_executed_binary_contract": {
+    "compiler": "CUDA_13_3_nvcc",
+    "literal_tool_path": "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v13.3\\bin\\nvcc.exe",
+    "target_architecture": "sm_120",
+    "one_compile_for_all_arms": true,
+    "literal_options_in_order": [
+      "--cubin",
+      "--gpu-architecture=sm_120",
+      "--std=c++17",
+      "--ftz=false",
+      "--prec-div=true",
+      "--prec-sqrt=true",
+      "--fmad=false",
+      "--ptxas-options=-v"
+    ],
+    "complete_argv_shape": [
+      "{literal_nvcc_path}",
+      "{literal_options_in_order}",
+      "--output-file",
+      "{exclusive_temporary_cubin_path}",
+      "{exclusive_temporary_cuda_source_path}"
+    ],
+    "environment_options_or_implicit_fast_math_forbidden": true,
+    "compiler_stdout_and_stderr_are_captured_as_bounded_raw_bytes_with_return_code": true,
+    "compiler_failure_or_missing_required_ptxas_row_is_a_typed_terminal_not_a_parser_fallback": true,
+    "output_must_be_direct_ELF_cubin_at_or_below_8388608_bytes": true,
+    "exact_cubin_is_journaled_and_acknowledged_before_external_inspection_or_module_load": true,
+    "the_same_python_bytes_object_is_written_inspected_loaded_and_hashed": true,
+    "zero_suffix_or_other_cubin_repair_is_forbidden": true,
+    "module_function_and_cubin_caches_are_empty_before_compile": true
+  },
+  "resource_instruments": {
+    "ptxas_verbose": {
+      "authority": "raw_nvcc_compiler_log_for_the_exact_cubin",
+      "required_per_kernel_fields": [
+        "registers",
+        "stack_frame_bytes",
+        "spill_store_bytes",
+        "spill_load_bytes"
+      ],
+      "duplicate_missing_negative_or_non_integer_fields_reject": true,
+      "spill_store_byte_ceiling": 0,
+      "spill_load_byte_ceiling": 0,
+      "spill_bytes_are_not_dynamic_traffic_or_instruction_counts": true
+    },
+    "cubin_resource_usage": {
+      "tool": "CUDA_13_3_cuobjdump",
+      "literal_tool_path": "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v13.3\\bin\\cuobjdump.exe",
+      "command": ["--dump-resource-usage", "{exact_cubin}"],
+      "required_per_kernel_fields": ["REG", "STACK", "LOCAL", "SHARED"],
+      "raw_stdout_and_stderr_are_retained_before_parse": true
+    },
+    "sass_diagnostic": {
+      "tool": "CUDA_13_3_nvdisasm",
+      "literal_tool_path": "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v13.3\\bin\\nvdisasm.exe",
+      "command": ["{exact_cubin}"],
+      "static_local_load_store_instruction_sites_are_reported": true,
+      "static_instruction_sites_are_never_called_dynamic_spill_traffic": true,
+      "absence_or_parser_failure_is_a_resource_instrument_rejection": true
+    },
+    "driver_attributes": {
+      "same_exact_cubin_module": true,
+      "required_per_kernel_fields": [
+        "num_regs",
+        "local_size_bytes",
+        "shared_size_bytes",
+        "max_threads_per_block"
+      ]
+    },
+    "effective_gates": {
+      "registers_formula": "max(ptxas_registers,cuobjdump_REG,driver_num_regs)",
+      "register_ceiling_per_thread": 255,
+      "backing_formula": "max(ptxas_stack_frame_bytes,cuobjdump_STACK_plus_LOCAL,driver_local_size_bytes)",
+      "stack_plus_local_backing_ceiling_bytes_per_thread": 4096,
+      "block_threads": 128,
+      "block_threads_must_not_exceed_driver_max_threads_per_block": true,
+      "static_shared_bytes_must_not_exceed_live_device_limit": true,
+      "no_single_instrument_can_be_silently_preferred_over_a_larger_one": true,
+      "local_stack_backing_static_local_sites_and_ptxas_spill_bytes_remain_three_distinct_quantities": true
+    }
+  },
+  "retained_hardware_identity_required_at_operation": {
+    "source": "ADR0416_retained_V4_runtime_row",
+    "device_name": "NVIDIA GeForce RTX 5080",
+    "compute_capability": "120",
+    "minimum_cuda_driver_version": 13030,
+    "minimum_cuda_runtime_version": 13020,
+    "device_total_bytes": 17094475776,
+    "multiprocessor_count": 84,
+    "maximum_threads_per_multiprocessor": 1536,
+    "device_name_compute_capability_total_bytes_and_multiprocessor_geometry_are_exact_while_driver_and_runtime_are_minimum_compatible_versions": true,
+    "an_exact_hardware_or_minimum_version_mismatch_is_a_typed_hardware_identity_terminal_before_scientific_launch": true,
+    "the_retained_identity_is_not_a_fresh_device_query_at_preregistration": true
+  },
+  "symbolic_literal_45_memory_liveness": {
+    "feature_tile_width": 64,
+    "query_chunk": 4096,
+    "source_chunk": 4096,
+    "device_reserve_bytes": 2000000000,
+    "source_rank_to_cards_is_resident": true,
+    "source_rank_to_mask_is_not_resident": true,
+    "forward_and_adjoint_adjacency_are_not_materialized": true,
+    "complete_dense_outputs_are_not_materialized": true,
+    "forward_and_adjoint_workspaces_are_never_live_together": true,
+    "batched_second_pass_reuses_the_first_pass_table_workspace_after_its_output_chunk_is_drained": true,
+    "batched_replay_input_is_a_reread_of_the_same_captured_buffer_not_a_second_allocation": true,
+    "every_buffer_has_a_stable_identity_byte_count_birth_phase_and_death_phase": true,
+    "aliases_require_equal_storage_identity_and_nonoverlapping_live_intervals": true,
+    "independent_reader_sweep_reconstructs_peak_live_bytes_from_boundary_events": true,
+    "candidate_memory_gate": "peak_live_bytes_plus_device_reserve_bytes_at_or_below_retained_device_total_bytes",
+    "equality_with_the_memory_ceiling_passes": true,
+    "one_byte_over_the_memory_ceiling_rejects": true,
+    "symbolic_memory_admission_is_not_an_actual_45_allocation_or_latency_result": true
+  },
+  "validation_populations": [
+    {
+      "population": "complete_10",
+      "available_cards": 10,
+      "feature_width": 176,
+      "source_occupancies": 210,
+      "query_occupancies": 210,
+      "labeled_query_records": 1260
+    },
+    {
+      "population": "signed_12",
+      "available_cards": 12,
+      "feature_width": 5,
+      "source_occupancies": 924,
+      "query_occupancies": 495,
+      "labeled_query_records": 2970
+    }
+  ],
+  "execution_schedule": {
+    "warmup_repeats_per_population_arm": 1,
+    "warmup_arm_order": [
+      "positional",
+      "resident_nine_RRNS",
+      "batched_five_then_four_RRNS"
+    ],
+    "timed_repeats_per_order_population_arm": 3,
+    "traversal_orders": ["ascending_colex", "descending_colex"],
+    "arm_rotation_by_timed_repeat": [
+      ["positional", "resident_nine_RRNS", "batched_five_then_four_RRNS"],
+      ["resident_nine_RRNS", "batched_five_then_four_RRNS", "positional"],
+      ["batched_five_then_four_RRNS", "positional", "resident_nine_RRNS"]
+    ],
+    "one_nonblocking_cuda_stream_per_arm_with_explicit_boundary_synchronization": true,
+    "no_cuda_graph_capture_or_autotuning": true,
+    "all_allocations_initializations_transfers_launches_replays_reconstructions_checks_and_cleanup_are_charged_to_named_phases": true,
+    "compile_and_resource_inspection_are_charged_to_the_laboratory_but_excluded_from_candidate_execution_comparison": true,
+    "warmup_is_charged_to_the_laboratory_and_reported_separately_from_timed_repeats": true
+  },
+  "candidate_phase_partition": [
+    "candidate_state_validation_and_input_digest",
+    "device_allocation_and_input_transfer",
+    "family_admission_pair_encoding_and_label_aggregation",
+    "forward_recurrence",
+    "forward_selective_queries",
+    "forward_streamed_global_scan",
+    "adjoint_recurrence",
+    "adjoint_selective_queries",
+    "adjoint_streamed_global_scan",
+    "reconstruction_divisibility_fault_check_and_rounding",
+    "output_transfer_and_exact_differential",
+    "candidate_cleanup"
+  ],
+  "phase_timing_contract": {
+    "host_authority": "perf_counter_ns_integer_stamps",
+    "device_event_nanoseconds_are_reporting_only": true,
+    "a_cuda_synchronize_precedes_every_host_boundary_that_closes_device_work": true,
+    "each_interval_is_the_difference_of_consecutive_boundary_stamps": true,
+    "the_first_boundary_is_the_candidate_population_entry_and_the_last_is_cleanup_exit": true,
+    "sum_of_all_twelve_phase_nanoseconds_must_equal_candidate_population_elapsed_nanoseconds_exactly": true,
+    "no_phase_can_overlap_or_leave_an_uncharged_gap_by_construction": true,
+    "phase_rows_are_aggregated_only_after_raw_repeat_rows_are_retained": true,
+    "no_heterogeneous_phase_sum_is_called_device_throughput": true
+  },
+  "laboratory_partition_contract": {
+    "global_phases_in_order": [
+      "bootstrap_handshake",
+      "tool_identity_and_cuda_source_materialization",
+      "compile",
+      "durable_cubin_capture",
+      "external_resource_inspection",
+      "module_load_and_driver_attributes",
+      "complete_10_host_authority_and_fixture",
+      "complete_12_host_authority_and_fixture",
+      "final_device_and_temporary_cleanup"
+    ],
+    "candidate_population_repeat_phase_rows_are_interleaved_between_the_matching_fixture_and_final_cleanup_boundaries": true,
+    "every_global_and_candidate_interval_uses_consecutive_monotonic_host_stamps": true,
+    "sum_of_every_global_and_candidate_interval_must_equal_laboratory_elapsed_nanoseconds_exactly": true,
+    "public_process_outside_laboratory_nanoseconds_equals_public_elapsed_minus_laboratory_elapsed_and_is_never_dropped": true,
+    "outside_laboratory_work_is_launch_transport_and_durable_owner_plumbing_not_candidate_execution": true
+  },
+  "exact_verification_and_fault_contract": {
+    "every_warmup_and_timed_output_is_rebound_to_population_arm_order_repeat_and_input_digest": true,
+    "every_aggregate_recurrence_selected_coordinate_streamed_global_coordinate_numerator_reach_and_terminal_binary64_bit_pattern_matches_the_adr0438_unbounded_authority": true,
+    "descending_and_ascending_exact_outputs_are_bit_identical": true,
+    "positional_non_sign_guard_and_one_limb_short_mutations_reject": true,
+    "RRNS_uses_working_CRT_range_then_base_extension_against_the_redundant_channel": true,
+    "RRNS_table_sites_use_working_channels_zero_through_three_plus_the_redundant_channel": true,
+    "RRNS_scalar_sites_use_working_channels_zero_through_seven_plus_the_redundant_channel": true,
+    "table_and_scalar_reconstruction_bounds_codes_and_channel_counts_cannot_be_borrowed": true,
+    "every_one_changed_channel_device_output_mutation_is_detected_without_retry_or_correction": true,
+    "a_consistent_in_bound_all_channel_wrong_codeword_passes_RRNS_and_fails_the_unbounded_differential": true,
+    "two_channel_faults_are_outside_the_detection_claim": true,
+    "nondivisible_scaled_720_reconstruction_rejects_before_rounding": true,
+    "device_entries_emit_only_fixed_width_limbs_or_residues_and_never_host_unbounded_values": true,
+    "host_unbounded_reconstruction_and_differential_are_allowed_only_in_the_named_charged_verification_phases_after_output_transfer": true,
+    "any_exact_mismatch_makes_only_that_arm_ineligible_unless_shared_provenance_transport_or_authority_failed": true,
+    "candidate_eligibility_requires_complete_exact_verification_on_both_populations_orders_and_all_repeats": true
+  },
+  "walls_ns": {
+    "public_process": 270000000000,
+    "laboratory": 240000000000,
+    "compile_and_resource": 60000000000,
+    "per_population_arm_all_timed_repeats": 30000000000,
+    "outside_laboratory": 30000000000,
+    "external_command_each": 30000000000,
+    "source_seal_no_cuda_handshake": 10000000000,
+    "all_comparisons_are_integer_at_or_below": true,
+    "exact_boundary_passes_and_one_nanosecond_over_rejects": true
+  },
+  "evidence_lifecycle": {
+    "literal_public_command": ".venv\\Scripts\\python.exe -B run_legal_river_quotient_fixed_width_device_preflight.py",
+    "public_command_accepts_no_arguments": true,
+    "root_launcher_derives_the_repository_and_src_paths_from_its_own_sealed_file_and_prepends_only_that_src_path": true,
+    "root_launcher_literal_module": "pontius.legal_river_quotient_fixed_width_device_preflight_runner",
+    "public_probe_and_internal_child_mode_variables_must_be_absent_for_the_real_owner": true,
+    "source_seal_runs_only_a_fresh_challenge_no_CUDA_handshake_through_the_exact_root_launcher_from_an_external_working_directory_under_scrubbed_package_environment": true,
+    "handshake_must_prove_cupy_scientific_source_compiler_and_result_absent": true,
+    "real_owner_requires_exact_clean_source_seal_commit_and_absent_result": true,
+    "result_is_created_once_with_exclusive_xb": true,
+    "every_record_is_canonical_JSON_append_flush_and_fsync": true,
+    "the_child_may_not_continue_past_cubin_or_raw_command_evidence_until_parent_ACK": true,
+    "first_terminal_is_permanent_without_retry_resume_skip_repair_or_continuation": true,
+    "stdout_and_stderr_are_drained_concurrently_under_bounds": true,
+    "post_terminal_output_torn_tail_sequence_gap_duplicate_or_reorder_reject": true,
+    "result_absence_is_tested_against_an_injected_path_and_import_nonmutation_works_before_and_after_retention": true,
+    "independent_reader_uses_only_the_standard_library_and_may_not_import_the_owner_source_CuPy_or_CUDA": true,
+    "stored_pass_bits_have_no_authority": true
+  },
+  "evidence_bounds_bytes": {
+    "cubin": 8388608,
+    "compiler_stdout": 1048576,
+    "compiler_stderr": 1048576,
+    "each_external_stdout": 8388608,
+    "each_external_stderr": 8388608,
+    "journal": 67108864,
+    "child_frame": 1048576,
+    "a_complete_worst_case_terminal_is_reserved_before_every_append": true
+  },
+  "candidate_eligibility": {
+    "common_required_conjuncts": [
+      "provenance_runtime_hardware_tool_and_exact_cubin_identity",
+      "complete_resource_instruments_and_effective_resource_ceilings",
+      "symbolic_literal_45_memory_liveness_ceiling",
+      "complete_10_and_signed_12_exact_output_differential",
+      "phase_partition_identity",
+      "per_population_arm_wall",
+      "complete_laboratory_wall"
+    ],
+    "RRNS_additional_conjuncts": [
+      "all_nine_channel_passes_charged",
+      "batched_second_recurrence_and_replay_charged_where_applicable",
+      "single_changed_channel_detection_under_the_frozen_model",
+      "correlated_fault_boundary_control"
+    ],
+    "zero_eligible_arms_terminal": "completed_no_device_candidate",
+    "one_or_more_eligible_arms_terminal": "completed_device_preflight",
+    "candidate_winner_selected": false,
+    "eligibility_opens_only_an_artifact_only_selector_or_a_separate_actual_45_fit_preregistration": true
+  },
+  "required_source_seal_controls": {
+    "config_and_every_parent_rebind_under_two_independent_correct_CRLF_normalizers": true,
+    "every_literal_escape_rewrite_target_is_counted_before_mutation_and_zero_is_unarmed_not_passing": true,
+    "new_launcher_source_runner_reader_and_controls_record_exact_raw_trigger_counts_and_mutation_hashes_only_when_armed": true,
+    "result_path_has_the_exact_prospective_minus_text_attribute": true,
+    "isolated_source_and_reader_imports_are_device_tool_process_and_result_free": true,
+    "literal_root_launcher_scrubbed_environment_handshake_runs_from_outside_the_repository_without_CuPy_or_result": true,
+    "compiler_command_options_kernel_inventory_resource_parsers_and_cubin_identity_are_tested_synthetically": true,
+    "ptxas_missing_duplicate_malformed_spill_register_and_stack_rows_reject": true,
+    "cuobjdump_driver_and_ptxas_unequal_values_use_the_frozen_maxima": true,
+    "stack_local_spill_bytes_and_static_local_instruction_sites_cannot_be_renamed_as_each_other": true,
+    "exact_cubin_mutation_between_durable_capture_inspection_and_load_rejects": true,
+    "buffer_birth_death_alias_peak_and_exact_memory_boundary_mutations_reject": true,
+    "all_twelve_phase_boundaries_sum_exactly_and_gap_overlap_last_phase_and_boundary_mutations_reject": true,
+    "wall_cases_at_minus_one_exact_and_plus_one_nanosecond_have_pass_pass_fail_results": true,
+    "RRNS_pass_count_traffic_replay_fault_and_correlated_fault_mutations_reject_or_stay_outside_claim_as_typed": true,
+    "unknown_serializer_concrete_types_and_noncanonical_large_integer_evidence_reject": true,
+    "compile_device_population_25_actual_45_and_result_calls_are_zero_at_source_seal": true
+  },
+  "source_seal_exit": {
+    "on_complete_pass": "source_seal_the_device_preflight_without_compile_device_query_or_result_and_require_a_clean_commit_before_one_real_invocation",
+    "on_any_failure": "no_source_seal_and_no_compile_or_device_operation",
+    "source_seal_does_not_select_a_candidate": true
+  },
+  "kill_criteria": {
+    "either_candidate_gets_a_different_compiler_toolchain_population_order_repeat_wall_or_verification_authority": true,
+    "compiler_output_is_parsed_before_raw_retention_or_the_inspected_cubin_differs_from_the_loaded_cubin": true,
+    "ptxas_spill_bytes_stack_local_backing_static_instruction_sites_or_dynamic_traffic_are_conflated": true,
+    "a_missing_resource_field_falls_back_to_zero_or_to_another_instrument": true,
+    "RRNS_batched_replay_or_any_of_nine_channel_passes_is_uncharged": true,
+    "host_unbounded_work_occurs_inside_a_claimed_device_operator_phase": true,
+    "a_phase_gap_overlap_or_outside_envelope_disappears": true,
+    "an_exact_output_failure_is_hidden_by_a_tolerance_retry_recompute_or_candidate_average": true,
+    "symbolic_memory_components_are_summed_despite_nonoverlap_or_aliased_despite_simultaneous_liveness": true,
+    "reduced_population_wall_or_compiler_wall_is_called_per_iteration_per_solve_actual_45_or_action_latency": true,
+    "a_systems_result_is_used_as_a_decision_quality_prior": true,
+    "candidate_selection_occurs_at_this_preflight": true,
+    "population_25_actual_45_numerical_resolver_action_quality_truncation_blueprint_or_strength_is_opened": true
+  },
+  "claims": {
+    "preregistration_frozen": true,
+    "prospective_source_exists": false,
+    "source_seal": null,
+    "device_compiled": false,
+    "resource_evidence": null,
+    "reduced_population_device_exactness": null,
+    "reduced_population_bounded_wall": null,
+    "symbolic_literal_45_memory_liveness": null,
+    "candidate_selected": null,
+    "population_25_numerical_value": null,
+    "actual_45_card_value": null,
+    "resolver_iteration_result": null,
+    "solve_result": null,
+    "action_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

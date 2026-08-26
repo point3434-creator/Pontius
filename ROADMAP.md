@@ -1617,8 +1617,12 @@ queue:
   journal. Its conservative capacity result rejects and is permanently closed;
   it neither reopens V2/V4 nor invokes population 25. ADR-0433 now
   preregisters the CPU algebra, limb, rounding, and work model for a captured-
-  pair exact-integer operator. Implement and source-seal that repeatable CPU
-  keystone next; a pass opens only a separate fixed-limb/device-work preflight.
+  pair exact-integer operator. ADR-0434 rejects three false inherited source
+  hashes before seal, preserves the uncommitted implementation and all frozen
+  science, and binds corrected canonical-LF provenance through a second config.
+  Rebind both configs, prove production-versus-independent byte normalization,
+  and rerun the unchanged CPU keystone before source seal; a pass opens only a
+  separate fixed-limb/device-work preflight.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

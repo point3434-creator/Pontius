@@ -2136,6 +2136,15 @@ prospectively frozen per-run exponent admission. Literal-45 rank, recurrence,
 memory-liveness, fixed-side, and sparse-delta counts remain symbolic CPU work,
 not a device-fit, latency, population-25, or quality result.
 
+ADR-0434 corrects only the parent-provenance layer before that source can
+seal. Three ADR-0433 hashes were produced by replacing the four literal bytes
+backslash-r-backslash-n inside source text. The parents are unchanged. Future
+binding loads both configs, hashes actual bytes with CRLF-only normalization,
+and requires an independent byte-loop implementation to agree for every
+parent. The literal-token rewrite survives only as a mutation that must
+reproduce and reject the historical false values. No operator, bound,
+rounding, population, work, memory, delta, device, or claims contract changes.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

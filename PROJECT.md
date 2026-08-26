@@ -1137,6 +1137,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   delta answers are frozen. Under the old ten-card envelope, table cells price
   at four limbs plus one guard while scalar accumulators price at eight plus
   one; no 25/45-card or device-fit inference follows.
+- ADR-0434 stops the first source-seal attempt at provenance. Three ADR-0433
+  parent digests repeated ADR-0424's over-escaped audit defect: they hashed a
+  rewrite of the literal source token `\r\n`, not CRLF-normalized bytes. The
+  parents and all integer science remain unchanged. The correction config
+  binds the true canonical-LF hashes and requires production hashing to agree
+  with an independent byte loop over every parent; the forbidden literal-token
+  rewrite is now a rejecting mutation. The source remains unsealed after a
+  discovery run in which 10/12 controls passed and exactly two provenance
+  rebinds rejected.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

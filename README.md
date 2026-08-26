@@ -910,7 +910,11 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   preregisters a CPU-only captured-pair exact-integer successor: distinct
   forward/adjoint factorial weights, signed guard-limb bounds, exact terminal
   rounding, and literal 45-card work/memory formulas are fixed before source.
-  Population 25, CUDA, the actual consumer, timing, and quality remain closed.
+  ADR-0434 then catches and corrects three false parent hashes caused by the
+  already-known literal-escape normalization defect before source seal. The
+  implementation and science are unchanged; two-config rebinding plus an
+  independent byte-loop hash differential is now required. Population 25,
+  CUDA, the actual consumer, timing, and quality remain closed.
 
 ## Current checkpoint
 

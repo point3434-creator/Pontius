@@ -1,0 +1,102 @@
+{
+  "schema_version": "legal-river-quotient-exact-integer-operator-keystone-v2-provenance",
+  "evidence_stage": "corrected_after_uncommitted_cpu_source_and_bounded_controls_before_source_seal",
+  "decision": "supersede_three_false_v1_parent_hashes_without_changing_the_frozen_integer_science",
+  "parent_v1_config_canonical_lf_sha256": "64b545b17b67f2828e3f58bfc4518dc2615b5fe7cc3dcbd921a3c36477e32fc6",
+  "discovery_receipt": {
+    "uncommitted_exact_integer_source_present": true,
+    "uncommitted_exact_integer_controls_present": true,
+    "focused_controls_run": 12,
+    "focused_controls_passed": 10,
+    "focused_controls_rejected": 2,
+    "rejected_controls": [
+      "config_hash_parents_formulas_and_open_claims_rebind",
+      "import_is_standard_library_device_and_result_free"
+    ],
+    "first_rejection": "legal_river_quotient_bridge_parent_hash_differs",
+    "cpu_complete_10_and_signed_12_control_values_were_computed_before_discovery": true,
+    "source_seal_existed": false,
+    "commit_containing_source_or_controls_existed": false,
+    "runner_owner_reader_result_or_artifact_existed": false,
+    "population_25_value_opened": false,
+    "cuda_or_device_operation_occurred": false,
+    "actual_45_card_value_opened": false
+  },
+  "defect": {
+    "family": "R183_source_hash_command_normalizes_its_own_escape_text",
+    "recurrence_after_adr0424": true,
+    "false_algorithm": "replace_the_four_literal_bytes_backslash_r_backslash_n_with_backslash_n_inside_source_text",
+    "authoritative_algorithm": "replace_only_a_CR_byte_immediately_followed_by_an_LF_byte_with_one_LF_byte",
+    "affected_sources": {
+      "legal_river_quotient_bridge": {
+        "relative_path": "src/pontius/legal_river_quotient_bridge.py",
+        "v1_false_sha256": "ccb796bfec054d14fe3112070cbbf7edf6dda3ccc3285fcb803e4c69afabac94",
+        "canonical_lf_sha256": "606c46df54d14991639b514bb258a75b9fcc08cc0d7f49087539c7b7a5398936",
+        "literal_escape_token_occurrences": 1
+      },
+      "legal_river_quotient_cuda_consumer": {
+        "relative_path": "src/pontius/legal_river_quotient_cuda_consumer.py",
+        "v1_false_sha256": "1b013f8f9ddc3552c5751d07d0f65a7f5f08480eb522ea1241508998d7b4ee23",
+        "canonical_lf_sha256": "012a3517a862ecd37a3099e8a3f4a84cb14e1419f83aa406f88d6429a2dae09c",
+        "literal_escape_token_occurrences": 2
+      },
+      "legal_river_quotient_cuda_compensated_tiles": {
+        "relative_path": "src/pontius/legal_river_quotient_cuda_compensated_tiles.py",
+        "v1_false_sha256": "8b3eb19fd6a0cbff8a8efbeda94b861fb8710a46bbad61bceb5b506de65b8c6d",
+        "canonical_lf_sha256": "03a7efb35243b8d13d495a7f80838170055096c8e9ae73d2cc723e3d29f1020d",
+        "literal_escape_token_occurrences": 2
+      }
+    },
+    "unchanged_parent_files": true,
+    "editing_a_parent_to_match_a_false_hash_is_forbidden": true,
+    "v1_config_remains_immutable_historical_evidence": true
+  },
+  "corrected_expected_sources": {
+    "adr0368": "fa6b9d4356ce08adc573c7d0d152d1b247f749e6fe2cd875dca9a6c8365e07b7",
+    "adr0393": "66f05e7b6620c40e2406a7306de104fa05d5e3f417cbf1f6e52ec559f882be12",
+    "adr0432": "6dede90c5fe288ed4ec3517f725465786fa2627ed72819ff8df0a1d3bd83c1f0",
+    "occupied_card_quotient": "1ed5c2fcae98a2809c7fea0952af47fa9cd0f9857692ec0ae4db1e1efb1ed2b3",
+    "gpu_occupied_card_quotient": "280c61c610562974c46b745436eaab8f7106d51d0c3975eed7a4cff23e3e9a61",
+    "legal_river_quotient_bridge": "606c46df54d14991639b514bb258a75b9fcc08cc0d7f49087539c7b7a5398936",
+    "legal_river_quotient_bridge_config": "af145f4d56cdbdcfb5a0d7ee36613677ad79f57620629266c729997785a1f1f6",
+    "legal_river_quotient_cuda_consumer": "012a3517a862ecd37a3099e8a3f4a84cb14e1419f83aa406f88d6429a2dae09c",
+    "legal_river_quotient_cuda_compensated_tiles": "03a7efb35243b8d13d495a7f80838170055096c8e9ae73d2cc723e3d29f1020d",
+    "legal_river_quotient_cuda_compensated_tiles_v2_config": "58df9401ff34d18159e33e82db09efd13925abf95a7040fb39508ca8d99bd01f"
+  },
+  "source_seal_hash_controls": {
+    "load_and_hash_both_v1_and_v2_configs": true,
+    "production_canonical_lf_helper_must_match_an_independent_byte_loop_for_every_bound_parent": true,
+    "independent_byte_loop_may_not_call_or_copy_the_production_normalizer": true,
+    "literal_escape_token_rewrite_is_reporting_only_and_must_reproduce_each_v1_false_hash": true,
+    "literal_escape_token_rewrite_must_differ_from_authority_for_each_affected_source": true,
+    "all_three_v1_false_hashes_must_be_rejected_as_current_parent_authority": true,
+    "every_future_source_hash_receipt_must_be_rebound_in_language_before_config_commit": true,
+    "shell_quoted_hash_receipts_are_never_authority": true
+  },
+  "unchanged_science": {
+    "all_v1_semantic_fixed_point_operator_rounding_bound_population_work_memory_delta_and_kill_contracts_remain_binding": true,
+    "no_gate_threshold_population_arithmetic_order_rounding_rule_or_claim_changed": true,
+    "complete_10_and_signed_12_values_observed_before_the_correction_cannot_select_provenance_hashes": true,
+    "source_must_pass_the_unchanged_v1_controls_after_corrected_rebinding": true,
+    "a_pass_opens_only_a_separate_fixed_limb_and_device_work_preflight_preregistration": true
+  },
+  "claims": {
+    "provenance_correction_recorded": true,
+    "source_seal": null,
+    "captured_pair_exact_integer_algebra_passed": null,
+    "correct_rounding_passed": null,
+    "fixed_limb_bound_passed": null,
+    "device_fit": null,
+    "device_speed": null,
+    "population_25_numerical_value": null,
+    "actual_45_card_value": null,
+    "resolver_iteration_result": null,
+    "solve_result": null,
+    "action_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

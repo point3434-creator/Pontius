@@ -2358,6 +2358,16 @@ bound may be loose and may prune nothing, but it may never be low; at a leaf it
 equals exact price. Complete 10-card and 12-card exhaustive authorities decide
 correctness before any consumer, device, or literal-45 work is opened.
 
+ADR-0454 source-seals that exact CPU mechanism without opening its result. The
+prefix compiler reads each source base once and checks every block against all
+descendant prices; proposal traversal is best-first, exact argmax preserves all
+ties, and zero-threshold closure covers every coordinate by an exact leaf or a
+conservative nonpositive block. A separately written standard-library reader
+reconstructs all twelve domain/family rows, bounds, searches, digests, and
+heterogeneous work receipts. The first clean exclusive owner invocation is the
+only open step; per-level caps and provenance-bound `h` maxima remain later
+hypotheses rather than adaptations to this frozen campaign.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

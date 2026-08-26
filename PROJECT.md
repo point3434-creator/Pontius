@@ -1000,6 +1000,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   preregistration for structural exact-work reduction in the four phases that
   account for 89.5161% of the projection, not a retry, endpoint substitution,
   wall relaxation, truncation decision, action result, or quality claim.
+- ADR-0417 freezes the first such reduction. The selected direct-fold kernel
+  already accumulates every coefficient needed by the selected direct-query
+  oracle in the identical source-rank order. One shared traversal must emit
+  both outputs, deleting 34,003,200 projection-only source unrankings and
+  27,783,168 redundant boundary pair additions. Source, controls, device
+  differential, owner, result, and replacement capacity rule remain absent;
+  implement and source-seal only this exact common-subexpression boundary next.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

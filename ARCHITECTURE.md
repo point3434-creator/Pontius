@@ -1968,6 +1968,17 @@ Any successor must prospectively remove or factor exact work in the measured
 dominant phases while preserving the operator, canonical accumulation order,
 resource pairing, and independent reader.
 
+ADR-0417 freezes the first exact factorization. For a selected query and
+logical feature, both direct kernels currently fold the identical compatible
+source terms in increasing colex rank. The fold kernel owns all 176 finished
+coefficient pairs; the eight query pairs are projections of those slots, not a
+second computation. The successor keeps the unchanged query kernel only as a
+future differential control and replaces exactly the fold-kernel span so one
+thread, one source traversal, and one coefficient vector produce both outputs.
+Population execution may not launch the reference query kernel. The source
+seal is CPU/static only; device identity, resources, capacity, and action time
+remain unopened.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

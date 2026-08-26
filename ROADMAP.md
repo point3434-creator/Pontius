@@ -1458,6 +1458,12 @@ queue:
   projection, then freeze at most one structural exact-work successor under a
   new identity. Do not rerun V4, substitute its favorable endpoint, relax its
   wall or safety factor, or infer truncation, action latency, or quality.
+  ADR-0417 selects that one successor: the finished direct-fold coefficient
+  vector must also emit the eight selected direct-query pairs, byte-identically
+  and without a second source traversal. Implement and source-seal only its
+  additive, CuPy-free source builder, exact sequence model, static work ledger,
+  alias/order mutations, and absence gates. A real differential and any new
+  capacity estimator remain later, separately preregistered questions.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1539,6 +1545,10 @@ queue:
   45-card value, owner,
   automatic truncation,
   resolver iteration, action timing, and quality inference remains closed.
+  ADR-0417 now prospectively freezes the shared selected direct oracle that
+  removes the duplicated query traversal while preserving fold arithmetic.
+  Its source-only seal is the immediate capacity-lane checkpoint; it neither
+  reopens V4 nor selects a new projection rule.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

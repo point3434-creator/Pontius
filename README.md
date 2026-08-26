@@ -865,7 +865,11 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   7,260.753615922 seconds against 180 seconds. Population 25 never ran. The
   immediate checkpoint is a prospectively frozen structural-work successor
   for the four dominant phases, not a replay, threshold change, truncation
-  decision, action, or quality claim.
+  decision, action, or quality claim. ADR-0417 now freezes one exact successor:
+  the direct-fold coefficient vector also owns the eight selected query pairs,
+  deleting their second source traversal without changing pair order. Its
+  additive CPU/static source seal is next; no device differential, replacement
+  capacity rule, population-25 value, action, or quality result exists.
 
 ## Current checkpoint
 

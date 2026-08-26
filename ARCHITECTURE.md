@@ -2286,6 +2286,15 @@ branches: fully validate zero-event infrastructure terminals, or require
 bootstrap first and reuse the unchanged scientific reader after a measured
 header-only projection.
 
+ADR-0447 source-seals the implementation without compiler or device work. The
+fresh runner validates the exact complete child domain inside the actual child
+process before entering the inherited campaign, while the parent records the
+same independently derived runtime evidence in the durable header. The reader
+has a first-class zero-event branch and otherwise performs a two-field header
+projection before the existing v2-to-v1 semantic chain. All projected globals,
+including the fresh preregistration commit, are lock-scoped and restored. One
+clean v3 invocation is now eligible; no arm or production consumer is selected.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

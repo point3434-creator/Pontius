@@ -1710,6 +1710,14 @@ queue:
   Implement and source-seal only those wrappers and controls next. Compilation,
   CuPy scientific import, device work, v3 result creation, candidate selection,
   population 25, and actual 45 remain closed until the clean source commit.
+  ADR-0447 completes that no-compiler source seal. Sixteen controls exercise
+  the real two-process import topology, independent environment digests, all
+  five required DLLs, the exact 63-key child domain, compiler resolution,
+  hostile launch, mutations, public-clock ordering, zero-event and observed
+  reader branches, projection restoration, and v1/v2 survival. The next
+  checkpoint is exactly one invocation of the clean committed v3 root owner;
+  its first terminal is permanent. No compilation or device result exists at
+  this checkpoint.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

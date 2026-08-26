@@ -15,34 +15,38 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Freeze one fresh v3 successor before source. The parent compiler environment
-remains the exact 55-key scrubbed `vcvars64` mapping from ADR-0443. The child
-activated projection is a distinct 55-key mapping whose only changed key is
-`PATH`; its value must be exactly one canonical CUDA-wheel directory, one
-semicolon, and the byte-identical parent `PATH`. The child projection digests
-are frozen at `287903a6...6a874` and `10068a92...7270`. The complete child
-environment has exactly 63 case-insensitive keys: the parent domain plus six
-exact static Python/CUDA bootstrap values, one exact campaign mode, and one
-owner-created resolved spool path. No unlisted key is admitted.
+Yes, at source-only and no-compiler scope. Source-seal the new launcher, runner,
+reader, and controls. The public owner remains absent and uninvoked. The next
+checkpoint is exactly one no-argument invocation from the clean commit; its
+first terminal is permanent.
 
-Bind the runtime mechanism rather than merely its observed string. The
-repository `__init__.py` and `cuda_dll_bootstrap.py` parent bytes are frozen,
-as are `cupy-cuda13x==14.2.0`, `nvidia-cuda-runtime==13.3.29`,
-`nvidia-cuda-nvrtc==13.3.33`, and the exact path, size, and SHA-256 of the five
-DLLs required by the repository bootstrap. The child path must contain the
-runtime prefix once, place it first, preserve the MSVC directory second, and
-resolve `cl.exe`, `link.exe`, and `rc.exe` to the same host files frozen in
-ADR-0443. The other eight files and complete 1,476,455,856-byte directory size
-are reporting-only and receive no identity or fault-detection claim.
+The runner derives the same exact scrubbed MSVC mapping as ADR-0444, then
+constructs the expected child projection before replacing the public process
+environment. The campaign child independently validates its complete
+case-insensitive domain after package import. Exactly one activated key may
+differ: child `PATH` is the canonical CUDA-wheel directory plus the exact
+parent `PATH`. All other 54 activated values are byte-identical. The runtime
+prefix occurs once, MSVC remains second, the same exact `cl/link/rc` binaries
+resolve, and all five bootstrap-required DLLs rebind by size and SHA-256 before
+science. The public clock begins before activation and DLL validation.
 
-The fresh reader must validate a complete zero-observation infrastructure
-terminal rather than assuming bootstrap has happened. If observations exist,
-bootstrap remains mandatory and first. Zero-event success, count drift, torn or
-extended chains, non-null laboratory intervals before bootstrap, or weakened
-claims reject. Only after fully validating the fresh journal may the reader
-remove the additive runtime header field and project the literal worker and
-predecessor header fields for unchanged inherited semantic validation; no
-scientific observation or terminal field may change.
+The source probe exercises the real two-process import topology from a hostile
+external working directory. Its child reaches the exact post-import digest and
+reports no CuPy load, scientific-source import, compiler execution, device
+query, or result. The caller environment and both consumed artifacts survive.
+Mutations of the environment domain, any non-`PATH` activated value, missing or
+duplicated prefix, inserted compiler-shadow path, static CUDA variables,
+campaign mode, runtime file count, size, or hash all reject.
+
+The reader validates the fresh durable chain, exact header domain, source
+commit, dependency set, parent toolchain evidence, child runtime evidence,
+predecessor, claims, and lifecycle before dispatch. A two-record zero-event
+failure takes an explicit branch and must be a typed rejecting terminal with
+null laboratory/outside intervals. Any observed lifecycle must start with the
+v3 bootstrap. Only then does a private projection remove the additive runtime
+field and replace the historical predecessor for inherited validation; the
+next inherited layer performs the literal-worker header projection. No
+observation or terminal payload is changed, and all reader bindings restore.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -99,10 +103,10 @@ ADR-0436 freezes the fixed-width comparison, ADR-0437 corrects its provenance
 control before source, ADR-0438 source-seals both CPU candidates, ADR-0439
 opens only the separate compiled-device preflight, ADR-0440 corrects its phase
 topology before source seal, ADR-0441 source-seals that corrected owner,
-ADR-0442 consumes its sole invocation as a compiler rejection, ADR-0443 opens
-only the fresh host-toolchain-bound recovery, ADR-0444 source-seals that
-recovery, ADR-0445 consumes its zero-event failure, and ADR-0446 opens only the
-fresh split-environment source-seal lane.
+ADR-0442 consumes its compiler rejection, ADR-0443 and ADR-0444 own the first
+MSVC recovery, ADR-0445 consumes its zero-event terminal, ADR-0446 freezes the
+split-environment successor, and ADR-0447 source-seals it without compilation
+or device work.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -136,7 +140,7 @@ ADR-0405 remains an accepted source seal.
 
 ## Active next
 
-Implement and source-seal only the fresh ADR-0446 successor: add the v3 root launcher, additive split-environment runner, independent lifecycle reader, and adversarial controls; bind the exact config, parent commit, five runtime files, 55-key parent and child projections, 63-key complete child domain, sole one-prefix `PATH` relation, exact compiler resolution, consumed v2 result, historical zero-event assessor, unchanged ADR-0441 scientific module, and public-clock ordering; exercise only no-compiler source probes and synthetic journals; keep the v3 result, compilation, CuPy scientific import, device operation, candidate selection, population 25, actual-45 numerics, resolver integration, action, 15-second fit, decision quality, truncation, blueprint, and strength absent until a clean committed source seal
+From the clean committed ADR-0447 source identity, invoke exactly once `.venv\Scripts\python.exe -B run_legal_river_quotient_fixed_width_device_preflight_v3.py`; retain and independently assess its first public or journal terminal without retry, repair, reader change, environment fallback, alternate compiler, parser change, skip, or threshold change; keep candidate selection, population 25, actual-45 numerics, resolver integration, action, 15-second fit, decision quality, truncation, blueprint, and strength closed regardless of outcome
 
 ## Revoked authorities
 
@@ -144,7 +148,7 @@ Implement and source-seal only the fresh ADR-0446 successor: add the v3 root lau
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0446](docs/decisions/ADR-0446-preregister-the-split-child-runtime-environment-successor.md) — Preregister the split child-runtime environment successor.
+Latest process decision: [ADR-0447](docs/decisions/ADR-0447-source-seal-the-split-child-runtime-environment-successor.md) — Source-seal the split child-runtime environment successor.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -152,7 +156,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0423](docs/decisions/ADR-0423-correct-the-v2-reader-lifecycle-transduction-before-source.md) | 2026-08-26 | accepted prospective pre-source completeness correction; ADR-0422's impossible combination of fresh V2 bootstrap identity and header-only V1-reader transduction is replaced by an exact lifecycle allowlist covering journal protocol/campaign, V2 header, observation-wrapper config hash, and bootstrap literal/spec module names, while every challenge, runtime, CuPy flag, post-bootstrap observation, outer terminal, compiler-container, resource, complete-ten, complete 10/22, numerical, phase, wall, claim, and kill boundary remains unchanged and every successor source, probe, result, capacity projection, population-25 fixture or value, actual consumer, action, quality, blueprint, and strength result remains unopened | Correct the V2 reader lifecycle transduction before source |
 | [ADR-0424](docs/decisions/ADR-0424-correct-the-v1-parent-hash-bindings-before-v2-source-seal.md) | 2026-08-26 | accepted pre-seal provenance correction; ADR-0420's recorded adapter/runner/reader hashes and ADR-0423's inherited V2 parent bindings used an over-escaped audit expression that rewrote literal source text instead of CRLF bytes, so the three false hashes are superseded by independently reproduced canonical-LF hashes before V2 source seal, while the committed V1 files, frozen device science, V2 lifecycle contract, every result path, population 25, capacity projection, actual consumer, action, quality, blueprint, and strength claim remain unchanged or unopened | Correct the V1 parent hash bindings before V2 source seal |
 | [ADR-0425](docs/decisions/ADR-0425-source-seal-the-launcher-safe-shared-direct-v2-owner.md) | 2026-08-26 | accepted launcher-safe source-only bounded-device seal; the repository-root launcher, fresh exclusive V2 owner, independent lifecycle reader, exact transduction allowlist, corrected canonical-LF provenance controls, scrubbed external-working-directory two-launcher probe, complete synthetic science transduction, and 20 focused controls pass while the real V2 journal, device differential, replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remain unopened | Source-seal the launcher-safe shared-direct V2 owner |
 | [ADR-0426](docs/decisions/ADR-0426-retain-the-v2-population-sample-plan-rejection.md) | 2026-08-26 | accepted retained sole launcher-safe V2 population-scientific rejection; the root launch tree, fresh bootstrap, compiler container, module load, resource inspection, primitive controls, retained complete-ten differential, and query-weight controls pass, and both population-10 execution families reach final release, but evidence assembly rejects before a population row because the generated runner captured the parent's seven-row sample helper while the frozen evidence authority expected sixteen rows, so V2 is permanently consumed and every population-22 result, replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Retain the V2 population sample-plan rejection |
@@ -176,18 +179,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0444](docs/decisions/ADR-0444-source-seal-the-msvc-bound-fixed-width-device-successor.md) | 2026-08-26 | accepted no-compiler source seal; the fresh ADR-0443 successor now has one repository-root launcher, one scrubbed MSVC-bound owner wrapper, one standard-library independent reader wrapper, exact host-file and activation identities, public-clock charging before activation, byte-identical reuse of the ADR-0441 scientific module, one allowlisted in-memory header projection into the inherited semantic reader, and 16 passing focused controls, while the consumed v1 identity remains untouched and the v2 result, NVCC compilation, cubin, CuPy scientific import, device query, module load, kernel launch, reduced-population device value, eligible arm, selected candidate, population 25, actual-45 value, resolver result, action-clock result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remain absent | Source-seal the MSVC-bound fixed-width device successor |
 | [ADR-0445](docs/decisions/ADR-0445-retain-the-msvc-bound-zero-event-infrastructure-rejection.md) | 2026-08-26 | accepted retained zero-event infrastructure rejection; the sole ADR-0444 invocation produced a complete two-record journal and stopped before bootstrap because package initialization deterministically prepended the repository CUDA wheel directory to `PATH`, while the source-sealed v2 reader separately rejected that valid lifecycle by requiring at least one observation; an additive artifact-bound assessor accepts only the exact retained result, and no compile, cubin, resource, device, numerical, eligibility, selection, population-25, actual-45, resolver, action-clock, quality, truncation, blueprint, or poker-strength result exists | Retain the MSVC-bound zero-event infrastructure rejection |
 | [ADR-0446](docs/decisions/ADR-0446-preregister-the-split-child-runtime-environment-successor.md) | 2026-08-26 | accepted prospective split-environment recovery only; the exact parent compiler mapping, deterministic post-import child mapping, sole `PATH` delta, 63-key child domain, five required CUDA-wheel runtime files, unchanged host-tool resolution, zero-event reader semantics, fresh identities, and unchanged ADR-0441 science are frozen before successor source, compiler execution, CuPy scientific import, device query, module load, kernel launch, or result | Preregister the split child-runtime environment successor |
+| [ADR-0447](docs/decisions/ADR-0447-source-seal-the-split-child-runtime-environment-successor.md) | 2026-08-26 | accepted no-compiler source seal; the fresh v3 root launcher, additive parent/child environment wrapper, exact five-DLL runtime manifest, 63-key child validator, unchanged compiler resolution, zero-event-aware independent reader, measured header-only inherited-reader projection, historical v1/v2 survival controls, and 16 focused tests pass while the v3 result, NVCC compilation, cubin, CuPy scientific import, device query, module load, kernel launch, reduced-population device value, eligible arm, selected candidate, population 25, actual-45 value, resolver result, action-clock result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remain absent | Source-seal the split child-runtime environment successor |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0446](docs/decisions/ADR-0446-preregister-the-split-child-runtime-environment-successor.md) — Preregister the split child-runtime environment successor.
+- Latest ADR: [ADR-0447](docs/decisions/ADR-0447-source-seal-the-split-child-runtime-environment-successor.md) — Source-seal the split child-runtime environment successor.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 446.
-- ADR-header SHA-256: `af11cc4b4fa5ce8bd184fc98561d76a5743becb6330d14d54891134713b2b069`.
-- Current blockers: no v3 source seal, compiled cubin, resource result, reduced-population device result, eligible or selected candidate, population-25 result, actual-45 fit owner, 15-second fit result, global resolver-certificate integration, or full-width actual-context quotient value exists; ADR-0441 and ADR-0444 launchers, owners, readers, commands, and result identities are consumed permanently; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 447.
+- ADR-header SHA-256: `08f3ebcffd31a37f5b2e245606314bb83c2e2dc64c28d3fadd62a86c3c9ad7f8`.
+- Current blockers: no v3 compiled cubin, resource result, reduced-population device result, eligible or selected candidate, population-25 result, actual-45 fit owner, 15-second fit result, global resolver-certificate integration, or full-width actual-context quotient value exists; ADR-0441 and ADR-0444 launchers, owners, readers, commands, and result identities are consumed permanently; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0446](docs/decisions/ADR-0446-preregister-the-split-child-runtime-environment-successor.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0447](docs/decisions/ADR-0447-source-seal-the-split-child-runtime-environment-successor.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

@@ -957,6 +957,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   separate unsealed design trace finds a one-byte ELF table deficit aligned
   with CuPy 14.2.0's unconditional cubin suffix removal. That is only the next
   bounded hypothesis: no byte has been appended and no repair is accepted.
+- ADR-0410 preregisters that one-byte hypothesis before source or operation.
+  The exact ELF header, six program rows, section/program bounds, sole zero
+  suffix, repaired hash, six external commands, same-byte module load, all
+  fifteen names, and exact original driver rows are frozen. A pass can qualify
+  only the repaired-byte resource instrument; all 255/4096, calibration,
+  capacity, latency, and quality gates remain null.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

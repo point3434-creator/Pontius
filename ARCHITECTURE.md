@@ -1910,6 +1910,15 @@ zero suffix before operation, then inspect and load the identical repaired
 bytes. It may not normalize generally, patch site-packages, or infer that the
 hypothesis has already passed.
 
+ADR-0410 makes the suffix hypothesis a closed transform rather than a repair
+search. A standard ELF64 parser admits only the exact retained header whose
+program table is `len+1`; the candidate is the immutable prefix plus one zero.
+The repaired bytes become durable before use, back one temporary file for all
+offline commands, and are also the exact in-memory module input. A pass needs
+complete cuobjdump resource/ELF operations, all fifteen functions, and exact
+equality with the original three driver rows. Resource ceilings remain a later
+consumer concern.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

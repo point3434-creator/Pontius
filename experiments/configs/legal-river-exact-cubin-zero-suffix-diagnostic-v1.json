@@ -1,0 +1,273 @@
+{
+  "schema_version": "legal-river-exact-cubin-zero-suffix-diagnostic-preregistration-v1",
+  "evidence_stage": "prospective_one_byte_suffix_diagnostic_before_source_tool_module_or_result",
+  "parent_identity": {
+    "adr0409_relative_path": "docs/decisions/ADR-0409-retain-the-empty-exact-cubin-inspector-selection.md",
+    "adr0409_canonical_lf_sha256": "8950e6feb7d159d4e92c1026ec79c52032ff02e0a50b46574d56620fc2f681be",
+    "adr0409_outcome_commit": "faca695cabf09ffe2b6f974d35e90a3f355ab5c8",
+    "diagnostic_artifact_relative_path": "artifacts/work_preflight/legal_river_exact_cubin_inspector_diagnostic_v1.jsonl",
+    "diagnostic_artifact_sha256": "9e0d160dd36884adb85914f819e11882d5becc42071f7847c1503a42c1d83aed",
+    "diagnostic_artifact_bytes": 705101,
+    "diagnostic_artifact_records": 12,
+    "selection_result_relative_path": "experiments/results/legal-river-exact-cubin-inspector-selection-v1.json",
+    "selection_result_sha256": "ebc66a0d06a84eeb16d5c2d6adf6376227011ef3982c8fcdd09e97496c276d1f",
+    "selection_result_bytes": 3164,
+    "selection_terminal": "no_qualified_inspector",
+    "original_payload_sha256": "5dc4973302061b29dccd955ff7ee4dff3d61216316fb5d2fa71e9df22f42cd97",
+    "original_payload_bytes": 514039,
+    "repaired_payload_sha256": "97693be7baafd882ad64a1a7da0ede23dc927efd872b0d15697b2486957ea894",
+    "repaired_payload_bytes": 514040,
+    "diagnostic_reader_relative_path": "src/pontius/legal_river_exact_cubin_inspector_diagnostic_result.py",
+    "diagnostic_reader_canonical_lf_sha256": "ec7308b8adb8bd398844b60a2a149198262e53cfe9bd8256ba424e47bf87093b",
+    "reserved_actual_result_relative_path": "artifacts/legal_river_quotient_cuda_consumer_v1.jsonl",
+    "reserved_actual_result_must_remain_absent": true
+  },
+  "successor_scope": {
+    "config_relative_path": "experiments/configs/legal-river-exact-cubin-zero-suffix-diagnostic-v1.json",
+    "diagnostic_relative_path": "src/pontius/legal_river_exact_cubin_zero_suffix_diagnostic.py",
+    "owner_relative_path": "src/pontius/legal_river_exact_cubin_zero_suffix_diagnostic_runner.py",
+    "reader_relative_path": "src/pontius/legal_river_exact_cubin_zero_suffix_diagnostic_result.py",
+    "controls_relative_path": "tests/test_legal_river_exact_cubin_zero_suffix_diagnostic.py",
+    "result_relative_path": "artifacts/work_preflight/legal_river_exact_cubin_zero_suffix_diagnostic_v1.jsonl",
+    "all_source_control_and_result_paths_must_be_absent_at_preregistration": true,
+    "source_and_result_must_be_separate_commits": true,
+    "one_public_no_argument_owner_after_source_seal": true,
+    "no_consumed_source_result_or_owner_may_be_modified_or_invoked": true
+  },
+  "diagnostic_question": {
+    "question": "Does appending exactly one zero byte under the frozen ELF structural predicate produce a payload that both CUDA 13.3 offline tools and the CUDA driver accept as the same complete direct-kernel binary?",
+    "suffix_diagnostic_is_not_general_normalization": true,
+    "suffix_diagnostic_is_not_resource_gate_evaluation": true,
+    "suffix_diagnostic_is_not_calibration_capacity_latency_or_quality_evidence": true,
+    "only_permitted_transformation": "append_exactly_one_00_byte"
+  },
+  "original_elf_contract": {
+    "header_format": "<16sHHIQQQIHHHHHH",
+    "header_bytes": 64,
+    "ident_hex": "7f454c46020101410800000000000000",
+    "e_type": 2,
+    "e_machine": 190,
+    "e_version": 1,
+    "e_entry": 0,
+    "e_phoff": 513704,
+    "e_shoff": 506280,
+    "e_flags": 100694018,
+    "e_ehsize": 64,
+    "e_phentsize": 56,
+    "e_phnum": 6,
+    "e_shentsize": 64,
+    "e_shnum": 116,
+    "e_shstrndx": 1,
+    "section_table_end": 513704,
+    "program_table_declared_end": 514040,
+    "program_table_declared_end_minus_original_bytes": 1,
+    "complete_program_headers_in_order": [
+      [6, 4, 513704, 0, 0, 336, 336, 8],
+      [1, 4, 513704, 0, 0, 336, 336, 8],
+      [1, 4, 19448, 0, 0, 32, 32, 8],
+      [1, 5, 19584, 0, 0, 393856, 393856, 8],
+      [1, 6, 413440, 0, 0, 0, 64, 8]
+    ],
+    "final_partial_program_header_first_seven_fields": [1, 4, 413440, 0, 0, 14784, 14784],
+    "final_partial_p_align_low_seven_bytes_hex": "08000000000000",
+    "final_partial_program_header_bytes": 55,
+    "original_tail_32_hex": "000000000000000000c039000000000000c03900000000000008000000000000"
+  },
+  "reconstruction_contract": {
+    "suffix_hex": "00",
+    "suffix_bytes": 1,
+    "repaired_tail_32_hex": "0000000000000000c039000000000000c0390000000000000800000000000000",
+    "repaired_final_program_header": [1, 4, 413440, 0, 0, 14784, 14784, 8],
+    "all_six_program_headers_must_match_the_frozen_rows_after_repair": true,
+    "every_file_backed_section_offset_plus_size_must_fit_repaired_bytes": true,
+    "every_program_file_offset_plus_filesz_must_fit_repaired_bytes": true,
+    "every_program_memsz_must_be_at_least_filesz": true,
+    "every_nonzero_program_alignment_must_be_one_or_a_power_of_two": true,
+    "section_name_table_must_be_file_backed_and_in_bounds": true,
+    "original_bytes_must_be_an_exact_prefix_of_repaired_bytes": true,
+    "original_payload_must_never_be_written_modified_or_overwritten": true,
+    "no_second_suffix_or_alternate_byte_is_permitted": true
+  },
+  "same_bytes_contract": {
+    "repaired_payload_base64_sha256_and_byte_count_must_be_durable_before_external_or_driver_operation": true,
+    "temporary_file_must_equal_the_durable_repaired_payload_byte_for_byte": true,
+    "all_external_payload_commands_must_use_that_one_temporary_file": true,
+    "cuda_module_load_must_receive_the_same_in_memory_repaired_bytes": true,
+    "module_event_must_repeat_the_repaired_sha256_and_byte_count": true,
+    "all_fifteen_kernel_names_must_load_without_kernel_launch": true,
+    "direct_driver_rows_must_equal_the_original_retained_driver_rows_exactly": true,
+    "temporary_file_must_be_removed_only_after_all_command_and_module_events_are_fsynced": true
+  },
+  "original_direct_driver_rows": {
+    "direct_selected_queries_tile": {
+      "local_size_bytes": 128,
+      "maximum_threads_per_block": 1024,
+      "registers": 38,
+      "shared_size_bytes": 0
+    },
+    "direct_selected_fold_tile": {
+      "local_size_bytes": 1024,
+      "maximum_threads_per_block": 1024,
+      "registers": 48,
+      "shared_size_bytes": 0
+    },
+    "direct_selected_adjoint_tile": {
+      "local_size_bytes": 128,
+      "maximum_threads_per_block": 1024,
+      "registers": 38,
+      "shared_size_bytes": 0
+    }
+  },
+  "all_kernel_names_in_order": [
+    "primitive_pairs",
+    "source_coefficients_tile",
+    "zeta_level_tile",
+    "signed_targets_tile",
+    "fold_query_tile",
+    "build_numerator_covector_tile",
+    "aggregate_query_labels_tile",
+    "source_adjoint_contract_tile",
+    "reduce_contiguous_pairs",
+    "reduce_strided_pairs",
+    "finalize_pair_result",
+    "direct_selected_queries_tile",
+    "direct_selected_fold_tile",
+    "direct_selected_adjoint_tile",
+    "selected_query_weights"
+  ],
+  "candidate_commands_in_order": [
+    {
+      "candidate_id": "cuobjdump_version",
+      "tool": "CUDA_13_3_cuobjdump",
+      "arguments": ["--version"],
+      "uses_repaired_payload": false,
+      "required_for_suffix_pass": true
+    },
+    {
+      "candidate_id": "cuobjdump_resource_usage",
+      "tool": "CUDA_13_3_cuobjdump",
+      "arguments": ["--dump-resource-usage", "{exact_repaired_temporary_cubin}"],
+      "uses_repaired_payload": true,
+      "required_for_suffix_pass": true
+    },
+    {
+      "candidate_id": "cuobjdump_elf",
+      "tool": "CUDA_13_3_cuobjdump",
+      "arguments": ["--dump-elf", "{exact_repaired_temporary_cubin}"],
+      "uses_repaired_payload": true,
+      "required_for_suffix_pass": true
+    },
+    {
+      "candidate_id": "nvdisasm_version",
+      "tool": "CUDA_13_3_nvdisasm",
+      "arguments": ["--version"],
+      "uses_repaired_payload": false,
+      "required_for_suffix_pass": false
+    },
+    {
+      "candidate_id": "nvdisasm_default",
+      "tool": "CUDA_13_3_nvdisasm",
+      "arguments": ["{exact_repaired_temporary_cubin}"],
+      "uses_repaired_payload": true,
+      "required_for_suffix_pass": false
+    },
+    {
+      "candidate_id": "nvdisasm_no_dataflow",
+      "tool": "CUDA_13_3_nvdisasm",
+      "arguments": ["--no-dataflow", "{exact_repaired_temporary_cubin}"],
+      "uses_repaired_payload": true,
+      "required_for_suffix_pass": false
+    }
+  ],
+  "external_resource_contract": {
+    "cuobjdump_identity_requires_exact_13_3_73_build": true,
+    "cuobjdump_resource_and_elf_operations_must_complete_with_return_code_zero": true,
+    "cuobjdump_resource_stdout_must_parse_complete_REG_STACK_LOCAL_rows_for_all_three_direct_kernels": true,
+    "resource_parser_grammar_is_identical_to_ADR0407": true,
+    "nvdisasm_commands_are_supporting_evidence_and_cannot_decide_suffix_pass": true,
+    "all_six_command_outcomes_must_be_retained_even_after_nonzero_return": true,
+    "resource_values_do_not_evaluate_255_or_4096_ceilings_here": true,
+    "qualified_resource_instrument_is_null_unless_every_required_structural_tool_and_module_conjunct_passes": true
+  },
+  "bounded_execution_contract": {
+    "fresh_no_bytecode_child_required": true,
+    "fresh_challenge_device_free_handshake_required": true,
+    "parent_ack_only_after_append_flush_and_fsync": true,
+    "external_commands_use_check_false_and_binary_streams": true,
+    "stdout_and_stderr_are_base64_with_raw_hash_and_byte_count": true,
+    "per_stream_byte_limit": 8388608,
+    "repaired_payload_byte_limit": 8388608,
+    "journal_byte_limit": 67108864,
+    "per_command_wall_limit_ns": 30000000000,
+    "laboratory_wall_limit_ns": 180000000000,
+    "bounded_concurrent_stdout_and_stderr_drains_required": true,
+    "child_process_and_every_external_process_must_be_terminated_on_timeout_or_error": true,
+    "post_terminal_frames_forbidden": true,
+    "first_terminal_is_permanent": true,
+    "no_retry_resume_skip_or_continuation": true
+  },
+  "terminal_contract": {
+    "pass_terminal": "suffix_reconstruction_pass",
+    "rejection_terminals": [
+      "structural_rejection",
+      "candidate_timeout_rejection",
+      "candidate_output_limit_rejection",
+      "tool_rejection",
+      "module_load_rejection",
+      "driver_row_rejection",
+      "laboratory_wall_rejection",
+      "diagnostic_failure",
+      "infrastructure_failure"
+    ],
+    "pass_requires_every_structural_reconstruction_same_bytes_required_tool_module_kernel_and_driver_row_conjunct": true,
+    "qualified_resource_instrument_on_pass": "cuobjdump_resource_usage_on_exact_zero_suffix_payload",
+    "resource_gate_result": null,
+    "calibration_result": null,
+    "capacity_projection": null
+  },
+  "source_seal_controls": {
+    "exact_synthetic_elf_missing_only_final_zero_repairs": true,
+    "zero_missing_two_missing_extra_present_nonzero_suffix_and_wrong_partial_field_reject": true,
+    "section_and_program_bounds_alignment_memsz_and_name_table_mutations_reject": true,
+    "repaired_hash_prefix_tail_and_program_header_mutations_reject": true,
+    "same_bytes_temporary_module_and_event_hash_mutations_reject": true,
+    "complete_and_incomplete_cuobjdump_resource_rows": true,
+    "required_tool_nonzero_timeout_output_limit_and_supporting_nvdisasm_failures": true,
+    "module_load_kernel_inventory_and_driver_row_mutations": true,
+    "resource_ceiling_values_cannot_change_suffix_or_instrument_pass": true,
+    "literal_device_free_handshake_and_synthetic_complete_child_protocol": true,
+    "silent_child_post_terminal_exclusive_replay_torn_tail_and_journal_cap_controls": true,
+    "ast_forbids_compile_kernels_calibration_population_fixture_and_reserved_owner_paths": true,
+    "real_cuda_module_load_external_commands_and_result_forbidden_during_source_seal": true
+  },
+  "kill_criteria": {
+    "kill_if_any_original_or_consumed_file_is_modified_or_invoked": true,
+    "kill_if_repair_is_not_exactly_one_appended_zero_under_every_structural_predicate": true,
+    "kill_if_a_second_candidate_suffix_or_general_normalizer_exists": true,
+    "kill_if_inspected_temporary_bytes_and_module_loaded_bytes_can_differ": true,
+    "kill_if_any_required_cuobjdump_operation_is_nonzero_or_incomplete": true,
+    "kill_if_any_named_kernel_or_exact_original_driver_row_differs": true,
+    "kill_if_a_resource_value_or_ceiling_decides_suffix_validity": true,
+    "kill_if_source_seal_runs_a_real_tool_module_load_or_authoritative_result": true,
+    "kill_if_population_calibration_phase_projection_actual_owner_action_quality_or_strength_is_opened": true
+  },
+  "claims": {
+    "source_sealed": false,
+    "diagnostic_invoked": false,
+    "suffix_reconstruction_result": null,
+    "qualified_resource_instrument": null,
+    "resource_gate_result": null,
+    "calibration_result": null,
+    "capacity_projection": null,
+    "complete_25_numerical_value": null,
+    "actual_45_card_value": null,
+    "resolver_iteration_result": null,
+    "solve_result": null,
+    "action_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

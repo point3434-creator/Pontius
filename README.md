@@ -842,6 +842,9 @@ authority is its one clean deterministic no-argument invocation.
 ADR-0409 retains that invocation as `no_qualified_inspector`. The resource
 gate is still unopened. A narrow one-byte ELF suffix hypothesis is the next
 prospective diagnostic; it is not yet an accepted repair or capacity result.
+ADR-0410 now freezes that diagnostic down to one exact appended zero, one
+repaired hash, the same bytes for offline inspection and module load, and exact
+driver-row preservation. No source or result exists yet.
 
 ## Current checkpoint
 

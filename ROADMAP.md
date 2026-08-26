@@ -1438,9 +1438,10 @@ queue:
   retains its sole assessment as `no_qualified_inspector`; every resource and
   capacity field remains null. The immediate checkpoint is a prospectively
   frozen one-byte ELF suffix-reconstruction diagnostic over the retained
-  payload, with exact repaired-byte tool and module identity. Do not patch
-  CuPy, use driver-only evidence, open calibration, or construct a 25-card
-  fixture.
+  payload, with exact repaired-byte tool and module identity. ADR-0410 now
+  freezes that boundary; implement and source-seal it next with all real tools,
+  module loads, and results absent. Do not patch CuPy, use driver-only evidence,
+  open calibration, or construct a 25-card fixture.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1510,7 +1511,8 @@ queue:
   be qualified. ADR-0407 completes that preregistration; its source-only seal
   is completed by ADR-0408, and ADR-0409 closes its one deterministic result
   with an empty selection. Freeze the bounded suffix hypothesis before any
-  further tool or driver operation. Every actual 45-card value, owner,
+  further tool or driver operation. ADR-0410 completes that freeze; its source-
+  only seal is next. Every actual 45-card value, owner,
   automatic truncation,
   resolver iteration, action timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

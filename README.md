@@ -848,9 +848,13 @@ driver-row preservation. ADR-0411 now source-seals the exact transform,
 exclusive owner, independent reader, and 22 controls. Payload and stream caps
 are semantically separate despite their current equal values. No real tool,
 module load, launch, or suffix result existed at that seal. ADR-0412 now
-retains the sole invocation as `suffix_reconstruction_pass`: exact repaired
-bytes pass the required tool and module seams. This qualifies an instrument,
-not the resource, capacity, latency, or quality gates.
+  retains the sole invocation as `suffix_reconstruction_pass`: exact repaired
+  bytes pass the required tool and module seams. This qualifies an instrument,
+  not the resource, capacity, latency, or quality gates. ADR-0413 now freezes
+  the fresh V4 consumer: repair occurs before module load, the same repaired
+  bytes are executed and inspected, and the unchanged ADR-0394/0395 science
+  remains the only resource and capacity authority. V4 source and results are
+  still absent.
 
 ## Current checkpoint
 

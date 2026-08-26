@@ -1933,6 +1933,15 @@ driver rows are unchanged. The resulting REG/STACK/LOCAL parser is qualified
 as an instrument only; resource thresholds, calibration phases, and capacity
 projection remain consumers that require their own additive adapter.
 
+ADR-0413 freezes that adapter prospectively and rejects an inspector-only byte
+swap. V4 must repair the exact live compiler return before `Module.load`, then
+load, retain, and inspect the identical repaired object. A process-local
+adapter may replace only the serializer, module-loader, and bounded resource-
+inspection seams around one immutable scientific call. Driver/cubin maxima,
+payload/stream/journal limits, the 10/22 calibration, the 16-phase partition,
+and the arithmetic-only population-25 projection remain separate contracts.
+No V4 source or result exists at this boundary.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

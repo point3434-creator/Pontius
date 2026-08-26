@@ -973,6 +973,12 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   operations, all fifteen module lookups, and original-driver-row equality.
   The repaired-byte resource instrument is qualified; the 255/4096 gate,
   calibration, capacity projection, action, and quality remain null.
+- ADR-0413 prospectively freezes the additive work-preflight V4 seam. The exact
+  live 514,039-byte compiler prefix must receive its sole zero before module
+  load, and the identical repaired bytes must be loaded, retained, and boundedly
+  inspected. The ADR-0395 two-instrument maxima and every ADR-0394 population,
+  phase, ratio, wall, and integer-only population-25 rule remain unchanged.
+  V4 source, resource, calibration, and projection evidence are still absent.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

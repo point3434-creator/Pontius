@@ -1176,6 +1176,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   production CRLF replacement and independent forward byte loop may not share
   implementation. This changes no arithmetic or candidate gate and opens no
   value or device work.
+- ADR-0438 source-seals both fixed-width candidates at CPU scope without
+  selecting one. Positional limbs and resident/batched RRNS reproduce the
+  complete-10 and signed-12 exact operator, including candidate-side labeled
+  query aggregation, all rows, both numerator directions, reach, and terminal
+  bits. The frozen single-changed-channel RRNS theorem, 16/57-row selective
+  access, streamed complete-domain controls, colex traversal, exponent
+  telemetry, and symbolic work/memory ledgers pass. The final combined run is
+  59/59. No compilation, device fit/speed, population-25 value, actual-45
+  value, candidate winner, action, or quality result exists.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

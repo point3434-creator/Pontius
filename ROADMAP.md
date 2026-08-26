@@ -1636,8 +1636,15 @@ queue:
   rewrite to change bytes and digest, and require exactly one armed occurrence
   in each new self-sealed file. The second correct normalizer must be an
   independently written forward byte loop, not a wrapper or second replacement.
-  Implement and source-seal only the corrected CPU controls next; no population-
-  25, CUDA, actual-45, latency, action, or quality value is yet open.
+  ADR-0438 records the corrected CPU source seal: 25 comparison controls plus
+  34 parent/quotient regressions pass, both positional and RRNS candidates are
+  exact on complete 10 and signed 12, and no speed winner is selected. The next
+  eligible step is a separate compiled-device resource and bounded-wall
+  preregistration for both candidates. It must freeze register/local/spill
+  evidence, complete batched replay charges, exact output verification, and
+  phase-partitioned walls before any compile or operation. Population 25,
+  actual-45 values, resolver integration, latency-to-action, and quality remain
+  closed.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

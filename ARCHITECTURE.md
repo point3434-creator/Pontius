@@ -2179,6 +2179,17 @@ change bytes and digest under the forbidden rewrite. Production CRLF
 replacement and the independent state-machine byte loop must agree on
 normalized bytes while sharing no helper or replacement implementation.
 
+ADR-0438 implements and source-seals the CPU comparison. Fixed-point family
+encoding and labeled-query aggregation now occur inside each candidate path;
+positional limbs and both RRNS schedules then reproduce ADR-0435's recurrences,
+rows, scalars, reach, and terminal bits on complete 10 and signed 12. RRNS
+reconstruction remains fail-closed under only the frozen one-changed-channel
+model. Selective 16/57-row evaluators and an iterable complete-domain scanner
+are separate interfaces; the latter retains neither output rows nor a price
+map. Literal-45 work and memory remain formulas, with batched channel traffic,
+replay, and forward/adjoint scratch stated separately. Neither representation
+is selected before compiled resource and bounded-wall evidence.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

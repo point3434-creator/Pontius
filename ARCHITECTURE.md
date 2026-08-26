@@ -1775,6 +1775,24 @@ attribution. The rejected implementation cannot be repaired in place. A
 successor first needs phase-separated work authority and a conservative
 complete-wall projection, then a distinct numerical invocation.
 
+ADR-0394 freezes that authority without opening an implementation. The direct
+query and fold traverse selected query, tile, then increasing source rank;
+each source is unranked once and its applicable boundary or logical features
+are updated in increasing order. The direct adjoint traverses selected source,
+tile, then increasing query record, building one paired query weight per
+compatible record before updating ordered boundary features. Coefficients are
+still summed by increasing source rank and folded by increasing global feature,
+so traversal optimization does not reassociate the pair arithmetic.
+
+The future preflight partitions each complete 10/22 campaign into 16
+contiguous host-wall phases. Raw executed-work counters and synchronized
+`perf_counter_ns` spans are deciding; CUDA events are diagnostic. Each
+complete-25 phase upper is the worse 10- or 22-card exact-work projection,
+multiplied by 5/4 and increased by 1 ms. Their sum must fit 180 seconds before
+a later 25-card numerical authority can even be proposed. Population 25 has no
+fixture/compiler/device path in this boundary, and a capacity pass would still
+say nothing about its numerical seam, resolver latency, or decision quality.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

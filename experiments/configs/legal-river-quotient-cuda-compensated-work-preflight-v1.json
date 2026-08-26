@@ -1,0 +1,434 @@
+{
+  "schema_version": "legal-river-quotient-cuda-compensated-work-preflight-config-v1",
+  "evidence_stage": "preregistered_after_adr0393_before_successor_source_calibration_device_values_projection_or_complete_25_numerical_value",
+  "campaign_id": "pontius-adr0394-legal-river-quotient-cuda-compensated-work-preflight-v1",
+  "expected_sources": {
+    "adr0393": "66f05e7b6620c40e2406a7306de104fa05d5e3f417cbf1f6e52ec559f882be12",
+    "paired_base_config": "431846ffeb2064486f1768c4847a820d010d6bc8b39840f26a06c72f43e5256c",
+    "paired_correction_config": "58df9401ff34d18159e33e82db09efd13925abf95a7040fb39508ca8d99bd01f",
+    "paired_source": "03a7efb35243b8d13d495a7f80838170055096c8e9ae73d2cc723e3d29f1020d",
+    "paired_controls": "79881faa80743ad137fb39c93365075947a4d5d7af7edc821b69bccbb048f087",
+    "gitattributes": "ea4768013358d0d0b8b3f6a6064d86ba5bf59f66c8aa21705c5b574d117479cf",
+    "artifact_marker": "6ec37fd1248d8a424e1efb5d1e9467bacb0b36917a3ef1669949565d088176b9",
+    "work_preflight_gitattributes": "e66225813ee8a9f06320b4e2f9e8ae4f9851352316b1dc5a3297f8e88c1b3ef1",
+    "work_preflight_artifact_marker": "a1f417b298d65f1657499e694895a3cdfab37e9597a276a2efa070126813facb"
+  },
+  "parent_identity": {
+    "retained_wall_rejection_commit": "445a31fef96237d69467252ec6ef57e743100b4a",
+    "terminal": "wall_kill_before_complete_25_terminal",
+    "complete_25_numerator": null,
+    "complete_25_reach": null,
+    "complete_25_transpose": null,
+    "complete_25_gate_vector": null,
+    "complete_25_pool_peak": null,
+    "complete_25_numerical_verdict": null,
+    "rejected_direct_fold_source_unrank_visits_per_one_three_tile_sample_set": 498713600,
+    "rejected_direct_fold_source_unrank_visits_per_two_repeats_and_two_families": 1994854400,
+    "actual_execution_allocation_scientific_counters": [0, 0, 0],
+    "reserved_actual_result_relative_path": "artifacts/legal_river_quotient_cuda_consumer_v1.jsonl",
+    "reserved_actual_result_must_remain_absent": true
+  },
+  "scope": {
+    "successor_source_relative_path": "src/pontius/legal_river_quotient_cuda_compensated_work_preflight.py",
+    "successor_controls_relative_path": "tests/test_legal_river_quotient_cuda_compensated_work_preflight.py",
+    "successor_runner_relative_path": "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_runner.py",
+    "successor_reader_relative_path": "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_result.py",
+    "prospective_result_relative_path": "artifacts/work_preflight/legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
+    "require_all_successor_paths_and_result_absent_at_preregistration": true,
+    "source_seal_may_compile_and_run_only_complete_10_and_22_populations": true,
+    "population_25_is_pure_integer_geometry_and_projection_only": true,
+    "population_25_fixture_compile_allocation_kernel_launch_scalar_digest_or_gate_forbidden": true,
+    "actual_45_card_compile_allocation_execution_owner_reader_or_value_forbidden": true,
+    "parent_paired_source_is_read_only_arithmetic_and_fixture_authority": true,
+    "parent_complete_25_entry_may_not_be_called": true,
+    "no_complete_25_retry_or_replay": true,
+    "no_tolerance_arithmetic_tile_chunk_runtime_or_claim_relaxation": true
+  },
+  "inherited_composite_authority": {
+    "base_config_relative_path": "experiments/configs/legal-river-quotient-cuda-compensated-tiles-v1.json",
+    "correction_config_relative_path": "experiments/configs/legal-river-quotient-cuda-compensated-tiles-v2.json",
+    "representation": "unevaluated_float64_high_plus_float64_low",
+    "value_authority": "Fraction.from_float(high)+Fraction.from_float(low)",
+    "logical_tiles": [[0, 64], [64, 128], [128, 176]],
+    "physical_stride_width": 128,
+    "pair_layout": "adjacent_high_then_low",
+    "source_rank": 175,
+    "boundary_global_features": [0, 1, 63, 64, 127, 128, 174, 175],
+    "source_sample_count": 16,
+    "query_sample_count": 16,
+    "repeat_count_per_tile": 2,
+    "population_family_count": 2,
+    "population_families": ["default_chunks_forward_tile_order", "alternate_chunks_reverse_tile_order"],
+    "cuda_compile_options": ["--std=c++14", "--ftz=false", "--prec-div=true", "--prec-sqrt=true", "--fmad=false"],
+    "absolute_limits_unchanged": true,
+    "relative_limit_unchanged": true,
+    "byte_identity_gates_unchanged": true,
+    "allocation_and_release_gates_unchanged": true,
+    "compiler_attribute_reporting_unchanged": true,
+    "low_lane_detecting_mass_gates_unchanged": true,
+    "primitive_mutation_gates_unchanged": true
+  },
+  "population_geometry": {
+    "10": {
+      "source_occupancies": 210,
+      "query_occupancies": 210,
+      "labeled_query_records": 1260,
+      "source_recurrence_rows": 848,
+      "adjoint_recurrence_rows": 386,
+      "compatible_sources_per_query_occupancy": 1,
+      "compatible_labeled_query_records_per_source": 6
+    },
+    "22": {
+      "source_occupancies": 74613,
+      "query_occupancies": 7315,
+      "labeled_query_records": 43890,
+      "source_recurrence_rows": 110056,
+      "adjoint_recurrence_rows": 9109,
+      "compatible_sources_per_query_occupancy": 18564,
+      "compatible_labeled_query_records_per_source": 10920
+    },
+    "25_projection_only": {
+      "source_occupancies": 177100,
+      "query_occupancies": 12650,
+      "labeled_query_records": 75900,
+      "source_recurrence_rows": 245506,
+      "adjoint_recurrence_rows": 15276,
+      "compatible_sources_per_query_occupancy": 54264,
+      "compatible_labeled_query_records_per_source": 23256
+    },
+    "derivation": {
+      "source_occupancies": "C(n,6)",
+      "query_occupancies": "C(n,4)",
+      "labeled_query_records": "6*C(n,4)",
+      "source_recurrence_rows": "sum(C(n,k),k=0..6)",
+      "adjoint_recurrence_rows": "sum(C(n,k),k=0..4)",
+      "compatible_sources_per_query_occupancy": "C(n-4,6)",
+      "compatible_labeled_query_records_per_source": "6*C(n-6,4)"
+    }
+  },
+  "chunk_contract": {
+    "10": {
+      "default": [17, 3, 11],
+      "alternate": [13, 2, 7]
+    },
+    "22": {
+      "default": [32768, 4096, 32768],
+      "alternate": [16381, 2047, 16381],
+      "default_chunk_counts": [2, 2, 3],
+      "alternate_chunk_counts": [3, 4, 5]
+    },
+    "25_projection_only": {
+      "default_inherited": [65536, 10922, 32768],
+      "alternate_inherited": [32767, 4093, 16381],
+      "default_chunk_counts": [2, 2, 6],
+      "alternate_chunk_counts": [3, 4, 11]
+    },
+    "tuple_order": ["forward_query_records", "adjoint_query_occupancies", "adjoint_source_occupancies"],
+    "chunk_sizes_are_not_adjustable_after_timing": true,
+    "chunk_count_overhead_is_included_in_phase_walls": true
+  },
+  "source_rank_major_direct_oracle_contract": {
+    "direct_query_loop_order": ["selected_query", "logical_tile", "source_rank_increasing", "boundary_feature_increasing_within_tile"],
+    "direct_query_rule": "unrank_source_once_per_selected_query_tile_and_source_rank_then_if_disjoint_pair_add_each_selected_boundary_coefficient",
+    "direct_fold_loop_order": ["selected_query", "logical_tile", "source_rank_increasing", "logical_feature_increasing_after_source_accumulation"],
+    "direct_fold_rule": "unrank_source_once_per_selected_query_tile_and_source_rank_accumulate_one_pair_per_logical_feature_in_source_rank_order_then_fold_features_in_increasing_global_order",
+    "direct_fold_pair_order_preserved": "every_feature_coefficient_sums_compatible_sources_in_increasing_source_rank_before_any_pair_times_pair_and_numerator_sums_in_increasing_global_feature_order",
+    "direct_adjoint_loop_order": ["selected_source", "logical_tile", "query_record_increasing", "boundary_feature_increasing_within_tile"],
+    "direct_adjoint_rule": "unrank_selected_source_once_per_tile_read_each_query_record_once_form_one_paired_query_weight_per_compatible_record_then_update_each_selected_boundary_feature",
+    "direct_adjoint_pair_order_preserved": "every_boundary_feature_sums_compatible_query_records_in_increasing_global_record_order",
+    "direct_controls_are_independent_of_zeta_signed_target_fold_and_reverse_recurrence_kernels": true,
+    "direct_controls_may_read_source_rows_and_frozen_resident_inputs_only": true,
+    "direct_controls_may_not_read_production_compatible_fold_adjoint_or_reduction_outputs_as_authority": true,
+    "source_unranking_inside_logical_feature_loop_forbidden": true,
+    "query_weight_recomputation_inside_boundary_feature_loop_forbidden": true,
+    "coefficient_or_covector_pair_reassociation_forbidden": true,
+    "local_coefficient_array_must_be_reported_in_compiler_local_register_and_spill_attributes": true,
+    "work_counters_must_be_incremented_from_executed_loop_events_not_recomputed_from_config": true
+  },
+  "complete_campaign_work_10": {
+    "source_pairing_visits": 226800,
+    "source_weight_pair_times_float64": 1360800,
+    "forward_recurrence_pair_child_adds": 2689280,
+    "forward_pair_divides": 449152,
+    "forward_signed_subset_pair_terms": 14192640,
+    "forward_fold_pair_times_pair": 887040,
+    "forward_tree_contributions": 20160,
+    "adjoint_covector_pair_times_float64": 887040,
+    "adjoint_label_pair_adds": 887040,
+    "adjoint_recurrence_pair_child_adds": 915200,
+    "adjoint_pair_divides": 123904,
+    "adjoint_signed_subset_pair_terms": 8426880,
+    "adjoint_source_pairing_visits": 226800,
+    "adjoint_source_weight_pair_times_float64": 1360800,
+    "adjoint_contract_pair_times_pair": 147840,
+    "adjoint_tree_contributions": 2520,
+    "direct_query_source_unranks": 40320,
+    "direct_query_compatible_boundary_pair_adds": 512,
+    "direct_fold_source_unranks": 40320,
+    "direct_fold_compatible_coefficient_pair_adds": 11264,
+    "direct_fold_final_feature_pair_products": 11264,
+    "direct_adjoint_source_unranks": 192,
+    "direct_adjoint_query_record_visits": 241920,
+    "direct_adjoint_compatible_query_weight_builds": 1152,
+    "direct_adjoint_compatible_boundary_pair_adds": 3072
+  },
+  "complete_campaign_work_22": {
+    "source_pairing_visits": 80582040,
+    "source_weight_pair_times_float64": 483492240,
+    "forward_recurrence_pair_child_adds": 432053248,
+    "forward_pair_divides": 24951872,
+    "forward_signed_subset_pair_terms": 494376960,
+    "forward_fold_pair_times_pair": 30898560,
+    "forward_tree_contributions": 702240,
+    "adjoint_covector_pair_times_float64": 30898560,
+    "adjoint_label_pair_adds": 30898560,
+    "adjoint_recurrence_pair_child_adds": 24192256,
+    "adjoint_pair_divides": 1262976,
+    "adjoint_signed_subset_pair_terms": 2994070464,
+    "adjoint_source_pairing_visits": 80582040,
+    "adjoint_source_weight_pair_times_float64": 483492240,
+    "adjoint_contract_pair_times_pair": 52527552,
+    "adjoint_tree_contributions": 895356,
+    "direct_query_source_unranks": 14325696,
+    "direct_query_compatible_boundary_pair_adds": 9504768,
+    "direct_fold_source_unranks": 14325696,
+    "direct_fold_compatible_coefficient_pair_adds": 209104896,
+    "direct_fold_final_feature_pair_products": 11264,
+    "direct_adjoint_source_unranks": 192,
+    "direct_adjoint_query_record_visits": 8426880,
+    "direct_adjoint_compatible_query_weight_builds": 2096640,
+    "direct_adjoint_compatible_boundary_pair_adds": 5591040
+  },
+  "complete_campaign_work_25_projection_only": {
+    "source_pairing_visits": 191268000,
+    "source_weight_pair_times_float64": 1147608000,
+    "forward_recurrence_pair_child_adds": 976008000,
+    "forward_pair_divides": 48157824,
+    "forward_signed_subset_pair_terms": 854937600,
+    "forward_fold_pair_times_pair": 53433600,
+    "forward_tree_contributions": 1214400,
+    "adjoint_covector_pair_times_float64": 53433600,
+    "adjoint_label_pair_adds": 53433600,
+    "adjoint_recurrence_pair_child_adds": 40920000,
+    "adjoint_pair_divides": 1848704,
+    "adjoint_signed_subset_pair_terms": 7106668800,
+    "adjoint_source_pairing_visits": 191268000,
+    "adjoint_source_weight_pair_times_float64": 1147608000,
+    "adjoint_contract_pair_times_pair": 124678400,
+    "adjoint_tree_contributions": 2125200,
+    "direct_query_source_unranks": 34003200,
+    "direct_query_compatible_boundary_pair_adds": 27783168,
+    "direct_fold_source_unranks": 34003200,
+    "direct_fold_compatible_coefficient_pair_adds": 611229696,
+    "direct_fold_final_feature_pair_products": 11264,
+    "direct_adjoint_source_unranks": 192,
+    "direct_adjoint_query_record_visits": 14572800,
+    "direct_adjoint_compatible_query_weight_builds": 4465152,
+    "direct_adjoint_compatible_boundary_pair_adds": 11907072,
+    "rejected_direct_query_source_unranks": 90675200,
+    "rejected_direct_fold_source_unranks": 1994854400,
+    "rejected_direct_adjoint_query_record_visits": 38860800,
+    "source_rank_major_direct_fold_unrank_reduction_ratio": [176, 3]
+  },
+  "phase_timing_contract": {
+    "clock": "time.perf_counter_ns",
+    "device_phase_clock": "cuda_event_elapsed_ns_reporting_only",
+    "host_phase_clock_is_deciding": true,
+    "synchronize_before_every_host_phase_terminal": true,
+    "phases_form_one_nonoverlapping_contiguous_partition": true,
+    "sum_phase_host_ns_must_equal_population_campaign_host_ns": true,
+    "phase_order": [
+      "fixture_and_resident_birth",
+      "forward_source_and_offset",
+      "direct_query",
+      "direct_fold",
+      "forward_recurrence",
+      "forward_signed_targets",
+      "forward_fold_and_global_tree",
+      "forward_capture_and_digest",
+      "forward_release",
+      "adjoint_covector_and_labels",
+      "adjoint_recurrence_and_signed_sources",
+      "direct_adjoint",
+      "adjoint_source_contract_and_global_tree",
+      "adjoint_capture_digest_and_exact_stream",
+      "mutations_and_lifecycle",
+      "final_release"
+    ],
+    "record_each_phase_for_each_population_family_repeat_and_tile": true,
+    "raw_rows_include_population_family_repeat_tile_chunks_work_counters_host_ns_device_ns_and_terminal": true,
+    "phase_aggregation_may_sum_only_raw_rows": true,
+    "no_phase_may_overlap_or_hide_inside_another_phase": true,
+    "compile_import_and_exact_ten_oracle_are_separate_nonprojected_laboratory_phases": true,
+    "timer_values_may_not_be_reclassified_as_resolver_iteration_or_action_latency": true
+  },
+  "projection_contract": {
+    "calibration_populations": [10, 22],
+    "target_population": 25,
+    "target_population_is_never_compiled_or_executed": true,
+    "phase_ratio_rule": "use_exactly_phase_projection_ratios_below_each_chosen_prospectively_as_the_maximum_25_over_n_ratio_among_every_constituent_exact_work_counter_chunk_count_and_live_shape",
+    "endpoint_candidate_rule": "ceil(observed_phase_host_ns_n_times_frozen_phase_ratio_25_over_n)",
+    "phase_upper_rule": "ceil(max(endpoint_candidate_10,endpoint_candidate_22)*5/4)+1000000",
+    "safety_multiplier_fraction": [5, 4],
+    "per_phase_absolute_guard_ns": 1000000,
+    "target_population_wall_limit_ns": 180000000000,
+    "target_population_projection_is_sum_of_all_16_phase_uppers": true,
+    "require_projection_at_or_below_target_population_wall": true,
+    "require_no_unpriced_phase_or_work_counter": true,
+    "require_10_and_22_raw_phase_rows_before_projection": true,
+    "require_projection_recomputed_by_cupy_free_reader_from_raw_rows_and_config": true,
+    "stored_projection_pass_bit_is_not_authority": true,
+    "capacity_pass_does_not_predict_or_open_any_25_card_numerical_gate": true,
+    "capacity_rejection_permanently_closes_this_result_path": true
+  },
+  "phase_projection_ratios": {
+    "ratio_format": ["target_work_numerator", "calibration_work_denominator"],
+    "fixture_and_resident_birth": {
+      "25_over_10": [177100, 210],
+      "25_over_22": [177100, 74613]
+    },
+    "forward_source_and_offset": {
+      "25_over_10": [177100, 210],
+      "25_over_22": [177100, 74613]
+    },
+    "direct_query": {
+      "25_over_10": [54264, 1],
+      "25_over_22": [54264, 18564]
+    },
+    "direct_fold": {
+      "25_over_10": [54264, 1],
+      "25_over_22": [54264, 18564]
+    },
+    "forward_recurrence": {
+      "25_over_10": [976008000, 2689280],
+      "25_over_22": [976008000, 432053248]
+    },
+    "forward_signed_targets": {
+      "25_over_10": [75900, 1260],
+      "25_over_22": [75900, 43890]
+    },
+    "forward_fold_and_global_tree": {
+      "25_over_10": [75900, 1260],
+      "25_over_22": [75900, 43890]
+    },
+    "forward_capture_and_digest": {
+      "25_over_10": [75900, 1260],
+      "25_over_22": [75900, 43890]
+    },
+    "forward_release": {
+      "25_over_10": [177100, 210],
+      "25_over_22": [177100, 74613]
+    },
+    "adjoint_covector_and_labels": {
+      "25_over_10": [75900, 1260],
+      "25_over_22": [75900, 43890]
+    },
+    "adjoint_recurrence_and_signed_sources": {
+      "25_over_10": [177100, 210],
+      "25_over_22": [177100, 74613]
+    },
+    "direct_adjoint": {
+      "25_over_10": [23256, 6],
+      "25_over_22": [23256, 10920]
+    },
+    "adjoint_source_contract_and_global_tree": {
+      "25_over_10": [177100, 210],
+      "25_over_22": [177100, 74613]
+    },
+    "adjoint_capture_digest_and_exact_stream": {
+      "25_over_10": [177100, 210],
+      "25_over_22": [177100, 74613]
+    },
+    "mutations_and_lifecycle": {
+      "25_over_10": [177100, 210],
+      "25_over_22": [177100, 74613]
+    },
+    "final_release": {
+      "25_over_10": [177100, 210],
+      "25_over_22": [177100, 74613]
+    },
+    "ratios_are_frozen_not_selected_from_observed_timing": true,
+    "reader_must_rederive_every_ratio_from_geometry_work_chunks_and_live_shapes": true,
+    "reader_rejects_any_ratio_below_any_constituent_ratio": true
+  },
+  "bounded_semantic_controls": {
+    "complete_10_exact_authority": "independently_written_Fraction_oracle_over_original_float64_inputs",
+    "complete_10_require_full_source_compatible_fold_adjoint_and_transpose": true,
+    "complete_10_require_new_direct_controls_byte_identical_to_parent_pair_order": true,
+    "complete_22_require_selected_fraction_source_direct_query_direct_fold_and_direct_adjoint": true,
+    "complete_22_require_captured_forward_transpose_and_device_reducer_absolute_and_relative_conjuncts": true,
+    "complete_22_require_default_alternate_repeat_tile_order_offset_poison_low_lane_and_release_gates": true,
+    "complete_22_numerical_values_are_bounded_calibration_evidence_only": true,
+    "require_deliberate_feature_major_unrank_counter_mutation_to_reject": true,
+    "require_source_rank_permutation_to_change_direct_digest": true,
+    "require_query_record_permutation_to_change_adjoint_digest": true,
+    "require_boundary_feature_permutation_to_change_fold_order_or_be_canonicalized_before_launch": true,
+    "require_dropped_low_swapped_pair_omitted_low_low_reciprocal_divide_high_only_remainder_parent_query_and_fast_math_mutations_to_reject": true,
+    "require_compiler_register_local_and_spill_attributes_for_every_new_kernel": true,
+    "kill_on_spill_backing_or_pool_peak_that_invalidates_bounded_reserve": true
+  },
+  "one_shot_lifecycle": {
+    "repository_venv_and_minus_B_required": true,
+    "clean_committed_preregistration_before_source_required": true,
+    "clean_committed_source_seal_before_real_invocation_required": true,
+    "future_runner_is_no_argument": true,
+    "future_result_open_mode": "exclusive_xb",
+    "append_and_fsync_every_header_phase_and_terminal_row": true,
+    "first_terminal_is_final_without_retry_repair_skip_or_continuation": true,
+    "reader_is_standard_library_and_cupy_free": true,
+    "reader_rebinds_config_source_controls_runner_parent_and_artifact_marker_hashes": true,
+    "calibration_population_wall_limit_ns": 90000000000,
+    "laboratory_total_wall_limit_ns": 240000000000,
+    "on_wall_stop_before_later_population_phase_or_projection": true,
+    "source_seal_tests_use_only_synthetic_injected_timing_and_terminal_outcomes": true,
+    "source_seal_tests_may_not_call_the_real_runner_target": true,
+    "prospective_result_must_remain_absent_until_separate_invocation_checkpoint": true,
+    "reserved_actual_result_must_remain_absent_before_during_and_after": true,
+    "actual_counters_must_remain_zero_before_during_and_after": true
+  },
+  "required_runtime": {
+    "device_name": "NVIDIA GeForce RTX 5080",
+    "compute_capability": "120",
+    "device_total_bytes": 17094475776,
+    "cuda_driver_version": 13030,
+    "cuda_runtime_version": 13020,
+    "cupy_version": "14.2.0"
+  },
+  "kill_criteria": {
+    "any_successor_or_result_path_exists_before_preregistration_commit": true,
+    "any_25_card_fixture_compile_allocation_launch_scalar_digest_gate_or_device_value": true,
+    "source_rank_unrank_occurs_inside_logical_feature_loop": true,
+    "query_weight_build_occurs_inside_boundary_feature_loop": true,
+    "direct_pair_add_or_product_order_differs_from_frozen_order": true,
+    "executed_work_counter_differs_from_source_derived_ledger": true,
+    "phase_partition_or_raw_row_reconstruction_false": true,
+    "any_original_complete_10_or_opened_22_semantic_or_numerical_gate_false": true,
+    "calibration_population_wall_over_90000000000_ns": true,
+    "laboratory_wall_over_240000000000_ns": true,
+    "projected_complete_25_campaign_over_180000000000_ns": true,
+    "compiler_spill_or_memory_reserve_gate_false": true,
+    "result_path_reopened_overwritten_or_changes_after_first_terminal": true,
+    "tolerance_arithmetic_tile_chunk_runtime_projection_or_claim_changed_after_outcome": true,
+    "actual_45_card_value_owner_or_reserved_artifact_needed": true,
+    "resolver_iteration_action_15_second_quality_truncation_blueprint_or_strength_inference": true
+  },
+  "claims": {
+    "successor_source_exists": false,
+    "source_rank_major_direct_oracle_result": null,
+    "complete_10_conformance_result": null,
+    "complete_22_calibration_result": null,
+    "complete_25_capacity_projection_result": null,
+    "complete_25_numerical_value": null,
+    "complete_25_numerical_repair_result": null,
+    "actual_owner_exists": false,
+    "actual_45_card_value": null,
+    "resolver_iteration_result": null,
+    "solve_result": null,
+    "action_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

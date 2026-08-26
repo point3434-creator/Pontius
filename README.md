@@ -774,6 +774,16 @@ reader, artifact, 45-card value, action-time result, or quality claim exists.
 The next boundary is a preregistered work-decomposed successor whose capacity
 projection must pass before another complete numerical invocation.
 
+ADR-0394 now freezes that preflight before successor source or timing. The
+direct controls become source-rank-major while preserving source, query, and
+feature accumulation order; at the projected 25-card geometry this cuts
+direct-fold source unranking from 1,994,854,400 visits to 34,003,200 without
+discarding the 611,229,696 coefficient additions. Complete 10- and 22-card
+campaigns will populate an exclusive 16-phase host-wall ledger; only exact
+integer work ratios, a frozen 5/4 guard, and pure 25-card geometry may produce
+the preflight projection. Its source, one-shot result, every 25-card numerical
+value, and every action-time or quality claim remain absent.
+
 ## Current checkpoint
 
 See the generated [STATUS.md](STATUS.md) for the current decision and immediate

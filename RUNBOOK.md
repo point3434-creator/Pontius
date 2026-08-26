@@ -2391,3 +2391,22 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     Before any successor source, preregister phase-separated work and a
     conservative complete-campaign projection below 180,000 ms; do not call
     validation wall time an action or quality measurement.
+109. ADR-0394 prospectively freezes that work preflight. Preserve config
+    canonical-LF SHA-256
+    `88a16d62cf978ec61b7481c79b841eda6a2844a41f374c122a21be5310550d3c`.
+    At this checkpoint, verify that the prospective source, controls,
+    no-argument runner, CuPy-free reader, and
+    `artifacts/work_preflight/legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl`
+    are absent. Do not compile a 25-card fixture or run a device calibration.
+    The next checkpoint may implement and source-seal those four code paths
+    with synthetic owner/reader controls only, while the result remains absent.
+
+    The later one-shot calibration, when separately authorized, may execute
+    complete populations 10 and 22 only. It must retain all raw rows for the 16
+    nonoverlapping host phases, executed work, both families, repeats, tiles,
+    chunks, compiler attributes, exact controls, lifecycle, and release. The
+    CuPy-free reader—not a stored pass bit—must reconstruct the frozen 5/4
+    projection. Any 22-card wall over 90 seconds, laboratory wall over 240
+    seconds, or projected 25-card campaign over 180 seconds is a permanent
+    rejection. A projection pass is not a 25-card numerical, action-time, or
+    quality result.

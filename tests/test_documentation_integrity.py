@@ -1817,6 +1817,228 @@ class DocumentationIntegrityTests(unittest.TestCase):
         ):
             self.assertIn(phrase, adr)
 
+    def test_work_decomposed_paired_capacity_preflight_is_preregistered(self) -> None:
+        expected = {
+            "README.md": ("ADR-0394", "34,003,200"),
+            "PROJECT.md": ("ADR-0394", "16 nonoverlapping host phases"),
+            "STATUS.md": (
+                "ADR-0394",
+                "accepted prospective work-decomposed bounded-capacity preregistration",
+            ),
+            "ROADMAP.md": ("ADR-0394", "exact complete 10/22"),
+            "RUNBOOK.md": (
+                "ADR-0394",
+                "88a16d62cf978ec61b7481c79b841eda6a2844a41f374c122a21be5310550d3c",
+            ),
+            "ARCHITECTURE.md": ("ADR-0394", "5/4"),
+            "RISK_REGISTER.md": ("R158", "favorable work units"),
+            "artifacts/work_preflight/README.md": (
+                "ADR-0394",
+                "legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
+            ),
+        }
+        for relative, phrases in expected.items():
+            text = _contract_text(relative)
+            for phrase in phrases:
+                self.assertIn(phrase, text, f"{relative} lacks {phrase!r}")
+
+        config_path = (
+            _ROOT
+            / "experiments/configs/legal-river-quotient-cuda-compensated-work-preflight-v1.json"
+        )
+        payload = config_path.read_bytes().replace(b"\r\n", b"\n")
+        self.assertEqual(
+            hashlib.sha256(payload).hexdigest(),
+            "88a16d62cf978ec61b7481c79b841eda6a2844a41f374c122a21be5310550d3c",
+        )
+        config = json.loads(payload)
+        source_paths = {
+            "adr0393": _ROOT
+            / "docs/decisions/ADR-0393-retain-the-paired-tile-wall-rejection.md",
+            "paired_base_config": _ROOT
+            / "experiments/configs/legal-river-quotient-cuda-compensated-tiles-v1.json",
+            "paired_correction_config": _ROOT
+            / "experiments/configs/legal-river-quotient-cuda-compensated-tiles-v2.json",
+            "paired_source": _ROOT
+            / "src/pontius/legal_river_quotient_cuda_compensated_tiles.py",
+            "paired_controls": _ROOT
+            / "tests/test_legal_river_quotient_cuda_compensated_tiles.py",
+            "gitattributes": _ROOT / ".gitattributes",
+            "artifact_marker": _ROOT / "artifacts/README.md",
+            "work_preflight_gitattributes": _ROOT
+            / "artifacts/work_preflight/.gitattributes",
+            "work_preflight_artifact_marker": _ROOT
+            / "artifacts/work_preflight/README.md",
+        }
+        self.assertEqual(set(source_paths), set(config["expected_sources"]))
+        for label, path in source_paths.items():
+            source = path.read_bytes().replace(b"\r\n", b"\n")
+            self.assertEqual(
+                hashlib.sha256(source).hexdigest(),
+                config["expected_sources"][label],
+            )
+
+        geometry = config["population_geometry"]
+        for available_cards, label in (
+            (10, "10"),
+            (22, "22"),
+            (25, "25_projection_only"),
+        ):
+            row = geometry[label]
+            self.assertEqual(row["source_occupancies"], math.comb(available_cards, 6))
+            self.assertEqual(row["query_occupancies"], math.comb(available_cards, 4))
+            self.assertEqual(
+                row["labeled_query_records"], 6 * math.comb(available_cards, 4)
+            )
+            self.assertEqual(
+                row["source_recurrence_rows"],
+                sum(math.comb(available_cards, level) for level in range(7)),
+            )
+            self.assertEqual(
+                row["adjoint_recurrence_rows"],
+                sum(math.comb(available_cards, level) for level in range(5)),
+            )
+            self.assertEqual(
+                row["compatible_sources_per_query_occupancy"],
+                math.comb(available_cards - 4, 6),
+            )
+            self.assertEqual(
+                row["compatible_labeled_query_records_per_source"],
+                6 * math.comb(available_cards - 6, 4),
+            )
+
+        samples = 16
+        repeats = 2
+        families = 2
+        tiles = 3
+        width = 176
+        boundaries = 8
+        for available_cards, label in (
+            (10, "complete_campaign_work_10"),
+            (22, "complete_campaign_work_22"),
+            (25, "complete_campaign_work_25_projection_only"),
+        ):
+            source_rows = math.comb(available_cards, 6)
+            query_occupancies = math.comb(available_cards, 4)
+            query_records = 6 * query_occupancies
+            compatible_sources = math.comb(available_cards - 4, 6)
+            compatible_queries = 6 * math.comb(available_cards - 6, 4)
+            work = config[label]
+            self.assertEqual(
+                work["source_pairing_visits"],
+                source_rows * 90 * tiles * repeats * families,
+            )
+            self.assertEqual(
+                work["forward_recurrence_pair_child_adds"],
+                sum(
+                    math.comb(available_cards, level)
+                    * (available_cards - level)
+                    for level in range(6)
+                )
+                * width
+                * repeats
+                * families,
+            )
+            self.assertEqual(
+                work["forward_signed_subset_pair_terms"],
+                query_records * 16 * width * repeats * families,
+            )
+            self.assertEqual(
+                work["adjoint_signed_subset_pair_terms"],
+                source_rows * 57 * width * repeats * families,
+            )
+            self.assertEqual(
+                work["direct_query_source_unranks"],
+                samples * source_rows * tiles * repeats * families,
+            )
+            self.assertEqual(
+                work["direct_query_compatible_boundary_pair_adds"],
+                samples * compatible_sources * boundaries * repeats * families,
+            )
+            self.assertEqual(
+                work["direct_fold_source_unranks"],
+                samples * source_rows * tiles * repeats * families,
+            )
+            self.assertEqual(
+                work["direct_fold_compatible_coefficient_pair_adds"],
+                samples * compatible_sources * width * repeats * families,
+            )
+            self.assertEqual(
+                work["direct_adjoint_query_record_visits"],
+                samples * query_records * tiles * repeats * families,
+            )
+            self.assertEqual(
+                work["direct_adjoint_compatible_query_weight_builds"],
+                samples * compatible_queries * tiles * repeats * families,
+            )
+            self.assertEqual(
+                work["direct_adjoint_compatible_boundary_pair_adds"],
+                samples * compatible_queries * boundaries * repeats * families,
+            )
+
+        projected = config["complete_campaign_work_25_projection_only"]
+        self.assertEqual(projected["rejected_direct_fold_source_unranks"], 1_994_854_400)
+        self.assertEqual(projected["direct_fold_source_unranks"], 34_003_200)
+        self.assertEqual(
+            projected["direct_fold_compatible_coefficient_pair_adds"], 611_229_696
+        )
+        self.assertEqual(
+            projected["source_rank_major_direct_fold_unrank_reduction_ratio"],
+            [176, 3],
+        )
+
+        phase_order = config["phase_timing_contract"]["phase_order"]
+        ratios = config["phase_projection_ratios"]
+        self.assertEqual(set(phase_order), set(ratios) - {
+            "ratio_format",
+            "ratios_are_frozen_not_selected_from_observed_timing",
+            "reader_must_rederive_every_ratio_from_geometry_work_chunks_and_live_shapes",
+            "reader_rejects_any_ratio_below_any_constituent_ratio",
+        })
+        for phase in phase_order:
+            for endpoint in ("25_over_10", "25_over_22"):
+                numerator, denominator = ratios[phase][endpoint]
+                self.assertGreaterEqual(numerator, denominator)
+                self.assertGreater(denominator, 0)
+        self.assertEqual(
+            config["projection_contract"]["safety_multiplier_fraction"], [5, 4]
+        )
+        self.assertEqual(
+            config["projection_contract"]["target_population_wall_limit_ns"],
+            180_000_000_000,
+        )
+
+        scope = config["scope"]
+        for field in (
+            "successor_source_relative_path",
+            "successor_controls_relative_path",
+            "successor_runner_relative_path",
+            "successor_reader_relative_path",
+            "prospective_result_relative_path",
+        ):
+            self.assertFalse((_ROOT / scope[field]).exists(), scope[field])
+        self.assertFalse(
+            (_ROOT / config["parent_identity"]["reserved_actual_result_relative_path"])
+            .exists()
+        )
+        self.assertTrue(
+            all(value is None or value is False for value in config["claims"].values())
+        )
+
+        adr = _contract_text(
+            "docs/decisions/ADR-0394-preregister-the-work-decomposed-paired-capacity-preflight.md"
+        )
+        for phrase in (
+            "1,994,854,400",
+            "34,003,200",
+            "611,229,696",
+            "16 contiguous, nonoverlapping",
+            "conservative empirical admission rule, not a theorem",
+            "No successor implementation",
+            "No work or timing number in this decision is resolver latency",
+        ):
+            self.assertIn(phrase, adr)
+
     def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
         expected = {
             "README.md": ("ADR-0381", "204,377,088 bytes"),

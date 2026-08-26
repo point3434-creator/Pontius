@@ -858,6 +858,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   actual owner, 45-card value, resolver/action timing, quality, or truncation
   authority opens. A successor must preregister phase work and clear a
   conservative capacity preflight before another complete 25-card value.
+- ADR-0394 preregisters that capacity preflight without opening successor
+  source or timing. Source-rank-major direct controls preserve exact pair-add
+  order while reducing projected complete-25 direct-fold unranking from
+  1,994,854,400 to 34,003,200 visits; the 611,229,696 coefficient additions
+  remain priced. Complete 10/22 campaigns, 16 nonoverlapping host phases,
+  executed-work counters, fixed exact-work ratios, a 5/4 guard, an exclusive
+  one-shot journal, and a CuPy-free reader are frozen. Population 25 is
+  arithmetic-only until a later authority, so no 25-card numerical value,
+  actual owner, action-clock result, quality prior, or truncation choice opens.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

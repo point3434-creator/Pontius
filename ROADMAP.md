@@ -1401,7 +1401,12 @@ queue:
   per-phase work/timing controls, compiler-local accounting, and a conservative
   full-campaign projection that must fit 180 seconds before another complete
   numerical invocation. It may not relax pair arithmetic or either original
-  numerical conjunct.
+  numerical conjunct. ADR-0394 now freezes that boundary: exact complete 10/22
+  calibration campaigns feed a 16-phase host-wall ledger, every projected
+  phase uses prospectively fixed exact-work ratios plus a 5/4 guard, and 25
+  cards remain pure geometry. Implement and source-seal the additive owner and
+  CuPy-free reader with their result absent next; do not invoke calibration at
+  the source-seal checkpoint.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1453,9 +1458,11 @@ queue:
   compensated-tile arithmetic successor, and ADR-0392 corrects its missing
   paired-division and query-weight details before source. ADR-0393 retains the
   paired implementation as a nonterminal wall rejection before any complete
-  25-card scalar. The immediate checkpoint is now a preregistered
-  work-decomposed capacity successor that must pass a conservative 180-second
-  projection before another complete numerical campaign; every actual
+  25-card scalar. ADR-0394 preregisters the work-decomposed capacity successor,
+  source-rank-major direct controls, complete 10/22 calibration, and a
+  conservative 180-second projection without opening source or timing. The
+  immediate checkpoint is its source seal with the one-shot result absent;
+  every actual
   45-card value, owner, automatic truncation, resolver iteration, action
   timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,

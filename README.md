@@ -836,6 +836,9 @@ artifact, with an honest empty-selection terminal. ADR-0407 now freezes that
 selector: only a zero-return, complete three-kernel `REG`/`STACK`/`LOCAL`
 resource operation may qualify, and qualification cannot depend on whether the
 reported values pass their later ceilings. Source and result remain unopened.
+ADR-0408 now source-seals the selector after 12 synthetic controls. The exact
+input assessment has not run, the result remains absent, and the only next
+authority is its one clean deterministic no-argument invocation.
 
 ## Current checkpoint
 

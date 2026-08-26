@@ -1433,9 +1433,10 @@ queue:
   that immutable corpus. ADR-0407 now freezes it before source: only the
   documented complete `REG`/`STACK`/`LOCAL` operation is selectable; the empty
   terminal is mandatory; and instrument qualification is independent of the
-  resource ceilings. Implement and source-seal that selector next without
-  selecting from version success, using driver-only evidence, opening
-  calibration, or constructing a 25-card fixture.
+  resource ceilings. ADR-0408 now source-seals that implementation after 12
+  synthetic controls, with the authoritative result absent. Its sole clean
+  no-argument artifact assessment is next; do not select from version success,
+  use driver-only evidence, open calibration, or construct a 25-card fixture.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1503,7 +1504,8 @@ queue:
   and no tool selection. A GPU-free artifact-only selector must be
   preregistered next and fail closed if no exact three-kernel resource rows can
   be qualified. ADR-0407 completes that preregistration; its source-only seal
-  is next. Every actual 45-card value, owner, automatic truncation,
+  is completed by ADR-0408; its one deterministic result invocation is next.
+  Every actual 45-card value, owner, automatic truncation,
   resolver iteration, action timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts

@@ -943,6 +943,13 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   requires exact identity, return code zero, and complete independently parsed
   rows for all three direct kernels. `no_qualified_inspector` is first-class,
   and resource ceilings cannot decide whether an instrument is valid.
+- ADR-0408 source-seals the standard-library selector after 12 synthetic
+  controls. It independently parses complete resource rows, preserves exact
+  semantic quantity pairing and componentwise maxima, keeps the resource gate
+  null, and proves empty selection under version-pass/resource-fail, all-
+  nonzero, ELF/driver-only, and nvdisasm-register-only evidence. The real
+  artifact has not been read through the selector and the canonical result
+  remains absent at the seal.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

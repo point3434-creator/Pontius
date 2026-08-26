@@ -1892,6 +1892,15 @@ Instrument qualification is separate from the 255-register and 4,096-byte
 resource verdict. Its output algebra explicitly includes
 `no_qualified_inspector`.
 
+ADR-0408 source-seals this boundary. The real entry validates result/reserved
+absence, config and committed source hashes, then the complete artifact and
+its nested diagnostic identities before selection. Its canonical writer opens
+the result exclusively only after assessment construction. Synthetic controls
+prove that above-ceiling values do not invalidate a semantically complete
+instrument and that incomplete instruments remain unselected even when nearby
+driver or register evidence exists. The authoritative result remains absent at
+the seal.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

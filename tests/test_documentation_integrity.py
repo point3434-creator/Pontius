@@ -2354,6 +2354,54 @@ class DocumentationIntegrityTests(unittest.TestCase):
         ):
             self.assertIn(phrase, diagnostic_outcome)
 
+        selector_config_path = (
+            _ROOT
+            / "experiments/configs/legal-river-exact-cubin-inspector-selection-v1.json"
+        )
+        selector_config_raw = selector_config_path.read_bytes().replace(
+            b"\r\n", b"\n"
+        )
+        self.assertEqual(
+            hashlib.sha256(selector_config_raw).hexdigest(),
+            "70ca948001fc406cd3e4a9e9f8fd4f359184ed622753d92749c542d44a3ed73a",
+        )
+        selector_config = json.loads(selector_config_raw)
+        self.assertTrue(
+            selector_config["selection_question"][
+                "empty_selection_is_a_required_reachable_terminal"
+            ]
+        )
+        self.assertTrue(
+            selector_config["qualification_contract"][
+                "candidate_qualification_does_not_depend_on_whether_a_resource_value_passes_a_ceiling"
+            ]
+        )
+        selector_seal = _contract_text(
+            "docs/decisions/ADR-0408-source-seal-the-artifact-only-exact-cubin-inspector-selector.md"
+        )
+        for relative in (
+            "src/pontius/legal_river_exact_cubin_inspector_selection.py",
+            "src/pontius/legal_river_exact_cubin_inspector_selection_seal.py",
+            "tests/test_legal_river_exact_cubin_inspector_selection.py",
+        ):
+            current = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(current).hexdigest(), selector_seal)
+        for phrase in (
+            "12 passed",
+            "Authoritative selector calls: `0`",
+            "Prospective result: absent",
+            "no_qualified_inspector",
+            "ceiling",
+            "invoke exactly once",
+        ):
+            self.assertIn(phrase, selector_seal)
+        self.assertFalse(
+            (
+                _ROOT
+                / selector_config["selector_scope"]["result_relative_path"]
+            ).exists()
+        )
+
     def test_work_preflight_v3_serializer_recovery_is_preregistered(self) -> None:
         relative = (
             "experiments/configs/"

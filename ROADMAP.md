@@ -1752,6 +1752,17 @@ queue:
   checkpoint is exactly one clean no-argument artifact assessment; its first
   result is permanent. No target allocation, exponent scan, numerical operator,
   candidate selection, resolver, action, or quality work is open.
+  ADR-0452 retains that first result as
+  `projection_rejected_before_target_allocation`. Positional projects to
+  3,186,554,546,230 ns and batched RRNS to 9,908,352,862,122 ns against the
+  14,000,000,000 ns component ceiling; both symbolic-memory conjuncts pass,
+  but neither arm survives and no candidate is selected. Adjoint global scans
+  contribute 90.69% and 92.77% of the respective runtime projections. Next
+  preregister a structurally different certificate topology: selective 16/57-
+  row queries may serve warm iterations, but final authority must run exact
+  global pricing/separation or prove a conservative omitted-domain bound, at
+  most once per certificate, and the replacement must earn a new artifact-only
+  work gate before target allocation.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

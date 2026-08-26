@@ -2339,6 +2339,16 @@ survivors, and terminal, then verifies every dependency against the clean
 historical source commit. One exclusive artifact-only invocation is now
 eligible; no live literal-45 device work or candidate selection is.
 
+ADR-0452 retains the sole projection as a complete rejection. Positional
+projects to 3,186.554546230 seconds and batched RRNS to 9,908.352862122 seconds
+against the 14-second component allowance; both still pass symbolic memory,
+and neither is selected. The complete adjoint global scan accounts for 90.69%
+of positional runtime, while the two batched adjoint scans account for 92.77%.
+These are conservative projections, not measured target latency. A successor
+may use selector-local queries during warm exploration, but final authority
+must still close every omitted row through exact global separation or a
+conservative bound. Active-basis exactness cannot stand in for global closure.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

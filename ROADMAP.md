@@ -1745,7 +1745,13 @@ queue:
   exact eleven positional or nineteen batched runtime phases enter the
   14-second conjunct; and the fresh result now uses the already-frozen
   `*.jsonl -text` artifact domain through a sealed no-argument root launcher.
-  No projection was opened. Implement the corrected projector next.
+  No projection was opened. ADR-0451 now source-seals the corrected projector,
+  exclusive owner, independent raw-parent reader, and ten focused controls.
+  All six timed rows and both endpoint-only counterfactuals are retained, while
+  only the endpoint maximum and runtime phase total may decide. The next
+  checkpoint is exactly one clean no-argument artifact assessment; its first
+  result is permanent. No target allocation, exponent scan, numerical operator,
+  candidate selection, resolver, action, or quality work is open.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

@@ -2328,6 +2328,17 @@ partition. The prospective result also moves to the existing
 `artifacts/work_preflight/*.jsonl -text` domain, and a no-argument root launcher
 is frozen before implementation.
 
+ADR-0451 source-seals that corrected projector without reading the retained
+parent journal or creating its result. The standard-library projector retains
+all six timed observations, independently prices both calibration endpoints by
+the maximum exact constituent ratio, and reports endpoint-only counterfactuals
+without letting them decide. Runtime and validation totals remain separate.
+The independent reader does not import the projector: it rebuilds the raw
+parent schedule, integer geometry, ratios, ceilings, guards, memory conjuncts,
+survivors, and terminal, then verifies every dependency against the clean
+historical source commit. One exclusive artifact-only invocation is now
+eligible; no live literal-45 device work or candidate selection is.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

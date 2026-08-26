@@ -893,9 +893,12 @@ module load, launch, or suffix result existed at that seal. ADR-0412 now
   inherited parent hashes produced by an over-escaped shell audit; no V1 file
   changed. ADR-0425 completes the corrected V2 source seal: 20 V2 and 18 parent
   controls pass, including the scrubbed external-working-directory two-launcher
-  probe, with no CuPy, device, or result operation. The next bounded act is one
-  no-argument invocation from the clean seal commit and an independent outcome
-  read; it is not a capacity, action-latency, or quality result.
+  probe, with no CuPy, device, or result operation. ADR-0426 retains its sole
+  invocation as a population-10 sample-plan rejection: execution selected seven
+  rows while evidence expected the frozen sixteen, so no population row or
+  projection survived and population 22 never opened. V2 is closed; the next
+  boundary is a fresh shared-plan preregistration, not a retry or a capacity,
+  action-latency, or quality inference.
 
 ## Current checkpoint
 

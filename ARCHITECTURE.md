@@ -2055,6 +2055,16 @@ reader. The scrubbed two-launcher probe and 38 combined controls pass without a
 CuPy import, device operation, or result. This is launch/evidence readiness,
 not a device, capacity, action-clock, or quality result.
 
+ADR-0426 consumes the sole V2 launch. The process tree and pre-population device
+boundary pass, and both population-10 families release, but the generated
+runner resolved `_sample_rows` from the older paired module while evidence used
+ADR-0394 `sample_rows`. Their compatible callable signatures hid different
+populations: seven execution rows versus sixteen authority rows. The first
+source comparison rejects 56 actual pairs against 128 expected pairs before a
+population object exists. A successor must compile one immutable sample-plan
+object and inject its identity into execution and evidence; helper selection,
+rank arrays, and comparison shapes become pre-device invariants.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

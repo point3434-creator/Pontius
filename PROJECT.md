@@ -1076,6 +1076,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   identity before projecting its exact ten-path allowlist to the unchanged V1
   semantic oracle. The next authority is one clean no-argument root-launcher
   invocation from the sealed commit, with the first V2 terminal permanent.
+- ADR-0426 retains that sole V2 invocation as a population-10 scientific
+  rejection. Launch, bootstrap, compiler/container/module/resource plumbing,
+  complete-ten, and query-weight controls pass; both population-10 families
+  reach final release. Evidence assembly then compares 56 source pairs from an
+  inherited seven-row execution sampler with 128 pairs from the frozen 16-row
+  evidence sampler and rejects before any population row. V2 is consumed;
+  population 22, every projection, and population 25 remain unopened. A fresh
+  successor must share one immutable sample plan between execution and evidence
+  and prove that binding before CuPy or device work.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

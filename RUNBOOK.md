@@ -2457,3 +2457,8 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     the literal no-CUDA serializer-probe child through the unchanged scientific
     `send`, retain `RuntimeError: forced_serializer_probe_compiler_failure`,
     restore every patched identity, and leave the real v3 result absent.
+117. ADR-0402 source-seals that exact recovery. The corrected 16-control suite
+    passes, including literal handshake/probe children and complete nested
+    V3→V2→V1 rebinding. From the clean seal commit, invoke the no-argument V3
+    owner once. Retain its first terminal verbatim; never replay after learning
+    the real compiler/resource outcome.

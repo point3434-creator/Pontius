@@ -907,6 +907,10 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   the scientific file immutable, and requires a real no-CUDA forced-failure
   child through the scientific `send` closure and shared transport. The exact
   sentinel reason must survive and every patched source identity must restore.
+- ADR-0402 source-seals v3 after 16 corrected controls. The exact-type adapter,
+  three-mode literal owner, and nested V3-to-V2-to-V1 reader are hash-bound;
+  the real no-CUDA probe preserves the sentinel reason and restores every
+  identity. No campaign child or v3 result exists at the seal.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

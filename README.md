@@ -812,7 +812,9 @@ recovery must be sealed before any further campaign. ADR-0401 now freezes that
 v3 recovery before source: only the exact six-field `CudaRuntimeIdentity` is
 newly encodable, unknown objects reject, and a real no-CUDA child must force a
 compiler failure through the unchanged scientific reporter with its original
-reason intact. Every v3 source and result path remains absent.
+reason intact. ADR-0402 source-seals that recovery: all 16 corrected controls
+pass, including the literal child and complete nested rebinding; the v3 result
+remains absent until one clean no-argument invocation.
 
 ## Current checkpoint
 

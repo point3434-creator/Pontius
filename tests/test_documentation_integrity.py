@@ -1817,19 +1817,19 @@ class DocumentationIntegrityTests(unittest.TestCase):
 
     def test_work_decomposed_paired_capacity_preflight_is_preregistered(self) -> None:
         expected = {
-            "README.md": ("ADR-0401", "six-field `CudaRuntimeIdentity`"),
-            "PROJECT.md": ("ADR-0401", "generic object conversion"),
+            "README.md": ("ADR-0402", "16 corrected controls"),
+            "PROJECT.md": ("ADR-0402", "three-mode literal owner"),
             "STATUS.md": (
-                "ADR-0401",
-                "accepted prospective serializer-only recovery",
+                "ADR-0402",
+                "accepted source seal",
             ),
-            "ROADMAP.md": ("ADR-0401", "real no-CUDA forced-failure probe"),
+            "ROADMAP.md": ("ADR-0402", "sole clean no-argument"),
             "RUNBOOK.md": (
-                "ADR-0401",
-                "forced_serializer_probe_compiler_failure",
+                "ADR-0402",
+                "V3→V2→V1 rebinding",
             ),
-            "ARCHITECTURE.md": ("ADR-0401", "restores the original in `finally`"),
-            "RISK_REGISTER.md": ("R163", "process-local evidence adapter"),
+            "ARCHITECTURE.md": ("ADR-0402", "named tuple"),
+            "RISK_REGISTER.md": ("R164", "permitted protocol branch"),
             "artifacts/work_preflight/README.md": (
                 "ADR-0394",
                 "legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
@@ -2321,6 +2321,9 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "v3_runner_relative_path",
             "v3_reader_relative_path",
             "v3_controls_relative_path",
+        ):
+            self.assertTrue((_ROOT / scope[field]).is_file(), scope[field])
+        for field in (
             "v3_result_relative_path",
             "reserved_actual_result_relative_path",
         ):
@@ -2399,6 +2402,32 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "Prospective v3 result",
         ):
             self.assertIn(phrase, adr)
+
+        seal = _contract_text(
+            "docs/decisions/ADR-0402-source-seal-the-work-preflight-v3-evidence-serializer-recovery.md"
+        )
+        for relative in (
+            "experiments/configs/legal-river-quotient-cuda-compensated-work-preflight-owner-v3.json",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_v3_adapter.py",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_v3_runner.py",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_v3_result.py",
+            "tests/test_legal_river_quotient_cuda_compensated_work_preflight_v3.py",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight.py",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_v2_runner.py",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight_v2_result.py",
+            "tests/test_legal_river_quotient_cuda_compensated_work_preflight_v2.py",
+        ):
+            current = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(current).hexdigest(), seal, relative)
+        for phrase in (
+            "16 passed",
+            "Campaign-child calls: `0`",
+            "named tuple reached",
+            "complete synthetic capacity-pass journal",
+            "The V3 result remains absent",
+            "invoke exactly once",
+        ):
+            self.assertIn(phrase, seal)
 
     def test_bounded_quotient_validation_seam_is_source_sealed(self) -> None:
         expected = {

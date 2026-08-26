@@ -15,95 +15,87 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes as a preregistration only. Freeze the v3 config, new lifecycle identities,
-and new absent result path. Both prior owner paths remain permanently closed.
-No adapter, probe, child, or campaign exists at this checkpoint.
+Yes. Source-seal V3 and authorize exactly one later no-argument invocation from
+a clean commit. This decision contains no device or capacity result.
 
-The approved serializer domain is deliberately narrow. Existing scalar,
-finite-float-as-hex, `Fraction`, NumPy scalar, mapping, and non-byte sequence
-rules must remain byte-identical on every payload in the complete synthetic
-success corpus. Exactly one new concrete type is admitted:
+The adapter admits the exact
+`pontius.legal_river_quotient_cuda_consumer.CudaRuntimeIdentity` class and its
+six declared fields. Unknown dataclasses, subclasses, named tuples, slots
+objects, and objects with `__dict__` reject. The existing scalar, finite-float,
+`Fraction`, NumPy scalar, mapping, and non-byte sequence domain is byte-identical
+over the complete synthetic scientific event corpus. No generic `vars`,
+`__dict__`, or `asdict` conversion exists.
 
-```text
-pontius.legal_river_quotient_cuda_consumer.CudaRuntimeIdentity
-```
+Installation is process-local. The adapter verifies the immutable scientific
+file and original `_plain` identity, requires a single-threaded fresh child,
+substitutes the exact new normalizer around one scientific call, and restores
+the original in `finally`. The campaign call consumes the source's ordinary
+one-shot counter. The probe saves and restores that counter and the CuPy loader,
+runtime constructor, runtime verifier, kernel entry, and normalizer.
 
-It must be the exact class, not a subclass, and must remain a dataclass. The
-encoder recognizes it through `dataclasses.is_dataclass`, checks the declared
-field tuple exactly, enumerates `dataclasses.fields` in order, and recursively
-normalizes these six fields:
-
-```text
-device_name
-compute_capability
-device_total_bytes
-cuda_driver_version
-cuda_runtime_version
-cupy_version
-```
-
-Unknown dataclasses, slots objects, named tuples, arbitrary objects, and generic
-`vars()`/`__dict__` fallbacks reject. `dataclasses.asdict` is also forbidden:
-its recursive copying widens the accepted domain and can silently change
-container identity. The adapter owns one explicit schema, not Python-object
-serialization in general.
-
-The scientific source file remains byte-for-byte immutable. A new adapter may
-install its normalizer only inside the isolated v3 campaign/probe child, after
-checking the source's original `_plain` identity and hash. It restores the
-exact original function in `finally` and proves restoration. No other thread
-may share that module. This is a runtime evidence-boundary substitution, not a
-scientific or arithmetic modification; it must be named as such in provenance.
-
-Source seal requires a real serializer-probe child. That child imports no
-CuPy and calls no compiler. It constructs the exact approved runtime dataclass,
-then temporarily substitutes only four external seams around the unchanged
-`run_calibration_preflight`: CuPy loader, runtime-identity constructor, runtime
-verifier, and kernel-compiler entry. The last raises exactly:
+The real probe is not a hand-built event. A literal `-B -m` child constructs the
+actual frozen slots dataclass and calls the unchanged
+`run_calibration_preflight` function. Four external seams prevent CUDA use and
+make the kernel entry raise exactly:
 
 ```text
 RuntimeError: forced_serializer_probe_compiler_failure
 ```
 
-The unchanged scientific exception handler and `send` closure must produce one
-`laboratory` event whose subkind is `compiler_resource_failure`, whose runtime
-is the exact six-field plain mapping, and whose reason is the exact line above.
-The scientific terminal must be `compiler_or_primitive_rejection`. Every
-patched identity, the source call counter, and `_plain` must restore on exit.
-Thus the probe tests the reporter that failed, not a hand-built imitation of
-its output.
+The scientific `send` closure emits `compiler_resource_failure` with the exact
+six-field mapping and unchanged reason. Its scientific terminal is
+`compiler_or_primitive_rejection`. CuPy is absent before and after, no real
+compiler runs, every patched identity restores, and no result path opens.
 
-Handshake, serializer probe, and campaign modes share one new literal-module
-transport. The same Popen command, 64-entry cancellable stdout queue, strict
-ASCII framing, bounded concurrent stderr, exact deadline after stdout EOF,
-terminal-order enforcement, return checks, pipe cleanup, and thread cleanup
-apply to all three. The source-seal control spawns the actual `-B -m` probe
-without a result. The public owner later repeats and journals handshake and
-probe, in that order, before campaign mode is eligible. Probe time is inside
-the unchanged 240-second laboratory wall but is never a scientific phase or
-capacity input.
+Handshake, probe, and campaign use one literal worker module and one subprocess
+transport. The transport uses a 64-entry cancellable queue, concurrent bounded
+stderr, strict ASCII framing, a deadline that remains live after stdout EOF,
+post-terminal rejection, bounded event and artifact counts, pipe closure, and
+thread cleanup. Both challenge digests are generated by the parent, returned by
+the child, validated, and later journaled. Campaign mode cannot begin until the
+journal contains accepted handshake and probe observations.
 
-The v3 reader first owns its new protocol, campaign, header, provenance, both
-retained artifacts, handshake, serializer probe, order, dependencies, and
-terminal. Only then may it build an in-memory v2 lifecycle validation view
-with the v3-only probe omitted. The immutable v2 reader then checks handshake
-and constructs its own v1 scientific validation view. Neither compatibility
-view is written or called evidence. Nested reuse cannot relax any v3 gate.
+The reader validates V3 before delegation: protocol, campaign, header,
+provenance, both immutable artifacts, dependency set, exact challenge equality,
+probe runtime fields, forced reason, restoration map, ordering, terminal bits,
+and claims. It then removes only the already-validated V3 probe from an in-memory
+V2 compatibility view. The immutable V2 reader validates lifecycle and builds
+its own V1 scientific view. Neither compatibility view is written, repaired, or
+called evidence.
 
-The real campaign remains one-shot after a separate source-seal commit. Its
-new result is exclusive append-and-fsync evidence. Any handshake, probe,
-serializer, compiler, calibration, wall, or journal failure is the permanent
-first terminal. No v3 result may be retried after learning the now-hidden
-compiler exception.
+### Rejected focused run and correction
 
-Every ADR-0394 and ADR-0395 scientific field remains binding: complete 10/22
-populations, both chunk families, tile orders, repeats, all three tiles,
-source-rank-major direct controls, exact work ledgers, 16 semantic phases,
-contiguous synchronized host boundaries, worse-endpoint ratios, `5/4` plus
-1 ms, 90/240/180-second walls, ELF and raw CUDA-13.3 resource evidence,
-driver/cubin maxima, 255 registers, 4,096-byte backing, 131,072 resident
-threads, 2 GB reserve, and null exact spill traffic. Population 25 remains
-integer geometry/work/projection only.
+The first 16-control run had two failures. One was real: a named tuple reached
+the generic `Sequence` branch before the explicit unknown-type rejection. The
+structural repair classifies dataclasses and named tuples before mapping or
+sequence conversion, so a forbidden type cannot hide behind a permitted
+container protocol. The other was a bad control assumption: importing any
+`pontius.*` module executes package initialization, which already imports
+NumPy. The contract is standard-library reader source and CuPy-free execution,
+not an empty third-party module table. The corrected subprocess control gates
+the meaningful boundary—no CuPy and no scientific module after importing only
+runner and reader. The corrected suite passes 16 of 16.
+
+The passing controls also cover old-normalizer failure on the real runtime type,
+complete legacy-domain byte identity, exact-field conversion, subclass and
+unknown-family rejection, normalizer restoration after success and exception,
+single-thread rejection, direct probe identity restoration, real literal child
+handshake and probe, unframed/malformed/post-terminal output, bounded stderr,
+deadline survival after stdout EOF, a complete synthetic capacity-pass journal
+rebound through V3→V2→V1, durable probe failure before campaign, fully rehashed
+probe/dependency/order/terminal mutations, exclusive replay, torn suffix,
+reserved-authority closure, and absent result paths.
+
+### Preserved scientific boundary
+
+Every ADR-0394/ADR-0395 field remains unchanged: populations 10 and 22 only,
+integer-only population-25 geometry/work/projection, 16 semantic phase names,
+exact contiguous host boundaries, work-derived worse-endpoint ratios, `5/4`
+plus 1 ms, 90/240/180-second walls, ELF cubin identity, raw CUDA-13.3
+`cuobjdump`, driver/cubin maxima, 255-register and 4,096-byte backing ceilings,
+131,072 resident-thread bound, two-billion-byte reserve, and null exact spill
+traffic. ADR-0395 already owns the resource-instrument correction; this ADR
+does not reinterpret it.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -150,8 +142,12 @@ ADR-0392 corrected its pre-source arithmetic completeness; ADR-0393 retained
 the first implementation as a wall rejection; ADR-0394 freezes the work-
 preflight question; ADR-0395 corrects only its resource instrument before
 result; ADR-0396 source-seals v1; ADR-0397 closes v1; ADR-0398/0399 own v2;
-ADR-0400 closes v2; and ADR-0401 freezes only v3's evidence boundary. No
-earlier owner is revived.
+ADR-0400 closes v2; ADR-0401 freezes v3's evidence boundary; and ADR-0402
+source-seals it. No earlier owner is revived.
+
+ADR-0378 remains the accepted prospective source-only literal-target liveness
+and streamed-validation boundary; its target allocation and live result were
+opened only by its successors.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -165,7 +161,7 @@ to selector-window work. ADR-0351 requires the tie-aware legal h4 affine-
 envelope. ADR-0354 through ADR-0359 own the factorized face and affine
 consumer chain. ADR-0380 freezes the complete ordered populations 10 and 22.
 ADR-0383's owner was invoke exactly once and remains consumed by ADR-0384.
-ADR-0401 imports neither that owner nor its target. The phrases exclusive
+ADR-0402 imports neither that owner nor its target. The phrases exclusive
 untouched legal h4, selector-window, 2,113-task, exhaustive bounded
 development-teacher, response-closed direct mechanism, and caller-owned legal
 fallback retain their prior meanings.
@@ -181,9 +177,26 @@ requires an exclusive legal h4 owner, ADR-0358 was invoke exactly once, and
 ADR-0359 requires a fresh value-unopened confirmation. ADR-0382 preregistered
 the literal-45 config; ADR-0383 source-sealed it; ADR-0384 closed it.
 
+### Invocation boundary
+
+The V3 result remains absent. Source-seal controls may repeat device-free
+handshake and forced-probe children, but no test may select campaign child mode.
+After this source-seal commit, the public owner may be invoked exactly once. Any
+handshake, probe, serializer, compiler, calibration, wall, journal, or
+infrastructure terminal is final. No learned exception authorizes a replay.
+
+### Claims boundary
+
+ADR-0402 proves only that the additive evidence recovery is source-sealed and
+its device-free failure seam passes the frozen controls. It supplies no real
+compiler/resource observation, calibration, phase timing, projection, complete
+25-card value, actual 45-card value, resolver iteration, solve, action,
+15-second result, decision quality, truncation choice, blueprint result, or
+poker-strength result. Systems evidence remains no quality prior.
+
 ## Active next
 
-Implement and source-seal the additive ADR-0401 adapter, v3 owner, solver-free reader, and controls while the v3 result remains absent; do not edit or import either consumed runner or the scientific source file; make only exact `CudaRuntimeIdentity` dataclass fields encodable, reject every unknown object family, prove byte identity on the complete legacy-success corpus, and spawn a real no-CUDA serializer-probe child that forces `RuntimeError: forced_serializer_probe_compiler_failure` through the unchanged scientific `send` closure and shared transport with the original reason durably visible; bind both retained artifacts and require another clean commit before campaign
+From the clean ADR-0402 source-seal commit, invoke exactly once and with no arguments `python -B -m pontius.legal_river_quotient_cuda_compensated_work_preflight_v3_runner`; retain its first terminal without retry, repair, skip, continuation, or causal invention; independently rebind the exact journal through the v3, v2, and v1 readers; then write the outcome ADR without changing any sealed source
 
 ## Revoked authorities
 
@@ -191,7 +204,7 @@ Implement and source-seal the additive ADR-0401 adapter, v3 owner, solver-free r
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0401](docs/decisions/ADR-0401-preregister-the-work-preflight-v3-evidence-serializer-recovery.md) — Preregister the work-preflight v3 evidence-serializer recovery.
+Latest process decision: [ADR-0402](docs/decisions/ADR-0402-source-seal-the-work-preflight-v3-evidence-serializer-recovery.md) — Source-seal the work-preflight v3 evidence-serializer recovery.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -199,7 +212,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0378](docs/decisions/ADR-0378-preregister-the-literal-45-quotient-liveness-boundary.md) | 2026-08-25 | accepted prospective source-only literal-target liveness and streamed-validation boundary; no target allocation, CUDA source, live admission, timing, solve, action, quality, truncation, or strength result is opened | Preregister the literal-45 quotient liveness boundary |
 | [ADR-0379](docs/decisions/ADR-0379-seal-the-literal-45-quotient-liveness-model.md) | 2026-08-25 | accepted source-only exact literal-45 numeric-lifetime result; the typed streamed-validation schedule passes fixed host/device caps and minimum-physical reserve arithmetic with a 244,970,204-byte device-cap margin, while target CUDA semantics, allocator high-water, live admission, timing, solve, action, quality, truncation, and strength remain unopened | Seal the literal-45 quotient liveness model |
 | [ADR-0380](docs/decisions/ADR-0380-preregister-the-bounded-quotient-validation-seam.md) | 2026-08-25 | accepted prospective bounded-device validation-seam boundary; complete 10/22-card populations, multi-chunk host references, streamed dot semantics, forward-release ordering, allocation telemetry, numerical gates, mutations, and target rejection are frozen before source, while literal 45 cards, live target admission, solve, action, quality, truncation, and strength remain unopened | Preregister the bounded quotient validation seam |
 | [ADR-0381](docs/decisions/ADR-0381-seal-the-bounded-quotient-validation-seam.md) | 2026-08-25 | accepted bounded CUDA validation-seam result; complete 10/22-card forward, refresh, query-only, streamed-dot, release, unique-adjoint, exact-oracle, allocator, telemetry, and mutation gates pass, while literal 45-card allocation, live target admission, target timing, solve, action, quality, truncation, and strength remain unopened | Seal the bounded quotient validation seam |
@@ -223,18 +235,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0399](docs/decisions/ADR-0399-source-seal-the-bootstrap-safe-work-preflight-v2-owner.md) | 2026-08-25 | accepted source-only bootstrap-safe v2 seal; the additive owner, new lifecycle journal, solver-free reader, shared bounded child transport, fresh-challenge no-CUDA handshake, immutable-v1 rebinding, and 16 focused controls pass while the v2 result remains absent, campaign mode has not run, the scientific source is unchanged, and no compiler observation, calibration value, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result is opened | Source-seal the bootstrap-safe work-preflight v2 owner |
 | [ADR-0400](docs/decisions/ADR-0400-retain-the-work-preflight-v2-evidence-serializer-failure.md) | 2026-08-25 | accepted retained first-invocation infrastructure failure; ADR-0399's bootstrap-safe v2 owner is permanently closed after clean provenance and the fresh-challenge child handshake passed, then campaign failure reporting attempted to encode a slots `CudaRuntimeIdentity` through a `__dict__`-only fallback and masked an antecedent compiler/resource exception, with zero durable laboratory event, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result | Retain the work-preflight v2 evidence-serializer failure |
 | [ADR-0401](docs/decisions/ADR-0401-preregister-the-work-preflight-v3-evidence-serializer-recovery.md) | 2026-08-25 | accepted prospective serializer-only recovery; an approved concrete dataclass inventory, exact field-wise evidence encoder, process-local scientific normalizer substitution, real no-CUDA forced compiler-failure probe through the unchanged scientific `send` closure and shared child transport, new owner/result identities, and nested v2/v1 rebinding are frozen before successor source, probe execution, campaign, compiler observation, calibration, phase row, projection, or result, while both prior artifacts and every ADR-0394/ADR-0395 scientific field remain immutable | Preregister the work-preflight v3 evidence-serializer recovery |
+| [ADR-0402](docs/decisions/ADR-0402-source-seal-the-work-preflight-v3-evidence-serializer-recovery.md) | 2026-08-26 | accepted source seal; the exact-type adapter, fresh three-mode owner, standard-library nested reader, real no-CUDA forced-failure child, and 16 corrected adversarial controls are hash-bound before any v3 campaign child, compiler observation, calibration, phase row, projection, or result, while the two consumed artifacts and immutable scientific source remain unchanged | Source-seal the work-preflight v3 evidence-serializer recovery |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0401](docs/decisions/ADR-0401-preregister-the-work-preflight-v3-evidence-serializer-recovery.md) — Preregister the work-preflight v3 evidence-serializer recovery.
+- Latest ADR: [ADR-0402](docs/decisions/ADR-0402-source-seal-the-work-preflight-v3-evidence-serializer-recovery.md) — Source-seal the work-preflight v3 evidence-serializer recovery.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 401.
-- ADR-header SHA-256: `ba1580771a23945860c38ed5117a7128d52260076fa6582ead7ee55151e84b0b`.
-- Current blockers: no source-sealed v3 serializer recovery, retained 10/22-card calibration, conservative complete-25 capacity verdict, complete 25-card numerical result, actual owner, or full-width actual-context quotient value; the v2 antecedent remains unknowable; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 402.
+- ADR-header SHA-256: `21ce7b4ae2b95c4ac269986d40d4c8f05a4bf3c73ff82f376d85e3aab6b4cd76`.
+- Current blockers: no retained v3 compiler/resource observation, complete 10/22-card calibration, conservative complete-25 capacity verdict, complete 25-card numerical result, actual owner, or full-width actual-context quotient value; the v2 antecedent remains unknowable; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0401](docs/decisions/ADR-0401-preregister-the-work-preflight-v3-evidence-serializer-recovery.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0402](docs/decisions/ADR-0402-source-seal-the-work-preflight-v3-evidence-serializer-recovery.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

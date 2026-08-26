@@ -1843,6 +1843,12 @@ normalizer, restores the original in `finally`, and proves the real exception
 handler with a no-CUDA sentinel compiler failure. V3 handshake, probe, and
 campaign share one new transport and evidence identity.
 
+ADR-0402 source-seals the implementation. Type classification precedes generic
+container conversion, so an unknown dataclass or named tuple cannot masquerade
+as a permitted sequence. The independent reader validates V3 lifecycle and
+probe evidence before creating in-memory V2 and V1 validation views. Sixteen
+corrected controls pass; the real campaign and result remain unopened.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

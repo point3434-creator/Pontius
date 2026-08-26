@@ -2409,6 +2409,27 @@ closure. This is source correctness and logical work evidence only. The next
 compiled calibration remains a separate prospective gate, and no topology can
 be selected before a production base and consumer frequency exist.
 
+ADR-0457 freezes that compiled calibration before source or values. One
+device-resident translation unit must carry direct, zeta, prefix, and hybrid
+under both positional and batched-five-then-four RRNS arithmetic. RRNS is an
+exact residue representation but not an ordered signed representation, so
+every heap key, sign test, maximum, tie, and switch predicate first performs a
+charged device-side CRT reconstruction into a separately bounded positional
+decision key with redundant-channel and semantic-range checks. Python owns
+the process and journal only; it cannot supply the scientific heap, bigint
+comparison, or threshold decision inside a timed call.
+
+The calibration is a complete five-domain Cartesian design: positive witness
+and prove-none, lattice/opaque/lattice-plus-sparse synthetic bases, cold base
+refresh and exact provenance hit, and both eligible arithmetic schedules.
+Nineteen synchronized phases partition each primitive wall and retain one
+named work coordinate apiece. Per-phase maximum walls across 10/12/16/20/24
+fit an exact rational nonnegative intercept/slope model with a positive-
+residual guard and `5/4` ceiling; the literal-45 endpoint is symbolic geometry,
+not an allocated or measured numerical operator. The production base audit
+still returns `producer_absent`, so calibration can report materiality but can
+never elect a production topology or imply an action-clock fit.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

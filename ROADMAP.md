@@ -1785,11 +1785,20 @@ queue:
   arms match exact maxima, complete ties, and complete positive sets. A valid
   all-negative control drives the frozen hybrid switch at exactly 4 and 15
   exact leaves and charges the discarded prefix work plus full zeta closure.
-  Production `b(S)` remains absent. Next preregister the separate compiled
-  reduced-domain calibration and production-base admission gate; retain all
-  modes, arithmetic schedules, calibration domains, intercept/slope rules,
-  and null per-action certificate frequency, and do not select a topology or
-  open literal-45 numerical work from this source seal.
+  Production `b(S)` remains absent. ADR-0457 now preregisters the separate
+  compiled reduced-domain calibration and production-base admission gate.
+  Its 480-cell Cartesian pass retains all four arms, both eligible arithmetic
+  schedules, complete 10/12/16/20/24 domains, witness/prove-none modes, three
+  synthetic base types, and cold/exact-hit states for one warmup plus five
+  measured passes. RRNS bounds and prices must reconstruct to charged exact
+  signed device keys before any order, sign, tie, or switch decision; a host
+  scientific heap or bigint is forbidden. Nineteen consecutive phases own
+  separate work coordinates, and the frozen exact-rational fit retains an
+  intercept, nonnegative slope, positive-residual guard, and `5/4` ceiling.
+  The result can test material zeta speed on synthetic prove-none controls but
+  cannot select a topology while production `b(S)` and certificate frequency
+  remain absent. Next implement and source-seal that owner without compiler,
+  CUDA, device, timing, result, population-25, or literal-45 numerical work.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

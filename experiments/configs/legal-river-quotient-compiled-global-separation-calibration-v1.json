@@ -1,0 +1,432 @@
+{
+  "schema_version": "legal-river-quotient-compiled-global-separation-calibration-config-v1",
+  "evidence_stage": "preregistered_after_adr0456_before_successor_source_compile_timing_result_or_production_base",
+  "decision": "calibrate_the_four_source_sealed_exact_global_separation_topologies_on_five_reduced_domains_under_both_eligible_arithmetic_schedules_without_inventing_a_production_base_selecting_a_topology_or_claiming_action_fit",
+  "parents": {
+    "adr0456_relative_path": "docs/decisions/ADR-0456-source-seal-the-base-aware-exact-global-separation-topologies.md",
+    "adr0456_canonical_lf_sha256": "fe3d5c2ca2a762f19e2f2231b53770ebb5a692f25fa0ec53dab7da54f6dd7f29",
+    "adr0456_source_commit": "e009793c431e1b038910e2a7f1ffb75d9578706e",
+    "topology_config_relative_path": "experiments/configs/legal-river-quotient-global-separation-topology-bakeoff-v1.json",
+    "topology_config_canonical_lf_sha256": "3d023b59a5e28e20e1af16ff3c809e9ed8a2a1c23a5c56dcca81fd6181a64da7",
+    "base_provenance_source_relative_path": "src/pontius/legal_river_quotient_base_provenance.py",
+    "base_provenance_source_canonical_lf_sha256": "1a048fbb5256526856e9f668d61f48a3fc77dc1601d8bd4c03cc645a316bd894",
+    "topology_source_relative_path": "src/pontius/legal_river_quotient_global_separation_topologies.py",
+    "topology_source_canonical_lf_sha256": "11e6a6e24ac07c2db462c007433703deb4ccb56e4fb58caab02b01cdb209c55d",
+    "topology_controls_relative_path": "tests/test_legal_river_quotient_global_separation_topologies.py",
+    "topology_controls_canonical_lf_sha256": "d4e268a35cc470d94782ab167b144c27db88cc32f05a0def4927cccb52d405ca",
+    "adr0448_relative_path": "docs/decisions/ADR-0448-retain-the-passing-split-runtime-fixed-width-device-preflight.md",
+    "adr0448_canonical_lf_sha256": "030984cab34351593b3b9e3eb068bc42bacc61ae7b13bfe5d1d5a5f11e489d20",
+    "adr0448_source_seal_commit": "f271e6deeefe11f228d582c9734a166c0ba32b45",
+    "adr0448_result_relative_path": "artifacts/work_preflight/legal_river_quotient_fixed_width_device_preflight_v3.jsonl",
+    "adr0448_result_raw_sha256": "6f0b53f95a5d538f7a3673fe411de4b40724fbf00cfc56c62360352cab3770bb",
+    "fixed_width_device_config_relative_path": "experiments/configs/legal-river-quotient-fixed-width-device-preflight-v1.json",
+    "fixed_width_device_config_canonical_lf_sha256": "84da7e82ef07620b0d7869a1e52da6a80f5f3815c0e4dc7007068ce6664ed6af",
+    "split_runtime_config_relative_path": "experiments/configs/legal-river-quotient-fixed-width-device-preflight-v4-child-runtime-environment.json",
+    "split_runtime_config_canonical_lf_sha256": "492458e39020fc8d5178624e4a9b8b1c6c0fc4c004852d155618fc11c955547d",
+    "work_preflight_attributes_relative_path": "artifacts/work_preflight/.gitattributes",
+    "work_preflight_attributes_canonical_lf_sha256": "e66225813ee8a9f06320b4e2f9e8ae4f9851352316b1dc5a3297f8e88c1b3ef1"
+  },
+  "scope": {
+    "source_card_width": 6,
+    "subset_level_maximum": 4,
+    "feature_width": 176,
+    "calibration_card_domains": [10, 12, 16, 20, 24],
+    "topology_arm_count": 4,
+    "runtime_mode_count": 2,
+    "synthetic_base_mode_count": 3,
+    "refresh_state_count": 2,
+    "arithmetic_schedule_count": 2,
+    "warmup_passes": 1,
+    "measured_passes": 5,
+    "cells_per_pass": 480,
+    "total_scientific_cell_invocations": 2880,
+    "population_25_opened": false,
+    "literal_45_numerical_input_or_operator_opened": false,
+    "production_base_opened": false,
+    "resolver_integration_opened": false,
+    "topology_selection_opened": false,
+    "action_clock_or_quality_opened": false
+  },
+  "production_base_boundary": {
+    "current_repository_state": "producer_absent",
+    "required_terminal": "base_producer_unavailable_no_bakeoff_selection",
+    "audit_runs_before_fixture_or_device_science": true,
+    "audit_authority": "bound_source_and_algebraic_provenance_only",
+    "synthetic_values_or_observed_sparsity_cannot_define_a_producer": true,
+    "a_producer_added_after_this_preregistration_requires_a_new_prospective_gate": true,
+    "required_fields_before_any_future_production_admission": [
+      "producer_source_and_semantic_digest",
+      "exclusive_algebraic_classification",
+      "refresh_cadence",
+      "structural_epoch",
+      "correction_and_master_support_epochs_when_present",
+      "component_exponent_window",
+      "semantic_absolute_bound",
+      "mathematical_width",
+      "guard_inclusive_width"
+    ],
+    "calibration_may_complete_on_synthetic_controls_while_production_base_is_absent": true,
+    "production_selection_remains_null_for_every_possible_calibration_result": true
+  },
+  "topology_arms": [
+    {
+      "arm": "contract_first_direct_57_scan",
+      "contract": "contract_H_once_then_scan_sources_in_increasing_colex_order_with_exactly_57_subset_terms_per_visited_source",
+      "global_prove_none": true
+    },
+    {
+      "arm": "rank_truncated_zeta",
+      "contract": "use_scale_24_seeds_1_minus24_360_minus2880_8640_then_run_the_exact_rank_zero_through_six_cover_circuit_and_stream_rank_six",
+      "global_prove_none": true
+    },
+    {
+      "arm": "adr0454_prefix_branch_and_bound",
+      "contract": "use_the_byte_bound_adr0454_bound_and_best_first_tree_without_tightening_or_a_host_side_scientific_heap",
+      "global_prove_none": true
+    },
+    {
+      "arm": "frozen_prefix_then_zeta_hybrid",
+      "contract": "charge_the_identical_prefix_until_the_ceil_N_over_64_half_coverage_or_ceil_N_over_8_trigger_then_switch_at_most_once_to_complete_zeta",
+      "global_prove_none": true
+    }
+  ],
+  "arithmetic_schedules": {
+    "eligible_only": [
+      "positional",
+      "batched_five_then_four_RRNS"
+    ],
+    "resident_nine_RRNS_remains_rejected": true,
+    "positional": {
+      "representation": "signed_twos_complement_little_endian_uint64_limbs",
+      "width_rule": "each_semantic_quantity_derives_its_own_mathematical_limb_count_from_its_proved_signed_bound_and_allocates_one_sign_extension_guard_limb",
+      "ordering": "compare_sign_then_most_significant_differing_limb_in_the_derived_common_width",
+      "one_rank_or_decision_key_may_not_borrow_another_width": true
+    },
+    "batched_five_then_four_RRNS": {
+      "bulk_schedule": "working_channels_zero_through_three_plus_redundant_then_working_channels_four_through_seven",
+      "moduli_and_reduction_constants": "reuse_the_exact_adr0448_eligible_moduli_only_after_reproving_prime_coprime_range_and_per_quantity_channel_sufficiency",
+      "table_channel_limit": "four_working_plus_one_redundant_only_when_the_proved_table_bound_fits",
+      "scalar_channel_limit": "eight_working_plus_one_redundant_only_when_the_proved_scalar_or_decision_bound_fits",
+      "insufficient_range_terminal": "rrns_range_admission_rejected_before_timing",
+      "all_nine_channel_passes_and_batch_drain_reuse_are_charged": true
+    }
+  },
+  "rrns_order_and_sign_contract": {
+    "residues_are_not_ordered_signed_integers": true,
+    "every_heap_key_bound_sign_threshold_maximum_and_tie_decision_requires_an_exact_signed_decision_key": true,
+    "decision_key_mechanism": "device_fixed_width_CRT_or_Garner_reconstruction_of_the_symmetric_working_range_into_a_separately_width_derived_positional_view",
+    "redundant_base_extension_check_precedes_use": true,
+    "full_codeword_and_base_extension_forms_agree_in_controls": true,
+    "semantic_bound_check_precedes_use": true,
+    "reconstruction_and_key_storage_are_part_of_the_RRNS_arm_wall_and_memory_ledger": true,
+    "host_Python_or_host_unbounded_integer_comparison_inside_a_timed_scientific_call_is_forbidden": true,
+    "a_detected_channel_fault_is_a_fail_closed_typed_terminal": "rrns_channel_fault_detected",
+    "correlated_logic_faults_remain_outside_the_RRNS_fault_claim_and_inside_the_unbounded_differential": true
+  },
+  "compiled_mapping": {
+    "one_literal_cuda_translation_unit_for_all_arms_and_schedules": true,
+    "one_exact_cubin_is_compiled_inspected_and_loaded": true,
+    "compiler_toolchain_runtime_and_device_identity_are_the_adr0447_adr0448_bound_environment": true,
+    "all_price_arithmetic_prefix_bounds_priority_order_threshold_tests_hybrid_switches_and_terminal_reductions_execute_in_compiled_device_code": true,
+    "prefix_and_hybrid_frontiers_are_device_resident": true,
+    "Python_role": "exclusive_owner_compile_launch_phase_boundary_transport_and_durable_journal_only",
+    "Python_scientific_arithmetic_inside_timed_interval": false,
+    "workspace_allocations_compilation_fixture_generation_and_unbounded_authority_are_outside_each_primitive_wall_but_inside_the_laboratory_wall": true,
+    "all_workspaces_are_allocated_before_the_first_warmup_and_restored_to_a_named_baseline_after_each_call": true,
+    "raw_H_rows_are_resident_for_the_campaign": true,
+    "pricing_vector_epoch_and_values_are_rebound_for_every_call": true,
+    "resource_ceiling_inherited": {
+      "registers_per_thread": 255,
+      "ptxas_spill_store_bytes": 0,
+      "ptxas_spill_load_bytes": 0,
+      "stack_local_backing_and_static_local_instruction_sites_are_reported_separately": true
+    },
+    "device_memory": {
+      "retained_device_total_bytes": 17094475776,
+      "device_reserve_bytes": 2000000000,
+      "named_device_peak_ceiling_bytes": 12000000000,
+      "memory_gate": "named_device_peak_must_be_at_or_below_12000000000_and_named_device_peak_plus_reserve_must_be_at_or_below_retained_device_total",
+      "equality_with_either_ceiling_passes": true,
+      "exact_birth_death_and_alias_sweep_required": true,
+      "reduced_live_allocation_may_not_be_called_literal_45_liveness": true
+    }
+  },
+  "fixture_generation": {
+    "schema_label": "pontius-adr0457-compiled-separation-calibration-fixture-v1",
+    "masks_are_complete_and_in_increasing_colex_order": true,
+    "raw_H_shape": "one_176_component_signed_integer_row_for_every_subset_mask_of_rank_zero_through_four",
+    "pricing_vector": "components_zero_through_174_equal_open_parenthesis_37_j_plus_11_close_parenthesis_mod_19_minus_9_and_component_175_equals_1",
+    "raw_H_prefix_components": "for_j_zero_through_174_take_int_from_first_eight_SHA256_bytes_big_endian_of_ascii_framing_schema_vertical_bar_runtime_mode_vertical_bar_decimal_cards_vertical_bar_H_vertical_bar_decimal_mask_bit_count_vertical_bar_decimal_mask_vertical_bar_decimal_j_then_mod_17_minus_8",
+    "raw_H_terminal_component": "desired_h_scalar_minus_the_exact_dot_of_components_zero_through_174",
+    "desired_h_scalar_positive_witness": "zero_for_every_subset",
+    "desired_h_scalar_prove_none": "minus_one_for_rank_one_and_zero_for_every_other_rank",
+    "every_raw_component_and_pricing_component_is_admitted_before_encoding": true,
+    "fixture_manifest_binds_raw_rows_pricing_vector_contracted_h_base_values_support_and_expected_prices": true,
+    "ten_and_twelve_card_inputs_must_match_an_independently_written_generator_before_extended_domains_are_admitted": true,
+    "extended_domains_are_generated_from_the_frozen_formula_not_extrapolated_from_timing": true
+  },
+  "runtime_modes": {
+    "positive_witness": {
+      "base_values": {
+        "exact_lattice_base": "constant_plus_one_from_a_rank_zero_scale_720_structural_seed",
+        "opaque_per_source_base": "constant_plus_one_for_every_source",
+        "lattice_plus_exact_sparse_master_support_correction": "constant_plus_two_structural_value_with_minus_one_on_the_frozen_sparse_support"
+      },
+      "price_property": "every_exact_price_is_strictly_positive",
+      "contract": "return_the_first_exact_positive_source_under_the_arm_order_with_no_global_closure_claim",
+      "reported_separately": true
+    },
+    "prove_none": {
+      "base_values": {
+        "exact_lattice_base": "constant_minus_721_from_a_rank_zero_scale_720_structural_seed",
+        "opaque_per_source_base": "constant_minus_721_for_every_source",
+        "lattice_plus_exact_sparse_master_support_correction": "constant_minus_721_structural_value_with_minus_one_on_the_frozen_sparse_support"
+      },
+      "price_property": "every_exact_price_is_minus_one_or_minus_two_and_therefore_nonpositive",
+      "contract": "cover_every_source_by_exact_leaf_or_conservative_nonpositive_block_before_returning_prove_none",
+      "hybrid_stressor": "the_source_seal_must_independently_prove_the_early_frozen_switch_for_every_domain_and_base_mode_before_timing",
+      "reported_separately": true
+    }
+  },
+  "synthetic_base_modes": {
+    "modes": [
+      "exact_lattice_base",
+      "opaque_per_source_base",
+      "lattice_plus_exact_sparse_master_support_correction"
+    ],
+    "lattice_constant_representation": "one_rank_zero_seed_at_output_scale_720_with_exact_reconciliation_to_the_H_scale_24_circuit",
+    "mixed_support_ranks": "source_rank_zero_source_rank_N_minus_one_and_every_source_rank_divisible_by_257_with_duplicates_removed",
+    "mixed_support_is_the_exact_typed_master_support": true,
+    "synthetic_classification_never_supplies_a_production_classification_or_width": true
+  },
+  "refresh_states": {
+    "cold_base_refresh": {
+      "timed_work": "transfer_the_typed_base_payload_build_structural_seeds_or_opaque_values_build_the_exact_sparse_patch_and_bounds_then_validate_the_new_epoch",
+      "workspace_allocation": "already_complete_outside_the_call"
+    },
+    "exact_provenance_hit": {
+      "timed_work": "validate_the_exact_producer_structural_correction_support_and_payload_digests_and_reuse_the_device_resident_base_artifact",
+      "numeric_refresh_work": "zero",
+      "stale_or_partial_epoch_hit": "reject"
+    },
+    "H_contraction_is_charged_in_both_states": true,
+    "cold_and_hit_are_never_averaged_or_weighted_without_a_future_consumer_frequency": true
+  },
+  "execution_matrix": {
+    "cell_axes": [
+      "card_domain",
+      "topology_arm",
+      "runtime_mode",
+      "synthetic_base_mode",
+      "refresh_state",
+      "arithmetic_schedule"
+    ],
+    "complete_cartesian_product_required": true,
+    "warmup_pass_index": 0,
+    "measured_pass_indices": [1, 2, 3, 4, 5],
+    "canonical_cell_key": "decimal_cards_vertical_bar_arm_vertical_bar_runtime_mode_vertical_bar_base_mode_vertical_bar_refresh_state_vertical_bar_arithmetic_schedule",
+    "cell_order": "sort_each_pass_complete_cell_keys_lexicographically_by_pair_SHA256_of_ascii_adr0457_vertical_bar_decimal_pass_index_vertical_bar_canonical_cell_key_then_canonical_cell_key",
+    "warmup_outputs_are_verified_and_reported_but_excluded_from_fits": true,
+    "all_five_measured_values_are_retained": true,
+    "median_is_the_third_value_after_integer_sort": true,
+    "maximum_is_the_integer_maximum": true,
+    "no_fastest_repeat_or_dropped_domain_is_authoritative": true
+  },
+  "runtime_phase_partition": {
+    "ordered_phases": [
+      "provenance_rebind",
+      "H_component_contraction",
+      "base_payload_transfer",
+      "base_structural_cover",
+      "base_sparse_patch",
+      "arithmetic_encoding",
+      "prefix_base_bound_build",
+      "prefix_possible_term_bounds",
+      "prefix_frontier_operations",
+      "exact_leaf_57_term_evaluation",
+      "direct_global_57_term_scan",
+      "zeta_seed_write",
+      "zeta_cover_edges",
+      "zeta_rank_six_stream",
+      "hybrid_switch",
+      "RRNS_decision_key_reconstruction",
+      "terminal_sign_witness_or_closure_reduction",
+      "terminal_transfer",
+      "workspace_baseline_restore"
+    ],
+    "one_host_monotonic_boundary_after_a_device_synchronize_closes_each_phase": true,
+    "phase_wall_is_the_difference_of_consecutive_boundaries": true,
+    "zero_work_arm_phases_still_record_a_boundary_and_zero_work_count": true,
+    "sum_of_nineteen_phase_walls_equals_primitive_total_wall_exactly": true,
+    "CUDA_event_elapsed_is_a_diagnostic_nested_inside_the_same_device_phases_not_the_partition_authority": true,
+    "warmup_first_context_cost_is_not_in_a_measured_phase": true,
+    "no_phase_reentry_or_hidden_pre_switch_work": true
+  },
+  "work_ledger": {
+    "every_phase_has_one_named_projection_coordinate_and_all_additional_counts_remain_separate": true,
+    "projection_coordinates": {
+      "provenance_rebind": "typed_tokens_compared",
+      "H_component_contraction": "signed_component_multiply_adds",
+      "base_payload_transfer": "payload_bytes_transferred",
+      "base_structural_cover": "base_cover_edge_additions",
+      "base_sparse_patch": "patch_entries_applied",
+      "arithmetic_encoding": "limb_words_or_residue_words_written",
+      "prefix_base_bound_build": "descendant_base_values_read",
+      "prefix_possible_term_bounds": "possible_or_guaranteed_terms_examined",
+      "prefix_frontier_operations": "heap_pushes_plus_heap_pops_of_the_same_fixed_key_type",
+      "exact_leaf_57_term_evaluation": "subset_terms_evaluated",
+      "direct_global_57_term_scan": "subset_terms_evaluated",
+      "zeta_seed_write": "seed_words_written",
+      "zeta_cover_edges": "cover_edge_additions",
+      "zeta_rank_six_stream": "source_prices_visited",
+      "hybrid_switch": "switch_state_transitions",
+      "RRNS_decision_key_reconstruction": "decision_keys_reconstructed",
+      "terminal_sign_witness_or_closure_reduction": "exact_price_comparisons",
+      "terminal_transfer": "terminal_bytes_transferred",
+      "workspace_baseline_restore": "workspace_bytes_cleared_or_rebound"
+    },
+    "logical_counts_limb_or_channel_operations_bytes_and_wall_are_distinct_columns": true,
+    "heterogeneous_counts_are_never_summed_into_a_pseudo_work_total": true,
+    "prefix_work_before_a_hybrid_switch_and_complete_zeta_work_after_it_are_both_present": true,
+    "target_geometry_for_direct_and_zeta_is_exact_symbolic_combinatorics": true,
+    "target_geometry_for_prefix_is_the_complete_prefix_tree_worst_case": true,
+    "target_geometry_for_hybrid_is_complete_prefix_tree_work_through_the_hard_checkpoint_plus_complete_zeta": true,
+    "positive_witness_target_work_uses_the_exact_all_positive_symbolic_fixture_when_the_arm_work_is_algebraically_fixed": true,
+    "prove_none_prefix_and_hybrid_target_work_remains_the_frozen_worst_case_without_target_value_evaluation": true,
+    "no_target_fixture_values_are_formed_to_obtain_a_friendly_pruning_fraction": true
+  },
+  "fit_and_projection": {
+    "response_per_domain": "maximum_of_the_five_measured_integer_nanosecond_phase_walls",
+    "fit_scope": "separate_for_every_phase_arm_runtime_mode_base_mode_refresh_state_and_arithmetic_schedule_across_the_five_card_domains",
+    "model": "y_equals_intercept_plus_nonnegative_slope_times_the_phase_specific_exact_work_coordinate",
+    "intercept_nonnegative": true,
+    "slope_nonnegative": true,
+    "exact_rational_constrained_least_squares_candidates": [
+      "feasible_unconstrained_ordinary_least_squares",
+      "slope_zero_with_intercept_equal_to_the_exact_mean",
+      "intercept_zero_with_slope_equal_to_max_zero_sum_xy_over_sum_x_squared",
+      "zero_intercept_zero_slope"
+    ],
+    "fit_solution_selection": "minimum_exact_rational_sum_squared_error_then_larger_unguarded_target_projection_then_larger_intercept_then_larger_slope",
+    "constant_coordinate_rule": "slope_zero_and_intercept_equal_to_the_maximum_domain_response",
+    "positive_residual_guard": "maximum_of_zero_and_every_domain_response_minus_its_fitted_value",
+    "projected_phase_upper_ns": "ceiling_of_five_fourths_times_open_parenthesis_intercept_plus_slope_times_symbolic_target_work_plus_positive_residual_guard_close_parenthesis",
+    "projected_primitive_upper_ns": "sum_of_the_nineteen_exact_rational_phase_uppers_after_each_is_ceiled_once",
+    "all_coefficients_residuals_domain_predictions_and_target_uppers_are_retained_as_exact_integer_numerator_denominator_pairs": true,
+    "fit_may_not_force_the_origin_drop_an_endpoint_pool_modes_or_choose_a_work_coordinate_after_timing": true,
+    "symbolic_45_projection_is_a_counterfactual_primitive_capacity_diagnostic_only": true,
+    "no_literal_45_input_allocation_kernel_or_numeric_price_is_authorized": true
+  },
+  "materiality": {
+    "registered_hypothesis": "in_prove_none_mode_the_rank_truncated_zeta_projected_primitive_upper_is_at_most_one_half_the_contract_first_direct_projected_primitive_upper_for_the_same_base_refresh_and_arithmetic_schedule",
+    "conjuncts": "all_three_synthetic_base_modes_times_two_refresh_states_times_two_arithmetic_schedules",
+    "all_domain_median_and_maximum_ratios_are_reported_but_do_not_replace_the_projected_conjunct": true,
+    "failure_rejects_only_the_material_zeta_speed_claim": true,
+    "success_does_not_select_zeta_for_production": true,
+    "positive_witness_results_do_not_enter_the_prove_none_materiality_test": true
+  },
+  "correctness_and_controls": {
+    "unbounded_integer_authority_is_generated_before_any_candidate_timing_for_each_fixture": true,
+    "authority_digest_is_committed_before_candidate_observations": true,
+    "all_measured_and_warmup_terminals_match_mode_semantics": true,
+    "prove_none_coverage_is_complete_and_positive_witness_is_exactly_positive": true,
+    "ten_and_twelve_card_full_prices_maxima_ties_positive_sets_zeta_ranks_reverse_transpose_and_prefix_bounds_reproduce_ADR0456": true,
+    "sixteen_twenty_and_twenty_four_direct_and_zeta_complete_outputs_match_the_independent_unbounded_authority": true,
+    "prefix_and_hybrid_returned_witness_or_coverage_certificates_match_the_independent_authority": true,
+    "every_width_range_divisibility_guard_epoch_support_switch_and_work_receipt_is_recomputed": true,
+    "RRNS_negative_zero_positive_equal_and_adjacent_decision_keys_match_positional_order": true,
+    "single_channel_faults_at_every_decision_site_reject_and_correlated_faults_are_caught_only_by_the_differential": true,
+    "phase_boundary_minus_one_exact_plus_one_fit_origin_work_axis_hidden_switch_and_result_selection_mutations_reject": true,
+    "an_armed_structural_scan_rejects_host_unbounded_scientific_comparison_inside_the_timed_path": true,
+    "production_base_absence_and_synthetic_nonpromotion_are_controls": true
+  },
+  "timing_and_evidence": {
+    "primitive_clock": "host_monotonic_nanoseconds_with_device_synchronization_at_every_phase_boundary",
+    "compilation_resource_inspection_fixture_generation_workspace_allocation_warmups_full_output_transfer_unbounded_differential_journal_and_cleanup_are_laboratory_only": true,
+    "terminal_scalar_transfer_and_fault_check_remain_in_the_primitive_wall": true,
+    "public_process_wall_ceiling_ns": 1800000000000,
+    "laboratory_wall_ceiling_ns": 1500000000000,
+    "outside_laboratory_wall_ceiling_ns": 300000000000,
+    "equality_with_each_ceiling_passes": true,
+    "one_nanosecond_over_rejects": true,
+    "result_is_exclusive_append_and_fsync_JSONL": true,
+    "result_file_byte_ceiling": 67108864,
+    "stdout_byte_ceiling": 4096,
+    "stderr_byte_ceiling": 4096,
+    "reader_is_standard_library_only_and_does_not_import_the_scientific_module_or_fit_implementation": true,
+    "stored_pass_bits_timing_summaries_fits_and_claims_have_no_authority": true
+  },
+  "result_lifecycle": {
+    "source_seal_performs_no_compilation_CUDA_import_device_query_timing_or_result_access": true,
+    "source_seal_runs_only_no_device_structural_and_synthetic_mutation_controls": true,
+    "one_public_no_argument_owner_invocation_is_eligible_only_after_a_clean_source_seal_commit": true,
+    "first_complete_terminal_is_permanent": true,
+    "no_retry_repair_threshold_change_family_drop_domain_drop_schedule_drop_or_result_extension": true,
+    "success_terminal": "completed_reduced_compiled_calibration_production_base_absent",
+    "typed_failure_terminal": "compiled_reduced_calibration_rejected",
+    "candidate_selected": null,
+    "topology_selected": null,
+    "arithmetic_schedule_selected": null
+  },
+  "prospective_identity": {
+    "launcher_relative_path": "run_legal_river_quotient_compiled_global_separation_calibration.py",
+    "runner_relative_path": "src/pontius/legal_river_quotient_compiled_global_separation_calibration_runner.py",
+    "scientific_source_relative_path": "src/pontius/legal_river_quotient_compiled_global_separation_calibration.py",
+    "result_reader_relative_path": "src/pontius/legal_river_quotient_compiled_global_separation_calibration_result.py",
+    "controls_relative_path": "tests/test_legal_river_quotient_compiled_global_separation_calibration.py",
+    "result_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v1.jsonl",
+    "all_source_and_result_paths_absent_at_preregistration": true,
+    "result_path_must_be_dash_text_before_source_seal": true
+  },
+  "certificate_frequency": {
+    "positive_witness_calls_per_action": null,
+    "global_closures_per_action": null,
+    "base_cold_refreshes_per_action": null,
+    "exact_base_hits_per_action": null,
+    "reason_null": "no_full_width_resolver_control_flow_certificate_owner_or_action_owner_exists",
+    "per_primitive_wall_or_projection_may_not_be_called_per_iteration_per_solve_per_street_or_per_action": true,
+    "no_comparison_with_the_14_second_charged_compute_allowance_or_15_second_response_wall_is_authorized": true
+  },
+  "outcome_contract": {
+    "correctness_is_conjunctive_across_all_arms_domains_modes_base_modes_refresh_states_and_schedules": true,
+    "resource_or_wall_failure_is_retained_without_a_friendlier_retry": true,
+    "materiality_can_pass_fail_or_be_partial_but_never_selects_a_topology": true,
+    "witness_prove_none_cold_hit_or_schedule_crossing_has_no_unweighted_winner": true,
+    "production_base_absence_forces_candidate_selected_and_topology_selected_to_null": true,
+    "systems_results_supply_no_decision_quality_prior": true,
+    "a_clean_result_can_open_only_a_new_production_base_or_consumer_frequency_gate": true
+  },
+  "kill_criteria": {
+    "a_synthetic_base_is_promoted_to_production_or_sizes_production_arithmetic": true,
+    "RRNS_residues_are_compared_for_order_without_exact_signed_reconstruction": true,
+    "host_unbounded_arithmetic_or_a_host_scientific_heap_enters_a_timed_arm": true,
+    "one_arm_uses_a_different_toolchain_input_fixture_phase_boundary_or_authority": true,
+    "resident_nine_RRNS_is_revived_or_a_failed_range_is_silently_widened": true,
+    "a_calibration_domain_mode_base_refresh_schedule_or_measured_repeat_is_dropped": true,
+    "a_fit_is_forced_through_zero_uses_heterogeneous_pseudo_work_or_changes_after_timing": true,
+    "prefix_work_before_switch_or_RRNS_replay_reconstruction_or_fault_check_is_unbilled": true,
+    "a_symbolic_projection_is_called_measured_literal_45_latency": true,
+    "a_primitive_wall_is_called_per_action_with_null_frequency": true,
+    "a_topology_or_arithmetic_schedule_is_selected_while_the_production_base_is_absent": true,
+    "population_25_literal_45_numerical_resolver_action_quality_truncation_blueprint_or_strength_work_occurs": true
+  },
+  "claims": {
+    "preregistration_frozen": true,
+    "source_seal": null,
+    "compiled_calibration_result": null,
+    "production_base_classification": "producer_absent",
+    "production_base_numerical_admission": null,
+    "material_zeta_speed_claim": null,
+    "symbolic_45_primitive_projection": null,
+    "candidate_selected": null,
+    "topology_selected": null,
+    "arithmetic_schedule_selected": null,
+    "literal_45_numerical_result": null,
+    "resolver_iteration_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

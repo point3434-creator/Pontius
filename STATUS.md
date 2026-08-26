@@ -15,12 +15,19 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes, at source-only reduced-domain scope. Source-seal the two standard-library
-modules and twelve focused controls. The prospective result remains absent and
-is not authorized by this seal. The repository still has no production
-producer for `b(S)`, so the honest production classification remains
-`producer_absent`; no synthetic base value, observed sparsity, or consumer
-implementation is allowed to define it by default.
+Preregister one separate reduced-domain compiled calibration. It carries all
+four ADR-0456 arms and both arithmetic schedules that ADR-0448 found eligible.
+It does not select either. It also repeats the production-base audit before any
+fixture or device science; the current and required answer is
+`producer_absent`. Synthetic lattice, opaque, and lattice-plus-sparse bases
+are calibration controls only. A real producer appearing later changes the
+dependency and requires a new prospective gate with its own algebra, refresh
+cadence, exponent admission, semantic bound, and width proof.
+
+This ADR freezes configuration and claims only. It creates no successor
+source, executes no compiler, imports no CuPy scientific path, queries no
+device, forms no timing value, and creates no result. Source seal is the next
+checkpoint, and it must remain device-free and result-unopened.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -86,8 +93,9 @@ ADR-0449 freezes the artifact projection, ADR-0450 corrects its runtime and
 artifact accounting, ADR-0451 seals the projector, ADR-0452 retains its
 rejection, ADR-0453 freezes the selective-separation mechanism, ADR-0454
 source-seals it without opening a result, ADR-0455 freezes the base-first
-four-topology successor while closing that result owner uninvoked, and
-ADR-0456 source-seals the reduced successor without opening its bake-off.
+four-topology successor while closing that result owner uninvoked, ADR-0456
+source-seals the reduced successor without opening its bake-off, and ADR-0457
+freezes its compiled calibration without opening source or values.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -119,89 +127,9 @@ ADR-0379 retains the 244,970,204-byte margin. ADR-0382 preregistered the
 literal-45 config. ADR-0386 records the source-sealed actual-context quotient bridge.
 ADR-0405 remains an accepted source seal.
 
-The base auditor accepts only algebraically typed producers. Lattice,
-genuinely opaque, and lattice-plus-exact-sparse-correction models retain
-source and semantic identities, explicit refresh cadence, structural epoch,
-correction epoch, and master-support epoch where applicable. A production
-identity additionally requires its own component-exponent window, semantic
-absolute bound, mathematical limb width, and one guard limb; source values
-outside that semantic bound reject. Synthetic envelopes cannot become
-production admission. Sparse correction support must equal the separately
-typed master support exactly, and a correction outside it rejects.
-
-Prepared H, base, correction, support, and prefix artifacts are freshness-
-checked rather than trusted by numerical coincidence. H values, H epoch, and
-pricing-vector epoch are bound together. Base producer identity, structural
-payload, structural epoch, correction payload and epoch, and support payload
-and epoch are checked separately. An H-only change leaves the base artifact
-valid but rejects H and prefix reuse; a structural-base-only change leaves H
-valid but rejects base and prefix reuse; a correction-only change leaves the
-structural base valid but rejects the correction and prefix artifact. Sharing
-an addition circuit therefore does not erase provenance.
-
-Every topology consumes the same exact price
-
-`p(S) = b(S) + sum_{T subset S, |T| <= 4} c[|T|] h(T)`
-
-with `c = (30, -120, 360, -720, 720)`. The direct arm scans the exact 57
-subsets of each six-card source after the common 176-feature H contraction.
-The zeta arm uses scale 24 and seeds
-`w = (1, -24, 360, -2880, 8640)`. Its recurrence gives every rank-`l` seed
-exactly `(6-l)!` paths into a rank-six source, and
-`w_l (6-l)! = 24 c_l`; terminal scaled values must divide by 24 exactly. A
-separately evaluated reverse cover graph equals the direct transpose on every
-reduced coordinate. Structural base seeds may enter the same circuit only at
-the independently derived common scale; opaque bases remain one value per
-source and mixed bases apply the exact sparse patch.
-
-Each rank records its node and cover-edge counts, H and base seed reads,
-separate H/base/combined conservative bounds, observed maximum, mathematical
-width, and guard-inclusive width. The final output separately records the H
-circuit, structural-base circuit, opaque-base, sparse-patch, and combined
-scaled bounds before deriving its own width. No rank borrows another rank's
-width and no heterogeneous work counters are summed into pseudo-time.
-
-The ADR-0454 prefix implementation is imported unchanged. In validation-only
-argmax-and-full-ties mode, its exact argmax pass is paired with a separate
-zero-threshold closure from the same prepared compile so the complete positive
-set is not silently inferred from only the visited argmax leaves; both search
-workloads are charged while compilation is charged once. That closes a
-pre-seal consumer-scope gap without changing ADR-0454.
-
-The hybrid implements the frozen count trigger literally. Exact leaf
-evaluation precedes nonpositive block pruning at a leaf, because leaf bounds
-are exact under ADR-0454 and the trigger counts exact leaves rather than hiding
-them inside a one-source pruned block. A dedicated valid control sets every
-rank-one `h` to `-1` and every source base to `-721`, making every exact price
-`-1` while five-card prefix bounds remain conservatively positive. The hybrid
-therefore switches at exactly 4 leaves for the 210-source complete-10 domain
-and 15 leaves for the 924-source complete-12 domain, matching `ceil(N/64)`
-with coverage below `ceil(N/2)`. It retains all prefix work, performs the full
-zeta closure, and proves no positive source. Boundary-minus-one, exact, and
-plus-one controls also bind the early and hard `ceil(N/8)` rules; positive or
-already-closed states suppress a switch, and a second switch is impossible.
-
-Across both complete domains, the six inherited ADR-0453 families and three
-base-provenance families form 18 exact cases. Zeta output matches the direct
-57-term authority at every source. All four arms match exact maximum, complete
-maximizer ties, and complete positive sets in all 72 arm-cases. Separate
-positive-witness and prove-none controls preserve their different claims.
-Base-only evaluation reproduces every direct base value, the reverse circuit
-matches the direct transpose, and rank, seed, support, scale, divisibility,
-width, threshold, stale-epoch, and source-surface mutations reject.
-
-Only symbolic literal-45 identities are rederived: 8,145,060 sources,
-55,619,730 cover edges, and 464,268,420 direct subset incidences. Their ratio
-is logical work, not latency. No literal-45 value was formed. No compiled
-kernel, timing observation, CuPy import, CUDA operation, device query,
-allocation, resolver call, action, or strength evaluation occurred. The
-number of positive-witness and global-closure calls per action remains null,
-so no per-closure measurement can be called per solve or compared with the
-14-second compute allowance under ADR-0307.
-
 ## Active next
 
-Preregister a separate compiled reduced-domain topology calibration and production-base admission boundary before compiled source or timing: preserve all four exact arms, both currently eligible arithmetic schedules, the frozen 10/12/16/20/24 calibration domains, witness/prove-none and cold/provenance-hit distributions, intercept plus nonnegative work-slope projection, and complete pre-switch charging; classify the still-absent production base honestly and forbid topology selection, literal-45 numerical work, resolver integration, or any per-action/14-second claim until a real producer and certificate-frequency owner exist
+Implement and source-seal only the ADR-0457 no-device owner, literal compiled translation unit, five-domain deterministic fixture generator, device-resident four-arm mechanisms, exact RRNS signed decision-key reconstruction, nineteen-phase ledger, exact rational projector, independent result reader, and adversarial controls against config hash `a9a0961656c66d70d145c9f5434460826f3c4972b7b1a18da74b0886a14e18bf`; rebind the still-absent production base and inherited CUDA/MSVC environment, keep the result absent, and stop before compiler execution, CuPy scientific import, device query, allocation, timing, one-shot invocation, topology selection, population 25, literal-45 numerical input, resolver, action, quality, truncation, blueprint, or strength work
 
 ## Revoked authorities
 
@@ -209,7 +137,7 @@ Preregister a separate compiled reduced-domain topology calibration and producti
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0456](docs/decisions/ADR-0456-source-seal-the-base-aware-exact-global-separation-topologies.md) — Source-seal the base-aware exact global-separation topologies.
+Latest process decision: [ADR-0457](docs/decisions/ADR-0457-preregister-the-compiled-global-separation-calibration.md) — Preregister the compiled global-separation calibration.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -217,7 +145,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0433](docs/decisions/ADR-0433-preregister-the-captured-pair-exact-integer-operator-keystone.md) | 2026-08-26 | accepted prospective CPU-only captured-pair exact-integer algebra, bound, rounding, and work boundary; the paired/shared rejection remains closed and no integer source, population-25 numerical value, CUDA call, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, or poker-strength claim exists | Preregister the captured-pair exact-integer operator keystone |
 | [ADR-0434](docs/decisions/ADR-0434-correct-the-exact-integer-parent-hash-bindings-before-source-seal.md) | 2026-08-26 | accepted pre-seal provenance correction; ADR-0433 repeated ADR-0424's over-escaped hash defect for three unchanged source parents, so the false values are superseded by independently reproduced canonical-LF hashes while every frozen exact-integer semantic, population, gate, threshold, claims boundary, and parent file remains unchanged | Correct the exact-integer parent hash bindings before source seal |
 | [ADR-0435](docs/decisions/ADR-0435-source-seal-the-captured-pair-exact-integer-operator-keystone.md) | 2026-08-26 | accepted CPU-only source seal; the corrected two-config provenance chain, exact captured-pair fixed-point encoding, distinct division-free forward and adjoint recurrences, literal disjointness identities, signed limb bounds, one correctly rounded binary64 terminal conversion, natural complete-ten and signed-twelve populations, exact delta arithmetic, symbolic literal-45 work/memory ledger, and 14 focused controls pass while every fixed-limb device implementation, population-25 numerical value, CUDA operation, actual 45-card consumer, resolver iteration, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Source-seal the captured-pair exact-integer operator keystone |
 | [ADR-0436](docs/decisions/ADR-0436-preregister-the-fixed-width-and-certificate-work-comparison.md) | 2026-08-26 | accepted prospective CPU-only fixed-width, selective-oracle, global-certificate-work, rank-traversal, and telemetry comparison; positional limbs, a bounded 4+1/8+1 RRNS candidate, exact single-channel detection obligations, selective 16/57-row queries, streamed global closure, row-owned colex child ranking, and heterogeneous work ledgers are frozen before source, while population 25, CUDA, device compilation or operation, an actual 45-card value, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister the fixed-width and certificate-work comparison |
@@ -241,18 +168,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0454](docs/decisions/ADR-0454-source-seal-selective-certified-global-separation.md) | 2026-08-26 | accepted source-only CPU exact mechanism seal; the ADR-0453 selective 57-subset price, conservative combination-prefix upper, best-first proposal search, exact-argmax control, final zero-threshold global closure, exhaustive authority, independent reconstruction, heterogeneous work receipts, exclusive no-argument owner, and nine focused adversarial controls now exist for every frozen complete-10 and complete-12 family, while the one-shot result remains absent and population 25, literal-45 numerics, CUDA, device work, fixed-width selection, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Source-seal selective certified global separation |
 | [ADR-0455](docs/decisions/ADR-0455-preregister-the-exact-global-separation-topology-bakeoff.md) | 2026-08-26 | accepted prospective four-arm exact global-separation topology and base-producer boundary; contract-first direct scan, rank-truncated zeta closure, the source-sealed prefix oracle, and one count-triggered prefix-to-zeta hybrid are frozen before successor source or results, the unproduced `b(S)` input must first be classified by source provenance as lattice-decomposable, genuinely opaque, lattice plus sparse master-support correction, or absent, separate base and H epochs survive any shared circuit, per-level widths and multi-scale intercept/slope calibration are mandatory, witness and prove-none walls remain separate, certificate frequency per action is explicitly unknown, and population 25, literal-45 numerics, CUDA, device work, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister the exact global-separation topology bake-off |
 | [ADR-0456](docs/decisions/ADR-0456-source-seal-the-base-aware-exact-global-separation-topologies.md) | 2026-08-26 | accepted source-only exact topology seal; the ADR-0455 typed base-provenance auditor, separately fresh H/base/correction/support artifacts, direct 57-term arm, rank-truncated zeta and exact reverse transpose, unchanged ADR-0454 prefix arm, fixed one-switch prefix-to-zeta hybrid, per-rank width/work receipts, and 12 focused controls pass on every complete-10 and complete-12 legacy and base family, while the production base remains absent and no bake-off result, population-25 value, literal-45 numerical input, compiled kernel, CUDA/device work, topology selection, resolver integration, action-clock result, decision-quality result, truncation authorization, blueprint result, or poker-strength result exists | Source-seal the base-aware exact global-separation topologies |
+| [ADR-0457](docs/decisions/ADR-0457-preregister-the-compiled-global-separation-calibration.md) | 2026-08-26 | accepted prospective compiled reduced-domain topology-calibration and production-base admission boundary; all four source-sealed exact arms, positional and batched-five-then-four RRNS schedules, complete 10/12/16/20/24 domains, positive-witness and prove-none modes, three synthetic base types, cold-refresh and exact-hit states, one warmup plus five retained repeats, nineteen gap-free phases, and exact rational intercept-plus-nonnegative-slope projection are frozen before successor source or timing, while RRNS order decisions require charged exact signed reconstruction, the production base remains absent, and topology selection, literal-45 numerical work, resolver integration, action-clock fit, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister the compiled global-separation calibration |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0456](docs/decisions/ADR-0456-source-seal-the-base-aware-exact-global-separation-topologies.md) — Source-seal the base-aware exact global-separation topologies.
+- Latest ADR: [ADR-0457](docs/decisions/ADR-0457-preregister-the-compiled-global-separation-calibration.md) — Preregister the compiled global-separation calibration.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 456.
-- ADR-header SHA-256: `80971670feaa713679b2655aa9ca89802b5934fcdbf40ce2a44b04bb024b92bf`.
-- Current blockers: no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no compiled topology calibration or bake-off result exists; both earlier fixed-width arms remain rejected before target allocation; no arm has passed actual-width exponent admission or live allocation; actual source/covector/weight/base windows and resulting limb/channel bounds remain unbound; no selected fixed-width or closure topology candidate, population-25 result, actual-45 numerical result, global resolver-certificate integration, full-width actual-context quotient value, complete resolver iteration, known certificate count per action, or 15-second action result exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, production action width, or poker-strength result exists.
+- Numbered decisions: 457.
+- ADR-header SHA-256: `024715140980e4c20c21b4eed62a325f534dcc3485dc56f47ab7428f068caa3c`.
+- Current blockers: no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no compiled calibration launcher, runner, scientific source, reader, controls, cubin, timing, or result exists; both earlier fixed-width arms remain rejected before target allocation; no topology arm has passed actual-width exponent admission or live allocation; actual source/covector/weight/base windows and resulting limb/channel bounds remain unbound; no selected fixed-width or closure topology candidate, population-25 result, actual-45 numerical result, global resolver-certificate integration, full-width actual-context quotient value, complete resolver iteration, known certificate count per action, or 15-second action result exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0456](docs/decisions/ADR-0456-source-seal-the-base-aware-exact-global-separation-topologies.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0457](docs/decisions/ADR-0457-preregister-the-compiled-global-separation-calibration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

@@ -2471,3 +2471,12 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     A successor must first preregister a diagnostic-only inspector
     qualification that retains the exact cubin and raw return code/stdout/
     stderr before selecting any resource authority.
+119. ADR-0404 freezes that diagnostic before source. Preserve config
+    canonical-LF SHA-256
+    `d52ac02e83f71cb50b6a61e8a9dd18403171e4ddd25227b2036bb61c2085fe8a`.
+    The source-seal checkpoint is device-free: implement the new diagnostic,
+    exclusive owner, standard-library reader, and binary mutation controls;
+    keep all four prospective source paths and the result absent until their
+    own seal. The later diagnostic may compile only the unchanged `_kernels`
+    path, must fsync the exact ELF before five `check=False` tool captures, and
+    may not select an inspector or call calibration.

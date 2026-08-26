@@ -819,6 +819,10 @@ bootstrap and serializer probe passed, then CUDA 13.3 `cuobjdump` returned
 status 4294967295 before any resource row, calibration phase, or projection.
 V3 is permanently closed; the next gate is an additive exact-cubin inspector
 qualification that retains the cubin and raw tool streams before selection.
+ADR-0404 now preregisters that diagnostic corpus before source: one unchanged
+compile, exact cubin-first durability, driver rows, and five ordered CUDA 13.3
+binary command captures. The diagnostic cannot select an inspector or open
+calibration; every successor source and result path remains absent.
 
 ## Current checkpoint
 

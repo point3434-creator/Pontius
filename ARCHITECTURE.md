@@ -1857,6 +1857,13 @@ survive. A successor must therefore qualify the inspection seam before
 capacity work: exact cubin retention, raw nonzero streams, independent parse,
 three direct-kernel rows, and conservative driver/cubin maxima are required.
 
+ADR-0404 separates binary capture from semantic selection. A future diagnostic
+uses the immutable `_kernels` compile path once, fsyncs a bounded base64 copy
+of the exact ELF plus driver rows, then records five ordered `cuobjdump` and
+`nvdisasm` command outcomes in binary mode with `check=False`. Its independent
+reader rehashes every blob. The output is an offline qualification corpus;
+`selected_inspector` and every calibration/resource verdict remain null.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

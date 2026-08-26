@@ -1817,19 +1817,19 @@ class DocumentationIntegrityTests(unittest.TestCase):
 
     def test_work_decomposed_paired_capacity_preflight_is_preregistered(self) -> None:
         expected = {
-            "README.md": ("ADR-0403", "seven-record resource-inspector rejection"),
-            "PROJECT.md": ("ADR-0403", "status 4294967295"),
+            "README.md": ("ADR-0404", "five ordered CUDA 13.3"),
+            "PROJECT.md": ("ADR-0404", "`selected_inspector=null`"),
             "STATUS.md": (
-                "ADR-0403",
-                "accepted retained first-invocation",
+                "ADR-0404",
+                "accepted prospective diagnostic-only",
             ),
-            "ROADMAP.md": ("ADR-0403", "diagnostic-only exact-cubin"),
+            "ROADMAP.md": ("ADR-0404", "device-free implementation"),
             "RUNBOOK.md": (
-                "ADR-0403",
-                "15,783-byte",
+                "ADR-0404",
+                "d52ac02e83f71cb50b6a61e8a9dd18403171e4ddd25227b2036bb61c2085fe8a",
             ),
-            "ARCHITECTURE.md": ("ADR-0403", "raw nonzero streams"),
-            "RISK_REGISTER.md": ("R165", "external binary inspector"),
+            "ARCHITECTURE.md": ("ADR-0404", "binary mode"),
+            "RISK_REGISTER.md": ("R166", "lossless diagnostic corpus"),
             "artifacts/work_preflight/README.md": (
                 "ADR-0394",
                 "legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
@@ -2250,6 +2250,62 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "No laboratory observation survived",
         ):
             self.assertIn(phrase, outcome)
+
+        diagnostic_config_path = (
+            _ROOT
+            / "experiments/configs/legal-river-exact-cubin-inspector-diagnostic-v1.json"
+        )
+        diagnostic_raw = diagnostic_config_path.read_bytes().replace(b"\r\n", b"\n")
+        self.assertEqual(
+            hashlib.sha256(diagnostic_raw).hexdigest(),
+            "d52ac02e83f71cb50b6a61e8a9dd18403171e4ddd25227b2036bb61c2085fe8a",
+        )
+        diagnostic = json.loads(diagnostic_raw)
+        self.assertEqual(
+            [row["candidate_id"] for row in diagnostic["candidate_commands_in_order"]],
+            [
+                "cuobjdump_version",
+                "cuobjdump_resource_usage",
+                "cuobjdump_elf",
+                "nvdisasm_version",
+                "nvdisasm_default",
+            ],
+        )
+        self.assertTrue(
+            diagnostic["lossless_capture_contract"][
+                "external_processes_must_run_with_check_false_and_binary_streams"
+            ]
+        )
+        self.assertIsNone(
+            diagnostic["candidate_interpretation_contract"]["selected_inspector"]
+        )
+        self.assertTrue(
+            all(value is None or value is False for value in diagnostic["claims"].values())
+        )
+        diagnostic_scope = diagnostic["successor_scope"]
+        for field in (
+            "diagnostic_relative_path",
+            "owner_relative_path",
+            "reader_relative_path",
+            "controls_relative_path",
+            "result_relative_path",
+        ):
+            self.assertFalse((_ROOT / diagnostic_scope[field]).exists(), field)
+        self.assertFalse(
+            (_ROOT / diagnostic_scope["reserved_actual_result_relative_path"]).exists()
+        )
+
+        diagnostic_adr = _contract_text(
+            "docs/decisions/ADR-0404-preregister-the-exact-cubin-inspector-diagnostic.md"
+        )
+        for phrase in (
+            "d52ac02e83f71cb50b6a61e8a9dd18403171e4ddd25227b2036bb61c2085fe8a",
+            "cubin must become durable before the first external operation",
+            "A complete corpus may therefore finish honestly with five nonzero commands",
+            "`selected_inspector` is frozen `null`",
+            "Real compilation and external candidates remain forbidden",
+        ):
+            self.assertIn(phrase, diagnostic_adr)
 
     def test_work_preflight_v3_serializer_recovery_is_preregistered(self) -> None:
         relative = (

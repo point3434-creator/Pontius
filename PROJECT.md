@@ -917,6 +917,11 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   No raw resource row, calibration phase, or projection exists. V3 is closed;
   any successor must first qualify an exact-cubin inspector under a new
   identity while retaining raw return code, stdout, stderr, and cubin bytes.
+- ADR-0404 freezes that diagnostic before source. It permits one future
+  unchanged `_kernels` compile only, journals the exact ELF before inspection,
+  captures five ordered CUDA 13.3 operations with `check=False`, and keeps
+  `selected_inspector=null`. No calibration, population fixture, resource gate,
+  projection, latency, action, or quality result exists.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

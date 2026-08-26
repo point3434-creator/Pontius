@@ -1,0 +1,203 @@
+{
+  "schema_version": "legal-river-exact-cubin-inspector-diagnostic-preregistration-v1",
+  "evidence_stage": "prospective_diagnostic_only_before_source_compile_or_result",
+  "parent_identity": {
+    "adr0403_relative_path": "docs/decisions/ADR-0403-retain-the-work-preflight-v3-resource-inspector-rejection.md",
+    "adr0403_canonical_lf_sha256": "3403013146e9b2175ab2b8784eddc78573d96f47e1f8e537490bcf091c30a1ce",
+    "adr0403_outcome_commit": "e1bf2c84ee942bdfddb652bad2e2a5e227347cab",
+    "v3_result_relative_path": "artifacts/work_preflight/legal_river_quotient_cuda_compensated_work_preflight_v3.jsonl",
+    "v3_result_sha256": "b84d9cd22042427c88f9c42b2da7acd176cdd0d5dec654c7f361bae7fa79cd0d",
+    "v3_result_bytes": 15783,
+    "v3_result_records": 7,
+    "immutable_scientific_source_relative_path": "src/pontius/legal_river_quotient_cuda_compensated_work_preflight.py",
+    "immutable_scientific_source_canonical_lf_sha256": "652a4a37cd097a92829364f1ec6976a6f31a4092ab9fc3e0f97a992e2565c4aa",
+    "embedded_cuda_source_utf8_sha256": "306bcbbccf050d503ddb4314b4d178974f6fb3c361f2cda9d15bf277a693219a",
+    "embedded_cuda_source_utf8_bytes": 26013,
+    "caller_supplied_nvrtc_options_in_order": [
+      "--std=c++14",
+      "--ftz=false",
+      "--prec-div=true",
+      "--prec-sqrt=true",
+      "--fmad=false"
+    ],
+    "direct_kernel_names_in_order": [
+      "direct_selected_queries_tile",
+      "direct_selected_fold_tile",
+      "direct_selected_adjoint_tile"
+    ]
+  },
+  "successor_scope": {
+    "config_relative_path": "experiments/configs/legal-river-exact-cubin-inspector-diagnostic-v1.json",
+    "diagnostic_relative_path": "src/pontius/legal_river_exact_cubin_inspector_diagnostic.py",
+    "owner_relative_path": "src/pontius/legal_river_exact_cubin_inspector_diagnostic_runner.py",
+    "reader_relative_path": "src/pontius/legal_river_exact_cubin_inspector_diagnostic_result.py",
+    "controls_relative_path": "tests/test_legal_river_exact_cubin_inspector_diagnostic.py",
+    "result_relative_path": "artifacts/work_preflight/legal_river_exact_cubin_inspector_diagnostic_v1.jsonl",
+    "reserved_actual_result_relative_path": "artifacts/legal_river_quotient_cuda_consumer_v1.jsonl",
+    "all_source_control_and_result_paths_must_be_absent_at_preregistration": true,
+    "reserved_actual_result_must_remain_absent": true,
+    "v1_v2_v3_owners_must_never_be_imported_or_invoked": true,
+    "immutable_scientific_source_must_not_be_edited": true
+  },
+  "diagnostic_question": {
+    "question": "Which exact CUDA 13.3 binary-inspection commands, if any, operate on the unchanged SM120 cubin and expose raw material from which all three direct-kernel register and stack/local rows can later be prospectively qualified?",
+    "capture_is_not_inspector_selection": true,
+    "capture_is_not_resource_gate_evaluation": true,
+    "capture_is_not_calibration_capacity_latency_or_quality_evidence": true,
+    "a_complete_capture_may_retain_all_candidate_operations_as_nonzero": true
+  },
+  "compile_contract": {
+    "fresh_no_bytecode_child_required": true,
+    "compile_must_call_only_the_immutable_scientific__kernels_path": true,
+    "scientific_run_calibration_preflight_forbidden": true,
+    "population_fixture_geometry_work_phase_projection_and_values_forbidden": true,
+    "kernel_and_cubin_caches_must_be_empty_before_compile": true,
+    "cupy_compile_with_ptx_environment_value_must_be_absent_or_false": true,
+    "retained_payload_must_begin_with_hex": "7f454c46",
+    "all_fifteen_immutable_kernel_names_must_load": true,
+    "driver_resource_report_must_be_captured_for_exact_three_direct_kernels": true,
+    "runtime_identity_must_be_captured_fieldwise": true,
+    "effective_internal_arch_and_output_method_must_be_disclosed_without_adding_a_caller_option": true,
+    "module_execution_or_compile_failure_is_a_typed_final_diagnostic_terminal": true
+  },
+  "lossless_capture_contract": {
+    "cubin_must_be_journaled_before_any_external_inspector_operation": true,
+    "cubin_encoding": "base64_standard",
+    "cubin_raw_sha256_and_byte_count_required": true,
+    "decoded_cubin_must_be_byte_identical_and_elf_in_reader": true,
+    "external_processes_must_run_with_check_false_and_binary_streams": true,
+    "command_argv_return_code_stdout_stderr_and_elapsed_ns_required": true,
+    "stdout_and_stderr_encoding": "base64_standard",
+    "raw_stream_sha256_and_byte_count_required": true,
+    "reader_must_decode_and_rehash_every_binary_field": true,
+    "temporary_cubin_must_be_deleted_only_after_all_command_events_are_fsynced": true,
+    "partial_command_sequence_is_durable_evidence_and_never_retryable": true,
+    "per_stream_byte_limit": 8388608,
+    "cubin_byte_limit": 8388608,
+    "journal_byte_limit": 50331648,
+    "per_command_wall_limit_ns": 30000000000,
+    "laboratory_wall_limit_ns": 180000000000
+  },
+  "candidate_commands_in_order": [
+    {
+      "candidate_id": "cuobjdump_version",
+      "tool": "CUDA_13_3_cuobjdump",
+      "arguments": ["--version"],
+      "uses_cubin": false,
+      "semantic_role": "tool_identity_only"
+    },
+    {
+      "candidate_id": "cuobjdump_resource_usage",
+      "tool": "CUDA_13_3_cuobjdump",
+      "arguments": ["--dump-resource-usage", "{exact_temporary_cubin}"],
+      "uses_cubin": true,
+      "semantic_role": "candidate_resource_rows"
+    },
+    {
+      "candidate_id": "cuobjdump_elf",
+      "tool": "CUDA_13_3_cuobjdump",
+      "arguments": ["--dump-elf", "{exact_temporary_cubin}"],
+      "uses_cubin": true,
+      "semantic_role": "candidate_raw_elf_metadata"
+    },
+    {
+      "candidate_id": "nvdisasm_version",
+      "tool": "CUDA_13_3_nvdisasm",
+      "arguments": ["--version"],
+      "uses_cubin": false,
+      "semantic_role": "tool_identity_only"
+    },
+    {
+      "candidate_id": "nvdisasm_default",
+      "tool": "CUDA_13_3_nvdisasm",
+      "arguments": ["{exact_temporary_cubin}"],
+      "uses_cubin": true,
+      "semantic_role": "candidate_disassembly_and_section_metadata"
+    }
+  ],
+  "candidate_interpretation_contract": {
+    "return_code_zero_means_only_command_operational": true,
+    "nonzero_return_code_must_not_abort_later_candidate_capture": true,
+    "version_success_must_not_imply_operation_success": true,
+    "stdout_presence_must_not_imply_semantic_resource_adequacy": true,
+    "no_candidate_is_selected_by_this_diagnostic": true,
+    "selected_inspector": null,
+    "later_selection_requires_a_new_prospective_offline_qualification": true,
+    "later_qualification_must_reparse_retained_raw_bytes_without_gpu_compile": true,
+    "later_qualification_must_name_all_three_direct_kernels": true,
+    "later_qualification_must_define_register_stack_and_local_semantics_before_parsing": true,
+    "later_qualification_must_preserve_driver_cubin_maxima_and_255_4096_limits": true,
+    "driver_only_fallback_forbidden": true
+  },
+  "owner_and_journal_contract": {
+    "new_protocol_seed": "pontius-adr0404-exact-cubin-inspector-diagnostic-exclusive-journal-v1",
+    "new_campaign_seed": "pontius-adr0404-exact-cubin-inspector-diagnostic-one-shot-campaign-v1",
+    "exclusive_no_clobber_result_creation": true,
+    "append_flush_fsync_every_record": true,
+    "header_precedes_git_and_device_entry": true,
+    "clean_git_commit_required_allowing_only_the_exclusive_result_path": true,
+    "provenance_must_bind_config_parent_adr_parent_artifact_science_and_source_seal": true,
+    "one_public_no_argument_owner": true,
+    "one_fresh_child_for_compile_and_all_candidate_commands": true,
+    "bounded_stdout_stderr_transport_required": true,
+    "first_terminal_is_permanent": true,
+    "no_retry_resume_skip_or_continuation": true,
+    "post_terminal_records_forbidden": true,
+    "reserved_actual_result_absence_must_be_journaled": true
+  },
+  "independent_reader_contract": {
+    "standard_library_only": true,
+    "must_not_import_cupy_scientific_source_diagnostic_or_owner": true,
+    "must_recover_and_validate_hash_chain_before_interpretation": true,
+    "must_validate_exact_event_order_and_candidate_inventory": true,
+    "must_decode_and_hash_cubin_stdout_and_stderr": true,
+    "must_rebind_driver_rows_as_unselected_raw_evidence": true,
+    "must_report_each_candidate_return_code_without_selecting_one": true,
+    "stored_terminal_pass_bit_is_not_authority": true,
+    "torn_suffix_is_reported_not_repaired": true
+  },
+  "source_seal_controls": {
+    "complete_synthetic_success_journal_with_binary_non_utf8_streams": true,
+    "synthetic_all_candidates_nonzero_complete_capture": true,
+    "cubin_byte_hash_length_elf_and_base64_mutations": true,
+    "stdout_stderr_hash_length_base64_and_return_code_mutations": true,
+    "candidate_omission_duplication_reorder_and_post_terminal_mutations": true,
+    "timeout_output_limit_compile_failure_and_cleanup_terminals": true,
+    "exclusive_replay_and_torn_suffix_controls": true,
+    "ast_forbids_run_calibration_preflight_and_population_fixture_construction": true,
+    "fresh_import_keeps_cupy_absent": true,
+    "real_cuda_compile_and_candidate_commands_forbidden_during_source_seal": true,
+    "result_and_reserved_paths_must_remain_absent_at_source_seal": true
+  },
+  "kill_criteria": {
+    "kill_if_any_consumed_owner_or_result_is_reused": true,
+    "kill_if_exact_cubin_is_not_durable_before_first_inspector": true,
+    "kill_if_check_true_or_text_mode_can_erase_raw_tool_evidence": true,
+    "kill_if_a_nonzero_candidate_aborts_later_candidate_capture": true,
+    "kill_if_capture_selects_or_semantically_qualifies_an_inspector": true,
+    "kill_if_driver_only_evidence_is_authorized": true,
+    "kill_if_science_options_populations_arithmetic_phases_ratios_resources_walls_or_claims_change": true,
+    "kill_if_population_25_or_calibration_is_constructed": true,
+    "kill_if_systems_capture_is_called_capacity_latency_action_quality_or_strength": true
+  },
+  "claims": {
+    "source_sealed": false,
+    "diagnostic_invoked": false,
+    "exact_cubin_retained": false,
+    "candidate_capture_result": null,
+    "selected_inspector": null,
+    "resource_gate_result": null,
+    "calibration_result": null,
+    "capacity_projection": null,
+    "complete_25_numerical_value": null,
+    "actual_45_card_value": null,
+    "resolver_iteration_result": null,
+    "solve_result": null,
+    "action_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

@@ -15,84 +15,106 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Retain the exact V3 artifact, permanently close its owner, and reject the
-resource-inspector seam. Do not edit or invoke the V3 adapter, runner, reader,
-controls, config, or immutable scientific source; do not delete, overwrite,
-rename, or regenerate the artifact. The independent reader and its nested V2
-and V1 compatibility views all reconstruct the same scientific terminal:
+Yes. Preregister one diagnostic-only owner, result, and reader identity. This
+boundary captures facts; it does not select an inspector or evaluate ADR-0395's
+resource gates.
+
+The parent is fixed exactly: ADR-0403 canonical-LF SHA
+`3403013146e9b2175ab2b8784eddc78573d96f47e1f8e537490bcf091c30a1ce`,
+its seven-record V3 artifact SHA
+`b84d9cd22042427c88f9c42b2da7acd176cdd0d5dec654c7f361bae7fa79cd0d`,
+the immutable scientific file SHA
+`652a4a37cd097a92829364f1ec6976a6f31a4092ab9fc3e0f97a992e2565c4aa`,
+and its embedded CUDA-source UTF-8 SHA
+`306bcbbccf050d503ddb4314b4d178974f6fb3c361f2cda9d15bf277a693219a`.
+The five caller options remain, in order:
 
 ```text
-terminal=compiler_or_primitive_rejection
-passed=False
-event_count=5
-handshake=True
-serializer_probe=True
-phase_count=0
-projection=None
+--std=c++14
+--ftz=false
+--prec-div=true
+--prec-sqrt=true
+--fmad=false
 ```
 
-The seven-record journal is complete. Provenance binds clean source commit
-`ee42b8d60efb7f7334a4c7beff1a295cf1d19795`, every V1/V2/V3 source and
-config dependency, both prior artifacts, and absence of the reserved actual
-path. The fresh-challenge literal bootstrap passed. The real no-CUDA probe
-then forced `RuntimeError: forced_serializer_probe_compiler_failure` through
-the unchanged scientific `run_calibration_preflight.send` closure. Its exact
-six-field slots `CudaRuntimeIdentity`, reason, scientific terminal, and complete
-restoration map survived the adapter, shared child transport, durable journal,
-and independent reader. ADR-0400's serializer defect is therefore retired in
-V3.
+A future source-sealed diagnostic child may call only the unchanged scientific
+`_kernels(cp)` path from fresh empty caches. It must disclose CuPy's effective
+internal architecture and output method without adding a sixth caller option,
+require an ELF payload, load all fifteen immutable kernels, and retain the
+driver resource rows for exactly the three direct kernels. It must never call
+`run_calibration_preflight`, construct a 10-, 22-, or 25-card fixture, enter a
+phase, compute a projection, or invoke any consumed owner.
 
-The actual campaign next loaded the named RTX 5080 runtime. The immutable call
-order establishes only the following successful predecessors: NVRTC returned
-an ELF payload, `Module.load` accepted it, all named kernels were obtained, the
-driver resource report returned, CUDA 13.3 `cuobjdump --version` returned an
-accepted identity, and the cubin bytes were written to the named temporary
-file. The next exact command was:
+### Lossless capture before interpretation
 
-```text
-cuobjdump.exe --dump-resource-usage
-    C:\Users\point\AppData\Local\Temp\tmp3fju199y.cubin
-```
+The cubin must become durable before the first external operation. Store its
+exact bytes as bounded standard base64 with raw SHA-256 and byte count. The
+independent reader decodes, rehashes, checks ELF magic, and requires byte
+identity. A later tool failure therefore cannot erase the sample being
+diagnosed.
 
-It returned nonzero exit status `4294967295`. Because the frozen source used
-`check=True`, the exception path retained neither stdout nor stderr. Its
-`finally` removed the temporary cubin, and the fresh child then exited. The
-artifact therefore contains no exact cubin hash, raw resource output, parsed
-register row, stack/local row, or driver row. The command and return status are
-known; why the tool rejected this cubin is not. Calling it a malformed cubin,
-an SM120 incompatibility, a tool crash, or a parser defect would be causal
-invention.
+Run every external command with `check=False` and byte streams. For each,
+journal exact argv, signed return code, stdout bytes, stderr bytes, their
+separate SHA-256 digests and lengths, and elapsed monotonic nanoseconds. Base64
+is an encoding, not a serializer interpretation. Per-stream and cubin caps are
+8 MiB, the complete journal cap is 48 MiB, each command wall is 30 seconds,
+and the diagnostic laboratory wall is 180 seconds. Timeout or size breach is a
+typed terminal after all already-fsynced evidence; it is not permission to
+resume.
 
-This is a compiler/resource-*instrument* rejection, not evidence that NVRTC
-failed and not a capacity result. The ELF and module-load predecessors show
-that compilation progressed farther than ADR-0400 could establish, but no
-resource gate was evaluated. No calibration fixture was constructed after the
-inspection block, no population 10 or 22 value exists, and no phase or
-projection exists. The approximately seven-second outer command wall is
-lifecycle time, not a primitive, iteration, solve, per-street, or action-clock
-measurement.
+The frozen command order is:
 
-The correct successor is diagnostic-first and additive. Before another
-capacity campaign, a new identity must retain the exact bounded cubin and raw
-outcomes from candidate inspectors without `check=True` erasing their streams.
-The qualification must distinguish command availability from semantic
-adequacy: a candidate passes only if its raw output names all three direct
-kernels, supplies the prospectively frozen register and stack/local quantities,
-is independently reparsed, and can be conservatively combined with driver
-attributes under ADR-0395's maxima rule. CUDA 13.3 `cuobjdump` resource usage,
-its ELF dump, and CUDA 13.3 `nvdisasm` are candidates to test, not assumed
-authorities. If none qualifies, close the route; do not fall back silently to
-driver-only evidence or rename a nearby quantity.
+1. CUDA 13.3 `cuobjdump --version`;
+2. CUDA 13.3 `cuobjdump --dump-resource-usage {cubin}`;
+3. CUDA 13.3 `cuobjdump --dump-elf {cubin}`;
+4. CUDA 13.3 `nvdisasm --version`;
+5. CUDA 13.3 `nvdisasm {cubin}`.
 
-This is the third consumed work-preflight invocation before calibration: V1
-failed worker bootstrap, V2 exposed the typed serializer defect while masking
-its antecedent, and V3 passed both repairs before exposing the resource tool.
-Together the immutable journals contain `5322 + 8508 + 15783 = 29613` bytes.
-The shared runner harness retired the first two defect instances and made the
-third antecedent durable, but it has not yet reduced the lane's first-real-call
-tax to zero. This cadence still honors every kill criterion because each owner
-was called once, every first terminal was retained, no threshold moved, and no
-failed identity was revived.
+A nonzero candidate operation does not abort later captures. This is the
+structural correction to V3's evidence loss. A complete corpus may therefore
+finish honestly with five nonzero commands. Conversely, return code zero means
+only that a command operated on this cubin; it does not establish that its
+output carries the required semantic quantities.
+
+### No selection at this boundary
+
+`selected_inspector` is frozen `null`. No output parser may be written against
+the actual corpus before this diagnostic is retained and then called a
+qualification result. A later, separately preregistered, GPU-free selector
+must define register, stack, and local semantics before parsing; reparse only
+the retained bytes; name all three direct kernels; and preserve ADR-0395's
+driver/cubin maxima, 255-register, and 4,096-byte backing limits. Driver-only
+fallback remains forbidden. If no candidate can meet that later contract, the
+inspection route closes.
+
+This split prevents two opposite errors: forcing a known-failing command
+because it was prospectively named, and adopting whichever post-outcome text
+looks easiest to parse. The diagnostic freezes an exhaustive small candidate
+set and the bytes; the later selector freezes semantic interpretation before
+reading those bytes as authority.
+
+### Owner, reader, and source seal
+
+The owner uses a new protocol, campaign, header, and exclusive no-clobber
+result path. Header precedes Git and device entry. Provenance binds the clean
+source-seal commit, config, ADR-0403, immutable science, V1/V2/V3 artifacts,
+and reserved-path absence. One child compiles and runs all candidates so the
+cubin identity cannot drift between commands. Every record is appended,
+flushed, and fsynced. The first terminal is permanent.
+
+The independent reader is standard-library only and must not import CuPy,
+science, diagnostic, or owner modules. It validates the durable hash chain,
+event inventory and order, every binary encoding/hash/length, exact candidate
+argv and return code, driver-row shape, terminal, and torn suffix. Stored pass
+bits and candidate labels are not authority.
+
+Source seal is device-free. Controls must cover complete synthetic capture
+with non-UTF-8 and NUL bytes, all-candidates-nonzero completion, cubin and
+stream mutations, return-code mutation, omission/duplication/reordering,
+timeout, output cap, compile failure, cleanup, exclusive replay, torn suffix,
+and post-terminal rejection. AST and fresh-import controls must prove no
+calibration or population construction and no CuPy import. Real compilation
+and external candidates remain forbidden until a later clean-commit call.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -133,16 +155,15 @@ quotient within that chain. ADR-0369 is the source-only arithmetic boundary.
 ADR-0370 seals the numeric-array and logical-work result. ADR-0378 remains the
 accepted prospective source-only literal-target liveness and streamed-
 validation boundary, and ADR-0379 retains its 244,970,204-byte device-cap
-margin without live admission. ADR-0385 froze the legal bridge question; ADR-0386
-source-sealed only its host answer; ADR-0387 froze the consumer-capacity
-question; ADR-0388 source-sealed only that CuPy-free answer; ADR-0389 froze
-the additive CUDA-consumer question; ADR-0390 rejected its source seal;
+margin without live admission. ADR-0385 froze the legal bridge question;
+ADR-0386 source-sealed only its host answer; ADR-0387 froze the consumer-
+capacity question; ADR-0388 source-sealed only that CuPy-free answer; ADR-0389
+froze the additive CUDA-consumer question; ADR-0390 rejected its source seal;
 ADR-0391 froze the first paired-tile boundary; ADR-0392 corrected its pre-
 source arithmetic completeness; ADR-0393 retained the first implementation as
-a wall rejection; ADR-0394 freezes the work-preflight question; ADR-0395
-corrects only its resource instrument before result; ADR-0396/0397 own and
-close V1; ADR-0398/0399/0400 own and close V2; ADR-0401/0402/0403 own and
-close V3. No earlier owner is revived.
+a wall rejection; ADR-0394/0395 freeze the work and resource questions;
+ADR-0396 through ADR-0403 own and close the three consumed preflight owners;
+and ADR-0404 freezes only the diagnostic corpus. No earlier owner is revived.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -156,7 +177,7 @@ to selector-window work. ADR-0351 requires the tie-aware legal h4 affine-
 envelope. ADR-0354 through ADR-0359 own the factorized face and affine
 consumer chain. ADR-0380 freezes the complete ordered populations 10 and 22.
 ADR-0383's owner was invoke exactly once and remains consumed by ADR-0384.
-ADR-0403 imports neither that owner nor its target. The phrases exclusive
+ADR-0404 imports neither that owner nor its target. The phrases exclusive
 untouched legal h4, selector-window, 2,113-task, exhaustive bounded
 development-teacher, response-closed direct mechanism, and caller-owned legal
 fallback retain their prior meanings.
@@ -172,32 +193,28 @@ requires an exclusive legal h4 owner, ADR-0358 was invoke exactly once, and
 ADR-0359 requires a fresh value-unopened confirmation. ADR-0382 preregistered
 the literal-45 config; ADR-0383 source-sealed it; ADR-0384 closed it.
 
-### Kill criteria for a successor
+### Kill criteria
 
-Kill any successor that edits or invokes V1, V2, or V3; deletes, overwrites,
-renames, or treats an artifact as retryable; reuses a consumed lifecycle
-identity; fails to retain the exact cubin or raw nonzero inspector streams;
-uses `check=True` before evidence capture; assumes a tool is semantically
-adequate because `--version` passes; uses driver-only rows after the dual-
-instrument contract; changes the five caller compiler options, CUDA source,
-population, arithmetic, phase, ratio, resource ceiling, wall, or claim;
-constructs population 25 numerically; or promotes inspection, compilation, or
-systems evidence into capacity, action-clock, quality, truncation, blueprint,
-or poker-strength evidence.
+Kill the diagnostic if it edits or imports a consumed owner, changes the
+scientific source or caller options, calls calibration, constructs any
+population fixture, fails to retain the cubin before inspection, uses
+`check=True` or text decoding, aborts later candidates after a nonzero result,
+selects an inspector, relaxes driver/cubin maxima or resource ceilings, exceeds
+any byte/wall bound, reuses a path, or promotes capture into resource,
+capacity, latency, action, quality, truncation, blueprint, or strength evidence.
 
 ### Claims boundary
 
-ADR-0403 establishes that V3 passed literal bootstrap and exact-type serializer
-coverage, then the actual CUDA 13.3 resource-usage command rejected the
-temporary cubin with the retained status. It establishes no causal explanation
-for that status, raw resource value, resource-gate verdict, calibration,
-projection, complete 25-card value, actual 45-card value, resolver iteration,
-solve, action, 15-second result, decision quality, truncation, blueprint, or
-poker strength. Systems evidence remains no quality prior.
+ADR-0404 freezes only an engineering diagnostic and its evidence semantics.
+It contains no source seal, device invocation, cubin, candidate outcome,
+selected inspector, resource gate, calibration, phase timing, projection,
+complete 25-card value, actual 45-card value, resolver iteration, solve,
+action, 15-second result, decision quality, truncation, blueprint, or poker-
+strength result. Systems capture remains no quality prior.
 
 ## Active next
 
-Preserve the immutable seven-record v3 terminal and all three closed work-preflight owner identities, then preregister a new diagnostic-only exact-cubin inspector qualification before any capacity successor: use new config/protocol/campaign/result identities; compile only the unchanged hash-bound CUDA source with the unchanged five caller options; retain the exact ELF cubin bytes or a lossless bounded encoding plus SHA-256; invoke candidate CUDA 13.3 inspectors with `check=False`; durably retain command, return code, stdout, stderr, and tool identity; require exact rows for all three direct kernels and conservative agreement with the independent driver attributes before selecting an inspector; preserve every population, arithmetic, phase, ratio, resource ceiling, wall, stop, and claims boundary; do not invoke v1, v2, or v3, run calibration, construct population 25 numerically, publish externally, or infer capacity, latency, action quality, truncation, blueprint, or poker strength
+Implement and source-seal only the ADR-0404 exact-cubin inspector diagnostic without invoking its CUDA child: bind the immutable source, ADR-0403, and all three retained artifacts; compile nothing in controls; use one fresh-child diagnostic path that calls only the unchanged scientific `_kernels` compiler path, never `run_calibration_preflight`; journal the exact cubin before external inspection; capture the five frozen command outcomes in binary mode with `check=False`; implement a standard-library independent reader plus binary, lifecycle, ordering, timeout, output-limit, torn-tail, and no-calibration controls; keep the diagnostic and reserved result paths absent until a later clean-commit invocation checkpoint
 
 ## Revoked authorities
 
@@ -205,7 +222,7 @@ Preserve the immutable seven-record v3 terminal and all three closed work-prefli
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0403](docs/decisions/ADR-0403-retain-the-work-preflight-v3-resource-inspector-rejection.md) — Retain the work-preflight v3 resource-inspector rejection.
+Latest process decision: [ADR-0404](docs/decisions/ADR-0404-preregister-the-exact-cubin-inspector-diagnostic.md) — Preregister the exact-cubin inspector diagnostic.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -213,7 +230,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0380](docs/decisions/ADR-0380-preregister-the-bounded-quotient-validation-seam.md) | 2026-08-25 | accepted prospective bounded-device validation-seam boundary; complete 10/22-card populations, multi-chunk host references, streamed dot semantics, forward-release ordering, allocation telemetry, numerical gates, mutations, and target rejection are frozen before source, while literal 45 cards, live target admission, solve, action, quality, truncation, and strength remain unopened | Preregister the bounded quotient validation seam |
 | [ADR-0381](docs/decisions/ADR-0381-seal-the-bounded-quotient-validation-seam.md) | 2026-08-25 | accepted bounded CUDA validation-seam result; complete 10/22-card forward, refresh, query-only, streamed-dot, release, unique-adjoint, exact-oracle, allocator, telemetry, and mutation gates pass, while literal 45-card allocation, live target admission, target timing, solve, action, quality, truncation, and strength remain unopened | Seal the bounded quotient validation seam |
 | [ADR-0382](docs/decisions/ADR-0382-preregister-the-one-shot-literal-45-quotient-owner.md) | 2026-08-25 | accepted prospective one-shot literal-45 CUDA owner boundary; exact target geometry, fresh-process lifecycle, live host/device admission, streamed validation, phase telemetry, durable first-terminal evidence, numerical gates, release rules, and claims are frozen before target source or allocation, while every literal target result, timing, solve, action, quality, truncation, and strength claim remains unopened | Preregister the one-shot literal-45 quotient owner |
 | [ADR-0383](docs/decisions/ADR-0383-source-seal-the-one-shot-literal-45-quotient-owner.md) | 2026-08-25 | accepted source-sealed but uninvoked literal-45 CUDA owner; exact target fixture, named allocation births, independent samples, live admission, streamed validation, ownership telemetry, durable first-terminal journal, CuPy-free rebinding, and permanent failure classes are implemented and controlled while the public result remains absent and every target value, timing, allocation observation, scalable-contraction, solve, action, quality, truncation, and strength claim remains unopened | Source-seal the one-shot literal-45 quotient owner |
@@ -237,18 +253,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0401](docs/decisions/ADR-0401-preregister-the-work-preflight-v3-evidence-serializer-recovery.md) | 2026-08-25 | accepted prospective serializer-only recovery; an approved concrete dataclass inventory, exact field-wise evidence encoder, process-local scientific normalizer substitution, real no-CUDA forced compiler-failure probe through the unchanged scientific `send` closure and shared child transport, new owner/result identities, and nested v2/v1 rebinding are frozen before successor source, probe execution, campaign, compiler observation, calibration, phase row, projection, or result, while both prior artifacts and every ADR-0394/ADR-0395 scientific field remain immutable | Preregister the work-preflight v3 evidence-serializer recovery |
 | [ADR-0402](docs/decisions/ADR-0402-source-seal-the-work-preflight-v3-evidence-serializer-recovery.md) | 2026-08-26 | accepted source seal; the exact-type adapter, fresh three-mode owner, standard-library nested reader, real no-CUDA forced-failure child, and 16 corrected adversarial controls are hash-bound before any v3 campaign child, compiler observation, calibration, phase row, projection, or result, while the two consumed artifacts and immutable scientific source remain unchanged | Source-seal the work-preflight v3 evidence-serializer recovery |
 | [ADR-0403](docs/decisions/ADR-0403-retain-the-work-preflight-v3-resource-inspector-rejection.md) | 2026-08-26 | accepted retained first-invocation compiler/resource-instrument rejection; ADR-0402's serializer-safe v3 owner is permanently closed after clean provenance, literal bootstrap, and the real no-CUDA serializer probe passed, then the actual CUDA 13.3 `cuobjdump --dump-resource-usage` command returned exit status 4294967295 on the temporary ELF cubin before any raw resource row, calibration population, phase row, projection, complete 25-card numerical value, actual 45-card value, action, quality, truncation, blueprint, or strength result | Retain the work-preflight v3 resource-inspector rejection |
+| [ADR-0404](docs/decisions/ADR-0404-preregister-the-exact-cubin-inspector-diagnostic.md) | 2026-08-26 | accepted prospective diagnostic-only boundary; one new-identity owner may compile the unchanged hash-bound CUDA source without calibration, durably retain the exact ELF cubin and driver rows, and capture five ordered CUDA 13.3 command outcomes byte-for-byte with `check=False`, while inspector selection, resource-gate evaluation, populations, phases, projection, complete 25-card numerics, actual 45-card value, action, quality, truncation, blueprint, and strength remain unopened | Preregister the exact-cubin inspector diagnostic |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0403](docs/decisions/ADR-0403-retain-the-work-preflight-v3-resource-inspector-rejection.md) — Retain the work-preflight v3 resource-inspector rejection.
+- Latest ADR: [ADR-0404](docs/decisions/ADR-0404-preregister-the-exact-cubin-inspector-diagnostic.md) — Preregister the exact-cubin inspector diagnostic.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 403.
-- ADR-header SHA-256: `c7f7b16948e7e9a79c23c018ab7ed25099f8c36e995c3d7f95dbc81939be1569`.
-- Current blockers: no qualified exact-cubin resource inspector, retained 10/22-card calibration, conservative complete-25 capacity verdict, complete 25-card numerical result, actual owner, or full-width actual-context quotient value exists; v1, v2, and v3 are permanently consumed by bootstrap, serializer, and resource-inspector terminals respectively; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 404.
+- ADR-header SHA-256: `7e57e4017d0d07ab7b9a3e3d3c5a3cd947e2a5239705e0be5b495cef21750ea9`.
+- Current blockers: no source-sealed or retained exact-cubin diagnostic corpus, qualified inspector, resource-gate verdict, retained 10/22-card calibration, conservative complete-25 capacity verdict, complete 25-card numerical result, actual owner, or full-width actual-context quotient value exists; v1, v2, and v3 remain permanently consumed; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0403](docs/decisions/ADR-0403-retain-the-work-preflight-v3-resource-inspector-rejection.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0404](docs/decisions/ADR-0404-preregister-the-exact-cubin-inspector-diagnostic.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

@@ -1424,8 +1424,10 @@ queue:
   corrected controls. ADR-0403 retains its sole invocation: both lifecycle
   gates pass, then CUDA 13.3 resource inspection returns status 4294967295
   before any phase or projection. V3 is closed. The immediate checkpoint is a
-  new-identity, diagnostic-only exact-cubin inspector qualification; do not
-  open calibration or a 25-card fixture while selecting that instrument.
+  new-identity, diagnostic-only exact-cubin inspector qualification. ADR-0404
+  freezes its cubin-first binary capture before source. The next checkpoint is
+  device-free implementation and source seal only; do not compile, select an
+  inspector, open calibration, or construct a 25-card fixture there.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1489,9 +1491,9 @@ queue:
   serializer infrastructure failure with no phase or projection. The immediate
   v3 contract is frozen by ADR-0401, source-sealed by ADR-0402, and permanently
   consumed by ADR-0403's resource-inspector rejection. The immediate checkpoint
-  is a prospectively frozen exact-cubin inspector qualification with raw tool
-  streams retained before another capacity owner. Every actual 45-card value,
-  owner, automatic truncation, resolver iteration, action timing, and quality
+  is ADR-0404's prospectively frozen exact-cubin diagnostic source seal with
+  raw binary streams and no tool selection. Every actual 45-card value, owner,
+  automatic truncation, resolver iteration, action timing, and quality
   inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts

@@ -1777,9 +1777,19 @@ queue:
   The new four-arm boundary freezes contract-first direct scan, an exact rank-
   truncated zeta circuit, the ADR-0454 prefix oracle, and one count-triggered
   prefix-to-zeta hybrid. Mixed lattice plus sparse-master-support provenance is
-  a first-class base outcome rather than being rounded to opaque. Implement and
-  source-seal only the base audit, reduced exact topologies, switch, ledgers,
-  and controls next; do not open a bake-off result.
+  a first-class base outcome rather than being rounded to opaque. ADR-0456 now
+  source-seals that boundary without opening a result. Its typed preparation
+  artifacts reject H, pricing, structural-base, correction, and master-support
+  epoch drift separately; the scale-24 zeta and exact reverse transpose match
+  the 57-term authority on all 18 complete-10/complete-12 cases; and all four
+  arms match exact maxima, complete ties, and complete positive sets. A valid
+  all-negative control drives the frozen hybrid switch at exactly 4 and 15
+  exact leaves and charges the discarded prefix work plus full zeta closure.
+  Production `b(S)` remains absent. Next preregister the separate compiled
+  reduced-domain calibration and production-base admission gate; retain all
+  modes, arithmetic schedules, calibration domains, intercept/slope rules,
+  and null per-action certificate frequency, and do not select a topology or
+  open literal-45 numerical work from this source seal.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

@@ -2388,6 +2388,27 @@ table width, later timing must retain an intercept rather than force scaling
 through zero, and the unknown number of certificates per action prevents any
 14-second claim at this boundary.
 
+ADR-0456 source-seals the reduced implementation without opening the bake-off.
+Base provenance is a sum type rather than a value heuristic: lattice,
+genuinely opaque, lattice plus an exact sparse master-support correction, or
+absent. Prepared H, pricing, structural-base, correction, and support artifacts
+carry separately checked epochs and payload identities, so a numerically equal
+but semantically stale artifact cannot hit. Production bases additionally
+require their own exponent window, semantic bound, and guard-inclusive width;
+the current production classification remains absent.
+
+The zeta forward recurrence and its reverse cover-graph transpose are exact at
+scale 24 on both complete reduced domains. Each rank owns separate H, base,
+combined, mathematical, and guard-inclusive width receipts. Validation-only
+prefix argmax combines an exact argmax pass with a separate zero-threshold
+closure so full ties and the complete positive set are both actually measured.
+The hybrid evaluates an exact leaf before treating it as a nonpositive block;
+an engineered valid all-negative family reaches `ceil(N/64)` at 4 and 15
+leaves, switches once, preserves all prefix work, and completes the zeta
+closure. This is source correctness and logical work evidence only. The next
+compiled calibration remains a separate prospective gate, and no topology can
+be selected before a production base and consumer frequency exist.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

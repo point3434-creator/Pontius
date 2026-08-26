@@ -2319,6 +2319,15 @@ running, not measured literal-45 latency or action fit. The retained symbolic
 memory peaks remain required but are not live allocations, and actual input
 exponent windows remain a separate prerequisite before any target arithmetic.
 
+ADR-0450 corrects the accounting before projector source. The independent
+exact-differential transfer remains mandatory laboratory validation but is not
+production work and therefore cannot enter the 14-second component sum. Every
+runtime certificate, fault, global-scan, reconstruction, and cleanup phase
+stays charged; the runtime and laboratory phase sets must form an exact ordered
+partition. The prospective result also moves to the existing
+`artifacts/work_preflight/*.jsonl -text` domain, and a no-argument root launcher
+is frozen before implementation.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

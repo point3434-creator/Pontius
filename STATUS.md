@@ -15,50 +15,43 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Preregister one GPU-free, artifact-only admission screen. It consumes the
-immutable ADR-0448 journal without replaying the consumed v3 owner and carries
-both eligible arms independently. It does not select between them. It may only
-decide whether zero, one, or two arms are eligible for a separately
-preregistered and source-sealed live screen.
+Correct two defects and one lifecycle omission before source exists.
 
-The target is the literal 45-card operator shape: 176 logical features in the
-ordered tiles `[0,64)`, `[64,128)`, and `[128,176)`; 8,145,060 source
-occupancies; 148,995 query occupancies; 893,970 labeled query records;
-55,619,730 forward recurrence edges; 640,575 adjoint recurrence edges;
-2,383,920 complete forward subset rows; and 464,268,420 complete adjoint subset
-rows. These are integer geometry and work identities. No poker fixture,
-captured pair, exponent census, numerical output, or device allocation is
-opened by this decision.
+First, `verification_output_transfer_and_exact_differential` is the
+independent laboratory authority used to validate the device implementation.
+It is not work a production action must execute. Charging it to the action
+clock would compare a scientific campaign rather than the proposed component
+with the charter. Keep the phase mandatory, project it under the same frozen
+ratio and guard, and report it separately. Do not include it in the 14-second
+conjunct.
 
-For each arm, population, and retained phase, the calibration observation is
-the maximum integer elapsed nanoseconds over the six timed v3 observations.
-Warmup is excluded; both colex directions and all phase rows remain mandatory.
-Each phase has a frozen list of heterogeneous work constituents. The target-to-
-calibration phase ratio is the maximum exact ratio among those constituents,
-never a sum of incomparable operations. Positive target work with zero
-calibration work is an unprojectable rejection.
+This correction does not create a broad laboratory escape hatch. Positional's
+other eleven phases and batched RRNS's other nineteen phases remain runtime
+work, including state/provenance validation, allocation and transfer,
+admission and encoding, both complete recurrences, selective queries, complete
+global scans, scalar reconstruction, divisibility and RRNS fault checks,
+rounding, the batched drain/reuse seam, and cleanup. The runtime and laboratory
+sets are disjoint and their ordered union must reproduce every retained phase
+exactly once. Moving any runtime phase into validation rejects.
 
-For each endpoint and phase, compute the ceiling of its maximum observed wall
-times its exact phase ratio. The larger of the complete-10 and signed-12
-endpoint candidates decides. The phase upper is the ceiling of that candidate
-times `5/4`, plus exactly 1,000,000 ns. An arm's guarded projection is the sum
-of all its ordered phase uppers. Integer and exact-rational arithmetic alone
-may decide. Complete-10-only and signed-12-only totals are reporting-only.
+Second, ADR-0449 named a `.json` result while claiming the path was `-text`.
+The existing local rule covers `artifacts/work_preflight/*.jsonl`, not `.json`.
+Move the prospective result to
+`artifacts/work_preflight/legal_river_quotient_fixed_width_actual45_fit_projection_v1.jsonl`
+before creation. It contains one canonical JSON object followed by one LF byte
+and is opened exclusively. No historical attributes file changes.
 
-The projection is a conservative admission policy, not a theorem that GPU
-runtime scales linearly. A failure forbids a live attempt by this mechanism but
-is not a measured literal-45 latency. A pass only opens a separate live screen;
-it is not literal-45 fit, resolver time, solve time, or action time.
+Third, freeze
+`run_legal_river_quotient_fixed_width_actual45_fit_projection.py` as the exact
+repository-root no-argument launcher. It derives the repository and `src`
+paths from its own sealed location and permits no ambient package-path
+dependency.
 
-ADR-0307's resource semantics are applied without reinterpretation. Every
-controlled action has 15,000,000,000 ns of continuous wall and reserves
-1,000,000,000 ns for emission, leaving at most 14,000,000,000 ns for charged
-work. Equality passes and one nanosecond over rejects. Even an admitted
-component remains only necessary, never sufficient: belief update, legality,
-master work, repeated operator calls, certification, fallback,
-synchronization, and emission are outside this component projection.
-Preparation cannot pause or extend the action wall. A later online ledger may
-omit work only on an exact provenance-bound prepared-artifact hit.
+All other ADR-0449 rules survive byte-for-byte in meaning: both eligible arms,
+both endpoints, six timed observations, phase maxima, maximum-constituent
+ratios, exact ceilings, `5/4`, 1 ms, retained symbolic memory, 14 seconds of
+component work, one-second emission reserve, zero/one/two/tie outcomes, no
+selection, and no literal-45 device or numerical work.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -119,8 +112,9 @@ ADR-0442 consumes its compiler rejection, ADR-0443 and ADR-0444 own the first
 MSVC recovery, ADR-0445 consumes its zero-event terminal, ADR-0446 freezes the
 split-environment successor, ADR-0447 source-seals it without compilation or
 device work, ADR-0448 alone retains its passing first device-preflight
-terminal without selecting a candidate or opening actual-45 numerics, and
-ADR-0449 opens only this artifact projection.
+terminal without selecting a candidate or opening actual-45 numerics,
+ADR-0449 freezes the artifact projection, and ADR-0450 corrects only its
+runtime accounting and prospective artifact path before source.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -154,7 +148,7 @@ ADR-0405 remains an accepted source seal.
 
 ## Active next
 
-Implement and source-seal only ADR-0449's standard-library artifact assessor, exclusive no-argument runner, independent reader, and synthetic controls against config hash `8cfa35eb3188bfeeacd1bae7df39cbae55b98153d13cc24fc8d47a5b6bd92e8e`; keep import and source seal real-artifact, result, process, CuPy, and device free, rederive the exact two-arm/two-endpoint timed phase domain and every literal-45 constituent count and ratio, test the 13,999,999,999/14,000,000,000/14,000,000,001 ns boundaries plus zero/one/two-survivor and tie outcomes, and stop before the first real assessment, live allocation, exponent scan, actual-45 numerical work, candidate selection, resolver, action, quality, truncation, blueprint, or strength result
+Implement and source-seal only the corrected ADR-0449/ADR-0450 standard-library projector, exact root launcher, exclusive runner, independent reader, and controls against parent config hash `8cfa35eb3188bfeeacd1bae7df39cbae55b98153d13cc24fc8d47a5b6bd92e8e` and correction hash `38cb2ba3a0de28698911024ab645a1ba3cd873e58f466fb86b281b3d7d28c24f`; prove the 11/19 runtime phases and one validation phase per arm form a disjoint ordered partition, gate only runtime totals at 14 seconds, report validation separately, verify the existing `*.jsonl -text` rule and no-argument launcher, use synthetic rows without reading the real artifact or creating the result, and stop before the first real assessment, live allocation, exponent scan, actual-45 numerics, selection, resolver, action, quality, truncation, blueprint, or strength result
 
 ## Revoked authorities
 
@@ -162,7 +156,7 @@ Implement and source-seal only ADR-0449's standard-library artifact assessor, ex
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0449](docs/decisions/ADR-0449-preregister-the-two-arm-literal-45-fit-projection.md) — Preregister the two-arm literal-45 fit projection.
+Latest process decision: [ADR-0450](docs/decisions/ADR-0450-correct-the-fit-projection-runtime-accounting-before-source.md) — Correct the fit-projection runtime accounting before source.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -170,7 +164,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0426](docs/decisions/ADR-0426-retain-the-v2-population-sample-plan-rejection.md) | 2026-08-26 | accepted retained sole launcher-safe V2 population-scientific rejection; the root launch tree, fresh bootstrap, compiler container, module load, resource inspection, primitive controls, retained complete-ten differential, and query-weight controls pass, and both population-10 execution families reach final release, but evidence assembly rejects before a population row because the generated runner captured the parent's seven-row sample helper while the frozen evidence authority expected sixteen rows, so V2 is permanently consumed and every population-22 result, replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Retain the V2 population sample-plan rejection |
 | [ADR-0427](docs/decisions/ADR-0427-preregister-the-shared-sample-plan-v3-successor.md) | 2026-08-26 | accepted prospective sample-plan binding successor; one fresh config, immutable population-10/22 source/query/boundary plan, pre-device generated-global and shape checks, additive adapter, root launcher, owner, reader, controls, protocol, campaign, header, and result identities are frozen before source, while V2 remains permanently consumed and every new source, probe, device result, population value, replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the shared sample-plan V3 successor |
 | [ADR-0428](docs/decisions/ADR-0428-source-seal-the-shared-sample-plan-v3-successor.md) | 2026-08-26 | accepted source-only shared-sample-plan seal; one immutable population-keyed plan now supplies the exact source ranks, labeled query records, boundary features, and comparison shapes to both generated execution and evidence, every generated wrapper seam is identity-checked before CuPy, the historical seven-row helper and rank/feature/shape mutations reject, the independent V3 lifecycle reader and exact V3-to-V2 semantic projection pass synthetic controls, and the scrubbed external-working-directory two-launcher probe passes while the real V3 journal, device differential, population values, replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, integer-operator result, truncation choice, blueprint result, and poker-strength claim remain unopened | Source-seal the shared sample-plan V3 successor |
 | [ADR-0429](docs/decisions/ADR-0429-retain-the-passing-shared-sample-plan-v3-validation.md) | 2026-08-26 | accepted retained sole V3 completed-validation pass; the clean launcher-safe owner, exact compiler container, resource gates, primitive controls, retained complete-ten differential, query-weight control, immutable shared sample plans, both complete population-10/22 families, exact work ledgers, numerical gates, release gates, population walls, outer terminal, and independent lifecycle/semantic rebind pass, while V3 is permanently consumed and every replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, exact-integer result, truncation choice, blueprint result, and poker-strength claim remains unopened | Retain the passing shared-sample-plan V3 validation |
@@ -194,18 +187,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0447](docs/decisions/ADR-0447-source-seal-the-split-child-runtime-environment-successor.md) | 2026-08-26 | accepted no-compiler source seal; the fresh v3 root launcher, additive parent/child environment wrapper, exact five-DLL runtime manifest, 63-key child validator, unchanged compiler resolution, zero-event-aware independent reader, measured header-only inherited-reader projection, historical v1/v2 survival controls, and 16 focused tests pass while the v3 result, NVCC compilation, cubin, CuPy scientific import, device query, module load, kernel launch, reduced-population device value, eligible arm, selected candidate, population 25, actual-45 value, resolver result, action-clock result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remain absent | Source-seal the split child-runtime environment successor |
 | [ADR-0448](docs/decisions/ADR-0448-retain-the-passing-split-runtime-fixed-width-device-preflight.md) | 2026-08-26 | accepted retained sole completed device-preflight pass; the clean ADR-0447 identity compiled one 634,144-byte CUDA 13.3 cubin, ran all three arms exactly on complete-10 and signed-12, admitted positional and batched-five-then-four RRNS, rejected resident-nine RRNS only at the symbolic literal-45 memory gate, and retained `candidate_selected = null`, while population 25, actual-45 numerics, resolver integration, action timing, 15-second fit, decision quality, truncation, blueprint, and poker strength remain unopened | Retain the passing split-runtime fixed-width device preflight |
 | [ADR-0449](docs/decisions/ADR-0449-preregister-the-two-arm-literal-45-fit-projection.md) | 2026-08-26 | accepted prospective GPU-free artifact-only literal-45 fit-projection boundary; the exact retained ADR-0448 journal, only its positional and batched-five-then-four RRNS arms, both reduced calibration endpoints, complete phase-local maximum timing, integer-combinatorial target work, maximum-constituent ratios, a 5/4 plus 1 ms per-phase guard, retained symbolic memory, and a 14-second component ceiling under the 15-second action contract are frozen before assessor source or projection, while live allocation, actual input exponent admission, actual-45 numerics, candidate selection, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister the two-arm literal-45 fit projection |
+| [ADR-0450](docs/decisions/ADR-0450-correct-the-fit-projection-runtime-accounting-before-source.md) | 2026-08-26 | accepted prospective pre-source accounting and artifact-identity correction; ADR-0449's independent exact-differential phase is reclassified as mandatory laboratory validation outside the 14-second production-component sum, every runtime certificate and fault phase remains charged, the result moves to a pre-existing `*.jsonl -text` path, and a repository-root no-argument launcher identity is added before assessor source or projection, while every arm, endpoint, timing maximum, work ratio, guard, memory, width, action-clock, outcome, and claims boundary otherwise remains unchanged and every projection, live allocation, actual-45 numeric, selection, action, quality, truncation, blueprint, and strength result remains unopened | Correct the fit-projection runtime accounting before source |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0449](docs/decisions/ADR-0449-preregister-the-two-arm-literal-45-fit-projection.md) — Preregister the two-arm literal-45 fit projection.
+- Latest ADR: [ADR-0450](docs/decisions/ADR-0450-correct-the-fit-projection-runtime-accounting-before-source.md) — Correct the fit-projection runtime accounting before source.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 449.
-- ADR-header SHA-256: `6f8126e0463d1065c9e25efb8f5ba48ea1c2a976efaf4326b2aec6c6c9d80e0d`.
-- Current blockers: no source-sealed literal-45 fit projector or projection result exists; no arm has passed a literal-45 live-allocation or actual-width admission gate; actual source/covector/weight exponent windows and resulting limb/channel bounds remain unbound; resident-nine RRNS remains rejected; no selected fixed-width candidate, population-25 result, actual-45 numerical result, global resolver-certificate integration, full-width actual-context quotient value, complete resolver iteration, or 15-second action result exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, production action width, or poker-strength result exists.
+- Numbered decisions: 450.
+- ADR-header SHA-256: `6d44ad865568dbc0ae03789db803ffe73d2bb1d1233eee1114b54df161da7dad`.
+- Current blockers: no source-sealed corrected projector or projection result exists; no arm has passed actual-width admission or live allocation; actual source/covector/weight exponent windows and resulting limb/channel bounds remain unbound; resident-nine RRNS remains rejected; no selected fixed-width candidate, population-25 result, actual-45 numerical result, global resolver-certificate integration, full-width actual-context quotient value, complete resolver iteration, or 15-second action result exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0449](docs/decisions/ADR-0449-preregister-the-two-arm-literal-45-fit-projection.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0450](docs/decisions/ADR-0450-correct-the-fit-projection-runtime-accounting-before-source.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

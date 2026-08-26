@@ -1,0 +1,134 @@
+{
+  "schema_version": "legal-river-quotient-fixed-width-actual45-fit-projection-accounting-correction-v2",
+  "evidence_stage": "prospective_correction_after_adr0449_before_assessor_source_or_projection",
+  "decision": "separate_runtime_component_work_from_laboratory_differential_and_bind_a_minus_text_result_path",
+  "parent_config": {
+    "relative_path": "experiments/configs/legal-river-quotient-fixed-width-actual45-fit-projection-v1.json",
+    "canonical_lf_sha256": "8cfa35eb3188bfeeacd1bae7df39cbae55b98153d13cc24fc8d47a5b6bd92e8e",
+    "all_unmentioned_parent_fields_remain_binding": true
+  },
+  "diagnosed_before_source": {
+    "runtime_scope_defect": "verification_output_transfer_and_exact_differential_was_included_in_the_14_second_runtime_component_sum_even_though_it_is_an_independent_laboratory_authority_not_production_work",
+    "artifact_path_defect": "the_prospective_dot_json_result_was_not_covered_by_artifacts_work_preflight_dot_gitattributes_star_dot_jsonl_minus_text",
+    "launcher_identity_omission": "the_no_argument_runner_had_no_frozen_repository_root_launcher_path",
+    "assessor_source_exists": false,
+    "projection_opened": false,
+    "retained_parent_artifact_read_for_projection": false,
+    "CuPy_or_device_contact": false
+  },
+  "phase_classification": {
+    "runtime_component_phases": {
+      "positional": [
+        "candidate_state_validation_and_input_digest",
+        "device_allocation_and_input_transfer",
+        "family_admission_pair_encoding_and_label_aggregation",
+        "forward_recurrence",
+        "forward_selective_queries",
+        "forward_streamed_global_scan_and_scalar_contract",
+        "adjoint_recurrence",
+        "adjoint_selective_queries",
+        "adjoint_streamed_global_scan_and_scalar_contract",
+        "scalar_output_transfer_reconstruction_divisibility_fault_check_and_rounding",
+        "candidate_cleanup"
+      ],
+      "batched_five_then_four_RRNS": [
+        "candidate_state_validation_and_input_digest",
+        "device_allocation_and_input_transfer",
+        "first_batch_family_admission_pair_encoding_and_label_aggregation",
+        "first_batch_forward_recurrence",
+        "first_batch_forward_selective_queries",
+        "first_batch_forward_streamed_global_scan_and_scalar_contract",
+        "first_batch_adjoint_recurrence",
+        "first_batch_adjoint_selective_queries",
+        "first_batch_adjoint_streamed_global_scan_and_scalar_contract",
+        "first_batch_output_drain_and_workspace_reuse_boundary",
+        "second_batch_family_admission_pair_encoding_and_label_aggregation",
+        "second_batch_forward_recurrence",
+        "second_batch_forward_selective_queries",
+        "second_batch_forward_streamed_global_scan_and_scalar_contract",
+        "second_batch_adjoint_recurrence",
+        "second_batch_adjoint_selective_queries",
+        "second_batch_adjoint_streamed_global_scan_and_scalar_contract",
+        "scalar_output_transfer_reconstruction_divisibility_fault_check_and_rounding",
+        "candidate_cleanup"
+      ]
+    },
+    "laboratory_validation_phases": {
+      "positional": [
+        "verification_output_transfer_and_exact_differential"
+      ],
+      "batched_five_then_four_RRNS": [
+        "verification_output_transfer_and_exact_differential"
+      ]
+    },
+    "runtime_and_laboratory_phase_sets_are_disjoint": true,
+    "their_ordered_union_must_equal_every_retained_candidate_phase_exactly_once": true,
+    "laboratory_validation_elapsed_and_projected_upper_are_reported_but_never_enter_the_14_second_conjunct": true,
+    "the_validation_phase_remains_mandatory_in_the_parent_rebind_and_cannot_disappear": true,
+    "compile_resource_warmup_and_independent_differential_work_are_not_production_action_work": true,
+    "runtime_fault_checks_divisibility_reconstruction_rounding_global_closure_and_cleanup_remain_charged": true
+  },
+  "corrected_projection_contract": {
+    "runtime_component_projection_rule": "sum_only_the_frozen_runtime_component_phase_uppers",
+    "laboratory_validation_projection_rule": "sum_only_the_frozen_laboratory_validation_phase_uppers",
+    "complete_laboratory_projection_rule": "runtime_component_projection_plus_laboratory_validation_projection",
+    "maximum_charged_runtime_component_ns": 14000000000,
+    "runtime_component_passes_if_and_only_if_at_or_below_14000000000ns": true,
+    "laboratory_validation_has_no_action_clock_gate": true,
+    "all_parent_phase_ratio_endpoint_ceiling_5_over_4_and_1ms_rules_remain_binding": true,
+    "a_validation_only_phase_cannot_be_reclassified_after_projection": true,
+    "a_runtime_phase_cannot_be_moved_to_laboratory_validation": true,
+    "passing_runtime_projection_is_still_only_live_screen_admission": true
+  },
+  "corrected_prospective_identity": {
+    "launcher_relative_path": "run_legal_river_quotient_fixed_width_actual45_fit_projection.py",
+    "assessor_relative_path": "src/pontius/legal_river_quotient_fixed_width_actual45_fit_projection.py",
+    "runner_relative_path": "src/pontius/legal_river_quotient_fixed_width_actual45_fit_projection_runner.py",
+    "reader_relative_path": "src/pontius/legal_river_quotient_fixed_width_actual45_fit_projection_result.py",
+    "controls_relative_path": "tests/test_legal_river_quotient_fixed_width_actual45_fit_projection.py",
+    "result_relative_path": "artifacts/work_preflight/legal_river_quotient_fixed_width_actual45_fit_projection_v1.jsonl",
+    "result_format": "one_canonical_JSON_object_plus_one_LF_byte",
+    "result_open_mode": "exclusive_xb",
+    "result_path_matches_artifacts_work_preflight_star_dot_jsonl_minus_text": true,
+    "root_launcher_derives_repository_and_src_from_its_own_path_and_accepts_no_arguments": true,
+    "all_corrected_source_control_launcher_and_result_paths_are_absent_before_source": true
+  },
+  "required_correction_controls": {
+    "exact_runtime_phase_lists_and_counts_11_and_19": true,
+    "one_validation_phase_per_arm": true,
+    "disjoint_ordered_union_reproduces_parent_phase_orders": true,
+    "moving_validation_into_runtime_changes_only_the_runtime_total_and_rejects_the_contract": true,
+    "moving_any_runtime_phase_into_validation_rejects": true,
+    "omitting_or_duplicating_the_validation_phase_rejects": true,
+    "13999999999_14000000000_and_14000000001ns_boundaries_are_exercised_on_runtime_total_only": true,
+    "arbitrarily_large_validation_wall_cannot_change_a_passing_runtime_conjunct": true,
+    "dot_json_result_path_and_any_text_convertible_result_path_reject": true,
+    "Git_check_attr_or_an_independent_pattern_parser_proves_minus_text_before_source_seal": true,
+    "root_launcher_argument_and_path_mutations_reject": true
+  },
+  "kill_criteria": {
+    "independent_exact_differential_is_charged_to_the_action_clock": true,
+    "a_certificate_fault_or_runtime_check_is_relabelled_as_laboratory_only": true,
+    "laboratory_validation_is_omitted_from_evidence_or_used_to_select_an_arm": true,
+    "the_result_path_is_text_convertible_or_the_minus_text_rule_is_added_after_result_creation": true,
+    "a_runner_without_the_frozen_root_launcher_is_invoked": true,
+    "any_other_adr0449_science_threshold_arm_endpoint_ratio_memory_width_or_claim_rule_changes": true
+  },
+  "claims": {
+    "correction_frozen": true,
+    "assessor_source_exists": false,
+    "source_seal": null,
+    "projection_result": null,
+    "runtime_component_projection": null,
+    "laboratory_validation_projection": null,
+    "projection_eligible_arms": null,
+    "candidate_selected": null,
+    "literal_45_live_allocation": null,
+    "literal_45_numeric_value": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

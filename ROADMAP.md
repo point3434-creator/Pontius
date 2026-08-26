@@ -1740,6 +1740,12 @@ queue:
   projection label or live target work exists yet. A passing projection would
   still require prospectively frozen actual input exponent windows and a
   separate live-memory screen before any literal-45 arithmetic.
+  ADR-0450 corrects two pre-source defects: the independent exact differential
+  is mandatory laboratory validation rather than action work, so only the
+  exact eleven positional or nineteen batched runtime phases enter the
+  14-second conjunct; and the fresh result now uses the already-frozen
+  `*.jsonl -text` artifact domain through a sealed no-argument root launcher.
+  No projection was opened. Implement the corrected projector next.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

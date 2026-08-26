@@ -1871,6 +1871,17 @@ drains and the wall live through silence and EOF, rejects post-terminal data,
 and prospectively prices the exact next journal envelope plus worst-case
 terminal before append. Mapping key order is explicitly non-semantic.
 
+ADR-0406 retains the resulting offline-inspection corpus. The CUDA driver
+loads the exact 514,039-byte ELF-magic payload and exposes all named kernels,
+but CUDA 13.3 `cuobjdump` reports no device code and `nvdisasm` reports invalid
+ELF for those same retained bytes. This is an unresolved representation/tool
+seam, not a kernel or capacity verdict. External-tool inspectability is now a
+separate property from ELF magic and driver loadability. A later semantic
+selector must be GPU-free, read only the immutable corpus, demand exact rows
+for all three direct kernels, and permit an empty result; driver attributes
+remain independent evidence and cannot silently satisfy the dual-instrument
+contract.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

@@ -827,7 +827,12 @@ ADR-0405 source-seals the implementation after 15 corrected controls: the
 ACK protocol makes fsync a prerequisite for child progress, exact prospective
 envelopes reserve a bindable terminal inside the 48 MiB cap, and literal
 device-free children prove full flow, silent-wall enforcement, and
-post-terminal rejection. The real diagnostic result remains absent.
+post-terminal rejection. ADR-0406 retains the sole real diagnostic as a
+complete raw corpus. The driver accepts the exact ELF-magic payload, while
+CUDA 13.3 `cuobjdump` and `nvdisasm` reject that same file through their payload
+operations. No inspector or resource gate follows from the capture pass. The
+next boundary is a preregistered GPU-free selector over only the immutable
+artifact, with an honest empty-selection terminal.
 
 ## Current checkpoint
 

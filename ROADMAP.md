@@ -1426,9 +1426,13 @@ queue:
   before any phase or projection. V3 is closed. The immediate checkpoint is a
   new-identity, diagnostic-only exact-cubin inspector qualification. ADR-0404
   freezes its cubin-first binary capture before source, and ADR-0405 source-
-  seals it after 15 corrected controls. The next checkpoint is its sole clean
-  no-argument diagnostic invocation and exact rebinding; do not select an
-  inspector, open calibration, or construct a 25-card fixture there.
+  seals it after 15 corrected controls. ADR-0406 retains its sole clean call:
+  the driver loads the exact ELF-magic payload and returns three direct rows,
+  while both CUDA 13.3 offline payload operations reject it. The immediate
+  checkpoint is a prospectively frozen GPU-free semantic selector over only
+  that immutable corpus. It must permit `no_qualified_inspector` and may not
+  select from version success, use driver-only evidence, open calibration, or
+  construct a 25-card fixture.
 - **Capacity preflight:** in parallel with response semantics, price one
   label-free full-width river contraction and warm step on the exact
   1,225/1,081/1,035/990 belief axes. This is a representation, wall-time, and
@@ -1491,11 +1495,12 @@ queue:
   real no-CUDA child handshake. ADR-0400 retains its sole call as an evidence-
   serializer infrastructure failure with no phase or projection. The immediate
   v3 contract is frozen by ADR-0401, source-sealed by ADR-0402, and permanently
-  consumed by ADR-0403's resource-inspector rejection. The immediate checkpoint
-  is ADR-0405's one authorized exact-cubin diagnostic invocation with raw
-  binary streams and no tool selection. Every actual 45-card value, owner,
-  automatic truncation, resolver iteration, action timing, and quality
-  inference remains closed.
+  consumed by ADR-0403's resource-inspector rejection. ADR-0406 now retains
+  ADR-0405's sole exact-cubin diagnostic invocation with all raw binary streams
+  and no tool selection. A GPU-free artifact-only selector must be
+  preregistered next and fail closed if no exact three-kernel resource rows can
+  be qualified. Every actual 45-card value, owner, automatic truncation,
+  resolver iteration, action timing, and quality inference remains closed.
 - **Blueprint and integration:** value-free blueprint kernel, abstraction,
   and isomorphism engineering may proceed independently now; training starts
   only after untouched transfer confirms the frozen width. Assemble **v0a**

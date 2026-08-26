@@ -2290,7 +2290,15 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "controls_relative_path",
         ):
             self.assertTrue((_ROOT / diagnostic_scope[field]).is_file(), field)
-        self.assertFalse((_ROOT / diagnostic_scope["result_relative_path"]).exists())
+        diagnostic_result = _ROOT / diagnostic_scope["result_relative_path"]
+        self.assertTrue(diagnostic_result.is_file())
+        diagnostic_result_raw = diagnostic_result.read_bytes()
+        self.assertEqual(len(diagnostic_result_raw), 705101)
+        self.assertEqual(len(diagnostic_result_raw.splitlines()), 12)
+        self.assertEqual(
+            hashlib.sha256(diagnostic_result_raw).hexdigest(),
+            "9e0d160dd36884adb85914f819e11882d5becc42071f7847c1503a42c1d83aed",
+        )
         self.assertFalse(
             (_ROOT / diagnostic_scope["reserved_actual_result_relative_path"]).exists()
         )
@@ -2331,6 +2339,20 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "invoke exactly once",
         ):
             self.assertIn(phrase, diagnostic_seal)
+
+        diagnostic_outcome = _contract_text(
+            "docs/decisions/ADR-0406-retain-the-exact-cubin-inspector-diagnostic.md"
+        )
+        for phrase in (
+            "terminal=capture_complete",
+            "journal_byte_count=705101",
+            "5dc4973302061b29dccd955ff7ee4dff3d61216316fb5d2fa71e9df22f42cd97",
+            "does not contain device code",
+            "invalid ELF file",
+            "`no_qualified_inspector`",
+            "no selected or qualified inspector",
+        ):
+            self.assertIn(phrase, diagnostic_outcome)
 
     def test_work_preflight_v3_serializer_recovery_is_preregistered(self) -> None:
         relative = (

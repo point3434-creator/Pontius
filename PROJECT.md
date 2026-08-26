@@ -927,6 +927,15 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   laboratory wall includes compilation, and exact prospective journal
   envelopes reserve the outer terminal. Real CUDA diagnostic calls remain
   zero and both result paths remain absent at the seal.
+- ADR-0406 retains the sole diagnostic call as a complete 705,101-byte
+  capture. The driver loads the 514,039-byte ELF-magic payload and reports all
+  three direct-kernel attribute rows, but CUDA 13.3 `cuobjdump` says the file
+  contains no device code and `nvdisasm` calls it invalid ELF. Those raw
+  outcomes are not interpreted at this boundary: no inspector is selected and
+  no resource gate, calibration, population, phase, or projection is open.
+  The next step is a prospectively frozen GPU-free selector over only the
+  immutable artifact; it must type an empty selection honestly and may not
+  substitute driver-only evidence.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

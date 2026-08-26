@@ -1668,6 +1668,15 @@ queue:
   No retry, candidate selection, population 25, actual-45 numerical work,
   resolver integration, 15-second fit, action, quality, truncation, blueprint,
   or strength claim is authorized by the source seal.
+  ADR-0442 retains the sole ADR-0441 invocation as a typed compiler rejection.
+  CUDA 13.3 tool identity passed, but NVCC returned `1` because `cl.exe` was not
+  available in `PATH`; no cubin or device operation exists. The seven-record,
+  13,735-byte journal independently rebinds to the clean source commit, so the
+  consumed invocation is infrastructure evidence only. The next compiled
+  successor requires explicit authorization to provision a supported MSVC x64
+  host toolchain, then a fresh preregistration that binds its exact path,
+  version, activation environment, and new result identity. Ambient developer-
+  shell state and a retry of ADR-0441 are forbidden.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

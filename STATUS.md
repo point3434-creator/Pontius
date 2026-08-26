@@ -15,11 +15,19 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes, at no-CUDA source scope only. Source-seal the launcher, scientific module,
-exclusive durable owner, independent reader, and controls. The next checkpoint
-is exactly one invocation from this clean committed identity. This ADR contains
-no compiler, resource, device, numerical-candidate, or timing result and does
-not select a representation.
+Retain the first terminal as a compiler-container rejection and permanently
+consume ADR-0441's command and result identity. Do not install a compiler and
+rerun the same owner, edit the journal, reinterpret the absence of a cubin, or
+promote the result into resource, device, arithmetic, capacity, or quality
+evidence.
+
+The independent reader verifies the complete durable chain, exact source
+commit and dependency hashes, five ordered scientific events, duplicated
+terminal evidence, frozen claims, and outer terminal. It returns
+`compiler_rejection`, no eligible arms, no selected candidate, a null
+laboratory wall, and `820,045,300 ns` of public elapsed time. The exact
+13,735-byte result has raw SHA-256
+`9b1ff216879c5e67090d8794242da74ba8bd52aac6753865c3bc822483550c69`.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -75,7 +83,8 @@ ADR-0433 through ADR-0435 own the captured-pair exact-integer keystone.
 ADR-0436 freezes the fixed-width comparison, ADR-0437 corrects its provenance
 control before source, ADR-0438 source-seals both CPU candidates, ADR-0439
 opens only the separate compiled-device preflight, ADR-0440 corrects its phase
-topology before source seal, and ADR-0441 source-seals that corrected owner.
+topology before source seal, ADR-0441 source-seals that corrected owner, and
+ADR-0442 consumes its sole invocation as a compiler rejection.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -109,7 +118,7 @@ ADR-0405 remains an accepted source seal.
 
 ## Active next
 
-From the clean committed ADR-0441 source identity, invoke exactly once the no-argument repository-root owner frozen by ADR-0439/0440; retain and independently assess its first terminal without retry, repair, skip, alternative parser, or threshold change; keep population 25, actual-45 numerics, candidate selection, resolver integration, action, 15-second fit, decision quality, truncation, blueprint, and strength closed regardless of the reduced-device outcome
+Preserve ADR-0441's consumed command and retained result exactly; obtain explicit authorization before installing a supported Windows x64 MSVC host toolchain; only after that prerequisite exists, preregister an additive compiler-environment successor with new protocol, campaign, header, launcher, runner, reader, and result identities that binds the exact host compiler and activated environment before source seal, reuses the frozen CUDA science without relaxation, and keeps population 25, actual-45 numerics, candidate selection, resolver integration, action, 15-second fit, quality, truncation, blueprint, and strength closed
 
 ## Revoked authorities
 
@@ -117,7 +126,7 @@ From the clean committed ADR-0441 source identity, invoke exactly once the no-ar
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0441](docs/decisions/ADR-0441-source-seal-the-corrected-fixed-width-compiled-device-preflight.md) — Source-seal the corrected fixed-width compiled-device preflight.
+Latest process decision: [ADR-0442](docs/decisions/ADR-0442-retain-the-fixed-width-device-compiler-rejection.md) — Retain the fixed-width device compiler rejection.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -125,7 +134,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0418](docs/decisions/ADR-0418-source-seal-the-shared-selected-direct-oracle.md) | 2026-08-26 | accepted source-only exact-work seal; one additive CUDA-source builder replaces exactly the selected direct-fold kernel, preserves the reference direct-query kernel byte for byte, copies eight selected boundary pairs only after the unchanged source-rank accumulation, and passes nine focused source, sequence, mutation, provenance, and side-effect controls while every device differential, complete 10/22 successor value, capacity projection, complete 25-card numerical value, actual 45-card value, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Source-seal the shared selected direct oracle |
 | [ADR-0419](docs/decisions/ADR-0419-preregister-the-shared-direct-device-differential.md) | 2026-08-26 | accepted prospective bounded-device validation boundary; a fresh exclusive owner must durably retain the exact shared-source compiler payload before admitting either an unchanged complete ELF or one structurally bounded final-alignment zero completion, compare the retained V4 query and fold kernels byte-for-byte with the shared fold on complete 10, execute only the shared fold in two complete 10/22 population families under a contiguous 15-phase work ledger, and preserve all numerical and resource gates while every successor source, owner, reader, control, device result, capacity projection, complete 25-card numerical value, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Preregister the shared-direct device differential |
 | [ADR-0420](docs/decisions/ADR-0420-source-seal-the-shared-direct-device-differential.md) | 2026-08-26 | accepted source-only bounded-device seal; the additive adapter, no-argument exclusive owner, independent standard-library reader, fake compiler/module control, complete synthetic journal, exact complete/one-zero ELF classifiers, complete-10 retained-cubin differential path, and complete-10/22 shared population path pass 18 focused controls while the real device result, replacement capacity projection, population-25 fixture or value, actual 45-card consumer, resolver iteration, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remain unopened | Source-seal the shared-direct device differential |
 | [ADR-0421](docs/decisions/ADR-0421-retain-the-shared-direct-public-launch-failure.md) | 2026-08-26 | accepted retained first-invocation launcher-resolution failure; ADR-0420's clean source-seal commit and public owner identity are permanently consumed after repository Python could not resolve the `pontius` package before importing the owner, with no journal, handshake, CuPy import, compiler observation, module load, kernel launch, complete 10/22 value, capacity projection, population-25 fixture or value, actual 45-card consumer, solve, action, 15-second result, decision-quality result, truncation choice, blueprint result, or poker-strength claim | Retain the shared-direct public-launch failure |
@@ -149,18 +157,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0439](docs/decisions/ADR-0439-preregister-the-fixed-width-compiled-device-preflight.md) | 2026-08-26 | accepted prospective compiled-device preregistration; one direct CUDA 13.3 cubin, three schedule arms, raw ptxas/cubin/SASS/driver evidence, exact symbolic literal-45 memory liveness, complete-10 and signed-12 differentials, and gap-free host-wall partitions are frozen before successor source, compiler execution, CuPy import, device query, module load, kernel launch, or result, while candidate selection, population 25, every actual 45-card numerical value, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister the fixed-width compiled-device preflight |
 | [ADR-0440](docs/decisions/ADR-0440-correct-the-batched-device-preflight-phase-topology-before-source-seal.md) | 2026-08-26 | accepted prospective pre-source correction; ADR-0439's impossible one-pass twelve-phase ledger is retained for positional and resident-nine RRNS but superseded for batched-five-then-four RRNS by two consecutive fully charged pass ledgers and an explicit drain/reuse boundary, scalar and verification transfers now precede their host consumers by name and order, the captured-pair level-six/fixed-width-levels-zero-through-five hybrid is explicit, and no source seal, compiler execution, CuPy import, device query, module load, kernel launch, result, population-25 value, or actual-45 numerical value exists | Correct the batched device-preflight phase topology before source seal |
 | [ADR-0441](docs/decisions/ADR-0441-source-seal-the-corrected-fixed-width-compiled-device-preflight.md) | 2026-08-26 | accepted no-CUDA source seal; the ADR-0439 preflight under ADR-0440's corrected arm-specific phase topology now has one repository-root launcher, one standard-library-safe scientific source, one exclusive durable owner, one independent standard-library reader, one literal CUDA translation unit with sixteen entry kernels, pre-candidate reduced-authority manifests, independently replayable RRNS fault codewords, exact symbolic literal-45 memory liveness, and 17 passing adversarial controls, while compilation, CuPy import in the scientific path, device query, cubin, module load, kernel launch, result, population 25, every actual-45 numerical value, candidate selection, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Source-seal the corrected fixed-width compiled-device preflight |
+| [ADR-0442](docs/decisions/ADR-0442-retain-the-fixed-width-device-compiler-rejection.md) | 2026-08-26 | accepted retained sole compiled-device preflight rejection; ADR-0441's exact clean source identity was invoked once, CUDA 13.3 tools resolved and were recorded, NVCC returned `1` because it could not find `cl.exe` in `PATH`, no cubin was produced, the independent standard-library reader accepts the seven-record journal and returns `compiler_rejection`, and the consumed identity supplies no resource, device, numerical, eligibility, selection, actual-45, resolver, action-clock, quality, truncation, blueprint, or poker-strength result | Retain the fixed-width device compiler rejection |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0441](docs/decisions/ADR-0441-source-seal-the-corrected-fixed-width-compiled-device-preflight.md) — Source-seal the corrected fixed-width compiled-device preflight.
+- Latest ADR: [ADR-0442](docs/decisions/ADR-0442-retain-the-fixed-width-device-compiler-rejection.md) — Retain the fixed-width device compiler rejection.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 441.
-- ADR-header SHA-256: `3f5e24e39bdfce3b4d82f90c888b2ee0fdbf664bdfa048f3e95c89e728980e95`.
-- Current blockers: no compiled cubin, resource result, reduced-population device result, eligible or selected candidate, population-25 result, actual-45 fit owner, 15-second fit result, global resolver-certificate integration, or full-width actual-context quotient value exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
+- Numbered decisions: 442.
+- ADR-header SHA-256: `dc9507b3a22515a1e0099ed3dcaccab5353f0b74cd12dd868affc31437299b3e`.
+- Current blockers: the workstation lacks the supported host C++ compiler required by NVCC and installing one is an external machine mutation requiring user authorization; ADR-0441's owner and result identity are permanently consumed; no compiled cubin, resource result, reduced-population device result, eligible or selected candidate, population-25 result, actual-45 fit owner, 15-second fit result, global resolver-certificate integration, or full-width actual-context quotient value exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, complete 15-second decision, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0441](docs/decisions/ADR-0441-source-seal-the-corrected-fixed-width-compiled-device-preflight.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0442](docs/decisions/ADR-0442-retain-the-fixed-width-device-compiler-rejection.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

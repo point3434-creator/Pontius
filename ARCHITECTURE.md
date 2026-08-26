@@ -2232,6 +2232,16 @@ accepting stored verification booleans. The seal authorizes one reduced-device
 preflight invocation only; it establishes no candidate winner, actual-45 fit,
 15-second action latency, or decision quality.
 
+ADR-0442 consumes that invocation at the host-compiler boundary. The root
+launcher and durable owner reached the bound CUDA 13.3 tools, but NVCC could
+not find `cl.exe`; no cubin, resource inspection, device query, module, or
+kernel exists. This exposes the host compiler and activated INCLUDE/LIB/PATH
+environment as part of compiled-tool identity, not ambient workstation setup.
+Any successor therefore needs a fresh owner/result identity and a no-compile
+source-seal handshake that resolves one explicitly bound supported x64 MSVC
+toolchain from a scrubbed environment. Installing that external toolchain is
+not a repository mutation and requires explicit user authorization.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

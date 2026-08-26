@@ -2263,6 +2263,18 @@ controls prove the scientific observations and terminals are preserved and the
 retained v1 result remains independently readable. This opens one v2 invocation
 only, not a candidate or production consumer.
 
+ADR-0445 consumes that invocation at a distinct environment seam. The scrubbed
+`vcvars64` mapping is the parent compiler environment, while package
+initialization deterministically prepends the repository CUDA-wheel DLL
+directory to the campaign child's `PATH`; those mappings are no longer one
+identity by numerical coincidence. The retained two-record journal terminates
+before bootstrap with zero events. Because the source-sealed v2 reader wrongly
+required an observation, a separate artifact-bound assessor validates the
+exact raw result, durable chain, historical Git-blob dependencies, header, and
+zero-event terminal without editing either consumed v2 module. A successor
+must bind parent and child environments separately and make zero-event terminal
+handling part of the reader contract.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

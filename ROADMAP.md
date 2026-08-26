@@ -1692,6 +1692,17 @@ queue:
   The next checkpoint is one invocation of the clean committed v2 root owner;
   its first public or journal terminal is permanent. No compile or device
   result exists at this source-seal checkpoint.
+  ADR-0445 consumes that sole v2 invocation as a complete two-record,
+  zero-event `infrastructure_failure`. Package initialization prepended the
+  repository CUDA-wheel DLL directory to the child `PATH`, exposing that the
+  parent compiler environment and post-import child runtime environment were
+  incorrectly represented by one digest. The source-sealed v2 reader also
+  assumed a bootstrap observation existed on every complete lifecycle; an
+  additive artifact-bound assessor now reads the exact retained terminal
+  without editing the consumed source. The next eligible step is a fresh
+  preregistration binding separate parent/child environment identities, the
+  exact runtime directory/files, unchanged compiler resolution, and complete
+  zero-event reader semantics. No retry or device result exists.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

@@ -1864,6 +1864,13 @@ of the exact ELF plus driver rows, then records five ordered `cuobjdump` and
 reader rehashes every blob. The output is an offline qualification corpus;
 `selected_inspector` and every calibration/resource verdict remain null.
 
+ADR-0405 seals the process boundary. Child progress is ACK-gated by the
+parent's post-fsync receipt, so cubin durability and command ordering are
+causal rather than inferred from timestamps. The parent keeps stdout/stderr
+drains and the wall live through silence and EOF, rejects post-terminal data,
+and prospectively prices the exact next journal envelope plus worst-case
+terminal before append. Mapping key order is explicitly non-semantic.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

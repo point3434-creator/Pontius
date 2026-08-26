@@ -922,6 +922,11 @@ acts on a Ryzen 9 9900X, 64 GB host-memory, RTX 5080 workstation.
   captures five ordered CUDA 13.3 operations with `check=False`, and keeps
   `selected_inspector=null`. No calibration, population fixture, resource gate,
   projection, latency, action, or quality result exists.
+- ADR-0405 source-seals that diagnostic after 15 corrected controls. Parent
+  ACK follows durable fsync, the exact cubin precedes every tool operation, the
+  laboratory wall includes compilation, and exact prospective journal
+  envelopes reserve the outer terminal. Real CUDA diagnostic calls remain
+  zero and both result paths remain absent at the seal.
 - ADR-0307 supersedes ADR-0282's cumulative-street allowance. The authoritative
   hard boundary is 15,000 ms of continuous wall-clock time per controlled
   action, including a fixed 1,000 ms reserve. Older 5-250 ms targets remain

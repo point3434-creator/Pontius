@@ -1817,19 +1817,19 @@ class DocumentationIntegrityTests(unittest.TestCase):
 
     def test_work_decomposed_paired_capacity_preflight_is_preregistered(self) -> None:
         expected = {
-            "README.md": ("ADR-0404", "five ordered CUDA 13.3"),
-            "PROJECT.md": ("ADR-0404", "`selected_inspector=null`"),
+            "README.md": ("ADR-0405", "15 corrected controls"),
+            "PROJECT.md": ("ADR-0405", "Real CUDA diagnostic calls remain"),
             "STATUS.md": (
-                "ADR-0404",
-                "accepted prospective diagnostic-only",
+                "ADR-0405",
+                "accepted source seal",
             ),
-            "ROADMAP.md": ("ADR-0404", "device-free implementation"),
+            "ROADMAP.md": ("ADR-0405", "sole clean"),
             "RUNBOOK.md": (
-                "ADR-0404",
-                "d52ac02e83f71cb50b6a61e8a9dd18403171e4ddd25227b2036bb61c2085fe8a",
+                "ADR-0405",
+                "3e8067a445952e20a3258ffae9c08c6fa228f971be5b28b462de08fa52862a1c",
             ),
-            "ARCHITECTURE.md": ("ADR-0404", "binary mode"),
-            "RISK_REGISTER.md": ("R166", "lossless diagnostic corpus"),
+            "ARCHITECTURE.md": ("ADR-0405", "ACK-gated"),
+            "RISK_REGISTER.md": ("R167", "nominal cubin-first"),
             "artifacts/work_preflight/README.md": (
                 "ADR-0394",
                 "legal_river_quotient_cuda_compensated_work_preflight_v1.jsonl",
@@ -2288,9 +2288,9 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "owner_relative_path",
             "reader_relative_path",
             "controls_relative_path",
-            "result_relative_path",
         ):
-            self.assertFalse((_ROOT / diagnostic_scope[field]).exists(), field)
+            self.assertTrue((_ROOT / diagnostic_scope[field]).is_file(), field)
+        self.assertFalse((_ROOT / diagnostic_scope["result_relative_path"]).exists())
         self.assertFalse(
             (_ROOT / diagnostic_scope["reserved_actual_result_relative_path"]).exists()
         )
@@ -2306,6 +2306,31 @@ class DocumentationIntegrityTests(unittest.TestCase):
             "Real compilation and external candidates remain forbidden",
         ):
             self.assertIn(phrase, diagnostic_adr)
+
+        diagnostic_seal = _contract_text(
+            "docs/decisions/ADR-0405-source-seal-the-exact-cubin-inspector-diagnostic.md"
+        )
+        for relative in (
+            "experiments/configs/legal-river-exact-cubin-inspector-diagnostic-v1.json",
+            "src/pontius/legal_river_exact_cubin_inspector_diagnostic.py",
+            "src/pontius/legal_river_exact_cubin_inspector_diagnostic_runner.py",
+            "src/pontius/legal_river_exact_cubin_inspector_diagnostic_result.py",
+            "tests/test_legal_river_exact_cubin_inspector_diagnostic.py",
+            "src/pontius/legal_river_quotient_cuda_compensated_work_preflight.py",
+        ):
+            current = (_ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+            self.assertIn(hashlib.sha256(current).hexdigest(), diagnostic_seal)
+        for phrase in (
+            "15 passed",
+            "8 passed",
+            "Real CUDA diagnostic-child calls: `0`",
+            "Prospective diagnostic result: absent",
+            "mapping iteration order",
+            "one-second wall",
+            "exact prospective-envelope accounting",
+            "invoke exactly once",
+        ):
+            self.assertIn(phrase, diagnostic_seal)
 
     def test_work_preflight_v3_serializer_recovery_is_preregistered(self) -> None:
         relative = (

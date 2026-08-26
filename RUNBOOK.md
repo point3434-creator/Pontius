@@ -2480,3 +2480,14 @@ reserved context from this branch. ADR-0044 is the durable rejection.
     own seal. The later diagnostic may compile only the unchanged `_kernels`
     path, must fsync the exact ELF before five `check=False` tool captures, and
     may not select an inspector or call calibration.
+120. ADR-0405 source-seals the diagnostic. Preserve canonical-LF hashes
+    `3e8067a445952e20a3258ffae9c08c6fa228f971be5b28b462de08fa52862a1c`
+    (diagnostic),
+    `6afdc6fbcda751ba0d0b6bd4aa7d7f89449dd9e84cf62e1cd634d3291db5ee7b`
+    (owner),
+    `ec7308b8adb8bd398844b60a2a149198262e53cfe9bd8256ba424e47bf87093b`
+    (reader), and
+    `cd53c2b73ae4097b8efe82baa981ab9828f1b02e1ebb253b60e35ce6a6d16c6d`
+    (controls). From the clean seal commit only, invoke the no-argument owner
+    once. Retain its first terminal and every raw blob; never select a tool or
+    open calibration from this capture boundary.

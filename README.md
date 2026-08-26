@@ -823,6 +823,11 @@ ADR-0404 now preregisters that diagnostic corpus before source: one unchanged
 compile, exact cubin-first durability, driver rows, and five ordered CUDA 13.3
 binary command captures. The diagnostic cannot select an inspector or open
 calibration; every successor source and result path remains absent.
+ADR-0405 source-seals the implementation after 15 corrected controls: the
+ACK protocol makes fsync a prerequisite for child progress, exact prospective
+envelopes reserve a bindable terminal inside the 48 MiB cap, and literal
+device-free children prove full flow, silent-wall enforcement, and
+post-terminal rejection. The real diagnostic result remains absent.
 
 ## Current checkpoint
 

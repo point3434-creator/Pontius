@@ -2242,6 +2242,17 @@ source-seal handshake that resolves one explicitly bound supported x64 MSVC
 toolchain from a scrubbed environment. Installing that external toolchain is
 not a repository mutation and requires explicit user authorization.
 
+ADR-0443 freezes the authorized prerequisite and the additive recovery shape.
+The successor reconstructs `vcvars64` from a small scrubbed baseline and
+requires exact full and selected environment digests, x64 host/target, MSVC
+14.44, Windows SDK 10.0.26100.0, and hash-bound compiler/linker/resource tools.
+The activated environment replaces ambient process state; an absolute bound
+Git executable preserves clean-source checks. Activation starts inside the
+public clock but outside the unchanged scientific laboratory. A fresh wrapper
+may parameterize only owner identity/lifecycle fields around the byte-identical
+ADR-0441 scientific module; its standard-library reader independently validates
+that allowlist and may not project scientific observations or terminals.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

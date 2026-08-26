@@ -1,0 +1,207 @@
+{
+  "schema_version": "legal-river-quotient-fixed-width-device-preflight-msvc-successor-v3",
+  "evidence_stage": "prospective_after_adr0442_retained_compiler_rejection_and_authorized_toolchain_install_before_successor_source_seal_compile_device_query_or_result",
+  "decision": "create_one_fresh_msvc_environment_bound_successor_that_reuses_the_adr0441_scientific_translation_unit_and_every_scientific_gate_without_retrying_the_consumed_owner",
+  "parent_commit": "bf90ce5b7f6bded402b96f411ff44757aaa5dd56",
+  "parent_chain": {
+    "adr0441": {
+      "relative_path": "docs/decisions/ADR-0441-source-seal-the-corrected-fixed-width-compiled-device-preflight.md",
+      "canonical_lf_sha256": "77825785f78d522214425a2388e19f0494811322db79e57f274ac483ae5548c6"
+    },
+    "adr0442": {
+      "relative_path": "docs/decisions/ADR-0442-retain-the-fixed-width-device-compiler-rejection.md",
+      "canonical_lf_sha256": "27af4e609a27164ba1822441679529f2a7824fdfc450623651161f0abfa59387"
+    },
+    "consumed_result": {
+      "relative_path": "artifacts/work_preflight/legal_river_quotient_fixed_width_device_preflight_v1.jsonl",
+      "raw_sha256": "9b1ff216879c5e67090d8794242da74ba8bd52aac6753865c3bc822483550c69",
+      "terminal": "compiler_rejection"
+    },
+    "scientific_config": {
+      "relative_path": "experiments/configs/legal-river-quotient-fixed-width-device-preflight-v1.json",
+      "canonical_lf_sha256": "84da7e82ef07620b0d7869a1e52da6a80f5f3815c0e4dc7007068ce6664ed6af"
+    },
+    "topology_config": {
+      "relative_path": "experiments/configs/legal-river-quotient-fixed-width-device-preflight-v2-topology.json",
+      "canonical_lf_sha256": "6ebca361aed6c6cfcd11fd2df0b6041c1f676a7e6b07af9739bcd84e64b38e41"
+    },
+    "scientific_source": {
+      "relative_path": "src/pontius/legal_river_quotient_fixed_width_device_preflight.py",
+      "canonical_lf_sha256": "5b448e3a7d6607cb9392505e35f4428b0bec460caedca3c881b52a81145e1df1"
+    }
+  },
+  "installation_authority": {
+    "user_authorized_external_toolchain_install": true,
+    "installer_package_id": "Microsoft.VisualStudio.2022.BuildTools",
+    "installer_package_version": "17.14.39",
+    "installer_sha256": "236367b68ba9a51708263ab10a1c85546cc4a8eca78b365168811d19c4fb2f29",
+    "workload": "Microsoft.VisualStudio.Workload.VCTools",
+    "include_recommended": true,
+    "restart_required": false,
+    "cuda_13_3_support_class": "MSVC_193x_Visual_Studio_2022_17x_native_x86_64"
+  },
+  "bound_host_toolchain": {
+    "visual_studio_installation_path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools",
+    "visual_studio_installation_version": "17.14.37614.0",
+    "visual_studio_product_id": "Microsoft.VisualStudio.Product.BuildTools",
+    "visual_studio_complete_launchable_and_no_reboot": true,
+    "vc_tools_version": "14.44.35207",
+    "msvc_compiler_version": "19.44.35228.0",
+    "windows_sdk_version": "10.0.26100.0",
+    "files": [
+      {
+        "role": "vswhere",
+        "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe",
+        "bytes": 469456,
+        "sha256": "c54f3b7c9164ea9a0db8641e81ecdda80c2664ef5a47c4191406f848cc07c662"
+      },
+      {
+        "role": "vcvars64",
+        "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Auxiliary\\Build\\vcvars64.bat",
+        "bytes": 39,
+        "sha256": "6b516d8fcf543c14b2d861e1f45661e0029230fe0dc48e86ce78522801822209"
+      },
+      {
+        "role": "vcvarsall",
+        "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Auxiliary\\Build\\vcvarsall.bat",
+        "bytes": 10524,
+        "sha256": "ee67e4181ae2578b7842f9f1549a7f66e2166638fa544ce6838d9e9033a02275"
+      },
+      {
+        "role": "cl",
+        "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe",
+        "bytes": 677736,
+        "sha256": "88c8344236a27a6e727e0a8edc49aaa2690bdc7a9464b9d18cc7abe70a9f1c0d"
+      },
+      {
+        "role": "link",
+        "path": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\link.exe",
+        "bytes": 3252576,
+        "sha256": "ca11e6c45debd34bf652dfe984c5360a531a005ed78bf72852330c9c2590cf0d"
+      },
+      {
+        "role": "rc",
+        "path": "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x64\\rc.exe",
+        "bytes": 55640,
+        "sha256": "43da1503c262c30894c851589bf0155f8365d77e63a5f7bc13982320e3a6b42d"
+      },
+      {
+        "role": "nvcc",
+        "path": "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v13.3\\bin\\nvcc.exe",
+        "bytes": 20017264,
+        "sha256": "92d993c6e7025e1597d0d895e65e8658f5f1d41576a477656647a7eece2cd35f"
+      },
+      {
+        "role": "git",
+        "path": "C:\\Program Files\\Git\\cmd\\git.exe",
+        "bytes": 46920,
+        "sha256": "7b7971dd13f0c3a284e538601f2f9770b3a87dfaccb5fb52d68141c67ed22364"
+      }
+    ]
+  },
+  "activation_contract": {
+    "command_shape": "absolute_ComSpec_/d_/s_/c_double_quoted_absolute_vcvars64_redirect_stdout_then_set",
+    "compiler_processes_during_activation": 0,
+    "baseline_environment_allowlist": [
+      "SystemRoot",
+      "WINDIR",
+      "ComSpec",
+      "ProgramFiles",
+      "ProgramFiles(x86)",
+      "ProgramData",
+      "TEMP",
+      "TMP",
+      "USERPROFILE",
+      "LOCALAPPDATA",
+      "APPDATA",
+      "HOMEDRIVE",
+      "HOMEPATH",
+      "PATHEXT",
+      "PROCESSOR_ARCHITECTURE",
+      "NUMBER_OF_PROCESSORS"
+    ],
+    "baseline_path": "{SystemRoot}\\System32",
+    "ambient_PATH_INCLUDE_LIB_LIBPATH_VSINSTALLDIR_VCINSTALLDIR_and_CUDA_flag_variables_are_ignored": true,
+    "full_activated_environment_sha256": "6b3ccdc1ac479b5b4b9626161cdd5ca28f5d5043f6b87cc65a6f27f8e1a3cfe6",
+    "selected_compiler_environment_sha256": "a313c9a0fc817a9375912aba0e9acce6984e7d9bb5b28b3ccf56e7ef23a7c1a0",
+    "required_selected_values": {
+      "VSCMD_ARG_HOST_ARCH": "x64",
+      "VSCMD_ARG_TGT_ARCH": "x64",
+      "VCToolsVersion": "14.44.35207",
+      "WindowsSdkDir": "C:\\Program Files (x86)\\Windows Kits\\10\\",
+      "WindowsSDKVersion": "10.0.26100.0\\"
+    },
+    "first_PATH_entry_is_exact_bound_cl_directory_case_insensitively": true,
+    "activation_output_replaces_rather_than_extends_the_public_owner_environment": true,
+    "absolute_hash_bound_git_is_used_for_clean_source_identity_after_environment_replacement": true,
+    "activation_and_clean_source_checks_are_charged_inside_the_public_wall_and_outside_the_laboratory": true,
+    "laboratory_wall_and_every_scientific_phase_remain_byte_for_byte_semantically_unchanged": true
+  },
+  "fresh_identity": {
+    "launcher": "run_legal_river_quotient_fixed_width_device_preflight_v2.py",
+    "runner": "src/pontius/legal_river_quotient_fixed_width_device_preflight_v2_runner.py",
+    "reader": "src/pontius/legal_river_quotient_fixed_width_device_preflight_v2_result.py",
+    "controls": "tests/test_legal_river_quotient_fixed_width_device_preflight_v2.py",
+    "result": "artifacts/work_preflight/legal_river_quotient_fixed_width_device_preflight_v2.jsonl",
+    "protocol_campaign_header_dependency_and_environment_identities_are_fresh": true,
+    "the_v1_launcher_runner_reader_result_and_command_remain_consumed_and_untouched": true,
+    "all_four_successor_source_paths_and_result_are_absent_at_preregistration": true,
+    "result_git_attribute_literal": "*.jsonl -text"
+  },
+  "reuse_boundary": {
+    "scientific_source_and_literal_CUDA_translation_unit_are_exactly_the_ADR0441_bytes": true,
+    "scientific_v1_and_topology_v2_configs_remain_authoritative_for_arms_kernels_populations_orders_repeats_resources_arithmetic_memory_phases_walls_eligibility_and_claims": true,
+    "fresh_runner_may_parameterize_only_protocol_campaign_config_preregistration_dependency_result_literal_worker_environment_and_header_toolchain_fields": true,
+    "fresh_reader_may_use_an_in_memory_allowlisted_header_module_name_projection_only_after_independently_validating_the_original_fresh_journal_and_host_toolchain_evidence": true,
+    "all_scientific_observation_and_terminal_payload_bytes_are_preserved": true,
+    "candidate_selection_remains_null": true
+  },
+  "source_seal_controls": {
+    "exact_config_parent_result_and_old_scientific_source_hashes_rebind": true,
+    "toolchain_file_size_and_sha256_rows_rebind_before_activation_and_invocation": true,
+    "two_independent_activation_parsers_produce_the_same_full_and_selected_digests": true,
+    "ambient_fake_cl_and_compiler_environment_are_ignored": true,
+    "missing_changed_or_wrong_size_toolchain_file_rejects": true,
+    "x86_target_wrong_sdk_wrong_first_path_entry_and_environment_digest_mutations_reject": true,
+    "external_directory_root_probe_activates_the_bound_environment_with_no_compiler_CuPy_scientific_source_device_or_result_operation": true,
+    "activation_and_git_work_are_included_in_synthetic_public_wall_accounting": true,
+    "fresh_result_absence_uses_injected_paths_and_imports_preserve_both_absent_and_retained_results": true,
+    "old_result_is_independently_readable_before_and_after_every_successor_control": true,
+    "only_the_frozen_adapter_paths_change_and_every_scientific_payload_is_byte_identical": true,
+    "all_ADR0441_scientific_resource_arithmetic_RRNS_phase_memory_wall_and_durability_controls_remain_green": true,
+    "compile_cupy_device_population_25_actual_45_and_successor_result_counts_are_zero_at_source_seal": true
+  },
+  "lifecycle": {
+    "literal_public_command": ".venv\\Scripts\\python.exe -B run_legal_river_quotient_fixed_width_device_preflight_v2.py",
+    "public_command_accepts_no_arguments": true,
+    "real_owner_requires_exact_clean_successor_source_commit_and_absent_v2_result": true,
+    "first_public_terminal_or_prejournal_failure_consumes_the_v2_identity": true,
+    "no_retry_resume_repair_skip_or_ambient_developer_shell_fallback": true,
+    "one_or_more_eligible_arms_opens_only_a_separate_selector_or_actual_45_fit_preregistration": true
+  },
+  "kill_criteria": {
+    "retry_or_edit_the_ADR0441_owner_or_result": true,
+    "ambient_path_or_developer_shell_state_reaches_the_successor": true,
+    "activation_work_is_outside_the_public_clock": true,
+    "host_toolchain_is_discovered_or_changed_after_source_seal": true,
+    "scientific_CUDA_source_compiler_options_arms_populations_orders_repeats_resources_arithmetic_memory_phases_walls_or_eligibility_change": true,
+    "the_reader_projects_any_scientific_observation_or_terminal_field": true,
+    "candidate_selection_population_25_actual_45_resolver_action_quality_truncation_blueprint_or_strength_opens": true
+  },
+  "claims": {
+    "host_toolchain_installed_and_diagnosed": true,
+    "successor_preregistration_frozen": true,
+    "successor_source_exists": false,
+    "successor_source_seal": null,
+    "successor_compiled": false,
+    "successor_device_result": null,
+    "candidate_selected": null,
+    "population_25_numeric_value": null,
+    "actual_45_numeric_value": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

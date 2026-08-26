@@ -1677,6 +1677,14 @@ queue:
   host toolchain, then a fresh preregistration that binds its exact path,
   version, activation environment, and new result identity. Ambient developer-
   shell state and a retry of ADR-0441 are forbidden.
+  ADR-0443 records that authorization and freezes the installed prerequisite,
+  not a device result. Build Tools 17.14.39 supplies MSVC 14.44 and Windows SDK
+  10.0.26100.0; a scrubbed `vcvars64` activation repeats at exact complete and
+  selected-environment digests. The next step is source-only implementation of
+  a fresh v2 launcher/owner/reader identity. It must ignore ambient compiler
+  state, bind every named host file, charge activation and clean-Git work to
+  the public envelope, reuse the exact ADR-0441 science, and perform no compile
+  or device operation before its own clean committed source seal.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

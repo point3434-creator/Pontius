@@ -2517,6 +2517,16 @@ post-scrub absolute-Git probe, independent header reader, and exclusive
 synthetic terminal pass nine controls. The v3 result remains absent and no
 compiler, device, timing, topology, target, action, or quality evidence opened.
 
+ADR-0466 rejects that source seal before invocation. The v3 child aliases only
+`sys.modules`, but the inherited relative import resolves the already-bound
+package attribute and would execute the immutable parent science. Independently,
+v3 science is imported before bootstrap, forcing a value the success reader
+rejects. V3 is therefore closed uninvoked. The fresh lifecycle must own a direct
+child path: bootstrap and ACK first with science absent, explicit exact-v3 import
+second, execution third. It must also bind the recomputed 28-signature manifest
+and executed module in retained evidence, durably mark pre-writer attempts, and
+use a separately committed one-generation invocation authorization.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

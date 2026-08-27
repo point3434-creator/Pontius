@@ -1838,8 +1838,14 @@ queue:
   source-seals the corrected v3 identity: all 46 launch sites match all 28 CUDA
   declarations, both opposite-sign mutations reject, the central pre-driver
   guard and fresh lifecycle pass, and no compiler, device, timing, or result
-  work opened. Next invoke that exact clean committed v3 owner once and retain
-  its first terminal permanently; no post-invocation repair or retry is allowed.
+  work opened. A final prefire audit then proved that its `sys.modules`-only
+  alias does not affect the inherited package-relative import and that eager
+  v3-science loading violates the success reader's bootstrap contract.
+  ADR-0466 closes v3 permanently uninvoked. Next source-seal only a fresh v4
+  direct child that emits bootstrap before explicitly importing exact v3
+  science, binds executed science plus the recomputed complete manifest,
+  durably consumes pre-writer attempts, and receives a separate one-commit
+  invocation authorization. Compiler, device, timing, and results remain closed.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

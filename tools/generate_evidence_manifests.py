@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import ast
 from collections.abc import Mapping, Sequence
+import errno
 from hashlib import sha256
 import json
 import os
@@ -22,6 +23,10 @@ import time
 import tomllib
 from typing import Any
 import uuid
+
+if os.name == "nt":
+    import ctypes
+    from ctypes import wintypes
 
 
 BASELINE_COMMIT = "a842c4b6a73a2991a63a481f4107580b72750582"
@@ -2052,8 +2057,8 @@ def _validated_directory(path: Path, description: str) -> tuple[int, ...]:
 
 
 def _manifest_destinations(
-    repository_root: Path, *, create_missing: bool
-) -> tuple[dict[str, Path], tuple[int, ...] | None]:
+    repository_root: Path, *, allow_missing_architecture: bool
+) -> dict[str, Path]:
     if not repository_root.is_absolute():
         raise GenerationError("repository root must be absolute")
     _validated_directory(repository_root, "repository root")
@@ -2063,26 +2068,13 @@ def _manifest_destinations(
     docs_identity = _validated_directory(docs, "manifest docs ancestor")
     architecture = docs / "architecture"
     try:
-        architecture_identity: tuple[int, ...] | None = _validated_directory(
+        architecture_identity = _validated_directory(
             architecture, "manifest architecture directory"
         )
     except GenerationError:
-        if os.path.lexists(architecture) or not create_missing:
-            if os.path.lexists(architecture):
-                raise
-            architecture_identity = None
-        else:
-            try:
-                os.mkdir(architecture)
-            except OSError as error:
-                raise GenerationError(
-                    "manifest architecture directory could not be securely created"
-                ) from error
-            if _validated_directory(docs, "manifest docs ancestor") != docs_identity:
-                raise GenerationError("manifest docs ancestor identity changed during bootstrap")
-            architecture_identity = _validated_directory(
-                architecture, "manifest architecture directory"
-            )
+        if os.path.lexists(architecture) or not allow_missing_architecture:
+            raise
+        architecture_identity = None
     result: dict[str, Path] = {}
     for relative in MANIFEST_PATHS:
         destination = root / relative
@@ -2109,12 +2101,282 @@ def _manifest_destinations(
             != architecture_identity
         ):
             raise GenerationError("manifest architecture directory identity changed")
-    return result, architecture_identity
+    return result
 
 
 def _verified_destinations(repository_root: Path) -> dict[str, Path]:
-    destinations, _ = _manifest_destinations(repository_root, create_missing=False)
-    return destinations
+    return _manifest_destinations(repository_root, allow_missing_architecture=False)
+
+
+def _validated_write_destination_intent(repository_root: Path) -> dict[str, Path]:
+    return _manifest_destinations(repository_root, allow_missing_architecture=True)
+
+
+if os.name == "nt":
+    class _WindowsDirectoryInformation(ctypes.Structure):
+        _fields_ = (
+            ("dwFileAttributes", wintypes.DWORD),
+            ("ftCreationTime", wintypes.FILETIME),
+            ("ftLastAccessTime", wintypes.FILETIME),
+            ("ftLastWriteTime", wintypes.FILETIME),
+            ("dwVolumeSerialNumber", wintypes.DWORD),
+            ("nFileSizeHigh", wintypes.DWORD),
+            ("nFileSizeLow", wintypes.DWORD),
+            ("nNumberOfLinks", wintypes.DWORD),
+            ("nFileIndexHigh", wintypes.DWORD),
+            ("nFileIndexLow", wintypes.DWORD),
+        )
+
+
+def _windows_directory_api() -> tuple[Any, Any, Any]:
+    if os.name != "nt":
+        raise GenerationError("Windows directory handles are unavailable")
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    create = kernel32.CreateFileW
+    create.argtypes = (
+        wintypes.LPCWSTR,
+        wintypes.DWORD,
+        wintypes.DWORD,
+        wintypes.LPVOID,
+        wintypes.DWORD,
+        wintypes.DWORD,
+        wintypes.HANDLE,
+    )
+    create.restype = wintypes.HANDLE
+    information = kernel32.GetFileInformationByHandle
+    information.argtypes = (
+        wintypes.HANDLE,
+        ctypes.POINTER(_WindowsDirectoryInformation),
+    )
+    information.restype = wintypes.BOOL
+    close = kernel32.CloseHandle
+    close.argtypes = (wintypes.HANDLE,)
+    close.restype = wintypes.BOOL
+    return create, information, close
+
+
+def _windows_open_directory(path: Path) -> int:
+    create, _, close = _windows_directory_api()
+    handle = create(
+        str(path),
+        0x00000080,
+        0x00000001 | 0x00000002,
+        None,
+        3,
+        0x02000000 | 0x00200000,
+        None,
+    )
+    invalid = ctypes.c_void_p(-1).value
+    if handle == invalid:
+        error = ctypes.get_last_error()
+        raise GenerationError(f"manifest directory handle could not be opened: {path}") from OSError(
+            error, os.strerror(error), str(path)
+        )
+    try:
+        _windows_directory_handle_identity(handle, path)
+    except BaseException:
+        close(handle)
+        raise
+    return int(handle)
+
+
+def _windows_directory_handle_identity(handle: int, path: Path) -> tuple[int, int]:
+    _, information, _ = _windows_directory_api()
+    value = _WindowsDirectoryInformation()
+    if not information(handle, ctypes.byref(value)):
+        error = ctypes.get_last_error()
+        raise GenerationError(f"manifest directory handle cannot be inspected: {path}") from OSError(
+            error, os.strerror(error), str(path)
+        )
+    attributes = int(value.dwFileAttributes)
+    if not attributes & 0x00000010 or attributes & _REPARSE_ATTRIBUTE:
+        raise GenerationError(f"manifest directory handle is not a nonreparse directory: {path}")
+    file_index = (int(value.nFileIndexHigh) << 32) | int(value.nFileIndexLow)
+    return int(value.dwVolumeSerialNumber), file_index
+
+
+def _close_windows_directory(handle: int) -> None:
+    _, _, close = _windows_directory_api()
+    close(handle)
+
+
+class _BoundManifestDirectory:
+    def __init__(self, repository_root: Path, *, create_missing: bool) -> None:
+        self.repository_root = repository_root
+        self.create_missing = create_missing
+        self.root: Path | None = None
+        self.docs: Path | None = None
+        self.architecture: Path | None = None
+        self.destinations: dict[str, Path] = {}
+        self._posix_descriptors: list[tuple[Path, int, tuple[int, int]]] = []
+        self._windows_handles: list[tuple[Path, int, tuple[int, int]]] = []
+        self._architecture_descriptor: int | None = None
+
+    def __enter__(self) -> "_BoundManifestDirectory":
+        if not self.repository_root.is_absolute():
+            raise GenerationError("repository root must be absolute")
+        _validated_directory(self.repository_root, "repository root")
+        self.root = self.repository_root.resolve(strict=True)
+        self.docs = self.root / "docs"
+        self.architecture = self.docs / "architecture"
+        try:
+            if os.name == "nt":
+                self._bind_windows()
+            else:
+                self._bind_posix()
+            self.destinations = _verified_destinations(self.root)
+            self.reverify()
+            return self
+        except BaseException:
+            self.close()
+            raise
+
+    def __exit__(self, exc_type: object, exc: object, traceback: object) -> None:
+        self.close()
+
+    def _bind_windows(self) -> None:
+        assert self.root is not None and self.docs is not None and self.architecture is not None
+        for path in (self.root, self.docs):
+            handle = _windows_open_directory(path)
+            identity = _windows_directory_handle_identity(handle, path)
+            self._windows_handles.append((path, handle, identity))
+        if not os.path.lexists(self.architecture):
+            if not self.create_missing:
+                raise GenerationError("manifest architecture directory is absent")
+            try:
+                os.mkdir(self.architecture)
+            except OSError as error:
+                raise GenerationError(
+                    "manifest architecture directory could not be securely created"
+                ) from error
+        handle = _windows_open_directory(self.architecture)
+        identity = _windows_directory_handle_identity(handle, self.architecture)
+        self._windows_handles.append((self.architecture, handle, identity))
+
+    def _bind_posix(self) -> None:
+        assert self.root is not None and self.docs is not None and self.architecture is not None
+        required = ("O_DIRECTORY", "O_NOFOLLOW")
+        dir_fd_functions = (os.open, os.mkdir, os.replace, os.unlink)
+        if (
+            any(not hasattr(os, name) for name in required)
+            or any(function not in os.supports_dir_fd for function in dir_fd_functions)
+        ):
+            raise GenerationError("secure POSIX directory primitives are unavailable")
+        flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0)
+        try:
+            root_descriptor = os.open(self.root, flags)
+            root_info = os.fstat(root_descriptor)
+            self._posix_descriptors.append(
+                (self.root, root_descriptor, (int(root_info.st_dev), int(root_info.st_ino)))
+            )
+            docs_descriptor = os.open("docs", flags, dir_fd=root_descriptor)
+            docs_info = os.fstat(docs_descriptor)
+            self._posix_descriptors.append(
+                (self.docs, docs_descriptor, (int(docs_info.st_dev), int(docs_info.st_ino)))
+            )
+            try:
+                architecture_descriptor = os.open("architecture", flags, dir_fd=docs_descriptor)
+            except OSError as error:
+                if error.errno != errno.ENOENT or not self.create_missing:
+                    raise
+                os.mkdir("architecture", dir_fd=docs_descriptor)
+                architecture_descriptor = os.open("architecture", flags, dir_fd=docs_descriptor)
+            architecture_info = os.fstat(architecture_descriptor)
+            self._posix_descriptors.append(
+                (
+                    self.architecture,
+                    architecture_descriptor,
+                    (int(architecture_info.st_dev), int(architecture_info.st_ino)),
+                )
+            )
+            self._architecture_descriptor = architecture_descriptor
+        except OSError as error:
+            raise GenerationError("manifest directory chain could not be securely bound") from error
+
+    def reverify(self) -> None:
+        if os.name == "nt":
+            for path, handle, expected in self._windows_handles:
+                if _windows_directory_handle_identity(handle, path) != expected:
+                    raise GenerationError(f"held manifest directory identity changed: {path}")
+                info = os.lstat(path)
+                if (
+                    stat.S_ISLNK(info.st_mode)
+                    or _is_reparse(info)
+                    or not stat.S_ISDIR(info.st_mode)
+                    or int(info.st_ino) != expected[1]
+                ):
+                    raise GenerationError(f"manifest directory path no longer names its held handle: {path}")
+        else:
+            for path, descriptor, expected in self._posix_descriptors:
+                handle_info = os.fstat(descriptor)
+                handle_identity = (int(handle_info.st_dev), int(handle_info.st_ino))
+                path_info = os.lstat(path)
+                path_identity = (int(path_info.st_dev), int(path_info.st_ino))
+                if (
+                    handle_identity != expected
+                    or path_identity != expected
+                    or stat.S_ISLNK(path_info.st_mode)
+                    or not stat.S_ISDIR(path_info.st_mode)
+                ):
+                    raise GenerationError(f"manifest directory path no longer names its held handle: {path}")
+
+    def stage(self, destination: Path, raw: bytes) -> str | Path:
+        assert self.architecture is not None
+        name = f".{destination.name}.{uuid.uuid4().hex}.tmp"
+        self.reverify()
+        if os.name == "nt":
+            candidate = self.architecture / name
+            with candidate.open("xb") as stream:
+                stream.write(raw)
+                stream.flush()
+                os.fsync(stream.fileno())
+            return candidate
+        if self._architecture_descriptor is None:
+            raise GenerationError("POSIX manifest directory descriptor is absent")
+        flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0)
+        descriptor = os.open(name, flags, 0o600, dir_fd=self._architecture_descriptor)
+        try:
+            offset = 0
+            while offset < len(raw):
+                offset += os.write(descriptor, raw[offset:])
+            os.fsync(descriptor)
+        finally:
+            os.close(descriptor)
+        return name
+
+    def replace(self, temporary: str | Path, destination: Path) -> None:
+        self.reverify()
+        if os.name == "nt":
+            os.replace(temporary, destination)
+            return
+        if self._architecture_descriptor is None or not isinstance(temporary, str):
+            raise GenerationError("POSIX manifest replacement arguments are invalid")
+        os.replace(
+            temporary,
+            destination.name,
+            src_dir_fd=self._architecture_descriptor,
+            dst_dir_fd=self._architecture_descriptor,
+        )
+
+    def cleanup(self, temporary: str | Path) -> None:
+        try:
+            if os.name == "nt":
+                Path(temporary).unlink()
+            elif self._architecture_descriptor is not None and isinstance(temporary, str):
+                os.unlink(temporary, dir_fd=self._architecture_descriptor)
+        except FileNotFoundError:
+            pass
+
+    def close(self) -> None:
+        for _, descriptor, _ in reversed(self._posix_descriptors):
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
+        self._posix_descriptors.clear()
+        for _, handle, _ in reversed(self._windows_handles):
+            _close_windows_directory(handle)
+        self._windows_handles.clear()
 
 
 def write_manifests(
@@ -2126,37 +2388,20 @@ def write_manifests(
     approved = validate_approval_digest(
         approved_seed_sha256, str(state["entries_sha256"])
     )
-    destinations, architecture_identity = _manifest_destinations(
-        repository_root, create_missing=True
-    )
-    if architecture_identity is None:
-        raise GenerationError("manifest architecture directory was not established")
     rendered = _render_all(state, approved)
-    rechecked, rechecked_identity = _manifest_destinations(
-        repository_root, create_missing=False
-    )
-    if rechecked != destinations or rechecked_identity != architecture_identity:
-        raise GenerationError("manifest destination identity changed before writing")
-    temporary: dict[str, Path] = {}
-    try:
-        for relative, destination in destinations.items():
-            candidate = (
-                destination.parent / f".{destination.name}.{uuid.uuid4().hex}.tmp"
-            )
-            with candidate.open("xb") as stream:
-                stream.write(rendered[relative])
-                stream.flush()
-                os.fsync(stream.fileno())
-            temporary[relative] = candidate
-        for relative, destination in destinations.items():
-            os.replace(temporary[relative], destination)
-            temporary.pop(relative)
-    finally:
-        for candidate in temporary.values():
-            try:
-                candidate.unlink()
-            except FileNotFoundError:
-                pass
+    with _BoundManifestDirectory(repository_root, create_missing=True) as transaction:
+        temporary: dict[str, str | Path] = {}
+        try:
+            for relative, destination in transaction.destinations.items():
+                temporary[relative] = transaction.stage(destination, rendered[relative])
+            transaction.reverify()
+            for relative, destination in transaction.destinations.items():
+                transaction.replace(temporary[relative], destination)
+                temporary.pop(relative)
+            transaction.reverify()
+        finally:
+            for candidate in temporary.values():
+                transaction.cleanup(candidate)
 
 
 def check_manifests(
@@ -2322,7 +2567,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             _validated_seed_review_output(repository_root, arguments.emit_seed_review)
         elif arguments.write:
             validate_approval_format(arguments.approved_seed_sha256)
-            _verified_destinations(repository_root)
+            _validated_write_destination_intent(repository_root)
         else:
             _preflight_check(repository_root)
         state = derive_manifest_state(repository_root)

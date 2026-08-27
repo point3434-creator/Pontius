@@ -921,6 +921,87 @@ class Selected:
                 self.assertEqual((root / relative).read_bytes(), expected)
             self.assertEqual(tuple(path.name for path in root.iterdir()), ("docs",))
 
+    def test_main_write_bootstraps_missing_directory_while_check_remains_read_only(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="pontius-task3-main-write-") as directory:
+            root = Path(directory).resolve()
+            (root / "docs").mkdir()
+            synthetic_tool = root / "tools" / "generate_evidence_manifests.py"
+            with mock.patch.object(GENERATOR, "__file__", str(synthetic_tool)), mock.patch.object(
+                GENERATOR, "derive_manifest_state", return_value=SAMPLE_STATE
+            ):
+                self.assertEqual(
+                    GENERATOR.main(
+                        [
+                            "--write",
+                            "--approved-seed-sha256",
+                            SAMPLE_STATE["entries_sha256"],
+                        ]
+                    ),
+                    0,
+                )
+            architecture = root / "docs" / "architecture"
+            self.assertEqual(
+                tuple(sorted(path.name for path in architecture.iterdir())),
+                tuple(sorted(Path(path).name for path in GENERATOR.MANIFEST_PATHS)),
+            )
+
+        with tempfile.TemporaryDirectory(prefix="pontius-task3-main-check-") as directory:
+            root = Path(directory).resolve()
+            (root / "docs").mkdir()
+            synthetic_tool = root / "tools" / "generate_evidence_manifests.py"
+            with mock.patch.object(GENERATOR, "__file__", str(synthetic_tool)), mock.patch.object(
+                GENERATOR, "derive_manifest_state", side_effect=AssertionError("walked")
+            ):
+                self.assertEqual(GENERATOR.main(["--check"]), 2)
+            self.assertFalse((root / "docs" / "architecture").exists())
+            with self.assertRaises(GENERATOR.GenerationError):
+                GENERATOR._verified_destinations(root)
+
+    def test_bound_manifest_transaction_defeats_post_validation_directory_swap(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="pontius-task3-bound-swap-") as directory:
+            root = Path(directory).resolve()
+            architecture = root / "docs" / "architecture"
+            architecture.mkdir(parents=True)
+            displaced = root / "docs" / "architecture-displaced"
+            swap_attempted = False
+            swap_succeeded = False
+            original_uuid4 = GENERATOR.uuid.uuid4
+
+            def attempt_swap() -> object:
+                nonlocal swap_attempted, swap_succeeded
+                swap_attempted = True
+                try:
+                    os.replace(architecture, displaced)
+                    architecture.mkdir()
+                except OSError:
+                    pass
+                else:
+                    swap_succeeded = True
+                return original_uuid4()
+
+            failure = None
+            with mock.patch.object(GENERATOR.uuid, "uuid4", side_effect=attempt_swap):
+                try:
+                    GENERATOR.write_manifests(
+                        root,
+                        SAMPLE_STATE,
+                        approved_seed_sha256=SAMPLE_STATE["entries_sha256"],
+                    )
+                except GENERATOR.GenerationError as error:
+                    failure = error
+
+            self.assertTrue(swap_attempted)
+            if swap_succeeded:
+                self.assertIsNotNone(failure)
+                self.assertEqual(list(architecture.iterdir()), [])
+                self.assertEqual(list(displaced.iterdir()), [])
+            else:
+                self.assertIsNone(failure)
+                self.assertEqual(
+                    tuple(sorted(path.name for path in architecture.iterdir())),
+                    tuple(sorted(Path(path).name for path in GENERATOR.MANIFEST_PATHS)),
+                )
+
     def test_manifest_directory_rejects_non_directory_link_and_reparse_targets(self) -> None:
         with tempfile.TemporaryDirectory(prefix="pontius-task3-directory-kind-") as directory:
             root = Path(directory).resolve()

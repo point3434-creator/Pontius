@@ -2476,7 +2476,27 @@ original environment restores exactly. The additive reader derives fresh
 identities independently and scopes only the inherited scientific config's v1
 result-path check; the fresh header remains v2 and scientific records are never
 projected. Eight controls, including an exclusive synthetic terminal, pass.
-Both real result paths remain absent; the next act is one fresh invocation.
+Both real result paths were absent at source seal.
+
+ADR-0462 retains the sole v2 invocation as a timed RRNS direct launch-arity
+rejection. Compilation, the 582,880-byte cubin, all 28 resource rows, RTX 5080
+module load, the 194,402,210-byte reduced one-arena admission, and one exact
+positional warmup cell passed. The next SHA-ordered cell was batched RRNS; its
+`direct_prices_rrns_batch` declaration takes nine parameters while the timed
+host tuple supplied eight and omitted `source_count`, so the driver returned
+`CUDA_ERROR_INVALID_VALUE`. The 23-record artifact is retained exactly. There
+are zero measured calls and no comparative, target, resolver, action, or
+quality result.
+
+ADR-0463 freezes a fresh launch-arity successor before source. The CUDA literal,
+experiment matrix, one-arena physics, phase/work ledger, projector, and claims
+remain unchanged. A fresh scientific module may add only the missing
+`np.uint64(scan_count)` and a declaration-derived arity contract: every named
+CUDA entry receives one parsed signature, every dispatch passes one central
+count guard, and an independent AST control checks every host launch site.
+This makes count omissions reject before driver dispatch while explicitly not
+claiming that equal-arity semantic misordering is impossible. Compiler, device,
+timing, and result work remain closed until a clean committed v3 source seal.
 
 ## Runtime target
 

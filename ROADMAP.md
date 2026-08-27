@@ -1824,8 +1824,16 @@ queue:
   exact post-scrub environment, immutable parent bytes, restored global
   bindings, independently derived reader constants, the narrow v1-config/v2-
   header identity projection, exclusive synthetic journaling, and result
-  absence. The next boundary is exactly one clean committed v2 invocation and
-  permanent retention of its first terminal.
+  absence. ADR-0462 now retains the sole clean v2 invocation: compilation,
+  cubin resource inspection, reduced one-arena memory admission, and one exact
+  positional warmup cell passed, but the first batched-RRNS cell supplied eight
+  arguments to the nine-parameter `direct_prices_rrns_batch` declaration and
+  terminated with `CUDA_ERROR_INVALID_VALUE`. No measured call or comparative
+  claim exists. ADR-0463 preregisters the fresh repair: insert the missing
+  `np.uint64(scan_count)`, derive all kernel arities from the unchanged CUDA
+  literal, guard every launch centrally, and independently audit every launch
+  site. Next implement and source-seal only that v3 identity without compiler,
+  device, timing, or result work.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

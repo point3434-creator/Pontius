@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import ast
 from collections.abc import Mapping, Sequence
+import ctypes
 from hashlib import sha256
 import io
 import json
@@ -24,18 +25,50 @@ import tomllib
 from typing import Any
 import uuid
 
+if os.name == "nt":
+    from ctypes import wintypes
+    import msvcrt
+
 
 SCHEMA_VERSION = "pontius-dependency-baseline-v1"
 BASELINE_COMMIT = "a842c4b6a73a2991a63a481f4107580b72750582"
 BASELINE_RELATIVE_PATH = "docs/architecture/dependency-baseline.toml"
 MAXIMUM_ARCHIVE_BYTES = 64 * 1024 * 1024
 MAXIMUM_BASELINE_BYTES = 4 * 1024 * 1024
+MAXIMUM_SOURCE_BYTES = 16 * 1024 * 1024
+_REPARSE_ATTRIBUTE = 0x400
 _HEX40 = re.compile(r"[0-9a-f]{40}\Z")
 _HEX64 = re.compile(r"[0-9a-f]{64}\Z")
 
 
 class BaselineError(RuntimeError):
     """A deterministic dependency-baseline failure."""
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        failures: Sequence[BaseException] = (),
+        retained_owners: Sequence[object] = (),
+    ) -> None:
+        self.failures = tuple(failures)
+        self.retained_owners = tuple(retained_owners)
+        super().__init__(message)
+
+
+def _aggregate_errors(
+    message: str,
+    failures: Sequence[BaseException],
+    *,
+    retained_owners: Sequence[object] = (),
+) -> BaselineError:
+    ordered = tuple(failures)
+    detail = "; ".join(f"{type(error).__name__}: {error}" for error in ordered)
+    return BaselineError(
+        f"{message}: {detail}",
+        failures=ordered,
+        retained_owners=retained_owners,
+    )
 
 
 class DependencyGraph:
@@ -551,25 +584,307 @@ def parse_baseline_bytes(raw: bytes) -> ParsedBaseline:
 
 
 def _is_reparse(info: os.stat_result) -> bool:
-    return bool(getattr(info, "st_file_attributes", 0) & 0x400)
+    return bool(int(getattr(info, "st_file_attributes", 0)) & _REPARSE_ATTRIBUTE) or bool(
+        int(getattr(info, "st_reparse_tag", 0))
+    )
+
+
+def _file_identity(info: os.stat_result) -> tuple[int, ...]:
+    return (
+        int(info.st_dev),
+        int(info.st_ino),
+        int(info.st_size),
+        int(info.st_mtime_ns),
+        int(info.st_ctime_ns),
+        int(info.st_mode),
+        int(getattr(info, "st_file_attributes", 0)),
+        int(getattr(info, "st_reparse_tag", 0)),
+    )
+
+
+def _path_handle_identity(info: os.stat_result) -> tuple[int, ...]:
+    """Return fields reported consistently by path and handle on Windows."""
+
+    return (
+        int(info.st_dev),
+        int(info.st_ino),
+        int(info.st_size),
+        int(info.st_mtime_ns),
+        int(info.st_mode),
+        int(getattr(info, "st_file_attributes", 0)),
+        int(getattr(info, "st_reparse_tag", 0)),
+    )
+
+
+def _directory_identity(info: os.stat_result) -> tuple[int, ...]:
+    return (
+        int(info.st_dev),
+        int(info.st_ino),
+        int(info.st_mode),
+        int(getattr(info, "st_file_attributes", 0)),
+        int(getattr(info, "st_reparse_tag", 0)),
+    )
+
+
+def _validated_ancestor_chain(path: Path, root: Path) -> tuple[tuple[Path, tuple[int, ...]], ...]:
+    if not path.is_absolute() or not root.is_absolute():
+        raise BaselineError("secure snapshot paths must be absolute")
+    try:
+        path.relative_to(root)
+    except ValueError as error:
+        raise BaselineError("secure snapshot path is outside its repository root") from error
+    ancestors: list[tuple[Path, tuple[int, ...]]] = []
+    for component in reversed(path.parents):
+        if component == component.parent:
+            continue
+        try:
+            info = os.lstat(component)
+        except OSError as error:
+            raise BaselineError(
+                f"dependency path ancestor cannot be inspected: {component}"
+            ) from error
+        if stat.S_ISLNK(info.st_mode) or _is_reparse(info) or not stat.S_ISDIR(info.st_mode):
+            raise BaselineError(
+                f"dependency path ancestor is not a nonreparse directory: {component}"
+            )
+        ancestors.append((component, _directory_identity(info)))
+    return tuple(ancestors)
+
+
+def _revalidate_ancestor_chain(
+    ancestors: Sequence[tuple[Path, tuple[int, ...]]],
+) -> None:
+    for component, expected in ancestors:
+        try:
+            info = os.lstat(component)
+        except OSError as error:
+            raise BaselineError(
+                f"dependency path ancestor disappeared: {component}"
+            ) from error
+        if (
+            stat.S_ISLNK(info.st_mode)
+            or _is_reparse(info)
+            or not stat.S_ISDIR(info.st_mode)
+            or _directory_identity(info) != expected
+        ):
+            raise BaselineError(
+                f"dependency path ancestor identity changed: {component}"
+            )
+
+
+def _windows_path_api() -> tuple[Any, Any]:
+    if os.name != "nt":
+        raise BaselineError("Windows no-follow file APIs are unavailable")
+    try:
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        create = kernel32.CreateFileW
+        create.argtypes = (
+            wintypes.LPCWSTR,
+            wintypes.DWORD,
+            wintypes.DWORD,
+            wintypes.LPVOID,
+            wintypes.DWORD,
+            wintypes.DWORD,
+            wintypes.HANDLE,
+        )
+        create.restype = wintypes.HANDLE
+        close = kernel32.CloseHandle
+        close.argtypes = (wintypes.HANDLE,)
+        close.restype = wintypes.BOOL
+    except Exception as error:
+        raise BaselineError("Windows no-follow file APIs are unavailable") from error
+    return create, close
+
+
+def _open_regular_no_follow(path: Path) -> int:
+    if os.name != "nt":
+        if not hasattr(os, "O_NOFOLLOW"):
+            raise BaselineError("secure no-follow file opens are unavailable")
+        flags = (
+            os.O_RDONLY
+            | os.O_NOFOLLOW
+            | getattr(os, "O_CLOEXEC", 0)
+            | getattr(os, "O_BINARY", 0)
+        )
+        try:
+            return os.open(path, flags)
+        except OSError as error:
+            raise BaselineError(
+                f"dependency file cannot be opened without links: {path}"
+            ) from error
+
+    create, close = _windows_path_api()
+    try:
+        handle = create(
+            str(path),
+            0x80000000,
+            0x00000001 | 0x00000002 | 0x00000004,
+            None,
+            3,
+            0x00200000 | 0x08000000,
+            None,
+        )
+    except Exception as error:
+        raise BaselineError(f"dependency file cannot be opened without reparses: {path}") from error
+    invalid = ctypes.c_void_p(-1).value
+    if not handle or int(handle) == invalid:
+        error = ctypes.get_last_error()
+        raise BaselineError(
+            f"dependency file cannot be opened without reparses: {path}"
+        ) from OSError(error, os.strerror(error), str(path))
+    try:
+        return msvcrt.open_osfhandle(
+            int(handle), os.O_RDONLY | getattr(os, "O_BINARY", 0)
+        )
+    except (OSError, OverflowError) as error:
+        numeric = int(handle)
+        binding_failure = BaselineError(
+            f"dependency file handle cannot be bound: {path}",
+            failures=(error,),
+        )
+        try:
+            succeeded = close(wintypes.HANDLE(numeric))
+        except Exception as cleanup_error:
+            raise _aggregate_errors(
+                "dependency file binding and handle cleanup both failed",
+                (binding_failure, cleanup_error),
+                retained_owners=(numeric,),
+            ) from error
+        if not succeeded:
+            code = ctypes.get_last_error()
+            cleanup_error = OSError(code, os.strerror(code), str(path))
+            raise _aggregate_errors(
+                "dependency file binding and handle cleanup both failed",
+                (binding_failure, cleanup_error),
+                retained_owners=(numeric,),
+            ) from error
+        raise binding_failure from error
+
+
+class FileSnapshot:
+    """Bytes and filesystem identities retained for a later final pass."""
+
+    __slots__ = (
+        "path",
+        "raw",
+        "identity",
+        "ancestors",
+        "maximum_bytes",
+        "root",
+    )
+
+    def __init__(
+        self,
+        path: Path,
+        raw: bytes,
+        identity: tuple[int, ...],
+        ancestors: Sequence[tuple[Path, tuple[int, ...]]],
+        maximum_bytes: int,
+        root: Path,
+    ) -> None:
+        self.path = path
+        self.raw = raw
+        self.identity = identity
+        self.ancestors = tuple(ancestors)
+        self.maximum_bytes = maximum_bytes
+        self.root = root
+
+    def revalidate(self) -> None:
+        current = read_regular_snapshot(
+            self.path,
+            maximum_bytes=self.maximum_bytes,
+            root=self.root,
+        )
+        if current.identity != self.identity:
+            raise BaselineError(f"dependency file identity changed: {self.path}")
+        if current.raw != self.raw:
+            raise BaselineError(f"dependency file content changed: {self.path}")
+
+
+def read_regular_snapshot(
+    path: Path, *, maximum_bytes: int, root: Path
+) -> FileSnapshot:
+    """Read one bounded, identity-bound, nonlink filesystem snapshot."""
+
+    if type(maximum_bytes) is not int or maximum_bytes < 0:
+        raise BaselineError("dependency snapshot bound is invalid")
+    ancestors = _validated_ancestor_chain(path, root)
+    try:
+        before_path = os.lstat(path)
+    except OSError as error:
+        raise BaselineError(f"dependency file cannot be inspected: {path}") from error
+    if (
+        stat.S_ISLNK(before_path.st_mode)
+        or _is_reparse(before_path)
+        or not stat.S_ISREG(before_path.st_mode)
+    ):
+        raise BaselineError(f"dependency path is not a regular nonreparse file: {path}")
+    if before_path.st_size > maximum_bytes:
+        raise BaselineError(f"dependency file is oversized: {path}")
+
+    descriptor = _open_regular_no_follow(path)
+    after_handle: os.stat_result | None = None
+    try:
+        before_handle = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(before_handle.st_mode)
+            or _is_reparse(before_handle)
+            or _path_handle_identity(before_path) != _path_handle_identity(before_handle)
+        ):
+            raise BaselineError(f"dependency file changed while opening: {path}")
+        chunks: list[bytes] = []
+        length = 0
+        while length <= maximum_bytes:
+            chunk = os.read(descriptor, min(1024 * 1024, maximum_bytes + 1 - length))
+            if not chunk:
+                break
+            chunks.append(chunk)
+            length += len(chunk)
+        raw = b"".join(chunks)
+        after_handle = os.fstat(descriptor)
+        if len(raw) > maximum_bytes:
+            raise BaselineError(f"dependency file is oversized: {path}")
+        if (
+            len(raw) != before_handle.st_size
+            or _file_identity(before_handle) != _file_identity(after_handle)
+        ):
+            raise BaselineError(f"opened dependency file changed while reading: {path}")
+    except OSError as error:
+        raise BaselineError(f"dependency file cannot be read: {path}") from error
+    finally:
+        try:
+            os.close(descriptor)
+        except OSError as error:
+            raise BaselineError(f"dependency file handle cannot be closed: {path}") from error
+
+    assert after_handle is not None
+    try:
+        after_path = os.lstat(path)
+    except OSError as error:
+        raise BaselineError(f"dependency file disappeared after reading: {path}") from error
+    if (
+        stat.S_ISLNK(after_path.st_mode)
+        or _is_reparse(after_path)
+        or _path_handle_identity(after_path) != _path_handle_identity(after_handle)
+    ):
+        raise BaselineError(f"dependency file identity changed after reading: {path}")
+    _revalidate_ancestor_chain(ancestors)
+    return FileSnapshot(
+        path,
+        raw,
+        _file_identity(after_path),
+        ancestors,
+        maximum_bytes,
+        root,
+    )
 
 
 def _validated_regular_file(path: Path, *, maximum_bytes: int) -> bytes:
-    try:
-        info = os.lstat(path)
-    except OSError as error:
-        raise BaselineError(f"dependency baseline file cannot be inspected: {path}") from error
-    if stat.S_ISLNK(info.st_mode) or _is_reparse(info) or not stat.S_ISREG(info.st_mode):
-        raise BaselineError(f"dependency baseline path is not a regular file: {path}")
-    if info.st_size > maximum_bytes:
-        raise BaselineError(f"dependency baseline file is oversized: {path}")
-    try:
-        raw = path.read_bytes()
-    except OSError as error:
-        raise BaselineError(f"dependency baseline file cannot be read: {path}") from error
-    if len(raw) != info.st_size:
-        raise BaselineError(f"dependency baseline file changed while reading: {path}")
-    return raw
+    if not isinstance(path, Path) or not path.is_absolute():
+        raise BaselineError("dependency baseline path must be absolute")
+    return read_regular_snapshot(
+        path, maximum_bytes=maximum_bytes, root=path.parent
+    ).raw
 
 
 def _git_environment(git_executable: Path) -> dict[str, str]:
@@ -689,23 +1004,32 @@ def derive_baseline_graph(
     return scan_sources(_sources_from_archive(raw))
 
 
+def _validated_directory(path: Path, *, description: str) -> tuple[int, ...]:
+    try:
+        info = os.lstat(path)
+    except OSError as error:
+        raise BaselineError(f"{description} cannot be inspected: {path}") from error
+    if stat.S_ISLNK(info.st_mode) or _is_reparse(info) or not stat.S_ISDIR(info.st_mode):
+        raise BaselineError(f"{description} is not a nonreparse directory: {path}")
+    return _directory_identity(info)
+
+
 def validate_write_destination(repository_root: Path, destination: Path) -> Path:
     if not isinstance(destination, Path) or not destination.is_absolute():
         raise BaselineError("--write must explicitly name an absolute baseline path")
-    try:
-        root = repository_root.resolve(strict=True)
-        architecture = (root / "docs" / "architecture").resolve(strict=True)
-    except OSError as error:
-        raise BaselineError("docs/architecture must already be a real directory") from error
-    architecture_info = os.lstat(architecture)
-    if (
-        stat.S_ISLNK(architecture_info.st_mode)
-        or _is_reparse(architecture_info)
-        or not stat.S_ISDIR(architecture_info.st_mode)
-    ):
-        raise BaselineError("docs/architecture is not a regular directory")
+    if not isinstance(repository_root, Path) or not repository_root.is_absolute():
+        raise BaselineError("repository root must be absolute for --write")
+    root = Path(os.path.abspath(repository_root))
+    for component in reversed(root.parents):
+        if component != component.parent:
+            _validated_directory(component, description="repository ancestor")
+    _validated_directory(root, description="repository root")
+    docs = root / "docs"
+    _validated_directory(docs, description="baseline docs ancestor")
+    architecture = docs / "architecture"
+    _validated_directory(architecture, description="baseline architecture directory")
     expected = architecture / "dependency-baseline.toml"
-    candidate = destination.resolve(strict=False)
+    candidate = Path(os.path.abspath(destination))
     if os.path.normcase(str(candidate)) != os.path.normcase(str(expected)):
         raise BaselineError("--write may name only docs/architecture/dependency-baseline.toml")
     if os.path.lexists(candidate):
@@ -715,21 +1039,921 @@ def validate_write_destination(repository_root: Path, destination: Path) -> Path
     return candidate
 
 
-def write_baseline(destination: Path, raw: bytes) -> None:
-    candidate = destination.parent / f".{destination.name}.{uuid.uuid4().hex}.tmp"
+if os.name == "nt":
+    class _WindowsDirectoryInformation(ctypes.Structure):
+        _fields_ = (
+            ("dwFileAttributes", wintypes.DWORD),
+            ("ftCreationTime", wintypes.FILETIME),
+            ("ftLastAccessTime", wintypes.FILETIME),
+            ("ftLastWriteTime", wintypes.FILETIME),
+            ("dwVolumeSerialNumber", wintypes.DWORD),
+            ("nFileSizeHigh", wintypes.DWORD),
+            ("nFileSizeLow", wintypes.DWORD),
+            ("nNumberOfLinks", wintypes.DWORD),
+            ("nFileIndexHigh", wintypes.DWORD),
+            ("nFileIndexLow", wintypes.DWORD),
+        )
+
+
+    class _WindowsFileId128(ctypes.Structure):
+        _fields_ = (("ByteIdentifier", ctypes.c_ubyte * 16),)
+
+
+    class _WindowsFileIdInformation(ctypes.Structure):
+        _fields_ = (
+            ("VolumeSerialNumber", ctypes.c_ulonglong),
+            ("FileId", _WindowsFileId128),
+        )
+
+
+    class _WindowsUnicodeString(ctypes.Structure):
+        _fields_ = (
+            ("Length", wintypes.USHORT),
+            ("MaximumLength", wintypes.USHORT),
+            ("Buffer", wintypes.LPWSTR),
+        )
+
+
+    class _WindowsObjectAttributes(ctypes.Structure):
+        _fields_ = (
+            ("Length", wintypes.ULONG),
+            ("RootDirectory", wintypes.HANDLE),
+            ("ObjectName", ctypes.POINTER(_WindowsUnicodeString)),
+            ("Attributes", wintypes.ULONG),
+            ("SecurityDescriptor", wintypes.LPVOID),
+            ("SecurityQualityOfService", wintypes.LPVOID),
+        )
+
+
+    class _WindowsIOStatusValue(ctypes.Union):
+        _fields_ = (("Status", wintypes.LONG), ("Pointer", wintypes.LPVOID))
+
+
+    class _WindowsIOStatusBlock(ctypes.Structure):
+        _anonymous_ = ("value",)
+        _fields_ = (("value", _WindowsIOStatusValue), ("Information", ctypes.c_size_t))
+
+
+    class _WindowsFileRenameInformation(ctypes.Structure):
+        _fields_ = (
+            ("ReplaceIfExists", ctypes.c_ubyte),
+            ("RootDirectory", wintypes.HANDLE),
+            ("FileNameLength", wintypes.DWORD),
+            ("FileName", wintypes.WCHAR * 1),
+        )
+
+
+    class _WindowsFileDispositionInformation(ctypes.Structure):
+        _fields_ = (("DeleteFile", ctypes.c_ubyte),)
+
+
+def _windows_directory_api() -> tuple[Any, Any, Any, Any]:
+    if os.name != "nt":
+        raise BaselineError("Windows directory handle APIs are unavailable")
     try:
-        with candidate.open("xb") as stream:
-            stream.write(raw)
-            stream.flush()
-            os.fsync(stream.fileno())
-        os.replace(candidate, destination)
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        create = kernel32.CreateFileW
+        create.argtypes = (
+            wintypes.LPCWSTR,
+            wintypes.DWORD,
+            wintypes.DWORD,
+            wintypes.LPVOID,
+            wintypes.DWORD,
+            wintypes.DWORD,
+            wintypes.HANDLE,
+        )
+        create.restype = wintypes.HANDLE
+        information = kernel32.GetFileInformationByHandle
+        information.argtypes = (
+            wintypes.HANDLE,
+            ctypes.POINTER(_WindowsDirectoryInformation),
+        )
+        information.restype = wintypes.BOOL
+        extended_information = kernel32.GetFileInformationByHandleEx
+        extended_information.argtypes = (
+            wintypes.HANDLE,
+            ctypes.c_int,
+            wintypes.LPVOID,
+            wintypes.DWORD,
+        )
+        extended_information.restype = wintypes.BOOL
+        close = kernel32.CloseHandle
+        close.argtypes = (wintypes.HANDLE,)
+        close.restype = wintypes.BOOL
+    except Exception as error:
+        raise BaselineError("Windows directory handle APIs are unavailable") from error
+    return create, information, extended_information, close
+
+
+def _windows_directory_handle_identity(handle: int, path: Path) -> tuple[int, bytes]:
+    _, information, extended_information, _ = _windows_directory_api()
+    value = _WindowsDirectoryInformation()
+    try:
+        succeeded = information(wintypes.HANDLE(handle), ctypes.byref(value))
+    except Exception as error:
+        raise BaselineError(f"baseline directory handle cannot be inspected: {path}") from error
+    if not succeeded:
+        error = ctypes.get_last_error()
+        raise BaselineError(
+            f"baseline directory handle cannot be inspected: {path}"
+        ) from OSError(error, os.strerror(error), str(path))
+    attributes = int(value.dwFileAttributes)
+    if not attributes & 0x10 or attributes & _REPARSE_ATTRIBUTE:
+        raise BaselineError(f"baseline directory handle is not nonreparse: {path}")
+    identity = _WindowsFileIdInformation()
+    try:
+        succeeded = extended_information(
+            wintypes.HANDLE(handle),
+            18,
+            ctypes.byref(identity),
+            ctypes.sizeof(identity),
+        )
+    except Exception as error:
+        raise BaselineError(f"baseline directory identity cannot be inspected: {path}") from error
+    if not succeeded:
+        error = ctypes.get_last_error()
+        raise BaselineError(
+            f"baseline directory identity cannot be inspected: {path}"
+        ) from OSError(error, os.strerror(error), str(path))
+    file_id = bytes(identity.FileId.ByteIdentifier)
+    return int(identity.VolumeSerialNumber), file_id
+
+
+def _windows_open_directory(path: Path) -> tuple[int, tuple[int, bytes]]:
+    create, _, _, _ = _windows_directory_api()
+    try:
+        handle = create(
+            str(path),
+            0x00000020 | 0x00000080 | 0x00100000,
+            0x00000001 | 0x00000002 | 0x00000004,
+            None,
+            3,
+            0x02000000 | 0x00200000,
+            None,
+        )
+    except Exception as error:
+        raise BaselineError(f"baseline directory handle cannot be opened: {path}") from error
+    invalid = ctypes.c_void_p(-1).value
+    if not handle or int(handle) == invalid:
+        error = ctypes.get_last_error()
+        raise BaselineError(
+            f"baseline directory handle cannot be opened: {path}"
+        ) from OSError(error, os.strerror(error), str(path))
+    numeric = int(handle)
+    try:
+        return numeric, _windows_directory_handle_identity(numeric, path)
+    except BaseException as body_error:
+        try:
+            _windows_close_directory(numeric)
+        except BaselineError as cleanup_error:
+            raise _aggregate_errors(
+                "baseline directory inspection and close both failed",
+                (body_error, cleanup_error),
+                retained_owners=cleanup_error.retained_owners,
+            ) from body_error
+        raise
+
+
+def _windows_close_directory(handle: int) -> None:
+    try:
+        _, _, _, close = _windows_directory_api()
+        succeeded = close(wintypes.HANDLE(handle))
+    except Exception as error:
+        raise _aggregate_errors(
+            "baseline directory handle close outcome is ambiguous",
+            (error,),
+            retained_owners=(handle,),
+        ) from error
+    if succeeded:
+        return
+    error = ctypes.get_last_error()
+    cause = OSError(error, os.strerror(error))
+    raise _aggregate_errors(
+        "baseline directory handle close outcome is ambiguous",
+        (cause,),
+        retained_owners=(handle,),
+    ) from cause
+
+
+def _windows_file_api() -> tuple[Any, Any, Any, Any, Any]:
+    if os.name != "nt":
+        raise BaselineError("Windows handle-relative file APIs are unavailable")
+    try:
+        ntdll = ctypes.WinDLL("ntdll")
+        create = ntdll.NtCreateFile
+        create.argtypes = (
+            ctypes.POINTER(wintypes.HANDLE),
+            wintypes.DWORD,
+            ctypes.POINTER(_WindowsObjectAttributes),
+            ctypes.POINTER(_WindowsIOStatusBlock),
+            wintypes.LPVOID,
+            wintypes.ULONG,
+            wintypes.ULONG,
+            wintypes.ULONG,
+            wintypes.ULONG,
+            wintypes.LPVOID,
+            wintypes.ULONG,
+        )
+        create.restype = wintypes.LONG
+        set_information = ntdll.NtSetInformationFile
+        set_information.argtypes = (
+            wintypes.HANDLE,
+            ctypes.POINTER(_WindowsIOStatusBlock),
+            wintypes.LPVOID,
+            wintypes.ULONG,
+            ctypes.c_int,
+        )
+        set_information.restype = wintypes.LONG
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        write = kernel32.WriteFile
+        write.argtypes = (
+            wintypes.HANDLE,
+            wintypes.LPCVOID,
+            wintypes.DWORD,
+            wintypes.LPDWORD,
+            wintypes.LPVOID,
+        )
+        write.restype = wintypes.BOOL
+        flush = kernel32.FlushFileBuffers
+        flush.argtypes = (wintypes.HANDLE,)
+        flush.restype = wintypes.BOOL
+        close = kernel32.CloseHandle
+        close.argtypes = (wintypes.HANDLE,)
+        close.restype = wintypes.BOOL
+    except Exception as error:
+        raise BaselineError("Windows handle-relative file APIs are unavailable") from error
+    return create, set_information, write, flush, close
+
+
+def _validated_relative_name(name: str) -> str:
+    if (
+        type(name) is not str
+        or not name
+        or name in {".", ".."}
+        or any(character in name for character in ("/", "\\", ":", "\x00"))
+    ):
+        raise BaselineError("baseline mutation name must be one relative component")
+    return name
+
+
+def _windows_create_relative_file(
+    directory_handle: int,
+    name: str,
+    *,
+    owner: "_StagedBaseline | None" = None,
+) -> int:
+    name = _validated_relative_name(name)
+    create, _, _, _, _ = _windows_file_api()
+    encoded = name.encode("utf-16-le")
+    if len(encoded) > 0xFFFE:
+        raise BaselineError("baseline temporary name is too long")
+    name_buffer = ctypes.create_unicode_buffer(name)
+    unicode_name = _WindowsUnicodeString(
+        len(encoded), len(encoded), ctypes.cast(name_buffer, wintypes.LPWSTR)
+    )
+    attributes = _WindowsObjectAttributes(
+        ctypes.sizeof(_WindowsObjectAttributes),
+        wintypes.HANDLE(directory_handle),
+        ctypes.pointer(unicode_name),
+        0x40,
+        None,
+        None,
+    )
+    status_block = _WindowsIOStatusBlock()
+    handle = wintypes.HANDLE()
+    candidate = owner or _StagedBaseline(name, None)
+    try:
+        status = int(
+            create(
+                ctypes.byref(handle),
+                0x00000002 | 0x00000080 | 0x00010000 | 0x00100000,
+                ctypes.byref(attributes),
+                ctypes.byref(status_block),
+                None,
+                0x80,
+                0,
+                2,
+                0x20 | 0x40,
+                None,
+                0,
+            )
+        )
+    except Exception as error:
+        invalid = ctypes.c_void_p(-1).value
+        if handle.value and int(handle.value) != invalid:
+            candidate.handle = int(handle.value)
+            candidate.state = "open"
+        failure = BaselineError("baseline temporary file could not be created")
+        if owner is None and candidate.handle is not None:
+            try:
+                _cleanup_windows_temporary(candidate)
+            except BaselineError as cleanup_error:
+                raise _aggregate_errors(
+                    "baseline temporary creation and cleanup both failed",
+                    (failure, cleanup_error),
+                    retained_owners=cleanup_error.retained_owners,
+                ) from error
+        raise failure from error
+    invalid = ctypes.c_void_p(-1).value
+    if handle.value and int(handle.value) != invalid:
+        candidate.handle = int(handle.value)
+        candidate.state = "open"
+    if (
+        status != 0
+        or int(status_block.Status) != 0
+        or int(status_block.Information) != 2
+        or not handle.value
+        or int(handle.value) == invalid
+    ):
+        failure = BaselineError("baseline temporary creation returned malformed status")
+        if owner is None and candidate.handle is not None:
+            try:
+                _cleanup_windows_temporary(candidate)
+            except BaselineError as cleanup_error:
+                raise _aggregate_errors(
+                    "malformed temporary creation and cleanup both failed",
+                    (failure, cleanup_error),
+                    retained_owners=cleanup_error.retained_owners,
+                ) from failure
+        raise failure
+    return int(handle.value)
+
+
+def _windows_write_file(handle: int, raw: bytes) -> None:
+    _, _, write, _, _ = _windows_file_api()
+    offset = 0
+    while offset < len(raw):
+        chunk = raw[offset : offset + 0xFFFFFFFF]
+        buffer = ctypes.create_string_buffer(chunk)
+        written = wintypes.DWORD()
+        try:
+            succeeded = write(
+                wintypes.HANDLE(handle),
+                ctypes.byref(buffer),
+                len(chunk),
+                ctypes.byref(written),
+                None,
+            )
+        except Exception as error:
+            raise BaselineError("baseline temporary write failed") from error
+        count = int(written.value)
+        if not succeeded or count <= 0 or count > len(chunk):
+            raise BaselineError("baseline temporary write returned malformed length")
+        offset += count
+
+
+def _windows_flush_file(handle: int) -> None:
+    _, _, _, flush, _ = _windows_file_api()
+    try:
+        succeeded = flush(wintypes.HANDLE(handle))
+    except Exception as error:
+        raise BaselineError("baseline temporary flush failed") from error
+    if not succeeded:
+        error = ctypes.get_last_error()
+        raise BaselineError("baseline temporary flush failed") from OSError(
+            error, os.strerror(error)
+        )
+
+
+def _windows_close_file(handle: int) -> None:
+    _, _, _, _, close = _windows_file_api()
+    try:
+        succeeded = close(wintypes.HANDLE(handle))
+    except Exception as error:
+        raise BaselineError("baseline temporary handle cannot be closed") from error
+    if not succeeded:
+        error = ctypes.get_last_error()
+        raise BaselineError("baseline temporary handle cannot be closed") from OSError(
+            error, os.strerror(error)
+        )
+
+
+def _windows_rename_relative_file(
+    handle: int, directory_handle: int, destination_name: str
+) -> None:
+    destination_name = _validated_relative_name(destination_name)
+    _, set_information, _, _, _ = _windows_file_api()
+    encoded = destination_name.encode("utf-16-le")
+    name_offset = _WindowsFileRenameInformation.FileName.offset
+    buffer = ctypes.create_string_buffer(name_offset + len(encoded))
+    information = ctypes.cast(
+        buffer, ctypes.POINTER(_WindowsFileRenameInformation)
+    ).contents
+    information.ReplaceIfExists = 1
+    information.RootDirectory = wintypes.HANDLE(directory_handle)
+    information.FileNameLength = len(encoded)
+    ctypes.memmove(ctypes.addressof(buffer) + name_offset, encoded, len(encoded))
+    status_block = _WindowsIOStatusBlock()
+    try:
+        status = int(
+            set_information(
+                wintypes.HANDLE(handle),
+                ctypes.byref(status_block),
+                ctypes.byref(buffer),
+                len(buffer),
+                10,
+            )
+        )
+    except Exception as error:
+        raise BaselineError("baseline handle-relative replacement failed") from error
+    if status != 0 or int(status_block.Status) != 0:
+        raise BaselineError("baseline handle-relative replacement returned malformed status")
+
+
+def _windows_dispose_relative_file(handle: int) -> None:
+    _, set_information, _, _, _ = _windows_file_api()
+    information = _WindowsFileDispositionInformation(1)
+    status_block = _WindowsIOStatusBlock()
+    try:
+        status = int(
+            set_information(
+                wintypes.HANDLE(handle),
+                ctypes.byref(status_block),
+                ctypes.byref(information),
+                ctypes.sizeof(information),
+                13,
+            )
+        )
+    except Exception as error:
+        raise BaselineError("baseline temporary disposition failed") from error
+    if status != 0 or int(status_block.Status) != 0:
+        raise BaselineError("baseline temporary disposition returned malformed status")
+
+
+class _StagedBaseline:
+    __slots__ = ("name", "handle", "renamed", "state")
+
+    def __init__(self, name: str, handle: int | None) -> None:
+        self.name = name
+        self.handle = handle
+        self.renamed = False
+        self.state = "open" if handle is not None else "unacquired"
+
+
+def _cleanup_windows_temporary(temporary: _StagedBaseline) -> None:
+    if temporary.state == "close_attempted":
+        raise BaselineError(
+            "baseline temporary handle close outcome is ambiguous",
+            retained_owners=(temporary,),
+        )
+    if temporary.handle is None:
+        temporary.state = "closed"
+        return
+    failures: list[BaseException] = []
+    if not temporary.renamed and temporary.state != "deletion_armed":
+        for _ in range(2):
+            try:
+                _windows_dispose_relative_file(temporary.handle)
+            except BaseException as error:
+                failures.append(error)
+            else:
+                temporary.state = "deletion_armed"
+                break
+        if temporary.state != "deletion_armed":
+            raise _aggregate_errors(
+                "baseline temporary deletion could not be armed",
+                failures,
+                retained_owners=(temporary,),
+            ) from failures[0]
+
+    handle = temporary.handle
+    temporary.handle = None
+    temporary.state = "close_attempted"
+    try:
+        _windows_close_file(handle)
+    except BaseException as error:
+        failures.append(error)
+        raise _aggregate_errors(
+            "baseline temporary handle close outcome is ambiguous",
+            failures,
+            retained_owners=(temporary,),
+        ) from error
+    temporary.state = "closed"
+
+
+def _write_staged_bytes(handle: int, raw: bytes, *, windows: bool) -> None:
+    if type(raw) is not bytes:
+        raise BaselineError("dependency baseline content must be bytes")
+    if windows:
+        _windows_write_file(handle, raw)
+        _windows_flush_file(handle)
+        return
+    offset = 0
+    while offset < len(raw):
+        written = os.write(handle, raw[offset:])
+        if written <= 0:
+            raise OSError("baseline temporary write made no progress")
+        offset += written
+    os.fsync(handle)
+
+
+def _posix_staged_entry_matches(
+    directory_descriptor: int, temporary: _StagedBaseline
+) -> bool:
+    if temporary.handle is None:
+        return False
+    try:
+        handle_info = os.fstat(temporary.handle)
+        path_info = os.stat(
+            temporary.name,
+            dir_fd=directory_descriptor,
+            follow_symlinks=False,
+        )
+    except FileNotFoundError:
+        return False
+    except OSError as error:
+        raise BaselineError("POSIX staged baseline identity cannot be inspected") from error
+    return (
+        stat.S_ISREG(handle_info.st_mode)
+        and not stat.S_ISLNK(path_info.st_mode)
+        and stat.S_ISREG(path_info.st_mode)
+        and _path_handle_identity(path_info) == _path_handle_identity(handle_info)
+    )
+
+
+def _replace_staged_file(
+    transaction: "_BoundBaselineDirectory",
+    temporary: _StagedBaseline,
+    destination_name: str,
+) -> None:
+    if os.name == "nt":
+        if temporary.handle is None or transaction._architecture_handle is None:
+            raise BaselineError("Windows baseline replacement handles are absent")
+        _windows_rename_relative_file(
+            temporary.handle,
+            transaction._architecture_handle,
+            destination_name,
+        )
+        return
+    if transaction._architecture_descriptor is None:
+        raise BaselineError("POSIX baseline replacement descriptor is absent")
+    if temporary.handle is None:
+        raise BaselineError("POSIX staged baseline descriptor is absent")
+    if not _posix_staged_entry_matches(
+        transaction._architecture_descriptor, temporary
+    ):
+        raise BaselineError("POSIX staged baseline entry no longer names its descriptor")
+    os.replace(
+        temporary.name,
+        destination_name,
+        src_dir_fd=transaction._architecture_descriptor,
+        dst_dir_fd=transaction._architecture_descriptor,
+    )
+    try:
+        after_handle = os.fstat(temporary.handle)
+        after_path = os.stat(
+            destination_name,
+            dir_fd=transaction._architecture_descriptor,
+            follow_symlinks=False,
+        )
+    except OSError as error:
+        raise BaselineError("POSIX published baseline identity cannot be inspected") from error
+    if _path_handle_identity(after_path) != _path_handle_identity(after_handle):
+        raise BaselineError("POSIX published baseline no longer names its descriptor")
+
+
+class _BoundBaselineDirectory:
+    def __init__(self, repository_root: Path, destination: Path) -> None:
+        self.repository_root = repository_root
+        self.destination = destination
+        self.root = repository_root
+        self.docs = repository_root / "docs"
+        self.architecture = self.docs / "architecture"
+        self._windows_handles: list[tuple[Path, int, tuple[int, bytes]]] = []
+        self._posix_descriptors: list[
+            tuple[Path, int, tuple[int, int] | None]
+        ] = []
+        self._windows_close_attempted: set[int] = set()
+        self._posix_close_attempted: set[int] = set()
+        self._architecture_handle: int | None = None
+        self._architecture_descriptor: int | None = None
+        self._temporaries: list[_StagedBaseline] = []
+        self._validated_directories: tuple[tuple[Path, tuple[int, ...]], ...] = ()
+        self._validated_windows_identities: tuple[
+            tuple[Path, tuple[int, bytes]], ...
+        ] = ()
+
+    def __enter__(self) -> "_BoundBaselineDirectory":
+        validate_write_destination(self.repository_root, self.destination)
+        self._validated_directories = tuple(
+            (path, _validated_directory(path, description="baseline write ancestor"))
+            for path in (self.root, self.docs, self.architecture)
+        )
+        try:
+            if os.name == "nt":
+                self._validated_windows_identities = tuple(
+                    (path, self._windows_path_identity(path))
+                    for path in (self.root, self.docs, self.architecture)
+                )
+                self._bind_windows()
+            else:
+                self._bind_posix()
+            self.reverify()
+            return self
+        except BaseException as body_error:
+            try:
+                self.close()
+            except BaselineError as cleanup_error:
+                raise _aggregate_errors(
+                    "baseline transaction setup and cleanup both failed",
+                    (body_error, cleanup_error),
+                    retained_owners=cleanup_error.retained_owners,
+                ) from body_error
+            raise
+
+    def __exit__(self, exc_type: object, exc: object, traceback: object) -> None:
+        try:
+            self.close()
+        except BaselineError as cleanup_error:
+            if exc is None:
+                raise
+            assert isinstance(exc, BaseException)
+            raise _aggregate_errors(
+                "dependency baseline operation and cleanup both failed",
+                (exc, cleanup_error),
+                retained_owners=cleanup_error.retained_owners,
+            ) from exc
+
+    def _bind_windows(self) -> None:
+        for path in (self.root, self.docs, self.architecture):
+            handle, identity = _windows_open_directory(path)
+            self._windows_handles.append((path, handle, identity))
+        self._architecture_handle = self._windows_handles[-1][1]
+
+    @staticmethod
+    def _windows_path_identity(path: Path) -> tuple[int, bytes]:
+        handle, identity = _windows_open_directory(path)
+        _windows_close_directory(handle)
+        return identity
+
+    def _bind_posix(self) -> None:
+        if not hasattr(os, "O_DIRECTORY") or not hasattr(os, "O_NOFOLLOW"):
+            raise BaselineError("secure POSIX directory primitives are unavailable")
+        required = (os.open, os.replace, os.stat, os.unlink)
+        if any(function not in os.supports_dir_fd for function in required):
+            raise BaselineError("secure POSIX directory-relative operations are unavailable")
+        if os.stat not in os.supports_follow_symlinks:
+            raise BaselineError("secure POSIX no-follow stat is unavailable")
+        flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0)
+
+        def bind(
+            path: Path, name: Path | str, *, parent_descriptor: int | None = None
+        ) -> int:
+            if parent_descriptor is None:
+                descriptor = os.open(name, flags)
+            else:
+                descriptor = os.open(name, flags, dir_fd=parent_descriptor)
+            self._posix_descriptors.append((path, descriptor, None))
+            info = os.fstat(descriptor)
+            identity = (int(info.st_dev), int(info.st_ino))
+            self._posix_descriptors[-1] = (path, descriptor, identity)
+            return descriptor
+
+        try:
+            root_descriptor = bind(self.root, self.root)
+            docs_descriptor = bind(
+                self.docs,
+                "docs",
+                parent_descriptor=root_descriptor,
+            )
+            architecture_descriptor = bind(
+                self.architecture,
+                "architecture",
+                parent_descriptor=docs_descriptor,
+            )
+            self._architecture_descriptor = architecture_descriptor
+        except OSError as error:
+            raise BaselineError("baseline directory chain could not be securely bound") from error
+
+    def reverify(self) -> None:
+        validate_write_destination(self.repository_root, self.destination)
+        if not self._validated_directories:
+            raise BaselineError("baseline directory intent identities are absent")
+        for path, expected_path_identity in self._validated_directories:
+            current_path_identity = _validated_directory(
+                path, description="baseline write ancestor"
+            )
+            if current_path_identity != expected_path_identity:
+                raise BaselineError(
+                    f"baseline directory changed after intent validation: {path}"
+                )
+        if os.name == "nt":
+            if len(self._validated_windows_identities) != len(self._windows_handles):
+                raise BaselineError("baseline Windows intent identities are incomplete")
+            for index, (path, handle, expected_handle) in enumerate(
+                self._windows_handles
+            ):
+                intended_path, intended_identity = self._validated_windows_identities[index]
+                if intended_path != path:
+                    raise BaselineError("baseline directory binding order changed")
+                handle_identity = _windows_directory_handle_identity(handle, path)
+                current_path_identity = self._windows_path_identity(path)
+                if (
+                    handle_identity != expected_handle
+                    or handle_identity != intended_identity
+                    or current_path_identity != intended_identity
+                ):
+                    raise BaselineError(f"held baseline directory identity changed: {path}")
+                info = os.lstat(path)
+                if (
+                    stat.S_ISLNK(info.st_mode)
+                    or _is_reparse(info)
+                    or not stat.S_ISDIR(info.st_mode)
+                ):
+                    raise BaselineError(
+                        f"baseline directory path no longer names its handle: {path}"
+                    )
+            return
+        for index, (path, descriptor, bound_identity) in enumerate(
+            self._posix_descriptors
+        ):
+            intended_path, intended_identity = self._validated_directories[index]
+            intended_device_inode = (intended_identity[0], intended_identity[1])
+            if intended_path != path:
+                raise BaselineError("baseline directory binding order changed")
+            handle_info = os.fstat(descriptor)
+            path_info = os.lstat(path)
+            if (
+                bound_identity is None
+                or bound_identity != intended_device_inode
+                or (int(handle_info.st_dev), int(handle_info.st_ino))
+                != intended_device_inode
+                or (int(path_info.st_dev), int(path_info.st_ino))
+                != intended_device_inode
+                or stat.S_ISLNK(path_info.st_mode)
+                or not stat.S_ISDIR(path_info.st_mode)
+            ):
+                raise BaselineError(
+                    f"baseline directory path no longer names its descriptor: {path}"
+                )
+
+    def stage(self, raw: bytes) -> _StagedBaseline:
+        self.reverify()
+        name = f".{self.destination.name}.{uuid.uuid4().hex}.tmp"
+        if os.name == "nt":
+            if self._architecture_handle is None:
+                raise BaselineError("Windows baseline directory handle is absent")
+            temporary = _StagedBaseline(name, None)
+            self._temporaries.append(temporary)
+            handle = _windows_create_relative_file(
+                self._architecture_handle,
+                name,
+                owner=temporary,
+            )
+            if temporary.handle != handle or temporary.state != "open":
+                raise BaselineError("Windows baseline temporary ownership was not retained")
+            self.reverify()
+            _write_staged_bytes(handle, raw, windows=True)
+            self.reverify()
+            return temporary
+        if self._architecture_descriptor is None:
+            raise BaselineError("POSIX baseline directory descriptor is absent")
+        flags = (
+            os.O_WRONLY
+            | os.O_CREAT
+            | os.O_EXCL
+            | os.O_NOFOLLOW
+            | getattr(os, "O_CLOEXEC", 0)
+        )
+        try:
+            descriptor = os.open(
+                name, flags, 0o600, dir_fd=self._architecture_descriptor
+            )
+        except OSError as error:
+            raise BaselineError("baseline temporary file could not be created") from error
+        temporary = _StagedBaseline(name, descriptor)
+        self._temporaries.append(temporary)
+        self.reverify()
+        _write_staged_bytes(descriptor, raw, windows=False)
+        self.reverify()
+        return temporary
+
+    def replace(self, temporary: _StagedBaseline) -> None:
+        if temporary not in self._temporaries:
+            raise BaselineError("baseline temporary ownership is invalid")
+        self.reverify()
+        _replace_staged_file(self, temporary, self.destination.name)
+        temporary.renamed = True
+        self._cleanup_temporary(temporary)
+        if os.name != "nt" and self._architecture_descriptor is not None:
+            os.fsync(self._architecture_descriptor)
+        self.reverify()
+
+    def _cleanup_temporary(self, temporary: _StagedBaseline) -> None:
+        if temporary not in self._temporaries:
+            return
+        if os.name == "nt":
+            _cleanup_windows_temporary(temporary)
+        else:
+            if temporary.state == "close_attempted":
+                raise BaselineError(
+                    "POSIX baseline descriptor close outcome is ambiguous",
+                    retained_owners=(temporary,),
+                )
+            failures: list[BaseException] = []
+            # Failure cleanup is close-only because a POSIX name can be rebound
+            # between any identity check and a later unlink syscall.
+            if temporary.handle is not None:
+                descriptor = temporary.handle
+                temporary.handle = None
+                temporary.state = "close_attempted"
+                try:
+                    os.close(descriptor)
+                except OSError as error:
+                    failures.append(error)
+                else:
+                    temporary.state = "closed"
+            if failures:
+                raise _aggregate_errors(
+                    "POSIX baseline temporary cleanup failed",
+                    failures,
+                    retained_owners=(temporary,),
+                ) from failures[0]
+        self._temporaries.remove(temporary)
+
+    def close(self) -> None:
+        failures: list[BaseException] = []
+        for temporary in tuple(self._temporaries):
+            try:
+                self._cleanup_temporary(temporary)
+            except BaseException as error:
+                failures.append(error)
+        for entry in tuple(reversed(self._posix_descriptors)):
+            descriptor = entry[1]
+            if descriptor in self._posix_close_attempted:
+                failures.append(
+                    BaselineError(
+                        "POSIX directory descriptor close outcome is ambiguous",
+                        retained_owners=(entry,),
+                    )
+                )
+                continue
+            self._posix_close_attempted.add(descriptor)
+            try:
+                os.close(descriptor)
+            except OSError as error:
+                failures.append(
+                    _aggregate_errors(
+                        "POSIX directory descriptor close outcome is ambiguous",
+                        (error,),
+                        retained_owners=(entry,),
+                    )
+                )
+            else:
+                self._posix_descriptors.remove(entry)
+                self._posix_close_attempted.remove(descriptor)
+        for entry in tuple(reversed(self._windows_handles)):
+            handle = entry[1]
+            if handle in self._windows_close_attempted:
+                failures.append(
+                    BaselineError(
+                        "Windows directory handle close outcome is ambiguous",
+                        retained_owners=(entry,),
+                    )
+                )
+                continue
+            self._windows_close_attempted.add(handle)
+            try:
+                _windows_close_directory(handle)
+            except BaselineError as error:
+                failures.append(error)
+            else:
+                self._windows_handles.remove(entry)
+                self._windows_close_attempted.remove(handle)
+        self._architecture_descriptor = None
+        self._architecture_handle = None
+        if failures:
+            retained: list[object] = []
+            if self._temporaries or self._posix_descriptors or self._windows_handles:
+                retained.append(self)
+            for failure in failures:
+                if isinstance(failure, BaselineError):
+                    retained.extend(failure.retained_owners)
+            raise _aggregate_errors(
+                "dependency baseline transaction cleanup failed",
+                failures,
+                retained_owners=tuple(dict.fromkeys(retained)),
+            ) from failures[0]
+
+
+def write_baseline(destination: Path, raw: bytes) -> None:
+    if not isinstance(destination, Path) or not destination.is_absolute():
+        raise BaselineError("dependency baseline destination must be absolute")
+    if type(raw) is not bytes or len(raw) > MAXIMUM_BASELINE_BYTES:
+        raise BaselineError("dependency baseline write bytes are invalid or oversized")
+    try:
+        repository_root = destination.parents[2]
+    except IndexError as error:
+        raise BaselineError("dependency baseline destination has no repository root") from error
+    validated = validate_write_destination(repository_root, destination)
+    try:
+        with _BoundBaselineDirectory(repository_root, validated) as transaction:
+            temporary = transaction.stage(raw)
+            transaction.replace(temporary)
+    except BaselineError:
+        raise
     except OSError as error:
         raise BaselineError("dependency baseline could not be written atomically") from error
-    finally:
-        try:
-            candidate.unlink()
-        except FileNotFoundError:
-            pass
 
 
 def check_baseline(destination: Path, expected: bytes) -> None:
@@ -737,7 +1961,8 @@ def check_baseline(destination: Path, expected: bytes) -> None:
     parsed = parse_baseline_bytes(actual)
     if parsed.baseline_commit != BASELINE_COMMIT:
         raise BaselineError("dependency baseline commit differs from the approved lock")
-    if actual != expected:
+    exact_crlf_checkout = expected.replace(b"\n", b"\r\n")
+    if actual != expected and actual != exact_crlf_checkout:
         raise BaselineError("dependency baseline bytes differ from deterministic generation")
 
 

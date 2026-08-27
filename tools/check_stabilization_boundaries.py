@@ -13,6 +13,12 @@ from types import ModuleType
 
 
 BASELINE_RELATIVE_PATH = "docs/architecture/dependency-baseline.toml"
+APPROVED_BASELINE_COMMIT = "a842c4b6a73a2991a63a481f4107580b72750582"
+APPROVED_MODULE_COUNT = 470
+APPROVED_EDGE_COUNT = 2577
+APPROVED_EDGE_DIGEST = "c178ed92158da1c544abaf39ab14842721658a31f3f9246cbeb3e05e3e3da6ee"
+APPROVED_SCC_COUNT = 469
+APPROVED_SCC_DIGEST = "9987fddd06742fc2af87de7b8ebf79bc8b2dda7231260f7cc9efdcca18dff345"
 _ORCHESTRATION_SIBLING_PREFIX = "tools.test_orchestration"
 EVIDENCE_ORIGIN_PATHS = frozenset(
     {
@@ -85,6 +91,30 @@ _BASELINE = _load_generator()
 def _raise_violations(violations: Sequence[str]) -> None:
     if violations:
         raise BoundaryError(violations)
+
+
+def authenticate_approved_baseline(parsed: object) -> None:
+    """Authenticate the complete accepted graph instead of trusting its metadata."""
+
+    graph = parsed.graph
+    identity = (
+        parsed.baseline_commit,
+        len(graph.modules),
+        len(graph.edges),
+        _BASELINE.edges_sha256(graph.edges),
+        len(graph.sccs),
+        _BASELINE.sccs_sha256(graph.sccs),
+    )
+    approved = (
+        APPROVED_BASELINE_COMMIT,
+        APPROVED_MODULE_COUNT,
+        APPROVED_EDGE_COUNT,
+        APPROVED_EDGE_DIGEST,
+        APPROVED_SCC_COUNT,
+        APPROVED_SCC_DIGEST,
+    )
+    if identity != approved:
+        raise BoundaryError("dependency baseline differs from the approved mechanical lock")
 
 
 def enforce_legacy_edges(baseline: object, current: object) -> None:
@@ -200,37 +230,142 @@ def enforce_orchestration_import_policy(sources: Mapping[str, bytes]) -> None:
 
 
 def _is_reparse(info: os.stat_result) -> bool:
-    return bool(getattr(info, "st_file_attributes", 0) & 0x400)
+    return bool(int(getattr(info, "st_file_attributes", 0)) & 0x400) or bool(
+        int(getattr(info, "st_reparse_tag", 0))
+    )
 
 
-def _read_regular_source(path: Path, *, root: Path) -> bytes:
+def _read_regular_source(path: Path, *, root: Path) -> object:
+    try:
+        return _BASELINE.read_regular_snapshot(
+            path,
+            maximum_bytes=_BASELINE.MAXIMUM_SOURCE_BYTES,
+            root=root,
+        )
+    except _BASELINE.BaselineError as error:
+        raise BoundaryError(f"Python source cannot be snapshotted: {path}: {error}") from error
+
+
+def _directory_inventory_identity(path: Path) -> tuple[int, ...]:
     try:
         info = os.lstat(path)
     except OSError as error:
-        raise BoundaryError(f"Python source cannot be inspected: {path}") from error
-    if stat.S_ISLNK(info.st_mode) or _is_reparse(info) or not stat.S_ISREG(info.st_mode):
-        raise BoundaryError(f"Python source is not a regular nonreparse file: {path}")
-    try:
-        relative = path.relative_to(root).as_posix()
-        raw = path.read_bytes()
-    except (OSError, ValueError) as error:
-        raise BoundaryError(
-            f"Python source cannot be read below repository root: {path}"
-        ) from error
-    if len(raw) != info.st_size:
-        raise BoundaryError(f"Python source changed while reading: {relative}")
-    return raw
+        raise BoundaryError(f"Python inventory directory cannot be inspected: {path}") from error
+    if stat.S_ISLNK(info.st_mode) or _is_reparse(info) or not stat.S_ISDIR(info.st_mode):
+        raise BoundaryError(f"Python inventory has a non-directory or reparse: {path}")
+    return _BASELINE._directory_identity(info)
 
 
-def _collect_sources(repository_root: Path, relative_root: str) -> dict[str, bytes]:
+def _python_inventory(
+    repository_root: Path, relative_root: str
+) -> tuple[bool, tuple[str, ...], tuple[tuple[str, tuple[int, ...]], ...]]:
     base = repository_root / relative_root
-    if not base.exists():
-        return {}
-    sources: dict[str, bytes] = {}
-    for path in sorted(base.rglob("*.py")):
-        relative = path.relative_to(repository_root).as_posix()
-        sources[relative] = _read_regular_source(path, root=repository_root)
-    return sources
+    if not os.path.lexists(base):
+        return False, (), ()
+    paths: list[str] = []
+    directories: list[tuple[str, tuple[int, ...]]] = []
+
+    def walk_error(error: OSError) -> None:
+        raise BoundaryError(f"Python inventory cannot be walked: {base}") from error
+
+    for current, names, filenames in os.walk(
+        base, topdown=True, onerror=walk_error, followlinks=False
+    ):
+        directory = Path(current)
+        relative_directory = directory.relative_to(repository_root).as_posix()
+        directories.append(
+            (relative_directory, _directory_inventory_identity(directory))
+        )
+        for name in tuple(names):
+            child = directory / name
+            _directory_inventory_identity(child)
+        for filename in filenames:
+            if filename.casefold().endswith(".py"):
+                relative = (directory / filename).relative_to(repository_root).as_posix()
+                if not filename.endswith(".py"):
+                    raise BoundaryError(
+                        f"Python inventory has a noncanonical Python suffix: {relative}"
+                    )
+                paths.append(relative)
+    return True, tuple(sorted(paths)), tuple(sorted(directories))
+
+
+class SourceInventory:
+    """A complete source inventory with identities retained through policy work."""
+
+    __slots__ = (
+        "repository_root",
+        "relative_root",
+        "exists",
+        "paths",
+        "directories",
+        "snapshots",
+        "sources",
+    )
+
+    def __init__(
+        self,
+        repository_root: Path,
+        relative_root: str,
+        exists: bool,
+        paths: Sequence[str],
+        directories: Sequence[tuple[str, tuple[int, ...]]],
+        snapshots: Mapping[str, object],
+    ) -> None:
+        self.repository_root = repository_root
+        self.relative_root = relative_root
+        self.exists = exists
+        self.paths = tuple(paths)
+        self.directories = tuple(directories)
+        self.snapshots = dict(snapshots)
+        self.sources = {
+            relative: snapshot.raw for relative, snapshot in self.snapshots.items()
+        }
+
+    def revalidate(self) -> None:
+        current = _python_inventory(self.repository_root, self.relative_root)
+        if current != (self.exists, self.paths, self.directories):
+            raise BoundaryError(
+                f"Python source inventory changed: {self.relative_root}"
+            )
+        try:
+            for snapshot in self.snapshots.values():
+                snapshot.revalidate()
+        except _BASELINE.BaselineError as error:
+            raise BoundaryError(
+                f"Python source identity changed: {self.relative_root}: {error}"
+            ) from error
+
+
+def _collect_sources(repository_root: Path, relative_root: str) -> SourceInventory:
+    exists, paths, directories = _python_inventory(repository_root, relative_root)
+    snapshots = {
+        relative: _read_regular_source(repository_root / relative, root=repository_root)
+        for relative in paths
+    }
+    inventory = SourceInventory(
+        repository_root,
+        relative_root,
+        exists,
+        paths,
+        directories,
+        snapshots,
+    )
+    inventory.revalidate()
+    return inventory
+
+
+def _revalidate_repository_snapshot(
+    baseline: object,
+    current: SourceInventory,
+    tools: SourceInventory,
+) -> None:
+    try:
+        baseline.revalidate()
+    except _BASELINE.BaselineError as error:
+        raise BoundaryError(f"dependency baseline identity changed: {error}") from error
+    current.revalidate()
+    tools.revalidate()
 
 
 def check_repository(repository_root: Path) -> None:
@@ -240,16 +375,22 @@ def check_repository(repository_root: Path) -> None:
         raise BoundaryError("repository root cannot be resolved") from error
     baseline_path = root / BASELINE_RELATIVE_PATH
     try:
-        baseline_raw = _BASELINE._validated_regular_file(
-            baseline_path, maximum_bytes=_BASELINE.MAXIMUM_BASELINE_BYTES
+        baseline_snapshot = _BASELINE.read_regular_snapshot(
+            baseline_path,
+            maximum_bytes=_BASELINE.MAXIMUM_BASELINE_BYTES,
+            root=root,
         )
-        parsed = _BASELINE.parse_baseline_bytes(baseline_raw)
+        parsed = _BASELINE.parse_baseline_bytes(baseline_snapshot.raw)
     except _BASELINE.BaselineError as error:
         raise BoundaryError(f"dependency baseline cannot be loaded: {error}") from error
-    if parsed.baseline_commit != _BASELINE.BASELINE_COMMIT:
-        raise BoundaryError("dependency baseline commit differs from stabilization baseline")
-    current_sources = _collect_sources(root, "src/pontius")
-    tool_sources = _collect_sources(root, "tools")
+    authenticate_approved_baseline(parsed)
+    current_inventory = _collect_sources(root, "src/pontius")
+    tool_inventory = _collect_sources(root, "tools")
+    current_sources = current_inventory.sources
+    tool_sources = tool_inventory.sources
+    _revalidate_repository_snapshot(
+        baseline_snapshot, current_inventory, tool_inventory
+    )
     try:
         current_graph = _BASELINE.scan_sources(current_sources)
     except _BASELINE.BaselineError as error:
@@ -259,6 +400,9 @@ def check_repository(repository_root: Path) -> None:
     enforce_no_new_or_expanded_scc(parsed.graph, current_graph)
     enforce_evidence_import_policy(current_sources)
     enforce_orchestration_import_policy(tool_sources)
+    _revalidate_repository_snapshot(
+        baseline_snapshot, current_inventory, tool_inventory
+    )
 
 
 def parse_arguments(argv: Sequence[str] | None) -> argparse.Namespace:

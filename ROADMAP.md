@@ -1797,8 +1797,19 @@ queue:
   intercept, nonnegative slope, positive-residual guard, and `5/4` ceiling.
   The result can test material zeta speed on synthetic prove-none controls but
   cannot select a topology while production `b(S)` and certificate frequency
-  remain absent. Next implement and source-seal that owner without compiler,
-  CUDA, device, timing, result, population-25, or literal-45 numerical work.
+  remain absent. ADR-0458 now source-seals that owner without compiler, CUDA,
+  device, timing, result, population-25, or literal-45 numerical work. Its
+  literal 28-kernel translation unit, one campaign-wide physical five-channel
+  RRNS table arena, exact signed decision keys, nineteen-phase work ledger,
+  resource inspectors, durable exclusive owner, independent reader, and 21
+  focused controls are bound. Host-side scientific traversal and full-domain
+  witness overlaunch found during source review were removed before evidence.
+  Any liveness peak reproducing a rejected arm remains that arm regardless of
+  renamed buffers; sequential arena reuse makes concurrent batches
+  unrepresentable. Next invoke the exact clean committed owner once and retain
+  its first terminal permanently. Even a pass cannot select a production
+  topology while the real base producer and certificate frequency remain
+  absent.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

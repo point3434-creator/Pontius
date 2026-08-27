@@ -2430,6 +2430,29 @@ not an allocated or measured numerical operator. The production base audit
 still returns `producer_absent`, so calibration can report materiality but can
 never elect a production topology or imply an action-clock fit.
 
+ADR-0458 source-seals that calibration without compiling or opening a result.
+The literal translation unit carries 28 named device kernels; a separate AST
+contract proves that the nineteen timed host callbacks contain no scientific
+prefix traversal, exact-price authority, unbounded comparison, or nonterminal
+scientific transfer. Direct, zeta, and selected-leaf kernels receive an exact
+source count, so witness mode cannot overlaunch the complete domain while
+reporting one source. Positional and RRNS width ledgers, single-channel RRNS
+fault detection, correlated-fault differential controls, compile-resource
+parsers, phase/work receipts, and exact-rational projection now have an
+independent reader before the first compiler call.
+
+The batched RRNS physical contract is one campaign-wide arena sized for five
+channels, allocated once after admission and overwritten sequentially by every
+table stage. Domain objects receive bounded views and cannot represent
+concurrent first- and second-batch residency. The reduced campaign's symbolic
+source-only peak is 194,402,210 bytes, including a 7,602,040-byte arena; neither
+number is a live or literal-45 capacity result. The liveness identity rule is
+frozen: any configuration whose liveness peak reproduces a rejected arm's peak
+is that rejected arm, regardless of variable names; rejections attach to
+physics, not identifiers. The next boundary is one clean committed invocation
+and permanent retention of its first terminal. Production selection, target
+numerics, resolver integration, and action fit remain closed.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

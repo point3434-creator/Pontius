@@ -2541,6 +2541,15 @@ integration remains dormant until a separate exact one-generation authorization
 commit exists. No compiler, CuPy scientific import, device, timing, or v4 result
 work opened.
 
+ADR-0468 provides the separate one-generation authorization without changing
+any sealed implementation or control byte. The authorization commit must be the
+sole child of the named ADR-0467 source seal and its diff is limited to the
+frozen six documentation/configuration paths. The public owner remains closed
+until the authorization-dependent full-reader integration runs in a fresh
+source-only process with no skip and the exact clean HEAD, dependency closure,
+and absent result/attempt/launch states are rechecked. Authorization is not an
+invocation or a systems result.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

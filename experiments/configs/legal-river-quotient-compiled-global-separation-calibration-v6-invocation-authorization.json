@@ -1,0 +1,12 @@
+{
+  "schema_version": "pontius-adr0468-one-commit-authorization-v1",
+  "source_seal_commit": "ba6a3418b7c991238cc1a65898fd61fa03b4a3cb",
+  "authorization_commit_paths": [
+    "ARCHITECTURE.md",
+    "RISK_REGISTER.md",
+    "ROADMAP.md",
+    "STATUS.md",
+    "docs/decisions/ADR-0468-authorize-one-deferred-import-calibration-invocation.md",
+    "experiments/configs/legal-river-quotient-compiled-global-separation-calibration-v6-invocation-authorization.json"
+  ]
+}

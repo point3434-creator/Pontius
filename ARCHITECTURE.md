@@ -2498,6 +2498,15 @@ This makes count omissions reject before driver dispatch while explicitly not
 claiming that equal-arity semantic misordering is impossible. Compiler, device,
 timing, and result work remain closed until a clean committed v3 source seal.
 
+ADR-0464 corrects that boundary before source seal after the all-site control
+found the opposite drift at `evaluate_selected_leaves_rrns_batch`: ten declared
+parameters, eleven host arguments, and an obsolete extra `scan_count` in a
+kernel already bounded by `selected_count`. The corrected effective source must
+both add direct `source_count` and remove selected-leaf `scan_count`; mutation
+controls reproduce 9-versus-8 and 10-versus-11, and all 46 launch sites must
+match all 28 declarations. No compiler or device replay contributed to the
+finding.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

@@ -15,38 +15,37 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Freeze one fresh v3 lifecycle before source. Preserve the exact v2 result and
-all historical modules. The successor receives a fresh scientific-module path,
-launcher, runner, independent reader, controls, protocol, campaign, dependency
-domain, environment variables, frame prefixes, and result. Its public owner
-retains the absolute hash-bound Git mechanism and split compiler/runtime
-environment that passed in v2.
+No. Correct the prospective boundary before changing that call. ADR-0463
+authorized insertion of the missing `source_count` into the timed direct RRNS
+launch and a structural arity fence. When the independently written AST audit
+applied that conceptual repair across the complete effective source, 45 of 46
+launch sites matched their literal CUDA declarations. The remaining site was:
 
-The new scientific module is constrained by construction. Its literal CUDA
-translation unit must retain SHA-256
-`4f626802bd792788dff74c58adb90e7e30876e0c8f22d7fcb79de0c90334f8f7`.
-The timed `direct_prices_rrns_batch` tuple inserts exactly
-`np.uint64(scan_count)` between `cards` and `moduli`; the complete-differential
-tuple retains `np.uint64(prepared.source_rows)` in that slot. The only other
-permitted scientific source is a kernel-launch arity contract.
+```text
+evaluate_selected_leaves_rrns_batch
+CUDA parameters: 10
+host arguments:  11
+extra argument:  np.uint64(scan_count)
+```
 
-That contract parses the literal `extern "C" __global__` declarations and
-derives exactly one ordered signature and argument count for every one of the
-28 named kernels. The common launch helper must compare the actual tuple count
-to that derived count and fail with a typed pre-driver terminal on mismatch.
-An independently written AST control must enumerate every host `_launch` site,
-resolve conditional kernel names and locally assembled tuples, and prove each
-site's possible argument counts match the declaration-derived count. A
-mutation removing `source_count` from either direct call must reject, as must a
-CUDA declaration mutation or any bypass around the common helper.
+The CUDA entry already receives `selected_count` and bounds work by
+`selected_count * channel_count`; it has no `source_count` parameter. The host
+tuple retained an obsolete scan-count argument between `cards` and `moduli`.
+If reached, this would pay the same `CUDA_ERROR_INVALID_VALUE` rejected-
+invocation tax as ADR-0462. No device replay was needed to establish it.
 
-This repairs the count seam without changing the experiment. The four arms,
-two arithmetic schedules, five domains, 480 cells per pass, one warmup plus
-five measured passes, SHA order, three synthetic base types, two refresh
-states, two runtime modes, one five-channel arena, exact arithmetic, nineteen
-phases, work coordinates, exact rational projection, materiality conjuncts,
-walls, and claims remain literal. No result can select a production topology
-while the production base and certificate frequency remain absent.
+Expand the permitted effective-source delta by exactly one removal. After both
+repairs, the independent audit must report 46 sites, 28 declarations, and zero
+mismatches. Restoring the selected-leaf extra must reproduce the 10-versus-11
+failure; removing the direct insertion must reproduce the 9-versus-8 failure.
+Changing either declaration must reject. The runtime guard remains derived
+from the declarations and must stop a malformed tuple before driver dispatch.
+
+Everything else in ADR-0463 remains frozen: parent and retained-result bytes,
+literal CUDA bytes, matrix, order, fixtures, arms, arithmetic schedules,
+one-arena liveness, phases, work coordinates, projector, thresholds, walls,
+fresh lifecycle, and claims. The correction is prospective because no source
+seal, compiler, device, timing value, or v3 result exists.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -116,8 +115,9 @@ topology successor while closing that result owner uninvoked, ADR-0456 source-
 seals the reduced successor without opening its bake-off, ADR-0457 freezes the
 compiled calibration, ADR-0458 source-seals it, ADR-0459 consumes its sole
 pre-owner failure, ADR-0460 freezes the absolute-Git recovery, ADR-0461
-source-seals that recovery, ADR-0462 retains its launch-arity rejection, and
-ADR-0463 opens only the fresh source lane.
+source-seals that recovery, ADR-0462 retains its launch-arity rejection,
+ADR-0463 opens the fresh arity source lane, and ADR-0464 corrects that lane
+before source seal.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -151,31 +151,27 @@ ADR-0405 remains an accepted source seal.
 
 ### Source-seal boundary
 
-Source work may copy the parent scientific module to a fresh path and apply
-only the frozen delta, add fresh lifecycle wrappers/readers/controls, exercise
-the arity contract against source text and synthetic journals, and run existing
-CPU-only tests. It may not execute NVCC, import CuPy through the scientific
-path, query or allocate a device, load a cubin, launch a kernel, form a timing
-value, or create the v3 result. The clean committed source seal must precede
-any invocation.
+The corrected source seal may contain only the two named call-site repairs,
+the declaration-derived arity overlay, fresh lifecycle wrappers/readers, and
+their controls. Any other effective-science difference rejects. Source-seal
+work remains CPU-only and result-unopened.
 
 ### Kill criteria
 
-Kill any implementation that edits or retries v2; changes the CUDA literal,
-matrix, fixture, arm, schedule, liveness, phase, work coordinate, projection,
-threshold, or claim; hard-codes an arity table without reconciling it to the
-declarations; leaves a launch bypass; uses the driver rejection itself as the
-only arity test; or invokes compiler/device/result work before source seal.
+Kill any path that calls 45/46 sufficient, suppresses the selected-leaf arm,
+changes its CUDA declaration to fit the erroneous host tuple, drops the
+selected-leaf control, weakens the complete matrix, or invokes the compiler or
+device before a clean corrected source seal.
 
 ### Claims boundary
 
-ADR-0463 authorizes source implementation only. It provides no compilation,
-device, arithmetic, timing, materiality, topology, target, resolver,
-action-clock, decision-quality, truncation, blueprint, or strength evidence.
+ADR-0464 is a prospective source-completeness correction only. It provides no
+compiled calibration, numerical, resource, speed, topology, target, resolver,
+action-clock, decision-quality, truncation, blueprint, or strength result.
 
 ## Active next
 
-Implement and source-seal only the fresh ADR-0463 v3 identity: preserve the consumed v2 artifact and every parent byte, create one fresh scientific copy whose CUDA literal is byte-identical and whose only semantic changes are `np.uint64(scan_count)` in the timed RRNS direct launch plus a declaration-derived central arity guard, independently audit all launch sites, add fresh launcher/runner/reader/controls, retain the exact 480-cell and 2,880-call experiment, keep the v3 result absent, and stop before compiler, CuPy scientific import, device, timing, or result work
+Complete and source-seal the corrected v3 successor only: preserve the exact v2 artifact, parent source, and CUDA literal; insert `np.uint64(scan_count)` only into the timed direct kernel's `source_count` slot; remove the obsolete `np.uint64(scan_count)` only from the selected-leaf RRNS call; require the independent declaration audit to pass all 46 launch sites and both opposite-sign mutations; retain the central pre-driver arity guard and fresh lifecycle; keep the v3 result absent and stop before compiler, CuPy scientific import, device, timing, or result work
 
 ## Revoked authorities
 
@@ -183,7 +179,7 @@ Implement and source-seal only the fresh ADR-0463 v3 identity: preserve the cons
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0463](docs/decisions/ADR-0463-preregister-the-kernel-launch-arity-successor.md) — Preregister the kernel-launch arity successor.
+Latest process decision: [ADR-0464](docs/decisions/ADR-0464-correct-the-launch-arity-successor-before-source-seal.md) — Correct the launch-arity successor before source seal.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -191,7 +187,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0440](docs/decisions/ADR-0440-correct-the-batched-device-preflight-phase-topology-before-source-seal.md) | 2026-08-26 | accepted prospective pre-source correction; ADR-0439's impossible one-pass twelve-phase ledger is retained for positional and resident-nine RRNS but superseded for batched-five-then-four RRNS by two consecutive fully charged pass ledgers and an explicit drain/reuse boundary, scalar and verification transfers now precede their host consumers by name and order, the captured-pair level-six/fixed-width-levels-zero-through-five hybrid is explicit, and no source seal, compiler execution, CuPy import, device query, module load, kernel launch, result, population-25 value, or actual-45 numerical value exists | Correct the batched device-preflight phase topology before source seal |
 | [ADR-0441](docs/decisions/ADR-0441-source-seal-the-corrected-fixed-width-compiled-device-preflight.md) | 2026-08-26 | accepted no-CUDA source seal; the ADR-0439 preflight under ADR-0440's corrected arm-specific phase topology now has one repository-root launcher, one standard-library-safe scientific source, one exclusive durable owner, one independent standard-library reader, one literal CUDA translation unit with sixteen entry kernels, pre-candidate reduced-authority manifests, independently replayable RRNS fault codewords, exact symbolic literal-45 memory liveness, and 17 passing adversarial controls, while compilation, CuPy import in the scientific path, device query, cubin, module load, kernel launch, result, population 25, every actual-45 numerical value, candidate selection, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Source-seal the corrected fixed-width compiled-device preflight |
 | [ADR-0442](docs/decisions/ADR-0442-retain-the-fixed-width-device-compiler-rejection.md) | 2026-08-26 | accepted retained sole compiled-device preflight rejection; ADR-0441's exact clean source identity was invoked once, CUDA 13.3 tools resolved and were recorded, NVCC returned `1` because it could not find `cl.exe` in `PATH`, no cubin was produced, the independent standard-library reader accepts the seven-record journal and returns `compiler_rejection`, and the consumed identity supplies no resource, device, numerical, eligibility, selection, actual-45, resolver, action-clock, quality, truncation, blueprint, or poker-strength result | Retain the fixed-width device compiler rejection |
 | [ADR-0443](docs/decisions/ADR-0443-preregister-the-msvc-bound-fixed-width-device-successor.md) | 2026-08-26 | accepted prospective host-toolchain recovery only; after explicit authorization, Visual Studio Build Tools 2022 17.14.39 with MSVC 14.44 and Windows SDK 10.0.26100.0 is installed and deterministically activatable, while the consumed ADR-0441 owner remains closed and no successor launcher, runner, reader, controls, result, compiler call, cubin, device query, kernel launch, reduced-population value, eligible arm, selected candidate, population-25 value, actual-45 value, resolver result, action-clock result, decision-quality result, truncation choice, blueprint result, or poker-strength claim exists | Preregister the MSVC-bound fixed-width device successor |
@@ -215,18 +210,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0461](docs/decisions/ADR-0461-source-seal-the-absolute-git-compiled-calibration-successor.md) | 2026-08-26 | accepted no-compiler plumbing source seal; the fresh ADR-0460 launcher, additive owner binding, independently constant-bound reader, exact post-scrub absolute-Git probe, immutable ADR-0458 scientific source, fresh dependency/result identity, exclusive synthetic terminal, and eight focused controls pass, while both calibration results remain absent and no compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Source-seal the absolute-Git compiled-calibration successor |
 | [ADR-0462](docs/decisions/ADR-0462-retain-the-timed-rrns-direct-launch-arity-rejection.md) | 2026-08-26 | accepted retained sole ADR-0461 calibration rejection; the fresh absolute-Git owner compiled and loaded the exact 28-kernel cubin, passed resource and reduced-memory admission, completed and independently verified one positional warmup cell, then the next RRNS timed cell reached `direct_prices_rrns_batch` with eight host arguments for a nine-parameter CUDA declaration and terminated with `CUDA_ERROR_INVALID_VALUE`, leaving zero measured calls and no materiality, topology, arithmetic-schedule, target, resolver, action-clock, quality, truncation, blueprint, or strength result | Retain the timed RRNS direct launch-arity rejection |
 | [ADR-0463](docs/decisions/ADR-0463-preregister-the-kernel-launch-arity-successor.md) | 2026-08-26 | accepted prospective launch-ABI repair only; the exact ADR-0462 artifact and parent sources remain immutable, one fresh scientific module may insert only the missing timed-RRNS `source_count` plus a CUDA-declaration-derived central arity contract, and fresh v3 lifecycle identities are frozen before successor source, compiler execution, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, or result | Preregister the kernel-launch arity successor |
+| [ADR-0464](docs/decisions/ADR-0464-correct-the-launch-arity-successor-before-source-seal.md) | 2026-08-26 | accepted prospective pre-source-seal completeness correction; ADR-0463's independent all-site audit found that `evaluate_selected_leaves_rrns_batch` declares ten parameters while its sole host call supplies eleven through an obsolete extra `np.uint64(scan_count)`, so the permitted v3 delta now includes removing exactly that argument in addition to inserting the missing direct `source_count`, while all 46 launch sites must match all 28 unchanged CUDA declarations before source seal and no compiler, device, timing, or fresh result exists | Correct the launch-arity successor before source seal |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0463](docs/decisions/ADR-0463-preregister-the-kernel-launch-arity-successor.md) — Preregister the kernel-launch arity successor.
+- Latest ADR: [ADR-0464](docs/decisions/ADR-0464-correct-the-launch-arity-successor-before-source-seal.md) — Correct the launch-arity successor before source seal.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 463.
-- ADR-header SHA-256: `f1a5a43adc58489412431b9c71264dd049b212e319f7fb123dae4bed99908697`.
-- Current blockers: no v3 source seal or result exists; ADR-0461's v2 owner is permanently consumed; no complete compiled calibration, measured pass, material-zeta result, production base producer/admission, selected topology, population-25 result, literal-45 numerical result, resolver integration, certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists.
+- Numbered decisions: 464.
+- ADR-header SHA-256: `fbf26e506dbfb1bf06241577c523720658bce134d23fd48c2f162ef9b9e5df8b`.
+- Current blockers: no corrected v3 source seal or result exists; ADR-0461's v2 owner is permanently consumed; no complete compiled calibration, measured pass, material-zeta result, production base producer/admission, selected topology, population-25 result, literal-45 numerical result, resolver integration, certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0463](docs/decisions/ADR-0463-preregister-the-kernel-launch-arity-successor.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0464](docs/decisions/ADR-0464-correct-the-launch-arity-successor-before-source-seal.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

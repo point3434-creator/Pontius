@@ -1,0 +1,78 @@
+{
+  "schema_version": "pontius-adr0464-launch-abi-completeness-correction-v1",
+  "parent_preregistration": {
+    "adr": "ADR-0463",
+    "config_relative_path": "experiments/configs/legal-river-quotient-compiled-global-separation-calibration-v3-launch-abi.json",
+    "config_canonical_lf_sha256": "547ba205d8e1538f08e1f4e516f510d11895b1805bd762384e701eea650f9a79",
+    "preregistration_commit": "3de8e0c9eebf67f2cc2573041242a869468de6e9",
+    "compiler_calls": 0,
+    "cupy_scientific_imports": 0,
+    "device_queries": 0,
+    "kernel_launches": 0,
+    "timing_values": 0,
+    "fresh_result_rows": 0
+  },
+  "pre_seal_control_finding": {
+    "independent_host_launch_sites": 46,
+    "literal_cuda_entry_declarations": 28,
+    "mismatch_count_after_adr0463_direct_fix": 1,
+    "kernel": "evaluate_selected_leaves_rrns_batch",
+    "declared_parameter_count": 10,
+    "host_argument_count": 11,
+    "extraneous_argument_expression": "np.uint64(scan_count)",
+    "argument_position_after_cards_one_based": 7,
+    "failure_if_reached": "CUDA_ERROR_INVALID_VALUE",
+    "device_replay_used_to_diagnose": false
+  },
+  "corrected_permitted_scientific_delta": {
+    "timed_direct_kernel": "direct_prices_rrns_batch",
+    "timed_direct_inserted_expression": "np.uint64(scan_count)",
+    "timed_direct_slot": "source_count",
+    "selected_leaf_kernel": "evaluate_selected_leaves_rrns_batch",
+    "selected_leaf_removed_expression": "np.uint64(scan_count)",
+    "selected_leaf_reason": "the CUDA entry derives selected work from selected_count and has no source_count parameter",
+    "kernel_declaration_derived_arity_manifest_required": true,
+    "central_launch_arity_guard_required": true,
+    "independent_all_launch_site_arity_control_required": true,
+    "all_46_launch_sites_must_match": true,
+    "literal_cuda_source_must_remain_byte_identical": true,
+    "other_scientific_changes_forbidden": true
+  },
+  "mutation_controls": [
+    "remove the direct source_count insertion and require the 9-versus-8 mismatch",
+    "restore the selected-leaf obsolete scan_count and require the 10-versus-11 mismatch",
+    "change either CUDA declaration arity and require the independent all-site audit to reject",
+    "bypass the central launch helper and require the structural control to reject",
+    "call the central helper with a wrong tuple count and require a typed pre-driver rejection with zero dispatches"
+  ],
+  "unchanged_boundary": {
+    "consumed_v2_result_raw_sha256": "67ac14d408fe8c4299ee603ec1d8c454975094507d4ac28cda73001a42feb90d",
+    "parent_scientific_source_canonical_lf_sha256": "d38e96fd445f01a70113a8598094d0449a18271fa4d6ce992c781f0253ae821e",
+    "literal_cuda_source_sha256": "4f626802bd792788dff74c58adb90e7e30876e0c8f22d7fcb79de0c90334f8f7",
+    "arms": 4,
+    "arithmetic_schedules": 2,
+    "domains": [10, 12, 16, 20, 24],
+    "scientific_calls": 2880,
+    "phases": 19,
+    "rrns_table_arena_allocations": 1,
+    "rrns_table_arena_channel_capacity": 5,
+    "fresh_result_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v3.jsonl",
+    "fresh_result_exists": false
+  },
+  "claims": {
+    "pre_source_seal_completeness_correction_only": true,
+    "compiled_calibration_result": null,
+    "production_base_classification": "producer_absent",
+    "production_base_numerical_admission": null,
+    "candidate_selected": null,
+    "topology_selected": null,
+    "arithmetic_schedule_selected": null,
+    "literal_45_numerical_result": null,
+    "resolver_iteration_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

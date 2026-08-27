@@ -1832,8 +1832,11 @@ queue:
   claim exists. ADR-0463 preregisters the fresh repair: insert the missing
   `np.uint64(scan_count)`, derive all kernel arities from the unchanged CUDA
   literal, guard every launch centrally, and independently audit every launch
-  site. Next implement and source-seal only that v3 identity without compiler,
-  device, timing, or result work.
+  site. That audit found a second pre-seal defect: the selected-leaf RRNS entry
+  declares ten parameters but its host tuple carries an obsolete eleventh
+  `scan_count`. ADR-0464 prospectively adds exactly that removal. Next complete
+  and source-seal only the corrected v3 identity at 46/46 launch-site agreement,
+  without compiler, device, timing, or result work.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

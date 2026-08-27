@@ -15,75 +15,55 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-No. Permanently close the v3 owner uninvoked and preserve its absent result.
-Three independent read-only audits and a separate local reproduction found the
-same two critical lifecycle defects without importing CuPy, querying a device,
-or invoking the public owner.
+Yes, at source-seal scope only. Do not invoke the public owner from this ADR.
+The fresh v4 launcher, runner, reader, and controls are accepted as the sole
+prospective successor to the permanently uninvoked v3 lifecycle. The v3 and v4
+result paths, attempt marker, and launch markers remain absent. No compiler,
+CuPy scientific import, device query, allocation, module load, kernel launch,
+timing value, or scientific result contributed to this decision.
 
-First, `_fresh_scientific_module_alias` changes only the parent's fully
-qualified `sys.modules` entry. The v3 runner has already imported the immutable
-parent science, leaving that object on the `pontius` package attribute. The
-inherited campaign child later executes:
+The public launcher establishes a fresh absent bytecode prefix before importing
+Pontius, removes the repository root from import search, and rejects source-tree
+extension shadows before a repository module can load. The runner independently
+requires every loaded `pontius` module to be `.py` source beneath the exact
+repository package, with its cache path bound to the fresh absent prefix. The
+complete observed source-module closure is included in the dependency manifest;
+a fresh safe-process probe found zero omissions and no CuPy import.
 
-```text
-from . import legal_river_quotient_compiled_global_separation_calibration as science
-```
+The owner header no longer imports science. It reconstructs the complete
+28-entry launch-arity contract from hash-bound parent and v3 source using only
+AST literal extraction and declaration parsing. A fresh-process differential
+shows this source-derived contract is exactly equal to the live v3 contract,
+including ordered parameter rows and the recomputed manifest. In the campaign
+child, bootstrap is emitted and acknowledged while both science modules and
+CuPy are absent. Only then does an explicit exact-name import load v3 science,
+validate its effective source, literal CUDA, complete signature manifest, and
+execution dependencies, and call `execute_calibration`.
 
-Python resolves the existing package attribute, not the replacement stored
-only in `sys.modules`. A safe exact-import probe observed the parent at the
-package attribute, the v3 overlay in `sys.modules`, and the production import
-returning the parent. Firing v3 would therefore bypass both call-site repairs
-and the central guard and would likely repeat ADR-0462's 8-versus-9 driver
-rejection.
+Terminal evidence is now genuinely terminal. The final source and Git rebind
+runs before the sole child terminal is emitted; a failure becomes typed
+evidence rather than a nonzero exit after an apparently final record. Typed
+import-stage facts survive a correlated final-rebind failure, rejection reasons
+are bounded to the reader's exact domain, and the independent reader enforces
+the child/owner terminal sum and public/laboratory/outside-wall priority. It also
+recomputes every journal semantic identity, validates successful science even
+when the owner rejects on a wall, binds exact success counts and fixture/fit
+digests, and accepts only the exact public result path with a stable reread.
 
-Second, importing v3 runner eagerly imports the v3 science overlay. After
-`configured_parent` binds `SCIENTIFIC_MODULE` to that v3 name, the inherited
-child's pre-import bootstrap necessarily records
-`scientific_source_loaded=true`. The independent reader requires false. A dual
-package-plus-`sys.modules` alias would fix only the first defect; any successful
-result would remain unreadable under the frozen bootstrap contract.
+The attempt marker and one-use launch marker use exclusive durable writes.
+Interrupted pending-to-consumed and pending-to-aborted transitions converge to
+one terminal marker; a pre-writer failure still consumes the public attempt.
+Authorization remains external to the source seal: the future current HEAD must
+be exactly one commit after this seal, that commit must name this seal, and its
+changed-path set must equal the frozen six-file authorization surface. Any
+later descendant, dirty dependency, wrong marker state, cached bytecode,
+external module, or unreadable terminal fails closed.
 
-The controls were green because they exercised different semantics. The alias
-test used full-name `__import__`, which consults the changed `sys.modules`
-entry rather than the production relative-import path. The synthetic journal
-injected a rejecting campaign directly and never executed the production child;
-the inherited reader returns early for a rejection before validating bootstrap.
-Those are now named members of the recurring scope-substitution family: one
-import mechanism stood in for another, and rejection readability stood in for
-success readability.
-
-The audit also found three lower-severity integrity gaps. The reader accepted a
-mutated signature row while trusting an unchanged stored manifest digest; the
-header therefore did not bind the complete signature contents or the module
-actually executed. Failures before the parent writer left no durable attempt
-marker. Finally, the clean-Git check accepted any clean 40-hex HEAD rather than
-one bounded authorization descendant of the source seal. The fresh successor
-must close all three before invocation.
-
-Freeze a fresh v4 lifecycle, not a mutation of sealed v3. The new runner must
-not import either science module at module scope and must not use module
-aliasing. Its own additive campaign child reuses the inherited child-runtime
-validator, emitter, schemas, walls, claims, and terminal shaping. It emits and
-acknowledges bootstrap while the exact v3 science name and CuPy are absent,
-then imports that exact v3 module explicitly and calls its
-`execute_calibration`. Every terminal carries the executed module name,
-effective-source hash, CUDA hash, and recomputed complete signature-manifest
-hash. The independent reader recomputes the manifest from all 28 ordered rows
-and rejects any detachment.
-
-Before mutable public preconditions, v4 must create one exclusive durable
-attempt marker. Its strict Git wrapper admits exactly marker-before-result and
-marker-plus-result-after-create. A later source-seal commit is not itself
-invocation authority: one subsequent authorization commit must name that exact
-parent source-seal commit, contain only the frozen authorization surface, and
-be the current HEAD. An unchanged owner on any later clean descendant rejects.
-
-The remaining scientific audit is clean at spot-check scope. All 46 host sites
-match all 28 CUDA declarations in count, order, scalar width, pointer meaning,
-and status layout. The effective source remains exactly one deletion and one
-insertion with SHA-256 `7c63e2706f5aa28c37f25bfa58d09f03d2f5fe26f3a3312fe2baf7b849cec3fc`;
-the CUDA literal remains `4f626802bd792788dff74c58adb90e7e30876e0c8f22d7fcb79de0c90334f8f7`.
-This does not certify equal-arity semantics generally.
+This is spot-checking, not certification. Persistent accidental checkout drift
+is rejected by exact dependency and Git rebinds. A hostile transient edit that
+is loaded and then reverted between checks is not mathematically excluded
+without executing from an immutable snapshot; that adversarial TOCTOU model is
+outside this source seal and no snapshot guarantee is claimed.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -152,11 +132,12 @@ source-seals it without opening a result, ADR-0455 freezes the base-first four-
 topology successor while closing that result owner uninvoked, ADR-0456 source-
 seals the reduced successor without opening its bake-off, ADR-0457 freezes the
 compiled calibration, ADR-0458 source-seals it, ADR-0459 consumes its sole
-pre-owner failure, ADR-0460 freezes the absolute-Git recovery, ADR-0461
-source-seals that recovery, ADR-0462 retains its launch-arity rejection,
-ADR-0463 opens the fresh arity source lane, ADR-0464 corrects that lane before
-source seal, ADR-0465 records the rejected v3 source seal, and ADR-0466 closes
-v3 uninvoked while opening only the deferred-import lifecycle successor.
+pre-owner failure, ADR-0460 freezes the absolute-Git recovery, ADR-0461 source-
+seals that recovery, ADR-0462 retains its launch-arity rejection, ADR-0463
+opens the fresh arity source lane, ADR-0464 corrects that lane before source
+seal, ADR-0465 records the rejected v3 source seal, ADR-0466 closes v3
+uninvoked, and ADR-0467 source-seals the deferred-import v4 lifecycle without
+opening compiler or device evidence.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -185,28 +166,38 @@ ADR-0368 seals the exact bounded algebra keystone. ADR-0369 freezes the
 source-only arithmetic boundary. ADR-0370 seals the numeric-array and logical-work
 result. ADR-0378 freezes the source-only literal-target liveness boundary.
 ADR-0379 retains the 244,970,204-byte margin. ADR-0382 preregistered the
-literal-45 config. ADR-0386 records the source-sealed actual-context quotient bridge.
-ADR-0405 remains an accepted source seal.
+literal-45 config. ADR-0386 records the source-sealed actual-context quotient
+bridge. ADR-0405 remains an accepted source seal.
+
+### Source-seal boundary
+
+Only the fresh v4 lifecycle, its source-derived header contract, source-only
+loader, durable attempt/launch transitions, independent reader, and CPU-only
+controls are sealed. The compiler and device boundary remains unopened. The
+first later public v4 owner invocation consumes the identity even if it fails
+before journal creation; its first terminal or pre-owner failure is permanent.
 
 ### Kill criteria
 
-Kill any successor that imports science before bootstrap, uses an alias to
-redirect the inherited relative import, delegates to the inherited campaign
-child, trusts a stored manifest without recomputation, omits executed-science
-identity, leaves a pre-writer attempt retryable, accepts an arbitrary later
-clean HEAD, mutates v3 science, or opens compiler/device evidence before its
-fresh source seal and authorization.
+Kill any path that imports either science module before the child bootstrap,
+loads repo bytecode or an extension shadow, derives the header by importing
+science, omits any loaded source dependency from the authorization closure,
+emits terminal evidence before its final source/Git validation, loses typed
+import-stage facts, accepts a second attempt or launch, accepts any authorization
+other than the exact one-generation six-file successor, mutates v3 science, or
+opens compiler/device evidence before the separate authorization and full-reader
+integration pass.
 
 ### Claims boundary
 
-ADR-0466 is a prefire lifecycle rejection and prospective repair only. It
-provides no compiled calibration, numerical, resource, speed, topology, target,
-resolver, action-clock, decision-quality, truncation, blueprint, or strength
-result. The clean static ABI audit is spot-checking, not certification.
+ADR-0467 proves only the scoped source and lifecycle controls described above.
+It supplies no compiled calibration, numerical, resource, speed, topology,
+target, resolver, action-clock, decision-quality, truncation, blueprint, or
+strength result. A clean negative first invocation remains a valid result.
 
 ## Active next
 
-Implement and source-seal only a fresh v4 lifecycle around ADR-0465's immutable scientific overlay: keep v3 permanently uninvoked and absent; import neither science module at v4 module scope; emit and acknowledge bootstrap with science and CuPy absent; explicitly import the exact v3 module afterward without aliasing; bind its effective-source, CUDA, complete recomputed signature-manifest, and executed-module identities; install a durable attempt marker and exact Git-status states; retain fresh protocol/campaign/result identities and an independent reader; stop before compiler, device, timing, or v4 result work, then create a separate one-commit invocation authorization naming that source-seal commit
+Create exactly one separate authorization commit whose sole parent is this source seal and whose diff is limited to the frozen six-file authorization surface; then rerun the dormant full-reader integration in a fresh source-only process and stop before the public owner unless every gate passes
 
 ## Revoked authorities
 
@@ -214,7 +205,7 @@ Implement and source-seal only a fresh v4 lifecycle around ADR-0465's immutable 
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0466](docs/decisions/ADR-0466-reject-the-v3-source-seal-and-preregister-deferred-science-import.md) — Reject the v3 source seal and preregister deferred science import.
+Latest process decision: [ADR-0467](docs/decisions/ADR-0467-source-seal-the-deferred-science-import-successor.md) — Source-seal the deferred-science-import successor.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -222,7 +213,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0443](docs/decisions/ADR-0443-preregister-the-msvc-bound-fixed-width-device-successor.md) | 2026-08-26 | accepted prospective host-toolchain recovery only; after explicit authorization, Visual Studio Build Tools 2022 17.14.39 with MSVC 14.44 and Windows SDK 10.0.26100.0 is installed and deterministically activatable, while the consumed ADR-0441 owner remains closed and no successor launcher, runner, reader, controls, result, compiler call, cubin, device query, kernel launch, reduced-population value, eligible arm, selected candidate, population-25 value, actual-45 value, resolver result, action-clock result, decision-quality result, truncation choice, blueprint result, or poker-strength claim exists | Preregister the MSVC-bound fixed-width device successor |
 | [ADR-0444](docs/decisions/ADR-0444-source-seal-the-msvc-bound-fixed-width-device-successor.md) | 2026-08-26 | accepted no-compiler source seal; the fresh ADR-0443 successor now has one repository-root launcher, one scrubbed MSVC-bound owner wrapper, one standard-library independent reader wrapper, exact host-file and activation identities, public-clock charging before activation, byte-identical reuse of the ADR-0441 scientific module, one allowlisted in-memory header projection into the inherited semantic reader, and 16 passing focused controls, while the consumed v1 identity remains untouched and the v2 result, NVCC compilation, cubin, CuPy scientific import, device query, module load, kernel launch, reduced-population device value, eligible arm, selected candidate, population 25, actual-45 value, resolver result, action-clock result, decision-quality result, truncation choice, blueprint result, and poker-strength claim remain absent | Source-seal the MSVC-bound fixed-width device successor |
 | [ADR-0445](docs/decisions/ADR-0445-retain-the-msvc-bound-zero-event-infrastructure-rejection.md) | 2026-08-26 | accepted retained zero-event infrastructure rejection; the sole ADR-0444 invocation produced a complete two-record journal and stopped before bootstrap because package initialization deterministically prepended the repository CUDA wheel directory to `PATH`, while the source-sealed v2 reader separately rejected that valid lifecycle by requiring at least one observation; an additive artifact-bound assessor accepts only the exact retained result, and no compile, cubin, resource, device, numerical, eligibility, selection, population-25, actual-45, resolver, action-clock, quality, truncation, blueprint, or poker-strength result exists | Retain the MSVC-bound zero-event infrastructure rejection |
 | [ADR-0446](docs/decisions/ADR-0446-preregister-the-split-child-runtime-environment-successor.md) | 2026-08-26 | accepted prospective split-environment recovery only; the exact parent compiler mapping, deterministic post-import child mapping, sole `PATH` delta, 63-key child domain, five required CUDA-wheel runtime files, unchanged host-tool resolution, zero-event reader semantics, fresh identities, and unchanged ADR-0441 science are frozen before successor source, compiler execution, CuPy scientific import, device query, module load, kernel launch, or result | Preregister the split child-runtime environment successor |
@@ -246,18 +236,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0464](docs/decisions/ADR-0464-correct-the-launch-arity-successor-before-source-seal.md) | 2026-08-26 | accepted prospective pre-source-seal completeness correction; ADR-0463's independent all-site audit found that `evaluate_selected_leaves_rrns_batch` declares ten parameters while its sole host call supplies eleven through an obsolete extra `np.uint64(scan_count)`, so the permitted v3 delta now includes removing exactly that argument in addition to inserting the missing direct `source_count`, while all 46 launch sites must match all 28 unchanged CUDA declarations before source seal and no compiler, device, timing, or fresh result exists | Correct the launch-arity successor before source seal |
 | [ADR-0465](docs/decisions/ADR-0465-source-seal-the-kernel-launch-arity-successor.md) | 2026-08-26 | accepted CPU-only launch-ABI source seal; the fresh v3 overlay makes exactly two call-site repairs against the immutable ADR-0458 scientific source, derives all 28 ordered kernel signatures from the byte-identical CUDA literal, guards every dispatch before the driver, and independently proves all 46 host launch sites have matching argument counts with both opposite-sign mutations rejecting, while the retained v2 rejection remains exact, the v3 result remains absent, and no compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Source-seal the kernel-launch-arity successor |
 | [ADR-0466](docs/decisions/ADR-0466-reject-the-v3-source-seal-and-preregister-deferred-science-import.md) | 2026-08-26 | accepted prefire source-seal rejection and fresh lifecycle preregistration; three independent CPU-only audits prove that ADR-0465's v3 campaign child would resolve the immutable parent science instead of the repaired overlay and that the eagerly loaded overlay would make any successful journal fail the inherited bootstrap reader, so v3 is closed permanently uninvoked with both result and compiler/device evidence absent, while a fresh v4 owner must emit bootstrap before an explicit sealed-science import, bind the executed module and complete signature manifest, durably consume pre-writer attempts, and later require a one-commit invocation authorization | Reject the v3 source seal and preregister deferred science import |
+| [ADR-0467](docs/decisions/ADR-0467-source-seal-the-deferred-science-import-successor.md) | 2026-08-26 | accepted CPU-only deferred-import source seal; the fresh v4 public launcher, direct campaign child, independent reader, durable attempt and one-use launch lifecycle, source-only header contract, fresh-bytecode provenance checks, and terminal-sum controls pass 38 pre-authorization controls while the sole authorization-dependent integration remains deliberately dormant, both v3 and v4 results remain absent, and no public owner, compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Source-seal the deferred-science-import successor |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0466](docs/decisions/ADR-0466-reject-the-v3-source-seal-and-preregister-deferred-science-import.md) — Reject the v3 source seal and preregister deferred science import.
+- Latest ADR: [ADR-0467](docs/decisions/ADR-0467-source-seal-the-deferred-science-import-successor.md) — Source-seal the deferred-science-import successor.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 466.
-- ADR-header SHA-256: `5ee0f2d164f4a514b8addf2f055c6b65e47e2cf7090b6c4ae39f5f6dbd931924`.
-- Current blockers: no correct deferred-import v4 source seal, invocation authorization, or v4 result exists; ADR-0465's v3 owner is permanently closed uninvoked and ADR-0461's v2 owner is permanently consumed; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists.
+- Numbered decisions: 467.
+- ADR-header SHA-256: `e0e9ec6899ee27328780d33d1770f0d3f488dc2c52141a4e75dbcc06aebcdf11`.
+- Current blockers: no separate one-generation invocation authorization or v4 result exists; the authorization-dependent full-reader integration has not run; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0466](docs/decisions/ADR-0466-reject-the-v3-source-seal-and-preregister-deferred-science-import.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0467](docs/decisions/ADR-0467-source-seal-the-deferred-science-import-successor.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

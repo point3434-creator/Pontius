@@ -1841,11 +1841,16 @@ queue:
   work opened. A final prefire audit then proved that its `sys.modules`-only
   alias does not affect the inherited package-relative import and that eager
   v3-science loading violates the success reader's bootstrap contract.
-  ADR-0466 closes v3 permanently uninvoked. Next source-seal only a fresh v4
-  direct child that emits bootstrap before explicitly importing exact v3
-  science, binds executed science plus the recomputed complete manifest,
-  durably consumes pre-writer attempts, and receives a separate one-commit
-  invocation authorization. Compiler, device, timing, and results remain closed.
+  ADR-0466 closes v3 permanently uninvoked. ADR-0467 now source-seals the fresh
+  v4 direct child: source-only header construction imports no science, bootstrap
+  and ACK precede the explicit exact-v3 import, loaded-source closure and the
+  recomputed complete manifest are bound, durable attempt and one-use launch
+  markers close retry paths, and final validation precedes the sole child
+  terminal. Thirty-eight pre-authorization controls pass while both result paths
+  remain absent. Next create exactly one separate authorization commit whose
+  sole parent is the source seal and whose diff is the frozen six-file surface;
+  rerun the dormant full-reader integration unskipped before invoking anything.
+  Compiler, device, timing, and results remain closed.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

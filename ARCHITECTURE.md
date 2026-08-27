@@ -2527,6 +2527,20 @@ second, execution third. It must also bind the recomputed 28-signature manifest
 and executed module in retained evidence, durably mark pre-writer attempts, and
 use a separately committed one-generation invocation authorization.
 
+ADR-0467 source-seals that fresh v4 lifecycle at CPU-only scope. The public
+launcher establishes a fresh absent bytecode namespace and rejects extension
+shadows before importing Pontius. Header construction derives the exact
+28-signature launch contract from hash-bound source without importing science;
+the direct child emits and receives the bootstrap ACK before loading exact v3
+science. All loaded repository modules are source-backed and dependency-bound.
+The final source/Git rebind precedes the sole child terminal, typed import-stage
+facts survive correlated failures, durable attempt and one-use launch markers
+close retries, and the independent reader validates the complete child/owner
+sum. Thirty-eight pre-authorization controls pass; the single full-reader
+integration remains dormant until a separate exact one-generation authorization
+commit exists. No compiler, CuPy scientific import, device, timing, or v4 result
+work opened.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

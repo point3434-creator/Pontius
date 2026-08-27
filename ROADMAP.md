@@ -1906,7 +1906,15 @@ queue:
   exact clean HEAD, require the real live branch and all prefire gates, and
   invoke the v7 root launcher once only if everything passes. Authorization is
   not an invocation, and no compiler, device, timing, topology, or value has
-  opened.
+  opened. ADR-0476 now retains the resulting sole v7 terminal as
+  `laboratory_wall_rejected`: laboratory elapsed was 1,510.054 s against the
+  frozen 1,500 s wall. The terminal-complete journal contains the full 480-cell
+  warmup and only 89 of 2,400 measured cells, no fit projection, and no selected
+  topology or schedule. V7 is closed with no retry. Hold this compiled synthetic
+  lane at an architecture checkpoint until a production base producer and
+  refresh cadence are bound; do not relax the wall, thin the schedule, or rank
+  arms from the partial prefix. If that producer is not on the near-term path,
+  park the lane and resume v0a integration.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

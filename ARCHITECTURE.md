@@ -2633,6 +2633,17 @@ all 20 unchanged controls pass from this exact clean commit with the mandatory
 real `live_authorization` branch, raw HEAD/index/working-blob identity, complete
 96-path binding, public-environment hygiene, and lifecycle absence verified.
 
+ADR-0476 retains the sole v7 invocation as `laboratory_wall_rejected` and
+closes that lifecycle permanently. The journal is terminal-complete but the
+2,880-call campaign is not: all 480 warmup cells and only 89 of 2,400 planned
+measured cells ran, no fit projection exists, and no topology or arithmetic
+schedule is selected. The partial phase ledger is diagnostic only; it locates
+1,247.207 of 1,293.643 primitive seconds in cold `base_structural_cover`, while
+provenance hits are negligible. Because the production base remains absent,
+the architecture may not convert that observation into an amortization claim.
+Any future compiled lane first needs a real base producer, epoch identity, and
+refresh cadence; otherwise it stays parked while v0a integration proceeds.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

@@ -1869,6 +1869,16 @@ queue:
   full recursive type-exact header mutations, real injected authorization/Git
   validation, and complete fresh bindings. Keep compiler, CuPy, device, timing,
   and result work closed until a separate v6 authorization.
+  ADR-0471 now source-seals fresh v6 after 17/17 source-only controls with zero
+  skips. The final audit caught and closed the runner-module entry that had not
+  independently required effective safe-path state; both public entry surfaces
+  now fail before delegation unless exact argv, `-B`, and `-P` hold. The exact
+  retained v5 marker and every closed/unopened lifecycle predicate remain
+  unchanged. Next create only the sole-child, exact-six-path ADR-0472
+  authorization, rerun all 17 controls from that clean commit with the live Git
+  ancestry branch exercised, and fire the v6 public launcher once only if every
+  gate passes. No sealed implementation or test byte may change in that
+  authorization commit.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

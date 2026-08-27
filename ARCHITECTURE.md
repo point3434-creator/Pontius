@@ -2577,6 +2577,20 @@ the separate authorization generation. The corrected v5 reader helpers may be
 copied or independently reimplemented without taking a v5 binding lock; the v5
 public assessor may not be called.
 
+ADR-0471 source-seals that fresh v6 lifecycle without invoking it. Seventeen
+source-only controls pass with zero skips, including the complete 16-key
+production-header round trip, recursively re-chained domain and exact-type
+mutations, real injected authorization/Git proof, temporary attempt and launch
+transitions, and a fresh-process provenance probe. A final audit also closed a
+second public-entry gap: the runner module now checks exact argv, `-B`, and
+effective safe-path state before predecessor checks or inherited delegation,
+not only in the root launcher. The retained 606-byte v5 attempt remains exact;
+v4 and v5 stay closed; all v6 lifecycle paths remain absent. No compiler, CuPy,
+device, timing, topology, numerical, action-clock, or quality evidence opened.
+Only a separate sole-child, exact-six-path ADR-0472 authorization may make the
+v6 public owner eligible, and the full live-authorization suite must pass from
+that exact clean commit first.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

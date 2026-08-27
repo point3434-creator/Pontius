@@ -396,6 +396,61 @@ class Selected:
             {"src/pontius/alpha.py"},
         )
 
+    def test_dynamic_dash_c_rejects_symbolic_import_targets(self) -> None:
+        programs = (
+            'program = f"import {MODULE}"',
+            'program = f"from {MODULE} import runner"',
+            'program = f"import importlib; importlib.import_module({MODULE!r})"',
+            'program = f"__import__({MODULE!r})"',
+            'program = f"import {MODULE:.1}"',
+        )
+        tracked = {"src/pontius/alpha.py"}
+        for assignment in programs:
+            source = f'''\
+from pathlib import Path
+MODULE = Path("pontius.alpha").name
+class Selected:
+    def probe(self):
+        {assignment}
+        subprocess.run([python, "-c", program])
+'''
+            with self.subTest(assignment=assignment), self.assertRaises(
+                GENERATOR.GenerationError
+            ):
+                GENERATOR._dynamic_program_imports(ast.parse(source), "tests/t.py", tracked)
+
+    def test_dynamic_dash_c_resolves_exact_builtin_import_target(self) -> None:
+        source = '''
+MODULE = "pontius.alpha"
+class Selected:
+    def probe(self):
+        program = f"__import__({MODULE!r})"
+        subprocess.run([python, "-c", program])
+'''
+        self.assertEqual(
+            GENERATOR._dynamic_program_imports(
+                ast.parse(source), "tests/t.py", {"src/pontius/alpha.py"}
+            ),
+            {"src/pontius/alpha.py"},
+        )
+
+    def test_dynamic_dash_c_symbolic_nonimport_context_cannot_collide_with_marker(self) -> None:
+        source = '''
+from pathlib import Path
+MODULE = "pontius.alpha"
+LAUNCHER = Path("run-selected.py").name
+class Selected:
+    def probe(self):
+        program = f"sentinel='__pontius_fixed_value__'; launch={LAUNCHER!r}; import a__pontius_symbolic__; import b__pontius_symbolic__; import {MODULE}"
+        subprocess.run([python, "-c", program])
+'''
+        self.assertEqual(
+            GENERATOR._dynamic_program_imports(
+                ast.parse(source), "tests/t.py", {"src/pontius/alpha.py"}
+            ),
+            {"src/pontius/alpha.py"},
+        )
+
     def test_dynamic_dash_c_rejects_ambiguous_dynamic_reassigned_and_branch_values(self) -> None:
         cases = (
             '''

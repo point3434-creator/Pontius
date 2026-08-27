@@ -657,15 +657,18 @@ def _literal_paths(tree: ast.AST, text: str, tracked: set[str]) -> set[str]:
 
 
 class _StaticValue:
-    __slots__ = ("kind", "value")
+    __slots__ = ("alternate", "kind", "value")
 
-    def __init__(self, kind: str, value: object = None) -> None:
+    def __init__(self, kind: str, value: object = None, alternate: object = None) -> None:
         self.kind = kind
         self.value = value
+        self.alternate = value if alternate is None else alternate
 
 
 _UNRESOLVED_STATIC = _StaticValue("unresolved")
 _SYMBOLIC_STATIC = _StaticValue("symbolic")
+_SYMBOLIC_PRIMARY_TEXT = "a__pontius_symbolic__"
+_SYMBOLIC_ALTERNATE_TEXT = "b__pontius_symbolic__"
 
 
 def _target_names(target: ast.AST) -> set[str]:
@@ -758,7 +761,11 @@ def _static_expression(node: ast.AST, environment: Mapping[str, _StaticValue]) -
             return _UNRESOLVED_STATIC
         if left.kind == right.kind == "exact":
             try:
-                return _StaticValue("exact", left.value + right.value)  # type: ignore[operator]
+                return _StaticValue(
+                    "exact",
+                    left.value + right.value,  # type: ignore[operator]
+                    left.alternate + right.alternate,  # type: ignore[operator]
+                )
             except (TypeError, ValueError):
                 return _UNRESOLVED_STATIC
         if left.kind == right.kind == "sequence":
@@ -774,9 +781,11 @@ def _static_expression(node: ast.AST, environment: Mapping[str, _StaticValue]) -
         )
     if isinstance(node, ast.JoinedStr):
         pieces: list[str] = []
+        alternate_pieces: list[str] = []
         for part in node.values:
             if isinstance(part, ast.Constant) and type(part.value) is str:
                 pieces.append(part.value)
+                alternate_pieces.append(part.value)
                 continue
             if not isinstance(part, ast.FormattedValue):
                 return _UNRESOLVED_STATIC
@@ -785,12 +794,16 @@ def _static_expression(node: ast.AST, environment: Mapping[str, _StaticValue]) -
                 return _UNRESOLVED_STATIC
             if value.kind == "exact":
                 rendered: object = value.value
+                alternate_rendered: object = value.alternate
                 if part.conversion == ord("r"):
                     rendered = repr(rendered)
+                    alternate_rendered = repr(alternate_rendered)
                 elif part.conversion == ord("s"):
                     rendered = str(rendered)
+                    alternate_rendered = str(alternate_rendered)
                 elif part.conversion == ord("a"):
                     rendered = ascii(rendered)
+                    alternate_rendered = ascii(alternate_rendered)
                 elif part.conversion not in (-1, None):
                     return _UNRESOLVED_STATIC
                 if part.format_spec is not None:
@@ -799,16 +812,34 @@ def _static_expression(node: ast.AST, environment: Mapping[str, _StaticValue]) -
                         return _UNRESOLVED_STATIC
                     try:
                         rendered = format(rendered, spec.value)
+                        alternate_rendered = format(alternate_rendered, spec.alternate)
                     except (TypeError, ValueError):
                         return _UNRESOLVED_STATIC
                 pieces.append(str(rendered))
+                alternate_pieces.append(str(alternate_rendered))
             else:
-                pieces.append(
-                    repr("__pontius_fixed_value__")
-                    if part.conversion in (ord("r"), ord("a"))
-                    else "__pontius_fixed_value__"
-                )
-        return _StaticValue("exact", "".join(pieces))
+                primary: object = _SYMBOLIC_PRIMARY_TEXT
+                alternate: object = _SYMBOLIC_ALTERNATE_TEXT
+                if part.conversion == ord("r"):
+                    primary, alternate = repr(primary), repr(alternate)
+                elif part.conversion == ord("s"):
+                    primary, alternate = str(primary), str(alternate)
+                elif part.conversion == ord("a"):
+                    primary, alternate = ascii(primary), ascii(alternate)
+                elif part.conversion not in (-1, None):
+                    return _UNRESOLVED_STATIC
+                if part.format_spec is not None:
+                    spec = _static_expression(part.format_spec, environment)
+                    if spec.kind != "exact" or type(spec.value) is not str:
+                        return _UNRESOLVED_STATIC
+                    try:
+                        primary = format(primary, spec.value)
+                        alternate = format(alternate, spec.alternate)
+                    except (TypeError, ValueError):
+                        return _UNRESOLVED_STATIC
+                pieces.append(str(primary))
+                alternate_pieces.append(str(alternate))
+        return _StaticValue("exact", "".join(pieces), "".join(alternate_pieces))
     if isinstance(node, ast.UnaryOp):
         operand = _static_expression(node.operand, environment)
         if operand.kind != "exact":
@@ -837,7 +868,11 @@ def _static_expression(node: ast.AST, environment: Mapping[str, _StaticValue]) -
         if isinstance(node.func, ast.Name) and node.func.id in {"str", "repr", "ascii"} and len(arguments) == 1:
             if arguments[0].kind == "exact":
                 function = {"str": str, "repr": repr, "ascii": ascii}[node.func.id]
-                return _StaticValue("exact", function(arguments[0].value))
+                return _StaticValue(
+                    "exact",
+                    function(arguments[0].value),
+                    function(arguments[0].alternate),
+                )
             return _SYMBOLIC_STATIC
         callee = _static_expression(node.func, environment)
         return _UNRESOLVED_STATIC if callee.kind == "unresolved" else _SYMBOLIC_STATIC
@@ -878,18 +913,44 @@ def _mentions_dash_c(
     return False
 
 
+def _dynamic_import_targets(program: ast.AST, current_path: str) -> tuple[object, ...]:
+    targets: list[object] = []
+    for node in ast.walk(program):
+        if isinstance(node, ast.Import):
+            targets.append(("import", tuple(alias.name for alias in node.names)))
+        elif isinstance(node, ast.ImportFrom):
+            targets.append(
+                ("from", node.level, node.module, tuple(alias.name for alias in node.names))
+            )
+        elif isinstance(node, ast.Call):
+            is_import_module = isinstance(node.func, ast.Attribute) and node.func.attr == "import_module"
+            is_builtin_import = isinstance(node.func, ast.Name) and node.func.id == "__import__"
+            if not (is_import_module or is_builtin_import) or not node.args:
+                continue
+            module = _static_expression(node.args[0], {})
+            if module.kind != "exact" or type(module.value) is not str:
+                raise GenerationError(f"dynamic import target is not fixed in {current_path}")
+            targets.append(("call", "import_module" if is_import_module else "__import__", module.value))
+    return tuple(targets)
+
+
 def _process_dynamic_program(
-    source: str, current_path: str, tracked: set[str], result: set[str]
+    source: str, alternate_source: str, current_path: str, tracked: set[str], result: set[str]
 ) -> None:
     try:
         program = ast.parse(source, filename=f"{current_path}::<dynamic-c>")
+        alternate_program = ast.parse(alternate_source, filename=f"{current_path}::<dynamic-c>")
     except SyntaxError as error:
         raise GenerationError(f"dynamic -c program cannot be parsed: {current_path}") from error
+    if _dynamic_import_targets(program, current_path) != _dynamic_import_targets(
+        alternate_program, current_path
+    ):
+        raise GenerationError(f"dynamic import target is not fixed in {current_path}")
     result.update(_import_paths(program, current_path, tracked))
     for call in (node for node in ast.walk(program) if isinstance(node, ast.Call)):
-        if not (
-            isinstance(call.func, ast.Attribute) and call.func.attr == "import_module" and call.args
-        ):
+        is_import_module = isinstance(call.func, ast.Attribute) and call.func.attr == "import_module"
+        is_builtin_import = isinstance(call.func, ast.Name) and call.func.id == "__import__"
+        if not (is_import_module or is_builtin_import) or not call.args:
             continue
         module = _static_expression(call.args[0], {})
         if module.kind != "exact" or type(module.value) is not str:
@@ -935,7 +996,9 @@ def _inspect_dynamic_call(
         program = values[indexes[0] + 1]
         if program.kind != "exact" or type(program.value) is not str:
             raise GenerationError(f"dynamic -c program is not statically fixed in {current_path}")
-        _process_dynamic_program(program.value, current_path, tracked, result)
+        _process_dynamic_program(
+            program.value, program.alternate, current_path, tracked, result
+        )
 
 
 class _CallInspector(ast.NodeVisitor):

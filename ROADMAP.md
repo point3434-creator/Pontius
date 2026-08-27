@@ -1834,9 +1834,12 @@ queue:
   literal, guard every launch centrally, and independently audit every launch
   site. That audit found a second pre-seal defect: the selected-leaf RRNS entry
   declares ten parameters but its host tuple carries an obsolete eleventh
-  `scan_count`. ADR-0464 prospectively adds exactly that removal. Next complete
-  and source-seal only the corrected v3 identity at 46/46 launch-site agreement,
-  without compiler, device, timing, or result work.
+  `scan_count`. ADR-0464 prospectively adds exactly that removal. ADR-0465 now
+  source-seals the corrected v3 identity: all 46 launch sites match all 28 CUDA
+  declarations, both opposite-sign mutations reject, the central pre-driver
+  guard and fresh lifecycle pass, and no compiler, device, timing, or result
+  work opened. Next invoke that exact clean committed v3 owner once and retain
+  its first terminal permanently; no post-invocation repair or retry is allowed.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

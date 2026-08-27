@@ -2507,6 +2507,16 @@ controls reproduce 9-versus-8 and 10-versus-11, and all 46 launch sites must
 match all 28 declarations. No compiler or device replay contributed to the
 finding.
 
+ADR-0465 source-seals the corrected successor at CPU-only scope. The effective
+scientific source contains exactly those two call-site changes while the CUDA
+literal remains byte-identical. One declaration-derived guard checks every
+dispatch before the driver, and an independently written AST audit resolves all
+46 host sites against all 28 ordered signatures with zero mismatches; both the
+missing-direct and extra-selected-leaf mutations reject. The fresh lifecycle,
+post-scrub absolute-Git probe, independent header reader, and exclusive
+synthetic terminal pass nine controls. The v3 result remains absent and no
+compiler, device, timing, topology, target, action, or quality evidence opened.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

@@ -309,7 +309,7 @@ class Other:
     def test_dynamic_dash_c_programs_are_exact_and_fail_closed(self) -> None:
         tracked = {"src/pontius/runner.py"}
         direct = ast.parse("subprocess.run([python, '-c', \"from pontius import runner\"])")
-        named = ast.parse("program = f\"from pontius import runner; value={VALUE!r}\"\nsubprocess.run([python, '-c', program])")
+        named = ast.parse("VALUE = 1\nprogram = f\"from pontius import runner; value={VALUE!r}\"\nsubprocess.run([python, '-c', program])")
         self.assertEqual(GENERATOR._dynamic_program_imports(direct, "tests/t.py", tracked), tracked)
         self.assertEqual(GENERATOR._dynamic_program_imports(named, "tests/t.py", tracked), tracked)
         for source in (
@@ -318,6 +318,140 @@ class Other:
             "subprocess.run([python, '-c', 'from pontius import'])",
             "subprocess.run([python, '-c', 'import pontius.missing'])",
         ):
+            with self.subTest(source=source), self.assertRaises(GENERATOR.GenerationError):
+                GENERATOR._dynamic_program_imports(ast.parse(source), "tests/t.py", tracked)
+
+    def test_dynamic_dash_c_resolution_is_lexical_and_accepts_named_argv(self) -> None:
+        source = '''
+class Selected:
+    def first(self):
+        program = "import pontius.alpha"
+        argv = [python, "-B", "-c", program]
+        subprocess.run(argv)
+    def second(self):
+        program = "import pontius.beta"
+        argv = (python, "-P", "-c", program)
+        subprocess.run(argv)
+'''
+        tracked = {"src/pontius/alpha.py", "src/pontius/beta.py"}
+        self.assertEqual(
+            GENERATOR._dynamic_program_imports(ast.parse(source), "tests/t.py", tracked),
+            tracked,
+        )
+
+    def test_dynamic_dash_c_resolves_fixed_fstrings_and_concatenation(self) -> None:
+        source = '''
+ALPHA = "alpha"
+PREFIX = "import pontius."
+class Selected:
+    def fstring_program(self):
+        program = f"import pontius.{ALPHA}"
+        subprocess.run([python, "-c", program])
+    def concatenated_program(self):
+        module = "beta"
+        program = PREFIX + module
+        argv = [python, "-c", program]
+        subprocess.run(argv)
+'''
+        tracked = {"src/pontius/alpha.py", "src/pontius/beta.py"}
+        self.assertEqual(
+            GENERATOR._dynamic_program_imports(ast.parse(source), "tests/t.py", tracked),
+            tracked,
+        )
+
+    def test_dynamic_dash_c_allows_fixed_enclosing_path_constants(self) -> None:
+        source = '''
+from pathlib import Path
+ROOT = Path(__file__).parents[1]
+LAUNCHER = ROOT / "run_selected.py"
+class Selected:
+    def probe(self):
+        program = f"import runpy; runpy.run_path({str(LAUNCHER)!r}); import pontius.alpha"
+        subprocess.run([python, "-c", program])
+'''
+        self.assertEqual(
+            GENERATOR._dynamic_program_imports(
+                ast.parse(source), "tests/t.py", {"src/pontius/alpha.py"}
+            ),
+            {"src/pontius/alpha.py"},
+        )
+
+    def test_dynamic_dash_c_allows_repeated_symbolic_context_targets(self) -> None:
+        source = '''
+from pathlib import Path
+import tempfile
+class Selected:
+    def probe(self):
+        with tempfile.TemporaryDirectory() as directory:
+            Path(directory)
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            program = f"value={str(root)!r}; import pontius.alpha"
+            subprocess.run([python, "-c", program])
+'''
+        self.assertEqual(
+            GENERATOR._dynamic_program_imports(
+                ast.parse(source), "tests/t.py", {"src/pontius/alpha.py"}
+            ),
+            {"src/pontius/alpha.py"},
+        )
+
+    def test_dynamic_dash_c_rejects_ambiguous_dynamic_reassigned_and_branch_values(self) -> None:
+        cases = (
+            '''
+class Selected:
+    def dynamic(self, module):
+        program = f"import pontius.{module}"
+        subprocess.run([python, "-c", program])
+''',
+            '''
+class Selected:
+    def reassigned_program(self):
+        program = "import pontius.alpha"
+        program = "import pontius.beta"
+        subprocess.run([python, "-c", program])
+''',
+            '''
+class Selected:
+    def reassigned_import_target(self):
+        module = "alpha"
+        module = "beta"
+        program = f"import pontius.{module}"
+        subprocess.run([python, "-c", program])
+''',
+            '''
+class Selected:
+    def branch_dependent(self, flag):
+        if flag:
+            program = "import pontius.alpha"
+        else:
+            program = "import pontius.beta"
+        subprocess.run([python, "-c", program])
+''',
+            '''
+class Selected:
+    def reassigned_argv(self):
+        program = "import pontius.alpha"
+        argv = [python, "-c", program]
+        argv = [python, "-c", "import pontius.beta"]
+        subprocess.run(argv)
+''',
+            '''
+class Selected:
+    def unresolved_named_argv(self):
+        program = "import pontius.alpha"
+        argv = make_argv("-c", program)
+        subprocess.run(argv)
+''',
+            '''
+class Selected:
+    def assigned_after_use(self):
+        subprocess.run(argv)
+        argv = [python, "-c", "import pontius.alpha"]
+''',
+        )
+        tracked = {"src/pontius/alpha.py", "src/pontius/beta.py"}
+        for source in cases:
             with self.subTest(source=source), self.assertRaises(GENERATOR.GenerationError):
                 GENERATOR._dynamic_program_imports(ast.parse(source), "tests/t.py", tracked)
 

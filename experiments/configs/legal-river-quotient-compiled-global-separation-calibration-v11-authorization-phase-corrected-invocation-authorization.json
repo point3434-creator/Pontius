@@ -1,0 +1,12 @@
+{
+  "schema_version": "pontius-adr0475-one-commit-v7-authorization-v1",
+  "source_seal_commit": "56127da2970f5a8a8056a97a247ebe1fdf4b983b",
+  "authorization_commit_paths": [
+    "ARCHITECTURE.md",
+    "RISK_REGISTER.md",
+    "ROADMAP.md",
+    "STATUS.md",
+    "docs/decisions/ADR-0475-authorize-one-v7-authorization-phase-calibration-invocation.md",
+    "experiments/configs/legal-river-quotient-compiled-global-separation-calibration-v11-authorization-phase-corrected-invocation-authorization.json"
+  ]
+}

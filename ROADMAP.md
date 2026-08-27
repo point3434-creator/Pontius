@@ -1900,11 +1900,13 @@ queue:
   bytes, actual-HEAD identity, sole-child ancestry, the frozen six-path diff,
   and one duplicate-free 96-path dependency domain. Public entry rejects both
   current-generation environment diversion and every lifecycle path by
-  `lexists`; campaign-child reentry remains explicitly distinct. Next create
-  only the sole-child exact-six-path ADR-0475 authorization, rerun the unchanged
-  20 controls from clean HEAD with the real live branch executed, and invoke the
-  v7 root launcher once only if every prefire gate passes. Authorization is not
-  an invocation, and no compiler, device, timing, topology, or value has opened.
+  `lexists`; campaign-child reentry remains explicitly distinct. ADR-0475 now
+  authorizes one exact generation in a sole-child six-path commit without
+  changing any sealed byte. Next rerun the unchanged 20 controls from that
+  exact clean HEAD, require the real live branch and all prefire gates, and
+  invoke the v7 root launcher once only if everything passes. Authorization is
+  not an invocation, and no compiler, device, timing, topology, or value has
+  opened.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

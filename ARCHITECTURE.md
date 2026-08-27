@@ -2624,6 +2624,15 @@ No owner, compiler, CuPy, device, timing, numerical, or result boundary opened.
 Only a separate exact ADR-0475 authorization followed by the unchanged real
 live-phase suite may make the one-shot v7 launcher eligible.
 
+ADR-0475 is that separate one-generation authorization and changes only the
+frozen six documentation/configuration paths. Its commit must be the sole child
+of source seal `56127da2970f5a8a8056a97a247ebe1fdf4b983b`; every sealed
+implementation, control, recovery, retained-evidence, and lifecycle byte stays
+fixed. Authorization is not invocation. The public owner remains closed until
+all 20 unchanged controls pass from this exact clean commit with the mandatory
+real `live_authorization` branch, raw HEAD/index/working-blob identity, complete
+96-path binding, public-environment hygiene, and lifecycle absence verified.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

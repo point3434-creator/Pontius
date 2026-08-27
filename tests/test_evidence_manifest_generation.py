@@ -434,6 +434,129 @@ class Selected:
             {"src/pontius/alpha.py"},
         )
 
+    def test_dynamic_dash_c_import_module_binds_name_and_package(self) -> None:
+        tracked = {"src/pontius/alpha.py", "src/pontius/beta.py"}
+        cases = (
+            ("import importlib; importlib.import_module(name='pontius.alpha')", {"src/pontius/alpha.py"}),
+            ("import importlib; importlib.import_module('.alpha', 'pontius')", {"src/pontius/alpha.py"}),
+            ("import importlib; importlib.import_module(name='.beta', package='pontius')", {"src/pontius/beta.py"}),
+            ("import importlib; importlib.import_module('.alpha', package='pontius')", {"src/pontius/alpha.py"}),
+            ("import importlib; importlib.import_module('..beta', package='pontius.pkg')", {"src/pontius/beta.py"}),
+        )
+        for program, expected in cases:
+            source = f"subprocess.run([python, '-c', {program!r}])"
+            with self.subTest(program=program):
+                self.assertEqual(
+                    GENERATOR._dynamic_program_imports(ast.parse(source), "tests/t.py", tracked),
+                    expected,
+                )
+
+    def test_dynamic_dash_c_import_module_rejects_bad_binding_and_symbolic_resolution(self) -> None:
+        programs = (
+            "import importlib; importlib.import_module('.alpha')",
+            "import importlib; importlib.import_module('pontius.alpha', name='pontius.beta')",
+            "import importlib; importlib.import_module(name='pontius.alpha', unknown='value')",
+            "import importlib; importlib.import_module(*('pontius.alpha',))",
+            "import importlib; importlib.import_module(**{'name': 'pontius.alpha'})",
+            "import importlib; importlib.import_module('pontius.alpha', 'pontius', 'extra')",
+            "import importlib; importlib.import_module(name=NAME)",
+            "import importlib; importlib.import_module('.alpha', package=PACKAGE)",
+        )
+        tracked = {"src/pontius/alpha.py", "src/pontius/beta.py"}
+        for program in programs:
+            source = f"subprocess.run([python, '-c', {program!r}])"
+            with self.subTest(program=program), self.assertRaises(GENERATOR.GenerationError):
+                GENERATOR._dynamic_program_imports(ast.parse(source), "tests/t.py", tracked)
+
+        tainted_programs = (
+            "program = f\"import importlib; importlib.import_module(name={NAME!r}, package='pontius')\"",
+            "program = f\"import importlib; importlib.import_module('.alpha', package={PACKAGE!r})\"",
+            "program = f\"import importlib; importlib.import_module(name='pontius.alpha', package={PACKAGE:.1})\"",
+        )
+        for assignment in tainted_programs:
+            source = f'''\
+from pathlib import Path
+NAME = Path("alpha").name
+PACKAGE = Path("pontius").name
+class Selected:
+    def probe(self):
+        {assignment}
+        subprocess.run([python, "-c", program])
+'''
+            with self.subTest(assignment=assignment), self.assertRaises(
+                GENERATOR.GenerationError
+            ):
+                GENERATOR._dynamic_program_imports(ast.parse(source), "tests/t.py", tracked)
+
+    def test_dynamic_dash_c_builtin_import_binds_fromlist_and_keywords(self) -> None:
+        tracked = {
+            "src/pontius/__init__.py",
+            "src/pontius/alpha.py",
+            "src/pontius/pkg/__init__.py",
+            "src/pontius/pkg/beta.py",
+        }
+        cases = (
+            ("__import__(name='pontius.alpha')", {"src/pontius/alpha.py"}),
+            (
+                "__import__('pontius', fromlist=('alpha',))",
+                {"src/pontius/__init__.py", "src/pontius/alpha.py"},
+            ),
+            (
+                "__import__('pontius.pkg', globals(), locals(), fromlist=['beta'], level=0)",
+                {"src/pontius/pkg/__init__.py", "src/pontius/pkg/beta.py"},
+            ),
+            (
+                "__import__(name='pontius', globals=None, locals=None, fromlist=('alpha',), level=0)",
+                {"src/pontius/__init__.py", "src/pontius/alpha.py"},
+            ),
+        )
+        for program, expected in cases:
+            source = f"subprocess.run([python, '-c', {program!r}])"
+            with self.subTest(program=program):
+                self.assertEqual(
+                    GENERATOR._dynamic_program_imports(ast.parse(source), "tests/t.py", tracked),
+                    expected,
+                )
+
+    def test_dynamic_dash_c_builtin_import_rejects_bad_binding_and_symbolic_context(self) -> None:
+        programs = (
+            "__import__(name=NAME)",
+            "__import__('pontius', fromlist=FROMLIST)",
+            "__import__('pontius', fromlist=('*',))",
+            "__import__('pontius', level=LEVEL)",
+            "__import__('alpha', globals={'__package__': 'pontius'}, fromlist=('beta',), level=1)",
+            "__import__('alpha', globals(), locals(), ('beta',), 1)",
+            "__import__('pontius.alpha', name='pontius.beta')",
+            "__import__('pontius.alpha', mystery=1)",
+            "__import__(*ARGS)",
+            "__import__(**KWARGS)",
+            "__import__('pontius.alpha', None, None, (), 0, 'extra')",
+        )
+        tracked = {"src/pontius/__init__.py", "src/pontius/alpha.py"}
+        for program in programs:
+            source = f"subprocess.run([python, '-c', {program!r}])"
+            with self.subTest(program=program), self.assertRaises(GENERATOR.GenerationError):
+                GENERATOR._dynamic_program_imports(ast.parse(source), "tests/t.py", tracked)
+
+        tainted_programs = (
+            "program = f\"__import__('pontius', fromlist=({FROMLIST!r},))\"",
+            "program = f\"__import__('pontius', level={LEVEL!r})\"",
+        )
+        for assignment in tainted_programs:
+            source = f'''
+from pathlib import Path
+FROMLIST = Path("alpha").name
+LEVEL = Path("1").name
+class Selected:
+    def probe(self):
+        {assignment}
+        subprocess.run([python, "-c", program])
+'''
+            with self.subTest(assignment=assignment), self.assertRaises(
+                GENERATOR.GenerationError
+            ):
+                GENERATOR._dynamic_program_imports(ast.parse(source), "tests/t.py", tracked)
+
     def test_dynamic_dash_c_symbolic_nonimport_context_cannot_collide_with_marker(self) -> None:
         source = '''
 from pathlib import Path

@@ -1849,11 +1849,16 @@ queue:
   terminal. Thirty-eight pre-authorization controls pass while both result paths
   remain absent. ADR-0468 now supplies exactly one separate authorization commit
   whose sole parent is the source seal and whose diff is the frozen six-file
-  surface without changing sealed code or controls. Next rerun the dormant
-  full-reader integration unskipped from a fresh absent-bytecode process and
-  recheck exact HEAD, dependency closure, and absent result/attempt/launch
-  states. Only a completely green gate may make the one-shot public owner
-  eligible. Compiler, device, timing, and results remain closed.
+  surface without changing sealed code or controls. The mandatory fresh-process
+  full-reader integration then ran and rejected: the producer inherited the v2
+  `absolute_git_recovery` field while the v4 reader omitted and never validated
+  it, and adversarial diagnostics exposed Boolean/integer aliases in several
+  exact-looking mapping comparisons. ADR-0469 therefore closes v4 permanently
+  uninvoked and freezes a fresh v5 lifecycle with new public identities, an
+  independent type-exact validator for every inherited header layer, and a
+  pre-source round trip through the actual composed header. Implement and
+  source-seal only that v5 correction; keep compiler, CuPy, device, timing, and
+  all v4/v5 result paths closed until a later separate authorization.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

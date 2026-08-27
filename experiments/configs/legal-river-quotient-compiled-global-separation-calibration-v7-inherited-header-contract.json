@@ -1,0 +1,132 @@
+{
+  "schema_version": "pontius-adr0469-inherited-header-contract-recovery-v1",
+  "rejected_authorization_gate": {
+    "source_seal_commit": "ba6a3418b7c991238cc1a65898fd61fa03b4a3cb",
+    "authorization_commit": "815d23c115289347e3d4028a4866eb9f87d4669a",
+    "failed_test": "test_full_reader_journal_and_mutations_after_authorization",
+    "focused_passed": 38,
+    "focused_failed": 1,
+    "exception_type": "ValueError",
+    "exception_message": "deferred-import header domain differs",
+    "v4_result_exists": false,
+    "v4_public_invocation_count": 0,
+    "v4_attempt_marker_exists": false,
+    "v4_launch_marker_count": 0,
+    "compiler_calls": 0,
+    "cupy_scientific_imports": 0,
+    "device_queries": 0,
+    "allocations": 0,
+    "module_loads": 0,
+    "kernel_launches": 0,
+    "timing_values": 0
+  },
+  "finding": {
+    "writer_header_layering": [
+      "v1_base_header",
+      "v2_absolute_git_recovery",
+      "v4_launch_abi_recovery",
+      "v4_deferred_science_import_authorization"
+    ],
+    "produced_top_level_key_count": 15,
+    "reader_top_level_key_count": 14,
+    "omitted_reader_key": "absolute_git_recovery",
+    "unvalidated_inherited_subtree": "absolute_git_recovery",
+    "type_alias_defect": "Python bool/int equality could admit false as 0 or true as 1 in exact JSON contracts"
+  },
+  "fresh_successor": {
+    "runner_version": 5,
+    "result_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v5.jsonl",
+    "fresh_protocol_identity_required": true,
+    "fresh_campaign_identity_required": true,
+    "fresh_attempt_identity_required": true,
+    "fresh_launch_marker_identity_required": true,
+    "fresh_authorization_identity_required": true,
+    "v4_permanently_closed_uninvoked": true,
+    "v4_mechanics_may_be_reused_only_behind_fresh_v5_bindings": true,
+    "immutable_science_module": "pontius.legal_river_quotient_compiled_global_separation_calibration_v3",
+    "recursive_type_exact_json_comparison_required": true,
+    "actual_layered_header_must_be_fully_read_before_source_seal": true,
+    "only_live_git_ancestry_may_remain_authorization_gated": true
+  },
+  "required_header_domains": {
+    "top_level": [
+      "schema_version",
+      "protocol_sha256",
+      "campaign_sha256",
+      "config_sha256",
+      "preregistration_commit",
+      "source_seal_git",
+      "dependency_hashes",
+      "result_relative_path",
+      "literal_worker_module",
+      "scientific_module",
+      "calls_under_one_public_owner",
+      "claims",
+      "absolute_git_recovery",
+      "launch_abi_recovery",
+      "deferred_science_import_authorization"
+    ],
+    "absolute_git_recovery": [
+      "schema_version",
+      "config_relative_path",
+      "config_canonical_lf_sha256",
+      "absolute_git",
+      "predecessor",
+      "scientific_source_canonical_lf_sha256",
+      "literal_cuda_source_sha256"
+    ],
+    "absolute_git": [
+      "path",
+      "bytes",
+      "sha256",
+      "provenance"
+    ],
+    "absolute_git_predecessor": [
+      "source_seal_commit",
+      "result_relative_path",
+      "result_exists",
+      "terminal",
+      "exception_type",
+      "exception_message",
+      "invocation_count"
+    ]
+  },
+  "required_controls": [
+    "compose the exact production layered header under a synthetic authorization and pass it through the complete independent reader before source seal",
+    "reject a missing or extra top-level header key",
+    "reject a missing or extra absolute-Git recovery key",
+    "reject every mutated absolute-Git executable identity leaf",
+    "reject every mutated absolute-Git predecessor leaf",
+    "reject when the absent v1 predecessor result is synthetically present",
+    "reject removal of the inherited v2 header layer",
+    "reject false-to-zero and true-to-one substitutions in claims, predecessors, guards, result-existence facts, and authorization booleans",
+    "prove the reader keeps the ADR-0460 absolute-Git config identity distinct from the ADR-0466 deferred-import config identity",
+    "keep v3, v4, and v5 results plus every v4/v5 attempt and launch marker absent through source seal",
+    "require a separate one-generation authorization commit after source seal"
+  ],
+  "unchanged_science": {
+    "consumed_v2_result_raw_sha256": "67ac14d408fe8c4299ee603ec1d8c454975094507d4ac28cda73001a42feb90d",
+    "parent_scientific_source_canonical_lf_sha256": "d38e96fd445f01a70113a8598094d0449a18271fa4d6ce992c781f0253ae821e",
+    "effective_v3_scientific_source_sha256": "7c63e2706f5aa28c37f25bfa58d09f03d2f5fe26f3a3312fe2baf7b849cec3fc",
+    "literal_cuda_source_sha256": "4f626802bd792788dff74c58adb90e7e30876e0c8f22d7fcb79de0c90334f8f7",
+    "kernel_signature_manifest_sha256": "8c25833e55a75a76a226251166a564b6ab8e52efdbb543958c33b93e8b7c63f8",
+    "cuda_declarations": 28,
+    "host_launch_sites": 46,
+    "scientific_calls": 2880
+  },
+  "claims": {
+    "prefire_reader_diagnostic_only": true,
+    "compiled_calibration_result": null,
+    "production_base_classification": "producer_absent",
+    "candidate_selected": null,
+    "topology_selected": null,
+    "arithmetic_schedule_selected": null,
+    "literal_45_numerical_result": null,
+    "resolver_iteration_result": null,
+    "action_clock_result": null,
+    "decision_quality_result": null,
+    "truncation_authorized": false,
+    "blueprint_result": null,
+    "poker_strength_result": null
+  }
+}

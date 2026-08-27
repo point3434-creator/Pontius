@@ -2550,6 +2550,19 @@ source-only process with no skip and the exact clean HEAD, dependency closure,
 and absent result/attempt/launch states are rechecked. Authorization is not an
 invocation or a systems result.
 
+ADR-0469 retains that mandatory integration as a pre-invocation rejection and
+closes v4 permanently uninvoked. The layered writer emits fifteen top-level
+header fields: v1 contributes the base, v2 adds `absolute_git_recovery`, and v4
+adds launch-ABI recovery plus deferred-import authorization. The v4 reader named
+only fourteen and, because it delegated directly to the v1 reader, could not
+validate the omitted v2 subtree. Rebuilt-journal diagnostics also showed that
+ordinary Python mapping equality admits Boolean/integer aliases inside JSON
+contracts. A fresh v5 lifecycle must use new public identities, independently
+validate every additive header layer with recursive type-exact comparison, and
+pass the actual composed production header plus re-chained mutations before
+source seal. Only live one-generation Git ancestry may remain dormant until a
+separate authorization commit.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

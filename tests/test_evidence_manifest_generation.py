@@ -1180,9 +1180,11 @@ class Selected:
             real_create_relative = GENERATOR._windows_create_relative_file
             rejected = False
 
-            def create_and_probe(directory_handle: int, name: str) -> int:
+            def create_and_probe(
+                directory_handle: int, name: str, **kwargs: object
+            ) -> int:
                 nonlocal rejected
-                owned = real_create_relative(directory_handle, name)
+                owned = real_create_relative(directory_handle, name, **kwargs)
                 create, _, close = GENERATOR._windows_directory_api()
                 probe = create(
                     str(architecture / name),
@@ -1277,6 +1279,7 @@ class Selected:
                 except BaseException as error:
                     failure = error
             self.assertIsInstance(failure, GENERATOR.GenerationError)
+            self.assertEqual(getattr(failure, "retained_owners", ()), ())
             self.assertGreaterEqual(attempts, 2)
             self.assertFalse(any(path.name.endswith(".tmp") for path in architecture.iterdir()))
 
@@ -1438,6 +1441,540 @@ class Selected:
                     failure = error
                 self.assertIsInstance(failure, GENERATOR.GenerationError)
                 self.assertIsInstance(failure.__cause__, OSError)
+
+    @unittest.skipUnless(os.name == "nt", "Windows native API fault matrix")
+    def test_windows_file_api_fault_matrix_is_typed_one_variable_at_a_time(self) -> None:
+        symbols = (
+            ("ntdll", "NtCreateFile"),
+            ("ntdll", "NtSetInformationFile"),
+            ("kernel32", "WriteFile"),
+            ("kernel32", "FlushFileBuffers"),
+            ("kernel32", "CloseHandle"),
+        )
+        cases = (("ntdll_load", None, "ntdll"), ("kernel32_load", None, "kernel32")) + tuple(
+            (f"missing_{symbol}", symbol, dll_name) for dll_name, symbol in symbols
+        )
+        for label, missing_symbol, failing_load in cases:
+            with self.subTest(label=label):
+                ntdll = type("NativeDll", (), {})()
+                ntdll.NtCreateFile = mock.Mock()
+                ntdll.NtSetInformationFile = mock.Mock()
+                kernel32 = type("KernelDll", (), {})()
+                kernel32.WriteFile = mock.Mock()
+                kernel32.FlushFileBuffers = mock.Mock()
+                kernel32.CloseHandle = mock.Mock()
+                if missing_symbol is not None:
+                    delattr(ntdll if failing_load == "ntdll" else kernel32, missing_symbol)
+
+                def load_dll(name: str, **_kwargs: object) -> object:
+                    if missing_symbol is None and name == failing_load:
+                        raise OSError(f"injected {name} load failure")
+                    return ntdll if name == "ntdll" else kernel32
+
+                failure = None
+                with mock.patch.object(GENERATOR.ctypes, "WinDLL", side_effect=load_dll):
+                    try:
+                        GENERATOR._windows_file_api()
+                    except BaseException as error:
+                        failure = error
+                self.assertIsInstance(failure, GENERATOR.GenerationError)
+                self.assertIsInstance(failure.__cause__, (OSError, AttributeError))
+
+    @unittest.skipUnless(os.name == "nt", "Windows directory API fault matrix")
+    def test_windows_directory_api_fault_matrix_is_typed_one_variable_at_a_time(self) -> None:
+        for label, missing_symbol in (
+            ("dll_load", None),
+            ("missing_CreateFileW", "CreateFileW"),
+            ("missing_GetFileInformationByHandle", "GetFileInformationByHandle"),
+            ("missing_CloseHandle", "CloseHandle"),
+        ):
+            with self.subTest(label=label):
+                kernel32 = type("KernelDll", (), {})()
+                kernel32.CreateFileW = mock.Mock()
+                kernel32.GetFileInformationByHandle = mock.Mock()
+                kernel32.CloseHandle = mock.Mock()
+                if missing_symbol is not None:
+                    delattr(kernel32, missing_symbol)
+                loader = (
+                    mock.Mock(side_effect=OSError("injected directory DLL load failure"))
+                    if missing_symbol is None
+                    else mock.Mock(return_value=kernel32)
+                )
+                failure = None
+                with mock.patch.object(GENERATOR.ctypes, "WinDLL", loader):
+                    try:
+                        GENERATOR._windows_directory_api()
+                    except BaseException as error:
+                        failure = error
+                self.assertIsInstance(failure, GENERATOR.GenerationError)
+                self.assertIsInstance(failure.__cause__, (OSError, AttributeError))
+
+    @unittest.skipUnless(os.name == "nt", "Windows directory native fault matrix")
+    def test_windows_directory_native_calls_and_close_failures_are_typed(self) -> None:
+        for label, create in (
+            (
+                "create_exception",
+                mock.Mock(side_effect=RuntimeError("injected CreateFileW exception")),
+            ),
+            ("create_null", mock.Mock(return_value=0)),
+            (
+                "create_invalid",
+                mock.Mock(return_value=GENERATOR.ctypes.c_void_p(-1).value),
+            ),
+        ):
+            with self.subTest(label=label), mock.patch.object(
+                GENERATOR,
+                "_windows_directory_api",
+                return_value=(create, mock.Mock(), mock.Mock()),
+            ):
+                failure = None
+                try:
+                    GENERATOR._windows_open_directory(Path("C:/injected"))
+                except BaseException as error:
+                    failure = error
+                self.assertIsInstance(failure, GENERATOR.GenerationError)
+                self.assertIsInstance(failure.__cause__, (OSError, RuntimeError))
+
+        for label, information in (
+            (
+                "information_exception",
+                mock.Mock(
+                    side_effect=RuntimeError(
+                        "injected GetFileInformationByHandle exception"
+                    )
+                ),
+            ),
+            ("information_false", mock.Mock(return_value=0)),
+        ):
+            with self.subTest(label=label), mock.patch.object(
+                GENERATOR,
+                "_windows_directory_api",
+                return_value=(mock.Mock(), information, mock.Mock()),
+            ):
+                failure = None
+                try:
+                    GENERATOR._windows_directory_handle_identity(
+                        101, Path("C:/injected")
+                    )
+                except BaseException as error:
+                    failure = error
+                self.assertIsInstance(failure, GENERATOR.GenerationError)
+                self.assertIsInstance(failure.__cause__, (OSError, RuntimeError))
+
+        for label, close in (
+            ("false", mock.Mock(return_value=0)),
+            ("exception", mock.Mock(side_effect=RuntimeError("injected CloseHandle exception"))),
+        ):
+            with self.subTest(label=label), mock.patch.object(
+                GENERATOR,
+                "_windows_directory_api",
+                return_value=(mock.Mock(), mock.Mock(), close),
+            ):
+                failure = None
+                try:
+                    GENERATOR._close_windows_directory(101)
+                except BaseException as error:
+                    failure = error
+                self.assertIsInstance(failure, GENERATOR.GenerationError)
+                self.assertIsInstance(failure.__cause__, (OSError, RuntimeError))
+
+    @unittest.skipUnless(os.name == "nt", "Windows directory ownership state machine")
+    def test_windows_open_directory_is_owned_before_identity_validation(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="pontius-task3-directory-owner-") as directory:
+            root = Path(directory).resolve()
+            (root / "docs" / "architecture").mkdir(parents=True)
+            transaction = GENERATOR._BoundManifestDirectory(root, create_missing=False)
+            create = mock.Mock(return_value=101)
+            information_error = RuntimeError("injected directory identity failure")
+            information = mock.Mock(side_effect=information_error)
+            close = mock.Mock(return_value=0)
+
+            failure = None
+            with mock.patch.object(
+                GENERATOR,
+                "_windows_directory_api",
+                return_value=(create, information, close),
+            ):
+                try:
+                    transaction.__enter__()
+                except BaseException as error:
+                    failure = error
+
+            self.assertIsInstance(failure, GENERATOR.GenerationError)
+            self.assertEqual(close.call_count, 1)
+            self.assertEqual(
+                transaction._windows_handles,
+                [(root, 101, None)],
+            )
+            self.assertIn(transaction, getattr(failure, "retained_owners", ()))
+            self.assertIs(
+                getattr(failure, "failures", ())[0].__cause__,
+                information_error,
+            )
+
+            with mock.patch.object(
+                GENERATOR, "_close_windows_directory", return_value=None
+            ):
+                transaction.close()
+            self.assertEqual(transaction._windows_handles, [])
+
+    @unittest.skipUnless(os.name == "nt", "Windows create fault matrix")
+    def test_windows_create_fault_matrix_varies_one_result_at_a_time(self) -> None:
+        cases = (
+            ("return_status", -1, 0, 2, 101, None),
+            ("io_status", 0, -1, 2, 101, None),
+            ("information", 0, 0, 1, 101, None),
+            ("null_handle", 0, 0, 2, 0, None),
+            ("invalid_handle", 0, 0, 2, -1, None),
+            ("exception", 0, 0, 2, 101, RuntimeError("injected NtCreateFile exception")),
+        )
+        for label, returned, io_status, information, handle_value, raised in cases:
+            with self.subTest(label=label):
+                def create(
+                    handle: object,
+                    _access: object,
+                    _attributes: object,
+                    status: object,
+                    *_rest: object,
+                ) -> int:
+                    GENERATOR.ctypes.cast(
+                        handle, GENERATOR.ctypes.POINTER(GENERATOR.wintypes.HANDLE)
+                    ).contents.value = handle_value
+                    status_pointer = GENERATOR.ctypes.cast(
+                        status,
+                        GENERATOR.ctypes.POINTER(GENERATOR._WindowsIOStatusBlock),
+                    )
+                    status_pointer.contents.Status = io_status
+                    status_pointer.contents.Information = information
+                    if raised is not None:
+                        raise raised
+                    return returned
+
+                with mock.patch.object(
+                    GENERATOR,
+                    "_windows_file_api",
+                    return_value=(
+                        create,
+                        mock.Mock(),
+                        mock.Mock(),
+                        mock.Mock(),
+                        mock.Mock(return_value=1),
+                    ),
+                ), mock.patch.object(
+                    GENERATOR, "_windows_dispose_relative_file", return_value=None
+                ):
+                    failure = None
+                    try:
+                        GENERATOR._windows_create_relative_file(123, "candidate.tmp")
+                    except BaseException as error:
+                        failure = error
+                self.assertIsInstance(failure, GENERATOR.GenerationError)
+                if raised is not None:
+                    self.assertIs(failure.__cause__, raised)
+
+    @unittest.skipUnless(os.name == "nt", "Windows information fault matrix")
+    def test_windows_rename_and_disposition_status_channels_are_independent(self) -> None:
+        operations = (
+            (GENERATOR._windows_rename_relative_file, (101, 202, "manifest.toml")),
+            (GENERATOR._windows_dispose_relative_file, (101,)),
+        )
+        cases = (
+            ("return_status", -1, 0, None),
+            ("io_status", 0, -1, None),
+            ("exception", 0, 0, RuntimeError("injected NtSetInformationFile exception")),
+        )
+        for operation, arguments in operations:
+            for label, returned, io_status, raised in cases:
+                with self.subTest(operation=operation.__name__, label=label):
+                    def set_information(
+                        _handle: object, status: object, *_rest: object
+                    ) -> int:
+                        GENERATOR.ctypes.cast(
+                            status,
+                            GENERATOR.ctypes.POINTER(GENERATOR._WindowsIOStatusBlock),
+                        ).contents.Status = io_status
+                        if raised is not None:
+                            raise raised
+                        return returned
+
+                    with mock.patch.object(
+                        GENERATOR,
+                        "_windows_file_api",
+                        return_value=(
+                            mock.Mock(),
+                            set_information,
+                            mock.Mock(),
+                            mock.Mock(),
+                            mock.Mock(),
+                        ),
+                    ):
+                        failure = None
+                        try:
+                            operation(*arguments)
+                        except BaseException as error:
+                            failure = error
+                    self.assertIsInstance(failure, GENERATOR.GenerationError)
+                    if raised is not None:
+                        self.assertIs(failure.__cause__, raised)
+
+    @unittest.skipUnless(os.name == "nt", "Windows write fault matrix")
+    def test_windows_write_fault_matrix_and_partial_progress(self) -> None:
+        cases = (
+            ("false", 0, None),
+            ("exception", 1, RuntimeError("injected WriteFile exception")),
+            ("zero", 1, 0),
+            ("oversized", 1, 4),
+        )
+        for label, succeeded, count_or_error in cases:
+            with self.subTest(label=label):
+                def write(
+                    _handle: object,
+                    _buffer: object,
+                    requested: int,
+                    written: object,
+                    _overlapped: object,
+                ) -> int:
+                    if isinstance(count_or_error, BaseException):
+                        raise count_or_error
+                    count = requested + 1 if label == "oversized" else int(count_or_error or 0)
+                    GENERATOR.ctypes.cast(
+                        written, GENERATOR.ctypes.POINTER(GENERATOR.wintypes.DWORD)
+                    ).contents.value = count
+                    return succeeded
+
+                with mock.patch.object(
+                    GENERATOR,
+                    "_windows_file_api",
+                    return_value=(
+                        mock.Mock(),
+                        mock.Mock(),
+                        write,
+                        mock.Mock(),
+                        mock.Mock(),
+                    ),
+                ):
+                    failure = None
+                    try:
+                        GENERATOR._windows_write_file(101, b"abc")
+                    except BaseException as error:
+                        failure = error
+                self.assertIsInstance(failure, GENERATOR.GenerationError)
+                if isinstance(count_or_error, BaseException):
+                    self.assertIs(failure.__cause__, count_or_error)
+
+        requested_chunks = []
+        partial_counts = iter((2, 2, 1))
+
+        def partial_write(
+            _handle: object,
+            buffer: object,
+            requested: int,
+            written: object,
+            _overlapped: object,
+        ) -> int:
+            requested_chunks.append(GENERATOR.ctypes.string_at(buffer, requested))
+            GENERATOR.ctypes.cast(
+                written, GENERATOR.ctypes.POINTER(GENERATOR.wintypes.DWORD)
+            ).contents.value = next(partial_counts)
+            return 1
+
+        with mock.patch.object(
+            GENERATOR,
+            "_windows_file_api",
+            return_value=(
+                mock.Mock(),
+                mock.Mock(),
+                partial_write,
+                mock.Mock(),
+                mock.Mock(),
+            ),
+        ):
+            GENERATOR._windows_write_file(101, b"abcde")
+        self.assertEqual(requested_chunks, [b"abcde", b"cde", b"e"])
+
+    @unittest.skipUnless(os.name == "nt", "Windows flush and close fault matrix")
+    def test_windows_flush_and_file_close_faults_are_typed(self) -> None:
+        for operation_name, operation, index in (
+            ("flush", GENERATOR._windows_flush_file, 3),
+            ("close", GENERATOR._windows_close_file_handle, 4),
+        ):
+            for label, native in (
+                ("false", mock.Mock(return_value=0)),
+                (
+                    "exception",
+                    mock.Mock(side_effect=RuntimeError(f"injected {operation_name} exception")),
+                ),
+            ):
+                with self.subTest(operation=operation_name, label=label):
+                    api = [mock.Mock(), mock.Mock(), mock.Mock(), mock.Mock(), mock.Mock()]
+                    api[index] = native
+                    with mock.patch.object(
+                        GENERATOR, "_windows_file_api", return_value=tuple(api)
+                    ):
+                        failure = None
+                        try:
+                            operation(101)
+                        except BaseException as error:
+                            failure = error
+                    self.assertIsInstance(failure, GENERATOR.GenerationError)
+                    self.assertIsInstance(failure.__cause__, (OSError, RuntimeError))
+
+    @unittest.skipUnless(os.name == "nt", "Windows cleanup state machine")
+    def test_windows_cleanup_never_closes_an_unarmed_candidate(self) -> None:
+        transaction = GENERATOR._BoundManifestDirectory(
+            Path("C:/injected-transaction"), create_missing=False
+        )
+        candidate = GENERATOR._BoundTemporary("candidate.tmp", 101)
+        transaction._owned_temporary.append(candidate)
+        disposition = mock.Mock(
+            side_effect=GENERATOR.GenerationError("injected disposition failure")
+        )
+        close = mock.Mock()
+        failure = None
+        with mock.patch.object(
+            GENERATOR, "_windows_dispose_relative_file", disposition
+        ), mock.patch.object(GENERATOR, "_windows_close_file_handle", close):
+            try:
+                transaction.close()
+            except BaseException as error:
+                failure = error
+
+        self.assertIsInstance(failure, GENERATOR.GenerationError)
+        self.assertEqual(disposition.call_count, 2)
+        self.assertEqual(close.call_count, 0)
+        self.assertEqual(getattr(candidate, "state", None), "open")
+        self.assertEqual(candidate.handle, 101)
+        self.assertIn(candidate, transaction._owned_temporary)
+        self.assertIn(transaction, getattr(failure, "retained_owners", ()))
+
+    @unittest.skipUnless(os.name == "nt", "Windows cleanup state machine")
+    def test_windows_cleanup_does_not_rearm_deletion_after_close_failure(self) -> None:
+        transaction = GENERATOR._BoundManifestDirectory(
+            Path("C:/injected-transaction"), create_missing=False
+        )
+        candidate = GENERATOR._BoundTemporary("candidate.tmp", 101)
+        transaction._owned_temporary.append(candidate)
+        disposition = mock.Mock(return_value=None)
+        close = mock.Mock(
+            side_effect=(GENERATOR.GenerationError("injected close failure"), None)
+        )
+        with mock.patch.object(
+            GENERATOR, "_windows_dispose_relative_file", disposition
+        ), mock.patch.object(GENERATOR, "_windows_close_file_handle", close):
+            with self.assertRaises(GENERATOR.GenerationError):
+                transaction.cleanup(candidate)
+            self.assertEqual(getattr(candidate, "state", None), "deletion_armed")
+            transaction.cleanup(candidate)
+
+        self.assertEqual(disposition.call_count, 1)
+        self.assertEqual(close.call_count, 2)
+        self.assertEqual(getattr(candidate, "state", None), "closed")
+        self.assertNotIn(candidate, transaction._owned_temporary)
+
+    @unittest.skipUnless(os.name == "nt", "Windows create ownership state machine")
+    def test_windows_malformed_create_is_registered_before_validation_cleanup(self) -> None:
+        events = []
+
+        def create(
+            handle: object,
+            _access: object,
+            _attributes: object,
+            status: object,
+            *_rest: object,
+        ) -> int:
+            GENERATOR.ctypes.cast(
+                handle, GENERATOR.ctypes.POINTER(GENERATOR.wintypes.HANDLE)
+            ).contents.value = 101
+            status_pointer = GENERATOR.ctypes.cast(
+                status, GENERATOR.ctypes.POINTER(GENERATOR._WindowsIOStatusBlock)
+            )
+            status_pointer.contents.Status = -1
+            status_pointer.contents.Information = 2
+            return 0
+
+        def set_information(
+            _handle: object, status: object, _buffer: object, _length: object, kind: int
+        ) -> int:
+            events.append(("set", kind))
+            GENERATOR.ctypes.cast(
+                status, GENERATOR.ctypes.POINTER(GENERATOR._WindowsIOStatusBlock)
+            ).contents.Status = 0
+            return 0
+
+        def close(_handle: object) -> int:
+            events.append(("close", 101))
+            return 1
+
+        with tempfile.TemporaryDirectory(prefix="pontius-task3-malformed-create-") as directory:
+            root = Path(directory).resolve()
+            (root / "docs" / "architecture").mkdir(parents=True)
+            transaction = GENERATOR._BoundManifestDirectory(root, create_missing=False)
+            transaction.__enter__()
+            destination = next(iter(transaction.destinations.values()))
+            stage_failure = None
+            owned = ()
+            with mock.patch.object(
+                GENERATOR,
+                "_windows_file_api",
+                return_value=(create, set_information, mock.Mock(), mock.Mock(), close),
+            ):
+                try:
+                    transaction.stage(destination, b"content")
+                except BaseException as error:
+                    stage_failure = error
+                owned = tuple(transaction._owned_temporary)
+                transaction.close()
+            self.assertIsInstance(stage_failure, GENERATOR.GenerationError)
+            self.assertEqual(len(owned), 1)
+            candidate = owned[0]
+            self.assertEqual(getattr(candidate, "state", None), "closed")
+            self.assertIsNone(candidate.handle)
+            self.assertEqual(events, [("set", 13), ("close", 101)])
+
+    @unittest.skipUnless(os.name == "nt", "Windows cleanup error aggregation")
+    def test_transaction_exit_preserves_body_and_every_cleanup_failure(self) -> None:
+        transaction = GENERATOR._BoundManifestDirectory(
+            Path("C:/injected-transaction"), create_missing=False
+        )
+        candidates = (
+            GENERATOR._BoundTemporary("first.tmp", 101),
+            GENERATOR._BoundTemporary("second.tmp", 202),
+        )
+        transaction._owned_temporary.extend(candidates)
+        body = GENERATOR.GenerationError("injected body failure")
+        disposition_calls = []
+
+        def fail_disposition(handle: int) -> None:
+            disposition_calls.append(handle)
+            raise GENERATOR.GenerationError(f"injected disposition failure {handle}")
+
+        close = mock.Mock()
+        failure = None
+        with mock.patch.object(
+            GENERATOR, "_windows_dispose_relative_file", side_effect=fail_disposition
+        ), mock.patch.object(GENERATOR, "_windows_close_file_handle", close):
+            try:
+                transaction.__exit__(GENERATOR.GenerationError, body, None)
+            except BaseException as error:
+                failure = error
+
+        self.assertIsInstance(failure, GENERATOR.GenerationError)
+        aggregate_failures = getattr(failure, "failures", ())
+        self.assertEqual(len(aggregate_failures), 5)
+        self.assertIs(aggregate_failures[0], body)
+        self.assertEqual(
+            [str(error) for error in aggregate_failures[1:]],
+            [
+                "injected disposition failure 101",
+                "injected disposition failure 101",
+                "injected disposition failure 202",
+                "injected disposition failure 202",
+            ],
+        )
+        self.assertEqual(disposition_calls, [101, 101, 202, 202])
+        self.assertEqual(close.call_count, 0)
+        self.assertEqual(tuple(transaction._owned_temporary), candidates)
+        self.assertIn(transaction, getattr(failure, "retained_owners", ()))
 
     def test_staging_write_failure_leaves_no_temp_or_destination_change(self) -> None:
         with tempfile.TemporaryDirectory(prefix="pontius-task3-stage-write-failure-") as directory:

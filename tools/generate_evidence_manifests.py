@@ -146,6 +146,56 @@ _REPARSE_ATTRIBUTE = 0x400
 class GenerationError(RuntimeError):
     """A fail-closed generator error."""
 
+    def __init__(
+        self,
+        message: str,
+        *,
+        failures: Sequence[BaseException] = (),
+        retained_owners: Sequence[object] = (),
+    ) -> None:
+        super().__init__(message)
+        self.failures = tuple(failures)
+        self.retained_owners = tuple(retained_owners)
+
+
+def _aggregate_generation_errors(
+    message: str,
+    failures: Sequence[BaseException],
+    *,
+    retained_owners: Sequence[object] = (),
+) -> GenerationError:
+    supplied_failures = tuple(failures)
+    if not supplied_failures:
+        raise ValueError("generation error aggregation requires at least one failure")
+    owners: list[object] = []
+    for owner in retained_owners:
+        if not any(existing is owner for existing in owners):
+            owners.append(owner)
+
+    ordered_failures: list[BaseException] = []
+
+    def append_failure(failure: BaseException) -> None:
+        if isinstance(failure, GenerationError):
+            for owner in failure.retained_owners:
+                if not any(existing is owner for existing in owners):
+                    owners.append(owner)
+            if failure.failures:
+                for nested in failure.failures:
+                    append_failure(nested)
+                return
+        ordered_failures.append(failure)
+
+    for failure in supplied_failures:
+        append_failure(failure)
+    detail = "; ".join(
+        f"{type(failure).__name__}: {failure}" for failure in ordered_failures
+    )
+    return GenerationError(
+        f"{message}: {detail}",
+        failures=tuple(ordered_failures),
+        retained_owners=owners,
+    )
+
 
 def canonical_semantic_bytes(value: object) -> bytes:
     return json.dumps(
@@ -2172,59 +2222,104 @@ if os.name == "nt":
 def _windows_directory_api() -> tuple[Any, Any, Any]:
     if os.name != "nt":
         raise GenerationError("Windows directory handles are unavailable")
-    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
-    create = kernel32.CreateFileW
-    create.argtypes = (
-        wintypes.LPCWSTR,
-        wintypes.DWORD,
-        wintypes.DWORD,
-        wintypes.LPVOID,
-        wintypes.DWORD,
-        wintypes.DWORD,
-        wintypes.HANDLE,
-    )
-    create.restype = wintypes.HANDLE
-    information = kernel32.GetFileInformationByHandle
-    information.argtypes = (
-        wintypes.HANDLE,
-        ctypes.POINTER(_WindowsDirectoryInformation),
-    )
-    information.restype = wintypes.BOOL
-    close = kernel32.CloseHandle
-    close.argtypes = (wintypes.HANDLE,)
-    close.restype = wintypes.BOOL
+    try:
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        create = kernel32.CreateFileW
+        create.argtypes = (
+            wintypes.LPCWSTR,
+            wintypes.DWORD,
+            wintypes.DWORD,
+            wintypes.LPVOID,
+            wintypes.DWORD,
+            wintypes.DWORD,
+            wintypes.HANDLE,
+        )
+        create.restype = wintypes.HANDLE
+        information = kernel32.GetFileInformationByHandle
+        information.argtypes = (
+            wintypes.HANDLE,
+            ctypes.POINTER(_WindowsDirectoryInformation),
+        )
+        information.restype = wintypes.BOOL
+        close = kernel32.CloseHandle
+        close.argtypes = (wintypes.HANDLE,)
+        close.restype = wintypes.BOOL
+    except Exception as error:
+        raise GenerationError("Windows directory handle APIs are unavailable") from error
     return create, information, close
 
 
-def _windows_open_directory(path: Path) -> int:
+def _windows_open_directory(
+    path: Path,
+    *,
+    owner: _BoundManifestDirectory | None = None,
+) -> int:
     create, _, close = _windows_directory_api()
-    handle = create(
-        str(path),
-        0x00000020 | 0x00000080 | 0x00100000,
-        0x00000001 | 0x00000002,
-        None,
-        3,
-        0x02000000 | 0x00200000,
-        None,
-    )
+    try:
+        handle = create(
+            str(path),
+            0x00000020 | 0x00000080 | 0x00100000,
+            0x00000001 | 0x00000002,
+            None,
+            3,
+            0x02000000 | 0x00200000,
+            None,
+        )
+    except Exception as error:
+        raise GenerationError(f"manifest directory handle could not be opened: {path}") from error
     invalid = ctypes.c_void_p(-1).value
-    if handle == invalid:
+    if not handle or handle == invalid:
         error = ctypes.get_last_error()
         raise GenerationError(f"manifest directory handle could not be opened: {path}") from OSError(
             error, os.strerror(error), str(path)
         )
+    numeric_handle = int(handle)
+    owned_entry: tuple[Path, int, tuple[int, int] | None] | None = None
+    if owner is not None:
+        owned_entry = (path, numeric_handle, None)
+        owner._windows_handles.append(owned_entry)
     try:
-        _windows_directory_handle_identity(handle, path)
-    except BaseException:
-        close(handle)
+        identity = _windows_directory_handle_identity(numeric_handle, path)
+    except BaseException as body_error:
+        if owner is not None:
+            raise
+        close_failure = None
+        try:
+            succeeded = close(numeric_handle)
+        except Exception as error:
+            close_failure = GenerationError("manifest directory handle close failed")
+            close_failure.__cause__ = error
+        else:
+            if not succeeded:
+                error = ctypes.get_last_error()
+                close_failure = GenerationError("manifest directory handle close failed")
+                close_failure.__cause__ = OSError(error, os.strerror(error))
+        if close_failure is not None:
+            aggregate = _aggregate_generation_errors(
+                "manifest directory inspection and close both failed",
+                (body_error, close_failure),
+            )
+            raise aggregate from body_error
         raise
-    return int(handle)
+    if owner is not None:
+        assert owned_entry is not None
+        for index, entry in enumerate(owner._windows_handles):
+            if entry is owned_entry:
+                owner._windows_handles[index] = (path, numeric_handle, identity)
+                break
+        else:
+            raise GenerationError("manifest directory handle ownership was lost")
+    return numeric_handle
 
 
 def _windows_directory_handle_identity(handle: int, path: Path) -> tuple[int, int]:
     _, information, _ = _windows_directory_api()
     value = _WindowsDirectoryInformation()
-    if not information(handle, ctypes.byref(value)):
+    try:
+        succeeded = information(handle, ctypes.byref(value))
+    except Exception as error:
+        raise GenerationError(f"manifest directory handle cannot be inspected: {path}") from error
+    if not succeeded:
         error = ctypes.get_last_error()
         raise GenerationError(f"manifest directory handle cannot be inspected: {path}") from OSError(
             error, os.strerror(error), str(path)
@@ -2240,7 +2335,7 @@ def _close_windows_directory(handle: int) -> None:
     _, _, close = _windows_directory_api()
     try:
         succeeded = close(handle)
-    except (OSError, ValueError) as error:
+    except Exception as error:
         raise GenerationError("manifest directory handle close failed") from error
     if not succeeded:
         error = ctypes.get_last_error()
@@ -2294,7 +2389,7 @@ def _windows_file_api() -> tuple[Any, Any, Any, Any, Any]:
         close = kernel32.CloseHandle
         close.argtypes = (wintypes.HANDLE,)
         close.restype = wintypes.BOOL
-    except (AttributeError, OSError) as error:
+    except Exception as error:
         raise GenerationError("Windows handle-relative file APIs are unavailable") from error
     return create, set_information, write, flush, close
 
@@ -2310,7 +2405,17 @@ def _validated_relative_manifest_name(name: str) -> str:
     return name
 
 
-def _windows_create_relative_file(directory_handle: int, name: str) -> int:
+def _is_valid_windows_handle(value: object) -> bool:
+    invalid = ctypes.c_void_p(-1).value
+    return value is not None and bool(value) and int(value) != invalid
+
+
+def _windows_create_relative_file(
+    directory_handle: int,
+    name: str,
+    *,
+    owner: _BoundTemporary | None = None,
+) -> int:
     name = _validated_relative_manifest_name(name)
     create, _, _, _, _ = _windows_file_api()
     encoded_name = name.encode("utf-16-le")
@@ -2332,6 +2437,7 @@ def _windows_create_relative_file(directory_handle: int, name: str) -> int:
     )
     status_block = _WindowsIOStatusBlock()
     handle = wintypes.HANDLE()
+    candidate = owner or _BoundTemporary(name, None, windows=True)
     try:
         status = int(
             create(
@@ -2348,9 +2454,26 @@ def _windows_create_relative_file(directory_handle: int, name: str) -> int:
                 0,
             )
         )
-    except (OSError, ValueError) as error:
-        raise GenerationError("handle-relative manifest temporary creation failed") from error
+    except Exception as error:
+        if _is_valid_windows_handle(handle.value):
+            candidate.claim_windows_handle(int(handle.value))
+        failure = GenerationError("handle-relative manifest temporary creation failed")
+        if owner is None:
+            try:
+                _cleanup_windows_temporary(candidate)
+            except GenerationError as cleanup_error:
+                aggregate = _aggregate_generation_errors(
+                    "manifest temporary creation and cleanup both failed",
+                    (failure, cleanup_error),
+                    retained_owners=(candidate,)
+                    if candidate.state != "closed"
+                    else (),
+                )
+                raise aggregate from error
+        raise failure from error
     invalid_handle = ctypes.c_void_p(-1).value
+    if handle.value and int(handle.value) != invalid_handle:
+        candidate.claim_windows_handle(int(handle.value))
     if (
         status != 0
         or int(status_block.Status) != 0
@@ -2358,16 +2481,24 @@ def _windows_create_relative_file(directory_handle: int, name: str) -> int:
         or not handle.value
         or int(handle.value) == invalid_handle
     ):
-        if handle.value and int(handle.value) != invalid_handle:
-            try:
-                _windows_dispose_relative_file(int(handle.value))
-            finally:
-                _windows_close_file_handle(int(handle.value))
-        raise GenerationError(
+        failure = GenerationError(
             "handle-relative manifest temporary creation returned malformed status "
             f"0x{status & 0xFFFFFFFF:08x}/{int(status_block.Status) & 0xFFFFFFFF:08x}/"
             f"{int(status_block.Information)}"
         )
+        if owner is None:
+            try:
+                _cleanup_windows_temporary(candidate)
+            except GenerationError as cleanup_error:
+                aggregate = _aggregate_generation_errors(
+                    "malformed manifest temporary creation and cleanup both failed",
+                    (failure, cleanup_error),
+                    retained_owners=(candidate,)
+                    if candidate.state != "closed"
+                    else (),
+                )
+                raise aggregate from failure
+        raise failure
     return int(handle.value)
 
 
@@ -2388,7 +2519,7 @@ def _windows_write_file(file_handle: int, raw: bytes) -> None:
                 ctypes.byref(written),
                 None,
             )
-        except (OSError, ValueError) as error:
+        except Exception as error:
             raise GenerationError("handle-bound manifest temporary write failed") from error
         if not succeeded:
             error = ctypes.get_last_error()
@@ -2405,7 +2536,7 @@ def _windows_flush_file(file_handle: int) -> None:
     _, _, _, flush, _ = _windows_file_api()
     try:
         succeeded = flush(wintypes.HANDLE(file_handle))
-    except (OSError, ValueError) as error:
+    except Exception as error:
         raise GenerationError("handle-bound manifest temporary flush failed") from error
     if not succeeded:
         error = ctypes.get_last_error()
@@ -2418,7 +2549,7 @@ def _windows_close_file_handle(file_handle: int) -> None:
     _, _, _, _, close = _windows_file_api()
     try:
         succeeded = close(wintypes.HANDLE(file_handle))
-    except (OSError, ValueError) as error:
+    except Exception as error:
         raise GenerationError("manifest temporary handle close failed") from error
     if not succeeded:
         error = ctypes.get_last_error()
@@ -2453,7 +2584,7 @@ def _windows_rename_relative_file(
                 10,
             )
         )
-    except (OSError, ValueError) as error:
+    except Exception as error:
         raise GenerationError("handle-relative manifest replacement failed") from error
     if status != 0 or int(status_block.Status) != 0:
         raise GenerationError(
@@ -2476,7 +2607,7 @@ def _windows_set_relative_disposition(file_handle: int, delete: bool) -> None:
                 13,
             )
         )
-    except (OSError, ValueError) as error:
+    except Exception as error:
         raise GenerationError("handle-bound manifest disposition failed") from error
     if status != 0 or int(status_block.Status) != 0:
         raise GenerationError(
@@ -2490,10 +2621,105 @@ def _windows_dispose_relative_file(file_handle: int) -> None:
 
 
 class _BoundTemporary:
-    def __init__(self, name: str, handle: int | None) -> None:
+    def __init__(
+        self,
+        name: str,
+        handle: int | None,
+        *,
+        windows: bool | None = None,
+    ) -> None:
         self.name = name
         self.handle = handle
-        self.renamed = False
+        is_windows = handle is not None if windows is None else windows
+        if is_windows:
+            self.state = "open" if handle is not None else "unacquired"
+        else:
+            self.state = "path_owned"
+
+    @property
+    def renamed(self) -> bool:
+        return self.state == "renamed"
+
+    def claim_windows_handle(self, handle: int) -> None:
+        if self.state != "unacquired" or self.handle is not None:
+            raise GenerationError("manifest temporary handle ownership transition is invalid")
+        if not _is_valid_windows_handle(handle):
+            raise GenerationError("manifest temporary handle ownership is invalid")
+        self.handle = int(handle)
+        self.state = "open"
+
+    def mark_deletion_armed(self) -> None:
+        if self.state != "open" or self.handle is None:
+            raise GenerationError("manifest temporary deletion transition is invalid")
+        self.state = "deletion_armed"
+
+    def mark_renamed(self) -> None:
+        if self.state != "open" or self.handle is None:
+            raise GenerationError("manifest temporary rename transition is invalid")
+        self.state = "renamed"
+
+    def mark_closed(self) -> None:
+        if self.state == "unacquired" and self.handle is None:
+            self.state = "closed"
+            return
+        if self.state not in ("deletion_armed", "renamed") or self.handle is None:
+            raise GenerationError("manifest temporary close transition is invalid")
+        self.handle = None
+        self.state = "closed"
+
+
+def _cleanup_windows_temporary(temporary: _BoundTemporary) -> None:
+    if temporary.state == "closed":
+        return
+    if temporary.state == "unacquired":
+        temporary.mark_closed()
+        return
+    if temporary.state not in ("open", "deletion_armed", "renamed"):
+        raise GenerationError("Windows manifest temporary state is invalid")
+    if temporary.handle is None:
+        raise GenerationError("Windows manifest temporary handle is absent")
+
+    failures: list[GenerationError] = []
+    if temporary.state == "open":
+        for _ in range(2):
+            try:
+                _windows_dispose_relative_file(temporary.handle)
+            except GenerationError as error:
+                failures.append(error)
+            except Exception as error:
+                failure = GenerationError("handle-bound manifest disposition failed")
+                failure.__cause__ = error
+                failures.append(failure)
+            else:
+                temporary.mark_deletion_armed()
+                break
+        if temporary.state == "open":
+            aggregate = _aggregate_generation_errors(
+                "manifest temporary deletion could not be armed; handle remains open",
+                failures,
+                retained_owners=(temporary,),
+            )
+            raise aggregate from failures[0]
+
+    try:
+        _windows_close_file_handle(temporary.handle)
+    except GenerationError as error:
+        failures.append(error)
+    except Exception as error:
+        failure = GenerationError("manifest temporary handle close failed")
+        failure.__cause__ = error
+        failures.append(failure)
+    else:
+        temporary.mark_closed()
+
+    if failures:
+        retained = (temporary,) if temporary.state != "closed" else ()
+        aggregate = _aggregate_generation_errors(
+            "manifest temporary cleanup failed",
+            failures,
+            retained_owners=retained,
+        )
+        raise aggregate from failures[0]
 
 
 class _BoundManifestDirectory:
@@ -2505,7 +2731,7 @@ class _BoundManifestDirectory:
         self.architecture: Path | None = None
         self.destinations: dict[str, Path] = {}
         self._posix_descriptors: list[tuple[Path, int, tuple[int, int]]] = []
-        self._windows_handles: list[tuple[Path, int, tuple[int, int]]] = []
+        self._windows_handles: list[tuple[Path, int, tuple[int, int] | None]] = []
         self._architecture_descriptor: int | None = None
         self._owned_temporary: list[_BoundTemporary] = []
 
@@ -2524,19 +2750,41 @@ class _BoundManifestDirectory:
             self.destinations = _verified_destinations(self.root)
             self.reverify()
             return self
-        except BaseException:
-            self.close()
+        except BaseException as body_error:
+            try:
+                self.close()
+            except GenerationError as cleanup_error:
+                aggregate = _aggregate_generation_errors(
+                    "manifest transaction setup and cleanup both failed",
+                    (body_error, cleanup_error),
+                )
+                raise aggregate from body_error
+            if isinstance(body_error, Exception) and not isinstance(
+                body_error, GenerationError
+            ):
+                failure = GenerationError(
+                    "manifest transaction setup failed",
+                    failures=(body_error,),
+                )
+                raise failure from body_error
             raise
 
     def __exit__(self, exc_type: object, exc: object, traceback: object) -> None:
-        self.close()
+        try:
+            self.close()
+        except GenerationError as cleanup_error:
+            if not isinstance(exc, BaseException):
+                raise
+            aggregate = _aggregate_generation_errors(
+                "manifest transaction body and cleanup both failed",
+                (exc, cleanup_error),
+            )
+            raise aggregate from exc
 
     def _bind_windows(self) -> None:
         assert self.root is not None and self.docs is not None and self.architecture is not None
         for path in (self.root, self.docs):
-            handle = _windows_open_directory(path)
-            identity = _windows_directory_handle_identity(handle, path)
-            self._windows_handles.append((path, handle, identity))
+            _windows_open_directory(path, owner=self)
         if not os.path.lexists(self.architecture):
             if not self.create_missing:
                 raise GenerationError("manifest architecture directory is absent")
@@ -2546,9 +2794,7 @@ class _BoundManifestDirectory:
                 raise GenerationError(
                     "manifest architecture directory could not be securely created"
                 ) from error
-        handle = _windows_open_directory(self.architecture)
-        identity = _windows_directory_handle_identity(handle, self.architecture)
-        self._windows_handles.append((self.architecture, handle, identity))
+        _windows_open_directory(self.architecture, owner=self)
 
     def _bind_posix(self) -> None:
         assert self.root is not None and self.docs is not None and self.architecture is not None
@@ -2593,6 +2839,10 @@ class _BoundManifestDirectory:
     def reverify(self) -> None:
         if os.name == "nt":
             for path, handle, expected in self._windows_handles:
+                if expected is None:
+                    raise GenerationError(
+                        f"manifest directory handle identity is unverified: {path}"
+                    )
                 if _windows_directory_handle_identity(handle, path) != expected:
                     raise GenerationError(f"held manifest directory identity changed: {path}")
                 info = os.lstat(path)
@@ -2625,18 +2875,24 @@ class _BoundManifestDirectory:
             if not self._windows_handles:
                 raise GenerationError("Windows manifest directory handle is absent")
             architecture_handle = self._windows_handles[-1][1]
+            temporary = _BoundTemporary(name, None, windows=True)
+            self._owned_temporary.append(temporary)
             try:
-                handle = _windows_create_relative_file(architecture_handle, name)
+                handle = _windows_create_relative_file(
+                    architecture_handle,
+                    name,
+                    owner=temporary,
+                )
             except GenerationError:
                 raise
             except OSError as error:
                 raise GenerationError("manifest temporary file could not be created") from error
-            temporary = _BoundTemporary(name, handle)
-            self._owned_temporary.append(temporary)
+            if temporary.handle != handle or temporary.state != "open":
+                raise GenerationError("Windows manifest temporary ownership was not registered")
             try:
                 self.reverify()
-                _windows_write_file(handle, raw)
-                _windows_flush_file(handle)
+                _windows_write_file(temporary.handle, raw)
+                _windows_flush_file(temporary.handle)
                 self.reverify()
                 return temporary
             except GenerationError:
@@ -2680,10 +2936,8 @@ class _BoundManifestDirectory:
             _windows_rename_relative_file(
                 temporary.handle, architecture_handle, destination.name
             )
-            temporary.renamed = True
-            _windows_close_file_handle(temporary.handle)
-            temporary.handle = None
-            self._owned_temporary.remove(temporary)
+            temporary.mark_renamed()
+            self.cleanup(temporary)
             self.reverify()
             return
         if self._architecture_descriptor is None:
@@ -2701,32 +2955,11 @@ class _BoundManifestDirectory:
         if temporary not in self._owned_temporary:
             return
         if os.name == "nt":
-            if temporary.handle is None:
-                raise GenerationError("Windows manifest temporary handle is absent")
-            failures: list[GenerationError] = []
-            disposition_succeeded = temporary.renamed
-            if not temporary.renamed:
-                for _ in range(2):
-                    try:
-                        _windows_dispose_relative_file(temporary.handle)
-                    except GenerationError as error:
-                        failures.append(error)
-                    else:
-                        disposition_succeeded = True
-                        break
             try:
-                _windows_close_file_handle(temporary.handle)
-            except GenerationError as error:
-                failures.append(error)
-            else:
-                temporary.handle = None
-                if disposition_succeeded:
+                _cleanup_windows_temporary(temporary)
+            finally:
+                if temporary.state == "closed" and temporary in self._owned_temporary:
                     self._owned_temporary.remove(temporary)
-            if failures:
-                raise GenerationError(
-                    "manifest temporary cleanup failed: "
-                    + "; ".join(str(error) for error in failures)
-                ) from failures[0]
             return
         if self._architecture_descriptor is None:
             raise GenerationError("POSIX manifest directory descriptor is absent")
@@ -2763,10 +2996,19 @@ class _BoundManifestDirectory:
             else:
                 self._windows_handles.remove(entry)
         if failures:
-            raise GenerationError(
-                "manifest transaction cleanup failed: "
-                + "; ".join(str(error) for error in failures)
-            ) from failures[0]
+            retained = (
+                (self,)
+                if self._owned_temporary
+                or self._posix_descriptors
+                or self._windows_handles
+                else ()
+            )
+            aggregate = _aggregate_generation_errors(
+                "manifest transaction cleanup failed",
+                failures,
+                retained_owners=retained,
+            )
+            raise aggregate from failures[0]
 
 
 def write_manifests(

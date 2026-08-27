@@ -2469,6 +2469,15 @@ activated mapping, prove relative Git is absent there, and exercise the exact
 absolute call before source seal. The consumed v1 path stays absent; only a
 fresh v2 result identity may later be invoked.
 
+ADR-0461 source-seals that successor. Its no-compiler probe runs through the
+actual replaced environment: relative Git is absent, the frozen absolute Git
+reports version 2.55.0.windows.3 and rebinds the preregistration commit, and the
+original environment restores exactly. The additive reader derives fresh
+identities independently and scopes only the inherited scientific config's v1
+result-path check; the fresh header remains v2 and scientific records are never
+projected. Eight controls, including an exclusive synthetic terminal, pass.
+Both real result paths remain absent; the next act is one fresh invocation.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

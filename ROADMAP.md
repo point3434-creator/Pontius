@@ -1820,6 +1820,12 @@ queue:
   and requires a source probe through the actual post-replacement environment.
   Next implement and source-seal only that fresh v2 plumbing identity, leaving
   both result paths absent and all compiler/device work closed.
+  ADR-0461 now source-seals that fresh identity. Eight controls exercise the
+  exact post-scrub environment, immutable parent bytes, restored global
+  bindings, independently derived reader constants, the narrow v1-config/v2-
+  header identity projection, exclusive synthetic journaling, and result
+  absence. The next boundary is exactly one clean committed v2 invocation and
+  permanent retention of its first terminal.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

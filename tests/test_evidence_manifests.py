@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import asdict
 from hashlib import sha256
 import importlib.util
 import json
@@ -28,6 +29,13 @@ if _SUPPORT_SPEC is None or _SUPPORT_SPEC.loader is None:
     raise RuntimeError("test support could not be loaded by exact path")
 _SUPPORT = importlib.util.module_from_spec(_SUPPORT_SPEC)
 _SUPPORT_SPEC.loader.exec_module(_SUPPORT)
+
+_GENERATOR_PATH = Path(__file__).resolve().parents[1] / "tools" / "generate_evidence_manifests.py"
+_GENERATOR_SPEC = importlib.util.spec_from_file_location("generate_evidence_manifests_conformance", _GENERATOR_PATH)
+if _GENERATOR_SPEC is None or _GENERATOR_SPEC.loader is None:
+    raise RuntimeError("manifest generator could not be loaded by exact path")
+_GENERATOR = importlib.util.module_from_spec(_GENERATOR_SPEC)
+_GENERATOR_SPEC.loader.exec_module(_GENERATOR)
 
 
 def _toml_value(value: object) -> str:
@@ -312,6 +320,33 @@ class EvidenceManifestTests(unittest.TestCase):
         self.assertNotEqual(first.source_identity.raw_sha256, second.source_identity.raw_sha256)
         self.assertEqual(canonical_semantic_bytes({"b": (True, 2), "a": None}), b'{"a":null,"b":[true,2]}')
         self.assertEqual(semantic_sha256({"a": 1}), sha256(b'{"a":1}').hexdigest())
+
+    def test_tool_local_parsers_and_encoder_conform_to_active_contract_vectors(self) -> None:
+        valid = (
+            ("sealed-current-files", _files_manifest(), parse_sealed_current_files_manifest, "files.toml", lambda value: asdict(value)),
+            ("sealed-current-absences", _absences_manifest(), parse_sealed_current_absences_manifest, "absences.toml", lambda value: asdict(value)),
+            ("historical-blobs", _historical_manifest(), parse_historical_blobs_manifest, "historical.toml", lambda value: asdict(value)),
+            ("retained-v7", _retained_manifest(), parse_retained_v7_manifest, "retained.toml", lambda value: asdict(value.manifest)),
+        )
+        for kind, raw, active_parser, source_name, normalize_active in valid:
+            with self.subTest(kind=kind):
+                active = active_parser(raw, source_path=self._source(source_name), repository_root=ROOT)
+                local = _GENERATOR.parse_manifest_bytes(kind, raw, source_path=self._source(source_name), repository_root=ROOT)
+                self.assertEqual(_GENERATOR.canonical_semantic_bytes(local), canonical_semantic_bytes(normalize_active(active)))
+                self.assertEqual(_GENERATOR.semantic_sha256(local), semantic_sha256(normalize_active(active)))
+
+        invalid = (
+            ("sealed-current-files", _files_manifest(entry={"byte_length": True}), parse_sealed_current_files_manifest, "files.toml"),
+            ("sealed-current-absences", _absences_manifest(entry_count=2), parse_sealed_current_absences_manifest, "absences.toml"),
+            ("historical-blobs", _historical_manifest(entries_sha256="c" * 64), parse_historical_blobs_manifest, "historical.toml"),
+            ("retained-v7", _retained_manifest(journal_complete=1), parse_retained_v7_manifest, "retained.toml"),
+        )
+        for kind, raw, active_parser, source_name in invalid:
+            with self.subTest(kind=kind):
+                with self.assertRaises((EvidenceConfigurationError, EvidenceIntegrityError)):
+                    active_parser(raw, source_path=self._source(source_name), repository_root=ROOT)
+                with self.assertRaises(_GENERATOR.GenerationError):
+                    _GENERATOR.parse_manifest_bytes(kind, raw, source_path=self._source(source_name), repository_root=ROOT)
 
 
 if __name__ == "__main__":

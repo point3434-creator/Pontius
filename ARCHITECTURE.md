@@ -2591,6 +2591,14 @@ Only a separate sole-child, exact-six-path ADR-0472 authorization may make the
 v6 public owner eligible, and the full live-authorization suite must pass from
 that exact clean commit first.
 
+ADR-0472 is the separate one-generation authorization. Its commit must be the
+sole child of source seal `d633f3fb469a27dee688587293c6efb1d2cb2757` and its
+diff is exactly the frozen six documentation/configuration paths; no sealed
+launcher, runner, reader, test, recovery config, retained marker, or lifecycle
+byte changes. Authorization is not invocation. The v6 owner remains closed
+until all 17 focused controls pass from the exact clean authorization commit
+with the live ancestry and committed-config-blob branch exercised.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

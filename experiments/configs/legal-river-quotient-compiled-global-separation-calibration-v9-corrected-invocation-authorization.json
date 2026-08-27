@@ -1,0 +1,12 @@
+{
+  "schema_version": "pontius-adr0472-one-commit-v6-authorization-v1",
+  "source_seal_commit": "d633f3fb469a27dee688587293c6efb1d2cb2757",
+  "authorization_commit_paths": [
+    "ARCHITECTURE.md",
+    "RISK_REGISTER.md",
+    "ROADMAP.md",
+    "STATUS.md",
+    "docs/decisions/ADR-0472-authorize-one-v6-retained-attempt-calibration-invocation.md",
+    "experiments/configs/legal-river-quotient-compiled-global-separation-calibration-v9-corrected-invocation-authorization.json"
+  ]
+}

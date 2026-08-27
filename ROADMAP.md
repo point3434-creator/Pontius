@@ -1879,6 +1879,12 @@ queue:
   ancestry branch exercised, and fire the v6 public launcher once only if every
   gate passes. No sealed implementation or test byte may change in that
   authorization commit.
+  ADR-0472 now supplies only that sole-child, exact-six-path authorization.
+  From its exact clean commit, run all 17 focused controls with zero skips and
+  require the live ancestry/config-blob branch, source-seal dependency hashes,
+  retained marker, closed predecessors, and absent v6 lifecycle to pass. Only
+  then invoke the root v6 launcher once. Any failed gate closes the invocation;
+  authorization itself is neither an attempt nor a systems result.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

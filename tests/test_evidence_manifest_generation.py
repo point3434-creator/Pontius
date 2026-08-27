@@ -1002,6 +1002,217 @@ class Selected:
                     tuple(sorted(Path(path).name for path in GENERATOR.MANIFEST_PATHS)),
                 )
 
+    @unittest.skipUnless(os.name == "nt", "Windows handle-relative mutation test")
+    def test_windows_stage_is_bound_after_its_last_path_reverification(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="pontius-task3-windows-stage-swap-") as directory:
+            root = Path(directory).resolve()
+            architecture = root / "docs" / "architecture"
+            architecture.mkdir(parents=True)
+            displaced = root / "docs" / "architecture-displaced"
+            attempted = False
+            swapped = False
+            real_create = getattr(GENERATOR, "_windows_create_relative_file", None)
+
+            def swap_then_create(*args: object, **kwargs: object) -> object:
+                nonlocal attempted, swapped
+                attempted = True
+                try:
+                    os.replace(architecture, displaced)
+                    architecture.mkdir()
+                except OSError:
+                    pass
+                else:
+                    swapped = True
+                if real_create is None:
+                    raise AssertionError("handle-relative Windows create is absent")
+                return real_create(*args, **kwargs)
+
+            failure = None
+            with mock.patch.object(
+                GENERATOR,
+                "_windows_create_relative_file",
+                create=True,
+                side_effect=swap_then_create,
+            ):
+                try:
+                    GENERATOR.write_manifests(
+                        root,
+                        SAMPLE_STATE,
+                        approved_seed_sha256=SAMPLE_STATE["entries_sha256"],
+                    )
+                except GENERATOR.GenerationError as error:
+                    failure = error
+
+            self.assertTrue(attempted)
+            if swapped:
+                self.assertIsNotNone(failure)
+                self.assertEqual(list(architecture.iterdir()), [])
+                self.assertEqual(list(displaced.iterdir()), [])
+            else:
+                self.assertIsNone(failure)
+                self.assertEqual(
+                    tuple(sorted(path.name for path in architecture.iterdir())),
+                    tuple(sorted(Path(path).name for path in GENERATOR.MANIFEST_PATHS)),
+                )
+
+    @unittest.skipUnless(os.name == "nt", "Windows handle-relative mutation test")
+    def test_windows_replace_is_bound_after_its_last_path_reverification(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="pontius-task3-windows-replace-swap-") as directory:
+            root = Path(directory).resolve()
+            architecture = root / "docs" / "architecture"
+            architecture.mkdir(parents=True)
+            displaced = root / "docs" / "architecture-displaced"
+            attempted = False
+            swapped = False
+            real_rename = getattr(GENERATOR, "_windows_rename_relative_file", None)
+
+            def swap_then_rename(*args: object, **kwargs: object) -> object:
+                nonlocal attempted, swapped
+                if not attempted:
+                    attempted = True
+                    try:
+                        os.replace(architecture, displaced)
+                        architecture.mkdir()
+                    except OSError:
+                        pass
+                    else:
+                        swapped = True
+                if real_rename is None:
+                    raise AssertionError("handle-relative Windows rename is absent")
+                return real_rename(*args, **kwargs)
+
+            failure = None
+            with mock.patch.object(
+                GENERATOR,
+                "_windows_rename_relative_file",
+                create=True,
+                side_effect=swap_then_rename,
+            ):
+                try:
+                    GENERATOR.write_manifests(
+                        root,
+                        SAMPLE_STATE,
+                        approved_seed_sha256=SAMPLE_STATE["entries_sha256"],
+                    )
+                except GENERATOR.GenerationError as error:
+                    failure = error
+
+            self.assertTrue(attempted)
+            if swapped:
+                self.assertIsNotNone(failure)
+                self.assertEqual(list(architecture.iterdir()), [])
+                self.assertFalse(any(path.name.endswith(".tmp") for path in displaced.iterdir()))
+                self.assertTrue(
+                    {path.name for path in displaced.iterdir()}
+                    <= {Path(path).name for path in GENERATOR.MANIFEST_PATHS}
+                )
+            else:
+                self.assertIsNone(failure)
+                self.assertEqual(
+                    tuple(sorted(path.name for path in architecture.iterdir())),
+                    tuple(sorted(Path(path).name for path in GENERATOR.MANIFEST_PATHS)),
+                )
+
+    @unittest.skipUnless(os.name == "nt", "Windows handle-relative mutation test")
+    def test_windows_cleanup_is_bound_after_its_last_path_reverification(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="pontius-task3-windows-cleanup-swap-") as directory:
+            root = Path(directory).resolve()
+            architecture = root / "docs" / "architecture"
+            architecture.mkdir(parents=True)
+            displaced = root / "docs" / "architecture-displaced"
+            attempted = False
+            real_dispose = getattr(GENERATOR, "_windows_dispose_relative_file", None)
+
+            def swap_then_dispose(*args: object, **kwargs: object) -> object:
+                nonlocal attempted
+                attempted = True
+                try:
+                    os.replace(architecture, displaced)
+                    architecture.mkdir()
+                except OSError:
+                    pass
+                if real_dispose is None:
+                    raise AssertionError("handle-relative Windows disposal is absent")
+                return real_dispose(*args, **kwargs)
+
+            with mock.patch.object(GENERATOR.os, "write", side_effect=OSError("injected write")), mock.patch.object(
+                GENERATOR,
+                "_windows_dispose_relative_file",
+                create=True,
+                side_effect=swap_then_dispose,
+            ):
+                with self.assertRaises(GENERATOR.GenerationError):
+                    GENERATOR.write_manifests(
+                        root,
+                        SAMPLE_STATE,
+                        approved_seed_sha256=SAMPLE_STATE["entries_sha256"],
+                    )
+
+            self.assertTrue(attempted)
+            self.assertEqual(list(architecture.iterdir()), [])
+            if displaced.exists():
+                self.assertEqual(list(displaced.iterdir()), [])
+
+    @unittest.skipUnless(os.name == "nt", "Windows native capability test")
+    def test_windows_native_file_api_unavailability_fails_closed(self) -> None:
+        failure = None
+        with mock.patch.object(GENERATOR.ctypes, "WinDLL", side_effect=OSError("unavailable")):
+            try:
+                GENERATOR._windows_file_api()
+            except BaseException as error:
+                failure = error
+        self.assertIsInstance(failure, GENERATOR.GenerationError)
+
+    def test_staging_write_failure_leaves_no_temp_or_destination_change(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="pontius-task3-stage-write-failure-") as directory:
+            root = Path(directory).resolve()
+            architecture = root / "docs" / "architecture"
+            architecture.mkdir(parents=True)
+            originals = {}
+            for relative in GENERATOR.MANIFEST_PATHS:
+                destination = root / relative
+                originals[relative] = f"original:{destination.name}".encode("ascii")
+                destination.write_bytes(originals[relative])
+
+            with mock.patch.object(GENERATOR.os, "write", side_effect=OSError("injected write")):
+                with self.assertRaises(GENERATOR.GenerationError):
+                    GENERATOR.write_manifests(
+                        root,
+                        SAMPLE_STATE,
+                        approved_seed_sha256=SAMPLE_STATE["entries_sha256"],
+                    )
+
+            self.assertEqual(
+                {relative: (root / relative).read_bytes() for relative in GENERATOR.MANIFEST_PATHS},
+                originals,
+            )
+            self.assertFalse(any(path.name.endswith(".tmp") for path in architecture.iterdir()))
+
+    def test_staging_fsync_failure_leaves_no_temp_or_destination_change(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="pontius-task3-stage-fsync-failure-") as directory:
+            root = Path(directory).resolve()
+            architecture = root / "docs" / "architecture"
+            architecture.mkdir(parents=True)
+            originals = {}
+            for relative in GENERATOR.MANIFEST_PATHS:
+                destination = root / relative
+                originals[relative] = f"original:{destination.name}".encode("ascii")
+                destination.write_bytes(originals[relative])
+
+            with mock.patch.object(GENERATOR.os, "fsync", side_effect=OSError("injected fsync")):
+                with self.assertRaises((GENERATOR.GenerationError, OSError)):
+                    GENERATOR.write_manifests(
+                        root,
+                        SAMPLE_STATE,
+                        approved_seed_sha256=SAMPLE_STATE["entries_sha256"],
+                    )
+
+            self.assertEqual(
+                {relative: (root / relative).read_bytes() for relative in GENERATOR.MANIFEST_PATHS},
+                originals,
+            )
+            self.assertFalse(any(path.name.endswith(".tmp") for path in architecture.iterdir()))
+
     def test_manifest_directory_rejects_non_directory_link_and_reparse_targets(self) -> None:
         with tempfile.TemporaryDirectory(prefix="pontius-task3-directory-kind-") as directory:
             root = Path(directory).resolve()

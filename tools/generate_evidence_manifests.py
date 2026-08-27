@@ -27,6 +27,7 @@ import uuid
 if os.name == "nt":
     import ctypes
     from ctypes import wintypes
+    import msvcrt
 
 
 BASELINE_COMMIT = "a842c4b6a73a2991a63a481f4107580b72750582"
@@ -2128,6 +2129,47 @@ if os.name == "nt":
         )
 
 
+    class _WindowsUnicodeString(ctypes.Structure):
+        _fields_ = (
+            ("Length", wintypes.USHORT),
+            ("MaximumLength", wintypes.USHORT),
+            ("Buffer", wintypes.LPWSTR),
+        )
+
+
+    class _WindowsObjectAttributes(ctypes.Structure):
+        _fields_ = (
+            ("Length", wintypes.ULONG),
+            ("RootDirectory", wintypes.HANDLE),
+            ("ObjectName", ctypes.POINTER(_WindowsUnicodeString)),
+            ("Attributes", wintypes.ULONG),
+            ("SecurityDescriptor", wintypes.LPVOID),
+            ("SecurityQualityOfService", wintypes.LPVOID),
+        )
+
+
+    class _WindowsIOStatusValue(ctypes.Union):
+        _fields_ = (("Status", wintypes.LONG), ("Pointer", wintypes.LPVOID))
+
+
+    class _WindowsIOStatusBlock(ctypes.Structure):
+        _anonymous_ = ("value",)
+        _fields_ = (("value", _WindowsIOStatusValue), ("Information", ctypes.c_size_t))
+
+
+    class _WindowsFileRenameInformation(ctypes.Structure):
+        _fields_ = (
+            ("ReplaceIfExists", ctypes.c_ubyte),
+            ("RootDirectory", wintypes.HANDLE),
+            ("FileNameLength", wintypes.DWORD),
+            ("FileName", wintypes.WCHAR * 1),
+        )
+
+
+    class _WindowsFileDispositionInformation(ctypes.Structure):
+        _fields_ = (("DeleteFile", ctypes.c_ubyte),)
+
+
 def _windows_directory_api() -> tuple[Any, Any, Any]:
     if os.name != "nt":
         raise GenerationError("Windows directory handles are unavailable")
@@ -2159,7 +2201,7 @@ def _windows_open_directory(path: Path) -> int:
     create, _, close = _windows_directory_api()
     handle = create(
         str(path),
-        0x00000080,
+        0x00000020 | 0x00000080 | 0x00100000,
         0x00000001 | 0x00000002,
         None,
         3,
@@ -2200,6 +2242,177 @@ def _close_windows_directory(handle: int) -> None:
     close(handle)
 
 
+def _windows_file_api() -> tuple[Any, Any, Any]:
+    if os.name != "nt":
+        raise GenerationError("Windows handle-relative file APIs are unavailable")
+    try:
+        ntdll = ctypes.WinDLL("ntdll")
+        create = ntdll.NtCreateFile
+        create.argtypes = (
+            ctypes.POINTER(wintypes.HANDLE),
+            wintypes.DWORD,
+            ctypes.POINTER(_WindowsObjectAttributes),
+            ctypes.POINTER(_WindowsIOStatusBlock),
+            wintypes.LPVOID,
+            wintypes.ULONG,
+            wintypes.ULONG,
+            wintypes.ULONG,
+            wintypes.ULONG,
+            wintypes.LPVOID,
+            wintypes.ULONG,
+        )
+        create.restype = wintypes.LONG
+        set_information = ntdll.NtSetInformationFile
+        set_information.argtypes = (
+            wintypes.HANDLE,
+            ctypes.POINTER(_WindowsIOStatusBlock),
+            wintypes.LPVOID,
+            wintypes.ULONG,
+            ctypes.c_int,
+        )
+        set_information.restype = wintypes.LONG
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        close = kernel32.CloseHandle
+        close.argtypes = (wintypes.HANDLE,)
+        close.restype = wintypes.BOOL
+    except (AttributeError, OSError) as error:
+        raise GenerationError("Windows handle-relative file APIs are unavailable") from error
+    return create, set_information, close
+
+
+def _validated_relative_manifest_name(name: str) -> str:
+    if (
+        not isinstance(name, str)
+        or not name
+        or name in (".", "..")
+        or any(character in name for character in ("/", "\\", ":", "\0"))
+    ):
+        raise GenerationError("manifest mutation name must be one relative path component")
+    return name
+
+
+def _windows_create_relative_file(directory_handle: int, name: str) -> int:
+    name = _validated_relative_manifest_name(name)
+    create, _, close = _windows_file_api()
+    encoded_name = name.encode("utf-16-le")
+    if len(encoded_name) > 0xFFFE:
+        raise GenerationError("manifest temporary name is too long")
+    name_buffer = ctypes.create_unicode_buffer(name)
+    unicode_name = _WindowsUnicodeString(
+        len(encoded_name),
+        len(encoded_name),
+        ctypes.cast(name_buffer, wintypes.LPWSTR),
+    )
+    attributes = _WindowsObjectAttributes(
+        ctypes.sizeof(_WindowsObjectAttributes),
+        wintypes.HANDLE(directory_handle),
+        ctypes.pointer(unicode_name),
+        0x00000040,
+        None,
+        None,
+    )
+    status_block = _WindowsIOStatusBlock()
+    handle = wintypes.HANDLE()
+    status = int(
+        create(
+            ctypes.byref(handle),
+            0x00000002 | 0x00000080 | 0x00010000 | 0x00100000,
+            ctypes.byref(attributes),
+            ctypes.byref(status_block),
+            None,
+            0x00000080,
+            0x00000001 | 0x00000002,
+            2,
+            0x00000020 | 0x00000040,
+            None,
+            0,
+        )
+    )
+    if (
+        status != 0
+        or int(status_block.Status) != 0
+        or int(status_block.Information) != 2
+        or not handle.value
+    ):
+        if handle.value:
+            try:
+                _windows_dispose_relative_file(int(handle.value))
+            finally:
+                close(handle)
+        raise GenerationError(
+            "handle-relative manifest temporary creation returned malformed status "
+            f"0x{status & 0xFFFFFFFF:08x}/{int(status_block.Status) & 0xFFFFFFFF:08x}/"
+            f"{int(status_block.Information)}"
+        )
+    native_handle = int(handle.value)
+    try:
+        return msvcrt.open_osfhandle(native_handle, os.O_WRONLY | os.O_BINARY)
+    except BaseException:
+        try:
+            _windows_dispose_relative_file(native_handle)
+        finally:
+            close(native_handle)
+        raise
+
+
+def _windows_rename_relative_file(
+    file_handle: int, directory_handle: int, destination_name: str
+) -> None:
+    destination_name = _validated_relative_manifest_name(destination_name)
+    _, set_information, _ = _windows_file_api()
+    encoded_name = destination_name.encode("utf-16-le")
+    name_offset = _WindowsFileRenameInformation.FileName.offset
+    buffer = ctypes.create_string_buffer(name_offset + len(encoded_name))
+    information = ctypes.cast(
+        buffer, ctypes.POINTER(_WindowsFileRenameInformation)
+    ).contents
+    information.ReplaceIfExists = 1
+    information.RootDirectory = wintypes.HANDLE(directory_handle)
+    information.FileNameLength = len(encoded_name)
+    ctypes.memmove(ctypes.addressof(buffer) + name_offset, encoded_name, len(encoded_name))
+    status_block = _WindowsIOStatusBlock()
+    status = int(
+        set_information(
+            wintypes.HANDLE(file_handle),
+            ctypes.byref(status_block),
+            ctypes.byref(buffer),
+            len(buffer),
+            10,
+        )
+    )
+    if status != 0 or int(status_block.Status) != 0:
+        raise GenerationError(
+            "handle-relative manifest replacement returned malformed status "
+            f"0x{status & 0xFFFFFFFF:08x}/{int(status_block.Status) & 0xFFFFFFFF:08x}"
+        )
+
+
+def _windows_dispose_relative_file(file_handle: int) -> None:
+    _, set_information, _ = _windows_file_api()
+    information = _WindowsFileDispositionInformation(1)
+    status_block = _WindowsIOStatusBlock()
+    status = int(
+        set_information(
+            wintypes.HANDLE(file_handle),
+            ctypes.byref(status_block),
+            ctypes.byref(information),
+            ctypes.sizeof(information),
+            13,
+        )
+    )
+    if status != 0 or int(status_block.Status) != 0:
+        raise GenerationError(
+            "handle-bound manifest temporary disposal returned malformed status "
+            f"0x{status & 0xFFFFFFFF:08x}/{int(status_block.Status) & 0xFFFFFFFF:08x}"
+        )
+
+
+class _BoundTemporary:
+    def __init__(self, name: str, descriptor: int | None) -> None:
+        self.name = name
+        self.descriptor = descriptor
+
+
 class _BoundManifestDirectory:
     def __init__(self, repository_root: Path, *, create_missing: bool) -> None:
         self.repository_root = repository_root
@@ -2211,6 +2424,7 @@ class _BoundManifestDirectory:
         self._posix_descriptors: list[tuple[Path, int, tuple[int, int]]] = []
         self._windows_handles: list[tuple[Path, int, tuple[int, int]]] = []
         self._architecture_descriptor: int | None = None
+        self._owned_temporary: list[_BoundTemporary] = []
 
     def __enter__(self) -> "_BoundManifestDirectory":
         if not self.repository_root.is_absolute():
@@ -2320,54 +2534,119 @@ class _BoundManifestDirectory:
                 ):
                     raise GenerationError(f"manifest directory path no longer names its held handle: {path}")
 
-    def stage(self, destination: Path, raw: bytes) -> str | Path:
+    def stage(self, destination: Path, raw: bytes) -> _BoundTemporary:
         assert self.architecture is not None
-        name = f".{destination.name}.{uuid.uuid4().hex}.tmp"
         self.reverify()
+        name = f".{destination.name}.{uuid.uuid4().hex}.tmp"
         if os.name == "nt":
-            candidate = self.architecture / name
-            with candidate.open("xb") as stream:
-                stream.write(raw)
-                stream.flush()
-                os.fsync(stream.fileno())
-            return candidate
+            if not self._windows_handles:
+                raise GenerationError("Windows manifest directory handle is absent")
+            architecture_handle = self._windows_handles[-1][1]
+            try:
+                descriptor = _windows_create_relative_file(architecture_handle, name)
+            except OSError as error:
+                raise GenerationError("manifest temporary file could not be created") from error
+            temporary = _BoundTemporary(name, descriptor)
+            self._owned_temporary.append(temporary)
+            try:
+                self.reverify()
+                offset = 0
+                while offset < len(raw):
+                    written = os.write(descriptor, raw[offset:])
+                    if written <= 0:
+                        raise OSError("manifest temporary write made no progress")
+                    offset += written
+                os.fsync(descriptor)
+                self.reverify()
+                return temporary
+            except GenerationError:
+                raise
+            except OSError as error:
+                raise GenerationError("manifest temporary file could not be staged") from error
         if self._architecture_descriptor is None:
             raise GenerationError("POSIX manifest directory descriptor is absent")
         flags = os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW | getattr(os, "O_CLOEXEC", 0)
-        descriptor = os.open(name, flags, 0o600, dir_fd=self._architecture_descriptor)
+        try:
+            descriptor = os.open(name, flags, 0o600, dir_fd=self._architecture_descriptor)
+        except OSError as error:
+            raise GenerationError("manifest temporary file could not be created") from error
+        temporary = _BoundTemporary(name, None)
+        self._owned_temporary.append(temporary)
         try:
             offset = 0
             while offset < len(raw):
-                offset += os.write(descriptor, raw[offset:])
+                written = os.write(descriptor, raw[offset:])
+                if written <= 0:
+                    raise OSError("manifest temporary write made no progress")
+                offset += written
             os.fsync(descriptor)
+            self.reverify()
+        except GenerationError:
+            raise
+        except OSError as error:
+            raise GenerationError("manifest temporary file could not be staged") from error
         finally:
             os.close(descriptor)
-        return name
+        return temporary
 
-    def replace(self, temporary: str | Path, destination: Path) -> None:
+    def replace(self, temporary: _BoundTemporary, destination: Path) -> None:
+        if temporary not in self._owned_temporary:
+            raise GenerationError("manifest temporary ownership is invalid")
         self.reverify()
         if os.name == "nt":
-            os.replace(temporary, destination)
+            if temporary.descriptor is None or not self._windows_handles:
+                raise GenerationError("Windows manifest temporary handle is absent")
+            architecture_handle = self._windows_handles[-1][1]
+            native_handle = msvcrt.get_osfhandle(temporary.descriptor)
+            _windows_rename_relative_file(
+                native_handle, architecture_handle, destination.name
+            )
+            self._owned_temporary.remove(temporary)
+            os.close(temporary.descriptor)
+            temporary.descriptor = None
+            self.reverify()
             return
-        if self._architecture_descriptor is None or not isinstance(temporary, str):
+        if self._architecture_descriptor is None:
             raise GenerationError("POSIX manifest replacement arguments are invalid")
         os.replace(
-            temporary,
+            temporary.name,
             destination.name,
             src_dir_fd=self._architecture_descriptor,
             dst_dir_fd=self._architecture_descriptor,
         )
+        self._owned_temporary.remove(temporary)
+        self.reverify()
 
-    def cleanup(self, temporary: str | Path) -> None:
+    def cleanup(self, temporary: _BoundTemporary) -> None:
+        if temporary not in self._owned_temporary:
+            return
+        if os.name == "nt":
+            if temporary.descriptor is None:
+                raise GenerationError("Windows manifest temporary handle is absent")
+            native_handle = msvcrt.get_osfhandle(temporary.descriptor)
+            try:
+                _windows_dispose_relative_file(native_handle)
+            finally:
+                os.close(temporary.descriptor)
+                temporary.descriptor = None
+                self._owned_temporary.remove(temporary)
+            return
+        if self._architecture_descriptor is None:
+            raise GenerationError("POSIX manifest directory descriptor is absent")
         try:
-            if os.name == "nt":
-                Path(temporary).unlink()
-            elif self._architecture_descriptor is not None and isinstance(temporary, str):
-                os.unlink(temporary, dir_fd=self._architecture_descriptor)
+            os.unlink(temporary.name, dir_fd=self._architecture_descriptor)
         except FileNotFoundError:
             pass
+        self._owned_temporary.remove(temporary)
 
     def close(self) -> None:
+        cleanup_failure: GenerationError | None = None
+        for temporary in tuple(self._owned_temporary):
+            try:
+                self.cleanup(temporary)
+            except GenerationError as error:
+                if cleanup_failure is None:
+                    cleanup_failure = error
         for _, descriptor, _ in reversed(self._posix_descriptors):
             try:
                 os.close(descriptor)
@@ -2377,6 +2656,8 @@ class _BoundManifestDirectory:
         for _, handle, _ in reversed(self._windows_handles):
             _close_windows_directory(handle)
         self._windows_handles.clear()
+        if cleanup_failure is not None:
+            raise cleanup_failure
 
 
 def write_manifests(
@@ -2390,18 +2671,13 @@ def write_manifests(
     )
     rendered = _render_all(state, approved)
     with _BoundManifestDirectory(repository_root, create_missing=True) as transaction:
-        temporary: dict[str, str | Path] = {}
-        try:
-            for relative, destination in transaction.destinations.items():
-                temporary[relative] = transaction.stage(destination, rendered[relative])
-            transaction.reverify()
-            for relative, destination in transaction.destinations.items():
-                transaction.replace(temporary[relative], destination)
-                temporary.pop(relative)
-            transaction.reverify()
-        finally:
-            for candidate in temporary.values():
-                transaction.cleanup(candidate)
+        temporary: dict[str, _BoundTemporary] = {}
+        for relative, destination in transaction.destinations.items():
+            temporary[relative] = transaction.stage(destination, rendered[relative])
+        transaction.reverify()
+        for relative, destination in transaction.destinations.items():
+            transaction.replace(temporary[relative], destination)
+        transaction.reverify()
 
 
 def check_manifests(

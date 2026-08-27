@@ -229,12 +229,6 @@ def enforce_orchestration_import_policy(sources: Mapping[str, bytes]) -> None:
     _raise_violations(violations)
 
 
-def _is_reparse(info: os.stat_result) -> bool:
-    return bool(int(getattr(info, "st_file_attributes", 0)) & 0x400) or bool(
-        int(getattr(info, "st_reparse_tag", 0))
-    )
-
-
 def _read_regular_source(path: Path, *, root: Path) -> object:
     try:
         return _BASELINE.read_regular_snapshot(
@@ -251,7 +245,11 @@ def _directory_inventory_identity(path: Path) -> tuple[int, ...]:
         info = os.lstat(path)
     except OSError as error:
         raise BoundaryError(f"Python inventory directory cannot be inspected: {path}") from error
-    if stat.S_ISLNK(info.st_mode) or _is_reparse(info) or not stat.S_ISDIR(info.st_mode):
+    if (
+        stat.S_ISLNK(info.st_mode)
+        or _BASELINE._is_disallowed_reparse(info)
+        or not stat.S_ISDIR(info.st_mode)
+    ):
         raise BoundaryError(f"Python inventory has a non-directory or reparse: {path}")
     return _BASELINE._directory_identity(info)
 

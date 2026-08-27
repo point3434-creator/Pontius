@@ -37,6 +37,9 @@ MAXIMUM_ARCHIVE_BYTES = 64 * 1024 * 1024
 MAXIMUM_BASELINE_BYTES = 4 * 1024 * 1024
 MAXIMUM_SOURCE_BYTES = 16 * 1024 * 1024
 _REPARSE_ATTRIBUTE = 0x400
+_REPARSE_NAME_SURROGATE = 0x20000000
+_CLOUD_REPARSE_BASE = 0x9000001A
+_CLOUD_REPARSE_MASK = 0xFFFF0FFF
 _HEX40 = re.compile(r"[0-9a-f]{40}\Z")
 _HEX64 = re.compile(r"[0-9a-f]{64}\Z")
 
@@ -583,9 +586,25 @@ def parse_baseline_bytes(raw: bytes) -> ParsedBaseline:
     return ParsedBaseline(commit, graph)
 
 
-def _is_reparse(info: os.stat_result) -> bool:
-    return bool(int(getattr(info, "st_file_attributes", 0)) & _REPARSE_ATTRIBUTE) or bool(
-        int(getattr(info, "st_reparse_tag", 0))
+def _is_supported_cloud_reparse_tag(tag: int) -> bool:
+    return (
+        type(tag) is int
+        and tag & _REPARSE_NAME_SURROGATE == 0
+        and tag & _CLOUD_REPARSE_MASK == _CLOUD_REPARSE_BASE
+    )
+
+
+def _is_disallowed_reparse_values(attributes: int, tag: int) -> bool:
+    has_reparse_metadata = bool(attributes & _REPARSE_ATTRIBUTE) or bool(tag)
+    if not has_reparse_metadata:
+        return False
+    return not _is_supported_cloud_reparse_tag(tag)
+
+
+def _is_disallowed_reparse(info: os.stat_result) -> bool:
+    return _is_disallowed_reparse_values(
+        int(getattr(info, "st_file_attributes", 0)),
+        int(getattr(info, "st_reparse_tag", 0)),
     )
 
 
@@ -626,6 +645,21 @@ def _directory_identity(info: os.stat_result) -> tuple[int, ...]:
     )
 
 
+def _is_retryable_windows_metadata_transition(
+    before: os.stat_result,
+    after: os.stat_result,
+    before_identity: tuple[int, ...],
+    after_identity: tuple[int, ...],
+) -> bool:
+    """Recognize only the ctime-only transition caused by OneDrive hydration."""
+
+    return (
+        os.name == "nt"
+        and before_identity != after_identity
+        and _path_handle_identity(before) == _path_handle_identity(after)
+    )
+
+
 def _validated_ancestor_chain(path: Path, root: Path) -> tuple[tuple[Path, tuple[int, ...]], ...]:
     if not path.is_absolute() or not root.is_absolute():
         raise BaselineError("secure snapshot paths must be absolute")
@@ -643,7 +677,11 @@ def _validated_ancestor_chain(path: Path, root: Path) -> tuple[tuple[Path, tuple
             raise BaselineError(
                 f"dependency path ancestor cannot be inspected: {component}"
             ) from error
-        if stat.S_ISLNK(info.st_mode) or _is_reparse(info) or not stat.S_ISDIR(info.st_mode):
+        if (
+            stat.S_ISLNK(info.st_mode)
+            or _is_disallowed_reparse(info)
+            or not stat.S_ISDIR(info.st_mode)
+        ):
             raise BaselineError(
                 f"dependency path ancestor is not a nonreparse directory: {component}"
             )
@@ -663,7 +701,7 @@ def _revalidate_ancestor_chain(
             ) from error
         if (
             stat.S_ISLNK(info.st_mode)
-            or _is_reparse(info)
+            or _is_disallowed_reparse(info)
             or not stat.S_ISDIR(info.st_mode)
             or _directory_identity(info) != expected
         ):
@@ -802,7 +840,11 @@ class FileSnapshot:
 
 
 def read_regular_snapshot(
-    path: Path, *, maximum_bytes: int, root: Path
+    path: Path,
+    *,
+    maximum_bytes: int,
+    root: Path,
+    _allow_windows_metadata_retry: bool = True,
 ) -> FileSnapshot:
     """Read one bounded, identity-bound, nonlink filesystem snapshot."""
 
@@ -815,7 +857,7 @@ def read_regular_snapshot(
         raise BaselineError(f"dependency file cannot be inspected: {path}") from error
     if (
         stat.S_ISLNK(before_path.st_mode)
-        or _is_reparse(before_path)
+        or _is_disallowed_reparse(before_path)
         or not stat.S_ISREG(before_path.st_mode)
     ):
         raise BaselineError(f"dependency path is not a regular nonreparse file: {path}")
@@ -824,11 +866,12 @@ def read_regular_snapshot(
 
     descriptor = _open_regular_no_follow(path)
     after_handle: os.stat_result | None = None
+    retry_metadata_transition = False
     try:
         before_handle = os.fstat(descriptor)
         if (
             not stat.S_ISREG(before_handle.st_mode)
-            or _is_reparse(before_handle)
+            or _is_disallowed_reparse(before_handle)
             or _path_handle_identity(before_path) != _path_handle_identity(before_handle)
         ):
             raise BaselineError(f"dependency file changed while opening: {path}")
@@ -844,11 +887,24 @@ def read_regular_snapshot(
         after_handle = os.fstat(descriptor)
         if len(raw) > maximum_bytes:
             raise BaselineError(f"dependency file is oversized: {path}")
-        if (
-            len(raw) != before_handle.st_size
-            or _file_identity(before_handle) != _file_identity(after_handle)
-        ):
-            raise BaselineError(f"opened dependency file changed while reading: {path}")
+        before_identity = _file_identity(before_handle)
+        after_identity = _file_identity(after_handle)
+        if len(raw) != before_handle.st_size or before_identity != after_identity:
+            if (
+                _allow_windows_metadata_retry
+                and len(raw) == before_handle.st_size
+                and _is_retryable_windows_metadata_transition(
+                    before_handle,
+                    after_handle,
+                    before_identity,
+                    after_identity,
+                )
+            ):
+                retry_metadata_transition = True
+            else:
+                raise BaselineError(
+                    f"opened dependency file changed while reading: {path}"
+                )
     except OSError as error:
         raise BaselineError(f"dependency file cannot be read: {path}") from error
     finally:
@@ -858,13 +914,21 @@ def read_regular_snapshot(
             raise BaselineError(f"dependency file handle cannot be closed: {path}") from error
 
     assert after_handle is not None
+    if retry_metadata_transition:
+        _revalidate_ancestor_chain(ancestors)
+        return read_regular_snapshot(
+            path,
+            maximum_bytes=maximum_bytes,
+            root=root,
+            _allow_windows_metadata_retry=False,
+        )
     try:
         after_path = os.lstat(path)
     except OSError as error:
         raise BaselineError(f"dependency file disappeared after reading: {path}") from error
     if (
         stat.S_ISLNK(after_path.st_mode)
-        or _is_reparse(after_path)
+        or _is_disallowed_reparse(after_path)
         or _path_handle_identity(after_path) != _path_handle_identity(after_handle)
     ):
         raise BaselineError(f"dependency file identity changed after reading: {path}")
@@ -923,7 +987,7 @@ def _validated_git_executable(executable: Path) -> Path:
     if (
         os.path.normcase(str(resolved)) != os.path.normcase(str(executable))
         or stat.S_ISLNK(info.st_mode)
-        or _is_reparse(info)
+        or _is_disallowed_reparse(info)
         or not stat.S_ISREG(info.st_mode)
     ):
         raise BaselineError("Git executable identity is invalid")
@@ -1009,7 +1073,11 @@ def _validated_directory(path: Path, *, description: str) -> tuple[int, ...]:
         info = os.lstat(path)
     except OSError as error:
         raise BaselineError(f"{description} cannot be inspected: {path}") from error
-    if stat.S_ISLNK(info.st_mode) or _is_reparse(info) or not stat.S_ISDIR(info.st_mode):
+    if (
+        stat.S_ISLNK(info.st_mode)
+        or _is_disallowed_reparse(info)
+        or not stat.S_ISDIR(info.st_mode)
+    ):
         raise BaselineError(f"{description} is not a nonreparse directory: {path}")
     return _directory_identity(info)
 
@@ -1034,7 +1102,7 @@ def validate_write_destination(repository_root: Path, destination: Path) -> Path
         raise BaselineError("--write may name only docs/architecture/dependency-baseline.toml")
     if os.path.lexists(candidate):
         info = os.lstat(candidate)
-        if stat.S_ISLNK(info.st_mode) or _is_reparse(info) or not stat.S_ISREG(info.st_mode):
+        if stat.S_ISLNK(info.st_mode) or _is_disallowed_reparse(info) or not stat.S_ISREG(info.st_mode):
             raise BaselineError("baseline destination is not a regular file")
     return candidate
 
@@ -1052,6 +1120,13 @@ if os.name == "nt":
             ("nNumberOfLinks", wintypes.DWORD),
             ("nFileIndexHigh", wintypes.DWORD),
             ("nFileIndexLow", wintypes.DWORD),
+        )
+
+
+    class _WindowsFileAttributeTagInformation(ctypes.Structure):
+        _fields_ = (
+            ("FileAttributes", wintypes.DWORD),
+            ("ReparseTag", wintypes.DWORD),
         )
 
 
@@ -1157,9 +1232,30 @@ def _windows_directory_handle_identity(handle: int, path: Path) -> tuple[int, by
         raise BaselineError(
             f"baseline directory handle cannot be inspected: {path}"
         ) from OSError(error, os.strerror(error), str(path))
-    attributes = int(value.dwFileAttributes)
-    if not attributes & 0x10 or attributes & _REPARSE_ATTRIBUTE:
-        raise BaselineError(f"baseline directory handle is not nonreparse: {path}")
+    tag_information = _WindowsFileAttributeTagInformation()
+    try:
+        succeeded = extended_information(
+            wintypes.HANDLE(handle),
+            9,
+            ctypes.byref(tag_information),
+            ctypes.sizeof(tag_information),
+        )
+    except Exception as error:
+        raise BaselineError(
+            f"baseline directory reparse tag cannot be inspected: {path}"
+        ) from error
+    if not succeeded:
+        error = ctypes.get_last_error()
+        raise BaselineError(
+            f"baseline directory reparse tag cannot be inspected: {path}"
+        ) from OSError(error, os.strerror(error), str(path))
+    attributes = int(tag_information.FileAttributes)
+    if attributes != int(value.dwFileAttributes):
+        raise BaselineError(f"baseline directory attributes are inconsistent: {path}")
+    if not attributes & 0x10 or _is_disallowed_reparse_values(
+        attributes, int(tag_information.ReparseTag)
+    ):
+        raise BaselineError(f"baseline directory handle has a disallowed reparse: {path}")
     identity = _WindowsFileIdInformation()
     try:
         succeeded = extended_information(
@@ -1757,7 +1853,7 @@ class _BoundBaselineDirectory:
                 info = os.lstat(path)
                 if (
                     stat.S_ISLNK(info.st_mode)
-                    or _is_reparse(info)
+                    or _is_disallowed_reparse(info)
                     or not stat.S_ISDIR(info.st_mode)
                 ):
                     raise BaselineError(

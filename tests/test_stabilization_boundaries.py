@@ -268,6 +268,107 @@ class DependencyBaselineTests(unittest.TestCase):
             else:
                 os.environ["PONTIUS_GIT"] = prior
 
+    def test_reparse_policy_allows_only_identity_stable_cloud_tags(self) -> None:
+        reparse = 0x400
+        cloud_tags = (0x9000001A, 0x9000601A, 0x9000E01A, 0x9000F01A)
+        rejected_tags = (0, 0xA0000003, 0xA000000C, 0x8000001B, 0x9000001B)
+
+        for tag in cloud_tags:
+            with self.subTest(tag=hex(tag)):
+                self.assertFalse(
+                    GENERATOR._is_disallowed_reparse_values(reparse, tag)
+                )
+        for tag in rejected_tags:
+            with self.subTest(tag=hex(tag)):
+                self.assertTrue(
+                    GENERATOR._is_disallowed_reparse_values(reparse, tag)
+                )
+        self.assertFalse(GENERATOR._is_disallowed_reparse_values(0, 0))
+
+    @unittest.skipUnless(os.name == "nt", "Windows cloud-tag handle test")
+    def test_windows_directory_identity_accepts_cloud_but_rejects_name_surrogate(
+        self,
+    ) -> None:
+        attributes = 0x10 | 0x400
+        active_tag = 0x9000E01A
+
+        def information(_handle: object, pointer: object) -> bool:
+            pointer._obj.dwFileAttributes = attributes
+            return True
+
+        def extended(
+            _handle: object, information_class: int, pointer: object, _size: int
+        ) -> bool:
+            if information_class == 9:
+                pointer._obj.FileAttributes = attributes
+                pointer._obj.ReparseTag = active_tag
+            elif information_class == 18:
+                pointer._obj.VolumeSerialNumber = 42
+                for index in range(16):
+                    pointer._obj.FileId.ByteIdentifier[index] = index
+            else:  # pragma: no cover - fail loudly if the production contract drifts
+                raise AssertionError(information_class)
+            return True
+
+        with mock.patch.object(
+            GENERATOR,
+            "_windows_directory_api",
+            return_value=(None, information, extended, None),
+        ):
+            self.assertEqual(
+                GENERATOR._windows_directory_handle_identity(123, Path("C:/cloud")),
+                (42, bytes(range(16))),
+            )
+            active_tag = 0xA000000C
+            with self.assertRaises(GENERATOR.BaselineError):
+                GENERATOR._windows_directory_handle_identity(
+                    123, Path("C:/name-surrogate")
+                )
+
+    @unittest.skipUnless(os.name == "nt", "Windows hydration retry test")
+    def test_identity_bound_read_retries_one_metadata_only_cloud_transition(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="pontius-baseline-cloud-transition-") as directory:
+            root = Path(directory).resolve()
+            target = root / "source.py"
+            target.write_bytes(b"VALUE = 1\n")
+
+            with mock.patch.object(
+                GENERATOR,
+                "_file_identity",
+                side_effect=((1,), (2,), (3,), (3,), (4,)),
+            ) as identity:
+                snapshot = GENERATOR.read_regular_snapshot(
+                    target,
+                    maximum_bytes=64,
+                    root=root,
+                )
+
+            self.assertEqual(snapshot.raw, b"VALUE = 1\n")
+            self.assertEqual(snapshot.identity, (4,))
+            self.assertEqual(identity.call_count, 5)
+
+    @unittest.skipUnless(os.name == "nt", "Windows hydration retry test")
+    def test_identity_bound_read_rejects_a_second_metadata_transition(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="pontius-baseline-cloud-repeat-") as directory:
+            root = Path(directory).resolve()
+            target = root / "source.py"
+            target.write_bytes(b"VALUE = 1\n")
+
+            with mock.patch.object(
+                GENERATOR,
+                "_file_identity",
+                side_effect=((1,), (2,), (3,), (4,)),
+            ) as identity:
+                with self.assertRaises(GENERATOR.BaselineError) as caught:
+                    GENERATOR.read_regular_snapshot(
+                        target,
+                        maximum_bytes=64,
+                        root=root,
+                    )
+
+            self.assertIn("changed while reading", str(caught.exception))
+            self.assertEqual(identity.call_count, 4)
+
     def test_identity_bound_read_rejects_same_size_replacement_before_open(self) -> None:
         with tempfile.TemporaryDirectory(prefix="pontius-baseline-read-race-") as directory:
             root = Path(directory).resolve()
@@ -387,6 +488,18 @@ class DependencyBaselineTests(unittest.TestCase):
             checked_out.write_bytes(mixed)
             with self.assertRaises(GENERATOR.BaselineError):
                 GENERATOR.check_baseline(checked_out, expected)
+
+    def test_generated_governance_files_are_pinned_to_lf(self) -> None:
+        attributes = (REPOSITORY_ROOT / ".gitattributes").read_text(encoding="utf-8")
+        expected = (
+            "/docs/architecture/dependency-baseline.toml text eol=lf",
+            "/tests/test-inventory.json text eol=lf",
+            "/tests/test-profiles.toml text eol=lf",
+        )
+
+        for rule in expected:
+            with self.subTest(rule=rule):
+                self.assertEqual(attributes.splitlines().count(rule), 1)
 
     def test_write_rejects_an_architecture_symlink_escape(self) -> None:
         with tempfile.TemporaryDirectory(prefix="pontius-baseline-link-") as directory:

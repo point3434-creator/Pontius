@@ -45,3 +45,6 @@
 /artifacts/gpu_occupied_card_quotient_staged_scaling_v2.jsonl -text
 /artifacts/literal_45_quotient_target_v1.jsonl -text
 /artifacts/legal_river_quotient_cuda_consumer_v1.jsonl -text
+/docs/architecture/dependency-baseline.toml text eol=lf
+/tests/test-inventory.json text eol=lf
+/tests/test-profiles.toml text eol=lf

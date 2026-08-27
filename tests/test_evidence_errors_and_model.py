@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import FrozenInstanceError
 import unittest
 
+import pontius.evidence as evidence
 from pontius.evidence.errors import (
     AuthorizationPhaseError,
     EvidenceConfigurationError,
@@ -37,6 +38,10 @@ COMMIT = "b" * 40
 
 
 class EvidenceErrorsAndModelTests(unittest.TestCase):
+    def test_package_exports_only_the_specified_error_types(self) -> None:
+        self.assertNotIn("EvidenceError", evidence.__all__)
+        self.assertFalse(hasattr(evidence, "EvidenceError"))
+
     def test_public_errors_keep_stable_fields_and_immutable_context(self) -> None:
         for error_type in (
             AuthorizationPhaseError,

@@ -3,7 +3,6 @@
 from .errors import (
     AuthorizationPhaseError,
     EvidenceConfigurationError,
-    EvidenceError,
     EvidenceIntegrityError,
     LifecycleStateError,
     RuntimeContractError,
@@ -14,7 +13,6 @@ __all__ = (
     "AuthorizationPhaseError",
     "AuthorizationState",
     "EvidenceConfigurationError",
-    "EvidenceError",
     "EvidenceIntegrityError",
     "LifecycleStateError",
     "LiveAuthorizationState",

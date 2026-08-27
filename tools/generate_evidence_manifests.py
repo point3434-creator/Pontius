@@ -2031,15 +2031,62 @@ def validate_approval_format(supplied: str | None) -> str:
     return supplied
 
 
-def _verified_destinations(repository_root: Path) -> dict[str, Path]:
+def _directory_identity(info: Any) -> tuple[int, ...]:
+    return (
+        int(info.st_dev),
+        int(info.st_ino),
+        int(info.st_mode),
+        int(getattr(info, "st_file_attributes", 0)),
+        int(getattr(info, "st_reparse_tag", 0)),
+    )
+
+
+def _validated_directory(path: Path, description: str) -> tuple[int, ...]:
+    try:
+        info = os.lstat(path)
+    except OSError as error:
+        raise GenerationError(f"{description} cannot be inspected: {path}") from error
+    if stat.S_ISLNK(info.st_mode) or _is_reparse(info) or not stat.S_ISDIR(info.st_mode):
+        raise GenerationError(f"{description} is not a directory without links or reparses: {path}")
+    return _directory_identity(info)
+
+
+def _manifest_destinations(
+    repository_root: Path, *, create_missing: bool
+) -> tuple[dict[str, Path], tuple[int, ...] | None]:
     if not repository_root.is_absolute():
         raise GenerationError("repository root must be absolute")
+    _validated_directory(repository_root, "repository root")
     root = repository_root.resolve(strict=True)
-    architecture = (root / "docs" / "architecture").resolve(strict=True)
+    _validated_directory(root, "resolved repository root")
+    docs = root / "docs"
+    docs_identity = _validated_directory(docs, "manifest docs ancestor")
+    architecture = docs / "architecture"
+    try:
+        architecture_identity: tuple[int, ...] | None = _validated_directory(
+            architecture, "manifest architecture directory"
+        )
+    except GenerationError:
+        if os.path.lexists(architecture) or not create_missing:
+            if os.path.lexists(architecture):
+                raise
+            architecture_identity = None
+        else:
+            try:
+                os.mkdir(architecture)
+            except OSError as error:
+                raise GenerationError(
+                    "manifest architecture directory could not be securely created"
+                ) from error
+            if _validated_directory(docs, "manifest docs ancestor") != docs_identity:
+                raise GenerationError("manifest docs ancestor identity changed during bootstrap")
+            architecture_identity = _validated_directory(
+                architecture, "manifest architecture directory"
+            )
     result: dict[str, Path] = {}
     for relative in MANIFEST_PATHS:
         destination = root / relative
-        if destination.parent.resolve(strict=True) != architecture:
+        if destination.parent != architecture:
             raise GenerationError(
                 "manifest destination is outside the exact architecture directory"
             )
@@ -2054,7 +2101,20 @@ def _verified_destinations(repository_root: Path) -> dict[str, Path]:
                     f"manifest destination is not a regular nonreparse file: {relative}"
                 )
         result[relative] = destination
-    return result
+    if _validated_directory(docs, "manifest docs ancestor") != docs_identity:
+        raise GenerationError("manifest docs ancestor identity changed during destination validation")
+    if architecture_identity is not None:
+        if (
+            _validated_directory(architecture, "manifest architecture directory")
+            != architecture_identity
+        ):
+            raise GenerationError("manifest architecture directory identity changed")
+    return result, architecture_identity
+
+
+def _verified_destinations(repository_root: Path) -> dict[str, Path]:
+    destinations, _ = _manifest_destinations(repository_root, create_missing=False)
+    return destinations
 
 
 def write_manifests(
@@ -2066,8 +2126,17 @@ def write_manifests(
     approved = validate_approval_digest(
         approved_seed_sha256, str(state["entries_sha256"])
     )
-    destinations = _verified_destinations(repository_root)
+    destinations, architecture_identity = _manifest_destinations(
+        repository_root, create_missing=True
+    )
+    if architecture_identity is None:
+        raise GenerationError("manifest architecture directory was not established")
     rendered = _render_all(state, approved)
+    rechecked, rechecked_identity = _manifest_destinations(
+        repository_root, create_missing=False
+    )
+    if rechecked != destinations or rechecked_identity != architecture_identity:
+        raise GenerationError("manifest destination identity changed before writing")
     temporary: dict[str, Path] = {}
     try:
         for relative, destination in destinations.items():

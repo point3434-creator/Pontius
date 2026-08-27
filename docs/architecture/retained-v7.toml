@@ -1,0 +1,50 @@
+schema_version = "pontius-retained-v7-v1"
+source_seal_commit = "56127da2970f5a8a8056a97a247ebe1fdf4b983b"
+authorization_commit = "aaca2dda40e29be8ebd091d58e7853bce1c62fd8"
+historical_reader_commit = "aaca2dda40e29be8ebd091d58e7853bce1c62fd8"
+journal_protocol_sha256 = "2dc6cd5636ca56b4b3b17592860737489a2bf1705de79a75bd395fa309b72272"
+campaign_sha256 = "669a959827590b883277840161cd2cdabbed18687ad390f6667bc312362fd23d"
+record_count = 592
+observation_count = 590
+calibration_cell_count = 569
+warmup_cell_count = 480
+measured_labelled_partial_cell_count = 89
+terminal = "laboratory_wall_rejected"
+journal_complete = true
+scientific_campaign_complete = false
+scientific_call_count = 569
+authoritative_measured_call_count = 0
+passed = false
+laboratory_elapsed_ns = 1510053980800
+laboratory_wall_ns = 1500000000000
+outside_laboratory_elapsed_ns = 48722365700
+outside_laboratory_wall_ns = 300000000000
+public_elapsed_ns = 1558776346500
+public_wall_ns = 1800000000000
+fit_projection_present = false
+production_base_classification = "producer_absent"
+candidate_selection_present = false
+topology_selection_present = false
+arithmetic_schedule_selection_present = false
+truncation_authorized = false
+historical_blobs_manifest_path = "docs/architecture/historical-blobs.toml"
+absent_launch_paths = ["artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.launch-aborted.json", "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.launch-pending.json"]
+expected_null_claim_paths = ["$.arithmetic_schedule_selected", "$.candidate_selected", "$.claims.action_clock_result", "$.claims.arithmetic_schedule_selected", "$.claims.blueprint_result", "$.claims.candidate_selected", "$.claims.compiled_calibration_result", "$.claims.decision_quality_result", "$.claims.literal_45_numerical_result", "$.claims.material_zeta_speed_claim", "$.claims.poker_strength_result", "$.claims.production_base_numerical_admission", "$.claims.resolver_iteration_result", "$.claims.symbolic_45_primitive_projection", "$.claims.topology_selected", "$.topology_selected"]
+
+[result]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.jsonl"
+byte_length = 7858857
+raw_sha256 = "78b2f8351ca49785756ec336d4f967bcc83a86f9ef96506a6144726cf3b312b3"
+role = "retained_result"
+
+[attempt]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.attempt.json"
+byte_length = 1825
+raw_sha256 = "ada1896f0bf63111e0c1e5e707315fbca6c13f6e2b63222805cb5ef4cb9dc413"
+role = "retained_attempt"
+
+[consumed_launch]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.launch-consumed.json"
+byte_length = 349
+raw_sha256 = "c3c0a34cba6a677157034d8f8109cf47edea496a33c64992293176d879a2d629"
+role = "consumed_launch_marker"

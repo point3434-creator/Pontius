@@ -1895,6 +1895,16 @@ queue:
   synthetic matrix, stable pre/post phase receipts, and successor-bound
   dependency production and validation. Keep every v6/v7 result, attempt, and
   launch path absent until v7 earns a new source seal and separate authorization.
+  ADR-0474 now source-seals that v7 successor after 20/20 source-only controls
+  and a final adversarial pass. Writer and reader require exact raw authorization
+  bytes, actual-HEAD identity, sole-child ancestry, the frozen six-path diff,
+  and one duplicate-free 96-path dependency domain. Public entry rejects both
+  current-generation environment diversion and every lifecycle path by
+  `lexists`; campaign-child reentry remains explicitly distinct. Next create
+  only the sole-child exact-six-path ADR-0475 authorization, rerun the unchanged
+  20 controls from clean HEAD with the real live branch executed, and invoke the
+  v7 root launcher once only if every prefire gate passes. Authorization is not
+  an invocation, and no compiler, device, timing, topology, or value has opened.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

@@ -2611,6 +2611,19 @@ lifecycle absence separate from authorization phase, run phase-neutral controls
 in both isolated states, keep the tag stable across every wrapper, and bind
 dependency production and validation to the same complete successor domain.
 
+ADR-0474 source-seals fresh v7 at CPU-only scope. The authorization phase is a
+repository-derived two-state sum type: preauthorization requires working,
+HEAD-tree, and index absence; live authorization requires an exact regular
+working file, stage-zero HEAD/index blob identity, raw committed-byte equality,
+sole-child ancestry, and the frozen six-path diff. Twenty controls exercise
+both states, all crossovers, exact 96-path dependency binding, public-entry
+environment hygiene, and `lexists` lifecycle closure. A final adversarial audit
+caught and repaired raw-versus-canonical blob comparison, caller-supplied HEAD
+substitution, dangling-lifecycle entry, and public-mode diversion before seal.
+No owner, compiler, CuPy, device, timing, numerical, or result boundary opened.
+Only a separate exact ADR-0475 authorization followed by the unchanged real
+live-phase suite may make the one-shot v7 launcher eligible.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

@@ -2453,6 +2453,22 @@ physics, not identifiers. The next boundary is one clean committed invocation
 and permanent retention of its first terminal. Production selection, target
 numerics, resolver integration, and action fit remain closed.
 
+ADR-0459 consumes ADR-0458's exact first command as an unjournaled pre-owner
+infrastructure rejection. The launcher replaced the process environment with
+the deliberately scrubbed compiler mapping, then its relative `git` clean-seal
+call failed with `FileNotFoundError` before the durable writer existed. The v1
+result remains absent, but absence does not restore invocation authority. No
+compiler, device, timing, or scientific evidence opened.
+
+ADR-0460 freezes the fresh plumbing-only successor. It preserves the scientific
+and literal CUDA bytes, complete matrix, single five-channel arena, phase/work
+ledger, projector, and claims. Every repository metadata subprocess instead
+uses the ADR-0443 host-manifest Git executable by exact absolute path, size, and
+SHA-256. A source probe must replace the process environment with the real
+activated mapping, prove relative Git is absent there, and exercise the exact
+absolute call before source seal. The consumed v1 path stays absent; only a
+fresh v2 result identity may later be invoked.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

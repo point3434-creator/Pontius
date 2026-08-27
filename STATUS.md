@@ -15,154 +15,29 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes, at source-only scope. Source-seal the repository-root launcher, exclusive
-durable owner, standard-library scientific source containing one literal CUDA
-translation unit, independently implemented reader, and 21 focused controls.
-The result path remains absent. No compiler was executed, no CuPy scientific
-module was imported, no device was queried or allocated, no cubin was created
-or loaded, no kernel was launched, and no timing value or scientific result was
-opened. The next checkpoint is exactly one invocation from this clean committed
-identity; the first complete or typed-failure terminal is permanent.
+Freeze one additive absolute-Git successor before source. The v1 scientific
+module and literal CUDA translation unit remain byte-identical. The complete
+five-domain matrix, four topology arms, two arithmetic schedules, 2,880 calls,
+nineteen phase boundaries and work coordinates, exact arithmetic, one physical
+five-channel RRNS arena, resource gates, projection, materiality rules, and
+claims boundary remain unchanged. This is a plumbing recovery only.
 
-The seal retains the complete ADR-0457 matrix: five card domains, four topology
-arms, two runtime modes, three synthetic base forms, two refresh states, and two
-arithmetic schedules. One warmup plus five measured passes remains 2,880
-scientific calls under one public owner. Synthetic bases exercise mechanics
-only. The production base audit still returns `producer_absent`; no calibration
-outcome can elect a production topology while its producer and the number of
-certificates per action are unknown.
+The Git executable is no longer a name resolved from ambient or activated
+`PATH`. Before environment replacement, the successor must revalidate the
+exact ADR-0443 host-manifest file at
+`C:\Program Files\Git\cmd\git.exe`: 46,920 bytes and SHA-256
+`7b7971dd13f0c3a284e538601f2f9770b3a87dfaccb5fb52d68141c67ed22364`.
+Every later repository metadata call receives that absolute path. There is no
+relative fallback. The source seal must replace the process environment with
+the actual activated mapping, prove relative Git is absent, and then execute
+the absolute Git path successfully before restoring the original environment.
 
-### Physical liveness is the type
-
-The batched RRNS implementation owns one campaign-wide physical table arena,
-allocated once after memory admission and sized for exactly five channels at
-the largest reduced domain. Every domain receives only a bounded view. H,
-base, structural-base, correction, selected-leaf, direct-price, and zeta stages
-overwrite the same arena sequentially. There are no table-specific RRNS batch
-buffers and no representation of concurrent first- and second-batch residency.
-The reader independently reconstructs every domain plan and the campaign plan,
-requires exactly one physical allocation with channel capacity five, and checks
-both the 12,000,000,000-byte named peak and the device-reserve inequality.
-
-The frozen interpretation is literal:
-
-> any configuration whose liveness peak reproduces a rejected arm's peak is that rejected arm, regardless of variable names; rejections attach to physics, not identifiers
-
-That sentence is present in both producer and independent reader evidence.
-The reduced campaign's source-only symbolic peak is 194,402,210 bytes and its
-sole five-channel table arena is 7,602,040 bytes. These figures are reduced-
-fixture arithmetic only: they are neither a live allocation nor evidence about
-the literal 45-card target.
-
-### Exact arithmetic and decision semantics
-
-Positional cells use independently derived signed widths plus a guard limb.
-RRNS uses the exact ADR-0448 working and redundant moduli in a five-channel
-first pass followed by reuse for the remaining four working channels. Values
-remain scaled through the operator. Exact device-side reconstruction, base
-extension, semantic-range admission, and conversion to a separately width-
-proved signed positional key precede every sign, order, equality, heap, tie,
-maximum, or hybrid-switch decision. The reader independently rederives the
-component, contraction, H-lattice, structural-base, sparse-patch, price,
-decision-key, and terminal-scalar widths; the structural-base level has its own
-semantic bound and may not borrow the numerically adjacent H-lattice bound.
-
-The redundant residue channel claims single-channel fault detection only.
-Every working-channel or redundant-channel mutation is detected by range or
-base extension, while a deliberately correlated all-channel error is allowed
-through RRNS and must be rejected by the unbounded differential authority.
-There is no modular inverse of 720 in the source; divisibility is checked after
-exact reconstruction. This does not claim correction or protection against a
-shared logic defect.
-
-### Device and host authority boundaries
-
-One literal translation unit contains 28 named entry kernels for provenance,
-contraction, base construction and patching, RRNS admission, prefix bounds and
-frontiers, selected-leaf evaluation, direct and zeta passes, hybrid validation,
-terminal reduction, and restoration. All topology decisions remain on device.
-The timed host path contains exactly nineteen named callbacks and is
-AST-checked to contain no prefix authority, exact-price authority, unbounded
-scientific comparison, or nonterminal device-to-host scientific transfer.
-Witness kernels receive an explicit source count, so a one-source control cannot
-silently launch a full-domain scan.
-
-The compile contract separately binds ptxas verbose output, cuobjdump resource
-records, nvdisasm local-load/local-store sites, and post-load driver attributes.
-Duplicate, absent, or unknown kernel resource rows reject. ptxas register count
-must be at most 255 and spill loads/stores must be zero; stack, local-memory,
-SASS local sites, cubin bytes, and driver attributes remain separately reported
-evidence rather than aliases for the spill decision. No such evidence exists
-until the one-shot invocation compiles the frozen bytes.
-
-### Work, timing, and durable evidence
-
-Nineteen consecutive synchronized host phases partition each primitive wall
-exactly. CUDA events are nested diagnostics only. Every phase has one frozen
-projection coordinate; logical operations, arithmetic words, transferred
-bytes, decision keys, and wall remain distinct. The reader independently
-recomputes all 480 reduced and symbolic-target work rows. Prefix and hybrid
-selected-leaf counts in the timed host are closed fixture algebra, while a
-complete independent CPU traversal runs only after timing as verification.
-
-The projector retains all five measured walls, exact rational intercept plus
-nonnegative work slope, deterministic candidate ties, maximum positive
-residual, `5/4` ceiling, and integer boundary comparisons. Its output remains a
-symbolic literal-45 primitive projection, never a measured target wall or an
-action-clock claim. Compiler setup, allocation, warmup, exact differential
-verification, journal work, and cleanup remain laboratory work; the frozen
-primitive phases remain charged exactly as ADR-0457 specifies.
-
-The owner uses exclusive creation, append-and-fsync records, a bounded child
-protocol, one public watchdog, and strict clean-Git identity. The runner and
-reader contain independently written canonical-LF byte loops. An armed
-literal-escape mutation first proves the forbidden token exists in every
-recorded token-bearing dependency and then proves the bad rewrite changes its
-digest. This turns ADR-0434's concealed CRLF-token drift into a standing source-
-seal control rather than a remembered incident.
-
-### Pre-seal adversarial findings
-
-The source review corrected defects before any compiler or result could make
-them observational. The important structural corrections were:
-
-- strict residue reconstruction now consumes the eight working residues rather
-  than accidentally pairing nine residues with eight moduli;
-- direct, zeta, and selected-leaf kernels take an explicit source count, closing
-  the block-overlaunch that made one-source witness work physically much wider;
-- the timed host no longer performs a complete prefix traversal to decide how
-  much device work to launch; a structural scanner rejects that hidden authority;
-- raw payloads, pricing values, and their distinct epochs are rebound rather
-  than represented by numerically convenient placeholders;
-- prefix work reconstructs a decision key once per node rather than once per
-  candidate contribution, and selected RRNS leaves are actually reconstructed;
-- structural-base widths, target sparse support, restoration bytes, and reader
-  work receipts are independently derived rather than borrowed across semantic
-  quantities; and
-- multiple simultaneously live five-channel arrays were replaced by the sole
-  physical arena, eliminating memory relabeling rather than merely asserting
-  that it should not occur.
-
-These are source-seal repairs, not empirical results. Their discovery does not
-alter any frozen population, arm, schedule, gate, threshold, or claim.
-
-### Validation and claims boundary
-
-The 21 focused controls cover the complete matrix and permutation schedule,
-independent reduced fixtures, exact price/scale/sparse identities, all width
-admissions, RRNS decision and corruption boundaries, prefix geometry and every
-switch control, exact rational fit boundaries, one-arena liveness, literal CUDA
-and timed-host surfaces, compile-resource parsers, exclusive durable failure
-journaling, split-runtime source probing, symbolic-only target work, result
-absence, and the armed canonical-LF mutation. The synthetic durable terminal is
-read independently and cannot be recreated over an existing path.
-
-This seal establishes only that the frozen experiment has an implementation
-whose source and no-device controls agree with its contract. It does not
-certify CUDA compilation, device behavior, resource fit, measured performance,
-production-base identity, target arithmetic admission, topology superiority,
-consumer frequency, solver or action fit, decision quality, or poker strength.
-A clean negative one-shot terminal remains a valid outcome.
+Fresh identities are mandatory. The successor result is
+`legal_river_quotient_compiled_global_separation_calibration_v2.jsonl`; the
+parent v1 path must remain absent. Protocol, campaign, environment variables,
+module, launcher, dependency set, reader, and controls are distinct. The fresh
+header records ADR-0459 as an unjournaled predecessor rather than inventing an
+artifact hash. The old runner and reader remain immutable historical evidence.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -230,8 +105,8 @@ rejection, ADR-0453 freezes the selective-separation mechanism, ADR-0454
 source-seals it without opening a result, ADR-0455 freezes the base-first four-
 topology successor while closing that result owner uninvoked, ADR-0456 source-
 seals the reduced successor without opening its bake-off, ADR-0457 freezes the
-compiled calibration without opening source or values, and ADR-0458 source-
-seals it without opening compiler or result evidence.
+compiled calibration, ADR-0458 source-seals it, ADR-0459 consumes its sole
+pre-owner failure, and ADR-0460 opens only the fresh absolute-Git source lane.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -263,9 +138,34 @@ ADR-0379 retains the 244,970,204-byte margin. ADR-0382 preregistered the
 literal-45 config. ADR-0386 records the source-sealed actual-context quotient bridge.
 ADR-0405 remains an accepted source seal.
 
+### Source-seal boundary
+
+Source work may add only the fresh launcher, additive runner, independent
+reader, controls, and their exact dependency bindings. It may activate the
+host environment, replace the process environment, verify and invoke the
+absolute Git executable, and construct synthetic journals. It may not compile,
+import CuPy in the scientific path, query a device, allocate device memory,
+create or load a cubin, launch a kernel, time a scientific cell, or create the
+v2 result. The source-seal commit must precede the one invocation.
+
+### Kill criteria
+
+Kill any path that edits or retries the ADR-0458 identity, creates its v1
+result, uses relative Git or an unfrozen executable, changes scientific or CUDA
+bytes, changes any experimental arm, population, schedule, gate, phase,
+projection, memory contract, or claim, or invokes the fresh owner before its
+clean source seal. A source probe that tests only the operator shell rather
+than the actual post-replacement environment does not satisfy this gate.
+
+### Claims boundary
+
+ADR-0460 authorizes only a source implementation of the executable-binding
+repair. It supplies no compile, device, numerical, speed, topology, target,
+resolver, action-clock, quality, truncation, blueprint, or strength evidence.
+
 ## Active next
 
-From the exact clean committed ADR-0458 source identity, invoke `python -B run_legal_river_quotient_compiled_global_separation_calibration.py` exactly once; retain and independently assess the first exclusive JSONL terminal without retry, source repair, arm removal, schedule removal, domain reduction, fixture change, phase change, work-coordinate change, projection change, memory relabeling, or claims expansion; regardless of outcome keep production topology selection, population 25, literal-45 numerical input, resolver integration, action-clock fit, decision quality, truncation, blueprint, and strength closed
+Implement and source-seal only the fresh ADR-0460 absolute-Git successor: add the v2 launcher, additive runner, independent reader, and adversarial controls; preserve the exact ADR-0458 scientific and CUDA bytes, four arms, two arithmetic schedules, five domains, 2,880 calls, nineteen phases, sole five-channel arena, work coordinates, projections, thresholds, and claims; bind every Git call to `C:\Program Files\Git\cmd\git.exe` after rechecking its 46,920 bytes and SHA-256, exercise clean metadata under the actual scrubbed environment, keep the parent path absent and the v2 result absent, and stop before compilation, CuPy scientific import, device query, allocation, module load, kernel launch, timing, or result
 
 ## Revoked authorities
 
@@ -273,7 +173,7 @@ From the exact clean committed ADR-0458 source identity, invoke `python -B run_l
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0458](docs/decisions/ADR-0458-source-seal-the-compiled-global-separation-calibration.md) — Source-seal the compiled global-separation calibration.
+Latest process decision: [ADR-0460](docs/decisions/ADR-0460-preregister-the-absolute-git-compiled-calibration-successor.md) — Preregister the absolute-Git compiled-calibration successor.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -281,8 +181,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0435](docs/decisions/ADR-0435-source-seal-the-captured-pair-exact-integer-operator-keystone.md) | 2026-08-26 | accepted CPU-only source seal; the corrected two-config provenance chain, exact captured-pair fixed-point encoding, distinct division-free forward and adjoint recurrences, literal disjointness identities, signed limb bounds, one correctly rounded binary64 terminal conversion, natural complete-ten and signed-twelve populations, exact delta arithmetic, symbolic literal-45 work/memory ledger, and 14 focused controls pass while every fixed-limb device implementation, population-25 numerical value, CUDA operation, actual 45-card consumer, resolver iteration, action, 15-second result, quality result, truncation choice, blueprint result, and poker-strength claim remains unopened | Source-seal the captured-pair exact-integer operator keystone |
-| [ADR-0436](docs/decisions/ADR-0436-preregister-the-fixed-width-and-certificate-work-comparison.md) | 2026-08-26 | accepted prospective CPU-only fixed-width, selective-oracle, global-certificate-work, rank-traversal, and telemetry comparison; positional limbs, a bounded 4+1/8+1 RRNS candidate, exact single-channel detection obligations, selective 16/57-row queries, streamed global closure, row-owned colex child ranking, and heterogeneous work ledgers are frozen before source, while population 25, CUDA, device compilation or operation, an actual 45-card value, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister the fixed-width and certificate-work comparison |
 | [ADR-0437](docs/decisions/ADR-0437-require-armed-literal-escape-mutations-before-source-seal.md) | 2026-08-26 | accepted fully prospective preregistration-completeness correction; ADR-0436's forbidden literal-escape rewrite control must first prove every recorded token-bearing target contains its exact frozen nonzero occurrence count, the complete existing transitive parent scan and its five-file armed set are frozen, the prospective comparison source and controls must each contain exactly one occurrence by construction, and two independently written correct CRLF normalizers remain mandatory while all positional, RRNS, certificate, rank, telemetry, work, memory, population, gate, kill, and claims contracts remain unchanged | Require armed literal-escape mutations before source seal |
 | [ADR-0438](docs/decisions/ADR-0438-source-seal-the-fixed-width-and-certificate-work-comparison.md) | 2026-08-26 | accepted CPU-only source seal; signed positional limbs, resident-nine RRNS, batched-five-then-four RRNS, exact single-changed-channel detection under the frozen model, Montgomery boundary arithmetic, selector-only 16/57-row access, streamed complete-domain closure controls, row-owned colex child ranking, family-separated exponent telemetry, and heterogeneous literal-45 work/memory ledgers pass against ADR-0435 on the already-open complete-10 and signed-12 controls, while no candidate is selected and device compilation, fit, speed, population 25, an actual 45-card value, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Source-seal the fixed-width and certificate-work comparison |
 | [ADR-0439](docs/decisions/ADR-0439-preregister-the-fixed-width-compiled-device-preflight.md) | 2026-08-26 | accepted prospective compiled-device preregistration; one direct CUDA 13.3 cubin, three schedule arms, raw ptxas/cubin/SASS/driver evidence, exact symbolic literal-45 memory liveness, complete-10 and signed-12 differentials, and gap-free host-wall partitions are frozen before successor source, compiler execution, CuPy import, device query, module load, kernel launch, or result, while candidate selection, population 25, every actual 45-card numerical value, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister the fixed-width compiled-device preflight |
@@ -305,18 +203,20 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0456](docs/decisions/ADR-0456-source-seal-the-base-aware-exact-global-separation-topologies.md) | 2026-08-26 | accepted source-only exact topology seal; the ADR-0455 typed base-provenance auditor, separately fresh H/base/correction/support artifacts, direct 57-term arm, rank-truncated zeta and exact reverse transpose, unchanged ADR-0454 prefix arm, fixed one-switch prefix-to-zeta hybrid, per-rank width/work receipts, and 12 focused controls pass on every complete-10 and complete-12 legacy and base family, while the production base remains absent and no bake-off result, population-25 value, literal-45 numerical input, compiled kernel, CUDA/device work, topology selection, resolver integration, action-clock result, decision-quality result, truncation authorization, blueprint result, or poker-strength result exists | Source-seal the base-aware exact global-separation topologies |
 | [ADR-0457](docs/decisions/ADR-0457-preregister-the-compiled-global-separation-calibration.md) | 2026-08-26 | accepted prospective compiled reduced-domain topology-calibration and production-base admission boundary; all four source-sealed exact arms, positional and batched-five-then-four RRNS schedules, complete 10/12/16/20/24 domains, positive-witness and prove-none modes, three synthetic base types, cold-refresh and exact-hit states, one warmup plus five retained repeats, nineteen gap-free phases, and exact rational intercept-plus-nonnegative-slope projection are frozen before successor source or timing, while RRNS order decisions require charged exact signed reconstruction, the production base remains absent, and topology selection, literal-45 numerical work, resolver integration, action-clock fit, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister the compiled global-separation calibration |
 | [ADR-0458](docs/decisions/ADR-0458-source-seal-the-compiled-global-separation-calibration.md) | 2026-08-26 | accepted device-free source seal; the ADR-0457 exclusive owner, literal 28-kernel CUDA translation unit, deterministic five-domain fixture family, four exact topology arms, positional and batched-five-then-four RRNS schedules, exact signed decision-key reconstruction, campaign-wide sole five-channel RRNS table arena, nineteen-phase ledger, exact rational projector, independent result reader, resource inspectors, and adversarial controls exist and pass at source-only scope, while compiler execution, CuPy scientific import, device query, allocation, timing, cubin creation, result creation, topology selection, population 25, literal-45 numerical work, resolver integration, action-clock fit, decision quality, truncation, blueprint, and poker strength remain unopened | Source-seal the compiled global-separation calibration |
+| [ADR-0459](docs/decisions/ADR-0459-retain-the-unjournaled-absolute-git-infrastructure-rejection.md) | 2026-08-26 | accepted retained sole pre-owner infrastructure rejection; the exact clean ADR-0458 command was invoked once and exited with `FileNotFoundError: [WinError 2] The system cannot find the file specified` because the owner replaced the process environment with the scrubbed compiler mapping before its relative `git` clean-seal call, no durable result was created, and no compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, or production claim exists | Retain the unjournaled absolute-Git infrastructure rejection |
+| [ADR-0460](docs/decisions/ADR-0460-preregister-the-absolute-git-compiled-calibration-successor.md) | 2026-08-26 | accepted prospective plumbing-only successor; a fresh protocol, campaign, module, launcher, reader, controls, and v2 result identity are frozen around the byte-identical ADR-0458 scientific source, every Git metadata subprocess must use the exact ADR-0443 absolute hash-bound executable before and after complete activated-environment replacement, and a post-scrub source probe must exercise that real call path before any compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, or result exists | Preregister the absolute-Git compiled-calibration successor |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0458](docs/decisions/ADR-0458-source-seal-the-compiled-global-separation-calibration.md) — Source-seal the compiled global-separation calibration.
+- Latest ADR: [ADR-0460](docs/decisions/ADR-0460-preregister-the-absolute-git-compiled-calibration-successor.md) — Preregister the absolute-Git compiled-calibration successor.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 458.
-- ADR-header SHA-256: `a2e9aacd47d526552a59db490fd0790dc243a7241a2b7f97ee857ea8659fa84e`.
-- Current blockers: no compiled calibration terminal, cubin, device resource evidence, timing value, or result row exists; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; both earlier fixed-width arms remain rejected before target allocation and any physical liveness peak reproducing either rejected arm remains that arm; no topology arm has passed actual-width exponent admission or live allocation; actual source/covector/weight/base windows and resulting limb/channel bounds remain unbound; no selected fixed-width or closure topology candidate, population-25 result, actual-45 numerical result, global resolver-certificate integration, full-width actual-context quotient value, complete resolver iteration, known certificate count per action, or 15-second action result exists; no general odd-chip or side-pot leaf automaton, repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, sealed blueprint trainer/checkpoint/abstraction/slice-audit chain, trained blueprint, v0a/v0b integrated bot, preparation-bank filling result, frozen evaluation opponent pool, production action width, or poker-strength result exists.
+- Numbered decisions: 460.
+- ADR-header SHA-256: `4e386fcef5de5767bc4940d10c9c65f6f13cec732ce0a085e66fa615355130e9`.
+- Current blockers: no v2 successor source seal, compiled calibration terminal, cubin, device resource evidence, timing value, or result row exists; ADR-0458's identity is permanently consumed and its result remains absent; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; both earlier fixed-width arms remain rejected before target allocation and any physical liveness peak reproducing either rejected arm remains that arm; no topology arm has passed actual-width exponent admission or live allocation; no selected fixed-width or closure topology candidate, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0458](docs/decisions/ADR-0458-source-seal-the-compiled-global-separation-calibration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0460](docs/decisions/ADR-0460-preregister-the-absolute-git-compiled-calibration-successor.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

@@ -1810,6 +1810,16 @@ queue:
   its first terminal permanently. Even a pass cannot select a production
   topology while the real base producer and certificate frequency remain
   absent.
+  The exact ADR-0458 one-shot command was invoked and ADR-0459 retains its
+  pre-owner infrastructure rejection: after replacing the process environment
+  with the scrubbed compiler mapping, a relative `git` clean-seal call failed
+  before journal creation. The v1 result remains absent but the identity is
+  consumed permanently; no compiler or scientific result opened. ADR-0460
+  preregisters the narrow successor around byte-identical science. It binds
+  every Git subprocess to the exact absolute ADR-0443 host-manifest executable
+  and requires a source probe through the actual post-replacement environment.
+  Next implement and source-seal only that fresh v2 plumbing identity, leaving
+  both result paths absent and all compiler/device work closed.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

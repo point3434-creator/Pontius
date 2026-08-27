@@ -17,6 +17,8 @@ import stat
 import subprocess
 import sys
 import tempfile
+import threading
+import time
 import tomllib
 from typing import Any
 import uuid
@@ -133,7 +135,6 @@ RETAINED_V7 = {
 
 _HEX40 = re.compile(r"[0-9a-f]{40}\Z")
 _HEX64 = re.compile(r"[0-9a-f]{64}\Z")
-_PATH_LITERAL = re.compile(r"(?:src/pontius|tests|experiments/configs|docs/decisions|artifacts/work_preflight)/[A-Za-z0-9_./-]+")
 _REPARSE_ATTRIBUTE = 0x400
 
 
@@ -202,7 +203,18 @@ def _is_reparse(info: Any) -> bool:
     )
 
 
-def read_regular_file_once(path: Path, *, maximum_bytes: int) -> bytes:
+class _ToolSecureReader:
+    """Reusable tool-local secure-reader seam for the future active reader."""
+
+    def read_regular_once(self, path: Path, *, maximum_bytes: int) -> bytes:
+        return _read_regular_file_once(path, maximum_bytes=maximum_bytes)
+
+
+def tool_secure_reader_factory() -> _ToolSecureReader:
+    return _ToolSecureReader()
+
+
+def _read_regular_file_once(path: Path, *, maximum_bytes: int) -> bytes:
     """Read one bounded snapshot from a regular nonlink/nonreparse path."""
     if (
         type(maximum_bytes) is not int
@@ -211,6 +223,15 @@ def read_regular_file_once(path: Path, *, maximum_bytes: int) -> bytes:
         or not path.is_absolute()
     ):
         raise GenerationError("secure read arguments are invalid")
+    for component in reversed(path.parents):
+        if component == component.parent:
+            continue
+        try:
+            component_info = os.lstat(component)
+        except OSError as error:
+            raise GenerationError(f"evidence path component cannot be inspected: {component}") from error
+        if stat.S_ISLNK(component_info.st_mode) or _is_reparse(component_info):
+            raise GenerationError(f"evidence path has a link or reparse component: {component}")
     try:
         before_path = os.lstat(path)
     except OSError as error:
@@ -221,6 +242,8 @@ def read_regular_file_once(path: Path, *, maximum_bytes: int) -> bytes:
         or not stat.S_ISREG(before_path.st_mode)
     ):
         raise GenerationError(f"evidence path is not a regular nonreparse file: {path}")
+    if before_path.st_size > maximum_bytes:
+        raise GenerationError(f"evidence file exceeds its bounded read: {path}")
     flags = (
         os.O_RDONLY
         | getattr(os, "O_BINARY", 0)
@@ -239,10 +262,8 @@ def read_regular_file_once(path: Path, *, maximum_bytes: int) -> bytes:
             raise GenerationError(f"opened evidence handle is not regular: {path}")
         if _path_handle_identity(before_path) != _path_handle_identity(before_handle):
             raise GenerationError(f"evidence path changed while opening: {path}")
-        with os.fdopen(descriptor, "rb", closefd=True) as stream:
-            descriptor = -1
-            raw = stream.read(maximum_bytes + 1)
-            after_handle = os.fstat(stream.fileno())
+        raw = os.read(descriptor, maximum_bytes + 1)
+        after_handle = os.fstat(descriptor)
         if len(raw) > maximum_bytes:
             raise GenerationError(f"evidence file exceeds its bounded read: {path}")
         if len(raw) != before_handle.st_size or _identity(before_handle) != _identity(after_handle):
@@ -261,6 +282,10 @@ def read_regular_file_once(path: Path, *, maximum_bytes: int) -> bytes:
     ):
         raise GenerationError(f"evidence path identity changed after reading: {path}")
     return raw
+
+
+def read_regular_file_once(path: Path, *, maximum_bytes: int) -> bytes:
+    return tool_secure_reader_factory().read_regular_once(path, maximum_bytes=maximum_bytes)
 
 
 def git_environment(private_home: Path) -> dict[str, str]:
@@ -284,12 +309,14 @@ def git_environment(private_home: Path) -> dict[str, str]:
     return environment
 
 
-def _validated_executable() -> tuple[Path, tuple[int, ...]]:
+def _validated_bound_executable(
+    executable: Path = GIT_EXECUTABLE, expected_identity: tuple[int, ...] | None = None
+) -> tuple[Path, tuple[int, ...]]:
     try:
-        resolved = GIT_EXECUTABLE.resolve(strict=True)
+        resolved = executable.resolve(strict=True)
     except OSError as error:
         raise GenerationError("the bound Git executable is unavailable") from error
-    if os.path.normcase(str(resolved)) != os.path.normcase(str(GIT_EXECUTABLE)):
+    if os.path.normcase(str(resolved)) != os.path.normcase(str(executable)):
         raise GenerationError("the bound Git executable resolved to a different identity")
     for component in (resolved, *resolved.parents[:-1]):
         info = os.lstat(component)
@@ -298,52 +325,105 @@ def _validated_executable() -> tuple[Path, tuple[int, ...]]:
     info = os.lstat(resolved)
     if not stat.S_ISREG(info.st_mode):
         raise GenerationError("the bound Git executable is not regular")
-    return resolved, _identity(info)
+    identity = _identity(info)
+    if expected_identity is not None and identity != expected_identity:
+        raise GenerationError("the bound Git executable identity changed")
+    return resolved, identity
+
+
+def _collect_bounded_process(
+    process: Any, *, command: str, stdout_limit: int, stderr_limit: int, timeout: float
+) -> tuple[bytes, bytes]:
+    """Drain a child concurrently while retaining at most each declared bound."""
+    outputs: dict[str, bytes] = {}
+    exceeded = threading.Event()
+
+    def drain(name: str, stream: Any, limit: int) -> None:
+        chunks: list[bytes] = []
+        remaining = limit
+        while True:
+            chunk = stream.read(min(65536, remaining + 1))
+            if not chunk:
+                break
+            if len(chunk) > remaining:
+                exceeded.set()
+                break
+            chunks.append(chunk)
+            remaining -= len(chunk)
+        outputs[name] = b"".join(chunks)
+
+    threads = (
+        threading.Thread(target=drain, args=("stdout", process.stdout, stdout_limit), daemon=True),
+        threading.Thread(target=drain, args=("stderr", process.stderr, stderr_limit), daemon=True),
+    )
+    for thread in threads:
+        thread.start()
+    deadline = time.monotonic() + timeout
+    timed_out = False
+    while True:
+        if exceeded.is_set():
+            process.kill()
+            break
+        remaining_time = deadline - time.monotonic()
+        if remaining_time <= 0:
+            timed_out = True
+            process.kill()
+            break
+        try:
+            process.wait(timeout=min(0.05, remaining_time))
+            break
+        except subprocess.TimeoutExpired:
+            continue
+    try:
+        process.wait(timeout=1.0)
+    except subprocess.TimeoutExpired:
+        process.kill()
+    for thread in threads:
+        thread.join(timeout=1.0)
+    process.stdout.close()
+    process.stderr.close()
+    if exceeded.is_set():
+        raise GenerationError(f"Git command output exceeded its bound: {command}")
+    if timed_out:
+        raise GenerationError(f"Git command timed out: {command}")
+    stdout = outputs.get("stdout", b"")
+    stderr = outputs.get("stderr", b"")
+    if process.returncode != 0:
+        detail = stderr.decode("utf-8", "replace").strip()[:500]
+        raise GenerationError(f"Git command failed ({command}): {detail}")
+    return stdout, stderr
 
 
 class _Git:
     def __init__(self, repository_root: Path, private_home: Path) -> None:
         self.root = repository_root.resolve(strict=True)
-        self.executable, self.executable_identity = _validated_executable()
+        self.executable, self.executable_identity = _validated_bound_executable()
         self.environment = git_environment(private_home)
         self._cache: dict[tuple[str, ...], bytes] = {}
 
     def _run(self, arguments: Sequence[str], *, maximum_stdout: int) -> bytes:
+        if type(maximum_stdout) is not int or maximum_stdout < 0 or not arguments:
+            raise GenerationError("Git command bounds are invalid")
         key = tuple(arguments)
+        _validated_bound_executable(self.executable, self.executable_identity)
         if key in self._cache:
-            return self._cache[key]
-        if _identity(os.lstat(self.executable)) != self.executable_identity:
-            raise GenerationError("the bound Git executable identity changed")
-        with tempfile.TemporaryFile() as stdout_file, tempfile.TemporaryFile() as stderr_file:
-            try:
-                completed = subprocess.run(
-                    [str(self.executable), *arguments],
-                    cwd=self.root,
-                    env=self.environment,
-                    stdin=subprocess.DEVNULL,
-                    stdout=stdout_file,
-                    stderr=stderr_file,
-                    timeout=10.0,
-                    check=False,
-                    shell=False,
-                )
-            except subprocess.TimeoutExpired as error:
-                raise GenerationError(f"Git command timed out: {arguments[0]}") from error
-            if _identity(os.lstat(self.executable)) != self.executable_identity:
-                raise GenerationError("the bound Git executable identity changed during execution")
-            stdout_file.seek(0, os.SEEK_END)
-            stdout_size = stdout_file.tell()
-            stderr_file.seek(0, os.SEEK_END)
-            stderr_size = stderr_file.tell()
-            if stdout_size > maximum_stdout or stderr_size > 65536:
-                raise GenerationError(f"Git command output exceeded its bound: {arguments[0]}")
-            stdout_file.seek(0)
-            stderr_file.seek(0)
-            stdout = stdout_file.read(maximum_stdout + 1)
-            stderr = stderr_file.read(65537)
-        if completed.returncode != 0:
-            detail = stderr.decode("utf-8", "replace").strip()[:500]
-            raise GenerationError(f"Git command failed ({arguments[0]}): {detail}")
+            cached = self._cache[key]
+            if len(cached) > maximum_stdout:
+                raise GenerationError(f"cached Git output exceeded its bound: {arguments[0]}")
+            return cached
+        try:
+            process = subprocess.Popen(
+                [str(self.executable), *arguments], cwd=self.root, env=self.environment,
+                stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                shell=False,
+            )
+        except OSError as error:
+            raise GenerationError(f"Git command could not start: {arguments[0]}") from error
+        stdout, _ = _collect_bounded_process(
+            process, command=arguments[0], stdout_limit=maximum_stdout,
+            stderr_limit=65536, timeout=10.0,
+        )
+        _validated_bound_executable(self.executable, self.executable_identity)
         self._cache[key] = stdout
         return stdout
 
@@ -456,15 +536,91 @@ def _import_paths(tree: ast.AST, current_path: str, tracked: set[str]) -> set[st
             else:
                 base = node.module or ""
             modules.append(base)
-            if base == "pontius":
-                modules.extend(f"pontius.{alias.name}" for alias in node.names if alias.name != "*")
+            if base.startswith("pontius"):
+                modules.extend(f"{base}.{alias.name}" for alias in node.names if alias.name != "*")
         for module in modules:
             path = _module_path(module, tracked)
             if path is not None:
                 result.add(path)
-            elif module.startswith("pontius") and module != "pontius":
+            elif module.startswith("pontius") and module != "pontius" and not any(
+                isinstance(node, ast.ImportFrom)
+                and module.endswith("." + alias.name)
+                for alias in node.names
+                if alias.name != "*"
+            ):
                 raise GenerationError(f"unresolved local import {module!r} in {current_path}")
     return result
+
+
+def _bound_names(node: ast.stmt) -> set[str]:
+    if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+        return {node.name}
+    if isinstance(node, (ast.Import, ast.ImportFrom)):
+        return {alias.asname or alias.name.split(".")[0] for alias in node.names}
+    targets: list[ast.AST] = []
+    if isinstance(node, (ast.Assign, ast.AnnAssign, ast.NamedExpr)):
+        targets = list(node.targets) if isinstance(node, ast.Assign) else [node.target]
+    result: set[str] = set()
+    for target in targets:
+        for item in ast.walk(target):
+            if isinstance(item, ast.Name):
+                result.add(item.id)
+    return result
+
+
+def _loaded_names(node: ast.AST) -> set[str]:
+    return {
+        item.id for item in ast.walk(node)
+        if isinstance(item, ast.Name) and isinstance(item.ctx, ast.Load)
+    }
+
+
+def _selected_class_scope(tree: ast.AST, selected_class: str) -> ast.Module:
+    if not isinstance(tree, ast.Module) or type(selected_class) is not str or not selected_class:
+        raise GenerationError("selected class scope arguments are invalid")
+    matches = [node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == selected_class]
+    if len(matches) != 1:
+        raise GenerationError(f"selected class is missing or ambiguous: {selected_class}")
+    bindings: dict[str, ast.stmt] = {}
+    for node in tree.body:
+        if node is matches[0]:
+            continue
+        for name in _bound_names(node):
+            if name in bindings:
+                raise GenerationError(f"module binding is ambiguous in selected-class scope: {name}")
+            bindings[name] = node
+    selected_nodes: list[ast.stmt] = [matches[0]]
+    pending = list(_loaded_names(matches[0]))
+    included: set[int] = {id(matches[0])}
+    required_import_bindings: dict[int, set[str]] = {}
+    while pending:
+        name = pending.pop()
+        node = bindings.get(name)
+        if node is None:
+            continue
+        if isinstance(node, (ast.Import, ast.ImportFrom)):
+            required_import_bindings.setdefault(id(node), set()).add(name)
+        if id(node) in included:
+            continue
+        included.add(id(node))
+        selected_nodes.append(node)
+        pending.extend(_loaded_names(node))
+    order = {id(node): index for index, node in enumerate(tree.body)}
+    selected_nodes.sort(key=lambda node: order[id(node)])
+    pruned: list[ast.stmt] = []
+    for node in selected_nodes:
+        if isinstance(node, (ast.Import, ast.ImportFrom)):
+            required = required_import_bindings[id(node)]
+            aliases = [
+                alias for alias in node.names
+                if (alias.asname or alias.name.split(".")[0]) in required
+            ]
+            if isinstance(node, ast.Import):
+                node = ast.Import(names=aliases)
+            else:
+                node = ast.ImportFrom(module=node.module, names=aliases, level=node.level)
+        pruned.append(node)
+    return ast.Module(body=pruned, type_ignores=[])
 
 
 def _slash_strings(node: ast.AST) -> list[str] | None:
@@ -481,13 +637,14 @@ def _slash_strings(node: ast.AST) -> list[str] | None:
 
 
 def _literal_paths(tree: ast.AST, text: str, tracked: set[str]) -> set[str]:
-    candidates: set[str] = set(_PATH_LITERAL.findall(text.replace("\\", "/")))
+    del text
+    candidates: set[str] = set()
     for node in ast.walk(tree):
         if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Div):
             parts = _slash_strings(node)
             if parts:
                 normalized = "/".join(part.strip("/\\") for part in parts if part)
-                for prefix in ("src/", "tests/", "experiments/", "docs/", "artifacts/", "run_"):
+                for prefix in ("experiments/configs/", "docs/decisions/"):
                     position = normalized.find(prefix)
                     if position >= 0:
                         candidates.add(normalized[position:])
@@ -495,32 +652,63 @@ def _literal_paths(tree: ast.AST, text: str, tracked: set[str]) -> set[str]:
             value = node.value.replace("\\", "/")
             if value in tracked:
                 candidates.add(value)
-    allowed = (
-        "src/pontius/",
-        "tests/",
-        "experiments/configs/",
-        "docs/decisions/",
-        "artifacts/work_preflight/",
-        "run_",
-    )
+    allowed = ("experiments/configs/", "docs/decisions/")
     return {_relative_path(path) for path in candidates if path in tracked and path.startswith(allowed)}
 
 
 def _dynamic_program_imports(tree: ast.AST, current_path: str, tracked: set[str]) -> set[str]:
-    result: set[str] = set()
+    bindings: dict[str, ast.AST] = {}
     for node in ast.walk(tree):
-        if (
-            not isinstance(node, ast.Constant)
-            or type(node.value) is not str
-            or "pontius" not in node.value
-            or "import" not in node.value
-        ):
-            continue
+        if isinstance(node, (ast.Assign, ast.AnnAssign)):
+            value = node.value
+            targets = node.targets if isinstance(node, ast.Assign) else [node.target]
+            for target in targets:
+                if isinstance(target, ast.Name):
+                    bindings[target.id] = value
+
+    def program_text(node: ast.AST) -> str:
+        if isinstance(node, ast.Name) and node.id in bindings:
+            return program_text(bindings[node.id])
+        if isinstance(node, ast.Constant) and type(node.value) is str:
+            return node.value
+        if isinstance(node, ast.JoinedStr):
+            parts: list[str] = []
+            for value in node.values:
+                if isinstance(value, ast.Constant) and type(value.value) is str:
+                    parts.append(value.value)
+                elif isinstance(value, ast.FormattedValue):
+                    parts.append(repr("__pontius_dynamic_value__"))
+                else:
+                    raise GenerationError(f"dynamic -c program is not fixed: {current_path}")
+            return "".join(parts)
+        raise GenerationError(f"dynamic -c program is not a fixed literal: {current_path}")
+
+    result: set[str] = set()
+    programs: list[ast.AST] = []
+    for call in (node for node in ast.walk(tree) if isinstance(node, ast.Call)):
+        for argument in call.args:
+            if not isinstance(argument, (ast.List, ast.Tuple)):
+                continue
+            for index, item in enumerate(argument.elts[:-1]):
+                if isinstance(item, ast.Constant) and item.value == "-c":
+                    programs.append(argument.elts[index + 1])
+    for expression in programs:
+        source = program_text(expression)
         try:
-            program = ast.parse(node.value, filename=f"{current_path}::<dynamic-c>")
-        except SyntaxError:
-            continue
+            program = ast.parse(source, filename=f"{current_path}::<dynamic-c>")
+        except SyntaxError as error:
+            raise GenerationError(f"dynamic -c program cannot be parsed: {current_path}") from error
         result.update(_import_paths(program, current_path, tracked))
+        for call in (node for node in ast.walk(program) if isinstance(node, ast.Call)):
+            if (
+                isinstance(call.func, ast.Attribute) and call.func.attr == "import_module"
+                and call.args and isinstance(call.args[0], ast.Constant)
+                and type(call.args[0].value) is str and call.args[0].value.startswith("pontius")
+            ):
+                path = _module_path(call.args[0].value, tracked)
+                if path is None:
+                    raise GenerationError(f"unresolved dynamic local import {call.args[0].value!r} in {current_path}")
+                result.add(path)
     return result
 
 
@@ -546,16 +734,15 @@ def _phase_paths(git: _Git, phase: Mapping[str, str]) -> tuple[str, ...]:
             tree = ast.parse(text, filename=f"{commit}:{path}")
         except (UnicodeDecodeError, SyntaxError) as error:
             raise GenerationError(f"phase Python blob cannot be parsed: {commit}:{path}") from error
+        scoped_tree = _selected_class_scope(tree, str(phase["selected_class"])) if path == selected_test else tree
         reached = (
-            _import_paths(tree, path, tracked)
-            | _literal_paths(tree, text, tracked)
-            | _dynamic_program_imports(tree, path, tracked)
+            _import_paths(scoped_tree, path, tracked)
+            | _literal_paths(scoped_tree, text, tracked)
+            | _dynamic_program_imports(scoped_tree, path, tracked)
         )
         for candidate in sorted(reached):
             if candidate not in discovered:
                 discovered.add(candidate)
-                if candidate.startswith(("src/pontius/", "tests/", "run_")):
-                    pending.append(candidate)
     return tuple(sorted(discovered))
 
 
@@ -659,6 +846,16 @@ def historical_entries_sha256(rows: Sequence[Mapping[str, object]]) -> str:
     return semantic_sha256(normalized)
 
 
+def _append_unique_row(
+    rows: list[dict[str, object]], identities: set[tuple[str, str]], row: Mapping[str, object]
+) -> None:
+    identity = (str(row["commit"]), str(row["relative_path"]))
+    if identity in identities:
+        raise GenerationError(f"historical derivation collided at {identity}")
+    identities.add(identity)
+    rows.append(dict(row))
+
+
 def derive_manifest_state(repository_root: Path) -> dict[str, object]:
     if not isinstance(repository_root, Path) or not repository_root.is_absolute():
         raise GenerationError("repository root must be absolute")
@@ -682,11 +879,7 @@ def derive_manifest_state(repository_root: Path) -> dict[str, object]:
                     phase=str(phase["phase"]),
                     decision=str(phase["governing_decision"]),
                 )
-                identity = (str(row["commit"]), str(row["relative_path"]))
-                if identity in identities:
-                    raise GenerationError(f"historical phase derivation collided at {identity}")
-                identities.add(identity)
-                rows.append(row)
+                _append_unique_row(rows, identities, row)
         v7_path = str(CURRENT_FILE_ENTRIES[3]["relative_path"])
         dependencies = _dependency_hashes(raw_by_path[v7_path])
         source_snapshot = SNAPSHOTS[9]
@@ -701,11 +894,7 @@ def derive_manifest_state(repository_root: Path) -> dict[str, object]:
             )
             if row["raw_sha256"] != dependencies[path]:
                 raise GenerationError(f"v7 source-seal dependency digest mismatch: {path}")
-            identity = (str(row["commit"]), str(row["relative_path"]))
-            if identity in identities:
-                raise GenerationError(f"historical source-seal collision at {identity}")
-            identities.add(identity)
-            rows.append(row)
+            _append_unique_row(rows, identities, row)
         authorization_snapshot = SNAPSHOTS[10]
         for path in V7_AUTHORIZATION_PATHS:
             row = _row(
@@ -716,11 +905,7 @@ def derive_manifest_state(repository_root: Path) -> dict[str, object]:
                 phase=str(authorization_snapshot["phase"]),
                 decision=str(authorization_snapshot["governing_decision"]),
             )
-            identity = (str(row["commit"]), str(row["relative_path"]))
-            if identity in identities:
-                raise GenerationError(f"historical authorization collision at {identity}")
-            identities.add(identity)
-            rows.append(row)
+            _append_unique_row(rows, identities, row)
     rows.sort(key=lambda item: (str(item["commit"]), str(item["relative_path"])))
     return {
         "current_files": current_files,
@@ -1201,13 +1386,18 @@ def _parse_retained(document: dict[str, object]) -> dict[str, object]:
 
 
 def validate_approval_digest(supplied: str | None, expected: str) -> str:
-    if type(supplied) is not str or _HEX64.fullmatch(supplied) is None:
-        raise GenerationError(
-            "--write requires a lowercase 64-hex --approved-seed-sha256"
-        )
+    supplied = validate_approval_format(supplied)
     if supplied != expected:
         raise GenerationError(
             "the supplied approval digest does not match the freshly derived seed"
+        )
+    return supplied
+
+
+def validate_approval_format(supplied: str | None) -> str:
+    if type(supplied) is not str or _HEX64.fullmatch(supplied) is None:
+        raise GenerationError(
+            "--write requires a lowercase 64-hex --approved-seed-sha256"
         )
     return supplied
 
@@ -1337,6 +1527,23 @@ def emit_seed_review(
     state: Mapping[str, object],
     output_path: Path,
 ) -> None:
+    output_path = _validated_seed_review_output(repository_root, output_path)
+    raw = render_seed_review(state)
+    candidate = output_path.parent / f".{output_path.name}.{uuid.uuid4().hex}.tmp"
+    try:
+        with candidate.open("xb") as stream:
+            stream.write(raw)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(candidate, output_path)
+    finally:
+        try:
+            candidate.unlink()
+        except FileNotFoundError:
+            pass
+
+
+def _validated_seed_review_output(repository_root: Path, output_path: Path) -> Path:
     if not output_path.is_absolute():
         raise GenerationError("seed review output path must be absolute")
     repository = repository_root.resolve(strict=True)
@@ -1369,19 +1576,21 @@ def emit_seed_review(
             raise GenerationError(
                 "seed review destination is not a regular nonreparse file"
             )
-    raw = render_seed_review(state)
-    candidate = output_path.parent / f".{output_path.name}.{uuid.uuid4().hex}.tmp"
+    return output_path
+
+
+def _preflight_check(repository_root: Path) -> None:
+    historical_path = repository_root / MANIFEST_PATHS[2]
     try:
-        with candidate.open("xb") as stream:
-            stream.write(raw)
-            stream.flush()
-            os.fsync(stream.fileno())
-        os.replace(candidate, output_path)
-    finally:
-        try:
-            candidate.unlink()
-        except FileNotFoundError:
-            pass
+        raw = read_regular_file_once(historical_path, maximum_bytes=4 * 1024 * 1024)
+    except GenerationError as error:
+        raise GenerationError(
+            "historical manifest is absent or unreadable; approval and --write are still required"
+        ) from error
+    parsed = parse_manifest_bytes(
+        "historical-blobs", raw, source_path=historical_path, repository_root=repository_root
+    )
+    validate_approval_format(str(parsed["approved_seed_sha256"]))
 
 
 def _arguments(argv: Sequence[str] | None) -> argparse.Namespace:
@@ -1411,6 +1620,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     arguments = _arguments(argv)
     repository_root = Path(__file__).resolve().parents[1]
     try:
+        if arguments.emit_seed_review is not None:
+            _validated_seed_review_output(repository_root, arguments.emit_seed_review)
+        elif arguments.write:
+            validate_approval_format(arguments.approved_seed_sha256)
+            _verified_destinations(repository_root)
+        else:
+            _preflight_check(repository_root)
         state = derive_manifest_state(repository_root)
         if arguments.emit_seed_review is not None:
             emit_seed_review(repository_root, state, arguments.emit_seed_review)

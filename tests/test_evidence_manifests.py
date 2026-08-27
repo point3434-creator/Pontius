@@ -181,6 +181,14 @@ class EvidenceManifestTests(unittest.TestCase):
     def _source(self, name: str) -> Path:
         return ROOT / "evidence" / name
 
+    def _assert_both_reject(self, kind: str, raw: bytes, parser: object, source_name: str) -> None:
+        with self.assertRaises((EvidenceConfigurationError, EvidenceIntegrityError)):
+            parser(raw, source_path=self._source(source_name), repository_root=ROOT)
+        with self.assertRaises(_GENERATOR.GenerationError):
+            _GENERATOR.parse_manifest_bytes(
+                kind, raw, source_path=self._source(source_name), repository_root=ROOT
+            )
+
     def test_parses_each_strict_manifest_schema(self) -> None:
         files = parse_sealed_current_files_manifest(_files_manifest(), source_path=self._source("files.toml"), repository_root=ROOT)
         absences = parse_sealed_current_absences_manifest(_absences_manifest(), source_path=self._source("absences.toml"), repository_root=ROOT)
@@ -204,8 +212,8 @@ class EvidenceManifestTests(unittest.TestCase):
             ("drive", _files_manifest(entry={"relative_path": "C:/outside.py"})),
         )
         for name, raw in cases:
-            with self.subTest(name=name), self.assertRaises(EvidenceConfigurationError):
-                parse_sealed_current_files_manifest(raw, source_path=self._source("files.toml"), repository_root=ROOT)
+            with self.subTest(name=name):
+                self._assert_both_reject("sealed-current-files", raw, parse_sealed_current_files_manifest, "files.toml")
 
     def test_each_schema_rejects_its_applicable_malformed_scalar_path_count_and_digest_fields(self) -> None:
         # Files, absences, and historical blobs declare no boolean fields;
@@ -257,8 +265,12 @@ class EvidenceManifestTests(unittest.TestCase):
             ("retained-drive-manifest-path", _retained_manifest(historical_blobs_manifest_path="C:/historical.toml"), parse_retained_v7_manifest, "retained.toml"),
         )
         for name, raw, parser, source_name in cases:
-            with self.subTest(name=name), self.assertRaises(EvidenceConfigurationError):
-                parser(raw, source_path=self._source(source_name), repository_root=ROOT)
+            kind = {
+                "files.toml": "sealed-current-files", "absences.toml": "sealed-current-absences",
+                "historical.toml": "historical-blobs", "retained.toml": "retained-v7",
+            }[source_name]
+            with self.subTest(name=name):
+                self._assert_both_reject(kind, raw, parser, source_name)
 
     def test_each_schema_rejects_missing_or_extra_root_fields(self) -> None:
         cases = (
@@ -272,8 +284,12 @@ class EvidenceManifestTests(unittest.TestCase):
             ("retained-extra", b"unexpected = 1\n" + _retained_manifest(), parse_retained_v7_manifest, "retained.toml"),
         )
         for name, raw, parser, source_name in cases:
-            with self.subTest(name=name), self.assertRaises(EvidenceConfigurationError):
-                parser(raw, source_path=self._source(source_name), repository_root=ROOT)
+            kind = {
+                "files.toml": "sealed-current-files", "absences.toml": "sealed-current-absences",
+                "historical.toml": "historical-blobs", "retained.toml": "retained-v7",
+            }[source_name]
+            with self.subTest(name=name):
+                self._assert_both_reject(kind, raw, parser, source_name)
 
     def test_toml_syntax_and_duplicate_keys_are_configuration_errors_with_cause(self) -> None:
         raw = _files_manifest().replace(b"entry_count = 1", b"entry_count = 1\nentry_count = 1")
@@ -281,12 +297,16 @@ class EvidenceManifestTests(unittest.TestCase):
             parse_sealed_current_files_manifest(raw, source_path=self._source("files.toml"), repository_root=ROOT)
         self.assertEqual(raised.exception.code, "manifest_toml_invalid")
         self.assertIsNotNone(raised.exception.__cause__)
+        with self.assertRaises(_GENERATOR.GenerationError):
+            _GENERATOR.parse_manifest_bytes("sealed-current-files", raw, source_path=self._source("files.toml"), repository_root=ROOT)
 
     def test_duplicate_toml_table_is_a_configuration_error(self) -> None:
         raw = _retained_manifest() + b"\n[result]\nrelative_path = \"other.json\"\nbyte_length = 1\nraw_sha256 = \"" + SHA256.encode() + b"\"\nrole = \"result\"\n"
         with self.assertRaises(EvidenceConfigurationError) as raised:
             parse_retained_v7_manifest(raw, source_path=self._source("retained.toml"), repository_root=ROOT)
         self.assertEqual(raised.exception.code, "manifest_toml_invalid")
+        with self.assertRaises(_GENERATOR.GenerationError):
+            _GENERATOR.parse_manifest_bytes("retained-v7", raw, source_path=self._source("retained.toml"), repository_root=ROOT)
 
     def test_historical_manifest_rejects_duplicate_commit_path_counts_and_digest_disagreement(self) -> None:
         duplicate = _blob_records() * 2
@@ -296,8 +316,56 @@ class EvidenceManifestTests(unittest.TestCase):
             ("digest", _historical_manifest(entries_sha256="c" * 64)),
         )
         for name, raw in cases:
-            with self.subTest(name=name), self.assertRaises((EvidenceConfigurationError, EvidenceIntegrityError)):
-                parse_historical_blobs_manifest(raw, source_path=self._source("historical.toml"), repository_root=ROOT)
+            with self.subTest(name=name):
+                self._assert_both_reject("historical-blobs", raw, parse_historical_blobs_manifest, "historical.toml")
+
+    def test_every_declared_field_is_independently_type_checked_by_both_parsers(self) -> None:
+        files_root = ("schema_version", "baseline_commit", "entry_count")
+        files_entry = ("relative_path", "byte_length", "raw_sha256", "role", "governing_decision", "owner")
+        for field in files_root:
+            value = True if field == "entry_count" else 7
+            with self.subTest(kind="files-root", field=field):
+                self._assert_both_reject("sealed-current-files", _files_manifest(**{field: value}), parse_sealed_current_files_manifest, "files.toml")
+        for field in files_entry:
+            value = True if field == "byte_length" else 7
+            with self.subTest(kind="files-entry", field=field):
+                self._assert_both_reject("sealed-current-files", _files_manifest(entry={field: value}), parse_sealed_current_files_manifest, "files.toml")
+
+        absences_root = ("schema_version", "baseline_commit", "entry_count")
+        absences_entry = ("relative_path", "role", "governing_decision", "owner")
+        for field in absences_root:
+            value = True if field == "entry_count" else 7
+            with self.subTest(kind="absences-root", field=field):
+                self._assert_both_reject("sealed-current-absences", _absences_manifest(**{field: value}), parse_sealed_current_absences_manifest, "absences.toml")
+        for field in absences_entry:
+            with self.subTest(kind="absences-entry", field=field):
+                self._assert_both_reject("sealed-current-absences", _absences_manifest(entry={field: 7}), parse_sealed_current_absences_manifest, "absences.toml")
+
+        historical_roots = ("schema_version", "baseline_commit", "snapshot_count", "entry_count", "entries_sha256", "approved_seed_sha256")
+        for field in historical_roots:
+            value = True if field in {"snapshot_count", "entry_count"} else 7
+            with self.subTest(kind="historical-root", field=field):
+                self._assert_both_reject("historical-blobs", _historical_manifest(**{field: value}), parse_historical_blobs_manifest, "historical.toml")
+        for field in ("phase", "commit", "root_tree_oid", "governing_decision"):
+            with self.subTest(kind="snapshot", field=field):
+                self._assert_both_reject("historical-blobs", _historical_manifest(snapshot={field: 7}), parse_historical_blobs_manifest, "historical.toml")
+        for field in ("commit", "relative_path", "git_blob_oid", "raw_sha256", "role", "phase", "governing_decision"):
+            blob = {**_blob_records()[0], field: 7}
+            with self.subTest(kind="blob", field=field):
+                self._assert_both_reject("historical-blobs", _historical_manifest(blobs=[blob]), parse_historical_blobs_manifest, "historical.toml")
+
+        retained = _retained_mapping()
+        for field, original in retained.items():
+            replacement = 1 if type(original) in (str, bool, list) else True
+            with self.subTest(kind="retained", field=field):
+                self._assert_both_reject("retained-v7", _retained_manifest(**{field: replacement}), parse_retained_v7_manifest, "retained.toml")
+        for table in ("result", "attempt", "consumed_launch"):
+            base = {"relative_path": "a", "byte_length": 1, "raw_sha256": SHA256, "role": "a"}
+            for field, original in base.items():
+                replacement = True if type(original) is int else 7
+                identities = {table: {**base, field: replacement}}
+                with self.subTest(kind=table, field=field):
+                    self._assert_both_reject("retained-v7", _retained_manifest(identities=identities), parse_retained_v7_manifest, "retained.toml")
 
     def test_current_boundary_rejects_overlap_owner_duplicates_and_baseline_disagreement(self) -> None:
         files = parse_sealed_current_files_manifest(_files_manifest(), source_path=self._source("files.toml"), repository_root=ROOT)

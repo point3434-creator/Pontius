@@ -1,0 +1,98 @@
+{
+  "schema_version": "pontius-adr0473-v6-authorization-gate-recovery-v1",
+  "rejected_authorization": {
+    "source_seal_commit": "d633f3fb469a27dee688587293c6efb1d2cb2757",
+    "authorization_commit": "cbfa3598f22c7aba7d824f71356ca156f8b01b0c",
+    "authorization_config_relative_path": "experiments/configs/legal-river-quotient-compiled-global-separation-calibration-v9-corrected-invocation-authorization.json",
+    "authorization_config_bytes": 482,
+    "authorization_config_canonical_lf_sha256": "57c869df38c23e4c0520730986a65825f51814915f68cc3e4d32a2f39303a535",
+    "authorization_changed_paths": [
+      "ARCHITECTURE.md",
+      "RISK_REGISTER.md",
+      "ROADMAP.md",
+      "STATUS.md",
+      "docs/decisions/ADR-0472-authorize-one-v6-retained-attempt-calibration-invocation.md",
+      "experiments/configs/legal-river-quotient-compiled-global-separation-calibration-v9-corrected-invocation-authorization.json"
+    ]
+  },
+  "observed_gate_rejection": {
+    "focused_tests_discovered": 17,
+    "focused_test_bodies_entered": 0,
+    "common_setup_failures": 17,
+    "failure_type": "AssertionError",
+    "failure_path": "experiments/configs/legal-river-quotient-compiled-global-separation-calibration-v9-corrected-invocation-authorization.json",
+    "failure_message_suffix": "is not false",
+    "root_cause": "authorization absence was encoded as a common source-phase fixture invariant, so the intended live-authorization test body was unreachable when authorization correctly existed",
+    "safe_post_failure_diagnostic": {
+      "public_owner_called": false,
+      "source_probe_live_result": "rejected because the probe also hardcoded authorization absence",
+      "live_authorization_body_result": "rejected because dependency hashes were computed outside the successor binding domain",
+      "lifecycle_postcondition_result": "rejected because it also hardcoded authorization absence",
+      "runner_guard_postcondition_result": "rejected because it also hardcoded authorization absence",
+      "bound_dependency_domain_count": 91,
+      "bound_dependency_validation_passed": true
+    }
+  },
+  "closed_v6": {
+    "protocol_sha256": "ffb1f1831bd31ec61b0bedefa9a5544a02e02e1e6d3512e65ff7824988696911",
+    "campaign_sha256": "ae05bb948abe57c0a3b4b5fcd17cb04555db6a549f8a1d59c192e87ae9c75e3c",
+    "result_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v6.jsonl",
+    "attempt_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v6.attempt.json",
+    "launch_pending_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v6.launch-pending.json",
+    "launch_consumed_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v6.launch-consumed.json",
+    "launch_aborted_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v6.launch-aborted.json",
+    "public_owner_invocations": 0,
+    "result_exists": false,
+    "attempt_exists": false,
+    "launch_marker_count": 0,
+    "compiler_calls": 0,
+    "cupy_imports": 0,
+    "device_queries": 0,
+    "timing_values": 0
+  },
+  "fresh_v7": {
+    "protocol_sha256": "2dc6cd5636ca56b4b3b17592860737489a2bf1705de79a75bd395fa309b72272",
+    "campaign_sha256": "669a959827590b883277840161cd2cdabbed18687ad390f6667bc312362fd23d",
+    "attempt_schema_version": "pontius-adr0473-public-attempt-v7-v1",
+    "launch_schema_version": "pontius-adr0474-one-use-child-launch-v7-v1",
+    "recovery_header_schema_version": "pontius-adr0473-v6-authorization-gate-recovery-v1",
+    "authorization_schema_version": "pontius-adr0475-one-commit-v7-authorization-v1",
+    "result_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.jsonl",
+    "attempt_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.attempt.json",
+    "launch_pending_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.launch-pending.json",
+    "launch_consumed_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.launch-consumed.json",
+    "launch_aborted_relative_path": "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.launch-aborted.json",
+    "authorization_config_relative_path": "experiments/configs/legal-river-quotient-compiled-global-separation-calibration-v11-authorization-phase-corrected-invocation-authorization.json"
+  },
+  "phase_contract": {
+    "common_phase": "validate immutable retained evidence, closed predecessor lifecycles, fresh result/attempt/launch absence, and one exact repository-derived authorization tag without asserting authorization absence",
+    "preauthorization": "require the fresh authorization path absent by lexists and absent from both the HEAD tree and index",
+    "live_authorization": "require the exact regular non-symlink non-reparse authorization, committed-blob equality, sole-child ancestry, exact changed paths, and an explicit live-branch execution receipt",
+    "third_state": "reject every checkout that is neither exact preauthorization nor exact live authorization",
+    "phase_stability": "snapshot the complete authorization tag before every wrapper or probe and require exact equality afterward",
+    "source_probe": "run unchanged in both valid states and report the complete authorization tag instead of asserting timeless absence",
+    "dependency_domain": "produce and validate dependency hashes only inside the complete fresh-successor binding context and reject missing, extra, or inherited-domain sets",
+    "test_matrix": "exercise every phase-neutral control in both isolated states, every phase-specific control in its exact state, and the real checkout branch with explicit counters and zero skips",
+    "required_crossover_mutations": [
+      "authorization present in source phase",
+      "authorization absent in authorized phase",
+      "authorization dangling or non-regular in authorized phase",
+      "authorization reparse or symlink in authorized phase",
+      "authorization working bytes differ from committed blob",
+      "authorization phase label differs from observed filesystem state"
+    ]
+  },
+  "claims": {
+    "v6_authorization_gate_rejected": true,
+    "v6_owner_invoked": false,
+    "v6_science_started": false,
+    "v7_source_sealed": false,
+    "v7_authorized": false,
+    "v7_owner_invoked": false,
+    "compiled_calibration_measured": false,
+    "candidate_selected": null,
+    "topology_selected": null,
+    "action_clock_fit_claimed": false,
+    "decision_quality_claimed": false
+  }
+}

@@ -2599,6 +2599,18 @@ byte changes. Authorization is not invocation. The v6 owner remains closed
 until all 17 focused controls pass from the exact clean authorization commit
 with the live ancestry and committed-config-blob branch exercised.
 
+ADR-0473 retains the resulting pre-invocation gate rejection and closes v6
+uninvoked. All 17 focused tests failed in common setup because authorization
+absence had been encoded as a timeless fixture invariant; the real
+authorization correctly existed, so no test body—including the intended live
+ancestry body—could execute. A safe follow-up also found that the unreachable
+live body built dependency hashes outside the successor binding domain. No
+owner or lifecycle artifact opened. Fresh v7 must derive an exact tagged
+authorization state from repository and filesystem evidence, keep owner
+lifecycle absence separate from authorization phase, run phase-neutral controls
+in both isolated states, keep the tag stable across every wrapper, and bind
+dependency production and validation to the same complete successor domain.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

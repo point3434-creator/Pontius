@@ -15,32 +15,76 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Yes, subject to the still-unrun live-authorization gate. This ADR authorizes one
-public invocation identity only. The authorization commit must be the sole
-child of source seal `d633f3fb469a27dee688587293c6efb1d2cb2757` and must
-change exactly the six paths named in the authorization config. The launcher,
-runner, independent reader, tests, recovery configs, retained v5 marker, and
-all lifecycle artifacts must be byte-identical to the source seal. Any later
-commit, extra changed path, dirty dependency, existing v6 attempt/result/launch
-marker, altered retained marker, or failed focused control rejects before the
-public owner is eligible.
+No. Retain the exact gate failure, revoke ADR-0472, and permanently close v6
+uninvoked. From clean authorization commit
+`cbfa3598f22c7aba7d824f71356ca156f8b01b0c`, the required command discovered
+17 focused v6 tests. Every test failed in the shared `setUp` before its body.
+The fixture's unconditional absent tuple included the real v9 authorization
+path, which correctly existed. The intended live-authorization test body that
+would parse the config and prove sole-child ancestry was therefore unreachable.
 
-The authorization itself is not an invocation or scientific result and does
-not consume the owner. After this commit is clean, run the complete 17-test v6
-suite under `-B -P` with a fresh bytecode prefix. The live authorization test
-must parse the actual regular non-reparse v9 config, prove that current HEAD is
-the sole child of the named source seal, prove the exact six-path diff, match
-the working config to its committed Git blob, and pass with no skip. Recheck
-the immutable v5 marker, every v3/v4/v5 closed path, every v6 unopened path,
-the dependency hashes, source-only import closure, and clean working tree.
-Only then may the exact root launcher be fired once. Its first public attempt
-is permanent even if a pre-writer, compiler, device, or scientific gate rejects.
+This is one shared eligibility-phase typing defect observed at 17 setup sites,
+not 17 independent implementation defects. The source phase legitimately
+requires authorization absence. The authorized phase legitimately requires
+authorization presence. Common setup treated the first phase's predicate as an
+invariant of both phases. A prospective live branch is not evidence when its
+fixture makes the branch unreachable.
 
-No owner, compiler, CuPy import, device query, allocation, module load, kernel
-launch, timing value, result row, or topology work was opened to make this
-decision. This remains spot-checking rather than certification. Persistent
-checkout drift fails closed; no immutable-snapshot guarantee is added for a
-hostile transient edit-and-revert race.
+A read-only post-failure diagnostic bypassed only the common setup in memory
+and invoked four safe test bodies without calling any owner or launcher. It
+found a second defect hidden by the first: the live body computed dependency
+hashes before entering the v6 reader binding context, producing the inherited
+v4 domain and then comparing it with the v6 domain. The correctly bound domain
+contains 91 paths and passes the exact authorization validator. The same
+diagnostic confirmed that the source probe and the lifecycle and runner-guard
+postconditions also hardcoded authorization absence. These findings are
+diagnostics of the rejected gate, not a scientific result.
+
+No public v6 owner entered. The v6 result, attempt, pending, consumed, and
+aborted paths remain absent by `lexists`. The exact retained v5 attempt remains
+606 bytes with raw SHA-256
+`104820d0c67391365d18fb76ca72c704e40e467e2993a96c618d4bf91155600d`.
+No compiler, CuPy import, device query, allocation, module load, kernel launch,
+timing value, scientific row, or topology work occurred. These are exact-path
+and exact-command absence statements, not a systems or numerical result.
+
+The authorization was not a public attempt, but it was the sole generation
+allowed by ADR-0471 and ADR-0472. Its mandatory prefire gate failed. Changing
+the sealed test and issuing a friendlier authorization under the same v6
+identity would erase the rejection boundary. ADR-0469 already established that
+a rejected one-generation authorization closes its lifecycle even when the
+owner remains uninvoked. V6 therefore carries historical source-seal evidence
+only and may never be reauthorized or fired.
+
+Open only a fresh v7 lifecycle with the exact identities in the recovery
+config. Its common phase may validate immutable retained evidence, closed
+predecessor lifecycles, fresh result/attempt/launch absence, and one exact
+repository-derived authorization tag, but it may not assert authorization
+absence. `preauthorization` requires the v7 authorization absent by `lexists`
+and absent from both HEAD and index. `live_authorization` requires the exact
+regular, non-symlink, non-reparse authorization present, equal to its committed
+Git blob, on the sole-child commit with the exact frozen changed paths. Every
+other mixed state rejects. The tag is snapshotted before and after every probe
+or wrapper, and the source probe reports it rather than hardcoding absence.
+Every test run must report which phase executed; zero skips and an explicit
+real-checkout branch receipt are mandatory.
+
+Before source seal, synthetic controls must exercise both phases and reject the
+crossovers: authorization present in source phase; authorization absent,
+dangling, non-regular, symlinked, reparse, wrong-blob, or wrong-phase in the
+authorized phase. Real production paths may not be moved, replaced, or deleted
+to construct those controls. Temporary-path binding and independently rebuilt
+Git responses remain the permitted instruments. Every phase-neutral control
+runs in both isolated states. Dependency production and validation must occur
+inside the same complete v7 binding domain and reject inherited, missing, or
+extra path sets.
+
+The v7 runtime may reuse the unchanged v4 process and v3 scientific mechanics
+behind completely fresh bindings. It must not invoke or import a v6 public
+assessor, acquire a v6 public-owner authority, or treat the rejected v6
+authorization as current authority. It must instead validate that exact v6
+authorization as closed predecessor evidence and require every v6 result,
+attempt, and launch path absent before and after all delegation.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -116,9 +160,9 @@ seal, ADR-0465 records the rejected v3 source seal, ADR-0466 closes v3
 uninvoked, ADR-0467 source-seals the deferred-import v4 lifecycle, ADR-0468
 authorizes only its exact one-generation invocation identity without firing it,
 ADR-0469 rejects that authorization gate and closes v4, ADR-0470 retains the
-accidental v5 attempt and closes v5, ADR-0471 source-seals only fresh v6, and
-ADR-0472 authorizes only its exact one-generation invocation identity without
-firing it.
+accidental v5 attempt and closes v5, ADR-0471 source-seals only fresh v6,
+ADR-0472 authorizes only its exact one-generation identity without firing it,
+and ADR-0473 rejects that gate and closes v6 uninvoked.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -150,41 +194,45 @@ ADR-0379 retains the 244,970,204-byte margin. ADR-0382 preregistered the
 literal-45 config. ADR-0386 records the source-sealed actual-context quotient
 bridge. ADR-0405 remains an accepted source seal.
 
-### Authorization boundary
+### Recovery boundary
 
-This commit authorizes only the already sealed v6 bytes and one public attempt.
-It does not itself execute or validate the owner. The live-authorization suite,
-clean-state checks, exact retained-marker check, and absent lifecycle checks
-remain pre-invocation obligations.
+ADR-0473 records only a CPU-only pre-invocation gate rejection and the exact
+prospective v7 phase contract. It authorizes neither v7 source nor invocation.
+V6 remains uninvoked and permanently closed; its absent attempt is not retry
+authority.
 
 ### Kill criteria
 
-Kill the invocation if this commit is not the sole child of the named source
-seal, its diff contains anything outside the six frozen paths, any sealed or
-retained byte differs, any focused control fails or skips after authorization,
-the live authorization branch does not run, any v6 result, attempt, or launch
-marker already exists, the source closure imports bytecode, extensions,
-external modules or CuPy, a legacy environment name survives, or clean HEAD
-changes before the public launch.
+Kill v7 before source seal if common setup asserts an authorization-phase
+predicate; either source or authorized phase cannot be exercised prospectively;
+the live branch lacks an executed receipt; any crossover mutation is absent;
+any control mutates a real authorization or lifecycle path; the rejected v6
+authorization differs from its committed bytes; any v6 or v7 result, attempt,
+or launch path exists even as a dangling link; v6 public assessment is reused;
+or any compiler, CuPy, device, timing, or result work opens before a separate
+source seal and authorization.
 
 ### Claims boundary
 
-ADR-0472 is authorization and process evidence only. It supplies no compiled
-calibration, numerical, resource, speed, topology, target, resolver,
-action-clock, decision-quality, truncation, blueprint, or strength result.
+ADR-0473 supplies no compiled calibration, numerical, resource, speed,
+topology, target, resolver, action-clock, decision-quality, truncation,
+blueprint, or strength result. It records one exact fixture failure and an
+absence claim over the inspected command and paths. Spot-checking is not
+certification.
 
 ## Active next
 
-From the exact clean authorization commit, rerun all 17 focused v6 controls under a fresh absent-bytecode prefix and safe path; require the live one-generation Git ancestry and committed-blob branch to execute with zero skips, recheck the exact six-path diff, sealed dependency closure, retained v5 marker, closed v3/v4/v5 paths, and absent v6 result, attempt, and launch paths; invoke the exact root v6 public launcher once only if every gate passes
+Implement and source-seal only the fresh v7 authorization-phase successor frozen here; use new protocol, campaign, result, attempt, launch-marker, recovery-header, and authorization identities; separate common retained-state invariants from explicit source and authorized phase contracts; exercise both phases and all crossover mutations before source seal; preserve the exact v5 attempt and rejected v6 authorization while keeping every v6 and v7 result, attempt, and launch path absent; stop before any public v7 owner, compiler, CuPy import, device access, timing, or result
 
 ## Revoked authorities
 
 - [ADR-0281](docs/decisions/ADR-0281-preregister-temporally-separated-pre-bet-row-cache-seed.md) — revoked by [ADR-0283](docs/decisions/ADR-0283-withdraw-v1-seed-authority-and-install-v2-trust-controls.md).
 - [ADR-0468](docs/decisions/ADR-0468-authorize-one-deferred-import-calibration-invocation.md) — revoked by [ADR-0469](docs/decisions/ADR-0469-retain-the-deferred-import-authorization-gate-rejection.md).
+- [ADR-0472](docs/decisions/ADR-0472-authorize-one-v6-retained-attempt-calibration-invocation.md) — revoked by [ADR-0473](docs/decisions/ADR-0473-retain-the-v6-authorization-phase-gate-rejection.md).
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0472](docs/decisions/ADR-0472-authorize-one-v6-retained-attempt-calibration-invocation.md) — Authorize one v6 retained-attempt calibration invocation.
+Latest process decision: [ADR-0473](docs/decisions/ADR-0473-retain-the-v6-authorization-phase-gate-rejection.md) — Retain the v6 authorization-phase gate rejection.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -192,7 +240,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0449](docs/decisions/ADR-0449-preregister-the-two-arm-literal-45-fit-projection.md) | 2026-08-26 | accepted prospective GPU-free artifact-only literal-45 fit-projection boundary; the exact retained ADR-0448 journal, only its positional and batched-five-then-four RRNS arms, both reduced calibration endpoints, complete phase-local maximum timing, integer-combinatorial target work, maximum-constituent ratios, a 5/4 plus 1 ms per-phase guard, retained symbolic memory, and a 14-second component ceiling under the 15-second action contract are frozen before assessor source or projection, while live allocation, actual input exponent admission, actual-45 numerics, candidate selection, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister the two-arm literal-45 fit projection |
 | [ADR-0450](docs/decisions/ADR-0450-correct-the-fit-projection-runtime-accounting-before-source.md) | 2026-08-26 | accepted prospective pre-source accounting and artifact-identity correction; ADR-0449's independent exact-differential phase is reclassified as mandatory laboratory validation outside the 14-second production-component sum, every runtime certificate and fault phase remains charged, the result moves to a pre-existing `*.jsonl -text` path, and a repository-root no-argument launcher identity is added before assessor source or projection, while every arm, endpoint, timing maximum, work ratio, guard, memory, width, action-clock, outcome, and claims boundary otherwise remains unchanged and every projection, live allocation, actual-45 numeric, selection, action, quality, truncation, blueprint, and strength result remains unopened | Correct the fit-projection runtime accounting before source |
 | [ADR-0451](docs/decisions/ADR-0451-source-seal-the-corrected-literal-45-fit-projector.md) | 2026-08-26 | accepted artifact-free and device-free source seal; the corrected ADR-0449/ADR-0450 literal-45 projector now has an exact repository-root no-argument launcher, an exclusive one-result owner, an independent raw-parent reader, exact integer-combinatorial work derivation, all six timed observations and both reporting-only endpoint counterfactuals, separate 11/19-phase runtime ledgers and one mandatory laboratory-validation phase per arm, and 10 passing focused adversarial controls, while the retained parent journal has not been read by this lifecycle, the projection result remains absent, and live allocation, exponent admission, actual-45 numerics, candidate selection, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Source-seal the corrected literal-45 fit projector |
 | [ADR-0452](docs/decisions/ADR-0452-retain-the-literal-45-fit-projection-rejection.md) | 2026-08-26 | accepted retained sole artifact-only fit-projection rejection; the clean ADR-0451 owner consumed the exact ADR-0448 journal once, both positional and batched-five-then-four RRNS preserve symbolic-memory eligibility but project far above the 14-second component allowance, the independent reader and additive artifact-bound assessor reproduce every timing, work ratio, phase upper, counterfactual, memory conjunct, survivor set, and terminal, no arm survives and no candidate is selected, while the result is a conservative projection rather than measured literal-45 latency and every live allocation, actual-width exponent admission, actual-45 numerical value, resolver iteration, action, quality, truncation, blueprint, and strength result remains unopened | Retain the literal-45 fit-projection rejection |
@@ -215,19 +262,20 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0469](docs/decisions/ADR-0469-retain-the-deferred-import-authorization-gate-rejection.md) | 2026-08-26 | accepted pre-invocation gate rejection and fresh-lifecycle preregistration; the exact ADR-0468 authorization-dependent reader integration ran 39 focused controls with 38 passing and one failing because the v4 writer produced the inherited `absolute_git_recovery` header field while the independent reader omitted and therefore never validated it, additional rebuilt-journal controls exposed bool/int aliases in exact-looking mapping comparisons, v4 is permanently closed uninvoked, and no v4 result, attempt marker, launch marker, compiler call, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Retain the deferred-import authorization-gate rejection |
 | [ADR-0470](docs/decisions/ADR-0470-retain-the-accidental-v5-preauthorization-attempt.md) | 2026-08-27 | accepted accidental-attempt retention and fresh-lifecycle preregistration; a source-seal negative launcher control inherited `PYTHONSAFEPATH=1`, called the real v5 owner despite omitting `-P`, wrote the exact 606-byte v5 attempt marker, and then rejected at absent authorization before any child launch, scientific import, compiler call, device access, timing value, or result; v5 is permanently closed, its marker is retained byte-exactly, and only a fresh v6 implementation may proceed | Retain the accidental v5 preauthorization attempt and preregister v6 |
 | [ADR-0471](docs/decisions/ADR-0471-source-seal-the-retained-attempt-successor.md) | 2026-08-27 | accepted CPU-only retained-attempt successor source seal; the fresh v6 launcher, runner, complete independent reader, exact retained-v5-attempt recovery header, durable attempt and one-use launch lifecycle, injected authorization and Git proof, and source-only controls pass 17/17 with zero skips; combined v4/v5/v6 regression passes 74/74 and the 35-test calibration-base regression passes; the retained 606-byte v5 attempt remains byte-exact, every v3/v4/v5 closed-state predicate and every v6 lifecycle path remains unchanged, and no public v6 owner, compiler call, CuPy import, device work, timing value, or result exists | Source-seal the retained-attempt successor |
-| [ADR-0472](docs/decisions/ADR-0472-authorize-one-v6-retained-attempt-calibration-invocation.md) | 2026-08-27 | accepted exact one-generation v6 invocation authorization; the current commit must be the sole child of source seal `d633f3fb469a27dee688587293c6efb1d2cb2757`, its changed-path set is exactly the frozen six-file authorization surface, no sealed implementation, test, recovery config, retained attempt, or lifecycle byte changes, and no public v6 owner, compiler call, CuPy import, device work, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, decision quality, truncation, blueprint, or strength result exists, while all 17 focused controls must still pass from this exact clean commit with the live authorization branch exercised before the public owner is fired | Authorize one v6 retained-attempt calibration invocation |
+| [ADR-0472](docs/decisions/ADR-0472-authorize-one-v6-retained-attempt-calibration-invocation.md) | 2026-08-27 | accepted exact one-generation v6 invocation authorization; the current commit must be the sole child of source seal `d633f3fb469a27dee688587293c6efb1d2cb2757`, its changed-path set is exactly the frozen six-file authorization surface, no sealed implementation, test, recovery config, retained attempt, or lifecycle byte changes, and no public v6 owner, compiler call, CuPy import, device work, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, decision quality, truncation, blueprint, or strength result exists, while all 17 focused controls must still pass from this exact clean commit with the live authorization branch exercised before the public owner is fired; revoked by ADR-0473 | Authorize one v6 retained-attempt calibration invocation |
+| [ADR-0473](docs/decisions/ADR-0473-retain-the-v6-authorization-phase-gate-rejection.md) | 2026-08-27 | accepted pre-invocation authorization-phase gate rejection and fresh-lifecycle preregistration; the exact clean ADR-0472 authorization run discovered 17 focused tests but all 17 failed in common setup before any test body because the fixture required the authorization file to be absent while the intended live-authorization branch required it present, a safe post-failure diagnostic found that the unreachable live body also computed inherited dependency hashes outside the successor binding domain, v6 is permanently closed uninvoked, and no v6 result, attempt marker, launch marker, compiler call, CuPy import, device work, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, decision quality, truncation, blueprint, or strength result exists | Retain the v6 authorization-phase gate rejection |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0472](docs/decisions/ADR-0472-authorize-one-v6-retained-attempt-calibration-invocation.md) — Authorize one v6 retained-attempt calibration invocation.
+- Latest ADR: [ADR-0473](docs/decisions/ADR-0473-retain-the-v6-authorization-phase-gate-rejection.md) — Retain the v6 authorization-phase gate rejection.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 472.
-- ADR-header SHA-256: `b2f44993471fdf170c1422c73b2ba1addf588b823e00073c4d3ebc570c9f3a91`.
-- Current blockers: the authorization-dependent live-ancestry suite has not yet passed from the clean authorization commit and the v6 owner remains uninvoked; no v6 result exists; v5 is permanently closed after its retained accidental attempt and v4 is permanently closed uninvoked; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists.
+- Numbered decisions: 473.
+- ADR-header SHA-256: `b04b391175b4264b6ab0eb7b12a3184959401e558b9d47205a21bfc0881a0133`.
+- Current blockers: no correct v7 authorization-phase contract, source seal, invocation authorization, or v7 result exists; v6 is permanently closed uninvoked after its authorization gate rejected, v5 is permanently closed after its retained accidental attempt, and v4 is permanently closed uninvoked; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0472](docs/decisions/ADR-0472-authorize-one-v6-retained-attempt-calibration-invocation.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0473](docs/decisions/ADR-0473-retain-the-v6-authorization-phase-gate-rejection.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

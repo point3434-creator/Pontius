@@ -1885,6 +1885,16 @@ queue:
   retained marker, closed predecessors, and absent v6 lifecycle to pass. Only
   then invoke the root v6 launcher once. Any failed gate closes the invocation;
   authorization itself is neither an attempt nor a systems result.
+  ADR-0473 now rejects that authorization gate and permanently closes v6
+  uninvoked. The shared fixture required authorization absent, making all 17
+  bodies unreachable on the exact authorized checkout; a safe diagnostic also
+  exposed an inherited dependency-domain calculation in the intended live
+  body. Implement only fresh v7 with a repository-derived tagged authorization
+  state, phase-invariant owner-lifecycle checks, state-neutral source probing,
+  exact preauthorization and live-authorization branches, a complete two-state
+  synthetic matrix, stable pre/post phase receipts, and successor-bound
+  dependency production and validation. Keep every v6/v7 result, attempt, and
+  launch path absent until v7 earns a new source seal and separate authorization.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

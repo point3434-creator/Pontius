@@ -594,6 +594,12 @@ def _is_supported_cloud_reparse_tag(tag: int) -> bool:
     )
 
 
+def _is_any_reparse(info: os.stat_result) -> bool:
+    return bool(
+        int(getattr(info, "st_file_attributes", 0)) & _REPARSE_ATTRIBUTE
+    ) or bool(int(getattr(info, "st_reparse_tag", 0)))
+
+
 def _is_disallowed_reparse_values(attributes: int, tag: int) -> bool:
     has_reparse_metadata = bool(attributes & _REPARSE_ATTRIBUTE) or bool(tag)
     if not has_reparse_metadata:
@@ -987,7 +993,7 @@ def _validated_git_executable(executable: Path) -> Path:
     if (
         os.path.normcase(str(resolved)) != os.path.normcase(str(executable))
         or stat.S_ISLNK(info.st_mode)
-        or _is_disallowed_reparse(info)
+        or _is_any_reparse(info)
         or not stat.S_ISREG(info.st_mode)
     ):
         raise BaselineError("Git executable identity is invalid")

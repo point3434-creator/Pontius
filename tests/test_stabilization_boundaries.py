@@ -268,6 +268,21 @@ class DependencyBaselineTests(unittest.TestCase):
             else:
                 os.environ["PONTIUS_GIT"] = prior
 
+    def test_git_executable_rejects_even_a_supported_cloud_reparse_tag(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="pontius-cloud-git-") as directory:
+            executable = (Path(directory).resolve() / "git.exe")
+            executable.write_bytes(b"synthetic executable")
+            actual = os.lstat(executable)
+            cloud_info = SimpleNamespace(
+                st_mode=actual.st_mode,
+                st_file_attributes=0x400,
+                st_reparse_tag=0x9000E01A,
+            )
+
+            with mock.patch.object(GENERATOR.os, "lstat", return_value=cloud_info):
+                with self.assertRaises(GENERATOR.BaselineError):
+                    GENERATOR._validated_git_executable(executable)
+
     def test_reparse_policy_allows_only_identity_stable_cloud_tags(self) -> None:
         reparse = 0x400
         cloud_tags = (0x9000001A, 0x9000601A, 0x9000E01A, 0x9000F01A)

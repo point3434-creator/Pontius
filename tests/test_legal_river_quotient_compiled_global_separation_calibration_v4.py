@@ -39,6 +39,10 @@ SOURCE_SEAL_ADR = (
 AUTHORIZATION_ADR = (
     ROOT / "docs/decisions/ADR-0468-authorize-one-deferred-import-calibration-invocation.md"
 )
+CLOSURE_ADR = (
+    ROOT
+    / "docs/decisions/ADR-0469-retain-the-deferred-import-authorization-gate-rejection.md"
+)
 LAUNCHER = ROOT / "run_legal_river_quotient_compiled_global_separation_calibration_v4.py"
 
 
@@ -1354,6 +1358,15 @@ class CompiledGlobalSeparationCalibrationV4Tests(unittest.TestCase):
         )
 
     def test_authorization_is_absent_until_separate_gate(self) -> None:
+        if CLOSURE_ADR.exists():
+            with self.assertRaisesRegex(RuntimeError, "authorization commit differs"):
+                successor._authorization_identity()
+            self.assertFalse(successor.RESULT_PATH.exists())
+            self.assertFalse(successor.ATTEMPT_PATH.exists())
+            self.assertFalse(successor.LAUNCH_PENDING_PATH.exists())
+            self.assertFalse(successor.LAUNCH_CONSUMED_PATH.exists())
+            self.assertFalse(successor.LAUNCH_ABORTED_PATH.exists())
+            return
         if AUTHORIZATION.exists() or AUTHORIZATION_ADR.exists():
             identity = successor._authorization_identity()
             self.assertTrue(identity["single_generation_only"])
@@ -1399,6 +1412,15 @@ class CompiledGlobalSeparationCalibrationV4Tests(unittest.TestCase):
         self.assertEqual(completed.returncode, 0, completed.stderr)
 
     def test_full_reader_journal_and_mutations_after_authorization(self) -> None:
+        if CLOSURE_ADR.exists():
+            with self.assertRaisesRegex(RuntimeError, "authorization commit differs"):
+                successor._authorization_identity()
+            self.assertFalse(successor.RESULT_PATH.exists())
+            self.assertFalse(successor.ATTEMPT_PATH.exists())
+            self.assertFalse(successor.LAUNCH_PENDING_PATH.exists())
+            self.assertFalse(successor.LAUNCH_CONSUMED_PATH.exists())
+            self.assertFalse(successor.LAUNCH_ABORTED_PATH.exists())
+            return
         if not AUTHORIZATION.exists() or not AUTHORIZATION_ADR.exists():
             self.skipTest("the separate invocation authorization is not sealed yet")
         if os.environ.get("PONTIUS_ADR0467_AUTH_READER_CHILD") != "1":

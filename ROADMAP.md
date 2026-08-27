@@ -1859,6 +1859,16 @@ queue:
   pre-source round trip through the actual composed header. Implement and
   source-seal only that v5 correction; keep compiler, CuPy, device, timing, and
   all v4/v5 result paths closed until a later separate authorization.
+  ADR-0470 now permanently closes v5 after a source-audit control accidentally
+  entered its real owner: inherited `PYTHONSAFEPATH=1` satisfied the effective
+  safe-path guard despite omitted `-P`, the exclusive 606-byte attempt marker
+  was written, and absent authorization stopped before child launch or science.
+  Preserve that marker byte-exactly. Implement and source-seal only fresh v6,
+  with no source-seal test calling a production owner, sanitized poison-import
+  launcher controls, `lexists` lifecycle predicates, v4-before-v6 lock order,
+  full recursive type-exact header mutations, real injected authorization/Git
+  validation, and complete fresh bindings. Keep compiler, CuPy, device, timing,
+  and result work closed until a separate v6 authorization.
   Before any later literal 45-card consumer owner is
   invoked, freeze a separate exact work, memory, and 15-second fit projection;
   a live 45-card wall kill may not substitute for that preflight.

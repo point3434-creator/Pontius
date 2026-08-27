@@ -2563,6 +2563,20 @@ pass the actual composed production header plus re-chained mutations before
 source seal. Only live one-generation Git ancestry may remain dormant until a
 separate authorization commit.
 
+ADR-0470 retains the v5 source-audit incident instead of treating result
+absence as freshness. A negative launcher test omitted `-P` but inherited
+`PYTHONSAFEPATH=1`; effective safe-path therefore remained enabled, the real
+v5 owner entered, and its exclusive 606-byte attempt marker was written before
+missing authorization stopped the path. No child launch, scientific import,
+compiler, device, timing, or result boundary opened. V5 is nonetheless closed
+permanently. The fresh v6 lifecycle must treat that exact marker and all v4/v5
+absence predicates as immutable outer state, place interpreter guards before
+non-builtin imports, use `lexists` absence, acquire inherited locks first, and
+exercise production launchers only by source import—not owner invocation—until
+the separate authorization generation. The corrected v5 reader helpers may be
+copied or independently reimplemented without taking a v5 binding lock; the v5
+public assessor may not be called.
+
 ## Runtime target
 
 The final agent will always have an immediate blueprint fallback. CPU code will

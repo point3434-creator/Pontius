@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable, Mapping
-from dataclasses import replace
+from dataclasses import fields, replace
 import json
 from pathlib import Path, PurePosixPath, PureWindowsPath
 import tomllib
@@ -244,12 +244,27 @@ def parse_stable_id(value: str) -> StableSelector:
 
 
 def _parse_inventory_expectation(value: object) -> InventoryExpectation:
+    if not isinstance(value, Mapping):
+        raise ValueError("inventory expectation must be a table")
+    kind = _exact_string(value.get("kind"), "expectation.kind")
+    variants = {
+        "pass": ({"kind"}, set()),
+        "case_defined": ({"kind"}, set()),
+        "platform_conditioned": (
+            {"kind", "applicable_platforms", "skip_safe_reason_code"}, set()
+        ),
+        "declared_unconditional_skip": (
+            {"kind", "skip_safe_reason_code"}, set()
+        ),
+    }
+    if kind not in variants:
+        raise ValueError("inventory expectation kind is unsupported")
+    required, optional = variants[kind]
     table = _exact_keys(
-        value, required={"kind"}, optional={"applicable_platforms", "skip_safe_reason_code"},
-        label="inventory expectation",
+        value, required=required, optional=optional, label="inventory expectation"
     )
     return InventoryExpectation(
-        _exact_string(table["kind"], "expectation.kind"),
+        kind,
         _string_list(table.get("applicable_platforms", []), "expectation.applicable_platforms"),
         _optional_string(table.get("skip_safe_reason_code"), "expectation.skip_safe_reason_code"),
     )
@@ -450,10 +465,12 @@ def _parse_budgets(value: object, label: str) -> StageBudgets:
     )
 
 
-def _fixture_union(payloads: Iterable[PayloadPlan]) -> tuple[FixtureSpec, ...]:
+def _fixture_union(
+    owners: Iterable[PayloadPlan | ProfilePlan],
+) -> tuple[FixtureSpec, ...]:
     by_path: dict[str, FixtureSpec] = {}
-    for payload in payloads:
-        for fixture in payload.fixture_specs:
+    for owner in owners:
+        for fixture in owner.fixture_specs:
             previous = by_path.get(fixture.relative_path)
             if previous is not None and previous != fixture:
                 raise ValueError("profile payloads declare conflicting fixture identities")
@@ -518,13 +535,67 @@ def _parse_profile(
     return replace(profile, definition_sha256=semantic_sha256(definition))
 
 
+def _profile_definition(profile: ProfilePlan) -> Mapping[str, object]:
+    return {
+        field: getattr(profile, field)
+        for field in (
+            "name", "interpreter_slots", "default_interpreter_slot", "payload_ids",
+            "historical_case_ids", "subprofiles", "budgets", "fixture_specs",
+            "gpu_optional",
+        )
+    }
+
+
+def _resolve_profiles(
+    profiles: Mapping[str, ProfilePlan],
+) -> dict[str, ProfilePlan]:
+    resolved: dict[str, ProfilePlan] = {}
+    visiting: set[str] = set()
+
+    def resolve(name: str) -> ProfilePlan:
+        previous = resolved.get(name)
+        if previous is not None:
+            return previous
+        profile = profiles.get(name)
+        if profile is None:
+            raise ValueError("profile references an unknown subprofile")
+        if name in visiting:
+            raise ValueError("profile graph contains a cycle")
+        visiting.add(name)
+        if profile.subprofiles:
+            fixtures = _fixture_union(resolve(child) for child in profile.subprofiles)
+        else:
+            fixtures = profile.fixture_specs
+        visiting.remove(name)
+        finalized = replace(
+            profile, fixture_specs=fixtures, definition_sha256="0" * 64
+        )
+        finalized = replace(
+            finalized,
+            definition_sha256=semantic_sha256(_profile_definition(finalized)),
+        )
+        resolved[name] = finalized
+        return finalized
+
+    for profile_name in sorted(profiles):
+        resolve(profile_name)
+    return resolved
+
+
 def _parse_item_expectation(value: object, label: str) -> HistoricalItemExpectation:
-    table = _exact_keys(
-        value,
-        required={"item_id", "outcome"},
-        optional={"phase", "exception_type", "safe_reason_code", "body_entered", "capability_counters"},
-        label=label,
-    )
+    if not isinstance(value, Mapping):
+        raise ValueError(f"{label} must be a table")
+    outcome = _exact_string(value.get("outcome"), f"{label}.outcome")
+    if outcome == "pass":
+        required = {"item_id", "outcome"}
+    elif outcome == "expected_negative":
+        required = {
+            "item_id", "outcome", "phase", "exception_type", "safe_reason_code",
+            "body_entered", "capability_counters",
+        }
+    else:
+        raise ValueError(f"{label}.outcome is unsupported")
+    table = _exact_keys(value, required=required, label=label)
     body_entered = table.get("body_entered")
     if body_entered is not None:
         body_entered = _exact_bool(body_entered, f"{label}.body_entered")
@@ -536,7 +607,7 @@ def _parse_item_expectation(value: object, label: str) -> HistoricalItemExpectat
         _exact_int(count, f"{label}.capability_counters.{key}")
     return HistoricalItemExpectation(
         _exact_string(table["item_id"], f"{label}.item_id"),
-        _exact_string(table["outcome"], f"{label}.outcome"),
+        outcome,
         _optional_string(table.get("phase"), f"{label}.phase"),
         _optional_string(table.get("exception_type"), f"{label}.exception_type"),
         _optional_string(table.get("safe_reason_code"), f"{label}.safe_reason_code"),
@@ -593,11 +664,12 @@ def _parse_subprocess_capability(value: object, index: int) -> SubprocessCapabil
         value,
         required={
             "capability_id", "executable_role", "executable_slot", "executable_constraints",
-            "argv", "argv_template", "dynamic_program_sha256", "cwd_class",
+            "argv", "argv_template", "cwd_class",
             "environment_additions", "environment_removals", "timeout_ns",
             "expected_return_category", "read_roots", "write_roots",
             "fixed_descendant_permission",
         },
+        optional={"dynamic_program_sha256"},
         label=label,
     )
     constraints = table["executable_constraints"]
@@ -610,7 +682,7 @@ def _parse_subprocess_capability(value: object, index: int) -> SubprocessCapabil
         constraints,
         _string_list(table["argv"], f"{label}.argv"),
         _string_list(table["argv_template"], f"{label}.argv_template"),
-        _optional_string(table["dynamic_program_sha256"], f"{label}.dynamic_program_sha256"),
+        _optional_string(table.get("dynamic_program_sha256"), f"{label}.dynamic_program_sha256"),
         _exact_string(table["cwd_class"], f"{label}.cwd_class"),
         _string_mapping(table["environment_additions"], f"{label}.environment_additions"),
         _string_list(table["environment_removals"], f"{label}.environment_removals"),
@@ -665,6 +737,145 @@ def _unique_mapping(values: Iterable[Any], key_name: str, label: str) -> dict[st
     return result
 
 
+_ZERO_SHA256 = "0" * 64
+_SCOPE_DIGEST_FIELD = {
+    "design": "spec_capabilities_sha256",
+    "historical_review": "capability_bindings_sha256",
+}
+
+
+def _expanded_capability_rows(
+    *,
+    subprocess_capabilities: Mapping[str, SubprocessCapability],
+    call_capabilities: Mapping[str, CallCapability],
+    bindings: Iterable[CapabilityBinding],
+) -> Mapping[str, tuple[Mapping[str, object], ...]]:
+    rows: dict[str, list[Mapping[str, object]]] = {
+        "design": [],
+        "historical_review": [],
+    }
+    for binding in bindings:
+        definitions: Mapping[str, SubprocessCapability | CallCapability]
+        if binding.capability_kind == "subprocess":
+            definitions = subprocess_capabilities
+        else:
+            definitions = call_capabilities
+        capability = definitions.get(binding.capability_id)
+        if capability is None:
+            raise ValueError("capability binding references an unknown capability")
+        row: dict[str, object] = {
+            "item_id": binding.item_id,
+            "approval_scope": binding.approval_scope,
+            "capability_kind": binding.capability_kind,
+        }
+        row.update(
+            (field.name, getattr(capability, field.name))
+            for field in fields(capability)
+        )
+        rows[binding.approval_scope].append(row)
+    return {
+        scope: tuple(sorted(
+            scope_rows,
+            key=lambda row: (
+                str(row["item_id"]), str(row["capability_id"]),
+                str(row["capability_kind"]),
+            ),
+        ))
+        for scope, scope_rows in rows.items()
+    }
+
+
+def _payload_item_scopes(
+    payloads: Mapping[str, PayloadPlan],
+) -> tuple[dict[str, str], dict[str, str]]:
+    scopes: dict[str, str] = {}
+    owners: dict[str, str] = {}
+    for payload in payloads.values():
+        scope = (
+            "design"
+            if payload.target_kind is TargetKind.CURRENT_SNAPSHOT
+            else "historical_review"
+        )
+        item_ids = (
+            tuple(item.selector.stable_id for item in payload.inventory_items)
+            + payload.probe_ids
+            + tuple(
+                fixture.fixture_id for fixture in payload.lifecycle_fixtures
+            )
+        )
+        for item_id in item_ids:
+            if item_id in owners:
+                raise ValueError("orchestration items require one payload owner")
+            owners[item_id] = payload.payload_id
+            scopes[item_id] = scope
+    return scopes, owners
+
+
+def _validate_capability_contract(
+    *,
+    payloads: Mapping[str, PayloadPlan],
+    subprocess_capabilities: Mapping[str, SubprocessCapability],
+    call_capabilities: Mapping[str, CallCapability],
+    bindings: tuple[CapabilityBinding, ...],
+    spec_digest: str,
+    historical_digest: str,
+) -> None:
+    duplicate_ids = set(subprocess_capabilities) & set(call_capabilities)
+    if duplicate_ids:
+        raise ValueError("capability identifiers cannot mix definition kinds")
+    item_scopes, _ = _payload_item_scopes(payloads)
+    seen_bindings: set[tuple[str, str, str, str]] = set()
+    definition_scopes: dict[tuple[str, str], str] = {}
+    referenced_definitions: set[tuple[str, str]] = set()
+    for binding in bindings:
+        identity = (
+            binding.approval_scope, binding.item_id, binding.capability_kind,
+            binding.capability_id,
+        )
+        if identity in seen_bindings:
+            raise ValueError("capability bindings must be unique")
+        seen_bindings.add(identity)
+        expected_scope = item_scopes.get(binding.item_id)
+        if expected_scope is None:
+            raise ValueError("capability binding references an unknown item")
+        if binding.approval_scope != expected_scope:
+            raise ValueError("capability binding scope disagrees with item ownership")
+        definition_identity = (binding.capability_kind, binding.capability_id)
+        previous_scope = definition_scopes.get(definition_identity)
+        if previous_scope is not None and previous_scope != binding.approval_scope:
+            raise ValueError("capability definition cannot be shared across scopes")
+        definition_scopes[definition_identity] = binding.approval_scope
+        referenced_definitions.add(definition_identity)
+    defined = {
+        ("subprocess", capability_id)
+        for capability_id in subprocess_capabilities
+    }
+    defined.update(
+        ("call", capability_id) for capability_id in call_capabilities
+    )
+    if defined != referenced_definitions:
+        raise ValueError("capability definitions must be referenced exactly by bindings")
+    rows = _expanded_capability_rows(
+        subprocess_capabilities=subprocess_capabilities,
+        call_capabilities=call_capabilities,
+        bindings=bindings,
+    )
+    claimed = {
+        "design": spec_digest,
+        "historical_review": historical_digest,
+    }
+    for scope, scope_rows in rows.items():
+        digest = claimed[scope]
+        if not scope_rows:
+            if digest != _ZERO_SHA256:
+                raise ValueError("empty capability scope must use the zero digest")
+            continue
+        if digest == _ZERO_SHA256 or digest != semantic_sha256(scope_rows):
+            raise ValueError("capability scope digest does not match expanded rows")
+        if len({canonical_semantic_bytes(row) for row in scope_rows}) != len(scope_rows):
+            raise ValueError("capability rows contain duplicate expanded semantics")
+
+
 def _validate_references(
     *,
     slots: Mapping[str, InterpreterSlot],
@@ -676,6 +887,8 @@ def _validate_references(
     call_capabilities: Mapping[str, CallCapability],
     bindings: tuple[CapabilityBinding, ...],
     inventory_rows: list[tuple[ResolvedInventoryItem, str, str]],
+    spec_digest: str,
+    historical_digest: str,
 ) -> None:
     for item, profile_name, payload_id in inventory_rows:
         if profile_name not in profiles or payload_id not in payloads:
@@ -687,26 +900,84 @@ def _validate_references(
             raise ValueError("profile references an unknown historical case")
         if set(profile.subprofiles) - set(profiles):
             raise ValueError("profile references an unknown subprofile")
+        for case_id in profile.historical_case_ids:
+            if not set(cases[case_id].payload_ids).issubset(profile.payload_ids):
+                raise ValueError(
+                    "historical case payloads must belong to the owning profile"
+                )
     for payload in payloads.values():
         if set(payload.allowed_interpreter_slots) - set(slots):
             raise ValueError("payload references an unknown interpreter slot")
+        owner = profiles.get(payload.profile_name)
+        if owner is None or payload.payload_id not in owner.payload_ids:
+            raise ValueError("payload must belong to exactly its named profile")
+    inventory_owners: dict[str, str] = {}
+    module_members: dict[str, set[str]] = {}
+    class_members: dict[tuple[str, str], set[str]] = {}
+    for item, _, payload_id in inventory_rows:
+        selector = item.selector
+        stable_id = selector.stable_id
+        relative_path = selector.relative_path.as_posix()
+        inventory_owners[stable_id] = payload_id
+        module_members.setdefault(relative_path, set()).add(stable_id)
+        class_members.setdefault(
+            (relative_path, selector.case_name), set()
+        ).add(stable_id)
+    for payload in payloads.values():
+        for fixture in payload.lifecycle_fixtures:
+            if fixture.class_name is None:
+                expected_members = module_members.get(fixture.relative_path, set())
+            else:
+                expected_members = class_members.get(
+                    (fixture.relative_path, fixture.class_name), set()
+                )
+            if set(fixture.member_ids) != expected_members or any(
+                inventory_owners[stable_id] != payload.payload_id
+                for stable_id in expected_members
+            ):
+                raise ValueError(
+                    "lifecycle fixture members cannot span payload ownership"
+                )
+    _payload_item_scopes(payloads)
     for case in cases.values():
         if set(case.payload_ids) - set(payloads) or set(case.overlay_ids) - set(overlays):
             raise ValueError("historical case contains an unknown payload or overlay")
-    known_items = {item.selector.stable_id for item, _, _ in inventory_rows}
-    for payload in payloads.values():
-        known_items.update(payload.probe_ids)
-        known_items.update(fixture.fixture_id for fixture in payload.lifecycle_fixtures)
-    for binding in bindings:
-        definitions: Mapping[str, object]
-        if binding.capability_kind == "subprocess":
-            definitions = subprocess_capabilities
-        else:
-            definitions = call_capabilities
-        if binding.capability_id not in definitions:
-            raise ValueError("capability binding references an unknown capability")
-        if binding.item_id not in known_items:
-            raise ValueError("capability binding references an unknown item")
+        owned_items: dict[str, str] = {}
+        for payload_id in case.payload_ids:
+            payload = payloads[payload_id]
+            if payload.target_kind is not TargetKind.HISTORICAL_CLONE:
+                raise ValueError("historical cases require historical-clone payloads")
+            payload_items = {
+                item.selector.stable_id: item for item in payload.inventory_items
+            }
+            runtime_ids = tuple(payload_items) + payload.probe_ids
+            if not runtime_ids:
+                raise ValueError("historical case payload must own a runtime item")
+            for item_id in runtime_ids:
+                if item_id in owned_items:
+                    raise ValueError(
+                        "historical case runtime items require one payload owner"
+                    )
+                owned_items[item_id] = payload_id
+            if any(
+                item.expectation.kind != "case_defined"
+                for item in payload.inventory_items
+            ):
+                raise ValueError(
+                    "historical inventory items require case_defined expectations"
+                )
+        if {item.item_id for item in case.item_expectations} != set(owned_items):
+            raise ValueError(
+                "historical case expectations must exactly match payload runtime items"
+            )
+    _validate_capability_contract(
+        payloads=payloads,
+        subprocess_capabilities=subprocess_capabilities,
+        call_capabilities=call_capabilities,
+        bindings=bindings,
+        spec_digest=spec_digest,
+        historical_digest=historical_digest,
+    )
 
 
 def load_configuration(
@@ -762,6 +1033,7 @@ def load_configuration(
             (_parse_profile(item, index, payloads=payloads, slots=slots) for index, item in enumerate(_exact_list(profile_root["profile"], "profile"))),
             "name", "profiles",
         )
+        profiles = _resolve_profiles(profiles)
         cases = _unique_mapping(
             (_parse_historical_case(item, index) for index, item in enumerate(_exact_list(profile_root.get("historical_case", []), "historical_case"))),
             "case_id", "historical cases",
@@ -782,17 +1054,24 @@ def load_configuration(
             _parse_capability_binding(item, index)
             for index, item in enumerate(_exact_list(profile_root.get("capability_binding", []), "capability_binding"))
         )
+        spec_digest = _require_lower_hex(
+            profile_root["spec_capabilities_sha256"],
+            "spec_capabilities_sha256", 64,
+        )
+        binding_digest = _require_lower_hex(
+            profile_root["capability_bindings_sha256"],
+            "capability_bindings_sha256", 64,
+        )
         _validate_references(
             slots=slots, profiles=profiles, payloads=payloads, cases=cases, overlays=overlays,
             subprocess_capabilities=subprocess_capabilities, call_capabilities=call_capabilities,
             bindings=bindings, inventory_rows=inventory_rows,
+            spec_digest=spec_digest, historical_digest=binding_digest,
         )
         stabilization_files = [
             _relative_path(item, "stabilization_test_files")
             for item in _exact_list(profile_root["stabilization_test_files"], "stabilization_test_files")
         ]
-        spec_digest = _require_lower_hex(profile_root["spec_capabilities_sha256"], "spec_capabilities_sha256", 64)
-        binding_digest = _require_lower_hex(profile_root["capability_bindings_sha256"], "capability_bindings_sha256", 64)
         stabilization_files = tuple(sorted(set(stabilization_files)))
         if len(stabilization_files) != len(_exact_list(profile_root["stabilization_test_files"], "stabilization_test_files")):
             raise ValueError("stabilization_test_files must be unique")
@@ -885,6 +1164,7 @@ def select_profile(
     profile = bundle.profiles.get(name)
     if profile is None:
         raise _configuration_error("profile_unknown", "profile is not defined", profile=name)
+    selected = profile
     if payload_id is not None:
         if payload_id not in profile.payload_ids:
             raise _configuration_error(
@@ -892,13 +1172,13 @@ def select_profile(
                 profile=name, payload_id=payload_id,
             )
         payload = bundle.payloads[payload_id]
-        return replace(
+        selected = replace(
             profile,
             payload_ids=(payload_id,),
             historical_case_ids=(),
             fixture_specs=payload.fixture_specs,
         )
-    if historical_case is not None:
+    elif historical_case is not None:
         if historical_case not in profile.historical_case_ids:
             raise _configuration_error(
                 "historical_case_unknown", "historical case does not belong to the selected profile",
@@ -906,13 +1186,74 @@ def select_profile(
             )
         case = bundle.historical_cases[historical_case]
         payloads = tuple(bundle.payloads[payload] for payload in case.payload_ids)
-        return replace(
+        selected = replace(
             profile,
             payload_ids=case.payload_ids,
             historical_case_ids=(historical_case,),
             fixture_specs=_fixture_union(payloads),
         )
-    return profile
+    applicable_scopes: set[str] = set()
+    visiting: set[str] = set()
+
+    def collect_scopes(candidate: ProfilePlan) -> None:
+        if candidate.name in visiting:
+            raise _configuration_error(
+                "configuration_bundle_invalid", "profile graph contains a cycle",
+                profile=candidate.name,
+            )
+        visiting.add(candidate.name)
+        if candidate.subprofiles:
+            for child_name in candidate.subprofiles:
+                child = bundle.profiles.get(child_name)
+                if child is None:
+                    raise _configuration_error(
+                        "configuration_bundle_invalid",
+                        "profile references an unknown subprofile",
+                        profile=candidate.name, subprofile=child_name,
+                    )
+                collect_scopes(child)
+        else:
+            for selected_payload_id in candidate.payload_ids:
+                payload = bundle.payloads.get(selected_payload_id)
+                if payload is None:
+                    raise _configuration_error(
+                        "configuration_bundle_invalid",
+                        "profile references an unknown payload",
+                        profile=candidate.name, payload_id=selected_payload_id,
+                    )
+                applicable_scopes.add(
+                    "design"
+                    if payload.target_kind is TargetKind.CURRENT_SNAPSHOT
+                    else "historical_review"
+                )
+        visiting.remove(candidate.name)
+
+    collect_scopes(selected)
+    unapproved: set[str] = set()
+    try:
+        expanded = _expanded_capability_rows(
+            subprocess_capabilities=bundle.subprocess_capabilities,
+            call_capabilities=bundle.call_capabilities,
+            bindings=bundle.capability_bindings,
+        )
+    except ValueError:
+        expanded = {scope: () for scope in _SCOPE_DIGEST_FIELD}
+    for scope in applicable_scopes:
+        digest = getattr(bundle, _SCOPE_DIGEST_FIELD[scope])
+        rows = expanded[scope]
+        if (
+            digest == _ZERO_SHA256
+            or not rows
+            or digest != semantic_sha256(rows)
+        ):
+            unapproved.add(scope)
+    if unapproved:
+        raise _configuration_error(
+            "capability_approval_required",
+            "applicable capabilities are not approved",
+            profile=name, approval_scopes=tuple(sorted(unapproved)),
+        )
+    return selected
 
 
 _EXIT_PRECEDENCE = (

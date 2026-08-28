@@ -119,6 +119,24 @@ def _normalise_probe_id(value: object, name: str) -> str:
     return text
 
 
+def _stable_id_components(value: object, name: str) -> tuple[str, str, str, str]:
+    text = _require_string(value, name)
+    if text.count("::") != 2:
+        raise ValueError(f"{name} must contain exactly two selector separators")
+    relative_text, case_name, method_name = text.split("::")
+    relative_path = _normalise_relative_path(relative_text, f"{name} path")
+    if relative_text != relative_path:
+        raise ValueError(f"{name} path must use normalized POSIX separators")
+    path = PurePosixPath(relative_path)
+    if not path.parts or path.parts[0] != "tests" or path.suffix != ".py":
+        raise ValueError(f"{name} must name a Python file below tests")
+    if not case_name.isidentifier():
+        raise ValueError(f"{name} class must be a Python identifier")
+    if not method_name.isidentifier() or not method_name.startswith("test_"):
+        raise ValueError(f"{name} method must be a test_ Python identifier")
+    return text, relative_path, case_name, method_name
+
+
 def _require_absolute_path(value: object, name: str) -> str:
     text = _require_string(value, name)
     windows = PureWindowsPath(text)
@@ -142,7 +160,9 @@ def _freeze_value(value: object, name: str) -> Any:
         return MappingProxyType(dict(sorted(items)))
     if isinstance(value, (tuple, list)):
         return tuple(_freeze_value(item, name) for item in value)
-    if is_dataclass(value) or isinstance(value, (Path, PurePosixPath)):
+    if is_dataclass(value):
+        raise ValueError(f"{name} contains an unsupported dataclass value")
+    if isinstance(value, (Path, PurePosixPath)):
         return value
     raise ValueError(f"{name} contains an unsupported value")
 
@@ -155,6 +175,16 @@ def _semantic_value(value: object) -> object:
     if isinstance(value, (Path, PurePosixPath)):
         return value.as_posix()
     if is_dataclass(value):
+        value_type = type(value)
+        parameters = getattr(value_type, "__dataclass_params__", None)
+        if (
+            isinstance(value, type)
+            or value_type.__module__ != __name__
+            or globals().get(value_type.__name__) is not value_type
+            or parameters is None
+            or not parameters.frozen
+        ):
+            raise ValueError("semantic value contains an unsupported dataclass")
         return {field.name: _semantic_value(getattr(value, field.name)) for field in fields(value)}
     if isinstance(value, Mapping):
         if not all(type(key) is str for key in value):
@@ -485,15 +515,23 @@ class InventoryExpectation:
     skip_safe_reason_code: str | None
 
     def __post_init__(self) -> None:
-        if self.kind not in ("pass", "platform_conditioned", "case_defined"):
+        if self.kind not in (
+            "pass", "platform_conditioned", "case_defined",
+            "declared_unconditional_skip",
+        ):
             raise ValueError("inventory expectation kind is unsupported")
         object.__setattr__(self, "applicable_platforms", _normalise_tuple(self.applicable_platforms, "applicable_platforms", _string_item))
         _require_optional_string(self.skip_safe_reason_code, "skip_safe_reason_code")
         if self.kind == "platform_conditioned":
             if not self.applicable_platforms or set(self.applicable_platforms) - {"windows", "posix"} or self.skip_safe_reason_code is None:
                 raise ValueError("platform_conditioned expectations require platforms and a reason")
+        elif self.kind == "declared_unconditional_skip":
+            if self.applicable_platforms or self.skip_safe_reason_code is None:
+                raise ValueError(
+                    "declared_unconditional_skip requires only a safe reason"
+                )
         elif self.applicable_platforms or self.skip_safe_reason_code is not None:
-            raise ValueError("only platform_conditioned expectations carry platform fields")
+            raise ValueError("expectation variant carries irrelevant fields")
 
 
 @dataclass(frozen=True, slots=True)
@@ -550,14 +588,30 @@ class LifecycleFixturePlan:
     serialized: bool
 
     def __post_init__(self) -> None:
-        _require_string(self.fixture_id, "fixture_id")
         if self.kind not in ("module", "class"):
             raise ValueError("lifecycle fixture kind must be module or class")
         object.__setattr__(self, "relative_path", _normalise_relative_path(self.relative_path, "relative_path"))
         _require_optional_string(self.class_name, "class_name")
         if (self.kind == "class") != (self.class_name is not None):
             raise ValueError("class_name must be present exactly for class fixtures")
+        if self.class_name is not None and not self.class_name.isidentifier():
+            raise ValueError("class fixture class_name must be a Python identifier")
+        expected_fixture_id = f"fixture:{self.relative_path}"
+        if self.class_name is not None:
+            expected_fixture_id += f"::{self.class_name}"
+        if self.fixture_id != expected_fixture_id:
+            raise ValueError("fixture_id does not match lifecycle fixture identity")
         object.__setattr__(self, "member_ids", _normalise_tuple(self.member_ids, "member_ids", _string_item))
+        if not self.member_ids:
+            raise ValueError("lifecycle fixture member_ids must not be empty")
+        for member_id in self.member_ids:
+            _, relative_path, case_name, _ = _stable_id_components(
+                member_id, "member_id"
+            )
+            if relative_path != self.relative_path:
+                raise ValueError("lifecycle fixture members must share its module")
+            if self.class_name is not None and case_name != self.class_name:
+                raise ValueError("class fixture members must share its class")
         object.__setattr__(self, "allowed_write_roots", _normalise_tuple(self.allowed_write_roots, "allowed_write_roots", _string_item))
         object.__setattr__(self, "forbidden_relative_paths", _normalise_tuple(self.forbidden_relative_paths, "forbidden_relative_paths", _path_item))
         _require_bool(self.serialized, "serialized")
@@ -595,6 +649,32 @@ class PayloadPlan:
             self.lifecycle_fixtures, "lifecycle_fixtures", _model_item(LifecycleFixturePlan),
             sort_key=lambda item: item.fixture_id,
         ))
+        _index_unique(
+            self.lifecycle_fixtures, "lifecycle_fixtures",
+            lambda item: item.fixture_id,
+        )
+        inventory_ids = {
+            item.selector.stable_id for item in self.inventory_items
+        }
+        for fixture in self.lifecycle_fixtures:
+            expected_members = {
+                stable_id
+                for stable_id in inventory_ids
+                if (
+                    _stable_id_components(stable_id, "inventory stable ID")[1]
+                    == fixture.relative_path
+                    and (
+                        fixture.class_name is None
+                        or _stable_id_components(
+                            stable_id, "inventory stable ID"
+                        )[2] == fixture.class_name
+                    )
+                )
+            }
+            if set(fixture.member_ids) != expected_members:
+                raise ValueError(
+                    "lifecycle fixture members must exactly match payload ownership"
+                )
         additions = _freeze_mapping(self.environment_additions, "environment_additions")
         if any(type(value) is not str for value in additions.values()):
             raise ValueError("environment_additions values must be strings")
@@ -631,8 +711,11 @@ class HistoricalItemExpectation:
         negative_fields = (self.phase, self.exception_type, self.safe_reason_code, self.body_entered)
         if self.outcome == "expected_negative" and any(value is None for value in negative_fields):
             raise ValueError("expected_negative requires complete failure fields")
-        if self.outcome == "pass" and any(value is not None for value in negative_fields):
-            raise ValueError("pass expectations cannot carry failure fields")
+        if self.outcome == "pass" and (
+            any(value is not None for value in negative_fields)
+            or self.capability_counters
+        ):
+            raise ValueError("pass expectations carry only item_id and outcome")
 
 
 @dataclass(frozen=True, slots=True)
@@ -707,6 +790,14 @@ class HistoricalCase:
             self.item_expectations, "item_expectations", _model_item(HistoricalItemExpectation),
             sort_key=lambda item: item.item_id,
         ))
+        _index_unique(
+            self.item_expectations, "item_expectations", lambda item: item.item_id
+        )
+        for item in self.item_expectations:
+            if item.item_id.startswith("probe:"):
+                _normalise_probe_id(item.item_id, "historical probe item_id")
+                if item.outcome != "pass":
+                    raise ValueError("historical probes require pass expectations")
         object.__setattr__(self, "overlay_ids", _normalise_tuple(self.overlay_ids, "overlay_ids", _string_item))
 
 
@@ -760,7 +851,24 @@ class SubprocessCapability:
         object.__setattr__(self, "argv_template", _normalise_tuple(self.argv_template, "argv_template", _string_item, sort=False, unique=False))
         if bool(self.argv) == bool(self.argv_template):
             raise ValueError("exactly one of argv and argv_template must be nonempty")
-        _require_sha256(self.dynamic_program_sha256, "dynamic_program_sha256", optional=True)
+        dynamic_digest = _require_sha256(
+            self.dynamic_program_sha256, "dynamic_program_sha256", optional=True
+        )
+        tokens = self.argv or self.argv_template
+        dynamic_indices = (
+            tuple(index for index, token in enumerate(tokens) if token == "-c")
+            if self.executable_role == "python"
+            else ()
+        )
+        if dynamic_indices:
+            if len(dynamic_indices) != 1 or dynamic_indices[0] + 1 >= len(tokens):
+                raise ValueError("dynamic Python programs require one complete -c token")
+            program = tokens[dynamic_indices[0] + 1]
+            expected_digest = sha256(program.encode("utf-8")).hexdigest()
+            if dynamic_digest != expected_digest:
+                raise ValueError("dynamic_program_sha256 must bind the -c program text")
+        elif dynamic_digest is not None:
+            raise ValueError("dynamic_program_sha256 is irrelevant without -c")
         additions = _freeze_mapping(self.environment_additions, "environment_additions")
         if any(type(value) is not str for value in additions.values()):
             raise ValueError("environment_additions values must be strings")
@@ -966,7 +1074,10 @@ class ResolvedWorkerPlan:
             ("payloads", PayloadPlan, lambda item: item.payload_id),
             ("historical_cases", HistoricalCase, lambda item: item.case_id),
             ("historical_snapshots", HistoricalSnapshotExpectation, lambda item: (item.phase, item.commit)),
-            ("historical_blobs", HistoricalBlobExpectation, lambda item: (item.commit, item.relative_path)),
+            (
+                "historical_blobs", HistoricalBlobExpectation,
+                lambda item: (item.phase, item.commit, item.relative_path),
+            ),
             ("overlays", OverlaySpec, lambda item: item.overlay_id),
             ("subprocess_capabilities", SubprocessCapability, lambda item: item.capability_id),
             ("call_capabilities", CallCapability, lambda item: item.capability_id),
@@ -987,19 +1098,26 @@ class ResolvedWorkerPlan:
 
         expected_inventory: dict[str, ResolvedInventoryItem] = {}
         expected_fixtures: dict[str, FixtureSpec] = {}
-        known_item_ids: set[str] = set()
+        known_item_owners: dict[str, str] = {}
+        lifecycle_fixture_owners: dict[str, str] = {}
         for payload in payloads.values():
             for item in payload.inventory_items:
                 stable_id = item.selector.stable_id
                 if stable_id in expected_inventory:
                     raise ValueError("resolved inventory ownership must be exact")
                 expected_inventory[stable_id] = item
-                known_item_ids.add(stable_id)
-            known_item_ids.update(payload.probe_ids)
+                known_item_owners[stable_id] = payload.payload_id
+            for probe_id in payload.probe_ids:
+                if probe_id in known_item_owners:
+                    raise ValueError("resolved runtime item ownership must be exact")
+                known_item_owners[probe_id] = payload.payload_id
             for fixture in payload.lifecycle_fixtures:
-                if fixture.fixture_id in known_item_ids:
+                if (
+                    fixture.fixture_id in known_item_owners
+                    or fixture.fixture_id in lifecycle_fixture_owners
+                ):
                     raise ValueError("resolved item identities must be unique")
-                known_item_ids.add(fixture.fixture_id)
+                lifecycle_fixture_owners[fixture.fixture_id] = payload.payload_id
             for fixture in payload.fixture_specs:
                 previous = expected_fixtures.get(fixture.relative_path)
                 if previous is not None and previous != fixture:
@@ -1024,42 +1142,92 @@ class ResolvedWorkerPlan:
         if set(cases) != set(self.profile.historical_case_ids):
             raise ValueError("resolved historical cases must exactly match the selected profile")
         expected_overlay_ids: set[str] = set()
-        snapshot_keys: set[tuple[str, str, str]] = set()
-        case_commits: set[str] = set()
+        snapshot_roots: dict[tuple[str, str], str] = {}
+        required_selected_blob_keys: set[tuple[str, str, str]] = set()
         for case in cases.values():
             if not set(case.payload_ids).issubset(payloads):
                 raise ValueError("historical case references an unresolved payload")
             expected_overlay_ids.update(case.overlay_ids)
-            snapshot_keys.add((case.phase, case.commit, case.root_tree_oid))
-            case_commits.add(case.commit)
-            case_item_ids: set[str] = set()
+            phase_commit = (case.phase, case.commit)
+            previous_root = snapshot_roots.get(phase_commit)
+            if previous_root is not None and previous_root != case.root_tree_oid:
+                raise ValueError(
+                    "historical cases cannot conflict on snapshot root identity"
+                )
+            snapshot_roots[phase_commit] = case.root_tree_oid
+            case_item_owners: dict[str, str] = {}
             for payload_id in case.payload_ids:
                 payload = payloads[payload_id]
-                case_item_ids.update(
+                owned_ids = tuple(
                     item.selector.stable_id for item in payload.inventory_items
+                ) + payload.probe_ids
+                if not owned_ids:
+                    raise ValueError(
+                        "every historical case payload must own a runtime item"
+                    )
+                for item_id in owned_ids:
+                    if item_id in case_item_owners:
+                        raise ValueError(
+                            "historical runtime items require exact payload ownership"
+                        )
+                    case_item_owners[item_id] = payload_id
+                required_selected_blob_keys.update(
+                    (
+                        case.phase,
+                        case.commit,
+                        item.selector.relative_path.as_posix(),
+                    )
+                    for item in payload.inventory_items
                 )
-                case_item_ids.update(payload.probe_ids)
-                case_item_ids.update(
-                    fixture.fixture_id for fixture in payload.lifecycle_fixtures
+            expectation_ids = {item.item_id for item in case.item_expectations}
+            if expectation_ids != set(case_item_owners):
+                raise ValueError(
+                    "historical expectations must exactly match runtime item ownership"
                 )
-            if any(item.item_id not in case_item_ids for item in case.item_expectations):
-                raise ValueError("historical expectations reference unresolved items")
         overlays = _index_unique(self.overlays, "overlays", lambda item: item.overlay_id)
         if set(overlays) != expected_overlay_ids:
             raise ValueError("resolved overlays must exactly match historical cases")
         snapshots = _index_unique(
             self.historical_snapshots, "historical_snapshots",
-            lambda item: (item.phase, item.commit, item.root_tree_oid),
+            lambda item: (item.phase, item.commit),
         )
-        if set(snapshots) != snapshot_keys:
+        if (
+            set(snapshots) != set(snapshot_roots)
+            or any(
+                snapshot.root_tree_oid != snapshot_roots[phase_commit]
+                for phase_commit, snapshot in snapshots.items()
+            )
+        ):
             raise ValueError("resolved snapshots must exactly match historical cases")
         blobs = _index_unique(
             self.historical_blobs, "historical_blobs",
+            lambda item: (item.phase, item.commit, item.relative_path),
+        )
+        _index_unique(
+            self.historical_blobs, "historical_blobs",
             lambda item: (item.commit, item.relative_path),
         )
-        blob_commits = {item.commit for item in blobs.values()}
-        if blob_commits - case_commits or (case_commits and blob_commits != case_commits):
-            raise ValueError("resolved blobs must cover only and every historical commit")
+        blob_phase_commits = {
+            (item.phase, item.commit) for item in blobs.values()
+        }
+        if blob_phase_commits != set(snapshot_roots):
+            raise ValueError(
+                "resolved blobs must cover only and every historical snapshot phase"
+            )
+        for blob in blobs.values():
+            snapshot = snapshots.get((blob.phase, blob.commit))
+            if (
+                snapshot is None
+                or blob.governing_decision != snapshot.governing_decision
+            ):
+                raise ValueError("historical blob governance must match its snapshot")
+        selected_blob_keys = {
+            key for key, blob in blobs.items() if blob.role == "selected_test"
+        }
+        if required_selected_blob_keys != selected_blob_keys:
+            raise ValueError(
+                "resolved selected-test blobs must exactly match historical test paths"
+            )
 
         subprocess_capabilities = _index_unique(
             self.subprocess_capabilities, "subprocess_capabilities",
@@ -1072,7 +1240,10 @@ class ResolvedWorkerPlan:
         referenced_subprocess: set[str] = set()
         referenced_calls: set[str] = set()
         for binding in self.capability_bindings:
-            if binding.item_id not in known_item_ids:
+            if (
+                binding.item_id not in known_item_owners
+                and binding.item_id not in lifecycle_fixture_owners
+            ):
                 raise ValueError("capability binding references an unresolved item")
             if binding.capability_kind == "subprocess":
                 referenced_subprocess.add(binding.capability_id)
@@ -1189,6 +1360,42 @@ def _failure_count(counts: Mapping[str, object]) -> int:
     )
 
 
+def _aggregate_requested_ids(
+    rows: Iterable[Iterable[str]], *, allow_repeated: bool,
+) -> tuple[str, ...]:
+    identifiers: set[str] = set()
+    for row in rows:
+        for stable_id in row:
+            if stable_id in identifiers and not allow_repeated:
+                raise ValueError("child requested IDs must have exact ownership")
+            identifiers.add(stable_id)
+    return tuple(sorted(identifiers))
+
+
+def _aggregate_outcome_rows(
+    rows: Iterable[Iterable[Mapping[str, FrozenValue]]], *, allow_repeated: bool,
+) -> tuple[Mapping[str, FrozenValue], ...]:
+    outcomes: dict[str, Mapping[str, FrozenValue]] = {}
+    for row in rows:
+        for outcome in row:
+            stable_id = str(outcome["stable_id"])
+            previous = outcomes.get(stable_id)
+            if previous is not None:
+                if not allow_repeated or previous != outcome:
+                    raise ValueError("child outcomes contain conflicting identities")
+                continue
+            outcomes[stable_id] = outcome
+    return tuple(outcomes[stable_id] for stable_id in sorted(outcomes))
+
+
+def _aggregate_counts(rows: Iterable[Mapping[str, object]]) -> MappingProxyType:
+    counts: dict[str, int] = {}
+    for row in rows:
+        for key, value in row.items():
+            counts[key] = counts.get(key, 0) + int(value)
+    return MappingProxyType(dict(sorted(counts.items())))
+
+
 @dataclass(frozen=True, slots=True)
 class PayloadSummary:
     payload_id: str
@@ -1263,8 +1470,17 @@ class WorkerSummary:
         if self.status is ExecutionStatus.NOT_RUN_SAFETY_STOP:
             if self.completed or self.duration_ns or self.summary is not None or not self.conditions:
                 raise ValueError("not_run_safety_stop workers must be empty and carry a trigger")
-        if self.status is ExecutionStatus.OPTIONAL_UNAVAILABLE and (not self.completed or self.summary is not None or len(self.conditions) != 1 or self.conditions[0].category != "optional_unavailable"):
-            raise ValueError("optional_unavailable worker requires one optional condition and no summary")
+        if self.status is ExecutionStatus.OPTIONAL_UNAVAILABLE and (
+            self.profile != "gpu"
+            or not self.completed
+            or self.summary is not None
+            or len(self.conditions) != 1
+            or self.conditions[0].category != "optional_unavailable"
+            or self.conditions[0].affects_exit
+        ):
+            raise ValueError(
+                "optional_unavailable GPU worker requires one non-exit condition and no summary"
+            )
         if self.status in (ExecutionStatus.PASSED, ExecutionStatus.TEST_FAILURE):
             if not self.completed or self.summary is None or not self.summary.completed:
                 raise ValueError("completed worker statuses require a direct profile summary")
@@ -1317,10 +1533,17 @@ class ProfileSummary:
             self.payload_summaries, "payload_summaries", _model_item(PayloadSummary),
             sort_key=lambda item: item.payload_id,
         ))
+        payload_rows = _index_unique(
+            self.payload_summaries, "payload_summaries", lambda item: item.payload_id
+        )
         object.__setattr__(self, "worker_summaries", _normalise_tuple(
             self.worker_summaries, "worker_summaries", _model_item(WorkerSummary),
             sort_key=lambda item: (item.profile, item.interpreter_binding.slot_name),
         ))
+        _index_unique(
+            self.worker_summaries, "worker_summaries",
+            lambda item: (item.profile, item.interpreter_binding.slot_name),
+        )
         object.__setattr__(self, "requested_ids", _normalise_tuple(self.requested_ids, "requested_ids", _string_item))
         object.__setattr__(self, "outcomes", _normalise_outcomes(self.outcomes))
         object.__setattr__(self, "counts", _freeze_count_mapping(self.counts, "counts"))
@@ -1336,11 +1559,43 @@ class ProfileSummary:
         if self.completed and not any(item.affects_exit for item in self.conditions) and _failure_count(self.counts) == 0 and self.evidence_guard.status != "unchanged":
             raise ValueError("successful completed profiles require unchanged evidence")
         if self.profile == "full":
+            profile_optional_keys = {
+                _sort_key(condition)
+                for condition in self.conditions
+                if condition.category == "optional_unavailable"
+            }
+            worker_optional_keys: set[bytes] = set()
+            for worker in self.worker_summaries:
+                optional_keys = {
+                    _sort_key(condition)
+                    for condition in worker.conditions
+                    if condition.category == "optional_unavailable"
+                }
+                if worker.status is ExecutionStatus.OPTIONAL_UNAVAILABLE:
+                    worker_optional_keys.update(optional_keys)
+                elif optional_keys:
+                    raise ValueError(
+                        "only optional-unavailable workers may report optional conditions"
+                    )
+            if profile_optional_keys != worker_optional_keys:
+                raise ValueError(
+                    "full optional conditions must exactly match optional workers"
+                )
             if self.completed and not self.worker_summaries:
                 raise ValueError("completed full profiles require worker summaries")
-            worker_bindings = tuple(worker.interpreter_binding for worker in self.worker_summaries)
-            if set(worker_bindings) != set(self.interpreter_bindings) or len(worker_bindings) != len(set(worker_bindings)):
-                raise ValueError("full bindings must equal the unique worker binding union")
+            worker_bindings: dict[str, InterpreterBinding] = {}
+            for worker in self.worker_summaries:
+                binding = worker.interpreter_binding
+                previous = worker_bindings.get(binding.slot_name)
+                if previous is not None and previous != binding:
+                    raise ValueError(
+                        "workers sharing a slot must share its interpreter identity"
+                    )
+                worker_bindings[binding.slot_name] = binding
+            if {
+                binding.slot_name: binding for binding in self.interpreter_bindings
+            } != worker_bindings:
+                raise ValueError("full bindings must equal the distinct worker binding union")
             if self.completed and any(
                 not worker.completed
                 or worker.status not in (
@@ -1350,6 +1605,44 @@ class ProfileSummary:
                 for worker in self.worker_summaries
             ):
                 raise ValueError("completed full profiles require terminal worker rows")
+            nested_summaries = tuple(
+                worker.summary
+                for worker in self.worker_summaries
+                if worker.summary is not None
+            )
+            expected_requested = _aggregate_requested_ids(
+                (summary.requested_ids for summary in nested_summaries),
+                allow_repeated=True,
+            )
+            expected_outcomes = _aggregate_outcome_rows(
+                (summary.outcomes for summary in nested_summaries),
+                allow_repeated=True,
+            )
+            expected_counts = _aggregate_counts(
+                summary.counts for summary in nested_summaries
+            )
+            if (
+                self.requested_ids != expected_requested
+                or self.outcomes != expected_outcomes
+                or self.counts != expected_counts
+            ):
+                raise ValueError(
+                    "full aggregates must exactly match nested worker summaries"
+                )
+            if payload_rows:
+                nested_payload_rows: dict[str, PayloadSummary] = {}
+                for summary in nested_summaries:
+                    for payload in summary.payload_summaries:
+                        previous = nested_payload_rows.get(payload.payload_id)
+                        if previous is not None and previous != payload:
+                            raise ValueError(
+                                "full payload rows cannot collapse conflicting projections"
+                            )
+                        nested_payload_rows[payload.payload_id] = payload
+                if payload_rows != nested_payload_rows:
+                    raise ValueError(
+                        "full payload rows must exactly match nested payload summaries"
+                    )
         else:
             if self.worker_summaries:
                 raise ValueError("direct profiles cannot contain worker summaries")
@@ -1358,7 +1651,25 @@ class ProfileSummary:
                     raise ValueError("pre-resolution failures cannot contain payload summaries")
             elif len(self.interpreter_bindings) != 1:
                 raise ValueError("resolved direct profiles require exactly one interpreter binding")
-            elif not self.payload_summaries:
+            direct_optional_unavailable = (
+                self.profile == "gpu"
+                and self.completed
+                and not self.payload_summaries
+                and not self.requested_ids
+                and not self.outcomes
+                and not self.counts
+                and len(self.conditions) == 1
+                and self.conditions[0].category == "optional_unavailable"
+                and self.conditions[0].affects_exit
+            )
+            if any(
+                condition.category == "optional_unavailable"
+                for condition in self.conditions
+            ) and not direct_optional_unavailable:
+                raise ValueError(
+                    "optional unavailability is valid only for a direct GPU stop"
+                )
+            if self.interpreter_bindings and not self.payload_summaries and not direct_optional_unavailable:
                 raise ValueError("resolved direct profiles require payload summaries")
             if self.completed and any(
                 not payload.completed
@@ -1368,14 +1679,25 @@ class ProfileSummary:
                 for payload in self.payload_summaries
             ):
                 raise ValueError("completed direct profiles require terminal payload rows")
-            if self.completed:
-                child_requested = tuple(sorted(
-                    stable_id
-                    for payload in self.payload_summaries
-                    for stable_id in payload.requested_ids
-                ))
-                if len(child_requested) != len(set(child_requested)) or self.requested_ids != child_requested:
-                    raise ValueError("direct requested IDs must equal the payload union")
+            expected_requested = _aggregate_requested_ids(
+                (payload.requested_ids for payload in self.payload_summaries),
+                allow_repeated=False,
+            )
+            expected_outcomes = _aggregate_outcome_rows(
+                (payload.outcomes for payload in self.payload_summaries),
+                allow_repeated=False,
+            )
+            expected_counts = _aggregate_counts(
+                payload.counts for payload in self.payload_summaries
+            )
+            if (
+                self.requested_ids != expected_requested
+                or self.outcomes != expected_outcomes
+                or self.counts != expected_counts
+            ):
+                raise ValueError(
+                    "direct aggregates must exactly match child payload summaries"
+                )
         if self.completed:
             child_failed = any(
                 payload.status is ExecutionStatus.TEST_FAILURE
@@ -1405,6 +1727,16 @@ class RunSummary:
             self.profile_summaries, "profile_summaries", _model_item(ProfileSummary),
             sort_key=lambda item: item.profile,
         ))
+        _index_unique(
+            self.profile_summaries, "profile_summaries", lambda item: item.profile
+        )
+        if len(self.profile_summaries) > 1 or any(
+            summary.profile != self.requested_profile
+            for summary in self.profile_summaries
+        ):
+            raise ValueError(
+                "run profile summaries must match the one requested profile"
+            )
         object.__setattr__(self, "conditions", _normalise_tuple(self.conditions, "conditions", _model_item(ObservedCondition)))
         object.__setattr__(self, "exit_code", _enum(self.exit_code, ExitCode, "exit_code"))
         _require_int(self.duration_ns, "duration_ns")
@@ -1441,7 +1773,6 @@ class RunSummary:
                     ExecutionStatus.PHASE_FAILURE: "phase",
                     ExecutionStatus.RUNTIME_SAFETY_STOP: "runtime",
                     ExecutionStatus.CANCELLED: "runtime",
-                    ExecutionStatus.NOT_RUN_SAFETY_STOP: "runtime",
                 }.get(payload.status)
                 if category is not None:
                     required_categories.add(category)
@@ -1454,7 +1785,6 @@ class RunSummary:
                     ExecutionStatus.PHASE_FAILURE: "phase",
                     ExecutionStatus.RUNTIME_SAFETY_STOP: "runtime",
                     ExecutionStatus.CANCELLED: "runtime",
-                    ExecutionStatus.NOT_RUN_SAFETY_STOP: "runtime",
                     ExecutionStatus.OPTIONAL_UNAVAILABLE: "optional_unavailable",
                 }.get(worker.status)
                 if category is not None:
@@ -1464,6 +1794,40 @@ class RunSummary:
 
         for summary in self.profile_summaries:
             inspect_profile(summary)
+        run_optional_keys = {
+            _sort_key(condition)
+            for condition in self.conditions
+            if condition.category == "optional_unavailable"
+        }
+        nested_optional_keys = {
+            _sort_key(condition)
+            for condition in nested_conditions
+            if condition.category == "optional_unavailable"
+        }
+        if run_optional_keys != nested_optional_keys:
+            raise ValueError(
+                "run optional conditions must exactly match nested observations"
+            )
+        if self.requested_profile == "full":
+            if any(
+                condition.category == "optional_unavailable"
+                and condition.affects_exit
+                for condition in self.conditions
+            ):
+                raise ValueError(
+                    "full optional-unavailable conditions cannot affect the exit"
+                )
+        elif any(
+            condition.category == "optional_unavailable"
+            and (
+                self.requested_profile != "gpu"
+                or not condition.affects_exit
+            )
+            for condition in self.conditions
+        ):
+            raise ValueError(
+                "direct optional-unavailable conditions require the GPU exit"
+            )
         if any(_sort_key(condition) not in run_condition_keys for condition in nested_conditions):
             raise ValueError("run conditions must retain every nested observed condition")
         if "optional_unavailable" in required_categories and "optional_unavailable" not in all_categories:
@@ -1479,6 +1843,8 @@ class RunSummary:
             raise ValueError("run exit_code disagrees with observed conditions")
         if self.completed and any(not summary.completed for summary in self.profile_summaries):
             raise ValueError("completed runs require completed profile summaries")
+        if self.completed and len(self.profile_summaries) != 1:
+            raise ValueError("completed runs require exactly one profile summary")
         if self.exit_code is ExitCode.SUCCESS and not self.completed:
             raise ValueError("successful runs must be complete")
 

@@ -614,7 +614,24 @@ def _is_disallowed_reparse(info: os.stat_result) -> bool:
     )
 
 
-def _file_identity(info: os.stat_result) -> tuple[int, ...]:
+def _identity_reparse_values(
+    info: os.stat_result,
+    windows_metadata: tuple[int, int] | None = None,
+) -> tuple[int, int]:
+    if windows_metadata is not None:
+        return windows_metadata
+    return (
+        int(getattr(info, "st_file_attributes", 0)),
+        int(getattr(info, "st_reparse_tag", 0)),
+    )
+
+
+def _file_identity(
+    info: os.stat_result,
+    *,
+    windows_metadata: tuple[int, int] | None = None,
+) -> tuple[int, ...]:
+    attributes, tag = _identity_reparse_values(info, windows_metadata)
     return (
         int(info.st_dev),
         int(info.st_ino),
@@ -622,23 +639,47 @@ def _file_identity(info: os.stat_result) -> tuple[int, ...]:
         int(info.st_mtime_ns),
         int(info.st_ctime_ns),
         int(info.st_mode),
-        int(getattr(info, "st_file_attributes", 0)),
-        int(getattr(info, "st_reparse_tag", 0)),
+        attributes,
+        tag,
     )
 
 
-def _path_handle_identity(info: os.stat_result) -> tuple[int, ...]:
+def _path_handle_identity(
+    info: os.stat_result,
+    *,
+    windows_metadata: tuple[int, int] | None = None,
+) -> tuple[int, ...]:
     """Return fields reported consistently by path and handle on Windows."""
 
+    attributes, tag = _identity_reparse_values(info, windows_metadata)
     return (
         int(info.st_dev),
         int(info.st_ino),
         int(info.st_size),
         int(info.st_mtime_ns),
         int(info.st_mode),
-        int(getattr(info, "st_file_attributes", 0)),
-        int(getattr(info, "st_reparse_tag", 0)),
+        attributes,
+        tag,
     )
+
+
+def _path_handle_core_identity(info: os.stat_result) -> tuple[int, ...]:
+    return _path_handle_identity(info)[:5]
+
+
+def _path_matches_open_handle(
+    path_info: os.stat_result,
+    handle_info: os.stat_result,
+    windows_metadata: tuple[int, int] | None,
+) -> bool:
+    if (
+        _path_handle_core_identity(path_info)
+        != _path_handle_core_identity(handle_info)
+    ):
+        return False
+    if windows_metadata is None:
+        return _path_handle_identity(path_info) == _path_handle_identity(handle_info)
+    return _identity_reparse_values(path_info) == windows_metadata
 
 
 def _directory_identity(info: os.stat_result) -> tuple[int, ...]:
@@ -656,13 +697,19 @@ def _is_retryable_windows_metadata_transition(
     after: os.stat_result,
     before_identity: tuple[int, ...],
     after_identity: tuple[int, ...],
+    before_windows_metadata: tuple[int, int] | None,
+    after_windows_metadata: tuple[int, int] | None,
 ) -> bool:
     """Recognize only the ctime-only transition caused by OneDrive hydration."""
 
     return (
         os.name == "nt"
         and before_identity != after_identity
-        and _path_handle_identity(before) == _path_handle_identity(after)
+        and before_windows_metadata == after_windows_metadata
+        and _path_handle_identity(
+            before, windows_metadata=before_windows_metadata
+        )
+        == _path_handle_identity(after, windows_metadata=after_windows_metadata)
     )
 
 
@@ -716,7 +763,7 @@ def _revalidate_ancestor_chain(
             )
 
 
-def _windows_path_api() -> tuple[Any, Any]:
+def _windows_path_api() -> tuple[Any, Any, Any]:
     if os.name != "nt":
         raise BaselineError("Windows no-follow file APIs are unavailable")
     try:
@@ -732,12 +779,47 @@ def _windows_path_api() -> tuple[Any, Any]:
             wintypes.HANDLE,
         )
         create.restype = wintypes.HANDLE
+        information = kernel32.GetFileInformationByHandleEx
+        information.argtypes = (
+            wintypes.HANDLE,
+            ctypes.c_int,
+            wintypes.LPVOID,
+            wintypes.DWORD,
+        )
+        information.restype = wintypes.BOOL
         close = kernel32.CloseHandle
         close.argtypes = (wintypes.HANDLE,)
         close.restype = wintypes.BOOL
     except Exception as error:
         raise BaselineError("Windows no-follow file APIs are unavailable") from error
-    return create, close
+    return create, information, close
+
+
+def _windows_regular_handle_metadata(
+    descriptor: int, path: Path
+) -> tuple[int, int]:
+    if os.name != "nt":
+        raise BaselineError("Windows regular-file metadata is unavailable")
+    try:
+        handle = msvcrt.get_osfhandle(descriptor)
+        _, information, _ = _windows_path_api()
+        value = _WindowsFileAttributeTagInformation()
+        succeeded = information(
+            wintypes.HANDLE(handle),
+            9,
+            ctypes.byref(value),
+            ctypes.sizeof(value),
+        )
+    except Exception as error:
+        raise BaselineError(
+            f"dependency file handle metadata cannot be inspected: {path}"
+        ) from error
+    if not succeeded:
+        error = ctypes.get_last_error()
+        raise BaselineError(
+            f"dependency file handle metadata cannot be inspected: {path}"
+        ) from OSError(error, os.strerror(error), str(path))
+    return int(value.FileAttributes), int(value.ReparseTag)
 
 
 def _open_regular_no_follow(path: Path) -> int:
@@ -757,7 +839,7 @@ def _open_regular_no_follow(path: Path) -> int:
                 f"dependency file cannot be opened without links: {path}"
             ) from error
 
-    create, close = _windows_path_api()
+    create, _, close = _windows_path_api()
     try:
         handle = create(
             str(path),
@@ -872,13 +954,28 @@ def read_regular_snapshot(
 
     descriptor = _open_regular_no_follow(path)
     after_handle: os.stat_result | None = None
+    before_windows_metadata: tuple[int, int] | None = None
+    after_windows_metadata: tuple[int, int] | None = None
     retry_metadata_transition = False
     try:
+        if os.name == "nt":
+            before_windows_metadata = _windows_regular_handle_metadata(
+                descriptor, path
+            )
         before_handle = os.fstat(descriptor)
         if (
             not stat.S_ISREG(before_handle.st_mode)
-            or _is_disallowed_reparse(before_handle)
-            or _path_handle_identity(before_path) != _path_handle_identity(before_handle)
+            or (
+                before_windows_metadata is None
+                and _is_disallowed_reparse(before_handle)
+            )
+            or (
+                before_windows_metadata is not None
+                and _is_disallowed_reparse_values(*before_windows_metadata)
+            )
+            or not _path_matches_open_handle(
+                before_path, before_handle, before_windows_metadata
+            )
         ):
             raise BaselineError(f"dependency file changed while opening: {path}")
         chunks: list[bytes] = []
@@ -891,10 +988,18 @@ def read_regular_snapshot(
             length += len(chunk)
         raw = b"".join(chunks)
         after_handle = os.fstat(descriptor)
+        if os.name == "nt":
+            after_windows_metadata = _windows_regular_handle_metadata(
+                descriptor, path
+            )
         if len(raw) > maximum_bytes:
             raise BaselineError(f"dependency file is oversized: {path}")
-        before_identity = _file_identity(before_handle)
-        after_identity = _file_identity(after_handle)
+        before_identity = _file_identity(
+            before_handle, windows_metadata=before_windows_metadata
+        )
+        after_identity = _file_identity(
+            after_handle, windows_metadata=after_windows_metadata
+        )
         if len(raw) != before_handle.st_size or before_identity != after_identity:
             if (
                 _allow_windows_metadata_retry
@@ -904,6 +1009,8 @@ def read_regular_snapshot(
                     after_handle,
                     before_identity,
                     after_identity,
+                    before_windows_metadata,
+                    after_windows_metadata,
                 )
             ):
                 retry_metadata_transition = True
@@ -935,14 +1042,16 @@ def read_regular_snapshot(
     if (
         stat.S_ISLNK(after_path.st_mode)
         or _is_disallowed_reparse(after_path)
-        or _path_handle_identity(after_path) != _path_handle_identity(after_handle)
+        or not _path_matches_open_handle(
+            after_path, after_handle, after_windows_metadata
+        )
     ):
         raise BaselineError(f"dependency file identity changed after reading: {path}")
     _revalidate_ancestor_chain(ancestors)
     return FileSnapshot(
         path,
         raw,
-        _file_identity(after_path),
+        _file_identity(after_handle, windows_metadata=after_windows_metadata),
         ancestors,
         maximum_bytes,
         root,

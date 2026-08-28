@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import FrozenInstanceError, fields, is_dataclass
+from dataclasses import FrozenInstanceError, dataclass, fields, is_dataclass
 from hashlib import sha256
 import importlib.util
 import json
@@ -223,6 +223,158 @@ def _inventory(*, profile_name: str = "core", payload_id: str = "core:sample") -
             }
         ],
     }
+
+
+def _call_capability_definition(capability_id: str = "call:sample") -> dict[str, object]:
+    return {
+        "capability_id": capability_id,
+        "kind": "owner",
+        "module_name": "sample",
+        "qualified_name": "sample.owner",
+        "action": "invoke",
+        "maximum_calls": 1,
+        "return_contract": "returns_none",
+    }
+
+
+def _approved_call_profiles(
+    profiles: str,
+    *,
+    item_id: str = "tests/test_sample.py::SampleTests::test_value",
+    scope: str = "design",
+    capability_id: str = "call:sample",
+    include_definition: bool = True,
+) -> str:
+    definition = _call_capability_definition(capability_id)
+    row = {
+        "item_id": item_id,
+        "approval_scope": scope,
+        "capability_kind": "call",
+        **definition,
+    }
+    digest_name = (
+        "spec_capabilities_sha256"
+        if scope == "design"
+        else "capability_bindings_sha256"
+    )
+    digest = MODEL.semantic_sha256((row,))
+    profiles = profiles.replace(
+        f'{digest_name} = "{ZERO_SHA256}"', f'{digest_name} = "{digest}"'
+    )
+    definition_text = ""
+    if include_definition:
+        definition_text = f'''\n\n[[call_capability]]
+capability_id = "{capability_id}"
+kind = "owner"
+module_name = "sample"
+qualified_name = "sample.owner"
+action = "invoke"
+maximum_calls = 1
+return_contract = "returns_none"
+'''
+    return profiles + definition_text + f'''\n
+[[capability_binding]]
+item_id = "{item_id}"
+approval_scope = "{scope}"
+capability_kind = "call"
+capability_id = "{capability_id}"
+'''
+
+
+def _approved_static_subprocess_profiles(profiles: str) -> str:
+    item_id = "tests/test_sample.py::SampleTests::test_value"
+    definition = {
+        "capability_id": "process:sample",
+        "executable_role": "python",
+        "executable_slot": "active_worker",
+        "executable_constraints": {},
+        "argv": ("-m", "sample"),
+        "argv_template": (),
+        "dynamic_program_sha256": None,
+        "cwd_class": "target",
+        "environment_additions": {},
+        "environment_removals": (),
+        "timeout_ns": 10,
+        "expected_return_category": "protocol_committed",
+        "read_roots": ("target",),
+        "write_roots": ("temporary",),
+        "fixed_descendant_permission": False,
+    }
+    row = {
+        "item_id": item_id,
+        "approval_scope": "design",
+        "capability_kind": "subprocess",
+        **definition,
+    }
+    digest = MODEL.semantic_sha256((row,))
+    profiles = profiles.replace(
+        f'spec_capabilities_sha256 = "{ZERO_SHA256}"',
+        f'spec_capabilities_sha256 = "{digest}"',
+    )
+    return profiles + f'''\n
+[[subprocess_capability]]
+capability_id = "process:sample"
+executable_role = "python"
+executable_slot = "active_worker"
+executable_constraints = {{}}
+argv = ["-m", "sample"]
+argv_template = []
+cwd_class = "target"
+environment_additions = {{}}
+environment_removals = []
+timeout_ns = 10
+expected_return_category = "protocol_committed"
+read_roots = ["target"]
+write_roots = ["temporary"]
+fixed_descendant_permission = false
+
+[[capability_binding]]
+item_id = "{item_id}"
+approval_scope = "design"
+capability_kind = "subprocess"
+capability_id = "process:sample"
+'''
+
+
+def _interpreter_binding(
+    slot_name: str = "development", *, platform_identity: str = "windows:identity"
+) -> object:
+    identity = MODEL.InterpreterIdentity(
+        "C:/Python/python.exe", "C:/Python/python.exe", platform_identity, SHA256,
+        "cpython", [3, 14, 6, "final", 0], "C:/Python", "C:/Python",
+        True, True, True, SHA256, None,
+    )
+    return MODEL.InterpreterBinding(slot_name, identity)
+
+
+def _captured_output() -> object:
+    stream = MODEL.CapturedStreamIdentity(0, sha256(b"").hexdigest(), False)
+    return MODEL.CapturedOutputIdentity(stream, stream)
+
+
+def _passed_payload(payload_id: str, stable_id: str) -> object:
+    outcome = {"stable_id": stable_id, "outcome": "passed"}
+    return MODEL.PayloadSummary(
+        payload_id, MODEL.ExecutionStatus.PASSED, [stable_id], [outcome],
+        {"passed": 1}, [], _captured_output(), 1, True,
+    )
+
+
+def _passed_direct(profile: str, binding: object, payloads: list[object]) -> object:
+    outcomes = tuple(
+        outcome for payload in payloads for outcome in payload.outcomes
+    )
+    requested_ids = tuple(item["stable_id"] for item in outcomes)
+    counts: dict[str, int] = {}
+    for payload in payloads:
+        for key, value in payload.counts.items():
+            counts[key] = counts.get(key, 0) + int(value)
+    return MODEL.ProfileSummary(
+        profile, SHA256, SHA256, SHA256, SHA256, [binding], payloads, [],
+        requested_ids, outcomes, counts, [], SHA256,
+        MODEL.EvidenceGuardSummary(SHA256, SHA256, "unchanged", []),
+        1, True,
+    )
 
 
 class _ConfigurationTree:
@@ -764,12 +916,39 @@ class OrchestrationErrorAndModelTests(unittest.TestCase):
         )
 
     def test_capability_models_validate_kinds_slots_and_ordered_duplicate_argv(self) -> None:
+        program = "value"
         capability = MODEL.SubprocessCapability(
             "process:a", "python", "active_worker", {},
-            ["python", "-c", "value", "value"], [], None, "target", {}, [], 10,
+            ["python", "-c", program, "value"], [],
+            sha256(program.encode("utf-8")).hexdigest(), "target", {}, [], 10,
             "protocol_committed", ["target"], ["temporary"], False,
         )
         self.assertEqual(capability.argv, ("python", "-c", "value", "value"))
+        static = MODEL.SubprocessCapability(
+            "process:static", "python", "active_worker", {},
+            ["-m", "sample"], [], None, "target", {}, [], 10,
+            "protocol_committed", ["target"], ["temporary"], False,
+        )
+        self.assertIsNone(static.dynamic_program_sha256)
+        git_configuration = MODEL.SubprocessCapability(
+            "process:git-config", "git", "git", {},
+            ["-c", "safe.directory=C:/target", "status"], [], None, "target", {},
+            [], 10, "exited_zero", ["target"], [], False,
+        )
+        self.assertEqual(git_configuration.argv[0], "-c")
+        for argv, dynamic_digest in (
+            (["-c", program], None),
+            (["-c", program], SHA256),
+            (["-m", "sample"], SHA256),
+            (["-c"], sha256(b"").hexdigest()),
+            (["-c", program, "-c", program], sha256(program.encode()).hexdigest()),
+        ):
+            with self.subTest(argv=argv, digest=dynamic_digest), self.assertRaises(ValueError):
+                MODEL.SubprocessCapability(
+                    "process:dynamic", "python", "active_worker", {}, argv, [],
+                    dynamic_digest, "target", {}, [], 10, "protocol_committed",
+                    ["target"], ["temporary"], False,
+                )
         with self.assertRaises(ValueError):
             MODEL.SubprocessCapability(
                 "process:a", "python", "ambient_path", {}, ["python"], [], None,
@@ -778,6 +957,307 @@ class OrchestrationErrorAndModelTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             MODEL.CallCapability(
                 "call:a", "unknown", "module", "qualified", "invoke", 1, "returns_none"
+            )
+
+    def test_inventory_expectation_variants_and_nested_values_fail_closed(self) -> None:
+        unconditional = MODEL.InventoryExpectation(
+            "declared_unconditional_skip", [], "unsupported_by_design"
+        )
+        self.assertEqual(unconditional.skip_safe_reason_code, "unsupported_by_design")
+        for values in (
+            ("declared_unconditional_skip", ["windows"], "reason"),
+            ("declared_unconditional_skip", [], None),
+            ("pass", [], "irrelevant"),
+            ("case_defined", ["posix"], None),
+        ):
+            with self.subTest(values=values), self.assertRaises(ValueError):
+                MODEL.InventoryExpectation(*values)
+
+        @dataclass
+        class MutableValue:
+            values: list[int]
+
+        @dataclass(frozen=True)
+        class SpoofedFrozenValue:
+            values: list[int]
+
+        SpoofedFrozenValue.__module__ = MODEL.__name__
+
+        mutable = MutableValue([1])
+        with self.assertRaises(ValueError):
+            MODEL.ObservedCondition(
+                "runtime", "unsafe_nested_value", True, {"mutable": mutable}
+            )
+        with self.assertRaises(ValueError):
+            MODEL.PayloadSummary(
+                "core:sample", MODEL.ExecutionStatus.PASSED, ["id"],
+                [{"stable_id": "id", "mutable": mutable}], {"passed": 1}, [],
+                _captured_output(), 1, True,
+            )
+        with self.assertRaises(ValueError):
+            MODEL.ObservedCondition(
+                "runtime", "spoofed_nested_value", True,
+                {"mutable": SpoofedFrozenValue([1])},
+            )
+        mutable_internal = MODEL.ChildExecutionResult(
+            {"x": []}, "protocol_committed", _captured_output(), True
+        )
+        with self.assertRaises(ValueError):
+            MODEL.ObservedCondition(
+                "runtime", "mutable_internal_dataclass", True,
+                {"mutable": mutable_internal},
+            )
+
+    def test_lifecycle_fixtures_require_canonical_ids_and_exact_payload_members(self) -> None:
+        stable_id = "tests/test_sample.py::SampleTests::test_value"
+        selector = CONFIGURATION.parse_stable_id(stable_id)
+        inventory_item = MODEL.ResolvedInventoryItem(
+            selector, MODEL.InventoryExpectation("pass", [], None)
+        )
+        module_fixture = MODEL.LifecycleFixturePlan(
+            "fixture:tests/test_sample.py", "module", "tests/test_sample.py", None,
+            [stable_id], ["temporary"], [], True,
+        )
+        class_fixture = MODEL.LifecycleFixturePlan(
+            "fixture:tests/test_sample.py::SampleTests", "class",
+            "tests/test_sample.py", "SampleTests", [stable_id], ["temporary"], [],
+            True,
+        )
+        payload = MODEL.PayloadPlan(
+            "core:sample", "core", MODEL.TargetKind.CURRENT_SNAPSHOT,
+            ["development"], [inventory_item], [], [module_fixture, class_fixture],
+            {}, [], [], [], [], True,
+        )
+        self.assertEqual(
+            tuple(item.fixture_id for item in payload.lifecycle_fixtures),
+            (
+                "fixture:tests/test_sample.py",
+                "fixture:tests/test_sample.py::SampleTests",
+            ),
+        )
+        invalid_fixtures = (
+            ("fixture:wrong.py", "module", "tests/test_sample.py", None, [stable_id]),
+            ("fixture:tests/test_sample.py::Wrong", "class", "tests/test_sample.py", "Wrong", [stable_id]),
+            ("fixture:tests/test_sample.py", "module", "tests/test_sample.py", None, []),
+            (
+                "fixture:tests/test_sample.py::SampleTests", "class",
+                "tests/test_sample.py", "SampleTests",
+                ["tests/test_other.py::SampleTests::test_value"],
+            ),
+            (
+                "fixture:tests/test_sample.py", "module", "tests/test_sample.py",
+                None, ["tests\\test_sample.py::SampleTests::test_value"],
+            ),
+        )
+        for values in invalid_fixtures:
+            with self.subTest(values=values), self.assertRaises(ValueError):
+                MODEL.LifecycleFixturePlan(*values, ["temporary"], [], True)
+        other_member = MODEL.LifecycleFixturePlan(
+            "fixture:tests/test_other.py", "module", "tests/test_other.py", None,
+            ["tests/test_other.py::OtherTests::test_value"], ["temporary"], [], True,
+        )
+        with self.assertRaises(ValueError):
+            MODEL.PayloadPlan(
+                "core:sample", "core", MODEL.TargetKind.CURRENT_SNAPSHOT,
+                ["development"], [inventory_item], [], [other_member], {}, [], [], [],
+                [], True,
+            )
+
+    def test_profile_aggregates_bind_exact_child_rows_counts_and_outcomes(self) -> None:
+        binding = _interpreter_binding()
+        first = _passed_payload("core:first", "tests/test_a.py::ATests::test_a")
+        second = _passed_payload("core:second", "tests/test_b.py::BTests::test_b")
+        direct = _passed_direct("core", binding, [second, first])
+        self.assertEqual(
+            tuple(item.payload_id for item in direct.payload_summaries),
+            ("core:first", "core:second"),
+        )
+        common = (
+            "core", SHA256, SHA256, SHA256, SHA256, [binding], [first, second], [],
+            ["tests/test_a.py::ATests::test_a", "tests/test_b.py::BTests::test_b"],
+        )
+        for outcomes, counts in (
+            (
+                [
+                    {"stable_id": "tests/test_a.py::ATests::test_a", "outcome": "fabricated"},
+                    {"stable_id": "tests/test_b.py::BTests::test_b", "outcome": "passed"},
+                ],
+                {"passed": 2},
+            ),
+            (list(first.outcomes + second.outcomes), {"passed": 99}),
+        ):
+            with self.subTest(outcomes=outcomes, counts=counts), self.assertRaises(ValueError):
+                MODEL.ProfileSummary(
+                    *common, outcomes, counts, [], SHA256,
+                    MODEL.EvidenceGuardSummary(SHA256, SHA256, "unchanged", []),
+                    1, True,
+                )
+        duplicate_id = MODEL.PayloadSummary(
+            first.payload_id, first.status, first.requested_ids, first.outcomes,
+            first.counts, first.conditions, first.captured_output, 2, True,
+        )
+        with self.assertRaises(ValueError):
+            _passed_direct("core", binding, [first, duplicate_id])
+
+    def test_full_summary_uses_distinct_binding_union_and_exact_worker_aggregates(self) -> None:
+        binding = _interpreter_binding()
+        core_payload = _passed_payload(
+            "core:sample", "tests/test_core.py::CoreTests::test_value"
+        )
+        current_payload = _passed_payload(
+            "current:sample", "tests/test_current.py::CurrentTests::test_value"
+        )
+        core = _passed_direct("core", binding, [core_payload])
+        current = _passed_direct("current", binding, [current_payload])
+        workers = [
+            MODEL.WorkerSummary(
+                "core", binding, MODEL.ExecutionStatus.PASSED, core, [], 1, True
+            ),
+            MODEL.WorkerSummary(
+                "current", binding, MODEL.ExecutionStatus.PASSED, current, [], 1, True
+            ),
+        ]
+        requested = tuple(sorted(core.requested_ids + current.requested_ids))
+        outcomes = tuple(sorted(core.outcomes + current.outcomes, key=lambda row: row["stable_id"]))
+        guard = MODEL.EvidenceGuardSummary(SHA256, SHA256, "unchanged", [])
+        full = MODEL.ProfileSummary(
+            "full", SHA256, SHA256, SHA256, SHA256, [binding], [], workers,
+            requested, outcomes, {"passed": 2}, [], SHA256, guard, 2, True,
+        )
+        self.assertEqual(full.interpreter_bindings, (binding,))
+        full_with_payload_rows = MODEL.ProfileSummary(
+            "full", SHA256, SHA256, SHA256, SHA256, [binding],
+            [current_payload, core_payload], workers, requested, outcomes,
+            {"passed": 2}, [], SHA256, guard, 2, True,
+        )
+        self.assertEqual(len(full_with_payload_rows.payload_summaries), 2)
+        with self.assertRaises(ValueError):
+            MODEL.ProfileSummary(
+                "full", SHA256, SHA256, SHA256, SHA256, [binding], [], workers,
+                requested,
+                [
+                    {"stable_id": requested[0], "outcome": "fabricated"},
+                    {"stable_id": requested[1], "outcome": "passed"},
+                ],
+                {"passed": 2}, [], SHA256, guard, 2, True,
+            )
+        with self.assertRaises(ValueError):
+            MODEL.ProfileSummary(
+                "full", SHA256, SHA256, SHA256, SHA256, [binding],
+                [core_payload], workers, requested, outcomes, {"passed": 2}, [],
+                SHA256, guard, 2, True,
+            )
+        conflicting_binding = _interpreter_binding(
+            platform_identity="windows:conflicting"
+        )
+        conflicting_worker = MODEL.WorkerSummary(
+            "current", conflicting_binding, MODEL.ExecutionStatus.PASSED,
+            _passed_direct("current", conflicting_binding, [current_payload]), [], 1,
+            True,
+        )
+        with self.assertRaises(ValueError):
+            MODEL.ProfileSummary(
+                "full", SHA256, SHA256, SHA256, SHA256, [binding], [],
+                [workers[0], conflicting_worker], requested, outcomes, {"passed": 2},
+                [], SHA256, guard, 2, True,
+            )
+        duplicate_worker = MODEL.WorkerSummary(
+            "core", binding, MODEL.ExecutionStatus.PASSED, core, [], 2, True
+        )
+        with self.assertRaises(ValueError):
+            MODEL.ProfileSummary(
+                "full", SHA256, SHA256, SHA256, SHA256, [binding], [],
+                [workers[0], duplicate_worker], core.requested_ids, core.outcomes,
+                {"passed": 2}, [], SHA256, guard, 2, True,
+            )
+
+    def test_run_summary_retains_not_run_trigger_and_direct_gpu_semantics(self) -> None:
+        binding = _interpreter_binding()
+        for category, exit_code in (
+            ("integrity", MODEL.ExitCode.INTEGRITY),
+            ("phase", MODEL.ExitCode.PHASE),
+        ):
+            condition = MODEL.ObservedCondition(category, f"{category}_stop", True, {})
+            payload = MODEL.PayloadSummary(
+                "core:sample", MODEL.ExecutionStatus.NOT_RUN_SAFETY_STOP,
+                [], [], {}, [condition], None, 0, False,
+            )
+            profile = MODEL.ProfileSummary(
+                "core", SHA256, SHA256, SHA256, SHA256, [binding], [payload], [],
+                [], [], {}, [condition], SHA256,
+                MODEL.EvidenceGuardSummary(None, None, "not_measured", []), 0, False,
+            )
+            run = MODEL.RunSummary(
+                f"run-{category}", "core", [profile], [condition], exit_code, 0, False
+            )
+            self.assertEqual(run.exit_code, exit_code)
+
+        optional_direct = MODEL.ObservedCondition(
+            "optional_unavailable", "gpu_unavailable", True, {"profile": "gpu"}
+        )
+        guard = MODEL.EvidenceGuardSummary(SHA256, SHA256, "unchanged", [])
+        gpu = MODEL.ProfileSummary(
+            "gpu", SHA256, SHA256, SHA256, SHA256, [binding], [], [], [], [], {},
+            [optional_direct], SHA256, guard, 1, True,
+        )
+        direct_run = MODEL.RunSummary(
+            "run-gpu", "gpu", [gpu], [optional_direct],
+            MODEL.ExitCode.OPTIONAL_UNAVAILABLE, 1, True,
+        )
+        self.assertEqual(direct_run.exit_code, MODEL.ExitCode.OPTIONAL_UNAVAILABLE)
+
+        optional_full = MODEL.ObservedCondition(
+            "optional_unavailable", "gpu_unavailable", False, {"profile": "gpu"}
+        )
+        worker = MODEL.WorkerSummary(
+            "gpu", binding, MODEL.ExecutionStatus.OPTIONAL_UNAVAILABLE, None,
+            [optional_full], 0, True,
+        )
+        full = MODEL.ProfileSummary(
+            "full", SHA256, SHA256, SHA256, SHA256, [binding], [], [worker],
+            [], [], {}, [optional_full], SHA256, guard, 1, True,
+        )
+        full_run = MODEL.RunSummary(
+            "run-full", "full", [full], [optional_full], MODEL.ExitCode.SUCCESS, 1,
+            True,
+        )
+        self.assertEqual(full_run.exit_code, MODEL.ExitCode.SUCCESS)
+        core_payload = _passed_payload(
+            "core:sample", "tests/test_sample.py::SampleTests::test_value"
+        )
+        core_summary = _passed_direct("core", binding, [core_payload])
+        passed_worker = MODEL.WorkerSummary(
+            "core", binding, MODEL.ExecutionStatus.PASSED, core_summary, [], 1,
+            True,
+        )
+        with self.assertRaises(ValueError):
+            MODEL.ProfileSummary(
+                "full", SHA256, SHA256, SHA256, SHA256, [binding], [],
+                [passed_worker], core_summary.requested_ids, core_summary.outcomes,
+                core_summary.counts, [optional_full], SHA256, guard, 1, True,
+            )
+        affecting_full_optional = MODEL.ObservedCondition(
+            "optional_unavailable", "gpu_unavailable", True, {"profile": "gpu"}
+        )
+        with self.assertRaises(ValueError):
+            MODEL.ProfileSummary(
+                "full", SHA256, SHA256, SHA256, SHA256, [binding], [], [worker],
+                [], [], {}, [affecting_full_optional], SHA256, guard, 1, True,
+            )
+        with self.assertRaises(ValueError):
+            MODEL.RunSummary(
+                "run-full-exit-seven", "full", [full],
+                [optional_full, affecting_full_optional],
+                MODEL.ExitCode.OPTIONAL_UNAVAILABLE, 1, True,
+            )
+        with self.assertRaises(ValueError):
+            MODEL.RunSummary(
+                "run-mismatch", "current", [gpu], [optional_direct],
+                MODEL.ExitCode.OPTIONAL_UNAVAILABLE, 1, True,
+            )
+        with self.assertRaises(ValueError):
+            MODEL.RunSummary(
+                "run-empty", "core", [], [], MODEL.ExitCode.SUCCESS, 0, True
             )
 
     def test_historical_expected_vectors_have_exact_variant_fields_and_counts(self) -> None:
@@ -801,6 +1281,163 @@ class OrchestrationErrorAndModelTests(unittest.TestCase):
                     [item], [],
                 )
 
+    def test_resolved_historical_plan_requires_exact_runtime_item_and_blob_closure(self) -> None:
+        stable_id = "tests/test_sample.py::SampleTests::test_value"
+        selector = CONFIGURATION.parse_stable_id(stable_id)
+        item = MODEL.ResolvedInventoryItem(
+            selector, MODEL.InventoryExpectation("case_defined", [], None)
+        )
+        fixture = MODEL.LifecycleFixturePlan(
+            "fixture:tests/test_sample.py", "module", "tests/test_sample.py", None,
+            [stable_id], [], [], True,
+        )
+        payload = MODEL.PayloadPlan(
+            "historical:sample", "historical", MODEL.TargetKind.HISTORICAL_CLONE,
+            ["development"], [item], ["probe:sealed-reader"], [fixture], {}, [],
+            [], [], [], True,
+        )
+        profile = MODEL.ProfilePlan(
+            "historical", ["development"], "development", ["historical:sample"],
+            ["case:sample"], [], MODEL.StageBudgets(1, 1, 1, 1, 4), [], False,
+            SHA256,
+        )
+        vector = {
+            "kind": "positive", "passed": 2, "assertion_failed": 0,
+            "setup_failed": 0, "body_entered": 2, "owner_calls": 0,
+            "scientific_calls": 0,
+        }
+        expected_items = [
+            MODEL.HistoricalItemExpectation(
+                stable_id, "pass", None, None, None, None, {}
+            ),
+            MODEL.HistoricalItemExpectation(
+                "probe:sealed-reader", "pass", None, None, None, None, {}
+            ),
+        ]
+        case = MODEL.HistoricalCase(
+            "case:sample", "source", COMMIT, COMMIT, ["historical:sample"],
+            vector, expected_items, [],
+        )
+        snapshot = MODEL.HistoricalSnapshotExpectation(
+            "source", COMMIT, COMMIT, "reviewed"
+        )
+        blob = MODEL.HistoricalBlobExpectation(
+            COMMIT, "tests/test_sample.py", COMMIT, SHA256, "selected_test",
+            "source", "reviewed",
+        )
+
+        def resolved(**changes: object) -> object:
+            values: dict[str, object] = {
+                "profile": profile,
+                "inventory_entries": [item],
+                "payloads": [payload],
+                "historical_cases": [case],
+                "historical_snapshots": [snapshot],
+                "historical_blobs": [blob],
+                "overlays": [],
+                "subprocess_capabilities": [],
+                "call_capabilities": [],
+                "capability_bindings": [],
+                "spec_capabilities_sha256": SHA256,
+                "capability_bindings_sha256": SHA256,
+            }
+            values.update(changes)
+            for name in (
+                "inventory_entries", "payloads", "historical_cases",
+                "historical_snapshots", "historical_blobs", "overlays",
+                "subprocess_capabilities", "call_capabilities",
+                "capability_bindings",
+            ):
+                values[name] = tuple(sorted(
+                    values[name], key=MODEL.canonical_semantic_bytes
+                ))
+            return MODEL.ResolvedWorkerPlan(
+                semantic_sha256=MODEL.semantic_sha256(values), **values
+            )
+
+        self.assertEqual(resolved().historical_blobs, (blob,))
+        missing_item_case = MODEL.HistoricalCase(
+            "case:sample", "source", COMMIT, COMMIT, ["historical:sample"],
+            vector, expected_items[:1], [],
+        )
+        fixture_result_case = MODEL.HistoricalCase(
+            "case:sample", "source", COMMIT, COMMIT, ["historical:sample"],
+            vector,
+            expected_items + [
+                MODEL.HistoricalItemExpectation(
+                    fixture.fixture_id, "pass", None, None, None, None, {}
+                )
+            ],
+            [],
+        )
+        wrong_phase_blob = MODEL.HistoricalBlobExpectation(
+            COMMIT, "tests/test_sample.py", COMMIT, SHA256, "selected_test",
+            "retained", "reviewed",
+        )
+        unrelated_selected_blob = MODEL.HistoricalBlobExpectation(
+            COMMIT, "tests/test_unrelated.py", "c" * 40, "d" * 64,
+            "selected_test", "source", "reviewed",
+        )
+        for changes in (
+            {"historical_cases": [missing_item_case]},
+            {"historical_cases": [fixture_result_case]},
+            {"historical_blobs": [wrong_phase_blob]},
+            {"historical_blobs": []},
+            {"historical_blobs": [blob, unrelated_selected_blob]},
+        ):
+            with self.subTest(changes=changes), self.assertRaises(ValueError):
+                resolved(**changes)
+
+        conflicting_root_case = MODEL.HistoricalCase(
+            "case:conflicting-root", "source", COMMIT, "c" * 40,
+            ["historical:sample"], vector, expected_items, [],
+        )
+        conflicting_root_snapshot = MODEL.HistoricalSnapshotExpectation(
+            "source", COMMIT, "c" * 40, "reviewed"
+        )
+        conflicting_root_profile = MODEL.ProfilePlan(
+            "historical", ["development"], "development", ["historical:sample"],
+            ["case:sample", "case:conflicting-root"], [],
+            MODEL.StageBudgets(1, 1, 1, 1, 4), [], False, SHA256,
+        )
+        with self.assertRaises(ValueError):
+            resolved(
+                profile=conflicting_root_profile,
+                historical_cases=[case, conflicting_root_case],
+                historical_snapshots=[snapshot, conflicting_root_snapshot],
+            )
+
+        empty_payload = MODEL.PayloadPlan(
+            "historical:empty", "historical", MODEL.TargetKind.HISTORICAL_CLONE,
+            ["development"], [], [], [], {}, [], [], [], [], True,
+        )
+        two_payload_profile = MODEL.ProfilePlan(
+            "historical", ["development"], "development",
+            ["historical:sample", "historical:empty"], ["case:sample"], [],
+            MODEL.StageBudgets(1, 1, 1, 1, 4), [], False, SHA256,
+        )
+        empty_owner_case = MODEL.HistoricalCase(
+            "case:sample", "source", COMMIT, COMMIT,
+            ["historical:sample", "historical:empty"], vector, expected_items, [],
+        )
+        with self.assertRaises(ValueError):
+            resolved(
+                profile=two_payload_profile,
+                payloads=[payload, empty_payload],
+                historical_cases=[empty_owner_case],
+            )
+
+        conflicting_expectation = MODEL.HistoricalItemExpectation(
+            stable_id, "expected_negative", "source", "ValueError", "blocked",
+            False, {},
+        )
+        with self.assertRaises(ValueError):
+            MODEL.HistoricalCase(
+                "case:duplicate", "source", COMMIT, COMMIT,
+                ["historical:sample"], vector,
+                [expected_items[0], conflicting_expectation], [],
+            )
+
 
 class OrchestrationConfigurationTests(unittest.TestCase):
     def test_load_configuration_builds_frozen_normalized_bundle_and_ns_budgets(self) -> None:
@@ -820,8 +1457,12 @@ class OrchestrationConfigurationTests(unittest.TestCase):
         self.assertIsInstance(bundle.profiles, MappingProxyType)
         self.assertEqual(bundle.stabilization_test_files,
                          ("tests/test_test_orchestration_configuration.py",))
-        selected = CONFIGURATION.select_profile(bundle, "core", payload_id="core:sample")
-        self.assertEqual(selected.payload_ids, ("core:sample",))
+        with self.assertRaises(ERRORS.EvidenceConfigurationError) as refused:
+            CONFIGURATION.select_profile(bundle, "core", payload_id="core:sample")
+        self.assertEqual(refused.exception.code, "capability_approval_required")
+        self.assertEqual(
+            refused.exception.message, "applicable capabilities are not approved"
+        )
         with self.assertRaises(ERRORS.EvidenceConfigurationError):
             CONFIGURATION.select_profile(bundle, "missing")
         with self.assertRaises(ERRORS.EvidenceConfigurationError):
@@ -830,6 +1471,337 @@ class OrchestrationConfigurationTests(unittest.TestCase):
             CONFIGURATION.select_profile(
                 bundle, "core", payload_id="core:sample", historical_case="case"
             )
+
+    def test_inventory_variants_use_exact_keys_including_unconditional_skip(self) -> None:
+        unconditional = _inventory()
+        unconditional["entries"][0]["assignment"]["expectation"] = {
+            "kind": "declared_unconditional_skip",
+            "skip_safe_reason_code": "unsupported_by_design",
+        }
+        with _ConfigurationTree(inventory=unconditional) as tree:
+            bundle = CONFIGURATION.load_configuration(
+                tree.profiles, tree.inventory, repository_root=tree.root
+            )
+        expectation = bundle.payloads["core:sample"].inventory_items[0].expectation
+        self.assertEqual(expectation.kind, "declared_unconditional_skip")
+
+        invalid_expectations = (
+            {"kind": "pass", "applicable_platforms": []},
+            {"kind": "pass", "skip_safe_reason_code": None},
+            {"kind": "case_defined", "applicable_platforms": []},
+            {
+                "kind": "declared_unconditional_skip",
+                "applicable_platforms": [],
+                "skip_safe_reason_code": "reason",
+            },
+        )
+        for expectation in invalid_expectations:
+            inventory = _inventory()
+            inventory["entries"][0]["assignment"]["expectation"] = expectation
+            with self.subTest(expectation=expectation), _ConfigurationTree(
+                inventory=inventory
+            ) as tree:
+                with self.assertRaises(ERRORS.EvidenceConfigurationError):
+                    CONFIGURATION.load_configuration(
+                        tree.profiles, tree.inventory, repository_root=tree.root
+                    )
+
+    def test_full_profile_resolves_transitive_fixtures_and_rejects_cycles(self) -> None:
+        profiles = _profiles_toml() + f'''\n
+[[payload.ignored_fixture]]
+relative_path = "fixtures/sample.bin"
+path_kind = "regular_file"
+byte_length = 1
+raw_sha256 = "{SHA256}"
+
+[[profile]]
+name = "full"
+interpreter_slots = ["development"]
+payload_ids = []
+historical_case_ids = []
+subprofiles = ["core"]
+gpu_optional = false
+
+[profile.budgets]
+setup_seconds = 2
+child_seconds = 3
+termination_seconds = 5
+cleanup_seconds = 7
+total_seconds = 17
+'''
+        with _ConfigurationTree(profiles=profiles) as tree:
+            bundle = CONFIGURATION.load_configuration(
+                tree.profiles, tree.inventory, repository_root=tree.root
+            )
+        self.assertEqual(
+            tuple(item.relative_path for item in bundle.profiles["full"].fixture_specs),
+            ("fixtures/sample.bin",),
+        )
+        expected_definition = MODEL.semantic_sha256({
+            field: getattr(bundle.profiles["full"], field)
+            for field in (
+                "name", "interpreter_slots", "default_interpreter_slot",
+                "payload_ids", "historical_case_ids", "subprofiles", "budgets",
+                "fixture_specs", "gpu_optional",
+            )
+        })
+        self.assertEqual(
+            bundle.profiles["full"].definition_sha256, expected_definition
+        )
+
+        cyclic = profiles.replace('subprofiles = ["core"]', 'subprofiles = ["full"]')
+        with _ConfigurationTree(profiles=cyclic) as tree:
+            with self.assertRaises(ERRORS.EvidenceConfigurationError):
+                CONFIGURATION.load_configuration(
+                    tree.profiles, tree.inventory, repository_root=tree.root
+                )
+
+    def test_lifecycle_fixture_configuration_requires_exact_member_closure(self) -> None:
+        fixture_text = '''
+
+[[payload.lifecycle_fixture]]
+fixture_id = "fixture:tests/test_sample.py"
+kind = "module"
+relative_path = "tests/test_sample.py"
+member_ids = ["tests/test_sample.py::SampleTests::test_value"]
+allowed_write_roots = ["temporary"]
+forbidden_relative_paths = []
+serialized = true
+'''
+        with _ConfigurationTree(profiles=_profiles_toml() + fixture_text) as tree:
+            bundle = CONFIGURATION.load_configuration(
+                tree.profiles, tree.inventory, repository_root=tree.root
+            )
+        self.assertEqual(
+            bundle.payloads["core:sample"].lifecycle_fixtures[0].fixture_id,
+            "fixture:tests/test_sample.py",
+        )
+        invalid_profiles = (
+            (_profiles_toml() + fixture_text).replace(
+                'fixture_id = "fixture:tests/test_sample.py"',
+                'fixture_id = "fixture:tests/wrong.py"',
+            ),
+            (_profiles_toml() + fixture_text).replace(
+                'member_ids = ["tests/test_sample.py::SampleTests::test_value"]',
+                'member_ids = []',
+            ),
+            (_profiles_toml() + fixture_text).replace(
+                'member_ids = ["tests/test_sample.py::SampleTests::test_value"]',
+                'member_ids = ["tests/test_other.py::OtherTests::test_value"]',
+            ),
+        )
+        for profiles in invalid_profiles:
+            with self.subTest(profiles=profiles[-100:]), _ConfigurationTree(
+                profiles=profiles
+            ) as tree:
+                with self.assertRaises(ERRORS.EvidenceConfigurationError):
+                    CONFIGURATION.load_configuration(
+                        tree.profiles, tree.inventory, repository_root=tree.root
+                    )
+
+        split_inventory = _inventory()
+        split_inventory["entries"].append({
+            "stable_id": "tests/test_sample.py::OtherTests::test_other",
+            "relative_path": "tests/test_sample.py",
+            "case_name": "OtherTests",
+            "method_name": "test_other",
+            "assignment": {
+                "profile_name": "core",
+                "payload_id": "core:second",
+                "expectation": {"kind": "pass"},
+            },
+        })
+        split_profiles = (
+            _profiles_toml().replace(
+                'payload_ids = ["core:sample"]',
+                'payload_ids = ["core:sample", "core:second"]',
+            )
+            + fixture_text
+            + '''
+
+[[payload]]
+payload_id = "core:second"
+profile_name = "core"
+target_kind = "current_snapshot"
+allowed_interpreter_slots = ["development"]
+probe_ids = []
+environment_additions = {}
+environment_removals = []
+allowed_write_roots = ["temporary"]
+forbidden_relative_paths = []
+serialized = true
+'''
+        )
+        with _ConfigurationTree(split_profiles, split_inventory) as tree:
+            with self.assertRaises(ERRORS.EvidenceConfigurationError):
+                CONFIGURATION.load_configuration(
+                    tree.profiles, tree.inventory, repository_root=tree.root
+                )
+
+    def test_capability_digests_validate_expansion_and_selection_by_scope(self) -> None:
+        approved = _approved_call_profiles(_profiles_toml())
+        with _ConfigurationTree(profiles=approved) as tree:
+            bundle = CONFIGURATION.load_configuration(
+                tree.profiles, tree.inventory, repository_root=tree.root
+            )
+        selected = CONFIGURATION.select_profile(
+            bundle, "core", payload_id="core:sample"
+        )
+        self.assertEqual(selected.payload_ids, ("core:sample",))
+
+        stale = approved.replace('maximum_calls = 1', 'maximum_calls = 2')
+        with _ConfigurationTree(profiles=stale) as tree:
+            with self.assertRaises(ERRORS.EvidenceConfigurationError):
+                CONFIGURATION.load_configuration(
+                    tree.profiles, tree.inventory, repository_root=tree.root
+                )
+
+        zero_with_rows = approved.replace(
+            next(
+                line.split(' = "', 1)[1][:-1]
+                for line in approved.splitlines()
+                if line.startswith("spec_capabilities_sha256 = ")
+            ),
+            ZERO_SHA256,
+            1,
+        )
+        with _ConfigurationTree(profiles=zero_with_rows) as tree:
+            with self.assertRaises(ERRORS.EvidenceConfigurationError):
+                CONFIGURATION.load_configuration(
+                    tree.profiles, tree.inventory, repository_root=tree.root
+                )
+
+        unused = _profiles_toml() + '''
+
+[[call_capability]]
+capability_id = "call:unused"
+kind = "owner"
+module_name = "sample"
+qualified_name = "sample.owner"
+action = "invoke"
+maximum_calls = 1
+return_contract = "returns_none"
+'''
+        with _ConfigurationTree(profiles=unused) as tree:
+            with self.assertRaises(ERRORS.EvidenceConfigurationError):
+                CONFIGURATION.load_configuration(
+                    tree.profiles, tree.inventory, repository_root=tree.root
+                )
+
+    def test_static_subprocess_capability_omits_inapplicable_dynamic_digest(self) -> None:
+        profiles = _approved_static_subprocess_profiles(_profiles_toml())
+        with _ConfigurationTree(profiles=profiles) as tree:
+            bundle = CONFIGURATION.load_configuration(
+                tree.profiles, tree.inventory, repository_root=tree.root
+            )
+        capability = bundle.subprocess_capabilities["process:sample"]
+        self.assertIsNone(capability.dynamic_program_sha256)
+        self.assertEqual(
+            CONFIGURATION.select_profile(bundle, "core").name, "core"
+        )
+
+    def test_capability_approval_is_scope_aware_and_transitive_for_full(self) -> None:
+        historical_id = "tests/test_history.py::HistoryTests::test_value"
+        mixed_profiles = _profiles_toml() + f'''\n
+[[profile]]
+name = "historical"
+interpreter_slots = ["development"]
+default_interpreter_slot = "development"
+payload_ids = ["historical:sample"]
+historical_case_ids = ["case:source"]
+subprofiles = []
+gpu_optional = false
+
+[profile.budgets]
+setup_seconds = 2
+child_seconds = 3
+termination_seconds = 5
+cleanup_seconds = 7
+total_seconds = 17
+
+[[profile]]
+name = "full"
+interpreter_slots = ["development"]
+payload_ids = []
+historical_case_ids = []
+subprofiles = ["core", "historical"]
+gpu_optional = false
+
+[profile.budgets]
+setup_seconds = 2
+child_seconds = 3
+termination_seconds = 5
+cleanup_seconds = 7
+total_seconds = 17
+
+[[payload]]
+payload_id = "historical:sample"
+profile_name = "historical"
+target_kind = "historical_clone"
+allowed_interpreter_slots = ["development"]
+probe_ids = []
+environment_additions = {{}}
+environment_removals = []
+allowed_write_roots = ["temporary"]
+forbidden_relative_paths = []
+serialized = true
+
+[[historical_case]]
+case_id = "case:source"
+phase = "source"
+commit = "{COMMIT}"
+root_tree_oid = "{COMMIT}"
+payload_ids = ["historical:sample"]
+overlay_ids = []
+expected_vector = {{ kind = "positive", passed = 1, assertion_failed = 0, setup_failed = 0, body_entered = 1, owner_calls = 0, scientific_calls = 0 }}
+
+[[historical_case.item_expectation]]
+item_id = "{historical_id}"
+outcome = "pass"
+'''
+        inventory = _inventory()
+        inventory["entries"].append({
+            "stable_id": historical_id,
+            "relative_path": "tests/test_history.py",
+            "case_name": "HistoryTests",
+            "method_name": "test_value",
+            "assignment": {
+                "profile_name": "historical",
+                "payload_id": "historical:sample",
+                "expectation": {"kind": "case_defined"},
+            },
+        })
+        design_approved = _approved_call_profiles(mixed_profiles)
+        with _ConfigurationTree(design_approved, inventory) as tree:
+            bundle = CONFIGURATION.load_configuration(
+                tree.profiles, tree.inventory, repository_root=tree.root
+            )
+        self.assertEqual(CONFIGURATION.select_profile(bundle, "core").name, "core")
+        for profile_name in ("historical", "full"):
+            with self.subTest(profile=profile_name):
+                with self.assertRaises(
+                    ERRORS.EvidenceConfigurationError
+                ) as refused:
+                    CONFIGURATION.select_profile(bundle, profile_name)
+                self.assertEqual(
+                    refused.exception.code, "capability_approval_required"
+                )
+                self.assertEqual(
+                    refused.exception.message,
+                    "applicable capabilities are not approved",
+                )
+
+        shared_across_scopes = _approved_call_profiles(
+            design_approved,
+            item_id=historical_id,
+            scope="historical_review",
+            include_definition=False,
+        )
+        with _ConfigurationTree(shared_across_scopes, inventory) as tree:
+            with self.assertRaises(ERRORS.EvidenceConfigurationError):
+                CONFIGURATION.load_configuration(
+                    tree.profiles, tree.inventory, repository_root=tree.root
+                )
 
     def test_strict_toml_and_json_reject_duplicate_unknown_missing_and_wrong_types(self) -> None:
         mutations = {

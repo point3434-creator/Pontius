@@ -384,6 +384,96 @@ class DependencyBaselineTests(unittest.TestCase):
             self.assertIn("changed while reading", str(caught.exception))
             self.assertEqual(identity.call_count, 4)
 
+    @unittest.skipUnless(os.name == "nt", "Windows regular-file cloud-tag test")
+    def test_regular_file_snapshot_binds_handle_cloud_metadata(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="pontius-cloud-file-") as directory:
+            root = Path(directory).resolve()
+            target = root / "source.py"
+            target.write_bytes(b"VALUE = 1\n")
+            cloud = (0x20 | 0x400, 0x9000E01A)
+
+            real_lstat = GENERATOR.os.lstat
+
+            def cloud_lstat(path: object) -> object:
+                info = real_lstat(path)
+                if Path(path) != target:
+                    return info
+                return SimpleNamespace(
+                    st_dev=info.st_dev,
+                    st_ino=info.st_ino,
+                    st_size=info.st_size,
+                    st_mtime_ns=info.st_mtime_ns,
+                    st_ctime_ns=info.st_ctime_ns,
+                    st_mode=info.st_mode,
+                    st_file_attributes=cloud[0],
+                    st_reparse_tag=cloud[1],
+                )
+
+            with mock.patch.object(
+                GENERATOR.os, "lstat", side_effect=cloud_lstat
+            ), mock.patch.object(
+                GENERATOR,
+                "_windows_regular_handle_metadata",
+                side_effect=(cloud, cloud),
+            ):
+                snapshot = GENERATOR.read_regular_snapshot(
+                    target,
+                    maximum_bytes=64,
+                    root=root,
+                )
+            self.assertEqual(snapshot.raw, b"VALUE = 1\n")
+
+            for label, metadata in (
+                ("name surrogate", (0x20 | 0x400, 0xA000000C)),
+                ("unknown", (0x20 | 0x400, 0x8000001B)),
+            ):
+                with self.subTest(label=label), mock.patch.object(
+                    GENERATOR,
+                    "_windows_regular_handle_metadata",
+                    return_value=metadata,
+                ):
+                    with self.assertRaises(GENERATOR.BaselineError):
+                        GENERATOR.read_regular_snapshot(
+                            target,
+                            maximum_bytes=64,
+                            root=root,
+                        )
+
+            mismatched_cloud = (cloud[0], 0x9000601A)
+            with mock.patch.object(
+                GENERATOR.os,
+                "lstat",
+                side_effect=cloud_lstat,
+            ), mock.patch.object(
+                GENERATOR,
+                "_windows_regular_handle_metadata",
+                side_effect=(cloud, mismatched_cloud),
+            ):
+                with self.assertRaises(GENERATOR.BaselineError) as caught:
+                    GENERATOR.read_regular_snapshot(
+                        target,
+                        maximum_bytes=64,
+                        root=root,
+                    )
+            self.assertIn("changed while reading", str(caught.exception))
+
+            with mock.patch.object(
+                GENERATOR.os,
+                "lstat",
+                side_effect=cloud_lstat,
+            ), mock.patch.object(
+                GENERATOR,
+                "_windows_regular_handle_metadata",
+                return_value=mismatched_cloud,
+            ):
+                with self.assertRaises(GENERATOR.BaselineError) as caught:
+                    GENERATOR.read_regular_snapshot(
+                        target,
+                        maximum_bytes=64,
+                        root=root,
+                    )
+            self.assertIn("changed while opening", str(caught.exception))
+
     def test_identity_bound_read_rejects_same_size_replacement_before_open(self) -> None:
         with tempfile.TemporaryDirectory(prefix="pontius-baseline-read-race-") as directory:
             root = Path(directory).resolve()
@@ -974,7 +1064,7 @@ class DependencyBaselineTests(unittest.TestCase):
         with mock.patch.object(
             GENERATOR,
             "_windows_path_api",
-            return_value=(create, close),
+            return_value=(create, None, close),
         ), mock.patch.object(
             GENERATOR.msvcrt,
             "open_osfhandle",

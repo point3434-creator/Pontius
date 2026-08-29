@@ -1,0 +1,724 @@
+diff --git a/task-2-fix8-try-suites-windows-identity-correction-review-snapshot/before/tests/test_inventory_and_profiles.py b/task-2-fix8-try-suites-windows-identity-correction-review-snapshot/after/tests/test_inventory_and_profiles.py
+index b959be2..70bd33d 100644
+--- a/task-2-fix8-try-suites-windows-identity-correction-review-snapshot/before/tests/test_inventory_and_profiles.py
++++ b/task-2-fix8-try-suites-windows-identity-correction-review-snapshot/after/tests/test_inventory_and_profiles.py
+@@ -5270,6 +5270,245 @@ class DesignReviewTests(unittest.TestCase):
+                     )
+                 )
+ 
++    def _round7_preclassifier_governs_every_try_suite_throw(self) -> None:
++        throw_statements = {
++            "call": "may_raise()",
++            "await": "await may_raise_async()",
++            "yield": "yield from may_raise_gen()",
++        }
++
++        def scenario_body(
++            region: str,
++            throw_kind: str,
++            final_sensitive: bool,
++        ) -> str:
++            initial = "None" if final_sensitive else "cp"
++            final = "cp" if final_sensitive else "None"
++            throw = throw_statements[throw_kind]
++            if region == "body":
++                inner = f"try:\n    {throw}\nfinally:\n    value = {final}"
++            elif region == "first_handler":
++                inner = (
++                    "try:\n"
++                    "    raise LookupError\n"
++                    "except LookupError:\n"
++                    f"    {throw}\n"
++                    "except RuntimeError:\n"
++                    "    pass\n"
++                    "finally:\n"
++                    f"    value = {final}"
++                )
++            elif region == "second_handler":
++                inner = (
++                    "try:\n"
++                    "    raise LookupError\n"
++                    "except RuntimeError:\n"
++                    "    pass\n"
++                    "except LookupError:\n"
++                    f"    {throw}\n"
++                    "finally:\n"
++                    f"    value = {final}"
++                )
++            elif region == "else":
++                inner = (
++                    "try:\n"
++                    "    pass\n"
++                    "except RuntimeError:\n"
++                    "    pass\n"
++                    "else:\n"
++                    f"    {throw}\n"
++                    "finally:\n"
++                    f"    value = {final}"
++                )
++            else:
++                raise AssertionError(f"unknown try suite {region}")
++            return (
++                f"value = {initial}\n"
++                "try:\n"
++                f"{textwrap.indent(inner, '    ')}\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)"
++            )
++
++        def nested_body(throw_kind: str, final_sensitive: bool) -> str:
++            initial = "None" if final_sensitive else "cp"
++            final = "cp" if final_sensitive else "None"
++            throw = throw_statements[throw_kind]
++            return (
++                f"value = {initial}\n"
++                f"observed = {initial}\n"
++                "try:\n"
++                "    try:\n"
++                "        try:\n"
++                "            pass\n"
++                "        except RuntimeError:\n"
++                "            pass\n"
++                "        else:\n"
++                f"            {throw}\n"
++                "        finally:\n"
++                f"            value = {final}\n"
++                "    finally:\n"
++                "        observed = value\n"
++                "except RuntimeError:\n"
++                "    observed.arange(1)"
++            )
++
++        handled_controls = {
++            "bare_handler": (
++                "value = cp\n"
++                "with contextlib.suppress(RuntimeError):\n"
++                "    try:\n"
++                "        may_raise()\n"
++                "    except:\n"
++                "        value = None\n"
++                "    else:\n"
++                "        value = None\n"
++                "value.arange(1)"
++            ),
++            "typed_handler": (
++                "value = cp\n"
++                "with contextlib.suppress(RuntimeError):\n"
++                "    try:\n"
++                "        may_raise()\n"
++                "    except RuntimeError:\n"
++                "        value = None\n"
++                "    else:\n"
++                "        value = None\n"
++                "value.arange(1)"
++            ),
++            "multiple_handlers": (
++                "value = cp\n"
++                "with contextlib.suppress(RuntimeError):\n"
++                "    try:\n"
++                "        may_raise()\n"
++                "    except LookupError:\n"
++                "        value = None\n"
++                "    except RuntimeError:\n"
++                "        value = None\n"
++                "    else:\n"
++                "        value = None\n"
++                "value.arange(1)"
++            ),
++            "nested_suppress": (
++                "value = cp\n"
++                "observed = cp\n"
++                "with contextlib.suppress(RuntimeError):\n"
++                "    try:\n"
++                "        try:\n"
++                "            may_raise()\n"
++                "        except RuntimeError:\n"
++                "            value = None\n"
++                "        else:\n"
++                "            value = None\n"
++                "    finally:\n"
++                "        observed = value\n"
++                "observed.arange(1)"
++            ),
++        }
++        cases: list[tuple[str, str, bool]] = []
++        for throw_kind in throw_statements:
++            for region in ("body", "first_handler", "second_handler", "else"):
++                for final_sensitive in (True, False):
++                    cases.append(
++                        (
++                            f"{region}_{throw_kind}_{'sensitive' if final_sensitive else 'safe'}",
++                            scenario_body(region, throw_kind, final_sensitive),
++                            final_sensitive,
++                        )
++                    )
++            for final_sensitive in (True, False):
++                cases.append(
++                    (
++                        f"nested_{throw_kind}_{'sensitive' if final_sensitive else 'safe'}",
++                        nested_body(throw_kind, final_sensitive),
++                        final_sensitive,
++                    )
++                )
++        cases.extend((name, body, False) for name, body in handled_controls.items())
++
++        for name, body, should_be_sensitive in cases:
++            declaration = "async def" if "_await_" in f"_{name}_" else "def"
++            direct_source = (
++                "import contextlib\n"
++                "import cupy as cp\n"
++                "def may_raise(): pass\n"
++                "async def may_raise_async(): pass\n"
++                "def may_raise_gen(): yield 1\n"
++                f"{declaration} scenario():\n"
++                f"{textwrap.indent(body, '    ')}\n"
++            )
++            module = ast.parse(direct_source)
++            functions = {
++                node.name: node
++                for node in module.body
++                if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
++            }
++            scenario = functions["scenario"]
++            observer = next(
++                node
++                for node in ast.walk(scenario)
++                if isinstance(node, ast.Call)
++                and isinstance(node.func, ast.Attribute)
++                and node.func.attr == "arange"
++            )
++            with self.subTest(finally_suite_throw=name):
++                calls = self.generator._preclassified_sensitive_calls(
++                    scenario.body,
++                    {"contextlib": "contextlib", "cp": "cupy"},
++                    self.generator._AnalysisBudget(),
++                    functions,
++                )
++                self.assertEqual(
++                    id(observer) in calls,
++                    should_be_sensitive,
++                    f"{name} did not transform its exceptional successor once",
++                )
++
++                resolved = self.generator._source_ordered_review_flow(
++                    scenario,
++                    {"contextlib": "contextlib", "cp": "cupy"},
++                    {},
++                    functions,
++                    budget=self.generator._AnalysisBudget(),
++                )
++                self.assertEqual(
++                    resolved.callables_by_call.get(id(observer)) == "cupy.arange",
++                    should_be_sensitive,
++                    f"{name} primary resolver expectation changed",
++                )
++                if "_yield_" in f"_{name}_":
++                    continue
++
++                review_source = (
++                    "import contextlib\n"
++                    "import cupy as cp\n"
++                    "import unittest\n"
++                    "def may_raise(): pass\n"
++                    "async def may_raise_async(): pass\n"
++                    "def may_raise_gen(): yield 1\n"
++                    "class ReviewTests(unittest.TestCase):\n"
++                    f"    {declaration} test_static(self):\n"
++                    f"{textwrap.indent(body, '        ')}\n"
++                    "    def test_denied(self): pass\n"
++                )
++                try:
++                    review = self._review(
++                        sources={"tests/test_review.py": _source(review_source)}
++                    )
++                except self.generator.InventoryError as error:
++                    self.fail(f"{name} census did not reconcile: {error}")
++                observer_rows = [
++                    row
++                    for row in review["receipt"]["expanded_rows"]
++                    if row["item_id"] == self.static_id
++                    and row.get("qualified_name") == "cupy.arange"
++                ]
++                self.assertEqual(
++                    len(observer_rows),
++                    1 if should_be_sensitive else 0,
++                    f"{name} produced a missing or duplicate observer row",
++                )
++
+     def test_round4_source_order_and_branch_bounds_red_contracts_are_independent(
+         self,
+     ) -> None:
+@@ -5277,6 +5516,7 @@ class DesignReviewTests(unittest.TestCase):
+         self._final_rereview_preclassifier_uses_throw_site_handler_state()
+         self._final2_preclassifier_tracks_nested_exact_throw_sites()
+         self._round6_preclassifier_transforms_finally_and_suppress_exits()
++        self._round7_preclassifier_governs_every_try_suite_throw()
+         for label, first, second in (
+             ("five-then-one", 5, 1),
+             ("one-then-five", 1, 5),
+@@ -11729,6 +11969,260 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                             except OSError:
+                                 pass
+ 
++    def _round7_windows_file_owners_bind_before_caller_failure(self) -> None:
++        real_open_directory = self.generator._windows_open_governance_directory
++        real_create = self.generator._windows_create_relative_governance_file
++        real_open_raw = self.generator._windows_open_relative_governance_file_raw
++        real_try_close = self.generator._windows_try_close_file
++
++        for family in (
++            "staging",
++            "original",
++            "recovery",
++            "published",
++            "readback",
++            "published_disposal",
++        ):
++            with self.subTest(prebound_owner_family=family), (
++                tempfile.TemporaryDirectory(
++                    prefix=f"pontius-round7-prebound-{family}-",
++                    ignore_cleanup_errors=True,
++                )
++            ) as temporary:
++                root = Path(temporary)
++                target = root / "profiles.toml"
++                unrelated = root / "unrelated.txt"
++                unrelated.write_bytes(b"unrelated\n")
++                if family != "published_disposal":
++                    target.write_bytes(b"old\n")
++                with mock.patch.object(self.generator.atexit, "register"):
++                    manager = self.generator._GovernanceCleanupManager()
++                selected_handle: int | None = None
++                selected_directory: int | None = None
++                selected_owner: object | None = None
++                replacement: int | None = None
++                replacement_identity: tuple[int, int] | None = None
++                replacement_blockers: list[int] = []
++                close_attempts = 0
++                injected = False
++
++                def owner_family(
++                    owner: object | None,
++                    keywords: dict[str, object],
++                ) -> str | None:
++                    role = getattr(owner, "role", None)
++                    if role != "published":
++                        return role if isinstance(role, str) else None
++                    if (
++                        keywords.get("read_data") is True
++                        and keywords.get("share_write") is False
++                        and keywords.get("delete_access") is False
++                    ):
++                        return "published"
++                    return "published_disposal"
++
++                def capture_directory(
++                    path: Path,
++                    **keywords: object,
++                ) -> tuple[int, tuple[int, bytes]]:
++                    return real_open_directory(path, **keywords)
++
++                def capture_create(
++                    directory: int,
++                    name: str,
++                    **keywords: object,
++                ) -> int:
++                    nonlocal selected_handle, selected_directory
++                    nonlocal selected_owner, injected
++                    handle = real_create(directory, name, **keywords)
++                    owner = keywords.get("owner")
++                    if (
++                        family == "staging"
++                        and getattr(owner, "role", None) == "staging"
++                        and not injected
++                    ):
++                        injected = True
++                        selected_handle = handle
++                        selected_directory = directory
++                        selected_owner = owner
++                        raise OSError("failure immediately after staged-file acquisition")
++                    return handle
++
++                def capture_open_raw(
++                    directory: int,
++                    name: str,
++                    **keywords: object,
++                ) -> int:
++                    nonlocal selected_handle, selected_directory
++                    nonlocal selected_owner, injected
++                    handle = real_open_raw(directory, name, **keywords)
++                    owner = keywords.get("owner")
++                    if owner_family(owner, keywords) == family and not injected:
++                        injected = True
++                        selected_handle = handle
++                        selected_directory = directory
++                        selected_owner = owner
++                        raise OSError(
++                            f"failure immediately after {family} acquisition"
++                        )
++                    return handle
++
++                def consume_then_reuse(handle: int) -> bool:
++                    nonlocal replacement, replacement_identity, close_attempts
++                    if handle == selected_handle and close_attempts == 0:
++                        close_attempts += 1
++                        if not real_try_close(handle):
++                            raise AssertionError("selected owner handle did not close")
++                        if selected_directory is None:
++                            raise AssertionError("selected owner directory is absent")
++                        for _ in range(4096):
++                            candidate = real_open_raw(
++                                selected_directory,
++                                unrelated.name,
++                                read_data=True,
++                                share_write=True,
++                                delete_access=False,
++                            )
++                            if candidate == handle:
++                                replacement = candidate
++                                replacement_identity = (
++                                    self.generator._windows_governance_handle_file_id(
++                                        candidate
++                                    )
++                                )
++                                break
++                            replacement_blockers.append(candidate)
++                        if replacement is None:
++                            raise AssertionError(
++                                "native handle reuse could not be forced"
++                            )
++                        raise OSError(
++                            f"{family} close consumed then raised before retry"
++                        )
++                    if handle == replacement:
++                        raise AssertionError(
++                            "ambiguous owner replay-closed the reused handle"
++                        )
++                    return real_try_close(handle)
++
++                def reject_after_publish(_snapshot: object) -> None:
++                    raise OSError("force absent-target rollback")
++
++                caught: BaseException | None = None
++                with mock.patch.object(
++                    self.generator,
++                    "_GOVERNANCE_CLEANUP_MANAGER",
++                    manager,
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_open_governance_directory",
++                    side_effect=capture_directory,
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_create_relative_governance_file",
++                    side_effect=capture_create,
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_open_relative_governance_file_raw",
++                    side_effect=capture_open_raw,
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_try_close_file",
++                    side_effect=consume_then_reuse,
++                ):
++                    try:
++                        self.generator.write_atomic_lf(
++                            target,
++                            b"new\n",
++                            _post_publish_lifetime_check=(
++                                reject_after_publish
++                                if family == "published_disposal"
++                                else None
++                            ),
++                        )
++                    except BaseException as error:
++                        caught = error
++
++                descriptors = manager.pending_descriptors()
++                retry_error: BaseException | None = None
++                if descriptors:
++                    for descriptor in descriptors:
++                        try:
++                            manager.retry_pending(descriptor.retry_id)
++                        except BaseException as error:
++                            retry_error = error
++                    descriptors = manager.pending_descriptors()
++                try:
++                    self.assertTrue(injected, f"{family} acquisition was not reached")
++                    self.assertEqual(close_attempts, 1)
++                    self.assertEqual(replacement, selected_handle)
++                    self.assertIsNotNone(selected_owner)
++                    self.assertIsNotNone(
++                        getattr(selected_owner, "expected_identity", None),
++                        f"{family} owner was returned without an identity",
++                    )
++                    self.assertIsNotNone(caught)
++                    self.assertIsNone(
++                        retry_error,
++                        (
++                            f"{family} retry did not reconcile its bound owner: "
++                            f"cause={getattr(retry_error, '__cause__', None)!r}; "
++                            f"descriptors={descriptors!r}; owner={selected_owner!r}; "
++                            f"replacement_identity={replacement_identity!r}"
++                        ),
++                    )
++                    self.assertEqual(descriptors, ())
++                    self.assertTrue(
++                        self.generator._windows_governance_handle_is_open(
++                            replacement
++                        ),
++                        "cleanup replay-closed an unrelated reused handle",
++                    )
++                    if family == "published_disposal":
++                        self.assertFalse(target.exists())
++                    else:
++                        self.assertEqual(target.read_bytes(), b"old\n")
++                    self.assertEqual(
++                        {path.name for path in root.iterdir()},
++                        ({target.name, unrelated.name} if target.exists() else {unrelated.name}),
++                    )
++                finally:
++                    if replacement is not None:
++                        try:
++                            real_try_close(replacement)
++                        except BaseException:
++                            pass
++                    for blocker in replacement_blockers:
++                        try:
++                            real_try_close(blocker)
++                        except BaseException:
++                            pass
++                    for _ in range(3):
++                        descriptors = manager.pending_descriptors()
++                        if not descriptors:
++                            break
++                        for descriptor in descriptors:
++                            try:
++                                manager.retry_pending(descriptor.retry_id)
++                            except BaseException:
++                                pass
++                    for descriptor in manager.pending_descriptors():
++                        retained = manager._pending[descriptor.retry_id].owner
++                        for participant in retained.participants:
++                            participant.cleaned = True
++                        try:
++                            retained.lock_set.close()
++                        except BaseException:
++                            pass
++                    with manager._condition:
++                        manager._pending.clear()
++                        manager._reservations.clear()
++                    for artifact in tuple(root.iterdir()):
++                        try:
++                            artifact.unlink()
++                        except OSError:
++                            pass
++
+     def _final3_windows_lock_close_failure_remains_owned(self) -> None:
+         manager = self.generator._GovernanceCleanupManager()
+         with tempfile.TemporaryDirectory(
+@@ -11828,6 +12322,7 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+         self._round6_windows_auxiliary_file_owners_are_retryable()
+         self._round6_windows_namespace_free_ambiguous_closes_reconcile()
+         self._final3_windows_writer_reused_handles_are_role_isolated()
++        self._round7_windows_file_owners_bind_before_caller_failure()
+         self._final3_windows_staging_cleanup_is_monotonic()
+         self._final3_windows_lock_close_failure_remains_owned()
+         for role in ("staging", "published", "recovery", "deterministic_lock"):
+@@ -14685,15 +15180,15 @@ class CheckedInInventoryTests(unittest.TestCase):
+                 "subprocess_helper_site_count": 4,
+                 "cross_file_helper_edge_count": 27,
+                 "cupy_call_node_count": 30,
+-                "string_sink_decoy_count": 168,
++                "string_sink_decoy_count": 170,
+                 "string_sink_decoy_sha256": (
+-                    "5baa919ed761b4a414b3896d294fc7263ac96671b608e4752a366af8d6602abf"
++                    "5f99a466945915d04758c08d29c7455b9bdd154bffa18c57ff988dbf7fe48293"
+                 ),
+                 "string_sink_decoy_partitions": {
+                     "design_production": 17,
+                     "historical_production": 6,
+                     "prior_stabilization_synthetic": 26,
+-                    "task2_synthetic": 119,
++                    "task2_synthetic": 121,
+                 },
+                 "analyzed_sites_sha256": (
+                     "8219efd8ef8379ac071b687765eebd783319d15e5343911592ae92966d45cb71"
+diff --git a/task-2-fix8-try-suites-windows-identity-correction-review-snapshot/before/tools/generate_test_inventory.py b/task-2-fix8-try-suites-windows-identity-correction-review-snapshot/after/tools/generate_test_inventory.py
+index 7bdaa90..dc5147f 100644
+--- a/task-2-fix8-try-suites-windows-identity-correction-review-snapshot/before/tools/generate_test_inventory.py
++++ b/task-2-fix8-try-suites-windows-identity-correction-review-snapshot/after/tools/generate_test_inventory.py
+@@ -4170,15 +4170,27 @@ class _WindowsGovernanceFileOwner:
+         except BaseException as error:
+             raise InventoryError(f"{label} close outcome is unresolved") from error
+         if is_open:
+-            if self.expected_identity is None:
+-                raise InventoryError(f"{label} close outcome is unresolved")
+-            try:
+-                current_identity = _windows_governance_handle_file_id(handle)
+-            except BaseException as error:
+-                raise InventoryError(
+-                    f"{label} close outcome is unresolved"
+-                ) from error
+-            if current_identity == self.expected_identity:
++            if self.expected_identity is not None:
++                try:
++                    current_identity = _windows_governance_handle_file_id(handle)
++                except BaseException as error:
++                    raise InventoryError(
++                        f"{label} close outcome is unresolved"
++                    ) from error
++                if current_identity == self.expected_identity:
++                    raise InventoryError(f"{label} close outcome is unresolved")
++            elif self.disposition_armed and self.namespace_owned:
++                try:
++                    artifact_absent = (
++                        _governance_destination_identity(self.artifact_path) is None
++                    )
++                except BaseException as error:
++                    raise InventoryError(
++                        f"{label} close outcome is unresolved"
++                    ) from error
++                if not artifact_absent:
++                    raise InventoryError(f"{label} close outcome is unresolved")
++            else:
+                 raise InventoryError(f"{label} close outcome is unresolved")
+         self.ambiguous_handle = None
+         self.closed = True
+@@ -4352,6 +4364,7 @@ def _windows_open_relative_governance_file_raw(
+     numeric = int(handle.value)
+     if owner is not None:
+         owner.adopt(numeric)
++        owner.bind_identity(_windows_governance_handle_file_id(numeric))
+     return numeric
+ 
+ 
+@@ -4738,6 +4751,10 @@ def _windows_create_relative_governance_file(
+             else "temporary"
+         )
+         raise InventoryError(f"governance {label} creation failed")
++    if isinstance(owner, _WindowsGovernanceFileOwner):
++        owner.bind_identity(
++            _windows_governance_handle_file_id(int(handle.value))
++        )
+     return int(handle.value)
+ 
+ 
+@@ -5755,6 +5772,19 @@ def _write_windows_governance(
+     def cleanup_unpublished_recovery() -> None:
+         if not publish_state.displaced or publish_state.published:
+             return
++        if recovery_owner.ambiguous_handle is not None:
++            close_recovery_handle()
++            if (
++                recovery_owner.closed
++                and recovery_owner.disposition_armed
++                and not recovery_owner.namespace_owned
++            ):
++                publish_state.recovery_deletion_armed = False
++                recovery_owner.disposition_armed = False
++                publish_state.displaced = False
++                publish_state.recovery_name = None
++                outcome.recovery_path = None
++                return
+         handle = acquire_recovery_for_cleanup()
+         if handle is None:
+             raise InventoryError("governance recovery cleanup handle is absent")
+@@ -8506,14 +8536,15 @@ class _SensitivePreclassifier:
+                 try_types = (*try_types, ast.TryStar)
+             if isinstance(statement, try_types):
+                 outer_throw_states = self._throw_states
+-                exceptional: list[tuple[dict[str, str], set[str]]] = []
+-                self._throw_states = exceptional
++                protected_exceptional: list[
++                    tuple[dict[str, str], set[str]]
++                ] = []
++                self._throw_states = protected_exceptional
+                 try:
+                     protected_flow = self._statements(statement.body)
+                 finally:
+                     self._throw_states = outer_throw_states
+                 local = _PreclassifierSuccessors(
+-                    raises=list(protected_flow.raises),
+                     returns=list(protected_flow.returns),
+                     breaks=list(protected_flow.breaks),
+                     continues=list(protected_flow.continues),
+@@ -8521,25 +8552,45 @@ class _SensitivePreclassifier:
+                 normal: list[tuple[dict[str, str], set[str]]] = []
+                 if protected_flow.normal:
+                     self._merge(protected_flow.normal)
+-                    orelse_flow = self._statements(statement.orelse)
+-                    local.raises.extend(orelse_flow.raises)
++                    orelse_exceptional: list[
++                        tuple[dict[str, str], set[str]]
++                    ] = []
++                    self._throw_states = orelse_exceptional
++                    try:
++                        orelse_flow = self._statements(statement.orelse)
++                    finally:
++                        self._throw_states = outer_throw_states
++                    local.raises.extend(orelse_exceptional)
+                     local.returns.extend(orelse_flow.returns)
+                     local.breaks.extend(orelse_flow.breaks)
+                     local.continues.extend(orelse_flow.continues)
+                     normal.extend(orelse_flow.normal)
+-                for exceptional_state in exceptional:
+-                    for handler in statement.handlers:
+-                        self._restore(exceptional_state)
+-                        self._expression(handler.type)
+-                        if handler.name is not None:
+-                            self._bind(ast.Name(id=handler.name), None, False)
+-                        handler_flow = self._statements(handler.body)
+-                        local.raises.extend(handler_flow.raises)
+-                        local.returns.extend(handler_flow.returns)
+-                        local.breaks.extend(handler_flow.breaks)
+-                        local.continues.extend(handler_flow.continues)
+-                        normal.extend(handler_flow.normal)
+-                local.raises.extend(exceptional)
++                if statement.handlers:
++                    for exceptional_state in protected_exceptional:
++                        for handler in statement.handlers:
++                            handler_exceptional: list[
++                                tuple[dict[str, str], set[str]]
++                            ] = []
++                            self._throw_states = handler_exceptional
++                            try:
++                                self._restore(exceptional_state)
++                                self._expression(handler.type)
++                                if handler.name is not None:
++                                    self._bind(
++                                        ast.Name(id=handler.name),
++                                        None,
++                                        False,
++                                    )
++                                handler_flow = self._statements(handler.body)
++                            finally:
++                                self._throw_states = outer_throw_states
++                            local.raises.extend(handler_exceptional)
++                            local.returns.extend(handler_flow.returns)
++                            local.breaks.extend(handler_flow.breaks)
++                            local.continues.extend(handler_flow.continues)
++                            normal.extend(handler_flow.normal)
++                else:
++                    local.raises.extend(protected_exceptional)
+                 local.normal = normal
+                 if statement.finalbody:
+                     transformed = _PreclassifierSuccessors()
+@@ -8553,8 +8604,15 @@ class _SensitivePreclassifier:
+                         incoming_states = getattr(local, exit_kind)
+                         for incoming_state in incoming_states:
+                             self._restore(incoming_state)
+-                            final_flow = self._statements(statement.finalbody)
+-                            transformed.raises.extend(final_flow.raises)
++                            final_exceptional: list[
++                                tuple[dict[str, str], set[str]]
++                            ] = []
++                            self._throw_states = final_exceptional
++                            try:
++                                final_flow = self._statements(statement.finalbody)
++                            finally:
++                                self._throw_states = outer_throw_states
++                            transformed.raises.extend(final_exceptional)
+                             transformed.returns.extend(final_flow.returns)
+                             transformed.breaks.extend(final_flow.breaks)
+                             transformed.continues.extend(final_flow.continues)

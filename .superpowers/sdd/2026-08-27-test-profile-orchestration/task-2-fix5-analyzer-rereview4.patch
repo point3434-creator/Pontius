@@ -1,0 +1,132 @@
+diff --git "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview4-snapshot\\before/tests/test_inventory_and_profiles.py" "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview4-snapshot\\after/tests/test_inventory_and_profiles.py"
+index 6ab59db..951c478 100644
+--- "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview4-snapshot\\before/tests/test_inventory_and_profiles.py"
++++ "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview4-snapshot\\after/tests/test_inventory_and_profiles.py"
+@@ -5229,6 +5229,81 @@ class DesignReviewTests(unittest.TestCase):
+             )
+             self.assertFalse(review["unresolved_dynamic_blockers"])
+ 
++        with_control_transfers = (
++            (
++                "return",
++                "with manager():\n    return\nprobe()\n",
++            ),
++            (
++                "break",
++                "for _ in range(1):\n"
++                "    with manager():\n"
++                "        break\n"
++                "    probe()\n",
++            ),
++            (
++                "continue",
++                "for _ in range(1):\n"
++                "    with manager():\n"
++                "        continue\n"
++                "    probe()\n",
++            ),
++        )
++        for label, source_text in with_control_transfers:
++            with self.subTest(round5_rereview4_runtime_transfer=label):
++                statements = ast.parse(source_text).body
++                probe = next(
++                    candidate
++                    for statement in statements
++                    for candidate in ast.walk(statement)
++                    if isinstance(candidate, ast.Call)
++                    and isinstance(candidate.func, ast.Name)
++                    and candidate.func.id == "probe"
++                )
++                counts, dynamic = self.generator._runtime_call_bounds(
++                    statements,
++                    {id(probe): b"sink"},
++                    assignments={},
++                    relative_path="tests/test_review.py",
++                    aliases={},
++                    helper_registry={},
++                )
++                self.assertEqual(counts, {})
++                self.assertEqual(dynamic, set())
++
++        with self.subTest(round5_rereview4_helper="with-return"):
++            source = _source(
++                """
++                import contextlib
++                import subprocess
++                import sys
++                import unittest
++                def runner():
++                    with contextlib.nullcontext():
++                        return subprocess.run
++                class ReviewTests(unittest.TestCase):
++                    def test_static(self):
++                        launch = runner()
++                        launch(
++                            [sys.executable, "-m", "with-returned"],
++                            timeout=5,
++                            check=False,
++                        )
++                    def test_denied(self): pass
++                """
++            )
++            review = self._review(sources={"tests/test_review.py": source})
++            processes = [
++                row
++                for row in review["receipt"]["expanded_rows"]
++                if row["capability_kind"] == "subprocess"
++            ]
++            self.assertEqual(
++                [row["argv"] for row in processes],
++                [["-m", "with-returned"]],
++            )
++            self.assertFalse(review["unresolved_dynamic_blockers"])
++
+     def test_round4_exception_environment_red_contracts_are_independent(self) -> None:
+         direct_cases = (
+             (
+@@ -10023,7 +10098,7 @@ class CheckedInInventoryTests(unittest.TestCase):
+                 "cupy_call_node_count": 30,
+                 "string_sink_decoy_count": 167,
+                 "string_sink_decoy_sha256": (
+-                    "e965ff7b38055074c83ce8bcb4669aaaf4aca8912eefcd7596e63ad3907e8e1a"
++                    "3b0e9eb354a85b8ef5774dfdbee0feaef46db56e25e0ddfd4b24d7662e56bdf8"
+                 ),
+                 "string_sink_decoy_partitions": {
+                     "design_production": 17,
+diff --git "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview4-snapshot\\before/tools/generate_test_inventory.py" "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview4-snapshot\\after/tools/generate_test_inventory.py"
+index beaf088..94a256a 100644
+--- "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview4-snapshot\\before/tools/generate_test_inventory.py"
++++ "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview4-snapshot\\after/tools/generate_test_inventory.py"
+@@ -7558,13 +7558,18 @@ def _outer_loop_control_outcomes(
+             outcomes.add("break")
+         elif isinstance(statement, ast.Continue):
+             outcomes.add("continue")
+-        elif isinstance(statement, (ast.Return, ast.Raise)):
+-            outcomes.add("terminal")
++        elif isinstance(statement, ast.Return):
++            outcomes.add("return")
++        elif isinstance(statement, ast.Raise):
++            outcomes.add("raise")
+         elif isinstance(statement, ast.If):
+             outcomes.update(_outer_loop_control_outcomes(statement.body))
+             outcomes.update(_outer_loop_control_outcomes(statement.orelse))
+         elif isinstance(statement, (ast.With, ast.AsyncWith)):
+-            outcomes.update(_outer_loop_control_outcomes(statement.body))
++            body = _outer_loop_control_outcomes(statement.body)
++            outcomes.update(body)
++            if "raise" in body:
++                outcomes.add("fallthrough")
+         elif isinstance(statement, ast.Match):
+             outcomes.add("fallthrough")
+             for case in statement.cases:
+@@ -9314,6 +9319,10 @@ def _statements_terminate_without_fallthrough(
+                 statement.body
+             ) and _statements_terminate_without_fallthrough(statement.orelse):
+                 return True
++        if isinstance(statement, (ast.With, ast.AsyncWith)):
++            control = _outer_loop_control_outcomes(statement.body)
++            if "fallthrough" not in control and "raise" not in control:
++                return True
+         if isinstance(statement, ast.Match) and statement.cases:
+             final = statement.cases[-1]
+             if (

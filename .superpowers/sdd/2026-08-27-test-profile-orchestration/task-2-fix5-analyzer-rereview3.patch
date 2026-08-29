@@ -1,0 +1,87 @@
+diff --git "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview3-snapshot\\before/tests/test_inventory_and_profiles.py" "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview3-snapshot\\after/tests/test_inventory_and_profiles.py"
+index a064ebc..6ab59db 100644
+--- "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview3-snapshot\\before/tests/test_inventory_and_profiles.py"
++++ "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview3-snapshot\\after/tests/test_inventory_and_profiles.py"
+@@ -5200,6 +5200,35 @@ class DesignReviewTests(unittest.TestCase):
+                 self.assertFalse(review["receipt"]["expanded_rows"])
+                 self.assertFalse(review["unresolved_dynamic_blockers"])
+ 
++        with self.subTest(round5_rereview3_successor="with-suppression"):
++            source = _source(
++                """
++                import contextlib
++                import cupy as cp
++                import unittest
++                class ReviewTests(unittest.TestCase):
++                    def test_static(self):
++                        with contextlib.suppress(RuntimeError):
++                            raise RuntimeError
++                        cp.arange(1)
++                    def test_denied(self): pass
++                """
++            )
++            review = self._review(sources={"tests/test_review.py": source})
++            calls = [
++                row
++                for row in review["receipt"]["expanded_rows"]
++                if row["capability_kind"] == "call"
++            ]
++            self.assertEqual(
++                [
++                    (row["qualified_name"], row["maximum_calls"])
++                    for row in calls
++                ],
++                [("cupy.arange", 1)],
++            )
++            self.assertFalse(review["unresolved_dynamic_blockers"])
++
+     def test_round4_exception_environment_red_contracts_are_independent(self) -> None:
+         direct_cases = (
+             (
+@@ -9992,15 +10021,15 @@ class CheckedInInventoryTests(unittest.TestCase):
+                 "subprocess_helper_site_count": 4,
+                 "cross_file_helper_edge_count": 27,
+                 "cupy_call_node_count": 30,
+-                "string_sink_decoy_count": 165,
++                "string_sink_decoy_count": 167,
+                 "string_sink_decoy_sha256": (
+-                    "c152269a4533fe3f55bb6550fd16a7d6a3d564813165f6dba3bdd1031c3ffd07"
++                    "e965ff7b38055074c83ce8bcb4669aaaf4aca8912eefcd7596e63ad3907e8e1a"
+                 ),
+                 "string_sink_decoy_partitions": {
+                     "design_production": 17,
+                     "historical_production": 6,
+                     "prior_stabilization_synthetic": 26,
+-                    "task2_synthetic": 116,
++                    "task2_synthetic": 118,
+                 },
+                 "analyzed_sites_sha256": (
+                     "8219efd8ef8379ac071b687765eebd783319d15e5343911592ae92966d45cb71"
+diff --git "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview3-snapshot\\before/tools/generate_test_inventory.py" "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview3-snapshot\\after/tools/generate_test_inventory.py"
+index ac2ebe3..beaf088 100644
+--- "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview3-snapshot\\before/tools/generate_test_inventory.py"
++++ "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-rereview3-snapshot\\after/tools/generate_test_inventory.py"
+@@ -8589,10 +8589,9 @@ class _SourceOrderedResolver:
+                     self._assign(item.optional_vars, supplied, current)
+                 if self._expression_may_raise(item.context_expr):
+                     result.raises.append(dict(current))
+-            self._extend_successors(
+-                result,
+-                self._flow_statements(statement.body, current),
+-            )
++            body = self._flow_statements(statement.body, current)
++            self._extend_successors(result, body)
++            result.normal.extend(body.raises)
+             return self._coalesce_successors(result)
+         if isinstance(statement, (ast.For, ast.AsyncFor)):
+             current = dict(values)
+@@ -9315,9 +9314,6 @@ def _statements_terminate_without_fallthrough(
+                 statement.body
+             ) and _statements_terminate_without_fallthrough(statement.orelse):
+                 return True
+-        if isinstance(statement, (ast.With, ast.AsyncWith)):
+-            if _statements_terminate_without_fallthrough(statement.body):
+-                return True
+         if isinstance(statement, ast.Match) and statement.cases:
+             final = statement.cases[-1]
+             if (

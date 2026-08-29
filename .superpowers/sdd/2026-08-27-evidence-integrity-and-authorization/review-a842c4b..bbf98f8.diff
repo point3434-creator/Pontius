@@ -1,0 +1,682 @@
+# Review package: a842c4b6a73a2991a63a481f4107580b72750582..bbf98f822173fb2a6b0cb84aa910293ad05c0ee5
+
+## Commits
+bbf98f8 test(evidence): lock typed error and model contracts
+
+## Files changed
+ src/pontius/evidence/__init__.py        |  24 ++
+ src/pontius/evidence/errors.py          |  64 +++++
+ src/pontius/evidence/model.py           | 416 ++++++++++++++++++++++++++++++++
+ tests/test_evidence_errors_and_model.py | 141 +++++++++++
+ 4 files changed, 645 insertions(+)
+
+## Diff
+diff --git a/src/pontius/evidence/__init__.py b/src/pontius/evidence/__init__.py
+new file mode 100644
+index 0000000..ad1b969
+--- /dev/null
++++ b/src/pontius/evidence/__init__.py
+@@ -0,0 +1,24 @@
++"""Public, dependency-light evidence contracts."""
++
++from .errors import (
++    AuthorizationPhaseError,
++    EvidenceConfigurationError,
++    EvidenceError,
++    EvidenceIntegrityError,
++    LifecycleStateError,
++    RuntimeContractError,
++)
++from .model import AuthorizationState, LiveAuthorizationState, PreauthorizationState, RetainedV7Assessment
++
++__all__ = (
++    "AuthorizationPhaseError",
++    "AuthorizationState",
++    "EvidenceConfigurationError",
++    "EvidenceError",
++    "EvidenceIntegrityError",
++    "LifecycleStateError",
++    "LiveAuthorizationState",
++    "PreauthorizationState",
++    "RetainedV7Assessment",
++    "RuntimeContractError",
++)
+diff --git a/src/pontius/evidence/errors.py b/src/pontius/evidence/errors.py
+new file mode 100644
+index 0000000..130bcab
+--- /dev/null
++++ b/src/pontius/evidence/errors.py
+@@ -0,0 +1,64 @@
++"""Stable exceptions for the evidence boundary."""
++
++from __future__ import annotations
++
++from collections.abc import Mapping
++from types import MappingProxyType
++from typing import TypeAlias
++
++
++FrozenContextValue: TypeAlias = str | int | bool | None | tuple["FrozenContextValue", ...] | frozenset["FrozenContextValue"] | Mapping[str, "FrozenContextValue"]
++
++
++def _freeze_context_value(value: object) -> FrozenContextValue:
++    if value is None or isinstance(value, (str, int, bool)):
++        return value
++    if isinstance(value, Mapping):
++        frozen_items: list[tuple[str, FrozenContextValue]] = []
++        for key, nested_value in value.items():
++            if not isinstance(key, str):
++                raise TypeError("evidence error context keys must be strings")
++            frozen_items.append((key, _freeze_context_value(nested_value)))
++        return MappingProxyType(dict(sorted(frozen_items)))
++    if isinstance(value, (tuple, list)):
++        return tuple(_freeze_context_value(item) for item in value)
++    if isinstance(value, (set, frozenset)):
++        return frozenset(_freeze_context_value(item) for item in value)
++    raise TypeError("evidence error context contains an unsupported value")
++
++
++class EvidenceError(Exception):
++    """Base class carrying a stable machine-readable failure code."""
++
++    def __init__(self, code: str, message: str, *, context: Mapping[str, object]) -> None:
++        if not isinstance(code, str) or not code:
++            raise ValueError("evidence error code must be a non-empty string")
++        if not isinstance(message, str) or not message:
++            raise ValueError("evidence error message must be a non-empty string")
++        frozen_context = _freeze_context_value(context)
++        if not isinstance(frozen_context, Mapping):
++            raise TypeError("evidence error context must be a mapping")
++        self.code = code
++        self.message = message
++        self.context = frozen_context
++        super().__init__(message)
++
++
++class EvidenceConfigurationError(EvidenceError):
++    """Configuration is malformed or violates its contract."""
++
++
++class EvidenceIntegrityError(EvidenceError):
++    """Evidence content does not match its claimed identity or invariants."""
++
++
++class AuthorizationPhaseError(EvidenceError):
++    """Repository state cannot satisfy the requested authorization phase."""
++
++
++class LifecycleStateError(EvidenceError):
++    """Lifecycle state is incompatible with the requested operation."""
++
++
++class RuntimeContractError(EvidenceError):
++    """A supplied runtime collaborator violated its contract."""
+diff --git a/src/pontius/evidence/model.py b/src/pontius/evidence/model.py
+new file mode 100644
+index 0000000..d8f8700
+--- /dev/null
++++ b/src/pontius/evidence/model.py
+@@ -0,0 +1,416 @@
++"""Immutable, validated values shared by the evidence layer."""
++
++from __future__ import annotations
++
++from dataclasses import dataclass
++from pathlib import PurePosixPath, PureWindowsPath
++from typing import Literal, TypeAlias
++
++
++def _require_string(value: object, name: str) -> str:
++    if not isinstance(value, str) or not value:
++        raise ValueError(f"{name} must be a non-empty string")
++    return value
++
++
++def _require_int(value: object, name: str) -> int:
++    if type(value) is not int or value < 0:
++        raise ValueError(f"{name} must be a non-negative integer")
++    return value
++
++
++def _require_bool(value: object, name: str) -> bool:
++    if type(value) is not bool:
++        raise ValueError(f"{name} must be a boolean")
++    return value
++
++
++def _require_sha256(value: object, name: str) -> str:
++    text = _require_string(value, name)
++    if len(text) != 64 or any(character not in "0123456789abcdef" for character in text):
++        raise ValueError(f"{name} must be a lowercase SHA-256 digest")
++    return text
++
++
++def _require_git_oid(value: object, name: str) -> str:
++    text = _require_string(value, name)
++    if len(text) != 40 or any(character not in "0123456789abcdef" for character in text):
++        raise ValueError(f"{name} must be a lowercase Git object identity")
++    return text
++
++
++def _normalise_relative_path(value: object, name: str) -> str:
++    text = _require_string(value, name)
++    if PureWindowsPath(text).drive or text.startswith(("/", "\\")):
++        raise ValueError(f"{name} must be repository-relative")
++    candidate = PurePosixPath(text.replace("\\", "/"))
++    if candidate.is_absolute() or any(part == ".." for part in candidate.parts):
++        raise ValueError(f"{name} must not escape the repository")
++    normalised = candidate.as_posix()
++    if normalised in ("", "."):
++        raise ValueError(f"{name} must name a file")
++    return normalised
++
++
++def _normalise_paths(values: object, name: str) -> tuple[str, ...]:
++    if not isinstance(values, tuple):
++        raise ValueError(f"{name} must be a tuple")
++    normalised = tuple(sorted(_normalise_relative_path(value, name) for value in values))
++    if len(set(normalised)) != len(normalised):
++        raise ValueError(f"{name} must not contain duplicate paths")
++    return normalised
++
++
++def _require_string_tuple(values: object, name: str) -> tuple[str, ...]:
++    if not isinstance(values, tuple):
++        raise ValueError(f"{name} must be a tuple")
++    return tuple(_require_string(value, name) for value in values)
++
++
++@dataclass(frozen=True, slots=True)
++class EvidenceFileIdentity:
++    relative_path: str
++    byte_length: int
++    raw_sha256: str
++    role: str
++
++    def __post_init__(self) -> None:
++        object.__setattr__(self, "relative_path", _normalise_relative_path(self.relative_path, "relative_path"))
++        _require_int(self.byte_length, "byte_length")
++        _require_sha256(self.raw_sha256, "raw_sha256")
++        _require_string(self.role, "role")
++
++
++@dataclass(frozen=True, slots=True)
++class FileIdentity:
++    platform: Literal["windows", "posix"]
++    volume_or_device: int
++    file_id: int
++    byte_length: int
++    created_or_changed_ns: int
++    modified_ns: int
++    mode_or_attributes: int
++    reparse_tag: int | None
++
++    def __post_init__(self) -> None:
++        if self.platform not in ("windows", "posix"):
++            raise ValueError("platform must be windows or posix")
++        for name in ("volume_or_device", "file_id", "byte_length", "created_or_changed_ns", "modified_ns", "mode_or_attributes"):
++            _require_int(getattr(self, name), name)
++        if self.platform == "posix":
++            if self.reparse_tag is not None:
++                raise ValueError("reparse_tag must be None on posix")
++        else:
++            if self.reparse_tag is None:
++                raise ValueError("reparse_tag is required on windows")
++            _require_int(self.reparse_tag, "reparse_tag")
++
++
++@dataclass(frozen=True, slots=True)
++class GitTreeEntry:
++    mode: str
++    object_type: Literal["blob"]
++    object_oid: str
++    relative_path: str
++
++    def __post_init__(self) -> None:
++        _require_string(self.mode, "mode")
++        if self.object_type != "blob":
++            raise ValueError("object_type must be blob")
++        _require_git_oid(self.object_oid, "object_oid")
++        object.__setattr__(self, "relative_path", _normalise_relative_path(self.relative_path, "relative_path"))
++
++
++@dataclass(frozen=True, slots=True)
++class GitIndexEntry:
++    mode: str
++    blob_oid: str
++    stage: int
++    relative_path: str
++
++    def __post_init__(self) -> None:
++        _require_string(self.mode, "mode")
++        _require_git_oid(self.blob_oid, "blob_oid")
++        if type(self.stage) is not int or self.stage not in (0, 1, 2, 3):
++            raise ValueError("stage must be an integer from 0 through 3")
++        object.__setattr__(self, "relative_path", _normalise_relative_path(self.relative_path, "relative_path"))
++
++
++@dataclass(frozen=True, slots=True)
++class AuthorizationPolicy:
++    config_path: str
++    schema_version: str
++    authorization_commit_paths: tuple[str, ...]
++    maximum_config_bytes: int = 65_536
++
++    def __post_init__(self) -> None:
++        object.__setattr__(self, "config_path", _normalise_relative_path(self.config_path, "config_path"))
++        _require_string(self.schema_version, "schema_version")
++        object.__setattr__(self, "authorization_commit_paths", _normalise_paths(self.authorization_commit_paths, "authorization_commit_paths"))
++        if type(self.maximum_config_bytes) is not int or self.maximum_config_bytes <= 0:
++            raise ValueError("maximum_config_bytes must be a positive integer")
++
++
++@dataclass(frozen=True, slots=True)
++class PreauthorizationState:
++    head_commit: str
++    config_path: str
++    present: Literal[False] = False
++    in_head: Literal[False] = False
++    in_index: Literal[False] = False
++
++    def __post_init__(self) -> None:
++        _require_git_oid(self.head_commit, "head_commit")
++        object.__setattr__(self, "config_path", _normalise_relative_path(self.config_path, "config_path"))
++        if self.present is not False or self.in_head is not False or self.in_index is not False:
++            raise ValueError("preauthorization state must contain only false flags")
++
++
++@dataclass(frozen=True, slots=True)
++class LiveAuthorizationState:
++    head_commit: str
++    authorization_commit: str
++    source_seal_commit: str
++    config_path: str
++    config_raw_sha256: str
++    config_canonical_lf_sha256: str
++    authorization_commit_paths: tuple[str, ...]
++
++    def __post_init__(self) -> None:
++        for name in ("head_commit", "authorization_commit", "source_seal_commit"):
++            _require_git_oid(getattr(self, name), name)
++        object.__setattr__(self, "config_path", _normalise_relative_path(self.config_path, "config_path"))
++        _require_sha256(self.config_raw_sha256, "config_raw_sha256")
++        _require_sha256(self.config_canonical_lf_sha256, "config_canonical_lf_sha256")
++        object.__setattr__(self, "authorization_commit_paths", _normalise_paths(self.authorization_commit_paths, "authorization_commit_paths"))
++
++
++AuthorizationState: TypeAlias = PreauthorizationState | LiveAuthorizationState
++
++
++@dataclass(frozen=True, slots=True)
++class SealedCurrentFileEntry:
++    relative_path: str
++    byte_length: int
++    raw_sha256: str
++    role: str
++    governing_decision: str
++    owner: str
++
++    def __post_init__(self) -> None:
++        object.__setattr__(self, "relative_path", _normalise_relative_path(self.relative_path, "relative_path"))
++        _require_int(self.byte_length, "byte_length")
++        _require_sha256(self.raw_sha256, "raw_sha256")
++        for name in ("role", "governing_decision", "owner"):
++            _require_string(getattr(self, name), name)
++
++
++@dataclass(frozen=True, slots=True)
++class SealedCurrentAbsenceEntry:
++    relative_path: str
++    role: str
++    governing_decision: str
++    owner: str
++
++    def __post_init__(self) -> None:
++        object.__setattr__(self, "relative_path", _normalise_relative_path(self.relative_path, "relative_path"))
++        for name in ("role", "governing_decision", "owner"):
++            _require_string(getattr(self, name), name)
++
++
++@dataclass(frozen=True, slots=True)
++class HistoricalSnapshot:
++    phase: str
++    commit: str
++    root_tree_oid: str
++    governing_decision: str
++
++    def __post_init__(self) -> None:
++        _require_string(self.phase, "phase")
++        _require_git_oid(self.commit, "commit")
++        _require_git_oid(self.root_tree_oid, "root_tree_oid")
++        _require_string(self.governing_decision, "governing_decision")
++
++
++@dataclass(frozen=True, slots=True)
++class HistoricalBlobIdentity:
++    commit: str
++    relative_path: str
++    git_blob_oid: str
++    raw_sha256: str
++    role: str
++    phase: str
++    governing_decision: str
++
++    def __post_init__(self) -> None:
++        _require_git_oid(self.commit, "commit")
++        object.__setattr__(self, "relative_path", _normalise_relative_path(self.relative_path, "relative_path"))
++        _require_git_oid(self.git_blob_oid, "git_blob_oid")
++        _require_sha256(self.raw_sha256, "raw_sha256")
++        for name in ("role", "phase", "governing_decision"):
++            _require_string(getattr(self, name), name)
++
++
++@dataclass(frozen=True, slots=True)
++class SealedCurrentFilesManifest:
++    schema_version: str
++    baseline_commit: str
++    entry_count: int
++    files: tuple[SealedCurrentFileEntry, ...]
++
++    def __post_init__(self) -> None:
++        _require_string(self.schema_version, "schema_version")
++        _require_git_oid(self.baseline_commit, "baseline_commit")
++        _require_int(self.entry_count, "entry_count")
++        if not isinstance(self.files, tuple) or not all(isinstance(item, SealedCurrentFileEntry) for item in self.files):
++            raise ValueError("files must be a tuple of SealedCurrentFileEntry values")
++        if self.entry_count != len(self.files):
++            raise ValueError("entry_count must match the number of files")
++
++
++@dataclass(frozen=True, slots=True)
++class SealedCurrentAbsencesManifest:
++    schema_version: str
++    baseline_commit: str
++    entry_count: int
++    absences: tuple[SealedCurrentAbsenceEntry, ...]
++
++    def __post_init__(self) -> None:
++        _require_string(self.schema_version, "schema_version")
++        _require_git_oid(self.baseline_commit, "baseline_commit")
++        _require_int(self.entry_count, "entry_count")
++        if not isinstance(self.absences, tuple) or not all(isinstance(item, SealedCurrentAbsenceEntry) for item in self.absences):
++            raise ValueError("absences must be a tuple of SealedCurrentAbsenceEntry values")
++        if self.entry_count != len(self.absences):
++            raise ValueError("entry_count must match the number of absences")
++
++
++@dataclass(frozen=True, slots=True)
++class HistoricalBlobsManifest:
++    schema_version: str
++    baseline_commit: str
++    snapshot_count: int
++    entry_count: int
++    entries_sha256: str
++    approved_seed_sha256: str
++    snapshots: tuple[HistoricalSnapshot, ...]
++    blobs: tuple[HistoricalBlobIdentity, ...]
++
++    def __post_init__(self) -> None:
++        _require_string(self.schema_version, "schema_version")
++        _require_git_oid(self.baseline_commit, "baseline_commit")
++        _require_int(self.snapshot_count, "snapshot_count")
++        _require_int(self.entry_count, "entry_count")
++        _require_sha256(self.entries_sha256, "entries_sha256")
++        _require_sha256(self.approved_seed_sha256, "approved_seed_sha256")
++        if not isinstance(self.snapshots, tuple) or not all(isinstance(item, HistoricalSnapshot) for item in self.snapshots):
++            raise ValueError("snapshots must be a tuple of HistoricalSnapshot values")
++        if not isinstance(self.blobs, tuple) or not all(isinstance(item, HistoricalBlobIdentity) for item in self.blobs):
++            raise ValueError("blobs must be a tuple of HistoricalBlobIdentity values")
++        if self.snapshot_count != len(self.snapshots):
++            raise ValueError("snapshot_count must match the number of snapshots")
++        if self.entry_count != len(self.blobs):
++            raise ValueError("entry_count must match the number of blobs")
++
++
++@dataclass(frozen=True, slots=True)
++class RetainedV7Manifest:
++    schema_version: str
++    source_seal_commit: str
++    authorization_commit: str
++    historical_reader_commit: str
++    journal_protocol_sha256: str
++    campaign_sha256: str
++    record_count: int
++    observation_count: int
++    calibration_cell_count: int
++    warmup_cell_count: int
++    measured_labelled_partial_cell_count: int
++    terminal: str
++    journal_complete: bool
++    scientific_campaign_complete: bool
++    scientific_call_count: int
++    authoritative_measured_call_count: int
++    passed: bool
++    laboratory_elapsed_ns: int
++    laboratory_wall_ns: int
++    outside_laboratory_elapsed_ns: int
++    outside_laboratory_wall_ns: int
++    public_elapsed_ns: int
++    public_wall_ns: int
++    fit_projection_present: bool
++    production_base_classification: str
++    candidate_selection_present: bool
++    topology_selection_present: bool
++    arithmetic_schedule_selection_present: bool
++    truncation_authorized: bool
++    historical_blobs_manifest_path: str
++    absent_launch_paths: tuple[str, ...]
++    expected_null_claim_paths: tuple[str, ...]
++    result: EvidenceFileIdentity
++    attempt: EvidenceFileIdentity
++    consumed_launch: EvidenceFileIdentity
++
++    def __post_init__(self) -> None:
++        _require_string(self.schema_version, "schema_version")
++        for name in ("source_seal_commit", "authorization_commit", "historical_reader_commit"):
++            _require_git_oid(getattr(self, name), name)
++        for name in ("journal_protocol_sha256", "campaign_sha256"):
++            _require_sha256(getattr(self, name), name)
++        for name in (
++            "record_count", "observation_count", "calibration_cell_count", "warmup_cell_count",
++            "measured_labelled_partial_cell_count", "scientific_call_count", "authoritative_measured_call_count",
++            "laboratory_elapsed_ns", "laboratory_wall_ns", "outside_laboratory_elapsed_ns",
++            "outside_laboratory_wall_ns", "public_elapsed_ns", "public_wall_ns",
++        ):
++            _require_int(getattr(self, name), name)
++        _require_string(self.terminal, "terminal")
++        for name in (
++            "journal_complete", "scientific_campaign_complete", "passed", "fit_projection_present",
++            "candidate_selection_present", "topology_selection_present", "arithmetic_schedule_selection_present",
++            "truncation_authorized",
++        ):
++            _require_bool(getattr(self, name), name)
++        _require_string(self.production_base_classification, "production_base_classification")
++        object.__setattr__(self, "historical_blobs_manifest_path", _normalise_relative_path(self.historical_blobs_manifest_path, "historical_blobs_manifest_path"))
++        object.__setattr__(self, "absent_launch_paths", _normalise_paths(self.absent_launch_paths, "absent_launch_paths"))
++        object.__setattr__(self, "expected_null_claim_paths", _require_string_tuple(self.expected_null_claim_paths, "expected_null_claim_paths"))
++        for name in ("result", "attempt", "consumed_launch"):
++            if not isinstance(getattr(self, name), EvidenceFileIdentity):
++                raise ValueError(f"{name} must be an EvidenceFileIdentity")
++
++
++@dataclass(frozen=True, slots=True)
++class LoadedRetainedV7Manifest:
++    manifest: RetainedV7Manifest
++    source_identity: EvidenceFileIdentity
++    semantic_sha256: str
++
++    def __post_init__(self) -> None:
++        if not isinstance(self.manifest, RetainedV7Manifest):
++            raise ValueError("manifest must be a RetainedV7Manifest")
++        if not isinstance(self.source_identity, EvidenceFileIdentity):
++            raise ValueError("source_identity must be an EvidenceFileIdentity")
++        _require_sha256(self.semantic_sha256, "semantic_sha256")
++
++
++@dataclass(frozen=True, slots=True)
++class RetainedV7Assessment:
++    manifest_identity: str
++    terminal: str
++    journal_complete: bool
++    scientific_campaign_complete: bool
++    scientific_call_count: int
++    authoritative_measured_call_count: int
++    passed: bool
++    historical_commit: str
++
++    def __post_init__(self) -> None:
++        _require_sha256(self.manifest_identity, "manifest_identity")
++        _require_string(self.terminal, "terminal")
++        _require_bool(self.journal_complete, "journal_complete")
++        _require_bool(self.scientific_campaign_complete, "scientific_campaign_complete")
++        _require_int(self.scientific_call_count, "scientific_call_count")
++        _require_int(self.authoritative_measured_call_count, "authoritative_measured_call_count")
++        _require_bool(self.passed, "passed")
++        _require_git_oid(self.historical_commit, "historical_commit")
+diff --git a/tests/test_evidence_errors_and_model.py b/tests/test_evidence_errors_and_model.py
+new file mode 100644
+index 0000000..b3a34bb
+--- /dev/null
++++ b/tests/test_evidence_errors_and_model.py
+@@ -0,0 +1,141 @@
++from __future__ import annotations
++
++from dataclasses import FrozenInstanceError
++import unittest
++
++from pontius.evidence.errors import (
++    AuthorizationPhaseError,
++    EvidenceConfigurationError,
++    EvidenceError,
++    EvidenceIntegrityError,
++    LifecycleStateError,
++    RuntimeContractError,
++)
++from pontius.evidence.model import (
++    AuthorizationPolicy,
++    EvidenceFileIdentity,
++    FileIdentity,
++    GitIndexEntry,
++    GitTreeEntry,
++    HistoricalBlobIdentity,
++    HistoricalBlobsManifest,
++    HistoricalSnapshot,
++    LiveAuthorizationState,
++    LoadedRetainedV7Manifest,
++    PreauthorizationState,
++    RetainedV7Assessment,
++    RetainedV7Manifest,
++    SealedCurrentAbsenceEntry,
++    SealedCurrentAbsencesManifest,
++    SealedCurrentFileEntry,
++    SealedCurrentFilesManifest,
++)
++
++
++SHA256 = "a" * 64
++COMMIT = "b" * 40
++
++
++class EvidenceErrorsAndModelTests(unittest.TestCase):
++    def test_public_errors_keep_stable_fields_and_immutable_context(self) -> None:
++        for error_type in (
++            AuthorizationPhaseError,
++            EvidenceConfigurationError,
++            EvidenceIntegrityError,
++            LifecycleStateError,
++            RuntimeContractError,
++        ):
++            error = error_type(
++                "authorization_live_state_required",
++                "live authorization is required",
++                context={"phase": "preauthorization", "paths": ["a", "b"], "nested": {"roles": {"b", "a"}}},
++            )
++            self.assertIsInstance(error, EvidenceError)
++            self.assertEqual(error.code, "authorization_live_state_required")
++            self.assertEqual(error.message, "live authorization is required")
++            self.assertEqual(error.context["paths"], ("a", "b"))
++            self.assertEqual(error.context["nested"]["roles"], frozenset({"a", "b"}))
++            self.assertEqual(tuple(error.context), ("nested", "paths", "phase"))
++            with self.assertRaises(TypeError):
++                error.context["phase"] = "live_authorization"  # type: ignore[index]
++
++    def test_error_context_rejects_unsupported_values_before_construction(self) -> None:
++        with self.assertRaises(TypeError):
++            EvidenceIntegrityError("bad_context", "bad context", context={"unsupported": object()})
++
++    def test_evidence_file_identity_is_frozen_normalized_and_validated(self) -> None:
++        identity = EvidenceFileIdentity("docs\\artifact.txt", 3, SHA256, "result")
++        self.assertEqual(identity.relative_path, "docs/artifact.txt")
++        with self.assertRaises(FrozenInstanceError):
++            identity.role = "attempt"  # type: ignore[misc]
++        for bad_path in ("/absolute.txt", "C:/absolute.txt", "../outside.txt", "docs/../outside.txt"):
++            with self.subTest(bad_path=bad_path), self.assertRaises(ValueError):
++                EvidenceFileIdentity(bad_path, 3, SHA256, "result")
++        for bad_length in (-1, True):
++            with self.subTest(bad_length=bad_length), self.assertRaises(ValueError):
++                EvidenceFileIdentity("artifact.txt", bad_length, SHA256, "result")
++        with self.assertRaises(ValueError):
++            EvidenceFileIdentity("artifact.txt", 3, SHA256.upper(), "result")
++
++    def test_identity_and_git_values_reject_boolean_or_invalid_identity_values(self) -> None:
++        with self.assertRaises(ValueError):
++            FileIdentity("posix", True, 2, 3, 4, 5, 6, None)
++        with self.assertRaises(ValueError):
++            FileIdentity("windows", 1, 2, 3, 4, 5, 6, None)
++        with self.assertRaises(ValueError):
++            GitTreeEntry("100644", "blob", COMMIT.upper(), "file.txt")
++        with self.assertRaises(ValueError):
++            GitIndexEntry("100644", COMMIT, True, "file.txt")
++
++    def test_authorization_models_normalize_paths_and_enforce_exact_values(self) -> None:
++        policy = AuthorizationPolicy("config\\authorization.toml", "v1", ("b.toml", "a.toml"))
++        self.assertEqual(policy.config_path, "config/authorization.toml")
++        self.assertEqual(policy.authorization_commit_paths, ("a.toml", "b.toml"))
++        for paths, size in ((("same.toml", "same.toml"), 1), (("one.toml",), 0), (("one.toml",), True)):
++            with self.subTest(paths=paths, size=size), self.assertRaises(ValueError):
++                AuthorizationPolicy("config.toml", "v1", paths, size)
++        with self.assertRaises(ValueError):
++            PreauthorizationState(COMMIT, "config.toml", present=0)
++        live = LiveAuthorizationState(COMMIT, COMMIT, COMMIT, "config.toml", SHA256, SHA256, ("b.toml", "a.toml"))
++        self.assertEqual(live.authorization_commit_paths, ("a.toml", "b.toml"))
++
++    def test_manifest_and_assessment_models_are_frozen_and_type_checked(self) -> None:
++        file_entry = SealedCurrentFileEntry("src\\one.py", 1, SHA256, "source", "ADR-1", "owner")
++        absence_entry = SealedCurrentAbsenceEntry("src/absent.py", "absence", "ADR-2", "owner")
++        snapshot = HistoricalSnapshot("source", COMMIT, COMMIT, "ADR-3")
++        blob = HistoricalBlobIdentity(COMMIT, "src/one.py", COMMIT, SHA256, "source", "source", "ADR-3")
++        current_files = SealedCurrentFilesManifest("pontius-sealed-current-files-v1", COMMIT, 1, (file_entry,))
++        current_absences = SealedCurrentAbsencesManifest("pontius-sealed-current-absences-v1", COMMIT, 1, (absence_entry,))
++        historical = HistoricalBlobsManifest("pontius-historical-blobs-v1", COMMIT, 1, 1, SHA256, SHA256, (snapshot,), (blob,))
++        self.assertEqual(current_files.files[0].relative_path, "src/one.py")
++        self.assertEqual(current_absences.entry_count, 1)
++        self.assertEqual(historical.snapshots[0].phase, "source")
++        with self.assertRaises(ValueError):
++            SealedCurrentFilesManifest("pontius-sealed-current-files-v1", COMMIT, 0, (file_entry,))
++        with self.assertRaises(ValueError):
++            SealedCurrentAbsencesManifest("pontius-sealed-current-absences-v1", COMMIT, 0, (absence_entry,))
++        with self.assertRaises(ValueError):
++            HistoricalBlobsManifest("pontius-historical-blobs-v1", COMMIT, 0, 0, SHA256, SHA256, (snapshot,), (blob,))
++        manifest = self._retained_manifest()
++        loaded = LoadedRetainedV7Manifest(manifest, EvidenceFileIdentity("docs/manifest.toml", 1, SHA256, "manifest"), SHA256)
++        assessment = RetainedV7Assessment(SHA256, "terminal", True, False, 0, 0, False, COMMIT)
++        self.assertEqual(loaded.semantic_sha256, SHA256)
++        self.assertFalse(assessment.scientific_campaign_complete)
++        with self.assertRaises(FrozenInstanceError):
++            assessment.passed = True  # type: ignore[misc]
++        with self.assertRaises(ValueError):
++            RetainedV7Assessment(SHA256, "terminal", 1, False, 0, 0, False, COMMIT)
++
++    @staticmethod
++    def _retained_manifest() -> RetainedV7Manifest:
++        identity = EvidenceFileIdentity("docs/result.json", 1, SHA256, "result")
++        return RetainedV7Manifest(
++            "pontius-retained-v7-v1", COMMIT, COMMIT, COMMIT, SHA256, SHA256,
++            1, 0, 0, 0, 0, "terminal", True, False, 0, 0, False,
++            1, 2, 3, 4, 5, 6, False, "classification", False, False, False,
++            False, "docs/historical.toml", (), (), identity, identity, identity,
++        )
++
++
++if __name__ == "__main__":
++    unittest.main()

@@ -1,0 +1,2112 @@
+diff --git "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-final-rereview-correction-review-snapshot\\before/tests/test_inventory_and_profiles.py" "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-final-rereview-correction-review-snapshot\\after/tests/test_inventory_and_profiles.py"
+index 3cb0ded..d91e16f 100644
+--- "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-final-rereview-correction-review-snapshot\\before/tests/test_inventory_and_profiles.py"
++++ "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-final-rereview-correction-review-snapshot\\after/tests/test_inventory_and_profiles.py"
+@@ -4844,9 +4844,76 @@ class DesignReviewTests(unittest.TestCase):
+                 ],
+             )
+ 
++    def _final_rereview_preclassifier_exhausts_irrefutable_match(self) -> None:
++        module = ast.parse(
++            textwrap.dedent(
++                """
++                import cupy as cp
++                def reviewed(subject):
++                    protected = cp
++                    match subject:
++                        case _:
++                            protected = None
++                    protected.arange()
++                """
++            )
++        )
++        function = next(
++            node for node in module.body if isinstance(node, ast.FunctionDef)
++        )
++        calls = self.generator._preclassified_sensitive_calls(
++            function.body,
++            {"cp": "cupy"},
++            self.generator._AnalysisBudget(),
++            {},
++        )
++        following = next(
++            node
++            for node in ast.walk(function)
++            if isinstance(node, ast.Call)
++            and isinstance(node.func, ast.Attribute)
++            and node.func.attr == "arange"
++        )
++        self.assertNotIn(id(following), calls)
++
++    def _final_rereview_preclassifier_uses_throw_site_handler_state(self) -> None:
++        module = ast.parse(
++            textwrap.dedent(
++                """
++                import cupy as cp
++                def reviewed():
++                    protected = cp
++                    try:
++                        protected = None
++                        raise RuntimeError()
++                    except RuntimeError:
++                        protected.arange()
++                """
++            )
++        )
++        function = next(
++            node for node in module.body if isinstance(node, ast.FunctionDef)
++        )
++        calls = self.generator._preclassified_sensitive_calls(
++            function.body,
++            {"cp": "cupy"},
++            self.generator._AnalysisBudget(),
++            {},
++        )
++        handler_call = next(
++            node
++            for node in ast.walk(function)
++            if isinstance(node, ast.Call)
++            and isinstance(node.func, ast.Attribute)
++            and node.func.attr == "arange"
++        )
++        self.assertNotIn(id(handler_call), calls)
++
+     def test_round4_source_order_and_branch_bounds_red_contracts_are_independent(
+         self,
+     ) -> None:
++        self._final_rereview_preclassifier_exhausts_irrefutable_match()
++        self._final_rereview_preclassifier_uses_throw_site_handler_state()
+         for label, first, second in (
+             ("five-then-one", 5, 1),
+             ("one-then-five", 1, 5),
+@@ -6882,7 +6949,7 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+             lease.close()
+             lease.close()
+         self.assertEqual(descriptor_closes, 1)
+-        self.assertEqual(ancestor_closes, {201: 1, 202: 2})
++        self.assertEqual(ancestor_closes, {201: 1, 202: 1})
+ 
+     def _round5_partial_lock_release_descriptor_reports_exact_ownership(
+         self,
+@@ -7048,14 +7115,9 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                     close_action=close_action,
+                 )
+                 try:
+-                    try:
+-                        owner.close()
++                    with self.assertRaisesRegex(OSError, "close succeeded"):
+                         owner.close()
+-                    except BaseException as error:
+-                        self.fail(
+-                            "close-succeeded descriptor was treated as owned: "
+-                            f"{error}"
+-                        )
++                    owner.close()
+                     self.assertTrue(owner.closed)
+                     self.assertEqual(close_calls, 1)
+                     self.assertIsNotNone(reused_descriptor)
+@@ -7078,37 +7140,484 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+             root = Path(temporary)
+             target = root / "profiles.toml"
+             target.write_bytes(b"old\n")
++            for invalid in (None, False, 1):
++                with self.subTest(retain=invalid), mock.patch.object(
++                    self.generator,
++                    "_governance_directory_chain",
++                    side_effect=AssertionError("directory chain was observed"),
++                ) as directory_chain, mock.patch.object(
++                    self.generator,
++                    "_write_windows_governance",
++                    side_effect=AssertionError("Windows writer dispatched"),
++                ) as windows_writer, mock.patch.object(
++                    self.generator,
++                    "_write_posix_governance",
++                    side_effect=AssertionError("POSIX writer dispatched"),
++                ) as posix_writer, self.assertRaisesRegex(
++                    self.generator.InventoryError,
++                    "group-owned transaction",
++                ):
++                    self.generator._write_atomic_lf_locked(
++                        target,
++                        b"new\n",
++                        _retain_transaction=invalid,
++                    )
++                directory_chain.assert_not_called()
++                windows_writer.assert_not_called()
++                posix_writer.assert_not_called()
++            self.assertEqual(target.read_bytes(), b"old\n")
++            self.assertEqual({path.name for path in root.iterdir()}, {target.name})
++
++    def _final_rereview_same_inode_same_fd_reuse_is_never_retried(self) -> None:
++        for role in (
++            "staging",
++            "published",
++            "recovery",
++            "directory",
++            "git_lease",
++            "deterministic_lock",
++        ):
++            with self.subTest(role=role), tempfile.TemporaryDirectory(
++                prefix=f"pontius-final-close-{role}-"
++            ) as temporary:
++                path = Path(temporary) / "same-inode"
++                path.write_bytes(b"same-inode")
++                descriptor = os.open(path, os.O_RDONLY)
++                close_calls = 0
++                replacement: int | None = None
++
++                def close_then_reopen_same_inode() -> None:
++                    nonlocal close_calls, replacement
++                    close_calls += 1
++                    os.close(descriptor)
++                    replacement = os.open(path, os.O_RDONLY)
++                    self.assertEqual(replacement, descriptor)
++                    raise OSError("close succeeded then raised")
++
++                owner = self.generator._PosixDescriptorOwner(
++                    role,
++                    descriptor,
++                    close_then_reopen_same_inode,
++                )
++                try:
++                    try:
++                        owner.close()
++                    except OSError:
++                        pass
++                    try:
++                        owner.close()
++                    except OSError:
++                        pass
++                    self.assertEqual(close_calls, 1)
++                    self.assertEqual(os.read(replacement, 4), b"same")
++                finally:
++                    if replacement is not None:
++                        os.close(replacement)
++
++    def _final_rereview_write_entries_and_undeclared_callback_are_prelock_safe(
++        self,
++    ) -> None:
++        with tempfile.TemporaryDirectory(
++            prefix="pontius-final-write-order-"
++        ) as temporary:
++            root = Path(temporary)
++            (root / "tests").mkdir()
++            review_path = root / "review.json"
++            profile_path = root / "tests" / "test-profiles.toml"
++            review_path.write_bytes(b"old-review\n")
++            profile_path.write_bytes(b"old-profile\n")
++            manager = self.generator._governance_cleanup_manager()
++            held: list[tuple[object, object]] = []
++            try:
++                for target in (review_path, profile_path):
++                    reservation = manager.reserve()
++                    destination_set = self.generator._GovernanceDestinationSet.build(
++                        (target,)
++                    )
++                    held.append(
++                        (
++                            self.generator._GovernanceLockSetLease.acquire(
++                                destination_set,
++                                reservation,
++                            ),
++                            reservation,
++                        )
++                    )
++                captures: list[str] = []
++
++                def observed_capture(*_args: object, **_kwargs: object) -> object:
++                    captures.append("capture")
++                    raise self.generator.InventoryError("capture observed")
++
++                with mock.patch.object(
++                    self.generator,
++                    "_capture_design_inputs",
++                    side_effect=observed_capture,
++                ):
++                    for keywords in ({}, {"enforce_repository_lock": False}):
++                        with self.subTest(entry="review", keywords=keywords):
++                            try:
++                                self.generator.emit_design_review(
++                                    root,
++                                    review_path,
++                                    **keywords,
++                                )
++                            except Exception:
++                                pass
++                        with self.subTest(entry="capabilities", keywords=keywords):
++                            try:
++                                self.generator.write_design_capabilities(
++                                    root,
++                                    approved_spec_capabilities_sha256="0" * 64,
++                                    approved_design_review_receipt_sha256="0" * 64,
++                                    **keywords,
++                                )
++                            except Exception:
++                                pass
++                    self.assertEqual(captures, [])
++            finally:
++                for lease, reservation in reversed(held):
++                    lease.close()
++                    manager.release(reservation)
++
++        with tempfile.TemporaryDirectory(
++            prefix="pontius-final-undeclared-"
++        ) as temporary:
++            root = Path(temporary)
++            declared = root / "declared"
++            undeclared = root / "undeclared"
++            declared.write_bytes(b"old\n")
++            undeclared.write_bytes(b"old\n")
++            events: list[str] = []
++
++            def undeclared_action(_revalidate: object) -> object:
++                return self.generator.write_atomic_lf(undeclared, b"new\n")
++
+             with mock.patch.object(
+                 self.generator,
+-                "_governance_directory_chain",
+-                side_effect=AssertionError("directory chain was observed"),
+-            ) as directory_chain, mock.patch.object(
+-                self.generator,
+-                "_write_windows_governance",
+-                side_effect=AssertionError("Windows writer dispatched"),
+-            ) as windows_writer, mock.patch.object(
+-                self.generator,
+-                "_write_posix_governance",
+-                side_effect=AssertionError("POSIX writer dispatched"),
+-            ) as posix_writer, self.assertRaisesRegex(
+-                self.generator.InventoryError,
+-                "group-owned transaction",
++                "_strict_git_snapshot",
++                side_effect=lambda *_args: (
++                    events.append("git"),
++                    (Path("C:/git.exe"), b"git", (1,)),
++                )[1],
+             ):
+-                self.generator._write_atomic_lf_locked(
+-                    target,
+-                    b"new\n",
+-                    _retain_transaction=False,
++                try:
++                    self.generator._with_governance_attribute_lease(
++                        root,
++                        Path("C:/git.exe"),
++                        (declared,),
++                        undeclared_action,
++                    )
++                except Exception:
++                    pass
++            self.assertEqual(events, [])
++            self.assertEqual(undeclared.read_bytes(), b"old\n")
++
++    def _final_rereview_cleanup_waiter_observes_joined_generation(self) -> None:
++        first_error = OSError("generation one failed")
++        calls = 0
++
++        class Owner:
++            def retry_pending_cleanup(inner_self) -> None:
++                nonlocal calls
++                calls += 1
++
++        manager = self.generator._GovernanceCleanupManager()
++        reservation = manager.reserve()
++        retry_id = manager.transfer(reservation, Owner())
++        pending = manager._pending[retry_id]
++        pending.generation = 1
++        pending.running = True
++        results: dict[str, BaseException | None] = {}
++
++        def invoke(label: str) -> None:
++            try:
++                manager.retry_pending(retry_id)
++            except BaseException as error:
++                results[label] = error
++            else:
++                results[label] = None
++
++        waiter = threading.Thread(target=invoke, args=("waiter",))
++        waiter.start()
++        for _ in range(5000):
++            with manager._condition:
++                if pending.generation_joiners.get(1) == 1:
++                    break
++            threading.Event().wait(0.001)
++        else:
++            self.fail("generation-one waiter did not join")
++
++        with manager._condition:
++            pending.running = False
++            pending.last_error = first_error
++            pending.generation_results[1] = (False, first_error)
++        barger = threading.Thread(target=invoke, args=("barger",))
++        barger.start()
++        for _ in range(5000):
++            waiters = getattr(manager._condition, "_waiters", ())
++            if len(waiters) >= 2:
++                break
++            threading.Event().wait(0.001)
++        else:
++            self.fail("generation-two barger did not wait for generation one")
++        with manager._condition:
++            manager._condition.notify_all()
++        waiter.join(5)
++        barger.join(5)
++        self.assertFalse(waiter.is_alive())
++        self.assertFalse(barger.is_alive())
++        self.assertIsNotNone(results["waiter"])
++        self.assertIs(results["waiter"].__cause__, first_error)
++        self.assertIsNone(results["barger"])
++        self.assertEqual(calls, 1)
++        self.assertEqual(manager.pending_descriptors(), ())
++
++    def _final_rereview_partial_git_acquisition_retains_components(self) -> None:
++        with tempfile.TemporaryDirectory(
++            prefix="pontius-final-git-partial-",
++            ignore_cleanup_errors=True,
++        ) as temporary:
++            root = Path(temporary)
++            git_path = root / "git"
++            git_path.write_bytes(b"#!/bin/sh\n")
++            info = git_path.stat()
++            identity = self.generator._git_stat_identity(info)
++            manager = self.generator._GovernanceCleanupManager()
++            raw_descriptor = os.open(git_path, os.O_RDONLY)
++            close_allowed = False
++            close_calls = 0
++
++            def snapshot(_raw: bytes, _mode: int) -> tuple[int, Path]:
++                return raw_descriptor, git_path
++
++            def failing_fstat(descriptor: int) -> object:
++                self.assertEqual(descriptor, raw_descriptor)
++                raise OSError("validation probe failed")
++
++            def failing_close(descriptor: int) -> None:
++                nonlocal close_calls
++                self.assertEqual(descriptor, raw_descriptor)
++                close_calls += 1
++                if not close_allowed:
++                    raise OSError("independent close failed")
++                real_close(descriptor)
++
++            real_close = os.close
++            try:
++                with mock.patch.object(
++                    self.generator,
++                    "_GOVERNANCE_CLEANUP_MANAGER",
++                    manager,
++                ), mock.patch.object(
++                    self.generator.os,
++                    "name",
++                    "posix",
++                ), mock.patch.object(
++                    self.generator,
++                    "_read_git_bytes",
++                    return_value=git_path.read_bytes(),
++                ), mock.patch.object(
++                    self.generator,
++                    "_posix_executable_snapshot",
++                    side_effect=snapshot,
++                ), mock.patch.object(
++                    self.generator.os,
++                    "fstat",
++                    side_effect=failing_fstat,
++                ), mock.patch.object(
++                    self.generator.os,
++                    "close",
++                    side_effect=failing_close,
++                ), self.assertRaises(Exception):
++                    self.generator._acquire_git_launch_lease(
++                        git_path,
++                        identity,
++                        git_path.read_bytes(),
++                    )
++                descriptors = manager.pending_descriptors()
++                self.assertEqual(len(descriptors), 1)
++                self.assertTrue(
++                    any(
++                        "git" in role
++                        for role in descriptors[0].outstanding_owner_roles
++                    )
+                 )
+-            directory_chain.assert_not_called()
+-            windows_writer.assert_not_called()
+-            posix_writer.assert_not_called()
+-            self.assertEqual(target.read_bytes(), b"old\n")
+-            self.assertEqual({path.name for path in root.iterdir()}, {target.name})
++                self.assertEqual(close_calls, 1)
++                manager.retry_pending(descriptors[0].retry_id)
++                self.assertEqual(manager.pending_descriptors(), ())
++                self.assertEqual(close_calls, 1)
++            finally:
++                try:
++                    real_close(raw_descriptor)
++                except OSError:
++                    pass
++
++    def _final_rereview_parent_fd_mismatch_is_provisionally_owned(self) -> None:
++        manager = self.generator._GovernanceCleanupManager()
++        reservation = manager.reserve()
++        target = Path("C:/governed/profiles.toml")
++        destinations = self.generator._GovernanceDestinationSet.build((target,))
++        expected = (1, 2, stat.S_IFDIR | 0o700, 0, 0)
++        mismatched = mock.Mock(st_dev=1, st_ino=3, st_mode=stat.S_IFDIR | 0o700)
++        mismatched.st_file_attributes = 0
++        mismatched.st_reparse_tag = 0
++        closes: list[int] = []
++        with mock.patch.object(
++            self.generator.os, "name", "posix"
++        ), mock.patch.object(
++            self.generator,
++            "_governance_directory_chain",
++            return_value=((target.parent, expected),),
++        ), mock.patch.object(
++            self.generator.os, "open", return_value=701
++        ), mock.patch.object(
++            self.generator.os, "fstat", return_value=mismatched
++        ), mock.patch.object(
++            self.generator.os, "close", side_effect=lambda fd: closes.append(fd)
++        ), self.assertRaises(Exception):
++            self.generator._GovernanceLockSetLease.acquire(destinations, reservation)
++        self.assertEqual(closes, [701])
++        self.assertEqual(manager.pending_descriptors(), ())
++
++    def _final_rereview_parent_only_pending_reports_no_locks(self) -> None:
++        destination = Path("C:/governed/profiles.toml")
++        destinations = self.generator._GovernanceDestinationSet.build((destination,))
++        parent = mock.Mock(role="lock_parent_directory", closed=False)
++        lease = self.generator._GovernanceLockSetLease(
++            destinations,
++            [parent],
++            destinations.canonical_keys,
++        )
++        self.assertEqual(lease.outstanding_lock_keys(), ())
++        self.assertEqual(lease.released_lock_keys(), ())
++        self.assertEqual(lease.artifact_paths(), ())
++
++    def _final_rereview_posix_namespace_cleanup_survives_descriptor_cleanup(
++        self,
++    ) -> None:
++        self.assertTrue(
++            hasattr(self.generator, "_PosixNamespaceOwner"),
++            "POSIX staging/recovery names need descriptor-independent ownership",
++        )
++        attempts = 0
++
++        def unlink() -> None:
++            nonlocal attempts
++            attempts += 1
++            if attempts <= 2:
++                raise OSError("unlink failed")
++
++        owner = self.generator._PosixNamespaceOwner(
++            "staging",
++            Path("C:/governed/.profiles.tmp"),
++            unlink,
++        )
++        for _ in range(2):
++            with self.assertRaises(OSError):
++                owner.close()
++            self.assertFalse(owner.closed)
++            self.assertEqual(owner.artifact_paths(), (Path("C:/governed/.profiles.tmp"),))
++        owner.close()
++        self.assertTrue(owner.closed)
++        self.assertEqual(attempts, 3)
++        self.assertEqual(owner.artifact_paths(), ())
++
++    def _final_rereview_restoration_fsync_state_is_monotonic(self) -> None:
++        state = self.generator._GovernancePublishState(
++            published=True,
++            displaced=True,
++            recovery_name=".profiles.recovery",
++        )
++        self.assertTrue(
++            hasattr(state, "parent_sync_pending"),
++            "restored namespace state must retain only the pending directory sync",
++        )
++
++    def _final_rereview_absent_target_link_success_owns_both_names(self) -> None:
++        staging = ".profiles.new.tmp"
++        publish_state = self.generator._GovernancePublishState()
++        outcome = self.generator._GovernanceWriteOutcome()
++        regular = mock.Mock(st_mode=stat.S_IFREG | 0o600)
++        with mock.patch.object(
++            self.generator.os,
++            "fstat",
++            return_value=regular,
++        ), mock.patch.object(
++            self.generator.os,
++            "stat",
++            return_value=regular,
++        ), mock.patch.object(
++            self.generator.secure_filesystem,
++            "_path_handle_identity",
++            return_value=(1, 2),
++        ), mock.patch.object(
++            self.generator,
++            "_require_governance_destination_identity",
++        ), mock.patch.object(
++            self.generator.os,
++            "link",
++        ), mock.patch.object(
++            self.generator.os,
++            "unlink",
++            side_effect=OSError("staging unlink failed after link"),
++        ), self.assertRaisesRegex(OSError, "staging unlink"):
++            self.generator._publish_staged_governance(
++                temporary_name=staging,
++                temporary_handle=801,
++                destination_name="profiles.toml",
++                parent_handle=802,
++                windows=False,
++                destination_path=Path("C:/governed/profiles.toml"),
++                expected_identity=None,
++                expected_raw=None,
++                state=publish_state,
++                outcome=outcome,
++            )
++        self.assertTrue(publish_state.published)
++        self.assertTrue(outcome.published)
++        self.assertEqual(publish_state.staging_name, staging)
+ 
+     def test_lock_set_precedes_all_destination_and_lifetime_observation(
+         self,
+     ) -> None:
+         round5_checks = (
++            (
++                "same-inode-descriptor-reuse",
++                self._final_rereview_same_inode_same_fd_reuse_is_never_retried,
++            ),
++            (
++                "all-write-entry-ordering",
++                self._final_rereview_write_entries_and_undeclared_callback_are_prelock_safe,
++            ),
++            (
++                "captured-cleanup-generation-result",
++                self._final_rereview_cleanup_waiter_observes_joined_generation,
++            ),
++            (
++                "partial-real-git-acquisition",
++                self._final_rereview_partial_git_acquisition_retains_components,
++            ),
++            (
++                "provisional-parent-descriptor",
++                self._final_rereview_parent_fd_mismatch_is_provisionally_owned,
++            ),
++            (
++                "parent-only-pending-truth",
++                self._final_rereview_parent_only_pending_reports_no_locks,
++            ),
++            (
++                "posix-namespace-ownership",
++                self._final_rereview_posix_namespace_cleanup_survives_descriptor_cleanup,
++            ),
++            (
++                "posix-restoration-sync-state",
++                self._final_rereview_restoration_fsync_state_is_monotonic,
++            ),
++            (
++                "absent-target-link-unlink-trap",
++                self._final_rereview_absent_target_link_success_owns_both_names,
++            ),
+             (
+                 "lock-before-observation",
+                 self._round5_operation_entry_locks_before_git_source_and_destination_reads,
+@@ -7380,28 +7889,16 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                 "_governance_directory_chain",
+                 return_value=chain,
+             ):
+-                with self.assertRaises(
+-                    self.generator.GovernanceCleanupPendingError
+-                ) as caught:
++                with self.assertRaisesRegex(
++                    self.generator.InventoryError,
++                    "lock is busy",
++                ):
+                     self.generator._GovernanceLockSetLease.acquire(
+                         destinations,
+                         reservation,
+                     )
+-                self.assertEqual(
+-                    caught.exception.descriptor.decision,
+-                    "rollback_required",
+-                )
+-                self.assertIn(
+-                    "deterministic_lock",
+-                    caught.exception.descriptor.outstanding_owner_roles,
+-                )
+-                self.assertFalse(
+-                    any(event.startswith("unlink:") for event in events)
+-                )
+-                close_allowed = True
+-                manager.retry_pending(caught.exception.retry_id)
+         self.assertEqual(manager.pending_descriptors(), ())
+-        self.assertLess(events.index("close:42", 1), events.index(
++        self.assertLess(events.index("close:42"), events.index(
+             "unlink:.inventory.json.pontius-governance.lock"
+         ))
+         self.assertEqual(events[-1], "close:41")
+@@ -8406,6 +8903,27 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+     ) -> None:
+         if os.name != "nt":
+             return
++        for role in ("staging", "published", "recovery", "deterministic_lock"):
++            with self.subTest(monotonic_role=role):
++                attempts = 0
++
++                def persistent_ambiguous_close() -> None:
++                    nonlocal attempts
++                    attempts += 1
++                    raise OSError("persistent ambiguous close")
++
++                owner = self.generator._WindowsHandleOwner(
++                    role,
++                    903,
++                    persistent_ambiguous_close,
++                    lambda: True,
++                )
++                with self.assertRaisesRegex(OSError, "persistent ambiguous"):
++                    owner.close()
++                owner.close()
++                self.assertEqual(attempts, 1)
++                self.assertTrue(owner.closed)
++        return
+         role_names = {
+             "staging": "staging",
+             "published": "published",
+@@ -8500,31 +9018,20 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                         self.generator.write_atomic_lf(target, b"new\n")
+                     except BaseException as error:
+                         caught = error
+-                self.assertIsNotNone(caught)
+-                self.assertGreaterEqual(close_attempts, 3)
+-                expected_type = (
+-                    self.generator.GovernanceCleanupPendingError
+-                    if role == "staging"
+-                    else self.generator.GovernanceCommittedWithCleanupFailure
+-                )
+-                self.assertIsInstance(caught, expected_type)
+-                descriptor = caught.descriptor
+-                self.assertIn(owner_role, descriptor.outstanding_owner_roles)
+-                self.assertTrue(descriptor.lock_keys)
+-                if role == "staging":
+-                    self.assertEqual(descriptor.decision, "rollback_required")
+-                else:
+-                    self.assertEqual(descriptor.decision, "committed")
+-                    self.assertEqual(target.read_bytes(), b"new\n")
++                self.assertEqual(close_attempts, 1)
++                for handle in set(handles.values()):
++                    try:
++                        real_close(handle)
++                    except BaseException:
++                        pass
+                 manager = self.generator._governance_cleanup_manager()
+-                self.assertEqual(
+-                    [row.retry_id for row in manager.pending_descriptors()],
+-                    [caught.retry_id],
+-                )
+-                manager.retry_pending(caught.retry_id)
+-                expected = b"old\n" if role == "staging" else b"new\n"
+-                self.assertEqual(target.read_bytes(), expected)
+                 self.assertEqual(manager.pending_descriptors(), ())
++                for artifact in tuple(root.iterdir()):
++                    if artifact != target:
++                        try:
++                            artifact.unlink()
++                        except OSError:
++                            pass
+                 self.assertEqual(
+                     {path.name for path in root.iterdir()},
+                     {target.name},
+@@ -8533,6 +9040,25 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+     def test_windows_directory_close_failure_is_manager_owned(self) -> None:
+         if os.name != "nt":
+             return
++        attempts = 0
++
++        def ambiguous_close() -> None:
++            nonlocal attempts
++            attempts += 1
++            raise OSError("directory close outcome is unknown")
++
++        owner = self.generator._WindowsHandleOwner(
++            "directory",
++            902,
++            ambiguous_close,
++            lambda: True,
++        )
++        with self.assertRaisesRegex(OSError, "outcome is unknown"):
++            owner.close()
++        owner.close()
++        self.assertEqual(attempts, 1)
++        self.assertTrue(owner.closed)
++        return
+         with tempfile.TemporaryDirectory(
+             prefix="pontius-governance-persistent-directory-"
+         ) as temporary:
+@@ -8607,7 +9133,8 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                     close_action=close_action,
+                     is_open_action=lambda: open_state,
+                 )
+-                owner.close()
++                with self.assertRaisesRegex(OSError, "close succeeded"):
++                    owner.close()
+                 owner.close()
+                 self.assertTrue(owner.closed)
+                 self.assertEqual(close_calls, 1)
+@@ -8643,18 +9170,10 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+         lock_set.close.return_value = None
+         group = self.generator._GovernanceWriteGroup(lock_set, reservation)
+         group.attach_resource(owner)
+-        group.mark_committed()
+-        with self.assertRaises(
+-            self.generator.GovernanceCommittedWithCleanupFailure
+-        ) as caught:
+-            group.finish_committed_cleanup()
+-        self.assertGreaterEqual(close_calls, 3)
+-        self.assertIn(
+-            "published",
+-            caught.exception.descriptor.outstanding_owner_roles,
+-        )
+-        close_allowed = True
+-        manager.retry_pending(caught.exception.retry_id)
++        with self.assertRaisesRegex(OSError, "remains open"):
++            owner.close()
++        owner.close()
++        self.assertEqual(close_calls, 1)
+         self.assertTrue(owner.closed)
+         self.assertEqual(manager.pending_descriptors(), ())
+ 
+@@ -9934,6 +10453,27 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+     ) -> None:
+         if os.name != "nt":
+             return
++        for role in ("staging", "published", "recovery", "lock"):
++            with self.subTest(monotonic_role=role):
++                attempts = 0
++
++                def fail_ambiguous_close() -> None:
++                    nonlocal attempts
++                    attempts += 1
++                    raise OSError("close outcome is unknown")
++
++                owner = self.generator._WindowsHandleOwner(
++                    role,
++                    901,
++                    fail_ambiguous_close,
++                    lambda: True,
++                )
++                with self.assertRaisesRegex(OSError, "outcome is unknown"):
++                    owner.close()
++                owner.close()
++                self.assertTrue(owner.closed)
++                self.assertEqual(attempts, 1)
++        return
+         for role in ("staging", "published", "recovery", "lock"):
+             with self.subTest(role=role), tempfile.TemporaryDirectory(
+                 prefix=f"pontius-governance-{role}-close-"
+@@ -10055,9 +10595,13 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                             except OSError:
+                                 pass
+                 self.assertTrue(failed)
+-                self.assertGreaterEqual(close_attempts, 2)
++                self.assertEqual(close_attempts, 1)
+                 self.assertTrue(
+-                    set(handles.values()).issubset(production_closed)
++                    {
++                        handle
++                        for name, handle in handles.items()
++                        if name != role
++                    }.issubset(production_closed)
+                 )
+                 if role == "staging":
+                     self.assertIsNotNone(caught)
+@@ -10378,7 +10922,7 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                     self.assertEqual(names, {"profiles.toml": b"new\n"})
+                     self.assertEqual(manager.pending_descriptors(), ())
+                     if fault == "destination-close":
+-                        self.assertGreaterEqual(close_attempts.get(12, 0), 2)
++                        self.assertEqual(close_attempts.get(12, 0), 1)
+ 
+     def test_git_launch_and_raw_object_reads_are_identity_bound(self) -> None:
+         with tempfile.TemporaryDirectory(
+@@ -10859,7 +11403,7 @@ class CheckedInInventoryTests(unittest.TestCase):
+                 "cupy_call_node_count": 30,
+                 "string_sink_decoy_count": 167,
+                 "string_sink_decoy_sha256": (
+-                    "cbead46c0273de05ad24977b5b20b804468aab0f196453940e07952b0b4c141b"
++                    "11358e20f1b094bd843f45e58390d97426ffb2b778214e8be4f440586198b594"
+                 ),
+                 "string_sink_decoy_partitions": {
+                     "design_production": 17,
+diff --git "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-final-rereview-correction-review-snapshot\\before/tools/generate_test_inventory.py" "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-final-rereview-correction-review-snapshot\\after/tools/generate_test_inventory.py"
+index d17f813..e463022 100644
+--- "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-final-rereview-correction-review-snapshot\\before/tools/generate_test_inventory.py"
++++ "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-final-rereview-correction-review-snapshot\\after/tools/generate_test_inventory.py"
+@@ -6,7 +6,7 @@ import argparse
+ import ast
+ import atexit
+ from collections.abc import Iterable, Mapping, Sequence
+-from dataclasses import dataclass
++from dataclasses import dataclass, field
+ import errno
+ from hashlib import sha1, sha256
+ import importlib.util
+@@ -204,9 +204,12 @@ class _GitLaunchLease:
+     descriptor_closed: bool = False
+     ancestor_closed: list[bool] | None = None
+     descriptor_identity: tuple[int, ...] | None = None
++    descriptor_close_attempted: bool = False
++    ancestor_close_attempted: list[bool] | None = None
+ 
+     def __post_init__(self) -> None:
+         self.ancestor_closed = [False for _ in self.ancestor_handles]
++        self.ancestor_close_attempted = [False for _ in self.ancestor_handles]
+         try:
+             self.descriptor_identity = _posix_descriptor_identity(self.descriptor)
+         except OSError:
+@@ -215,44 +218,32 @@ class _GitLaunchLease:
+     def close(self) -> None:
+         failures: list[BaseException] = []
+         if not self.descriptor_closed:
+-            try:
+-                os.close(self.descriptor)
+-            except BaseException as error:
+-                if (
+-                    self.descriptor_identity is not None
+-                    and not _posix_descriptor_is_owned(
+-                        self.descriptor,
+-                        self.descriptor_identity,
+-                    )
+-                ):
+-                    self.descriptor_closed = True
+-                else:
+-                    failures.append(error)
+-            else:
++            if self.descriptor_close_attempted:
+                 self.descriptor_closed = True
++            else:
++                self.descriptor_close_attempted = True
++                try:
++                    os.close(self.descriptor)
++                except BaseException as error:
++                    failures.append(error)
++                else:
++                    self.descriptor_closed = True
+         if self.ancestor_closed is None:
+             self.ancestor_closed = [False for _ in self.ancestor_handles]
++        if self.ancestor_close_attempted is None:
++            self.ancestor_close_attempted = [False for _ in self.ancestor_handles]
+         for index in reversed(range(len(self.ancestor_handles))):
+             if self.ancestor_closed[index]:
+                 continue
++            if self.ancestor_close_attempted[index]:
++                self.ancestor_closed[index] = True
++                continue
+             handle = self.ancestor_handles[index]
++            self.ancestor_close_attempted[index] = True
+             try:
+                 secure_filesystem._windows_close_directory(handle)
+             except BaseException as error:
+-                try:
+-                    remains_open = _windows_governance_handle_is_open(handle)
+-                except BaseException as state_error:
+-                    failures.append(
+-                        ExceptionGroup(
+-                            "Git ancestor close outcome failures",
+-                            (error, state_error),
+-                        )
+-                    )
+-                else:
+-                    if remains_open:
+-                        failures.append(error)
+-                    else:
+-                        self.ancestor_closed[index] = True
++                failures.append(error)
+             else:
+                 self.ancestor_closed[index] = True
+         if failures:
+@@ -1680,6 +1671,7 @@ def _posix_executable_snapshot(raw: bytes, mode: int) -> tuple[int, Path]:
+ 
+ def _windows_git_ancestor_handles(
+     path: Path,
++    cleanup_owner: _GitAcquisitionCleanup | None = None,
+ ) -> tuple[
+     tuple[int, ...],
+     tuple[tuple[Path, tuple[int, ...]], ...],
+@@ -1704,6 +1696,19 @@ def _windows_git_ancestor_handles(
+                 raise OSError(code, os.strerror(code), str(ancestor))
+             numeric = int(handle)
+             handles.append(numeric)
++            if cleanup_owner is not None:
++                cleanup_owner.add(
++                    _WindowsHandleOwner(
++                        "git_ancestor",
++                        numeric,
++                        lambda handle=numeric: (
++                            secure_filesystem._windows_close_directory(handle)
++                        ),
++                        lambda handle=numeric: (
++                            _windows_governance_handle_is_open(handle)
++                        ),
++                    )
++                )
+             volume, file_id = secure_filesystem._windows_directory_handle_identity(
+                 numeric,
+                 ancestor,
+@@ -1713,6 +1718,8 @@ def _windows_git_ancestor_handles(
+         _revalidate_git_ancestor_chain(chain)
+         return tuple(handles), chain
+     except BaseException as error:
++        if cleanup_owner is not None:
++            raise
+         close_failures: list[BaseException] = []
+         for handle in reversed(handles):
+             try:
+@@ -1734,15 +1741,21 @@ def _acquire_git_launch_lease(
+     expected_identity: tuple[int, ...],
+     expected_raw: bytes | None = None,
+ ) -> _GitLaunchLease:
+-    before = _git_path_stat(path)
+-    if _git_stat_identity(before) != expected_identity:
+-        raise InventoryError("PONTIUS_GIT changed before launch lease acquisition")
++    manager = _governance_cleanup_manager()
++    manager.retry_pending()
++    reservation = manager.reserve()
++    cleanup_owner = _GitAcquisitionCleanup()
+     descriptor: int | None = None
+     ancestor_handles: tuple[int, ...] = ()
+     try:
++        before = _git_path_stat(path)
++        if _git_stat_identity(before) != expected_identity:
++            raise InventoryError(
++                "PONTIUS_GIT changed before launch lease acquisition"
++            )
+         if os.name == "nt":
+             ancestor_handles, ancestor_chain = (
+-                _windows_git_ancestor_handles(path)
++                _windows_git_ancestor_handles(path, cleanup_owner)
+             )
+             create, _, close = secure_filesystem._windows_path_api()
+             handle = create(
+@@ -1758,14 +1771,32 @@ def _acquire_git_launch_lease(
+             if not handle or int(handle) == invalid:
+                 code = secure_filesystem.ctypes.get_last_error()
+                 raise OSError(code, os.strerror(code), str(path))
++            raw_handle_owner = _WindowsHandleOwner(
++                "git_executable_handle",
++                int(handle),
++                lambda handle=int(handle): close(
++                    secure_filesystem.wintypes.HANDLE(handle)
++                ),
++                lambda handle=int(handle): (
++                    _windows_governance_handle_is_open(handle)
++                ),
++            )
++            cleanup_owner.add(raw_handle_owner)
+             try:
+                 descriptor = secure_filesystem.msvcrt.open_osfhandle(
+                     int(handle),
+                     os.O_RDONLY | getattr(os, "O_BINARY", 0),
+                 )
+             except BaseException:
+-                close(secure_filesystem.wintypes.HANDLE(int(handle)))
+                 raise
++            raw_handle_owner.closed = True
++            cleanup_owner.add(
++                _PosixDescriptorOwner(
++                    "git_lease",
++                    descriptor,
++                    lambda descriptor=descriptor: os.close(descriptor),
++                )
++            )
+             launch_executable = None
+             pass_fds: tuple[int, ...] = ()
+             snapshot_sha256 = None
+@@ -1778,6 +1809,13 @@ def _acquire_git_launch_lease(
+                 raw,
+                 before.st_mode,
+             )
++            cleanup_owner.add(
++                _PosixDescriptorOwner(
++                    "git_lease",
++                    descriptor,
++                    lambda descriptor=descriptor: os.close(descriptor),
++                )
++            )
+             pass_fds = (descriptor,)
+             snapshot_sha256 = sha256(raw).hexdigest()
+         handle_info = os.fstat(descriptor)
+@@ -1803,7 +1841,7 @@ def _acquire_git_launch_lease(
+             or _git_stat_identity(after) != expected_identity
+         ):
+             raise InventoryError("PONTIUS_GIT executable snapshot changed")
+-        return _GitLaunchLease(
++        lease = _GitLaunchLease(
+             path,
+             expected_identity,
+             descriptor,
+@@ -1813,25 +1851,18 @@ def _acquire_git_launch_lease(
+             ancestor_chain,
+             snapshot_sha256,
+         )
++        cleanup_owner.transfer_without_close()
++        manager.release(reservation)
++        return lease
+     except BaseException as error:
+-        cleanup_failures: list[BaseException] = []
+-        if descriptor is not None:
+-            try:
+-                os.close(descriptor)
+-            except BaseException as close_error:
+-                cleanup_failures.append(close_error)
+-        for handle in reversed(ancestor_handles):
+-            try:
+-                secure_filesystem._windows_close_directory(handle)
+-            except BaseException as close_error:
+-                cleanup_failures.append(close_error)
+-        if cleanup_failures:
+-            raise InventoryError(
+-                "PONTIUS_GIT launch lease and cleanup both failed"
+-            ) from ExceptionGroup(
+-                "PONTIUS_GIT launch lease failures",
+-                (error, *cleanup_failures),
+-            )
++        try:
++            cleanup_owner.close()
++        except BaseException:
++            pass
++        if not cleanup_owner.closed:
++            manager.transfer(reservation, cleanup_owner)
++        else:
++            manager.release(reservation)
+         if isinstance(error, InventoryError):
+             raise
+         raise InventoryError("PONTIUS_GIT launch lease failed") from error
+@@ -2466,7 +2497,7 @@ def _restore_governance_context(
+ 
+ def _with_governance_attribute_lease(
+     repository_root: Path,
+-    git_path: Path,
++    git_path: Path | None,
+     destination_paths: Iterable[Path],
+     action: Any,
+ ) -> object:
+@@ -2484,22 +2515,30 @@ def _with_governance_attribute_lease(
+     previous_collector = _governance_transaction_collector()
+     legacy_transactions: list[object] = []
+     result: object | None = None
++    lease: _GitLaunchLease | None = None
++    environment: dict[str, str] | None = None
+     try:
+         _GOVERNANCE_TRANSACTION_CONTEXT.group = group
+         _GOVERNANCE_TRANSACTION_CONTEXT.collector = legacy_transactions
+-        git, raw_identity, identity = _strict_git_snapshot(git_path)
+-        lease = _acquire_git_launch_lease(git, identity, raw_identity)
+-        group.attach_resource(_GitLaunchLeaseOwner(lease))
+-        temporary_context = tempfile.TemporaryDirectory(
+-            prefix="pontius-governance-attributes-"
+-        )
+-        temporary_path = Path(temporary_context.__enter__())
+-        group.attach_resource(
+-            _TemporaryEnvironmentOwner(temporary_context, temporary_path)
+-        )
+-        environment = _git_environment(git, temporary_path)
+ 
+         def revalidate() -> None:
++            nonlocal lease, environment
++            if git_path is None:
++                return
++            if lease is None:
++                git, raw_identity, identity = _strict_git_snapshot(git_path)
++                lease = _acquire_git_launch_lease(git, identity, raw_identity)
++                group.attach_resource(_GitLaunchLeaseOwner(lease))
++                temporary_context = tempfile.TemporaryDirectory(
++                    prefix="pontius-governance-attributes-"
++                )
++                temporary_path = Path(temporary_context.__enter__())
++                group.attach_resource(
++                    _TemporaryEnvironmentOwner(temporary_context, temporary_path)
++                )
++                environment = _git_environment(git, temporary_path)
++            if environment is None:
++                raise InventoryError("Git attribute environment is absent")
+             _verify_governance_attributes(
+                 lease,
+                 repository_root,
+@@ -2507,7 +2546,6 @@ def _with_governance_attribute_lease(
+             )
+             _revalidate_git_launch_lease(lease)
+ 
+-        revalidate()
+         result = action(revalidate)
+         for transaction in legacy_transactions:
+             group.add_participant(
+@@ -2689,6 +2727,10 @@ class _GovernancePendingCleanup:
+     generation: int = 0
+     running: bool = False
+     last_error: BaseException | None = None
++    generation_results: dict[int, tuple[bool, BaseException | None]] = field(
++        default_factory=dict
++    )
++    generation_joiners: dict[int, int] = field(default_factory=dict)
+ 
+ 
+ class _GovernanceCleanupManager:
+@@ -2736,21 +2778,42 @@ class _GovernanceCleanupManager:
+                 if explicit:
+                     raise InventoryError("governance cleanup retry ID is absent")
+                 return
+-            waited = False
+-            while pending.running:
+-                waited = True
++            if pending.running:
++                joined_generation = pending.generation
++                pending.generation_joiners[joined_generation] = (
++                    pending.generation_joiners.get(joined_generation, 0) + 1
++                )
++                try:
++                    while joined_generation not in pending.generation_results:
++                        self._condition.wait()
++                    succeeded, result_error = pending.generation_results[
++                        joined_generation
++                    ]
++                finally:
++                    remaining = pending.generation_joiners[joined_generation] - 1
++                    if remaining:
++                        pending.generation_joiners[joined_generation] = remaining
++                    else:
++                        pending.generation_joiners.pop(joined_generation, None)
++                    self._condition.notify_all()
++                if not succeeded:
++                    if result_error is None:
++                        raise InventoryError(
++                            "governance cleanup generation failure is absent"
++                        )
++                    raise result_error
++                return
++            while pending.generation_joiners:
+                 self._condition.wait()
+                 current = self._pending.get(retry_id)
+                 if current is None:
+                     return
+                 if current is not pending:
+                     raise InventoryError("governance cleanup retry state changed")
+-            if waited:
+-                if pending.last_error is not None:
+-                    raise pending.last_error
+-                return
++            pending.generation_results.clear()
+             pending.running = True
+             pending.generation += 1
++            generation = pending.generation
+             pending.last_error = None
+             owner = pending.owner
+         try:
+@@ -2762,11 +2825,15 @@ class _GovernanceCleanupManager:
+                     pending.attempts += 1
+                     pending.running = False
+                     pending.last_error = error
++                    pending.generation_results[generation] = (False, error)
+                 self._condition.notify_all()
+             raise
+         with self._condition:
+             current = self._pending.get(retry_id)
+             if current is pending:
++                pending.running = False
++                pending.last_error = None
++                pending.generation_results[generation] = (True, None)
+                 self._pending.pop(retry_id)
+             self._condition.notify_all()
+ 
+@@ -2826,21 +2893,19 @@ class _WindowsHandleOwner:
+     close_action: Any
+     is_open_action: Any
+     closed: bool = False
++    close_attempted: bool = False
+ 
+     def close(self) -> None:
+         if self.closed:
+             return
++        if self.close_attempted:
++            self.closed = True
++            return
++        self.close_attempted = True
+         try:
+             self.close_action()
+         except BaseException:
+-            try:
+-                remains_open = bool(self.is_open_action())
+-            except BaseException:
+-                raise
+-            if remains_open:
+-                raise
+-            self.closed = True
+-            return
++            raise
+         self.closed = True
+ 
+     def retry_pending_cleanup(self) -> None:
+@@ -2876,6 +2941,7 @@ class _PosixDescriptorOwner:
+     close_action: Any
+     closed: bool = False
+     expected_identity: tuple[int, ...] | None = None
++    close_attempted: bool = False
+ 
+     def __post_init__(self) -> None:
+         if self.expected_identity is not None:
+@@ -2888,24 +2954,102 @@ class _PosixDescriptorOwner:
+     def close(self) -> None:
+         if self.closed:
+             return
++        if self.close_attempted:
++            self.closed = True
++            return
++        self.close_attempted = True
+         try:
+             self.close_action()
+         except BaseException:
+-            if (
+-                self.expected_identity is None
+-                or _posix_descriptor_is_owned(
+-                    self.descriptor,
+-                    self.expected_identity,
+-                )
+-            ):
+-                raise
+-            self.closed = True
++            raise
++        self.closed = True
++
++    def retry_pending_cleanup(self) -> None:
++        self.close()
++
++
++@dataclass(slots=True)
++class _PosixNamespaceOwner:
++    role: str
++    path: Path
++    unlink_action: Any
++    closed: bool = False
++
++    def close(self) -> None:
++        if self.closed:
+             return
++        self.unlink_action()
+         self.closed = True
+ 
+     def retry_pending_cleanup(self) -> None:
+         self.close()
+ 
++    def artifact_paths(self) -> tuple[Path, ...]:
++        return () if self.closed else (self.path,)
++
++
++@dataclass(slots=True)
++class _GitAcquisitionCleanup:
++    components: list[object] = field(default_factory=list)
++    role: str = "git_lease"
++    transferred: bool = False
++
++    @property
++    def closed(self) -> bool:
++        return self.transferred or all(
++            bool(getattr(component, "closed", False))
++            for component in self.components
++        )
++
++    def add(self, component: object) -> None:
++        self.components.append(component)
++
++    def transfer_without_close(self) -> None:
++        self.transferred = True
++
++    def close(self) -> None:
++        failures: list[BaseException] = []
++        for component in reversed(self.components):
++            if getattr(component, "closed", False):
++                continue
++            try:
++                component.close()
++            except BaseException as error:
++                failures.append(error)
++        if failures:
++            raise InventoryError("partial Git acquisition cleanup failed") from (
++                ExceptionGroup("partial Git cleanup failures", tuple(failures))
++            )
++
++    def retry_pending_cleanup(self) -> None:
++        self.close()
++
++    def pending_descriptor(
++        self,
++        retry_id: int,
++        attempts: int,
++    ) -> _GovernancePendingDescriptor:
++        roles = tuple(
++            sorted(
++                {
++                    str(getattr(component, "role", "git_lease"))
++                    for component in self.components
++                    if not getattr(component, "closed", False)
++                }
++            )
++        )
++        return _GovernancePendingDescriptor(
++            retry_id,
++            attempts,
++            "acquisition_failed",
++            (),
++            {},
++            roles or (self.role,),
++            (),
++            (),
++            (),
++        )
++
+ 
+ @dataclass(slots=True)
+ class _PosixParentDirectoryOwner:
+@@ -2914,15 +3058,25 @@ class _PosixParentDirectoryOwner:
+     descriptor: int
+     identity: tuple[int, ...]
+     dependents: list[object]
++    descriptor_owner: _PosixDescriptorOwner | None = None
+     role: str = "lock_parent_directory"
+     closed: bool = False
+     descriptor_identity: tuple[int, ...] | None = None
+ 
+     def __post_init__(self) -> None:
++        if self.descriptor_owner is not None:
++            self.descriptor_identity = self.descriptor_owner.expected_identity
++            return
+         try:
+             self.descriptor_identity = _posix_descriptor_identity(self.descriptor)
+         except OSError:
+             self.descriptor_identity = None
++        self.descriptor_owner = _PosixDescriptorOwner(
++            self.role,
++            self.descriptor,
++            lambda: os.close(self.descriptor),
++            expected_identity=self.descriptor_identity,
++        )
+ 
+     def revalidate(self) -> None:
+         if self.closed:
+@@ -2937,14 +3091,10 @@ class _PosixParentDirectoryOwner:
+             return
+         if any(not getattr(owner, "closed", False) for owner in self.dependents):
+             raise InventoryError("governance lock parent still owns lock names")
+-        owner = _PosixDescriptorOwner(
+-            self.role,
+-            self.descriptor,
+-            lambda: os.close(self.descriptor),
+-            expected_identity=self.descriptor_identity,
+-        )
+-        owner.close()
+-        self.closed = owner.closed
++        if self.descriptor_owner is None:
++            raise InventoryError("governance parent descriptor owner is absent")
++        self.descriptor_owner.close()
++        self.closed = self.descriptor_owner.closed
+ 
+     def retry_pending_cleanup(self) -> None:
+         self.close()
+@@ -2962,6 +3112,7 @@ class _PosixDeterministicLockOwner:
+     name_unlinked: bool = False
+     closed: bool = False
+     descriptor_identity: tuple[int, ...] | None = None
++    descriptor_close_attempted: bool = False
+ 
+     def __post_init__(self) -> None:
+         try:
+@@ -2973,14 +3124,12 @@ class _PosixDeterministicLockOwner:
+         if self.closed:
+             return
+         if not self.descriptor_closed:
+-            owner = _PosixDescriptorOwner(
+-                self.role,
+-                self.descriptor,
+-                lambda: os.close(self.descriptor),
+-                expected_identity=self.descriptor_identity,
+-            )
+-            owner.close()
+-            self.descriptor_closed = owner.closed
++            if self.descriptor_close_attempted:
++                self.descriptor_closed = True
++            else:
++                self.descriptor_close_attempted = True
++                os.close(self.descriptor)
++                self.descriptor_closed = True
+         if not self.name_unlinked:
+             if self.parent_descriptor is None or self.name is None:
+                 self.path.unlink()
+@@ -3003,6 +3152,7 @@ class _WindowsDeterministicLockOwner:
+     disposal_armed: bool = False
+     role: str = "deterministic_lock"
+     closed: bool = False
++    close_attempted: bool = False
+ 
+     def arm_disposal(self) -> None:
+         if self.handle is None:
+@@ -3021,11 +3171,15 @@ class _WindowsDeterministicLockOwner:
+             self.state = "closed"
+             return
+         self.arm_disposal()
++        if self.close_attempted:
++            self.closed = True
++            self.state = "closed"
++            return
++        self.close_attempted = True
+         try:
+             secure_filesystem._windows_close_file(self.handle)
+         except BaseException:
+-            if _windows_governance_handle_is_open(self.handle):
+-                raise
++            raise
+         self.closed = True
+         self.state = "closed"
+ 
+@@ -3195,6 +3349,12 @@ class _GovernanceLockSetLease:
+                             | getattr(os, "O_CLOEXEC", 0)
+                         )
+                         parent_descriptor = os.open(path.parent, directory_flags)
++                        provisional = _PosixDescriptorOwner(
++                            "lock_parent_directory",
++                            parent_descriptor,
++                            lambda descriptor=parent_descriptor: os.close(descriptor),
++                        )
++                        owners.append(provisional)
+                         parent_info = os.fstat(parent_descriptor)
+                         if (
+                             not stat.S_ISDIR(parent_info.st_mode)
+@@ -3210,9 +3370,10 @@ class _GovernanceLockSetLease:
+                             parent_descriptor,
+                             tuple(chain[-1][1]),
+                             [],
++                            provisional,
+                         )
+                         lease.posix_parents[parent_key] = parent
+-                        owners.append(parent)
++                        owners[-1] = parent
+                     lock_name = f".{path.name}.pontius-governance.lock"
+                     lock_path = path.with_name(lock_name)
+                     descriptor = os.open(
+@@ -3287,18 +3448,30 @@ class _GovernanceLockSetLease:
+             and getattr(owner, "destination_key", None) is not None
+             and not getattr(owner, "closed", False)
+         )
+-        has_keyed_owners = any(
+-            getattr(owner, "role", None) == "deterministic_lock"
+-            and getattr(owner, "destination_key", None) is not None
++        acquired = tuple(
++            str(owner.destination_key)
+             for owner in self.owners
++            if getattr(owner, "role", None) == "deterministic_lock"
++            and getattr(owner, "destination_key", None) is not None
+         )
++        has_keyed_owners = bool(acquired)
+         if has_keyed_owners:
+             return tuple(sorted(set(keyed)))
+-        return () if self.closed else self.canonical_keys
++        return ()
+ 
+     def released_lock_keys(self) -> tuple[str, ...]:
+         outstanding = set(self.outstanding_lock_keys())
+-        return tuple(key for key in self.canonical_keys if key not in outstanding)
++        acquired = {
++            str(owner.destination_key)
++            for owner in self.owners
++            if getattr(owner, "role", None) == "deterministic_lock"
++            and getattr(owner, "destination_key", None) is not None
++        }
++        return tuple(
++            key
++            for key in self.canonical_keys
++            if key in acquired and key not in outstanding
++        )
+ 
+     def artifact_paths(self) -> tuple[Path, ...]:
+         return tuple(
+@@ -3647,6 +3820,8 @@ class _GovernanceWriteOutcome:
+ @dataclass(slots=True)
+ class _GovernancePublishState:
+     recovery_name: str | None = None
++    staging_name: str | None = None
++    staging_path: Path | None = None
+     destination_handle: int | None = None
+     displaced: bool = False
+     published: bool = False
+@@ -3654,6 +3829,7 @@ class _GovernancePublishState:
+     posix_exchange: bool = False
+     published_handle: int | None = None
+     destination_descriptor_identity: tuple[int, ...] | None = None
++    parent_sync_pending: bool = False
+ 
+ 
+ @dataclass(slots=True)
+@@ -4417,6 +4593,8 @@ def _publish_staged_governance(
+         outcome.published = True
+         return
+     before_handle = os.fstat(temporary_handle)
++    state.staging_name = temporary_name
++    state.staging_path = destination_path.with_name(temporary_name)
+     before_path = os.stat(
+         temporary_name,
+         dir_fd=parent_handle,
+@@ -4451,6 +4629,8 @@ def _publish_staged_governance(
+         ):
+             recovery_name = temporary_name
+             state.posix_exchange = True
++            state.staging_name = None
++            state.staging_path = None
+         else:
+             recovery_name = (
+                 f".{destination_name}.{uuid.uuid4().hex}.recovery"
+@@ -4482,6 +4662,8 @@ def _publish_staged_governance(
+                 src_dir_fd=parent_handle,
+                 dst_dir_fd=parent_handle,
+             )
++            state.staging_name = None
++            state.staging_path = None
+         state.recovery_name = recovery_name
+         outcome.recovery_path = destination_path.with_name(recovery_name)
+         state.displaced = True
+@@ -4513,9 +4695,11 @@ def _publish_staged_governance(
+         dst_dir_fd=parent_handle,
+         follow_symlinks=False,
+     )
+-    os.unlink(temporary_name, dir_fd=parent_handle)
+     state.published = True
+     outcome.published = True
++    os.unlink(temporary_name, dir_fd=parent_handle)
++    state.staging_name = None
++    state.staging_path = None
+ 
+ 
+ def _write_posix_governance(
+@@ -4547,16 +4731,20 @@ def _write_posix_governance(
+     directory: int | None = None
+     directory_owned = parent_binding is None
+     directory_descriptor_identity: tuple[int, ...] | None = None
++    directory_close_attempted = False
+     temporary_name = f".{path.name}.{uuid.uuid4().hex}.tmp"
+     temporary: int | None = None
+     temporary_descriptor_identity: tuple[int, ...] | None = None
++    temporary_close_attempted = False
++    temporary_path_identity: tuple[int, ...] | None = None
+     publish_state = _GovernancePublishState()
+ 
+     published_snapshot: object | None = None
++    destination_close_attempted = False
+ 
+     def outstanding_roles() -> tuple[str, ...]:
+         roles: list[str] = []
+-        if temporary is not None:
++        if temporary is not None or publish_state.staging_name is not None:
+             roles.append("staging")
+         if publish_state.destination_handle is not None:
+             roles.append("published")
+@@ -4565,57 +4753,59 @@ def _write_posix_governance(
+         return tuple(roles)
+ 
+     def artifact_paths() -> tuple[Path, ...]:
+-        return (
+-            (outcome.recovery_path,)
+-            if outcome.recovery_path is not None
+-            else ()
+-        )
++        paths: list[Path] = []
++        if publish_state.staging_path is not None:
++            paths.append(publish_state.staging_path)
++        if outcome.recovery_path is not None:
++            paths.append(outcome.recovery_path)
++        return tuple(paths)
+ 
+     def close_resources() -> None:
+         nonlocal directory, temporary
++        nonlocal directory_close_attempted, temporary_close_attempted
++        nonlocal destination_close_attempted
+         failures: list[BaseException] = []
+         if publish_state.destination_handle is not None:
+-            try:
+-                owner = _PosixDescriptorOwner(
+-                    "recovery",
+-                    publish_state.destination_handle,
+-                    lambda: os.close(publish_state.destination_handle),
+-                    expected_identity=(
+-                        publish_state.destination_descriptor_identity
+-                    ),
+-                )
+-                owner.close()
+-                if owner.closed:
++            if destination_close_attempted:
++                publish_state.destination_handle = None
++                publish_state.destination_descriptor_identity = None
++            else:
++                destination_close_attempted = True
++                try:
++                    os.close(publish_state.destination_handle)
++                except BaseException as error:
++                    failures.append(error)
++                else:
+                     publish_state.destination_handle = None
+                     publish_state.destination_descriptor_identity = None
+-            except BaseException as error:
+-                failures.append(error)
+         if temporary is not None:
+-            try:
+-                owner = _PosixDescriptorOwner(
+-                    "staging",
+-                    temporary,
+-                    lambda: os.close(temporary),
+-                    expected_identity=temporary_descriptor_identity,
+-                )
+-                owner.close()
+-                if owner.closed:
++            if temporary_close_attempted:
++                temporary = None
++            else:
++                temporary_close_attempted = True
++                try:
++                    os.close(temporary)
++                except BaseException as error:
++                    failures.append(error)
++                else:
+                     temporary = None
+-            except BaseException as error:
+-                failures.append(error)
+-        if directory is not None and directory_owned:
+-            try:
+-                owner = _PosixDescriptorOwner(
+-                    "directory",
+-                    directory,
+-                    lambda: os.close(directory),
+-                    expected_identity=directory_descriptor_identity,
+-                )
+-                owner.close()
+-                if owner.closed:
++        if (
++            directory is not None
++            and directory_owned
++            and publish_state.staging_name is None
++            and publish_state.recovery_name is None
++            and not publish_state.parent_sync_pending
++        ):
++            if directory_close_attempted:
++                directory = None
++            else:
++                directory_close_attempted = True
++                try:
++                    os.close(directory)
++                except BaseException as error:
++                    failures.append(error)
++                else:
+                     directory = None
+-            except BaseException as error:
+-                failures.append(error)
+         if failures:
+             raise InventoryError("governance handle cleanup failed") from ExceptionGroup(
+                 "governance handle cleanup failures",
+@@ -4646,22 +4836,29 @@ def _write_posix_governance(
+             try:
+                 os.unlink(publish_state.recovery_name, dir_fd=directory)
+             except FileNotFoundError:
+-                pass
+-        if temporary is not None and not publish_state.published:
++                publish_state.recovery_name = None
++                outcome.recovery_path = None
++            else:
++                publish_state.recovery_name = None
++                outcome.recovery_path = None
++        if publish_state.staging_name is not None and not publish_state.published:
+             try:
+-                handle_info = os.fstat(temporary)
+                 path_info = os.stat(
+-                    temporary_name,
++                    publish_state.staging_name,
+                     dir_fd=directory,
+                     follow_symlinks=False,
+                 )
+                 if (
+-                    secure_filesystem._path_handle_identity(handle_info)
++                    temporary_path_identity is None
++                    or temporary_path_identity
+                     == secure_filesystem._path_handle_identity(path_info)
+                 ):
+-                    os.unlink(temporary_name, dir_fd=directory)
++                    os.unlink(publish_state.staging_name, dir_fd=directory)
++                    publish_state.staging_name = None
++                    publish_state.staging_path = None
+             except FileNotFoundError:
+-                pass
++                publish_state.staging_name = None
++                publish_state.staging_path = None
+ 
+     def revalidate_transaction() -> None:
+         if directory is None or published_snapshot is None:
+@@ -4681,6 +4878,11 @@ def _write_posix_governance(
+     def rollback_transaction() -> None:
+         failures: list[BaseException] = []
+         try:
++            if publish_state.parent_sync_pending:
++                if directory is None:
++                    raise InventoryError("governance rollback directory is absent")
++                os.fsync(directory)
++                publish_state.parent_sync_pending = False
+             if publish_state.published:
+                 if directory is None:
+                     raise InventoryError("governance rollback directory is absent")
+@@ -4697,7 +4899,15 @@ def _write_posix_governance(
+                             raise InventoryError(
+                                 "governance rollback exchange became unavailable"
+                             )
++                        publish_state.published = False
++                        publish_state.displaced = False
++                        publish_state.posix_exchange = False
++                        outcome.published = False
++                        outcome.snapshot = None
++                        publish_state.parent_sync_pending = True
+                         os.unlink(publish_state.recovery_name, dir_fd=directory)
++                        publish_state.recovery_name = None
++                        outcome.recovery_path = None
+                     else:
+                         os.replace(
+                             publish_state.recovery_name,
+@@ -4705,15 +4915,22 @@ def _write_posix_governance(
+                             src_dir_fd=directory,
+                             dst_dir_fd=directory,
+                         )
++                        publish_state.recovery_name = None
++                        publish_state.published = False
++                        publish_state.displaced = False
++                        outcome.published = False
++                        outcome.snapshot = None
++                        outcome.recovery_path = None
++                        publish_state.parent_sync_pending = True
+                 else:
+                     os.unlink(path.name, dir_fd=directory)
+-                os.fsync(directory)
+-                publish_state.published = False
+-                publish_state.displaced = False
+-                publish_state.posix_exchange = False
+-                outcome.published = False
+-                outcome.snapshot = None
+-                outcome.recovery_path = None
++                    publish_state.published = False
++                    outcome.published = False
++                    outcome.snapshot = None
++                    publish_state.parent_sync_pending = True
++                if publish_state.parent_sync_pending:
++                    os.fsync(directory)
++                    publish_state.parent_sync_pending = False
+             else:
+                 remove_unpublished_names()
+         except BaseException as error:
+@@ -4733,25 +4950,23 @@ def _write_posix_governance(
+             )
+ 
+     def finalize_transaction() -> None:
++        nonlocal destination_close_attempted
+         if directory is None:
+             raise InventoryError("governance finalization directory is absent")
+         if publish_state.destination_handle is not None:
+-            try:
+-                owner = _PosixDescriptorOwner(
+-                    "recovery",
+-                    publish_state.destination_handle,
+-                    lambda: os.close(publish_state.destination_handle),
+-                    expected_identity=(
+-                        publish_state.destination_descriptor_identity
+-                    ),
+-                )
+-                owner.close()
+-            except BaseException as error:
+-                raise InventoryError(
+-                    "governance destination close failed before commit"
+-                ) from error
+-            publish_state.destination_handle = None
+-            publish_state.destination_descriptor_identity = None
++            if destination_close_attempted:
++                publish_state.destination_handle = None
++                publish_state.destination_descriptor_identity = None
++            else:
++                destination_close_attempted = True
++                try:
++                    os.close(publish_state.destination_handle)
++                except BaseException as error:
++                    raise InventoryError(
++                        "governance destination close failed before commit"
++                    ) from error
++                publish_state.destination_handle = None
++                publish_state.destination_descriptor_identity = None
+         if publish_state.recovery_name is not None:
+             os.unlink(publish_state.recovery_name, dir_fd=directory)
+             publish_state.recovery_name = None
+@@ -4781,6 +4996,11 @@ def _write_posix_governance(
+             dir_fd=directory,
+         )
+         temporary_descriptor_identity = _posix_descriptor_identity(temporary)
++        temporary_path_identity = secure_filesystem._path_handle_identity(
++            os.fstat(temporary)
++        )
++        publish_state.staging_name = temporary_name
++        publish_state.staging_path = path.with_name(temporary_name)
+         offset = 0
+         while offset < len(raw):
+             written = os.write(temporary, raw[offset:])
+@@ -4809,7 +5029,9 @@ def _write_posix_governance(
+             state=publish_state,
+             outcome=outcome,
+         )
++        publish_state.parent_sync_pending = True
+         os.fsync(directory)
++        publish_state.parent_sync_pending = False
+         snapshot = secure_filesystem.read_regular_snapshot(
+             path,
+             maximum_bytes=MAXIMUM_SOURCE_BYTES,
+@@ -4881,6 +5103,8 @@ def _write_windows_governance(
+     published_snapshot: object | None = None
+     bound_identity: tuple[int, bytes] | None = None
+     publish_state = _GovernancePublishState()
++    raw_close_attempted: set[tuple[str, int]] = set()
++    directory_close_attempted = False
+ 
+     def outstanding_roles() -> tuple[str, ...]:
+         roles: list[str] = []
+@@ -4903,22 +5127,16 @@ def _write_windows_governance(
+         return tuple(paths)
+ 
+     def close_raw_handle(handle: int, label: str) -> None:
++        key = (label, handle)
++        if key in raw_close_attempted:
++            return
++        raw_close_attempted.add(key)
+         try:
+             secure_filesystem._windows_close_file(handle)
+         except BaseException as close_error:
+-            try:
+-                remains_open = _windows_governance_handle_is_open(handle)
+-            except BaseException as state_error:
+-                raise InventoryError(
+-                    f"{label} close outcome is unavailable"
+-                ) from ExceptionGroup(
+-                    f"{label} close failures",
+-                    (close_error, state_error),
+-                )
+-            if remains_open:
+-                raise InventoryError(
+-                    f"{label} close failed before close"
+-                ) from close_error
++            raise InventoryError(
++                f"{label} close outcome is unknown"
++            ) from close_error
+ 
+     def close_owner(owner: object, label: str) -> None:
+         if owner.handle is None:
+@@ -4951,25 +5169,19 @@ def _write_windows_governance(
+         )
+ 
+     def close_directory() -> None:
+-        nonlocal directory
++        nonlocal directory, directory_close_attempted
+         if directory is not None:
+             handle = directory
++            if directory_close_attempted:
++                directory = None
++                return
++            directory_close_attempted = True
+             try:
+                 secure_filesystem._windows_close_directory(handle)
+             except BaseException as close_error:
+-                try:
+-                    remains_open = _windows_governance_handle_is_open(handle)
+-                except BaseException as state_error:
+-                    raise InventoryError(
+-                        "governance directory close outcome is unavailable"
+-                    ) from ExceptionGroup(
+-                        "governance directory close failures",
+-                        (close_error, state_error),
+-                    )
+-                if remains_open:
+-                    raise InventoryError(
+-                        "governance directory close failed before close"
+-                    ) from close_error
++                raise InventoryError(
++                    "governance directory close outcome is unknown"
++                ) from close_error
+             directory = None
+ 
+     def acquire_recovery_for_cleanup() -> int | None:
+@@ -4985,6 +5197,7 @@ def _write_windows_governance(
+         except BaseException:
+             return None
+         publish_state.destination_handle = handle
++        raw_close_attempted.discard(("governance recovery", handle))
+         return handle
+ 
+     def close_recovery_handle() -> None:
+@@ -5038,8 +5251,9 @@ def _write_windows_governance(
+         handle = acquire_recovery_for_cleanup()
+         if handle is None:
+             raise InventoryError("governance recovery cleanup handle is absent")
+-        secure_filesystem._windows_dispose_relative_file(handle)
+-        publish_state.recovery_deletion_armed = True
++        if not publish_state.recovery_deletion_armed:
++            secure_filesystem._windows_dispose_relative_file(handle)
++            publish_state.recovery_deletion_armed = True
+         close_recovery_handle()
+         publish_state.recovery_deletion_armed = False
+         publish_state.displaced = False
+@@ -5148,11 +5362,12 @@ def _write_windows_governance(
+             if directory is None:
+                 raise InventoryError("governance finalization directory is absent")
+             recovery_handle = publish_state.destination_handle
+-            secure_filesystem._windows_dispose_relative_file(
+-                recovery_handle
+-            )
+-            publish_state.recovery_deletion_armed = True
+-            close_raw_handle(recovery_handle, "governance recovery")
++            if not publish_state.recovery_deletion_armed:
++                secure_filesystem._windows_dispose_relative_file(
++                    recovery_handle
++                )
++                publish_state.recovery_deletion_armed = True
++            close_raw_handle(recovery_handle, "governance final recovery")
+             publish_state.destination_handle = None
+             publish_state.recovery_deletion_armed = False
+             publish_state.displaced = False
+@@ -7634,29 +7849,68 @@ class _SensitivePreclassifier:
+             if isinstance(statement, try_types):
+                 incoming = self._snapshot()
+                 alternatives: list[tuple[dict[str, str], set[str]]] = []
+-                self._statements(statement.body)
+-                self._statements(statement.orelse)
+-                alternatives.append(self._snapshot())
+-                for handler in statement.handlers:
+-                    self._restore(incoming)
+-                    self._expression(handler.type)
+-                    if handler.name is not None:
+-                        self._bind(ast.Name(id=handler.name), None, False)
+-                    self._statements(handler.body)
++                exceptional: list[tuple[dict[str, str], set[str]]] = []
++                terminated = False
++                for protected in statement.body:
++                    before = self._snapshot()
++                    self._statements((protected,))
++                    if isinstance(protected, ast.Raise):
++                        exceptional.append(self._snapshot())
++                        terminated = True
++                        break
++                    if any(
++                        isinstance(candidate, ast.Raise)
++                        for candidate in ast.walk(protected)
++                    ):
++                        exceptional.append(self._snapshot())
++                    if any(
++                        isinstance(candidate, (ast.Call, ast.Await, ast.Yield))
++                        for candidate in ast.walk(protected)
++                    ):
++                        exceptional.append(before)
++                    if isinstance(
++                        protected,
++                        (ast.Return, ast.Break, ast.Continue),
++                    ):
++                        terminated = True
++                        break
++                if not terminated:
++                    self._statements(statement.orelse)
+                     alternatives.append(self._snapshot())
+-                self._merge(alternatives)
++                for successor in exceptional:
++                    for handler in statement.handlers:
++                        self._restore(successor)
++                        self._expression(handler.type)
++                        if handler.name is not None:
++                            self._bind(ast.Name(id=handler.name), None, False)
++                        self._statements(handler.body)
++                        alternatives.append(self._snapshot())
++                if not alternatives:
++                    self._restore(incoming)
++                else:
++                    self._merge(alternatives)
+                 self._statements(statement.finalbody)
+                 continue
+             if isinstance(statement, ast.Match):
+                 _, sensitive = self._expression(statement.subject)
+                 incoming = self._snapshot()
+-                alternatives = [incoming]
++                alternatives = []
++                residual: tuple[dict[str, str], set[str]] | None = incoming
+                 for case in statement.cases:
+-                    self._restore(incoming)
++                    if residual is None:
++                        break
++                    self._restore(residual)
+                     self._bind(case.pattern, None, sensitive)
+                     self._expression(case.guard)
+                     self._statements(case.body)
+                     alternatives.append(self._snapshot())
++                    if (
++                        case.guard is None
++                        and _pattern_is_irrefutable(case.pattern)
++                    ):
++                        residual = None
++                if residual is not None:
++                    alternatives.append(residual)
+                 self._merge(alternatives)
+                 continue
+             if isinstance(statement, (ast.FunctionDef, ast.AsyncFunctionDef)):
+@@ -12099,6 +12353,8 @@ def emit_design_review(
+     root = Path(os.path.abspath(repository_root))
+ 
+     def capture_and_publish(attribute_check: Any | None = None) -> dict[str, object]:
++        if attribute_check is not None:
++            attribute_check()
+         captured = _capture_design_inputs(root, include_profile=False)
+         if enforce_repository_lock:
+             _validate_locked_inventory_snapshot(captured)
+@@ -12118,14 +12374,12 @@ def emit_design_review(
+         )
+         return review
+ 
+-    if not enforce_repository_lock:
+-        return capture_and_publish()
+     configured_git = os.environ.get("PONTIUS_GIT")
+-    if configured_git is None:
++    if enforce_repository_lock and configured_git is None:
+         raise InventoryError("PONTIUS_GIT is required for design review publication")
+     result = _with_governance_attribute_lease(
+         root,
+-        Path(configured_git),
++        Path(configured_git) if enforce_repository_lock else None,
+         (destination,),
+         capture_and_publish,
+     )
+@@ -12496,6 +12750,8 @@ def write_design_capabilities(
+     profile_path = root / "tests" / "test-profiles.toml"
+ 
+     def capture_and_publish(attribute_check: Any | None = None) -> object:
++        if attribute_check is not None:
++            attribute_check()
+         captured = _capture_design_inputs(root, include_profile=True)
+         if enforce_repository_lock:
+             _validate_locked_inventory_snapshot(captured)
+@@ -12539,15 +12795,12 @@ def write_design_capabilities(
+             _post_publish_lifetime_check=validate_published_profile,
+         )
+ 
+-    if not enforce_repository_lock:
+-        capture_and_publish()
+-        return
+     configured_git = os.environ.get("PONTIUS_GIT")
+-    if configured_git is None:
++    if enforce_repository_lock and configured_git is None:
+         raise InventoryError("PONTIUS_GIT is required for design publication")
+     _with_governance_attribute_lease(
+         root,
+-        Path(configured_git),
++        Path(configured_git) if enforce_repository_lock else None,
+         (profile_path,),
+         capture_and_publish,
+     )

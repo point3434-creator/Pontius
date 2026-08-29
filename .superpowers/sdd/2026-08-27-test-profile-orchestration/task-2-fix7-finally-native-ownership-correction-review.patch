@@ -1,0 +1,1985 @@
+diff --git "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix7-finally-native-ownership-correction-review-snapshot\\before/tests/test_inventory_and_profiles.py" "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix7-finally-native-ownership-correction-review-snapshot\\after/tests/test_inventory_and_profiles.py"
+index 586c1d9..b959be2 100644
+--- "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix7-finally-native-ownership-correction-review-snapshot\\before/tests/test_inventory_and_profiles.py"
++++ "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix7-finally-native-ownership-correction-review-snapshot\\after/tests/test_inventory_and_profiles.py"
+@@ -3,6 +3,7 @@ from __future__ import annotations
+ import ast
+ from collections import Counter
+ from contextlib import ExitStack
++import dis
+ from hashlib import sha1, sha256
+ import importlib.util
+ import json
+@@ -5040,12 +5041,242 @@ class DesignReviewTests(unittest.TestCase):
+             )
+         )
+ 
++    def _round6_preclassifier_transforms_finally_and_suppress_exits(self) -> None:
++        module = ast.parse(
++            textwrap.dedent(
++                """
++                import contextlib
++                import cupy as cp
++                def may_raise(): pass
++                async def may_raise_async(): pass
++                def finally_normal():
++                    value = None
++                    try:
++                        pass
++                    finally:
++                        value = cp
++                    value.arange(1)
++                def finally_raise():
++                    value = None
++                    try:
++                        try:
++                            raise RuntimeError()
++                        finally:
++                            value = cp
++                    except RuntimeError:
++                        value.arange(1)
++                def finally_return():
++                    value = None
++                    try:
++                        try:
++                            return
++                        finally:
++                            value = cp
++                    finally:
++                        value.arange(1)
++                def finally_break():
++                    value = None
++                    for _ in range(1):
++                        try:
++                            try:
++                                break
++                            finally:
++                                value = cp
++                        finally:
++                            value.arange(1)
++                def finally_continue():
++                    value = None
++                    for _ in range(1):
++                        try:
++                            try:
++                                continue
++                            finally:
++                                value = cp
++                        finally:
++                            value.arange(1)
++                def override_raise():
++                    value = None
++                    try:
++                        try:
++                            return
++                        finally:
++                            value = cp
++                            raise RuntimeError()
++                    except RuntimeError:
++                        value.arange(1)
++                def override_return():
++                    value = None
++                    try:
++                        try:
++                            raise RuntimeError()
++                        finally:
++                            value = cp
++                            return
++                    finally:
++                        value.arange(1)
++                def override_break():
++                    value = None
++                    for _ in range(1):
++                        try:
++                            raise RuntimeError()
++                        finally:
++                            value = cp
++                            break
++                    value.arange(1)
++                def override_continue():
++                    value = None
++                    for _ in range(1):
++                        try:
++                            raise RuntimeError()
++                        finally:
++                            value = cp
++                            continue
++                    value.arange(1)
++                def finally_clears_raise():
++                    value = cp
++                    try:
++                        try:
++                            may_raise()
++                        finally:
++                            value = None
++                    except RuntimeError:
++                        value.arange(1)
++                def suppress_call():
++                    value = None
++                    with contextlib.suppress(RuntimeError):
++                        value = cp
++                        may_raise()
++                        value = None
++                    value.arange(1)
++                async def suppress_await():
++                    value = None
++                    with contextlib.suppress(RuntimeError):
++                        value = cp
++                        await may_raise_async()
++                        value = None
++                    value.arange(1)
++                def suppress_yield():
++                    value = None
++                    with contextlib.suppress(RuntimeError):
++                        value = cp
++                        yield 1
++                        value = None
++                    value.arange(1)
++                """
++            )
++        )
++        functions = {
++            node.name: node
++            for node in module.body
++            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
++        }
++        expected = {
++            "finally_normal": True,
++            "finally_raise": True,
++            "finally_return": True,
++            "finally_break": True,
++            "finally_continue": True,
++            "override_raise": True,
++            "override_return": True,
++            "override_break": True,
++            "override_continue": True,
++            "finally_clears_raise": False,
++            "suppress_call": True,
++            "suppress_await": True,
++            "suppress_yield": True,
++        }
++        for name, should_be_sensitive in expected.items():
++            with self.subTest(finally_or_suppress=name):
++                function = functions[name]
++                calls = self.generator._preclassified_sensitive_calls(
++                    function.body,
++                    {"contextlib": "contextlib", "cp": "cupy"},
++                    self.generator._AnalysisBudget(),
++                    functions,
++                )
++                observer = next(
++                    node
++                    for node in ast.walk(function)
++                    if isinstance(node, ast.Call)
++                    and isinstance(node.func, ast.Attribute)
++                    and node.func.attr == "arange"
++                )
++                self.assertEqual(
++                    id(observer) in calls,
++                    should_be_sensitive,
++                    f"{name} did not preserve exact final/suppressed state",
++                )
++
++        reconciliation_sources = {
++            "finally-clears-handler": _source(
++                '''
++                import cupy as cp
++                import unittest
++                def may_raise(): pass
++                class ReviewTests(unittest.TestCase):
++                    def test_static(self):
++                        value = cp
++                        try:
++                            try:
++                                may_raise()
++                            finally:
++                                value = None
++                        except RuntimeError:
++                            value.arange(1)
++                    def test_denied(self): pass
++                '''
++            ),
++            "finally-adds-sensitive-call": _source(
++                '''
++                import cupy as cp
++                import unittest
++                class ReviewTests(unittest.TestCase):
++                    def test_static(self):
++                        try:
++                            raise RuntimeError()
++                        finally:
++                            cp.arange(1)
++                    def test_denied(self): pass
++                '''
++            ),
++            "suppress-exceptional-receiver": _source(
++                '''
++                import contextlib
++                import cupy as cp
++                import unittest
++                def may_raise(): pass
++                class ReviewTests(unittest.TestCase):
++                    def test_static(self):
++                        value = None
++                        with contextlib.suppress(RuntimeError):
++                            value = cp
++                            may_raise()
++                            value = None
++                        value.arange(1)
++                    def test_denied(self): pass
++                '''
++            ),
++        }
++        for label, source in reconciliation_sources.items():
++            with self.subTest(finally_or_suppress_reconciliation=label):
++                try:
++                    review = self._review(sources={"tests/test_review.py": source})
++                except self.generator.InventoryError as error:
++                    self.fail(f"{label} census did not reconcile: {error}")
++                self.assertFalse(
++                    any(
++                        "absent from the independent census" in row["reason"]
++                        for row in review["unresolved_dynamic_blockers"]
++                    )
++                )
++
+     def test_round4_source_order_and_branch_bounds_red_contracts_are_independent(
+         self,
+     ) -> None:
+         self._final_rereview_preclassifier_exhausts_irrefutable_match()
+         self._final_rereview_preclassifier_uses_throw_site_handler_state()
+         self._final2_preclassifier_tracks_nested_exact_throw_sites()
++        self._round6_preclassifier_transforms_finally_and_suppress_exits()
+         for label, first, second in (
+             ("five-then-one", 5, 1),
+             ("one-then-five", 1, 5),
+@@ -8611,6 +8842,185 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                 "CRT conversion preceded construction of its descriptor owner slot",
+             )
+ 
++    def _round6_post_acquisition_slots_cover_git_and_posix_lock(self) -> None:
++        path = Path("C:/git.exe")
++        info = mock.Mock(
++            st_dev=1,
++            st_ino=2,
++            st_size=3,
++            st_mtime_ns=4,
++            st_ctime_ns=5,
++            st_mode=stat.S_IFREG | 0o755,
++            st_file_attributes=0,
++            st_reparse_tag=0,
++        )
++        expected_identity = self.generator._git_stat_identity(info)
++
++        with self.subTest(component="windows-ancestor-append"):
++            manager = self.generator._GovernanceCleanupManager()
++            closed: list[int] = []
++            ancestor = Path("C:/")
++            target_code = self.generator._windows_git_ancestor_handles.__code__
++            append_offsets = {
++                instruction.offset
++                for instruction in dis.get_instructions(target_code)
++                if instruction.opname in {"LOAD_METHOD", "LOAD_ATTR"}
++                and instruction.argval == "append"
++            }
++            self.assertTrue(append_offsets)
++
++            def create_ancestor(*_args: object) -> int:
++                return 902
++
++            def close_ancestor(handle: object) -> int:
++                numeric = int(getattr(handle, "value", handle))
++                closed.append(numeric)
++                return 1
++
++            injected = False
++
++            def trace(frame: object, event: str, _argument: object) -> object:
++                nonlocal injected
++                if frame.f_code is target_code:
++                    frame.f_trace_opcodes = True
++                    if (
++                        event == "opcode"
++                        and frame.f_lasti in append_offsets
++                        and frame.f_locals.get("numeric") == 902
++                        and not injected
++                    ):
++                        injected = True
++                        raise MemoryError("ancestor handle append failed")
++                return trace
++
++            previous_trace = sys.gettrace()
++            try:
++                with mock.patch.object(
++                    self.generator,
++                    "_GOVERNANCE_CLEANUP_MANAGER",
++                    manager,
++                ), mock.patch.object(
++                    self.generator.os,
++                    "name",
++                    "nt",
++                ), mock.patch.object(
++                    self.generator,
++                    "_git_path_stat",
++                    return_value=info,
++                ), mock.patch.object(
++                    self.generator,
++                    "_git_ancestor_chain",
++                    return_value=((ancestor, (11, 22, 0)),),
++                ), mock.patch.object(
++                    self.generator.secure_filesystem,
++                    "_windows_directory_api",
++                    return_value=(create_ancestor, None, None, close_ancestor),
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_governance_handle_is_open",
++                    return_value=True,
++                ):
++                    sys.settrace(trace)
++                    with self.assertRaises(self.generator.InventoryError):
++                        self.generator._acquire_git_launch_lease(
++                            path,
++                            expected_identity,
++                            b"git",
++                        )
++            finally:
++                sys.settrace(previous_trace)
++            self.assertTrue(injected)
++            self.assertEqual(
++                closed,
++                [902],
++                "post-create append failure leaked the ancestor handle",
++            )
++            self.assertEqual(manager._reservations, set())
++            self.assertEqual(manager.pending_descriptors(), ())
++
++        with self.subTest(component="posix-sidecar-post-open-identity"):
++            manager = self.generator._GovernanceCleanupManager()
++            reservation = manager.reserve()
++            closed = []
++            unlinked: list[tuple[str, int | None]] = []
++            directory_info = mock.Mock(
++                st_dev=21,
++                st_ino=22,
++                st_mode=stat.S_IFDIR | 0o700,
++                st_file_attributes=0,
++                st_reparse_tag=0,
++            )
++            opened = iter((701, 702))
++
++            def fstat(descriptor: int) -> object:
++                if descriptor == 701:
++                    return directory_info
++                raise MemoryError("sidecar identity construction failed")
++
++            def unlink(name: str, *, dir_fd: int | None = None) -> None:
++                unlinked.append((name, dir_fd))
++
++            with tempfile.TemporaryDirectory(
++                prefix="pontius-round6-posix-sidecar-"
++            ) as temporary:
++                target = Path(temporary) / "profiles.toml"
++                destinations = self.generator._GovernanceDestinationSet.build(
++                    (target,)
++                )
++                chain = ((
++                    target.parent,
++                    (21, 22, stat.S_IFDIR | 0o700, 0, 0),
++                ),)
++                with mock.patch.object(
++                    self.generator,
++                    "_GOVERNANCE_CLEANUP_MANAGER",
++                    manager,
++                ), mock.patch.object(
++                    self.generator.os,
++                    "name",
++                    "posix",
++                ), mock.patch.object(
++                    self.generator.os,
++                    "open",
++                    side_effect=lambda *_args, **_kwargs: next(opened),
++                ), mock.patch.object(
++                    self.generator.os,
++                    "fstat",
++                    side_effect=fstat,
++                ), mock.patch.object(
++                    self.generator.os,
++                    "close",
++                    side_effect=lambda descriptor: closed.append(descriptor),
++                ), mock.patch.object(
++                    self.generator.os,
++                    "unlink",
++                    side_effect=unlink,
++                ), mock.patch.object(
++                    self.generator,
++                    "_governance_directory_chain",
++                    return_value=chain,
++                ):
++                    with self.assertRaisesRegex(
++                        self.generator.InventoryError,
++                        "lock is busy",
++                    ):
++                        self.generator._GovernanceLockSetLease.acquire(
++                            destinations,
++                            reservation,
++                        )
++            self.assertEqual(
++                closed,
++                [702, 701],
++                "post-open sidecar identity failure leaked its descriptor",
++            )
++            self.assertEqual(
++                unlinked,
++                [(".profiles.toml.pontius-governance.lock", 701)],
++                "post-open sidecar identity failure orphaned its lock name",
++            )
++            self.assertEqual(manager._reservations, set())
++            self.assertEqual(manager.pending_descriptors(), ())
++
+     def _final3_windows_git_false_close_is_retained(self) -> None:
+         manager = self.generator._GovernanceCleanupManager()
+         path = Path("C:/git.exe")
+@@ -8671,23 +9081,137 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+             self.assertEqual(close_attempts, 2)
+             self.assertEqual(manager.pending_descriptors(), ())
+ 
+-    def _final_rereview_write_entries_and_undeclared_callback_are_prelock_safe(
+-        self,
+-    ) -> None:
+-        with tempfile.TemporaryDirectory(
+-            prefix="pontius-final-write-order-"
+-        ) as temporary:
+-            root = Path(temporary)
+-            (root / "tests").mkdir()
+-            review_path = root / "review.json"
+-            profile_path = root / "tests" / "test-profiles.toml"
+-            review_path.write_bytes(b"old-review\n")
+-            profile_path.write_bytes(b"old-profile\n")
+-            manager = self.generator._governance_cleanup_manager()
+-            held: list[tuple[object, object]] = []
+-            try:
+-                for target in (review_path, profile_path):
+-                    reservation = manager.reserve()
++    def _round6_transferred_git_ancestor_close_protocol(self) -> None:
++        path = Path("C:/git.exe")
++        ancestor = Path("C:/")
++        info = mock.Mock(
++            st_dev=1,
++            st_ino=2,
++            st_size=3,
++            st_mtime_ns=4,
++            st_ctime_ns=5,
++            st_mode=stat.S_IFREG | 0o755,
++            st_file_attributes=0,
++            st_reparse_tag=0,
++        )
++        expected = self.generator._git_stat_identity(info)
++
++        for mode in ("explicit-false", "ambiguous-consumed"):
++            with self.subTest(transferred_git_ancestor=mode):
++                manager = self.generator._GovernanceCleanupManager()
++                ancestor_close_attempts = 0
++                descriptor_close_attempts = 0
++                close_allowed = False
++                ancestor_open = True
++
++                def create_ancestor(*_args: object) -> int:
++                    return 920
++
++                def close_ancestor(_handle: object) -> int:
++                    nonlocal ancestor_close_attempts, ancestor_open
++                    ancestor_close_attempts += 1
++                    if mode == "explicit-false":
++                        if not close_allowed:
++                            return 0
++                        ancestor_open = False
++                        return 1
++                    if ancestor_close_attempts == 1:
++                        ancestor_open = False
++                        raise OSError("ancestor close consumed then raised")
++                    raise AssertionError("ambiguous ancestor close was replayed")
++
++                def close_descriptor(descriptor: int) -> None:
++                    nonlocal descriptor_close_attempts
++                    self.assertEqual(descriptor, 922)
++                    descriptor_close_attempts += 1
++
++                with mock.patch.object(
++                    self.generator,
++                    "_GOVERNANCE_CLEANUP_MANAGER",
++                    manager,
++                ), mock.patch.object(
++                    self.generator.os,
++                    "name",
++                    "nt",
++                ), mock.patch.object(
++                    self.generator,
++                    "_git_path_stat",
++                    return_value=info,
++                ), mock.patch.object(
++                    self.generator,
++                    "_git_ancestor_chain",
++                    return_value=((ancestor, (11, 22, 0)),),
++                ), mock.patch.object(
++                    self.generator,
++                    "_revalidate_git_ancestor_chain",
++                ), mock.patch.object(
++                    self.generator.secure_filesystem,
++                    "_windows_directory_api",
++                    return_value=(create_ancestor, None, None, close_ancestor),
++                ), mock.patch.object(
++                    self.generator.secure_filesystem,
++                    "_windows_directory_handle_identity",
++                    return_value=(11, bytes((22,))),
++                ), mock.patch.object(
++                    self.generator.secure_filesystem,
++                    "_windows_path_api",
++                    return_value=(
++                        mock.Mock(return_value=921),
++                        None,
++                        mock.Mock(return_value=1),
++                    ),
++                ), mock.patch.object(
++                    self.generator.secure_filesystem.msvcrt,
++                    "open_osfhandle",
++                    return_value=922,
++                ), mock.patch.object(
++                    self.generator.os,
++                    "fstat",
++                    return_value=info,
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_governance_handle_is_open",
++                    side_effect=lambda _handle: ancestor_open,
++                ), mock.patch.object(
++                    self.generator.os,
++                    "close",
++                    side_effect=close_descriptor,
++                ):
++                    lease = self.generator._acquire_git_launch_lease(
++                        path,
++                        expected,
++                        b"git",
++                    )
++                    with self.assertRaises(self.generator.InventoryError):
++                        lease.close()
++                    if mode == "explicit-false":
++                        close_allowed = True
++                    lease.close()
++                self.assertEqual(descriptor_close_attempts, 1)
++                self.assertEqual(
++                    ancestor_close_attempts,
++                    2 if mode == "explicit-false" else 1,
++                )
++                self.assertEqual(manager._reservations, set())
++                self.assertEqual(manager.pending_descriptors(), ())
++
++    def _final_rereview_write_entries_and_undeclared_callback_are_prelock_safe(
++        self,
++    ) -> None:
++        with tempfile.TemporaryDirectory(
++            prefix="pontius-final-write-order-"
++        ) as temporary:
++            root = Path(temporary)
++            (root / "tests").mkdir()
++            review_path = root / "review.json"
++            profile_path = root / "tests" / "test-profiles.toml"
++            review_path.write_bytes(b"old-review\n")
++            profile_path.write_bytes(b"old-profile\n")
++            manager = self.generator._governance_cleanup_manager()
++            held: list[tuple[object, object]] = []
++            try:
++                for target in (review_path, profile_path):
++                    reservation = manager.reserve()
+                     destination_set = self.generator._GovernanceDestinationSet.build(
+                         (target,)
+                     )
+@@ -9075,10 +9599,18 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                 "git-owner-slots-precede-acquisition",
+                 self._final3_git_component_owners_precede_every_acquisition,
+             ),
++            (
++                "round6-post-acquisition-owner-slots",
++                self._round6_post_acquisition_slots_cover_git_and_posix_lock,
++            ),
+             (
+                 "windows-git-false-close-retained",
+                 self._final3_windows_git_false_close_is_retained,
+             ),
++            (
++                "round6-transferred-git-ancestor-close",
++                self._round6_transferred_git_ancestor_close_protocol,
++            ),
+             (
+                 "distinct-owner-family-number-reuse",
+                 self._final2_distinct_owner_families_never_replay_reused_numbers,
+@@ -10537,6 +11069,462 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                             except OSError:
+                                 pass
+ 
++    def _round6_windows_writer_directory_owner_is_monotonic(self) -> None:
++        real_api = self.generator.secure_filesystem._windows_directory_api()
++        real_create, query, information, real_close = real_api
++        real_identity = (
++            self.generator.secure_filesystem._windows_directory_handle_identity
++        )
++
++        for mode in ("probe-false", "final-false", "final-ambiguous"):
++            with self.subTest(publication_directory=mode), (
++                tempfile.TemporaryDirectory(
++                    prefix=f"pontius-round6-writer-directory-{mode}-",
++                    ignore_cleanup_errors=True,
++                )
++            ) as temporary:
++                root = Path(temporary)
++                target = root / "profiles.toml"
++                target.write_bytes(b"old\n")
++                manager = self.generator._GovernanceCleanupManager()
++                created: list[int] = []
++                publication_handle: int | None = None
++                close_attempts = 0
++                close_allowed = False
++                probe_injected = False
++
++                def numeric(handle: object) -> int:
++                    return int(getattr(handle, "value", handle))
++
++                def create(*args: object) -> object:
++                    nonlocal publication_handle
++                    opened = real_create(*args)
++                    value = numeric(opened)
++                    created.append(value)
++                    if len(created) == 2:
++                        publication_handle = value
++                    return opened
++
++                def identity(handle: int, path: Path) -> tuple[int, bytes]:
++                    nonlocal probe_injected
++                    if (
++                        mode == "probe-false"
++                        and handle == publication_handle
++                        and not probe_injected
++                    ):
++                        probe_injected = True
++                        raise OSError("publication directory identity failed")
++                    return real_identity(handle, path)
++
++                def close(handle: object) -> int:
++                    nonlocal close_attempts
++                    value = numeric(handle)
++                    if value == publication_handle:
++                        close_attempts += 1
++                        if mode in {"probe-false", "final-false"}:
++                            if not close_allowed:
++                                return 0
++                        elif close_attempts == 1:
++                            succeeded = real_close(handle)
++                            if not succeeded:
++                                return 0
++                            raise OSError(
++                                "publication directory close consumed then raised"
++                            )
++                        else:
++                            raise AssertionError(
++                                "ambiguous publication directory close was replayed"
++                            )
++                    return int(bool(real_close(handle)))
++
++                caught: BaseException | None = None
++                with mock.patch.object(
++                    self.generator,
++                    "_GOVERNANCE_CLEANUP_MANAGER",
++                    manager,
++                ), mock.patch.object(
++                    self.generator.secure_filesystem,
++                    "_windows_directory_api",
++                    return_value=(create, query, information, close),
++                ), mock.patch.object(
++                    self.generator.secure_filesystem,
++                    "_windows_directory_handle_identity",
++                    side_effect=identity,
++                ):
++                    try:
++                        self.generator.write_atomic_lf(target, b"new\n")
++                    except BaseException as error:
++                        caught = error
++                descriptors = manager.pending_descriptors()
++                try:
++                    self.assertIsNotNone(publication_handle)
++                    if mode == "probe-false":
++                        self.assertTrue(probe_injected)
++                        self.assertIsInstance(
++                            caught,
++                            self.generator.GovernanceCleanupPendingError,
++                        )
++                        self.assertEqual(target.read_bytes(), b"old\n")
++                    elif mode == "final-false":
++                        self.assertIsInstance(
++                            caught,
++                            self.generator.GovernanceCommittedWithCleanupFailure,
++                        )
++                        self.assertEqual(target.read_bytes(), b"new\n")
++                    else:
++                        self.assertIsNone(caught)
++                        self.assertEqual(target.read_bytes(), b"new\n")
++                        self.assertEqual(close_attempts, 1)
++                        self.assertEqual(descriptors, ())
++                    if mode != "final-ambiguous":
++                        self.assertEqual(len(descriptors), 1)
++                        self.assertIn(
++                            "directory",
++                            descriptors[0].outstanding_owner_roles,
++                        )
++                        close_allowed = True
++                        manager.retry_pending(descriptors[0].retry_id)
++                        self.assertEqual(manager.pending_descriptors(), ())
++                finally:
++                    for descriptor in manager.pending_descriptors():
++                        close_allowed = True
++                        try:
++                            manager.retry_pending(descriptor.retry_id)
++                        except BaseException:
++                            pass
++                    if publication_handle is not None:
++                        try:
++                            if self.generator._windows_governance_handle_is_open(
++                                publication_handle
++                            ):
++                                real_close(
++                                    self.generator.secure_filesystem.wintypes.HANDLE(
++                                        publication_handle
++                                    )
++                                )
++                        except BaseException:
++                            pass
++
++    def _round6_windows_auxiliary_file_owners_are_retryable(self) -> None:
++        real_open_raw = self.generator._windows_open_relative_governance_file_raw
++        real_close_raw = self.generator.secure_filesystem._windows_close_file
++        real_try_close = self.generator._windows_try_close_file
++
++        for role in ("original", "readback"):
++            with self.subTest(auxiliary_windows_owner=role), (
++                tempfile.TemporaryDirectory(
++                    prefix=f"pontius-round6-windows-{role}-",
++                    ignore_cleanup_errors=True,
++                )
++            ) as temporary:
++                root = Path(temporary)
++                target = root / "profiles.toml"
++                if role == "original":
++                    target.write_bytes(b"old\n")
++                manager = self.generator._GovernanceCleanupManager()
++                selected_handle: int | None = None
++                published_read_count = 0
++                close_attempts = 0
++                close_allowed = False
++                live_handles: set[int] = set()
++                lifetime_checks = 0
++
++                def capture_open(
++                    directory: int,
++                    name: str,
++                    **keywords: object,
++                ) -> int:
++                    nonlocal selected_handle, published_read_count
++                    handle = real_open_raw(directory, name, **keywords)
++                    live_handles.add(handle)
++                    if role == "original" and (
++                        name == target.name
++                        and keywords.get("share_write") is True
++                        and not keywords.get("read_data", False)
++                    ):
++                        selected_handle = handle
++                    if role == "readback" and (
++                        name == target.name
++                        and keywords.get("read_data") is True
++                        and keywords.get("share_write", True) is True
++                    ):
++                        published_read_count += 1
++                        selected_handle = handle
++                    return handle
++
++                def close_raw(handle: int) -> object:
++                    nonlocal close_attempts
++                    if handle == selected_handle and not close_allowed:
++                        close_attempts += 1
++                        return False
++                    result = real_close_raw(handle)
++                    live_handles.discard(handle)
++                    return result
++
++                def try_close(handle: int) -> bool:
++                    nonlocal close_attempts
++                    if handle == selected_handle and not close_allowed:
++                        close_attempts += 1
++                        return False
++                    result = real_try_close(handle)
++                    if result:
++                        live_handles.discard(handle)
++                    return result
++
++                def fail_after_publish() -> None:
++                    nonlocal lifetime_checks
++                    lifetime_checks += 1
++                    if role == "readback" and lifetime_checks == 2:
++                        raise OSError("force absent-target rollback")
++
++                caught: BaseException | None = None
++                with mock.patch.object(
++                    self.generator,
++                    "_GOVERNANCE_CLEANUP_MANAGER",
++                    manager,
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_open_relative_governance_file_raw",
++                    side_effect=capture_open,
++                ), mock.patch.object(
++                    self.generator.secure_filesystem,
++                    "_windows_close_file",
++                    side_effect=close_raw,
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_try_close_file",
++                    side_effect=try_close,
++                ):
++                    try:
++                        self.generator.write_atomic_lf(
++                            target,
++                            b"new\n",
++                            _lifetime_check=(
++                                fail_after_publish if role == "readback" else None
++                            ),
++                        )
++                    except BaseException as error:
++                        caught = error
++                descriptors = manager.pending_descriptors()
++                try:
++                    self.assertIsNotNone(selected_handle)
++                    self.assertGreaterEqual(close_attempts, 1)
++                    self.assertIsInstance(
++                        caught,
++                        self.generator.GovernanceCleanupPendingError,
++                    )
++                    self.assertEqual(len(descriptors), 1)
++                    self.assertIn(
++                        role,
++                        descriptors[0].outstanding_owner_roles,
++                    )
++                    close_allowed = True
++                    manager.retry_pending(descriptors[0].retry_id)
++                    self.assertEqual(manager.pending_descriptors(), ())
++                    if role == "original":
++                        self.assertEqual(target.read_bytes(), b"old\n")
++                    else:
++                        self.assertFalse(target.exists())
++                finally:
++                    for descriptor in manager.pending_descriptors():
++                        close_allowed = True
++                        try:
++                            manager.retry_pending(descriptor.retry_id)
++                        except BaseException:
++                            pass
++                    for handle in tuple(live_handles):
++                        try:
++                            real_close_raw(handle)
++                        except BaseException:
++                            pass
++
++    def _round6_windows_namespace_free_ambiguous_closes_reconcile(self) -> None:
++        real_directory_open = self.generator._windows_open_governance_directory
++        real_directory_close = (
++            self.generator.secure_filesystem._windows_close_directory
++        )
++        real_create = self.generator._windows_create_relative_governance_file
++        real_open = self.generator._windows_open_relative_governance_file
++        real_open_raw = self.generator._windows_open_relative_governance_file_raw
++        real_try_close = self.generator._windows_try_close_file
++
++        for role in ("staging", "published", "recovery"):
++            with self.subTest(namespace_free_ambiguous=role), (
++                tempfile.TemporaryDirectory(
++                    prefix=f"pontius-round6-ambiguous-{role}-",
++                    ignore_cleanup_errors=True,
++                )
++            ) as temporary:
++                root = Path(temporary)
++                target = root / "profiles.toml"
++                target.write_bytes(b"old\n")
++                with mock.patch.object(self.generator.atexit, "register"):
++                    manager = self.generator._GovernanceCleanupManager()
++                selected_handle: int | None = None
++                handle_roles: dict[int, str] = {}
++                file_handles: set[int] = set()
++                directory_handles: set[int] = set()
++                close_attempts = 0
++                lifetime_checks = 0
++
++                def capture_directory(
++                    path: Path,
++                    **keywords: object,
++                ) -> tuple[int, tuple[int, bytes]]:
++                    opened = real_directory_open(path, **keywords)
++                    directory_handles.add(opened[0])
++                    return opened
++
++                def capture_create(
++                    directory: int,
++                    name: str,
++                    **keywords: object,
++                ) -> int:
++                    nonlocal selected_handle
++                    handle = real_create(directory, name, **keywords)
++                    file_handles.add(handle)
++                    owner_role = (
++                        "deterministic_lock"
++                        if name.endswith(".pontius-governance.lock")
++                        else "staging"
++                    )
++                    handle_roles[handle] = owner_role
++                    if role == "staging" and owner_role == role:
++                        selected_handle = handle
++                    return handle
++
++                def capture_open(
++                    directory: int,
++                    name: str,
++                    **keywords: object,
++                ) -> int:
++                    nonlocal selected_handle
++                    handle = real_open(directory, name, **keywords)
++                    file_handles.add(handle)
++                    owner_role = "recovery"
++                    handle_roles[handle] = owner_role
++                    if role == owner_role:
++                        selected_handle = handle
++                    return handle
++
++                def capture_open_raw(
++                    directory: int,
++                    name: str,
++                    **keywords: object,
++                ) -> int:
++                    nonlocal selected_handle
++                    handle = real_open_raw(directory, name, **keywords)
++                    file_handles.add(handle)
++                    owner_role = (
++                        "published"
++                        if name == target.name
++                        and keywords.get("read_data") is True
++                        and keywords.get("share_write") is False
++                        else "auxiliary"
++                    )
++                    handle_roles[handle] = owner_role
++                    if role == owner_role:
++                        selected_handle = handle
++                    return handle
++
++                def close_file(handle: int) -> bool:
++                    nonlocal close_attempts
++                    current_role = handle_roles.get(handle)
++                    if handle == selected_handle and current_role == role:
++                        close_attempts += 1
++                        if close_attempts > 1:
++                            raise AssertionError(
++                                f"ambiguous {role} handle close was replayed"
++                            )
++                        succeeded = real_try_close(handle)
++                        if succeeded:
++                            file_handles.discard(handle)
++                        raise OSError(f"ambiguous {role} close consumed then raised")
++                    succeeded = real_try_close(handle)
++                    if succeeded:
++                        file_handles.discard(handle)
++                    return succeeded
++
++                def fail_after_publish() -> None:
++                    nonlocal lifetime_checks
++                    lifetime_checks += 1
++                    if role == "recovery" and lifetime_checks == 2:
++                        raise OSError("force recovery restoration")
++
++                caught: BaseException | None = None
++                with mock.patch.object(
++                    self.generator,
++                    "_GOVERNANCE_CLEANUP_MANAGER",
++                    manager,
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_open_governance_directory",
++                    side_effect=capture_directory,
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_create_relative_governance_file",
++                    side_effect=capture_create,
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_open_relative_governance_file",
++                    side_effect=capture_open,
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_open_relative_governance_file_raw",
++                    side_effect=capture_open_raw,
++                ), mock.patch.object(
++                    self.generator,
++                    "_windows_try_close_file",
++                    side_effect=close_file,
++                ):
++                    try:
++                        self.generator.write_atomic_lf(
++                            target,
++                            b"new\n",
++                            _lifetime_check=(
++                                fail_after_publish if role == "recovery" else None
++                            ),
++                        )
++                    except BaseException as error:
++                        caught = error
++                try:
++                    self.assertIsNotNone(selected_handle)
++                    self.assertEqual(close_attempts, 1)
++                    self.assertEqual(manager.pending_descriptors(), ())
++                    if role == "published":
++                        self.assertIsNone(caught)
++                        self.assertEqual(target.read_bytes(), b"new\n")
++                    else:
++                        self.assertIsNotNone(caught)
++                        self.assertNotIsInstance(
++                            caught,
++                            self.generator.GovernanceCleanupPendingError,
++                        )
++                        self.assertEqual(target.read_bytes(), b"old\n")
++                finally:
++                    for handle in tuple(file_handles):
++                        try:
++                            if self.generator._windows_governance_handle_is_open(
++                                handle
++                            ):
++                                real_try_close(handle)
++                        except BaseException:
++                            pass
++                    for handle in tuple(directory_handles):
++                        try:
++                            if self.generator._windows_governance_handle_is_open(
++                                handle
++                            ):
++                                real_directory_close(handle)
++                        except BaseException:
++                            pass
++                    for artifact in tuple(root.iterdir()):
++                        if artifact != target:
++                            try:
++                                artifact.unlink()
++                            except OSError:
++                                pass
++
+     def _final3_windows_writer_reused_handles_are_role_isolated(self) -> None:
+         for selected_role in (
+             "staging",
+@@ -10572,6 +11560,10 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                 real_close_directory = (
+                     self.generator.secure_filesystem._windows_close_directory
+                 )
++                directory_api = (
++                    self.generator.secure_filesystem._windows_directory_api()
++                )
++                raw_close_directory = directory_api[3]
+ 
+                 def capture_directory(
+                     path: Path,
+@@ -10642,18 +11634,19 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                         reopen_same_file_handle(handle)
+                     return real_close_file(handle)
+ 
+-                def close_directory(handle: int) -> None:
++                def close_directory(handle: object) -> int:
+                     nonlocal replacement, selected_close_attempts
++                    numeric = int(getattr(handle, "value", handle))
+                     if (
+                         selected_role == "directory"
+-                        and handle == handles.get("directory")
++                        and numeric == handles.get("directory")
+                         and selected_close_attempts == 0
+                     ):
+                         selected_close_attempts += 1
+-                        real_close_directory(handle)
++                        raw_close_directory(handle)
+                         replacement = real_open_directory(root)[0]
+                         raise OSError("selected close consumed then raised")
+-                    real_close_directory(handle)
++                    return int(bool(raw_close_directory(handle)))
+ 
+                 with mock.patch.object(
+                     self.generator,
+@@ -10681,8 +11674,13 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                     side_effect=close_file,
+                 ), mock.patch.object(
+                     self.generator.secure_filesystem,
+-                    "_windows_close_directory",
+-                    side_effect=close_directory,
++                    "_windows_directory_api",
++                    return_value=(
++                        directory_api[0],
++                        directory_api[1],
++                        directory_api[2],
++                        close_directory,
++                    ),
+                 ):
+                     try:
+                         self.generator.write_atomic_lf(target, b"new\n")
+@@ -10826,6 +11824,9 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+     ) -> None:
+         if os.name != "nt":
+             return
++        self._round6_windows_writer_directory_owner_is_monotonic()
++        self._round6_windows_auxiliary_file_owners_are_retryable()
++        self._round6_windows_namespace_free_ambiguous_closes_reconcile()
+         self._final3_windows_writer_reused_handles_are_role_isolated()
+         self._final3_windows_staging_cleanup_is_monotonic()
+         self._final3_windows_lock_close_failure_remains_owned()
+@@ -11794,6 +12795,10 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                 real_close_directory = (
+                     self.generator.secure_filesystem._windows_close_directory
+                 )
++                directory_api = (
++                    self.generator.secure_filesystem._windows_directory_api()
++                )
++                raw_close_directory = directory_api[3]
+                 publication_directory: int | None = None
+                 failed_post_commit_close = False
+                 publication_close_calls = 0
+@@ -11807,18 +12812,19 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                     publication_directory = opened[0]
+                     return opened
+ 
+-                def fail_post_commit_directory_close(handle: int) -> None:
++                def fail_post_commit_directory_close(handle: object) -> int:
+                     nonlocal failed_post_commit_close, publication_close_calls
++                    numeric = int(getattr(handle, "value", handle))
+                     if (
+-                        handle == publication_directory
++                        numeric == publication_directory
+                         and target.read_bytes() == b"generated\n"
+                         and not failed_post_commit_close
+                     ):
+                         failed_post_commit_close = True
+                         publication_close_calls += 1
+-                        real_close_directory(handle)
++                        raw_close_directory(handle)
+                         raise OSError("post-commit directory close failed")
+-                    real_close_directory(handle)
++                    return int(bool(raw_close_directory(handle)))
+ 
+                 with mock.patch.object(
+                     self.generator,
+@@ -11826,8 +12832,13 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
+                     side_effect=capture_publication_directory,
+                 ), mock.patch.object(
+                     self.generator.secure_filesystem,
+-                    "_windows_close_directory",
+-                    side_effect=fail_post_commit_directory_close,
++                    "_windows_directory_api",
++                    return_value=(
++                        directory_api[0],
++                        directory_api[1],
++                        directory_api[2],
++                        fail_post_commit_directory_close,
++                    ),
+                 ):
+                     snapshot = self.generator.write_atomic_lf(
+                         target,
+@@ -13674,15 +14685,15 @@ class CheckedInInventoryTests(unittest.TestCase):
+                 "subprocess_helper_site_count": 4,
+                 "cross_file_helper_edge_count": 27,
+                 "cupy_call_node_count": 30,
+-                "string_sink_decoy_count": 167,
++                "string_sink_decoy_count": 168,
+                 "string_sink_decoy_sha256": (
+-                    "9dba7a7856e18c29ed44e97057771fef08b7f871784d1f114439e9ab7f743958"
++                    "5baa919ed761b4a414b3896d294fc7263ac96671b608e4752a366af8d6602abf"
+                 ),
+                 "string_sink_decoy_partitions": {
+                     "design_production": 17,
+                     "historical_production": 6,
+                     "prior_stabilization_synthetic": 26,
+-                    "task2_synthetic": 118,
++                    "task2_synthetic": 119,
+                 },
+                 "analyzed_sites_sha256": (
+                     "8219efd8ef8379ac071b687765eebd783319d15e5343911592ae92966d45cb71"
+diff --git "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix7-finally-native-ownership-correction-review-snapshot\\before/tools/generate_test_inventory.py" "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix7-finally-native-ownership-correction-review-snapshot\\after/tools/generate_test_inventory.py"
+index 5f18853..7bdaa90 100644
+--- "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix7-finally-native-ownership-correction-review-snapshot\\before/tools/generate_test_inventory.py"
++++ "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix7-finally-native-ownership-correction-review-snapshot\\after/tools/generate_test_inventory.py"
+@@ -206,6 +206,7 @@ class _GitLaunchLease:
+     descriptor_identity: tuple[int, ...] | None = None
+     descriptor_close_attempted: bool = False
+     ancestor_close_attempted: list[bool] | None = None
++    owner_components: tuple[object, ...] = ()
+ 
+     def __post_init__(self) -> None:
+         self.ancestor_closed = [False for _ in self.ancestor_handles]
+@@ -217,6 +218,22 @@ class _GitLaunchLease:
+ 
+     def close(self) -> None:
+         failures: list[BaseException] = []
++        if self.owner_components:
++            for component in reversed(self.owner_components):
++                if getattr(component, "closed", False):
++                    continue
++                try:
++                    component.close()
++                except BaseException as error:
++                    failures.append(error)
++            if failures:
++                raise InventoryError("Git launch lease cleanup failed") from (
++                    ExceptionGroup(
++                        "Git launch lease cleanup failures",
++                        tuple(failures),
++                    )
++                )
++            return
+         if not self.descriptor_closed:
+             if self.descriptor_close_attempted:
+                 self.descriptor_closed = True
+@@ -1689,6 +1706,17 @@ def _windows_git_ancestor_handles(
+                 owner.handle is not None
+                 and _windows_governance_handle_is_open(owner.handle)
+             )
++            handle_owner.ambiguous_is_open_action = (
++                lambda handle: _windows_governance_handle_is_open(handle)
++            )
++            handle_owner.identity_action = (
++                lambda handle, ancestor=ancestor: (
++                    secure_filesystem._windows_directory_handle_identity(
++                        handle,
++                        ancestor,
++                    )
++                )
++            )
+             if cleanup_owner is not None:
+                 cleanup_owner.add(handle_owner)
+             handle = create(
+@@ -1705,13 +1733,14 @@ def _windows_git_ancestor_handles(
+                 code = secure_filesystem.ctypes.get_last_error()
+                 raise OSError(code, os.strerror(code), str(ancestor))
+             numeric = int(handle)
+-            handles.append(numeric)
+             if cleanup_owner is not None:
+                 handle_owner.adopt(numeric)
++            handles.append(numeric)
+             volume, file_id = secure_filesystem._windows_directory_handle_identity(
+                 numeric,
+                 ancestor,
+             )
++            handle_owner.bind_identity((volume, file_id))
+             if (volume, int.from_bytes(file_id, "little")) != expected[:2]:
+                 raise InventoryError("PONTIUS_GIT ancestor handle identity differs")
+         _revalidate_git_ancestor_chain(chain)
+@@ -1765,6 +1794,12 @@ def _acquire_git_launch_lease(
+                 owner.handle is not None
+                 and _windows_governance_handle_is_open(owner.handle)
+             )
++            raw_handle_owner.ambiguous_is_open_action = (
++                lambda handle: _windows_governance_handle_is_open(handle)
++            )
++            raw_handle_owner.identity_action = (
++                lambda handle: _windows_governance_handle_file_id(handle)
++            )
+             cleanup_owner.add(raw_handle_owner)
+             descriptor_owner = _PosixDescriptorOwner("git_lease")
+             cleanup_owner.add(descriptor_owner)
+@@ -1782,6 +1817,7 @@ def _acquire_git_launch_lease(
+                 code = secure_filesystem.ctypes.get_last_error()
+                 raise OSError(code, os.strerror(code), str(path))
+             raw_handle_owner.adopt(int(handle))
++            raw_handle_owner.bind_identity(expected_identity[:2])
+             try:
+                 descriptor = secure_filesystem.msvcrt.open_osfhandle(
+                     int(handle),
+@@ -1841,6 +1877,7 @@ def _acquire_git_launch_lease(
+             ancestor_handles,
+             ancestor_chain,
+             snapshot_sha256,
++            owner_components=tuple(cleanup_owner.components),
+         )
+         cleanup_owner.transfer_without_close()
+         manager.release(reservation)
+@@ -3023,15 +3060,61 @@ class _WindowsHandleOwner:
+     is_open_action: Any = None
+     closed: bool = False
+     close_attempted: bool = False
++    ambiguous_handle: int | None = None
++    ambiguous_is_open_action: Any = None
++    identity_action: Any = None
++    expected_identity: object | None = None
+ 
+     def adopt(self, handle: int) -> None:
+-        if self.handle is not None or self.close_attempted or self.closed:
++        if (
++            self.handle is not None
++            or self.ambiguous_handle is not None
++            or self.close_attempted
++            or self.closed
++        ):
+             raise InventoryError("Windows handle slot is already resolved")
+         self.handle = handle
+ 
++    def bind_identity(self, identity: object) -> None:
++        self.expected_identity = identity
++
++    def _reconcile_ambiguous_close(self) -> None:
++        handle = self.ambiguous_handle
++        if handle is None:
++            return
++        if not callable(self.ambiguous_is_open_action):
++            self.ambiguous_handle = None
++            self.closed = True
++            return
++        try:
++            is_open = bool(self.ambiguous_is_open_action(handle))
++        except BaseException as error:
++            raise InventoryError(
++                f"{self.role} close outcome is unresolved"
++            ) from error
++        if not is_open:
++            self.ambiguous_handle = None
++            self.closed = True
++            return
++        if self.expected_identity is not None and callable(self.identity_action):
++            try:
++                current_identity = self.identity_action(handle)
++            except BaseException as error:
++                raise InventoryError(
++                    f"{self.role} close outcome is unresolved"
++                ) from error
++            if current_identity != self.expected_identity:
++                self.ambiguous_handle = None
++                self.closed = True
++                return
++        raise InventoryError(f"{self.role} close outcome is unresolved")
++
+     def close(self) -> None:
+         if self.closed:
+             return
++        if self.ambiguous_handle is not None:
++            self._reconcile_ambiguous_close()
++            return
+         if self.handle is None:
+             self.closed = True
+             return
+@@ -3048,9 +3131,10 @@ class _WindowsHandleOwner:
+         try:
+             result = self.close_action()
+         except BaseException:
++            handle = self.handle
+             self.handle = None
++            self.ambiguous_handle = handle
+             self.close_attempted = True
+-            self.closed = True
+             raise
+         if result is not None and not bool(result):
+             raise InventoryError(f"{self.role} close was refused")
+@@ -3239,8 +3323,8 @@ class _PosixParentDirectoryOwner:
+ 
+ @dataclass(slots=True)
+ class _PosixDeterministicLockOwner:
+-    descriptor: int
+-    path: Path
++    descriptor: int | None = None
++    path: Path | None = None
+     destination_key: str | None = None
+     parent_descriptor: int | None = None
+     name: str | None = None
+@@ -3250,17 +3334,45 @@ class _PosixDeterministicLockOwner:
+     closed: bool = False
+     descriptor_identity: tuple[int, ...] | None = None
+     descriptor_close_attempted: bool = False
++    acquired: bool = False
+ 
+     def __post_init__(self) -> None:
++        if self.descriptor is None:
++            return
++        if self.path is None:
++            raise InventoryError("POSIX lock artifact path is absent")
++        self.acquired = True
+         try:
+             self.descriptor_identity = _posix_descriptor_identity(self.descriptor)
+         except OSError:
+             self.descriptor_identity = None
+ 
++    def adopt(
++        self,
++        descriptor: int,
++        path: Path,
++        destination_key: str,
++        parent_descriptor: int,
++        name: str,
++    ) -> None:
++        if self.descriptor is not None or self.acquired or self.closed:
++            raise InventoryError("POSIX lock owner slot is already resolved")
++        self.descriptor = descriptor
++        self.path = path
++        self.destination_key = destination_key
++        self.parent_descriptor = parent_descriptor
++        self.name = name
++        self.acquired = True
++
+     def close(self) -> None:
+         if self.closed:
+             return
++        if not self.acquired:
++            self.closed = True
++            return
+         if not self.descriptor_closed:
++            if self.descriptor is None:
++                raise InventoryError("POSIX lock descriptor is absent")
+             if self.descriptor_close_attempted:
+                 self.descriptor_closed = True
+             else:
+@@ -3269,6 +3381,8 @@ class _PosixDeterministicLockOwner:
+                 os.close(self.descriptor)
+         if not self.name_unlinked:
+             if self.parent_descriptor is None or self.name is None:
++                if self.path is None:
++                    raise InventoryError("POSIX lock artifact path is absent")
+                 self.path.unlink()
+             else:
+                 os.unlink(self.name, dir_fd=self.parent_descriptor)
+@@ -3471,6 +3585,17 @@ class _GovernanceLockSetLease:
+                             and _windows_governance_handle_is_open(owner.handle)
+                         )
+                     )
++                    directory_owner.ambiguous_is_open_action = (
++                        lambda handle: _windows_governance_handle_is_open(handle)
++                    )
++                    directory_owner.identity_action = (
++                        lambda handle, parent=path.parent: (
++                            secure_filesystem._windows_directory_handle_identity(
++                                handle,
++                                parent,
++                            )
++                        )
++                    )
+                     owners.append(directory_owner)
+                     directory, _ = _windows_open_governance_directory(
+                         path.parent,
+@@ -3538,6 +3663,9 @@ class _GovernanceLockSetLease:
+                         owners[-1] = parent
+                     lock_name = f".{path.name}.pontius-governance.lock"
+                     lock_path = path.with_name(lock_name)
++                    lock_owner = _PosixDeterministicLockOwner()
++                    parent.dependents.append(lock_owner)
++                    owners.append(lock_owner)
+                     descriptor = os.open(
+                         lock_name,
+                         os.O_WRONLY | os.O_CREAT | os.O_EXCL
+@@ -3546,15 +3674,16 @@ class _GovernanceLockSetLease:
+                         0o600,
+                         dir_fd=parent.descriptor,
+                     )
+-                    lock_owner = _PosixDeterministicLockOwner(
++                    lock_owner.adopt(
+                         descriptor,
+                         lock_path,
+                         destination_key,
+                         parent.descriptor,
+                         lock_name,
+                     )
+-                    parent.dependents.append(lock_owner)
+-                    owners.append(lock_owner)
++                    lock_owner.descriptor_identity = (
++                        _posix_descriptor_identity(descriptor)
++                    )
+             _reject_native_destination_aliases(destination_set.paths)
+         except BaseException as error:
+             primary = error
+@@ -3999,6 +4128,7 @@ class _GovernancePublishState:
+     published_disposition_armed: bool = False
+     destination_owner: object | None = None
+     published_owner: object | None = None
++    original_owner: object | None = None
+ 
+ 
+ @dataclass(slots=True)
+@@ -4012,14 +4142,76 @@ class _WindowsGovernanceFileOwner:
+     acquired: bool = False
+     namespace_owned: bool = False
+     disposition_armed: bool = False
++    ambiguous_handle: int | None = None
++    expected_identity: tuple[int, int] | None = None
++    closed: bool = False
+ 
+     def adopt(self, handle: int) -> None:
+-        if self.handle is not None or self.state == "close_outcome_unknown":
++        if (
++            self.handle is not None
++            or self.ambiguous_handle is not None
++            or self.state == "close_outcome_unknown"
++            or self.closed
++        ):
+             raise InventoryError(f"{self.role} handle slot is already resolved")
+         self.handle = handle
+         self.acquired = True
+         self.state = "open"
+ 
++    def bind_identity(self, identity: tuple[int, int]) -> None:
++        self.expected_identity = tuple(identity)
++
++    def _resolve_ambiguous_close(self, label: str) -> None:
++        handle = self.ambiguous_handle
++        if handle is None:
++            return
++        try:
++            is_open = _windows_governance_handle_is_open(handle)
++        except BaseException as error:
++            raise InventoryError(f"{label} close outcome is unresolved") from error
++        if is_open:
++            if self.expected_identity is None:
++                raise InventoryError(f"{label} close outcome is unresolved")
++            try:
++                current_identity = _windows_governance_handle_file_id(handle)
++            except BaseException as error:
++                raise InventoryError(
++                    f"{label} close outcome is unresolved"
++                ) from error
++            if current_identity == self.expected_identity:
++                raise InventoryError(f"{label} close outcome is unresolved")
++        self.ambiguous_handle = None
++        self.closed = True
++        self.state = "closed"
++        if self.disposition_armed:
++            self.namespace_owned = False
++
++    def close(self, label: str) -> None:
++        if self.closed:
++            return
++        if self.ambiguous_handle is not None:
++            self._resolve_ambiguous_close(label)
++            return
++        if self.handle is None:
++            self.closed = True
++            self.state = "closed"
++            return
++        handle = self.handle
++        try:
++            succeeded = _windows_try_close_file(handle)
++        except BaseException as close_error:
++            self.handle = None
++            self.ambiguous_handle = handle
++            self.state = "close_outcome_unknown"
++            raise InventoryError(f"{label} close outcome is unknown") from close_error
++        if not succeeded:
++            raise InventoryError(f"{label} close was refused")
++        self.handle = None
++        self.closed = True
++        self.state = "closed"
++        if self.disposition_armed:
++            self.namespace_owned = False
++
+ 
+ @dataclass(slots=True)
+ class _GovernanceWriteTransaction:
+@@ -4180,11 +4372,16 @@ def _windows_open_relative_governance_file(
+ def _windows_read_relative_governance_file(
+     directory_handle: int,
+     name: str,
++    *,
++    owner: _WindowsGovernanceFileOwner | None = None,
+ ) -> tuple[tuple[int, int], bytes]:
++    if owner is None:
++        owner = _WindowsGovernanceFileOwner("readback", name, Path(name))
+     handle = _windows_open_relative_governance_file_raw(
+         directory_handle,
+         name,
+         read_data=True,
++        owner=owner,
+     )
+     primary_failure: BaseException | None = None
+     result: tuple[tuple[int, int], bytes] | None = None
+@@ -4229,11 +4426,13 @@ def _windows_read_relative_governance_file(
+         raw = b"".join(chunks)
+         if len(raw) > MAXIMUM_SOURCE_BYTES:
+             raise InventoryError("governance readback exceeds the bound")
+-        result = (_windows_governance_handle_file_id(handle), raw)
++        identity = _windows_governance_handle_file_id(handle)
++        owner.bind_identity(identity)
++        result = (identity, raw)
+     except BaseException as error:
+         primary_failure = error
+     try:
+-        secure_filesystem._windows_close_file(handle)
++        owner.close("governance readback")
+     except BaseException as close_failure:
+         if primary_failure is not None:
+             raise InventoryError(
+@@ -4267,6 +4466,17 @@ def _windows_open_governance_directory(
+                 owner.handle is not None
+                 and _windows_governance_handle_is_open(owner.handle)
+             )
++        if owner.ambiguous_is_open_action is None:
++            owner.ambiguous_is_open_action = (
++                lambda handle: _windows_governance_handle_is_open(handle)
++            )
++        if owner.identity_action is None:
++            owner.identity_action = lambda handle: (
++                secure_filesystem._windows_directory_handle_identity(
++                    handle,
++                    path,
++                )
++            )
+     handle: int | None = None
+     try:
+         opened = create(
+@@ -4291,6 +4501,8 @@ def _windows_open_governance_directory(
+             handle,
+             path,
+         )
++        if owner is not None:
++            owner.bind_identity(identity)
+         return handle, identity
+     except BaseException as primary_failure:
+         if owner is not None:
+@@ -4743,15 +4955,21 @@ def _publish_staged_governance(
+             outcome.recovery_path = destination_path.with_name(
+                 state.recovery_name
+             )
++            original_owner = state.original_owner
++            if not isinstance(original_owner, _WindowsGovernanceFileOwner):
++                raise InventoryError("governance original owner slot is absent")
+             original_handle = _windows_open_relative_governance_file_raw(
+                 parent_handle,
+                 destination_name,
+                 share_write=True,
++                owner=original_owner,
+             )
+             try:
+-                if _windows_governance_handle_file_id(
++                original_identity = _windows_governance_handle_file_id(
+                     original_handle
+-                ) != expected_identity[:2]:
++                )
++                original_owner.bind_identity(original_identity)
++                if original_identity != expected_identity[:2]:
+                     raise InventoryError(
+                         "governance destination handle identity differs"
+                     )
+@@ -4772,9 +4990,13 @@ def _publish_staged_governance(
+                     state.recovery_name,
+                     owner=recovery_owner,
+                 )
++                recovery_owner.bind_identity(
++                    _windows_governance_handle_file_id(
++                        state.destination_handle
++                    )
++                )
+             finally:
+-                if original_handle is not None:
+-                    secure_filesystem._windows_close_file(original_handle)
++                original_owner.close("governance original")
+             recovery = secure_filesystem.read_regular_snapshot(
+                 outcome.recovery_path,
+                 maximum_bytes=MAXIMUM_SOURCE_BYTES,
+@@ -5324,6 +5546,7 @@ def _write_windows_governance(
+     defer_failure: bool = False,
+ ) -> _GovernanceWriteTransaction:
+     directory: int | None = None
++    directory_owner = _WindowsHandleOwner("directory")
+     directory_lock: object | None = None
+     temporary: _WindowsGovernanceFileOwner | None = None
+     staged_snapshot: object | None = None
+@@ -5341,10 +5564,16 @@ def _write_windows_governance(
+         path.name,
+         path,
+     )
++    original_owner = _WindowsGovernanceFileOwner(
++        "original",
++        path.name,
++        path,
++    )
++    readback_owners: list[_WindowsGovernanceFileOwner] = []
+     publish_state.destination_owner = recovery_owner
+     publish_state.published_owner = published_owner
++    publish_state.original_owner = original_owner
+     raw_close_attempted: set[tuple[str, int]] = set()
+-    directory_close_attempted = False
+ 
+     def outstanding_roles() -> tuple[str, ...]:
+         roles: list[str] = []
+@@ -5364,11 +5593,22 @@ def _write_windows_governance(
+             roles.append("published")
+         if (
+             recovery_owner.handle is not None
++            or recovery_owner.ambiguous_handle is not None
+             or recovery_owner.namespace_owned
+             or recovery_owner.state == "close_outcome_unknown"
+         ):
+             roles.append("recovery")
+-        if directory is not None:
++        if original_owner.acquired and not original_owner.closed:
++            roles.append("original")
++        if any(owner.acquired and not owner.closed for owner in readback_owners):
++            roles.append("readback")
++        if (
++            not directory_owner.closed
++            and (
++                directory_owner.handle is not None
++                or directory_owner.ambiguous_handle is not None
++            )
++        ):
+             roles.append("directory")
+         return tuple(roles)
+ 
+@@ -5398,28 +5638,7 @@ def _write_windows_governance(
+         owner: _WindowsGovernanceFileOwner,
+         label: str,
+     ) -> None:
+-        if owner.handle is None:
+-            if owner.state == "close_outcome_unknown":
+-                if owner.disposition_armed and not owner.artifact_path.exists():
+-                    owner.namespace_owned = False
+-                    owner.state = "closed"
+-                    return
+-                raise InventoryError(f"{label} close outcome is unresolved")
+-            owner.state = "closed"
+-            return
+-        handle = owner.handle
+-        try:
+-            succeeded = _windows_try_close_file(handle)
+-        except BaseException as close_error:
+-            owner.handle = None
+-            owner.state = "close_outcome_unknown"
+-            raise InventoryError(f"{label} close outcome is unknown") from close_error
+-        if not succeeded:
+-            raise InventoryError(f"{label} close was refused")
+-        owner.handle = None
+-        owner.state = "closed"
+-        if owner.disposition_armed:
+-            owner.namespace_owned = False
++        owner.close(label)
+ 
+     def close_published_handle() -> None:
+         close_owner(published_owner, "published governance")
+@@ -5440,19 +5659,32 @@ def _write_windows_governance(
+         )
+ 
+     def close_directory() -> None:
+-        nonlocal directory, directory_close_attempted
+-        if directory is not None:
+-            handle = directory
++        nonlocal directory
++        if directory_owner.closed:
+             directory = None
+-            if directory_close_attempted:
+-                return
+-            directory_close_attempted = True
++            return
++        directory_owner.close()
++        if directory_owner.closed:
++            directory = None
++
++    def cleanup_auxiliary_handles() -> None:
++        failures: list[BaseException] = []
++        try:
++            close_owner(original_owner, "governance original")
++        except BaseException as error:
++            failures.append(error)
++        for owner in readback_owners:
+             try:
+-                secure_filesystem._windows_close_directory(handle)
+-            except BaseException as close_error:
+-                raise InventoryError(
+-                    "governance directory close outcome is unknown"
+-                ) from close_error
++                close_owner(owner, "governance readback")
++            except BaseException as error:
++                failures.append(error)
++        if failures:
++            raise InventoryError("governance auxiliary cleanup failed") from (
++                ExceptionGroup(
++                    "governance auxiliary cleanup failures",
++                    tuple(failures),
++                )
++            )
+ 
+     def acquire_recovery_for_cleanup() -> int | None:
+         if recovery_owner.handle is not None:
+@@ -5480,9 +5712,16 @@ def _write_windows_governance(
+             raise InventoryError("governance directory handle is absent")
+         if staged_snapshot is None:
+             raise InventoryError("governance staging identity is absent")
++        readback_owner = _WindowsGovernanceFileOwner(
++            "readback",
++            path.name,
++            path,
++        )
++        readback_owners.append(readback_owner)
+         current_identity, current_raw = _windows_read_relative_governance_file(
+             directory,
+             path.name,
++            owner=readback_owner,
+         )
+         if (
+             current_identity != staged_snapshot.identity[:2]
+@@ -5559,6 +5798,7 @@ def _write_windows_governance(
+ 
+     def rollback_transaction() -> None:
+         try:
++            retry_cleanup(cleanup_auxiliary_handles)
+             if publish_state.published:
+                 if directory is None:
+                     raise InventoryError("governance rollback state is incomplete")
+@@ -5626,6 +5866,10 @@ def _write_windows_governance(
+         except BaseException as error:
+             raise InventoryError("governance rollback failed") from error
+         failures: list[BaseException] = []
++        try:
++            retry_cleanup(cleanup_auxiliary_handles)
++        except BaseException as error:
++            failures.append(error)
+         if publish_state.destination_handle is not None:
+             try:
+                 retry_cleanup(close_recovery_handle)
+@@ -5655,6 +5899,7 @@ def _write_windows_governance(
+ 
+     def finalize_transaction() -> None:
+         nonlocal directory, temporary
++        cleanup_auxiliary_handles()
+         if publish_state.destination_handle is not None:
+             if directory is None:
+                 raise InventoryError("governance finalization directory is absent")
+@@ -5679,7 +5924,8 @@ def _write_windows_governance(
+ 
+     try:
+         directory, bound_identity = _windows_open_governance_directory(
+-            path.parent
++            path.parent,
++            owner=directory_owner,
+         )
+         temporary_name = f".{path.name}.{uuid.uuid4().hex}.tmp"
+         temporary = _WindowsGovernanceFileOwner(
+@@ -5701,6 +5947,7 @@ def _write_windows_governance(
+         )
+         if staged_snapshot.raw != raw:
+             raise InventoryError("governance staging bytes differ after write")
++        temporary.bind_identity(staged_snapshot.identity[:2])
+         _revalidate_governance_directory_chain(chain)
+         if (
+             secure_filesystem._windows_directory_handle_identity(
+@@ -5736,9 +5983,11 @@ def _write_windows_governance(
+             delete_access=False,
+             owner=published_owner,
+         )
+-        if _windows_governance_handle_file_id(
++        published_identity = _windows_governance_handle_file_id(
+             publish_state.published_handle
+-        ) != staged_snapshot.identity[:2]:
++        )
++        published_owner.bind_identity(published_identity)
++        if published_identity != staged_snapshot.identity[:2]:
+             raise InventoryError(
+                 "published governance handle identity differs from staging"
+             )
+@@ -8230,11 +8479,24 @@ class _SensitivePreclassifier:
+                     qualified, sensitive = self._expression(item.context_expr)
+                     if item.optional_vars is not None:
+                         self._bind(item.optional_vars, qualified, sensitive)
+-                flow = self._statements(statement.body)
+-                absorb(flow)
++                outer_throw_states = self._throw_states
++                exceptional: list[tuple[dict[str, str], set[str]]] = []
++                self._throw_states = exceptional
++                try:
++                    flow = self._statements(statement.body)
++                finally:
++                    self._throw_states = outer_throw_states
++                successors.returns.extend(flow.returns)
++                successors.breaks.extend(flow.breaks)
++                successors.continues.extend(flow.continues)
+                 normal = list(flow.normal)
+                 if may_suppress:
+                     normal.extend(flow.raises)
++                    normal.extend(exceptional)
++                else:
++                    successors.raises.extend(flow.raises)
++                    if outer_throw_states is not None:
++                        outer_throw_states.extend(exceptional)
+                 if not continue_from(normal):
+                     scan_unreachable_remainder()
+                     return successors
+@@ -8250,14 +8512,20 @@ class _SensitivePreclassifier:
+                     protected_flow = self._statements(statement.body)
+                 finally:
+                     self._throw_states = outer_throw_states
+-                successors.returns.extend(protected_flow.returns)
+-                successors.breaks.extend(protected_flow.breaks)
+-                successors.continues.extend(protected_flow.continues)
++                local = _PreclassifierSuccessors(
++                    raises=list(protected_flow.raises),
++                    returns=list(protected_flow.returns),
++                    breaks=list(protected_flow.breaks),
++                    continues=list(protected_flow.continues),
++                )
+                 normal: list[tuple[dict[str, str], set[str]]] = []
+                 if protected_flow.normal:
+                     self._merge(protected_flow.normal)
+                     orelse_flow = self._statements(statement.orelse)
+-                    absorb(orelse_flow)
++                    local.raises.extend(orelse_flow.raises)
++                    local.returns.extend(orelse_flow.returns)
++                    local.breaks.extend(orelse_flow.breaks)
++                    local.continues.extend(orelse_flow.continues)
+                     normal.extend(orelse_flow.normal)
+                 for exceptional_state in exceptional:
+                     for handler in statement.handlers:
+@@ -8266,16 +8534,41 @@ class _SensitivePreclassifier:
+                         if handler.name is not None:
+                             self._bind(ast.Name(id=handler.name), None, False)
+                         handler_flow = self._statements(handler.body)
+-                        absorb(handler_flow)
++                        local.raises.extend(handler_flow.raises)
++                        local.returns.extend(handler_flow.returns)
++                        local.breaks.extend(handler_flow.breaks)
++                        local.continues.extend(handler_flow.continues)
+                         normal.extend(handler_flow.normal)
+-                    if outer_throw_states is not None:
+-                        outer_throw_states.append(exceptional_state)
+-                successors.raises.extend(protected_flow.raises)
+-                if statement.finalbody and normal:
+-                    self._merge(normal)
+-                    final_flow = self._statements(statement.finalbody)
+-                    absorb(final_flow)
+-                    normal = final_flow.normal
++                local.raises.extend(exceptional)
++                local.normal = normal
++                if statement.finalbody:
++                    transformed = _PreclassifierSuccessors()
++                    for exit_kind in (
++                        "normal",
++                        "raises",
++                        "returns",
++                        "breaks",
++                        "continues",
++                    ):
++                        incoming_states = getattr(local, exit_kind)
++                        for incoming_state in incoming_states:
++                            self._restore(incoming_state)
++                            final_flow = self._statements(statement.finalbody)
++                            transformed.raises.extend(final_flow.raises)
++                            transformed.returns.extend(final_flow.returns)
++                            transformed.breaks.extend(final_flow.breaks)
++                            transformed.continues.extend(final_flow.continues)
++                            getattr(transformed, exit_kind).extend(
++                                final_flow.normal
++                            )
++                    local = transformed
++                if outer_throw_states is not None:
++                    outer_throw_states.extend(local.raises)
++                successors.raises.extend(local.raises)
++                successors.returns.extend(local.returns)
++                successors.breaks.extend(local.breaks)
++                successors.continues.extend(local.continues)
++                normal = local.normal
+                 if not continue_from(normal):
+                     scan_unreachable_remainder()
+                     return successors

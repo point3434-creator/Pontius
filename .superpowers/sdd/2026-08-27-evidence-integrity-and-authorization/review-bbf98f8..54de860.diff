@@ -1,0 +1,86 @@
+# Review package: bbf98f822173fb2a6b0cb84aa910293ad05c0ee5..54de8607f433fd9fb1318cdb614badd2b67ec3d5
+
+## Commits
+54de860 fix(evidence): narrow package exports
+
+## Files changed
+ src/pontius/evidence/__init__.py        | 2 --
+ tests/test_evidence_errors_and_model.py | 5 +++++
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+## Diff
+diff --git a/src/pontius/evidence/__init__.py b/src/pontius/evidence/__init__.py
+index ad1b969..ef23172 100644
+--- a/src/pontius/evidence/__init__.py
++++ b/src/pontius/evidence/__init__.py
+@@ -1,24 +1,22 @@
+ """Public, dependency-light evidence contracts."""
+ 
+ from .errors import (
+     AuthorizationPhaseError,
+     EvidenceConfigurationError,
+-    EvidenceError,
+     EvidenceIntegrityError,
+     LifecycleStateError,
+     RuntimeContractError,
+ )
+ from .model import AuthorizationState, LiveAuthorizationState, PreauthorizationState, RetainedV7Assessment
+ 
+ __all__ = (
+     "AuthorizationPhaseError",
+     "AuthorizationState",
+     "EvidenceConfigurationError",
+-    "EvidenceError",
+     "EvidenceIntegrityError",
+     "LifecycleStateError",
+     "LiveAuthorizationState",
+     "PreauthorizationState",
+     "RetainedV7Assessment",
+     "RuntimeContractError",
+ )
+diff --git a/tests/test_evidence_errors_and_model.py b/tests/test_evidence_errors_and_model.py
+index b3a34bb..2665187 100644
+--- a/tests/test_evidence_errors_and_model.py
++++ b/tests/test_evidence_errors_and_model.py
+@@ -1,15 +1,16 @@
+ from __future__ import annotations
+ 
+ from dataclasses import FrozenInstanceError
+ import unittest
+ 
++import pontius.evidence as evidence
+ from pontius.evidence.errors import (
+     AuthorizationPhaseError,
+     EvidenceConfigurationError,
+     EvidenceError,
+     EvidenceIntegrityError,
+     LifecycleStateError,
+     RuntimeContractError,
+ )
+ from pontius.evidence.model import (
+     AuthorizationPolicy,
+@@ -30,20 +31,24 @@ from pontius.evidence.model import (
+     SealedCurrentFileEntry,
+     SealedCurrentFilesManifest,
+ )
+ 
+ 
+ SHA256 = "a" * 64
+ COMMIT = "b" * 40
+ 
+ 
+ class EvidenceErrorsAndModelTests(unittest.TestCase):
++    def test_package_exports_only_the_specified_error_types(self) -> None:
++        self.assertNotIn("EvidenceError", evidence.__all__)
++        self.assertFalse(hasattr(evidence, "EvidenceError"))
++
+     def test_public_errors_keep_stable_fields_and_immutable_context(self) -> None:
+         for error_type in (
+             AuthorizationPhaseError,
+             EvidenceConfigurationError,
+             EvidenceIntegrityError,
+             LifecycleStateError,
+             RuntimeContractError,
+         ):
+             error = error_type(
+                 "authorization_live_state_required",

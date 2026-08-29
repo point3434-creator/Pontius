@@ -1,0 +1,1228 @@
+diff --git a/task-2-fix10-exception-provenance-validation-correction-review-snapshot/before/tests/test_inventory_and_profiles.py b/task-2-fix10-exception-provenance-validation-correction-review-snapshot/after/tests/test_inventory_and_profiles.py
+index 2fcf460..b6fc9f1 100644
+--- a/task-2-fix10-exception-provenance-validation-correction-review-snapshot/before/tests/test_inventory_and_profiles.py
++++ b/task-2-fix10-exception-provenance-validation-correction-review-snapshot/after/tests/test_inventory_and_profiles.py
+@@ -5655,6 +5655,574 @@ class DesignReviewTests(unittest.TestCase):
+                     f"{label} left a resolved sensitive site uncensused",
+                 )
+ 
++    def _round10_typed_handlers_require_proven_builtin_names(self) -> None:
++        cases = {
++            "local-exception-shadow": (
++                "",
++                "cp",
++                "self",
++                "Exception = ValueError\n"
++                "try:\n"
++                "    raise RuntimeError()\n"
++                "except Exception:\n"
++                "    value = None\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "local-baseexception-shadow": (
++                "",
++                "cp",
++                "self",
++                "BaseException = ValueError\n"
++                "try:\n"
++                "    raise RuntimeError()\n"
++                "except BaseException:\n"
++                "    value = None\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "tuple-element-shadow": (
++                "",
++                "cp",
++                "self",
++                "Exception = ValueError\n"
++                "try:\n"
++                "    raise RuntimeError()\n"
++                "except (KeyError, Exception):\n"
++                "    value = None\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "parameter-shadow": (
++                "",
++                "cp, Exception=ValueError",
++                "self, Exception=ValueError",
++                "try:\n"
++                "    raise RuntimeError()\n"
++                "except Exception:\n"
++                "    value = None\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "import-shadow": (
++                "",
++                "cp",
++                "self",
++                "from builtins import ValueError as Exception\n"
++                "try:\n"
++                "    raise RuntimeError()\n"
++                "except Exception:\n"
++                "    value = None\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "global-shadow": (
++                "Exception = ValueError\n",
++                "cp",
++                "self",
++                "global Exception\n"
++                "try:\n"
++                "    raise RuntimeError()\n"
++                "except Exception:\n"
++                "    value = None\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "raised-side-shadow": (
++                "",
++                "cp",
++                "self",
++                "RuntimeError = ValueError\n"
++                "try:\n"
++                "    try:\n"
++                "        raise RuntimeError()\n"
++                "    except KeyError:\n"
++                "        value = None\n"
++                "except ValueError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "unshadowed-broad-control": (
++                "",
++                "cp",
++                "self",
++                "try:\n"
++                "    raise RuntimeError()\n"
++                "except Exception:\n"
++                "    value = None\n"
++                "value.arange(1)",
++                False,
++            ),
++        }
++
++        def exercise(
++            label: str,
++            module_prefix: str,
++            signature: str,
++            review_signature: str,
++            body: str,
++            should_be_sensitive: bool,
++            *,
++            runtime_source: str | None = None,
++            review_source: str | None = None,
++        ) -> None:
++            body = body.replace("value = None", "value = safe")
++            supplied_runtime = runtime_source or (
++                f"{module_prefix}"
++                f"def scenario({signature}):\n"
++                "    value = cp\n"
++                f"{textwrap.indent(body, '    ')}\n"
++                "def run(cp):\n"
++                "    return scenario(cp)\n"
++            )
++            module = ast.parse(supplied_runtime)
++            scenario = next(
++                node
++                for node in ast.walk(module)
++                if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
++                and node.name == "scenario"
++            )
++            observer = next(
++                node
++                for node in ast.walk(scenario)
++                if isinstance(node, ast.Call)
++                and isinstance(node.func, ast.Attribute)
++                and node.func.attr == "arange"
++            )
++            functions = {
++                node.name: node
++                for node in ast.walk(module)
++                if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
++            }
++            module_assignments = self.generator._static_assignments(module.body)
++            preclassifier_keywords: dict[str, object] = {}
++            parameter_names = (
++                self.generator._preclassified_sensitive_calls.__code__.co_varnames
++            )
++            if "scope_node" in parameter_names:
++                preclassifier_keywords["scope_node"] = scenario
++            if "module_bound_names" in parameter_names:
++                preclassifier_keywords["module_bound_names"] = frozenset(
++                    module_assignments
++                )
++            census = self.generator._preclassified_sensitive_calls(
++                scenario.body,
++                {"cp": "cupy"},
++                self.generator._AnalysisBudget(),
++                functions,
++                **preclassifier_keywords,
++            )
++            resolved = self.generator._source_ordered_review_flow(
++                scenario,
++                {"cp": "cupy"},
++                module_assignments,
++                functions,
++                budget=self.generator._AnalysisBudget(),
++            )
++
++            observed: list[int] = []
++
++            class RuntimeCuPy:
++                @staticmethod
++                def arange(value: int) -> None:
++                    observed.append(value)
++
++            class RuntimeSafe:
++                @staticmethod
++                def arange(value: int) -> None:
++                    return None
++
++            namespace: dict[str, object] = {"safe": RuntimeSafe()}
++            exec(compile(supplied_runtime, f"<{label}>", "exec"), namespace)
++            namespace["run"](RuntimeCuPy())
++
++            supplied_review = review_source or (
++                "import cupy as cp\n"
++                "import unittest\n"
++                f"{module_prefix}"
++                "class ReviewTests(unittest.TestCase):\n"
++                f"    def test_static({review_signature}):\n"
++                "        value = cp\n"
++                f"{textwrap.indent(body, '        ')}\n"
++                "    def test_denied(self): pass\n"
++            )
++            review_error: str | None = None
++            review_rows: list[dict[str, object]] = []
++            review_blockers: list[dict[str, object]] = []
++            try:
++                review = self._review(
++                    sources={"tests/test_review.py": _source(supplied_review)}
++                )
++            except self.generator.InventoryError as error:
++                review_error = str(error)
++            else:
++                review_rows = [
++                    row
++                    for row in review["receipt"]["expanded_rows"]
++                    if row["item_id"] == self.static_id
++                    and row.get("qualified_name") == "cupy.arange"
++                ]
++                review_blockers = [
++                    row
++                    for row in review["unresolved_dynamic_blockers"]
++                    if "absent from the independent census" in row["reason"]
++                ]
++            actual = (
++                bool(observed),
++                id(observer) in census,
++                resolved.callables_by_call.get(id(observer)) == "cupy.arange",
++                len(review_rows) == 1,
++                review_error is None
++                and not review_blockers
++                and len(review_rows) <= 1,
++            )
++            self.assertEqual(
++                actual,
++                (should_be_sensitive,) * 4 + (True,),
++                f"{label} runtime/analyzer/reconciliation divergence: "
++                f"error={review_error!r}, blockers={review_blockers!r}",
++            )
++
++        for label, supplied in cases.items():
++            with self.subTest(exception_provenance=label):
++                exercise(label, *supplied)
++
++        nonlocal_body = (
++            "try:\n"
++            "    raise RuntimeError()\n"
++            "except Exception:\n"
++            "    value = None\n"
++            "except RuntimeError:\n"
++            "    cp.arange(1)"
++        )
++        nonlocal_runtime = (
++            "def make_scenario():\n"
++            "    Exception = ValueError\n"
++            "    def scenario(cp):\n"
++            "        nonlocal Exception\n"
++            "        value = cp\n"
++            f"{textwrap.indent(nonlocal_body, '        ')}\n"
++            "    return scenario\n"
++            "def run(cp):\n"
++            "    return make_scenario()(cp)\n"
++        )
++        nonlocal_review = (
++            "import cupy as cp\n"
++            "import unittest\n"
++            "class ReviewTests(unittest.TestCase):\n"
++            "    def test_static(self):\n"
++            "        Exception = ValueError\n"
++            "        def scenario():\n"
++            "            nonlocal Exception\n"
++            "            value = cp\n"
++            f"{textwrap.indent(nonlocal_body, '            ')}\n"
++            "        scenario()\n"
++            "    def test_denied(self): pass\n"
++        )
++        with self.subTest(exception_provenance="nonlocal-shadow"):
++            exercise(
++                "nonlocal-shadow",
++                "",
++                "cp",
++                "self",
++                nonlocal_body,
++                True,
++                runtime_source=nonlocal_runtime,
++                review_source=nonlocal_review,
++            )
++
++    def _round10_typed_handler_validation_and_raise_exits(self) -> None:
++        cases = {
++            "invalid-constant": (
++                "",
++                "try:\n"
++                "    try:\n"
++                "        raise RuntimeError()\n"
++                "    except 1:\n"
++                "        value = None\n"
++                "except TypeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "invalid-tuple-after-match": (
++                "",
++                "try:\n"
++                "    try:\n"
++                "        raise RuntimeError()\n"
++                "    except (RuntimeError, 1):\n"
++                "        value = None\n"
++                "except TypeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "invalid-tuple-before-match": (
++                "",
++                "try:\n"
++                "    try:\n"
++                "        raise RuntimeError()\n"
++                "    except (1, RuntimeError):\n"
++                "        value = None\n"
++                "except TypeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "dynamic-invalid-target": (
++                "",
++                "not_an_exception = 1\n"
++                "try:\n"
++                "    try:\n"
++                "        raise RuntimeError()\n"
++                "    except not_an_exception:\n"
++                "        value = None\n"
++                "except TypeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "valid-handler-control": (
++                "",
++                "try:\n"
++                "    raise RuntimeError()\n"
++                "except (ValueError, RuntimeError):\n"
++                "    value = None\n"
++                "value.arange(1)",
++                False,
++            ),
++            "raise-argument-evaluation": (
++                "def factory():\n    raise KeyError()\n",
++                "try:\n"
++                "    try:\n"
++                "        raise RuntimeError(factory())\n"
++                "    except RuntimeError:\n"
++                "        value = None\n"
++                "except KeyError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "raise-cause-evaluation": (
++                "def factory():\n    raise KeyError()\n",
++                "try:\n"
++                "    try:\n"
++                "        raise RuntimeError() from factory()\n"
++                "    except RuntimeError:\n"
++                "        value = None\n"
++                "except KeyError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "simple-raise-constructor-control": (
++                "",
++                "try:\n"
++                "    try:\n"
++                "        raise RuntimeError()\n"
++                "    except RuntimeError:\n"
++                "        value = None\n"
++                "except KeyError:\n"
++                "    value.arange(1)",
++                False,
++            ),
++            "body-explicit-raise": (
++                "",
++                "try:\n"
++                "    raise RuntimeError\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "handler-explicit-raise": (
++                "",
++                "try:\n"
++                "    try:\n"
++                "        raise KeyError\n"
++                "    except KeyError:\n"
++                "        raise RuntimeError\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "handler-explicit-raise-inverse": (
++                "",
++                "try:\n"
++                "    try:\n"
++                "        raise KeyError\n"
++                "    except KeyError:\n"
++                "        raise ValueError\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)\n"
++                "except ValueError:\n"
++                "    value = None",
++                False,
++            ),
++            "else-explicit-raise": (
++                "",
++                "try:\n"
++                "    try:\n"
++                "        pass\n"
++                "    except KeyError:\n"
++                "        pass\n"
++                "    else:\n"
++                "        raise RuntimeError\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "else-explicit-raise-inverse": (
++                "",
++                "try:\n"
++                "    try:\n"
++                "        pass\n"
++                "    except KeyError:\n"
++                "        pass\n"
++                "    else:\n"
++                "        raise ValueError\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)\n"
++                "except ValueError:\n"
++                "    value = None",
++                False,
++            ),
++            "finally-explicit-raise": (
++                "",
++                "try:\n"
++                "    try:\n"
++                "        raise KeyError\n"
++                "    finally:\n"
++                "        raise RuntimeError\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)",
++                True,
++            ),
++            "finally-explicit-raise-inverse": (
++                "",
++                "try:\n"
++                "    try:\n"
++                "        raise KeyError\n"
++                "    finally:\n"
++                "        raise ValueError\n"
++                "except RuntimeError:\n"
++                "    value.arange(1)\n"
++                "except ValueError:\n"
++                "    value = None",
++                False,
++            ),
++        }
++        for label, (module_prefix, body, should_be_sensitive) in cases.items():
++            with self.subTest(exception_validation_or_exit=label):
++                body = body.replace("value = None", "value = safe")
++                runtime_source = (
++                    f"{module_prefix}"
++                    "def scenario(cp):\n"
++                    "    value = cp\n"
++                    f"{textwrap.indent(body, '    ')}\n"
++                    "def run(cp):\n"
++                    "    return scenario(cp)\n"
++                )
++                review_source = (
++                    "import cupy as cp\n"
++                    "import unittest\n"
++                    f"{module_prefix}"
++                    "class ReviewTests(unittest.TestCase):\n"
++                    "    def test_static(self):\n"
++                    "        value = cp\n"
++                    f"{textwrap.indent(body, '        ')}\n"
++                    "    def test_denied(self): pass\n"
++                )
++                module = ast.parse(runtime_source)
++                scenario = next(
++                    node
++                    for node in module.body
++                    if isinstance(node, ast.FunctionDef)
++                    and node.name == "scenario"
++                )
++                observer = next(
++                    node
++                    for node in ast.walk(scenario)
++                    if isinstance(node, ast.Call)
++                    and isinstance(node.func, ast.Attribute)
++                    and node.func.attr == "arange"
++                )
++                functions = {
++                    node.name: node
++                    for node in module.body
++                    if isinstance(node, ast.FunctionDef)
++                }
++                preclassifier_keywords: dict[str, object] = {}
++                parameter_names = (
++                    self.generator._preclassified_sensitive_calls.__code__.co_varnames
++                )
++                if "scope_node" in parameter_names:
++                    preclassifier_keywords["scope_node"] = scenario
++                census = self.generator._preclassified_sensitive_calls(
++                    scenario.body,
++                    {"cp": "cupy"},
++                    self.generator._AnalysisBudget(),
++                    functions,
++                    **preclassifier_keywords,
++                )
++                resolved = self.generator._source_ordered_review_flow(
++                    scenario,
++                    {"cp": "cupy"},
++                    {},
++                    functions,
++                    budget=self.generator._AnalysisBudget(),
++                )
++                observed: list[int] = []
++
++                class RuntimeCuPy:
++                    @staticmethod
++                    def arange(value: int) -> None:
++                        observed.append(value)
++
++                class RuntimeSafe:
++                    @staticmethod
++                    def arange(value: int) -> None:
++                        return None
++
++                namespace: dict[str, object] = {"safe": RuntimeSafe()}
++                exec(compile(runtime_source, f"<{label}>", "exec"), namespace)
++                namespace["run"](RuntimeCuPy())
++                review_error: str | None = None
++                review_rows: list[dict[str, object]] = []
++                review_blockers: list[dict[str, object]] = []
++                try:
++                    review = self._review(
++                        sources={"tests/test_review.py": _source(review_source)}
++                    )
++                except self.generator.InventoryError as error:
++                    review_error = str(error)
++                else:
++                    review_rows = [
++                        row
++                        for row in review["receipt"]["expanded_rows"]
++                        if row["item_id"] == self.static_id
++                        and row.get("qualified_name") == "cupy.arange"
++                    ]
++                    review_blockers = [
++                        row
++                        for row in review["unresolved_dynamic_blockers"]
++                        if "absent from the independent census" in row["reason"]
++                    ]
++                actual = (
++                    bool(observed),
++                    id(observer) in census,
++                    resolved.callables_by_call.get(id(observer)) == "cupy.arange",
++                    len(review_rows) == 1,
++                    review_error is None
++                    and not review_blockers
++                    and len(review_rows) <= 1,
++                )
++                self.assertEqual(
++                    actual,
++                    (should_be_sensitive,) * 4 + (True,),
++                    f"{label} runtime/analyzer/reconciliation divergence: "
++                    f"error={review_error!r}, blockers={review_blockers!r}",
++                )
++
+     def test_round4_source_order_and_branch_bounds_red_contracts_are_independent(
+         self,
+     ) -> None:
+@@ -5664,6 +6232,8 @@ class DesignReviewTests(unittest.TestCase):
+         self._round6_preclassifier_transforms_finally_and_suppress_exits()
+         self._round7_preclassifier_governs_every_try_suite_throw()
+         self._round9_explicit_raises_respect_typed_handler_order()
++        self._round10_typed_handlers_require_proven_builtin_names()
++        self._round10_typed_handler_validation_and_raise_exits()
+         for label, first, second in (
+             ("five-then-one", 5, 1),
+             ("one-then-five", 1, 5),
+@@ -15734,15 +16304,15 @@ class CheckedInInventoryTests(unittest.TestCase):
+                 "subprocess_helper_site_count": 4,
+                 "cross_file_helper_edge_count": 27,
+                 "cupy_call_node_count": 30,
+-                "string_sink_decoy_count": 171,
++                "string_sink_decoy_count": 176,
+                 "string_sink_decoy_sha256": (
+-                    "c7deab262998630ef0c2073033d887e92aa2e5a3ca08bca9faeda6cd24d17798"
++                    "a4f316fe5d98f00d46571b22f958b0eb1e7dcf489563653ad51b6a0e75b1daba"
+                 ),
+                 "string_sink_decoy_partitions": {
+                     "design_production": 17,
+                     "historical_production": 6,
+                     "prior_stabilization_synthetic": 26,
+-                    "task2_synthetic": 122,
++                    "task2_synthetic": 127,
+                 },
+                 "analyzed_sites_sha256": (
+                     "8219efd8ef8379ac071b687765eebd783319d15e5343911592ae92966d45cb71"
+diff --git a/task-2-fix10-exception-provenance-validation-correction-review-snapshot/before/tools/generate_test_inventory.py b/task-2-fix10-exception-provenance-validation-correction-review-snapshot/after/tools/generate_test_inventory.py
+index 1142bce..fa893bd 100644
+--- a/task-2-fix10-exception-provenance-validation-correction-review-snapshot/before/tools/generate_test_inventory.py
++++ b/task-2-fix10-exception-provenance-validation-correction-review-snapshot/after/tools/generate_test_inventory.py
+@@ -8126,36 +8126,230 @@ _BUILTIN_EXCEPTION_ANCESTORS: dict[str, frozenset[str]] = {
+ }
+ 
+ 
+-def _explicit_raise_exception_tag(exception: ast.expr | None) -> str | None:
+-    candidate: ast.AST | None = exception
+-    if isinstance(candidate, ast.Call):
+-        candidate = candidate.func
++@dataclass(frozen=True, slots=True)
++class _ExceptionNameScope:
++    shadowed_names: frozenset[str] = frozenset()
++    enclosing_names: frozenset[str] = frozenset()
++
++
++class _ExceptionBindingVisitor(ast.NodeVisitor):
++    def __init__(self) -> None:
++        self.bound_names: set[str] = set()
++        self.global_names: set[str] = set()
++        self.nonlocal_names: set[str] = set()
++
++    def visit_Name(self, node: ast.Name) -> None:
++        if isinstance(node.ctx, (ast.Store, ast.Del)):
++            self.bound_names.add(node.id)
++
++    def visit_Global(self, node: ast.Global) -> None:
++        self.global_names.update(node.names)
++
++    def visit_Nonlocal(self, node: ast.Nonlocal) -> None:
++        self.nonlocal_names.update(node.names)
++
++    def visit_Import(self, node: ast.Import) -> None:
++        self.bound_names.update(
++            imported.asname or imported.name.split(".", 1)[0]
++            for imported in node.names
++        )
++
++    def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
++        self.bound_names.update(
++            imported.asname or imported.name
++            for imported in node.names
++        )
++
++    def visit_ExceptHandler(self, node: ast.ExceptHandler) -> None:
++        if node.name is not None:
++            self.bound_names.add(node.name)
++        if node.type is not None:
++            self.visit(node.type)
++        for statement in node.body:
++            self.visit(statement)
++
++    def visit_Match(self, node: ast.Match) -> None:
++        self.visit(node.subject)
++        for case in node.cases:
++            self.bound_names.update(_python_bound_names(case.pattern))
++            if case.guard is not None:
++                self.visit(case.guard)
++            for statement in case.body:
++                self.visit(statement)
++
++    def _visit_comprehension(
++        self,
++        generators: Sequence[ast.comprehension],
++        expressions: Sequence[ast.AST],
++    ) -> None:
++        for generator in generators:
++            self.visit(generator.iter)
++            for condition in generator.ifs:
++                self.visit(condition)
++        for expression in expressions:
++            self.visit(expression)
++
++    def visit_ListComp(self, node: ast.ListComp) -> None:
++        self._visit_comprehension(node.generators, (node.elt,))
++
++    def visit_SetComp(self, node: ast.SetComp) -> None:
++        self._visit_comprehension(node.generators, (node.elt,))
++
++    def visit_GeneratorExp(self, node: ast.GeneratorExp) -> None:
++        self._visit_comprehension(node.generators, (node.elt,))
++
++    def visit_DictComp(self, node: ast.DictComp) -> None:
++        self._visit_comprehension(node.generators, (node.key, node.value))
++
++    def _visit_nested_function_metadata(
++        self,
++        node: ast.FunctionDef | ast.AsyncFunctionDef,
++    ) -> None:
++        self.bound_names.add(node.name)
++        for expression in (*node.decorator_list, *node.args.defaults):
++            self.visit(expression)
++        for expression in node.args.kw_defaults:
++            if expression is not None:
++                self.visit(expression)
++
++    def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
++        self._visit_nested_function_metadata(node)
++
++    def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None:
++        self._visit_nested_function_metadata(node)
++
++    def visit_Lambda(self, node: ast.Lambda) -> None:
++        for expression in (*node.args.defaults, *node.args.kw_defaults):
++            if expression is not None:
++                self.visit(expression)
++
++    def visit_ClassDef(self, node: ast.ClassDef) -> None:
++        self.bound_names.add(node.name)
++        for expression in (*node.decorator_list, *node.bases):
++            self.visit(expression)
++        for keyword in node.keywords:
++            self.visit(keyword.value)
++
++
++def _exception_name_scope(
++    node: ast.FunctionDef | ast.AsyncFunctionDef | None,
++    module_bound_names: Iterable[str] = (),
++    enclosing_names: Iterable[str] = (),
++) -> _ExceptionNameScope:
++    relevant_module_names = set(module_bound_names) & set(
++        _BUILTIN_EXCEPTION_ANCESTORS
++    )
++    relevant_enclosing_names = set(enclosing_names) & set(
++        _BUILTIN_EXCEPTION_ANCESTORS
++    )
++    if node is None:
++        return _ExceptionNameScope(
++            frozenset(relevant_module_names | relevant_enclosing_names),
++            frozenset(relevant_enclosing_names),
++        )
++    visitor = _ExceptionBindingVisitor()
++    for parameter in (
++        *node.args.posonlyargs,
++        *node.args.args,
++        *node.args.kwonlyargs,
++    ):
++        visitor.bound_names.add(parameter.arg)
++    if node.args.vararg is not None:
++        visitor.bound_names.add(node.args.vararg.arg)
++    if node.args.kwarg is not None:
++        visitor.bound_names.add(node.args.kwarg.arg)
++    try:
++        for statement in node.body:
++            visitor.visit(statement)
++    except RecursionError:
++        return _ExceptionNameScope(
++            frozenset(_BUILTIN_EXCEPTION_ANCESTORS),
++            frozenset(_BUILTIN_EXCEPTION_ANCESTORS),
++        )
++    local_names = (
++        visitor.bound_names - visitor.global_names - visitor.nonlocal_names
++    ) & set(_BUILTIN_EXCEPTION_ANCESTORS)
++    nonlocal_names = visitor.nonlocal_names & set(
++        _BUILTIN_EXCEPTION_ANCESTORS
++    )
++    shadowed = set(local_names) | set(nonlocal_names) | relevant_module_names
++    shadowed.update(
++        name
++        for name in relevant_enclosing_names
++        if name not in visitor.global_names
++    )
++    nested_enclosing = (
++        set(local_names) | set(nonlocal_names) | relevant_enclosing_names
++    )
++    return _ExceptionNameScope(
++        frozenset(shadowed),
++        frozenset(nested_enclosing),
++    )
++
++
++def _proven_builtin_exception_name(
++    expression: ast.AST | None,
++    scope: _ExceptionNameScope,
++) -> str | None:
+     if (
+-        isinstance(candidate, ast.Name)
+-        and candidate.id in _BUILTIN_EXCEPTION_ANCESTORS
++        isinstance(expression, ast.Name)
++        and expression.id in _BUILTIN_EXCEPTION_ANCESTORS
++        and expression.id not in scope.shadowed_names
+     ):
+-        return candidate.id
++        return expression.id
+     return None
+ 
+ 
++def _explicit_raise_exception_tag(
++    exception: ast.expr | None,
++    scope: _ExceptionNameScope = _ExceptionNameScope(),
++) -> str | None:
++    candidate: ast.AST | None = exception
++    if isinstance(candidate, ast.Call):
++        candidate = candidate.func
++    return _proven_builtin_exception_name(candidate, scope)
++
++
++def _exception_handler_validation(
++    handler: ast.expr | None,
++    scope: _ExceptionNameScope,
++) -> str:
++    if handler is None:
++        return "valid"
++    if isinstance(handler, ast.Tuple):
++        validations = [
++            _exception_handler_validation(element, scope)
++            for element in handler.elts
++        ]
++        if "invalid" in validations:
++            return "invalid"
++        return "unknown" if "unknown" in validations else "valid"
++    if _proven_builtin_exception_name(handler, scope) is not None:
++        return "valid"
++    if isinstance(handler, ast.Constant):
++        return "invalid"
++    return "unknown"
++
++
+ def _explicit_exception_handler_match(
+     exception_tag: str | None,
+     handler: ast.expr | None,
++    scope: _ExceptionNameScope = _ExceptionNameScope(),
+ ) -> str:
+     if handler is None:
+         return "match"
+     if isinstance(handler, ast.Tuple):
+         outcomes = {
+-            _explicit_exception_handler_match(exception_tag, element)
++            _explicit_exception_handler_match(exception_tag, element, scope)
+             for element in handler.elts
+         }
+         if "match" in outcomes:
+             return "match"
+         return "unknown" if "unknown" in outcomes else "nonmatch"
+-    if exception_tag is None or not isinstance(handler, ast.Name):
++    if exception_tag is None:
+         return "unknown"
+-    handler_name = handler.id
+-    if handler_name not in _BUILTIN_EXCEPTION_ANCESTORS:
++    handler_name = _proven_builtin_exception_name(handler, scope)
++    if handler_name is None:
+         return "unknown"
+     if (
+         handler_name == exception_tag
+@@ -8165,6 +8359,39 @@ def _explicit_exception_handler_match(
+     return "nonmatch"
+ 
+ 
++def _raise_expression_contains_fallible_evaluation(
++    exception: ast.expr | None,
++    cause: ast.expr | None,
++    scope: _ExceptionNameScope,
++) -> bool:
++    def contains(node: ast.AST | None) -> bool:
++        if node is None:
++            return False
++        pending = [node]
++        while pending:
++            candidate = pending.pop()
++            if isinstance(candidate, (ast.Call, ast.Await, ast.Yield, ast.YieldFrom)):
++                return True
++            if isinstance(
++                candidate,
++                (ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda, ast.ClassDef),
++            ) and candidate is not node:
++                continue
++            pending.extend(ast.iter_child_nodes(candidate))
++        return False
++
++    if contains(cause):
++        return True
++    if isinstance(exception, ast.Call) and _explicit_raise_exception_tag(
++        exception,
++        scope,
++    ) is not None:
++        return any(contains(argument) for argument in exception.args) or any(
++            contains(keyword.value) for keyword in exception.keywords
++        )
++    return False
++
++
+ @dataclass(slots=True)
+ class _PreclassifierSuccessors:
+     normal: list[tuple[dict[str, str], set[str]]] = field(default_factory=list)
+@@ -8185,6 +8412,8 @@ class _SensitivePreclassifier:
+             str,
+             tuple[str | None, bool],
+         ] | None = None,
++        exception_scope: _ExceptionNameScope | None = None,
++        module_bound_names: Iterable[str] = (),
+     ) -> None:
+         self.bindings: dict[str, str] = dict(aliases)
+         self.helper_returns = dict(helper_returns or {})
+@@ -8199,6 +8428,8 @@ class _SensitivePreclassifier:
+         self.return_values: list[tuple[str | None, bool]] = []
+         self.budget = budget
+         self._throw_states: list[_PreclassifierExceptionalState] | None = None
++        self.exception_scope = exception_scope or _ExceptionNameScope()
++        self.module_bound_names = frozenset(module_bound_names)
+ 
+     def _record_throw_state(self) -> None:
+         if self._throw_states is not None:
+@@ -8639,6 +8870,7 @@ class _SensitivePreclassifier:
+                     finally:
+                         self._throw_states = outer_throw_states
+                     local.raises.extend(orelse_exceptional)
++                    local.raises.extend(orelse_flow.raises)
+                     local.returns.extend(orelse_flow.returns)
+                     local.breaks.extend(orelse_flow.breaks)
+                     local.continues.extend(orelse_flow.continues)
+@@ -8651,16 +8883,19 @@ class _SensitivePreclassifier:
+                     for exceptional in protected_raises:
+                         residual = exceptional.explicit
+                         for handler in statement.handlers:
++                            validation = _exception_handler_validation(
++                                handler.type,
++                                self.exception_scope,
++                            )
+                             match = (
+                                 _explicit_exception_handler_match(
+                                     exceptional.exception_tag,
+                                     handler.type,
++                                    self.exception_scope,
+                                 )
+                                 if exceptional.explicit
+                                 else "unknown"
+                             )
+-                            if exceptional.explicit and match == "nonmatch":
+-                                continue
+                             handler_exceptional: list[
+                                 _PreclassifierExceptionalState
+                             ] = []
+@@ -8668,20 +8903,41 @@ class _SensitivePreclassifier:
+                             try:
+                                 self._restore(exceptional.state)
+                                 self._expression(handler.type)
+-                                if handler.name is not None:
+-                                    self._bind(
+-                                        ast.Name(id=handler.name),
+-                                        None,
+-                                        False,
++                                validation_state = self._snapshot()
++                                if validation == "invalid" or (
++                                    validation == "unknown"
++                                ):
++                                    local.raises.append(
++                                        _PreclassifierExceptionalState(
++                                            validation_state,
++                                            "TypeError",
++                                            True,
++                                        )
+                                     )
+-                                handler_flow = self._statements(handler.body)
++                                if validation == "invalid" or (
++                                    exceptional.explicit
++                                    and match == "nonmatch"
++                                ):
++                                    handler_flow = _PreclassifierSuccessors()
++                                else:
++                                    if handler.name is not None:
++                                        self._bind(
++                                            ast.Name(id=handler.name),
++                                            None,
++                                            False,
++                                        )
++                                    handler_flow = self._statements(handler.body)
+                             finally:
+                                 self._throw_states = outer_throw_states
+                             local.raises.extend(handler_exceptional)
++                            local.raises.extend(handler_flow.raises)
+                             local.returns.extend(handler_flow.returns)
+                             local.breaks.extend(handler_flow.breaks)
+                             local.continues.extend(handler_flow.continues)
+                             normal.extend(handler_flow.normal)
++                            if validation == "invalid":
++                                residual = False
++                                break
+                             if exceptional.explicit and match == "match":
+                                 residual = False
+                                 break
+@@ -8721,6 +8977,7 @@ class _SensitivePreclassifier:
+                             finally:
+                                 self._throw_states = outer_throw_states
+                             transformed.raises.extend(final_exceptional)
++                            transformed.raises.extend(final_flow.raises)
+                             transformed.returns.extend(final_flow.returns)
+                             transformed.breaks.extend(final_flow.breaks)
+                             transformed.continues.extend(final_flow.continues)
+@@ -8780,6 +9037,12 @@ class _SensitivePreclassifier:
+                     self.bindings,
+                     self.budget,
+                     self.helper_returns,
++                    _exception_name_scope(
++                        statement,
++                        self.module_bound_names,
++                        self.exception_scope.enclosing_names,
++                    ),
++                    self.module_bound_names,
+                 )
+                 helper._statements(statement.body)
+                 if helper.return_values:
+@@ -8807,16 +9070,40 @@ class _SensitivePreclassifier:
+                 self.return_values.append(self._expression(statement.value))
+                 successors.returns.append(self._snapshot())
+                 return successors
+-            self._expression(statement)
+             if isinstance(statement, ast.Raise):
++                outer_throw_states = self._throw_states
++                evaluation_throws: list[_PreclassifierExceptionalState] = []
++                self._throw_states = evaluation_throws
++                try:
++                    self._expression(statement.exc)
++                    self._expression(statement.cause)
++                finally:
++                    self._throw_states = outer_throw_states
++                if _raise_expression_contains_fallible_evaluation(
++                    statement.exc,
++                    statement.cause,
++                    self.exception_scope,
++                ):
++                    successors.raises.extend(
++                        _PreclassifierExceptionalState(
++                            exceptional.state,
++                            None,
++                            True,
++                        )
++                        for exceptional in evaluation_throws
++                    )
+                 successors.raises.append(
+                     _PreclassifierExceptionalState(
+                         self._snapshot(),
+-                        _explicit_raise_exception_tag(statement.exc),
++                        _explicit_raise_exception_tag(
++                            statement.exc,
++                            self.exception_scope,
++                        ),
+                         True,
+                     )
+                 )
+                 return successors
++            self._expression(statement)
+             if isinstance(statement, ast.Break):
+                 successors.breaks.append(self._snapshot())
+                 return successors
+@@ -8839,13 +9126,22 @@ def _preclassified_sensitive_calls(
+         str,
+         ast.FunctionDef | ast.AsyncFunctionDef,
+     ],
++    *,
++    scope_node: ast.FunctionDef | ast.AsyncFunctionDef | None = None,
++    module_bound_names: Iterable[str] = (),
+ ) -> set[int]:
++    retained_module_bound_names = frozenset(module_bound_names)
+     helper_returns: dict[str, tuple[str | None, bool]] = {}
+     for name, definition in helper_definitions.items():
+         helper = _SensitivePreclassifier(
+             aliases,
+             budget,
+             helper_returns,
++            _exception_name_scope(
++                definition,
++                retained_module_bound_names,
++            ),
++            retained_module_bound_names,
+         )
+         helper._statements(definition.body)
+         if not helper.return_values:
+@@ -8863,6 +9159,11 @@ def _preclassified_sensitive_calls(
+         aliases,
+         budget,
+         helper_returns,
++        _exception_name_scope(
++            scope_node,
++            retained_module_bound_names,
++        ),
++        retained_module_bound_names,
+     ).classify(statements)
+ 
+ 
+@@ -9162,6 +9463,7 @@ class _SourceOrderedResolver:
+         sensitive_helper_names: frozenset[str] = frozenset(),
+         helper_returns: Mapping[str, _FlowValue] | None = None,
+         budget: _AnalysisBudget | None = None,
++        exception_scope: _ExceptionNameScope | None = None,
+     ) -> None:
+         self.budget = budget or _AnalysisBudget()
+         self.values = {
+@@ -9172,6 +9474,7 @@ class _SourceOrderedResolver:
+         self.helper_returns = dict(helper_returns or {})
+         self.flow = _ReviewFlow({}, {}, {}, {}, {}, {}, [])
+         self.return_values: list[_FlowValue] = []
++        self.exception_scope = exception_scope or _ExceptionNameScope()
+         for name, expression in module_assignments.items():
+             self.values[name] = self._evaluate(expression, self.values, False)
+         for name, definition in local_functions.items():
+@@ -10115,18 +10418,31 @@ class _SourceOrderedResolver:
+             return _FlowSuccessors([], [], [], [current], raised)
+         if isinstance(statement, ast.Raise):
+             current = self._statements((statement,), dict(values))
++            raised = [
++                _FlowExceptionalState(
++                    current,
++                    _explicit_raise_exception_tag(
++                        statement.exc,
++                        self.exception_scope,
++                    ),
++                    True,
++                )
++            ]
++            if _raise_expression_contains_fallible_evaluation(
++                statement.exc,
++                statement.cause,
++                self.exception_scope,
++            ):
++                raised.insert(
++                    0,
++                    _FlowExceptionalState(dict(current), None, True),
++                )
+             return _FlowSuccessors(
+                 [],
+                 [],
+                 [],
+                 [],
+-                [
+-                    _FlowExceptionalState(
+-                        current,
+-                        _explicit_raise_exception_tag(statement.exc),
+-                        True,
+-                    )
+-                ],
++                raised,
+             )
+         if isinstance(statement, ast.Break):
+             return _FlowSuccessors([], [dict(values)], [], [], [])
+@@ -10316,16 +10632,19 @@ class _SourceOrderedResolver:
+                 for exceptional in body.raises:
+                     residual = exceptional.explicit
+                     for handler in statement.handlers:
++                        validation = _exception_handler_validation(
++                            handler.type,
++                            self.exception_scope,
++                        )
+                         match = (
+                             _explicit_exception_handler_match(
+                                 exceptional.exception_tag,
+                                 handler.type,
++                                self.exception_scope,
+                             )
+                             if exceptional.explicit
+                             else "unknown"
+                         )
+-                        if exceptional.explicit and match == "nonmatch":
+-                            continue
+                         handler_state = self._exceptional_environment_state(
+                             dict(exceptional.state)
+                         )
+@@ -10334,10 +10653,27 @@ class _SourceOrderedResolver:
+                             result.raises.append(
+                                 _FlowExceptionalState(dict(handler_state))
+                             )
+-                        self._extend_successors(
+-                            result,
+-                            self._flow_statements(handler.body, handler_state),
+-                        )
++                        if validation in {"invalid", "unknown"}:
++                            result.raises.append(
++                                _FlowExceptionalState(
++                                    dict(handler_state),
++                                    "TypeError",
++                                    True,
++                                )
++                            )
++                        if validation == "invalid":
++                            residual = False
++                            break
++                        if not (
++                            exceptional.explicit and match == "nonmatch"
++                        ):
++                            self._extend_successors(
++                                result,
++                                self._flow_statements(
++                                    handler.body,
++                                    handler_state,
++                                ),
++                            )
+                         if exceptional.explicit and match == "match":
+                             residual = False
+                             break
+@@ -10972,6 +11308,10 @@ def _source_ordered_helper_return(
+         module_assignments,
+         execution.local_functions,
+         budget=budget,
++        exception_scope=_exception_name_scope(
++            definition,
++            frozenset(aliases) | frozenset(module_assignments),
++        ),
+     )
+     resolver.resolve(definition.body)
+     returned = list(resolver.return_values)
+@@ -11008,6 +11348,10 @@ def _source_ordered_review_flow(
+         sensitive_helper_names,
+         helper_returns,
+         budget,
++        _exception_name_scope(
++            node,
++            frozenset(aliases) | frozenset(module_assignments),
++        ),
+     ).resolve(node.body)
+ 
+ 
+@@ -12025,6 +12369,8 @@ def _review_body(
+         aliases,
+         analysis_budget,
+         preclassified_helpers,
++        scope_node=node,
++        module_bound_names=frozenset(aliases) | frozenset(module_assignments),
+     )
+     resolved_sensitive_calls: set[int] = set()
+     dispositions: dict[int, str] = {}

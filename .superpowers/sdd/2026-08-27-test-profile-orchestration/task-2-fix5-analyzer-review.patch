@@ -1,0 +1,1677 @@
+diff --git "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-review-snapshot\\before/tests/test_inventory_and_profiles.py" "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-review-snapshot\\after/tests/test_inventory_and_profiles.py"
+index dcbd390..d1332e9 100644
+--- "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-review-snapshot\\before/tests/test_inventory_and_profiles.py"
++++ "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-review-snapshot\\after/tests/test_inventory_and_profiles.py"
+@@ -874,6 +874,64 @@ class MaterializedOwnershipTests(unittest.TestCase):
+                 exact, changed, enforce_baseline_lock=False
+             )
+ 
++        invalid_placements = (
++            (
++                "inner-method-skip",
++                "tests/test_inner.py",
++                "InnerTests",
++                "test_inner",
++                f"""
++                import importlib.util
++                import unittest
++                class InnerTests(unittest.TestCase):
++                    @unittest.skipUnless(importlib.util.find_spec("cupy"), "gpu")
++                    @unittest.skip({literal!r})
++                    def test_inner(self): pass
++                """,
++            ),
++            (
++                "class-level-skip",
++                relative_path,
++                case_name,
++                method_name,
++                f"""
++                import importlib.util
++                import unittest
++                @unittest.skip({literal!r})
++                class {case_name}(unittest.TestCase):
++                    @unittest.skip({literal!r})
++                    @unittest.skipUnless(importlib.util.find_spec("cupy"), "gpu")
++                    def {method_name}(self): pass
++                """,
++            ),
++            (
++                "multiple-method-skips",
++                relative_path,
++                case_name,
++                method_name,
++                f"""
++                import importlib.util
++                import unittest
++                class {case_name}(unittest.TestCase):
++                    @unittest.skip({literal!r})
++                    @unittest.skip({literal!r})
++                    @unittest.skipUnless(importlib.util.find_spec("cupy"), "gpu")
++                    def {method_name}(self): pass
++                """,
++            ),
++        )
++        for label, path, _, _, raw_source in invalid_placements:
++            supplied = {path: _source(raw_source)}
++            with self.subTest(round5_skip_placement=label), self.assertRaisesRegex(
++                self.generator.InventoryError,
++                "unconditional skip",
++            ):
++                self.generator.build_inventory(
++                    supplied,
++                    supplied,
++                    enforce_baseline_lock=False,
++                )
++
+ 
+ class DesignReviewTests(unittest.TestCase):
+     def setUp(self) -> None:
+@@ -4163,6 +4221,74 @@ class DesignReviewTests(unittest.TestCase):
+                     ],
+                 )
+ 
++        unsupported_store_sources = (
++            (
++                "dynamic-attribute-store",
++                _source(
++                    """
++                    import cupy as cp
++                    import unittest
++                    class Box: pass
++                    class ReviewTests(unittest.TestCase):
++                        def test_static(self):
++                            box = Box()
++                            getattr(box, runtime_name()).backend = cp
++                        def test_denied(self): pass
++                    """
++                ),
++                7,
++                "protected value store target is dynamically unresolved",
++            ),
++            (
++                "dynamic-subscript-store",
++                _source(
++                    """
++                    import cupy as cp
++                    import unittest
++                    class ReviewTests(unittest.TestCase):
++                        def test_static(self):
++                            backends = {}
++                            backends[runtime_key()] = cp
++                            backends["gpu"].arange(1)
++                        def test_denied(self): pass
++                    """
++                ),
++                7,
++                "mixed protected receiver is dynamically unresolved",
++            ),
++            (
++                "unary-protected-value",
++                _source(
++                    """
++                    import cupy as cp
++                    import unittest
++                    class ReviewTests(unittest.TestCase):
++                        def test_static(self):
++                            backend = +cp
++                            backend.arange(1)
++                        def test_denied(self): pass
++                    """
++                ),
++                6,
++                "mixed protected receiver is dynamically unresolved",
++            ),
++        )
++        for label, source, line, reason in unsupported_store_sources:
++            with self.subTest(round5_provenance=label):
++                review = self._review(sources={"tests/test_review.py": source})
++                self.assertFalse(review["receipt"]["expanded_rows"])
++                self.assertEqual(
++                    review["unresolved_dynamic_blockers"],
++                    [
++                        {
++                            "item_id": self.static_id,
++                            "relative_path": "tests/test_review.py",
++                            "line": line,
++                            "reason": reason,
++                        }
++                    ],
++                )
++
+         safe_observation = self._review(
+             sources={
+                 "tests/test_review.py": _source(
+@@ -4337,6 +4463,68 @@ class DesignReviewTests(unittest.TestCase):
+                 ],
+             )
+ 
++        with self.subTest(round5_match="no-match-residual-state"):
++            residual = self._review(
++                sources={
++                    "tests/test_review.py": _source(
++                        """
++                        import cupy as cp
++                        import math as safe_backend
++                        import unittest
++                        class ReviewTests(unittest.TestCase):
++                            def test_static(self):
++                                backend = cp
++                                match runtime_value():
++                                    case 1:
++                                        backend = safe_backend
++                                backend.arange(1)
++                            def test_denied(self): pass
++                        """
++                    )
++                }
++            )
++            self.assertFalse(residual["receipt"]["expanded_rows"])
++            self.assertEqual(
++                residual["unresolved_dynamic_blockers"],
++                [
++                    {
++                        "item_id": self.static_id,
++                        "relative_path": "tests/test_review.py",
++                        "line": 10,
++                        "reason": "mixed protected receiver is dynamically unresolved",
++                    }
++                ],
++            )
++
++        with self.subTest(round5_match="guard-failure-is-sequential"):
++            guards = self._review(
++                sources={
++                    "tests/test_review.py": _source(
++                        """
++                        import cupy as cp
++                        import unittest
++                        class ReviewTests(unittest.TestCase):
++                            def test_static(self):
++                                match runtime_value():
++                                    case _ if cp.arange(1):
++                                        pass
++                                    case _ if cp.arange(1):
++                                        pass
++                                    case _:
++                                        pass
++                            def test_denied(self): pass
++                        """
++                    )
++                }
++            )
++            call = next(
++                row
++                for row in guards["receipt"]["expanded_rows"]
++                if row.get("qualified_name") == "cupy.arange"
++            )
++            self.assertEqual(call["maximum_calls"], 2)
++            self.assertFalse(guards["unresolved_dynamic_blockers"])
++
+     def test_round4_child_and_helper_provenance_red_contracts_are_independent(
+         self,
+     ) -> None:
+@@ -4370,6 +4558,79 @@ class DesignReviewTests(unittest.TestCase):
+             self.assertEqual([row["argv"] for row in processes], [["-m", "returned"]])
+             self.assertFalse(helper["unresolved_dynamic_blockers"])
+ 
++        with self.subTest(round5_helper="local-alias-return"):
++            helper = self._review(
++                sources={
++                    "tests/test_review.py": _source(
++                        """
++                        import subprocess
++                        import sys
++                        import unittest
++                        def runner():
++                            launch = subprocess.run
++                            return launch
++                        class ReviewTests(unittest.TestCase):
++                            def test_static(self):
++                                launch = runner()
++                                launch(
++                                    [sys.executable, "-m", "local-returned"],
++                                    timeout=5,
++                                    check=False,
++                                )
++                            def test_denied(self): pass
++                        """
++                    )
++                }
++            )
++            processes = [
++                row
++                for row in helper["receipt"]["expanded_rows"]
++                if row["capability_kind"] == "subprocess"
++            ]
++            self.assertEqual(
++                [row["argv"] for row in processes],
++                [["-m", "local-returned"]],
++            )
++            self.assertFalse(helper["unresolved_dynamic_blockers"])
++
++        with self.subTest(round5_helper="divergent-protected-return"):
++            divergent = self._review(
++                sources={
++                    "tests/test_review.py": _source(
++                        """
++                        import subprocess
++                        import sys
++                        import unittest
++                        def runner():
++                            if runtime_flag():
++                                return subprocess.run
++                            return print
++                        class ReviewTests(unittest.TestCase):
++                            def test_static(self):
++                                launch = runner()
++                                launch(
++                                    [sys.executable, "-m", "divergent"],
++                                    timeout=5,
++                                    check=False,
++                                )
++                            def test_denied(self): pass
++                        """
++                    )
++                }
++            )
++            self.assertFalse(divergent["receipt"]["expanded_rows"])
++            self.assertEqual(
++                divergent["unresolved_dynamic_blockers"],
++                [
++                    {
++                        "item_id": self.static_id,
++                        "relative_path": "tests/test_review.py",
++                        "line": 11,
++                        "reason": "callable alias is dynamically unresolved",
++                    }
++                ],
++            )
++
+         exact_child_program = (
+             "import cupy as cp\n"
+             "import subprocess, sys\n"
+@@ -4481,6 +4742,50 @@ class DesignReviewTests(unittest.TestCase):
+                     ],
+                 )
+ 
++        with self.subTest(round5_helper="literal-child-divergent-return"):
++            program = (
++                "import subprocess, sys\n"
++                "def runner():\n"
++                "    if runtime_flag():\n"
++                "        return subprocess.run\n"
++                "    return print\n"
++                "launch = runner()\n"
++                "launch([sys.executable, '-m', 'child-divergent'], "
++                "timeout=5, check=False)\n"
++            )
++            source = _source(
++                f'''
++                import subprocess
++                import sys
++                import unittest
++                class ReviewTests(unittest.TestCase):
++                    def test_static(self):
++                        program = {program!r}
++                        subprocess.run(
++                            [sys.executable, "-c", program],
++                            timeout=5,
++                            check=False,
++                        )
++                    def test_denied(self): pass
++                '''
++            )
++            review = self._review(sources={"tests/test_review.py": source})
++            self.assertFalse(review["receipt"]["expanded_rows"])
++            self.assertEqual(
++                review["unresolved_dynamic_blockers"],
++                [
++                    {
++                        "item_id": self.static_id,
++                        "relative_path": "tests/test_review.py",
++                        "line": 7,
++                        "reason": (
++                            "subprocess dynamic Python program has unresolved "
++                            "sensitive dataflow"
++                        ),
++                    }
++                ],
++            )
++
+     def test_round4_source_order_and_branch_bounds_red_contracts_are_independent(
+         self,
+     ) -> None:
+@@ -4567,6 +4872,80 @@ class DesignReviewTests(unittest.TestCase):
+             self.assertEqual(call["maximum_calls"], 1)
+             self.assertFalse(conditional["unresolved_dynamic_blockers"])
+ 
++        with self.subTest(round5_source_order="finite-while-before-reassignment"):
++            finite_while = self._review(
++                sources={
++                    "tests/test_review.py": _source(
++                        """
++                        import cupy as cp
++                        import unittest
++                        class ReviewTests(unittest.TestCase):
++                            def test_static(self):
++                                remaining = 1
++                                while remaining:
++                                    cp.arange(1)
++                                    remaining = 0
++                            def test_denied(self): pass
++                        """
++                    )
++                }
++            )
++            call = next(
++                row
++                for row in finite_while["receipt"]["expanded_rows"]
++                if row.get("qualified_name") == "cupy.arange"
++            )
++            self.assertEqual(call["maximum_calls"], 1)
++            self.assertFalse(finite_while["unresolved_dynamic_blockers"])
++
++        with self.subTest(round5_effect="if-expression-walrus"):
++            conditional_walrus = self._review(
++                sources={
++                    "tests/test_review.py": _source(
++                        """
++                        import cupy as cp
++                        import unittest
++                        class ReviewTests(unittest.TestCase):
++                            def test_static(self):
++                                ((backend := cp) if runtime_flag() else (backend := cp))
++                                backend.arange(1)
++                            def test_denied(self): pass
++                        """
++                    )
++                }
++            )
++            call = next(
++                row
++                for row in conditional_walrus["receipt"]["expanded_rows"]
++                if row.get("qualified_name") == "cupy.arange"
++            )
++            self.assertEqual(call["maximum_calls"], 1)
++            self.assertFalse(conditional_walrus["unresolved_dynamic_blockers"])
++
++        with self.subTest(round5_effect="comprehension-walrus"):
++            comprehension_walrus = self._review(
++                sources={
++                    "tests/test_review.py": _source(
++                        """
++                        import cupy as cp
++                        import unittest
++                        class ReviewTests(unittest.TestCase):
++                            def test_static(self):
++                                [(backend := cp) for _ in range(1)]
++                                backend.arange(1)
++                            def test_denied(self): pass
++                        """
++                    )
++                }
++            )
++            call = next(
++                row
++                for row in comprehension_walrus["receipt"]["expanded_rows"]
++                if row.get("qualified_name") == "cupy.arange"
++            )
++            self.assertEqual(call["maximum_calls"], 1)
++            self.assertFalse(comprehension_walrus["unresolved_dynamic_blockers"])
++
+     def test_round4_exception_environment_red_contracts_are_independent(self) -> None:
+         direct_cases = (
+             (
+@@ -4656,6 +5035,43 @@ class DesignReviewTests(unittest.TestCase):
+                         [blocker],
+                     )
+ 
++        with self.subTest(round5_exception="nested-mutated-state"):
++            source = _source(
++                """
++                import os
++                import subprocess
++                import sys
++                import unittest
++                class ReviewTests(unittest.TestCase):
++                    def test_static(self):
++                        environment = os.environ.copy()
++                        try:
++                            if True:
++                                environment["MODE"] = "nested-raised"
++                                raise RuntimeError
++                        except RuntimeError:
++                            subprocess.run(
++                                [sys.executable, "-m", "nested-handler"],
++                                env=environment,
++                                timeout=5,
++                                check=False,
++                            )
++                    def test_denied(self): pass
++                """
++            )
++            review = self._review(sources={"tests/test_review.py": source})
++            process = next(
++                row
++                for row in review["receipt"]["expanded_rows"]
++                if row["capability_kind"] == "subprocess"
++            )
++            self.assertEqual(process["argv"], ["-m", "nested-handler"])
++            self.assertEqual(
++                process["environment_additions"],
++                {"MODE": "nested-raised"},
++            )
++            self.assertFalse(review["unresolved_dynamic_blockers"])
++
+         child_cases = (
+             (
+                 "deterministic",
+@@ -4822,6 +5238,42 @@ class DesignReviewTests(unittest.TestCase):
+                         {"tests/test_alias.py": source}
+                     )
+ 
++        rebound_sources = (
++            (
++                "function-definition",
++                """
++                import os
++                import unittest
++                conditional = unittest.skipIf
++                def conditional(*args):
++                    return lambda function: function
++                class UnknownTests(unittest.TestCase):
++                    @conditional(os.name == "nt", "possibly retained skip")
++                    def test_value(self): pass
++                """,
++            ),
++            (
++                "import-binding",
++                """
++                import os
++                import unittest
++                conditional = unittest.skipIf
++                import decorators as conditional
++                class UnknownTests(unittest.TestCase):
++                    @conditional(os.name == "nt", "possibly retained skip")
++                    def test_value(self): pass
++                """,
++            ),
++        )
++        for label, raw_source in rebound_sources:
++            with self.subTest(round5_decorator_binder=label), self.assertRaisesRegex(
++                self.generator.InventoryError,
++                "conditional skip decorator alias is unresolved",
++            ):
++                self.generator.discover_test_sources(
++                    {"tests/test_alias.py": _source(raw_source)}
++                )
++
+     def test_round4_analysis_budget_red_contracts_are_independent(self) -> None:
+         budget_constants = (
+             ("MAXIMUM_ANALYSIS_HELPER_DEPTH", 64),
+@@ -4920,6 +5372,42 @@ class DesignReviewTests(unittest.TestCase):
+             ):
+                 self._review(sources={"tests/test_review.py": source})
+ 
++        with self.subTest(round5_budget="900-term-expression"):
++            expression = "+".join(["cp"] * 900)
++            source = _source(
++                "import cupy as cp\n"
++                "import unittest\n"
++                "class ReviewTests(unittest.TestCase):\n"
++                "    def test_static(self):\n"
++                f"        backend = {expression}\n"
++                "        backend.arange(1)\n"
++                "    def test_denied(self): pass\n"
++            )
++            with self.assertRaisesRegex(
++                self.generator.InventoryError,
++                "^analysis expression depth exceeds safe recursion$",
++            ):
++                self._review(sources={"tests/test_review.py": source})
++
++        with self.subTest(round5_cardinality="maximum-plus-later-call"):
++            source = _source(
++                """
++                import cupy as cp
++                import unittest
++                class ReviewTests(unittest.TestCase):
++                    def test_static(self):
++                        for _ in range(2147483647):
++                            cp.arange(1)
++                        cp.arange(1)
++                    def test_denied(self): pass
++                """
++            )
++            with self.assertRaisesRegex(
++                self.generator.InventoryError,
++                "^analysis expanded cardinality exceeds 2147483647$",
++            ):
++                self._review(sources={"tests/test_review.py": source})
++
+         with self.subTest(boundary="child-depth"):
+             program = "pass\n"
+             for _ in range(5):
+@@ -8991,15 +9479,15 @@ class CheckedInInventoryTests(unittest.TestCase):
+                 "subprocess_helper_site_count": 4,
+                 "cross_file_helper_edge_count": 27,
+                 "cupy_call_node_count": 30,
+-                "string_sink_decoy_count": 147,
++                "string_sink_decoy_count": 156,
+                 "string_sink_decoy_sha256": (
+-                    "93a0665d28b29f0b9c51e15e2337521e75405ec30cb8a7d7cd7f48459940c454"
++                    "f2b2261f3d69e2cb0b9997c3c0bc30eee5336e229c597add1718b724b4957a21"
+                 ),
+                 "string_sink_decoy_partitions": {
+                     "design_production": 17,
+                     "historical_production": 6,
+                     "prior_stabilization_synthetic": 26,
+-                    "task2_synthetic": 98,
++                    "task2_synthetic": 107,
+                 },
+                 "analyzed_sites_sha256": (
+                     "b4006b5928e982c587eda852e53527d0f116952149a129cf08ca233f3a89db10"
+diff --git "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-review-snapshot\\before/tools/generate_test_inventory.py" "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-review-snapshot\\after/tools/generate_test_inventory.py"
+index 8d4c685..4692e44 100644
+--- "a/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-review-snapshot\\before/tools/generate_test_inventory.py"
++++ "b/D:\\Pontius-worktrees\\evidence-test-stabilization\\.superpowers\\sdd\\2026-08-27-test-profile-orchestration\\task-2-fix5-analyzer-review-snapshot\\after/tools/generate_test_inventory.py"
+@@ -430,40 +430,137 @@ def _conditional_skip_aliases(
+     nodes: Iterable[ast.stmt],
+     inherited: Mapping[str, str] | None = None,
+ ) -> dict[str, str]:
++    def bound_names(target: ast.AST | None) -> set[str]:
++        if isinstance(target, ast.Name):
++            return {target.id}
++        if isinstance(target, (ast.Tuple, ast.List)):
++            return set().union(*(bound_names(item) for item in target.elts))
++        return set()
++
++    def invalidate(result: dict[str, str], names: Iterable[str]) -> None:
++        for name in names:
++            retained = result.get(name)
++            if retained is not None and (
++                retained.startswith("unittest.skip")
++                or retained == "__unresolved_conditional_skip__"
++            ):
++                result[name] = "__unresolved_conditional_skip__"
++            else:
++                result.pop(name, None)
++
++    def merge(
++        first: Mapping[str, str],
++        second: Mapping[str, str],
++    ) -> dict[str, str]:
++        result: dict[str, str] = {}
++        for name in set(first) | set(second):
++            first_value = first.get(name)
++            second_value = second.get(name)
++            if first_value == second_value and first_value is not None:
++                result[name] = first_value
++            elif any(
++                value is not None
++                and (
++                    value.startswith("unittest.skip")
++                    or value == "__unresolved_conditional_skip__"
++                )
++                for value in (first_value, second_value)
++            ):
++                result[name] = "__unresolved_conditional_skip__"
++        return result
++
+     aliases = dict(inherited or {})
+     for node in nodes:
+         if isinstance(node, ast.If):
+             first = _conditional_skip_aliases(node.body, aliases)
+             second = _conditional_skip_aliases(node.orelse, aliases)
+-            merged: dict[str, str] = {}
+-            for name in set(first) | set(second):
+-                first_value = first.get(name)
+-                second_value = second.get(name)
+-                if first_value == second_value and first_value is not None:
+-                    merged[name] = first_value
+-                elif any(
+-                    value is not None
+-                    and (
+-                        value.startswith("unittest.skip")
+-                        or value == "__unresolved_conditional_skip__"
+-                    )
+-                    for value in (first_value, second_value)
+-                ):
+-                    merged[name] = "__unresolved_conditional_skip__"
+-            aliases = merged
++            aliases = merge(first, second)
+             continue
+         if isinstance(node, ast.Import):
+             for imported in node.names:
++                local = imported.asname or imported.name.split(".", 1)[0]
+                 if imported.name == "unittest":
+-                    aliases[imported.asname or "unittest"] = "unittest"
++                    aliases[local] = "unittest"
+                 elif imported.name == "os":
+-                    aliases[imported.asname or "os"] = "os"
+-        elif isinstance(node, ast.ImportFrom) and node.module == "unittest":
++                    aliases[local] = "os"
++                else:
++                    invalidate(aliases, (local,))
++            continue
++        if isinstance(node, ast.ImportFrom):
++            if any(imported.name == "*" for imported in node.names):
++                invalidate(aliases, tuple(aliases))
++                continue
+             for imported in node.names:
+-                if imported.name in {"skipIf", "skipUnless"}:
+-                    aliases[imported.asname or imported.name] = (
+-                        f"unittest.{imported.name}"
+-                    )
++                local = imported.asname or imported.name
++                if (
++                    node.module == "unittest"
++                    and imported.name in {"skipIf", "skipUnless"}
++                ):
++                    aliases[local] = f"unittest.{imported.name}"
++                else:
++                    invalidate(aliases, (local,))
++            continue
++        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
++            invalidate(aliases, (node.name,))
++            continue
++        if isinstance(node, (ast.For, ast.AsyncFor)):
++            entered = dict(aliases)
++            invalidate(entered, bound_names(node.target))
++            entered = _conditional_skip_aliases(node.body, entered)
++            entered = _conditional_skip_aliases(node.orelse, entered)
++            aliases = merge(aliases, entered)
++            continue
++        if isinstance(node, (ast.With, ast.AsyncWith)):
++            entered = dict(aliases)
++            invalidate(
++                entered,
++                set().union(*(
++                    bound_names(item.optional_vars)
++                    for item in node.items
++                    if item.optional_vars is not None
++                )),
++            )
++            aliases = _conditional_skip_aliases(node.body, entered)
++            continue
++        try_types = (ast.Try,)
++        if hasattr(ast, "TryStar"):
++            try_types = (*try_types, ast.TryStar)
++        if isinstance(node, try_types):
++            body = _conditional_skip_aliases(node.body, aliases)
++            alternatives = [_conditional_skip_aliases(node.orelse, body)]
++            for handler in node.handlers:
++                handler_aliases = dict(aliases)
++                if handler.name is not None:
++                    invalidate(handler_aliases, (handler.name,))
++                alternatives.append(
++                    _conditional_skip_aliases(handler.body, handler_aliases)
++                )
++            combined = alternatives[0]
++            for alternative in alternatives[1:]:
++                combined = merge(combined, alternative)
++            aliases = _conditional_skip_aliases(node.finalbody, combined)
++            continue
++        if isinstance(node, ast.Match):
++            alternatives = [dict(aliases)]
++            for case in node.cases:
++                case_aliases = dict(aliases)
++                invalidate(
++                    case_aliases,
++                    (
++                        candidate.name
++                        for candidate in ast.walk(case.pattern)
++                        if isinstance(candidate, ast.MatchAs)
++                        and candidate.name is not None
++                    ),
++                )
++                alternatives.append(
++                    _conditional_skip_aliases(case.body, case_aliases)
++                )
++            combined = alternatives[0]
++            for alternative in alternatives[1:]:
++                combined = merge(combined, alternative)
++            aliases = combined
++            continue
+         target: ast.Name | None = None
+         value: ast.expr | None = None
+         if (
+@@ -486,6 +583,27 @@ def _conditional_skip_aliases(
+                 aliases[target.id] = "__unresolved_conditional_skip__"
+             else:
+                 aliases.pop(target.id, None)
++            continue
++        assignment_targets: list[ast.AST] = []
++        if isinstance(node, ast.Assign):
++            assignment_targets.extend(node.targets)
++        elif isinstance(node, (ast.AnnAssign, ast.AugAssign)):
++            assignment_targets.append(node.target)
++        elif isinstance(node, ast.Delete):
++            assignment_targets.extend(node.targets)
++        invalidate(
++            aliases,
++            set().union(*(bound_names(target) for target in assignment_targets)),
++        )
++        invalidate(
++            aliases,
++            (
++                candidate.target.id
++                for candidate in ast.walk(node)
++                if isinstance(candidate, ast.NamedExpr)
++                and isinstance(candidate.target, ast.Name)
++            ),
++        )
+     return aliases
+ 
+ 
+@@ -629,6 +747,14 @@ def discover_test_sources(sources: Mapping[str, bytes]) -> Discovery:
+                     "inherited or mixin fixture ownership is unsupported: "
+                     f"{relative_path}::{class_node.name}"
+                 )
++            if any(
++                _literal_unittest_skip(decorator) is not None
++                for decorator in class_node.decorator_list
++            ):
++                raise InventoryError(
++                    "class-level unconditional skip is unsupported: "
++                    f"{relative_path}::{class_node.name}"
++                )
+             class_definition_aliases = _conditional_skip_aliases(
+                 tree.body[:class_index]
+             )
+@@ -677,10 +803,21 @@ def discover_test_sources(sources: Mapping[str, bytes]) -> Discovery:
+                     raise InventoryError(
+                         "conditional skip excludes every supported platform"
+                     )
+-                literal = (
+-                    _literal_unittest_skip(node.decorator_list[0])
+-                    if node.decorator_list else None
++                literal_skips = tuple(
++                    (index, literal)
++                    for index, decorator in enumerate(node.decorator_list)
++                    for literal in (_literal_unittest_skip(decorator),)
++                    if literal is not None
+                 )
++                if literal_skips and (
++                    len(literal_skips) != 1 or literal_skips[0][0] != 0
++                ):
++                    raise InventoryError(
++                        "unconditional skip must be the single outermost "
++                        "method decorator: "
++                        f"{relative_path}::{class_node.name}::{node.name}"
++                    )
++                literal = literal_skips[0][1] if literal_skips else None
+                 method = TestMethod(
+                     relative_path,
+                     class_node.name,
+@@ -5727,8 +5864,13 @@ def _execution_scope(
+     node: ast.FunctionDef | ast.AsyncFunctionDef,
+ ) -> _ExecutionScopeVisitor:
+     visitor = _ExecutionScopeVisitor()
+-    for statement in node.body:
+-        visitor.visit(statement)
++    try:
++        for statement in node.body:
++            visitor.visit(statement)
++    except RecursionError as error:
++        raise InventoryError(
++            "analysis expression depth exceeds safe recursion"
++        ) from error
+     return visitor
+ 
+ 
+@@ -5738,7 +5880,10 @@ def _merge_call_counts(
+     merged: dict[bytes, int] = {}
+     for supplied in counts:
+         for key, value in supplied.items():
+-            merged[key] = merged.get(key, 0) + value
++            merged[key] = _checked_cardinality_add(
++                merged.get(key, 0),
++                value,
++            )
+     return merged
+ 
+ 
+@@ -5747,11 +5892,39 @@ def _maximum_call_counts(
+     second: Mapping[bytes, int],
+ ) -> dict[bytes, int]:
+     return {
+-        key: max(first.get(key, 0), second.get(key, 0))
++        key: _checked_cardinality(max(first.get(key, 0), second.get(key, 0)))
+         for key in set(first) | set(second)
+     }
+ 
+ 
++def _checked_cardinality(value: int) -> int:
++    if value < 0 or value > MAXIMUM_ANALYSIS_CARDINALITY:
++        raise InventoryError(
++            "analysis expanded cardinality exceeds 2147483647"
++        )
++    return value
++
++
++def _checked_cardinality_add(first: int, second: int) -> int:
++    _checked_cardinality(first)
++    _checked_cardinality(second)
++    if first > MAXIMUM_ANALYSIS_CARDINALITY - second:
++        raise InventoryError(
++            "analysis expanded cardinality exceeds 2147483647"
++        )
++    return first + second
++
++
++def _checked_cardinality_multiply(first: int, second: int) -> int:
++    _checked_cardinality(first)
++    _checked_cardinality(second)
++    if first and second > MAXIMUM_ANALYSIS_CARDINALITY // first:
++        raise InventoryError(
++            "analysis expanded cardinality exceeds 2147483647"
++        )
++    return first * second
++
++
+ def _helper_return_cardinality(definition: _ReviewFunction) -> int | None:
+     returns = [
+         statement
+@@ -5920,11 +6093,7 @@ def _expression_call_counts(
+                 }
+                 dynamic |= repeated_keys
+                 return counts, dynamic
+-            repeated *= bound
+-            if repeated > MAXIMUM_ANALYSIS_CARDINALITY:
+-                raise InventoryError(
+-                    "analysis expanded cardinality exceeds 2147483647"
+-                )
++            repeated = _checked_cardinality_multiply(repeated, bound)
+             for condition in generator.ifs:
+                 condition_counts, condition_dynamic = _expression_call_counts(
+                     condition,
+@@ -6112,12 +6281,10 @@ def _runtime_call_bounds(
+             else:
+                 expanded_counts: dict[bytes, int] = {}
+                 for key, value in body_counts.items():
+-                    expanded = value * bound
+-                    if expanded > MAXIMUM_ANALYSIS_CARDINALITY:
+-                        raise InventoryError(
+-                            "analysis expanded cardinality exceeds 2147483647"
+-                        )
+-                    expanded_counts[key] = expanded
++                    expanded_counts[key] = _checked_cardinality_multiply(
++                        value,
++                        bound,
++                    )
+                 body_counts = expanded_counts
+                 dynamic |= body_dynamic
+             counts = _merge_call_counts(
+@@ -6142,12 +6309,22 @@ def _runtime_call_bounds(
+                 aliases=aliases,
+                 helper_registry=helper_registry,
+             )
+-            static_test = _static_value(statement.test, assignments)
+-            if static_test is False:
++            bound = getattr(
++                statement,
++                "_pontius_iteration_bound",
++                None,
++            )
++            if bound == 0:
+                 body_counts = {}
+-            else:
++            elif bound is None:
+                 dynamic |= set(body_counts) | body_dynamic
+                 body_counts = {}
++            else:
++                body_counts = {
++                    key: _checked_cardinality_multiply(value, bound)
++                    for key, value in body_counts.items()
++                }
++                dynamic |= body_dynamic
+             else_counts, else_dynamic = _runtime_call_bounds(
+                 statement.orelse,
+                 definitions,
+@@ -6195,6 +6372,8 @@ def _runtime_call_bounds(
+             )
+             alternative_counts: dict[bytes, int] = {}
+             alternative_dynamic: set[bytes] = set()
++            failed_guard_counts: dict[bytes, int] = {}
++            failed_guard_dynamic: set[bytes] = set()
+             for case in statement.cases:
+                 guard_counts, guard_dynamic = _expression_call_counts(
+                     case.guard,
+@@ -6212,12 +6391,38 @@ def _runtime_call_bounds(
+                     aliases=aliases,
+                     helper_registry=helper_registry,
+                 )
+-                case_counts = _merge_call_counts(guard_counts, body_counts)
++                reached_guard = _merge_call_counts(
++                    failed_guard_counts,
++                    guard_counts,
++                )
++                case_counts = _merge_call_counts(reached_guard, body_counts)
+                 alternative_counts = _maximum_call_counts(
+                     alternative_counts,
+                     case_counts,
+                 )
+-                alternative_dynamic |= guard_dynamic | body_dynamic
++                alternative_dynamic |= (
++                    failed_guard_dynamic | guard_dynamic | body_dynamic
++                )
++                guard_value = _static_value(case.guard, assignments)
++                guard_can_fail = case.guard is not None and guard_value is not True
++                pattern_can_fail = not _pattern_is_irrefutable(case.pattern)
++                if guard_can_fail:
++                    failed_guard_counts = reached_guard
++                    failed_guard_dynamic |= guard_dynamic
++                elif not pattern_can_fail:
++                    failed_guard_counts = {}
++                    failed_guard_dynamic = set()
++                    break
++                if pattern_can_fail:
++                    alternative_counts = _maximum_call_counts(
++                        alternative_counts,
++                        failed_guard_counts,
++                    )
++            alternative_counts = _maximum_call_counts(
++                alternative_counts,
++                failed_guard_counts,
++            )
++            alternative_dynamic |= failed_guard_dynamic
+             counts = _merge_call_counts(
+                 counts,
+                 subject_counts,
+@@ -6478,10 +6683,7 @@ class _AnalysisBudget:
+         self.consume(length + 1)
+ 
+     def cardinality(self, value: int) -> int:
+-        if value > MAXIMUM_ANALYSIS_CARDINALITY:
+-            raise InventoryError(
+-                "analysis expanded cardinality exceeds 2147483647"
+-            )
++        _checked_cardinality(value)
+         self.consume()
+         return value
+ 
+@@ -6497,6 +6699,7 @@ class _ReviewFlow:
+     blockers_by_call: dict[int, str]
+     iterator_bounds: dict[int, int | None]
+     callables_by_call: dict[int, str]
++    standalone_blockers: list[tuple[ast.AST, str]]
+ 
+ 
+ def _trivial_helper_return(
+@@ -6707,7 +6910,8 @@ class _SourceOrderedResolver:
+         }
+         self.local_functions = dict(local_functions)
+         self.helper_returns = dict(helper_returns or {})
+-        self.flow = _ReviewFlow({}, {}, {}, {}, {}, {})
++        self.flow = _ReviewFlow({}, {}, {}, {}, {}, {}, [])
++        self.return_values: list[_FlowValue] = []
+         for name, expression in module_assignments.items():
+             self.values[name] = self._evaluate(expression, self.values, False)
+         for name, definition in local_functions.items():
+@@ -6997,9 +7201,16 @@ class _SourceOrderedResolver:
+                 )
+             return _flow_unknown("boolean value is dynamically unresolved")
+         if isinstance(node, ast.IfExp):
+-            self._evaluate(node.test, values, record)
+-            first = self._evaluate(node.body, dict(values), record)
+-            second = self._evaluate(node.orelse, dict(values), record)
++            test = self._evaluate(node.test, values, record)
++            if test.kind == "scalar" and type(test.value) is bool:
++                chosen = node.body if test.value else node.orelse
++                return self._evaluate(chosen, values, record)
++            first_values = dict(values)
++            second_values = dict(values)
++            first = self._evaluate(node.body, first_values, record)
++            second = self._evaluate(node.orelse, second_values, record)
++            values.clear()
++            values.update(self._merge_states((first_values, second_values)))
+             return _merge_flow_values("conditional expression", (first, second))
+         if isinstance(node, ast.NamedExpr):
+             value = self._evaluate(node.value, values, record)
+@@ -7192,7 +7403,9 @@ class _SourceOrderedResolver:
+                 if bound is None:
+                     repeated = 0
+                 else:
+-                    repeated = self.budget.cardinality(repeated * bound)
++                    repeated = self.budget.cardinality(
++                        _checked_cardinality_multiply(repeated, bound)
++                    )
+                 if iterator.kind == "sequence" and iterator.value:
+                     iteration_value = _merge_flow_values(
+                         "comprehension target",
+@@ -7215,12 +7428,31 @@ class _SourceOrderedResolver:
+                 self._evaluate(expression, local_values, record)
+                 for expression in expressions
+             ]
++            comprehension_targets = {
++                candidate.target.id
++                for candidate in ast.walk(node)
++                if isinstance(candidate, ast.NamedExpr)
++                and isinstance(candidate.target, ast.Name)
++            }
++            for name in comprehension_targets:
++                if name in local_values:
++                    values[name] = local_values[name]
+             if repeated > MAXIMUM_ANALYSIS_CONTAINER_ELEMENTS:
+                 return _flow_unknown("comprehension result is not materialized")
+             return _FlowValue("sequence", tuple(values_out) * repeated)
+-        for child in ast.iter_child_nodes(node):
++        child_values = [
+             self._evaluate(child, values, record)
+-        return _flow_unknown("expression is dynamically unresolved")
++            for child in ast.iter_child_nodes(node)
++        ]
++        sensitive = any(_flow_is_sensitive(value) for value in child_values)
++        return _flow_unknown(
++            (
++                "mixed protected receiver is dynamically unresolved"
++                if sensitive
++                else "expression is dynamically unresolved"
++            ),
++            sensitive=sensitive,
++        )
+ 
+     @staticmethod
+     def _iteration_bound_value(value: _FlowValue) -> int | None:
+@@ -7308,6 +7540,26 @@ class _SourceOrderedResolver:
+                     owner_value.value.owner,
+                     "subprocess environment mutation is unresolved",
+                 )
++                return
++        if _flow_is_sensitive(value):
++            root = self._store_root_name(target)
++            if root is not None:
++                values[root] = _flow_unknown(
++                    "mixed protected receiver is dynamically unresolved",
++                    sensitive=True,
++                )
++            else:
++                self.flow.standalone_blockers.append((
++                    target,
++                    "protected value store target is dynamically unresolved",
++                ))
++
++    @staticmethod
++    def _store_root_name(target: ast.expr) -> str | None:
++        current = target
++        while isinstance(current, (ast.Attribute, ast.Subscript)):
++            current = current.value
++        return current.id if isinstance(current, ast.Name) else None
+ 
+     def _member_path(
+         self,
+@@ -7387,15 +7639,182 @@ class _SourceOrderedResolver:
+         self,
+         statements: Sequence[ast.stmt],
+         values: dict[str, _FlowValue],
+-    ) -> tuple[dict[str, _FlowValue], dict[str, _FlowValue] | None]:
+-        current = dict(values)
++    ) -> tuple[
++        dict[str, _FlowValue] | None,
++        dict[str, _FlowValue] | None,
++    ]:
++        normal_states: list[dict[str, _FlowValue]] = [dict(values)]
++        exceptional_states: list[dict[str, _FlowValue]] = []
+         for statement in statements:
+-            if isinstance(statement, ast.Raise):
+-                self._evaluate(statement.exc, current)
+-                self._evaluate(statement.cause, current)
+-                return current, dict(current)
+-            current = self._statements((statement,), current)
+-        return current, None
++            next_normal: list[dict[str, _FlowValue]] = []
++            for current in normal_states:
++                normal, exceptional = self._try_statement_states(
++                    statement,
++                    current,
++                )
++                next_normal.extend(normal)
++                exceptional_states.extend(exceptional)
++            normal_states = next_normal
++            if not normal_states:
++                break
++        normal = (
++            self._merge_states(normal_states) if normal_states else None
++        )
++        exceptional = (
++            self._merge_states(exceptional_states)
++            if exceptional_states
++            else None
++        )
++        return normal, exceptional
++
++    def _try_statement_states(
++        self,
++        statement: ast.stmt,
++        values: dict[str, _FlowValue],
++    ) -> tuple[
++        list[dict[str, _FlowValue]],
++        list[dict[str, _FlowValue]],
++    ]:
++        if isinstance(statement, ast.Raise):
++            self._evaluate(statement.exc, values)
++            self._evaluate(statement.cause, values)
++            return [], [dict(values)]
++        if isinstance(statement, ast.If):
++            test = self._evaluate(statement.test, values)
++            branches: tuple[Sequence[ast.stmt], ...]
++            if test.kind == "scalar" and type(test.value) is bool:
++                branches = (
++                    statement.body if test.value else statement.orelse,
++                )
++            else:
++                branches = (statement.body, statement.orelse)
++            normal: list[dict[str, _FlowValue]] = []
++            exceptional: list[dict[str, _FlowValue]] = []
++            for branch in branches:
++                branch_normal, branch_exceptional = self._try_body_states(
++                    branch,
++                    dict(values),
++                )
++                if branch_normal is not None:
++                    normal.append(branch_normal)
++                if branch_exceptional is not None:
++                    exceptional.append(branch_exceptional)
++            return normal, exceptional
++        if isinstance(statement, (ast.With, ast.AsyncWith)):
++            current = dict(values)
++            for item in statement.items:
++                supplied = self._evaluate(item.context_expr, current)
++                if item.optional_vars is not None:
++                    self._assign(item.optional_vars, supplied, current)
++            normal, exceptional = self._try_body_states(
++                statement.body,
++                current,
++            )
++            return (
++                [] if normal is None else [normal],
++                [] if exceptional is None else [exceptional],
++            )
++        if isinstance(statement, (ast.For, ast.AsyncFor)):
++            current = dict(values)
++            iterator = self._evaluate(statement.iter, current)
++            bound = self._iteration_bound_value(iterator)
++            normal: list[dict[str, _FlowValue]] = []
++            exceptional: list[dict[str, _FlowValue]] = []
++            if bound != 0:
++                entered = dict(current)
++                if iterator.kind == "sequence" and iterator.value:
++                    iteration_value = _merge_flow_values(
++                        "loop target",
++                        tuple(iterator.value),
++                    )
++                else:
++                    iteration_value = _flow_unknown(
++                        "loop target is dynamically unresolved",
++                        sensitive=_flow_is_sensitive(iterator),
++                    )
++                self._assign(statement.target, iteration_value, entered)
++                body, raised = self._try_body_states(
++                    statement.body,
++                    entered,
++                )
++                if body is not None:
++                    normal.append(body)
++                if raised is not None:
++                    exceptional.append(raised)
++            if bound in {0, None}:
++                normal.append(current)
++            completed: list[dict[str, _FlowValue]] = []
++            for state in normal:
++                else_normal, else_raised = self._try_body_states(
++                    statement.orelse,
++                    state,
++                )
++                if else_normal is not None:
++                    completed.append(else_normal)
++                if else_raised is not None:
++                    exceptional.append(else_raised)
++            return completed, exceptional
++        if isinstance(statement, ast.While):
++            current = dict(values)
++            test = self._evaluate(statement.test, current)
++            truth = bool(test.value) if test.kind == "scalar" else None
++            normal: list[dict[str, _FlowValue]] = []
++            exceptional: list[dict[str, _FlowValue]] = []
++            if truth is not False:
++                body, raised = self._try_body_states(
++                    statement.body,
++                    dict(current),
++                )
++                if body is not None:
++                    normal.append(body)
++                if raised is not None:
++                    exceptional.append(raised)
++            if truth is not True:
++                normal.append(current)
++            completed: list[dict[str, _FlowValue]] = []
++            for state in normal:
++                else_normal, else_raised = self._try_body_states(
++                    statement.orelse,
++                    state,
++                )
++                if else_normal is not None:
++                    completed.append(else_normal)
++                if else_raised is not None:
++                    exceptional.append(else_raised)
++            return completed, exceptional
++        if isinstance(statement, ast.Match):
++            subject = self._evaluate(statement.subject, values)
++            residual = [dict(values)]
++            normal: list[dict[str, _FlowValue]] = []
++            exceptional: list[dict[str, _FlowValue]] = []
++            for case in statement.cases:
++                next_residual: list[dict[str, _FlowValue]] = []
++                for incoming in residual:
++                    case_state = dict(incoming)
++                    self._bind_match_pattern(case.pattern, subject, case_state)
++                    guard = self._evaluate(case.guard, case_state)
++                    guard_true = guard.kind == "scalar" and guard.value is True
++                    guard_false = guard.kind == "scalar" and guard.value is False
++                    if not guard_false:
++                        body, raised = self._try_body_states(
++                            case.body,
++                            dict(case_state),
++                        )
++                        if body is not None:
++                            normal.append(body)
++                        if raised is not None:
++                            exceptional.append(raised)
++                    if case.guard is not None and not guard_true:
++                        next_residual.append(case_state)
++                    if not _pattern_is_irrefutable(case.pattern):
++                        next_residual.append(incoming)
++                residual = next_residual
++                if not residual:
++                    break
++            normal.extend(residual)
++            return normal, exceptional
++        current = self._statements((statement,), dict(values))
++        return [current], []
+ 
+     @staticmethod
+     def _exceptional_environment_state(
+@@ -7498,6 +7917,11 @@ class _SourceOrderedResolver:
+             if isinstance(statement, ast.Expr):
+                 self._evaluate(statement.value, values)
+                 continue
++            if isinstance(statement, ast.Return):
++                self.return_values.append(
++                    self._evaluate(statement.value, values)
++                )
++                return values
+             if isinstance(statement, ast.If):
+                 test = self._evaluate(statement.test, values)
+                 if test.kind == "scalar" and type(test.value) is bool:
+@@ -7541,11 +7965,25 @@ class _SourceOrderedResolver:
+                 continue
+             if isinstance(statement, ast.While):
+                 test = self._evaluate(statement.test, values)
+-                if test.kind == "scalar" and test.value is False:
++                test_truth = (
++                    bool(test.value) if test.kind == "scalar" else None
++                )
++                if test_truth is False:
++                    setattr(statement, "_pontius_iteration_bound", 0)
+                     merged = dict(values)
+                 else:
+                     body = self._statements(statement.body, dict(values))
+-                    merged = self._merge_states((values, body))
++                    after = self._evaluate(
++                        statement.test,
++                        dict(body),
++                        False,
++                    )
++                    after_truth = (
++                        bool(after.value) if after.kind == "scalar" else None
++                    )
++                    bound = 1 if test_truth is True and after_truth is False else None
++                    setattr(statement, "_pontius_iteration_bound", bound)
++                    merged = body if bound == 1 else self._merge_states((values, body))
+                 merged = self._statements(statement.orelse, merged)
+                 values.clear()
+                 values.update(merged)
+@@ -7565,8 +8003,11 @@ class _SourceOrderedResolver:
+                     statement.body,
+                     dict(values),
+                 )
+-                normal = self._statements(statement.orelse, dict(body))
+-                alternatives = [normal]
++                alternatives: list[dict[str, _FlowValue]] = []
++                if body is not None:
++                    alternatives.append(
++                        self._statements(statement.orelse, dict(body))
++                    )
+                 for handler in statement.handlers:
+                     handler_state = self._exceptional_environment_state(
+                         dict(raised if raised is not None else values)
+@@ -7575,6 +8016,8 @@ class _SourceOrderedResolver:
+                     alternatives.append(
+                         self._statements(handler.body, handler_state)
+                     )
++                if not alternatives:
++                    alternatives.append(dict(raised or values))
+                 merged = self._merge_states(alternatives)
+                 merged = self._statements(statement.finalbody, merged)
+                 values.clear()
+@@ -7583,17 +8026,35 @@ class _SourceOrderedResolver:
+             if isinstance(statement, ast.Match):
+                 subject = self._evaluate(statement.subject, values)
+                 alternatives: list[dict[str, _FlowValue]] = []
++                residual_states: list[dict[str, _FlowValue]] = [dict(values)]
+                 for case in statement.cases:
+-                    case_state = dict(values)
+-                    self._bind_match_pattern(
+-                        case.pattern,
+-                        subject,
+-                        case_state,
+-                    )
+-                    self._evaluate(case.guard, case_state)
+-                    alternatives.append(
+-                        self._statements(case.body, case_state)
+-                    )
++                    next_residual: list[dict[str, _FlowValue]] = []
++                    for residual in residual_states:
++                        case_state = dict(residual)
++                        self._bind_match_pattern(
++                            case.pattern,
++                            subject,
++                            case_state,
++                        )
++                        guard = self._evaluate(case.guard, case_state)
++                        guard_true = (
++                            guard.kind == "scalar" and guard.value is True
++                        )
++                        guard_false = (
++                            guard.kind == "scalar" and guard.value is False
++                        )
++                        if not guard_false:
++                            alternatives.append(
++                                self._statements(case.body, dict(case_state))
++                            )
++                        if case.guard is not None and not guard_true:
++                            next_residual.append(case_state)
++                        if not _pattern_is_irrefutable(case.pattern):
++                            next_residual.append(dict(residual))
++                    residual_states = next_residual
++                    if not residual_states:
++                        break
++                alternatives.extend(residual_states)
+                 if alternatives:
+                     values.clear()
+                     values.update(self._merge_states(alternatives))
+@@ -7630,6 +8091,68 @@ class _SourceOrderedResolver:
+         return values
+ 
+ 
++def _pattern_is_irrefutable(pattern: ast.pattern) -> bool:
++    if isinstance(pattern, ast.MatchAs):
++        return pattern.pattern is None or _pattern_is_irrefutable(pattern.pattern)
++    if isinstance(pattern, ast.MatchOr):
++        return any(_pattern_is_irrefutable(item) for item in pattern.patterns)
++    return False
++
++
++def _statements_terminate_without_fallthrough(
++    statements: Sequence[ast.stmt],
++) -> bool:
++    for statement in statements:
++        if isinstance(statement, (ast.Return, ast.Raise)):
++            return True
++        if isinstance(statement, ast.If) and statement.orelse:
++            if _statements_terminate_without_fallthrough(
++                statement.body
++            ) and _statements_terminate_without_fallthrough(statement.orelse):
++                return True
++        if isinstance(statement, ast.Match) and statement.cases:
++            final = statement.cases[-1]
++            if (
++                final.guard is None
++                and _pattern_is_irrefutable(final.pattern)
++                and all(
++                    _statements_terminate_without_fallthrough(case.body)
++                    for case in statement.cases
++                )
++            ):
++                return True
++    return False
++
++
++def _source_ordered_helper_return(
++    definition: ast.FunctionDef | ast.AsyncFunctionDef,
++    aliases: Mapping[str, str],
++    module_assignments: Mapping[str, ast.expr],
++    budget: _AnalysisBudget,
++) -> _FlowValue | None:
++    execution = _execution_scope(definition)
++    resolver = _SourceOrderedResolver(
++        aliases,
++        module_assignments,
++        execution.local_functions,
++        budget=budget,
++    )
++    resolver.resolve(definition.body)
++    returned = list(resolver.return_values)
++    if not _statements_terminate_without_fallthrough(definition.body):
++        returned.append(_FlowValue("scalar", None))
++    if not returned:
++        return None
++    if all(value == returned[0] for value in returned):
++        return returned[0]
++    if any(_flow_is_sensitive(value) for value in returned):
++        return _flow_unknown(
++            "callable alias is dynamically unresolved",
++            sensitive=True,
++        )
++    return _merge_flow_values("helper return", tuple(returned))
++
++
+ def _source_ordered_review_flow(
+     node: ast.FunctionDef | ast.AsyncFunctionDef,
+     aliases: Mapping[str, str],
+@@ -8266,7 +8789,12 @@ def _process_definition(
+             name: returned
+             for name, definition in program_execution.local_functions.items()
+             for returned in (
+-                _trivial_helper_return(definition, program_aliases),
++                _source_ordered_helper_return(
++                    definition,
++                    program_aliases,
++                    program_assignments,
++                    analysis_budget,
++                ),
+             )
+             if returned is not None
+         }
+@@ -8277,6 +8805,12 @@ def _process_definition(
+             helper_returns=program_helper_returns,
+             budget=analysis_budget,
+         ).resolve(program_tree.body)
++        if program_flow.standalone_blockers:
++            return (
++                None,
++                "subprocess dynamic Python program has unresolved sensitive dataflow",
++                [],
++            )
+         child_keys: dict[int, bytes] = {}
+         child_rows: dict[bytes, dict[str, object]] = {}
+         child_processes: dict[int, dict[str, object]] = {}
+@@ -8518,7 +9052,10 @@ def _scale_nested_review_rows(
+             )
+         ]
+     for row in copied:
+-        row["maximum_calls"] = int(row["maximum_calls"]) * multiplier
++        row["maximum_calls"] = _checked_cardinality_multiply(
++            int(row["maximum_calls"]),
++            multiplier,
++        )
+         definition = {
+             key: value
+             for key, value in row.items()
+@@ -8584,9 +9121,11 @@ def _review_body(
+         definition = helper_registry.get(f"{relative_path}::{name}")
+         if definition is None:
+             continue
+-        returned = _trivial_helper_return(
++        returned = _source_ordered_helper_return(
+             definition.node,
+             definition.aliases,
++            definition.module_assignments,
++            analysis_budget,
+         )
+         if returned is not None:
+             helper_returns[name] = returned
+@@ -8619,9 +9158,15 @@ def _review_body(
+         _review_blocker(item_id, relative_path, call, reason)
+         for call, reason in execution.closure_blockers
+     )
++    blockers.extend(
++        _review_blocker(item_id, relative_path, target, reason)
++        for target, reason in source_flow.standalone_blockers
++    )
+     call_definitions: dict[int, bytes] = {}
+     call_definition_rows: dict[bytes, dict[str, object]] = {}
+     call_nodes: dict[bytes, ast.Call] = {}
++    sensitive_calls: set[int] = set()
++    dispositions: dict[int, str] = {}
+     for call in execution.calls:
+         call_aliases = source_flow.aliases_by_call.get(id(call), body_aliases)
+         call_assignments = source_flow.assignments_by_call.get(
+@@ -8638,6 +9183,7 @@ def _review_body(
+             call_aliases,
+         )
+         if function in _SUBPROCESS_FUNCTIONS:
++            sensitive_calls.add(id(call))
+             analyzed_sites.append(
+                 {
+                     "item_id": item_id,
+@@ -8657,6 +9203,7 @@ def _review_body(
+                 and callable_name.startswith("cupy.")
+             )
+         ):
++            sensitive_calls.add(id(call))
+             analyzed_sites.append(
+                 {
+                     "item_id": item_id,
+@@ -8675,6 +9222,8 @@ def _review_body(
+             )
+         flow_blocker = source_flow.blockers_by_call.get(id(call))
+         if flow_blocker is not None:
++            sensitive_calls.add(id(call))
++            dispositions[id(call)] = "blocker"
+             blockers.append(
+                 _review_blocker(
+                     item_id,
+@@ -8925,6 +9474,7 @@ def _review_body(
+             analysis_budget=analysis_budget,
+         )
+         if process_error is not None:
++            dispositions[id(call)] = "blocker"
+             blockers.append(
+                 _review_blocker(item_id, relative_path, call, process_error)
+             )
+@@ -8932,6 +9482,7 @@ def _review_body(
+         if process is not None:
+             site_key = site_keys[id(call)]
+             if site_key in dynamic_sites:
++                dispositions[id(call)] = "blocker"
+                 blockers.append(
+                     _review_blocker(
+                         item_id,
+@@ -8943,6 +9494,7 @@ def _review_body(
+                 continue
+             if site_bounds.get(site_key, 0) != 1:
+                 if site_bounds.get(site_key, 0) > 1:
++                    dispositions[id(call)] = "blocker"
+                     blockers.append(
+                         _review_blocker(
+                             item_id,
+@@ -8951,6 +9503,8 @@ def _review_body(
+                             "subprocess repetition is not representable",
+                         )
+                     )
++                else:
++                    dispositions[id(call)] = "proved_unreachable"
+                 continue
+             capability_id = _capability_id("process", process)
+             rows.append(
+@@ -8962,6 +9516,7 @@ def _review_body(
+                     **process,
+                 }
+             )
++            dispositions[id(call)] = "row"
+             for child_kind, child_definition in child_definitions:
+                 prefix = "process" if child_kind == "subprocess" else "call"
+                 child_id = _capability_id(prefix, child_definition)
+@@ -8981,6 +9536,7 @@ def _review_body(
+             flow_callable,
+         )
+         if protected_error is not None:
++            dispositions[id(call)] = "blocker"
+             blockers.append(
+                 _review_blocker(
+                     item_id,
+@@ -9015,6 +9571,9 @@ def _review_body(
+         helper_registry=helper_registry,
+     )
+     for count_key in sorted(dynamic_call_keys):
++        for call_id, supplied_key in call_definitions.items():
++            if supplied_key == count_key:
++                dispositions[call_id] = "blocker"
+         blockers.append(
+             _review_blocker(
+                 item_id,
+@@ -9025,6 +9584,10 @@ def _review_body(
+         )
+     for count_key, maximum_calls in call_counts.items():
+         if count_key in dynamic_call_keys or maximum_calls == 0:
++            if maximum_calls == 0:
++                for call_id, supplied_key in call_definitions.items():
++                    if supplied_key == count_key:
++                        dispositions[call_id] = "proved_unreachable"
+             continue
+         definition = call_definition_rows[count_key]
+         definition["maximum_calls"] = maximum_calls
+@@ -9038,6 +9601,27 @@ def _review_body(
+                 **definition,
+             }
+         )
++        for call_id, supplied_key in call_definitions.items():
++            if supplied_key == count_key:
++                dispositions[call_id] = "row"
++    missing_dispositions = sensitive_calls - dispositions.keys()
++    if missing_dispositions:
++        missing = min(
++            (
++                call
++                for call in execution.calls
++                if id(call) in missing_dispositions
++            ),
++            key=lambda call: (
++                int(getattr(call, "lineno", 0)),
++                int(getattr(call, "col_offset", 0)),
++            ),
++        )
++        raise InventoryError(
++            "sensitive census site lacks a review row, blocker, or proved "
++            f"unreachable record: {relative_path}:"
++            f"{int(getattr(missing, 'lineno', 0))}"
++        )
+     return rows, blockers
+ 
+ 
+@@ -9151,8 +9735,10 @@ def _normalise_review_rows(
+         previous = call_groups.get(group_key)
+         call_groups[group_key] = (
+             row,
+-            int(row["maximum_calls"])
+-            + (0 if previous is None else previous[1]),
++            _checked_cardinality_add(
++                int(row["maximum_calls"]),
++                0 if previous is None else previous[1],
++            ),
+         )
+     normalized = [
+         row

@@ -1,0 +1,655 @@
+# Review package: 54de8607f433fd9fb1318cdb614badd2b67ec3d5..135f8e30533ca1cace044554bdfd60a564cf83b1
+
+## Commits
+135f8e3 feat(evidence): add strict manifest contracts
+
+## Files changed
+ src/pontius/evidence/manifest.py | 343 +++++++++++++++++++++++++++++++++++++++
+ tests/evidence_test_support.py   |  17 ++
+ tests/test_evidence_manifests.py | 265 ++++++++++++++++++++++++++++++
+ 3 files changed, 625 insertions(+)
+
+## Diff
+diff --git a/src/pontius/evidence/manifest.py b/src/pontius/evidence/manifest.py
+new file mode 100644
+index 0000000..150347e
+--- /dev/null
++++ b/src/pontius/evidence/manifest.py
+@@ -0,0 +1,343 @@
++"""Strict, pure-byte parsers for the evidence manifest contracts."""
++
++from __future__ import annotations
++
++from collections.abc import Mapping
++from hashlib import sha256
++import json
++from pathlib import Path, PurePosixPath, PureWindowsPath
++import tomllib
++
++from .errors import EvidenceConfigurationError, EvidenceIntegrityError
++from .model import (
++    EvidenceFileIdentity,
++    HistoricalBlobIdentity,
++    HistoricalBlobsManifest,
++    HistoricalSnapshot,
++    LoadedRetainedV7Manifest,
++    RetainedV7Manifest,
++    SealedCurrentAbsenceEntry,
++    SealedCurrentAbsencesManifest,
++    SealedCurrentFileEntry,
++    SealedCurrentFilesManifest,
++)
++
++
++_FILE_KEYS = frozenset({"relative_path", "byte_length", "raw_sha256", "role", "governing_decision", "owner"})
++_ABSENCE_KEYS = frozenset({"relative_path", "role", "governing_decision", "owner"})
++_SNAPSHOT_KEYS = frozenset({"phase", "commit", "root_tree_oid", "governing_decision"})
++_BLOB_KEYS = frozenset({"commit", "relative_path", "git_blob_oid", "raw_sha256", "role", "phase", "governing_decision"})
++_IDENTITY_KEYS = frozenset({"relative_path", "byte_length", "raw_sha256", "role"})
++_CURRENT_FILES_KEYS = frozenset({"schema_version", "baseline_commit", "entry_count", "files"})
++_CURRENT_ABSENCES_KEYS = frozenset({"schema_version", "baseline_commit", "entry_count", "absences"})
++_HISTORICAL_KEYS = frozenset({
++    "schema_version", "baseline_commit", "snapshot_count", "entry_count", "entries_sha256", "approved_seed_sha256", "snapshots", "blobs",
++})
++_RETAINED_KEYS = frozenset({
++    "schema_version", "source_seal_commit", "authorization_commit", "historical_reader_commit", "journal_protocol_sha256", "campaign_sha256",
++    "record_count", "observation_count", "calibration_cell_count", "warmup_cell_count", "measured_labelled_partial_cell_count", "terminal",
++    "journal_complete", "scientific_campaign_complete", "scientific_call_count", "authoritative_measured_call_count", "passed",
++    "laboratory_elapsed_ns", "laboratory_wall_ns", "outside_laboratory_elapsed_ns", "outside_laboratory_wall_ns", "public_elapsed_ns", "public_wall_ns",
++    "fit_projection_present", "production_base_classification", "candidate_selection_present", "topology_selection_present",
++    "arithmetic_schedule_selection_present", "truncation_authorized", "historical_blobs_manifest_path", "absent_launch_paths",
++    "expected_null_claim_paths", "result", "attempt", "consumed_launch",
++})
++
++
++def canonical_semantic_bytes(value: object) -> bytes:
++    normalized = _normalize_semantic_value(value, path="$")
++    return json.dumps(
++        normalized,
++        allow_nan=False,
++        ensure_ascii=True,
++        separators=(",", ":"),
++        sort_keys=True,
++    ).encode("ascii")
++
++
++def semantic_sha256(value: object) -> str:
++    return sha256(canonical_semantic_bytes(value)).hexdigest()
++
++
++def _normalize_semantic_value(value: object, *, path: str) -> object:
++    if value is None or type(value) is bool or type(value) is int or type(value) is str:
++        return value
++    if isinstance(value, (list, tuple)):
++        return [_normalize_semantic_value(item, path=f"{path}[{index}]") for index, item in enumerate(value)]
++    if isinstance(value, Mapping):
++        normalized: dict[str, object] = {}
++        for key in sorted(value):
++            if type(key) is not str:
++                raise TypeError(f"semantic mapping key at {path} must be a string")
++            normalized[key] = _normalize_semantic_value(value[key], path=f"{path}.{key}")
++        return normalized
++    raise TypeError(f"unsupported semantic value at {path}: {type(value).__name__}")
++
++
++def _source_label(source_path: Path, repository_root: Path) -> str:
++    if not isinstance(source_path, Path) or not isinstance(repository_root, Path):
++        raise TypeError("source_path and repository_root must be Path values")
++    try:
++        label = source_path.relative_to(repository_root).as_posix()
++    except ValueError as error:
++        raise EvidenceConfigurationError(
++            "manifest_source_path_invalid", "manifest source path is outside the repository root",
++            context={"path": source_path.as_posix(), "repository_root": repository_root.as_posix()},
++        ) from error
++    if label in ("", ".") or PureWindowsPath(label).drive or PurePosixPath(label).is_absolute() or any(part == ".." for part in PurePosixPath(label).parts):
++        raise EvidenceConfigurationError(
++            "manifest_source_path_invalid", "manifest source path is not repository-relative",
++            context={"path": source_path.as_posix(), "repository_root": repository_root.as_posix()},
++        )
++    return label
++
++
++def _configuration_error(code: str, message: str, *, source_label: str, table: str, **context: object) -> EvidenceConfigurationError:
++    return EvidenceConfigurationError(code, message, context={"path": source_label, "table": table, **context})
++
++
++def _parse_toml(raw: bytes, *, source_path: Path, repository_root: Path) -> tuple[dict[str, object], str]:
++    source_label = _source_label(source_path, repository_root)
++    if type(raw) is not bytes:
++        raise _configuration_error("manifest_bytes_invalid", "manifest must be immutable bytes", source_label=source_label, table="document")
++    try:
++        parsed = tomllib.loads(raw.decode("utf-8"))
++    except (UnicodeDecodeError, tomllib.TOMLDecodeError) as error:
++        raise EvidenceConfigurationError(
++            "manifest_toml_invalid", "manifest is not valid TOML", context={"path": source_path.as_posix()},
++        ) from error
++    if not isinstance(parsed, dict):
++        raise _configuration_error("manifest_schema_invalid", "manifest root must be a table", source_label=source_label, table="document")
++    return parsed, source_label
++
++
++def _exact_keys(table: object, expected: frozenset[str], *, source_label: str, table_name: str) -> dict[str, object]:
++    if not isinstance(table, dict):
++        raise _configuration_error("manifest_schema_invalid", "manifest table is not a TOML table", source_label=source_label, table=table_name)
++    actual = set(table)
++    if actual != expected:
++        raise _configuration_error(
++            "manifest_schema_invalid", "manifest table keys do not match its schema", source_label=source_label, table=table_name,
++            missing=tuple(sorted(expected - actual)), extra=tuple(sorted(actual - expected)),
++        )
++    return table
++
++
++def _string(value: object, *, source_label: str, table: str, field: str) -> str:
++    if type(value) is not str or not value:
++        raise _configuration_error("manifest_schema_invalid", "manifest field must be a non-empty string", source_label=source_label, table=table, field=field)
++    return value
++
++
++def _integer(value: object, *, source_label: str, table: str, field: str) -> int:
++    if type(value) is not int or value < 0:
++        raise _configuration_error("manifest_schema_invalid", "manifest field must be a non-negative integer", source_label=source_label, table=table, field=field)
++    return value
++
++
++def _boolean(value: object, *, source_label: str, table: str, field: str) -> bool:
++    if type(value) is not bool:
++        raise _configuration_error("manifest_schema_invalid", "manifest field must be a boolean", source_label=source_label, table=table, field=field)
++    return value
++
++
++def _digest(value: object, *, source_label: str, table: str, field: str) -> str:
++    text = _string(value, source_label=source_label, table=table, field=field)
++    if len(text) != 64 or any(character not in "0123456789abcdef" for character in text):
++        raise _configuration_error("manifest_schema_invalid", "manifest field must be a lowercase SHA-256 digest", source_label=source_label, table=table, field=field)
++    return text
++
++
++def _commit(value: object, *, source_label: str, table: str, field: str) -> str:
++    text = _string(value, source_label=source_label, table=table, field=field)
++    if len(text) != 40 or any(character not in "0123456789abcdef" for character in text):
++        raise _configuration_error("manifest_schema_invalid", "manifest field must be a lowercase Git object identity", source_label=source_label, table=table, field=field)
++    return text
++
++
++def _relative_path(value: object, *, source_label: str, table: str, field: str) -> str:
++    text = _string(value, source_label=source_label, table=table, field=field)
++    if PureWindowsPath(text).drive or text.startswith(("/", "\\")):
++        raise _configuration_error("manifest_schema_invalid", "manifest path must be repository-relative", source_label=source_label, table=table, field=field)
++    candidate = PurePosixPath(text.replace("\\", "/"))
++    if candidate.is_absolute() or any(part == ".." for part in candidate.parts) or candidate.as_posix() in ("", "."):
++        raise _configuration_error("manifest_schema_invalid", "manifest path must not escape the repository", source_label=source_label, table=table, field=field)
++    return candidate.as_posix()
++
++
++def _string_list(value: object, *, source_label: str, table: str, field: str, paths: bool) -> tuple[str, ...]:
++    if type(value) is not list:
++        raise _configuration_error("manifest_schema_invalid", "manifest field must be an array", source_label=source_label, table=table, field=field)
++    if paths:
++        return tuple(_relative_path(item, source_label=source_label, table=table, field=field) for item in value)
++    return tuple(_string(item, source_label=source_label, table=table, field=field) for item in value)
++
++
++def _table_array(value: object, *, source_label: str, table: str) -> list[dict[str, object]]:
++    if type(value) is not list:
++        raise _configuration_error("manifest_schema_invalid", "manifest field must be an array of tables", source_label=source_label, table=table)
++    return [_exact_keys(item, _FILE_KEYS if table == "files" else _ABSENCE_KEYS if table == "absences" else _SNAPSHOT_KEYS if table == "snapshots" else _BLOB_KEYS, source_label=source_label, table_name=f"{table}[{index}]") for index, item in enumerate(value)]
++
++
++def _file_entry(table: dict[str, object], *, source_label: str) -> SealedCurrentFileEntry:
++    name = "files entry"
++    return SealedCurrentFileEntry(
++        _relative_path(table["relative_path"], source_label=source_label, table=name, field="relative_path"),
++        _integer(table["byte_length"], source_label=source_label, table=name, field="byte_length"),
++        _digest(table["raw_sha256"], source_label=source_label, table=name, field="raw_sha256"),
++        _string(table["role"], source_label=source_label, table=name, field="role"),
++        _string(table["governing_decision"], source_label=source_label, table=name, field="governing_decision"),
++        _string(table["owner"], source_label=source_label, table=name, field="owner"),
++    )
++
++
++def _absence_entry(table: dict[str, object], *, source_label: str) -> SealedCurrentAbsenceEntry:
++    name = "absences entry"
++    return SealedCurrentAbsenceEntry(
++        _relative_path(table["relative_path"], source_label=source_label, table=name, field="relative_path"),
++        _string(table["role"], source_label=source_label, table=name, field="role"),
++        _string(table["governing_decision"], source_label=source_label, table=name, field="governing_decision"),
++        _string(table["owner"], source_label=source_label, table=name, field="owner"),
++    )
++
++
++def parse_sealed_current_files_manifest(raw: bytes, *, source_path: Path, repository_root: Path) -> SealedCurrentFilesManifest:
++    document, label = _parse_toml(raw, source_path=source_path, repository_root=repository_root)
++    root = _exact_keys(document, _CURRENT_FILES_KEYS, source_label=label, table_name="document")
++    files = tuple(_file_entry(table, source_label=label) for table in _table_array(root["files"], source_label=label, table="files"))
++    try:
++        return SealedCurrentFilesManifest(
++            _string(root["schema_version"], source_label=label, table="document", field="schema_version"),
++            _commit(root["baseline_commit"], source_label=label, table="document", field="baseline_commit"),
++            _integer(root["entry_count"], source_label=label, table="document", field="entry_count"), files,
++        )
++    except ValueError as error:
++        raise _configuration_error("manifest_schema_invalid", "manifest values violate their schema", source_label=label, table="document") from error
++
++
++def parse_sealed_current_absences_manifest(raw: bytes, *, source_path: Path, repository_root: Path) -> SealedCurrentAbsencesManifest:
++    document, label = _parse_toml(raw, source_path=source_path, repository_root=repository_root)
++    root = _exact_keys(document, _CURRENT_ABSENCES_KEYS, source_label=label, table_name="document")
++    absences = tuple(_absence_entry(table, source_label=label) for table in _table_array(root["absences"], source_label=label, table="absences"))
++    try:
++        return SealedCurrentAbsencesManifest(
++            _string(root["schema_version"], source_label=label, table="document", field="schema_version"),
++            _commit(root["baseline_commit"], source_label=label, table="document", field="baseline_commit"),
++            _integer(root["entry_count"], source_label=label, table="document", field="entry_count"), absences,
++        )
++    except ValueError as error:
++        raise _configuration_error("manifest_schema_invalid", "manifest values violate their schema", source_label=label, table="document") from error
++
++
++def _blob_record(blob: HistoricalBlobIdentity) -> dict[str, object]:
++    return {
++        "commit": blob.commit, "relative_path": blob.relative_path, "git_blob_oid": blob.git_blob_oid,
++        "raw_sha256": blob.raw_sha256, "role": blob.role, "phase": blob.phase,
++        "governing_decision": blob.governing_decision,
++    }
++
++
++def parse_historical_blobs_manifest(raw: bytes, *, source_path: Path, repository_root: Path) -> HistoricalBlobsManifest:
++    document, label = _parse_toml(raw, source_path=source_path, repository_root=repository_root)
++    root = _exact_keys(document, _HISTORICAL_KEYS, source_label=label, table_name="document")
++    snapshots = tuple(sorted((HistoricalSnapshot(
++        _string(table["phase"], source_label=label, table="snapshots entry", field="phase"),
++        _commit(table["commit"], source_label=label, table="snapshots entry", field="commit"),
++        _commit(table["root_tree_oid"], source_label=label, table="snapshots entry", field="root_tree_oid"),
++        _string(table["governing_decision"], source_label=label, table="snapshots entry", field="governing_decision"),
++    ) for table in _table_array(root["snapshots"], source_label=label, table="snapshots")), key=lambda item: (item.commit, item.phase)))
++    blobs = tuple(sorted((HistoricalBlobIdentity(
++        _commit(table["commit"], source_label=label, table="blobs entry", field="commit"),
++        _relative_path(table["relative_path"], source_label=label, table="blobs entry", field="relative_path"),
++        _commit(table["git_blob_oid"], source_label=label, table="blobs entry", field="git_blob_oid"),
++        _digest(table["raw_sha256"], source_label=label, table="blobs entry", field="raw_sha256"),
++        _string(table["role"], source_label=label, table="blobs entry", field="role"),
++        _string(table["phase"], source_label=label, table="blobs entry", field="phase"),
++        _string(table["governing_decision"], source_label=label, table="blobs entry", field="governing_decision"),
++    ) for table in _table_array(root["blobs"], source_label=label, table="blobs")), key=lambda item: (item.commit, item.relative_path)))
++    if len({(blob.commit, blob.relative_path) for blob in blobs}) != len(blobs):
++        raise EvidenceIntegrityError("historical_blob_identity_duplicate", "historical blob identities must be unique", context={"path": label})
++    claimed_digest = _digest(root["entries_sha256"], source_label=label, table="document", field="entries_sha256")
++    actual_digest = semantic_sha256([_blob_record(blob) for blob in blobs])
++    if claimed_digest != actual_digest:
++        raise EvidenceIntegrityError("historical_entries_sha256_mismatch", "historical blob records do not match their claimed digest", context={"path": label, "expected": claimed_digest, "actual": actual_digest})
++    try:
++        return HistoricalBlobsManifest(
++            _string(root["schema_version"], source_label=label, table="document", field="schema_version"),
++            _commit(root["baseline_commit"], source_label=label, table="document", field="baseline_commit"),
++            _integer(root["snapshot_count"], source_label=label, table="document", field="snapshot_count"),
++            _integer(root["entry_count"], source_label=label, table="document", field="entry_count"), claimed_digest,
++            _digest(root["approved_seed_sha256"], source_label=label, table="document", field="approved_seed_sha256"), snapshots, blobs,
++        )
++    except ValueError as error:
++        raise _configuration_error("manifest_schema_invalid", "manifest values violate their schema", source_label=label, table="document") from error
++
++
++def _identity(table: object, *, source_label: str, label: str) -> EvidenceFileIdentity:
++    values = _exact_keys(table, _IDENTITY_KEYS, source_label=source_label, table_name=label)
++    return EvidenceFileIdentity(
++        _relative_path(values["relative_path"], source_label=source_label, table=label, field="relative_path"),
++        _integer(values["byte_length"], source_label=source_label, table=label, field="byte_length"),
++        _digest(values["raw_sha256"], source_label=source_label, table=label, field="raw_sha256"),
++        _string(values["role"], source_label=source_label, table=label, field="role"),
++    )
++
++
++def parse_retained_v7_manifest(raw: bytes, *, source_path: Path, repository_root: Path) -> LoadedRetainedV7Manifest:
++    document, label = _parse_toml(raw, source_path=source_path, repository_root=repository_root)
++    root = _exact_keys(document, _RETAINED_KEYS, source_label=label, table_name="document")
++    try:
++        manifest = RetainedV7Manifest(
++            _string(root["schema_version"], source_label=label, table="document", field="schema_version"),
++            _commit(root["source_seal_commit"], source_label=label, table="document", field="source_seal_commit"),
++            _commit(root["authorization_commit"], source_label=label, table="document", field="authorization_commit"),
++            _commit(root["historical_reader_commit"], source_label=label, table="document", field="historical_reader_commit"),
++            _digest(root["journal_protocol_sha256"], source_label=label, table="document", field="journal_protocol_sha256"),
++            _digest(root["campaign_sha256"], source_label=label, table="document", field="campaign_sha256"),
++            *(_integer(root[field], source_label=label, table="document", field=field) for field in ("record_count", "observation_count", "calibration_cell_count", "warmup_cell_count", "measured_labelled_partial_cell_count")),
++            _string(root["terminal"], source_label=label, table="document", field="terminal"),
++            *(_boolean(root[field], source_label=label, table="document", field=field) for field in ("journal_complete", "scientific_campaign_complete")),
++            *(_integer(root[field], source_label=label, table="document", field=field) for field in ("scientific_call_count", "authoritative_measured_call_count")),
++            _boolean(root["passed"], source_label=label, table="document", field="passed"),
++            *(_integer(root[field], source_label=label, table="document", field=field) for field in ("laboratory_elapsed_ns", "laboratory_wall_ns", "outside_laboratory_elapsed_ns", "outside_laboratory_wall_ns", "public_elapsed_ns", "public_wall_ns")),
++            _boolean(root["fit_projection_present"], source_label=label, table="document", field="fit_projection_present"),
++            _string(root["production_base_classification"], source_label=label, table="document", field="production_base_classification"),
++            *(_boolean(root[field], source_label=label, table="document", field=field) for field in ("candidate_selection_present", "topology_selection_present", "arithmetic_schedule_selection_present", "truncation_authorized")),
++            _relative_path(root["historical_blobs_manifest_path"], source_label=label, table="document", field="historical_blobs_manifest_path"),
++            _string_list(root["absent_launch_paths"], source_label=label, table="document", field="absent_launch_paths", paths=True),
++            _string_list(root["expected_null_claim_paths"], source_label=label, table="document", field="expected_null_claim_paths", paths=False),
++            _identity(root["result"], source_label=label, label="result"),
++            _identity(root["attempt"], source_label=label, label="attempt"),
++            _identity(root["consumed_launch"], source_label=label, label="consumed_launch"),
++        )
++    except ValueError as error:
++        raise _configuration_error("manifest_schema_invalid", "manifest values violate their schema", source_label=label, table="document") from error
++    source_identity = EvidenceFileIdentity(label, len(raw), sha256(raw).hexdigest(), "retained_v7_manifest")
++    return LoadedRetainedV7Manifest(manifest, source_identity, semantic_sha256(manifest_to_semantic_value(manifest)))
++
++
++def manifest_to_semantic_value(manifest: RetainedV7Manifest) -> dict[str, object]:
++    """Return every retained-v7 field in a stable primitive representation."""
++    value: dict[str, object] = {}
++    for field in manifest.__dataclass_fields__:
++        item = getattr(manifest, field)
++        if isinstance(item, EvidenceFileIdentity):
++            value[field] = {name: getattr(item, name) for name in item.__dataclass_fields__}
++        else:
++            value[field] = item
++    return value
++
++
++def validate_current_boundary(files_manifest: SealedCurrentFilesManifest, absences_manifest: SealedCurrentAbsencesManifest) -> None:
++    if files_manifest.baseline_commit != absences_manifest.baseline_commit:
++        raise EvidenceIntegrityError("current_manifest_baseline_mismatch", "current manifests disagree on baseline commit", context={"files_baseline": files_manifest.baseline_commit, "absences_baseline": absences_manifest.baseline_commit})
++    if files_manifest.entry_count != len(files_manifest.files) or absences_manifest.entry_count != len(absences_manifest.absences):
++        raise EvidenceIntegrityError("current_manifest_count_mismatch", "current manifest count does not match its entries", context={})
++    present_paths = {entry.relative_path for entry in files_manifest.files}
++    absent_paths = {entry.relative_path for entry in absences_manifest.absences}
++    overlap = tuple(sorted(present_paths & absent_paths))
++    if overlap:
++        raise EvidenceIntegrityError("current_manifest_presence_overlap", "current manifests disagree on path presence", context={"paths": overlap})
++    owners = [(entry.owner, entry.relative_path) for entry in files_manifest.files] + [(entry.owner, entry.relative_path) for entry in absences_manifest.absences]
++    if len(set(owners)) != len(owners):
++        raise EvidenceIntegrityError("current_manifest_owner_path_duplicate", "current manifests contain a duplicate owner/path identity", context={})
+diff --git a/tests/evidence_test_support.py b/tests/evidence_test_support.py
+new file mode 100644
+index 0000000..d868a4c
+--- /dev/null
++++ b/tests/evidence_test_support.py
+@@ -0,0 +1,17 @@
++"""Helpers loaded by evidence tests without making ``tests`` importable."""
++
++from __future__ import annotations
++
++import importlib.util
++from pathlib import Path
++from types import ModuleType
++
++
++def load_test_module(path: Path, name: str) -> ModuleType:
++    """Load a test helper by its exact path under ``-P``."""
++    specification = importlib.util.spec_from_file_location(name, path)
++    if specification is None or specification.loader is None:
++        raise RuntimeError(f"cannot load test module: {path}")
++    module = importlib.util.module_from_spec(specification)
++    specification.loader.exec_module(module)
++    return module
+diff --git a/tests/test_evidence_manifests.py b/tests/test_evidence_manifests.py
+new file mode 100644
+index 0000000..f6445be
+--- /dev/null
++++ b/tests/test_evidence_manifests.py
+@@ -0,0 +1,265 @@
++from __future__ import annotations
++
++from hashlib import sha256
++import importlib.util
++import json
++from pathlib import Path
++import unittest
++
++from pontius.evidence.errors import EvidenceConfigurationError, EvidenceIntegrityError
++from pontius.evidence.manifest import (
++    canonical_semantic_bytes,
++    parse_historical_blobs_manifest,
++    parse_retained_v7_manifest,
++    parse_sealed_current_absences_manifest,
++    parse_sealed_current_files_manifest,
++    semantic_sha256,
++    validate_current_boundary,
++)
++
++
++COMMIT = "b" * 40
++SHA256 = "a" * 64
++ROOT = Path("C:/evidence-repository")
++
++_SUPPORT_PATH = Path(__file__).with_name("evidence_test_support.py")
++_SUPPORT_SPEC = importlib.util.spec_from_file_location("evidence_test_support", _SUPPORT_PATH)
++if _SUPPORT_SPEC is None or _SUPPORT_SPEC.loader is None:
++    raise RuntimeError("test support could not be loaded by exact path")
++_SUPPORT = importlib.util.module_from_spec(_SUPPORT_SPEC)
++_SUPPORT_SPEC.loader.exec_module(_SUPPORT)
++
++
++def _toml_value(value: object) -> str:
++    if isinstance(value, bool):
++        return "true" if value else "false"
++    if isinstance(value, int):
++        return str(value)
++    return json.dumps(value)
++
++
++def _toml_mapping(mapping: dict[str, object], *, skip: set[str] = frozenset()) -> str:
++    return "\n".join(f"{key} = {_toml_value(value)}" for key, value in mapping.items() if key not in skip)
++
++
++def _files_manifest(**overrides: object) -> bytes:
++    values: dict[str, object] = {
++        "schema_version": "pontius-sealed-current-files-v1",
++        "baseline_commit": COMMIT,
++        "entry_count": 1,
++    }
++    values.update({key: value for key, value in overrides.items() if key in values})
++    entry = {
++        "relative_path": "src/current.py",
++        "byte_length": 7,
++        "raw_sha256": SHA256,
++        "role": "source",
++        "governing_decision": "ADR-1",
++        "owner": "owner-a",
++    }
++    entry.update(overrides.get("entry", {}))
++    return (_toml_mapping(values) + "\n\n[[files]]\n" + _toml_mapping(entry) + "\n").encode("utf-8")
++
++
++def _absences_manifest(**overrides: object) -> bytes:
++    values: dict[str, object] = {
++        "schema_version": "pontius-sealed-current-absences-v1",
++        "baseline_commit": COMMIT,
++        "entry_count": 1,
++    }
++    values.update({key: value for key, value in overrides.items() if key in values})
++    entry = {
++        "relative_path": "src/absent.py",
++        "role": "absence",
++        "governing_decision": "ADR-2",
++        "owner": "owner-b",
++    }
++    entry.update(overrides.get("entry", {}))
++    return (_toml_mapping(values) + "\n\n[[absences]]\n" + _toml_mapping(entry) + "\n").encode("utf-8")
++
++
++def _blob_records() -> list[dict[str, object]]:
++    return [{
++        "commit": COMMIT,
++        "relative_path": "src/history.py",
++        "git_blob_oid": COMMIT,
++        "raw_sha256": SHA256,
++        "role": "source",
++        "phase": "source",
++        "governing_decision": "ADR-3",
++    }]
++
++
++def _historical_manifest(**overrides: object) -> bytes:
++    blobs = overrides.get("blobs", _blob_records())
++    values: dict[str, object] = {
++        "schema_version": "pontius-historical-blobs-v1",
++        "baseline_commit": COMMIT,
++        "snapshot_count": 1,
++        "entry_count": len(blobs),
++        "entries_sha256": semantic_sha256(blobs),
++        "approved_seed_sha256": SHA256,
++    }
++    values.update({key: value for key, value in overrides.items() if key in values})
++    snapshot = {
++        "phase": "source",
++        "commit": COMMIT,
++        "root_tree_oid": COMMIT,
++        "governing_decision": "ADR-3",
++    }
++    snapshot.update(overrides.get("snapshot", {}))
++    chunks = [_toml_mapping(values), "[[snapshots]]\n" + _toml_mapping(snapshot)]
++    for blob in blobs:
++        chunks.append("[[blobs]]\n" + _toml_mapping(blob))
++    return ("\n\n".join(chunks) + "\n").encode("utf-8")
++
++
++def _retained_mapping() -> dict[str, object]:
++    return {
++        "schema_version": "pontius-retained-v7-v1",
++        "source_seal_commit": COMMIT,
++        "authorization_commit": COMMIT,
++        "historical_reader_commit": COMMIT,
++        "journal_protocol_sha256": SHA256,
++        "campaign_sha256": SHA256,
++        "record_count": 1,
++        "observation_count": 0,
++        "calibration_cell_count": 0,
++        "warmup_cell_count": 0,
++        "measured_labelled_partial_cell_count": 0,
++        "terminal": "retained",
++        "journal_complete": True,
++        "scientific_campaign_complete": False,
++        "scientific_call_count": 0,
++        "authoritative_measured_call_count": 0,
++        "passed": False,
++        "laboratory_elapsed_ns": 1,
++        "laboratory_wall_ns": 2,
++        "outside_laboratory_elapsed_ns": 3,
++        "outside_laboratory_wall_ns": 4,
++        "public_elapsed_ns": 5,
++        "public_wall_ns": 6,
++        "fit_projection_present": False,
++        "production_base_classification": "rejected",
++        "candidate_selection_present": False,
++        "topology_selection_present": False,
++        "arithmetic_schedule_selection_present": False,
++        "truncation_authorized": False,
++        "historical_blobs_manifest_path": "evidence/historical.toml",
++        "absent_launch_paths": ["run_absent.py"],
++        "expected_null_claim_paths": ["claim-a", "claim-b"],
++    }
++
++
++def _retained_manifest(*, reverse: bool = False, **overrides: object) -> bytes:
++    values = _retained_mapping()
++    values.update({key: value for key, value in overrides.items() if key in values})
++    identities = {
++        "result": {"relative_path": "artifacts/result.json", "byte_length": 1, "raw_sha256": SHA256, "role": "result"},
++        "attempt": {"relative_path": "artifacts/attempt.json", "byte_length": 2, "raw_sha256": SHA256, "role": "attempt"},
++        "consumed_launch": {"relative_path": "run.py", "byte_length": 3, "raw_sha256": SHA256, "role": "launch"},
++    }
++    identities.update(overrides.get("identities", {}))
++    items = list(values.items())
++    if reverse:
++        items.reverse()
++    chunks = [_toml_mapping(dict(items))]
++    for label, identity in identities.items():
++        chunks.append(f"[{label}]\n" + _toml_mapping(identity))
++    return ("\n\n".join(chunks) + "\n").encode("utf-8")
++
++
++class EvidenceManifestTests(unittest.TestCase):
++    def _source(self, name: str) -> Path:
++        return ROOT / "evidence" / name
++
++    def test_parses_each_strict_manifest_schema(self) -> None:
++        files = parse_sealed_current_files_manifest(_files_manifest(), source_path=self._source("files.toml"), repository_root=ROOT)
++        absences = parse_sealed_current_absences_manifest(_absences_manifest(), source_path=self._source("absences.toml"), repository_root=ROOT)
++        historical = parse_historical_blobs_manifest(_historical_manifest(), source_path=self._source("historical.toml"), repository_root=ROOT)
++        retained = parse_retained_v7_manifest(_retained_manifest(), source_path=self._source("retained.toml"), repository_root=ROOT)
++        self.assertEqual(files.files[0].relative_path, "src/current.py")
++        self.assertEqual(absences.absences[0].relative_path, "src/absent.py")
++        self.assertEqual(historical.blobs[0].relative_path, "src/history.py")
++        self.assertEqual(retained.manifest.terminal, "retained")
++
++    def test_schema_tables_reject_missing_extra_and_wrong_scalar_values(self) -> None:
++        cases = (
++            ("missing", _files_manifest().replace(b"owner = \"owner-a\"\n", b"")),
++            ("extra", _files_manifest() + b"extra = \"value\"\n"),
++            ("string-integer", _files_manifest(entry={"byte_length": "7"})),
++            ("boolean-integer", _files_manifest(entry={"byte_length": True})),
++            ("uppercase-digest", _files_manifest(entry={"raw_sha256": SHA256.upper()})),
++            ("short-commit", _files_manifest(baseline_commit="b" * 39)),
++            ("traversal", _files_manifest(entry={"relative_path": "../outside.py"})),
++            ("absolute", _files_manifest(entry={"relative_path": "/outside.py"})),
++            ("drive", _files_manifest(entry={"relative_path": "C:/outside.py"})),
++        )
++        for name, raw in cases:
++            with self.subTest(name=name), self.assertRaises(EvidenceConfigurationError):
++                parse_sealed_current_files_manifest(raw, source_path=self._source("files.toml"), repository_root=ROOT)
++
++    def test_each_schema_rejects_missing_or_extra_root_fields(self) -> None:
++        cases = (
++            ("files-missing", _files_manifest().replace(b"schema_version = ", b"missing_schema_version = "), parse_sealed_current_files_manifest, "files.toml"),
++            ("absences-missing", _absences_manifest().replace(b"schema_version = ", b"missing_schema_version = "), parse_sealed_current_absences_manifest, "absences.toml"),
++            ("historical-missing", _historical_manifest().replace(b"schema_version = ", b"missing_schema_version = "), parse_historical_blobs_manifest, "historical.toml"),
++            ("retained-missing", _retained_manifest().replace(b"schema_version = ", b"missing_schema_version = "), parse_retained_v7_manifest, "retained.toml"),
++            ("files-extra", b"unexpected = 1\n" + _files_manifest(), parse_sealed_current_files_manifest, "files.toml"),
++            ("absences-extra", b"unexpected = 1\n" + _absences_manifest(), parse_sealed_current_absences_manifest, "absences.toml"),
++            ("historical-extra", b"unexpected = 1\n" + _historical_manifest(), parse_historical_blobs_manifest, "historical.toml"),
++            ("retained-extra", b"unexpected = 1\n" + _retained_manifest(), parse_retained_v7_manifest, "retained.toml"),
++        )
++        for name, raw, parser, source_name in cases:
++            with self.subTest(name=name), self.assertRaises(EvidenceConfigurationError):
++                parser(raw, source_path=self._source(source_name), repository_root=ROOT)
++
++    def test_toml_syntax_and_duplicate_keys_are_configuration_errors_with_cause(self) -> None:
++        raw = _files_manifest().replace(b"entry_count = 1", b"entry_count = 1\nentry_count = 1")
++        with self.assertRaises(EvidenceConfigurationError) as raised:
++            parse_sealed_current_files_manifest(raw, source_path=self._source("files.toml"), repository_root=ROOT)
++        self.assertEqual(raised.exception.code, "manifest_toml_invalid")
++        self.assertIsNotNone(raised.exception.__cause__)
++
++    def test_duplicate_toml_table_is_a_configuration_error(self) -> None:
++        raw = _retained_manifest() + b"\n[result]\nrelative_path = \"other.json\"\nbyte_length = 1\nraw_sha256 = \"" + SHA256.encode() + b"\"\nrole = \"result\"\n"
++        with self.assertRaises(EvidenceConfigurationError) as raised:
++            parse_retained_v7_manifest(raw, source_path=self._source("retained.toml"), repository_root=ROOT)
++        self.assertEqual(raised.exception.code, "manifest_toml_invalid")
++
++    def test_historical_manifest_rejects_duplicate_commit_path_counts_and_digest_disagreement(self) -> None:
++        duplicate = _blob_records() * 2
++        cases = (
++            ("duplicate-identity", _historical_manifest(blobs=duplicate, entry_count=2)),
++            ("count", _historical_manifest(entry_count=2)),
++            ("digest", _historical_manifest(entries_sha256="c" * 64)),
++        )
++        for name, raw in cases:
++            with self.subTest(name=name), self.assertRaises((EvidenceConfigurationError, EvidenceIntegrityError)):
++                parse_historical_blobs_manifest(raw, source_path=self._source("historical.toml"), repository_root=ROOT)
++
++    def test_current_boundary_rejects_overlap_owner_duplicates_and_baseline_disagreement(self) -> None:
++        files = parse_sealed_current_files_manifest(_files_manifest(), source_path=self._source("files.toml"), repository_root=ROOT)
++        overlap = parse_sealed_current_absences_manifest(_absences_manifest(entry={"relative_path": "src/current.py"}), source_path=self._source("absences.toml"), repository_root=ROOT)
++        changed_baseline = parse_sealed_current_absences_manifest(_absences_manifest(baseline_commit="c" * 40), source_path=self._source("absences.toml"), repository_root=ROOT)
++        duplicate_owner = parse_sealed_current_files_manifest(
++            _files_manifest(entry_count=2) + b"\n[[files]]\nrelative_path = \"src/current.py\"\nbyte_length = 7\nraw_sha256 = \"" + SHA256.encode() + b"\"\nrole = \"source\"\ngoverning_decision = \"ADR-1\"\nowner = \"owner-a\"\n",
++            source_path=self._source("files.toml"), repository_root=ROOT,
++        )
++        for name, left, right in (("overlap", files, overlap), ("baseline", files, changed_baseline), ("owner", duplicate_owner, parse_sealed_current_absences_manifest(_absences_manifest(), source_path=self._source("absences.toml"), repository_root=ROOT))):
++            with self.subTest(name=name), self.assertRaises(EvidenceIntegrityError):
++                validate_current_boundary(left, right)
++
++    def test_retained_semantic_identity_is_key_order_independent_but_raw_identity_is_not(self) -> None:
++        first_raw = _retained_manifest()
++        second_raw = _retained_manifest(reverse=True)
++        first = parse_retained_v7_manifest(first_raw, source_path=self._source("retained-a.toml"), repository_root=ROOT)
++        second = parse_retained_v7_manifest(second_raw, source_path=self._source("retained-b.toml"), repository_root=ROOT)
++        self.assertEqual(first.semantic_sha256, second.semantic_sha256)
++        self.assertNotEqual(first.source_identity.raw_sha256, second.source_identity.raw_sha256)
++        self.assertEqual(canonical_semantic_bytes({"b": (True, 2), "a": None}), b'{"a":null,"b":[true,2]}')
++        self.assertEqual(semantic_sha256({"a": 1}), sha256(b'{"a":1}').hexdigest())
++
++
++if __name__ == "__main__":
++    unittest.main(verbosity=2)

@@ -403,10 +403,7 @@ def _recovery_config() -> Mapping[str, object]:
     return value
 
 
-def _authorization_config() -> tuple[Mapping[str, object], str]:
-    if not _is_regular_non_reparse(AUTHORIZATION_CONFIG_PATH):
-        raise FileNotFoundError("v7 reader invocation authorization is absent")
-    raw = AUTHORIZATION_CONFIG_PATH.read_bytes()
+def _parse_authorization_config(raw: bytes) -> tuple[Mapping[str, object], str]:
     value = _parse_unique_json(raw, label="v7 authorization config")
     expected_keys = {
         "schema_version",
@@ -425,6 +422,12 @@ def _authorization_config() -> tuple[Mapping[str, object], str]:
     ):
         raise ValueError("v7 reader invocation authorization fields differ")
     return value, sha256(_canonical_lf(raw)).hexdigest()
+
+
+def _authorization_config() -> tuple[Mapping[str, object], str]:
+    if not _is_regular_non_reparse(AUTHORIZATION_CONFIG_PATH):
+        raise FileNotFoundError("v7 reader invocation authorization is absent")
+    return _parse_authorization_config(AUTHORIZATION_CONFIG_PATH.read_bytes())
 
 
 def _git_head() -> str:
@@ -526,7 +529,7 @@ def _authorization_tag(commit: str | None = None) -> dict[str, object]:
         ):
             raise RuntimeError("v7 authorization Git file state differs")
         raw = AUTHORIZATION_CONFIG_PATH.read_bytes()
-        config, config_hash = _authorization_config()
+        config, config_hash = _parse_authorization_config(raw)
         source_seal = config.get("source_seal_commit")
         parent_row = (
             _v4._absolute_git("rev-list", "--parents", "-n", "1", head)
@@ -1006,11 +1009,8 @@ def _validate_deferred_header(raw: bytes) -> None:
         for path, digest in expected_config_hashes.items()
     ):
         raise ValueError("v7 recovery config dependency cross-identity differs")
-    authorization_tag = _authorization_tag()
-    expected_auth = _authorization_identity(
-        commit=str(authorization_tag["authorization_commit"])
-    )
-    authorization_commit = authorization_tag["authorization_commit"]
+    expected_auth = _authorization_identity()
+    authorization_commit = expected_auth["authorization_commit"]
     _require_exact_json(
         stored_auth, expected_auth, label="v7 deferred-import authorization"
     )
@@ -1041,9 +1041,9 @@ def _validate_deferred_header(raw: bytes) -> None:
     _require_exact_json(source_git, expected_source_git, label="v7 source-seal Git")
     _validate_v7_authorization_git(
         authorization_commit,
-        authorization_tag.get("source_seal_commit"),
+        expected_auth["source_seal_commit"],
         dependency_hashes,
-        authorization_tag["config_canonical_lf_sha256"],
+        expected_auth["config_canonical_lf_sha256"],
     )
     _require_retained_predecessor_state()
 

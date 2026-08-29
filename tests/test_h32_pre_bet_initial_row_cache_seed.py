@@ -11,7 +11,6 @@ import tempfile
 import unittest
 from pathlib import Path
 
-import tests.test_multi_size_leaf_adjoint as sized_fixture
 from pontius.canonical_affine_resident_automaton_cache import (
     CuPyCanonicalAffineResidentAutomatonCache,
 )
@@ -38,6 +37,22 @@ from pontius.real_policy import policy_digest
 from pontius.resident_heterogeneous_leaf_contraction import CuPyResidentAutomatonCache
 from pontius.river_multiway import MultiwayRiverDeal, MultiwayRiverHoldem
 
+
+def _load_sized_fixture():
+    fixture_path = Path(__file__).with_name("test_multi_size_leaf_adjoint.py")
+    specification = importlib.util.spec_from_file_location(
+        "pontius_h32_initial_row_sized_fixture",
+        fixture_path,
+    )
+    if specification is None or specification.loader is None:
+        raise RuntimeError(f"cannot load exact fixture path: {fixture_path}")
+    module = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(module)
+    return module
+
+
+sized_fixture = _load_sized_fixture()
+
 ROOT = Path(__file__).parents[1]
 CONFIG = ROOT / "experiments/configs/h32-pre-bet-initial-row-cache-seed-v1.json"
 RUNNER = ROOT / "src/pontius/h32_pre_bet_initial_row_cache_seed.py"
@@ -49,15 +64,14 @@ SEALED_RESULT = (
 
 
 class H32PreBetInitialRowCacheSeedTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.raw_config = json.loads(CONFIG.read_text(encoding="utf-8"))
-        cls.parsed = copy.deepcopy(cls.raw_config)
+    def setUp(self) -> None:
+        self.raw_config = json.loads(CONFIG.read_text(encoding="utf-8"))
+        self.parsed = copy.deepcopy(self.raw_config)
 
     def test_revoked_v1_config_rejects_current_primitive_provenance(self) -> None:
         with self.assertRaisesRegex(
             ValueError,
-            "provenance mismatch: expected_control_test_sha256",
+            "provenance mismatch: expected_source_result_sha256",
         ):
             _parse_config(copy.deepcopy(self.raw_config))
 

@@ -3,11 +3,19 @@
 from __future__ import annotations
 
 from collections.abc import Iterable, Mapping
-from dataclasses import fields, replace
+import ctypes
+from dataclasses import dataclass, fields, replace
+from hashlib import sha256
 import json
+import os
 from pathlib import Path, PurePosixPath, PureWindowsPath
+import stat
 import tomllib
 from typing import Any
+
+if os.name == "nt":
+    from ctypes import wintypes
+    import msvcrt
 
 from .errors import EvidenceConfigurationError
 from .model import (
@@ -155,7 +163,7 @@ def _relative_path(value: object, name: str) -> str:
 
 def _resolved_child(root: Path, value: object, name: str) -> tuple[str, Path]:
     relative = _relative_path(value, name)
-    candidate = (root / PurePosixPath(relative)).resolve(strict=False)
+    candidate = Path(os.path.abspath(root / PurePosixPath(relative)))
     try:
         candidate.relative_to(root)
     except ValueError as error:
@@ -163,23 +171,505 @@ def _resolved_child(root: Path, value: object, name: str) -> tuple[str, Path]:
     return relative, candidate
 
 
-def _read_bounded(path: Path, *, root: Path, label: str) -> bytes:
+_IS_WINDOWS = os.name == "nt"
+_WINDOWS_REPARSE_ATTRIBUTE = 0x400
+_WINDOWS_REPARSE_NAME_SURROGATE = 0x20000000
+_WINDOWS_CLOUD_REPARSE_BASE = 0x9000001A
+_WINDOWS_CLOUD_REPARSE_MASK = 0xFFFF0FFF
+
+
+class _WindowsFileAttributeTagInformation(ctypes.Structure):
+    """Portable declaration for the Windows metadata adapter and its tests."""
+
+    _fields_ = (
+        ("FileAttributes", ctypes.c_uint32),
+        ("ReparseTag", ctypes.c_uint32),
+    )
+
+
+def _is_supported_cloud_reparse_tag(tag: int) -> bool:
+    return (
+        type(tag) is int
+        and tag & _WINDOWS_REPARSE_NAME_SURROGATE == 0
+        and tag & _WINDOWS_CLOUD_REPARSE_MASK == _WINDOWS_CLOUD_REPARSE_BASE
+    )
+
+
+def _is_disallowed_reparse_values(attributes: int, tag: int) -> bool:
+    if not (attributes & _WINDOWS_REPARSE_ATTRIBUTE or tag):
+        return False
+    return not _is_supported_cloud_reparse_tag(tag)
+
+
+def _is_reparse(info: os.stat_result) -> bool:
+    return _is_disallowed_reparse_values(
+        int(getattr(info, "st_file_attributes", 0)),
+        int(getattr(info, "st_reparse_tag", 0)),
+    )
+
+
+def _identity_reparse_values(
+    info: os.stat_result,
+    windows_metadata: tuple[int, int] | None = None,
+) -> tuple[int, int]:
+    if windows_metadata is not None:
+        return windows_metadata
+    return (
+        int(getattr(info, "st_file_attributes", 0)),
+        int(getattr(info, "st_reparse_tag", 0)),
+    )
+
+
+def _stat_identity(
+    info: os.stat_result,
+    windows_metadata: tuple[int, int] | None = None,
+) -> tuple[int, ...]:
+    attributes, tag = _identity_reparse_values(info, windows_metadata)
+    return (
+        int(info.st_dev),
+        int(info.st_ino),
+        int(info.st_size),
+        int(info.st_mtime_ns),
+        int(info.st_ctime_ns),
+        int(info.st_mode),
+        attributes,
+        tag,
+    )
+
+
+def _path_handle_identity(
+    info: os.stat_result,
+    windows_metadata: tuple[int, int] | None = None,
+) -> tuple[int, ...]:
+    attributes, tag = _identity_reparse_values(info, windows_metadata)
+    return (
+        int(info.st_dev),
+        int(info.st_ino),
+        int(info.st_size),
+        int(info.st_mtime_ns),
+        int(info.st_mode),
+        attributes,
+        tag,
+    )
+
+
+def _directory_identity(info: os.stat_result) -> tuple[int, ...]:
+    return (
+        int(info.st_dev),
+        int(info.st_ino),
+        int(info.st_mode),
+        int(getattr(info, "st_file_attributes", 0)),
+        int(getattr(info, "st_reparse_tag", 0)),
+    )
+
+
+def _validated_ancestor_chain(
+    path: Path,
+    root: Path,
+    *,
+    root_identity: tuple[int, ...] | None = None,
+) -> tuple[tuple[Path, tuple[int, ...]], ...]:
+    chain: list[tuple[Path, tuple[int, ...]]] = []
+    candidate = path.parent
+    while True:
+        info = os.lstat(candidate)
+        if stat.S_ISLNK(info.st_mode) or _is_reparse(info) or not stat.S_ISDIR(info.st_mode):
+            raise ValueError("configuration path ancestors must be nonreparse directories")
+        identity = _directory_identity(info)
+        chain.append((candidate, identity))
+        if os.path.normcase(str(candidate)) == os.path.normcase(str(root)):
+            if root_identity is not None and identity != root_identity:
+                raise ValueError("repository_root changed before configuration read")
+            return tuple(chain)
+        parent = candidate.parent
+        if parent == candidate:
+            raise ValueError("configuration path escapes repository_root")
+        candidate = parent
+
+
+def _revalidate_ancestor_chain(
+    chain: tuple[tuple[Path, tuple[int, ...]], ...],
+) -> None:
+    for path, identity in chain:
+        info = os.lstat(path)
+        if (
+            stat.S_ISLNK(info.st_mode)
+            or _is_reparse(info)
+            or not stat.S_ISDIR(info.st_mode)
+            or _directory_identity(info) != identity
+        ):
+            raise ValueError("configuration path ancestors changed while being read")
+
+
+@dataclass(frozen=True, slots=True)
+class _RepositoryRootCapture:
+    path: Path
+    identity: tuple[int, ...]
+
+
+def _capture_repository_root(repository_root: Path) -> _RepositoryRootCapture:
+    if not isinstance(repository_root, Path) or not repository_root.is_absolute():
+        raise ValueError("repository_root must be an absolute Path")
+    lexical = Path(os.path.abspath(repository_root))
+    before = os.lstat(lexical)
+    if (
+        stat.S_ISLNK(before.st_mode)
+        or _is_reparse(before)
+        or not stat.S_ISDIR(before.st_mode)
+    ):
+        raise ValueError("repository_root must be a regular directory root")
+    identity = _directory_identity(before)
+    resolved = lexical.resolve(strict=True)
+    if os.path.normcase(str(resolved)) != os.path.normcase(str(lexical)):
+        raise ValueError("repository_root must not traverse a link or reparse point")
+    after = os.lstat(lexical)
+    if (
+        stat.S_ISLNK(after.st_mode)
+        or _is_reparse(after)
+        or not stat.S_ISDIR(after.st_mode)
+        or _directory_identity(after) != identity
+    ):
+        raise ValueError("repository_root changed while being resolved")
+    return _RepositoryRootCapture(lexical, identity)
+
+
+@dataclass(frozen=True, slots=True)
+class _ConfigurationFileSnapshot:
+    path: Path
+    raw: bytes
+    leaf_identity: tuple[int, ...]
+    ancestor_chain: tuple[tuple[Path, tuple[int, ...]], ...]
+    label: str
+
+    def revalidate(self) -> None:
+        try:
+            info = os.lstat(self.path)
+            if (
+                stat.S_ISLNK(info.st_mode)
+                or _is_reparse(info)
+                or not stat.S_ISREG(info.st_mode)
+                or _stat_identity(info) != self.leaf_identity
+            ):
+                raise ValueError(f"{self.label} changed after being read")
+            _revalidate_ancestor_chain(self.ancestor_chain)
+        except OSError as error:
+            raise ValueError(
+                f"{self.label} path could not be revalidated securely"
+            ) from error
+
+
+def _windows_path_api() -> tuple[Any, Any, Any]:
+    if not _IS_WINDOWS:
+        raise ValueError("Windows no-follow file APIs are unavailable")
+    try:
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        create = kernel32.CreateFileW
+        create.argtypes = (
+            wintypes.LPCWSTR,
+            wintypes.DWORD,
+            wintypes.DWORD,
+            wintypes.LPVOID,
+            wintypes.DWORD,
+            wintypes.DWORD,
+            wintypes.HANDLE,
+        )
+        create.restype = wintypes.HANDLE
+        information = kernel32.GetFileInformationByHandleEx
+        information.argtypes = (
+            wintypes.HANDLE,
+            ctypes.c_int,
+            wintypes.LPVOID,
+            wintypes.DWORD,
+        )
+        information.restype = wintypes.BOOL
+        close = kernel32.CloseHandle
+        close.argtypes = (wintypes.HANDLE,)
+        close.restype = wintypes.BOOL
+    except Exception as error:
+        raise ValueError("Windows no-follow file APIs are unavailable") from error
+    return create, information, close
+
+
+def _windows_bind_handle(handle: int) -> int:
+    if not _IS_WINDOWS:
+        raise ValueError("Windows file-handle binding is unavailable")
+    return msvcrt.open_osfhandle(
+        int(handle), os.O_RDONLY | getattr(os, "O_BINARY", 0)
+    )
+
+
+def _windows_regular_handle_metadata(
+    descriptor: int, path: Path
+) -> tuple[int, int]:
+    if not _IS_WINDOWS:
+        raise ValueError("Windows regular-file metadata is unavailable")
+    try:
+        handle = msvcrt.get_osfhandle(descriptor)
+        _, information, _ = _windows_path_api()
+        value = _WindowsFileAttributeTagInformation()
+        succeeded = information(
+            wintypes.HANDLE(handle),
+            9,
+            ctypes.byref(value),
+            ctypes.sizeof(value),
+        )
+    except Exception as error:
+        raise ValueError(
+            f"configuration file handle metadata cannot be inspected: {path}"
+        ) from error
+    if not succeeded:
+        code = ctypes.get_last_error()
+        raise ValueError(
+            f"configuration file handle metadata cannot be inspected: {path}"
+        ) from OSError(code, os.strerror(code), str(path))
+    return int(value.FileAttributes), int(value.ReparseTag)
+
+
+def _open_regular_no_follow(path: Path) -> int:
+    if not _IS_WINDOWS:
+        if not hasattr(os, "O_NOFOLLOW"):
+            raise ValueError("secure no-follow file opens are unavailable")
+        flags = (
+            os.O_RDONLY
+            | os.O_NOFOLLOW
+            | getattr(os, "O_NONBLOCK", 0)
+            | getattr(os, "O_CLOEXEC", 0)
+            | getattr(os, "O_BINARY", 0)
+        )
+        try:
+            return os.open(path, flags)
+        except OSError as error:
+            raise ValueError(
+                f"configuration file cannot be opened without links: {path}"
+            ) from error
+
+    create, _, close = _windows_path_api()
+    try:
+        handle = create(
+            str(path),
+            0x80000000,
+            0x00000001 | 0x00000002 | 0x00000004,
+            None,
+            3,
+            0x00200000 | 0x08000000,
+            None,
+        )
+    except Exception as error:
+        raise ValueError(
+            f"configuration file cannot be opened without reparses: {path}"
+        ) from error
+    invalid = ctypes.c_void_p(-1).value
+    if not handle or int(handle) == invalid:
+        code = ctypes.get_last_error()
+        raise ValueError(
+            f"configuration file cannot be opened without reparses: {path}"
+        ) from OSError(code, os.strerror(code), str(path))
+    try:
+        return _windows_bind_handle(int(handle))
+    except (OSError, OverflowError, ValueError) as binding_error:
+        try:
+            succeeded = close(ctypes.c_void_p(int(handle)))
+            if not succeeded:
+                code = ctypes.get_last_error()
+                operating_error = OSError(code, os.strerror(code), str(path))
+                raise ValueError(
+                    f"configuration raw handle could not be closed: {path}"
+                ) from operating_error
+        except Exception as close_error:
+            raise ValueError(
+                f"configuration file handle binding and cleanup both failed: {path}"
+            ) from ExceptionGroup(
+                "configuration handle binding and cleanup failures",
+                (binding_error, close_error),
+            )
+        raise ValueError(
+            f"configuration file handle cannot be bound: {path}"
+        ) from binding_error
+
+
+def _path_matches_open_handle(
+    path_info: os.stat_result,
+    handle_info: os.stat_result,
+    windows_metadata: tuple[int, int] | None,
+) -> bool:
+    if _path_handle_identity(path_info)[:5] != _path_handle_identity(handle_info)[:5]:
+        return False
+    if windows_metadata is None:
+        return _path_handle_identity(path_info) == _path_handle_identity(handle_info)
+    return _identity_reparse_values(path_info) == windows_metadata
+
+
+def _metadata_is_reparse(metadata: tuple[int, int] | None) -> bool:
+    return metadata is not None and _is_disallowed_reparse_values(
+        metadata[0], metadata[1]
+    )
+
+
+def _is_retryable_windows_metadata_transition(
+    before: os.stat_result,
+    after: os.stat_result,
+    before_metadata: tuple[int, int] | None,
+    after_metadata: tuple[int, int] | None,
+) -> bool:
+    return (
+        _IS_WINDOWS
+        and _stat_identity(before, before_metadata)
+        != _stat_identity(after, after_metadata)
+        and before_metadata == after_metadata
+        and _path_handle_identity(before, before_metadata)
+        == _path_handle_identity(after, after_metadata)
+    )
+
+
+def _read_bounded_snapshot(
+    path: Path,
+    *,
+    root: Path | _RepositoryRootCapture,
+    label: str,
+    _allow_windows_metadata_retry: bool = True,
+) -> _ConfigurationFileSnapshot:
+    if isinstance(root, _RepositoryRootCapture):
+        root_path = root.path
+        root_identity = root.identity
+    else:
+        root_path = root
+        root_identity = None
     if not isinstance(path, Path) or not path.is_absolute():
         raise ValueError(f"{label} path must be absolute")
-    resolved = path.resolve(strict=True)
+    supplied = Path(os.path.abspath(path))
     try:
-        resolved.relative_to(root)
+        supplied.relative_to(root_path)
     except ValueError as error:
         raise ValueError(f"{label} path must be below repository_root") from error
-    if not resolved.is_file() or resolved.is_symlink():
-        raise ValueError(f"{label} path must be a regular non-link file")
-    size = resolved.stat().st_size
-    if size > MAX_CONFIGURATION_BYTES:
+    try:
+        ancestors = _validated_ancestor_chain(
+            supplied,
+            root_path,
+            root_identity=root_identity,
+        )
+        before_path = os.lstat(supplied)
+        if (
+            stat.S_ISLNK(before_path.st_mode)
+            or _is_reparse(before_path)
+            or not stat.S_ISREG(before_path.st_mode)
+        ):
+            raise ValueError(f"{label} path must be a regular non-link file")
+        if before_path.st_size > MAX_CONFIGURATION_BYTES:
+            raise ValueError(f"{label} exceeds the configuration size bound")
+        descriptor = _open_regular_no_follow(supplied)
+        primary_failure: Exception | None = None
+        close_failure: Exception | None = None
+        try:
+            before_windows_metadata = (
+                _windows_regular_handle_metadata(descriptor, supplied)
+                if _IS_WINDOWS else None
+            )
+            before_handle = os.fstat(descriptor)
+            if (
+                stat.S_ISLNK(before_handle.st_mode)
+                or _is_reparse(before_handle)
+                or _metadata_is_reparse(before_windows_metadata)
+                or not stat.S_ISREG(before_handle.st_mode)
+                or not _path_matches_open_handle(
+                    before_path, before_handle, before_windows_metadata
+                )
+            ):
+                raise ValueError(f"{label} opened handle must be a regular file")
+            if before_handle.st_size > MAX_CONFIGURATION_BYTES:
+                raise ValueError(f"{label} exceeds the configuration size bound")
+            chunks: list[bytes] = []
+            remaining = MAX_CONFIGURATION_BYTES + 1
+            while remaining:
+                chunk = os.read(descriptor, min(1024 * 1024, remaining))
+                if not chunk:
+                    break
+                chunks.append(chunk)
+                remaining -= len(chunk)
+            raw = b"".join(chunks)
+            after_handle = os.fstat(descriptor)
+            after_windows_metadata = (
+                _windows_regular_handle_metadata(descriptor, supplied)
+                if _IS_WINDOWS else None
+            )
+            if _metadata_is_reparse(after_windows_metadata):
+                raise ValueError(f"{label} opened handle must be a regular file")
+        except Exception as error:
+            primary_failure = error
+        try:
+            os.close(descriptor)
+        except Exception as error:
+            close_failure = error
+        if primary_failure is not None:
+            if close_failure is not None:
+                raise ValueError(
+                    f"{label} read and handle cleanup both failed"
+                ) from ExceptionGroup(
+                    "configuration read and close failures",
+                    (primary_failure, close_failure),
+                )
+            raise primary_failure
+        if close_failure is not None:
+            raise ValueError(f"{label} file handle could not be closed") from close_failure
+        after_path = os.lstat(supplied)
+        _revalidate_ancestor_chain(ancestors)
+    except OSError as error:
+        raise ValueError(f"{label} path could not be read securely") from error
+    if len(raw) > MAX_CONFIGURATION_BYTES:
         raise ValueError(f"{label} exceeds the configuration size bound")
-    raw = resolved.read_bytes()
-    if len(raw) != size:
+    retryable_transition = (
+        _allow_windows_metadata_retry
+        and len(raw) == after_handle.st_size
+        and _is_retryable_windows_metadata_transition(
+            before_handle,
+            after_handle,
+            before_windows_metadata,
+            after_windows_metadata,
+        )
+        and _path_handle_identity(before_path)
+        == _path_handle_identity(after_path)
+    )
+    if retryable_transition:
+        return _read_bounded_snapshot(
+            supplied,
+            root=root,
+            label=label,
+            _allow_windows_metadata_retry=False,
+        )
+    if (
+        not _path_matches_open_handle(
+            before_path, before_handle, before_windows_metadata
+        )
+        or _stat_identity(before_handle, before_windows_metadata)
+        != _stat_identity(after_handle, after_windows_metadata)
+        or not _path_matches_open_handle(
+            after_path, after_handle, after_windows_metadata
+        )
+        or _stat_identity(before_path) != _stat_identity(after_path)
+        or len(raw) != after_handle.st_size
+    ):
         raise ValueError(f"{label} changed while being read")
-    return raw
+    return _ConfigurationFileSnapshot(
+        supplied,
+        raw,
+        _stat_identity(after_path),
+        ancestors,
+        label,
+    )
+
+
+def _read_bounded(
+    path: Path,
+    *,
+    root: Path | _RepositoryRootCapture,
+    label: str,
+    _allow_windows_metadata_retry: bool = True,
+) -> bytes:
+    return _read_bounded_snapshot(
+        path,
+        root=root,
+        label=label,
+        _allow_windows_metadata_retry=_allow_windows_metadata_retry,
+    ).raw
 
 
 def _duplicate_rejecting_object(pairs: list[tuple[str, object]]) -> dict[str, object]:
@@ -279,20 +769,62 @@ def _parse_inventory(
     object,
 ]:
     root = _exact_keys(
-        data, required={"schema_version", "baseline_commit", "entries"},
+        data,
+        required={
+            "schema_version", "baseline_commit", "baseline_discovery",
+            "discovery", "entries",
+        },
         label="inventory root",
     )
     if root["schema_version"] != INVENTORY_SCHEMA:
         raise ValueError("inventory schema_version is unsupported")
     baseline = _require_lower_hex(root["baseline_commit"], "inventory.baseline_commit", 40)
+    baseline_discovery = _exact_keys(
+        root["baseline_discovery"],
+        required={
+            "test_file_count", "stable_id_count", "stable_ids_sha256",
+            "historical_id_count", "historical_ids_sha256", "gpu_id_count",
+            "gpu_ids_sha256", "core_id_count", "core_ids_sha256",
+            "current_id_count", "current_ids_sha256", "explicit_exclusion_count",
+        },
+        label="inventory.baseline_discovery",
+    )
+    discovery = _exact_keys(
+        root["discovery"],
+        required={
+            "test_file_count", "stable_id_count", "stable_ids_sha256",
+            "introduced_id_count", "introduced_ids_sha256",
+        },
+        label="inventory.discovery",
+    )
+    for name, value in baseline_discovery.items():
+        if name.endswith("sha256"):
+            _require_lower_hex(value, f"baseline_discovery.{name}", 64)
+        else:
+            _exact_int(value, f"baseline_discovery.{name}")
+    for name, value in discovery.items():
+        if name.endswith("sha256"):
+            _require_lower_hex(value, f"discovery.{name}", 64)
+        else:
+            _exact_int(value, f"discovery.{name}")
     entries: list[InventoryEntry] = []
     assigned_rows: list[tuple[ResolvedInventoryItem, str, str]] = []
+    normalized_entries: list[Mapping[str, object]] = []
+    baseline_ids: list[str] = []
+    introduced_ids: list[str] = []
+    baseline_profiles: dict[str, list[str]] = {
+        "historical": [], "gpu": [], "core": [], "current": [],
+    }
+    baseline_exclusions = 0
     seen: set[str] = set()
     for index, raw_entry in enumerate(_exact_list(root["entries"], "inventory.entries")):
         entry = _exact_keys(
             raw_entry,
             required={"stable_id", "relative_path", "case_name", "method_name"},
-            optional={"assignment", "exclusion"},
+            optional={
+                "assignment", "exclusion", "baseline_assignment",
+                "introduced_after_baseline",
+            },
             label=f"inventory.entries[{index}]",
         )
         if ("assignment" in entry) == ("exclusion" in entry):
@@ -319,6 +851,20 @@ def _parse_inventory(
                 selector, profile_name, payload_id, expectation, None, None, None
             ))
             assigned_rows.append((item, profile_name, payload_id))
+            normalized_assignment: Mapping[str, object] = {
+                "profile_name": profile_name,
+                "payload_id": payload_id,
+                "expectation": {
+                    "kind": expectation.kind,
+                    **(
+                        {"applicable_platforms": expectation.applicable_platforms,
+                         "skip_safe_reason_code": expectation.skip_safe_reason_code}
+                        if expectation.kind == "platform_conditioned" else
+                        {"skip_safe_reason_code": expectation.skip_safe_reason_code}
+                        if expectation.kind == "declared_unconditional_skip" else {}
+                    ),
+                },
+            }
         else:
             exclusion = _exact_keys(
                 entry["exclusion"],
@@ -331,9 +877,110 @@ def _parse_inventory(
                 _exact_string(exclusion["owner"], "exclusion.owner"),
                 _exact_string(exclusion["milestone"], "exclusion.milestone"),
             ))
+            normalized_assignment = {
+                "reason": entries[-1].exclusion_reason,
+                "owner": entries[-1].exclusion_owner,
+                "milestone": entries[-1].exclusion_milestone,
+            }
+        has_baseline = "baseline_assignment" in entry
+        has_introduced = "introduced_after_baseline" in entry
+        if has_baseline == has_introduced:
+            raise ValueError(
+                "inventory entries require baseline_assignment XOR introduced_after_baseline"
+            )
+        if has_baseline:
+            if "assignment" not in entry:
+                raise ValueError("baseline exclusions are unsupported by the zero-exclusion lock")
+            baseline_assignment = _exact_keys(
+                entry["baseline_assignment"],
+                required={"profile_name", "payload_id", "expectation"},
+                label=f"inventory.entries[{index}].baseline_assignment",
+            )
+            baseline_profile = _exact_string(
+                baseline_assignment["profile_name"], "baseline_assignment.profile_name"
+            )
+            baseline_payload = _exact_string(
+                baseline_assignment["payload_id"], "baseline_assignment.payload_id"
+            )
+            baseline_expectation = _parse_inventory_expectation(
+                baseline_assignment["expectation"]
+            )
+            if (
+                baseline_profile != profile_name
+                or baseline_payload != payload_id
+                or baseline_expectation != expectation
+            ):
+                raise ValueError("baseline_assignment must equal the materialized assignment")
+            if baseline_profile not in baseline_profiles:
+                raise ValueError("baseline assignment profile is unsupported")
+            baseline_profiles[baseline_profile].append(selector.stable_id)
+            baseline_ids.append(selector.stable_id)
+            metadata = {"baseline_assignment": normalized_assignment}
+        else:
+            if _exact_bool(
+                entry["introduced_after_baseline"], "introduced_after_baseline"
+            ) is not True:
+                raise ValueError("introduced_after_baseline must be true")
+            introduced_ids.append(selector.stable_id)
+            metadata = {"introduced_after_baseline": True}
+        normalized_entry: dict[str, object] = {
+            "stable_id": selector.stable_id,
+            "relative_path": selector.relative_path.as_posix(),
+            "case_name": selector.case_name,
+            "method_name": selector.method_name,
+            ("assignment" if "assignment" in entry else "exclusion"):
+                normalized_assignment,
+            **metadata,
+        }
+        normalized_entries.append(normalized_entry)
     entries.sort(key=lambda item: item.selector.stable_id)
     assigned_rows.sort(key=lambda row: row[0].selector.stable_id)
-    return baseline, entries, assigned_rows, root
+    normalized_entries.sort(key=lambda item: str(item["stable_id"]))
+
+    def stable_digest(values: Iterable[str]) -> str:
+        ordered = tuple(sorted(values))
+        return sha256(
+            ("\n".join(ordered) + ("\n" if ordered else "")).encode("utf-8")
+        ).hexdigest()
+
+    baseline_id_set = set(baseline_ids)
+    actual_baseline = {
+        "test_file_count": len({
+            item.selector.relative_path.as_posix()
+            for item in entries
+            if item.selector.stable_id in baseline_id_set
+        }),
+        "stable_id_count": len(baseline_ids),
+        "stable_ids_sha256": stable_digest(baseline_ids),
+        "historical_id_count": len(baseline_profiles["historical"]),
+        "historical_ids_sha256": stable_digest(baseline_profiles["historical"]),
+        "gpu_id_count": len(baseline_profiles["gpu"]),
+        "gpu_ids_sha256": stable_digest(baseline_profiles["gpu"]),
+        "core_id_count": len(baseline_profiles["core"]),
+        "core_ids_sha256": stable_digest(baseline_profiles["core"]),
+        "current_id_count": len(baseline_profiles["current"]),
+        "current_ids_sha256": stable_digest(baseline_profiles["current"]),
+        "explicit_exclusion_count": baseline_exclusions,
+    }
+    actual_discovery = {
+        "test_file_count": len({item.selector.relative_path.as_posix() for item in entries}),
+        "stable_id_count": len(entries),
+        "stable_ids_sha256": stable_digest(item.selector.stable_id for item in entries),
+        "introduced_id_count": len(introduced_ids),
+        "introduced_ids_sha256": stable_digest(introduced_ids),
+    }
+    if dict(baseline_discovery) != actual_baseline:
+        raise ValueError("baseline_discovery does not match materialized baseline entries")
+    if dict(discovery) != actual_discovery:
+        raise ValueError("discovery does not match working inventory entries")
+    normalized = {
+        "schema_version": INVENTORY_SCHEMA,
+        "baseline_commit": baseline,
+        "baseline_discovery": actual_baseline,
+        "discovery": actual_discovery,
+        "entries": tuple(normalized_entries),
+    }
+    return baseline, entries, assigned_rows, normalized
 
 
 def _parse_slot(value: object, index: int) -> InterpreterSlot:
@@ -777,8 +1424,9 @@ def _expanded_capability_rows(
         scope: tuple(sorted(
             scope_rows,
             key=lambda row: (
-                str(row["item_id"]), str(row["capability_id"]),
+                str(row["item_id"]),
                 str(row["capability_kind"]),
+                str(row["capability_id"]),
             ),
         ))
         for scope, scope_rows in rows.items()
@@ -987,15 +1635,18 @@ def load_configuration(
     repository_root: Path,
 ) -> ConfigurationBundle:
     try:
-        if not isinstance(repository_root, Path) or not repository_root.is_absolute():
-            raise ValueError("repository_root must be an absolute Path")
-        root = repository_root.resolve(strict=True)
-        if not root.is_dir() or root.is_symlink():
-            raise ValueError("repository_root must be a regular directory root")
-        profile_raw = _read_bounded(profiles_path, root=root, label="profiles")
-        inventory_raw = _read_bounded(inventory_path, root=root, label="inventory")
-        profile_data = _parse_toml(profile_raw, profiles_path)
-        inventory_data = _parse_json(inventory_raw, inventory_path)
+        root_capture = _capture_repository_root(repository_root)
+        root = root_capture.path
+        profile_snapshot = _read_bounded_snapshot(
+            profiles_path, root=root_capture, label="profiles"
+        )
+        inventory_snapshot = _read_bounded_snapshot(
+            inventory_path, root=root_capture, label="inventory"
+        )
+        profile_data = _parse_toml(profile_snapshot.raw, profile_snapshot.path)
+        inventory_data = _parse_json(
+            inventory_snapshot.raw, inventory_snapshot.path
+        )
         profile_root = _exact_keys(
             profile_data,
             required=_PROFILE_ROOT_REQUIRED,
@@ -1012,7 +1663,7 @@ def load_configuration(
         configured_inventory_path, expected_inventory_path = _resolved_child(
             root, profile_root["inventory_path"], "inventory_path"
         )
-        if expected_inventory_path != inventory_path.resolve(strict=True):
+        if expected_inventory_path != inventory_snapshot.path:
             raise ValueError("inventory_path does not identify the supplied inventory")
         manifest_paths = {}
         for name in (
@@ -1105,15 +1756,12 @@ def load_configuration(
             )),
             "stabilization_test_files": stabilization_files,
         }
-        normalized_inventory = {
-            "schema_version": INVENTORY_SCHEMA,
-            "baseline_commit": inventory_baseline,
-            "entries": tuple(inventory_entries),
-        }
+        profile_snapshot.revalidate()
+        inventory_snapshot.revalidate()
         return ConfigurationBundle(
             root,
-            profiles_path.resolve(strict=True),
-            inventory_path.resolve(strict=True),
+            profile_snapshot.path,
+            inventory_snapshot.path,
             baseline,
             manifest_paths["sealed_current_files_manifest"],
             manifest_paths["sealed_current_absences_manifest"],

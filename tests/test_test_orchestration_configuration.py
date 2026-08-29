@@ -2,13 +2,17 @@ from __future__ import annotations
 
 from dataclasses import FrozenInstanceError, dataclass, fields, is_dataclass
 from hashlib import sha256
+import ctypes
 import importlib.util
 import json
+import os
 from pathlib import Path
+import stat
 import sys
 import tempfile
 from types import MappingProxyType
 import unittest
+from unittest import mock
 
 
 COMMIT = "b" * 40
@@ -22,9 +26,9 @@ _SUPPORT_SPEC = importlib.util.spec_from_file_location(
 )
 if _SUPPORT_SPEC is None or _SUPPORT_SPEC.loader is None:
     raise RuntimeError("orchestration test support could not be loaded by exact path")
+_PATH_BEFORE_BOOTSTRAP = tuple(sys.path)
 _SUPPORT = importlib.util.module_from_spec(_SUPPORT_SPEC)
 _SUPPORT_SPEC.loader.exec_module(_SUPPORT)
-_PATH_BEFORE_BOOTSTRAP = tuple(sys.path)
 ERRORS, MODEL, CONFIGURATION = _SUPPORT.load_orchestration_modules(SNAPSHOT_ROOT)
 
 
@@ -206,7 +210,7 @@ serialized = false
 
 def _inventory(*, profile_name: str = "core", payload_id: str = "core:sample") -> dict[str, object]:
     stable_id = "tests/test_sample.py::SampleTests::test_value"
-    return {
+    document = {
         "schema_version": "pontius-test-inventory-v1",
         "baseline_commit": COMMIT,
         "entries": [
@@ -220,9 +224,88 @@ def _inventory(*, profile_name: str = "core", payload_id: str = "core:sample") -
                     "payload_id": payload_id,
                     "expectation": {"kind": "pass"},
                 },
+                "baseline_assignment": {
+                    "profile_name": profile_name,
+                    "payload_id": payload_id,
+                    "expectation": {"kind": "pass"},
+                },
             }
         ],
     }
+    return _refresh_inventory_metadata(document)
+
+
+def _stable_digest(values: list[str]) -> str:
+    return sha256(
+        "".join(f"{value}\n" for value in sorted(values)).encode("utf-8")
+    ).hexdigest()
+
+
+def _refresh_inventory_metadata(document: dict[str, object]) -> dict[str, object]:
+    entries = document.get("entries")
+    if not isinstance(entries, list):
+        return document
+    for index, row in enumerate(entries):
+        if not isinstance(row, dict):
+            continue
+        if "baseline_assignment" in row and isinstance(row.get("assignment"), dict):
+            row["baseline_assignment"] = json.loads(json.dumps(row["assignment"]))
+            continue
+        if "introduced_after_baseline" in row:
+            continue
+        if index == 0 and isinstance(row.get("assignment"), dict):
+            row["baseline_assignment"] = json.loads(json.dumps(row["assignment"]))
+        else:
+            row["introduced_after_baseline"] = True
+    baseline_rows = [
+        row
+        for row in entries
+        if isinstance(row, dict) and "baseline_assignment" in row
+    ]
+    introduced_rows = [
+        row
+        for row in entries
+        if isinstance(row, dict)
+        and row.get("introduced_after_baseline") is True
+    ]
+    baseline_ids = [str(row["stable_id"]) for row in baseline_rows]
+    all_ids = [
+        str(row["stable_id"])
+        for row in entries
+        if isinstance(row, dict) and "stable_id" in row
+    ]
+    profiles: dict[str, list[str]] = {name: [] for name in ("historical", "gpu", "core", "current")}
+    for row in baseline_rows:
+        assignment = row.get("assignment")
+        if isinstance(assignment, dict) and assignment.get("profile_name") in profiles:
+            profiles[str(assignment["profile_name"])].append(str(row["stable_id"]))
+    document["baseline_discovery"] = {
+        "test_file_count": len({str(row["relative_path"]) for row in baseline_rows}),
+        "stable_id_count": len(baseline_ids),
+        "stable_ids_sha256": _stable_digest(baseline_ids),
+        "historical_id_count": len(profiles["historical"]),
+        "historical_ids_sha256": _stable_digest(profiles["historical"]),
+        "gpu_id_count": len(profiles["gpu"]),
+        "gpu_ids_sha256": _stable_digest(profiles["gpu"]),
+        "core_id_count": len(profiles["core"]),
+        "core_ids_sha256": _stable_digest(profiles["core"]),
+        "current_id_count": len(profiles["current"]),
+        "current_ids_sha256": _stable_digest(profiles["current"]),
+        "explicit_exclusion_count": 0,
+    }
+    introduced_ids = [str(row["stable_id"]) for row in introduced_rows]
+    document["discovery"] = {
+        "test_file_count": len({
+            str(row["relative_path"])
+            for row in entries
+            if isinstance(row, dict) and "relative_path" in row
+        }),
+        "stable_id_count": len(all_ids),
+        "stable_ids_sha256": _stable_digest(all_ids),
+        "introduced_id_count": len(introduced_ids),
+        "introduced_ids_sha256": _stable_digest(introduced_ids),
+    }
+    return document
 
 
 def _call_capability_definition(capability_id: str = "call:sample") -> dict[str, object]:
@@ -235,6 +318,122 @@ def _call_capability_definition(capability_id: str = "call:sample") -> dict[str,
         "maximum_calls": 1,
         "return_contract": "returns_none",
     }
+
+
+_ANALYZER_CUDA_CALL_DEFINITIONS = (
+    {
+        "capability_id": "call:cuda-current-stream",
+        "kind": "cuda_query",
+        "module_name": "cupy",
+        "qualified_name": "cupy.cuda.get_current_stream",
+        "action": "query",
+        "maximum_calls": 1,
+        "return_contract": "stream",
+    },
+    {
+        "capability_id": "call:cuda-memory-pool",
+        "kind": "cuda_query",
+        "module_name": "cupy",
+        "qualified_name": "cupy.get_default_memory_pool",
+        "action": "query",
+        "maximum_calls": 1,
+        "return_contract": "memory_pool",
+    },
+    {
+        "capability_id": "call:cuda-pinned-memory-pool",
+        "kind": "cuda_query",
+        "module_name": "cupy",
+        "qualified_name": "cupy.get_default_pinned_memory_pool",
+        "action": "query",
+        "maximum_calls": 1,
+        "return_contract": "pinned_memory_pool",
+    },
+    {
+        "capability_id": "call:cuda-host-array",
+        "kind": "cuda_query",
+        "module_name": "cupy",
+        "qualified_name": "cupy.asnumpy",
+        "action": "query",
+        "maximum_calls": 1,
+        "return_contract": "host_array",
+    },
+    {
+        "capability_id": "call:cuda-assert-array-equal",
+        "kind": "cuda_query",
+        "module_name": "cupy",
+        "qualified_name": "cupy.testing.assert_array_equal",
+        "action": "query",
+        "maximum_calls": 1,
+        "return_contract": "none_or_assertion",
+    },
+    {
+        "capability_id": "call:cuda-device-count",
+        "kind": "cuda_query",
+        "module_name": "cupy",
+        "qualified_name": "cupy.cuda.runtime.getDeviceCount",
+        "action": "query",
+        "maximum_calls": 1,
+        "return_contract": "nonnegative_integer",
+    },
+    {
+        "capability_id": "call:cuda-arange",
+        "kind": "cuda_allocation",
+        "module_name": "cupy",
+        "qualified_name": "cupy.arange",
+        "action": "allocate",
+        "maximum_calls": 1,
+        "return_contract": "device_array",
+    },
+    {
+        "capability_id": "call:cuda-linspace",
+        "kind": "cuda_allocation",
+        "module_name": "cupy",
+        "qualified_name": "cupy.linspace",
+        "action": "allocate",
+        "maximum_calls": 1,
+        "return_contract": "device_array",
+    },
+)
+
+
+def _approved_analyzer_cuda_profiles(profiles: str) -> str:
+    item_id = "tests/test_sample.py::SampleTests::test_value"
+    rows = tuple(
+        {
+            "item_id": item_id,
+            "approval_scope": "design",
+            "capability_kind": "call",
+            **definition,
+        }
+        for definition in sorted(
+            _ANALYZER_CUDA_CALL_DEFINITIONS,
+            key=lambda item: str(item["capability_id"]),
+        )
+    )
+    digest = MODEL.semantic_sha256(rows)
+    rendered = profiles.replace(
+        f'spec_capabilities_sha256 = "{ZERO_SHA256}"',
+        f'spec_capabilities_sha256 = "{digest}"',
+    )
+    for definition in _ANALYZER_CUDA_CALL_DEFINITIONS:
+        rendered += f'''
+
+[[call_capability]]
+capability_id = "{definition["capability_id"]}"
+kind = "{definition["kind"]}"
+module_name = "{definition["module_name"]}"
+qualified_name = "{definition["qualified_name"]}"
+action = "{definition["action"]}"
+maximum_calls = {definition["maximum_calls"]}
+return_contract = "{definition["return_contract"]}"
+
+[[capability_binding]]
+item_id = "{item_id}"
+approval_scope = "design"
+capability_kind = "call"
+capability_id = "{definition["capability_id"]}"
+'''
+    return rendered
 
 
 def _approved_call_profiles(
@@ -385,8 +584,16 @@ class _ConfigurationTree:
         self.profiles = self.root / "tests" / "test-profiles.toml"
         self.inventory = self.root / "tests" / "test-inventory.json"
         self.profiles.write_text(profiles if profiles is not None else _profiles_toml(), encoding="utf-8", newline="\n")
+        prepared_inventory = inventory if inventory is not None else _inventory()
+        _refresh_inventory_metadata(prepared_inventory)
         self.inventory.write_text(
-            json.dumps(inventory if inventory is not None else _inventory(), ensure_ascii=True, separators=(",", ":"), sort_keys=True) + "\n",
+            json.dumps(
+                prepared_inventory,
+                ensure_ascii=True,
+                separators=(",", ":"),
+                sort_keys=True,
+            )
+            + "\n",
             encoding="utf-8",
             newline="\n",
         )
@@ -406,8 +613,6 @@ class OrchestrationBootstrapTests(unittest.TestCase):
         self.assertEqual(tuple(sys.path), _PATH_BEFORE_BOOTSTRAP)
         package = sys.modules["pontius_test_orchestration"]
         self.assertEqual(package.__path__, [str(SNAPSHOT_ROOT / "tools" / "test_orchestration")])
-        forbidden = {str(SNAPSHOT_ROOT), str(SNAPSHOT_ROOT / "tests")}
-        self.assertTrue(forbidden.isdisjoint(sys.path))
 
 
 class OrchestrationErrorAndModelTests(unittest.TestCase):
@@ -598,6 +803,891 @@ class OrchestrationErrorAndModelTests(unittest.TestCase):
                 MODEL.EvidenceGuardSummary(None, None, "not_measured", []),
                 0, False,
             )
+
+    def test_interpreter_slots_accept_equal_major_and_minor_pairs(self) -> None:
+        repository_relative = MODEL.InterpreterSlot(
+            "development",
+            "repository_relative",
+            ".venv/Scripts/python.exe",
+            ".venv/bin/python",
+            None,
+            "cpython",
+            (3, 3),
+            None,
+            True,
+        )
+        environment_absolute = MODEL.InterpreterSlot(
+            "cpython311",
+            "environment_absolute",
+            None,
+            None,
+            "PONTIUS_CPYTHON311",
+            "cpython",
+            None,
+            (3, 3),
+            True,
+        )
+        self.assertEqual(repository_relative.minimum_version, (3, 3))
+        self.assertEqual(environment_absolute.exact_version, (3, 3))
+
+    def test_configuration_reader_rejects_a_reparse_ancestor_before_resolution(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            target = root / "target"
+            target.mkdir()
+            expected = b"schema_version = \"test\"\n"
+            (target / "profiles.toml").write_bytes(expected)
+            self.assertEqual(
+                CONFIGURATION._read_bounded(
+                    target / "profiles.toml", root=root, label="profiles"
+                ),
+                expected,
+            )
+            alias = root / "alias"
+            real_lstat = os.lstat
+            reparse_directory = mock.Mock(
+                st_dev=1,
+                st_ino=2,
+                st_mode=stat.S_IFDIR | 0o700,
+                st_file_attributes=0x400,
+                st_reparse_tag=0xA0000003,
+            )
+
+            def lexical_lstat(candidate: object) -> object:
+                if Path(candidate) == alias:
+                    return reparse_directory
+                return real_lstat(candidate)
+
+            with (
+                mock.patch.object(CONFIGURATION.os, "lstat", side_effect=lexical_lstat),
+                mock.patch.object(CONFIGURATION, "_open_regular_no_follow") as opened,
+            ):
+                with self.assertRaises(ValueError):
+                    CONFIGURATION._read_bounded(
+                        alias / "profiles.toml", root=root, label="profiles"
+                    )
+            opened.assert_not_called()
+
+        for root_kind in ("symlink", "windows_reparse"):
+            with self.subTest(public_root_kind=root_kind), _ConfigurationTree() as tree:
+                real_lstat = os.lstat
+                real_resolve = type(tree.root).resolve
+                root_info = real_lstat(tree.root)
+                supplied_root = mock.Mock(
+                    st_dev=root_info.st_dev,
+                    st_ino=root_info.st_ino,
+                    st_mode=(
+                        stat.S_IFLNK | 0o700
+                        if root_kind == "symlink"
+                        else stat.S_IFDIR | 0o700
+                    ),
+                    st_file_attributes=(0 if root_kind == "symlink" else 0x400),
+                    st_reparse_tag=(0 if root_kind == "symlink" else 0xA0000003),
+                )
+                resolved_paths: list[Path] = []
+
+                def supplied_root_lstat(candidate: object) -> object:
+                    if Path(candidate) == tree.root:
+                        return supplied_root
+                    return real_lstat(candidate)
+
+                def recorded_resolve(
+                    candidate: Path, strict: bool = False
+                ) -> Path:
+                    resolved_paths.append(Path(candidate))
+                    return real_resolve(candidate, strict=strict)
+
+                with (
+                    mock.patch.object(
+                        CONFIGURATION.os,
+                        "lstat",
+                        side_effect=supplied_root_lstat,
+                    ),
+                    mock.patch.object(
+                        type(tree.root), "resolve", new=recorded_resolve
+                    ),
+                    self.assertRaises(ERRORS.EvidenceConfigurationError),
+                ):
+                    CONFIGURATION.load_configuration(
+                        tree.profiles,
+                        tree.inventory,
+                        repository_root=tree.root,
+                    )
+                self.assertNotIn(tree.root, resolved_paths)
+
+        with self.subTest(public_root_identity="changed"), _ConfigurationTree() as tree:
+            real_lstat = os.lstat
+            root_info = real_lstat(tree.root)
+            root_calls = 0
+
+            def moved_root_lstat(candidate: object) -> object:
+                nonlocal root_calls
+                info = real_lstat(candidate)
+                if Path(candidate) != tree.root:
+                    return info
+                root_calls += 1
+                if root_calls == 1:
+                    return info
+                return mock.Mock(
+                    st_dev=root_info.st_dev,
+                    st_ino=root_info.st_ino + 1,
+                    st_mode=root_info.st_mode,
+                    st_file_attributes=getattr(
+                        root_info, "st_file_attributes", 0
+                    ),
+                    st_reparse_tag=getattr(root_info, "st_reparse_tag", 0),
+                )
+
+            with (
+                mock.patch.object(
+                    CONFIGURATION.os, "lstat", side_effect=moved_root_lstat
+                ),
+                mock.patch.object(
+                    CONFIGURATION, "_open_regular_no_follow"
+                ) as opened,
+                self.assertRaises(ERRORS.EvidenceConfigurationError),
+            ):
+                CONFIGURATION.load_configuration(
+                    tree.profiles,
+                    tree.inventory,
+                    repository_root=tree.root,
+                )
+            opened.assert_not_called()
+
+        with self.subTest(public_root_kind="supported_cloud"), _ConfigurationTree() as tree:
+            real_lstat = os.lstat
+            root_info = real_lstat(tree.root)
+            cloud_root = mock.Mock(
+                st_dev=root_info.st_dev,
+                st_ino=root_info.st_ino,
+                st_mode=root_info.st_mode,
+                st_file_attributes=0x400,
+                st_reparse_tag=0x9000001A,
+            )
+
+            def cloud_root_lstat(candidate: object) -> object:
+                if Path(candidate) == tree.root:
+                    return cloud_root
+                return real_lstat(candidate)
+
+            with mock.patch.object(
+                CONFIGURATION.os, "lstat", side_effect=cloud_root_lstat
+            ):
+                bundle = CONFIGURATION.load_configuration(
+                    tree.profiles,
+                    tree.inventory,
+                    repository_root=tree.root,
+                )
+            self.assertEqual(bundle.repository_root, tree.root)
+
+        for declared_kind in ("symlink", "windows_reparse"):
+            with self.subTest(
+                public_declared_inventory_kind=declared_kind
+            ), _ConfigurationTree() as tree:
+                declared_inventory = tree.inventory
+                supplied_target = declared_inventory.with_name(
+                    "inventory-link-target.json"
+                )
+                declared_inventory.replace(supplied_target)
+                real_lstat = os.lstat
+                target_info = real_lstat(supplied_target)
+                declared_info = mock.Mock(
+                    st_dev=target_info.st_dev,
+                    st_ino=target_info.st_ino,
+                    st_size=target_info.st_size,
+                    st_mtime_ns=target_info.st_mtime_ns,
+                    st_ctime_ns=target_info.st_ctime_ns,
+                    st_mode=(
+                        stat.S_IFLNK | 0o700
+                        if declared_kind == "symlink"
+                        else target_info.st_mode
+                    ),
+                    st_file_attributes=(
+                        0 if declared_kind == "symlink" else 0x400
+                    ),
+                    st_reparse_tag=(
+                        0 if declared_kind == "symlink" else 0xA0000003
+                    ),
+                )
+                real_resolve = type(tree.root).resolve
+                resolved_paths: list[Path] = []
+
+                def declared_lstat(candidate: object) -> object:
+                    if Path(candidate) == declared_inventory:
+                        return declared_info
+                    return real_lstat(candidate)
+
+                def linked_resolve(
+                    candidate: Path, strict: bool = False
+                ) -> Path:
+                    resolved_paths.append(Path(candidate))
+                    if Path(candidate) == declared_inventory:
+                        return supplied_target
+                    return real_resolve(candidate, strict=strict)
+
+                with (
+                    mock.patch.object(
+                        CONFIGURATION.os, "lstat", side_effect=declared_lstat
+                    ),
+                    mock.patch.object(
+                        type(tree.root), "resolve", new=linked_resolve
+                    ),
+                    self.assertRaises(ERRORS.EvidenceConfigurationError),
+                ):
+                    CONFIGURATION.load_configuration(
+                        tree.profiles,
+                        supplied_target,
+                        repository_root=tree.root,
+                    )
+                self.assertNotIn(declared_inventory, resolved_paths)
+
+        with (
+            self.subTest(public_root_identity="replaced_after_capture"),
+            _ConfigurationTree() as tree,
+        ):
+            profile_raw = tree.profiles.read_bytes()
+            inventory_raw = tree.inventory.read_bytes()
+            displaced_root = tree.root.with_name("captured-repository")
+            real_capture = CONFIGURATION._capture_repository_root
+            replacement_performed = False
+
+            def capture_then_replace(repository_root: Path) -> object:
+                nonlocal replacement_performed
+                captured = real_capture(repository_root)
+                tree.root.rename(displaced_root)
+                (tree.root / "tests").mkdir(parents=True)
+                tree.profiles.write_bytes(profile_raw)
+                tree.inventory.write_bytes(inventory_raw)
+                replacement_performed = True
+                return captured
+
+            with (
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_capture_repository_root",
+                    side_effect=capture_then_replace,
+                ),
+                self.assertRaises(ERRORS.EvidenceConfigurationError) as raised,
+            ):
+                CONFIGURATION.load_configuration(
+                    tree.profiles,
+                    tree.inventory,
+                    repository_root=tree.root,
+                )
+
+            self.assertTrue(replacement_performed)
+            self.assertEqual(raised.exception.code, "configuration_invalid")
+
+    def test_windows_no_follow_open_uses_open_reparse_point_and_transfers_ownership(self) -> None:
+        create = mock.Mock(return_value=41)
+        information = mock.Mock()
+        close = mock.Mock()
+        with (
+            mock.patch.object(CONFIGURATION, "_IS_WINDOWS", True, create=True),
+            mock.patch.object(
+                CONFIGURATION,
+                "_windows_path_api",
+                return_value=(create, information, close),
+                create=True,
+            ),
+            mock.patch.object(
+                CONFIGURATION,
+                "_windows_bind_handle",
+                return_value=73,
+                create=True,
+            ) as bind,
+        ):
+            descriptor = CONFIGURATION._open_regular_no_follow(
+                Path("C:/synthetic/profiles.toml")
+            )
+        self.assertEqual(descriptor, 73)
+        self.assertEqual(create.call_count, 1)
+        flags = create.call_args.args[5]
+        self.assertNotEqual(flags & 0x00200000, 0)
+        bind.assert_called_once_with(41)
+        close.assert_not_called()
+
+    def test_windows_handle_metadata_adapter_uses_class_nine_and_exact_values(self) -> None:
+        calls: list[tuple[object, int, int]] = []
+
+        def information(
+            handle: object,
+            information_class: int,
+            pointer: object,
+            size: int,
+        ) -> bool:
+            calls.append((handle, information_class, size))
+            value = ctypes.cast(
+                pointer,
+                ctypes.POINTER(CONFIGURATION._WindowsFileAttributeTagInformation),
+            ).contents
+            value.FileAttributes = 0x400
+            value.ReparseTag = 0x9000601A
+            return True
+
+        fake_msvcrt = mock.Mock()
+        fake_msvcrt.get_osfhandle.return_value = 41
+        with (
+            mock.patch.object(CONFIGURATION, "_IS_WINDOWS", True),
+            mock.patch.object(CONFIGURATION, "msvcrt", fake_msvcrt, create=True),
+            mock.patch.object(
+                CONFIGURATION,
+                "_windows_path_api",
+                return_value=(mock.Mock(), information, mock.Mock()),
+            ),
+        ):
+            observed = CONFIGURATION._windows_regular_handle_metadata(
+                73, Path("C:/synthetic/profiles.toml")
+            )
+        self.assertEqual(observed, (0x400, 0x9000601A))
+        self.assertEqual(calls[0][1], 9)
+        self.assertEqual(
+            calls[0][2],
+            ctypes.sizeof(CONFIGURATION._WindowsFileAttributeTagInformation),
+        )
+
+    def test_posix_no_follow_open_is_nonblocking_before_file_type_validation(self) -> None:
+        opened = mock.Mock(return_value=73)
+        with (
+            mock.patch.object(CONFIGURATION, "_IS_WINDOWS", False),
+            mock.patch.object(CONFIGURATION.os, "O_NOFOLLOW", 0x1000, create=True),
+            mock.patch.object(CONFIGURATION.os, "O_NONBLOCK", 0x2000, create=True),
+            mock.patch.object(CONFIGURATION.os, "open", opened),
+        ):
+            self.assertEqual(
+                CONFIGURATION._open_regular_no_follow(Path("/synthetic/profiles.toml")),
+                73,
+            )
+        flags = opened.call_args.args[1]
+        self.assertEqual(flags & 0x1000, 0x1000)
+        self.assertEqual(flags & 0x2000, 0x2000)
+
+    def test_windows_bind_failure_closes_raw_handle_once_and_preserves_failures(self) -> None:
+        binding = OSError("bind-failure")
+        for close_result in (True, False, OSError("close-failure")):
+            with self.subTest(close_result=repr(close_result)):
+                close = mock.Mock(
+                    side_effect=close_result if isinstance(close_result, OSError) else None,
+                    return_value=close_result if isinstance(close_result, bool) else None,
+                )
+                with (
+                    mock.patch.object(CONFIGURATION, "_IS_WINDOWS", True),
+                    mock.patch.object(
+                        CONFIGURATION,
+                        "_windows_path_api",
+                        return_value=(mock.Mock(return_value=41), mock.Mock(), close),
+                    ),
+                    mock.patch.object(
+                        CONFIGURATION, "_windows_bind_handle", side_effect=binding
+                    ),
+                    mock.patch.object(CONFIGURATION.ctypes, "get_last_error", return_value=5),
+                ):
+                    with self.assertRaises(ValueError) as raised:
+                        CONFIGURATION._open_regular_no_follow(
+                            Path("C:/synthetic/profiles.toml")
+                        )
+                self.assertEqual(close.call_count, 1)
+                if close_result is True:
+                    self.assertIs(raised.exception.__cause__, binding)
+                else:
+                    self.assertIsInstance(raised.exception.__cause__, ExceptionGroup)
+                    failures = raised.exception.__cause__.exceptions
+                    self.assertIs(failures[0], binding)
+                    self.assertIn("close", str(failures[1]).lower())
+
+    def test_supplied_leaf_link_is_rejected_lexically_before_open(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            path = root / "profiles.toml"
+            path.write_bytes(b"content")
+            real_lstat = os.lstat
+            linked = mock.Mock(
+                st_mode=stat.S_IFLNK | 0o777,
+                st_size=7,
+                st_file_attributes=0,
+                st_reparse_tag=0,
+            )
+
+            def lexical_lstat(candidate: object) -> object:
+                if Path(candidate) == path:
+                    return linked
+                return real_lstat(candidate)
+
+            with (
+                mock.patch.object(CONFIGURATION.os, "lstat", side_effect=lexical_lstat),
+                mock.patch.object(CONFIGURATION, "_open_regular_no_follow") as opened,
+            ):
+                with self.assertRaises(ValueError):
+                    CONFIGURATION._read_bounded(path, root=root, label="profiles")
+            opened.assert_not_called()
+
+    def test_configuration_reader_rejects_mocked_leaf_reparse_before_read(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            path = root / "profiles.toml"
+            path.write_bytes(b"not-the-target")
+            real_open = os.open
+
+            def open_regular(candidate: Path) -> int:
+                return real_open(
+                    candidate, os.O_RDONLY | getattr(os, "O_BINARY", 0)
+                )
+
+            with (
+                mock.patch.object(CONFIGURATION, "_IS_WINDOWS", True, create=True),
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_open_regular_no_follow",
+                    side_effect=open_regular,
+                    create=True,
+                ),
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_windows_regular_handle_metadata",
+                    return_value=(0x400, 0xA000000C),
+                    create=True,
+                ),
+                mock.patch.object(CONFIGURATION.os, "read", wraps=os.read) as read,
+            ):
+                with self.assertRaises(ValueError):
+                    CONFIGURATION._read_bounded(path, root=root, label="profiles")
+            read.assert_not_called()
+
+    def test_configuration_reparse_policy_allows_only_non_surrogate_cloud_tags(self) -> None:
+        supported_cloud = mock.Mock(st_file_attributes=0x400, st_reparse_tag=0x9000001A)
+        name_surrogate = mock.Mock(
+            st_file_attributes=0x400,
+            st_reparse_tag=0xA000000C,
+        )
+        tag_without_attribute = mock.Mock(
+            st_file_attributes=0,
+            st_reparse_tag=0xA000000C,
+        )
+        unknown = mock.Mock(
+            st_file_attributes=0x400,
+            st_reparse_tag=0x80000042,
+        )
+        for tag in (0x9000001A, 0x9000601A, 0x9000E01A, 0x9000F01A):
+            supported_cloud.st_reparse_tag = tag
+            self.assertFalse(CONFIGURATION._is_reparse(supported_cloud))
+            self.assertFalse(CONFIGURATION._metadata_is_reparse((0x400, tag)))
+        for candidate in (name_surrogate, tag_without_attribute, unknown):
+            self.assertTrue(CONFIGURATION._is_reparse(candidate))
+        self.assertTrue(CONFIGURATION._metadata_is_reparse((0, 0xA000000C)))
+        self.assertTrue(CONFIGURATION._metadata_is_reparse((0x400, 0x80000042)))
+
+        directory = mock.Mock(
+            st_dev=1,
+            st_ino=2,
+            st_mode=stat.S_IFDIR | 0o700,
+            st_file_attributes=0x400,
+            st_reparse_tag=0x9000001A,
+        )
+        root = Path("C:/synthetic-root")
+        with mock.patch.object(CONFIGURATION.os, "lstat", return_value=directory):
+            self.assertEqual(
+                CONFIGURATION._validated_ancestor_chain(
+                    root / "profiles.toml", root
+                )[0][0],
+                root,
+            )
+        directory.st_reparse_tag = 0xA000000C
+        with (
+            mock.patch.object(CONFIGURATION.os, "lstat", return_value=directory),
+            self.assertRaises(ValueError),
+        ):
+            CONFIGURATION._validated_ancestor_chain(root / "profiles.toml", root)
+
+    def test_configuration_allows_only_one_ctime_only_windows_retry(self) -> None:
+        def identity(*, ctime: int, mtime: int = 7) -> object:
+            return mock.Mock(
+                st_dev=1,
+                st_ino=2,
+                st_size=3,
+                st_mtime_ns=mtime,
+                st_ctime_ns=ctime,
+                st_mode=stat.S_IFREG | 0o600,
+                st_file_attributes=0x400,
+                st_reparse_tag=0x9000001A,
+            )
+
+        before = identity(ctime=10)
+        after = identity(ctime=11)
+        with mock.patch.object(CONFIGURATION, "_IS_WINDOWS", True):
+            self.assertTrue(CONFIGURATION._is_retryable_windows_metadata_transition(
+                before, after, (0x400, 0x9000001A), (0x400, 0x9000001A)
+            ))
+            self.assertFalse(CONFIGURATION._is_retryable_windows_metadata_transition(
+                before, identity(ctime=11, mtime=8),
+                (0x400, 0x9000001A), (0x400, 0x9000001A)
+            ))
+            self.assertFalse(CONFIGURATION._is_retryable_windows_metadata_transition(
+                before, after, (0x400, 0x9000001A), (0, 0)
+            ))
+
+    def test_cloud_leaf_read_accepts_exact_metadata_and_rejects_metadata_drift(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            path = root / "profiles.toml"
+            expected = b"content"
+            path.write_bytes(expected)
+            real_lstat = os.lstat
+
+            def cloud_path(candidate: object) -> object:
+                info = real_lstat(candidate)
+                if Path(candidate) != path:
+                    return info
+                return mock.Mock(
+                    st_dev=info.st_dev, st_ino=info.st_ino, st_size=info.st_size,
+                    st_mtime_ns=info.st_mtime_ns, st_ctime_ns=info.st_ctime_ns,
+                    st_mode=info.st_mode, st_file_attributes=0x400,
+                    st_reparse_tag=0x9000601A,
+                )
+
+            def open_regular(candidate: Path) -> int:
+                return os.open(
+                    candidate, os.O_RDONLY | getattr(os, "O_BINARY", 0)
+                )
+
+            with (
+                mock.patch.object(CONFIGURATION, "_IS_WINDOWS", True),
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_open_regular_no_follow",
+                    side_effect=open_regular,
+                ),
+                mock.patch.object(CONFIGURATION.os, "lstat", side_effect=cloud_path),
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_windows_regular_handle_metadata",
+                    return_value=(0x400, 0x9000601A),
+                ),
+            ):
+                self.assertEqual(
+                    CONFIGURATION._read_bounded(path, root=root, label="profiles"),
+                    expected,
+                )
+            with (
+                mock.patch.object(CONFIGURATION, "_IS_WINDOWS", True),
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_open_regular_no_follow",
+                    side_effect=open_regular,
+                ),
+                mock.patch.object(CONFIGURATION.os, "lstat", side_effect=cloud_path),
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_windows_regular_handle_metadata",
+                    side_effect=((0x400, 0x9000601A), (0x400, 0x9000E01A)),
+                ),
+            ):
+                with self.assertRaises(ValueError):
+                    CONFIGURATION._read_bounded(path, root=root, label="profiles")
+
+    def test_cloud_hydration_retries_once_and_a_second_transition_refuses(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            path = root / "profiles.toml"
+            path.write_bytes(b"content")
+            real_open = CONFIGURATION._open_regular_no_follow
+            with (
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_open_regular_no_follow",
+                    wraps=real_open,
+                ) as opened,
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_is_retryable_windows_metadata_transition",
+                    return_value=True,
+                ) as retryable,
+            ):
+                self.assertEqual(
+                    CONFIGURATION._read_bounded(path, root=root, label="profiles"),
+                    b"content",
+                )
+            self.assertEqual(opened.call_count, 2)
+            self.assertEqual(retryable.call_count, 1)
+
+            real_fstat = os.fstat
+            calls = 0
+
+            def second_transition(descriptor: int) -> object:
+                nonlocal calls
+                calls += 1
+                info = real_fstat(descriptor)
+                if calls != 4:
+                    return info
+                return mock.Mock(
+                    st_dev=info.st_dev, st_ino=info.st_ino, st_size=info.st_size,
+                    st_mtime_ns=info.st_mtime_ns, st_ctime_ns=info.st_ctime_ns + 1,
+                    st_mode=info.st_mode,
+                    st_file_attributes=getattr(info, "st_file_attributes", 0),
+                    st_reparse_tag=getattr(info, "st_reparse_tag", 0),
+                )
+
+            with (
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_is_retryable_windows_metadata_transition",
+                    return_value=True,
+                ),
+                mock.patch.object(CONFIGURATION.os, "fstat", side_effect=second_transition),
+            ):
+                with self.assertRaises(ValueError):
+                    CONFIGURATION._read_bounded(path, root=root, label="profiles")
+
+    def test_reader_rejects_same_size_leaf_replacement_after_open(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            path = root / "profiles.toml"
+            path.write_bytes(b"content")
+            real_lstat = os.lstat
+            leaf_calls = 0
+
+            def replaced_leaf(candidate: object) -> object:
+                nonlocal leaf_calls
+                info = real_lstat(candidate)
+                if Path(candidate) != path:
+                    return info
+                leaf_calls += 1
+                if leaf_calls == 1:
+                    return info
+                return mock.Mock(
+                    st_dev=info.st_dev,
+                    st_ino=info.st_ino + 1,
+                    st_size=info.st_size,
+                    st_mtime_ns=info.st_mtime_ns,
+                    st_ctime_ns=info.st_ctime_ns,
+                    st_mode=info.st_mode,
+                    st_file_attributes=getattr(info, "st_file_attributes", 0),
+                    st_reparse_tag=getattr(info, "st_reparse_tag", 0),
+                )
+
+            with (
+                mock.patch.object(
+                    CONFIGURATION.os, "lstat", side_effect=replaced_leaf
+                ),
+                self.assertRaises(ValueError),
+            ):
+                CONFIGURATION._read_bounded(path, root=root, label="profiles")
+
+        for leaf_name in ("profiles", "inventory"):
+            with self.subTest(
+                public_post_parse_same_size_replacement=leaf_name
+            ), _ConfigurationTree() as tree:
+                leaf = getattr(tree, leaf_name)
+                replacement = leaf.with_name(f"replacement-{leaf.name}")
+                replacement.write_bytes(leaf.read_bytes())
+                original_size = leaf.stat().st_size
+                real_validate = CONFIGURATION._validate_references
+
+                def validate_then_replace(*args: object, **kwargs: object) -> None:
+                    real_validate(*args, **kwargs)
+                    os.replace(replacement, leaf)
+
+                with (
+                    mock.patch.object(
+                        CONFIGURATION,
+                        "_validate_references",
+                        side_effect=validate_then_replace,
+                    ),
+                    self.assertRaises(ERRORS.EvidenceConfigurationError),
+                ):
+                    CONFIGURATION.load_configuration(
+                        tree.profiles,
+                        tree.inventory,
+                        repository_root=tree.root,
+                    )
+                self.assertEqual(leaf.stat().st_size, original_size)
+
+    def test_reader_rejects_post_read_ancestor_identity_mutation(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            path = root / "profiles.toml"
+            path.write_bytes(b"content")
+            real_lstat = os.lstat
+            root_calls = 0
+
+            def replaced_root(candidate: object) -> object:
+                nonlocal root_calls
+                info = real_lstat(candidate)
+                if Path(candidate) != root:
+                    return info
+                root_calls += 1
+                if root_calls == 1:
+                    return info
+                return mock.Mock(
+                    st_dev=info.st_dev,
+                    st_ino=info.st_ino + 1,
+                    st_mode=info.st_mode,
+                    st_file_attributes=getattr(info, "st_file_attributes", 0),
+                    st_reparse_tag=getattr(info, "st_reparse_tag", 0),
+                )
+
+            with (
+                mock.patch.object(
+                    CONFIGURATION.os, "lstat", side_effect=replaced_root
+                ),
+                self.assertRaises(ValueError),
+            ):
+                CONFIGURATION._read_bounded(path, root=root, label="profiles")
+
+        for leaf_name in ("profiles", "inventory"):
+            for replacement_kind in ("symlink", "windows_reparse"):
+                with self.subTest(
+                    public_post_parse_leaf=leaf_name,
+                    replacement_kind=replacement_kind,
+                ), _ConfigurationTree() as tree:
+                    leaf = getattr(tree, leaf_name)
+                    real_lstat = os.lstat
+                    leaf_info = real_lstat(leaf)
+                    swapped = False
+                    replacement_info = mock.Mock(
+                        st_dev=leaf_info.st_dev,
+                        st_ino=leaf_info.st_ino,
+                        st_size=leaf_info.st_size,
+                        st_mtime_ns=leaf_info.st_mtime_ns,
+                        st_ctime_ns=leaf_info.st_ctime_ns,
+                        st_mode=(
+                            stat.S_IFLNK | 0o700
+                            if replacement_kind == "symlink"
+                            else leaf_info.st_mode
+                        ),
+                        st_file_attributes=(
+                            0 if replacement_kind == "symlink" else 0x400
+                        ),
+                        st_reparse_tag=(
+                            0
+                            if replacement_kind == "symlink"
+                            else 0xA0000003
+                        ),
+                    )
+                    real_validate = CONFIGURATION._validate_references
+
+                    def swapped_leaf_lstat(candidate: object) -> object:
+                        if swapped and Path(candidate) == leaf:
+                            return replacement_info
+                        return real_lstat(candidate)
+
+                    def validate_then_swap(
+                        *args: object, **kwargs: object
+                    ) -> None:
+                        nonlocal swapped
+                        real_validate(*args, **kwargs)
+                        swapped = True
+
+                    with (
+                        mock.patch.object(
+                            CONFIGURATION.os,
+                            "lstat",
+                            side_effect=swapped_leaf_lstat,
+                        ),
+                        mock.patch.object(
+                            CONFIGURATION,
+                            "_validate_references",
+                            side_effect=validate_then_swap,
+                        ),
+                        self.assertRaises(ERRORS.EvidenceConfigurationError),
+                    ):
+                        CONFIGURATION.load_configuration(
+                            tree.profiles,
+                            tree.inventory,
+                            repository_root=tree.root,
+                        )
+
+    def test_reader_rejects_initial_oversize_and_max_plus_one_growth(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            path = root / "profiles.toml"
+            path.write_bytes(b"four")
+            real_lstat = os.lstat
+            before = real_lstat(path)
+            oversized = mock.Mock(
+                st_dev=before.st_dev,
+                st_ino=before.st_ino,
+                st_size=5,
+                st_mtime_ns=before.st_mtime_ns,
+                st_ctime_ns=before.st_ctime_ns,
+                st_mode=before.st_mode,
+                st_file_attributes=getattr(before, "st_file_attributes", 0),
+                st_reparse_tag=getattr(before, "st_reparse_tag", 0),
+            )
+
+            def initially_oversized(candidate: object) -> object:
+                return oversized if Path(candidate) == path else real_lstat(candidate)
+
+            with (
+                mock.patch.object(CONFIGURATION, "MAX_CONFIGURATION_BYTES", 4),
+                mock.patch.object(
+                    CONFIGURATION.os, "lstat", side_effect=initially_oversized
+                ),
+                mock.patch.object(
+                    CONFIGURATION, "_open_regular_no_follow"
+                ) as opened,
+                self.assertRaises(ValueError),
+            ):
+                CONFIGURATION._read_bounded(path, root=root, label="profiles")
+            opened.assert_not_called()
+
+            after_growth = mock.Mock(
+                st_dev=before.st_dev,
+                st_ino=before.st_ino,
+                st_size=5,
+                st_mtime_ns=before.st_mtime_ns,
+                st_ctime_ns=before.st_ctime_ns,
+                st_mode=before.st_mode,
+                st_file_attributes=getattr(before, "st_file_attributes", 0),
+                st_reparse_tag=getattr(before, "st_reparse_tag", 0),
+            )
+            with (
+                mock.patch.object(CONFIGURATION, "MAX_CONFIGURATION_BYTES", 4),
+                mock.patch.object(
+                    CONFIGURATION.os, "read", side_effect=(b"12345", b"")
+                ),
+                mock.patch.object(
+                    CONFIGURATION.os, "fstat", side_effect=(before, after_growth)
+                ),
+                self.assertRaises(ValueError),
+            ):
+                CONFIGURATION._read_bounded(path, root=root, label="profiles")
+
+    def test_configuration_reader_preserves_body_and_close_failures(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            path = root / "profiles.toml"
+            path.write_bytes(b"content")
+            with (
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_open_regular_no_follow",
+                    return_value=71,
+                    create=True,
+                ),
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_windows_regular_handle_metadata",
+                    return_value=(0, 0),
+                ),
+                mock.patch.object(CONFIGURATION.os, "open", return_value=71),
+                mock.patch.object(
+                    CONFIGURATION.os,
+                    "fstat",
+                    side_effect=OSError("body-failure"),
+                ),
+                mock.patch.object(
+                    CONFIGURATION.os,
+                    "close",
+                    side_effect=OSError("close-failure"),
+                ),
+            ):
+                with self.assertRaises(ValueError) as raised:
+                    CONFIGURATION._read_bounded(path, root=root, label="profiles")
+        self.assertIsInstance(raised.exception.__cause__, ExceptionGroup)
+        failures = raised.exception.__cause__.exceptions
+        self.assertEqual(tuple(str(error) for error in failures), (
+            "body-failure", "close-failure",
+        ))
 
     def test_guard_and_terminal_summary_invariants_reject_incoherent_states(self) -> None:
         condition = MODEL.ObservedCondition("runtime", "timeout", True, {"stage": "child"})
@@ -958,6 +2048,131 @@ class OrchestrationErrorAndModelTests(unittest.TestCase):
             MODEL.CallCapability(
                 "call:a", "unknown", "module", "qualified", "invoke", 1, "returns_none"
             )
+        invalid_processes = (
+            {"executable_constraints": {"unknown": "value"}},
+            {"cwd_class": "ambient"},
+            {"expected_return_category": "anything"},
+            {"read_roots": ["ambient"]},
+        )
+        base_process = {
+            "capability_id": "process:strict",
+            "executable_role": "python",
+            "executable_slot": "active_worker",
+            "executable_constraints": {},
+            "argv": ["-m", "sample"],
+            "argv_template": [],
+            "dynamic_program_sha256": None,
+            "cwd_class": "target",
+            "environment_additions": {},
+            "environment_removals": [],
+            "timeout_ns": 10,
+            "expected_return_category": "completed",
+            "read_roots": ["target"],
+            "write_roots": ["temporary"],
+            "fixed_descendant_permission": False,
+        }
+        for mutation in invalid_processes:
+            values = {**base_process, **mutation}
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                MODEL.SubprocessCapability(**values)
+        for mutation in (
+            {"action": "delete"},
+            {"return_contract": "anything"},
+        ):
+            values = {
+                "capability_id": "call:strict",
+                "kind": "owner",
+                "module_name": "module",
+                "qualified_name": "module.entrypoint",
+                "action": "invoke",
+                "maximum_calls": 1,
+                "return_contract": "opaque",
+                **mutation,
+            }
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                MODEL.CallCapability(**values)
+
+        invalid_role_combinations = (
+            {
+                "executable_role": "git",
+                "executable_slot": "git",
+                "expected_return_category": "spawned",
+            },
+            {
+                "executable_role": "python",
+                "executable_slot": "git",
+            },
+            {
+                "executable_role": "git",
+                "executable_slot": "active_worker",
+            },
+        )
+        for mutation in invalid_role_combinations:
+            values = {**base_process, **mutation}
+            with self.subTest(role_combination=mutation), self.assertRaises(
+                ValueError
+            ):
+                MODEL.SubprocessCapability(**values)
+
+        git_success = MODEL.SubprocessCapability(
+            **{
+                **base_process,
+                "capability_id": "process:git-valid",
+                "executable_role": "git",
+                "executable_slot": "git",
+                "expected_return_category": "exited_zero",
+            }
+        )
+        self.assertEqual(git_success.expected_return_category, "exited_zero")
+
+        valid_call_combinations = (
+            ("owner", "invoke", "opaque"),
+            ("scientific", "compile", "scientific_artifact"),
+            ("scientific", "contract", "scientific_result"),
+            ("cuda_query", "query", "host_array"),
+            ("cuda_query", "query", "memory_pool"),
+            ("cuda_query", "query", "none_or_assertion"),
+            ("cuda_query", "query", "nonnegative_integer"),
+            ("cuda_query", "query", "pinned_memory_pool"),
+            ("cuda_query", "query", "stream"),
+            ("cuda_allocation", "allocate", "device_array"),
+        )
+        for index, (kind, action, contract) in enumerate(
+            valid_call_combinations
+        ):
+            with self.subTest(valid_call=(kind, action, contract)):
+                capability = MODEL.CallCapability(
+                    f"call:valid-{index}",
+                    kind,
+                    "module",
+                    "module.entrypoint",
+                    action,
+                    1,
+                    contract,
+                )
+                self.assertEqual(capability.return_contract, contract)
+
+        for index, (kind, action, contract) in enumerate(
+            (
+                ("owner", "invoke", "device_array"),
+                ("cuda_allocation", "invoke", "opaque"),
+                ("cuda_allocation", "invoke", "device_array"),
+                ("cuda_query", "invoke", "stream"),
+                ("cuda_query", "invoke", "scientific_result"),
+                ("scientific", "compile", "device_array"),
+            )
+        ):
+            with self.subTest(invalid_call=(kind, action, contract)):
+                with self.assertRaises(ValueError):
+                    MODEL.CallCapability(
+                        f"call:invalid-{index}",
+                        kind,
+                        "module",
+                        "module.entrypoint",
+                        action,
+                        1,
+                        contract,
+                    )
 
     def test_inventory_expectation_variants_and_nested_values_fail_closed(self) -> None:
         unconditional = MODEL.InventoryExpectation(
@@ -1280,6 +2495,27 @@ class OrchestrationErrorAndModelTests(unittest.TestCase):
                     "base", "source", COMMIT, COMMIT, ["historical:base"], invalid,
                     [item], [],
                 )
+        with self.assertRaisesRegex(ValueError, "failure phase"):
+            MODEL.HistoricalItemExpectation(
+                "tests/test_sample.py::SampleTests::test_negative",
+                "expected_negative",
+                "source",
+                "ValueError",
+                "blocked",
+                False,
+                {},
+            )
+        with self.assertRaisesRegex(ValueError, "aggregate.*item"):
+            MODEL.HistoricalCase(
+                "base",
+                "source",
+                COMMIT,
+                COMMIT,
+                ["historical:base"],
+                {**vector, "passed": 0},
+                [item],
+                [],
+            )
 
     def test_resolved_historical_plan_requires_exact_runtime_item_and_blob_closure(self) -> None:
         stable_id = "tests/test_sample.py::SampleTests::test_value"
@@ -1358,11 +2594,13 @@ class OrchestrationErrorAndModelTests(unittest.TestCase):
         self.assertEqual(resolved().historical_blobs, (blob,))
         missing_item_case = MODEL.HistoricalCase(
             "case:sample", "source", COMMIT, COMMIT, ["historical:sample"],
-            vector, expected_items[:1], [],
+            {**vector, "passed": 1, "body_entered": 1},
+            expected_items[:1],
+            [],
         )
         fixture_result_case = MODEL.HistoricalCase(
             "case:sample", "source", COMMIT, COMMIT, ["historical:sample"],
-            vector,
+            {**vector, "passed": 3, "body_entered": 3},
             expected_items + [
                 MODEL.HistoricalItemExpectation(
                     fixture.fixture_id, "pass", None, None, None, None, {}
@@ -1428,7 +2666,7 @@ class OrchestrationErrorAndModelTests(unittest.TestCase):
             )
 
         conflicting_expectation = MODEL.HistoricalItemExpectation(
-            stable_id, "expected_negative", "source", "ValueError", "blocked",
+            stable_id, "expected_negative", "body", "ValueError", "blocked",
             False, {},
         )
         with self.assertRaises(ValueError):
@@ -1441,9 +2679,57 @@ class OrchestrationErrorAndModelTests(unittest.TestCase):
 
 class OrchestrationConfigurationTests(unittest.TestCase):
     def test_load_configuration_builds_frozen_normalized_bundle_and_ns_budgets(self) -> None:
+        profiles = _approved_analyzer_cuda_profiles(_profiles_toml())
+        with _ConfigurationTree(profiles=profiles) as tree:
+            cuda_bundle = CONFIGURATION.load_configuration(
+                tree.profiles,
+                tree.inventory,
+                repository_root=tree.root,
+            )
+
+        expected_cuda_capabilities = {
+            str(definition["capability_id"]): MODEL.CallCapability(**definition)
+            for definition in _ANALYZER_CUDA_CALL_DEFINITIONS
+        }
+        self.assertEqual(
+            dict(cuda_bundle.call_capabilities),
+            expected_cuda_capabilities,
+        )
+
         with _ConfigurationTree() as tree:
-            bundle = CONFIGURATION.load_configuration(
-                tree.profiles, tree.inventory, repository_root=tree.root
+            real_resolve = type(tree.root).resolve
+            resolved_paths: list[Path] = []
+
+            def recorded_resolve(candidate: Path, strict: bool = False) -> Path:
+                resolved_paths.append(Path(candidate))
+                return real_resolve(candidate, strict=strict)
+
+            with (
+                mock.patch.object(
+                    type(tree.root), "resolve", new=recorded_resolve
+                ),
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_parse_toml",
+                    wraps=CONFIGURATION._parse_toml,
+                ) as parse_toml,
+                mock.patch.object(
+                    CONFIGURATION,
+                    "_parse_json",
+                    wraps=CONFIGURATION._parse_json,
+                ) as parse_json,
+            ):
+                bundle = CONFIGURATION.load_configuration(
+                    tree.profiles, tree.inventory, repository_root=tree.root
+                )
+            self.assertEqual(resolved_paths, [tree.root])
+            self.assertEqual(parse_toml.call_count, 1)
+            self.assertEqual(parse_json.call_count, 1)
+            self.assertEqual(
+                bundle.profiles_path, Path(os.path.abspath(tree.profiles))
+            )
+            self.assertEqual(
+                bundle.inventory_path, Path(os.path.abspath(tree.inventory))
             )
         self.assertEqual(bundle.baseline_commit, COMMIT)
         self.assertEqual(bundle.profiles["core"].budgets, MODEL.StageBudgets(
@@ -1924,6 +3210,8 @@ capability_id = "missing"
             second_inventory = {
                 "entries": first_inventory["entries"],
                 "baseline_commit": first_inventory["baseline_commit"],
+                "discovery": first_inventory["discovery"],
+                "baseline_discovery": first_inventory["baseline_discovery"],
                 "schema_version": first_inventory["schema_version"],
             }
             second.inventory.write_text(

@@ -15,86 +15,88 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Adopt all three amendments as binding protocol for every lifecycle and lane
-opened after this decision.
+Park the compiled synthetic topology-calibration lane and open the playable
+v0a integration boundary.
 
-**Rehearsal tier.** The lifecycle is preregister, source-seal, rehearse, then
-authorize exactly one invocation, then retain. A rehearsal executes the
-sealed lifecycle end to end against synthetic fixtures or a miniature domain
-under rehearsal-scoped identities that can never collide with or consume the
-authorized owner's one-shot identities. Rehearsal output carries no
-evidentiary standing: it may never feed a fit, gate, materiality conjunct,
-ranking, claim, or candidate selection, and because it cannot produce
-evidence it cannot be tuned against evidence. Rehearsal logs may be kept for
-engineering diagnosis and are labeled non-evidentiary. Every wall, budget, or
-population bound frozen by a preregistration must carry a scaled rehearsal
-measurement as its recorded provenance; freezing an unmeasured number as a
-hard gate is no longer permitted. Every source seal records a walk of the
-workflow protocol's review checklist, which grows one line per new incident
-class and never shrinks.
+The decisive observation is that the checkpoint's branches are not parallel:
+the producer branch's own preconditions are the integration branch's
+deliverables. Binding a producer requires its epoch identity, refresh
+cadence, and cold-versus-hit frequency *in the one-seat river bridge* — and
+no such bridge exists until v0a integration builds it. Continuing the
+compiled lane would therefore mean performing the integration work anyway
+while the lane's fixed costs continue to accrue against a workload the
+repository still classifies as `producer_absent`. The lane priced a
+structure nothing in production produces or refreshes; ADR-0455 froze
+certificate frequency per action as explicitly unknown; and the charter
+metric cannot value a faster certificate pricer without a decision loop
+consuming certificates at a real cadence. Meanwhile the retained strategy
+evidence locates the binding constraint elsewhere: certification fits the
+15,000 ms wall with seconds of headroom, while candidate generation and
+extreme opportunity concentration — two of eight targets carrying 88.78
+percent of certified value — remain the weak link.
 
-**Parking categories.** Every future parking verdict names its category in
-the retaining decision. `parked - falsified` means the scientific gate
-rejected the mechanism: permanent, exactly as today, with kill criteria
-binding forever. `parked - gate defect` means the panel, wall, predicate, or
-lifecycle failed rather than the hypothesis: the mechanism becomes eligible
-for exactly one fresh preregistration under a redesigned gate, with every
-old panel, population, and opened value discarded and unusable. A second
-gate-defect eligibility for the same mechanism requires a new explicit
-gate-defect ruling on the fresh attempt; eligibility does not accumulate.
-Anything feeding a poker-strength claim keeps permanent parking regardless
-of category. This ruling is prospective only: no already-parked candidate is
-reclassified, revived, or re-opened by it, and any historical
-reclassification requires its own future decision that must honor the
-original retention's kill criteria — ADR-0476's permanent closure of v7, and
-every other recorded closure, stand untouched.
+Parking is retention, not deletion. Every candidate, closure, seal, and
+retained byte in the lane keeps its exact recorded standing: v1 through v7
+remain closed exactly as their ADRs state, no parking category is
+retroactively assigned under ADR-0482, and the four source-sealed exact
+topology arms of ADR-0456 remain sealed assets available to a future fresh
+preregistration. The 2026-08-29 audit's read-only diagnostic — that v7's
+dominant cold cover executed on a single device thread — is retained as the
+reopened lane's first candidate hypothesis: a structurally different
+implementation to be tested under a fresh lifecycle, never a speed claim
+inferred from the rejected artifact. The lane reopens only under the binding
+reopening condition in this decision's header, which preserves every
+ADR-0476 constraint verbatim.
 
-**Lane-level circuit breakers.** Every experiment lane opened after this
-decision preregisters lane kill criteria in its first preregistration, at
-minimum: two consecutive owner deaths on infrastructure, lifecycle, or
-authorization grounds trigger a mandatory harness stand-down and review
-before any successor source seal; and a lane budget — a lifecycle count or
-calendar bound chosen at lane opening — whose exhaustion forces an
-architecture checkpoint with an explicit park-or-continue ruling. The
-compiled-calibration lane is already at its checkpoint under ADR-0476 and is
-governed by that directive, not retrofitted here.
+The opened boundary is the product's walking skeleton: one complete replayed
+hand in which the ADR-0308 exact spine owns every controlled action's
+15,000 ms wall, the ADR-0290 explicit-deal loop supplies the legal game and
+five opponent axes, the prepared h32 machinery emits its certified river
+decision inside the wall, and the immutable blueprint answers everything
+else, fail-closed. The first v0a preregistration must carry ADR-0482 lane
+kill criteria and rehearsal coverage, and must instrument the bridge from
+the start to record would-be base-producer events — base identity, epoch,
+and cold-versus-hit outcomes — so that ordinary v0a operation continuously
+accumulates the exact measurement provenance a future compiled-lane
+preregistration would require. That instrumentation is engineering
+telemetry and measurement provenance in the ADR-0482 sense; it is not a
+research result and opens no value by itself.
 
 The inherited front-door trust chain remains explicit, and every continuity
 statement of ADR-0480's decision — the complete trust chain from ADR-0310
 through ADR-0476, the machine-checked continuity directives, and the exact
-historical continuity strings — remains binding and unchanged, with the
-extension that ADR-0477 through ADR-0482 record the stabilization era —
-archive replication, the agent charter and collaboration protocol, the
-evidence layer and sealed-boundary manifests, the orchestration absorption,
-the release-interpreter identity correction, and these adopted lifecycle
-amendments — without invoking any consumed owner or altering any retained
-byte.
+historical continuity strings — remains binding and unchanged; ADR-0477
+through ADR-0482 record the stabilization era as ADR-0482 states, and
+ADR-0483 resolves the ADR-0476 architecture checkpoint by parking the
+compiled topology-calibration lane and opening the playable v0a integration
+boundary, without invoking any consumed owner or altering any retained byte.
 
 ### Result boundary
 
-This decision adopts process rules. It runs no experiment, opens no value,
-revives no candidate, and changes no retained byte. The rehearsal tier and
-lane breakers bind lifecycles and lanes opened after this decision; existing
-retained decisions keep their exact recorded standing.
+This decision is a ruling. It runs no experiment, opens no value, selects no
+topology, reclassifies no parked candidate, and changes no retained byte.
+The v0a boundary is opened for preregistration, not begun: no v0a increment
+exists until its own preregistration and lifecycle create it.
 
 ### Kill criteria
 
-Kill any rehearsal output that reaches a fit, gate, claim, or selection.
-Kill any preregistration that freezes an unmeasured wall or budget. Kill any
-lane opened without lane kill criteria. Kill any second fresh
-preregistration claimed under a gate-defect parking without a new explicit
-ruling. Kill any retroactive reclassification of a parked candidate that
-lacks its own decision or violates the original kill criteria.
+Kill any compiled-lane successor that lacks the bridge-measured producer
+telemetry, a wholly fresh ADR-0482-governed preregistration, or any
+ADR-0476 constraint. Kill any v0a increment preregistered without lane kill
+criteria or rehearsal coverage. Kill any use of bridge telemetry as a
+research result rather than measurement provenance. Kill any reading of the
+retained parallelization hypothesis as a v7-derived speed result.
 
 ### Claims boundary
 
-ADR-0482 proves only the adoption stated above. It clears no ADR-0476
-research blocker, authorizes no item of the holistic-audit backlog, does not
-retry or reopen any parked or consumed work, and makes no research claim.
+ADR-0483 proves only the ruling and its grounds as stated. It clears no
+research blocker, makes no strength, resolver, action-clock, or blueprint
+claim, and promises no outcome of the v0a lane beyond opening it to its own
+preregistered, rehearsed, breaker-guarded lifecycle.
 
 ## Active next
 
-Hold the compiled synthetic topology-calibration lane and conduct the architecture checkpoint before any successor owner: bind a real production source-local base producer, its exact algebra, epoch identity, refresh cadence, exponent admission, and cold-versus-hit frequency in the one-seat river bridge, or park this lane and return to v0a integration; any later compiled experiment requires a fresh preregistration and lifecycle under the ADR-0482 rehearsal and lane-breaker rules, must charge cold structural cover once per genuine production epoch and provenance hits at their actual consumers, and may not reuse v7's partial rows, relax the rejected wall, thin the frozen population, or select an arm from this artifact. Separately, continue the stabilization plan's remaining orchestration tasks under the installed collaboration protocol
+Open the playable v0a integration boundary: preregister the first v0a increment that joins the ADR-0308 action-clock spine (ActionClockLedger, PreparationBank, LegalDecisionSpineV2) and the ADR-0290 explicit-deal reference loop into one complete replayed hand with the prepared h32 certified river decision inside a single 15,000 ms response wall and the immutable-blueprint fallback on every other action, carrying ADR-0482 lane kill criteria and rehearsal coverage in that first preregistration, and instrumenting the bridge from the start to record would-be base-producer events — base identity, epoch, and cold-versus-hit outcomes — as measurement provenance for any future compiled-lane preregistration; the compiled topology-calibration lane is parked and may reopen only per the ADR-0483 reopening condition; separately, continue the stabilization plan's remaining orchestration tasks under the installed collaboration protocol
 
 ## Revoked authorities
 
@@ -105,7 +107,7 @@ Hold the compiled synthetic topology-calibration lane and conduct the architectu
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0482](docs/decisions/ADR-0482-adopt-the-rehearsal-parking-and-lane-breaker-amendments.md) — Adopt the rehearsal, parking, and lane-breaker amendments.
+Latest process decision: [ADR-0483](docs/decisions/ADR-0483-park-the-compiled-lane-and-open-v0a-integration.md) — Park the compiled lane and open v0a integration.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -113,7 +115,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0459](docs/decisions/ADR-0459-retain-the-unjournaled-absolute-git-infrastructure-rejection.md) | 2026-08-26 | accepted retained sole pre-owner infrastructure rejection; the exact clean ADR-0458 command was invoked once and exited with `FileNotFoundError: [WinError 2] The system cannot find the file specified` because the owner replaced the process environment with the scrubbed compiler mapping before its relative `git` clean-seal call, no durable result was created, and no compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, or production claim exists | Retain the unjournaled absolute-Git infrastructure rejection |
 | [ADR-0460](docs/decisions/ADR-0460-preregister-the-absolute-git-compiled-calibration-successor.md) | 2026-08-26 | accepted prospective plumbing-only successor; a fresh protocol, campaign, module, launcher, reader, controls, and v2 result identity are frozen around the byte-identical ADR-0458 scientific source, every Git metadata subprocess must use the exact ADR-0443 absolute hash-bound executable before and after complete activated-environment replacement, and a post-scrub source probe must exercise that real call path before any compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, or result exists | Preregister the absolute-Git compiled-calibration successor |
 | [ADR-0461](docs/decisions/ADR-0461-source-seal-the-absolute-git-compiled-calibration-successor.md) | 2026-08-26 | accepted no-compiler plumbing source seal; the fresh ADR-0460 launcher, additive owner binding, independently constant-bound reader, exact post-scrub absolute-Git probe, immutable ADR-0458 scientific source, fresh dependency/result identity, exclusive synthetic terminal, and eight focused controls pass, while both calibration results remain absent and no compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Source-seal the absolute-Git compiled-calibration successor |
 | [ADR-0462](docs/decisions/ADR-0462-retain-the-timed-rrns-direct-launch-arity-rejection.md) | 2026-08-26 | accepted retained sole ADR-0461 calibration rejection; the fresh absolute-Git owner compiled and loaded the exact 28-kernel cubin, passed resource and reduced-memory admission, completed and independently verified one positional warmup cell, then the next RRNS timed cell reached `direct_prices_rrns_batch` with eight host arguments for a nine-parameter CUDA declaration and terminated with `CUDA_ERROR_INVALID_VALUE`, leaving zero measured calls and no materiality, topology, arithmetic-schedule, target, resolver, action-clock, quality, truncation, blueprint, or strength result | Retain the timed RRNS direct launch-arity rejection |
@@ -137,18 +138,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0480](docs/decisions/ADR-0480-absorb-the-test-orchestration-stabilization.md) | 2026-08-29 | accepted process absorption; the 2026-08-27 through 2026-08-29 stabilization era — orchestration contracts (Task 1), Windows reparse/OneDrive architecture fixes (Task 11a), and the test inventory and profile generator (Task 2) — is integrated onto the mainline at merge `156f0b3` after two independent whole-candidate adversarial CLEAN reviews on the frozen 11-file manifest, a bound holistic architecture audit, and a controller substitution ruling for the unreachable CodeRabbit gate; the generator's `--check` and the stabilization boundary check both pass from the integrated primary checkout, checked-in capability state remains intentionally absent with every capability outcome deny-all pending the Task 10 approval gate, no broad scientific/GPU suite ran, and no ADR-0476 research blocker is cleared | Absorb the test-orchestration stabilization |
 | [ADR-0481](docs/decisions/ADR-0481-record-the-release-interpreter-identity-correction.md) | 2026-08-30 | accepted Tier-C correction and evidence-label correction; the test-governance stack mixed 32-bit `os.stat` volume serials (CPython <= 3.11) with 64-bit `FileIdInfo` handle identities, so the generator's Git machinery, governance writer, and repository revalidation failed deterministically on the CPython 3.11 release interpreter while every recorded "isolated Python 3.11 snapshot" had actually executed on the 3.14.6 development venv; the correction uses full-width `FileIdInfo` identities on both sides of every such comparison with independent observations preserved and no replacement, reparse, ownership, or rollback check weakened, the string-decoy census is version-stable, the snapshot-runner successor asserts and records the actual child interpreter fail-closed, both independent Tier-C cold reviews returned CLEAN on the frozen manifest, the committed tree is byte-identical to the reviewed candidate, fresh disposable-snapshot suites pass on CPython 3.11.15 and 3.14.6, and the continuous-integration wall passed completely on a hosted runner's genuine CPython 3.11.9; historical results remain valid only as CPython 3.14.6 evidence, no retrospective 3.11 validation of any earlier run is implied, and no scientific result is recertified | Record the release-interpreter identity correction |
 | [ADR-0482](docs/decisions/ADR-0482-adopt-the-rehearsal-parking-and-lane-breaker-amendments.md) | 2026-08-30 | accepted protocol amendment; the evidence lifecycle gains a non-evidentiary rehearsal tier between source seal and invocation authorization, every future parking verdict names its category (`parked - falsified` permanent as today, or `parked - gate defect` eligible for exactly one fresh preregistration under a redesigned gate with every old panel discarded), and every future experiment lane preregisters lane-level kill criteria whose plumbing-death and budget breakers force a mandatory stand-down or architecture checkpoint; rehearsal output never feeds a fit, gate, claim, or selection, no wall or budget is frozen without a scaled rehearsal measurement as provenance, strength-claim evidence keeps permanent parking regardless of category, and nothing here reopens, reclassifies, or retries any already-parked candidate or consumed owner — historical reclassification requires its own future decision, and v7 remains permanently closed under ADR-0476's kill criteria | Adopt the rehearsal, parking, and lane-breaker amendments |
+| [ADR-0483](docs/decisions/ADR-0483-park-the-compiled-lane-and-open-v0a-integration.md) | 2026-08-30 | accepted architecture-checkpoint ruling; the ADR-0476 checkpoint resolves to parking the compiled synthetic topology-calibration lane and returning effort to the playable v0a integration boundary, because the lane's own precondition — a bound production source-local base producer with measured algebra, epoch identity, refresh cadence, exponent admission, and cold-versus-hit frequency — is a deliverable of the river bridge that only v0a integration builds; every candidate and closure in the lane retains its exact recorded standing, the four source-sealed topology arms remain sealed assets, the serial-structural-cover diagnostic is retained as the reopened lane's first candidate hypothesis and not a result, the lane may reopen only on bridge-measured producer telemetry through a wholly fresh ADR-0482-governed preregistration that honors every ADR-0476 constraint, and the v0a boundary opens under the same rules with bridge instrumentation recording would-be base-producer events from its first increment | Park the compiled lane and open v0a integration |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0482](docs/decisions/ADR-0482-adopt-the-rehearsal-parking-and-lane-breaker-amendments.md) — Adopt the rehearsal, parking, and lane-breaker amendments.
+- Latest ADR: [ADR-0483](docs/decisions/ADR-0483-park-the-compiled-lane-and-open-v0a-integration.md) — Park the compiled lane and open v0a integration.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 482.
-- ADR-header SHA-256: `aa17bba72df2cbe54f533c8ca97d80df19356676e78ee37f7e279c064964b314`.
-- Current blockers: v7 is permanently consumed and the compiled calibration is incomplete; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, complete reduced compiled-calibration result, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists; the stabilization adds test-governance capability but clears none of these, and broad-suite execution, capability approvals, and the holistic-audit backlog remain open.
+- Numbered decisions: 483.
+- ADR-header SHA-256: `3d77b3de5f6e347ff262098d9ad777901b8d2a2f9e47caa8d8aa341a540ec21f`.
+- Current blockers: v7 is permanently consumed and the compiled calibration is incomplete and parked; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, complete reduced compiled-calibration result, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists; the stabilization adds test-governance capability but clears none of these, and broad-suite execution, capability approvals, and the holistic-audit backlog remain open.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0482](docs/decisions/ADR-0482-adopt-the-rehearsal-parking-and-lane-breaker-amendments.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0483](docs/decisions/ADR-0483-park-the-compiled-lane-and-open-v0a-integration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

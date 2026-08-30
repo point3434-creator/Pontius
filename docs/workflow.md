@@ -71,7 +71,7 @@ selection is restored on every exit path, and the ref update is create-only —
 an existing round ref refuses to be overwritten:
 
 ```powershell
-$W = "D:\Pontius-worktrees\<worktree>"; $R = "review/<task>-r<N>"
+$W = "D:\Pontius-worktrees\<worktree>"; $R = "review/<task-id>/r<NNN>"
 $savedIndex = $env:GIT_INDEX_FILE
 $idx = Join-Path $env:TEMP ("freeze-" + [guid]::NewGuid().ToString("N") + ".idx")
 $env:GIT_INDEX_FILE = $idx
@@ -139,12 +139,13 @@ Set-Content -LiteralPath $pyPath -Value $py -Encoding ascii
 .venv\Scripts\python.exe $pyPath $W $commit
 ```
 
-Record the pair (ref commit SHA, manifest SHA) in the report. That pair is the
-candidate's identity; the ref is now immutable.
+Record the pair (ref commit SHA, manifest SHA) in `candidate.json` and the
+report. That pair is the candidate's identity; the ref is now immutable.
 
 ### Stage 3 — Cold review
 
-Open a **fresh** session and paste the cold-review request template below.
+Open a **fresh** session and paste the round's `handoff.md` — the
+cold-review request template below.
 The reviewer walks the checklist and the acceptance criteria against the ref.
 Output is a findings document bound to the manifest SHA, severity-ordered,
 with a concrete failure scenario for every Critical/Important finding.
@@ -155,8 +156,8 @@ survives verification.
 
 Each finding requires a deterministic RED reproduction against the frozen
 rejected candidate before the production edit, and an integrated GREEN after.
-Fixes freeze as `review/<task>-r<N+1>`. Two rules learned at full price in
-Task 2:
+Fixes freeze as the next round, `review/<task-id>/r<NNN+1>`. Two rules
+learned at full price in Task 2:
 
 - **Circuit breaker:** three rounds without convergence is a controller
   stand-down — re-scope, slice, or split the task. Never grind.
@@ -172,8 +173,10 @@ Task 2:
 3. CodeRabbit sweep on the exact final bytes.
 4. Controller authorization — explicit, per commit.
 5. Ceremonial commit (short imperative title), immediate push to `origin`.
-6. Retire the task's `review/*` refs (delete local and remote).
-7. One-line ledger entry, written by whoever issued the verdict.
+6. Retire the task's `review/*` refs under the handoff-packet retirement
+   predicate (integrated byte-identically, or archived — rule 4 below).
+7. One-line verdict entry in the task ledger by whoever issued the verdict;
+   one disposition line in the program ledger.
 
 ## Test-run tiers
 
@@ -191,10 +194,79 @@ policy); "focused" and "broad" name the *scope*. The two axes are independent:
 
 ## Ledger discipline
 
-`progress.md` gets exactly one line per verdict, written by the verdict's
-issuer at the moment of the verdict. The task report holds the detail. Nobody
-else updates the ledger for that round — the single-writer rule is what keeps
-ledger and report from diverging.
+Each task's handoff packet carries its own `progress.md` — the task ledger:
+exactly one line per verdict, written by the verdict's issuer at the moment
+of the verdict. The task report holds the detail. Nobody else updates that
+ledger for the round — the single-writer rule is what keeps ledger and
+report from diverging. The program ledger records one line per round
+disposition, never one per review; verdict lines live only in the task
+ledger, so the two ledgers can never disagree about who found what.
+
+## Handoff packets
+
+Every frozen round is published as an immutable packet under one permanent
+home outside the repository and every worktree:
+
+```
+D:\Pontius-handoffs\
+  INDEX.md                    # navigation only: tasks and their current rounds
+  <task-id>\
+    progress.md               # the task ledger (single-writer, above)
+    r<NNN>\
+      handoff.md              # cold-review instructions, scope, pinned inputs
+      candidate.json          # identity: ref, commit, base, tree, manifest digest
+      manifest.sha256         # the sorted blob-hash rows themselves
+      reviews\
+        review-<NN>-<reviewer>.md   # attributed findings, one file per reviewer
+      checks\                 # receipts: commands, environment identities, exits
+      disposition.md          # per-finding accept/reject and integration outcome
+```
+
+Task IDs are short stable kebab-case, `<lane>-<unit>-<phase>` — e.g.
+`v0a-i01-prereg`, `v0a-i01-impl` — with no dates and no adjectives. Rounds
+are three digits from `r001`. The short reference `<task-id>/r<NNN>`
+("cold-review v0a-i01-prereg/r002") locates the packet; the full commit and
+manifest SHA-256 in `candidate.json` remain the only authority. Freeze refs
+use the matching namespace `review/<task-id>/r<NNN>`, and preserved
+candidates `archive/<task-id>/r<NNN>`. Never create a flat ref named exactly
+`review/<task-id>`: Git forbids a ref and a ref directory with one name.
+
+`manifest.sha256` contains exactly the manifest rows — lexicographically
+sorted `<lowercase file sha256><two spaces><relative POSIX path><LF>` from
+the frozen blobs, nothing else — so the SHA-256 of the file's own bytes is
+the manifest digest recorded in `candidate.json`. `candidate.json` carries
+exactly: `schema_version` (`pontius-handoff-candidate-v1`), `task_id`,
+`round`, `ref`, `commit`, `base`, `tree`, `manifest_sha256`, and `date`.
+
+Packet rules:
+
+1. **New bytes or new scope → new round.** Changed candidate bytes or a
+   changed review scope get `r<NNN+1>` and a fresh ref. Names like `final2`
+   or `latest-fixed` never exist.
+2. **Reviewers are parallel and blind.** Any number of reviewers may take
+   one round; each writes its own attributed findings file, and no
+   reviewer's findings enter another reviewer's cold-review inputs.
+3. **Append-only.** Published inputs and issued findings are never edited or
+   overwritten; corrections are appended as new records — a new review
+   file, a new ledger line, a disposition entry.
+4. **Retirement predicate.** A `review/*` ref may be deleted only when the
+   packet's `candidate.json` commit is reachable from `master` (integrated
+   byte-identically) or preserved under `archive/<task-id>/r<NNN>` pushed to
+   `origin`. Accepted and rejected candidates are both preserved.
+5. **Short ID locates, identity binds.** Every verdict and disposition
+   binds to the commit + manifest pair, never to a folder path.
+6. **Own repository, routine push.** `D:\Pontius-handoffs\` is its own Git
+   repository with a private `origin`; packet files are committed and
+   pushed routinely as they are published. The evidence repository's
+   per-commit ceremony does not apply there — packets are already governed
+   by rules 1–5.
+7. **Coordination only, never evidence.** Packets hold instructions,
+   identities, findings, receipts, and dispositions. Retained evidence —
+   results, journals, lifecycle artifacts — never leaves the evidence
+   repository's retained paths.
+
+Packets predating this section stay where they were published; `INDEX.md`
+points at their current locations.
 
 ## Review checklist v1
 
@@ -245,11 +317,11 @@ Forbidden claims: <what this task does NOT prove or authorize>
 Test plan: <RED targets, focused suites, snapshot gates>
 ```
 
-### Cold-review request (Stage 3 — paste into a fresh session)
+### Cold-review request (Stage 3 — the packet's `handoff.md`)
 
 ```markdown
 Adversarial review request.
-Candidate: refs/heads/review/<task>-r<N> at commit <sha>,
+Candidate: refs/heads/review/<task-id>/r<NNN> at commit <sha>,
 manifest SHA-256 <manifest sha>, base <base sha>.
 Scope: <paths or named slices>.
 Inputs: docs/workflow.md (checklist v1), <path to task brief / acceptance
@@ -259,5 +331,6 @@ Rules: findings bind to the manifest SHA; every Critical/Important finding
 states a concrete failure scenario (inputs/state → wrong outcome); the
 helper-double rule applies literally; verdict CLEAN only if no finding
 survives verification; name the required correction but do not implement it.
-Output: <task>-r<N>-findings.md, severity-ordered, one entry per finding.
+Output: reviews/review-<NN>-<reviewer>.md in this round's packet,
+severity-ordered, one entry per finding.
 ```

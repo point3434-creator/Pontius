@@ -17582,7 +17582,7 @@ class DesignReviewTests(unittest.TestCase):
                             def __bool__(self):
                                 cp.arange(0)
                                 return False
-                        sorted([2, 1], reverse=Reverse())
+                        sorted([2, 1], reverse=bool(Reverse()))
                         cp.arange(1)
                     def test_denied(self): pass
                 """,
@@ -18428,7 +18428,7 @@ class DesignReviewTests(unittest.TestCase):
                     def test_static(self):
                         class Reverse:
                             def __bool__(self): return False
-                        sorted([2, 1], reverse=Reverse())
+                        sorted([2, 1], reverse=bool(Reverse()))
                         cp.arange(1)
                     def test_denied(self): pass
                 """,
@@ -19439,15 +19439,15 @@ class DesignReviewTests(unittest.TestCase):
         ):
             with self.subTest(loop=label):
                 source = _source(
-                    f'''
+                    '''
                     import cupy as cp
                     import unittest
                     class ReviewTests(unittest.TestCase):
                         def test_static(self):
-                            count = {first}
+                            count = ''' + str(first) + '''
                             for _ in range(count):
                                 cp.arange(1)
-                            count = {second}
+                            count = ''' + str(second) + '''
                             for _ in range(count):
                                 cp.arange(1)
                         def test_denied(self): pass
@@ -19470,14 +19470,14 @@ class DesignReviewTests(unittest.TestCase):
         ):
             with self.subTest(comprehension=label):
                 source = _source(
-                    f'''
+                    '''
                     import cupy as cp
                     import unittest
                     class ReviewTests(unittest.TestCase):
                         def test_static(self):
-                            count = {first}
+                            count = ''' + str(first) + '''
                             [cp.arange(1) for _ in range(count)]
-                            count = {second}
+                            count = ''' + str(second) + '''
                             [cp.arange(1) for _ in range(count)]
                         def test_denied(self): pass
                     '''
@@ -29590,7 +29590,7 @@ class CheckedInInventoryTests(unittest.TestCase):
                 "cupy_call_node_count": 30,
                 "string_sink_decoy_count": 587,
                 "string_sink_decoy_sha256": (
-                    "e17839f7080c406ce6986688fb4fb92595badbd6dc89f037d514bb2587b2bc8d"
+                    "ed3d0769d3896960ee77af0fcd4b7d37b1858a627b88e288fc29937be5cce09e"
                 ),
                 "string_sink_decoy_partitions": {
                     "design_production": 17,

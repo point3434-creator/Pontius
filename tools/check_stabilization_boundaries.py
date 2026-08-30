@@ -34,6 +34,7 @@ ORCHESTRATION_ORIGIN_PATHS = frozenset(
     {
         "tools/__init__.py",
         "tools/check_stabilization_boundaries.py",
+        "tools/ci_native_diagnostics.py",
         "tools/compare_run_summaries.py",
         "tools/generate_dependency_baseline.py",
         "tools/generate_evidence_manifests.py",

@@ -507,11 +507,22 @@ class DependencyBaselineTests(unittest.TestCase):
             target.write_bytes(b"first\n")
             real_read = GENERATOR.os.read
             mutated = False
+            mtime_before_ns = 0
+            mtime_after_ns = 0
 
             def mutate_then_read(descriptor: int, count: int) -> bytes:
-                nonlocal mutated
+                nonlocal mutated, mtime_before_ns, mtime_after_ns
                 if not mutated:
+                    mtime_before_ns = os.stat(target).st_mtime_ns
                     target.write_bytes(b"other\n")
+                    # A same-size rewrite can land inside the filesystem's
+                    # timestamp tick and leave the identity tuple unchanged
+                    # (observed on CI hardware). Advance mtime explicitly so
+                    # the test exercises the identity contract the reader
+                    # actually promises, independent of tick timing.
+                    advanced_ns = mtime_before_ns + 10_000_000
+                    os.utime(target, ns=(advanced_ns, advanced_ns))
+                    mtime_after_ns = os.stat(target).st_mtime_ns
                     mutated = True
                 return real_read(descriptor, count)
 
@@ -520,6 +531,7 @@ class DependencyBaselineTests(unittest.TestCase):
                     GENERATOR._validated_regular_file(target, maximum_bytes=64)
 
             self.assertTrue(mutated, str(caught.exception))
+            self.assertNotEqual(mtime_after_ns, mtime_before_ns)
             self.assertIn("changed while reading", str(caught.exception))
 
     def test_snapshot_revalidation_rechecks_content_when_metadata_is_concealed(self) -> None:

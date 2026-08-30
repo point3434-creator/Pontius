@@ -229,6 +229,11 @@ STABILIZATION_TEST_FILES = (
     "tests/test_test_orchestration_protocol.py",
     "tests/test_test_orchestration_windows_job.py",
     "tests/test_test_orchestration_workspace.py",
+    "tests/test_v0a_boundaries.py",
+    "tests/test_v0a_contract_faults.py",
+    "tests/test_v0a_hand_replay.py",
+    "tests/test_v0a_replay.py",
+    "tests/test_v0a_trace.py",
 )
 
 _PATH_BEFORE_BOOTSTRAP = tuple(sys.path)
@@ -20746,6 +20751,273 @@ class DesignReviewTests(unittest.TestCase):
             )
         )
 
+    def test_descriptor_defaults_preserve_real_python_argument_binding(self) -> None:
+        cases = (
+            ("static-self-default", "@staticmethod", 'module="default"',
+             'self._launch()', "default", ""),
+            ("static-self-positional", "@staticmethod", 'module="default"',
+             'self._launch("explicit")', "explicit", ""),
+            ("static-self-keyword", "@staticmethod", 'module="default"',
+             'self._launch(module="explicit")', "explicit", ""),
+            ("static-class-default", "@staticmethod", 'module="default"',
+             'ReviewTests._launch()', "default", ""),
+            ("static-cls-keyword", "@staticmethod", 'module="default"',
+             'cls._launch(module="explicit")', "explicit", "@classmethod"),
+            ("ordinary-default-receiver", "", 'self=None, module="default"',
+             'self._launch()', "default", ""),
+            ("ordinary-explicit", "", 'self=None, module="default"',
+             'self._launch("explicit")', "explicit", ""),
+            ("ordinary-required-receiver", "", 'self, module="default"',
+             'self._launch()', "default", ""),
+            ("ordinary-unbound-class", "", 'self, module="default"',
+             'ReviewTests._launch(None, module="explicit")', "explicit", ""),
+            ("ordinary-unbound-cls", "", 'self, module="default"',
+             'cls._launch(None, module="explicit")', "explicit", "@classmethod"),
+            ("posonly-receiver-keyword", "", 'self, /, module="default"',
+             'self._launch(module="explicit")', "explicit", ""),
+            ("posonly-defaulted-receiver", "", 'self=None, /, module="default"',
+             'self._launch(module="explicit")', "explicit", ""),
+            ("class-default-receiver", "@classmethod", 'cls=None, module="default"',
+             'self._launch()', "default", ""),
+            ("class-qualified-call", "@classmethod", 'cls=None, module="default"',
+             'ReviewTests._launch(module="explicit")', "explicit", ""),
+            ("class-cls-call", "@classmethod", 'cls=None, module="default"',
+             'cls._launch(module="explicit")', "explicit", "@classmethod"),
+            ("class-posonly-receiver", "@classmethod", 'cls, /, module="default"',
+             'self._launch(module="explicit")', "explicit", ""),
+            ("class-posonly-defaulted", "@classmethod", 'cls=None, /, module="default"',
+             'self._launch()', "default", ""),
+        )
+        process = (
+            'subprocess.run([sys.executable, "-m", module], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, '
+            'timeout=timeout, check=False)'
+        )
+        for label, decorator, parameters, invocation, expected_module, caller in cases:
+            with self.subTest(binding=label):
+                entry = 'self._caller()' if caller else invocation
+                source = (
+                    'import subprocess, sys, unittest\n'
+                    'class ReviewTests(unittest.TestCase):\n'
+                    + (f'    {decorator}\n' if decorator else '')
+                    + f'    def _launch({parameters}, *, timeout=5):\n'
+                    + f'        {process}\n'
+                    + (
+                        f'    {caller}\n    def _caller(cls):\n'
+                        f'        return {invocation}\n'
+                        if caller else ''
+                    )
+                    + '    def test_static(self):\n'
+                    + f'        return {entry}\n'
+                    + '    def test_denied(self): pass\n'
+                )
+                # Only this pure projection executes; sensitive source is inspected.
+                namespace = {}
+                exec(source.replace(process, 'return (module, timeout)'), namespace)
+                actual = namespace['ReviewTests']('test_static').test_static()
+                self.assertEqual(actual, (expected_module, 5))
+                review = self._review(sources={'tests/test_review.py': source.encode('utf-8')})
+                rows = [row for row in review['receipt']['expanded_rows']
+                        if row['capability_kind'] == 'subprocess']
+                self.assertEqual([row['argv'] for row in rows], [['-m', actual[0]]])
+                self.assertEqual([row['timeout_ns'] for row in rows], [actual[1] * 10**9])
+                self.assertFalse(review['unresolved_dynamic_blockers'])
+
+    def test_receiver_descriptor_not_parameter_spelling_controls_binding(self) -> None:
+        cases = (
+            ("ordinary-entry-cls", "", "cls", 'self=None, module="default"',
+             'cls._launch("explicit")', "explicit"),
+            ("ordinary-helper-cls", "ordinary", "cls", 'self=None, module="default"',
+             'cls._launch("explicit")', "explicit"),
+            ("class-helper-self", "@classmethod", "self", 'self=None, module="default"',
+             'self._launch("receiver", "explicit")', "explicit"),
+            ("class-helper-self-default", "@classmethod", "self",
+             'self=None, module="default"', 'self._launch("receiver")', "default"),
+            ("invalid-ordinary-cls", "", "cls", 'self=None, module="default"',
+             'cls._launch("receiver", "explicit")', None),
+            ("invalid-class-self", "@classmethod", "self", 'self, module="default"',
+             'self._launch(module="explicit")', None),
+        )
+        process = (
+            'subprocess.run([sys.executable, "-m", module], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, '
+            'timeout=5, check=False)'
+        )
+        for label, caller, receiver, parameters, invocation, expected in cases:
+            with self.subTest(receiver=label):
+                forwarding = (
+                    (f'    {caller}\n' if caller.startswith('@') else '')
+                    + f'    def _caller({receiver}):\n'
+                    + f'        return {invocation}\n'
+                    if caller else ''
+                )
+                entry_receiver = 'self' if caller else receiver
+                entry = 'self._caller()' if caller else invocation
+                source = (
+                    'import subprocess, sys, unittest\n'
+                    'class ReviewTests(unittest.TestCase):\n'
+                    + f'    def _launch({parameters}):\n'
+                    + f'        {process}\n'
+                    + forwarding
+                    + f'    def test_static({entry_receiver}):\n'
+                    + f'        return {entry}\n'
+                    + '    def test_denied(self): pass\n'
+                )
+                namespace = {}
+                exec(source.replace(process, 'return module'), namespace)
+                if expected is None:
+                    with self.assertRaises(TypeError):
+                        namespace['ReviewTests']('test_static').test_static()
+                    for inspected in (
+                        source, source.replace('"-m", module', '"-m", "fixed"')
+                    ):
+                        review = self._review(
+                            sources={'tests/test_review.py': inspected.encode('utf-8')}
+                        )
+                        self.assertTrue(review['unresolved_dynamic_blockers'])
+                else:
+                    actual = namespace['ReviewTests']('test_static').test_static()
+                    self.assertEqual(actual, expected)
+                    review = self._review(
+                        sources={'tests/test_review.py': source.encode('utf-8')}
+                    )
+                    rows = [row for row in review['receipt']['expanded_rows']
+                            if row['capability_kind'] == 'subprocess']
+                    self.assertEqual([row['argv'] for row in rows], [['-m', actual]])
+                    self.assertFalse(review['unresolved_dynamic_blockers'])
+
+    def test_unknown_receiver_context_blocks_and_lexical_capture_is_preserved(self) -> None:
+        cases = (
+            ("static-unknown", "self",
+             '    @staticmethod\n    def _caller(self=None):\n'
+             '        return self._launch()\n',
+             'return self._caller()', AttributeError),
+            ("explicit-unbound", "self",
+             '    def _caller(self):\n        return self._launch()\n',
+             'return ReviewTests._caller(None)', AttributeError),
+            ("reassigned", "self", '',
+             'self = None\nreturn self._launch()', AttributeError),
+            ("nested-shadow", "self", '',
+             'def nested(self=None):\n    return self._launch()\nreturn nested()',
+             AttributeError),
+            ("nested-instance-cls", "cls", '',
+             'def nested():\n    return cls._launch()\nreturn nested()', None),
+        )
+        process = (
+            'subprocess.run([sys.executable, "-m", "fixed"], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, '
+            'timeout=5, check=False)'
+        )
+        for label, receiver, helper, entry, expected_error in cases:
+            with self.subTest(context=label):
+                source = (
+                    'import subprocess, sys, unittest\n'
+                    'class ReviewTests(unittest.TestCase):\n'
+                    '    def _launch(self):\n'
+                    + f'        {process}\n'
+                    + helper
+                    + f'    def test_static({receiver}):\n'
+                    + textwrap.indent(entry, '        ') + '\n'
+                    + '    def test_denied(self): pass\n'
+                )
+                namespace = {}
+                exec(source.replace(process, 'return "fixed"'), namespace)
+                if expected_error is not None:
+                    with self.assertRaises(expected_error):
+                        namespace['ReviewTests']('test_static').test_static()
+                else:
+                    self.assertEqual(
+                        namespace['ReviewTests']('test_static').test_static(), 'fixed'
+                    )
+                review = self._review(sources={'tests/test_review.py': source.encode('utf-8')})
+                if expected_error is not None:
+                    self.assertTrue(review['unresolved_dynamic_blockers'])
+                else:
+                    rows = [row for row in review['receipt']['expanded_rows']
+                            if row['capability_kind'] == 'subprocess']
+                    self.assertEqual([row['argv'] for row in rows], [['-m', 'fixed']])
+                    self.assertFalse(review['unresolved_dynamic_blockers'])
+
+    def test_invalid_static_helper_arguments_remain_blocked(self) -> None:
+        cases = (
+            ('module="default"', 'self._launch("a", "b")'),
+            ('module="default"', 'self._launch("a", module="b")'),
+            ('module="default"', 'self._launch(unknown="a")'),
+            ('module', 'self._launch()'),
+            ('module="default", /', 'self._launch(module="a")'),
+        )
+        process = (
+            'subprocess.run([sys.executable, "-m", module], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, '
+            'timeout=5, check=False)'
+        )
+        for parameters, invocation in cases:
+            with self.subTest(parameters=parameters, invocation=invocation):
+                source = (
+                    'import subprocess, sys, unittest\n'
+                    'class ReviewTests(unittest.TestCase):\n'
+                    '    @staticmethod\n'
+                    + f'    def _launch({parameters}):\n'
+                    + f'        {process}\n'
+                    + '    def test_static(self):\n'
+                    + f'        {invocation}\n'
+                    + '    def test_denied(self): pass\n'
+                )
+                namespace = {}
+                exec(source.replace(process, 'return module'), namespace)
+                with self.assertRaises(TypeError):
+                    namespace['ReviewTests']('test_static').test_static()
+                review = self._review(sources={'tests/test_review.py': source.encode('utf-8')})
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+                fixed_source = source.replace('"-m", module', '"-m", "fixed"')
+                fixed_review = self._review(
+                    sources={'tests/test_review.py': fixed_source.encode('utf-8')}
+                )
+                self.assertTrue(fixed_review['unresolved_dynamic_blockers'])
+
+    def test_unproven_helper_descriptor_provenance_remains_blocked(self) -> None:
+        cases = (
+            ("qualified", 'import builtins\n', '', '@builtins.staticmethod'),
+            ("alias", 'from builtins import staticmethod as static\n', '', '@static'),
+            ("module-shadow", 'staticmethod = lambda function: function\n', '',
+             '@staticmethod'),
+            ("class-shadow", '', '    staticmethod = lambda function: function\n',
+             '@staticmethod'),
+            ("shadowed-alias", 'from builtins import staticmethod as static\n'
+             'static = lambda function: function\n', '', '@static'),
+            ("class-shadowed-alias", 'from builtins import staticmethod as static\n',
+             '    static = lambda function: function\n', '@static'),
+            ("dynamic", 'def choose(): return staticmethod\n', '', '@choose()'),
+            ("stacked", '', '', '@staticmethod\n    @staticmethod'),
+            ("module-wildcard", 'from builtins import *\n', '', '@staticmethod'),
+            ("class-wildcard", '', '    from builtins import *\n', '@staticmethod'),
+            ("class-method-shadow", 'classmethod = lambda function: function\n', '',
+             '@classmethod'),
+        )
+        for label, module_prefix, class_prefix, decorator in cases:
+            with self.subTest(provenance=label):
+                source = (
+                    'import subprocess, sys, unittest\n'
+                    + module_prefix
+                    + 'class ReviewTests(unittest.TestCase):\n'
+                    + class_prefix
+                    + f'    {decorator}\n'
+                    + '    def _launch(self, module="default"):\n'
+                    + '        subprocess.run([sys.executable, "-m", module], cwd=".", '
+                    + 'env={**__import__("os").environ, "SAFE": "1"}, '
+                    + 'timeout=5, check=False)\n'
+                    + '    def test_static(self):\n'
+                    + '        self._launch(module="explicit")\n'
+                    + '    def test_denied(self): pass\n'
+                )
+                review = self._review(sources={'tests/test_review.py': source.encode('utf-8')})
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+                fixed_source = source.replace('"-m", module', '"-m", "fixed"')
+                fixed_review = self._review(
+                    sources={'tests/test_review.py': fixed_source.encode('utf-8')}
+                )
+                self.assertTrue(fixed_review['unresolved_dynamic_blockers'])
+
     def test_helper_registry_and_argument_binding_fail_closed(self) -> None:
         ambiguous = {
             "tests/a/test_shared.py": ast.parse("def launch(): pass\n"),
@@ -29585,22 +29857,22 @@ class CheckedInInventoryTests(unittest.TestCase):
         self.assertEqual(
             review["analysis_census"],
             {
-                "subprocess_direct_site_count": 42,
+                "subprocess_direct_site_count": 45,
                 "subprocess_helper_site_count": 5,
                 "cross_file_helper_edge_count": 27,
                 "cupy_call_node_count": 30,
-                "string_sink_decoy_count": 587,
+                "string_sink_decoy_count": 592,
                 "string_sink_decoy_sha256": (
-                    "7ee3ef8092721e401056b815d6d9c9bd7c208bac9ea1add4f6fdbd0a99ec548b"
+                    "cf3edbe709d07a230974c762e29400ed6e2c6c5bc9730eed472f03933041ee47"
                 ),
                 "string_sink_decoy_partitions": {
                     "design_production": 17,
                     "historical_production": 6,
                     "prior_stabilization_synthetic": 34,
-                    "task2_synthetic": 530,
+                    "task2_synthetic": 535,
                 },
                 "analyzed_sites_sha256": (
-                    "be059b4bb1181ec8c5354daf552e09162341d2341a7e16c381ce14380818da10"
+                    "6beec1b64eed80b39fe32bba100c618de8608e43663d480fcdec4db1c8b9adb2"
                 ),
             },
         )
@@ -29690,26 +29962,28 @@ class CheckedInInventoryTests(unittest.TestCase):
             ["unsupported subprocess keyword: capture_output"],
         )
         blockers = review["unresolved_dynamic_blockers"]
-        self.assertEqual(len(blockers), 355)
+        self.assertEqual(len(blockers), 388)
         self.assertEqual(
             Counter(row["reason"] for row in blockers),
             Counter(
                 {
-                    "unsupported subprocess keyword: capture_output": 45,
-                    "dynamic helper arguments prevent exact sink derivation": 15,
+                    "unsupported subprocess keyword: capture_output": 48,
+                    "dynamic helper arguments prevent exact sink derivation": 26,
                     "CuPy action or view is outside the approved call scope": 11,
                     "dynamic repetition prevents a finite call bound": 2,
                     "dynamic repetition prevents a finite helper call bound": 1,
-                    "mixed protected receiver is dynamically unresolved": 61,
+                    "mixed protected receiver is dynamically unresolved": 67,
                     "unsupported subprocess keyword: stdin": 5,
                     "registered probe implementation is absent": 1,
-                    "dynamic sensitive call result is unresolved": 15,
+                    "dynamic sensitive call result is unresolved": 16,
                     "unregistered CuPy call is unresolved": 2,
                     "deferred generator consumption is dynamically unresolved": 50,
                     "protected value store target is dynamically unresolved": 6,
                     "local class decorator runtime target is dynamically unresolved": 4,
                     "max/min iterable contents are dynamically unresolved": 102,
-                    "max/min comparison dispatch is dynamically unresolved": 35,
+                    "max/min comparison dispatch is dynamically unresolved": 36,
+                    "callback closure": 1,
+                    "unittest instance or class binding is dynamically unresolved": 10,
                 }
             ),
         )
@@ -29736,6 +30010,7 @@ class CheckedInInventoryTests(unittest.TestCase):
                 ("tests/test_native_simplex_audit_reanalysis.py", 411),
                 ("tests/test_one_seat_convex_generation.py", 66),
                 ("tests/test_one_seat_convex_generation.py", 81),
+                ("tests/test_v0a_replay.py", 600),
             ],
         )
         self.assertEqual(
@@ -29787,19 +30062,19 @@ class CheckedInInventoryTests(unittest.TestCase):
                 ("tests/test_full_width_river_capacity_preflight_v2_result.py", 150),
                 ("tests/test_h32_selector_stable_affine_certificate_audit.py", 110),
                 ("tests/test_incremental_leaf_adjoint_response.py", 276),
-                ("tests/test_inventory_and_profiles.py", 1454),
-                ("tests/test_inventory_and_profiles.py", 1461),
-                ("tests/test_inventory_and_profiles.py", 2949),
-                ("tests/test_inventory_and_profiles.py", 4161),
-                ("tests/test_inventory_and_profiles.py", 4423),
-                ("tests/test_inventory_and_profiles.py", 5656),
-                ("tests/test_inventory_and_profiles.py", 12472),
-                ("tests/test_inventory_and_profiles.py", 12472),
-                ("tests/test_inventory_and_profiles.py", 12481),
-                ("tests/test_inventory_and_profiles.py", 16212),
-                ("tests/test_inventory_and_profiles.py", 18238),
-                ("tests/test_inventory_and_profiles.py", 18238),
-                ("tests/test_inventory_and_profiles.py", 4790),
+                ("tests/test_inventory_and_profiles.py", 1459),
+                ("tests/test_inventory_and_profiles.py", 1466),
+                ("tests/test_inventory_and_profiles.py", 2954),
+                ("tests/test_inventory_and_profiles.py", 4166),
+                ("tests/test_inventory_and_profiles.py", 4428),
+                ("tests/test_inventory_and_profiles.py", 5661),
+                ("tests/test_inventory_and_profiles.py", 12477),
+                ("tests/test_inventory_and_profiles.py", 12477),
+                ("tests/test_inventory_and_profiles.py", 12486),
+                ("tests/test_inventory_and_profiles.py", 16217),
+                ("tests/test_inventory_and_profiles.py", 18243),
+                ("tests/test_inventory_and_profiles.py", 18243),
+                ("tests/test_inventory_and_profiles.py", 4795),
                 ("tests/test_linear_program_certificate.py", 157),
                 ("tests/test_linear_program_certificate.py", 193),
                 ("tests/test_native_simplex_audit_reanalysis.py", 404),

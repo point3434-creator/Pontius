@@ -179,6 +179,11 @@ STABILIZATION_TEST_FILES = frozenset({
     "tests/test_test_orchestration_import_boundary.py",
     "tests/test_stabilization_verification.py",
     "tests/test_retained_evidence_inventory.py",
+    "tests/test_v0a_boundaries.py",
+    "tests/test_v0a_contract_faults.py",
+    "tests/test_v0a_hand_replay.py",
+    "tests/test_v0a_replay.py",
+    "tests/test_v0a_trace.py",
 })
 
 
@@ -7841,6 +7846,7 @@ class _ReviewFunction:
     class_name: str | None
     module_bound_names: frozenset[str] = frozenset()
     enclosing_exception_names: frozenset[str] = frozenset()
+    descriptor_kind: str | None = "ordinary"
 
 
 def _metered_ast_walk(
@@ -21459,6 +21465,42 @@ def _source_ordered_review_flow(
     return resolver.resolve(node.body)
 
 
+def _helper_descriptor_kind(
+    node: ast.FunctionDef | ast.AsyncFunctionDef,
+    unavailable_names: frozenset[str],
+) -> str | None:
+    """Accept only a single builtin descriptor whose spelling is unshadowed."""
+
+    if not node.decorator_list:
+        return "ordinary"
+    if len(node.decorator_list) != 1:
+        return None
+    decorator = node.decorator_list[0]
+    if (
+        isinstance(decorator, ast.Name)
+        and decorator.id in {"staticmethod", "classmethod"}
+        and decorator.id not in unavailable_names
+    ):
+        return decorator.id
+    return None
+
+
+def _descriptor_unavailable_names(nodes: Sequence[ast.stmt]) -> frozenset[str]:
+    visitor = _ExceptionBindingVisitor()
+    try:
+        for node in nodes:
+            visitor.visit(node)
+            if any(
+                isinstance(child, ast.ImportFrom)
+                and any(alias.name == "*" for alias in child.names)
+                for child in ast.walk(node)
+            ):
+                visitor.bound_names.update({"staticmethod", "classmethod"})
+    except RecursionError:
+        visitor.bound_names.update({"staticmethod", "classmethod"})
+    return frozenset(visitor.bound_names)
+
+
 def _review_function_registry(
     parsed: Mapping[str, ast.Module],
     exception_provenance: Mapping[str, _ModuleExceptionProvenance] | None = None,
@@ -21494,6 +21536,7 @@ def _review_function_registry(
             )
         })
         assignments = _static_assignments(tree.body)
+        descriptor_names = _descriptor_unavailable_names(tree.body)
         source_path = PurePosixPath(relative_path)
         module_name = ".".join(source_path.with_suffix("").parts)
         shorthand = source_path.stem
@@ -21515,6 +21558,9 @@ def _review_function_registry(
                 ):
                     register(key, definition)
             elif isinstance(node, ast.ClassDef):
+                unavailable_descriptors = (
+                    descriptor_names | _descriptor_unavailable_names(node.body)
+                )
                 constructor = next(
                     (
                         method
@@ -21542,6 +21588,7 @@ def _review_function_registry(
                         id(constructor),
                         frozenset(),
                     ),
+                    _helper_descriptor_kind(constructor, unavailable_descriptors),
                 )
                 for key in (
                     f"{relative_path}::{node.name}",
@@ -21566,6 +21613,7 @@ def _review_function_registry(
                             id(method),
                             frozenset(),
                         ),
+                        _helper_descriptor_kind(method, unavailable_descriptors),
                     )
                     register(
                         f"{relative_path}::{node.name}::{method.name}",
@@ -21603,20 +21651,45 @@ def _review_function_registry(
     return registry
 
 
+def _helper_receiver_kinds(definition: _ReviewFunction | None) -> dict[str, str]:
+    if definition is None or definition.descriptor_kind not in {
+        "ordinary", "classmethod"
+    }:
+        return {}
+    positional = [*definition.node.args.posonlyargs, *definition.node.args.args]
+    if not positional:
+        return {}
+    return {
+        positional[0].arg: (
+            "class" if definition.descriptor_kind == "classmethod" else "instance"
+        )
+    }
+
+
 def _helper_is_bound(
     call: ast.Call,
     definition: _ReviewFunction,
     aliases: Mapping[str, str],
-) -> bool:
+    *,
+    receiver_kinds: Mapping[str, str],
+) -> bool | None:
     if definition.class_name is None:
         return False
+    if definition.descriptor_kind is None:
+        return None
     raw = _qualified_name(call.func)
     if raw is not None and raw.startswith(("self.", "cls.")):
-        return True
+        receiver_kind = receiver_kinds.get(raw.split(".", 1)[0])
+        if receiver_kind is None:
+            return None
+        return definition.descriptor_kind == "classmethod" or (
+            definition.descriptor_kind == "ordinary" and receiver_kind == "instance"
+        )
+    if definition.descriptor_kind == "staticmethod":
+        return False
     resolved = _resolved_qualified_name(call.func, aliases)
     if (
         definition.node.name == "__init__"
-        and definition.class_name is not None
         and resolved is not None
         and (
             resolved == definition.class_name
@@ -21624,13 +21697,8 @@ def _helper_is_bound(
         )
     ):
         return True
-    decorators = {
-        _resolved_qualified_name(decorator, definition.aliases)
-        for decorator in definition.node.decorator_list
-    }
-    if "classmethod" not in decorators:
+    if definition.descriptor_kind != "classmethod":
         return False
-    resolved = _resolved_qualified_name(call.func, aliases)
     local_name = f"{definition.class_name}.{definition.node.name}"
     return resolved is not None and (
         resolved == local_name or resolved.endswith(f".{local_name}")
@@ -21641,6 +21709,8 @@ def _bind_helper_arguments(
     call: ast.Call,
     definition: _ReviewFunction,
     aliases: Mapping[str, str],
+    *,
+    receiver_kinds: Mapping[str, str],
 ) -> dict[str, tuple[ast.expr, bool]] | None:
     arguments = definition.node.args
     if (
@@ -21651,7 +21721,20 @@ def _bind_helper_arguments(
     ):
         return None
     positional = [*arguments.posonlyargs, *arguments.args]
-    if _helper_is_bound(call, definition, aliases):
+    positional_defaults = {
+        parameter.arg: value
+        for parameter, value in zip(
+            positional[-len(arguments.defaults) :] if arguments.defaults else (),
+            arguments.defaults,
+            strict=True,
+        )
+    }
+    bound = _helper_is_bound(
+        call, definition, aliases, receiver_kinds=receiver_kinds
+    )
+    if bound is None:
+        return None
+    if bound:
         if not positional:
             return None
         positional = positional[1:]
@@ -21662,27 +21745,17 @@ def _bind_helper_arguments(
         supplied[parameter.arg] = (value, False)
     positional_only = {parameter.arg for parameter in arguments.posonlyargs}
     allowed_keywords = {
-        parameter.arg for parameter in (*arguments.args, *arguments.kwonlyargs)
+        parameter.arg for parameter in (*positional, *arguments.kwonlyargs)
+        if parameter.arg not in positional_only
     }
-    if _helper_is_bound(call, definition, aliases) and arguments.args:
-        allowed_keywords.discard(arguments.args[0].arg)
     for keyword in call.keywords:
         if (
             keyword.arg is None
-            or keyword.arg in positional_only
             or keyword.arg not in allowed_keywords
             or keyword.arg in supplied
         ):
             return None
         supplied[keyword.arg] = (keyword.value, False)
-    positional_defaults = {
-        parameter.arg: value
-        for parameter, value in zip(
-            positional[-len(arguments.defaults) :] if arguments.defaults else (),
-            arguments.defaults,
-            strict=True,
-        )
-    }
     for parameter in positional:
         if parameter.arg in supplied:
             continue
@@ -22545,6 +22618,7 @@ def _review_body(
     closure_helper_key: str | None = None,
     analysis_budget: _AnalysisBudget | None = None,
     entry_values: Mapping[str, _FlowValue] | None = None,
+    receiver_kinds: Mapping[str, str] | None = None,
 ) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
     if closure_depth > MAXIMUM_ANALYSIS_HELPER_DEPTH:
         raise InventoryError("analysis helper depth exceeds 64")
@@ -22555,6 +22629,17 @@ def _review_body(
         analyzed_sites = []
     if helper_edges is None:
         helper_edges = []
+    if receiver_kinds is None:
+        caller = helper_registry.get(f"{relative_path}::{class_name}::{node.name}")
+        receiver_kinds = _helper_receiver_kinds(
+            caller if caller is not None and caller.node is node else None
+        )
+    body_receiver_kinds = dict(receiver_kinds)
+    receiver_bindings = _ExceptionBindingVisitor()
+    for statement in node.body:
+        receiver_bindings.visit(statement)
+    for name in receiver_bindings.bound_names:
+        body_receiver_kinds.pop(name, None)
     execution = _execution_scope(node, analysis_budget)
     body_aliases = _function_aliases(
         aliases,
@@ -22953,6 +23038,7 @@ def _review_body(
                 call,
                 local_definition,
                 call_aliases,
+                receiver_kinds=body_receiver_kinds,
             )
             local_assignments = dict(call_assignments)
             argument_failure = supplied is None
@@ -23001,6 +23087,10 @@ def _review_body(
                 closure_depth=closure_depth + 1,
                 closure_helper_key=local_key,
                 analysis_budget=analysis_budget,
+                receiver_kinds={
+                    name: kind for name, kind in body_receiver_kinds.items()
+                    if name not in _lexical_binding_scope(local_node).parameter_names
+                },
             )
             site_key = site_keys[id(call)]
             scaled, scale_blockers = _scale_nested_review_rows(
@@ -23049,6 +23139,7 @@ def _review_body(
                 call,
                 definition,
                 call_aliases,
+                receiver_kinds=body_receiver_kinds,
             )
             argument_failure = supplied_arguments is None
             if supplied_arguments is None:
@@ -23111,8 +23202,15 @@ def _review_body(
                 closure_depth=closure_depth + 1,
                 closure_helper_key=helper_key,
                 analysis_budget=analysis_budget,
+                receiver_kinds={
+                    name: kind
+                    for name, kind in _helper_receiver_kinds(definition).items()
+                    if supplied_arguments is not None and name not in supplied_arguments
+                },
             )
-            if argument_failure and (refused or not added):
+            if argument_failure and (
+                supplied_arguments is None or refused or not added
+            ):
                 blockers.append(
                     _review_blocker(
                         item_id,

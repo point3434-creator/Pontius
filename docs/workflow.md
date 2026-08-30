@@ -1,6 +1,8 @@
 # Collaboration and Review Workflow
 
-Adopted 2026-08-29. This document governs how implementation work is handed
+Adopted 2026-08-29; freeze guards, the commit-derived manifest, and the
+test-tier scope/procedure distinction were corrected the same day after the
+protocol's own first cold review. This document governs how implementation work is handed
 between agents (Codex workers, Claude sessions) and the controller for review,
 testing, and commit. It governs collaboration mechanics only: the evidence
 lifecycle (preregister → source-seal → authorize once → retain) remains owned
@@ -63,39 +65,78 @@ receipts do not count.
 ### Stage 2 — Freeze
 
 Create an immutable snapshot ref with a temporary index (no HEAD, index, or
-working-tree changes), compute the manifest, push the ref:
+working-tree changes). Every step is failure-checked, the index file is unique
+per freeze and always cleaned up, the caller's original `GIT_INDEX_FILE`
+selection is restored on every exit path, and the ref update is create-only —
+an existing round ref refuses to be overwritten:
 
 ```powershell
 $W = "D:\Pontius-worktrees\<worktree>"; $R = "review/<task>-r<N>"
-$env:GIT_INDEX_FILE = "$env:TEMP\freeze.idx"
-git -C $W read-tree HEAD
-git -C $W add -A
-$tree = git -C $W write-tree
-$parent = git -C $W rev-parse HEAD
-$commit = git -C $W commit-tree $tree -p $parent -m "Review candidate $R (frozen, not a decision commit)"
-Remove-Item Env:\GIT_INDEX_FILE
-git -C $W update-ref "refs/heads/$R" $commit
-git -C $W push origin "refs/heads/$R"
+$savedIndex = $env:GIT_INDEX_FILE
+$idx = Join-Path $env:TEMP ("freeze-" + [guid]::NewGuid().ToString("N") + ".idx")
+$env:GIT_INDEX_FILE = $idx
+try {
+  git -C $W read-tree HEAD;             if (-not $?) { throw "read-tree failed" }
+  git -C $W add -A;                     if (-not $?) { throw "add failed" }
+  $tree = git -C $W write-tree;         if (-not $? -or -not $tree) { throw "write-tree failed" }
+  $parent = git -C $W rev-parse HEAD;   if (-not $?) { throw "rev-parse failed" }
+  $commit = git -C $W commit-tree $tree -p $parent `
+    -m "Review candidate $R (frozen, not a decision commit)"
+  if (-not $? -or -not $commit) { throw "commit-tree failed" }
+} finally {
+  if ($null -ne $savedIndex) { $env:GIT_INDEX_FILE = $savedIndex }
+  else { Remove-Item Env:\GIT_INDEX_FILE -ErrorAction SilentlyContinue }
+  Remove-Item $idx -Force -ErrorAction SilentlyContinue
+}
+$zero = "0" * 40
+git -C $W update-ref "refs/heads/$R" $commit $zero
+if (-not $?) { throw "freeze refused: $R already exists - rounds are immutable, use r<N+1>" }
+git -C $W push origin "refs/heads/$R"; if (-not $?) { throw "push failed" }
 ```
 
 The **manifest** is the SHA-256 of lexicographically sorted rows of the form
-`<lowercase file sha256><two spaces><relative POSIX path><LF>` over every
-added/modified file (the same convention as the Task 2 audit):
+`<lowercase file sha256><two spaces><relative POSIX path><LF>` (the same row
+convention as the Task 2 audit). It is computed **from the frozen commit's
+blobs, never from working files**, so candidate and manifest cannot diverge.
+It covers every path where the frozen tree differs from its parent: added,
+modified, and typechanged paths hash the blob at `<commit>:<path>`; a deleted
+path carries the sentinel digest of 64 zeros. Rename detection is disabled, so
+a rename appears as one addition plus one deletion; untracked directories are
+a non-issue because the commit stores files only. Candidate identity is over the
+**stored blob bytes** — the content after add-time line-ending normalization.
+Reviewers recompute and verify identity with the blob-based command below
+(`git cat-file blob <commit>:<path>`), never by hashing checked-out or working
+files: checkout can re-apply CRLF conversion (this repository has
+`core.autocrlf=true`), so both checkout bytes and the implementer's original
+working-file bytes may legitimately differ from the blobs. The script runs
+from a temporary file because PowerShell 5.1 mangles embedded double quotes in
+`-c` arguments.
 
 ```powershell
 $py = @'
-import hashlib, pathlib, subprocess, sys
-w = sys.argv[1]
-status = subprocess.run(["git", "-C", w, "status", "--porcelain"],
-                        capture_output=True, text=True, check=True).stdout
-rows = []
-for line in sorted(p[3:].strip('"') for p in status.splitlines()
-                   if p and not p.startswith(" D")):
-    digest = hashlib.sha256((pathlib.Path(w) / line).read_bytes()).hexdigest()
-    rows.append(f"{digest}  {line}\n")
-print(hashlib.sha256("".join(rows).encode()).hexdigest())
+import hashlib, subprocess, sys
+w, commit = sys.argv[1], sys.argv[2]
+def run(*a):
+    return subprocess.run(["git", "-C", w, *a],
+                          capture_output=True, check=True).stdout
+raw = run("diff-tree", "-r", "-z", "--no-commit-id", "--name-status",
+          commit + "^", commit)
+fields = raw.decode("utf-8", "surrogateescape").split("\0")
+rows, i = [], 0
+while i + 1 < len(fields) and fields[i]:
+    status, path = fields[i][0], fields[i + 1]
+    if status == "D":
+        digest = "0" * 64
+    else:
+        digest = hashlib.sha256(run("cat-file", "blob",
+                                    f"{commit}:{path}")).hexdigest()
+    rows.append(f"{digest}  {path}\n")
+    i += 2
+print(hashlib.sha256("".join(sorted(rows)).encode()).hexdigest())
 '@
-.venv\Scripts\python.exe -c $py D:\Pontius-worktrees\<worktree>
+$pyPath = Join-Path $env:TEMP ("manifest-" + [guid]::NewGuid().ToString("N") + ".py")
+Set-Content -LiteralPath $pyPath -Value $py -Encoding ascii
+.venv\Scripts\python.exe $pyPath $W $commit
 ```
 
 Record the pair (ref commit SHA, manifest SHA) in the report. That pair is the
@@ -125,7 +166,9 @@ Task 2:
 ### Stage 5 — Acceptance gates, in fixed order
 
 1. Reviewer verdict CLEAN (both passes, for Tier C).
-2. Broad/isolated snapshot suites GREEN (never spent on unreviewed code).
+2. Broad suites GREEN via the isolated snapshot procedure. Focused snapshot
+   runs already happened at each freeze as the self-report's evidence; the
+   broad population is spent only on reviewed code.
 3. CodeRabbit sweep on the exact final bytes.
 4. Controller authorization — explicit, per commit.
 5. Ceremonial commit (short imperative title), immediate push to `origin`.
@@ -134,11 +177,17 @@ Task 2:
 
 ## Test-run tiers
 
-- **Focused** — single files from the worktree during development: free.
-- **Isolated snapshot** — the disposable-snapshot procedure at freeze time:
-  these runs are the report's evidence.
-- **Broad suites** — only after review-clean. Isolated runs are expensive;
-  unreviewed code has not earned them.
+"Isolated snapshot" names the *procedure* (the disposable-snapshot execution
+policy); "focused" and "broad" name the *scope*. The two axes are independent:
+
+- **Focused, from the worktree** — single files during development: free,
+  iteration only, never evidence.
+- **Focused, isolated snapshot** — the task's changed suites under the
+  snapshot procedure, at freeze time: these runs are the self-report's GREEN
+  evidence for that round.
+- **Broad, isolated snapshot** — the full population under the same
+  procedure, only after review-clean: broad runs are expensive and unreviewed
+  code has not earned them.
 
 ## Ledger discipline
 

@@ -710,6 +710,448 @@ class TraceSchemaRegressionTests(unittest.TestCase):
                     parse_trace(self.encode(rows))
 
 
+class ObservedTerminalClock:
+    """Fault the real witness source at observed reads, without replacing its owner."""
+
+    def __init__(self, *, fail_at=None, fault="invalid"):
+        self.now = 10_000
+        self.calls = 0
+        self.fail_at = fail_at
+        self.fault = fault
+        self.armed = False
+
+    def __call__(self):
+        self.calls += 1
+        if self.armed or self.calls == self.fail_at:
+            if self.fault == "reversed":
+                return self.now - 1 if self.calls > 1 else -1
+            if self.fault == "exception":
+                raise RuntimeError("clock source failed")
+            return True
+        self.now += 1_000
+        return self.now
+
+
+class TerminalAdmissionTests(unittest.TestCase):
+    """All-outcome implications through real hosts; neither digest uses the reader."""
+
+    encode = staticmethod(TraceSchemaRegressionTests.encode)
+
+    @staticmethod
+    def host_case(kind="success", *, source=None, fixture=None):
+        from dataclasses import replace
+        from pontius.immutable_blueprint import ImmutableBlueprintActionSource
+        from pontius.v0a.model import ActionMailbox
+        from pontius.v0a.replay import FIXTURE_A, PROTOCOL_ID, ReplayHost, ScriptedAction
+
+        source = ObservedTerminalClock() if source is None else source
+        real = ActionMailbox()
+        fixture = FIXTURE_A if fixture is None else fixture
+        if kind == "event_order":
+            fixture = replace(fixture, script=(ScriptedAction("preflop", 3, "call"),)
+                              + fixture.script[1:])
+        if kind == "no_start":
+            source.fail_at = 1
+
+        class Mailbox:
+            def deliver(self, envelope):
+                if kind == "rejected":
+                    # Exact ingress refusal inside the real mailbox; no action accepted.
+                    return real.deliver(None)
+                receipt = real.deliver(envelope)
+                if kind == "interrupted":
+                    source.armed = True
+                elif kind == "unknown":
+                    raise RuntimeError("accepted by real mailbox, acknowledgement lost")
+                elif kind == "late":
+                    source.now += 16_000_000_000
+                return receipt
+
+        class InvalidInputHost(ReplayHost):
+            def _events(self):
+                # Feed malformed external input through the real runtime dispatch path.
+                yield {"kind": "hand_started"}
+
+        def broken_oracle(**kwargs):
+            raise ValueError("settlement body failure")
+
+        options = {"settlement_oracle": broken_oracle} if kind == "settlement" else {}
+        host_type = InvalidInputHost if kind == "invalid_event" else ReplayHost
+        host = host_type(fixture, run_id=PROTOCOL_ID + "-correctness-terminal-" + kind,
+                         blueprint=ImmutableBlueprintActionSource("terminal-policy"),
+                         clock=source, mailbox=Mailbox(), **options)
+        outcome = host.run()
+        return outcome, real, source
+
+    def test_real_outcome_controls_preserve_delivery_timing_and_terminal_fields(self):
+        cases = (
+            ("success", None, None, None, 4),
+            ("late", "action_deadline_exceeded", "accepted", "completed", 1),
+            ("interrupted", "clock_invalid", "accepted", "interrupted", 1),
+            ("unknown", "delivery_ambiguous", "unknown", "interrupted", 1),
+            ("rejected", "delivery_rejected", "rejected", "interrupted", 0),
+            ("no_start", "clock_invalid", "not_attempted", None, 0),
+            ("event_order", "event_order", "not_attempted", None, 1),
+            ("invalid_event", "invalid_event", "not_attempted", None, 0),
+            ("settlement", "settlement_mismatch", None, None, 4),
+        )
+        for kind, reason, delivery, timing, accepted in cases:
+            with self.subTest(kind=kind):
+                outcome, mailbox, _ = self.host_case(kind)
+                parsed = parse_trace(outcome.trace)
+                self.assertEqual(parsed.terminal["failure_reason"], reason)
+                self.assertEqual(len(mailbox.accepted), accepted)
+                self.assertEqual(parsed.terminal["passed"], kind == "success")
+                if delivery is None:
+                    self.assertEqual(parsed.failures, ())
+                else:
+                    failure = parsed.failures[0]
+                    self.assertEqual(failure["delivery_status"], delivery)
+                    self.assertEqual(None if failure["timing"] is None else
+                                     failure["timing"]["status"], timing)
+                if kind == "unknown":
+                    self.assertEqual(parsed.decisions, ())
+                    self.assertIsNone(parsed.failures[0]["delivered_action"])
+                if kind != "success":
+                    self.assertIsNone(parsed.terminal["settlement"])
+
+    def test_all_flag_combinations_for_real_outcome_variants(self):
+        from itertools import product
+
+        # Tuples are (complete, passed, accounting_complete). For a noninterrupted
+        # failure these fields cannot reconstruct missing lifecycle chronology.
+        failed_allowed = {(False, False, False), (False, False, True),
+                          (True, False, False), (True, False, True)}
+        cases = (
+            ("success", {(True, True, True)}),
+            ("late", failed_allowed), ("event_order", failed_allowed),
+            ("invalid_event", failed_allowed), ("no_start", failed_allowed),
+            ("settlement", failed_allowed),
+            ("interrupted", {(False, False, False)}),
+            ("unknown", {(False, False, False)}),
+            ("rejected", {(False, False, False)}),
+        )
+        for kind, allowed in cases:
+            content = self.host_case(kind)[0].trace
+            parse_trace(content)
+            for flags in product((False, True), repeat=3):
+                rows = [json.loads(raw) for raw in content.splitlines()]
+                rows[-1].update(zip(("complete", "passed", "accounting_complete"), flags))
+                # Finite totals make this a flag implication check, independent of
+                # the separate category-availability controls below.
+                rows[-1].update(preparation_compute_seconds=0.0,
+                                post_terminal_compute_seconds=0.0)
+                with self.subTest(kind=kind, flags=flags):
+                    if flags in allowed:
+                        self.assertEqual(parse_trace(self.encode(rows)).terminal["passed"],
+                                         flags[1])
+                    else:
+                        with self.assertRaises(TraceInvalidError):
+                            parse_trace(self.encode(rows))
+
+    def test_failed_settlement_and_erased_or_replaced_primary_are_refused(self):
+        settlement_value = json.loads(self.host_case()[0].trace.splitlines()[-1])["settlement"]
+        for kind in ("late", "interrupted", "unknown", "rejected", "no_start",
+                     "event_order", "invalid_event", "settlement"):
+            content = self.host_case(kind)[0].trace
+            for mutation in ("settlement", "erased", "replaced"):
+                rows = [json.loads(raw) for raw in content.splitlines()]
+                if mutation == "settlement":
+                    rows[-1]["settlement"] = settlement_value
+                else:
+                    rows[-1]["failure_reason"] = (None if mutation == "erased"
+                                                   else "source_binding_mismatch")
+                with self.subTest(kind=kind, mutation=mutation):
+                    if kind == "settlement" and mutation == "replaced":
+                        # A terminal-only cause has no row that establishes another cause.
+                        parse_trace(self.encode(rows))
+                    else:
+                        with self.assertRaises(TraceInvalidError):
+                            parse_trace(self.encode(rows))
+
+    def test_accounting_complete_requires_both_category_totals_on_failed_hands(self):
+        for kind in ("late", "event_order", "invalid_event", "settlement", "no_start"):
+            content = self.host_case(kind)[0].trace
+            for prep, post in ((None, None), (None, 0.0), (0.0, None), (0.0, 0.0)):
+                rows = [json.loads(raw) for raw in content.splitlines()]
+                rows[-1].update(accounting_complete=True, preparation_compute_seconds=prep,
+                                post_terminal_compute_seconds=post)
+                with self.subTest(kind=kind, prep=prep, post=post):
+                    if prep is not None and post is not None:
+                        parse_trace(self.encode(rows))
+                    else:
+                        with self.assertRaises(TraceInvalidError):
+                            parse_trace(self.encode(rows))
+                # Aggregate incompleteness does not erase a completed category.
+                rows[-1]["accounting_complete"] = False
+                parsed = parse_trace(self.encode(rows))
+                self.assertEqual(parsed.terminal["preparation_compute_seconds"], prep)
+                self.assertEqual(parsed.terminal["post_terminal_compute_seconds"], post)
+
+    def test_unknown_delivery_forces_flags_even_without_a_started_timing_record(self):
+        content = self.host_case("no_start")[0].trace
+        for complete, accounting in ((False, False), (True, False), (False, True), (True, True)):
+            rows = [json.loads(raw) for raw in content.splitlines()]
+            rows[1].update(code="delivery_ambiguous", delivery_status="unknown")
+            rows[-1].update(failure_reason="delivery_ambiguous", complete=complete,
+                            accounting_complete=accounting, preparation_compute_seconds=0.0,
+                            post_terminal_compute_seconds=0.0)
+            with self.subTest(complete=complete, accounting=accounting):
+                if complete or accounting:
+                    with self.assertRaises(TraceInvalidError):
+                        parse_trace(self.encode(rows))
+                else:
+                    parsed = parse_trace(self.encode(rows))
+                    self.assertEqual(parsed.terminal["interrupted_response_count"], 0)
+
+    def test_source_cause_survives_later_real_adapter_outcomes(self):
+        from pontius.immutable_blueprint import ImmutableBlueprintActionSource
+        from pontius.v0a.clock import ClockInvalidError, ClockReversedError, MonotonicWitness
+        from pontius.v0a.model import ActionMailbox
+        from pontius.v0a.replay import FIXTURE_A, PROTOCOL_ID, ReplayHost
+
+        for fault in ("invalid", "reversed"):
+            for finish in ("acknowledge", "raise", "reject"):
+                source = ObservedTerminalClock(fault=fault)
+                witness = MonotonicWitness(source)
+                real = ActionMailbox()
+
+                class Mailbox:
+                    def deliver(self, envelope):
+                        receipt = real.deliver(envelope) if finish != "reject" else None
+                        source.armed = True
+                        try:
+                            witness()
+                        except (ClockInvalidError, ClockReversedError):
+                            pass
+                        if finish == "raise":
+                            raise RuntimeError("adapter body after source failure")
+                        if finish == "reject":
+                            return real.deliver(None)
+                        return receipt
+
+                host = ReplayHost(FIXTURE_A, run_id=PROTOCOL_ID + "-correctness-source-"
+                                  + fault + "-" + finish,
+                                  blueprint=ImmutableBlueprintActionSource("terminal-policy"),
+                                  clock=witness, mailbox=Mailbox())
+                outcome = host.run()
+                with self.subTest(fault=fault, finish=finish):
+                    parsed = parse_trace(outcome.trace)
+                    self.assertEqual(parsed.terminal["failure_reason"], "clock_" + fault)
+                    self.assertEqual(len(real.accepted), 0 if finish == "reject" else 1)
+                    expected = {"acknowledge": ("clock_invalid", "accepted"),
+                                "raise": ("delivery_ambiguous", "unknown"),
+                                "reject": ("delivery_rejected", "rejected")}[finish]
+                    self.assertEqual((parsed.failures[0]["code"],
+                                      parsed.failures[0]["delivery_status"]), expected)
+                    rows = [json.loads(raw) for raw in outcome.trace.splitlines()]
+                    rows[-1]["failure_reason"] = "invalid_event"
+                    with self.assertRaises(TraceInvalidError):
+                        parse_trace(self.encode(rows))
+
+    def test_prefailed_witness_and_opposing_host_only_source_body_causes(self):
+        from pontius.immutable_blueprint import ImmutableBlueprintActionSource
+        from pontius.v0a.clock import ClockInvalidError, ClockReversedError, MonotonicWitness
+        from pontius.v0a.replay import FIXTURE_A, PROTOCOL_ID, ReplayHost
+
+        for fault in ("invalid", "reversed"):
+            source = ObservedTerminalClock(fault=fault)
+            witness = MonotonicWitness(source)
+            witness()
+            source.armed = True
+            with self.assertRaises((ClockInvalidError, ClockReversedError)):
+                witness()
+            outcome = ReplayHost(FIXTURE_A, run_id=PROTOCOL_ID + "-correctness-prefailed-"
+                                 + fault,
+                                 blueprint=ImmutableBlueprintActionSource("terminal-policy"),
+                                 clock=witness).run()
+            parsed = parse_trace(outcome.trace)
+            self.assertEqual(parsed.terminal["failure_reason"], "clock_" + fault)
+            self.assertEqual(parsed.failures[0]["code"], "clock_invalid")
+            self.assertIsNone(parsed.failures[0]["timing"])
+            self.assertEqual(parsed.decisions, ())
+
+        for source_first in (False, True):
+            source = ObservedTerminalClock(fault="reversed")
+            witness = MonotonicWitness(source)
+
+            def oracle(**kwargs):
+                source.armed = True
+                if source_first:
+                    with self.assertRaises(ClockReversedError):
+                        witness()
+                raise ValueError("independent settlement body failure")
+
+            outcome = ReplayHost(FIXTURE_A, run_id=PROTOCOL_ID + "-correctness-body-"
+                                 + str(source_first),
+                                 blueprint=ImmutableBlueprintActionSource("terminal-policy"),
+                                 clock=witness, settlement_oracle=oracle).run()
+            parsed = parse_trace(outcome.trace)
+            self.assertEqual(parsed.failures, ())
+            self.assertEqual(parsed.terminal["failure_reason"],
+                             "clock_reversed" if source_first else "settlement_mismatch")
+            self.assertEqual(tuple(str(code) for code in outcome.receipt.secondary_failures),
+                             ("settlement_mismatch" if source_first else "clock_reversed",))
+            self.assertIsNone(parsed.terminal["settlement"])
+            self.assertFalse(parsed.terminal["accounting_complete"])
+            # Failed closing work stays unavailable; category completion is separate.
+            self.assertIsNone(parsed.terminal["post_terminal_compute_seconds"])
+
+    def test_every_observed_normal_and_rejected_input_clock_read_preserves_prefixes(self):
+        counts = {}
+        cleanup_primaries = 0
+        for kind in ("success", "event_order"):
+            _, _, baseline = self.host_case(kind)
+            self.assertGreater(baseline.calls, 0)
+            counts[kind] = baseline.calls
+            for fault in ("invalid", "reversed", "exception"):
+                for position in range(1, baseline.calls + 1):
+                    source = ObservedTerminalClock(fail_at=position, fault=fault)
+                    outcome, _, _ = self.host_case(kind, source=source)
+                    with self.subTest(kind=kind, fault=fault, position=position):
+                        self.assertEqual(source.calls, position)
+                        self.assertFalse(outcome.receipt.passed)
+                        parsed = parse_trace(outcome.trace)
+                        if (parsed.failures and parsed.failures[0]["code"] == "event_order"
+                                and outcome.receipt.secondary_failures):
+                            cleanup_primaries += 1
+                            self.assertEqual(parsed.terminal["failure_reason"], "event_order")
+                            rows = [json.loads(raw) for raw in outcome.trace.splitlines()]
+                            rows[-1]["failure_reason"] = "clock_invalid"
+                            with self.assertRaises(TraceInvalidError):
+                                parse_trace(self.encode(rows))
+        self.assertGreater(cleanup_primaries, 0)
+        print("terminal clock sweep", json.dumps({"observed_reads": counts,
+              "fault_kinds": ["invalid", "reversed", "exception"],
+              "preserved_input_primary_controls": cleanup_primaries}, sort_keys=True))
+
+    def test_real_host_write_failure_keeps_prepublication_trace_inspectable(self):
+        from pontius.immutable_blueprint import ImmutableBlueprintActionSource
+        from pontius.v0a.replay import FIXTURE_A, PROTOCOL_ID, ReplayHost
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            destination = root / "already-present.jsonl"
+            destination.write_bytes(b"preserve existing destination")
+            host = ReplayHost(FIXTURE_A, run_id=PROTOCOL_ID + "-correctness-write-failure",
+                              blueprint=ImmutableBlueprintActionSource("terminal-policy"),
+                              clock=ObservedTerminalClock())
+            outcome = host.run(destination=destination, run_root=root)
+            self.assertEqual(outcome.receipt.failure_reason, FailureCode.TRACE_WRITE_FAILED)
+            self.assertFalse(outcome.receipt.passed)
+            parsed = parse_trace(outcome.trace)
+            self.assertEqual(parsed.failures, ())
+            self.assertTrue(parsed.terminal["passed"])
+            self.assertIsNone(parsed.terminal["failure_reason"])
+            self.assertEqual(destination.read_bytes(), b"preserve existing destination")
+
+
+class EventConstructorAdmissionTests(unittest.TestCase):
+    """Wire-representable value domains, with legal replay intentionally separate."""
+
+    encode = staticmethod(TraceSchemaRegressionTests.encode)
+
+    @staticmethod
+    def rows():
+        return [json.loads(raw) for raw in TraceSchemaRegressionTests().real_trace().splitlines()]
+
+    def assert_bad_event(self, kind, **updates):
+        rows = self.rows()
+        event = next(row["event"] for row in rows if row["record_type"] == "event"
+                     and row["event"]["kind"] == kind)
+        event.update(updates)
+        with self.assertRaises(TraceInvalidError):
+            parse_trace(self.encode(rows))
+
+    def test_every_event_common_constructor_field_rejects_invalid_wire_values(self):
+        for kind in ("hand_started", "opponent_action", "street_revealed", "showdown_result"):
+            for key, values in (
+                ("schema_version", (None, True, 1, [], {}, "foreign")),
+                ("hand_id", (None, True, 1, [], {}, "", "non-ascii-\u00e9")),
+                ("event_index", (None, True, -1, 0.5, [], {}, "0")),
+            ):
+                for value in values:
+                    with self.subTest(kind=kind, key=key, value=value):
+                        self.assert_bad_event(kind, **{key: value})
+
+    def test_private_pair_order_and_all_starting_value_domains(self):
+        cases = {
+            "private_cards": ([45, 32], [32, 32], [False, 32], [-1, 32], [32, 52],
+                              [32], [0, 1, 2], None, {}),
+            "button": (True, -1, 6, "0", None),
+            "controlled_seat": (False, -1, 6, "3", None),
+            "starting_stacks": (None, {}, [200] * 5, [200] * 7, [True] * 6,
+                                [0] * 6, [-1] * 6, [1] * 6, [200.0] * 6),
+            "small_blind": (None, False, 0, -1, 2, 3, 1.0),
+            "big_blind": (None, True, 0, -1, 1, 2.0),
+        }
+        for field, values in cases.items():
+            for value in values:
+                with self.subTest(field=field, value=value):
+                    self.assert_bad_event("hand_started", **{field: value})
+        rows = self.rows()
+        rows[1]["event"].update(private_cards=[0, 51], starting_stacks=[2] * 6)
+        parsed = parse_trace(self.encode(rows))
+        self.assertEqual(parsed.events[0]["private_cards"], (0, 51))
+        self.assertEqual(parsed.events[0]["starting_stacks"], (2,) * 6)
+
+    def test_opponent_action_constructor_and_nested_action_domains(self):
+        for key, values in (("street", (None, True, "bad", [], {})),
+                            ("seat", (None, False, -1, 6, 1.0))):
+            for value in values:
+                with self.subTest(key=key, value=value):
+                    self.assert_bad_event("opponent_action", **{key: value})
+        actions = [None, [], {}, {"kind": "fold"},
+                   {"kind": "call", "raise_to": None, "extra": 0}]
+        actions.extend({"kind": kind, "raise_to": None} for kind in (None, True, [], "bad"))
+        actions.extend({"kind": "raise", "raise_to": value}
+                       for value in (None, False, 0, -1, 1.0, [], "2"))
+        actions.extend({"kind": kind, "raise_to": value}
+                       for kind in ("fold", "check", "call") for value in (0, False, 1))
+        for action in actions:
+            with self.subTest(action=action):
+                self.assert_bad_event("opponent_action", action=action)
+        for kind, amount in (("fold", None), ("check", None), ("call", None), ("raise", 1)):
+            rows = self.rows()
+            next(row["event"] for row in rows if row["record_type"] == "event"
+                 and row["event"]["kind"] == "opponent_action")["action"] = {
+                     "kind": kind, "raise_to": amount}
+            parse_trace(self.encode(rows))
+
+    def test_reveal_domains_preserve_unsorted_board_order(self):
+        for street in (None, True, "preflop", "bad", [], {}):
+            with self.subTest(street=street):
+                self.assert_bad_event("street_revealed", street=street)
+        for street, good in (("flop", [51, 2, 0]), ("turn", [51]), ("river", [0])):
+            bad = (None, {}, [], [True] * len(good), [-1] * len(good),
+                   [52] * len(good), [1.0] * len(good), good + [3])
+            if street == "flop":
+                bad += ([0, 0, 1], [0])
+            for cards in bad:
+                with self.subTest(street=street, cards=cards):
+                    self.assert_bad_event("street_revealed", street=street, cards=cards)
+            rows = self.rows()
+            event = next(row["event"] for row in rows if row["record_type"] == "event"
+                         and row["event"]["kind"] == "street_revealed")
+            event.update(street=street, cards=good)
+            parsed = parse_trace(self.encode(rows))
+            reveal = next(event for event in parsed.events if event["kind"] == "street_revealed")
+            self.assertEqual(reveal["cards"], tuple(good))
+
+    def test_showdown_constructor_domains_and_structural_comparability(self):
+        values = (None, {}, [], [None] * 5, [None] * 7, [True] * 6,
+                  [1.0] * 6, ["rank"] * 6, [[]] * 6, [[True]] * 6,
+                  [[1.0]] * 6, [[{}]] * 6, [1, [1], None, None, None, None])
+        for strengths in values:
+            with self.subTest(strengths=strengths):
+                self.assert_bad_event("showdown_result", strengths=strengths)
+        for strengths in ([None] * 6, [-2, -1, 0, None, None, None],
+                          [[-2], [-1, 3], [0], None, None, None]):
+            rows = self.rows()
+            rows[-2]["event"]["strengths"] = strengths
+            parse_trace(self.encode(rows))
+
+
 def main() -> int:
     result = unittest.main(module=__name__, exit=False, verbosity=1).result
     return 0 if result.wasSuccessful() else 1

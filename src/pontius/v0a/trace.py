@@ -616,73 +616,90 @@ def _validate_settlement(settlement: object) -> None:
 
 _EVENT_COMMON = frozenset({"schema_version", "kind", "hand_id", "event_index"})
 _EVENT_VARIANTS = {
-    "hand_started": frozenset({"button", "controlled_seat", "starting_stacks",
-                               "small_blind", "big_blind", "private_cards"}),
-    "opponent_action": frozenset({"street", "seat", "action"}),
-    "street_revealed": frozenset({"street", "cards"}),
-    "showdown_result": frozenset({"strengths"}),
+    "hand_started": (HandStartedEvent, frozenset({
+        "button", "controlled_seat", "starting_stacks", "small_blind", "big_blind",
+        "private_cards",
+    })),
+    "opponent_action": (OpponentActionEvent, frozenset({"street", "seat", "action"})),
+    "street_revealed": (StreetRevealedEvent, frozenset({"street", "cards"})),
+    "showdown_result": (ShowdownResultEvent, frozenset({"strengths"})),
 }
-
-
-def _validate_cards(value: object, count: int, *, label: str) -> None:
-    if type(value) is not tuple or len(value) != count:
-        raise TraceInvalidError(f"{label} must contain exactly {count} cards")
-    for card in value:
-        _require_int(card, label=label, minimum=0, maximum=51)
-    if len(set(value)) != count:
-        raise TraceInvalidError(f"{label} cards must be distinct")
 
 
 def _validate_event(event: object, index: int) -> None:
     if type(event) is not dict:
         raise TraceInvalidError("event payload must be an object")
     kind = _require_enum(event.get("kind"), tuple(_EVENT_VARIANTS), label="event kind")
-    _require_keys(event, _EVENT_COMMON | _EVENT_VARIANTS[kind], label=kind)
-    if event["schema_version"] != EVENT_SCHEMA_VERSION:
-        raise TraceInvalidError("event schema must be canonical")
-    _require_text(event["hand_id"], label="event hand id")
-    if _require_int(event["event_index"], label="event index", minimum=0) != index:
+    constructor, fields = _EVENT_VARIANTS[kind]
+    _require_keys(event, _EVENT_COMMON | fields, label=kind)
+    values = {key: value for key, value in event.items() if key != "kind"}
+    try:
+        if kind == "opponent_action":
+            action = values["action"]
+            if type(action) is not dict:
+                raise TraceInvalidError("opponent action must be an object")
+            _require_keys(action, _ACTION_KEYS, label="opponent action")
+            values["action"] = HandAction(**action)
+        # Only these known pure constructors admit event values. Raw keys remain
+        # exact, while primitive types, private ordering and reveal widths have
+        # one source of truth shared with runtime ingress.
+        admitted = constructor(**values)
+    except (TypeError, ValueError) as error:
+        raise TraceInvalidError(f"invalid {kind} event value") from error
+    if admitted.event_index != index:
         raise TraceInvalidError("accepted event indices must be contiguous from zero")
     if (index == 0) != (kind == "hand_started"):
         raise TraceInvalidError("the first accepted event alone starts the hand")
     if kind == "hand_started":
-        for key in ("button", "controlled_seat"):
-            _require_int(event[key], label=key, minimum=0, maximum=5)
-        small = _require_int(event["small_blind"], label="small blind", minimum=1)
-        big = _require_int(event["big_blind"], label="big blind", minimum=1)
-        if small >= big:
-            raise TraceInvalidError("small blind must be below big blind")
-        stacks = event["starting_stacks"]
-        if type(stacks) is not tuple or len(stacks) != 6:
-            raise TraceInvalidError("starting stacks must cover exactly six seats")
-        for stack in stacks:
-            _require_int(stack, label="starting stack", minimum=big)
-        _validate_cards(event["private_cards"], 2, label="private cards")
-    elif kind == "opponent_action":
-        _require_enum(event["street"], STREET_NAMES, label="opponent street")
-        _require_int(event["seat"], label="opponent seat", minimum=0, maximum=5)
-        _validate_action(event["action"], label="opponent action")
-    elif kind == "street_revealed":
-        street = _require_enum(event["street"], ("flop", "turn", "river"), label="reveal street")
-        _validate_cards(event["cards"], 3 if street == "flop" else 1, label="reveal")
-    else:
-        strengths = event["strengths"]
-        if type(strengths) is not tuple or len(strengths) != 6:
-            raise TraceInvalidError("showdown strengths must cover exactly six seats")
-        domains = set()
-        for strength in strengths:
-            if strength is None:
-                continue
-            domains.add(type(strength))
-            if type(strength) is tuple:
-                if not strength:
-                    raise TraceInvalidError("rank tuples must be nonempty")
-                for atom in strength:
-                    _require_int(atom, label="rank atom")
-            else:
-                _require_int(strength, label="strength")
+        if any(stack < admitted.big_blind for stack in admitted.starting_stacks):
+            raise TraceInvalidError("starting stacks must cover the big blind")
+    elif kind == "showdown_result":
+        domains = {type(strength) for strength in admitted.strengths if strength is not None}
         if len(domains) > 1:
             raise TraceInvalidError("showdown strengths must share one comparable rank domain")
+
+
+def _validate_terminal_consistency(
+    terminal: dict[str, object],
+    decisions: list[dict[str, object]],
+    failures: list[dict[str, object]],
+) -> None:
+    """Apply outcome implications after exact values, counts and pairs are admitted."""
+
+    if (terminal["interrupted_response_count"]
+            or any(row["delivery_status"] == "unknown" for row in failures)):
+        if any(terminal[key] for key in ("complete", "passed", "accounting_complete")):
+            raise TraceInvalidError("interrupted or unknown delivery requires incomplete failure")
+    if (not terminal["passed"] or not terminal["complete"]) and terminal["settlement"] is not None:
+        raise TraceInvalidError("failed or incomplete terminal cannot carry settlement")
+    if not terminal["passed"] and terminal["failure_reason"] is None:
+        raise TraceInvalidError("failed terminal must retain its primary failure reason")
+    if terminal["accounting_complete"] and any(terminal[key] is None for key in (
+        "preparation_compute_seconds", "post_terminal_compute_seconds",
+    )):
+        raise TraceInvalidError("complete accounting requires both complete category totals")
+    if failures and terminal["failure_reason"] != failures[0]["code"]:
+        first = failures[0]
+        timing = first["timing"]
+        # A caught source fault can precede the adapter's recorded refusal. The
+        # trace has no source/body chronology, so require compatibility rather
+        # than inventing first-row equality. A prefailed reversed witness may
+        # also refuse as clock_invalid before any runtime wall starts.
+        earlier_clock = terminal["failure_reason"] in ("clock_invalid", "clock_reversed")
+        interrupted_adapter = timing is not None and timing["status"] == "interrupted"
+        prefailed_reversal = (terminal["failure_reason"] == "clock_reversed"
+                              and first["code"] == "clock_invalid" and timing is None)
+        if not (earlier_clock and interrupted_adapter or prefailed_reversal):
+            raise TraceInvalidError("terminal primary reason contradicts its first failure")
+    if terminal["passed"]:
+        if (not terminal["complete"] or not terminal["accounting_complete"]
+                or terminal["failure_reason"] is not None or failures
+                or terminal["settlement"] is None
+                or any(row["failure_reason"] is not None for row in decisions)):
+            raise TraceInvalidError("successful terminal contradicts its records or accounting")
+        if any(row["timing"]["work_cutoff_crossed"] or row["timing"]["deadline_crossed"]
+               for row in decisions):
+            raise TraceInvalidError("successful terminal contains an untimely response")
 
 
 @dataclass(frozen=True, slots=True)
@@ -907,23 +924,11 @@ def parse_trace(content: bytes) -> ParsedTrace:
                 matching[0]["failure_reason"] != failure["code"],
             )):
                 raise TraceInvalidError("accepted failure must bind one matching decision")
-    if terminal["passed"]:
-        if (not terminal["complete"] or not terminal["accounting_complete"]
-                or terminal["failure_reason"] is not None or failures
-                or terminal["settlement"] is None or interrupted
-                or any(row["failure_reason"] is not None for row in decisions)
-                or any(terminal[key] is None for key in
-                       ("preparation_compute_seconds", "post_terminal_compute_seconds"))):
-            raise TraceInvalidError("successful terminal contradicts its records or accounting")
-        if any(row["timing"]["work_cutoff_crossed"] or row["timing"]["deadline_crossed"]
-               for row in decisions):
-            raise TraceInvalidError("successful terminal contains an untimely response")
+    _validate_terminal_consistency(terminal, decisions, failures)
 
     prefix_bytes = b"".join(raw + b"\n" for raw in raw_rows[:-1])
     if terminal["trace_prefix_sha256"] != sha256(prefix_bytes).hexdigest():
         raise TraceInvalidError("terminal prefix digest does not bind the preceding rows")
-    if terminal["complete"] and terminal["passed"] and not terminal["accounting_complete"]:
-        raise TraceInvalidError("a successful terminal requires complete accounting")
     parsed = ParsedTrace(
         header=header,
         events=tuple(events),

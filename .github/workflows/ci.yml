@@ -43,6 +43,11 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force C:\px | Out-Null
           New-Item -ItemType Directory -Force C:\pt | Out-Null
+          # Defender real-time scanning briefly holds freshly created files,
+          # denying the writers' DELETE-access opens and lock teardown
+          # (WinError 5). The suites' own sharing discipline is the guard
+          # under test; the scanner is not part of the contract.
+          Add-MpPreference -ExclusionPath 'C:\px','C:\pt'
           git clone --quiet --no-hardlinks "${{ github.workspace }}" C:\px\Pontius
           git -C C:\px\Pontius checkout --quiet ${{ github.sha }}
 

@@ -30,9 +30,10 @@ by PROJECT.md, and the CLAUDE.md iron rules bind every participant here.
 - **Reviewer**: a cold-context session (Claude or Codex) that never implemented
   the round it reviews. Implementer ≠ reviewer per round; roles may swap per
   task.
-- **CodeRabbit**: final automated sweep only. It is the weakest detector in
-  the stack (it has passed candidates that fresh adversarial review then
-  rejected), so it runs last and is never the load-bearing gate.
+- **Finalizer**: at each checkpoint, whoever wrote the first draft has final
+  say and makes the ceremonial commit; the roles alternate at the next
+  checkpoint. The round's `handoff.md` names the finalizer. Controller
+  authorization remains per commit regardless of finalizer.
 
 ## Change tiers
 
@@ -96,7 +97,10 @@ git -C $W push origin "refs/heads/$R"; if (-not $?) { throw "push failed" }
 
 The **manifest** is the SHA-256 of lexicographically sorted rows of the form
 `<lowercase file sha256><two spaces><relative POSIX path><LF>` (the same row
-convention as the Task 2 audit). It is computed **from the frozen commit's
+convention as the Task 2 audit). Rows sort as whole byte strings — digest
+first, exactly as `sorted()` orders the row strings — never by path: a
+path-sorted manifest over the same rows is a different digest (the r004
+packet incident). It is computed **from the frozen commit's
 blobs, never from working files**, so candidate and manifest cannot diverge.
 It covers every path where the frozen tree differs from its parent: added,
 modified, and typechanged paths hash the blob at `<commit>:<path>`; a deleted
@@ -170,13 +174,19 @@ learned at full price in Task 2:
 2. Broad suites GREEN via the isolated snapshot procedure. Focused snapshot
    runs already happened at each freeze as the self-report's evidence; the
    broad population is spent only on reviewed code.
-3. CodeRabbit sweep on the exact final bytes.
-4. Controller authorization — explicit, per commit.
-5. Ceremonial commit (short imperative title), immediate push to `origin`.
-6. Retire the task's `review/*` refs under the handoff-packet retirement
+3. Controller authorization — explicit, per commit, naming the round or
+   candidate commit it approves. An authorization that no longer matches the
+   current round is void; it never transfers to newer bytes.
+4. Ceremonial commit by the checkpoint's finalizer (short imperative title),
+   immediate push to `origin`.
+5. Retire the task's `review/*` refs under the handoff-packet retirement
    predicate (integrated byte-identically, or archived — rule 4 below).
-7. One-line verdict entry in the task ledger by whoever issued the verdict;
+6. One-line verdict entry in the task ledger by whoever issued the verdict;
    one disposition line in the program ledger.
+
+The CodeRabbit sweep was retired by the controller's 2026-08-30 ruling,
+recorded in `docs/workflow-amendment-2026-08-30.md`; no external-service
+gate replaces it.
 
 ## Test-run tiers
 
@@ -213,7 +223,7 @@ D:\Pontius-handoffs\
   <task-id>\
     progress.md               # the task ledger (single-writer, above)
     r<NNN>\
-      handoff.md              # cold-review instructions, scope, pinned inputs
+      handoff.md              # cold-review instructions, scope, pinned inputs, finalizer
       candidate.json          # identity: ref, commit, base, tree, manifest digest
       manifest.sha256         # the sorted blob-hash rows themselves
       reviews\
@@ -299,6 +309,11 @@ adds a line; lines are never removed.
 10. **Exactness hygiene.** `type(value) is int` / `is bool` discipline in
     evidence paths; changed files are LF-only, BOM-free, ≤100 columns, no
     trailing whitespace.
+11. **Identity recomputation.** Every published identity artifact — manifest
+    digest, blob pin, packet row file — is independently recomputed from the
+    frozen bytes under the documented convention (whole-row byte sort, LF
+    rows) before anything binds to it; a digest that only reproduces under a
+    different ordering is a different identity.
 
 ## Templates
 

@@ -12,6 +12,7 @@ from __future__ import annotations
 from collections.abc import Iterator, Mapping
 from contextlib import contextmanager
 from hashlib import sha256
+import json
 import os
 from pathlib import Path
 import stat
@@ -336,6 +337,20 @@ def _canonical_lf(raw: bytes) -> bytes:
     return raw.replace(bytes((13, 10)), bytes((10,)))
 
 
+def _parse_authorization_config(raw: bytes) -> Mapping[str, object]:
+    if type(raw) is not bytes:
+        raise TypeError("v7 invocation authorization input must be bytes")
+    value = json.loads(
+        raw.decode("utf-8"),
+        object_pairs_hook=_v4._unique_object,
+        parse_float=lambda _: (_ for _ in ()).throw(ValueError("float in JSON")),
+        parse_constant=lambda _: (_ for _ in ()).throw(ValueError("constant in JSON")),
+    )
+    if not isinstance(value, Mapping):
+        raise TypeError("v7 invocation authorization must be an object")
+    return value
+
+
 def _is_lower_hex(value: object, length: int) -> bool:
     return (
         type(value) is str
@@ -570,9 +585,7 @@ def _authorization_tag(commit: str | None = None) -> dict[str, object]:
         ):
             raise RuntimeError("v7 authorization Git file state differs")
         raw = AUTHORIZATION_CONFIG_PATH.read_bytes()
-        config = _v4._load_json(
-            AUTHORIZATION_CONFIG_PATH, label="v7 invocation authorization"
-        )
+        config = _parse_authorization_config(raw)
         paths = config.get("authorization_commit_paths")
         source_seal = config.get("source_seal_commit")
         if (

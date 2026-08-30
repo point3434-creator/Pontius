@@ -1,0 +1,51 @@
+schema_version = "pontius-sealed-current-files-v1"
+baseline_commit = "a842c4b6a73a2991a63a481f4107580b72750582"
+entry_count = 6
+
+[[files]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v2.jsonl"
+byte_length = 3299268
+raw_sha256 = "67ac14d408fe8c4299ee603ec1d8c454975094507d4ac28cda73001a42feb90d"
+role = "retained_result"
+governing_decision = "ADR-0462"
+owner = "compiled_global_separation_calibration_v2"
+
+[[files]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v5.attempt.json"
+byte_length = 606
+raw_sha256 = "104820d0c67391365d18fb76ca72c704e40e467e2993a96c618d4bf91155600d"
+role = "retained_attempt"
+governing_decision = "ADR-0470"
+owner = "compiled_global_separation_calibration_v5"
+
+[[files]]
+relative_path = "experiments/configs/legal-river-quotient-compiled-global-separation-calibration-v9-corrected-invocation-authorization.json"
+byte_length = 482
+raw_sha256 = "57c869df38c23e4c0520730986a65825f51814915f68cc3e4d32a2f39303a535"
+role = "rejected_authorization"
+governing_decision = "ADR-0473"
+owner = "compiled_global_separation_calibration_v6"
+
+[[files]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.jsonl"
+byte_length = 7858857
+raw_sha256 = "78b2f8351ca49785756ec336d4f967bcc83a86f9ef96506a6144726cf3b312b3"
+role = "retained_result"
+governing_decision = "ADR-0476"
+owner = "compiled_global_separation_calibration_v7"
+
+[[files]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.attempt.json"
+byte_length = 1825
+raw_sha256 = "ada1896f0bf63111e0c1e5e707315fbca6c13f6e2b63222805cb5ef4cb9dc413"
+role = "retained_attempt"
+governing_decision = "ADR-0476"
+owner = "compiled_global_separation_calibration_v7"
+
+[[files]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.launch-consumed.json"
+byte_length = 349
+raw_sha256 = "c3c0a34cba6a677157034d8f8109cf47edea496a33c64992293176d879a2d629"
+role = "consumed_launch_marker"
+governing_decision = "ADR-0476"
+owner = "compiled_global_separation_calibration_v7"

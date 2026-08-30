@@ -1,0 +1,111 @@
+schema_version = "pontius-sealed-current-absences-v1"
+baseline_commit = "a842c4b6a73a2991a63a481f4107580b72750582"
+entry_count = 18
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v3.jsonl"
+role = "closed_result_absence"
+governing_decision = "ADR-0466"
+owner = "compiled_global_separation_calibration_v3"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v4.attempt.json"
+role = "closed_attempt_absence"
+governing_decision = "ADR-0469"
+owner = "compiled_global_separation_calibration_v4"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v4.jsonl"
+role = "closed_result_absence"
+governing_decision = "ADR-0469"
+owner = "compiled_global_separation_calibration_v4"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v4.launch-aborted.json"
+role = "closed_launch_aborted_absence"
+governing_decision = "ADR-0469"
+owner = "compiled_global_separation_calibration_v4"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v4.launch-consumed.json"
+role = "closed_launch_consumed_absence"
+governing_decision = "ADR-0469"
+owner = "compiled_global_separation_calibration_v4"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v4.launch-pending.json"
+role = "closed_launch_pending_absence"
+governing_decision = "ADR-0469"
+owner = "compiled_global_separation_calibration_v4"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v5.jsonl"
+role = "closed_result_absence"
+governing_decision = "ADR-0470"
+owner = "compiled_global_separation_calibration_v5"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v5.launch-aborted.json"
+role = "closed_launch_aborted_absence"
+governing_decision = "ADR-0470"
+owner = "compiled_global_separation_calibration_v5"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v5.launch-consumed.json"
+role = "closed_launch_consumed_absence"
+governing_decision = "ADR-0470"
+owner = "compiled_global_separation_calibration_v5"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v5.launch-pending.json"
+role = "closed_launch_pending_absence"
+governing_decision = "ADR-0470"
+owner = "compiled_global_separation_calibration_v5"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v6.attempt.json"
+role = "closed_attempt_absence"
+governing_decision = "ADR-0473"
+owner = "compiled_global_separation_calibration_v6"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v6.jsonl"
+role = "closed_result_absence"
+governing_decision = "ADR-0473"
+owner = "compiled_global_separation_calibration_v6"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v6.launch-aborted.json"
+role = "closed_launch_aborted_absence"
+governing_decision = "ADR-0473"
+owner = "compiled_global_separation_calibration_v6"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v6.launch-consumed.json"
+role = "closed_launch_consumed_absence"
+governing_decision = "ADR-0473"
+owner = "compiled_global_separation_calibration_v6"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v6.launch-pending.json"
+role = "closed_launch_pending_absence"
+governing_decision = "ADR-0473"
+owner = "compiled_global_separation_calibration_v6"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.launch-aborted.json"
+role = "closed_launch_aborted_absence"
+governing_decision = "ADR-0476"
+owner = "compiled_global_separation_calibration_v7"
+
+[[absences]]
+relative_path = "artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.launch-pending.json"
+role = "closed_launch_pending_absence"
+governing_decision = "ADR-0476"
+owner = "compiled_global_separation_calibration_v7"
+
+[[absences]]
+relative_path = "experiments/configs/legal-river-quotient-compiled-global-separation-calibration-v8-corrected-invocation-authorization.json"
+role = "rejected_authorization_absence"
+governing_decision = "ADR-0473"
+owner = "compiled_global_separation_calibration_v6"

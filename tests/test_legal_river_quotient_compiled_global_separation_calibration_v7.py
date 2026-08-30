@@ -1113,6 +1113,10 @@ class CompiledGlobalSeparationCalibrationV7Tests(unittest.TestCase):
             self.assertFalse(assessed.passed)
             self.assertEqual(assessed.terminal, "deferred_science_import_rejected")
 
+            with _isolated_lifecycle(successor.PREAUTHORIZATION_TAG):
+                with self.assertRaisesRegex(RuntimeError, "authorization phase"):
+                    reader._validate_deferred_header(raw)
+
     def test_every_actual_header_mapping_domain_rejects_missing_and_extra_keys(self) -> None:
         with _synthetic_authorized_header() as (raw, header, _):
             paths = tuple(_mapping_paths(header))
@@ -1426,6 +1430,101 @@ class CompiledGlobalSeparationCalibrationV7Tests(unittest.TestCase):
             self.assertEqual(
                 reader._authorization_identity(authorization_commit), writer_identity
             )
+
+            alternate_raw = json.dumps(config, indent=2).encode("ascii")
+            self.assertNotEqual(raw, alternate_raw)
+            self.assertNotEqual(
+                sha256(reader._canonical_lf(raw)).hexdigest(),
+                sha256(reader._canonical_lf(alternate_raw)).hexdigest(),
+            )
+            authorization_reads: list[bytes] = []
+            original_read_bytes = Path.read_bytes
+
+            def sequenced_read_bytes(path: Path) -> bytes:
+                if path != paths["v7_auth"]:
+                    return original_read_bytes(path)
+                snapshots = (raw, alternate_raw)
+                if len(authorization_reads) >= len(snapshots):
+                    raise AssertionError("authorization snapshot read more than twice")
+                snapshot = snapshots[len(authorization_reads)]
+                authorization_reads.append(snapshot)
+                return snapshot
+
+            with patch.object(Path, "read_bytes", sequenced_read_bytes):
+                snapshot_tag = reader._authorization_tag(authorization_commit)
+            self.assertEqual(authorization_reads, [raw])
+            self.assertEqual(
+                snapshot_tag["config_canonical_lf_sha256"],
+                sha256(reader._canonical_lf(raw)).hexdigest(),
+            )
+            self.assertIn(
+                (
+                    "show",
+                    f"{authorization_commit}:"
+                    f"{successor.AUTHORIZATION_CONFIG_RELATIVE_PATH}",
+                ),
+                paths["fake_git"].calls,
+            )
+
+            runner_alternate_config = {
+                **config,
+                "source_seal_commit": "d" * 40,
+            }
+            runner_alternate_raw = json.dumps(
+                runner_alternate_config,
+                sort_keys=True,
+                separators=(",", ":"),
+            ).encode("ascii")
+            self.assertNotEqual(raw, runner_alternate_raw)
+            runner_reads: list[tuple[str, bytes]] = []
+            original_read_text = Path.read_text
+
+            def runner_read_bytes(path: Path) -> bytes:
+                if path != paths["v7_auth"]:
+                    return original_read_bytes(path)
+                runner_reads.append(("bytes", raw))
+                return raw
+
+            def runner_read_text(path: Path, *args, **kwargs) -> str:
+                if path != paths["v7_auth"]:
+                    return original_read_text(path, *args, **kwargs)
+                runner_reads.append(("text", runner_alternate_raw))
+                return runner_alternate_raw.decode("ascii")
+
+            git_call_start = len(paths["fake_git"].calls)
+            with (
+                patch.object(Path, "read_bytes", runner_read_bytes),
+                patch.object(Path, "read_text", runner_read_text),
+            ):
+                runner_tag = successor._authorization_tag(authorization_commit)
+            self.assertEqual(runner_reads, [("bytes", raw)])
+            self.assertEqual(runner_tag["phase"], successor.LIVE_AUTHORIZATION_TAG)
+            self.assertEqual(runner_tag["source_seal_commit"], source_seal)
+            self.assertEqual(
+                runner_tag["authorization_commit_paths"],
+                list(successor.AUTHORIZATION_COMMIT_PATHS),
+            )
+            self.assertEqual(
+                runner_tag["config_canonical_lf_sha256"],
+                sha256(successor._canonical_lf(raw)).hexdigest(),
+            )
+            runner_git_calls = paths["fake_git"].calls[git_call_start:]
+            for expected_call in (
+                ("rev-list", "--parents", "-n", "1", authorization_commit),
+                (
+                    "diff",
+                    "--name-only",
+                    "--no-renames",
+                    source_seal,
+                    authorization_commit,
+                ),
+                (
+                    "show",
+                    f"{authorization_commit}:"
+                    f"{successor.AUTHORIZATION_CONFIG_RELATIVE_PATH}",
+                ),
+            ):
+                self.assertIn(expected_call, runner_git_calls)
 
             dependencies = reader._dependency_hashes_at_commit(authorization_commit)
             self.assertEqual(set(dependencies), set(reader.DEPENDENCY_RELATIVE_PATHS))

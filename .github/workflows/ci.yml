@@ -37,7 +37,7 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           New-Item -ItemType Directory -Force C:\px | Out-Null
-          git clone --quiet --local "${{ github.workspace }}" C:\px\Pontius
+          git clone --quiet --no-hardlinks "${{ github.workspace }}" C:\px\Pontius
           git -C C:\px\Pontius checkout --quiet ${{ github.sha }}
 
       - name: Sync locked environment on CPython 3.11

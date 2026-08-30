@@ -15,98 +15,86 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept the release-interpreter identity correction onto the mainline and
-correct the evidence labels. The defect was one mechanism with four symptom
-layers: identity comparisons mixed `os.stat` fields — whose Windows `st_dev`
-is a 32-bit volume serial on CPython 3.11 and 64-bit from 3.12 — with 64-bit
-`FileIdInfo` handle identities, so every such comparison rejected on 3.11;
-the rejection triggered rollback, rollback guards hit further mixed
-comparisons, cleanup went pending with the deterministic lock retained, and
-teardown failed with access-denied unlinks. The correction derives both
-sides of every affected comparison from full-width `FileIdInfo` through
-independent observations: ancestor-chain capture and revalidation each open
-their own per-ancestor directory handle, the staging bind and publish
-comparison use the retained staging handle's file id, readback and rollback
-concurrent-destination guards compare against that staged identity, the
-destination-replace guard compares against an expected file id captured by an
-independent path-side open at validation time and fails closed when absent,
-the recovery guard opens the recovery path independently, and destination
-normalization constructs through the supplied path's own class because bare
-`Path()` dispatches on the simulated platform and CPython 3.11 refuses
-cross-flavor instantiation. Stat-to-stat comparisons, which are
-version-consistent, are untouched, and no replacement, reparse, ownership,
-or rollback check was weakened.
+Adopt all three amendments as binding protocol for every lifecycle and lane
+opened after this decision.
 
-The string-decoy census is now version-stable: f-string constants anchor to
-their JoinedStr's start line, the only position CPython 3.11 and 3.12+
-report identically; two synthetic templates whose parts collapsed to
-duplicate locations use explicit concatenation; and two runtime synthetics
-wrap `sorted(reverse=...)` arguments in `bool(...)` because CPython 3.11
-rejects non-integer reverse objects. Generated inventory and profile bytes
-are unchanged. The diagnostics probe is classified as an orchestration
-origin and is assertive: it exits nonzero unless every ancestor identity
-comparison matches, the lock discipline behaves, and a real standalone
-governance write publishes.
+**Rehearsal tier.** The lifecycle is preregister, source-seal, rehearse, then
+authorize exactly one invocation, then retain. A rehearsal executes the
+sealed lifecycle end to end against synthetic fixtures or a miniature domain
+under rehearsal-scoped identities that can never collide with or consume the
+authorized owner's one-shot identities. Rehearsal output carries no
+evidentiary standing: it may never feed a fit, gate, materiality conjunct,
+ranking, claim, or candidate selection, and because it cannot produce
+evidence it cannot be tuned against evidence. Rehearsal logs may be kept for
+engineering diagnosis and are labeled non-evidentiary. Every wall, budget, or
+population bound frozen by a preregistration must carry a scaled rehearsal
+measurement as its recorded provenance; freezing an unmeasured number as a
+hard gate is no longer permitted. Every source seal records a walk of the
+workflow protocol's review checklist, which grows one line per new incident
+class and never shrinks.
 
-The evidence labels are corrected without touching historical bytes. The v1
-snapshot runner resolves the CPython 3.14.6 development venv, so every
-"isolated Python 3.11 snapshot" line in the Task 2 report records a 3.14.6
-execution; an appended report section states this, the results remain valid
-as 3.14.6 evidence, and the successor runner asserts and records the actual
-child interpreter's executable, implementation, and full version before any
-payload, failing closed on absence or mismatch, with the fail-closed branch
-exercised.
+**Parking categories.** Every future parking verdict names its category in
+the retaining decision. `parked - falsified` means the scientific gate
+rejected the mechanism: permanent, exactly as today, with kill criteria
+binding forever. `parked - gate defect` means the panel, wall, predicate, or
+lifecycle failed rather than the hypothesis: the mechanism becomes eligible
+for exactly one fresh preregistration under a redesigned gate, with every
+old panel, population, and opened value discarded and unusable. A second
+gate-defect eligibility for the same mechanism requires a new explicit
+gate-defect ruling on the fresh attempt; eligibility does not accumulate.
+Anything feeding a poker-strength claim keeps permanent parking regardless
+of category. This ruling is prospective only: no already-parked candidate is
+reclassified, revived, or re-opened by it, and any historical
+reclassification requires its own future decision that must honor the
+original retention's kill criteria — ADR-0476's permanent closure of v7, and
+every other recorded closure, stand untouched.
 
-Verification is layered and current. The retained RED is the probe's
-pre-correction evidence on both the hosted runner (3.11.9) and the
-development machine (3.11.15). Fresh disposable-snapshot GREEN covers both
-CPython 3.14.6 and 3.11.15: inventory 87/87, stabilization boundaries 48
-with one POSIX-only skip, orchestration configuration 53/53, byte-stable
-generation, the boundary check, and the assertive probe. Two independent
-Tier-C cold reviews returned CLEAN against the frozen four-file manifest,
-the committed tree is byte-identical to the reviewed candidate, and
-continuous-integration run `33293625754` then passed every gate on a hosted
-runner's genuine CPython 3.11 — the first complete wall, and the first time
-the 3.11 release interpreter has validated this stack anywhere.
+**Lane-level circuit breakers.** Every experiment lane opened after this
+decision preregisters lane kill criteria in its first preregistration, at
+minimum: two consecutive owner deaths on infrastructure, lifecycle, or
+authorization grounds trigger a mandatory harness stand-down and review
+before any successor source seal; and a lane budget — a lifecycle count or
+calendar bound chosen at lane opening — whose exhaustion forces an
+architecture checkpoint with an explicit park-or-continue ruling. The
+compiled-calibration lane is already at its checkpoint under ADR-0476 and is
+governed by that directive, not retrofitted here.
 
 The inherited front-door trust chain remains explicit, and every continuity
 statement of ADR-0480's decision — the complete trust chain from ADR-0310
 through ADR-0476, the machine-checked continuity directives, and the exact
-historical continuity strings — remains binding and unchanged by this
-correction, with one extension: ADR-0477 through ADR-0481 record the
-stabilization era — archive replication, the agent charter and collaboration
-protocol, the evidence layer and sealed-boundary manifests, the
-orchestration absorption, and this release-interpreter identity correction —
-without invoking any consumed owner or altering any retained byte.
+historical continuity strings — remains binding and unchanged, with the
+extension that ADR-0477 through ADR-0482 record the stabilization era —
+archive replication, the agent charter and collaboration protocol, the
+evidence layer and sealed-boundary manifests, the orchestration absorption,
+the release-interpreter identity correction, and these adopted lifecycle
+amendments — without invoking any consumed owner or altering any retained
+byte.
 
 ### Result boundary
 
-This decision proves the correction, its dual-interpreter GREEN, the CLEAN
-reviews, and the passing continuous-integration wall. It does not
-retroactively validate any historical run on CPython 3.11: every earlier
-result stands only as evidence for the interpreter that actually executed
-it, CPython 3.14.6. No scientific or GPU payload ran, and no capability was
-approved.
+This decision adopts process rules. It runs no experiment, opens no value,
+revives no candidate, and changes no retained byte. The rehearsal tier and
+lane breakers bind lifecycles and lanes opened after this decision; existing
+retained decisions keep their exact recorded standing.
 
 ### Kill criteria
 
-Kill any claim that a pre-correction result was 3.11-validated. Kill any new
-identity comparison that mixes stat-derived and handle-derived fields. Kill
-any snapshot acceptance whose runner did not assert and record the actual
-child interpreter. The census anchoring and decoy digest are frozen with
-this decision; a future interpreter whose AST positions diverge again
-requires a fresh correction, never a silent digest refresh.
+Kill any rehearsal output that reaches a fit, gate, claim, or selection.
+Kill any preregistration that freezes an unmeasured wall or budget. Kill any
+lane opened without lane kill criteria. Kill any second fresh
+preregistration claimed under a gate-defect parking without a new explicit
+ruling. Kill any retroactive reclassification of a parked candidate that
+lacks its own decision or violates the original kill criteria.
 
 ### Claims boundary
 
-ADR-0481 proves only what its evidence chain states. It clears no ADR-0476
-research blocker, adopts no proposed protocol amendment, authorizes no item
-of the holistic-audit backlog, recertifies no scientific result, and makes
-no poker-strength, resolver, action-clock, or blueprint claim.
+ADR-0482 proves only the adoption stated above. It clears no ADR-0476
+research blocker, authorizes no item of the holistic-audit backlog, does not
+retry or reopen any parked or consumed work, and makes no research claim.
 
 ## Active next
 
-Hold the compiled synthetic topology-calibration lane and conduct the architecture checkpoint before any successor owner: bind a real production source-local base producer, its exact algebra, epoch identity, refresh cadence, exponent admission, and cold-versus-hit frequency in the one-seat river bridge, or park this lane and return to v0a integration; any later compiled experiment requires a fresh preregistration and lifecycle, must charge cold structural cover once per genuine production epoch and provenance hits at their actual consumers, and may not reuse v7's partial rows, relax the rejected wall, thin the frozen population, or select an arm from this artifact. Separately, continue the stabilization plan's remaining orchestration tasks under the installed collaboration protocol, rule explicitly on the proposed protocol amendments during the architecture review, and complete the open operations items — the restore drill and a retained-evidence inventory test — before broad-suite reliance
+Hold the compiled synthetic topology-calibration lane and conduct the architecture checkpoint before any successor owner: bind a real production source-local base producer, its exact algebra, epoch identity, refresh cadence, exponent admission, and cold-versus-hit frequency in the one-seat river bridge, or park this lane and return to v0a integration; any later compiled experiment requires a fresh preregistration and lifecycle under the ADR-0482 rehearsal and lane-breaker rules, must charge cold structural cover once per genuine production epoch and provenance hits at their actual consumers, and may not reuse v7's partial rows, relax the rejected wall, thin the frozen population, or select an arm from this artifact. Separately, continue the stabilization plan's remaining orchestration tasks under the installed collaboration protocol
 
 ## Revoked authorities
 
@@ -117,7 +105,7 @@ Hold the compiled synthetic topology-calibration lane and conduct the architectu
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0481](docs/decisions/ADR-0481-record-the-release-interpreter-identity-correction.md) — Record the release-interpreter identity correction.
+Latest process decision: [ADR-0482](docs/decisions/ADR-0482-adopt-the-rehearsal-parking-and-lane-breaker-amendments.md) — Adopt the rehearsal, parking, and lane-breaker amendments.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -125,7 +113,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0458](docs/decisions/ADR-0458-source-seal-the-compiled-global-separation-calibration.md) | 2026-08-26 | accepted device-free source seal; the ADR-0457 exclusive owner, literal 28-kernel CUDA translation unit, deterministic five-domain fixture family, four exact topology arms, positional and batched-five-then-four RRNS schedules, exact signed decision-key reconstruction, campaign-wide sole five-channel RRNS table arena, nineteen-phase ledger, exact rational projector, independent result reader, resource inspectors, and adversarial controls exist and pass at source-only scope, while compiler execution, CuPy scientific import, device query, allocation, timing, cubin creation, result creation, topology selection, population 25, literal-45 numerical work, resolver integration, action-clock fit, decision quality, truncation, blueprint, and poker strength remain unopened | Source-seal the compiled global-separation calibration |
 | [ADR-0459](docs/decisions/ADR-0459-retain-the-unjournaled-absolute-git-infrastructure-rejection.md) | 2026-08-26 | accepted retained sole pre-owner infrastructure rejection; the exact clean ADR-0458 command was invoked once and exited with `FileNotFoundError: [WinError 2] The system cannot find the file specified` because the owner replaced the process environment with the scrubbed compiler mapping before its relative `git` clean-seal call, no durable result was created, and no compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, or production claim exists | Retain the unjournaled absolute-Git infrastructure rejection |
 | [ADR-0460](docs/decisions/ADR-0460-preregister-the-absolute-git-compiled-calibration-successor.md) | 2026-08-26 | accepted prospective plumbing-only successor; a fresh protocol, campaign, module, launcher, reader, controls, and v2 result identity are frozen around the byte-identical ADR-0458 scientific source, every Git metadata subprocess must use the exact ADR-0443 absolute hash-bound executable before and after complete activated-environment replacement, and a post-scrub source probe must exercise that real call path before any compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, or result exists | Preregister the absolute-Git compiled-calibration successor |
 | [ADR-0461](docs/decisions/ADR-0461-source-seal-the-absolute-git-compiled-calibration-successor.md) | 2026-08-26 | accepted no-compiler plumbing source seal; the fresh ADR-0460 launcher, additive owner binding, independently constant-bound reader, exact post-scrub absolute-Git probe, immutable ADR-0458 scientific source, fresh dependency/result identity, exclusive synthetic terminal, and eight focused controls pass, while both calibration results remain absent and no compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Source-seal the absolute-Git compiled-calibration successor |
@@ -149,18 +136,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0479](docs/decisions/ADR-0479-accept-the-evidence-layer-and-sealed-boundary-manifests.md) | 2026-08-29 | accepted process decision; the mainline now carries the first structured subpackage `pontius/evidence/` (typed errors, frozen validated models, strict manifest parsing) together with five governed data files that make the sealed boundary machine-checkable — `sealed-current-files.toml`, `sealed-current-absences.toml`, `historical-blobs.toml`, `retained-v7.toml`, and `dependency-baseline.toml` — plus their generators, the stabilization boundary checker, and their test suites; the sealed retained v7 artifacts (journal, attempt, consumed-launch marker) are byte-unchanged and now hash-bound in data rather than prose, and the boundary check passes from the integrated mainline | Accept the evidence layer and sealed-boundary manifests |
 | [ADR-0480](docs/decisions/ADR-0480-absorb-the-test-orchestration-stabilization.md) | 2026-08-29 | accepted process absorption; the 2026-08-27 through 2026-08-29 stabilization era — orchestration contracts (Task 1), Windows reparse/OneDrive architecture fixes (Task 11a), and the test inventory and profile generator (Task 2) — is integrated onto the mainline at merge `156f0b3` after two independent whole-candidate adversarial CLEAN reviews on the frozen 11-file manifest, a bound holistic architecture audit, and a controller substitution ruling for the unreachable CodeRabbit gate; the generator's `--check` and the stabilization boundary check both pass from the integrated primary checkout, checked-in capability state remains intentionally absent with every capability outcome deny-all pending the Task 10 approval gate, no broad scientific/GPU suite ran, and no ADR-0476 research blocker is cleared | Absorb the test-orchestration stabilization |
 | [ADR-0481](docs/decisions/ADR-0481-record-the-release-interpreter-identity-correction.md) | 2026-08-30 | accepted Tier-C correction and evidence-label correction; the test-governance stack mixed 32-bit `os.stat` volume serials (CPython <= 3.11) with 64-bit `FileIdInfo` handle identities, so the generator's Git machinery, governance writer, and repository revalidation failed deterministically on the CPython 3.11 release interpreter while every recorded "isolated Python 3.11 snapshot" had actually executed on the 3.14.6 development venv; the correction uses full-width `FileIdInfo` identities on both sides of every such comparison with independent observations preserved and no replacement, reparse, ownership, or rollback check weakened, the string-decoy census is version-stable, the snapshot-runner successor asserts and records the actual child interpreter fail-closed, both independent Tier-C cold reviews returned CLEAN on the frozen manifest, the committed tree is byte-identical to the reviewed candidate, fresh disposable-snapshot suites pass on CPython 3.11.15 and 3.14.6, and the continuous-integration wall passed completely on a hosted runner's genuine CPython 3.11.9; historical results remain valid only as CPython 3.14.6 evidence, no retrospective 3.11 validation of any earlier run is implied, and no scientific result is recertified | Record the release-interpreter identity correction |
+| [ADR-0482](docs/decisions/ADR-0482-adopt-the-rehearsal-parking-and-lane-breaker-amendments.md) | 2026-08-30 | accepted protocol amendment; the evidence lifecycle gains a non-evidentiary rehearsal tier between source seal and invocation authorization, every future parking verdict names its category (`parked - falsified` permanent as today, or `parked - gate defect` eligible for exactly one fresh preregistration under a redesigned gate with every old panel discarded), and every future experiment lane preregisters lane-level kill criteria whose plumbing-death and budget breakers force a mandatory stand-down or architecture checkpoint; rehearsal output never feeds a fit, gate, claim, or selection, no wall or budget is frozen without a scaled rehearsal measurement as provenance, strength-claim evidence keeps permanent parking regardless of category, and nothing here reopens, reclassifies, or retries any already-parked candidate or consumed owner — historical reclassification requires its own future decision, and v7 remains permanently closed under ADR-0476's kill criteria | Adopt the rehearsal, parking, and lane-breaker amendments |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0481](docs/decisions/ADR-0481-record-the-release-interpreter-identity-correction.md) — Record the release-interpreter identity correction.
+- Latest ADR: [ADR-0482](docs/decisions/ADR-0482-adopt-the-rehearsal-parking-and-lane-breaker-amendments.md) — Adopt the rehearsal, parking, and lane-breaker amendments.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 481.
-- ADR-header SHA-256: `65f70c0dbedbbec5648513826aeedeb93eed992ad283d68eceeea24340fa1535`.
-- Current blockers: v7 is permanently consumed and the compiled calibration is incomplete; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, complete reduced compiled-calibration result, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists; the stabilization adds test-governance capability but clears none of these, and broad-suite execution, capability approvals, the holistic-audit backlog, the protocol-amendment rulings, and the restore drill remain open.
+- Numbered decisions: 482.
+- ADR-header SHA-256: `aa17bba72df2cbe54f533c8ca97d80df19356676e78ee37f7e279c064964b314`.
+- Current blockers: v7 is permanently consumed and the compiled calibration is incomplete; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, complete reduced compiled-calibration result, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists; the stabilization adds test-governance capability but clears none of these, and broad-suite execution, capability approvals, and the holistic-audit backlog remain open.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0481](docs/decisions/ADR-0481-record-the-release-interpreter-identity-correction.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0482](docs/decisions/ADR-0482-adopt-the-rehearsal-parking-and-lane-breaker-amendments.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

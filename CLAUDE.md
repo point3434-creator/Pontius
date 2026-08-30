@@ -6,9 +6,10 @@ repository. Read this file completely before touching anything.
 ## What this is
 
 Pontius is a research agent for six-player no-limit Texas hold'em, run like a
-registered trial: every experiment is preregistered, source-sealed, authorized
-for exactly one invocation, and retained forever — pass or fail — as one of the
-numbered decisions in `docs/decisions/` (ADR-0001…). The optimization target is
+registered trial: every experiment is preregistered, source-sealed, rehearsed
+without evidentiary standing (ADR-0482), authorized for exactly one
+invocation, and retained forever — pass or fail — as one of the numbered
+decisions in `docs/decisions/` (ADR-0001…). The optimization target is
 chip-valued decision quality per millisecond under a hard 15,000 ms action wall
 (ADR-0307). The evidence protocol outranks convenience, speed, and cleverness.
 

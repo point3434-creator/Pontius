@@ -18,6 +18,11 @@ jobs:
     env:
       PONTIUS_GIT: C:\Program Files\Git\cmd\git.exe
       PYTHONPATH: C:\px\Pontius\src
+      # The runner's default TEMP (D:\a\_temp) traverses the same reparse
+      # mount the workspace does; suites build tempfile fixtures that the
+      # evidence readers must accept, so temp goes to clean storage as well.
+      TEMP: C:\pt
+      TMP: C:\pt
     defaults:
       run:
         # The runner workspace under D:\a traverses a reparse/mount ancestor,
@@ -37,6 +42,7 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           New-Item -ItemType Directory -Force C:\px | Out-Null
+          New-Item -ItemType Directory -Force C:\pt | Out-Null
           git clone --quiet --no-hardlinks "${{ github.workspace }}" C:\px\Pontius
           git -C C:\px\Pontius checkout --quiet ${{ github.sha }}
 

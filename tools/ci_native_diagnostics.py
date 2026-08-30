@@ -1,11 +1,12 @@
-"""CI instrumentation probe: native status chains and ancestor identities.
+"""CI diagnostics probe: native identity, status chains, and writer behavior.
 
-Diagnostic only — authorized as a single instrumentation round for the CI
-runner-parity finding. Prints raw NTSTATUS/Win32 codes for the governance
-directory/lock/staging sequence, the unlink-while-held behavior, both sides
-of every PONTIUS_GIT ancestor identity comparison, and the full exception
-chain of one real standalone governance write. It gates nothing: the exit
-code reflects probe integrity, never observed failures.
+Classified stabilization origin (controller-authorized instrumentation).
+The probe is assertive: exit 0 requires every ancestor identity comparison
+to MATCH, the lock discipline to behave (held unlink denied with sharing
+violation 32, post-close unlink clean), and one real standalone
+``write_atomic_lf`` to publish successfully. Any observed deviation exits 1
+with the deviations listed; probe-internal failures exit 3. It gates the
+identity contract, never mere process survival.
 """
 
 import ctypes
@@ -19,10 +20,16 @@ from pathlib import Path
 from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
+PROBLEMS: list[str] = []
 
 
 def section(title: str) -> None:
     print(f"\n=== {title} ===", flush=True)
+
+
+def problem(text: str) -> None:
+    PROBLEMS.append(text)
+    print(f"PROBLEM: {text}")
 
 
 def load_generator():
@@ -100,14 +107,18 @@ def main() -> int:
             )
             invalid = ctypes.c_void_p(-1).value
             if not handle or int(handle) == invalid:
-                print(f"  {ancestor}: OPEN FAILED gle={ctypes.get_last_error()}")
+                problem(f"ancestor open failed gle={ctypes.get_last_error()}: {ancestor}")
                 continue
             try:
                 volume, file_id = fs._windows_directory_handle_identity(int(handle), ancestor)
             finally:
                 ctypes.windll.kernel32.CloseHandle(wintypes.HANDLE(int(handle)))
             live = (volume, int.from_bytes(file_id, "little"))
-            verdict = "MATCH" if live == tuple(expected[:2]) else "MISMATCH"
+            if live == tuple(expected[:2]):
+                verdict = "MATCH"
+            else:
+                verdict = "MISMATCH"
+                problem(f"ancestor identity mismatch: {ancestor}")
             print(
                 f"  {verdict} {ancestor}\n"
                 f"    expected[:2]={tuple(expected[:2])!r} expected_rest={tuple(expected[2:])!r}\n"
@@ -117,12 +128,6 @@ def main() -> int:
     section("native governance create sequence with raw status")
     with tempfile.TemporaryDirectory(prefix="pontius-native-diag-") as directory:
         parent = Path(directory).resolve()
-        target = parent / "probe.toml"
-        dir_owner = SimpleNamespace(
-            handle=None, state=None, is_open_action=None,
-            ambiguous_is_open_action=None, identity_action=None,
-            close_action=None, adopt=lambda h: None, bind_identity=lambda i: None,
-        )
         directory_handle, identity = generator._windows_open_governance_directory(
             parent, owner=None
         )
@@ -140,44 +145,59 @@ def main() -> int:
                     )
                     print(f"{label} create OK handle={created:#x}")
                 except BaseException as error:  # noqa: BLE001
-                    print(f"{label} create FAILED via generator path:")
+                    problem(f"{label} create failed")
                     describe_chain(error)
                 if label == "lock" and created is not None:
                     lock_path = parent / name
                     try:
                         os.unlink(lock_path)
-                        print("unlink-while-held: SUCCEEDED (unexpected)")
+                        problem("unlink-while-held unexpectedly succeeded")
                     except OSError as error:
                         print(
                             "unlink-while-held: "
                             f"{type(error).__name__} winerror={error.winerror} errno={error.errno}"
                         )
+                        if error.winerror != 32:
+                            problem(
+                                "unlink-while-held expected sharing violation 32, "
+                                f"observed winerror={error.winerror}"
+                            )
                     ctypes.windll.kernel32.CloseHandle(wintypes.HANDLE(created))
                     created = None
                     try:
                         os.unlink(lock_path)
                         print("unlink-after-close: OK")
                     except OSError as error:
-                        print(
-                            "unlink-after-close: "
-                            f"{type(error).__name__} winerror={error.winerror} errno={error.errno}"
+                        problem(
+                            "unlink-after-close failed: "
+                            f"winerror={error.winerror} errno={error.errno}"
                         )
                 elif created is not None:
                     ctypes.windll.kernel32.CloseHandle(wintypes.HANDLE(created))
         finally:
             ctypes.windll.kernel32.CloseHandle(wintypes.HANDLE(directory_handle))
 
-    section("real standalone write_atomic_lf failure chain")
+    section("real standalone write_atomic_lf")
     with tempfile.TemporaryDirectory(prefix="pontius-native-diag-write-") as directory:
         destination = Path(directory).resolve() / "probe-out.toml"
         try:
             generator.write_atomic_lf(destination, b"probe = 1\n")
-            print(f"write_atomic_lf OK bytes={destination.read_bytes()!r}")
+            published = destination.read_bytes()
+            if published == b"probe = 1\n":
+                print(f"write_atomic_lf OK bytes={published!r}")
+            else:
+                problem(f"write_atomic_lf published unexpected bytes: {published!r}")
         except BaseException as error:  # noqa: BLE001
-            print("write_atomic_lf FAILED:")
+            problem("write_atomic_lf failed")
             describe_chain(error)
 
-    print("\nDIAGNOSTICS-COMPLETE")
+    if PROBLEMS:
+        section("verdict")
+        for entry in PROBLEMS:
+            print(f"FAILED-EXPECTATION: {entry}")
+        print(f"DIAGNOSTICS-FAILED ({len(PROBLEMS)} expectation(s) unmet)")
+        return 1
+    print("\nDIAGNOSTICS-COMPLETE: identity matches and writer behavior verified")
     return 0
 
 
@@ -186,7 +206,7 @@ if __name__ == "__main__":
         raise SystemExit(main())
     except SystemExit:
         raise
-    except BaseException:  # noqa: BLE001 - report probe-internal failures loudly
+    except BaseException:  # noqa: BLE001 - probe-internal failures are nonzero
         traceback.print_exc()
         print("PROBE-INTERNAL-ERROR")
-        raise SystemExit(0)
+        raise SystemExit(3)

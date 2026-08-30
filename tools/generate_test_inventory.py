@@ -2284,6 +2284,40 @@ def _read_git_bytes(path: Path, before_path: os.stat_result) -> bytes:
     return raw
 
 
+def _windows_ancestor_file_id(ancestor: Path) -> tuple[int, int]:
+    """Independently open one ancestor and return its full-width identity.
+
+    CPython <= 3.11 reports a 32-bit ``st_dev`` volume serial while the
+    handle-based ``FileIdInfo`` identity is 64-bit, so stat-derived and
+    handle-derived identities may never be compared. Every ancestor identity
+    is therefore captured and revalidated through its own freshly opened
+    directory handle.
+    """
+
+    create, _, _, close = secure_filesystem._windows_directory_api()
+    handle = create(
+        str(ancestor),
+        0x00000001 | 0x00000080 | 0x00100000,
+        0x00000001 | 0x00000002,
+        None,
+        3,
+        0x02000000 | 0x00200000,
+        None,
+    )
+    invalid = secure_filesystem.ctypes.c_void_p(-1).value
+    if not handle or int(handle) == invalid:
+        code = secure_filesystem.ctypes.get_last_error()
+        raise OSError(code, os.strerror(code), str(ancestor))
+    try:
+        volume, file_id = secure_filesystem._windows_directory_handle_identity(
+            int(handle),
+            ancestor,
+        )
+    finally:
+        close(secure_filesystem.wintypes.HANDLE(int(handle)))
+    return int(volume), int.from_bytes(file_id, "little")
+
+
 def _git_ancestor_chain(path: Path) -> tuple[tuple[Path, tuple[int, ...]], ...]:
     chain: list[tuple[Path, tuple[int, ...]]] = []
     for ancestor in path.parents:
@@ -2296,7 +2330,10 @@ def _git_ancestor_chain(path: Path) -> tuple[tuple[Path, tuple[int, ...]], ...]:
             or not stat.S_ISDIR(info.st_mode)
         ):
             raise InventoryError("PONTIUS_GIT ancestor is a link or reparse")
-        chain.append((ancestor, secure_filesystem._directory_identity(info)))
+        identity = secure_filesystem._directory_identity(info)
+        if os.name == "nt":
+            identity = _windows_ancestor_file_id(ancestor) + identity[2:]
+        chain.append((ancestor, identity))
     return tuple(chain)
 
 
@@ -2305,11 +2342,14 @@ def _revalidate_git_ancestor_chain(
 ) -> None:
     for ancestor, expected in chain:
         info = os.lstat(ancestor)
+        identity = secure_filesystem._directory_identity(info)
+        if os.name == "nt":
+            identity = _windows_ancestor_file_id(ancestor) + identity[2:]
         if (
             stat.S_ISLNK(info.st_mode)
             or secure_filesystem._is_any_reparse(info)
             or not stat.S_ISDIR(info.st_mode)
-            or secure_filesystem._directory_identity(info) != expected
+            or identity != expected
         ):
             raise InventoryError("PONTIUS_GIT ancestor identity changed")
 
@@ -4235,7 +4275,10 @@ class _GovernanceDestinationSet:
     def normalize(path: Path) -> tuple[str, Path]:
         if not isinstance(path, Path) or not path.is_absolute():
             raise InventoryError("governance destination must be absolute")
-        lexical = Path(os.path.abspath(path))
+        # Construct through the supplied path's own class: bare Path()
+        # dispatches on os.name at call time, and CPython <= 3.11 refuses to
+        # instantiate the foreign flavor under a simulated platform.
+        lexical = type(path)(os.path.abspath(path))
         key = os.path.normcase(str(lexical))
         return key, lexical
 
@@ -5696,6 +5739,24 @@ def _require_governance_destination_identity(
         raise InventoryError("governance destination identity changed")
 
 
+def _governance_destination_file_id(path: Path) -> tuple[int, int]:
+    """Independently open one destination and return its full-width identity.
+
+    Stat-derived and handle-derived identities may never be compared: CPython
+    <= 3.11 reports 32-bit ``st_dev`` while ``FileIdInfo`` is 64-bit. Checks
+    against retained handles therefore compare this fresh path-side
+    ``FileIdInfo`` observation, never a stat tuple.
+    """
+
+    descriptor = secure_filesystem._open_regular_no_follow(path)
+    try:
+        return _windows_governance_handle_file_id(
+            secure_filesystem.msvcrt.get_osfhandle(descriptor)
+        )
+    finally:
+        os.close(descriptor)
+
+
 def _publish_staged_governance(
     *,
     temporary_name: str,
@@ -5708,11 +5769,16 @@ def _publish_staged_governance(
     expected_raw: bytes | None,
     state: _GovernancePublishState,
     outcome: _GovernanceWriteOutcome,
+    expected_file_id: tuple[int, int] | None = None,
 ) -> None:
     _require_governance_destination_identity(
         destination_path,
         expected_identity,
     )
+    if windows and expected_identity is not None and expected_file_id is None:
+        raise InventoryError(
+            "governance expected destination identity is invalid"
+        )
     if windows:
         if expected_identity is not None:
             state.recovery_name = (
@@ -5735,7 +5801,7 @@ def _publish_staged_governance(
                     original_handle
                 )
                 original_owner.bind_identity(original_identity)
-                if original_identity != expected_identity[:2]:
+                if original_identity != expected_file_id:
                     raise InventoryError(
                         "governance destination handle identity differs"
                     )
@@ -5786,7 +5852,7 @@ def _publish_staged_governance(
                 )
             if _windows_governance_handle_file_id(
                 state.destination_handle
-            ) != recovery.identity[:2]:
+            ) != _governance_destination_file_id(outcome.recovery_path):
                 raise InventoryError(
                     "governance recovery handle identity differs"
                 )
@@ -6316,6 +6382,7 @@ def _write_windows_governance(
     directory_lock: object | None = None
     temporary: _WindowsGovernanceFileOwner | None = None
     staged_snapshot: object | None = None
+    staged_file_id: tuple[int, int] | None = None
     published_snapshot: object | None = None
     bound_identity: tuple[int, bytes] | None = None
     publish_state = _GovernancePublishState()
@@ -6476,7 +6543,7 @@ def _write_windows_governance(
     def current_destination_is_staged() -> None:
         if directory is None:
             raise InventoryError("governance directory handle is absent")
-        if staged_snapshot is None:
+        if staged_snapshot is None or staged_file_id is None:
             raise InventoryError("governance staging identity is absent")
         readback_owner = _WindowsGovernanceFileOwner(
             "readback",
@@ -6490,7 +6557,7 @@ def _write_windows_governance(
             owner=readback_owner,
         )
         if (
-            current_identity != staged_snapshot.identity[:2]
+            current_identity != staged_file_id
             or current_raw != raw
         ):
             raise InventoryError(
@@ -6726,7 +6793,8 @@ def _write_windows_governance(
         )
         if staged_snapshot.raw != raw:
             raise InventoryError("governance staging bytes differ after write")
-        temporary.bind_identity(staged_snapshot.identity[:2])
+        staged_file_id = _windows_governance_handle_file_id(handle)
+        temporary.bind_identity(staged_file_id)
         _revalidate_governance_directory_chain(chain)
         if (
             secure_filesystem._windows_directory_handle_identity(
@@ -6739,12 +6807,18 @@ def _write_windows_governance(
         _require_governance_destination_identity(path, expected_identity)
         if lifetime_check is not None:
             lifetime_check()
+        expected_file_id = (
+            None
+            if expected_identity is None
+            else _governance_destination_file_id(path)
+        )
         _publish_staged_governance(
             temporary_name=temporary_name,
             temporary_handle=handle,
             destination_name=path.name,
             parent_handle=directory,
             windows=True,
+            expected_file_id=expected_file_id,
             destination_path=path,
             expected_identity=expected_identity,
             expected_raw=expected_raw,
@@ -6766,7 +6840,7 @@ def _write_windows_governance(
             publish_state.published_handle
         )
         published_owner.bind_identity(published_identity)
-        if published_identity != staged_snapshot.identity[:2]:
+        if published_identity != staged_file_id:
             raise InventoryError(
                 "published governance handle identity differs from staging"
             )
@@ -24365,9 +24439,18 @@ def _string_decoy_census(
             parent = parents.get(node)
             if parent is None:
                 raise InventoryError("string decoy has no AST parent")
+            # Anchor f-string constants to the JoinedStr's own start line:
+            # CPython <= 3.11 stamps every part with that line while 3.12+
+            # records true part positions, so the anchor is the only
+            # location both interpreters report identically.
+            anchored_line = (
+                int(parent.lineno)
+                if isinstance(parent, ast.JoinedStr)
+                else int(node.lineno)
+            )
             rows_with_provenance.append(({
                 "path": relative_path,
-                "line": int(node.lineno),
+                "line": anchored_line,
                 "parent": type(parent).__name__,
                 "tokens": tokens,
             }, provenance))

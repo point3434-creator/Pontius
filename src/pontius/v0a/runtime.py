@@ -103,7 +103,7 @@ def _admit_blueprint(source: object) -> ImmutableBlueprintActionSource:
         raise TypeError("runtime requires an exact immutable blueprint source")
     try:
         return _copy_exact_policy_value(source)
-    except (TypeError, ValueError, AttributeError) as error:
+    except (TypeError, ValueError, AttributeError, RecursionError):
         raise TypeError("immutable blueprint contains an invalid value graph") from None
 
 
@@ -149,11 +149,14 @@ def _select_admitted_blueprint_action(
             raise TypeError("context requires exact values")
         cards = _copy_exact_policy_value(cards)
         betting = _copy_exact_policy_value(betting)
-        decision = _copy_exact_policy_value(decision)
-        if not _same_exact_value(decision, betting.legal_decision()):
+        expected = betting.legal_decision()
+        # Traverse only the kernel-derived shape. A tuple in a scalar field is
+        # refused before descending, regardless of its caller-chosen depth.
+        if not _same_exact_value(decision, expected):
             raise ValueError("decision disagrees with the exact betting state")
+        decision = expected
         key = BlueprintDecisionKey.from_state(cards=cards, betting=betting, decision=decision)
-    except (TypeError, ValueError, AttributeError, AssertionError):
+    except (TypeError, ValueError, AttributeError, AssertionError, RecursionError):
         raise InvalidDecisionContextError("invalid exact legal decision context") from None
     try:
         selection = ImmutableBlueprintActionSource.action_for(

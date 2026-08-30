@@ -968,14 +968,16 @@ class PolicyAdmissionRegressionTests(unittest.TestCase):
         values["private_hand"] = (1, 14)  # a different visible key, nevertheless equal under Key
         wildcard = Key(**values)
         policies = (
-            ImmutableBlueprintActionSource(real.source_id, (BlueprintActionEntry(wildcard, entry.action),)),
+            ImmutableBlueprintActionSource(
+                real.source_id, (BlueprintActionEntry(wildcard, entry.action),)),
             ImmutableBlueprintActionSource(real.source_id, (Entry(entry.key, entry.action),)),
             ImmutableBlueprintActionSource(real.source_id, (BlueprintActionEntry(
                 entry.key, Action(entry.action.kind, entry.action.raise_to)),)),
             ImmutableBlueprintActionSource(real.source_id, (BlueprintActionEntry(
                 replace(entry.key, small_blind=Integer(entry.key.small_blind)), entry.action),)),
             ImmutableBlueprintActionSource(real.source_id, (BlueprintActionEntry(
-                replace(entry.key, starting_stacks=Tuple(entry.key.starting_stacks)), entry.action),)),
+                replace(entry.key, starting_stacks=Tuple(entry.key.starting_stacks)),
+                entry.action),)),
             ImmutableBlueprintActionSource(real.source_id, Tuple(real.entries)),
             ImmutableBlueprintActionSource(Text(real.source_id), real.entries),
         )
@@ -1045,6 +1047,38 @@ class PolicyAdmissionRegressionTests(unittest.TestCase):
 def main() -> int:
     result = unittest.main(module=__name__, exit=False, verbosity=1).result
     return 0 if result.wasSuccessful() else 1
+
+
+
+
+class PolicyRefusalShapeTests(unittest.TestCase):
+    def test_malformed_depth_is_refused_by_field_shape(self):
+        from dataclasses import fields, replace
+        from pontius.v0a.runtime import InvalidDecisionContextError
+        cards, betting = utg_context()
+        deep = 1
+        for _ in range(2000):
+            deep = (deep,)
+        contexts = (betting, NoLimitBettingState.new_hand(
+            button=0, starting_stacks=(2,) * 6, small_blind=1, big_blind=2))
+        for state in contexts:
+            decision = state.legal_decision()
+            for field in fields(decision):
+                with self.subTest(
+                    field=field.name, raise_allowed=decision.raise_bounds is not None
+                ):
+                    bad = replace(decision, **{field.name: deep})
+                    with self.assertRaises(InvalidDecisionContextError):
+                        select_blueprint_action(empty_blueprint(), cards, state, bad)
+            if decision.raise_bounds is not None:
+                for field in fields(decision.raise_bounds):
+                    with self.subTest(bounds=field.name):
+                        bounds = replace(decision.raise_bounds, **{field.name: deep})
+                        with self.assertRaises(InvalidDecisionContextError):
+                            select_blueprint_action(empty_blueprint(), cards, state,
+                                                    replace(decision, raise_bounds=bounds))
+            result = select_blueprint_action(empty_blueprint(), cards, state, decision)
+            self.assertEqual(result.action, CALL)
 
 
 if __name__ == "__main__":

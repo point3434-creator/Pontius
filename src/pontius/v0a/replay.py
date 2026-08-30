@@ -12,8 +12,10 @@ from dataclasses import dataclass
 from hashlib import sha256
 from itertools import permutations
 
-from ..holdem_cards import SixSeatHoldemDeal
-from ..no_limit_betting import SEAT_COUNT, BettingStreet, TerminalReason
+from ..holdem_cards import OneSeatCardState, SixSeatHoldemDeal
+from ..immutable_blueprint import ImmutableBlueprintActionSource
+from ..legal_decision_spine_v2 import public_betting_state_sha256
+from ..no_limit_betting import SEAT_COUNT, BettingStreet, NoLimitBettingState, TerminalReason
 from ..river import RANKS, SUITS, parse_card
 from .model import (
     ActionMailbox,
@@ -27,12 +29,15 @@ from .model import (
     SettlementRecord,
     ShowdownResultEvent,
     StreetRevealedEvent,
+    visible_cards_sha256,
 )
 from .clock import ClockInvalidError, ClockReversedError
-from .runtime import HandRuntime, OperationFailed
+from .runtime import HandRuntime, OperationFailed, _admit_blueprint
 from .trace import (
     TraceBuilder,
+    TraceInvalidError,
     TraceWriteError,
+    parse_trace,
     semantic_sha256,
     write_trace,
 )
@@ -245,7 +250,12 @@ def chip_depth_settlement(
         amount = (level - lower) * len(contributors)
         eligible = tuple(seat for seat in contributors if not folded[seat])
         if amount:
-            pots.append((amount, eligible))
+            # A folded-only depth boundary does not change who may win.
+            # Combine it before division so it cannot manufacture odd chips.
+            if pots and pots[-1][1] == eligible:
+                pots[-1] = (pots[-1][0] + amount, eligible)
+            else:
+                pots.append((amount, eligible))
         lower = level
 
     payouts = [0] * SEAT_COUNT
@@ -593,6 +603,224 @@ class ReplayHost:
         )
 
 
+# -- accepting replay, independent of the producer's orchestration ----------
+
+
+@dataclass(frozen=True, slots=True)
+class VerifiedTrace:
+    """A legal, timely trace; no claim about host publication or source sealing."""
+
+    run_id: str
+    semantic_sha256: str
+    payouts: tuple[int, ...]
+    final_stacks: tuple[int, ...]
+    pots: tuple[tuple[int, tuple[int, ...]], ...]
+
+
+def _owned_expected_fixture(fixture: object) -> Fixture:
+    """Admit value-only expectations before calling any fixture behavior."""
+    if type(fixture) is not Fixture:
+        raise TraceInvalidError("expected fixture must be exact")
+    for key in ("name", "seed_label", "hand_id"):
+        if type(getattr(fixture, key)) is not str or not getattr(fixture, key):
+            raise TraceInvalidError(f"expected fixture {key} must be nonempty text")
+    for key in ("button", "controlled_seat", "small_blind", "big_blind",
+                "expected_controlled_actions"):
+        if type(getattr(fixture, key)) is not int:
+            raise TraceInvalidError(f"expected fixture {key} must be an exact integer")
+    if fixture.controlled_seat not in range(SEAT_COUNT):
+        raise TraceInvalidError("expected controlled seat must identify one of six seats")
+    for key, kind in (("starting_stacks", int), ("board_text", str), ("hand_text", str),
+                      ("expected_payouts", int), ("expected_pots", int)):
+        value = getattr(fixture, key)
+        if type(value) is not tuple or any(type(item) is not kind for item in value):
+            raise TraceInvalidError(f"expected fixture {key} must contain exact immutable values")
+    if type(fixture.script) is not tuple:
+        raise TraceInvalidError("expected script must be an exact tuple")
+    script = []
+    for step in fixture.script:
+        if (type(step) is not ScriptedAction or type(step.street) is not str
+                or type(step.kind) is not str or type(step.seat) is not int
+                or (step.raise_to is not None and type(step.raise_to) is not int)):
+            raise TraceInvalidError("expected script requires exact action values")
+        script.append(ScriptedAction(step.street, step.seat, step.kind, step.raise_to))
+    return Fixture(
+        name=fixture.name, seed_label=fixture.seed_label, hand_id=fixture.hand_id,
+        button=fixture.button, controlled_seat=fixture.controlled_seat,
+        starting_stacks=fixture.starting_stacks, small_blind=fixture.small_blind,
+        big_blind=fixture.big_blind, board_text=fixture.board_text, hand_text=fixture.hand_text,
+        script=tuple(script), expected_payouts=fixture.expected_payouts,
+        expected_pots=fixture.expected_pots,
+        expected_controlled_actions=fixture.expected_controlled_actions,
+    )
+
+
+def verify_successful_trace(
+    content: bytes,
+    *,
+    fixture: Fixture,
+    blueprint: object,
+    source_commit: str,
+    source_manifest_sha256: str,
+    expected_mode: str,
+    expected_clock_kind: str,
+) -> VerifiedTrace:
+    """Accept raw bytes only after replay against independently supplied bindings.
+
+    Parsing does not grant acceptance. This checker owns its betting/card state,
+    compares the full expected event schedule, calls the sealed blueprint lookup
+    directly, and judges settlement by chip depth. It never dispatches a runtime,
+    runs a host, uses its selector, trusts a caller hook or deserializes behavior.
+    Timing consistency is checked; actual measured-work completeness, source seal
+    and host publication/finalization remain outside a trace-only proof.
+    """
+    parsed = parse_trace(content)
+    if not parsed.terminal["passed"] or not parsed.terminal["complete"]:
+        raise TraceInvalidError("a failed or incomplete prefix cannot earn successful replay")
+    for value, label in ((source_commit, "source commit"),
+                         (source_manifest_sha256, "source manifest"),
+                         (expected_mode, "mode"), (expected_clock_kind, "clock kind")):
+        if type(value) is not str:
+            raise TraceInvalidError(f"expected {label} must be exact text")
+    expected = _owned_expected_fixture(fixture)
+    try:
+        policy = _admit_blueprint(blueprint)
+        deal = expected.deal()
+        bindings = {
+            "source_commit": source_commit,
+            "source_manifest_sha256": source_manifest_sha256,
+            "configuration_sha256": expected.configuration_sha256(),
+            "blueprint_sha256": policy.digest,
+            "mode": expected_mode,
+            "clock_kind": expected_clock_kind,
+        }
+        if any(parsed.header[key] != value for key, value in bindings.items()):
+            raise TraceInvalidError("trace header disagrees with independently expected bindings")
+        if not parsed.run_id.startswith(f"{PROTOCOL_ID}-{expected_mode}-"):
+            raise TraceInvalidError("trace run identity disagrees with its expected mode")
+        if parsed.terminal["hand_id"] != expected.hand_id:
+            raise TraceInvalidError("terminal hand differs from the bound fixture")
+        return _replay_parsed_success(parsed, expected, deal, policy)
+    except (TypeError, ValueError, AssertionError, OverflowError) as error:
+        if isinstance(error, TraceInvalidError):
+            raise
+        raise TraceInvalidError("trace or expected values cannot produce a legal replay") from error
+
+
+def _replay_parsed_success(parsed, fixture, deal, policy) -> VerifiedTrace:
+    state = None
+    cards = None
+    strengths = None
+    script_index = action_index = street_action_index = 0
+    trigger_index = None
+    awaiting_decision = False
+    policy_digest = policy.digest
+    for row in parsed.records[1:-1]:
+        if row["record_type"] == "event":
+            if awaiting_decision:
+                raise TraceInvalidError("event overtook a required controlled decision")
+            event = row["event"]
+            if event["hand_id"] != fixture.hand_id:
+                raise TraceInvalidError("event hand differs from the bound fixture")
+            kind = event["kind"]
+            if kind == "hand_started":
+                wanted = {
+                    "button": fixture.button, "controlled_seat": fixture.controlled_seat,
+                    "starting_stacks": fixture.starting_stacks, "small_blind": fixture.small_blind,
+                    "big_blind": fixture.big_blind,
+                    "private_cards": tuple(deal.hand(fixture.controlled_seat)),
+                }
+                if any(event[key] != value for key, value in wanted.items()):
+                    raise TraceInvalidError("initial event differs from the bound fixture")
+                state = NoLimitBettingState.new_hand(
+                    button=fixture.button, starting_stacks=fixture.starting_stacks,
+                    small_blind=fixture.small_blind, big_blind=fixture.big_blind,
+                )
+                cards = OneSeatCardState.preflop(
+                    controlled_seat=fixture.controlled_seat, private_hand=event["private_cards"]
+                )
+            elif state is None or (state.is_terminal and not (
+                    kind == "showdown_result" and strengths is None
+                    and state.terminal_reason is TerminalReason.SHOWDOWN)):
+                raise TraceInvalidError("event is outside an active hand")
+            elif kind == "opponent_action":
+                if script_index >= len(fixture.script):
+                    raise TraceInvalidError("extra opponent action beyond the bound script")
+                step = fixture.script[script_index]
+                if (event["street"] != state.street.value or event["street"] != step.street
+                        or event["seat"] != state.acting_seat or event["seat"] != step.seat
+                        or event["seat"] == fixture.controlled_seat
+                        or event["action"] != {"kind": step.kind, "raise_to": step.raise_to}):
+                    raise TraceInvalidError("opponent action disagrees with the legal bound schedule")
+                state = state.apply_action(HandAction(**event["action"]).to_betting_action())
+                script_index += 1
+            elif kind == "street_revealed":
+                street = BettingStreet(event["street"])
+                if event["cards"] != tuple(deal.reveal_for(street)):
+                    raise TraceInvalidError("reveal disagrees with the bound full deal")
+                cards = cards.advance_to(street, event["cards"])
+                state = state.advance_street()
+                if state.street is not street:
+                    raise TraceInvalidError("reveal and legal street transition disagree")
+                street_action_index = 0
+            elif kind == "showdown_result":
+                if state.street is not BettingStreet.RIVER or not state.round_complete:
+                    raise TraceInvalidError("showdown arrived before the river completed")
+                strengths = tuple(deal.showdown_strengths(state.live_seats))
+                if event["strengths"] != strengths:
+                    raise TraceInvalidError("showdown ranks disagree with the full bound deal")
+                if not state.is_terminal:
+                    state = state.advance_street()
+            trigger_index = event["event_index"]
+            awaiting_decision = state.acting_seat == fixture.controlled_seat
+        elif row["record_type"] == "decision":
+            if not awaiting_decision or state is None or cards is None:
+                raise TraceInvalidError("decision arrived without its controlled turn")
+            selection = ImmutableBlueprintActionSource.action_for(
+                policy, cards=cards, betting=state, decision=state.legal_decision()
+            )
+            action_index += 1
+            street_action_index += 1
+            after = state.apply_action(selection.action)
+            wanted = {
+                "hand_id": fixture.hand_id, "event_index": trigger_index,
+                "action_index": action_index, "street_action_index": street_action_index,
+                "seat": fixture.controlled_seat, "street": state.street.value,
+                "state_before_sha256": public_betting_state_sha256(state),
+                "state_after_sha256": public_betting_state_sha256(after),
+                "visible_cards_sha256": visible_cards_sha256(cards),
+                "blueprint_sha256": policy_digest,
+                "selected_action": {"kind": selection.action.kind.value,
+                                    "raise_to": selection.action.raise_to},
+                "selection_reason": "table_hit" if selection.table_hit else "passive_default",
+                "spine_reason": "no_candidate", "failure_reason": None,
+            }
+            if any(row[key] != value for key, value in wanted.items()):
+                raise TraceInvalidError("decision disagrees with independently replayed state/policy")
+            state = after
+            awaiting_decision = False
+        else:
+            raise TraceInvalidError("successful replay has only event and decision rows")
+    if (state is None or not state.is_terminal or awaiting_decision
+            or script_index != len(fixture.script)
+            or action_index != fixture.expected_controlled_actions
+            or (state.terminal_reason is TerminalReason.SHOWDOWN and strengths is None)):
+        raise TraceInvalidError("trace stopped before its complete legal bound schedule")
+    oracle = chip_depth_settlement(
+        total_contributions=state.total_contributions, folded=state.folded,
+        starting_stacks=state.starting_stacks, strengths=strengths, button=state.button,
+    )
+    settlement = parsed.terminal["settlement"]
+    if (settlement["payouts"] != oracle.payouts
+            or settlement["final_stacks"] != oracle.final_stacks
+            or tuple((pot["amount"], pot["seats"]) for pot in settlement["pots"]) != oracle.pots
+            or oracle.payouts != fixture.expected_payouts
+            or tuple(pot[0] for pot in oracle.pots) != fixture.expected_pots):
+        raise TraceInvalidError("terminal settlement disagrees with independent chip-depth judgment")
+    return VerifiedTrace(parsed.run_id, parsed.terminal["semantic_sha256"],
+                         oracle.payouts, oracle.final_stacks, oracle.pots)
+
+
 __all__ = [
     "FIXTURES",
     "FIXTURE_A",
@@ -602,6 +830,8 @@ __all__ = [
     "PROTOCOL_ID",
     "ReplayHost",
     "ReplayOutcome",
+    "VerifiedTrace",
+    "verify_successful_trace",
     "ScriptedAction",
     "OracleSettlement",
     "chip_depth_settlement",

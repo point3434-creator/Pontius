@@ -1323,6 +1323,237 @@ class FailureAdapterRegressionTests(unittest.TestCase):
                 self.assertFalse(outcome.receipt.passed)
 
 
+
+class AcceptingReplayTests(unittest.TestCase):
+    """An accepting verifier judges supplied traces, not a rerun of their fixture."""
+
+    def checker(self):
+        verify = getattr(replay_module, "verify_successful_trace", None)
+        self.assertTrue(callable(verify), "a public accepting trace checker is required")
+        return verify
+
+    def verify(self, content, fixture=FIXTURE_A, **changes):
+        args = dict(fixture=fixture, blueprint=blueprint(), source_commit="0" * 40,
+                    source_manifest_sha256="0" * 64, expected_mode="correctness",
+                    expected_clock_kind="deterministic_test")
+        args.update(changes)
+        return self.checker()(content, **args)
+
+    @staticmethod
+    def changed(content, change):
+        import json
+        rows = [json.loads(row) for row in content.splitlines()]
+        change(rows)
+        keys = ("hand_id", "event_index", "action_index", "street_action_index", "seat",
+                "street", "state_before_sha256", "state_after_sha256", "visible_cards_sha256",
+                "blueprint_sha256", "selected_action", "selection_reason", "spine_reason",
+                "preparation_use")
+        dumps = lambda value: json.dumps(value, sort_keys=True, separators=(",", ":"))
+        for index, row in enumerate(rows):
+            row["record_index"] = index
+        payload = dict(events=[row["event"] for row in rows if row["record_type"] == "event"],
+                       decisions=[{key: row[key] for key in keys} for row in rows
+                                  if row["record_type"] == "decision"],
+                       settlement=rows[-1]["settlement"])
+        rows[-1]["semantic_sha256"] = sha256(dumps(payload).encode()).hexdigest()
+        rows[-1]["trace_prefix_sha256"] = sha256(
+            "".join(dumps(row) + "\n" for row in rows[:-1]).encode()).hexdigest()
+        return "".join(dumps(row) + "\n" for row in rows).encode()
+
+    def test_accepts_both_real_controls_without_running_the_host_again(self):
+        for fixture in FIXTURES:
+            with self.subTest(fixture=fixture.name):
+                _, outcome = run_fixture(fixture)
+                target_codes = {ReplayHost.run.__code__, HandRuntime.dispatch.__code__,
+                                runtime_module.select_blueprint_action.__code__,
+                                runtime_module._select_admitted_blueprint_action.__code__}
+                seen = []
+                def observe(frame, event, argument):
+                    if event == "call" and frame.f_code in target_codes:
+                        seen.append(frame.f_code.co_name)
+                previous = sys.getprofile()
+                sys.setprofile(observe)
+                try:
+                    accepted = self.verify(outcome.trace, fixture)
+                finally:
+                    sys.setprofile(previous)
+                self.assertEqual(seen, [])
+                self.assertEqual(accepted.semantic_sha256, outcome.semantic_digest)
+                self.assertEqual(accepted.payouts, fixture.expected_payouts)
+
+    def test_accepts_a_nonpassive_table_hit_and_fold_terminal(self):
+        from pontius.holdem_cards import OneSeatCardState
+        from pontius.immutable_blueprint import BlueprintDecisionKey, BlueprintActionEntry
+        from pontius.no_limit_betting import NoLimitBettingState
+        fixture = replace(FIXTURE_A, name="control-table-hit",
+                          script=tuple(replace(step, kind="call")
+                              if step.street == "preflop" and step.seat == 2 else step
+                              for step in FIXTURE_A.script),
+                          expected_payouts=(0, 0, 0, 36, 0, 0), expected_pots=(36,))
+        state = NoLimitBettingState.new_hand(button=fixture.button,
+                    starting_stacks=fixture.starting_stacks, small_blind=1, big_blind=2)
+        cards = OneSeatCardState.preflop(controlled_seat=3, private_hand=fixture.deal().hand(3))
+        key = BlueprintDecisionKey.from_state(cards=cards, betting=state,
+                                             decision=state.legal_decision())
+        policy = ImmutableBlueprintActionSource(source_id="trace-nonpassive-control",
+                    entries=(BlueprintActionEntry(key, HandAction("raise", 6).to_betting_action()),))
+        host = ReplayHost(fixture, run_id=PROTOCOL_ID + "-correctness-table-hit",
+                          blueprint=policy, clock=SteadyClock())
+        outcome = host.run()
+        self.assertTrue(outcome.receipt.passed, outcome.failures)
+        self.assertEqual(self.verify(outcome.trace, fixture, blueprint=policy).payouts,
+                         fixture.expected_payouts)
+        fold = replace(FIXTURE_A, name="control-fold-terminal",
+                       script=tuple(ScriptedAction("preflop", seat, "fold")
+                                    for seat in (4, 5, 0, 1, 2)),
+                       expected_payouts=(0, 0, 0, 5, 0, 0), expected_pots=(5,),
+                       expected_controlled_actions=1)
+        host = ReplayHost(fold, run_id=PROTOCOL_ID + "-correctness-fold-terminal",
+                          blueprint=policy, clock=SteadyClock())
+        outcome = host.run()
+        self.assertTrue(outcome.receipt.passed, outcome.failures)
+        self.assertEqual(self.verify(outcome.trace, fold, blueprint=policy).payouts,
+                         fold.expected_payouts)
+
+    def test_emission_reserve_is_not_a_false_work_failure(self):
+        clock = SteadyClock()
+        real = ActionMailbox()
+        class DelayedMailbox:
+            def deliver(self, envelope):
+                receipt = real.deliver(envelope)
+                clock.now += 14_500_000_000
+                return receipt
+        host = ReplayHost(FIXTURE_A, run_id=PROTOCOL_ID + "-correctness-emission-reserve",
+                          blueprint=blueprint(), clock=clock, mailbox=DelayedMailbox())
+        outcome = host.run()
+        self.assertTrue(outcome.receipt.passed, outcome.failures)
+        for record in outcome.decisions:
+            self.assertGreater(record.timing.elapsed_ns, 14_000_000_000)
+            self.assertLessEqual(record.timing.elapsed_ns, 15_000_000_000)
+            self.assertFalse(record.timing.work_cutoff_crossed)
+        self.assertEqual(self.verify(outcome.trace).payouts, FIXTURE_A.expected_payouts)
+
+    def test_all_expected_bindings_and_decision_schedule_fields_are_checked(self):
+        from pontius.v0a.trace import TraceInvalidError
+        _, outcome = run_fixture(FIXTURE_A)
+        changes = (
+            ("manifest", lambda rows: rows[0].update(source_manifest_sha256="2" * 64)),
+            ("mode", lambda rows: rows[0].update(mode="rehearsal")),
+            ("clock-kind", lambda rows: rows[0].update(clock_kind="monotonic_ns")),
+            ("decision-policy", lambda rows: rows[2].update(blueprint_sha256="2" * 64)),
+            ("decision-trigger", lambda rows: rows[2].update(event_index=1)),
+            ("street-count", lambda rows: rows[2].update(street_action_index=2)),
+            ("decision-actor", lambda rows: rows[2].update(seat=4)),
+            ("decision-street", lambda rows: rows[2].update(street="flop")),
+            ("state-before", lambda rows: rows[2].update(state_before_sha256="2" * 64)),
+            ("spine-reason", lambda rows: rows[2].update(spine_reason="candidate")),
+            ("opponent-actor", lambda rows: rows[3]["event"].update(seat=0)),
+            ("opponent-action", lambda rows: rows[3]["event"].update(
+                action={"kind": "fold", "raise_to": None})),
+            ("initial-cards", lambda rows: rows[1]["event"].update(private_cards=[0, 1])),
+            ("reveal-cards", lambda rows: next(row["event"] for row in rows
+                if row["record_type"] == "event" and row["event"]["kind"] == "street_revealed").update(cards=[0, 1, 2])),
+            ("showdown-rank", lambda rows: rows[-2]["event"]["strengths"].__setitem__(0, [0, 1])),
+            ("showdown-mask", lambda rows: rows[-2]["event"]["strengths"].__setitem__(0, None)),
+        )
+        for label, change in changes:
+            with self.subTest(label=label):
+                with self.assertRaises(TraceInvalidError):
+                    self.verify(self.changed(outcome.trace, change))
+        for kwargs in (dict(source_commit="2" * 40),
+                       dict(source_manifest_sha256="2" * 64),
+                       dict(expected_mode="rehearsal"), dict(expected_clock_kind="monotonic_ns")):
+            with self.subTest(kwargs=kwargs):
+                with self.assertRaises(TraceInvalidError):
+                    self.verify(outcome.trace, **kwargs)
+
+    def test_expectation_subtypes_cannot_supply_behavior(self):
+        from pontius.v0a.trace import TraceInvalidError
+        from pontius.v0a.replay import Fixture
+        _, outcome = run_fixture(FIXTURE_A)
+        touched = []
+        class FixtureDelegate(Fixture):
+            def deal(self):
+                touched.append("fixture")
+                return super().deal()
+        class PolicyDelegate(ImmutableBlueprintActionSource):
+            @property
+            def digest(self):
+                touched.append("policy")
+                return super().digest
+        class TextDelegate(str):
+            def __eq__(self, other):
+                touched.append("text")
+                return super().__eq__(other)
+        fixture = FixtureDelegate(**{name: getattr(FIXTURE_A, name)
+                                     for name in Fixture.__dataclass_fields__})
+        for kwargs in (dict(fixture=fixture), dict(blueprint=PolicyDelegate("delegate")),
+                       dict(source_commit=TextDelegate("0" * 40))):
+            with self.subTest(kwargs=tuple(kwargs)):
+                with self.assertRaises(TraceInvalidError):
+                    self.verify(outcome.trace, **kwargs)
+        self.assertEqual(touched, [])
+
+    def test_rebound_invalid_semantics_are_not_legalized_by_hashes(self):
+        from pontius.v0a.trace import TraceInvalidError
+        _, outcome = run_fixture(FIXTURE_A)
+        changes = (
+            ("illegal-check", lambda rows: rows[2].update(
+                selected_action={"kind": "check", "raise_to": None})),
+            ("illegal-raise", lambda rows: rows[2].update(
+                selected_action={"kind": "raise", "raise_to": 1})),
+            ("legal-wrong-policy", lambda rows: rows[2].update(
+                selected_action={"kind": "raise", "raise_to": 6}, selection_reason="table_hit")),
+            ("wrong-state", lambda rows: rows[2].update(state_after_sha256="1" * 64)),
+            ("wrong-cards", lambda rows: rows[2].update(visible_cards_sha256="1" * 64)),
+            ("false-hit", lambda rows: rows[2].update(selection_reason="table_hit")),
+            ("wrong-source", lambda rows: rows[0].update(source_commit="1" * 40)),
+            ("wrong-policy", lambda rows: rows[0].update(blueprint_sha256="1" * 64)),
+            ("wrong-config", lambda rows: rows[0].update(configuration_sha256="1" * 64)),
+            ("payout", lambda rows: rows[-1]["settlement"]["payouts"].reverse()),
+            ("final-stacks", lambda rows: rows[-1]["settlement"]["final_stacks"].reverse()),
+            ("eligibility", lambda rows: rows[-1]["settlement"]["pots"][0].update(seats=[0])),
+            ("missing-decision", lambda rows: (rows.pop(2),
+                                               rows[-1].update(decision_count=3))),
+            ("reordered-decision", lambda rows: rows.insert(4, rows.pop(2))),
+        )
+        for label, change in changes:
+            with self.subTest(label=label):
+                with self.assertRaises(TraceInvalidError):
+                    self.verify(self.changed(outcome.trace, change))
+
+    def test_folded_only_depths_do_not_split_an_award(self):
+        from pontius.no_limit_betting import NoLimitBettingState
+        state = NoLimitBettingState.new_hand(button=0, starting_stacks=(20,) * 6,
+                                            small_blind=1, big_blind=2)
+        for kind, amount in (("raise", 5), ("call", None), ("call", None),
+                             ("fold", None), ("fold", None), ("fold", None)):
+            state = state.apply_action(HandAction(kind, amount).to_betting_action())
+        state = state.advance_street()
+        for kind, amount in (("raise", 10), ("call", None), ("fold", None)):
+            state = state.apply_action(HandAction(kind, amount).to_betting_action())
+        self.assertEqual(state.total_contributions, (0, 1, 2, 15, 15, 5))
+        # Two live tied players claim the same 38 chips; dead contribution
+        # depths cannot create extra separately rounded awards (20/18).
+        self.assertEqual(tuple((pot.amount, pot.eligible_seats) for pot in state.side_pots()),
+                         ((38, (3, 4)),))
+        oracle = chip_depth_settlement(total_contributions=state.total_contributions,
+                    folded=state.folded, starting_stacks=state.starting_stacks,
+                    strengths=(None, None, None, 1, 1, None), button=state.button)
+        self.assertEqual(oracle.pots, ((38, (3, 4)),))
+        self.assertEqual(oracle.payouts, (0, 0, 0, 19, 19, 0))
+
+    def test_failed_prefix_cannot_obtain_success(self):
+        from pontius.v0a.trace import TraceInvalidError
+        def failed_clock():
+            raise ValueError("ordinary correctness failure")
+        host = ReplayHost(FIXTURE_A, run_id=PROTOCOL_ID + "-correctness-checker-failure",
+                          blueprint=blueprint(), clock=failed_clock)
+        outcome = host.run()
+        with self.assertRaises(TraceInvalidError):
+            self.verify(outcome.trace)
+
+
 def main() -> int:
     result = unittest.main(module=__name__, exit=False, verbosity=1).result
     return 0 if result.wasSuccessful() else 1

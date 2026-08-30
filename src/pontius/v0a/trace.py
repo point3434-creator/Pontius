@@ -1,4 +1,4 @@
-"""Canonical trace serialization, strict parsing, and semantic replay (ADR-0485).
+"""Canonical trace serialization and strict structural/digest parsing (ADR-0485).
 
 JSON is UTF-8 without BOM, sorted keys, compact separators, finite numbers,
 one LF per record. Parsing rejects duplicate, unknown, and missing keys, wrong
@@ -11,10 +11,12 @@ from __future__ import annotations
 
 import json
 import os
+import math
 from dataclasses import dataclass
 from hashlib import sha256
 from pathlib import Path
 
+from ..legal_decision_spine_v2 import ActionSelectionReasonV2
 from .model import (
     DecisionRecord,
     DeliveryStatus,
@@ -439,11 +441,14 @@ def _require_keys(row: dict[str, object], allowed: frozenset[str], *, label: str
         raise TraceInvalidError(f"{label} row has unknown keys: {sorted(unknown)}")
 
 
-def _require_int(value: object, *, label: str, minimum: int | None = None) -> int:
+def _require_int(value: object, *, label: str, minimum: int | None = None,
+                 maximum: int | None = None) -> int:
     if type(value) is not int:
         raise TraceInvalidError(f"{label} must be an exact integer")
     if minimum is not None and value < minimum:
         raise TraceInvalidError(f"{label} must be at least {minimum}")
+    if maximum is not None and value > maximum:
+        raise TraceInvalidError(f"{label} must be at most {maximum}")
     return value
 
 
@@ -469,6 +474,47 @@ def _require_enum(value: object, allowed: tuple[str, ...], *, label: str) -> str
     return value
 
 
+def _require_text(value: object, *, label: str, nullable: bool = False) -> None:
+    if nullable and value is None:
+        return
+    if type(value) is not str or not value or not value.isascii():
+        raise TraceInvalidError(f"{label} must be a nonempty ASCII string")
+
+
+def _require_seconds(value: object, *, label: str) -> float:
+    if type(value) is not float or not math.isfinite(value) or value < 0.0:
+        raise TraceInvalidError(f"{label} must be finite nonnegative float seconds")
+    return value
+
+
+def _seconds_ns_bounds(seconds: float, elapsed: int) -> tuple[int, int]:
+    """Integers whose ns/1e9 conversion gives these exact ledger seconds.
+
+    Binary searches also handle long failed responses beyond float's exact
+    integer range. No invented tolerance or rounded float sum is accepted.
+    """
+    def converted(ns: int) -> float:
+        try:
+            return ns / 1_000_000_000
+        except OverflowError:
+            return math.inf
+
+    bounds = []
+    for strict in (False, True):
+        low, high = 0, elapsed + 1
+        while low < high:
+            mid = (low + high) // 2
+            value = converted(mid)
+            if value > seconds or (not strict and value == seconds):
+                high = mid
+            else:
+                low = mid + 1
+        bounds.append(low)
+    if bounds[0] > elapsed or converted(bounds[0]) != seconds:
+        raise TraceInvalidError("response seconds are not an exact ledger ns conversion")
+    return bounds[0], bounds[1] - 1
+
+
 def _validate_timing(timing: object, *, label: str) -> None:
     if timing is None:
         return
@@ -478,44 +524,42 @@ def _validate_timing(timing: object, *, label: str) -> None:
     status = _require_enum(
         timing["status"], tuple(item.value for item in TimingStatus), label="timing status"
     )
-    _require_int(timing["wall_start_ns"], label="wall start", minimum=0)
-    _require_int(timing["last_valid_observation_ns"], label="last valid observation", minimum=0)
-    if timing["last_valid_observation_ns"] < timing["wall_start_ns"]:
+    start = _require_int(timing["wall_start_ns"], label="wall start", minimum=0)
+    last = _require_int(timing["last_valid_observation_ns"], label="last observation", minimum=0)
+    if last < start:
         raise TraceInvalidError("last valid observation predates the wall start")
+    observed = last - start
     if status == "completed":
         if timing["interruption_reason"] is not None:
             raise TraceInvalidError("completed timing carries no interruption reason")
         emission = _require_int(timing["emission_observed_ns"], label="emission", minimum=0)
         elapsed = _require_int(timing["elapsed_ns"], label="elapsed", minimum=0)
-        if emission != timing["last_valid_observation_ns"]:
-            raise TraceInvalidError("completed emission must equal the last valid observation")
-        if elapsed != emission - timing["wall_start_ns"]:
-            raise TraceInvalidError("elapsed nanoseconds are exact integer subtraction")
-        for key in ("response_compute_seconds", "response_uninstrumented_seconds"):
-            if type(timing[key]) is not float or timing[key] < 0.0:
-                raise TraceInvalidError(f"{key} must be a finite nonnegative number")
+        if emission != last or elapsed != observed:
+            raise TraceInvalidError("completed timing requires exact emission subtraction")
+        intervals = [
+            _seconds_ns_bounds(_require_seconds(timing[key], label=key), elapsed)
+            for key in ("response_compute_seconds", "response_uninstrumented_seconds")
+        ]
+        if not sum(pair[0] for pair in intervals) <= elapsed <= sum(pair[1] for pair in intervals):
+            raise TraceInvalidError("response compute and uninstrumented time must partition elapsed ns")
         for key in ("work_cutoff_crossed", "deadline_crossed"):
             _require_bool(timing[key], label=key)
-        return
-    _require_enum(
-        timing["interruption_reason"],
-        tuple(code.value for code in FailureCode),
-        label="interruption reason",
-    )
-    for key in (
-        "emission_observed_ns",
-        "elapsed_ns",
-        "response_compute_seconds",
-        "response_uninstrumented_seconds",
-    ):
-        if timing[key] is not None:
-            raise TraceInvalidError(f"interrupted timing must have null {key}")
-    for key in ("work_cutoff_crossed", "deadline_crossed"):
-        flag = timing[key]
-        if flag is None:
-            continue
-        if _require_bool(flag, label=key) is False:
-            raise TraceInvalidError(f"interrupted {key} is never a false claim; use null")
+        if timing["deadline_crossed"] != (elapsed > 15_000_000_000):
+            raise TraceInvalidError("completed deadline flag disagrees with exact elapsed ns")
+    else:
+        _require_enum(timing["interruption_reason"], tuple(code.value for code in FailureCode),
+                      label="interruption reason")
+        for key in ("emission_observed_ns", "elapsed_ns", "response_compute_seconds",
+                    "response_uninstrumented_seconds"):
+            if timing[key] is not None:
+                raise TraceInvalidError(f"interrupted timing must have null {key}")
+        for key in ("work_cutoff_crossed", "deadline_crossed"):
+            if timing[key] is not None and _require_bool(timing[key], label=key) is False:
+                raise TraceInvalidError(f"interrupted {key} must be true or null")
+    if timing["work_cutoff_crossed"] is True and observed < 14_000_000_000:
+        raise TraceInvalidError("work cutoff lacks a compatible observed prefix")
+    if timing["deadline_crossed"] is True and observed <= 15_000_000_000:
+        raise TraceInvalidError("deadline crossing lacks a compatible observed prefix")
 
 
 def _validate_action(action: object, *, label: str) -> None:
@@ -533,9 +577,9 @@ def _validate_preparation(preparation: object) -> None:
     if type(preparation) is not dict:
         raise TraceInvalidError("preparation use must be an object")
     _require_keys(preparation, _PREPARATION_KEYS, label="preparation use")
-    if preparation["producer_status"] != "producer_absent":
+    if type(preparation["producer_status"]) is not str or preparation["producer_status"] != "producer_absent":
         raise TraceInvalidError("schema v1 preparation status is exactly producer_absent")
-    if preparation["artifact_sha256s"] != ():
+    if type(preparation["artifact_sha256s"]) is not tuple or preparation["artifact_sha256s"] != ():
         raise TraceInvalidError("schema v1 preparation artifacts are exactly empty")
     if type(preparation["credited_seconds"]) is not int or preparation["credited_seconds"] != 0:
         raise TraceInvalidError("schema v1 credited seconds are exactly zero")
@@ -564,10 +608,81 @@ def _validate_settlement(settlement: object) -> None:
         seats = pot["seats"]
         if type(seats) is not tuple or not seats:
             raise TraceInvalidError("pot seats must be a nonempty array")
+        for seat in seats:
+            _require_int(seat, label="pot seat", minimum=0, maximum=5)
         if tuple(sorted(set(seats))) != seats:
             raise TraceInvalidError("pot seats must be sorted and unique")
-        for seat in seats:
-            _require_int(seat, label="pot seat", minimum=0)
+
+
+_EVENT_COMMON = frozenset({"schema_version", "kind", "hand_id", "event_index"})
+_EVENT_VARIANTS = {
+    "hand_started": frozenset({"button", "controlled_seat", "starting_stacks",
+                               "small_blind", "big_blind", "private_cards"}),
+    "opponent_action": frozenset({"street", "seat", "action"}),
+    "street_revealed": frozenset({"street", "cards"}),
+    "showdown_result": frozenset({"strengths"}),
+}
+
+
+def _validate_cards(value: object, count: int, *, label: str) -> None:
+    if type(value) is not tuple or len(value) != count:
+        raise TraceInvalidError(f"{label} must contain exactly {count} cards")
+    for card in value:
+        _require_int(card, label=label, minimum=0, maximum=51)
+    if len(set(value)) != count:
+        raise TraceInvalidError(f"{label} cards must be distinct")
+
+
+def _validate_event(event: object, index: int) -> None:
+    if type(event) is not dict:
+        raise TraceInvalidError("event payload must be an object")
+    kind = _require_enum(event.get("kind"), tuple(_EVENT_VARIANTS), label="event kind")
+    _require_keys(event, _EVENT_COMMON | _EVENT_VARIANTS[kind], label=kind)
+    if event["schema_version"] != EVENT_SCHEMA_VERSION:
+        raise TraceInvalidError("event schema must be canonical")
+    _require_text(event["hand_id"], label="event hand id")
+    if _require_int(event["event_index"], label="event index", minimum=0) != index:
+        raise TraceInvalidError("accepted event indices must be contiguous from zero")
+    if (index == 0) != (kind == "hand_started"):
+        raise TraceInvalidError("the first accepted event alone starts the hand")
+    if kind == "hand_started":
+        for key in ("button", "controlled_seat"):
+            _require_int(event[key], label=key, minimum=0, maximum=5)
+        small = _require_int(event["small_blind"], label="small blind", minimum=1)
+        big = _require_int(event["big_blind"], label="big blind", minimum=1)
+        if small >= big:
+            raise TraceInvalidError("small blind must be below big blind")
+        stacks = event["starting_stacks"]
+        if type(stacks) is not tuple or len(stacks) != 6:
+            raise TraceInvalidError("starting stacks must cover exactly six seats")
+        for stack in stacks:
+            _require_int(stack, label="starting stack", minimum=big)
+        _validate_cards(event["private_cards"], 2, label="private cards")
+    elif kind == "opponent_action":
+        _require_enum(event["street"], STREET_NAMES, label="opponent street")
+        _require_int(event["seat"], label="opponent seat", minimum=0, maximum=5)
+        _validate_action(event["action"], label="opponent action")
+    elif kind == "street_revealed":
+        street = _require_enum(event["street"], ("flop", "turn", "river"), label="reveal street")
+        _validate_cards(event["cards"], 3 if street == "flop" else 1, label="reveal")
+    else:
+        strengths = event["strengths"]
+        if type(strengths) is not tuple or len(strengths) != 6:
+            raise TraceInvalidError("showdown strengths must cover exactly six seats")
+        domains = set()
+        for strength in strengths:
+            if strength is None:
+                continue
+            domains.add(type(strength))
+            if type(strength) is tuple:
+                if not strength:
+                    raise TraceInvalidError("rank tuples must be nonempty")
+                for atom in strength:
+                    _require_int(atom, label="rank atom")
+            else:
+                _require_int(strength, label="strength")
+        if len(domains) > 1:
+            raise TraceInvalidError("showdown strengths must share one comparable rank domain")
 
 
 @dataclass(frozen=True, slots=True)
@@ -578,12 +693,17 @@ class ParsedTrace:
     failures: tuple[dict[str, object], ...]
     terminal: dict[str, object]
     run_id: str
+    records: tuple[dict[str, object], ...]
 
 
 def parse_trace(content: bytes) -> ParsedTrace:
-    """Parse and fully validate a trace, or refuse it with a typed error."""
+    """Validate canonical structure and digests, not successful legal replay.
 
-    if not isinstance(content, bytes):
+    Use replay.verify_successful_trace with independently expected bindings
+    before accepting a successful hand. Failed prefixes remain inspectable.
+    """
+
+    if type(content) is not bytes:
         raise TraceInvalidError("a trace is parsed from exact bytes")
     if content.startswith(b"\xef\xbb\xbf"):
         raise TraceInvalidError("a trace never carries a byte-order mark")
@@ -599,13 +719,18 @@ def parse_trace(content: bytes) -> ParsedTrace:
     for position, raw in enumerate(raw_rows):
         try:
             decoded = json.loads(raw.decode("utf-8"), object_pairs_hook=_no_duplicate_keys)
+            if canonical_json(decoded).encode("utf-8") != raw:
+                raise TraceInvalidError(f"row {position} is not canonical JSON")
         except UnicodeDecodeError as error:
             raise TraceInvalidError(f"row {position} is not UTF-8") from error
-        except json.JSONDecodeError as error:
-            raise TraceInvalidError(f"row {position} is not valid JSON: {error}") from error
+        except (ValueError, OverflowError, RecursionError) as error:
+            raise TraceInvalidError(f"row {position} is not finite canonical JSON") from error
         if type(decoded) is not dict:
             raise TraceInvalidError(f"row {position} must be a JSON object")
-        rows.append(_immutable(decoded))
+        try:
+            rows.append(_immutable(decoded))
+        except RecursionError as error:
+            raise TraceInvalidError("trace nesting exceeds the decoder boundary") from error
 
     header = rows[0]
     if header.get("record_type") != "header":
@@ -617,6 +742,9 @@ def parse_trace(content: bytes) -> ParsedTrace:
     _require_enum(header["clock_kind"], CLOCK_KINDS, label="clock kind")
     for key in ("source_manifest_sha256", "configuration_sha256", "blueprint_sha256"):
         _require_digest(header[key], label=key)
+    commit = header["source_commit"]
+    if type(commit) is not str or len(commit) != 40 or any(c not in "0123456789abcdef" for c in commit):
+        raise TraceInvalidError("source commit must be a lowercase 40-character Git SHA")
     run_id = header["run_id"]
     if type(run_id) is not str or not run_id or not run_id.isascii():
         raise TraceInvalidError("run id must be a nonempty ASCII string")
@@ -632,10 +760,10 @@ def parse_trace(content: bytes) -> ParsedTrace:
             raise TraceInvalidError(f"row {position} has a foreign schema version")
         if row.get("run_id") != run_id:
             raise TraceInvalidError(f"row {position} belongs to another run")
-        if row.get("record_index") != position:
+        if _require_int(row.get("record_index"), label="record index", minimum=0) != position:
             raise TraceInvalidError(f"row {position} has a discontinuous record index")
         record_type = row.get("record_type")
-        if record_type not in RECORD_TYPES:
+        if type(record_type) is not str or record_type not in RECORD_TYPES:
             raise TraceInvalidError(f"row {position} has an unknown record type")
         if terminal is not None:
             raise TraceInvalidError("the terminal row must be last and unique")
@@ -645,17 +773,15 @@ def parse_trace(content: bytes) -> ParsedTrace:
         if record_type == "event":
             _require_keys(row, _EVENT_KEYS, label="event")
             event = row["event"]
-            if type(event) is not dict or event.get("schema_version") != EVENT_SCHEMA_VERSION:
-                raise TraceInvalidError("an event row carries one exact event object")
-            if type(event.get("hand_id")) is str:
-                hand_ids.add(event["hand_id"])
+            _validate_event(event, len(events))
+            hand_ids.add(event["hand_id"])
             events.append(event)
         elif record_type == "decision":
             _require_keys(row, _DECISION_KEYS, label="decision")
             _require_int(row["action_index"], label="action index", minimum=1)
             _require_int(row["street_action_index"], label="street action index", minimum=1)
             _require_int(row["event_index"], label="event index", minimum=0)
-            _require_int(row["seat"], label="seat", minimum=0)
+            _require_int(row["seat"], label="seat", minimum=0, maximum=5)
             _require_enum(row["street"], STREET_NAMES, label="street")
             for key in (
                 "state_before_sha256",
@@ -670,6 +796,11 @@ def parse_trace(content: bytes) -> ParsedTrace:
                 tuple(reason.value for reason in SelectionReason),
                 label="selection reason",
             )
+            _require_text(row["hand_id"], label="decision hand id")
+            _require_enum(row["spine_reason"], tuple(reason.value for reason in ActionSelectionReasonV2),
+                          label="spine reason")
+            if row["timing"] is None:
+                raise TraceInvalidError("every decision has response timing")
             _validate_timing(row["timing"], label="decision")
             _validate_preparation(row["preparation_use"])
             if row["failure_reason"] is not None:
@@ -682,6 +813,10 @@ def parse_trace(content: bytes) -> ParsedTrace:
             decisions.append(row)
         elif record_type == "failure":
             _require_keys(row, _FAILURE_KEYS, label="failure")
+            _require_text(row["hand_id"], label="failure hand id", nullable=True)
+            for key, minimum in (("event_index", 0), ("action_index", 1)):
+                if row[key] is not None:
+                    _require_int(row[key], label=key, minimum=minimum)
             _require_enum(row["code"], tuple(code.value for code in FailureCode), label="code")
             _require_enum(
                 row["delivery_status"],
@@ -692,12 +827,15 @@ def parse_trace(content: bytes) -> ParsedTrace:
                 _validate_action(row["delivered_action"], label="delivered action")
                 if row["delivery_status"] != "accepted":
                     raise TraceInvalidError("a delivered action requires known acceptance")
+            if (row["delivery_status"] == "accepted") != (row["delivered_action"] is not None):
+                raise TraceInvalidError("known acceptance carries exactly one delivered action")
             _validate_timing(row["timing"], label="failure")
             if type(row["hand_id"]) is str:
                 hand_ids.add(row["hand_id"])
             failures.append(row)
         elif record_type == "terminal":
             _require_keys(row, _TERMINAL_KEYS, label="terminal")
+            _require_text(row["hand_id"], label="terminal hand id", nullable=True)
             for key in ("complete", "passed", "accounting_complete"):
                 _require_bool(row[key], label=key)
             for key in ("event_count", "decision_count", "interrupted_response_count"):
@@ -713,8 +851,8 @@ def parse_trace(content: bytes) -> ParsedTrace:
             _validate_settlement(row["settlement"])
             for key in ("preparation_compute_seconds", "post_terminal_compute_seconds"):
                 value = row[key]
-                if value is not None and (type(value) is not float or value < 0.0):
-                    raise TraceInvalidError(f"{key} must be a finite nonnegative number or null")
+                if value is not None:
+                    _require_seconds(value, label=key)
             if type(row["hand_id"]) is str:
                 hand_ids.add(row["hand_id"])
             terminal = row
@@ -725,25 +863,79 @@ def parse_trace(content: bytes) -> ParsedTrace:
         raise TraceInvalidError(f"a trace binds one hand identity, found {sorted(hand_ids)}")
     if terminal["event_count"] != len(events):
         raise TraceInvalidError("terminal event count disagrees with the recorded events")
-    counted_decisions = sum(
-        1 for row in decisions if row["failure_reason"] != "delivery_rejected"
-    )
-    if terminal["decision_count"] > counted_decisions:
-        raise TraceInvalidError("terminal decision count exceeds the recorded decisions")
+    if terminal["decision_count"] != len(decisions):
+        raise TraceInvalidError("terminal accepted delivery count disagrees with decision rows")
+    if [row["action_index"] for row in decisions] != list(range(1, len(decisions) + 1)):
+        raise TraceInvalidError("accepted action indices must be contiguous from one")
+    interrupted = {
+        (row["hand_id"], row["event_index"], row["action_index"])
+        for row in (*decisions, *failures)
+        if row["timing"] is not None and row["timing"]["status"] == "interrupted"
+    }
+    if terminal["interrupted_response_count"] != len(interrupted):
+        raise TraceInvalidError("terminal interrupted count disagrees with unique response rows")
+    previous_observation = None
+    for decision in decisions:
+        timing = decision["timing"]
+        if previous_observation is not None and timing["wall_start_ns"] < previous_observation:
+            raise TraceInvalidError("successive response intervals reverse the monotonic clock")
+        previous_observation = timing["last_valid_observation_ns"]
+        if timing["status"] == "interrupted":
+            expected_failure = timing["interruption_reason"]
+        else:
+            expected_failure = (
+                "action_deadline_exceeded" if timing["deadline_crossed"]
+                else "work_cutoff_exceeded" if timing["work_cutoff_crossed"] else None
+            )
+        if decision["failure_reason"] != expected_failure:
+            raise TraceInvalidError("decision failure reason contradicts its response timing")
+        if decision["blueprint_sha256"] != header["blueprint_sha256"]:
+            raise TraceInvalidError("decision policy digest differs from its trace header")
+        if decision["failure_reason"] is not None:
+            matching = [row for row in failures if row["delivery_status"] == "accepted"
+                        and all(row[key] == decision[key]
+                                for key in ("hand_id", "event_index", "action_index"))]
+            if len(matching) != 1:
+                raise TraceInvalidError("each failed accepted decision requires one failure pair")
+    for failure in failures:
+        if failure["delivery_status"] == "accepted":
+            matching = [row for row in decisions if all(row[key] == failure[key]
+                        for key in ("hand_id", "event_index", "action_index"))]
+            if len(matching) != 1 or any((
+                matching[0]["selected_action"] != failure["delivered_action"],
+                matching[0]["timing"] != failure["timing"],
+                matching[0]["failure_reason"] != failure["code"],
+            )):
+                raise TraceInvalidError("accepted failure must bind one matching decision")
+    if terminal["passed"]:
+        if (not terminal["complete"] or not terminal["accounting_complete"]
+                or terminal["failure_reason"] is not None or failures
+                or terminal["settlement"] is None or interrupted
+                or any(row["failure_reason"] is not None for row in decisions)
+                or any(terminal[key] is None for key in
+                       ("preparation_compute_seconds", "post_terminal_compute_seconds"))):
+            raise TraceInvalidError("successful terminal contradicts its records or accounting")
+        if any(row["timing"]["work_cutoff_crossed"] or row["timing"]["deadline_crossed"]
+               for row in decisions):
+            raise TraceInvalidError("successful terminal contains an untimely response")
 
     prefix_bytes = b"".join(raw + b"\n" for raw in raw_rows[:-1])
     if terminal["trace_prefix_sha256"] != sha256(prefix_bytes).hexdigest():
         raise TraceInvalidError("terminal prefix digest does not bind the preceding rows")
     if terminal["complete"] and terminal["passed"] and not terminal["accounting_complete"]:
         raise TraceInvalidError("a successful terminal requires complete accounting")
-    return ParsedTrace(
+    parsed = ParsedTrace(
         header=header,
         events=tuple(events),
         decisions=tuple(decisions),
         failures=tuple(failures),
         terminal=terminal,
         run_id=run_id,
+        records=tuple(rows),
     )
+    if parsed_semantic_sha256(parsed) != terminal["semantic_sha256"]:
+        raise TraceInvalidError("terminal semantic digest does not bind its own projection")
+    return parsed
 
 
 def parsed_semantic_sha256(parsed: ParsedTrace) -> str:

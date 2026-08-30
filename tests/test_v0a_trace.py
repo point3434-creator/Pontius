@@ -53,8 +53,8 @@ def completed_timing(start: int = 1_000, elapsed: int = 5_000) -> TimingRecord:
         last_valid_observation_ns=start + elapsed,
         emission_observed_ns=start + elapsed,
         elapsed_ns=elapsed,
-        response_compute_seconds=0.25,
-        response_uninstrumented_seconds=0.5,
+        response_compute_seconds=(elapsed // 2) / 1_000_000_000,
+        response_uninstrumented_seconds=(elapsed - elapsed // 2) / 1_000_000_000,
         work_cutoff_crossed=False,
         deadline_crossed=False,
     )
@@ -92,7 +92,8 @@ def decision(action_index: int = 1, timing: TimingRecord | None = None) -> Decis
         spine_reason="no_candidate",
         timing=completed_timing() if timing is None else timing,
         preparation_use=PreparationUseRecord(),
-        failure_reason=None,
+        failure_reason=(timing.interruption_reason
+                        if timing is not None and timing.status is TimingStatus.INTERRUPTED else None),
     )
 
 
@@ -259,7 +260,7 @@ class RoundTripTests(unittest.TestCase):
             ShowdownResultEvent(
                 hand_id=HAND,
                 event_index=3,
-                strengths=(None, (5, 1), 9, None, None, None),
+                strengths=(None, (5, 1), (4, 9), None, None, None),
             ),
         )
         parsed = parse_trace(complete_trace(events=events))
@@ -283,11 +284,9 @@ class StrictRejectionTests(unittest.TestCase):
 
         rows = [json.loads(raw) for raw in content.split(b"\n")[:-1]]
         change(rows[index])
-        encoded = [(canonical_json(row) + "\n").encode("utf-8") for row in rows]
         if rebind and index != len(rows) - 1:
-            rows[-1]["trace_prefix_sha256"] = sha256(b"".join(encoded[:-1])).hexdigest()
-            encoded[-1] = (canonical_json(rows[-1]) + "\n").encode("utf-8")
-        return b"".join(encoded)
+            return TraceSchemaRegressionTests.encode(rows)
+        return b"".join((canonical_json(row) + "\n").encode("utf-8") for row in rows)
 
     def test_the_mutation_helper_produces_an_otherwise_valid_trace(self) -> None:
         """The helper itself must not smuggle in a second violation."""
@@ -368,8 +367,8 @@ class StrictRejectionTests(unittest.TestCase):
         with self.assertRaises(TraceInvalidError):
             parse_trace(tampered)
         semantic = self.mutate(content, 3, lambda row: row.update(semantic_sha256=DIGEST_C))
-        parsed = parse_trace(semantic)
-        self.assertNotEqual(parsed.terminal["semantic_sha256"], parsed_semantic_sha256(parsed))
+        with self.assertRaises(TraceInvalidError):
+            parse_trace(semantic)
 
     def test_rejects_a_counted_terminal_that_disagrees(self) -> None:
         with self.assertRaises(TraceInvalidError):
@@ -385,11 +384,16 @@ class StrictRejectionTests(unittest.TestCase):
         trace = builder()
         trace.add_event(started())
         trace.add_decision(decision(timing=interrupted_timing()))
+        trace.add_failure(FailureRecord(hand_id=HAND, event_index=0, action_index=1,
+            code=FailureCode.CLOCK_INVALID, delivery_status=DeliveryStatus.ACCEPTED,
+            delivered_action=HandAction("call", None), timing=interrupted_timing()))
         content = trace.close(
             hand_id=HAND, complete=False, passed=False,
             failure_reason=FailureCode.CLOCK_INVALID, event_count=1, decision_count=1,
             interrupted_response_count=1, accounting_complete=False, settlement=None,
-            semantic_digest=DIGEST_A, preparation_compute_seconds=None,
+            semantic_digest=semantic_sha256(events=(started(),),
+                decisions=(decision(timing=interrupted_timing()),), settlement=None),
+            preparation_compute_seconds=None,
             post_terminal_compute_seconds=None,
         )
         parse_trace(content)
@@ -416,7 +420,8 @@ class StrictRejectionTests(unittest.TestCase):
             hand_id=HAND, complete=False, passed=False,
             failure_reason=FailureCode.DELIVERY_REJECTED, event_count=1, decision_count=0,
             interrupted_response_count=1, accounting_complete=False, settlement=None,
-            semantic_digest=DIGEST_A, preparation_compute_seconds=None,
+            semantic_digest=semantic_sha256(events=(started(),), decisions=(), settlement=None),
+            preparation_compute_seconds=None,
             post_terminal_compute_seconds=None,
         )
         parse_trace(content)
@@ -463,6 +468,246 @@ class TraceWriteTests(unittest.TestCase):
             root = Path(raw_root)
             with self.assertRaises(TraceWriteError):
                 write_trace(content, root / "missing" / "trace.jsonl", run_root=root)
+
+
+
+class TraceSchemaRegressionTests(unittest.TestCase):
+    """Real trace field controls; hashes are rebound independently of production."""
+
+    def real_trace(self):
+        from pontius.immutable_blueprint import ImmutableBlueprintActionSource
+        from pontius.v0a.replay import FIXTURE_A, PROTOCOL_ID, ReplayHost
+        ticks = iter(range(1000, 10000000, 1000))
+        return ReplayHost(
+            FIXTURE_A, run_id=PROTOCOL_ID + "-correctness-schema",
+            blueprint=ImmutableBlueprintActionSource("schema-policy"),
+            clock=lambda: next(ticks),
+        ).run().trace
+
+    @staticmethod
+    def encode(rows, *, rebind=True):
+        projection_keys = (
+            "hand_id", "event_index", "action_index", "street_action_index", "seat", "street",
+            "state_before_sha256", "state_after_sha256", "visible_cards_sha256",
+            "blueprint_sha256", "selected_action", "selection_reason", "spine_reason",
+            "preparation_use",
+        )
+        dumps = lambda value: json.dumps(value, sort_keys=True, separators=(",", ":"))
+        if rebind:
+            payload = {
+                "events": [row["event"] for row in rows if row["record_type"] == "event"],
+                "decisions": [{key: row[key] for key in projection_keys}
+                              for row in rows if row["record_type"] == "decision"],
+                "settlement": rows[-1]["settlement"],
+            }
+            rows[-1]["semantic_sha256"] = sha256(dumps(payload).encode("utf-8")).hexdigest()
+            prefix = "".join(dumps(row) + "\n" for row in rows[:-1]).encode("utf-8")
+            rows[-1]["trace_prefix_sha256"] = sha256(prefix).hexdigest()
+        return "".join(dumps(row) + "\n" for row in rows).encode("utf-8")
+
+    def failed_trace(self, *, interrupted=False):
+        from pontius.immutable_blueprint import ImmutableBlueprintActionSource
+        from pontius.v0a.model import ActionMailbox
+        from pontius.v0a.replay import FIXTURE_A, PROTOCOL_ID, ReplayHost
+        state = dict(now=1000, interrupt=False)
+        real = ActionMailbox()
+        def clock():
+            if state["interrupt"]:
+                state["interrupt"] = False
+                return True
+            state["now"] += 1000
+            return state["now"]
+        class Mailbox:
+            def deliver(self, envelope):
+                receipt = real.deliver(envelope)
+                if interrupted:
+                    state["interrupt"] = True
+                else:
+                    state["now"] += 16_000_000_000
+                return receipt
+        return ReplayHost(FIXTURE_A, run_id=PROTOCOL_ID + "-correctness-schema-failure",
+                    blueprint=ImmutableBlueprintActionSource("schema-policy"),
+                    clock=clock, mailbox=Mailbox()).run().trace
+
+    def test_failure_fields_and_accepted_delivery_pairs_are_exact(self):
+        content = self.failed_trace()
+        parsed = parse_trace(content)
+        self.assertEqual(parsed.terminal["decision_count"], 1)
+        self.assertEqual(parsed.events, ())  # failed triggering event is absent
+        mutations = (
+            ("hand-id", lambda rows: rows[1].update(hand_id=[])),
+            ("event-index", lambda rows: rows[1].update(event_index=False)),
+            ("action-index", lambda rows: rows[1].update(action_index=False)),
+            ("code", lambda rows: rows[1].update(code="clock_invalid")),
+            ("completed-clock-code", lambda rows: (rows[1].update(code="clock_invalid"),
+                rows[2].update(failure_reason="clock_invalid"))),
+            ("delivery-action", lambda rows: rows[1].update(delivered_action=None)),
+            ("delivery-kind", lambda rows: rows[1]["delivered_action"].update(kind="fold")),
+            ("unknown-delivery", lambda rows: rows[1].update(delivery_status="unknown",
+                                                            delivered_action=None)),
+            ("timing", lambda rows: rows[1].update(timing=None)),
+            ("no-failure-pair", lambda rows: rows.pop(1)),
+            ("duplicate-failure-pair", lambda rows: rows.insert(1, dict(rows[1]))),
+            ("false-count", lambda rows: rows[-1].update(decision_count=0)),
+        )
+        for label, change in mutations:
+            rows = [json.loads(row) for row in content.splitlines()]
+            change(rows)
+            for index, row in enumerate(rows):
+                row["record_index"] = index
+            with self.subTest(label=label):
+                with self.assertRaises(TraceInvalidError):
+                    parse_trace(self.encode(rows))
+        for path in ((1,), (1, "timing"), (1, "delivered_action")):
+            for mutation in ("missing", "unknown"):
+                rows = [json.loads(row) for row in content.splitlines()]
+                target = rows
+                for part in path:
+                    target = target[part]
+                if mutation == "missing":
+                    target.pop(next(iter(target)))
+                else:
+                    target["not_in_schema"] = 0
+                with self.subTest(path=path, mutation=mutation):
+                    with self.assertRaises(TraceInvalidError):
+                        parse_trace(self.encode(rows))
+        interrupted = parse_trace(self.failed_trace(interrupted=True))
+        self.assertEqual(interrupted.terminal["decision_count"], 1)
+        self.assertEqual(interrupted.terminal["interrupted_response_count"], 1)
+        self.assertEqual(interrupted.decisions[0]["timing"]["status"], "interrupted")
+
+    def test_exact_fields_and_nested_event_variants_are_checked(self):
+        original = self.real_trace()
+        cases = (
+            ("record-bool", lambda rows: rows[0].update(record_index=False)),
+            ("source-list", lambda rows: rows[0].update(source_commit=[])),
+            ("event-extra", lambda rows: rows[1]["event"].update(timestamp=123)),
+            ("event-missing", lambda rows: rows[1]["event"].pop("button")),
+            ("event-index-bool", lambda rows: rows[1]["event"].update(event_index=False)),
+            ("decision-seat", lambda rows: rows[2].update(seat=6)),
+            ("decision-reason", lambda rows: rows[2].update(spine_reason="invented")),
+            ("decision-hand-id", lambda rows: rows[2].update(hand_id=[])),
+            ("decision-null-timing", lambda rows: rows[2].update(timing=None)),
+            ("decision-nan", lambda rows: rows[2]["timing"].update(
+                response_compute_seconds=float("nan"))),
+            ("terminal-inf", lambda rows: rows[-1].update(
+                post_terminal_compute_seconds=float("inf"))),
+            ("terminal-count", lambda rows: rows[-1].update(decision_count=0)),
+        )
+        for label, change in cases:
+            with self.subTest(label=label):
+                rows = [json.loads(row) for row in original.splitlines()]
+                change(rows)
+                with self.assertRaises(TraceInvalidError):
+                    parse_trace(self.encode(rows))
+
+    def test_every_nested_variant_rejects_missing_unknown_and_wrong_leaf_values(self):
+        source = [json.loads(row) for row in self.real_trace().splitlines()]
+        paths = [(0,), (2,), (-1,), (2, "selected_action"), (2, "timing"),
+                 (2, "preparation_use"), (-1, "settlement"),
+                 (-1, "settlement", "pots", 0)]
+        for index, row in enumerate(source):
+            if row["record_type"] == "event":
+                paths.append((index, "event"))
+                if row["event"]["kind"] == "opponent_action":
+                    paths.append((index, "event", "action"))
+        for path in paths:
+            for mutation in ("missing", "unknown"):
+                rows = [json.loads(row) for row in self.real_trace().splitlines()]
+                target = rows
+                for part in path:
+                    target = target[part]
+                if mutation == "missing":
+                    # Keep projection fields available to the independent
+                    # rebinder; missing inner fields have their own cases.
+                    key = next(iter(target))
+                    if path in ((2,), (-1,)):
+                        key = "timing" if path == (2,) else "complete"
+                    target.pop(key)
+                else:
+                    target["not_in_schema"] = 0
+                with self.subTest(path=path, mutation=mutation):
+                    with self.assertRaises(TraceInvalidError):
+                        parse_trace(self.encode(rows))
+        mutations = (
+            ("card-bool", lambda rows: rows[1]["event"].update(private_cards=[False, 13])),
+            ("card-range", lambda rows: rows[1]["event"].update(private_cards=[0, 52])),
+            ("stack-bool", lambda rows: rows[1]["event"]["starting_stacks"].__setitem__(0, True)),
+            ("pot-seat-bool", lambda rows: rows[-1]["settlement"]["pots"][0].update(seats=[True])),
+            ("pot-seat-range", lambda rows: rows[-1]["settlement"]["pots"][0].update(seats=[6])),
+            ("pot-seat-object", lambda rows: rows[-1]["settlement"]["pots"][0].update(seats=[{}])),
+            ("rank-bool", lambda rows: rows[-2]["event"]["strengths"].__setitem__(0, True)),
+            ("rank-mixed", lambda rows: rows[-2]["event"]["strengths"].__setitem__(0, 1)),
+            ("rank-empty", lambda rows: rows[-2]["event"]["strengths"].__setitem__(0, [])),
+            ("reveal-width", lambda rows: next(row["event"] for row in rows
+                if row["record_type"] == "event" and row["event"]["kind"] == "street_revealed").update(cards=[1])),
+        )
+        for label, change in mutations:
+            rows = [json.loads(row) for row in self.real_trace().splitlines()]
+            change(rows)
+            with self.subTest(label=label):
+                with self.assertRaises(TraceInvalidError):
+                    parse_trace(self.encode(rows))
+
+    def test_float_overflow_and_noncanonical_number_spellings_are_rejected(self):
+        content = self.real_trace()
+        for token in (b"1e999", b"NaN", b"Infinity", b"-Infinity", b"0e0"):
+            rows = [json.loads(row) for row in content.splitlines()]
+            rows[-1]["preparation_compute_seconds"] = 0.0
+            broken = self.encode(rows).replace(b'"preparation_compute_seconds":0.0',
+                                               b'"preparation_compute_seconds":' + token)
+            with self.subTest(token=token):
+                with self.assertRaises(TraceInvalidError):
+                    parse_trace(broken)
+
+    def test_structural_integer_strengths_keep_the_models_unbounded_ordering_domain(self):
+        for strengths in ((None, -2, -1, None, None, None),
+                          (None, (-2, 4), (-1, 3), None, None, None)):
+            event = ShowdownResultEvent(hand_id=HAND, event_index=1, strengths=strengths)
+            parsed = parse_trace(complete_trace(events=(started(), event)))
+            self.assertEqual(parsed.events[-1]["strengths"], strengths)
+
+    def test_deep_malformed_input_has_a_typed_refusal(self):
+        content = self.real_trace()
+        nested = b"[" * 700 + b"0" + b"]" * 700
+        broken = content.replace(b'{"blueprint_sha256":', b'{"extra":' + nested
+                                 + b',"blueprint_sha256":', 1)
+        with self.assertRaises(TraceInvalidError):
+            parse_trace(broken)
+
+    def test_semantic_mismatch_and_noncanonical_json_are_refused(self):
+        content = self.real_trace()
+        rows = [json.loads(row) for row in content.splitlines()]
+        rows[-1]["semantic_sha256"] = "f" * 64
+        with self.assertRaises(TraceInvalidError):
+            parse_trace(self.encode(rows, rebind=False))
+        with self.assertRaises(TraceInvalidError):
+            parse_trace(b"\n".join(json.dumps(row).encode() for row in
+                                  [json.loads(raw) for raw in content.splitlines()]) + b"\n")
+
+    def test_successive_response_intervals_cannot_reverse_the_clock(self):
+        rows = [json.loads(row) for row in self.real_trace().splitlines()]
+        decisions = [row for row in rows if row["record_type"] == "decision"]
+        first, second = decisions[0]["timing"], decisions[1]["timing"]
+        start = first["wall_start_ns"] + 1
+        second.update(wall_start_ns=start,
+                      last_valid_observation_ns=start + second["elapsed_ns"],
+                      emission_observed_ns=start + second["elapsed_ns"])
+        with self.assertRaises(TraceInvalidError):
+            parse_trace(self.encode(rows))
+
+    def test_completed_timing_cannot_hide_deadline_or_impossible_accounting(self):
+        original = self.real_trace()
+        for elapsed, compute, flag in ((16_000_000_000, 16.0, False), (10_000, 2.0, False)):
+            rows = [json.loads(row) for row in original.splitlines()]
+            timing = rows[2]["timing"]
+            timing.update(elapsed_ns=elapsed, emission_observed_ns=timing["wall_start_ns"] + elapsed,
+                          last_valid_observation_ns=timing["wall_start_ns"] + elapsed,
+                          response_compute_seconds=compute, response_uninstrumented_seconds=0.0,
+                          deadline_crossed=flag)
+            with self.subTest(elapsed=elapsed):
+                with self.assertRaises(TraceInvalidError):
+                    parse_trace(self.encode(rows))
 
 
 def main() -> int:

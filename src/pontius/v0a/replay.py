@@ -343,7 +343,7 @@ class ReplayHost:
             source_commit=source_commit,
             source_manifest_sha256=source_manifest_sha256,
             configuration_sha256=fixture.configuration_sha256(),
-            blueprint_sha256=blueprint.digest,
+            blueprint_sha256=self._runtime.blueprint_sha256,
             clock_kind=clock_kind,
         )
 

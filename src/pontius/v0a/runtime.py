@@ -9,11 +9,12 @@ remains controller diagnostics.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 
 from ..action_clock import ActionClockLedger
 from ..holdem_cards import OneSeatCardState
 from ..immutable_blueprint import (
+    BlueprintActionEntry,
     BlueprintDecisionKey,
     BlueprintSelection,
     ImmutableBlueprintActionSource,
@@ -22,6 +23,10 @@ from ..immutable_blueprint import (
 )
 from ..legal_decision_spine_v2 import LegalDecisionSpineV2, public_betting_state_sha256
 from ..no_limit_betting import (
+    BettingAction,
+    BettingActionKind,
+    BettingActionRecord,
+    RaiseBounds,
     BettingStreet,
     LegalBettingDecision,
     NoLimitBettingState,
@@ -64,74 +69,125 @@ class InvalidBlueprintEntryError(RuntimeError):
     """A matching blueprint entry is illegal in the exact betting state."""
 
 
+
+_POLICY_RECORD_TYPES = (
+    ImmutableBlueprintActionSource, BlueprintActionEntry, BlueprintDecisionKey,
+    BettingAction, BettingActionRecord, OneSeatCardState, NoLimitBettingState,
+    LegalBettingDecision, RaiseBounds,
+)
+_POLICY_ENUM_TYPES = (BettingStreet, BettingActionKind, TerminalReason)
+
+
+def _copy_exact_policy_value(value: object) -> object:
+    """Rebuild an immutable graph without invoking caller-defined behavior."""
+    kind = type(value)
+    if value is None or kind is int or kind is bool or kind is str:
+        return value
+    if any(kind is enum for enum in _POLICY_ENUM_TYPES):
+        return value
+    if kind is tuple:
+        return tuple(_copy_exact_policy_value(item) for item in value)
+    if any(kind is record for record in _POLICY_RECORD_TYPES):
+        # kind is now one of our fixed exact dataclass types, never a caller type.
+        values = {
+            field.name: _copy_exact_policy_value(getattr(value, field.name))
+            for field in fields(kind)
+        }
+        return kind(**values)
+    raise TypeError("policy/context graph requires exact immutable values")
+
+
+def _admit_blueprint(source: object) -> ImmutableBlueprintActionSource:
+    """Own a fully validated exact policy before identity, hashing or lookup."""
+    if type(source) is not ImmutableBlueprintActionSource:
+        raise TypeError("runtime requires an exact immutable blueprint source")
+    try:
+        return _copy_exact_policy_value(source)
+    except (TypeError, ValueError, AttributeError) as error:
+        raise TypeError("immutable blueprint contains an invalid value graph") from None
+
+
+def _same_exact_value(left: object, right: object) -> bool:
+    """Value equality after exact typing, including dataclasses without validators."""
+    kind = type(right)
+    if type(left) is not kind:
+        return False
+    if kind is tuple:
+        return len(left) == len(right) and all(
+            _same_exact_value(a, b) for a, b in zip(left, right)
+        )
+    if any(kind is record for record in _POLICY_RECORD_TYPES):
+        return all(_same_exact_value(getattr(left, field.name), getattr(right, field.name))
+                   for field in fields(kind))
+    return left == right
+
+
 def select_blueprint_action(
     source: object,
     cards: OneSeatCardState,
     betting: NoLimitBettingState,
     decision: LegalBettingDecision,
 ) -> BlueprintSelection:
-    """Look up one action from exactly four inputs and nothing else.
-
-    The policy surface receives the immutable blueprint, the controlled
-    seat's card state, the public betting state, and the exact legal
-    decision — never an event iterator, seed, host, mailbox, runtime, or
-    complete deal.
-    """
-
+    """Admit four visible inputs, then use the unchanged sealed lookup."""
     try:
-        key = BlueprintDecisionKey.from_state(
-            cards=cards,
-            betting=betting,
-            decision=decision,
-        )
-    except (TypeError, ValueError) as error:
-        raise InvalidDecisionContextError(str(error)) from error
+        admitted = _admit_blueprint(source)
+    except (TypeError, ValueError):
+        raise InvalidDecisionContextError("invalid immutable blueprint source") from None
+    return _select_admitted_blueprint_action(admitted, cards, betting, decision)
 
-    if not isinstance(source, ImmutableBlueprintActionSource):
-        raise InvalidDecisionContextError(
-            "policy selection requires the sealed immutable blueprint source"
-        )
+
+def _select_admitted_blueprint_action(
+    source: ImmutableBlueprintActionSource,
+    cards: OneSeatCardState,
+    betting: NoLimitBettingState,
+    decision: LegalBettingDecision,
+) -> BlueprintSelection:
+    """Select from a runtime-owned policy; no repeated table admission or extra hash."""
     try:
-        # Call the sealed implementation directly: a subclass override must not
-        # be able to answer a controlled decision in place of the real table.
+        if (type(cards) is not OneSeatCardState or type(betting) is not NoLimitBettingState
+                or type(decision) is not LegalBettingDecision):
+            raise TypeError("context requires exact values")
+        cards = _copy_exact_policy_value(cards)
+        betting = _copy_exact_policy_value(betting)
+        decision = _copy_exact_policy_value(decision)
+        if not _same_exact_value(decision, betting.legal_decision()):
+            raise ValueError("decision disagrees with the exact betting state")
+        key = BlueprintDecisionKey.from_state(cards=cards, betting=betting, decision=decision)
+    except (TypeError, ValueError, AttributeError, AssertionError):
+        raise InvalidDecisionContextError("invalid exact legal decision context") from None
+    try:
         selection = ImmutableBlueprintActionSource.action_for(
             source, cards=cards, betting=betting, decision=decision
         )
     except (ClockInvalidError, ClockReversedError):
         raise
-    except (TypeError, ValueError, AssertionError) as error:
+    except (TypeError, ValueError, AssertionError):
         if _has_illegal_matching_entry(source, key, decision):
-            raise InvalidBlueprintEntryError(str(error)) from error
-        raise InvalidDecisionContextError(str(error)) from error
-
-    if not isinstance(selection, BlueprintSelection):
+            raise InvalidBlueprintEntryError("matching blueprint entry is illegal") from None
+        raise InvalidDecisionContextError("immutable blueprint lookup failed") from None
+    if type(selection) is not BlueprintSelection:
         raise InvalidDecisionContextError("blueprint lookup returned a foreign value")
     try:
         require_legal_blueprint_action(selection.action, decision)
-    except (TypeError, ValueError) as error:
-        raise InvalidBlueprintEntryError(str(error)) from error
+    except (TypeError, ValueError):
+        raise InvalidBlueprintEntryError("selected blueprint entry is illegal") from None
     return selection
 
 
 def _has_illegal_matching_entry(
-    source: object,
+    source: ImmutableBlueprintActionSource,
     key: BlueprintDecisionKey,
     decision: LegalBettingDecision,
 ) -> bool:
-    """Classify a lookup refusal by the real table, never by message text."""
-
-    entries = getattr(source, "entries", ())
-    if not isinstance(entries, tuple):
-        return False
-    for entry in entries:
-        if getattr(entry, "key", None) != key:
+    """Classify using only owned exact entries, never the caller's source."""
+    for entry in source.entries:
+        if entry.key != key:
             continue
         try:
             require_legal_blueprint_action(entry.action, decision)
         except (TypeError, ValueError):
             return True
     return False
-
 
 @dataclass(frozen=True, slots=True)
 class AccountingTotals:
@@ -239,18 +295,12 @@ class HandRuntime:
     """One complete blueprint-only hand behind a strict public event boundary."""
 
     def __init__(self, *, blueprint: object, mailbox: object, clock: object | None = None) -> None:
-        if not isinstance(blueprint, ImmutableBlueprintActionSource):
-            # Digest and key equality prove identity, never authority: an
-            # arbitrary object reporting the right digest is not the bound
-            # immutable policy. Admission is the boundary that establishes it.
-            raise TypeError(
-                "runtime requires the sealed ImmutableBlueprintActionSource"
-            )
+        admitted_blueprint = _admit_blueprint(blueprint)
         if not hasattr(mailbox, "deliver"):
             raise TypeError("runtime requires a host mailbox")
         witness = clock if isinstance(clock, MonotonicWitness) else MonotonicWitness(clock)
         self._witness = witness
-        self._blueprint = blueprint
+        self._blueprint = admitted_blueprint
         self._mailbox = mailbox
         self._outer: ActionClockLedger | None = None
         self._spine: LegalDecisionSpineV2 | None = None
@@ -280,6 +330,12 @@ class HandRuntime:
         self._retained_witness_failure: BaseException | None = None
 
     # -- public observation ------------------------------------------------
+
+    @property
+    def blueprint_sha256(self) -> str:
+        """Header identity comes from the same owned policy used for decisions."""
+        return (self._blueprint.digest if self._blueprint_digest is None
+                else self._blueprint_digest)
 
     @property
     def betting_terminal(self) -> bool:
@@ -776,7 +832,7 @@ class HandRuntime:
             ) from error
 
         try:
-            selection = select_blueprint_action(
+            selection = _select_admitted_blueprint_action(
                 source=self._blueprint,
                 cards=cards,
                 betting=state_before,

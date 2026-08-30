@@ -160,29 +160,29 @@ class F1IngressWallTests(unittest.TestCase):
     def test_reveal_path_charges_visible_card_construction(self) -> None:
         clock = StepClock()
 
-        class DelayingCardState(OneSeatCardState):
-            """Real card state; its transition costs measurable time."""
-
-            __slots__ = ()
-
-            def advance_to(self, street, revealed_cards):
+        runtime = HandRuntime(
+            blueprint=empty_source(), mailbox=ActionMailbox(), clock=clock
+        )
+        index = drive_to_flop(runtime)
+        # Observe the real sealed method rather than replacing the exact value
+        # type with a subclass that policy-context admission must reject.
+        target = OneSeatCardState.advance_to.__code__
+        previous = sys.getprofile()
+        calls = []
+        def charge_real_card_transition(frame, event, argument):
+            if event == "call" and frame.f_code is target:
+                calls.append(1)
                 clock.jump(16 * NANOS)
-                return OneSeatCardState.advance_to(self, street, revealed_cards)
-
-        original = runtime_module.OneSeatCardState
-        runtime_module.OneSeatCardState = DelayingCardState
+        sys.setprofile(charge_real_card_transition)
         try:
-            runtime = HandRuntime(
-                blueprint=empty_source(), mailbox=ActionMailbox(), clock=clock
-            )
-            index = drive_to_flop(runtime)
             outcome = runtime.dispatch(
                 StreetRevealedEvent(
                     hand_id=HAND, event_index=index, street="flop", cards=(20, 21, 22)
                 )
             )
         finally:
-            runtime_module.OneSeatCardState = original
+            sys.setprofile(previous)
+        self.assertEqual(calls, [1])
 
         self.assertEqual(outcome.status, "failed", outcome)
         self.assertIs(outcome.failure.code, FailureCode.ACTION_DEADLINE_EXCEEDED)
@@ -500,7 +500,7 @@ class R2_01PolicyAuthorityTests(unittest.TestCase):
             HandRuntime(blueprint=Delegate(), mailbox=ActionMailbox(), clock=StepClock())
 
     def test_a_subclass_cannot_intercept_the_sealed_lookup(self) -> None:
-        """A sealed subclass passes admission; the sealed lookup still runs."""
+        """Subclass behavior is rejected before the sealed lookup or delivery."""
 
         inner = empty_source()
 
@@ -517,18 +517,13 @@ class R2_01PolicyAuthorityTests(unittest.TestCase):
                 )
 
         real = ActionMailbox()
-        runtime = HandRuntime(
-            blueprint=LyingSubclass(source_id=inner.source_id, entries=inner.entries),
-            mailbox=real,
-            clock=StepClock(),
-        )
-        outcome = drive_until_controlled(runtime)
-        # The empty sealed table has no entry, so the honest answer is the
-        # passive default; the override must not reach the emission path.
-        self.assertEqual(outcome.status, "decided", outcome)
-        self.assertIs(outcome.decision.selection_reason, SelectionReason.PASSIVE_DEFAULT)
-        self.assertEqual(outcome.decision.selected_action.kind, "call")
-        self.assertEqual(len(real.accepted), 1)
+        with self.assertRaises(TypeError):
+            HandRuntime(
+                blueprint=LyingSubclass(source_id=inner.source_id, entries=inner.entries),
+                mailbox=real,
+                clock=StepClock(),
+            )
+        self.assertEqual(len(real.accepted), 0)
 
     def test_the_real_sealed_source_still_hits_and_misses(self) -> None:
         runtime = HandRuntime(

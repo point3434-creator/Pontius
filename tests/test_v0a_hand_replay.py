@@ -563,11 +563,10 @@ class BlueprintOutcomeTests(unittest.TestCase):
     def test_policy_selection_surface_is_exactly_four_inputs(self) -> None:
         import inspect
 
-        parameters = inspect.signature(select_blueprint_action).parameters
-        self.assertEqual(
-            tuple(parameters),
-            ("source", "cards", "betting", "decision"),
-        )
+        import pontius.v0a.runtime as runtime_module
+        for selector in (select_blueprint_action, runtime_module._select_admitted_blueprint_action):
+            parameters = inspect.signature(selector).parameters
+            self.assertEqual(tuple(parameters), ("source", "cards", "betting", "decision"))
         import pontius.v0a.model as model
         import pontius.v0a.clock as clockmod
         import pontius.v0a.runtime as runtimemod
@@ -901,6 +900,146 @@ class RepeatedActionAndRecordTests(unittest.TestCase):
         self.assertEqual(settlement.final_stacks[1], 198)
         self.assertEqual(sum(settlement.final_stacks), sum(STACKS))
         self.assertTrue(runtime.hand_complete)
+
+
+class PolicyAdmissionRegressionTests(unittest.TestCase):
+    """Authority comes from owned exact facts, not caller equality or identity hooks."""
+
+    def reject_at_both_boundaries(self, policy):
+        from pontius.v0a.runtime import InvalidDecisionContextError
+        mailbox = ActionMailbox()
+        with self.subTest(boundary="runtime"):
+            with self.assertRaises((TypeError, ValueError)):
+                HandRuntime(blueprint=policy, mailbox=mailbox, clock=ScriptedClock())
+            self.assertEqual(mailbox.accepted, {})
+        cards, betting = utg_context()
+        with self.subTest(boundary="public-selector"):
+            caught = None
+            try:
+                select_blueprint_action(policy, cards, betting, betting.legal_decision())
+            except BaseException as error:
+                caught = type(error)
+            self.assertIs(caught, InvalidDecisionContextError)
+
+    def test_outer_policy_identity_and_lookup_hooks_cannot_supply_authority(self):
+        honest = empty_blueprint()
+        real = utg_blueprint(raise_to(6))
+        class DigestPolicy(ImmutableBlueprintActionSource):
+            @property
+            def digest(self):
+                return honest.digest
+        class BytesPolicy(ImmutableBlueprintActionSource):
+            def canonical_bytes(self):
+                return honest.canonical_bytes()
+        class LookupPolicy(ImmutableBlueprintActionSource):
+            def action_for(self, **kwargs):
+                raise AssertionError("caller lookup must not run")
+        class Pretender:
+            @property
+            def __class__(self):
+                return ImmutableBlueprintActionSource
+        for kind in (DigestPolicy, BytesPolicy, LookupPolicy):
+            with self.subTest(kind=kind.__name__):
+                self.reject_at_both_boundaries(kind(source_id=real.source_id, entries=real.entries))
+        with self.subTest(kind="class-property"):
+            self.reject_at_both_boundaries(Pretender())
+
+    def test_every_nested_policy_value_is_exact_before_hashing_or_matching(self):
+        from dataclasses import fields, replace
+        from pontius.no_limit_betting import BettingAction
+        real = utg_blueprint(raise_to(6))
+        entry = real.entries[0]
+        class Key(BlueprintDecisionKey):
+            def __eq__(self, other):
+                return True
+            __hash__ = BlueprintDecisionKey.__hash__
+        class Entry(BlueprintActionEntry):
+            pass
+        class Action(BettingAction):
+            pass
+        class Integer(int):
+            pass
+        class Tuple(tuple):
+            pass
+        class Text(str):
+            pass
+        values = {field.name: getattr(entry.key, field.name)
+                  for field in fields(BlueprintDecisionKey)}
+        values["private_hand"] = (1, 14)  # a different visible key, nevertheless equal under Key
+        wildcard = Key(**values)
+        policies = (
+            ImmutableBlueprintActionSource(real.source_id, (BlueprintActionEntry(wildcard, entry.action),)),
+            ImmutableBlueprintActionSource(real.source_id, (Entry(entry.key, entry.action),)),
+            ImmutableBlueprintActionSource(real.source_id, (BlueprintActionEntry(
+                entry.key, Action(entry.action.kind, entry.action.raise_to)),)),
+            ImmutableBlueprintActionSource(real.source_id, (BlueprintActionEntry(
+                replace(entry.key, small_blind=Integer(entry.key.small_blind)), entry.action),)),
+            ImmutableBlueprintActionSource(real.source_id, (BlueprintActionEntry(
+                replace(entry.key, starting_stacks=Tuple(entry.key.starting_stacks)), entry.action),)),
+            ImmutableBlueprintActionSource(real.source_id, Tuple(real.entries)),
+            ImmutableBlueprintActionSource(Text(real.source_id), real.entries),
+        )
+        for index, policy in enumerate(policies):
+            with self.subTest(graph=index):
+                self.reject_at_both_boundaries(policy)
+
+
+    def test_nonempty_history_values_obey_the_same_admission_boundary(self):
+        from dataclasses import replace
+        from pontius.no_limit_betting import BettingAction, BettingActionRecord
+        from pontius.v0a.runtime import InvalidDecisionContextError
+        _, start = utg_context()
+        betting = start.apply_action(CALL)
+        cards = OneSeatCardState.preflop(controlled_seat=4, private_hand=(1, 14))
+        decision = betting.legal_decision()
+        key = BlueprintDecisionKey.from_state(cards=cards, betting=betting, decision=decision)
+        atom = key.public_history[0]
+        class Text(str):
+            pass
+        class Tuple(tuple):
+            pass
+        class Action(BettingAction):
+            pass
+        class History(BettingActionRecord):
+            pass
+        bad_keys = (
+            replace(key, public_history=((Text(atom[0]), *atom[1:]),)),
+            replace(key, public_history=(Tuple(atom),)),
+        )
+        for index, supplied in enumerate(bad_keys):
+            with self.subTest(policy_history=index):
+                self.reject_at_both_boundaries(ImmutableBlueprintActionSource(
+                    "history-policy", (BlueprintActionEntry(supplied, CALL),)
+                ))
+        record = betting.history[0]
+        bad_histories = (
+            Tuple(betting.history),
+            (replace(record, action=Action(record.action.kind, record.action.raise_to)),),
+            (History(record.street, record.seat, record.action, record.chips_committed,
+                     record.full_raise, record.uncalled_return_seat,
+                     record.uncalled_return_chips),),
+        )
+        for index, history in enumerate(bad_histories):
+            with self.subTest(context_history=index):
+                supplied = replace(betting, history=history)
+                with self.assertRaises(InvalidDecisionContextError):
+                    select_blueprint_action(empty_blueprint(), cards, supplied,
+                                            supplied.legal_decision())
+
+    def test_complete_legal_context_rejects_equal_but_wrongly_typed_fields(self):
+        from dataclasses import replace
+        from pontius.v0a.runtime import InvalidDecisionContextError
+        cards, betting = utg_context()
+        decision = betting.legal_decision()
+        aliases = (
+            replace(decision, street_contribution=False),
+            replace(decision, current_bet=float(decision.current_bet)),
+            replace(decision, raise_bounds=replace(decision.raise_bounds, all_in_only=0)),
+        )
+        for index, supplied in enumerate(aliases):
+            with self.subTest(alias=index):
+                with self.assertRaises(InvalidDecisionContextError):
+                    select_blueprint_action(empty_blueprint(), cards, betting, supplied)
 
 
 def main() -> int:

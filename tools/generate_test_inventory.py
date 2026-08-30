@@ -179,6 +179,7 @@ STABILIZATION_TEST_FILES = frozenset({
     "tests/test_test_orchestration_import_boundary.py",
     "tests/test_stabilization_verification.py",
     "tests/test_retained_evidence_inventory.py",
+    "tests/test_v0a_boundaries.py",
 })
 
 

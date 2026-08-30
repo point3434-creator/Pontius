@@ -15,77 +15,24 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Clarify the opening directive prospectively, before any v0a lifecycle
-exists, so no consumed or opened evidence is affected.
+Preregister the blueprint-only increment-one source contract below. This is
+an engineering integration boundary, not an executable experiment authority.
+The only new runtime namespace is `pontius.v0a`. No resolver candidate,
+action abstraction, training, h32 machinery, GPU work, network adapter, or
+subprocess belongs to this increment.
 
-Increment one is the blueprint-only complete hand: an additive runtime that
-joins the ADR-0308 exact spine — `ActionClockLedger`, `PreparationBank`,
-`LegalDecisionSpineV2` — to the ADR-0290 explicit-deal reference loop so
-that one complete six-player hand replays end to end with every controlled
-action answered by the immutable blueprint inside its own continuous
-15,000 ms response wall and 1,000 ms emission reserve. It contains no h32
-decision, no GPU dependency, no resolver, and no trained policy. Its input
-boundary is frozen now: the runtime receives public events and the
-controlled player's private cards, and the deal oracle's complete deal is
-isolated from every policy-selection path. Every controlled action emits a
-decision record with the frozen schema-v1 fields — state identity, policy
-identity, timing, selection reason, preparation use, and failure reason —
-and preparation use records honest absence rather than fabricated producer
-identities.
-
-The prepared h32 certified river decision and the would-be base-producer
-bridge instrumentation belong to increment two, whose own preregistration
-opens them. Instrumentation obligations attach where base-structure
-machinery first executes; a blueprint-only hand executes none, so demanding
-its instrumentation was a specification defect, not a buildable
-requirement. Two further lane practices bind now: the increment-three
-campaign meets its qualifying-h32 minimums only through a declared,
-seed-sealed, steered or prepared-context deal schedule — qualification
-semantics are never widened to manufacture organic matches — and each
-landed increment contributes its clone-safe suite subset to the
-continuous-integration wall with archive- and device-dependent assertions
-explicitly environment-gated.
-
-The reviewed increment-one brief at `docs/briefs/v0a-increment-1-brief.md`
-bounds scope, acceptance criteria, seams, budgets, rehearsal coverage,
-reserved lifecycle identities, and provisional lane breakers. Neither the
-roadmap, this clarification, nor the brief confers experiment authority:
-increment one begins only with its own preregistration and lifecycle under
-ADR-0482.
-
-The inherited front-door trust chain remains explicit, and every continuity
-statement of ADR-0480's decision — the complete trust chain from ADR-0310
-through ADR-0476, the machine-checked continuity directives, and the exact
-historical continuity strings — remains binding and unchanged; ADR-0477
-through ADR-0482 record the stabilization era as ADR-0482 states, ADR-0483
-resolves the architecture checkpoint by parking the compiled lane and
-opening the v0a boundary, and ADR-0484 clarifies that opening prospectively
-without invoking any consumed owner or altering any retained byte.
-
-### Result boundary
-
-This decision clarifies a directive and freezes definitions. It runs no
-experiment, opens no lifecycle, writes no runtime code, and changes no
-retained byte. The v0a lane still contains zero increments.
-
-### Kill criteria
-
-Kill any increment-one implementation that reaches h32 machinery, GPU
-dependencies, or the complete deal from a policy path. Kill any increment
-that begins without its own preregistration, lane kill criteria, and
-rehearsal coverage. Kill any campaign that meets qualifying minimums by
-widening qualification instead of declared steering. Kill any decision
-record that fabricates preparation or producer identity.
-
-### Claims boundary
-
-ADR-0484 proves only the clarification and frozen definitions above. It
-clears no research blocker, confers no experiment authority, and makes no
-timing, strength, or integration claim.
+This candidate includes the prospective sequencing clarification to ADR-0482
+authorized by the controller's 2026-08-30 ruling on contradictory or circular
+process requirements. The same day's CodeRabbit retirement is recorded in
+`docs/workflow-amendment-2026-08-30.md`, which preserves
+the original workflow bytes and all other gates. These rulings resolve those
+process decisions; they are not authorization for a ceremonial commit. Until
+the reviewed decision is authorized and committed, this remains an isolated
+candidate, not an accepted mainline opening.
 
 ## Active next
 
-Open increment one of the v0a lane under its reviewed brief at docs/briefs/v0a-increment-1-brief.md: preregister the blueprint-only complete-hand runtime that joins the ADR-0308 action-clock spine and the ADR-0290 explicit-deal reference loop into one complete replayed hand with every controlled action answered by the immutable blueprint inside a single 15,000 ms response wall, receiving only public events and the controlled seat's cards, recording the frozen decision-record fields, and carrying ADR-0482 lane kill criteria and rehearsal coverage; the prepared h32 certified river decision and the would-be base-producer bridge instrumentation open only with increment two's own preregistration; the compiled topology-calibration lane remains parked per ADR-0483; separately, continue the evidence plan's remaining Tasks 4-9 and the orchestration tasks in their coordinated order under the installed collaboration protocol
+Build and review only the additive blueprint-only v0a increment-one source against ADR-0485 and the ADR-0484 brief, then source-seal it and rehearse under separate non-evidentiary identities; freeze measured operating budgets and the authoritative replay schedule in a separate append-only closure before requesting any one-shot invocation authority. Preserve the exact legal kernels, historical replay, and legacy dependency baseline. H32 and producer instrumentation remain increment two, the campaign remains increment three, and the compiled lane remains parked under ADR-0483. Separately continue evidence Tasks 4-9 before orchestration Tasks 3-10, then 11b and 12, with their capability approvals intact
 
 ## Revoked authorities
 
@@ -96,7 +43,7 @@ Open increment one of the v0a lane under its reviewed brief at docs/briefs/v0a-i
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0484](docs/decisions/ADR-0484-clarify-the-v0a-increment-split-and-instrumentation.md) — Clarify the v0a increment split and instrumentation.
+Latest process decision: [ADR-0485](docs/decisions/ADR-0485-preregister-the-blueprint-only-v0a-hand-contract.md) — Preregister the blueprint-only v0a hand contract.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -104,7 +51,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0461](docs/decisions/ADR-0461-source-seal-the-absolute-git-compiled-calibration-successor.md) | 2026-08-26 | accepted no-compiler plumbing source seal; the fresh ADR-0460 launcher, additive owner binding, independently constant-bound reader, exact post-scrub absolute-Git probe, immutable ADR-0458 scientific source, fresh dependency/result identity, exclusive synthetic terminal, and eight focused controls pass, while both calibration results remain absent and no compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Source-seal the absolute-Git compiled-calibration successor |
 | [ADR-0462](docs/decisions/ADR-0462-retain-the-timed-rrns-direct-launch-arity-rejection.md) | 2026-08-26 | accepted retained sole ADR-0461 calibration rejection; the fresh absolute-Git owner compiled and loaded the exact 28-kernel cubin, passed resource and reduced-memory admission, completed and independently verified one positional warmup cell, then the next RRNS timed cell reached `direct_prices_rrns_batch` with eight host arguments for a nine-parameter CUDA declaration and terminated with `CUDA_ERROR_INVALID_VALUE`, leaving zero measured calls and no materiality, topology, arithmetic-schedule, target, resolver, action-clock, quality, truncation, blueprint, or strength result | Retain the timed RRNS direct launch-arity rejection |
 | [ADR-0463](docs/decisions/ADR-0463-preregister-the-kernel-launch-arity-successor.md) | 2026-08-26 | accepted prospective launch-ABI repair only; the exact ADR-0462 artifact and parent sources remain immutable, one fresh scientific module may insert only the missing timed-RRNS `source_count` plus a CUDA-declaration-derived central arity contract, and fresh v3 lifecycle identities are frozen before successor source, compiler execution, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, or result | Preregister the kernel-launch arity successor |
 | [ADR-0464](docs/decisions/ADR-0464-correct-the-launch-arity-successor-before-source-seal.md) | 2026-08-26 | accepted prospective pre-source-seal completeness correction; ADR-0463's independent all-site audit found that `evaluate_selected_leaves_rrns_batch` declares ten parameters while its sole host call supplies eleven through an obsolete extra `np.uint64(scan_count)`, so the permitted v3 delta now includes removing exactly that argument in addition to inserting the missing direct `source_count`, while all 46 launch sites must match all 28 unchanged CUDA declarations before source seal and no compiler, device, timing, or fresh result exists | Correct the launch-arity successor before source seal |
@@ -128,18 +74,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0482](docs/decisions/ADR-0482-adopt-the-rehearsal-parking-and-lane-breaker-amendments.md) | 2026-08-30 | accepted protocol amendment; the evidence lifecycle gains a non-evidentiary rehearsal tier between source seal and invocation authorization, every future parking verdict names its category (`parked - falsified` permanent as today, or `parked - gate defect` eligible for exactly one fresh preregistration under a redesigned gate with every old panel discarded), and every future experiment lane preregisters lane-level kill criteria whose plumbing-death and budget breakers force a mandatory stand-down or architecture checkpoint; rehearsal output never feeds a fit, gate, claim, or selection, no wall or budget is frozen without a scaled rehearsal measurement as provenance, strength-claim evidence keeps permanent parking regardless of category, and nothing here reopens, reclassifies, or retries any already-parked candidate or consumed owner — historical reclassification requires its own future decision, and v7 remains permanently closed under ADR-0476's kill criteria | Adopt the rehearsal, parking, and lane-breaker amendments |
 | [ADR-0483](docs/decisions/ADR-0483-park-the-compiled-lane-and-open-v0a-integration.md) | 2026-08-30 | accepted architecture-checkpoint ruling; the ADR-0476 checkpoint resolves to parking the compiled synthetic topology-calibration lane and returning effort to the playable v0a integration boundary, because the lane's own precondition — a bound production source-local base producer with measured algebra, epoch identity, refresh cadence, exponent admission, and cold-versus-hit frequency — is a deliverable of the river bridge that only v0a integration builds; every candidate and closure in the lane retains its exact recorded standing, the four source-sealed topology arms remain sealed assets, the serial-structural-cover diagnostic is retained as the reopened lane's first candidate hypothesis and not a result, the lane may reopen only on bridge-measured producer telemetry through a wholly fresh ADR-0482-governed preregistration that honors every ADR-0476 constraint, and the v0a boundary opens under the same rules with bridge instrumentation recording would-be base-producer events from its first increment | Park the compiled lane and open v0a integration |
 | [ADR-0484](docs/decisions/ADR-0484-clarify-the-v0a-increment-split-and-instrumentation.md) | 2026-08-30 | accepted prospective clarification of the ADR-0483 opening directive before any v0a lifecycle exists; increment one of the v0a lane is the blueprint-only complete hand — the ADR-0308 exact spine joined to the ADR-0290 explicit-deal loop with every controlled action answered by the immutable blueprint inside its own 15,000 ms wall, no h32 decision, no GPU dependency, and no resolver — while the prepared h32 certified river decision and the would-be base-producer bridge instrumentation belong to increment two, because a blueprint-only hand executes no base-structure machinery and instrumentation obligations attach where that machinery first executes; increment one records the frozen decision-record fields for every controlled action, the input boundary admits only public events and the controlled seat's own cards so the dealer's complete deal never reaches policy selection, the campaign increment's qualifying-h32 minimums must later be met by a declared, seed-sealed, steered or prepared-context deal schedule and never by weakening qualification, each landed increment's clone-safe suite subset joins the continuous-integration wall, and the reviewed increment-one brief at `docs/briefs/v0a-increment-1-brief.md` bounds the work without conferring any experiment authority | Clarify the v0a increment split and instrumentation |
+| [ADR-0485](docs/decisions/ADR-0485-preregister-the-blueprint-only-v0a-hand-contract.md) | 2026-08-30 | accepted prospective contract preregistration and explicit bootstrap-sequencing clarification; only the additive CPU blueprint-hand source contract is opened, an outer ActionClockLedger measures through offline-host delivery without altering the sealed V2 spine, operating budgets and an authoritative replay population remain unadmitted until a separate measured closure, and no source seal, rehearsal, owner invocation, integration result, timing result, or strategy result is asserted | Preregister the blueprint-only v0a hand contract |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0484](docs/decisions/ADR-0484-clarify-the-v0a-increment-split-and-instrumentation.md) — Clarify the v0a increment split and instrumentation.
+- Latest ADR: [ADR-0485](docs/decisions/ADR-0485-preregister-the-blueprint-only-v0a-hand-contract.md) — Preregister the blueprint-only v0a hand contract.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 484.
-- ADR-header SHA-256: `af76c33c86eb15ac2bcc91125706d4b2e095768d3638088a7b41944777a95fe2`.
-- Current blockers: v7 is permanently consumed and the compiled calibration is incomplete and parked; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, complete reduced compiled-calibration result, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists; the stabilization adds test-governance capability but clears none of these, and broad-suite execution, capability approvals, and the holistic-audit backlog remain open.
+- Numbered decisions: 485.
+- ADR-header SHA-256: `e5e3bec444bc60e92676738ceae66f3248cabd96a898b8d1570fda00a31521e6`.
+- Current blockers: v0a source, source seal, rehearsal, measured operating-budget closure, authoritative replay population, and invocation authorization do not exist; v7 is permanently consumed and the compiled calibration is incomplete and parked; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, complete reduced compiled-calibration result, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists; broad-suite execution, capability approvals, and the holistic-audit backlog remain open.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0484](docs/decisions/ADR-0484-clarify-the-v0a-increment-split-and-instrumentation.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0485](docs/decisions/ADR-0485-preregister-the-blueprint-only-v0a-hand-contract.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

@@ -17,13 +17,28 @@ jobs:
     timeout-minutes: 40
     env:
       PONTIUS_GIT: C:\Program Files\Git\cmd\git.exe
-      PYTHONPATH: ${{ github.workspace }}\src
+      PYTHONPATH: C:\px\Pontius\src
+    defaults:
+      run:
+        # The runner workspace under D:\a traverses a reparse/mount ancestor,
+        # which the evidence configuration reader rejects by design. Suites
+        # therefore run from a local clone at a mount-clean, short path — the
+        # CI analogue of the disposable-snapshot policy. The fresh clone also
+        # re-materializes the sealed -text pins on every run.
+        working-directory: C:\px\Pontius
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - uses: astral-sh/setup-uv@v6
+
+      - name: Relocate to a reparse-clean clone
+        working-directory: ${{ github.workspace }}
+        run: |
+          New-Item -ItemType Directory -Force C:\px | Out-Null
+          git clone --quiet --local "${{ github.workspace }}" C:\px\Pontius
+          git -C C:\px\Pontius checkout --quiet ${{ github.sha }}
 
       - name: Sync locked environment on CPython 3.11
         run: uv sync --group dev --python 3.11

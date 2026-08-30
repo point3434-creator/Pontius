@@ -57,6 +57,9 @@ chip-valued decision quality per millisecond under a hard 15,000 ms action wall
 4. The latest few ADRs in `docs/decisions/` plus anything STATUS names.
 5. `ARCHITECTURE.md` — the 12 system boundaries. These files are huge
    (60–220 KB); grep headers (`^## `) and read sections, don't read them whole.
+6. `docs/workflow.md` — the collaboration protocol: how implementation work is
+   frozen (snapshot refs + manifest SHA), cold-reviewed, gated, and committed.
+   Implementers and reviewers must follow it; findings bind to manifest SHAs.
 
 Live stabilization/orchestration state (in progress, outside the ADR record
 until integrated) lives in

@@ -443,7 +443,13 @@ class InterpreterSlot:
         for name in ("minimum_version", "exact_version"):
             value = getattr(self, name)
             if value is not None:
-                pair = _normalise_tuple(value, name, lambda item, label: _require_int(item, label), sort=False)
+                pair = _normalise_tuple(
+                    value,
+                    name,
+                    lambda item, label: _require_int(item, label),
+                    sort=False,
+                    unique=False,
+                )
                 if len(pair) != 2:
                     raise ValueError(f"{name} must contain exactly major and minor")
                 object.__setattr__(self, name, pair)
@@ -711,6 +717,10 @@ class HistoricalItemExpectation:
         negative_fields = (self.phase, self.exception_type, self.safe_reason_code, self.body_entered)
         if self.outcome == "expected_negative" and any(value is None for value in negative_fields):
             raise ValueError("expected_negative requires complete failure fields")
+        if self.outcome == "expected_negative" and self.phase not in {
+            "setup", "body", "probe",
+        }:
+            raise ValueError("historical failure phase must be setup, body, or probe")
         if self.outcome == "pass" and (
             any(value is not None for value in negative_fields)
             or self.capability_counters
@@ -798,6 +808,64 @@ class HistoricalCase:
                 _normalise_probe_id(item.item_id, "historical probe item_id")
                 if item.outcome != "pass":
                     raise ValueError("historical probes require pass expectations")
+        pass_count = sum(
+            item.outcome == "pass" for item in self.item_expectations
+        )
+        negative_items = tuple(
+            item
+            for item in self.item_expectations
+            if item.outcome == "expected_negative"
+        )
+        expected_setup_failed = sum(
+            item.phase == "setup" for item in negative_items
+        )
+        expected_assertion_failed = sum(
+            item.phase == "body" and item.exception_type == "AssertionError"
+            for item in negative_items
+        )
+        expected_body_entered = pass_count + sum(
+            item.body_entered is True for item in negative_items
+        )
+        expected_counts = {
+            "passed": pass_count,
+            "assertion_failed": expected_assertion_failed,
+            "setup_failed": expected_setup_failed,
+            "body_entered": expected_body_entered,
+            "owner_calls": sum(
+                item.capability_counters.get("owner", 0)
+                for item in self.item_expectations
+            ),
+            "scientific_calls": sum(
+                item.capability_counters.get("scientific", 0)
+                for item in self.item_expectations
+            ),
+        }
+        if any(vector[name] != count for name, count in expected_counts.items()):
+            raise ValueError(
+                "historical aggregate vector does not match item expectations"
+            )
+        if kind == "positive" and negative_items:
+            raise ValueError(
+                "positive historical aggregate cannot contain negative items"
+            )
+        if kind == "negative":
+            if not negative_items:
+                raise ValueError(
+                    "negative historical aggregate requires negative items"
+                )
+            negative_contracts = {
+                (item.phase, item.exception_type, item.safe_reason_code)
+                for item in negative_items
+            }
+            aggregate_contract = (
+                vector["phase"],
+                vector["exception_type"],
+                vector["safe_reason_code"],
+            )
+            if negative_contracts != {aggregate_contract}:
+                raise ValueError(
+                    "historical aggregate failure fields do not match items"
+                )
         object.__setattr__(self, "overlay_ids", _normalise_tuple(self.overlay_ids, "overlay_ids", _string_item))
 
 
@@ -846,7 +914,27 @@ class SubprocessCapability:
             raise ValueError("executable_slot is unsupported")
         if (self.executable_role == "git") != (self.executable_slot == "git"):
             raise ValueError("executable role and slot disagree")
-        object.__setattr__(self, "executable_constraints", _freeze_mapping(self.executable_constraints, "executable_constraints"))
+        allowed_return_categories = {
+            "python": {
+                "completed",
+                "protocol_committed",
+                "spawned",
+                "success",
+            },
+            "git": {"completed", "exited_zero", "success"},
+        }
+        if self.expected_return_category not in allowed_return_categories[
+            self.executable_role
+        ]:
+            raise ValueError(
+                "expected return category is invalid for executable role"
+            )
+        constraints = _freeze_mapping(
+            self.executable_constraints, "executable_constraints"
+        )
+        if constraints:
+            raise ValueError("executable_constraints does not support fields")
+        object.__setattr__(self, "executable_constraints", constraints)
         object.__setattr__(self, "argv", _normalise_tuple(self.argv, "argv", _string_item, sort=False, unique=False))
         object.__setattr__(self, "argv_template", _normalise_tuple(self.argv_template, "argv_template", _string_item, sort=False, unique=False))
         if bool(self.argv) == bool(self.argv_template):
@@ -875,6 +963,17 @@ class SubprocessCapability:
         object.__setattr__(self, "environment_additions", additions)
         for name in ("environment_removals", "read_roots", "write_roots"):
             object.__setattr__(self, name, _normalise_tuple(getattr(self, name), name, _string_item))
+        if self.cwd_class not in {"target", "temporary"}:
+            raise ValueError("cwd_class is unsupported")
+        if self.expected_return_category not in {
+            "completed", "exited_zero", "protocol_committed", "spawned", "success",
+        }:
+            raise ValueError("expected_return_category is unsupported")
+        allowed_roots = {"target", "temporary"}
+        if not set(self.read_roots).issubset(allowed_roots):
+            raise ValueError("read_roots contains an unsupported root class")
+        if not set(self.write_roots).issubset(allowed_roots):
+            raise ValueError("write_roots contains an unsupported root class")
         _require_int(self.timeout_ns, "timeout_ns", positive=True)
         _require_bool(self.fixed_descendant_permission, "fixed_descendant_permission")
 
@@ -892,10 +991,43 @@ class CallCapability:
     def __post_init__(self) -> None:
         for name in ("capability_id", "module_name", "qualified_name", "action"):
             _require_string(getattr(self, name), name)
+        _require_string(self.return_contract, "return_contract")
         if self.kind not in ("owner", "scientific", "cuda_query", "cuda_allocation"):
             raise ValueError("call capability kind is unsupported")
         _require_int(self.maximum_calls, "maximum_calls", positive=True)
-        _require_string(self.return_contract, "return_contract")
+        allowed_combinations = {
+            "owner": {
+                ("invoke", "opaque"),
+                ("invoke", "returns_none"),
+            },
+            "scientific": {
+                ("allocate", "device_array"),
+                ("bind", "scientific_context"),
+                ("compile", "scientific_artifact"),
+                ("contract", "scientific_result"),
+                ("evaluate", "scientific_result"),
+                ("finalize", "scientific_result"),
+                ("plan", "scientific_plan"),
+                ("query", "scientific_evidence"),
+                ("traverse", "scientific_result"),
+                ("verify", "scientific_evidence"),
+            },
+            "cuda_query": {
+                ("query", "host_array"),
+                ("query", "memory_pool"),
+                ("query", "none_or_assertion"),
+                ("query", "nonnegative_integer"),
+                ("query", "pinned_memory_pool"),
+                ("query", "stream"),
+            },
+            "cuda_allocation": {("allocate", "device_array")},
+        }
+        if (self.action, self.return_contract) not in allowed_combinations[
+            self.kind
+        ]:
+            raise ValueError(
+                "call capability action and return contract disagree with kind"
+            )
 
 
 @dataclass(frozen=True, slots=True)

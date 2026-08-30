@@ -150,6 +150,13 @@ report. That pair is the candidate's identity; the ref is now immutable.
 
 Open a **fresh** session and paste the round's `handoff.md` — the
 cold-review request template below.
+For a FIX round, the handoff links a frozen `coverage.md` and its SHA-256,
+but does not paste the claim itself. The reviewer first records an initial
+invariant and related-path inventory from the requirements and frozen source,
+then opens the structured coverage claim and compares the two. This is one
+review, not another approval stage; implementer transcripts remain excluded.
+A session exposed to the fix's design discussion cannot count as a cold pass;
+use a fresh reviewer context.
 The reviewer walks the checklist and the acceptance criteria against the ref.
 Output is a findings document bound to the manifest SHA, severity-ordered,
 with a concrete failure scenario for every Critical/Important finding.
@@ -182,7 +189,7 @@ does not change the cold-input rules or the frozen review scope.
 
 Each finding requires a deterministic RED reproduction against the frozen
 rejected candidate before the production edit, and an integrated GREEN after.
-Fixes freeze as the next round, `review/<task-id>/r<NNN+1>`. Two rules
+Fixes freeze as the next round, `review/<task-id>/r<NNN+1>`. The rules below were
 learned at full price in Task 2:
 
 - **Rounds declare their kind.** Every frozen packet is a NEW-SURFACE round
@@ -196,6 +203,33 @@ learned at full price in Task 2:
   partway through fixing it. Learned at `v0a-i01-impl/r002`: slice B rode into
   slice A's fix round, and two residuals arrived indistinguishable from eight
   first-contact findings.
+- **State the failure category and coverage before fixing.** Alongside the
+  existing brief, name the violated invariant, how related paths were discovered,
+  which are affected, and the planned cases and limits. Keep this claim separate
+  from the cold reviewer's initial requirements input. Update it explicitly
+  as discovery changes. At freeze, put the final claim and evidence references
+  in `coverage.md`: discovered members, discovery method, exercised cases,
+  exclusions or uncertainty, and an observation that would falsify the claim.
+  A short paragraph with links to an inventory is enough; no extra approval
+  stage or exhaustive-proof claim is required. The handoff names the file and
+  its SHA-256 as deferred review input under Stage 3.
+- **Boundary discovery is shared work.** The reviewer independently challenges
+  the category and its limits, rather than treating the supplied reproductions
+  as exhaustive. Findings identify the invariant, demonstrated mechanism and
+  known related paths; unknown coverage stays explicit. Report missed members
+  or unsound discovery methods as coverage findings under the existing severity
+  rules, not automatic proof of a product defect. A blocking coverage finding
+  names an unmet acceptance requirement and a concrete unverified failure
+  scenario; advisory design concerns remain advisory.
+- **Category tests assert contract behavior.** Derive expected outcomes from
+  the contract or an independent reference, not the chosen implementation's
+  bookkeeping. Source searches and structural guards help discover paths but
+  do not replace checks through real public boundaries. For example, routing
+  every closure through a helper does not prove that the final receipt retains
+  every actual typed cause once and in occurrence order. Generated compound
+  schedules must show which faults actually occurred and in what order;
+  distinguish exercised, unreachable and still-uncovered combinations. Pair
+  coverage does not establish higher-order coverage.
 - **Count residuals, not rounds.** A residual is a finding whose own fix round
   failed to close it. One residual is ordinary — fixes are allowed to be
   incomplete. A second residual on the same contract stops in-place fixing:
@@ -279,6 +313,7 @@ D:\Pontius-handoffs\
       handoff.md              # cold-review instructions, scope, pinned inputs, finalizer
       candidate.json          # identity: ref, commit, base, tree, manifest digest
       manifest.sha256         # the sorted blob-hash rows themselves
+      coverage.md             # FIX only: frozen claim, deferred until independent inventory
       reviews\
         review-<NN>-<reviewer>.md   # attributed findings, one file per reviewer
       checks\                 # receipts: commands, environment identities, exits
@@ -383,6 +418,8 @@ Seam inventory: <contracts crossed: subprocess / ABI / writer-reader /
 Size budget: <expected changed lines; slice plan if over ~3,000>
 Forbidden claims: <what this task does NOT prove or authorize>
 Test plan: <RED targets, focused suites, snapshot gates>
+FIX coverage planning: <separate draft-claim path; fill before implementation,
+  freeze as coverage.md; keep its contents out of initial cold-review inputs>
 ```
 
 ### Cold-review request (Stage 3 — the packet's `handoff.md`)
@@ -392,9 +429,14 @@ Adversarial review request.
 Candidate: refs/heads/review/<task-id>/r<NNN> at commit <sha>,
 manifest SHA-256 <manifest sha>, base <base sha>.
 Scope: <paths or named slices>.
+Round kind: <NEW-SURFACE or FIX>.
+FIX deferred input: coverage.md, SHA-256 <digest>; do not open it until your
+initial invariant and related-path inventory are recorded. Its claim includes
+discovered members/method, exercised cases, limits, and a falsifying observation.
 Inputs: docs/workflow.md (checklist v1), <path to task brief / acceptance
 map>. Do not read implementer transcripts, chat history, or report sections
-other than the evidence tables named here.
+other than the evidence tables named here and the deferred structured claim
+after the initial inventory.
 Rules: findings bind to the manifest SHA; every Critical/Important finding
 states a concrete failure scenario (inputs/state → wrong outcome); the
 helper-double rule applies literally; verdict CLEAN only if no finding
@@ -403,6 +445,11 @@ Where useful, include concrete engineering guidance: cause or hypothesis,
 technique, invariant protected, and verification. Separate required outcomes
 from advisory design choices; assess a bounded refactor or slice replacement
 when the permitted evidence shows that local fixes retain a structural cause.
+On a fix round, compare your recorded inventory with coverage.md. Challenge
+the category, discovery method, actual exercised cases, limits and independent
+test expectations. Grade coverage findings under the existing severity rules;
+missing coverage is not automatically proof of a product defect. Structural
+guards support, but do not replace, observable contract checks.
 Output: reviews/review-<NN>-<reviewer>.md in this round's packet,
 severity-ordered, one entry per finding.
 ```

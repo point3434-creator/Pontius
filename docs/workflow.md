@@ -153,8 +153,30 @@ cold-review request template below.
 The reviewer walks the checklist and the acceptance criteria against the ref.
 Output is a findings document bound to the manifest SHA, severity-ordered,
 with a concrete failure scenario for every Critical/Important finding.
-Findings documents are binding contracts. Verdict is CLEAN only when nothing
-survives verification.
+Required corrections and their verification criteria are binding; clearly
+labeled implementation advice is advisory. Verdict is CLEAN only when no
+required correction remains unresolved.
+
+**Engineering guidance (controller ruling, 2026-08-30).** Reviews should help
+the implementer remove the cause, not only reproduce the latest symptom.
+Where useful, include a concise engineering-guidance section that:
+
+- names the violated invariant and underlying mechanism; distinguish a
+  demonstrated cause from a hypothesis and give the cheapest falsifying check;
+- recommends a concrete technique, explains which failure class it prevents,
+  and states how to verify it through the real public boundary;
+- considers related failure paths within scope, so the proposed correction
+  closes the contract rather than only the supplied example.
+
+Choose techniques for the observed problem: validated immutable values at a
+trust boundary, explicit lifecycle states, ordered typed failure values,
+single-owner cleanup, or invariant-based tests and systematic fault
+schedules. These are examples, not a mandatory catalogue or a reason to add
+dependencies. Mark required behavioral outcomes and verification criteria
+separately from advisory implementation choices. The former are binding;
+the latter do not become acceptance gates merely by appearing in a review.
+Guidance is not permission for the reviewer to implement the fix, and it
+does not change the cold-input rules or the frozen review scope.
 
 ### Stage 4 — Fix rounds
 
@@ -163,10 +185,41 @@ rejected candidate before the production edit, and an integrated GREEN after.
 Fixes freeze as the next round, `review/<task-id>/r<NNN+1>`. Two rules
 learned at full price in Task 2:
 
-- **Circuit breaker:** three rounds without convergence is a controller
-  stand-down — re-scope, slice, or split the task. Never grind.
+- **Rounds declare their kind.** Every frozen packet is a NEW-SURFACE round
+  (the first review of code nobody has reviewed) or a FIX round (a response to
+  findings), named in its handoff. Findings mean opposite things in the two, so
+  they are never counted together.
+- **Fix rounds are scope-frozen.** A fix round changes only what its findings
+  require; new surface goes in its own candidate however ready it is. Splitting
+  and merging scope while *planning* a round is ordinary judgment — it needs no
+  trigger and carries no stigma — but a split already made is not collapsed
+  partway through fixing it. Learned at `v0a-i01-impl/r002`: slice B rode into
+  slice A's fix round, and two residuals arrived indistinguishable from eight
+  first-contact findings.
+- **Count residuals, not rounds.** A residual is a finding whose own fix round
+  failed to close it. One residual is ordinary — fixes are allowed to be
+  incomplete. A second residual on the same contract stops in-place fixing:
+  that contract gets its own candidate and a written root-cause note on why the
+  two earlier attempts missed, before another fix is attempted. Never grind — a
+  repeat fix with no stated reason for the previous miss is a grind. Counting
+  rounds instead rewards bundling, because a round that adds surface can always
+  explain its findings as new.
 - **Slice proactively:** any candidate over ~3,000 changed lines is reviewed
   as named slices from round one, not after reviews start failing.
+
+**Reassess the design when fixes do not converge.** When evidence points to a
+shared structural cause, compare a local correction with a bounded refactor
+or replacement of the affected slice. The coordinator uses the recorded
+residual history; cold reviewers assess only their permitted inputs. Recommend
+a rewrite when it would make the required invariants simpler to enforce and
+verify, with a concrete explanation of why another patch would retain the
+weakness. Name the replacement boundary, behavior to preserve, verification
+plan and transition risks. Recurrence prompts this assessment, not an
+automatic rewrite or a new gate on unrelated work. The existing second-residual
+rule still applies. Any replacement stays within declared fix scope, uses a
+new frozen candidate and RED/GREEN evidence, and undergoes the same cold
+review and acceptance gates; new surface remains separate. Sealed bytes and
+issued reports remain immutable. This guidance authorizes no rewrite by itself.
 
 ### Stage 5 — Acceptance gates, in fixed order
 
@@ -346,6 +399,10 @@ Rules: findings bind to the manifest SHA; every Critical/Important finding
 states a concrete failure scenario (inputs/state → wrong outcome); the
 helper-double rule applies literally; verdict CLEAN only if no finding
 survives verification; name the required correction but do not implement it.
+Where useful, include concrete engineering guidance: cause or hypothesis,
+technique, invariant protected, and verification. Separate required outcomes
+from advisory design choices; assess a bounded refactor or slice replacement
+when the permitted evidence shows that local fixes retain a structural cause.
 Output: reviews/review-<NN>-<reviewer>.md in this round's packet,
 severity-ordered, one entry per finding.
 ```

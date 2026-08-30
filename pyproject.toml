@@ -6,8 +6,28 @@ requires-python = ">=3.11"
 dependencies = ["numpy>=1.26"]
 
 [project.optional-dependencies]
-sparse-screen = ["numpy==2.5.2", "scipy==1.18.0"]
+# The sparse-screen pins require CPython >= 3.12; the 3.11 release slot never
+# uses this extra, so it is inert there rather than blocking resolution.
+sparse-screen = [
+    "numpy==2.5.2; python_full_version >= '3.12'",
+    "scipy==1.18.0; python_full_version >= '3.12'",
+]
+
+[dependency-groups]
+dev = ["ruff>=0.16.5", "mypy>=1.14"]
+
+[tool.uv]
+# CAUTION: the development .venv carries undeclared GPU packages (CuPy for the
+# RTX 5080). A bare `uv sync` will remove them. Sync is for CI and fresh
+# environments; declare a gpu group before syncing the dev machine.
+package = false
 
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+
+[tool.ruff.lint]
+# House ruleset: correctness classes plus trailing-whitespace, final-newline,
+# and the 100-column rule. Report-only in CI until a reviewed cleanup lands;
+# never auto-fix accepted or sealed code outside the workflow protocol.
+select = ["E4", "E7", "E9", "F", "W291", "W292", "W293", "E501"]

@@ -92,6 +92,10 @@ jobs:
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_stabilization_boundaries.py
 
+      - name: Retained-evidence inventory suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_retained_evidence_inventory.py
+
       - name: Generated inventory/profiles byte-stability
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tools\generate_test_inventory.py --check

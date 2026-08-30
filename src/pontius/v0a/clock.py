@@ -23,7 +23,7 @@ class ClockReversedError(RuntimeError):
 class MonotonicWitness:
     """Validated monotonic-nanosecond source with a retained last sample."""
 
-    __slots__ = ("_source", "_last_returned_ns", "_failed")
+    __slots__ = ("_source", "_last_returned_ns", "_failed", "_failure", "_refusal")
 
     def __init__(self, source: Callable[[], int] | None = None) -> None:
         resolved = time.monotonic_ns if source is None else source
@@ -32,6 +32,8 @@ class MonotonicWitness:
         self._source = resolved
         self._last_returned_ns: int | None = None
         self._failed = False
+        self._failure: ClockInvalidError | ClockReversedError | None = None
+        self._refusal: ClockInvalidError | None = None
 
     @property
     def last_returned_ns(self) -> int | None:
@@ -43,26 +45,37 @@ class MonotonicWitness:
     def failed(self) -> bool:
         return self._failed
 
+    @property
+    def failure(self) -> ClockInvalidError | ClockReversedError | None:
+        """The trusted original source occurrence, retained independently of refusals."""
+        return self._failure
+
+    def owns_failure(self, error: BaseException) -> bool:
+        """Whether an exception is this witness's occurrence or its later refusal."""
+        return self._failure is not None and (error is self._failure or error is self._refusal)
+
     def __call__(self) -> int:
-        if self._failed:
-            raise ClockInvalidError("a failed monotonic witness is never retried")
+        if self._failure is not None:
+            assert self._refusal is not None
+            raise self._refusal
+        observed = None
         try:
             observed = self._source()
-        except (ClockInvalidError, ClockReversedError):
+        except ClockReversedError:
+            self._failure = ClockReversedError("monotonic witness source reversed")
+        except BaseException:
+            self._failure = ClockInvalidError("monotonic witness source failed")
+        else:
+            if type(observed) is not int or observed < 0:
+                self._failure = ClockInvalidError("monotonic witness returned an invalid value")
+            elif self._last_returned_ns is not None and observed < self._last_returned_ns:
+                self._failure = ClockReversedError("monotonic witness moved backwards")
+        if self._failure is not None:
             self._failed = True
-            raise
-        except Exception as error:
-            # An ordinary source failure is a clock fault, not an escaping
-            # exception: normalize it, and never retry the failed witness.
-            self._failed = True
-            raise ClockInvalidError("monotonic witness source failed") from error
-        if type(observed) is not int or observed < 0:
-            self._failed = True
-            raise ClockInvalidError("monotonic witness returned an invalid value")
-        last = self._last_returned_ns
-        if last is not None and observed < last:
-            self._failed = True
-            raise ClockReversedError("monotonic witness moved backwards")
+            self._refusal = ClockInvalidError("a failed monotonic witness is never retried")
+            # Raise our exact exception outside the source handler. Its identity,
+            # not the source's message or exception metadata, denotes occurrence.
+            raise self._failure from None
         self._last_returned_ns = observed
         return observed
 

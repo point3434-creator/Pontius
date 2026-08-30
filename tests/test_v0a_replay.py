@@ -1125,6 +1125,204 @@ class R2_03BodyOwnershipTests(unittest.TestCase):
         self.assertIn("def owned_publication", runtime_source)
 
 
+class FailureAdapterRegressionTests(unittest.TestCase):
+    """Real source/host boundaries; expected causes come from scheduled faults."""
+
+    class Source(SteadyClock):
+        def __init__(self):
+            super().__init__()
+            self.reads = 0
+            self.fail_at = None
+            self.kind = "invalid"
+            self.observed = []
+
+        def __call__(self):
+            self.reads += 1
+            if self.reads == self.fail_at:
+                code = (FailureCode.CLOCK_REVERSED if self.kind == "reversed"
+                        else FailureCode.CLOCK_INVALID)
+                self.observed.append(code)
+                if self.kind == "exception":
+                    raise OSError("source fault")
+                if self.kind == "reversed":
+                    return self.now - 5_000
+                return True
+            return super().__call__()
+
+    def host(self, fixture, source, oracle=chip_depth_settlement):
+        return ReplayHost(
+            fixture, run_id=f"{PROTOCOL_ID}-correctness-adapter-{fixture.name}",
+            blueprint=blueprint(), clock=source, settlement_oracle=oracle,
+        )
+
+    def completed(self, host, **kwargs):
+        try:
+            return host.run(**kwargs)
+        except BaseException as error:
+            escaped_type = type(error).__name__
+        # Assert outside the handler: unittest must not render the hostile
+        # exception through the assertion's implicit exception context.
+        self.fail("host escaped instead of returning a receipt: " + escaped_type)
+
+    def causes(self, outcome):
+        receipt = outcome.receipt
+        return (() if receipt.failure_reason is None else (receipt.failure_reason,)) + (
+            receipt.secondary_failures
+        )
+
+    def entry_read(self, fixture):
+        source = self.Source()
+        entry = []
+        def oracle(**kwargs):
+            entry.append(source.reads)
+            return chip_depth_settlement(**kwargs)
+        outcome = self.completed(self.host(fixture, source, oracle))
+        self.assertTrue(outcome.receipt.passed)
+        self.assertEqual(len(entry), 1)
+        return entry[0]
+
+    def test_one_source_fault_is_not_counted_again_when_the_body_reads_the_dead_witness(self):
+        from pontius.v0a.clock import ClockInvalidError
+        for fixture in FIXTURES:
+            entry = self.entry_read(fixture)
+            for kind in ("invalid", "exception", "reversed"):
+                for mode in ("echo", "independent_clock", "independent_error"):
+                    with self.subTest(fixture=fixture.name, kind=kind, mode=mode):
+                        source = self.Source()
+                        source.fail_at, source.kind = entry, kind
+                        witness = MonotonicWitness(source)
+                        def oracle(**kwargs):
+                            if mode == "independent_clock":
+                                raise ClockInvalidError("a different body occurrence")
+                            if mode == "independent_error":
+                                raise ValueError("a different body occurrence")
+                            witness()
+                            return chip_depth_settlement(**kwargs)
+                        host = self.host(fixture, witness, oracle)
+                        outcome = self.completed(host)
+                        wanted = tuple(source.observed)
+                        if mode != "echo":
+                            wanted += ((FailureCode.CLOCK_INVALID,) if mode == "independent_clock"
+                                       else (FailureCode.SETTLEMENT_MISMATCH,))
+                        self.assertEqual(self.causes(outcome), wanted)
+                        self.assertEqual(source.reads, entry, "a dead source must not be retried")
+                        self.assertEqual(host.runtime.accepted_delivery_count,
+                                         4 if fixture is FIXTURE_A else 2)
+                        self.assertFalse(outcome.receipt.passed)
+
+    def test_caught_source_fault_survives_a_return_or_a_different_body_failure(self):
+        from pontius.v0a.clock import ClockInvalidError
+        for fixture in FIXTURES:
+            for mode in ("return", "raise", "mismatch"):
+                with self.subTest(fixture=fixture.name, mode=mode):
+                    source = self.Source()
+                    witness = MonotonicWitness(source)
+                    def oracle(**kwargs):
+                        source.fail_at = source.reads + 1
+                        try:
+                            witness()
+                        except ClockInvalidError:
+                            pass
+                        if mode == "raise":
+                            raise ValueError("body failure after caught source fault")
+                        result = chip_depth_settlement(**kwargs)
+                        return (replace(result, final_stacks=tuple(x + 1 for x in result.final_stacks))
+                                if mode == "mismatch" else result)
+                    host = self.host(fixture, witness, oracle)
+                    outcome = self.completed(host)
+                    wanted = tuple(source.observed)
+                    if mode != "return":
+                        wanted += (FailureCode.SETTLEMENT_MISMATCH,)
+                    self.assertEqual(self.causes(outcome), wanted)
+                    self.assertFalse(outcome.receipt.passed)
+                    self.assertFalse(outcome.receipt.accounting_complete)
+
+    def errors(self, inspected):
+        class BadMessage:
+            def __str__(self):
+                inspected.append("str")
+                raise RuntimeError("message rendering is not safe")
+
+        class MetadataError(Exception):
+            @property
+            def __class__(self):
+                inspected.append("__class__")
+                raise RuntimeError("metadata inspection is not safe")
+
+        class SpoofedError(Exception):
+            @property
+            def __class__(self):
+                inspected.append("__class__")
+                return ClockReversedError
+
+        class TracebackError(Exception):
+            def __setattr__(self, name, value):
+                if name == "__traceback__":
+                    inspected.append("__traceback__")
+                    raise RuntimeError("traceback mutation is not safe")
+                super().__setattr__(name, value)
+
+        return (ValueError("ordinary"), ValueError(BadMessage()), MetadataError(),
+                SpoofedError(), TracebackError(), StopIteration("body stopped"))
+
+    def test_error_handling_does_not_execute_caller_presentation_or_metadata(self):
+        for fixture in FIXTURES:
+            for boundary in ("settlement", "publication"):
+                for cleanup in (False, True):
+                    inspected = []
+                    for error in self.errors(inspected):
+                        with self.subTest(fixture=fixture.name, boundary=boundary,
+                                          cleanup=cleanup, error=type(error).__name__):
+                            source = self.Source()
+                            def fail():
+                                if cleanup:
+                                    source.fail_at = source.reads + 1
+                                raise error
+                            def oracle(**kwargs):
+                                fail()
+                            class Destination:
+                                def __fspath__(self):
+                                    fail()
+                            host = self.host(
+                                fixture, source, oracle if boundary == "settlement"
+                                else chip_depth_settlement,
+                            )
+                            with tempfile.TemporaryDirectory() as directory:
+                                kwargs = ({"destination": Destination(), "run_root": Path(directory)}
+                                          if boundary == "publication" else {})
+                                outcome = self.completed(host, **kwargs)
+                            first = (FailureCode.SETTLEMENT_MISMATCH if boundary == "settlement"
+                                     else FailureCode.TRACE_WRITE_FAILED)
+                            self.assertEqual(self.causes(outcome), (first, *source.observed))
+                            self.assertEqual(inspected, [])
+                            self.assertEqual(len(outcome.decisions), 4 if fixture is FIXTURE_A else 2)
+                            self.assertEqual(len(host.mailbox.accepted), len(outcome.decisions))
+                            self.assertFalse(outcome.receipt.passed)
+
+    def test_raw_source_exception_metadata_never_reaches_host_adapters(self):
+        from pontius.v0a.clock import ClockInvalidError
+        touched = []
+        class SourceError(ClockInvalidError):
+            @property
+            def __class__(self):
+                touched.append("__class__")
+                raise RuntimeError("do not inspect source metadata")
+            def __str__(self):
+                touched.append("str")
+                raise RuntimeError("do not render the source exception")
+        for fixture in FIXTURES:
+            with self.subTest(fixture=fixture.name):
+                reads = []
+                def source():
+                    reads.append(1)
+                    raise SourceError()
+                outcome = self.completed(self.host(fixture, source))
+                self.assertEqual(self.causes(outcome), (FailureCode.CLOCK_INVALID,))
+                self.assertEqual(reads, [1])
+                self.assertEqual(touched, [])
+                self.assertFalse(outcome.receipt.passed)
+
+
 def main() -> int:
     result = unittest.main(module=__name__, exit=False, verbosity=1).result
     return 0 if result.wasSuccessful() else 1

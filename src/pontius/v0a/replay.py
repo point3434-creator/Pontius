@@ -8,7 +8,6 @@ engineering control.
 
 from __future__ import annotations
 
-from contextlib import contextmanager
 from dataclasses import dataclass
 from hashlib import sha256
 from itertools import permutations
@@ -281,17 +280,6 @@ def chip_depth_settlement(
 # -- host completion receipt -----------------------------------------------
 
 
-@contextmanager
-def _optional(context):
-    """Enter a measurement context when one could be opened, else proceed."""
-
-    if context is None:
-        yield None
-        return
-    with context as value:
-        yield value
-
-
 @dataclass(frozen=True, slots=True)
 class HostCompletionReceipt:
     """Returned outside the trace it describes; never self-measuring."""
@@ -545,17 +533,10 @@ class ReplayHost:
 
         publication: list[float] = []
         content = b""
-        publication_measured = True
         try:
-            publication_context = runtime.owned_publication(
-                publication, body_failure=FailureCode.TRACE_WRITE_FAILED
-            )
-        except RuntimeError:
-            publication_context = None
-        if publication_context is None:
-            publication_measured = False
-        try:
-          with _optional(publication_context):
+          with runtime.owned_publication(
+              publication, body_failure=FailureCode.TRACE_WRITE_FAILED
+          ):
             content = builder.close(
                 hand_id=fixture.hand_id,
                 complete=runtime.betting_terminal and primary is None,
@@ -587,7 +568,7 @@ class ReplayHost:
         primary = journal[0] if journal else None
         secondary = list(journal[1:])
         closed = runtime.accounting()
-        if secondary or primary is not None or not closed.complete or not publication_measured:
+        if secondary or primary is not None or not closed.complete:
             passed = False
         receipt = HostCompletionReceipt(
             run_id=self._run_id,

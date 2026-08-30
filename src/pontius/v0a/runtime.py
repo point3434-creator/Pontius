@@ -9,7 +9,6 @@ remains controller diagnostics.
 
 from __future__ import annotations
 
-from contextlib import contextmanager
 from dataclasses import dataclass
 
 from ..action_clock import ActionClockLedger
@@ -166,6 +165,7 @@ class _HandFailure(Exception):
         delivered_action: HandAction | None = None,
         timing: TimingRecord | None = None,
         decision: DecisionRecord | None = None,
+        clock_error: BaseException | None = None,
     ) -> None:
         super().__init__(code.value)
         self.code = code
@@ -173,6 +173,66 @@ class _HandFailure(Exception):
         self.delivered_action = delivered_action
         self.timing = timing
         self.decision = decision
+        self.clock_error = clock_error
+
+
+class _OwnedInterval:
+    """One owner for entry, body failure, and exit of non-response work.
+
+    A normal class keeps arbitrary body exceptions out of contextlib's generator
+    protocol. The caller's exception is never rendered, queried, or re-raised.
+    """
+
+    def __init__(self, runtime: HandRuntime, body_failure: FailureCode,
+                 publication: list[float] | None = None) -> None:
+        self._runtime = runtime
+        self._body_failure = body_failure
+        self._publication = publication
+        self._opened = False
+        self._terminal_at_entry = False
+
+    def __enter__(self) -> _OwnedInterval:
+        runtime = self._runtime
+        runtime._retain_witness_failure()
+        if not runtime.measurable:
+            runtime._accounting_complete = False
+            return self
+        outer = runtime._outer
+        assert outer is not None
+        self._terminal_at_entry = runtime.betting_terminal
+        try:
+            outer.start_preparation_work()
+        except (ClockInvalidError, ClockReversedError, RuntimeError) as error:
+            runtime._record_closure_failure(error)
+        else:
+            self._opened = True
+        return self
+
+    def __exit__(self, error_type: object, error: BaseException | None,
+                 traceback: object) -> bool:
+        runtime = self._runtime
+        # A body may catch the witness's exception. The occurrence still precedes
+        # a later body error, even if no clock exception escaped the callback.
+        runtime._retain_witness_failure()
+        if error is not None:
+            runtime._retain_error(error, otherwise=self._body_failure)
+        if self._opened:
+            outer = runtime._outer
+            assert outer is not None
+            try:
+                interval = outer.stop_preparation_work()
+            except (ClockInvalidError, ClockReversedError, RuntimeError) as closing_error:
+                runtime._record_closure_failure(closing_error)
+            else:
+                if self._publication is None:
+                    runtime._charge_interval(interval, terminal_at_entry=self._terminal_at_entry)
+                else:
+                    self._publication.append(float(interval.compute_seconds))
+        if error is not None:
+            # Only a trusted constant exception crosses the host handler. No
+            # caller str/__class__/__traceback__ hook participates in transfer.
+            raise OperationFailed("owned operation failed") from None
+        return False
 
 
 class HandRuntime:
@@ -217,6 +277,7 @@ class HandRuntime:
         self._accepted_deliveries = 0
         self._clock_dead = False
         self._closure_failures: list[FailureCode] = []
+        self._retained_witness_failure: BaseException | None = None
 
     # -- public observation ------------------------------------------------
 
@@ -264,48 +325,45 @@ class HandRuntime:
     def closure_failures(self) -> tuple[FailureCode, ...]:
         """Typed causes of closure faults, in the order they occurred."""
 
+        self._retain_witness_failure()
         return tuple(self._closure_failures)
 
-    def record(self, code: FailureCode) -> None:
-        """Append one typed cause at the moment it occurs.
 
-        The journal is append-only and never deduplicated: two genuine faults
-        carrying the same code are two entries. Its order is occurrence order,
-        which is why every producer - runtime and host alike - appends here
-        rather than reconstructing a sequence afterwards.
-        """
-
-        if not isinstance(code, FailureCode):
-            raise TypeError("only a typed failure code may be journalled")
-        self._closure_failures.append(code)
-
-    def _record_closure_failure(
-        self,
-        error: BaseException,
-        *,
-        witness_was_live: bool,
-    ) -> None:
-        """Retain a closure fault's cause unless it is a dead-clock echo.
-
-        Once the witness has failed every later read raises again - an echo of
-        a cause already journalled, and for a reversed clock an echo carrying
-        the wrong code. Recording those would fill the journal with faults that
-        never independently occurred, so a seam records only when the witness
-        was live as its own operation began.
-
-        A ledger `RuntimeError` means accounting cannot continue but carries no
-        clock cause of its own, so it marks the ledger dead without inventing a
-        typed code the frozen vocabulary does not have.
-        """
-
+    def _retain_witness_failure(self) -> None:
+        """Drain one source occurrence, including one caught inside a callback."""
+        occurrence = self._witness.failure
+        if occurrence is None or occurrence is self._retained_witness_failure:
+            return
+        self._retained_witness_failure = occurrence
         self._clock_dead = True
         self._accounting_complete = False
-        if not witness_was_live:
+        self._closure_failures.append(
+            self.classify(occurrence, otherwise=FailureCode.CLOCK_INVALID)
+        )
+
+    def record(self, code: FailureCode) -> None:
+        """Retain each genuine cause in order, without deduplicating its code."""
+        if type(code) is not FailureCode:
+            raise TypeError("only a typed failure code may be journalled")
+        self._retain_witness_failure()
+        self._closure_failures.append(code)
+
+    def _retain_error(self, error: BaseException, *, otherwise: FailureCode) -> None:
+        self._retain_witness_failure()
+        if self._witness.owns_failure(error):
+            # This same source occurrence was retained above or at an earlier
+            # boundary. Equal codes on independent exceptions are still distinct.
             return
-        if isinstance(error, ClockReversedError):
-            self.record(FailureCode.CLOCK_REVERSED)
-        elif isinstance(error, ClockInvalidError):
-            self.record(FailureCode.CLOCK_INVALID)
+        self.record(self.classify(error, otherwise=otherwise))
+
+    def _record_closure_failure(self, error: BaseException) -> None:
+        self._clock_dead = True
+        self._accounting_complete = False
+        self._retain_witness_failure()
+        if issubclass(type(error), (ClockInvalidError, ClockReversedError)):
+            self._retain_error(error, otherwise=FailureCode.CLOCK_INVALID)
+        # A ledger-state refusal makes accounting incomplete but does not invent
+        # a clock occurrence or a failure code absent from the frozen vocabulary.
 
     @property
     def measurable(self) -> bool:
@@ -318,115 +376,24 @@ class HandRuntime:
             or self._witness.failed
         )
 
-    @contextmanager
-    def _bookkeeping(self):
-        """Measure non-response work (settlement, trace writes) on the outer ledger.
 
-        The interval is classified by whether betting had already terminated
-        when it opened, so post-terminal bookkeeping never disappears from the
-        hand's accounting and never extends the next action's wall.
-        """
+    def owned_bookkeeping(self, *, body_failure: FailureCode) -> _OwnedInterval:
+        """Own measured non-response work and its ordered failure transfer."""
+        return _OwnedInterval(self, body_failure)
 
-        outer = self._outer
-        if not self.measurable:
-            # Explicitly unmeasured, never an invented zero.
-            self._accounting_complete = False
-            yield
-            return
-        assert outer is not None
-        terminal_at_entry = self.betting_terminal
-        live = not self._witness.failed
-        try:
-            outer.start_preparation_work()
-        except (ClockInvalidError, ClockReversedError, RuntimeError) as error:
-            self._record_closure_failure(error, witness_was_live=live)
-            yield
-            return
-        try:
-            yield
-        finally:
-            exit_live = not self._witness.failed
-            try:
-                interval = outer.stop_preparation_work()
-            except (ClockInvalidError, ClockReversedError, RuntimeError) as error:
-                self._record_closure_failure(error, witness_was_live=exit_live)
-            else:
-                self._charge_interval(interval, terminal_at_entry=terminal_at_entry)
+    def owned_publication(self, sink: list[float], *,
+                          body_failure: FailureCode) -> _OwnedInterval:
+        """Own final-publication work without adding it to pre-publication totals."""
+        return _OwnedInterval(self, body_failure, sink)
 
-    @contextmanager
-    def _publication_interval(self, sink: list[float]):
-        """Measure terminal construction, serialization, and write separately.
-
-        Its duration is reported in the host receipt as
-        `terminal_publication_compute_seconds` and is never folded back into
-        the terminal row's two totals, which close at the pre-publication cut.
-        """
-
-        outer = self._outer
-        if not self.measurable:
-            self._accounting_complete = False
-            yield
-            return
-        assert outer is not None
-        live = not self._witness.failed
-        try:
-            outer.start_preparation_work()
-        except (ClockInvalidError, ClockReversedError, RuntimeError) as error:
-            self._record_closure_failure(error, witness_was_live=live)
-            yield
-            return
-        try:
-            yield
-        finally:
-            exit_live = not self._witness.failed
-            try:
-                interval = outer.stop_preparation_work()
-            except (ClockInvalidError, ClockReversedError, RuntimeError) as error:
-                self._record_closure_failure(error, witness_was_live=exit_live)
-            else:
-                sink.append(float(interval.compute_seconds))
-
-    def classify(self, error: BaseException, *, otherwise: FailureCode) -> FailureCode:
-        """The typed cause of one exception; clock faults classify themselves."""
-
-        if isinstance(error, ClockReversedError):
+    @staticmethod
+    def classify(error: BaseException, *, otherwise: FailureCode) -> FailureCode:
+        """Classify actual type ancestry, without executing exception metadata."""
+        if issubclass(type(error), ClockReversedError):
             return FailureCode.CLOCK_REVERSED
-        if isinstance(error, ClockInvalidError):
+        if issubclass(type(error), ClockInvalidError):
             return FailureCode.CLOCK_INVALID
         return otherwise
-
-    @contextmanager
-    def owned_bookkeeping(self, *, body_failure: FailureCode):
-        """Measured non-response work whose body owns its own cause.
-
-        The body's cause is journalled *inside* the measured interval, so it is
-        always ordered before any cleanup fault the interval's own exit
-        produces. This is the single place that ordering rule lives: an
-        operation cannot get it wrong by forgetting, because the unowned
-        interval is private.
-        """
-
-        with self._bookkeeping():
-            try:
-                yield
-            except OperationFailed:
-                raise
-            except BaseException as error:
-                self.record(self.classify(error, otherwise=body_failure))
-                raise OperationFailed(str(error)) from error
-
-    @contextmanager
-    def owned_publication(self, sink: list[float], *, body_failure: FailureCode):
-        """Terminal publication whose body owns its own cause, as above."""
-
-        with self._publication_interval(sink):
-            try:
-                yield
-            except OperationFailed:
-                raise
-            except BaseException as error:
-                self.record(self.classify(error, otherwise=body_failure))
-                raise OperationFailed(str(error)) from error
 
     def accounting(self) -> AccountingTotals:
         """Report the two public totals through the pre-publication cut."""
@@ -446,6 +413,7 @@ class HandRuntime:
     def finalize_accounting(self) -> None:
         """Close the outer ledger after the final publication interval."""
 
+        self._retain_witness_failure()
         outer = self._outer
         if outer is None or self._finalized:
             return
@@ -453,11 +421,10 @@ class HandRuntime:
             self._accounting_complete = False
             self._finalized = True
             return
-        live = not self._witness.failed
         try:
             outer.finalize()
         except (ClockInvalidError, ClockReversedError, RuntimeError) as error:
-            self._record_closure_failure(error, witness_was_live=live)
+            self._record_closure_failure(error)
         self._finalized = True
 
     # -- dispatch ----------------------------------------------------------
@@ -477,7 +444,6 @@ class HandRuntime:
             (HandStartedEvent, OpponentActionEvent, StreetRevealedEvent, ShowdownResultEvent),
         ):
             return self._reject(FailureCode.INVALID_EVENT, event)
-        entry_live = not self._witness.failed
         if self._outer is None:
             if not isinstance(event, HandStartedEvent):
                 return self._reject(FailureCode.EVENT_ORDER, event)
@@ -485,14 +451,14 @@ class HandRuntime:
                 self._outer = ActionClockLedger("preflop", clock_ns=self._witness)
             except (ClockInvalidError, ClockReversedError) as error:
                 return self._clock_reject(
-                    error, event, wall_start_ns=None, witness_was_live=entry_live
+                    error, event, wall_start_ns=None
                 )
 
         try:
             boundary = self._outer.start_transition_boundary()
         except (ClockInvalidError, ClockReversedError) as error:
             return self._clock_reject(
-                error, event, wall_start_ns=None, witness_was_live=entry_live
+                error, event, wall_start_ns=None
             )
         except RuntimeError:
             return self._reject(FailureCode.EVENT_ORDER, event)
@@ -507,7 +473,10 @@ class HandRuntime:
         except _HandFailure as failure:
             # The initiating cause is journalled before its own cleanup so a
             # cleanup fault can never be ordered ahead of what caused it.
-            self.record(failure.code)
+            if failure.clock_error is None:
+                self.record(failure.code)
+            else:
+                self._retain_error(failure.clock_error, otherwise=failure.code)
             self._release_boundary(boundary, terminal_at_entry)
             return self._from_failure(failure, event)
 
@@ -517,7 +486,6 @@ class HandRuntime:
         if not self._boundary_open or self._outer is None:
             return
         self._boundary_open = False
-        live = not self._witness.failed
         try:
             aborted = self._outer.abort_transition_boundary(boundary)
         except (
@@ -526,7 +494,7 @@ class HandRuntime:
             RuntimeError,
             ValueError,
         ) as error:
-            self._record_closure_failure(error, witness_was_live=live)
+            self._record_closure_failure(error)
             return
         self._charge_interval(aborted, terminal_at_entry=terminal_at_entry)
 
@@ -875,7 +843,7 @@ class HandRuntime:
         except (ClockInvalidError, ClockReversedError) as error:
             code = (
                 FailureCode.CLOCK_REVERSED
-                if isinstance(error, ClockReversedError)
+                if issubclass(type(error), ClockReversedError)
                 else FailureCode.CLOCK_INVALID
             )
             timing = self._interrupted_timing(code, wall_start_ns)
@@ -896,6 +864,7 @@ class HandRuntime:
                 delivered_action=selected,
                 timing=timing,
                 decision=record,
+                clock_error=error,
             ) from error
 
         assert emission_observed_ns is not None
@@ -1087,10 +1056,11 @@ class HandRuntime:
         self._accounting_complete = False
         code = (
             FailureCode.CLOCK_REVERSED
-            if isinstance(error, ClockReversedError)
+            if issubclass(type(error), ClockReversedError)
             else FailureCode.CLOCK_INVALID
         )
-        return _HandFailure(code, timing=self._interrupted_timing(code, wall_start_ns))
+        return _HandFailure(code, timing=self._interrupted_timing(code, wall_start_ns),
+                            clock_error=error)
 
     def _from_failure(self, failure: _HandFailure, event: Event) -> DispatchOutcome:
         self._dead = True
@@ -1121,12 +1091,9 @@ class HandRuntime:
         event: Event,
         *,
         wall_start_ns: int | None,
-        witness_was_live: bool,
     ) -> DispatchOutcome:
         failure = self._clock_hand_failure(error, wall_start_ns)
-        if witness_was_live:
-            # No cleanup follows this path, so ordering is unambiguous.
-            self.record(failure.code)
+        self._retain_error(error, otherwise=failure.code)
         return self._from_failure(failure, event)
 
     def _reject(self, code: FailureCode, event: Event) -> DispatchOutcome:

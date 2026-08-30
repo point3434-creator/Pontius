@@ -15,90 +15,51 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-No. Retain the exact negative terminal, close v7 permanently, and authorize no
-retry or continuation. The exact root launcher entered once from clean commit
-`aaca2dda40e29be8ebd091d58e7853bce1c62fd8`. The 1,825-byte attempt and
-349-byte consumed-launch marker bind that invocation and remain exact. Pending
-and aborted launch paths are absent. The 7,858,857-byte result contains 592 LF-
-only journal records whose protocol, campaign, sequence, payload, semantic,
-record, and previous-record hash chain independently rebinds without error.
-Every observation names the exact authorization commit.
+Absorb the stabilization era into the record and make the mainline the single
+canonical line. The merge `156f0b3` integrates three bodies of reviewed work
+onto `master` with zero path overlap against the governance commits and every
+reviewed commit hash preserved: the Task 1 orchestration contracts, the Task
+11a Windows reparse and OneDrive architecture corrections (integrated at
+`a265976` with `FileAttributeTagInfo` bound from opened handles before and
+after every read), and the Task 2 test inventory and profile generator.
 
-Before retention, the independent sealed reader accepted the artifact from the
-exact authorization HEAD, with the result, attempt, and consumed-launch marker
-as the only untracked lifecycle paths. It accepted a complete durable journal
-with one terminal, not a complete scientific campaign. Its terminal is
-`laboratory_wall_rejected`, its pass bit is false, and its 590 observations
-include 569 calibration-cell wrappers. The laboratory elapsed wall is
-`1510053980800` ns against `1500000000000` ns, an excess of `10053980800` ns.
-The outside-laboratory partition is `48722365700` ns against
-`300000000000` ns, the public wall is `1558776346500` ns against
-`1800000000000` ns, and laboratory plus outside-laboratory equals public
-exactly. The frozen check rejected before dispatching the next cell; the last
-completed cell was differentially checked and journaled. The excess includes
-the interval through rejection cleanup and is not attributed wholly to that
-cell.
+Task 2 is the era's center of mass. Its 25,356-line generator and 30,366-line
+test suite implement exact baseline and working discovery, four ownership
+partitions, an exact AST capability and source-order analyzer with typed
+fail-closed blockers, secure same-directory governance publication with
+ownership-owning transaction and retry machinery, and raw authenticated Git
+object access. The candidate survived an initial frozen review rejection and
+five bound fix rounds that widened into roughly eighteen correction
+iterations, each with deterministic RED reproductions before production edits
+and integrated GREEN evidence after. The frozen 11-file candidate at manifest
+`79600d1112e52a37f22b649b5d4d5a2f382cb8daf247082466700729b99e82ef` passed
+87/87 inventory, 53/53 configuration, and the exact H32 gate with one
+approved unconditional skip, regenerated its governance outputs byte-stably,
+and was accepted by two independent whole-candidate adversarial reviews, both
+CLEAN with the manifest recomputed unchanged before and after inspection.
 
-The measurement vocabulary is kept explicit. Reader `complete=true` means the
-journal has a valid terminal; it does not mean all 2,880 planned calls ran.
-Reader `measured_call_count=0` means zero authoritative completed-campaign
-measurements are admitted from a rejected campaign. The retained bytes contain
-one complete 480-cell warmup pass and 89 cells from the first of five required
-measured passes. Those 89 records carry `measured=true` because of their
-schedule position, but they are a hash-ordered partial pass, not a complete
-measurement population. No fit-projection record exists. They may diagnose the
-wall but may never feed a fit, materiality conjunct, topology ranking, schedule
-ranking, or candidate selection. Stored pass bits are nonauthoritative.
+The external CodeRabbit gate did not run: four authenticated invocations of
+the exact command failed with the identical recoverable `WebSocket closed`
+transport error before analysis, with the client current, the seat valid, and
+the service's status page showing degraded markers. The controller ruled the
+gate substituted, the adversarial CLEAN verdicts standing as external review,
+with a courtesy rerun permitted if the service recovers; the ruling, its
+evidence, and its cost-if-wrong are recorded in the Task 2 report. The
+correction loop is deliberately wound down: the bound holistic audit found no
+remaining correctness defect, named architectural concentration as the
+principal residual risk, recorded a read-only diagnostic that the retained v7
+journal's structural cover ran serially on device, and left a prioritized
+post-acceptance backlog. Those are recommendations, not authorizations.
 
-A separate read-only diagnostic reconstructed every stored 19-phase partition
-and work receipt. It found 1,293.6428099 seconds of recorded primitive wall, of
-which 1,247.2065142 seconds was `base_structural_cover`: 96.41 percent of
-recorded primitive work and 82.59 percent of total laboratory elapsed. Cold
-base refresh accounts for effectively all of that phase; exact-provenance-hit
-cells total about 0.002 seconds there. RRNS cold structural cover contributes
-about 1,107.3 seconds and positional cold cover about 139.9 seconds. These are
-diagnostics from an incomplete schedule, not an arm comparison, a production
-frequency, a speed result, or evidence that one closure topology lost. The
-current repository still classifies the production base as `producer_absent`,
-so no production cold/hit cadence exists to amortize.
-
-The independent reader deliberately stops before full cell-value validation on
-a rejecting terminal. It therefore validated durable journal completeness,
-identity, type boundaries, terminal claims, and rejection closure, but it does
-not certify the 569 partial cell values as a calibration. Future result types
-must keep terminal-complete journal, complete scientific campaign, stored
-measured-labelled rows, and accepted measured population as separate semantic
-quantities. ADR-0476 makes that distinction in the record rather than changing
-the consumed reader after outcome.
-
-The reader is also deliberately authorization-HEAD-bound. Both public
-assessment entry points require actual HEAD to equal the sole-child six-path
-authorization commit. The ADR-0476 retention commit necessarily becomes a
-descendant with a different diff, so direct assessment from latest HEAD will
-reject after retention. That is expected security behavior, not evidence
-corruption. Future reproduction must create an exact detached checkout at
-`aaca2dda40e29be8ebd091d58e7853bce1c62fd8`, materialize the three retained
-bytes at their exact paths without changing HEAD, and run the sealed reader
-there. Do not weaken the reader post-outcome to admit the retention commit.
-
-No candidate, topology, or arithmetic schedule is selected. The compiled-
-calibration result, material-zeta speed claim, symbolic target projection,
-production numerical admission, literal-45 result, resolver iteration,
-action-clock fit, decision quality, blueprint, and poker strength remain null;
-truncation remains unauthorized. `producer_absent` is the only production-base
-classification carried forward. The artifact is clean negative evidence and
-not a systems-quality prior.
-
-Do not create a friendlier v8 by increasing 1,500 seconds, reducing repeats,
-thinning domains, reordering the observed prefix, or relabeling the same cold
-work. Before any future device owner, the architecture must acquire an actual
-production base producer and freeze its algebra, epoch, invalidation, refresh
-cadence, exponent window, and semantic bound. Only then can a new gate test the
-structurally different hypothesis that cold structural cover is paid once per
-genuine producer epoch while exact provenance hits serve repeated certificate
-consumers. If that producer does not exist on the near-term product path, park
-the compiled topology lane and return effort to the playable v0a integration
-boundary. This ADR authorizes neither branch's implementation.
+Two v7 maintenance modules received reviewed corrections closing the
+authorization re-read defects; the sealed retained v7 artifacts are
+byte-unchanged and now hash-bound by the ADR-0479 manifests. Checked-in
+capability state is intentionally absent — zero subprocess definitions, zero
+call definitions, zero bindings — so every capability outcome remains
+deny-all until the Task 10 hard approval gate. No broad scientific or GPU
+suite ran during the era, and this absorption makes no payload claim beyond
+the focused gates named above. From the integrated mainline, the generator's
+`--check` and the stabilization boundary check both exit 0.
 
 The inherited front-door trust chain remains explicit. ADR-0310 made native-
 simplex robustness the next systems question. ADR-0311's directive is
@@ -179,7 +140,11 @@ ADR-0472 authorizes only its exact one-generation identity without firing it,
 ADR-0473 rejects that gate and closes v6 uninvoked, ADR-0474 source-seals only
 fresh v7, ADR-0475 authorizes only its exact one-generation invocation identity
 without firing it, and ADR-0476 retains its laboratory-wall rejection and
-closes v7 permanently.
+closes v7 permanently. ADR-0477 through ADR-0480 record the stabilization
+era — archive replication, the agent charter and collaboration protocol, the
+evidence layer and sealed-boundary manifests, and this orchestration
+absorption — without invoking any consumed owner or altering any retained
+byte.
 
 For machine-checked continuity, ADR-0317's directive remains Separate solver
 classes and prioritize the certified sizing adapter. All 177 ordered
@@ -213,36 +178,35 @@ bridge. ADR-0405 remains an accepted source seal.
 
 ### Result boundary
 
-The exact journal, attempt, and consumed-launch marker are permanent retained
-negative evidence. They prove one authorized invocation, a complete durable
-journal, exact identity and hash-chain closure, and the laboratory-wall
-terminal. They do not prove a complete calibration, any fit or arm comparison,
-production frequency, target capacity, action fit, or decision quality. The
-sealed-reader verdict was obtained before retention at the exact authorization
-HEAD; historical reproduction requires reconstructing that checkout state.
+The absorbed era proves reviewed, integrated, deny-all test-governance
+infrastructure and the focused gates named above. It proves no broad-suite
+execution, no capability approval, no scientific or GPU payload result, no
+compiled-calibration progress, and no change to any retained evidence byte.
+The serial-structural-cover observation is a read-only diagnostic of the
+retained v7 journal, not a speed claim, an arm comparison, or authorization
+for device work.
 
 ### Kill criteria
 
-V7 is already consumed and may never run again. Kill any proposed successor
-that reuses its protocol, campaign, result, attempt, launch, or authorization
-identity; changes or omits the retained bytes; treats 89 partial-pass rows as a
-complete measured population; raises the rejected wall or thins the campaign
-to make the same mechanism pass; infers a topology from the incomplete prefix;
-or claims epoch amortization before a production base producer and refresh
-cadence are bound.
+Kill any use of this absorption as payload evidence: generator acceptance is
+not test-suite passage, and deny-all rows are not approvals. Kill any
+capability execution before the Task 10 hard approval gate. Kill any reopening
+of the wound-down Task 2 correction loop absent a fresh finding under the
+workflow protocol. The CodeRabbit substitution is specific to this candidate
+and its recorded failure evidence; future gates rule on their own substitutions
+explicitly or run their tools.
 
 ### Claims boundary
 
-ADR-0476 proves only the retained negative terminal, exact lifecycle and Git
-identity, journal integrity, wall arithmetic, and scoped diagnostic attribution
-stated above. It supplies no passing compiled calibration, materiality,
-topology, arithmetic-schedule, symbolic-target, numerical-target, resolver,
-action-clock, decision-quality, truncation, blueprint, or strength result.
-Independent checks are spot-checking, not certification.
+ADR-0480 proves only the reviewed acceptance, integration, and validations
+stated above. It supplies no research result, clears no ADR-0476 blocker,
+adopts no proposed protocol amendment, authorizes no item of the holistic
+audit's backlog, and makes no poker-strength, resolver, action-clock, or
+blueprint claim.
 
 ## Active next
 
-Hold the compiled synthetic topology-calibration lane and conduct the architecture checkpoint before any successor owner: bind a real production source-local base producer, its exact algebra, epoch identity, refresh cadence, exponent admission, and cold-versus-hit frequency in the one-seat river bridge, or park this lane and return to v0a integration; any later compiled experiment requires a fresh preregistration and lifecycle, must charge cold structural cover once per genuine production epoch and provenance hits at their actual consumers, and may not reuse v7's partial rows, relax the rejected wall, thin the frozen population, or select an arm from this artifact
+Hold the compiled synthetic topology-calibration lane and conduct the architecture checkpoint before any successor owner: bind a real production source-local base producer, its exact algebra, epoch identity, refresh cadence, exponent admission, and cold-versus-hit frequency in the one-seat river bridge, or park this lane and return to v0a integration; any later compiled experiment requires a fresh preregistration and lifecycle, must charge cold structural cover once per genuine production epoch and provenance hits at their actual consumers, and may not reuse v7's partial rows, relax the rejected wall, thin the frozen population, or select an arm from this artifact. Separately, continue the stabilization plan's remaining orchestration tasks under the installed collaboration protocol, rule explicitly on the proposed protocol amendments during the architecture review, and complete the open operations items — the restore drill, push automation, and a retained-evidence inventory test — before broad-suite reliance
 
 ## Revoked authorities
 
@@ -253,7 +217,7 @@ Hold the compiled synthetic topology-calibration lane and conduct the architectu
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0476](docs/decisions/ADR-0476-retain-the-v7-laboratory-wall-rejection.md) — Retain the v7 laboratory-wall rejection.
+Latest process decision: [ADR-0480](docs/decisions/ADR-0480-absorb-the-test-orchestration-stabilization.md) — Absorb the test-orchestration stabilization.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -261,10 +225,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0453](docs/decisions/ADR-0453-preregister-selective-certified-global-separation.md) | 2026-08-26 | accepted prospective CPU-only exact selective-pricing and conservative prefix-bound global-separation boundary; one price is frozen as one source-local base plus the exact signed 57-subset contraction, warm queries make no global claim, final closure must cover or conservatively prune every six-card source, a loose or no-prune result is allowed and reported honestly, and exhaustive complete-10/complete-12 controls, mutation gates, work ledgers, exclusive lifecycle, and claims limits are frozen before successor source or values while population 25, literal-45 numerics, CUDA, device work, fixed-width selection, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister selective certified global separation |
-| [ADR-0454](docs/decisions/ADR-0454-source-seal-selective-certified-global-separation.md) | 2026-08-26 | accepted source-only CPU exact mechanism seal; the ADR-0453 selective 57-subset price, conservative combination-prefix upper, best-first proposal search, exact-argmax control, final zero-threshold global closure, exhaustive authority, independent reconstruction, heterogeneous work receipts, exclusive no-argument owner, and nine focused adversarial controls now exist for every frozen complete-10 and complete-12 family, while the one-shot result remains absent and population 25, literal-45 numerics, CUDA, device work, fixed-width selection, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Source-seal selective certified global separation |
-| [ADR-0455](docs/decisions/ADR-0455-preregister-the-exact-global-separation-topology-bakeoff.md) | 2026-08-26 | accepted prospective four-arm exact global-separation topology and base-producer boundary; contract-first direct scan, rank-truncated zeta closure, the source-sealed prefix oracle, and one count-triggered prefix-to-zeta hybrid are frozen before successor source or results, the unproduced `b(S)` input must first be classified by source provenance as lattice-decomposable, genuinely opaque, lattice plus sparse master-support correction, or absent, separate base and H epochs survive any shared circuit, per-level widths and multi-scale intercept/slope calibration are mandatory, witness and prove-none walls remain separate, certificate frequency per action is explicitly unknown, and population 25, literal-45 numerics, CUDA, device work, resolver integration, action timing, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister the exact global-separation topology bake-off |
-| [ADR-0456](docs/decisions/ADR-0456-source-seal-the-base-aware-exact-global-separation-topologies.md) | 2026-08-26 | accepted source-only exact topology seal; the ADR-0455 typed base-provenance auditor, separately fresh H/base/correction/support artifacts, direct 57-term arm, rank-truncated zeta and exact reverse transpose, unchanged ADR-0454 prefix arm, fixed one-switch prefix-to-zeta hybrid, per-rank width/work receipts, and 12 focused controls pass on every complete-10 and complete-12 legacy and base family, while the production base remains absent and no bake-off result, population-25 value, literal-45 numerical input, compiled kernel, CUDA/device work, topology selection, resolver integration, action-clock result, decision-quality result, truncation authorization, blueprint result, or poker-strength result exists | Source-seal the base-aware exact global-separation topologies |
 | [ADR-0457](docs/decisions/ADR-0457-preregister-the-compiled-global-separation-calibration.md) | 2026-08-26 | accepted prospective compiled reduced-domain topology-calibration and production-base admission boundary; all four source-sealed exact arms, positional and batched-five-then-four RRNS schedules, complete 10/12/16/20/24 domains, positive-witness and prove-none modes, three synthetic base types, cold-refresh and exact-hit states, one warmup plus five retained repeats, nineteen gap-free phases, and exact rational intercept-plus-nonnegative-slope projection are frozen before successor source or timing, while RRNS order decisions require charged exact signed reconstruction, the production base remains absent, and topology selection, literal-45 numerical work, resolver integration, action-clock fit, decision quality, truncation, blueprint, and poker strength remain unopened | Preregister the compiled global-separation calibration |
 | [ADR-0458](docs/decisions/ADR-0458-source-seal-the-compiled-global-separation-calibration.md) | 2026-08-26 | accepted device-free source seal; the ADR-0457 exclusive owner, literal 28-kernel CUDA translation unit, deterministic five-domain fixture family, four exact topology arms, positional and batched-five-then-four RRNS schedules, exact signed decision-key reconstruction, campaign-wide sole five-channel RRNS table arena, nineteen-phase ledger, exact rational projector, independent result reader, resource inspectors, and adversarial controls exist and pass at source-only scope, while compiler execution, CuPy scientific import, device query, allocation, timing, cubin creation, result creation, topology selection, population 25, literal-45 numerical work, resolver integration, action-clock fit, decision quality, truncation, blueprint, and poker strength remain unopened | Source-seal the compiled global-separation calibration |
 | [ADR-0459](docs/decisions/ADR-0459-retain-the-unjournaled-absolute-git-infrastructure-rejection.md) | 2026-08-26 | accepted retained sole pre-owner infrastructure rejection; the exact clean ADR-0458 command was invoked once and exited with `FileNotFoundError: [WinError 2] The system cannot find the file specified` because the owner replaced the process environment with the scrubbed compiler mapping before its relative `git` clean-seal call, no durable result was created, and no compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, or production claim exists | Retain the unjournaled absolute-Git infrastructure rejection |
@@ -285,18 +245,22 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0474](docs/decisions/ADR-0474-source-seal-the-authorization-phase-successor.md) | 2026-08-27 | accepted CPU-only authorization-phase successor source seal; the fresh v7 launcher, runner, independent reader, exact rejected-v6-authorization recovery layer, durable attempt and one-use launch lifecycle, repository-derived two-state authorization tag, complete successor-bound dependency proof, and source-only controls pass 20/20 with zero skips; the real checkout executes the preauthorization branch and isolated controls execute both preauthorization and live authorization; the 35-test calibration-base regression passes; four final adversarial findings were corrected before seal; the exact retained v5 attempt and rejected v6 authorization remain unchanged, every v6 and v7 lifecycle path remains absent, and no public v7 owner, compiler call, CuPy import, device work, timing value, or result exists | Source-seal the authorization-phase successor |
 | [ADR-0475](docs/decisions/ADR-0475-authorize-one-v7-authorization-phase-calibration-invocation.md) | 2026-08-27 | accepted exact one-generation v7 invocation authorization; the current commit must be the sole child of source seal `56127da2970f5a8a8056a97a247ebe1fdf4b983b`, its changed-path set is exactly the frozen six-file authorization surface, no sealed implementation, test, recovery config, retained evidence, or lifecycle byte changes, and no public v7 owner, compiler call, CuPy import, device work, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, decision quality, truncation, blueprint, or strength result exists, while all 20 focused controls must still pass unchanged from this exact clean commit with the real live-authorization branch exercised before the public owner is fired; revoked by ADR-0476 | Authorize one v7 authorization-phase calibration invocation |
 | [ADR-0476](docs/decisions/ADR-0476-retain-the-v7-laboratory-wall-rejection.md) | 2026-08-27 | accepted complete-journal negative one-shot terminal and permanent v7 closure; the exact authorized public command ran once from commit `aaca2dda40e29be8ebd091d58e7853bce1c62fd8`, durably consumed its attempt and launch identities, retained a hash-valid 592-record journal, and terminated `laboratory_wall_rejected` after `1510053980800` ns against the frozen `1500000000000` ns laboratory wall; the public and outside-laboratory walls remained below their ceilings, but the incomplete campaign emitted no fit projection and selected no candidate, topology, or arithmetic schedule; zero authoritative complete-campaign measured calls and zero complete measured passes exist, while 89 stored partial-pass cells marked measured remain diagnostic only; no retry, continuation, compiled-calibration result, symbolic-45 projection, material-zeta claim, production numerical admission, resolver result, action-clock result, decision-quality result, truncation, blueprint result, or strength result is authorized | Retain the v7 laboratory-wall rejection |
+| [ADR-0477](docs/decisions/ADR-0477-replicate-the-retained-evidence-archive-off-machine.md) | 2026-08-29 | accepted operations decision; the repository gained its first off-machine replication after the OneDrive exit left exactly one copy of protocol-unreproducible evidence, and the archive now exists in a private GitHub remote (all branches), point-in-time snapshot refs for then-uncommitted evidence, a release asset carrying every retained result JSON including the gitignored and over-100 MB files, and a second-volume local mirror; the restore drill, push-on-commit automation, and a retained-evidence inventory test remain explicitly open, and replication is not evidence that restoration works | Replicate the retained evidence archive off-machine |
+| [ADR-0478](docs/decisions/ADR-0478-install-the-agent-charter-and-collaboration-protocol.md) | 2026-08-29 | accepted process decision; `CLAUDE.md` now binds every AI agent to nine iron rules (sealed history untouchable, consumed owners never rerun, no tuning against opened evidence, ceremonial commits with push-on-commit, snapshot-only test payloads, fail-closed blockers, exact types, real-path ownership tests, on-demand-only cloud sync), and `docs/workflow.md` installs the implementer/reviewer handoff protocol — immutable snapshot refs with blob-derived manifests as the exchange object, cold-context review, tiered ceremony with fixed gate order, a three-round circuit breaker, proactive slicing, single-writer ledger discipline, and a ten-line review checklist whose first line is the helper-double rule; the protocol survived its own first cold review, whose findings were fixed and mechanically verified before commit | Install the agent charter and collaboration protocol |
+| [ADR-0479](docs/decisions/ADR-0479-accept-the-evidence-layer-and-sealed-boundary-manifests.md) | 2026-08-29 | accepted process decision; the mainline now carries the first structured subpackage `pontius/evidence/` (typed errors, frozen validated models, strict manifest parsing) together with five governed data files that make the sealed boundary machine-checkable — `sealed-current-files.toml`, `sealed-current-absences.toml`, `historical-blobs.toml`, `retained-v7.toml`, and `dependency-baseline.toml` — plus their generators, the stabilization boundary checker, and their test suites; the sealed retained v7 artifacts (journal, attempt, consumed-launch marker) are byte-unchanged and now hash-bound in data rather than prose, and the boundary check passes from the integrated mainline | Accept the evidence layer and sealed-boundary manifests |
+| [ADR-0480](docs/decisions/ADR-0480-absorb-the-test-orchestration-stabilization.md) | 2026-08-29 | accepted process absorption; the 2026-08-27 through 2026-08-29 stabilization era — orchestration contracts (Task 1), Windows reparse/OneDrive architecture fixes (Task 11a), and the test inventory and profile generator (Task 2) — is integrated onto the mainline at merge `156f0b3` after two independent whole-candidate adversarial CLEAN reviews on the frozen 11-file manifest, a bound holistic architecture audit, and a controller substitution ruling for the unreachable CodeRabbit gate; the generator's `--check` and the stabilization boundary check both pass from the integrated primary checkout, checked-in capability state remains intentionally absent with every capability outcome deny-all pending the Task 10 approval gate, no broad scientific/GPU suite ran, and no ADR-0476 research blocker is cleared | Absorb the test-orchestration stabilization |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0476](docs/decisions/ADR-0476-retain-the-v7-laboratory-wall-rejection.md) — Retain the v7 laboratory-wall rejection.
+- Latest ADR: [ADR-0480](docs/decisions/ADR-0480-absorb-the-test-orchestration-stabilization.md) — Absorb the test-orchestration stabilization.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 476.
-- ADR-header SHA-256: `d573094a69081fc2beb36a03f1557135435d1c443f174642ffe7eb314c514662`.
-- Current blockers: v7 is permanently consumed and the compiled calibration is incomplete; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, complete reduced compiled-calibration result, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists.
+- Numbered decisions: 480.
+- ADR-header SHA-256: `d4f40299a63a88d8f47f0210a06592ef283da4f1342a4199dee3b719b37312ea`.
+- Current blockers: v7 is permanently consumed and the compiled calibration is incomplete; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, complete reduced compiled-calibration result, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists; the stabilization adds test-governance capability but clears none of these, and broad-suite execution, capability approvals, the holistic-audit backlog, the protocol-amendment rulings, and the restore drill remain open.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0476](docs/decisions/ADR-0476-retain-the-v7-laboratory-wall-rejection.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0480](docs/decisions/ADR-0480-absorb-the-test-orchestration-stabilization.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

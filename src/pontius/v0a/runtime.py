@@ -54,6 +54,8 @@ from .model import (
     TimingRecord,
     TimingStatus,
     visible_cards_sha256,
+    admit_event,
+    admit_receipt,
 )
 
 
@@ -497,38 +499,36 @@ class HandRuntime:
         """
 
         if self._dead or self._complete:
-            return self._reject(FailureCode.EVENT_ORDER, event)
-        if not isinstance(
-            event,
-            (HandStartedEvent, OpponentActionEvent, StreetRevealedEvent, ShowdownResultEvent),
-        ):
-            return self._reject(FailureCode.INVALID_EVENT, event)
+            return self._reject(FailureCode.EVENT_ORDER)
         if self._outer is None:
-            if not isinstance(event, HandStartedEvent):
-                return self._reject(FailureCode.EVENT_ORDER, event)
             try:
                 self._outer = ActionClockLedger("preflop", clock_ns=self._witness)
             except (ClockInvalidError, ClockReversedError) as error:
                 return self._clock_reject(
-                    error, event, wall_start_ns=None
+                    error, wall_start_ns=None
                 )
 
         try:
             boundary = self._outer.start_transition_boundary()
         except (ClockInvalidError, ClockReversedError) as error:
             return self._clock_reject(
-                error, event, wall_start_ns=None
+                error, wall_start_ns=None
             )
         except RuntimeError:
-            return self._reject(FailureCode.EVENT_ORDER, event)
+            return self._reject(FailureCode.EVENT_ORDER)
 
         wall_start_ns = boundary.started_ns
         terminal_at_entry = self.betting_terminal
         self._boundary_open = True
         self._known_cutoff = None
         self._known_deadline = None
+        admitted = None
         try:
-            return self._process(event, boundary, wall_start_ns, terminal_at_entry)
+            try:
+                admitted = admit_event(event)
+            except (TypeError, ValueError):
+                raise _HandFailure(FailureCode.INVALID_EVENT) from None
+            return self._process(admitted, boundary, wall_start_ns, terminal_at_entry)
         except _HandFailure as failure:
             # The initiating cause is journalled before its own cleanup so a
             # cleanup fault can never be ordered ahead of what caused it.
@@ -537,7 +537,7 @@ class HandRuntime:
             else:
                 self._retain_error(failure.clock_error, otherwise=failure.code)
             self._release_boundary(boundary, terminal_at_entry)
-            return self._from_failure(failure, event)
+            return self._from_failure(failure, admitted)
 
     def _release_boundary(self, boundary: object, terminal_at_entry: bool) -> None:
         """Close a still-open boundary so no interval escapes accounting."""
@@ -716,6 +716,14 @@ class HandRuntime:
         if not state.is_terminal:
             if state.street is not BettingStreet.RIVER or not state.round_complete:
                 raise _HandFailure(FailureCode.EVENT_ORDER)
+        live = state.live_seats
+        for seat, strength in enumerate(event.strengths):
+            if (seat in live) != (strength is not None):
+                raise _HandFailure(FailureCode.INVALID_EVENT)
+        rank_types = {type(event.strengths[seat]) for seat in live}
+        if len(rank_types) != 1:
+            raise _HandFailure(FailureCode.INVALID_EVENT)
+        if not state.is_terminal:
             # Policy selection is permanently disabled before terminal
             # strengths enter the separate settlement path.
             self._policy_disabled = True
@@ -726,12 +734,6 @@ class HandRuntime:
             except (TypeError, ValueError) as error:
                 raise _HandFailure(FailureCode.INVALID_EVENT) from error
         self._policy_disabled = True
-
-        live = spine.state.live_seats
-        for seat in range(len(event.strengths)):
-            present = event.strengths[seat] is not None
-            if (seat in live) != present:
-                raise _HandFailure(FailureCode.INVALID_EVENT)
 
         self._strengths = event.strengths
         self._next_event_index += 1
@@ -1034,8 +1036,12 @@ class HandRuntime:
                 delivery_status=DeliveryStatus.UNKNOWN,
                 timing=self._interrupted_timing(FailureCode.DELIVERY_AMBIGUOUS, wall_start_ns),
             ) from error
+        try:
+            receipt = admit_receipt(receipt)
+        except (TypeError, ValueError):
+            receipt = None
         if (
-            not isinstance(receipt, DeliveryReceipt)
+            receipt is None
             or receipt.hand_id != envelope.hand_id
             or receipt.action_index != envelope.action_index
         ):
@@ -1121,7 +1127,7 @@ class HandRuntime:
         return _HandFailure(code, timing=self._interrupted_timing(code, wall_start_ns),
                             clock_error=error)
 
-    def _from_failure(self, failure: _HandFailure, event: Event) -> DispatchOutcome:
+    def _from_failure(self, failure: _HandFailure, event: Event | None) -> DispatchOutcome:
         self._dead = True
         if failure.timing is not None and failure.timing.status is TimingStatus.INTERRUPTED:
             self._interrupted_responses += 1
@@ -1131,7 +1137,7 @@ class HandRuntime:
             decision=failure.decision,
             failure=FailureRecord(
                 hand_id=self._hand_id,
-                event_index=getattr(event, "event_index", None),
+                event_index=None if event is None else event.event_index,
                 action_index=(
                     self._action_index
                     if failure.timing is not None and self._action_index
@@ -1147,22 +1153,21 @@ class HandRuntime:
     def _clock_reject(
         self,
         error: BaseException,
-        event: Event,
         *,
         wall_start_ns: int | None,
     ) -> DispatchOutcome:
         failure = self._clock_hand_failure(error, wall_start_ns)
         self._retain_error(error, otherwise=failure.code)
-        return self._from_failure(failure, event)
+        return self._from_failure(failure, None)
 
-    def _reject(self, code: FailureCode, event: Event) -> DispatchOutcome:
+    def _reject(self, code: FailureCode) -> DispatchOutcome:
         self._dead = True
         self.record(code)
         return DispatchOutcome(
             status="failed",
             failure=FailureRecord(
                 hand_id=self._hand_id,
-                event_index=getattr(event, "event_index", None),
+                event_index=None,
                 action_index=None,
                 code=code,
                 delivery_status=DeliveryStatus.NOT_ATTEMPTED,

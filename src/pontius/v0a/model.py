@@ -8,7 +8,7 @@ timestamp. Schema identity is the literal ``pontius-v0a-event-v1``.
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, fields
 from enum import StrEnum
 from hashlib import sha256
 
@@ -297,6 +297,41 @@ class DeliveryReceipt:
         _require_exact_int(self.action_index, name="action index", minimum=1)
 
 
+_EVENT_TYPES = (HandStartedEvent, OpponentActionEvent, StreetRevealedEvent, ShowdownResultEvent)
+_INGRESS_RECORD_TYPES = (*_EVENT_TYPES, HandAction, ActionEnvelope, DeliveryReceipt)
+
+
+def _copy_ingress_value(value: object) -> object:
+    """Own a closed exact graph before any consumer can produce effects."""
+    kind = type(value)
+    if value is None or kind is int or kind is str:
+        return value
+    if kind is tuple:
+        return tuple(_copy_ingress_value(item) for item in value)
+    if any(kind is allowed for allowed in _INGRESS_RECORD_TYPES):
+        return kind(**{field.name: _copy_ingress_value(getattr(value, field.name))
+                       for field in fields(kind)})
+    raise TypeError("ingress requires an exact immutable value graph")
+
+
+def admit_event(value: object) -> Event:
+    if not any(type(value) is kind for kind in _EVENT_TYPES):
+        raise TypeError("unsupported event type")
+    return _copy_ingress_value(value)
+
+
+def admit_envelope(value: object) -> ActionEnvelope:
+    if type(value) is not ActionEnvelope:
+        raise TypeError("unsupported envelope type")
+    return _copy_ingress_value(value)
+
+
+def admit_receipt(value: object) -> DeliveryReceipt:
+    if type(value) is not DeliveryReceipt:
+        raise TypeError("unsupported acknowledgement type")
+    return _copy_ingress_value(value)
+
+
 class ActionMailbox:
     """Host-owned value-only mailbox; one acceptance per (hand, action)."""
 
@@ -308,15 +343,18 @@ class ActionMailbox:
         return dict(self._accepted)
 
     def deliver(self, envelope: ActionEnvelope) -> DeliveryReceipt:
-        if not isinstance(envelope, ActionEnvelope):
-            raise MailboxRejectionError("mailbox accepts exact action envelopes only")
+        try:
+            envelope = admit_envelope(envelope)
+            receipt = DeliveryReceipt(hand_id=envelope.hand_id, action_index=envelope.action_index)
+        except (TypeError, ValueError):
+            raise MailboxRejectionError("mailbox requires a valid exact envelope") from None
         key = (envelope.hand_id, envelope.action_index)
         if key in self._accepted:
             raise MailboxRejectionError(
                 f"action {key[1]} of hand {key[0]!r} was already accepted"
             )
         self._accepted[key] = envelope
-        return DeliveryReceipt(hand_id=envelope.hand_id, action_index=envelope.action_index)
+        return receipt
 
 
 @dataclass(frozen=True, slots=True)

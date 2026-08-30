@@ -1081,5 +1081,164 @@ class PolicyRefusalShapeTests(unittest.TestCase):
             self.assertEqual(result.action, CALL)
 
 
+class ValueAdmissionRegressionTests(unittest.TestCase):
+    """Admission precedes effects; acknowledgement never guesses acceptance."""
+
+    @staticmethod
+    def loose(record, **changes):
+        from dataclasses import fields
+        kind = type(record)
+        unchecked = type("Unchecked" + kind.__name__, (kind,),
+                         {"__post_init__": lambda self: None})
+        values = {field.name: getattr(record, field.name) for field in fields(kind)}
+        values.update(changes)
+        return unchecked(**values)
+
+    def before(self, kind):
+        mailbox = ActionMailbox()
+        runtime = new_runtime(empty_blueprint(), mailbox=mailbox)
+        if kind == "start":
+            return runtime, mailbox, hand_started()
+        self.assertEqual(runtime.dispatch(hand_started(controlled_seat=2)).status, "accepted")
+        if kind == "opponent":
+            return runtime, mailbox, opponent(1, 3, fold_action())
+        for index, seat in ((1, 3), (2, 4), (3, 5), (4, 0)):
+            self.assertEqual(runtime.dispatch(opponent(index, seat, fold_action())).status,
+                             "accepted")
+        self.assertEqual(runtime.dispatch(opponent(5, 1, call_action())).status, "decided")
+        reveal = StreetRevealedEvent(hand_id=HAND, event_index=6,
+                                    street="flop", cards=(20, 21, 22))
+        if kind == "reveal":
+            return runtime, mailbox, reveal
+        index = 6
+        for street, cards in (("flop", (20, 21, 22)), ("turn", (30,)), ("river", (40,))):
+            self.assertEqual(runtime.dispatch(StreetRevealedEvent(
+                hand_id=HAND, event_index=index, street=street, cards=cards)).status, "accepted")
+            index += 1
+            self.assertEqual(runtime.dispatch(opponent(
+                index, 1, HandAction(kind="check", raise_to=None), street)).status, "decided")
+            index += 1
+        return runtime, mailbox, ShowdownResultEvent(
+            hand_id=HAND, event_index=index, strengths=(None, 5, 9, None, None, None))
+
+    def assert_no_effect(self, runtime, mailbox, bad):
+        before, deliveries = runtime.state, mailbox.accepted
+        outcome = runtime.dispatch(bad)
+        self.assertEqual(outcome.status, "failed")
+        self.assertIs(outcome.failure.code, FailureCode.INVALID_EVENT)
+        self.assertIsNone(outcome.failure.event_index)
+        self.assertEqual(runtime.state, before)
+        self.assertEqual(mailbox.accepted, deliveries)
+        self.assertFalse(runtime.hand_complete)
+
+    def test_all_event_variants_revalidate_before_any_effect(self):
+        for kind in ("start", "opponent", "reveal", "showdown"):
+            for changes in ({}, {"schema_version": "wrong"}, {"event_index": True},
+                            {"event_index": 0.0}, {"hand_id": []}):
+                with self.subTest(kind=kind, changes=changes):
+                    runtime, mailbox, good = self.before(kind)
+                    self.assert_no_effect(runtime, mailbox, self.loose(good, **changes))
+        runtime, mailbox, good = self.before("opponent")
+        # Exact outer event, normally constructed nested object skipping validation.
+        nested = self.loose(HandAction(kind="raise", raise_to=6), kind="not-an-action")
+        self.assert_no_effect(runtime, mailbox, OpponentActionEvent(
+            hand_id=HAND, event_index=1, street="preflop", seat=3, action=nested))
+
+    def test_showdown_strengths_are_immutable_and_comparable_before_completion(self):
+        from dataclasses import replace
+        for strengths in ([], [None, 5, 9, None, None, None],
+                          (None, (), (9,), None, None, None)):
+            with self.subTest(strengths=strengths):
+                runtime, mailbox, good = self.before("showdown")
+                self.assert_no_effect(runtime, mailbox, self.loose(good, strengths=strengths))
+        for ranks in ((None, 5, (9,), None, None, None),
+                      (None, None, 9, None, None, None), (1, 5, 9, None, None, None)):
+            with self.subTest(context_strengths=ranks):
+                runtime, mailbox, good = self.before("showdown")
+                before = runtime.state
+                outcome = runtime.dispatch(replace(good, strengths=ranks))
+                self.assertEqual(outcome.status, "failed")
+                self.assertIs(outcome.failure.code, FailureCode.INVALID_EVENT)
+                self.assertEqual(runtime.state, before)
+                self.assertFalse(runtime.hand_complete)
+        for strengths in ((None, 5, 9, None, None, None),
+                          (None, (5,), (9,), None, None, None)):
+            runtime, mailbox, good = self.before("showdown")
+            self.assertEqual(runtime.dispatch(replace(good, strengths=strengths)).status, "accepted")
+            first = runtime.settle()
+            self.assertEqual(first.payouts, (0, 0, 4, 0, 0, 0))
+            self.assertEqual(runtime.settle(), first)
+
+    def test_rejected_metadata_never_reads_unadmitted_objects(self):
+        class Hostile:
+            @property
+            def event_index(self):
+                raise AssertionError("unadmitted metadata consulted")
+        for mode in ("fresh", "dead", "clock", "complete"):
+            with self.subTest(mode=mode):
+                clock = ScriptedClock()
+                mailbox = ActionMailbox()
+                runtime = new_runtime(empty_blueprint(), mailbox, clock)
+                if mode == "dead":
+                    runtime.dispatch(opponent(1, 3, fold_action()))
+                if mode == "clock":
+                    clock.fail_next("invalid")
+                if mode == "complete":
+                    runtime, mailbox, event = self.before("showdown")
+                    self.assertEqual(runtime.dispatch(event).status, "accepted")
+                before = mailbox.accepted
+                outcome = runtime.dispatch(Hostile())
+                self.assertEqual(outcome.status, "failed")
+                self.assertIsNone(outcome.failure.event_index)
+                self.assertEqual(mailbox.accepted, before)
+
+    def test_invalid_envelopes_cannot_poison_later_valid_key(self):
+        good = ActionEnvelope(hand_id=HAND, action_index=1, seat=3,
+                              street="preflop", action=call_action())
+        changes = ({}, {"action_index": True}, {"action_index": 1.0},
+                   {"seat": True}, {"street": "wrong"}, {"hand_id": []},
+                   {"action": self.loose(call_action(), kind="bad")})
+        for change in changes:
+            with self.subTest(change=change):
+                mailbox = ActionMailbox()
+                with self.assertRaises(MailboxRejectionError):
+                    mailbox.deliver(self.loose(good, **change))
+                self.assertEqual(mailbox.accepted, {})
+                self.assertEqual(mailbox.deliver(good).action_index, 1)
+                self.assertEqual(len(mailbox.accepted), 1)
+                with self.assertRaises(MailboxRejectionError):
+                    mailbox.deliver(good)
+        nested = ActionEnvelope(hand_id=HAND, action_index=1, seat=3,
+                                street="preflop", action=self.loose(call_action(), kind="bad"))
+        mailbox = ActionMailbox()
+        with self.assertRaises(MailboxRejectionError):
+            mailbox.deliver(nested)
+        self.assertEqual(mailbox.accepted, {})
+        mailbox.deliver(good)
+
+    def test_real_delivery_with_invalid_receipt_is_ambiguous_without_retry(self):
+        from pontius.v0a.model import DeliveryReceipt
+        for change in ({}, {"action_index": True}, {"action_index": 1.0}, {"hand_id": []}):
+            with self.subTest(change=change):
+                mailbox, attempts = ActionMailbox(), []
+                loose = self.loose
+                class Forward:
+                    def deliver(self, envelope):
+                        attempts.append(envelope)
+                        receipt = mailbox.deliver(envelope)
+                        return loose(receipt, **change)
+                runtime = new_runtime(empty_blueprint(), Forward())
+                outcome = runtime.dispatch(hand_started())
+                self.assertEqual(outcome.status, "failed")
+                self.assertIs(outcome.failure.code, FailureCode.DELIVERY_AMBIGUOUS)
+                self.assertIs(outcome.failure.delivery_status, DeliveryStatus.UNKNOWN)
+                self.assertEqual(runtime.accepted_delivery_count, 0)
+                self.assertEqual(len(mailbox.accepted), 1)
+                self.assertEqual(len(attempts), 1)
+                runtime.dispatch(opponent(1, 4, call_action()))
+                self.assertEqual(len(attempts), 1)
+
+
+
 if __name__ == "__main__":
     sys.exit(main())

@@ -69,9 +69,6 @@ jobs:
       - name: Evidence manifest generation suite
         run: .venv\Scripts\python.exe -B -P tests\test_evidence_manifest_generation.py
 
-      - name: Stabilization boundaries suite
-        run: .venv\Scripts\python.exe -B -P tests\test_stabilization_boundaries.py
-
       - name: Orchestration import boundary suite
         run: .venv\Scripts\python.exe -B -P tests\test_test_orchestration_import_boundary.py
 
@@ -80,6 +77,12 @@ jobs:
 
       - name: Inventory and profiles suite
         run: .venv\Scripts\python.exe -B -P tests\test_inventory_and_profiles.py
+
+      # Runs late: its same-size mid-read mutation test is timing-sensitive on
+      # runner hardware (recorded finding; fix-round pending). Ordering keeps
+      # every gate while letting independent suites report first.
+      - name: Stabilization boundaries suite
+        run: .venv\Scripts\python.exe -B -P tests\test_stabilization_boundaries.py
 
       - name: Generated inventory/profiles byte-stability
         run: .venv\Scripts\python.exe -B -P tools\generate_test_inventory.py --check

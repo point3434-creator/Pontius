@@ -1,0 +1,66 @@
+# Walking-skeleton CI: the CPU-safe governance and orchestration suites on the
+# CPython 3.11 release slot, every push. This is the fast early-warning layer,
+# not acceptance evidence — acceptance still requires the disposable-snapshot
+# procedure of CLAUDE.md rule 5. GPU/H32/scientific suites are intentionally
+# excluded (hosted runners have no RTX 5080); they remain snapshot-only.
+name: CI
+
+on:
+  push:
+    branches: [master, "codex/**"]
+  workflow_dispatch:
+
+jobs:
+  release-slot:
+    name: Release-slot suites (CPython 3.11, CPU)
+    runs-on: windows-latest
+    timeout-minutes: 40
+    env:
+      PONTIUS_GIT: C:\Program Files\Git\cmd\git.exe
+      PYTHONPATH: ${{ github.workspace }}\src
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Sync locked environment on CPython 3.11
+        run: uv sync --group dev --python 3.11
+
+      - name: STATUS.md freshness
+        run: .venv\Scripts\python.exe -B -P -m pontius.status_generation --check
+
+      - name: Status generation suite
+        run: .venv\Scripts\python.exe -B -P tests\test_status_generation.py
+
+      - name: Evidence errors and model suite
+        run: .venv\Scripts\python.exe -B -P tests\test_evidence_errors_and_model.py
+
+      - name: Evidence manifests suite
+        run: .venv\Scripts\python.exe -B -P tests\test_evidence_manifests.py
+
+      - name: Evidence manifest generation suite
+        run: .venv\Scripts\python.exe -B -P tests\test_evidence_manifest_generation.py
+
+      - name: Stabilization boundaries suite
+        run: .venv\Scripts\python.exe -B -P tests\test_stabilization_boundaries.py
+
+      - name: Orchestration import boundary suite
+        run: .venv\Scripts\python.exe -B -P tests\test_test_orchestration_import_boundary.py
+
+      - name: Orchestration configuration suite
+        run: .venv\Scripts\python.exe -B -P tests\test_test_orchestration_configuration.py
+
+      - name: Inventory and profiles suite
+        run: .venv\Scripts\python.exe -B -P tests\test_inventory_and_profiles.py
+
+      - name: Generated inventory/profiles byte-stability
+        run: .venv\Scripts\python.exe -B -P tools\generate_test_inventory.py --check
+
+      - name: Stabilization boundary check
+        run: .venv\Scripts\python.exe -B -P tools\check_stabilization_boundaries.py
+
+      - name: Ruff report (informational, non-gating)
+        continue-on-error: true
+        run: uv run ruff check src tools tests --statistics

@@ -334,12 +334,8 @@ class TraceAndAccountingTests(unittest.TestCase):
             self.assertIsNone(outcome.receipt.trace_sha256)
             self.assertFalse(outcome.receipt.passed)
             # The delivered actions stand and their decisions are retained.
-            self.assertEqual(
-                len(outcome.decisions), FIXTURE_A.expected_controlled_actions
-            )
-            self.assertEqual(
-                len(host.mailbox.accepted), FIXTURE_A.expected_controlled_actions
-            )
+            self.assertEqual(len(outcome.decisions), 1)
+            self.assertEqual(len(host.mailbox.accepted), 1)
             self.assertEqual(target.read_bytes(), b"occupied\n")
             self.assertEqual(outcome.receipt.secondary_failures, ())
 
@@ -576,28 +572,35 @@ class R3_02TypedClosureCauseTests(unittest.TestCase):
                     reported = (receipt.failure_reason, *receipt.secondary_failures)
                     self.assertIn(expected, reported)
 
-    def test_a_clock_fault_before_a_mismatch_keeps_the_clock_as_primary(self) -> None:
-        total = self.observation_count()
-
+    def test_a_clock_fault_before_a_mismatch_gates_the_required_body(self) -> None:
+        class Counting(SteadyClock):
+            def __init__(self):
+                super().__init__()
+                self.reads = 0
+            def __call__(self):
+                self.reads += 1
+                return super().__call__()
+        clock, entry = Counting(), []
+        def observed_oracle(**kwargs):
+            entry.append(clock.reads)
+            return chip_depth_settlement(**kwargs)
+        control = ReplayHost(FIXTURE_A, run_id=PROTOCOL_ID + "-correctness-entry-control",
+                             blueprint=blueprint(), clock=clock,
+                             settlement_oracle=observed_oracle).run()
+        self.assertTrue(control.receipt.passed)
+        self.assertEqual(len(entry), 1)
+        called = []
         def wrong_oracle(**kwargs):
-            # A perturbation that always differs, unlike swapping two seats
-            # whose fixture-A payouts are both zero.
+            called.append(1)
             oracle = chip_depth_settlement(**kwargs)
-            return replace(
-                oracle, final_stacks=tuple(v + 1 for v in oracle.final_stacks)
-            )
-
-        # Fault at the bookkeeping entry, which precedes the comparison.
-        host = ReplayHost(
-            FIXTURE_A,
-            run_id=f"{PROTOCOL_ID}-correctness-clockfirst",
-            blueprint=blueprint(),
-            clock=self.faulting_clock(total - 4),
-            settlement_oracle=wrong_oracle,
-        )
+            return replace(oracle, final_stacks=tuple(v + 1 for v in oracle.final_stacks))
+        host = ReplayHost(FIXTURE_A, run_id=PROTOCOL_ID + "-correctness-clockfirst",
+                          blueprint=blueprint(), clock=self.faulting_clock(entry[0]),
+                          settlement_oracle=wrong_oracle)
         receipt = host.run().receipt
         self.assertIs(receipt.failure_reason, FailureCode.CLOCK_INVALID)
-        self.assertIn(FailureCode.SETTLEMENT_MISMATCH, receipt.secondary_failures)
+        self.assertEqual(called, [], "required entry failure prevents the oracle body")
+        self.assertNotIn(FailureCode.SETTLEMENT_MISMATCH, receipt.secondary_failures)
 
     def test_a_mismatch_before_a_clock_fault_keeps_the_mismatch_as_primary(self) -> None:
         total = self.observation_count()
@@ -1181,34 +1184,61 @@ class FailureAdapterRegressionTests(unittest.TestCase):
         self.assertEqual(len(entry), 1)
         return entry[0]
 
-    def test_one_source_fault_is_not_counted_again_when_the_body_reads_the_dead_witness(self):
+    def test_required_settlement_entry_prevents_any_dead_witness_body(self):
         from pontius.v0a.clock import ClockInvalidError
         for fixture in FIXTURES:
             entry = self.entry_read(fixture)
             for kind in ("invalid", "exception", "reversed"):
-                for mode in ("echo", "independent_clock", "independent_error"):
-                    with self.subTest(fixture=fixture.name, kind=kind, mode=mode):
-                        source = self.Source()
-                        source.fail_at, source.kind = entry, kind
-                        witness = MonotonicWitness(source)
-                        def oracle(**kwargs):
+                with self.subTest(fixture=fixture.name, kind=kind):
+                    source, body = self.Source(), []
+                    source.fail_at, source.kind = entry, kind
+                    witness = MonotonicWitness(source)
+                    def oracle(**kwargs):
+                        body.append(1)
+                        witness()
+                        raise ValueError("a body that must not run")
+                    host = self.host(fixture, witness, oracle)
+                    outcome = self.completed(host)
+                    self.assertEqual(body, [])
+                    self.assertEqual(self.causes(outcome), tuple(source.observed))
+                    self.assertEqual(source.reads, entry, "a dead source must not be retried")
+                    self.assertEqual(host.runtime.accepted_delivery_count,
+                                     fixture.expected_controlled_actions)
+                    self.assertFalse(outcome.receipt.passed)
+
+    def test_optional_reporting_still_preserves_source_and_distinct_body_causes(self):
+        from pontius.v0a.clock import ClockInvalidError
+        from pontius.v0a.model import HandStartedEvent
+        from pontius.v0a.runtime import OperationFailed
+        for kind in ("invalid", "exception", "reversed"):
+            for mode in ("echo", "independent_clock", "independent_error"):
+                with self.subTest(kind=kind, mode=mode):
+                    source = self.Source()
+                    witness = MonotonicWitness(source)
+                    runtime = HandRuntime(blueprint=blueprint(), mailbox=ActionMailbox(),
+                                          clock=witness)
+                    fixture = FIXTURE_A
+                    outcome = runtime.dispatch(HandStartedEvent(
+                        hand_id=fixture.hand_id, event_index=0, button=fixture.button,
+                        controlled_seat=fixture.controlled_seat,
+                        starting_stacks=fixture.starting_stacks, small_blind=1, big_blind=2,
+                        private_cards=tuple(fixture.deal().hand(fixture.controlled_seat))))
+                    self.assertEqual(outcome.status, "decided")
+                    source.fail_at, source.kind = source.reads + 1, kind
+                    with self.assertRaises(OperationFailed):
+                        with runtime.owned_bookkeeping(body_failure=FailureCode.SETTLEMENT_MISMATCH):
                             if mode == "independent_clock":
                                 raise ClockInvalidError("a different body occurrence")
                             if mode == "independent_error":
                                 raise ValueError("a different body occurrence")
                             witness()
-                            return chip_depth_settlement(**kwargs)
-                        host = self.host(fixture, witness, oracle)
-                        outcome = self.completed(host)
-                        wanted = tuple(source.observed)
-                        if mode != "echo":
-                            wanted += ((FailureCode.CLOCK_INVALID,) if mode == "independent_clock"
-                                       else (FailureCode.SETTLEMENT_MISMATCH,))
-                        self.assertEqual(self.causes(outcome), wanted)
-                        self.assertEqual(source.reads, entry, "a dead source must not be retried")
-                        self.assertEqual(host.runtime.accepted_delivery_count,
-                                         4 if fixture is FIXTURE_A else 2)
-                        self.assertFalse(outcome.receipt.passed)
+                    wanted = tuple(source.observed)
+                    if mode != "echo":
+                        wanted += ((FailureCode.CLOCK_INVALID,) if mode == "independent_clock"
+                                   else (FailureCode.SETTLEMENT_MISMATCH,))
+                    self.assertEqual(runtime.closure_failures, wanted)
+                    self.assertEqual(source.reads, source.fail_at)
+                    self.assertFalse(runtime.accounting().complete)
 
     def test_caught_source_fault_survives_a_return_or_a_different_body_failure(self):
         from pontius.v0a.clock import ClockInvalidError
@@ -1295,7 +1325,10 @@ class FailureAdapterRegressionTests(unittest.TestCase):
                                      else FailureCode.TRACE_WRITE_FAILED)
                             self.assertEqual(self.causes(outcome), (first, *source.observed))
                             self.assertEqual(inspected, [])
-                            self.assertEqual(len(outcome.decisions), 4 if fixture is FIXTURE_A else 2)
+                            expected_actions = ((1 if fixture is FIXTURE_A else 0)
+                                                if boundary == "publication"
+                                                else fixture.expected_controlled_actions)
+                            self.assertEqual(len(outcome.decisions), expected_actions)
                             self.assertEqual(len(host.mailbox.accepted), len(outcome.decisions))
                             self.assertFalse(outcome.receipt.passed)
 
@@ -1552,6 +1585,205 @@ class AcceptingReplayTests(unittest.TestCase):
         outcome = host.run()
         with self.assertRaises(TraceInvalidError):
             self.verify(outcome.trace)
+
+
+
+class IncrementalPublicationTests(unittest.TestCase):
+    def test_incomplete_schedule_keeps_deliveries_and_reports_a_typed_failure(self):
+        for stop in range(len(FIXTURE_A.script)):
+            with self.subTest(script_length=stop):
+                fixture = dc_replace(FIXTURE_A, script=FIXTURE_A.script[:stop])
+                host, outcome = run_fixture(fixture)
+                self.assertFalse(outcome.receipt.passed)
+                self.assertIs(outcome.receipt.failure_reason, FailureCode.EVENT_ORDER)
+                self.assertEqual(len(outcome.decisions), len(host.mailbox.accepted))
+                self.assertGreaterEqual(len(outcome.decisions), 1)
+                terminal = parse_trace(outcome.trace).terminal
+                self.assertFalse(terminal["passed"])
+                self.assertIsNone(terminal["settlement"])
+                self.assertEqual(terminal["failure_reason"], "event_order")
+
+    def test_failed_required_entry_never_advances_the_input_iterator(self):
+        reads, advanced = [], []
+        def source():
+            reads.append(1)
+            return True if len(reads) == 2 else len(reads) * 1000
+        def observe(frame, event, arg):
+            if event == "call" and frame.f_code is ReplayHost._events.__code__:
+                advanced.append(1)
+        previous = sys.getprofile()
+        sys.setprofile(observe)
+        try:
+            host, outcome = run_fixture(FIXTURE_A, clock=source)
+        finally:
+            sys.setprofile(previous)
+        self.assertEqual(advanced, [], "required entry failure must gate next(iterator)")
+        self.assertEqual(len(host.mailbox.accepted), 0)
+        self.assertEqual(outcome.decisions, ())
+        self.assertFalse(outcome.receipt.passed)
+        self.assertIs(outcome.receipt.failure_reason, FailureCode.CLOCK_INVALID)
+
+    def test_iterator_advancement_and_exhaustion_are_measured(self):
+        clock, advances = SteadyClock(step=0), []
+        def observe(frame, event, arg):
+            if event == "call" and frame.f_code is ReplayHost._events.__code__:
+                advances.append(1)
+                clock.now += NANOS
+        previous = sys.getprofile()
+        sys.setprofile(observe)
+        try:
+            _, outcome = run_fixture(FIXTURE_A, clock=clock)
+        finally:
+            sys.setprofile(previous)
+        terminal = parse_trace(outcome.trace).terminal
+        self.assertTrue(outcome.receipt.passed)
+        self.assertGreater(len(advances), 20)
+        self.assertEqual(terminal["preparation_compute_seconds"]
+                         + terminal["post_terminal_compute_seconds"], float(len(advances)))
+        self.assertTrue(all(record.timing.elapsed_ns == 0 for record in outcome.decisions))
+
+    def test_post_delivery_entry_failure_retains_decision_without_more_input_or_file(self):
+        clock = FailureAdapterRegressionTests.Source()
+        observed, advanced = [], []
+        def observe(frame, event, arg):
+            if event == "call" and frame.f_code is ReplayHost._events.__code__:
+                advanced.append(1)
+            if (event == "return" and frame.f_code is HandRuntime.dispatch.__code__
+                    and arg is not None and arg.decision is not None and not observed):
+                observed.append(arg.decision)
+                clock.fail_at = clock.reads + 1
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            target = root / "trace.jsonl"
+            previous = sys.getprofile()
+            sys.setprofile(observe)
+            try:
+                host, outcome = run_fixture(FIXTURE_A, clock=clock,
+                                            destination=target, run_root=root)
+            finally:
+                sys.setprofile(previous)
+            self.assertFalse(target.exists())
+        self.assertEqual(len(advanced), 1)
+        self.assertEqual(outcome.decisions, tuple(observed))
+        self.assertEqual(len(host.mailbox.accepted), 1)
+        self.assertEqual(parse_trace(outcome.trace).terminal["decision_count"], 1)
+        self.assertIs(outcome.receipt.failure_reason, FailureCode.CLOCK_INVALID)
+        self.assertIsNone(outcome.receipt.trace_sha256)
+        self.assertFalse(outcome.receipt.accounting_complete)
+
+    def test_clock_loss_after_first_append_preserves_incomplete_file_and_closes_owner(self):
+        import pontius.v0a.trace as trace_module
+        from pontius.v0a.trace import TraceInvalidError
+        writer_type = getattr(trace_module, "TraceWriter", None)
+        self.assertIsNotNone(writer_type, "incremental publication requires an owned writer")
+        clock = FailureAdapterRegressionTests.Source()
+        appends, dispatches = [], []
+        def observe(frame, event, arg):
+            if event == "call" and frame.f_code is HandRuntime.dispatch.__code__:
+                dispatches.append(1)
+            if event == "return" and frame.f_code is writer_type.append.__code__ and not appends:
+                appends.append(1)
+                clock.fail_at = clock.reads + 1
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            target = root / "trace.jsonl"
+            previous = sys.getprofile()
+            sys.setprofile(observe)
+            try:
+                host, outcome = run_fixture(FIXTURE_A, clock=clock,
+                                            destination=target, run_root=root)
+            finally:
+                sys.setprofile(previous)
+            self.assertEqual(appends, [1])
+            self.assertEqual(len(dispatches), 1)
+            self.assertEqual(len(host.mailbox.accepted), 1)
+            self.assertIn(b'"record_type":"decision"', target.read_bytes())
+            self.assertNotIn(b'"record_type":"terminal"', target.read_bytes())
+            with self.assertRaises(TraceInvalidError):
+                parse_trace(target.read_bytes())
+            moved = root / "closed-prefix.jsonl"
+            target.rename(moved)  # successful rename proves native owner released it
+            self.assertTrue(moved.exists())
+        self.assertIs(outcome.receipt.failure_reason, FailureCode.CLOCK_INVALID)
+        self.assertIsNone(outcome.receipt.trace_sha256)
+        self.assertFalse(outcome.receipt.passed)
+
+    def test_every_real_serializer_and_semantic_cost_is_measured(self):
+        import pontius.v0a.trace as trace_module
+        clock = SteadyClock(step=0)
+        calls = {"before_terminal": 0, "terminal": 0}
+        def observe(frame, event, arg):
+            if event == "call" and frame.f_code is trace_module.canonical_json.__code__:
+                payload = frame.f_locals["payload"]
+                terminal = type(payload) is dict and payload.get("record_type") == "terminal"
+                calls["terminal" if terminal else "before_terminal"] += 1
+                clock.now += NANOS
+        previous = sys.getprofile()
+        sys.setprofile(observe)
+        try:
+            _, outcome = run_fixture(FIXTURE_A, clock=clock)
+        finally:
+            sys.setprofile(previous)
+        terminal = parse_trace(outcome.trace).terminal
+        self.assertTrue(outcome.receipt.passed)
+        self.assertEqual(terminal["preparation_compute_seconds"]
+                         + terminal["post_terminal_compute_seconds"],
+                         float(calls["before_terminal"]))
+        self.assertEqual(outcome.receipt.terminal_publication_compute_seconds,
+                         float(calls["terminal"]))
+        self.assertTrue(all(record.timing.elapsed_ns == 0 for record in outcome.decisions))
+        self.assertGreater(calls["before_terminal"], 20)
+
+    def test_required_rows_exist_before_next_dispatch_and_parent_stays_pinned(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            parent = root / "inside"
+            parent.mkdir()
+            target = parent / "trace.jsonl"
+            moved = root / "moved"
+            host = ReplayHost(FIXTURE_A, run_id=f"{PROTOCOL_ID}-correctness-row-observer",
+                              blueprint=blueprint(), clock=SteadyClock())
+            observations, rename_attempts = [], []
+            def observe(frame, event, arg):
+                if (event == "call" and frame.f_code is HandRuntime.dispatch.__code__
+                        and host.mailbox.accepted):
+                    observations.append(target.exists())
+                    if not target.exists():
+                        return
+                    self.assertIn(b'"record_type":"decision"', target.read_bytes())
+                    if not rename_attempts:
+                        try:
+                            parent.rename(moved)
+                        except PermissionError:
+                            rename_attempts.append("denied")
+                        else:
+                            rename_attempts.append("moved")
+                            moved.rename(parent)
+            previous = sys.getprofile()
+            sys.setprofile(observe)
+            try:
+                outcome = host.run(destination=target, run_root=root)
+            finally:
+                sys.setprofile(previous)
+            self.assertTrue(observations)
+            self.assertTrue(all(observations))
+            self.assertEqual(rename_attempts, ["denied"])
+            self.assertTrue(outcome.receipt.passed)
+            self.assertEqual(target.read_bytes(), outcome.trace)
+            self.assertEqual(outcome.receipt.trace_sha256, sha256(outcome.trace).hexdigest())
+
+    def test_first_required_write_failure_stops_before_second_action(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            target = root / "trace.jsonl"
+            target.write_bytes(b"existing sentinel")
+            host, outcome = run_fixture(FIXTURE_A, destination=target, run_root=root)
+            self.assertEqual(len(host.mailbox.accepted), 1)
+            self.assertEqual(len(outcome.decisions), 1)
+            self.assertIs(outcome.receipt.failure_reason, FailureCode.TRACE_WRITE_FAILED)
+            self.assertFalse(outcome.receipt.passed)
+            self.assertIsNone(outcome.receipt.trace_sha256)
+            self.assertEqual(target.read_bytes(), b"existing sentinel")
 
 
 def main() -> int:

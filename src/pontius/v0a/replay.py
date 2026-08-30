@@ -38,8 +38,8 @@ from .trace import (
     TraceInvalidError,
     TraceWriteError,
     parse_trace,
+    TraceWriter,
     semantic_sha256,
-    write_trace,
 )
 
 PROTOCOL_ID = "pontius-v0a-hand-replay-v1"
@@ -347,15 +347,13 @@ class ReplayHost:
         self._runtime = HandRuntime(
             blueprint=blueprint, mailbox=self._mailbox, clock=clock
         )
-        self._builder = TraceBuilder(
-            run_id=run_id,
-            mode=mode,
-            source_commit=source_commit,
-            source_manifest_sha256=source_manifest_sha256,
-            configuration_sha256=fixture.configuration_sha256(),
-            blueprint_sha256=self._runtime.blueprint_sha256,
-            clock_kind=clock_kind,
+        # Fixture/deal admission is declared pre-run setup. Header identity
+        # computation and serialization begin only inside run's public ledger.
+        self._header_arguments = dict(
+            run_id=run_id, mode=mode, source_commit=source_commit,
+            source_manifest_sha256=source_manifest_sha256, clock_kind=clock_kind,
         )
+        self._builder: TraceBuilder | None = None
 
     @property
     def mailbox(self) -> ActionMailbox:
@@ -404,203 +402,276 @@ class ReplayHost:
             index += 1
 
     def run(self, *, destination=None, run_root=None) -> ReplayOutcome:
-        """Replay the fixture, verify settlement, and publish the terminal."""
-
-        runtime = self._runtime
-        fixture = self._fixture
-        builder = self._builder
+        """Measure host work and publish required rows before acquiring more input."""
+        runtime, fixture = self._runtime, self._fixture
+        builder = None
+        writer = None
+        writer_closed = False
+        reported_close_errors = ()
+        stream_usable = True
+        file_requested = destination is not None or run_root is not None
         decisions: list[DecisionRecord] = []
         failures: list[FailureRecord] = []
         accepted_events: list[object] = []
-        def note(code: FailureCode) -> None:
-            """Journal a host-detected cause at the moment it occurs."""
+        iterator = None
+        header_attempted = False
 
-            runtime.record(code)
+        def new_builder():
+            return TraceBuilder(
+                **self._header_arguments,
+                configuration_sha256=fixture.configuration_sha256(),
+                blueprint_sha256=runtime.blueprint_sha256,
+            )
 
-        for event in self._events():
+        def close_stream():
+            nonlocal writer_closed, reported_close_errors
+            if writer is None:
+                return ()
+            if not writer_closed:
+                writer_closed = True
+                try:
+                    writer.close()
+                except BaseException as closing_error:
+                    # The native owner retains every actual close failure.
+                    # Unexpected callback/source errors still cross normally.
+                    if not any(item is closing_error for item in writer.close_errors):
+                        raise
+            pending = tuple(error for error in writer.close_errors
+                            if not any(error is prior for prior in reported_close_errors))
+            reported_close_errors += pending
+            return pending
+
+        def flush_rows():
+            nonlocal writer
+            pending = builder.take_pending()
+            if not file_requested:
+                return
+            if destination is None or run_root is None:
+                raise TraceWriteError("file publication requires both destination and run root")
+            if writer is None:
+                # The owner exists before native acquisition starts.
+                writer = TraceWriter(destination, run_root=run_root)
+            writer.append(pending)
+
+        try:
+            runtime.begin_host_accounting()
+            with runtime.owned_bookkeeping(body_failure=FailureCode.TRACE_WRITE_FAILED,
+                                           required=True):
+                header_attempted = True
+                builder = new_builder()
+                iterator = iter(self._events())
+        except OperationFailed:
+            stream_usable = False
+        if builder is None and not header_attempted:
+            # Source failure before ordinary work may still produce an honest
+            # in-memory failure report. No file/digest/accounting success follows.
+            try:
+                with runtime.owned_bookkeeping(body_failure=FailureCode.TRACE_WRITE_FAILED):
+                    builder = new_builder()
+            except OperationFailed:
+                pass
+        self._builder = builder
+
+        def feed(event):
+            nonlocal stream_usable
             outcome = runtime.dispatch(event)
-            if outcome.status == "failed":
+            retained = False
+
+            def retain_and_serialize():
+                nonlocal retained
+                if outcome.status != "failed":
+                    accepted_events.append(event)
                 if outcome.failure is not None:
                     failures.append(outcome.failure)
-                    builder.add_failure(outcome.failure)
                 if outcome.decision is not None:
                     decisions.append(outcome.decision)
+                # Retention precedes serialization: a serializer/write failure
+                # cannot erase an action the real mailbox already accepted.
+                retained = True
+                if outcome.status != "failed":
+                    builder.add_event(event)
+                if outcome.failure is not None:
+                    builder.add_failure(outcome.failure)
+                if outcome.decision is not None:
                     builder.add_decision(outcome.decision)
+
+            try:
+                with runtime.owned_bookkeeping(body_failure=FailureCode.TRACE_WRITE_FAILED,
+                                               required=True):
+                    retain_and_serialize()
+                    flush_rows()
+            except OperationFailed:
+                stream_usable = False
+                if not retained:
+                    # Required entry failed after dispatch. This separate
+                    # optional path reports already observed outcomes only;
+                    # it never acquires input or publishes unmeasured rows.
+                    try:
+                        with runtime.owned_bookkeeping(body_failure=FailureCode.TRACE_WRITE_FAILED):
+                            retain_and_serialize()
+                    except OperationFailed:
+                        pass
+                # The body cause was retained before this later cleanup.
+                try:
+                    with runtime.owned_bookkeeping(body_failure=FailureCode.TRACE_WRITE_FAILED,
+                                                   cleanup=close_stream):
+                        pass
+                except OperationFailed:
+                    pass
+            return outcome.status != "failed" and not runtime.closure_failures and stream_usable
+
+        exhausted = object()
+        while iterator is not None and not runtime.closure_failures:
+            try:
+                with runtime.owned_bookkeeping(body_failure=FailureCode.INVALID_EVENT,
+                                               required=True):
+                    event = next(iterator, exhausted)
+            except OperationFailed:
+                stream_usable = False
                 break
-            accepted_events.append(event)
-            builder.add_event(event)
-            if outcome.decision is not None:
-                decisions.append(outcome.decision)
-                builder.add_decision(outcome.decision)
+            if event is exhausted or runtime.closure_failures or not feed(event):
+                break
 
-        def feed(event: object) -> bool:
-            outcome = runtime.dispatch(event)
-            if outcome.status == "failed":
-                if outcome.failure is not None:
-                    failures.append(outcome.failure)
-                    builder.add_failure(outcome.failure)
-                if outcome.decision is not None:
-                    decisions.append(outcome.decision)
-                    builder.add_decision(outcome.decision)
-                return False
-            accepted_events.append(event)
-            builder.add_event(event)
-            if outcome.decision is not None:
-                decisions.append(outcome.decision)
-                builder.add_decision(outcome.decision)
-            return True
-
-        # All-in runout: streets with no actionable seat still reveal their
-        # public cards and close their ledgers.
+        # Event construction/evaluation is host preparation, never response
+        # work. All-in runout still closes each actual street boundary.
         streets = tuple(BettingStreet)
-        while (
-            not runtime.closure_failures
-            and runtime.state is not None
-            and not runtime.state.is_terminal
-            and runtime.state.round_complete
-            and runtime.state.street is not BettingStreet.RIVER
-        ):
-            following = streets[streets.index(runtime.state.street) + 1]
-            if not feed(
-                StreetRevealedEvent(
-                    hand_id=fixture.hand_id,
-                    event_index=len(accepted_events),
-                    street=following.value,
-                    cards=tuple(self._deal.reveal_for(following)),
-                )
-            ):
+        while (not runtime.closure_failures and runtime.state is not None
+               and not runtime.state.is_terminal and runtime.state.round_complete
+               and runtime.state.street is not BettingStreet.RIVER):
+            try:
+                with runtime.owned_bookkeeping(body_failure=FailureCode.INVALID_EVENT,
+                                               required=True):
+                    following = streets[streets.index(runtime.state.street) + 1]
+                    event = StreetRevealedEvent(
+                        hand_id=fixture.hand_id, event_index=len(accepted_events),
+                        street=following.value, cards=tuple(self._deal.reveal_for(following)),
+                    )
+            except OperationFailed:
+                stream_usable = False
+                break
+            if runtime.closure_failures or not feed(event):
                 break
 
-        settlement: SettlementRecord | None = None
-        oracle_payouts: tuple[int, ...] | None = None
         state = runtime.state
         needs_showdown = state is not None and (
             (state.is_terminal and state.terminal_reason is TerminalReason.SHOWDOWN)
-            or (
-                not state.is_terminal
-                and state.round_complete
-                and state.street is BettingStreet.RIVER
-            )
+            or (not state.is_terminal and state.round_complete and state.street is BettingStreet.RIVER)
         )
         if not runtime.closure_failures and needs_showdown:
-            feed(
-                ShowdownResultEvent(
-                    hand_id=fixture.hand_id,
-                    event_index=len(accepted_events),
-                    strengths=tuple(self._deal.showdown_strengths(state.live_seats)),
-                )
-            )
+            try:
+                with runtime.owned_bookkeeping(body_failure=FailureCode.INVALID_EVENT,
+                                               required=True):
+                    event = ShowdownResultEvent(
+                        hand_id=fixture.hand_id, event_index=len(accepted_events),
+                        strengths=tuple(self._deal.showdown_strengths(state.live_seats)),
+                    )
+            except OperationFailed:
+                stream_usable = False
+            else:
+                if not runtime.closure_failures:
+                    feed(event)
 
+        # Exhaustion is lawful only after automatic runout/showdown has had
+        # its chance to finish the hand. Keep all deliveries already accepted.
+        if not runtime.closure_failures and not runtime.betting_terminal:
+            try:
+                with runtime.owned_bookkeeping(body_failure=FailureCode.EVENT_ORDER,
+                                               required=True):
+                    runtime.record(FailureCode.EVENT_ORDER)
+            except OperationFailed:
+                stream_usable = False
+
+        settlement: SettlementRecord | None = None
+        oracle_payouts: tuple[int, ...] | None = None
         if not runtime.closure_failures and runtime.betting_terminal:
-          try:
-            with runtime.owned_bookkeeping(
-                body_failure=FailureCode.SETTLEMENT_MISMATCH
-            ):
-                settlement = runtime.settle()
-                state = runtime.state
-                assert state is not None
-                strengths = (
-                    None
-                    if state.terminal_reason is TerminalReason.FOLD
-                    else tuple(self._deal.showdown_strengths(state.live_seats))
-                )
-                oracle = self._oracle(
-                    total_contributions=state.total_contributions,
-                    folded=state.folded,
-                    starting_stacks=state.starting_stacks,
-                    strengths=strengths,
-                    button=state.button,
-                )
-                oracle_payouts = oracle.payouts
-                produced = tuple((pot.amount, pot.seats) for pot in settlement.pots)
-                if (
-                    oracle.payouts != settlement.payouts
-                    or oracle.final_stacks != settlement.final_stacks
-                    or produced != oracle.pots
-                    or sum(settlement.payouts) != sum(state.total_contributions)
-                    or sum(settlement.final_stacks) != sum(state.starting_stacks)
-                ):
-                    note(FailureCode.SETTLEMENT_MISMATCH)
-          except OperationFailed:
-            # The owner journalled this body's cause before the interval closed,
-            # so nothing is added here and nothing escapes run().
-            settlement = None
+            try:
+                with runtime.owned_bookkeeping(body_failure=FailureCode.SETTLEMENT_MISMATCH,
+                                               required=True):
+                    settlement = runtime.settle()
+                    state = runtime.state
+                    assert state is not None
+                    strengths = (None if state.terminal_reason is TerminalReason.FOLD
+                                 else tuple(self._deal.showdown_strengths(state.live_seats)))
+                    oracle = self._oracle(total_contributions=state.total_contributions,
+                        folded=state.folded, starting_stacks=state.starting_stacks,
+                        strengths=strengths, button=state.button)
+                    oracle_payouts = oracle.payouts
+                    if (oracle.payouts != settlement.payouts
+                            or oracle.final_stacks != settlement.final_stacks
+                            or tuple((pot.amount, pot.seats) for pot in settlement.pots) != oracle.pots
+                            or sum(settlement.payouts) != sum(state.total_contributions)
+                            or sum(settlement.final_stacks) != sum(state.starting_stacks)):
+                        runtime.record(FailureCode.SETTLEMENT_MISMATCH)
+            except OperationFailed:
+                settlement = None
+
+        # Compute semantics before sampling the terminal cut. If this interval
+        # dies, a failed report may recompute the null-settlement projection;
+        # it cannot claim measurement or successful publication.
+        candidate_pass = (not runtime.closure_failures and runtime.betting_terminal
+                          and settlement is not None and runtime.accounting().complete)
+        semantic_digest = ""
+        try:
+            with runtime.owned_bookkeeping(body_failure=FailureCode.TRACE_WRITE_FAILED,
+                                           required=candidate_pass):
+                semantic_digest = semantic_sha256(events=tuple(accepted_events),
+                    decisions=tuple(decisions), settlement=settlement if candidate_pass else None)
+        except OperationFailed:
+            stream_usable = False
+        if candidate_pass and runtime.closure_failures:
+            candidate_pass = False
+            try:
+                with runtime.owned_bookkeeping(body_failure=FailureCode.TRACE_WRITE_FAILED):
+                    semantic_digest = semantic_sha256(events=tuple(accepted_events),
+                                                       decisions=tuple(decisions), settlement=None)
+            except OperationFailed:
+                pass
 
         totals = runtime.accounting()
         journal = runtime.closure_failures
         primary = journal[0] if journal else None
-        passed = (
-            primary is None
-            and runtime.betting_terminal
-            and settlement is not None
-            and totals.complete
-        )
-        semantic_digest = semantic_sha256(
-            events=tuple(accepted_events),
-            decisions=tuple(decisions),
-            settlement=settlement if passed else None,
-        )
-
+        passed = candidate_pass and primary is None and totals.complete
         publication: list[float] = []
         content = b""
+        trace_digest = None
         try:
-          with runtime.owned_publication(
-              publication, body_failure=FailureCode.TRACE_WRITE_FAILED
-          ):
-            content = builder.close(
-                hand_id=fixture.hand_id,
-                complete=runtime.betting_terminal and primary is None,
-                passed=passed,
-                failure_reason=primary,
-                event_count=len(accepted_events),
-                decision_count=runtime.accepted_delivery_count,
-                interrupted_response_count=totals.interrupted_response_count,
-                accounting_complete=totals.complete,
-                settlement=settlement if passed else None,
-                semantic_digest=semantic_digest,
-                preparation_compute_seconds=totals.preparation_compute_seconds,
-                post_terminal_compute_seconds=totals.post_terminal_compute_seconds,
-            )
-            trace_digest: str | None = None
-            if destination is not None and run_root is not None:
-                try:
-                    trace_digest = write_trace(content, destination, run_root=run_root)
-                except (TraceWriteError, OSError):
-                    note(FailureCode.TRACE_WRITE_FAILED)
-                    trace_digest = None
-            else:
-                trace_digest = sha256(content).hexdigest()
+            with runtime.owned_publication(publication,
+                    body_failure=FailureCode.TRACE_WRITE_FAILED, cleanup=close_stream):
+                if builder is not None:
+                    content = builder.close(
+                        hand_id=fixture.hand_id, complete=runtime.betting_terminal and primary is None,
+                        passed=passed, failure_reason=primary, event_count=len(accepted_events),
+                        decision_count=runtime.accepted_delivery_count,
+                        interrupted_response_count=totals.interrupted_response_count,
+                        accounting_complete=totals.complete, settlement=settlement if passed else None,
+                        semantic_digest=semantic_digest,
+                        preparation_compute_seconds=totals.preparation_compute_seconds,
+                        post_terminal_compute_seconds=totals.post_terminal_compute_seconds,
+                    )
+                    if file_requested:
+                        if stream_usable and runtime.measurable:
+                            flush_rows()
+                            trace_digest = writer.finish()
+                            writer_closed = True
+                    elif stream_usable and runtime.measurable:
+                        trace_digest = sha256(content).hexdigest()
         except OperationFailed:
             trace_digest = None
 
         runtime.finalize_accounting()
         journal = runtime.closure_failures
         primary = journal[0] if journal else None
-        secondary = list(journal[1:])
         closed = runtime.accounting()
-        if secondary or primary is not None or not closed.complete:
-            passed = False
         receipt = HostCompletionReceipt(
-            run_id=self._run_id,
-            hand_id=fixture.hand_id,
-            trace_sha256=trace_digest,
-            terminal_publication_compute_seconds=(
-                publication[0] if len(publication) == 1 else None
-            ),
+            run_id=self._run_id, hand_id=fixture.hand_id, trace_sha256=trace_digest,
+            terminal_publication_compute_seconds=publication[0] if len(publication) == 1 else None,
             accounting_complete=closed.complete,
-            passed=passed and trace_digest is not None and closed.complete,
-            failure_reason=primary,
-            secondary_failures=tuple(secondary),
+            passed=passed and primary is None and trace_digest is not None and closed.complete,
+            failure_reason=primary, secondary_failures=tuple(journal[1:]),
         )
-        return ReplayOutcome(
-            receipt=receipt,
-            trace=content,
-            decisions=tuple(decisions),
-            failures=tuple(failures),
-            settlement=settlement,
-            oracle_payouts=oracle_payouts,
-            semantic_digest=semantic_digest,
-        )
+        return ReplayOutcome(receipt=receipt, trace=content, decisions=tuple(decisions),
+            failures=tuple(failures), settlement=settlement, oracle_payouts=oracle_payouts,
+            semantic_digest=semantic_digest)
 
 
 # -- accepting replay, independent of the producer's orchestration ----------

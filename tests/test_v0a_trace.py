@@ -750,9 +750,6 @@ class TerminalAdmissionTests(unittest.TestCase):
         if kind == "event_order":
             fixture = replace(fixture, script=(ScriptedAction("preflop", 3, "call"),)
                               + fixture.script[1:])
-        if kind == "no_start":
-            source.fail_at = 1
-
         class Mailbox:
             def deliver(self, envelope):
                 if kind == "rejected":
@@ -780,7 +777,20 @@ class TerminalAdmissionTests(unittest.TestCase):
         host = host_type(fixture, run_id=PROTOCOL_ID + "-correctness-terminal-" + kind,
                          blueprint=ImmutableBlueprintActionSource("terminal-policy"),
                          clock=source, mailbox=Mailbox(), **options)
-        outcome = host.run()
+        # Fail at the real dispatch boundary. Host header work now has its own
+        # required entry, so source read one no longer means runtime no-start.
+        from pontius.v0a.runtime import HandRuntime
+        previous = sys.getprofile()
+        def observe(frame, event, arg):
+            if event == "call" and frame.f_code is HandRuntime.dispatch.__code__:
+                source.armed = True
+        try:
+            if kind == "no_start":
+                sys.setprofile(observe)
+            outcome = host.run()
+        finally:
+            if kind == "no_start":
+                sys.setprofile(previous)
         return outcome, real, source
 
     def test_real_outcome_controls_preserve_delivery_timing_and_terminal_fields(self):
@@ -967,6 +977,33 @@ class TerminalAdmissionTests(unittest.TestCase):
                                  clock=witness).run()
             parsed = parse_trace(outcome.trace)
             self.assertEqual(parsed.terminal["failure_reason"], "clock_" + fault)
+            # Required host entry now refuses before acquiring input.
+            self.assertEqual(parsed.failures, ())
+            self.assertEqual(parsed.decisions, ())
+
+            from pontius.v0a.runtime import HandRuntime
+            source = ObservedTerminalClock(fault=fault)
+            witness = MonotonicWitness(source)
+            observed = []
+            def prefailed_at_dispatch(frame, event, arg):
+                if event == "call" and frame.f_code is HandRuntime.dispatch.__code__:
+                    observed.append(1)
+                    source.armed = True
+                    with self.assertRaises((ClockInvalidError, ClockReversedError)):
+                        witness()
+            previous = sys.getprofile()
+            try:
+                sys.setprofile(prefailed_at_dispatch)
+                outcome = ReplayHost(
+                    FIXTURE_A, run_id=PROTOCOL_ID + "-correctness-prefailed-dispatch-" + fault,
+                    blueprint=ImmutableBlueprintActionSource("terminal-policy"),
+                    clock=witness,
+                ).run()
+            finally:
+                sys.setprofile(previous)
+            parsed = parse_trace(outcome.trace)
+            self.assertEqual(observed, [1])
+            self.assertEqual(parsed.terminal["failure_reason"], "clock_" + fault)
             self.assertEqual(parsed.failures[0]["code"], "clock_invalid")
             self.assertIsNone(parsed.failures[0]["timing"])
             self.assertEqual(parsed.decisions, ())
@@ -1025,7 +1062,7 @@ class TerminalAdmissionTests(unittest.TestCase):
               "fault_kinds": ["invalid", "reversed", "exception"],
               "preserved_input_primary_controls": cleanup_primaries}, sort_keys=True))
 
-    def test_real_host_write_failure_keeps_prepublication_trace_inspectable(self):
+    def test_first_write_failure_keeps_accepted_prefix_inspectable(self):
         from pontius.immutable_blueprint import ImmutableBlueprintActionSource
         from pontius.v0a.replay import FIXTURE_A, PROTOCOL_ID, ReplayHost
 
@@ -1041,9 +1078,39 @@ class TerminalAdmissionTests(unittest.TestCase):
             self.assertFalse(outcome.receipt.passed)
             parsed = parse_trace(outcome.trace)
             self.assertEqual(parsed.failures, ())
-            self.assertTrue(parsed.terminal["passed"])
-            self.assertIsNone(parsed.terminal["failure_reason"])
+            self.assertFalse(parsed.terminal["passed"])
+            self.assertEqual(parsed.terminal["failure_reason"], "trace_write_failed")
+            self.assertEqual(len(parsed.decisions), 1)
+            self.assertIsNone(parsed.terminal["settlement"])
             self.assertEqual(destination.read_bytes(), b"preserve existing destination")
+
+    def test_final_publication_clock_failure_does_not_rewrite_terminal_cut(self):
+        from pontius.immutable_blueprint import ImmutableBlueprintActionSource
+        from pontius.v0a.replay import FIXTURE_A, PROTOCOL_ID, ReplayHost
+        from pontius.v0a.trace import TraceBuilder
+
+        source = ObservedTerminalClock()
+        observed = []
+        def observe(frame, event, arg):
+            if event == "return" and frame.f_code is TraceBuilder.close.__code__:
+                observed.append(1)
+                source.armed = True
+        previous = sys.getprofile()
+        try:
+            sys.setprofile(observe)
+            outcome = ReplayHost(
+                FIXTURE_A, run_id=PROTOCOL_ID + "-correctness-publication-close",
+                blueprint=ImmutableBlueprintActionSource("terminal-policy"), clock=source,
+            ).run()
+        finally:
+            sys.setprofile(previous)
+        self.assertEqual(observed, [1])
+        self.assertFalse(outcome.receipt.passed)
+        self.assertEqual(outcome.receipt.failure_reason, FailureCode.CLOCK_INVALID)
+        self.assertFalse(outcome.receipt.accounting_complete)
+        parsed = parse_trace(outcome.trace)
+        self.assertTrue(parsed.terminal["passed"])
+        self.assertIsNone(parsed.terminal["failure_reason"])
 
 
 class EventConstructorAdmissionTests(unittest.TestCase):
@@ -1150,6 +1217,151 @@ class EventConstructorAdmissionTests(unittest.TestCase):
             rows = self.rows()
             rows[-2]["event"]["strengths"] = strengths
             parse_trace(self.encode(rows))
+
+
+
+class StableTraceWriterTests(unittest.TestCase):
+    def test_checked_parent_cannot_be_replaced_before_creation(self):
+        import os
+        import subprocess
+        import pontius.v0a.trace as trace_module
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            parent, outside = root / "parent", root / "outside"
+            parent.mkdir()
+            outside.mkdir()
+            moved = root / "moved"
+            target = parent / "trace.jsonl"
+            attempts = []
+            def observe(frame, event, arg):
+                legacy = (event == "c_call" and arg is os.open
+                          and frame.f_code is write_trace.__code__)
+                native = (event == "call" and frame.f_code.co_name == "_open_native"
+                          and frame.f_globals.get("__name__") == trace_module.__name__
+                          and frame.f_locals.get("directory") is False)
+                if attempts or not (legacy or native):
+                    return
+                attempts.append("attempted")
+                try:
+                    parent.rename(moved)
+                except PermissionError:
+                    attempts.append("denied")
+                    return
+                command = str(Path(os.environ["SYSTEMROOT"]) / "System32" / "cmd.exe")
+                result = subprocess.run([command, "/c", "mklink", "/J", str(parent), str(outside)],
+                                        capture_output=True, check=True)
+                attempts.append("replaced")
+            previous = sys.getprofile()
+            sys.setprofile(observe)
+            try:
+                try:
+                    digest = write_trace(b"one row\n", target, run_root=parent)
+                except (TraceWriteError, OSError):
+                    digest = None
+            finally:
+                sys.setprofile(previous)
+                if attempts == ["attempted", "replaced"]:
+                    # Remove only our junction, never recursively follow it.
+                    os.rmdir(parent)
+            self.assertTrue(attempts)
+            self.assertFalse((outside / "trace.jsonl").exists())
+            if digest is not None:
+                self.assertEqual(digest, sha256(b"one row\n").hexdigest())
+                self.assertEqual(target.read_bytes(), b"one row\n")
+
+
+
+    def test_stream_pins_parent_and_file_until_successful_close(self):
+        import pontius.v0a.trace as trace_module
+        writer_type = getattr(trace_module, "TraceWriter", None)
+        self.assertIsNotNone(writer_type, "publication needs an owned incremental stream")
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            parent = root / "parent"
+            parent.mkdir()
+            target = parent / "trace.jsonl"
+            writer = writer_type(target, run_root=root)
+            try:
+                writer.append(b"header\n")
+                self.assertEqual(target.read_bytes(), b"header\n")
+                with self.assertRaises(PermissionError):
+                    parent.rename(root / "moved")
+                with self.assertRaises(PermissionError):
+                    target.rename(parent / "other.jsonl")
+                with self.assertRaises(PermissionError):
+                    with target.open("ab") as foreign:
+                        foreign.write(b"foreign")
+                writer.append(b"terminal\n")
+                self.assertEqual(writer.finish(), sha256(b"header\nterminal\n").hexdigest())
+                with self.assertRaises(TraceWriteError):
+                    writer.append(b"late")
+                with self.assertRaises(TraceWriteError):
+                    writer.finish()
+            finally:
+                writer.close()
+            parent.rename(root / "moved")
+            self.assertEqual((root / "moved" / "trace.jsonl").read_bytes(),
+                             b"header\nterminal\n")
+
+    def test_junction_root_is_refused_without_outside_publication(self):
+        import os
+        import subprocess
+        with tempfile.TemporaryDirectory() as temporary:
+            outer = Path(temporary)
+            outside = outer / "outside"
+            outside.mkdir()
+            alias = outer / "alias"
+            command = str(Path(os.environ["SYSTEMROOT"]) / "System32" / "cmd.exe")
+            subprocess.run([command, "/c", "mklink", "/J", str(alias), str(outside)],
+                           capture_output=True, check=True)
+            try:
+                for root, target in ((alias, Path("trace.jsonl")),
+                                     (outer, alias / "trace.jsonl")):
+                    with self.subTest(root=root):
+                        with self.assertRaises(TraceWriteError):
+                            write_trace(b"forbidden\n", target, run_root=root)
+                        self.assertEqual(list(outside.iterdir()), [])
+            finally:
+                os.rmdir(alias)  # Remove only this test's junction, never its target.
+
+    def test_failed_acquisition_releases_all_handles_and_latches_no_retry(self):
+        import ctypes
+        from ctypes import wintypes
+        import pontius.v0a.trace as trace_module
+        writer_type = getattr(trace_module, "TraceWriter", None)
+        self.assertIsNotNone(writer_type, "failure needs a retained native owner")
+        kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+        process = kernel.GetCurrentProcess
+        process.argtypes, process.restype = (), wintypes.HANDLE
+        count = kernel.GetProcessHandleCount
+        count.argtypes = (wintypes.HANDLE, ctypes.POINTER(wintypes.DWORD))
+        count.restype = wintypes.BOOL
+        def handles():
+            value = wintypes.DWORD()
+            self.assertTrue(count(process(), ctypes.byref(value)))
+            return value.value
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            existing = root / "existing.jsonl"
+            existing.write_bytes(b"sentinel")
+            write_trace(b"warm", root / "warm.jsonl", run_root=root)
+            before = handles()
+            for index in range(24):
+                target = existing if index % 2 == 0 else root / "absent" / "trace.jsonl"
+                writer = writer_type(target, run_root=root)
+                try:
+                    with self.assertRaises(TraceWriteError):
+                        writer.append(b"first")
+                    with self.assertRaises(TraceWriteError):
+                        writer.append(b"retry")
+                    with self.assertRaises(TraceWriteError):
+                        writer.finish()
+                finally:
+                    writer.close()
+                    writer.close()
+            self.assertEqual(handles(), before, "failed native opens leaked handles")
+            self.assertEqual(existing.read_bytes(), b"sentinel")
+            existing.rename(root / "released.jsonl")
 
 
 def main() -> int:

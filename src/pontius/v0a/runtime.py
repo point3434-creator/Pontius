@@ -245,10 +245,13 @@ class _OwnedInterval:
     """
 
     def __init__(self, runtime: HandRuntime, body_failure: FailureCode,
-                 publication: list[float] | None = None) -> None:
+                 publication: list[float] | None = None, *,
+                 required: bool = False, cleanup=None) -> None:
         self._runtime = runtime
         self._body_failure = body_failure
         self._publication = publication
+        self._required = required
+        self._cleanup = cleanup
         self._opened = False
         self._terminal_at_entry = False
 
@@ -257,6 +260,8 @@ class _OwnedInterval:
         runtime._retain_witness_failure()
         if not runtime.measurable:
             runtime._accounting_complete = False
+            if self._required:
+                raise OperationFailed("required measurement could not start")
             return self
         outer = runtime._outer
         assert outer is not None
@@ -267,6 +272,8 @@ class _OwnedInterval:
             runtime._record_closure_failure(error)
         else:
             self._opened = True
+        if self._required and not self._opened:
+            raise OperationFailed("required measurement could not start")
         return self
 
     def __exit__(self, error_type: object, error: BaseException | None,
@@ -277,6 +284,25 @@ class _OwnedInterval:
         runtime._retain_witness_failure()
         if error is not None:
             runtime._retain_error(error, otherwise=self._body_failure)
+        cleanup_failed = False
+        if self._cleanup is not None:
+            try:
+                cleanup_errors = self._cleanup()
+                if cleanup_errors is not None:
+                    if type(cleanup_errors) is not tuple:
+                        raise TypeError("owned cleanup must return an exact error tuple")
+                    for cleanup_error in cleanup_errors:
+                        if not issubclass(type(cleanup_error), BaseException):
+                            raise TypeError("owned cleanup must return actual exceptions")
+                        # finish may already have raised the first close error
+                        # as this same body's cause. Other equal codes stand.
+                        if cleanup_error is error:
+                            continue
+                        cleanup_failed = True
+                        runtime._retain_error(cleanup_error, otherwise=self._body_failure)
+            except BaseException as cleanup_error:
+                cleanup_failed = True
+                runtime._retain_error(cleanup_error, otherwise=self._body_failure)
         if self._opened:
             outer = runtime._outer
             assert outer is not None
@@ -289,7 +315,7 @@ class _OwnedInterval:
                     runtime._charge_interval(interval, terminal_at_entry=self._terminal_at_entry)
                 else:
                     self._publication.append(float(interval.compute_seconds))
-        if error is not None:
+        if error is not None or cleanup_failed or (self._required and not runtime.measurable):
             # Only a trusted constant exception crosses the host handler. No
             # caller str/__class__/__traceback__ hook participates in transfer.
             raise OperationFailed("owned operation failed") from None
@@ -438,14 +464,31 @@ class HandRuntime:
         )
 
 
-    def owned_bookkeeping(self, *, body_failure: FailureCode) -> _OwnedInterval:
-        """Own measured non-response work and its ordered failure transfer."""
-        return _OwnedInterval(self, body_failure)
+    def begin_host_accounting(self) -> None:
+        """Initialize the public outer ledger before required host preparation.
+
+        Direct runtime users may still initialize it with the first dispatch.
+        Host setup does not bind policy or initialize private/betting state.
+        """
+        self._retain_witness_failure()
+        if self._outer is None and not self._clock_dead and not self._finalized:
+            try:
+                self._outer = ActionClockLedger("preflop", clock_ns=self._witness)
+            except (ClockInvalidError, ClockReversedError, RuntimeError) as error:
+                self._record_closure_failure(error)
+        if not self.measurable:
+            self._accounting_complete = False
+            raise OperationFailed("host accounting could not start")
+
+    def owned_bookkeeping(self, *, body_failure: FailureCode,
+                          required: bool = False, cleanup=None) -> _OwnedInterval:
+        """Own non-response work; required entry gates ordinary host behavior."""
+        return _OwnedInterval(self, body_failure, required=required, cleanup=cleanup)
 
     def owned_publication(self, sink: list[float], *,
-                          body_failure: FailureCode) -> _OwnedInterval:
+                          body_failure: FailureCode, cleanup=None) -> _OwnedInterval:
         """Own final-publication work without adding it to pre-publication totals."""
-        return _OwnedInterval(self, body_failure, sink)
+        return _OwnedInterval(self, body_failure, sink, cleanup=cleanup)
 
     @staticmethod
     def classify(error: BaseException, *, otherwise: FailureCode) -> FailureCode:

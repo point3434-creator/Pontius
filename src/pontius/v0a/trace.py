@@ -9,6 +9,9 @@ ever deserialized.
 
 from __future__ import annotations
 
+import ctypes
+from ctypes import wintypes
+from functools import lru_cache
 import json
 import os
 import math
@@ -303,6 +306,7 @@ class TraceBuilder:
         if clock_kind not in CLOCK_KINDS:
             raise TraceInvalidError(f"clock kind must be one of {CLOCK_KINDS}")
         self._rows: list[bytes] = []
+        self._drained_rows = 0
         self._run_id = run_id
         self._closed = False
         self._append(
@@ -333,6 +337,13 @@ class TraceBuilder:
         row["run_id"] = self._run_id
         row["record_index"] = len(self._rows)
         self._rows.append((canonical_json(row) + "\n").encode("utf-8"))
+
+    def take_pending(self) -> bytes:
+        """Drain newly serialized bytes; the writer separately establishes publication."""
+        offset = self._drained_rows
+        content = b"".join(self._rows[offset:])
+        self._drained_rows = len(self._rows)
+        return content
 
     def add_event(self, event: object) -> None:
         self._append({"record_type": "event", "event": event_payload(event)})
@@ -385,30 +396,234 @@ class TraceBuilder:
         return self.content
 
 
-def write_trace(content: bytes, destination: Path, *, run_root: Path) -> str:
-    """Create-new write under an explicit run root; never overwrite or follow links."""
+# Windows native publication flags. Keep access, sharing, disposition and
+# open options separate: each constrains a different part of the lifetime.
+_SYNCHRONIZE = 0x00100000
+_FILE_READ_ATTRIBUTES = 0x0080
+_FILE_LIST_DIRECTORY = 0x0001
+_FILE_TRAVERSE = 0x0020
+_FILE_WRITE_DATA = 0x0002
+_FILE_SHARE_READ = 0x0001
+_FILE_OPEN = 0x0001
+_FILE_CREATE = 0x0002
+_FILE_DIRECTORY_FILE = 0x0001
+_FILE_NON_DIRECTORY_FILE = 0x0040
+_FILE_SYNCHRONOUS_IO_NONALERT = 0x0020
+_FILE_WRITE_THROUGH = 0x0002
+_OBJ_CASE_INSENSITIVE = 0x0040
+_OBJ_DONT_REPARSE = 0x1000
+_FILE_ATTRIBUTE_DIRECTORY = 0x0010
+_FILE_ATTRIBUTE_REPARSE_POINT = 0x0400
+_FILE_TYPE_DISK = 0x0001
 
-    if not isinstance(content, bytes):
-        raise TypeError("trace content must be exact bytes")
-    root = Path(run_root).resolve(strict=False)
-    target = Path(destination)
-    if target.is_absolute():
-        resolved = target.resolve(strict=False)
-    else:
-        resolved = (root / target).resolve(strict=False)
-    if resolved == root or root not in resolved.parents:
-        raise TraceWriteError(f"trace destination escapes its run root: {resolved}")
-    if resolved.exists() or resolved.is_symlink():
-        raise TraceWriteError(f"trace destination already exists: {resolved}")
-    if not resolved.parent.is_dir():
-        raise TraceWriteError(f"trace destination directory is absent: {resolved.parent}")
-    descriptor = os.open(resolved, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_BINARY, 0o600)
+
+class _UnicodeString(ctypes.Structure):
+    _fields_ = (("Length", wintypes.USHORT), ("MaximumLength", wintypes.USHORT),
+                ("Buffer", wintypes.LPWSTR))
+
+
+class _ObjectAttributes(ctypes.Structure):
+    _fields_ = (("Length", wintypes.ULONG), ("RootDirectory", wintypes.HANDLE),
+                ("ObjectName", ctypes.POINTER(_UnicodeString)), ("Attributes", wintypes.ULONG),
+                ("SecurityDescriptor", wintypes.LPVOID),
+                ("SecurityQualityOfService", wintypes.LPVOID))
+
+
+class _IoStatus(ctypes.Structure):
+    _fields_ = (("StatusOrPointer", ctypes.c_void_p), ("Information", ctypes.c_size_t))
+
+
+class _FileInformation(ctypes.Structure):
+    _fields_ = (("attributes", wintypes.DWORD), ("creation", wintypes.FILETIME),
+                ("access", wintypes.FILETIME), ("write", wintypes.FILETIME),
+                ("volume", wintypes.DWORD), ("size_high", wintypes.DWORD),
+                ("size_low", wintypes.DWORD), ("links", wintypes.DWORD),
+                ("index_high", wintypes.DWORD), ("index_low", wintypes.DWORD))
+
+
+@lru_cache(maxsize=1)
+def _native_api():
+    if os.name != "nt":
+        raise TraceWriteError("stable trace publication requires the Windows backend")
+    nt = ctypes.WinDLL("ntdll")
+    kernel = ctypes.WinDLL("kernel32", use_last_error=True)
+    create = nt.NtCreateFile
+    create.argtypes = (ctypes.POINTER(wintypes.HANDLE), wintypes.DWORD,
+                       ctypes.POINTER(_ObjectAttributes), ctypes.POINTER(_IoStatus),
+                       wintypes.LPVOID, wintypes.ULONG, wintypes.ULONG, wintypes.ULONG,
+                       wintypes.ULONG, wintypes.LPVOID, wintypes.ULONG)
+    create.restype = wintypes.LONG
+    info = kernel.GetFileInformationByHandle
+    info.argtypes = (wintypes.HANDLE, ctypes.POINTER(_FileInformation))
+    info.restype = wintypes.BOOL
+    file_type = kernel.GetFileType
+    file_type.argtypes = (wintypes.HANDLE,)
+    file_type.restype = wintypes.DWORD
+    write = kernel.WriteFile
+    write.argtypes = (wintypes.HANDLE, wintypes.LPCVOID, wintypes.DWORD,
+                      ctypes.POINTER(wintypes.DWORD), wintypes.LPVOID)
+    write.restype = wintypes.BOOL
+    flush = kernel.FlushFileBuffers
+    flush.argtypes = (wintypes.HANDLE,)
+    flush.restype = wintypes.BOOL
+    close = kernel.CloseHandle
+    close.argtypes = (wintypes.HANDLE,)
+    close.restype = wintypes.BOOL
+    return create, info, file_type, write, flush, close
+
+
+class _NativeHandle:
+    """Registered before acquisition; clearing ownership precedes the one close."""
+    def __init__(self) -> None:
+        self.value = wintypes.HANDLE()
+
+    def close(self) -> None:
+        value = self.value.value
+        self.value.value = None
+        if value not in (None, 0, ctypes.c_void_p(-1).value):
+            if not _native_api()[5](wintypes.HANDLE(value)):
+                raise TraceWriteError("native trace close failed", ctypes.get_last_error())
+
+
+def _open_native(owner: TraceWriter, name: str, parent: _NativeHandle | None,
+                 *, directory: bool) -> _NativeHandle:
+    # The owner already retains this holder before NtCreateFile fills its slot.
+    handle = _NativeHandle()
+    owner._handles.append(handle)
+    encoded = name.encode("utf-16-le")
+    if len(encoded) > 0xFFFE:
+        raise TraceWriteError("native path component exceeds UNICODE_STRING capacity")
+    buffer = ctypes.create_unicode_buffer(name)
+    string = _UnicodeString(len(encoded), len(encoded), ctypes.cast(buffer, wintypes.LPWSTR))
+    attributes = _ObjectAttributes(ctypes.sizeof(_ObjectAttributes),
+                                   None if parent is None else parent.value,
+                                   ctypes.pointer(string),
+                                   _OBJ_CASE_INSENSITIVE | _OBJ_DONT_REPARSE, None, None)
+    status_block = _IoStatus()
+    create, inspect, file_type, _, _, _ = _native_api()
+    # READ sharing only denies foreign writes and deletion for the lifetime.
+    access = _SYNCHRONIZE | _FILE_READ_ATTRIBUTES
+    access |= (_FILE_LIST_DIRECTORY | _FILE_TRAVERSE) if directory else _FILE_WRITE_DATA
+    options = _FILE_SYNCHRONOUS_IO_NONALERT
+    options |= _FILE_DIRECTORY_FILE if directory else (_FILE_NON_DIRECTORY_FILE | _FILE_WRITE_THROUGH)
+    status = create(ctypes.byref(handle.value), access, ctypes.byref(attributes),
+                    ctypes.byref(status_block), None, 0, _FILE_SHARE_READ,
+                    _FILE_OPEN if directory else _FILE_CREATE, options, None, 0)
+    if status != 0:
+        raise TraceWriteError("native trace open failed", status & 0xFFFFFFFF)
+    if not handle.value.value or handle.value.value == ctypes.c_void_p(-1).value:
+        raise TraceWriteError("native trace open returned no usable handle")
+    info = _FileInformation()
+    if (file_type(handle.value) != _FILE_TYPE_DISK
+            or not inspect(handle.value, ctypes.byref(info))):
+        raise TraceWriteError("native trace handle inspection failed", ctypes.get_last_error())
+    if (info.attributes & _FILE_ATTRIBUTE_REPARSE_POINT
+            or bool(info.attributes & _FILE_ATTRIBUTE_DIRECTORY) != directory):
+        raise TraceWriteError("native trace handle has an unsafe file kind")
+    return handle
+
+
+class TraceWriter:
+    """One create-new, directory-bound stream; failed writes are never retried."""
+    def __init__(self, destination: Path | str, *, run_root: Path | str) -> None:
+        self._destination = destination
+        self._root = run_root
+        self._handles: list[_NativeHandle] = []
+        self._close_attempted = False
+        self.close_errors: tuple[TraceWriteError, ...] = ()
+        self._file: _NativeHandle | None = None
+        self._state = "new"
+        self._digest = sha256()
+
+    def _open(self) -> None:
+        if os.name != "nt":
+            raise TraceWriteError("stable trace publication requires the Windows backend")
+        root = Path(os.path.abspath(self._root))
+        target = Path(self._destination)
+        target = Path(os.path.abspath(target if target.is_absolute() else root / target))
+        if (not root.drive or len(root.drive) != 2 or root.drive[1] != ":"
+                or root.anchor != root.drive + "\\"):
+            raise TraceWriteError("trace root must be a local drive path")
+        try:
+            relative = target.relative_to(root)
+        except ValueError:
+            raise TraceWriteError("trace destination escapes its run root") from None
+        if not relative.parts:
+            raise TraceWriteError("trace destination must name a file below its root")
+        components = target.parts[1:]
+        for name in components:
+            if (name in (".", "..") or name.endswith((".", " "))
+                    or any(character in name for character in (":", "\0"))):
+                raise TraceWriteError("trace path contains an unsupported alias")
+        parent = _open_native(self, "\\??\\" + root.anchor, None, directory=True)
+        for name in components[:-1]:
+            parent = _open_native(self, name, parent, directory=True)
+        self._file = _open_native(self, components[-1], parent, directory=False)
+        self._state = "open"
+
+    def append(self, content: bytes) -> None:
+        if self._state not in ("new", "open"):
+            raise TraceWriteError("trace writer no longer permits append")
+        try:
+            if type(content) is not bytes:
+                raise TypeError("trace content must be exact bytes")
+            if self._state == "new":
+                self._open()
+            write = _native_api()[3]
+            for offset in range(0, len(content), 0xFFFFFFFF):
+                block = content[offset:offset + 0xFFFFFFFF]
+                written = wintypes.DWORD()
+                if not write(self._file.value, block, len(block), ctypes.byref(written), None):
+                    raise TraceWriteError("native trace write failed", ctypes.get_last_error())
+                if written.value != len(block):
+                    raise TraceWriteError("native trace write was incomplete")
+                self._digest.update(block)
+        except BaseException:
+            self._state = "failed"
+            raise
+
+    def close(self) -> None:
+        if self._close_attempted:
+            return
+        self._close_attempted = True
+        self._state = "close_attempted"
+        errors = []
+        for handle in reversed(self._handles):
+            try:
+                handle.close()
+            except TraceWriteError as error:
+                errors.append(error)
+        self.close_errors = tuple(errors)
+        if errors:
+            raise errors[0]
+
+    def finish(self) -> str:
+        if self._state != "open":
+            raise TraceWriteError("only a complete open trace may finish")
+        try:
+            if not _native_api()[4](self._file.value):
+                raise TraceWriteError("native trace flush failed", ctypes.get_last_error())
+            digest = self._digest.hexdigest()
+            self.close()
+        except BaseException:
+            self._state = "failed"
+            raise
+        self._state = "finished"
+        return digest
+
+
+def write_trace(content: bytes, destination: Path, *, run_root: Path) -> str:
+    """Convenience whole-buffer publication through the same stable stream."""
+    writer = TraceWriter(destination, run_root=run_root)
     try:
-        with os.fdopen(descriptor, "wb") as handle:
-            handle.write(content)
-    except BaseException:
+        writer.append(content)
+        return writer.finish()
+    except BaseException as body:
+        try:
+            writer.close()
+        except BaseException as cleanup:
+            raise body from cleanup
         raise
-    return sha256(content).hexdigest()
 
 
 # -- strict parsing --------------------------------------------------------
@@ -999,6 +1214,7 @@ __all__ = [
     "TraceBuilder",
     "TraceInvalidError",
     "TraceWriteError",
+    "TraceWriter",
     "canonical_json",
     "canonical_sha256",
     "parse_trace",

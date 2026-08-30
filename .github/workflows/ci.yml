@@ -78,18 +78,29 @@ jobs:
       - name: Inventory and profiles suite
         run: .venv\Scripts\python.exe -B -P tests\test_inventory_and_profiles.py
 
-      # Runs late: its same-size mid-read mutation test is timing-sensitive on
-      # runner hardware (recorded finding; fix-round pending). Ordering keeps
-      # every gate while letting independent suites report first.
+      # Instrumentation round (controller-authorized): raw native status
+      # chains and both sides of the ancestor identity comparison. Runs even
+      # when the inventory suite fails; gates nothing itself.
+      - name: Native transaction diagnostics (instrumentation)
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tools\ci_native_diagnostics.py
+
+      # Downstream gates execute regardless of earlier failures so unreached
+      # gates get verified; each still fails the job on its own defects, and
+      # a failed inventory suite above keeps the job red — nothing is masked.
       - name: Stabilization boundaries suite
+        if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_stabilization_boundaries.py
 
       - name: Generated inventory/profiles byte-stability
+        if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tools\generate_test_inventory.py --check
 
       - name: Stabilization boundary check
+        if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tools\check_stabilization_boundaries.py
 
       - name: Ruff report (informational, non-gating)
+        if: ${{ !cancelled() }}
         continue-on-error: true
         run: uv run ruff check src tools tests --statistics

@@ -48,3 +48,7 @@
 /docs/architecture/dependency-baseline.toml text eol=lf
 /tests/test-inventory.json text eol=lf
 /tests/test-profiles.toml text eol=lf
+/experiments/configs/legal-river-quotient-compiled-global-separation-calibration-v9-corrected-invocation-authorization.json -text
+/artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v5.attempt.json -text
+/artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.attempt.json -text
+/artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.launch-consumed.json -text

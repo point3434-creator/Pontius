@@ -179,6 +179,11 @@ STABILIZATION_TEST_FILES = frozenset({
     "tests/test_test_orchestration_import_boundary.py",
     "tests/test_stabilization_verification.py",
     "tests/test_retained_evidence_inventory.py",
+    "tests/test_v0a_boundaries.py",
+    "tests/test_v0a_contract_faults.py",
+    "tests/test_v0a_hand_replay.py",
+    "tests/test_v0a_replay.py",
+    "tests/test_v0a_trace.py",
 })
 
 
@@ -7841,6 +7846,11 @@ class _ReviewFunction:
     class_name: str | None
     module_bound_names: frozenset[str] = frozenset()
     enclosing_exception_names: frozenset[str] = frozenset()
+    descriptor_kind: str | None = "ordinary"
+    binding_stable: bool = True
+    member_stable: bool = True
+    stable_imports: frozenset[str] = frozenset()
+    namespace_effects: frozenset[str] = frozenset()
 
 
 def _metered_ast_walk(
@@ -8997,6 +9007,15 @@ class _ImplicitClassDescriptor:
 
 
 @dataclass(frozen=True, slots=True)
+class _HelperProvenance:
+    """Exact source definition identity; never inferred from a qname spelling."""
+
+    kind: str
+    key: str
+    bound: bool = False
+
+
+@dataclass(frozen=True, slots=True)
 class _FlowValue:
     kind: str
     value: object = None
@@ -9005,6 +9024,11 @@ class _FlowValue:
     mutable_collection: bool = False
     mutable_collection_identity: int | None = None
     container_kind: str | None = None
+    helper_provenance: _HelperProvenance | None = None
+    callable_defaults: tuple[tuple[str, _FlowValue], ...] = ()
+    namespace_effects: frozenset[str] = frozenset()
+    helper_refusal: str | None = None
+    helper_receiver: _FlowValue | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -9018,6 +9042,7 @@ class _FlowEnvironment:
 @dataclass(slots=True)
 class _AnalysisBudget:
     work_units: int = 0
+    deferred_helper_bodies: dict[ast.AST, bool] = field(default_factory=dict)
     local_generator_dependencies: dict[
         ast.FunctionDef | ast.AsyncFunctionDef,
         tuple[str, ...] | None,
@@ -9312,6 +9337,26 @@ def _bounded_local_generator_dependencies(
     result = tuple(sorted(dependencies)) if yielded else None
     budget.local_generator_dependencies[definition] = result
     return result
+
+
+def _helper_body_is_deferred(
+    definition: ast.FunctionDef | ast.AsyncFunctionDef, budget: _AnalysisBudget,
+) -> bool:
+    if definition in budget.deferred_helper_bodies:
+        return budget.deferred_helper_bodies[definition]
+    deferred = isinstance(definition, ast.AsyncFunctionDef)
+    pending: list[ast.AST] = list(definition.body)
+    while pending and not deferred:
+        candidate = pending.pop()
+        budget.consume()
+        if isinstance(candidate, (ast.Yield, ast.YieldFrom)):
+            deferred = True
+        elif not isinstance(candidate, (
+            ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda, ast.ClassDef,
+        )):
+            pending.extend(ast.iter_child_nodes(candidate))
+    budget.deferred_helper_bodies[definition] = deferred
+    return deferred
 
 
 def _bind_deferred_local_generator_call(
@@ -12281,6 +12326,11 @@ class _ReviewFlow:
     callables_by_call: dict[int, str]
     standalone_blockers: list[tuple[ast.AST, str]]
     receiver_attributes: dict[int, ast.Attribute] = field(default_factory=dict)
+    helper_calls: dict[int, _HelperProvenance] = field(default_factory=dict)
+    defaults_by_call: dict[int, dict[str, _FlowValue]] = field(default_factory=dict)
+    values_by_call: dict[int, dict[str, _FlowValue]] = field(default_factory=dict)
+    arguments_by_call: dict[int, dict[int, _FlowValue]] = field(default_factory=dict)
+    invalid_helper_owners_by_call: dict[int, frozenset[str]] = field(default_factory=dict)
     consumed_local_generator_calls: set[int] = field(default_factory=set)
     local_generator_consumption_modes: dict[int, set[str]] = field(
         default_factory=dict
@@ -12389,6 +12439,31 @@ def _flow_is_sensitive(value: _FlowValue) -> bool:
             for item in value.value
             if isinstance(item, _FlowValue)
         )
+    return False
+
+
+def _flow_contains_helper_identity(value: _FlowValue, budget: _AnalysisBudget) -> bool:
+    pending = [value]
+    seen: set[int] = set()
+    while pending:
+        budget.consume()
+        current = pending.pop()
+        if id(current) in seen:
+            continue
+        seen.add(id(current))
+        if current.helper_provenance is not None:
+            return True
+        if current.helper_receiver is not None:
+            pending.append(current.helper_receiver)
+        pending.extend(value for _name, value in current.callable_defaults)
+        if current.kind in {"sequence", "slice", "maybe_unbound"}:
+            pending.extend(item for item in current.value if isinstance(item, _FlowValue))
+        elif current.kind == "mapping":
+            pending.extend(item for _, item in current.value)
+        elif current.kind == "mapping_keys":
+            pending.extend(item for pair in current.value for item in pair)
+        elif current.kind == "starred_argument" and isinstance(current.value, _FlowValue):
+            pending.append(current.value)
     return False
 
 
@@ -13323,7 +13398,51 @@ def _flow_assignments(values: Mapping[str, _FlowValue]) -> dict[str, ast.expr]:
     return assignments
 
 
+def _flow_without_helper_proof(value: _FlowValue) -> _FlowValue:
+    return replace(value, helper_provenance=None, callable_defaults=(),
+                   namespace_effects=frozenset(), helper_refusal=None, helper_receiver=None)
+
+
 def _merge_flow_values(
+    name: str, values: Sequence[_FlowValue | None],
+) -> _FlowValue:
+    if not any(value is not None and (
+        value.helper_provenance is not None or value.callable_defaults
+        or value.namespace_effects or value.helper_refusal is not None
+        or value.helper_receiver is not None
+    ) for value in values):
+        return _merge_legacy_flow_values(name, values)
+    merged = _merge_legacy_flow_values(
+        name, tuple(_flow_without_helper_proof(value) if value is not None else None
+                    for value in values),
+    )
+    present = tuple(value for value in values if value is not None)
+    complete = len(present) == len(values)
+    proof = present[0].helper_provenance if complete and all(
+        value.helper_provenance == present[0].helper_provenance for value in present
+    ) else None
+    defaults = tuple(dict(value.callable_defaults) for value in present)
+    common = set(defaults[0]) if complete else set()
+    for supplied in defaults[1:]:
+        common.intersection_update(supplied)
+    return replace(
+        merged, helper_provenance=proof,
+        helper_receiver=(
+            _merge_flow_values("captured helper receiver", tuple(
+                value.helper_receiver for value in present
+            )) if complete and all(value.helper_receiver is not None for value in present)
+            else None
+        ),
+        callable_defaults=tuple((key, _merge_flow_values(
+            key, tuple(supplied[key] for supplied in defaults),
+        )) for key in sorted(common)),
+        namespace_effects=frozenset().union(*(value.namespace_effects for value in present)),
+        helper_refusal=next((value.helper_refusal for value in present
+                             if value.helper_refusal is not None), None),
+    )
+
+
+def _merge_legacy_flow_values(
     name: str,
     values: Sequence[_FlowValue | None],
 ) -> _FlowValue:
@@ -13726,8 +13845,26 @@ class _SourceOrderedResolver:
         enclosing_bound_names: Iterable[str] = (),
         sensitive_definition_markers: Iterable[str] = (),
         entry_values: Mapping[str, _FlowValue] | None = None,
+        helper_registry: Mapping[str, _ReviewFunction] | None = None,
+        helper_seeds: Mapping[str, _FlowValue] | None = None,
+        invalid_helper_owners: Iterable[str] = (),
+        helper_relative_path: str | None = None,
+        active_helper_effects: frozenset[int] = frozenset(),
     ) -> None:
         self.budget = budget or _AnalysisBudget()
+        self.helper_registry = helper_registry or {}
+        self.helper_relative_path = helper_relative_path
+        self.active_helper_effects = active_helper_effects
+        self._helper_rebound_names: set[str] = set()
+        self._helper_effect_shapes: dict[int, tuple[frozenset[str], bool]] = {}
+        self.invalid_helper_owners = set(invalid_helper_owners) | set(
+            getattr(self.helper_registry, "initial_member_mutations", ())
+        )
+        self._sensitive_helper_candidates: dict[str, bool] = {}
+        self._helper_alias_candidates: set[str] = {
+            name for name, value in (helper_seeds or {}).items()
+            if value.helper_provenance is not None and value.helper_provenance.kind == "callable"
+        }
         self.module_assignments = dict(module_assignments)
         self.values = {
             name: (
@@ -13818,12 +13955,24 @@ class _SourceOrderedResolver:
                 sensitive=True,
                 reason="callable helper closure",
             )
+        for name, seed in (helper_seeds or {}).items():
+            self.values[name] = replace(
+                self.values.get(name, seed), helper_provenance=seed.helper_provenance,
+                namespace_effects=seed.namespace_effects,
+            )
         self.values.update(entry_values or {})
         for name in self.lexical_scope.local_names:
             if name in self.lexical_scope.parameter_names:
-                self.values.setdefault(
+                if helper_registry is None:
+                    self.values.setdefault(
+                        name, _flow_unknown("function parameter is dynamically unresolved"),
+                    )
+                    continue
+                self.values[name] = (entry_values or {}).get(
                     name,
-                    _flow_unknown("function parameter is dynamically unresolved"),
+                    self._evaluate(module_assignments[name], self.values, False)
+                    if name in module_assignments and helper_registry is not None
+                    else _flow_unknown("function parameter is dynamically unresolved"),
                 )
             else:
                 self.values[name] = _FlowValue(
@@ -13831,6 +13980,9 @@ class _SourceOrderedResolver:
                     reason="local name is unbound at entry",
                 )
         for name in self.lexical_scope.nonlocal_names:
+            if name in (entry_values or {}):
+                self.values[name] = entry_values[name]
+                continue
             builtin_marker = next(
                 (
                     marker.rsplit(":", 1)[1]
@@ -15516,11 +15668,40 @@ class _SourceOrderedResolver:
             sensitive=True,
         )
 
+    def _sensitive_helper_candidate(self, node: ast.Call) -> bool:
+        raw = _qualified_name(node.func)
+        if raw is None:
+            return False
+        if raw in self._helper_alias_candidates:
+            return True
+        member = raw.rsplit(".", 1)[-1]
+        if member not in self._sensitive_helper_candidates:
+            sensitive = False
+            seen: set[int] = set()
+            candidates = (
+                self.helper_registry.by_name.get(member, ())
+                if isinstance(self.helper_registry, _ReviewRegistry)
+                else self.helper_registry.values()
+            )
+            for definition in candidates:
+                self.budget.consume()
+                if id(definition) in seen:
+                    continue
+                seen.add(id(definition))
+                if definition.node.name == member and _helper_has_sensitive_closure(
+                    definition, self.helper_registry, budget=self.budget,
+                ):
+                    sensitive = True
+                    break
+            self._sensitive_helper_candidates[member] = sensitive
+        return self._sensitive_helper_candidates[member]
+
     def _snapshot_call(
         self,
         node: ast.Call,
         values: Mapping[str, _FlowValue],
         callable_value: _FlowValue,
+        arguments: Mapping[int, _FlowValue] | None = None,
     ) -> None:
         key = id(node)
         self._call_states.setdefault(key, []).append(dict(values))
@@ -15530,6 +15711,21 @@ class _SourceOrderedResolver:
             "call target",
             self._call_values[key],
         )
+        self.flow.values_by_call[key] = merged_values
+        self.flow.invalid_helper_owners_by_call[key] = frozenset(
+            self.invalid_helper_owners
+        ) | self.flow.invalid_helper_owners_by_call.get(key, frozenset())
+        self.flow.defaults_by_call[key] = dict(merged_callable.callable_defaults)
+        previous_arguments = self.flow.arguments_by_call.get(key, {})
+        self.flow.arguments_by_call[key] = {
+            expression: _merge_flow_values(
+                "helper argument", (previous_arguments[expression], value)
+            ) if expression in previous_arguments else value
+            for expression, value in (arguments or {}).items()
+        }
+        self.flow.helper_calls.pop(key, None)
+        if merged_callable.helper_provenance is not None:
+            self.flow.helper_calls[key] = merged_callable.helper_provenance
         self.flow.aliases_by_call[key] = _flow_aliases(merged_values)
         self.flow.assignments_by_call[key] = _flow_assignments(merged_values)
         self.flow.blockers_by_call.pop(key, None)
@@ -15543,6 +15739,23 @@ class _SourceOrderedResolver:
                 merged_callable.reason
                 or "dynamic sensitive call target is unresolved"
             )
+        refusal = merged_callable.helper_refusal
+        if (merged_callable.helper_provenance is not None
+                and merged_callable.helper_provenance.key in self.invalid_helper_owners):
+            refusal = "helper callable identity was mutated"
+        if any(name in merged_values and _flow_contains_helper_identity(
+            merged_values[name], self.budget,
+        ) for name in merged_callable.namespace_effects):
+            refusal = "helper namespace effects are dynamically unresolved"
+        if (merged_callable.helper_provenance is None
+                and merged_callable.kind != "callable_constant"
+                and self._sensitive_helper_candidate(node)):
+            refusal = refusal or "helper callable provenance is unresolved"
+        if refusal is not None:
+            self.flow.blockers_by_call.setdefault(key, refusal)
+            self.flow.helper_calls.pop(key, None)
+        if merged_callable.kind == "callable_constant":
+            self.flow.proved_non_sensitive_calls.add(key)
         callable_name: str | None = None
         if merged_callable.kind == "qname":
             callable_name = str(merged_callable.value)
@@ -16944,6 +17157,312 @@ class _SourceOrderedResolver:
             self._active_local_helper_returns.discard(marker)
         return returned if _flow_contains_deferred_generator(returned) else None
 
+    def _invalidate_helper_identities(self, value: _FlowValue) -> None:
+        pending = [value]
+        while pending:
+            self.budget.consume()
+            current = pending.pop()
+            if current.helper_provenance is not None:
+                self.invalid_helper_owners.add(current.helper_provenance.key)
+            if current.helper_receiver is not None:
+                pending.append(current.helper_receiver)
+            pending.extend(value for _name, value in current.callable_defaults)
+            if current.kind in {"sequence", "maybe_unbound"}:
+                pending.extend(item for item in current.value if isinstance(item, _FlowValue))
+            elif current.kind in {"mapping", "mapping_keys"}:
+                pending.extend(item for pair in current.value for item in pair
+                               if isinstance(item, _FlowValue))
+
+    def _helper_namespace_store(
+        self, target: ast.expr, values: dict[str, _FlowValue],
+    ) -> None:
+        if not isinstance(target, (ast.Attribute, ast.Subscript)):
+            return
+        owner = self._evaluate(target.value, values, False)
+        proof = owner.helper_provenance
+        reflective = isinstance(target.value, ast.Call) and _qualified_name(
+            target.value.func
+        ) in {"vars", "globals", "locals"}
+        changed_member = isinstance(target, ast.Attribute) and proof is not None and (
+            target.attr in {"__class__", "__bases__", "__mro__", "__getattribute__",
+                            "__getattr__", "__dict__", "__code__", "__defaults__",
+                            "__kwdefaults__", "__globals__"}
+            or f"{proof.key}::{target.attr}" in self.helper_registry
+        )
+        if not reflective and not changed_member:
+            if (self.active_helper_effects and isinstance(target, ast.Attribute)
+                    and proof is None and owner.kind not in {"scalar", "unbound"}
+                    and isinstance(self.helper_registry, _ReviewRegistry)
+                    and target.attr in self.helper_registry.by_name):
+                self.flow.standalone_blockers.append((
+                    target, "helper namespace owner needed for mutation is unresolved",
+                ))
+            return
+        self.flow.standalone_blockers.append((
+            target, "helper namespace mutation is dynamically unresolved",
+        ))
+        if reflective:
+            for value in values.values():
+                self._invalidate_helper_identities(value)
+        else:
+            self._invalidate_helper_identities(owner)
+
+    def _helper_effect_shape(
+        self, definition: ast.FunctionDef | ast.AsyncFunctionDef,
+    ) -> tuple[frozenset[str], bool]:
+        cached = self._helper_effect_shapes.get(id(definition))
+        if cached is not None:
+            return cached
+        loaded: set[str] = set()
+        stores = False
+        scope = _lexical_binding_scope(definition)
+        for statement in definition.body:
+            for candidate in _metered_ast_walk(statement, self.budget):
+                if isinstance(candidate, ast.Name) and isinstance(candidate.ctx, ast.Load):
+                    loaded.add(candidate.id)
+                elif isinstance(candidate, (ast.Attribute, ast.Subscript)) and isinstance(
+                    candidate.ctx, (ast.Store, ast.Del),
+                ):
+                    stores = True
+                elif isinstance(candidate, ast.Name) and isinstance(candidate.ctx, (ast.Store, ast.Del)):
+                    stores |= candidate.id in scope.global_names | scope.nonlocal_names
+        result = frozenset(loaded), stores
+        self._helper_effect_shapes[id(definition)] = result
+        return result
+
+    def _registered_helper_environment(
+        self, definition: _ReviewFunction, values: Mapping[str, _FlowValue],
+        names: Iterable[str],
+    ) -> dict[str, _FlowValue]:
+        default_names = {
+            candidate.id
+            for expression in (*definition.node.args.defaults,
+                               *(value for value in definition.node.args.kw_defaults
+                                 if value is not None))
+            for candidate in _metered_ast_walk(expression, self.budget)
+            if isinstance(candidate, ast.Name)
+        }
+        seeds = _helper_provenance_seeds(
+            definition.relative_path, definition.aliases, self.helper_registry,
+            set(names) | default_names | definition.namespace_effects,
+            definition.stable_imports, self.budget,
+        )
+        # Global names use the defining module, never a caller's unrelated locals.
+        environment = {
+            name: _flow_qname(qualified) for name, qualified in definition.aliases.items()
+        }
+        environment.update(seeds)
+        for name, expression in definition.module_assignments.items():
+            if name not in seeds:
+                environment[name] = self._evaluate(expression, environment, False)
+        if definition.relative_path == self.helper_relative_path:
+            environment.update(
+                (name, value) for name, value in values.items()
+                if name not in self.lexical_scope.local_names
+            )
+        return environment
+
+    def _registered_helper_defaults(
+        self, definition: _ReviewFunction, environment: Mapping[str, _FlowValue],
+    ) -> tuple[tuple[str, _FlowValue], ...]:
+        arguments = definition.node.args
+        positional = (*arguments.posonlyargs, *arguments.args)
+        defaults = [
+            (argument.arg, expression)
+            for argument, expression in zip(
+                positional[len(positional) - len(arguments.defaults):],
+                arguments.defaults, strict=True,
+            )
+        ]
+        defaults.extend((argument.arg, expression) for argument, expression in zip(
+            arguments.kwonlyargs, arguments.kw_defaults, strict=True,
+        ) if expression is not None)
+        captured: list[tuple[str, _FlowValue]] = []
+        for name, expression in defaults:
+            # Only closed literals and stable, earlier module definitions can be
+            # projected without evaluating the module's definition-time code.
+            literal = _static_value(expression, {})
+            if literal is not _STATIC_UNRESOLVED:
+                value = self._evaluate(expression, {}, False)
+            else:
+                referenced = {candidate.id for candidate in _metered_ast_walk(
+                    expression, self.budget,
+                ) if isinstance(candidate, ast.Name)}
+                stable: dict[str, _FlowValue] = {}
+                for referenced_name in referenced:
+                    supplied = environment.get(referenced_name)
+                    proof = supplied.helper_provenance if supplied is not None else None
+                    original = self.helper_registry.get(proof.key) if proof is not None else None
+                    if (proof is not None and original is not None and original.binding_stable
+                            and original.relative_path == definition.relative_path
+                            and original.node.lineno < definition.node.lineno):
+                        stable[referenced_name] = supplied
+                if referenced and referenced <= stable.keys() and not any(
+                    isinstance(candidate, (ast.Call, ast.NamedExpr, ast.Lambda))
+                    for candidate in _metered_ast_walk(expression, self.budget)
+                ):
+                    value = self._evaluate(expression, stable, False)
+                else:
+                    value = _flow_unknown("helper definition-time default is unresolved")
+            captured.append((name, value))
+        return tuple(captured)
+
+    def _apply_helper_call_effects(
+        self, node: ast.Call, callable_value: _FlowValue,
+        arguments: Sequence[_FlowValue], keywords: Sequence[_FlowValue],
+        values: dict[str, _FlowValue],
+    ) -> _FlowValue | None:
+        if not self.helper_registry:
+            return
+        marker = (str(callable_value.value[0])
+                  if callable_value.kind == "callable_summary"
+                  and isinstance(callable_value.value, tuple)
+                  else str(callable_value.value) if callable_value.kind == "qname" else None)
+        local = self._local_function_definitions.get(marker or "")
+        proof = callable_value.helper_provenance
+        registered = (self.helper_registry.get(proof.key)
+                      if proof is not None and proof.kind == "callable" else None)
+        explicit = (*arguments, *keywords)
+
+        def refuse(reason: str, affected: Iterable[_FlowValue]) -> None:
+            self.flow.standalone_blockers.append((node, reason))
+            for value in affected:
+                self._invalidate_helper_identities(value)
+
+        if local is None and registered is None:
+            # Creating a deferred generator does not execute its body.
+            if callable_value.kind == "deferred_local_generator_factory":
+                return
+            if any(_flow_contains_helper_identity(value, self.budget) for value in explicit):
+                refuse("helper namespace escape is dynamically unresolved", explicit)
+            return
+        definition = local[0] if local is not None else registered.node
+        deferred = _helper_body_is_deferred(definition, self.budget)
+        loaded, has_stores = self._helper_effect_shape(definition)
+        if local is not None:
+            environment = dict(values)
+            defaults = callable_value.callable_defaults
+            module_names = self.module_bound_names
+            enclosing = self.exception_scope.enclosing_names | self.lexical_scope.local_names
+            path = self.helper_relative_path
+        else:
+            environment = self._registered_helper_environment(registered, values, loaded)
+            defaults = self._registered_helper_defaults(registered, environment)
+            module_names = registered.module_bound_names
+            enclosing = registered.enclosing_exception_names
+            path = registered.relative_path
+        supplied_arguments = tuple(arguments)
+        if proof is not None and proof.bound:
+            supplied_arguments = (
+                callable_value.helper_receiver
+                or _flow_unknown("captured helper receiver is unresolved"),
+                *supplied_arguments,
+            )
+        status, bindings = _bind_deferred_local_generator_call(
+            node, _DeferredLocalGeneratorFactory(marker or proof.key, definition, defaults),
+            supplied_arguments, keywords,
+        )
+        if status == "invalid":
+            # A binding TypeError cannot execute any body effect. The existing
+            # callable summary path retains the exact exception successor.
+            if self.active_helper_effects:
+                self._record_throw_state(values, "TypeError", True)
+                if self._throw_states is not None:
+                    raise _ExpressionDoesNotComplete
+            return
+        scope = _lexical_binding_scope(definition)
+        environment = {name: value for name, value in environment.items()
+                       if name not in scope.local_names}
+        environment.update(bindings)
+        input_names = loaded | {name for name, _value in bindings}
+        relevant = tuple(environment[name] for name in input_names if name in environment
+                         and _flow_contains_helper_identity(environment[name], self.budget))
+        if deferred and not relevant and not has_stores:
+            return None
+        if deferred:
+            # Registered generators/coroutines are not a newly supported heap.
+            # Creation stays deferred; existing consumption machinery explicitly
+            # refuses this unsupported state rather than executing the body now.
+            identity = self._next_deferred_local_generator_identity
+            self._next_deferred_local_generator_identity += 1
+            return _FlowValue("deferred_local_generator", _DeferredLocalGeneratorState(
+                _DeferredLocalGeneratorFactory(marker or proof.key, definition, defaults),
+                identity, id(node), bindings, supported=False, exact_full_review=False,
+            ))
+        if not relevant and not has_stores and not self.active_helper_effects:
+            return
+        if (status != "valid" or callable_value.helper_refusal is not None
+                or id(definition) in self.active_helper_effects
+                or len(self.active_helper_effects) >= MAXIMUM_ANALYSIS_HELPER_DEPTH):
+            refuse("helper namespace effects are dynamically unresolved", (*relevant, *explicit))
+            return
+        probe = _SourceOrderedResolver(
+            {}, {}, {}, budget=self.budget,
+            exception_scope=_exception_name_scope(definition, module_names, enclosing),
+            lexical_scope=scope, module_bound_names=module_names,
+            enclosing_bound_names=enclosing, entry_values=environment,
+            helper_registry=self.helper_registry,
+            invalid_helper_owners=self.invalid_helper_owners,
+            helper_relative_path=path,
+            active_helper_effects=self.active_helper_effects | {id(definition)},
+        )
+        probe._helper_effect_shapes = self._helper_effect_shapes
+        probe._local_function_definitions.update(self._local_function_definitions)
+        probe._deferred_local_generator_definitions.update(self._deferred_local_generator_definitions)
+        successors = probe._flow_statements(definition.body, probe.values)
+        self.invalid_helper_owners.update(probe.invalid_helper_owners)
+        for name in probe._helper_rebound_names:
+            # A cell/global binding changes, not the object retained by another
+            # alias or by a previously captured bound method.
+            if local is not None or (
+                path == self.helper_relative_path and name not in self.lexical_scope.local_names
+            ):
+                values[name] = _flow_unknown("helper namespace binding was changed")
+            if name in self.lexical_scope.global_names | self.lexical_scope.nonlocal_names:
+                self._helper_rebound_names.add(name)
+        for _site, reason in probe.flow.standalone_blockers:
+            if reason.startswith("helper namespace"):
+                self.flow.standalone_blockers.append((node, reason))
+        for reason in probe.flow.blockers_by_call.values():
+            if reason.startswith(("helper namespace", "helper callable", "helper descriptor")):
+                self.flow.standalone_blockers.append((node, reason))
+        if not (successors.normal or successors.returns):
+            tags = {exceptional.exception_tag for exceptional in successors.raises}
+            if tags:
+                for tag in tags:
+                    self._record_throw_state(values, tag, True)
+                if self._throw_states is not None:
+                    raise _ExpressionDoesNotComplete
+        return None
+
+    def _helper_member_value(
+        self, node: ast.Attribute, base: _FlowValue, value: _FlowValue,
+    ) -> _FlowValue:
+        provenance = base.helper_provenance
+        if provenance is None:
+            return value
+        key = f"{provenance.key}::{node.attr}"
+        if provenance.key in self.invalid_helper_owners or key in self.invalid_helper_owners:
+            return replace(value, helper_refusal="helper namespace identity was mutated")
+        definition = self.helper_registry.get(key)
+        if provenance.kind == "module":
+            exported = getattr(self.helper_registry, "exports", {}).get(key)
+            return replace(value, helper_provenance=exported)
+        if provenance.kind not in {"class", "instance"} or definition is None:
+            return value
+        if not definition.member_stable or definition.descriptor_kind is None:
+            return replace(value, helper_refusal="helper descriptor member identity is unresolved")
+        bound = definition.descriptor_kind == "classmethod" or (
+            definition.descriptor_kind == "ordinary" and provenance.kind == "instance"
+        )
+        receiver = None
+        if bound:
+            receiver = (replace(base, helper_provenance=replace(provenance, kind="class"))
+                        if definition.descriptor_kind == "classmethod" else base)
+        return replace(value, helper_provenance=_HelperProvenance("callable", key, bound),
+                       namespace_effects=definition.namespace_effects,
+                       helper_receiver=receiver)
+
     def _evaluate(
         self,
         node: ast.AST | None,
@@ -16999,17 +17518,17 @@ class _SourceOrderedResolver:
                 "deferred_generator_merged",
                 "deferred_local_generator",
             }:
-                return _FlowValue(
+                return self._helper_member_value(node, base, _FlowValue(
                     "deferred_generator_method",
                     (base, node.attr),
-                )
+                ))
             if base.kind == "qname":
                 canonical_member = f"{base.value}.{node.attr}"
                 if canonical_member in values:
-                    return values[canonical_member]
+                    return self._helper_member_value(node, base, values[canonical_member])
             stored = _flow_mapping_value(base, node.attr)
             if stored is not None:
-                return stored
+                return self._helper_member_value(node, base, stored)
             if (
                 base.kind == "object"
                 and str(base.value).startswith(
@@ -17019,10 +17538,10 @@ class _SourceOrderedResolver:
                     )
                 )
             ):
-                return _FlowValue(
+                return self._helper_member_value(node, base, _FlowValue(
                     "proved_non_sensitive_callable",
                     f"{base.value}.{node.attr}",
-                )
+                ))
             if base.kind == "implicit_class_instance" and isinstance(
                 base.value,
                 _ImplicitClassDescriptor,
@@ -17041,23 +17560,23 @@ class _SourceOrderedResolver:
                             frozenset({"__get__"}),
                             "implicit descriptor access is dynamically unresolved",
                         )
-                    return _flow_unknown(
+                    return self._helper_member_value(node, base, _flow_unknown(
                         "descriptor result is dynamically unresolved",
                         sensitive=bool(
                             descriptor_member.sensitive_methods
                             & frozenset({"__get__"})
                         ),
-                    )
-                return _flow_qname(f"{base.value.name}().{node.attr}")
+                    ))
+                return self._helper_member_value(node, base, _flow_qname(f"{base.value.name}().{node.attr}"))
             if base.kind in {"qname", "object"}:
-                return _flow_qname(f"{base.value}.{node.attr}")
+                return self._helper_member_value(node, base, _flow_qname(f"{base.value}.{node.attr}"))
             if _flow_is_sensitive(base):
-                return _flow_unknown(
+                return self._helper_member_value(node, base, _flow_unknown(
                     base.reason
                     or "mixed protected receiver is dynamically unresolved",
                     sensitive=True,
-                )
-            return _flow_unknown("attribute receiver is dynamically unresolved")
+                ))
+            return self._helper_member_value(node, base, _flow_unknown("attribute receiver is dynamically unresolved"))
         if isinstance(node, ast.Subscript):
             base = self._evaluate(node.value, values, record)
             if isinstance(node.slice, ast.Slice):
@@ -17557,7 +18076,18 @@ class _SourceOrderedResolver:
                     _IMPLICIT_PROTOCOL_METHODS["call"],
                     "implicit callable protocol execution is dynamically unresolved",
                 )
-                self._snapshot_call(node, values, callable_value)
+                self._snapshot_call(
+                    node, values, callable_value,
+                    {id(expression): value for expression, value in zip(
+                        (*node.args, *(keyword.value for keyword in node.keywords)),
+                        (*argument_values, *keyword_values), strict=True,
+                    )},
+                )
+                deferred_helper = self._apply_helper_call_effects(
+                    node, callable_value, argument_values, keyword_values, values,
+                )
+                if deferred_helper is not None:
+                    return deferred_helper
                 if any(
                     value.kind == "callback" and value.sensitive
                     for value in (*argument_values, *keyword_values)
@@ -19075,7 +19605,20 @@ class _SourceOrderedResolver:
         value: _FlowValue,
         values: dict[str, _FlowValue],
     ) -> None:
+        if isinstance(target, ast.Starred):
+            self._assign(target.value, _flow_unknown("starred assignment is dynamically unresolved"), values)
+            return
         if isinstance(target, ast.Name):
+            if (self.active_helper_effects
+                    and target.id in self.lexical_scope.global_names | self.lexical_scope.nonlocal_names):
+                self._helper_rebound_names.add(target.id)
+                previous = values.get(target.id)
+                if previous is not None and _flow_contains_helper_identity(previous, self.budget):
+                    self.flow.standalone_blockers.append((
+                        target, "helper namespace binding change is dynamically unresolved",
+                    ))
+            if value.helper_provenance is not None and value.helper_provenance.kind == "callable":
+                self._helper_alias_candidates.add(target.id)
             if value.kind == "environment":
                 environment = value.value
                 if (
@@ -19094,6 +19637,13 @@ class _SourceOrderedResolver:
                     )
             values[target.id] = value
             return
+        if isinstance(target, (ast.Attribute, ast.Subscript)) and (
+            _flow_contains_helper_identity(value, self.budget)
+        ):
+            self.flow.standalone_blockers.append((
+                target, "helper namespace store is dynamically unresolved",
+            ))
+        self._helper_namespace_store(target, values)
         subscript_owner: _FlowValue | None = None
         subscript_index: _FlowValue | None = None
         if isinstance(target, ast.Subscript):
@@ -19387,11 +19937,20 @@ class _SourceOrderedResolver:
         target: ast.expr,
         values: dict[str, _FlowValue],
     ) -> None:
+        self._helper_namespace_store(target, values)
         if isinstance(target, (ast.Tuple, ast.List)):
             for item in target.elts:
                 self._delete_target(item, values)
             return
         if isinstance(target, ast.Name):
+            if (self.active_helper_effects
+                    and target.id in self.lexical_scope.global_names | self.lexical_scope.nonlocal_names):
+                self._helper_rebound_names.add(target.id)
+                previous = values.get(target.id)
+                if previous is not None and _flow_contains_helper_identity(previous, self.budget):
+                    self.flow.standalone_blockers.append((
+                        target, "helper namespace binding change is dynamically unresolved",
+                    ))
             current = values.get(target.id)
             if current is None or current.kind == "unbound":
                 self._record_throw_state(
@@ -21111,6 +21670,13 @@ class _SourceOrderedResolver:
                         )
                     else:
                         installed = returned
+                if not statement.decorator_list:
+                    installed = replace(
+                        installed, callable_defaults=tuple(captured_defaults),
+                        namespace_effects=_helper_local_namespace_effects(
+                            statement, self.budget,
+                        ),
+                    )
                 values[statement.name] = installed
                 continue
             if isinstance(statement, ast.ClassDef):
@@ -21363,8 +21929,9 @@ def _source_ordered_helper_return(
         returned.append(_FlowValue("scalar", None))
     if not returned:
         return None
-    if all(value == returned[0] for value in returned):
-        return returned[0]
+    if all(_flow_without_helper_proof(value) == _flow_without_helper_proof(returned[0])
+           for value in returned):
+        return _merge_flow_values("helper return", tuple(returned))
     if any(_flow_is_sensitive(value) for value in returned):
         return _flow_unknown(
             "callable alias is dynamically unresolved",
@@ -21389,6 +21956,10 @@ def _source_ordered_review_flow(
     enclosing_names: Iterable[str] = (),
     sensitive_definition_markers: Iterable[str] = (),
     entry_values: Mapping[str, _FlowValue] | None = None,
+    helper_registry: Mapping[str, _ReviewFunction] | None = None,
+    helper_seeds: Mapping[str, _FlowValue] | None = None,
+    invalid_helper_owners: Iterable[str] = (),
+    helper_relative_path: str | None = None,
 ) -> _ReviewFlow:
     enclosing_names = frozenset(
         set(enclosing_names)
@@ -21450,6 +22021,10 @@ def _source_ordered_review_flow(
         enclosing_names,
         sensitive_definition_markers,
         entry_values,
+        helper_registry,
+        helper_seeds,
+        invalid_helper_owners,
+        helper_relative_path,
     )
     for name in resolver.exception_scope.entry_bound_names:
         resolver.values.setdefault(
@@ -21457,6 +22032,219 @@ def _source_ordered_review_flow(
             _flow_unknown("function parameter is dynamically unresolved"),
         )
     return resolver.resolve(node.body)
+
+
+def _helper_descriptor_kind(
+    node: ast.FunctionDef | ast.AsyncFunctionDef,
+    unavailable_names: frozenset[str],
+) -> str | None:
+    """Accept only a single builtin descriptor whose spelling is unshadowed."""
+
+    if not node.decorator_list:
+        return "ordinary"
+    if len(node.decorator_list) != 1:
+        return None
+    decorator = node.decorator_list[0]
+    if (
+        isinstance(decorator, ast.Name)
+        and decorator.id in {"staticmethod", "classmethod"}
+        and decorator.id not in unavailable_names
+    ):
+        return decorator.id
+    return None
+
+
+def _descriptor_unavailable_names(nodes: Sequence[ast.stmt]) -> frozenset[str]:
+    visitor = _ExceptionBindingVisitor()
+    try:
+        for node in nodes:
+            visitor.visit(node)
+            if any(
+                isinstance(child, ast.ImportFrom)
+                and any(alias.name == "*" for alias in child.names)
+                for child in ast.walk(node)
+            ):
+                visitor.bound_names.update({"staticmethod", "classmethod"})
+    except RecursionError:
+        visitor.bound_names.update({"staticmethod", "classmethod"})
+    return frozenset(visitor.bound_names)
+
+
+class _MeteredHelperBindings(_ExceptionBindingVisitor):
+    """Reuse lexical binding semantics while charging every visited AST node."""
+
+    def __init__(self, budget: _AnalysisBudget) -> None:
+        super().__init__()
+        self.budget = budget
+        self.pending: list[ast.AST] | None = None
+
+    def visit(self, node: ast.AST) -> None:
+        if self.pending is not None:
+            self.pending.append(node)
+            return
+        self.pending = [node]
+        try:
+            while self.pending:
+                candidate = self.pending.pop()
+                self.budget.consume()
+                super().visit(candidate)
+        finally:
+            self.pending = None
+
+
+def _helper_local_namespace_effects(
+    node: ast.FunctionDef | ast.AsyncFunctionDef, budget: _AnalysisBudget,
+) -> frozenset[str]:
+    visitor = _MeteredHelperBindings(budget)
+    for statement in node.body:
+        visitor.visit(statement)
+    return frozenset(visitor.bound_names & (visitor.global_names | visitor.nonlocal_names))
+
+
+def _helper_binding_counts(
+    statements: Sequence[ast.stmt], budget: _AnalysisBudget,
+) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for statement in statements:
+        visitor = _MeteredHelperBindings(budget)
+        visitor.visit(statement)
+        for name in visitor.bound_names:
+            budget.consume()
+            counts[name] = counts.get(name, 0) + 1
+    return counts
+
+
+def _helper_initialization_nodes(
+    tree: ast.AST, budget: _AnalysisBudget,
+) -> Iterable[ast.AST]:
+    pending = [tree]
+    while pending:
+        candidate = pending.pop()
+        budget.consume()
+        yield candidate
+        if isinstance(candidate, (ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda)):
+            pending.extend(candidate.args.defaults)
+            pending.extend(value for value in candidate.args.kw_defaults if value is not None)
+            pending.extend(getattr(candidate, "decorator_list", ()))
+        else:
+            pending.extend(ast.iter_child_nodes(candidate))
+
+
+def _helper_namespace_certificates(
+    tree: ast.Module, budget: _AnalysisBudget,
+) -> tuple[dict[int, bool], dict[int, bool], frozenset[str]]:
+    # Deferred bodies do not mutate their enclosing namespace at definition time.
+    dynamic_namespace = False
+    for candidate in _helper_initialization_nodes(tree, budget):
+        if isinstance(candidate, ast.ImportFrom) and any(
+            alias.name == "*" for alias in candidate.names
+        ):
+            dynamic_namespace = True
+        if isinstance(candidate, ast.Attribute) and isinstance(
+            candidate.ctx, (ast.Store, ast.Del)
+        ):
+            dynamic_namespace = True
+        if isinstance(candidate, ast.Call) and _qualified_name(candidate.func) in {
+            "setattr", "delattr", "vars", "globals", "locals", "exec", "eval",
+        }:
+            dynamic_namespace = True
+    counts = _helper_binding_counts(tree.body, budget)
+    stable_imports: set[str] = set()
+    for statement in tree.body:
+        budget.consume()
+        if isinstance(statement, (ast.Import, ast.ImportFrom)):
+            visitor = _MeteredHelperBindings(budget)
+            visitor.visit(statement)
+            stable_imports.update(name for name in visitor.bound_names if counts[name] == 1)
+    if dynamic_namespace:
+        stable_imports.clear()
+    binding: dict[int, bool] = {}
+    members: dict[int, bool] = {}
+    source_aliases: dict[str, str] = {}
+    for definition in tree.body:
+        budget.consume()
+        if isinstance(definition, (ast.Import, ast.ImportFrom)):
+            source_aliases.update(_module_import_aliases(ast.Module(body=[definition], type_ignores=[])))
+        if not isinstance(definition, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            continue
+        binding[id(definition)] = counts.get(definition.name) == 1 and not dynamic_namespace
+        if not isinstance(definition, ast.ClassDef):
+            continue
+        member_counts = _helper_binding_counts(definition.body, budget)
+        aliases = {name: target for name, target in source_aliases.items()
+                   if name in stable_imports}
+        class_supported = (
+            not definition.keywords
+            and all(_resolved_qualified_name(base, aliases) in {"object", "unittest.TestCase"}
+                    and not (isinstance(base, ast.Name) and base.id == "object"
+                             and counts.get("object", 0)) for base in definition.bases)
+            and all(_resolved_qualified_name(
+                decorator.func if isinstance(decorator, ast.Call) else decorator, aliases,
+            ) in {"unittest.skip", "unittest.skipIf", "unittest.skipUnless"}
+                    and (_qualified_name(decorator.func if isinstance(decorator, ast.Call)
+                                        else decorator) or "").split(".")[0] in stable_imports
+                    for decorator in definition.decorator_list)
+            and not ({"__getattribute__", "__getattr__"} & member_counts.keys())
+        )
+        for method in definition.body:
+            budget.consume()
+            if isinstance(method, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                members[id(method)] = (
+                    class_supported and not dynamic_namespace and member_counts.get(method.name) == 1
+                )
+    return binding, members, frozenset(stable_imports)
+
+
+def _helper_provenance_seeds(
+    relative_path: str,
+    aliases: Mapping[str, str],
+    registry: Mapping[str, _ReviewFunction],
+    referenced_names: Iterable[str],
+    stable_imports: frozenset[str],
+    budget: _AnalysisBudget,
+) -> dict[str, _FlowValue]:
+    seeds: dict[str, _FlowValue] = {}
+    for name in referenced_names:
+        budget.consume()
+        key = f"{relative_path}::{name}"
+        definition = registry.get(key)
+        if definition is None or not definition.binding_stable:
+            continue
+        kind = "class" if definition.class_name is not None else "callable"
+        seeds[name] = _FlowValue(
+            "qname", name, helper_provenance=_HelperProvenance(kind, key),
+            namespace_effects=definition.namespace_effects,
+        )
+    for name in stable_imports:
+        budget.consume()
+        target = aliases.get(name, "")
+        proof = getattr(registry, "qualified_proofs", {}).get(target)
+        if proof is None:
+            continue
+        definition = registry.get(proof.key)
+        seeds[name] = _FlowValue(
+            "qname", target, helper_provenance=proof,
+            namespace_effects=definition.namespace_effects if definition is not None else frozenset(),
+        )
+    return seeds
+
+
+class _ReviewRegistry(dict[str, _ReviewFunction]):
+    def __init__(self) -> None:
+        super().__init__()
+        self.by_name: dict[str, list[_ReviewFunction]] = {}
+        self._definitions: set[int] = set()
+        self.exports: dict[str, _HelperProvenance] = {}
+        self.qualified_proofs: dict[str, _HelperProvenance] = {}
+        self.initial_member_mutations: set[str] = set()
+        self.initial_namespace_refusals: set[str] = set()
+        self.module_dependencies: dict[str, set[str]] = {}
+
+    def __setitem__(self, key: str, definition: _ReviewFunction) -> None:
+        super().__setitem__(key, definition)
+        if id(definition) not in self._definitions:
+            self._definitions.add(id(definition))
+            self.by_name.setdefault(definition.node.name, []).append(definition)
 
 
 def _review_function_registry(
@@ -21467,7 +22255,15 @@ def _review_function_registry(
         frozenset[str],
     ] | None = None,
 ) -> dict[str, _ReviewFunction]:
-    registry: dict[str, _ReviewFunction] = {}
+    registry = _ReviewRegistry()
+    certificate_budgets = {path: _AnalysisBudget() for path in parsed}
+    effectful_functions: dict[int, frozenset[str]] = {}
+    for path, tree in parsed.items():
+        for candidate in _metered_ast_walk(tree, certificate_budgets[path]):
+            if isinstance(candidate, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                effectful_functions[id(candidate)] = _helper_local_namespace_effects(
+                    candidate, certificate_budgets[path],
+                )
 
     def register(key: str, definition: _ReviewFunction) -> None:
         previous = registry.get(key)
@@ -21494,6 +22290,10 @@ def _review_function_registry(
             )
         })
         assignments = _static_assignments(tree.body)
+        stable_bindings, stable_members, stable_imports = _helper_namespace_certificates(
+            tree, certificate_budgets[relative_path],
+        )
+        descriptor_names = _descriptor_unavailable_names(tree.body)
         source_path = PurePosixPath(relative_path)
         module_name = ".".join(source_path.with_suffix("").parts)
         shorthand = source_path.stem
@@ -21507,6 +22307,9 @@ def _review_function_registry(
                     None,
                     provenance.module_bound_names,
                     provenance.enclosing_names_by_node.get(id(node), frozenset()),
+                    binding_stable=stable_bindings.get(id(node), False),
+                    stable_imports=stable_imports,
+                    namespace_effects=effectful_functions.get(id(node), frozenset()),
                 )
                 for key in (
                     f"{relative_path}::{node.name}",
@@ -21515,6 +22318,9 @@ def _review_function_registry(
                 ):
                     register(key, definition)
             elif isinstance(node, ast.ClassDef):
+                unavailable_descriptors = (
+                    descriptor_names | _descriptor_unavailable_names(node.body)
+                )
                 constructor = next(
                     (
                         method
@@ -21542,6 +22348,11 @@ def _review_function_registry(
                         id(constructor),
                         frozenset(),
                     ),
+                    _helper_descriptor_kind(constructor, unavailable_descriptors),
+                    stable_bindings.get(id(node), False),
+                    stable_members.get(id(constructor), not node.keywords),
+                    stable_imports,
+                    effectful_functions.get(id(constructor), frozenset()),
                 )
                 for key in (
                     f"{relative_path}::{node.name}",
@@ -21566,6 +22377,11 @@ def _review_function_registry(
                             id(method),
                             frozenset(),
                         ),
+                        _helper_descriptor_kind(method, unavailable_descriptors),
+                        stable_bindings.get(id(node), False),
+                        stable_members.get(id(method), False),
+                        stable_imports,
+                        effectful_functions.get(id(method), frozenset()),
                     )
                     register(
                         f"{relative_path}::{node.name}::{method.name}",
@@ -21600,23 +22416,181 @@ def _review_function_registry(
         changed = len(registry) != before_count
         if not changed:
             break
+    for relative_path, tree in parsed.items():
+        budget = certificate_budgets[relative_path]
+        module = ".".join(PurePosixPath(relative_path).with_suffix("").parts)
+        registry.qualified_proofs[module] = _HelperProvenance("module", relative_path)
+        registry.qualified_proofs[PurePosixPath(relative_path).stem] = (
+            _HelperProvenance("module", relative_path)
+        )
+        for node in tree.body:
+            budget.consume()
+            if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                continue
+            key = f"{relative_path}::{node.name}"
+            definition = registry.get(key)
+            if definition is None or not definition.binding_stable:
+                continue
+            proof = _HelperProvenance("class" if isinstance(node, ast.ClassDef) else "callable", key)
+            registry.exports[key] = proof
+            registry.qualified_proofs[f"{module}.{node.name}"] = proof
+    for _ in range(len(parsed) + 1):
+        changed = False
+        for relative_path, tree in parsed.items():
+            budget = certificate_budgets[relative_path]
+            module = ".".join(PurePosixPath(relative_path).with_suffix("").parts)
+            definitions = (registry.get(f"{relative_path}::{node.name}")
+                           for node in tree.body if isinstance(
+                               node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)))
+            stable = next((definition.stable_imports for definition in definitions
+                           if definition is not None), frozenset())
+            for name, target in _module_import_aliases(tree).items():
+                budget.consume()
+                proof = registry.qualified_proofs.get(target)
+                if name not in stable or proof is None:
+                    continue
+                key = f"{relative_path}::{name}"
+                if key not in registry.exports:
+                    registry.exports[key] = proof
+                    registry.qualified_proofs[f"{module}.{name}"] = proof
+                    changed = True
+        if not changed:
+            break
+    for relative_path, tree in parsed.items():
+        budget = certificate_budgets[relative_path]
+        aliases = _module_import_aliases(tree)
+        assignments = _static_assignments(tree.body)
+        binding_counts = _helper_binding_counts(tree.body, budget)
+        plain_classes = {node.name for node in tree.body if isinstance(node, ast.ClassDef)
+                         and not node.bases and not node.keywords and not node.decorator_list
+                         and all(isinstance(member, ast.Pass) for member in node.body)}
+        dependencies = registry.module_dependencies.setdefault(relative_path, set())
+        for candidate in _helper_initialization_nodes(tree, budget):
+            if isinstance(candidate, (ast.Import, ast.ImportFrom)):
+                modules = ([alias.name for alias in candidate.names]
+                           if isinstance(candidate, ast.Import) else [candidate.module or ""])
+                for module in modules:
+                    proof = registry.qualified_proofs.get(module)
+                    if proof is not None and proof.kind == "module":
+                        dependencies.add(proof.key)
+            target: ast.expr | None = None
+            member: str | None = None
+            if isinstance(candidate, ast.Attribute) and isinstance(candidate.ctx, (ast.Store, ast.Del)):
+                target, member = candidate.value, candidate.attr
+            elif isinstance(candidate, ast.Call) and _qualified_name(candidate.func) in {
+                "setattr", "delattr",
+            }:
+                if len(candidate.args) >= 2:
+                    target = candidate.args[0]
+                    if isinstance(candidate.args[1], ast.Constant) and type(candidate.args[1].value) is str:
+                        member = candidate.args[1].value
+            elif isinstance(candidate, ast.Call) and _qualified_name(candidate.func) in {"exec", "eval"}:
+                registry.initial_namespace_refusals.add(relative_path)
+            elif isinstance(candidate, ast.Subscript) and isinstance(candidate.ctx, (ast.Store, ast.Del)):
+                if isinstance(candidate.value, ast.Call):
+                    namespace = _qualified_name(candidate.value.func)
+                    if namespace in {"globals", "locals"}:
+                        registry.initial_namespace_refusals.add(relative_path)
+                    elif namespace == "vars" and len(candidate.value.args) == 1:
+                        target = candidate.value.args[0]
+                elif isinstance(candidate.value, ast.Attribute) and candidate.value.attr == "__dict__":
+                    target = candidate.value.value
+                if isinstance(candidate.slice, ast.Constant) and type(candidate.slice.value) is str:
+                    member = candidate.slice.value
+            if target is None:
+                continue
+            seen: set[str] = set()
+            while isinstance(target, ast.Name) and target.id in assignments and target.id not in seen:
+                budget.consume()
+                seen.add(target.id)
+                target = assignments[target.id]
+            if isinstance(target, ast.Call):
+                factory = _resolved_qualified_name(target.func, aliases)
+                root = (_qualified_name(target.func) or "").split(".")[0]
+                if ((factory in {"types.ModuleType", "types.SimpleNamespace"}
+                     and binding_counts.get(root) == 1 and root in aliases)
+                        or (isinstance(target.func, ast.Name)
+                            and target.func.id in plain_classes
+                            and binding_counts.get(target.func.id) == 1)):
+                    # These constructors allocate a fresh unrelated namespace.
+                    continue
+            raw = _resolved_qualified_name(target, aliases) or ""
+            if (isinstance(target, ast.Name) and target.id in aliases
+                    and binding_counts.get(target.id) == 1
+                    and raw not in registry.qualified_proofs):
+                # Exact external module objects use the existing protected-namespace
+                # mutation path; their attribute slots are not registry helper owners.
+                continue
+            proof = registry.qualified_proofs.get(raw) or registry.exports.get(
+                f"{relative_path}::{raw}"
+            )
+            definition = registry.get(raw) or registry.get(
+                f"{relative_path}::{raw.replace('.', '::')}"
+            )
+            if proof is None and definition is not None:
+                key = f"{definition.relative_path}::"
+                if definition.class_name is not None:
+                    key += f"{definition.class_name}::"
+                proof = _HelperProvenance("callable", key + definition.node.name)
+            if proof is None:
+                # An unknown initialized namespace might alias an imported owner.
+                registry.initial_namespace_refusals.add(relative_path)
+                continue
+            if member is None or member in {
+                "__class__", "__bases__", "__mro__", "__getattribute__", "__getattr__",
+                "__dict__", "__globals__", "__code__", "__defaults__", "__kwdefaults__",
+            }:
+                registry.initial_member_mutations.add(proof.key)
+            elif proof.kind in {"class", "instance"}:
+                key = f"{proof.key}::{member}"
+                if key in registry:
+                    registry.initial_member_mutations.add(key)
+            elif proof.kind == "module":
+                exported = registry.exports.get(f"{proof.key}::{member}")
+                if exported is not None:
+                    registry.initial_member_mutations.add(exported.key)
     return registry
+
+
+def _helper_receiver_kinds(definition: _ReviewFunction | None) -> dict[str, str]:
+    if definition is None or definition.descriptor_kind not in {
+        "ordinary", "classmethod"
+    }:
+        return {}
+    positional = [*definition.node.args.posonlyargs, *definition.node.args.args]
+    if not positional:
+        return {}
+    return {
+        positional[0].arg: (
+            "class" if definition.descriptor_kind == "classmethod" else "instance"
+        )
+    }
 
 
 def _helper_is_bound(
     call: ast.Call,
     definition: _ReviewFunction,
     aliases: Mapping[str, str],
-) -> bool:
+    *,
+    receiver_kinds: Mapping[str, str],
+) -> bool | None:
     if definition.class_name is None:
         return False
+    if definition.descriptor_kind is None:
+        return None
     raw = _qualified_name(call.func)
     if raw is not None and raw.startswith(("self.", "cls.")):
-        return True
+        receiver_kind = receiver_kinds.get(raw.split(".", 1)[0])
+        if receiver_kind is None:
+            return None
+        return definition.descriptor_kind == "classmethod" or (
+            definition.descriptor_kind == "ordinary" and receiver_kind == "instance"
+        )
+    if definition.descriptor_kind == "staticmethod":
+        return False
     resolved = _resolved_qualified_name(call.func, aliases)
     if (
         definition.node.name == "__init__"
-        and definition.class_name is not None
         and resolved is not None
         and (
             resolved == definition.class_name
@@ -21624,13 +22598,8 @@ def _helper_is_bound(
         )
     ):
         return True
-    decorators = {
-        _resolved_qualified_name(decorator, definition.aliases)
-        for decorator in definition.node.decorator_list
-    }
-    if "classmethod" not in decorators:
+    if definition.descriptor_kind != "classmethod":
         return False
-    resolved = _resolved_qualified_name(call.func, aliases)
     local_name = f"{definition.class_name}.{definition.node.name}"
     return resolved is not None and (
         resolved == local_name or resolved.endswith(f".{local_name}")
@@ -21641,6 +22610,9 @@ def _bind_helper_arguments(
     call: ast.Call,
     definition: _ReviewFunction,
     aliases: Mapping[str, str],
+    *,
+    receiver_kinds: Mapping[str, str],
+    proven_bound: bool | None = None,
 ) -> dict[str, tuple[ast.expr, bool]] | None:
     arguments = definition.node.args
     if (
@@ -21651,7 +22623,20 @@ def _bind_helper_arguments(
     ):
         return None
     positional = [*arguments.posonlyargs, *arguments.args]
-    if _helper_is_bound(call, definition, aliases):
+    positional_defaults = {
+        parameter.arg: value
+        for parameter, value in zip(
+            positional[-len(arguments.defaults) :] if arguments.defaults else (),
+            arguments.defaults,
+            strict=True,
+        )
+    }
+    bound = proven_bound if proven_bound is not None else _helper_is_bound(
+        call, definition, aliases, receiver_kinds=receiver_kinds
+    )
+    if bound is None:
+        return None
+    if bound:
         if not positional:
             return None
         positional = positional[1:]
@@ -21662,27 +22647,17 @@ def _bind_helper_arguments(
         supplied[parameter.arg] = (value, False)
     positional_only = {parameter.arg for parameter in arguments.posonlyargs}
     allowed_keywords = {
-        parameter.arg for parameter in (*arguments.args, *arguments.kwonlyargs)
+        parameter.arg for parameter in (*positional, *arguments.kwonlyargs)
+        if parameter.arg not in positional_only
     }
-    if _helper_is_bound(call, definition, aliases) and arguments.args:
-        allowed_keywords.discard(arguments.args[0].arg)
     for keyword in call.keywords:
         if (
             keyword.arg is None
-            or keyword.arg in positional_only
             or keyword.arg not in allowed_keywords
             or keyword.arg in supplied
         ):
             return None
         supplied[keyword.arg] = (keyword.value, False)
-    positional_defaults = {
-        parameter.arg: value
-        for parameter, value in zip(
-            positional[-len(arguments.defaults) :] if arguments.defaults else (),
-            arguments.defaults,
-            strict=True,
-        )
-    }
     for parameter in positional:
         if parameter.arg in supplied:
             continue
@@ -22545,6 +23520,8 @@ def _review_body(
     closure_helper_key: str | None = None,
     analysis_budget: _AnalysisBudget | None = None,
     entry_values: Mapping[str, _FlowValue] | None = None,
+    receiver_kinds: Mapping[str, str] | None = None,
+    invalid_helper_owners: Iterable[str] = (),
 ) -> tuple[list[dict[str, object]], list[dict[str, object]]]:
     if closure_depth > MAXIMUM_ANALYSIS_HELPER_DEPTH:
         raise InventoryError("analysis helper depth exceeds 64")
@@ -22555,6 +23532,25 @@ def _review_body(
         analyzed_sites = []
     if helper_edges is None:
         helper_edges = []
+    if receiver_kinds is None:
+        caller = helper_registry.get(f"{relative_path}::{class_name}::{node.name}")
+        receiver_kinds = _helper_receiver_kinds(
+            caller if caller is not None and caller.node is node else None
+        )
+    body_receiver_kinds = dict(receiver_kinds)
+    provenance_entries = dict(entry_values or {})
+    if class_name is not None:
+        for name, kind in receiver_kinds.items():
+            # A recursive caller supplies source-point values, including lost proof.
+            if entry_values is not None and name in entry_values and (
+                entry_values[name].helper_provenance is not None
+                or entry_values[name].reason != "unittest entry parameter is dynamically unresolved"
+            ):
+                continue
+            provenance_entries[name] = replace(
+                provenance_entries.get(name, _flow_qname(name)),
+                helper_provenance=_HelperProvenance(kind, f"{relative_path}::{class_name}"),
+            )
     execution = _execution_scope(node, analysis_budget)
     body_aliases = _function_aliases(
         aliases,
@@ -22721,7 +23717,16 @@ def _review_body(
         module_bound_names=module_bound_names,
         enclosing_names=enclosing_exception_names,
         sensitive_definition_markers=sensitive_definition_markers,
-        entry_values=entry_values,
+        entry_values=provenance_entries,
+        helper_registry=helper_registry,
+        invalid_helper_owners=invalid_helper_owners,
+        helper_relative_path=relative_path,
+        helper_seeds=_helper_provenance_seeds(
+            relative_path, aliases, helper_registry, referenced_names,
+            (helper_registry.get(f"{relative_path}::{class_name or node.name}") or
+             _ReviewFunction(relative_path, node, aliases, {}, None)).stable_imports,
+            analysis_budget,
+        ),
     )
     _append_implicit_protocol_analyzed_sites(
         source_flow.implicit_protocol_events,
@@ -22748,6 +23753,21 @@ def _review_body(
     )
     rows: list[dict[str, object]] = []
     blockers: list[dict[str, object]] = []
+    pending_modules = [relative_path]
+    visited_modules: set[str] = set()
+    while pending_modules:
+        analysis_budget.consume()
+        module = pending_modules.pop()
+        if module in visited_modules:
+            continue
+        visited_modules.add(module)
+        if module in getattr(helper_registry, "initial_namespace_refusals", ()):
+            blockers.append(_review_blocker(
+                item_id, relative_path, node,
+                "imported helper namespace initialization is dynamically unresolved",
+            ))
+            break
+        pending_modules.extend(getattr(helper_registry, "module_dependencies", {}).get(module, ()))
     local_definitions_by_marker = {
         _definition_point_marker(definition): definition
         for definition in execution.local_function_definitions
@@ -22795,7 +23815,9 @@ def _review_body(
             id(definition.node): definition.enclosing_exception_names
             for definition in helper_registry.values()
         },
-        entry_bound_unknown_names=(entry_values or {}).keys(),
+        entry_bound_unknown_names=(name for name, value in (entry_values or {}).items()
+                                   if not (value.kind == "qname"
+                                           and aliases.get(name) == value.value)),
     )
     resolved_sensitive_calls: set[int] = set()
     dispositions: dict[int, str] = {}
@@ -22939,6 +23961,12 @@ def _review_body(
                 active=active_helpers | {local_key},
             ):
                 continue
+            if exact_local_node is None:
+                blockers.append(_review_blocker(
+                    item_id, relative_path, call,
+                    "local helper callable provenance is unresolved",
+                ))
+                continue
             if local_key in active_helpers:
                 blockers.append(
                     _review_blocker(
@@ -22953,16 +23981,22 @@ def _review_body(
                 call,
                 local_definition,
                 call_aliases,
+                receiver_kinds={},
+                proven_bound=False,
             )
             local_assignments = dict(call_assignments)
             argument_failure = supplied is None
             if supplied is not None:
                 for parameter, (expression, is_default) in supplied.items():
-                    value = _static_value(
-                        expression,
-                        local_definition.module_assignments
-                        if is_default
-                        else call_assignments,
+                    evaluated = (
+                        source_flow.defaults_by_call.get(id(call), {}).get(parameter)
+                        if is_default else
+                        source_flow.arguments_by_call.get(id(call), {}).get(id(expression))
+                    )
+                    literal = _flow_literal_expression(evaluated) if evaluated is not None else None
+                    value = (
+                        _static_value(literal, {}) if literal is not None
+                        else _STATIC_UNRESOLVED
                     )
                     if value is _STATIC_UNRESOLVED:
                         argument_failure = True
@@ -23001,6 +24035,12 @@ def _review_body(
                 closure_depth=closure_depth + 1,
                 closure_helper_key=local_key,
                 analysis_budget=analysis_budget,
+                invalid_helper_owners=source_flow.invalid_helper_owners_by_call.get(id(call), ()),
+                receiver_kinds={},
+                entry_values={
+                    name: value for name, value in source_flow.values_by_call[id(call)].items()
+                    if name not in _lexical_binding_scope(local_node).local_names
+                },
             )
             site_key = site_keys[id(call)]
             scaled, scale_blockers = _scale_nested_review_rows(
@@ -23022,8 +24062,26 @@ def _review_body(
             aliases=call_aliases,
             registry=helper_registry,
         )
+        proof = source_flow.helper_calls.get(id(call))
+        if proof is not None and proof.kind == "callable":
+            proved_definition = helper_registry.get(proof.key)
+            if proved_definition is not None:
+                helper = (proof.key, proved_definition)
         if helper is not None:
             helper_key, definition = helper
+            if proof is None or proof.kind != "callable" or proof.key != helper_key:
+                if _helper_has_sensitive_closure(
+                    definition, helper_registry, budget=analysis_budget,
+                ):
+                    blockers.append(_review_blocker(
+                        item_id, relative_path, call,
+                        "helper callable provenance is unresolved",
+                    ))
+                continue
+            if _helper_body_is_deferred(definition.node, analysis_budget):
+                # The call creates a deferred object. Its unsupported consumption
+                # is handled by flow, never by expanding its body at creation.
+                continue
             helper_edges.append(
                 {
                     "item_id": item_id,
@@ -23049,6 +24107,8 @@ def _review_body(
                 call,
                 definition,
                 call_aliases,
+                receiver_kinds={},
+                proven_bound=proof.bound,
             )
             argument_failure = supplied_arguments is None
             if supplied_arguments is None:
@@ -23067,13 +24127,15 @@ def _review_body(
                 for parameter, (expression, is_default) in (
                     supplied_arguments.items()
                 ):
-                    value = _static_value(
-                        expression,
-                        (
-                            definition.module_assignments
-                            if is_default
-                            else call_assignments
-                        ),
+                    evaluated = source_flow.arguments_by_call.get(id(call), {}).get(
+                        id(expression)
+                    ) if not is_default else None
+                    literal = _flow_literal_expression(evaluated) if evaluated is not None else None
+                    value = (
+                        _static_value(expression, definition.module_assignments)
+                        if is_default else
+                        _static_value(literal, {}) if literal is not None
+                        else _STATIC_UNRESOLVED
                     )
                     if value is _STATIC_UNRESOLVED:
                         argument_failure = True
@@ -23111,8 +24173,16 @@ def _review_body(
                 closure_depth=closure_depth + 1,
                 closure_helper_key=helper_key,
                 analysis_budget=analysis_budget,
+                invalid_helper_owners=source_flow.invalid_helper_owners_by_call.get(id(call), ()),
+                receiver_kinds={
+                    name: kind
+                    for name, kind in _helper_receiver_kinds(definition).items()
+                    if supplied_arguments is not None and name not in supplied_arguments
+                },
             )
-            if argument_failure and (refused or not added):
+            if argument_failure and (
+                supplied_arguments is None or refused or not added
+            ):
                 blockers.append(
                     _review_blocker(
                         item_id,

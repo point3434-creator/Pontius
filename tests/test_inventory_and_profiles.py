@@ -229,6 +229,11 @@ STABILIZATION_TEST_FILES = (
     "tests/test_test_orchestration_protocol.py",
     "tests/test_test_orchestration_windows_job.py",
     "tests/test_test_orchestration_workspace.py",
+    "tests/test_v0a_boundaries.py",
+    "tests/test_v0a_contract_faults.py",
+    "tests/test_v0a_hand_replay.py",
+    "tests/test_v0a_replay.py",
+    "tests/test_v0a_trace.py",
 )
 
 _PATH_BEFORE_BOOTSTRAP = tuple(sys.path)
@@ -20746,6 +20751,872 @@ class DesignReviewTests(unittest.TestCase):
             )
         )
 
+    def _provenance_case(self, body, *, helper="", class_tail="", module_tail=""):
+        process = (
+            'subprocess.run([sys.executable, "-m", module], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, '
+            'timeout=5, check=False)'
+        )
+        source = (
+            'import subprocess, sys, unittest\n'
+            'from contextlib import nullcontext\n'
+            'class ReviewTests(unittest.TestCase):\n'
+            '    @staticmethod\n'
+            '    def _launch(ignored=None, module="fixed"):\n'
+            + f'        {process}\n'
+            + helper + class_tail
+            + '    def test_static(self):\n'
+            + textwrap.indent(body, '        ') + '\n'
+            + '    def test_denied(self): pass\n'
+            + module_tail
+        )
+        # Execute only the return projection; never execute the subprocess fixture.
+        namespace = {}
+        projection = source.replace(process, 'return module')
+        if module_tail:
+            projection = projection.removesuffix(module_tail) + (
+                'SavedReviewTests = ReviewTests\n' + module_tail
+            )
+        exec(projection, namespace)
+        projected = namespace.get('SavedReviewTests', namespace['ReviewTests'])
+        try:
+            result = projected('test_static').test_static()
+        except (AttributeError, TypeError, NameError, UnboundLocalError) as error:
+            result = type(error)
+        review = self._review(sources={'tests/test_review.py': source.encode('utf-8')})
+        return result, review
+
+    def test_helper_provenance_scoped_binding_losses_remain_blocked(self) -> None:
+        cases = (
+            ('assignment', 'ReviewTests = None\nreturn ReviewTests._launch()'),
+            ('chained', 'other = ReviewTests = None\nreturn ReviewTests._launch()'),
+            ('unpacked', 'ReviewTests, other = (None, 1)\nreturn ReviewTests._launch()'),
+            ('starred', '*ReviewTests, = [None]\nreturn ReviewTests._launch()'),
+            ('annotated', 'ReviewTests: object = None\nreturn ReviewTests._launch()'),
+            ('annotation-only', 'ReviewTests: object\nreturn ReviewTests._launch()'),
+            ('future-local', 'ReviewTests._launch()\nReviewTests = None'),
+            ('augmented', 'ReviewTests = 1\nReviewTests += 1\nreturn ReviewTests._launch()'),
+            ('deleted', 'ReviewTests = None\ndel ReviewTests\nreturn ReviewTests._launch()'),
+            ('for', 'for ReviewTests in [None]:\n    return ReviewTests._launch()'),
+            ('with', 'with nullcontext(None) as ReviewTests:\n    return ReviewTests._launch()'),
+            ('except', 'try:\n    raise ValueError()\nexcept ValueError as ReviewTests:\n    return ReviewTests._launch()'),
+            ('except-cleanup', 'try:\n    raise ValueError()\nexcept ValueError as ReviewTests:\n    pass\nreturn ReviewTests._launch()'),
+            ('match', 'match None:\n    case ReviewTests:\n        return ReviewTests._launch()'),
+            ('walrus', 'if (ReviewTests := None) is None:\n    return ReviewTests._launch()'),
+            ('captured', 'ReviewTests = None\ndef nested():\n    return ReviewTests._launch()\nreturn nested()'),
+            ('late-class-cell', 'ReviewTests = type(self)\ndef nested():\n    return ReviewTests._launch()\nReviewTests = None\nreturn nested()'),
+            ('late-receiver-cell', 'def nested():\n    return self._launch()\nself = None\nreturn nested()'),
+            ('nested-parameter', 'def nested(ReviewTests=None):\n    return ReviewTests._launch()\nreturn nested()'),
+            ('nested-posonly', 'def nested(ReviewTests=None, /):\n    return ReviewTests._launch()\nreturn nested()'),
+            ('nested-kwonly', 'def nested(*, ReviewTests=None):\n    return ReviewTests._launch()\nreturn nested()'),
+            ('nested-varargs', 'def nested(*ReviewTests):\n    return ReviewTests._launch()\nreturn nested()'),
+            ('nested-varkw', 'def nested(**ReviewTests):\n    return ReviewTests._launch()\nreturn nested()'),
+            ('import', 'import math as ReviewTests\nreturn ReviewTests._launch()'),
+            ('new-definition', 'def ReviewTests(): pass\nreturn ReviewTests._launch()'),
+            ('new-class', 'class ReviewTests: pass\nreturn ReviewTests._launch()'),
+        )
+        for label, body in cases:
+            with self.subTest(binding=label):
+                actual, review = self._provenance_case(body)
+                self.assertIn(actual, (AttributeError, NameError, UnboundLocalError))
+                if label in {'annotation-only', 'future-local', 'deleted'}:
+                    self.assertFalse(review['receipt']['expanded_rows'])
+                else:
+                    self.assertTrue(review['unresolved_dynamic_blockers'], label)
+
+    def test_helper_provenance_comprehension_scope_is_source_ordered(self) -> None:
+        negatives = (
+            '[self._launch() for self in [None]]',
+            '{self._launch() for self in [None]}',
+            '{0: self._launch() for self in [None]}',
+            'list(self._launch() for self in [None])',
+            '[ReviewTests._launch() for ReviewTests in [None]]',
+            '[0 for self in [None] if self._launch()]',
+            '[value for self in [None] for value in [self._launch()]]',
+            '[[self._launch() for self in [None]] for unused in [0]]',
+            '[self._launch() for self, unused in [(None, 0)]]',
+        )
+        for expression in negatives:
+            with self.subTest(comprehension=expression):
+                actual, review = self._provenance_case('return ' + expression)
+                self.assertIs(actual, AttributeError)
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+        for body, expected in (
+            ('return [value for self in [self._launch()] for value in [self]]', ['fixed']),
+            ('unused = [self for self in [None]]\nreturn self._launch()', 'fixed'),
+            ('unused = (self._launch() for self in [None])\nreturn self._launch()', 'fixed'),
+        ):
+            with self.subTest(outer_scope=body):
+                actual, review = self._provenance_case(body)
+                self.assertEqual(actual, expected)
+                rows = [r for r in review['receipt']['expanded_rows']
+                        if r['capability_kind'] == 'subprocess']
+                self.assertEqual([r['argv'] for r in rows], [['-m', 'fixed']])
+                self.assertFalse(review['unresolved_dynamic_blockers'])
+
+    def test_helper_provenance_original_members_require_stability(self) -> None:
+        cases = (
+            ('instance-store', 'self._launch = None\nreturn self._launch()', '', ''),
+            ('class-store', 'ReviewTests._launch = None\nreturn ReviewTests._launch()', '', ''),
+            ('class-delete', 'del ReviewTests._launch\nreturn ReviewTests._launch()', '', ''),
+            ('alias-store', 'alias = ReviewTests\nalias._launch = None\nreturn ReviewTests._launch()', '', ''),
+            ('setattr', 'setattr(ReviewTests, "_launch", None)\nreturn ReviewTests._launch()', '', ''),
+            ('delattr', 'delattr(ReviewTests, "_launch")\nreturn ReviewTests._launch()', '', ''),
+            ('instance-dict', 'vars(self)["_launch"] = None\nreturn self._launch()', '', ''),
+            ('globals', 'globals()["ReviewTests"] = None\nreturn ReviewTests._launch()', '', ''),
+            ('class-body', 'return self._launch()', '    _launch = None\n', ''),
+            ('module-binding', 'return ReviewTests._launch()', '',
+             'ReviewTests = None\n'),
+        )
+        for label, body, class_tail, module_tail in cases:
+            with self.subTest(member=label):
+                actual, review = self._provenance_case(
+                    body, class_tail=class_tail, module_tail=module_tail
+                )
+                self.assertIn(actual, (AttributeError, TypeError))
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+        actual, review = self._provenance_case(
+            'return self._outer(ignored=setattr(self, "_launch", None))',
+            helper='    def _outer(self, ignored=None):\n'
+                   '        return self._launch()\n',
+        )
+        self.assertIs(actual, TypeError)
+        self.assertTrue(review['unresolved_dynamic_blockers'])
+
+    def test_helper_provenance_callee_capture_and_local_admission(self) -> None:
+        for body in (
+            'launch = self._launch\nself = None\nreturn launch()',
+            'launch = ReviewTests._launch\nReviewTests = None\nreturn launch()',
+            'return self._launch(ignored=(self := None))',
+            'alias = ReviewTests\nreturn alias._launch()',
+            'def nested():\n    return self._launch()\nreturn nested()',
+        ):
+            # Assignment makes ReviewTests lexical: use a separate saved alias.
+            if body.startswith('launch = ReviewTests'):
+                body = 'global ReviewTests\n' + body
+            with self.subTest(capture=body):
+                actual, review = self._provenance_case(body)
+                self.assertEqual(actual, 'fixed')
+                rows = [r for r in review['receipt']['expanded_rows']
+                        if r['capability_kind'] == 'subprocess']
+                self.assertEqual([r['argv'] for r in rows], [['-m', 'fixed']])
+                self.assertFalse(review['unresolved_dynamic_blockers'])
+        for body in (
+            'def nested():\n    return self._launch()\nnested = None\nreturn nested()',
+            'def nested():\n    return self._launch()\nfor nested in [None]:\n    return nested()',
+        ):
+            with self.subTest(local_admission=body):
+                actual, review = self._provenance_case(body)
+                self.assertIs(actual, TypeError)
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+
+    def test_helper_provenance_values_defaults_and_callable_mutation(self) -> None:
+        for body, expected in (
+            ('module = "first"\nreturn self._launch(module=module, ignored=(module := "second"))', 'first'),
+            ('module = "first"\ndef nested(module=module):\n    return self._launch(module=module)\nmodule = "second"\nreturn nested()', 'first'),
+            ('def nested():\n    return self._launch(module="first")\nsaved = nested\ndef nested():\n    return self._launch(module="second")\nreturn saved()', 'first'),
+            ('if False:\n    self._launch()\nreturn "dead"', 'dead'),
+        ):
+            with self.subTest(value_capture=body):
+                actual, review = self._provenance_case(body)
+                self.assertEqual(actual, expected)
+                rows = [r for r in review['receipt']['expanded_rows']
+                        if r['capability_kind'] == 'subprocess']
+                self.assertEqual([r['argv'] for r in rows],
+                                 [] if expected == 'dead' else [['-m', expected]])
+                self.assertFalse(review['unresolved_dynamic_blockers'])
+        for body in (
+            'self._launch.__defaults__ = (None, "changed")\nreturn self._launch()',
+            'alias = self._launch\nalias.__defaults__ = (None, "changed")\nreturn self._launch()',
+            'def nested(module="first"):\n    return self._launch(module=module)\nnested.__defaults__ = ("changed",)\nreturn nested()',
+            'def nested():\n    return self._launch()\ndel nested\nreturn nested()',
+        ):
+            with self.subTest(callable_mutation=body):
+                actual, review = self._provenance_case(body)
+                self.assertIn(actual, ('changed', UnboundLocalError))
+                if actual is UnboundLocalError:
+                    self.assertFalse(review['receipt']['expanded_rows'])
+                else:
+                    self.assertTrue(review['unresolved_dynamic_blockers'])
+
+    def test_helper_provenance_alias_loss_and_cross_file_mutation_refuse(self) -> None:
+        with self.subTest(renamed_alias=True):
+            actual, review = self._provenance_case(
+                'launch = self._launch\nlaunch = None\nreturn launch()'
+            )
+            self.assertIs(actual, TypeError)
+            self.assertTrue(review['unresolved_dynamic_blockers'])
+        process = (
+            'subprocess.run([sys.executable, "-m", "fixed"], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, '
+            'timeout=5, check=False)'
+        )
+        support = (
+            'import subprocess, sys\n'
+            'def launch():\n    ' + process + '\n'
+            'class Support:\n'
+            '    @staticmethod\n'
+            '    def _launch():\n        ' + process + '\n'
+            'def mutate(owner):\n    owner._launch = None\n'
+        )
+        for prefix, body in (
+            ('from tests.review_support import launch\nlaunch = None\n', 'return launch()'),
+            ('from tests.review_support import Support\n',
+             'alias = Support\nalias._launch = None\nreturn Support._launch()'),
+            ('from tests.review_support import mutate\n',
+             'mutate(self)\nreturn self._launch()'),
+        ):
+            with self.subTest(imported_alias=(prefix, body)):
+                source = (
+                    'import subprocess, sys, unittest\n' + prefix
+                    + 'class ReviewTests(unittest.TestCase):\n'
+                    + '    @staticmethod\n    def _launch():\n        ' + process + '\n'
+                    + '    def test_static(self):\n' + textwrap.indent(body, '        ') + '\n'
+                    + '    def test_denied(self): pass\n'
+                )
+                namespace = {}
+                exec(support.replace(process, 'return "fixed"'), namespace)
+                projection = '\n'.join(
+                    line for line in source.replace(process, 'return "fixed"').splitlines()
+                    if not line.startswith('from tests.review_support import ')
+                )
+                exec(projection, namespace)
+                with self.assertRaises(TypeError):
+                    namespace['ReviewTests']('test_static').test_static()
+                review = self._review(sources={
+                    'tests/test_review.py': source.encode('utf-8'),
+                    'tests/review_support.py': support.encode('utf-8'),
+                })
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+
+    def test_helper_provenance_unsupported_effects_and_escapes_refuse(self) -> None:
+        for body, helper, tail, expected in (
+            ('self._mutate()\nreturn ReviewTests._launch()',
+             '    @staticmethod\n    def _mutate():\n'
+             '        global ReviewTests\n        ReviewTests = None\n', '', AttributeError),
+            ('def mutate():\n    nonlocal self\n    self = None\nmutate()\nreturn self._launch()',
+             '', '', AttributeError),
+            ('self.__class__ = Other\nreturn self._launch()', '',
+             'class Other:\n    @staticmethod\n    def _launch(): return "changed"\n', 'changed'),
+        ):
+            with self.subTest(effect=body):
+                actual, review = self._provenance_case(body, helper=helper, module_tail=tail)
+                self.assertEqual(actual, expected)
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+        # The mutator is intentionally absent from the inspected source corpus.
+        source = (
+            'import subprocess, sys, unittest\n'
+            'from external_runtime import mutate\n'
+            'class ReviewTests(unittest.TestCase):\n'
+            '    @staticmethod\n    def _launch():\n'
+            '        subprocess.run([sys.executable, "-m", "fixed"], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, timeout=5, check=False)\n'
+            '    def test_static(self):\n        mutate(self)\n        return self._launch()\n'
+            '    def test_denied(self): pass\n'
+        )
+        for expression, mutator in (
+            ('mutate(self)', lambda owner: setattr(owner, '_launch', None)),
+            ('mutate((self,))', lambda owners: setattr(owners[0], '_launch', None)),
+        ):
+            with self.subTest(opaque_escape=expression):
+                inspected = source.replace('mutate(self)', expression)
+                namespace = {'mutate': mutator}
+                projection = inspected.replace('from external_runtime import mutate\n', '')
+                process = inspected.splitlines()[5].strip()
+                self.assertTrue(process.startswith('subprocess.run('))
+                projection = projection.replace(process, 'return "fixed"')
+                exec(projection, namespace)
+                with self.assertRaises(TypeError):
+                    namespace['ReviewTests']('test_static').test_static()
+                review = self._review(sources={
+                    'tests/test_review.py': inspected.encode('utf-8'),
+                })
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+
+    def test_helper_provenance_precision_preserves_original_values_and_members(self) -> None:
+        for body, tail in (
+            ('code = self._launch.__code__\nreturn self._launch()', ''),
+            ('return self._launch()',
+             'class Other:\n    def change(self): self._launch = None\n'),
+            ('def nested():\n    nonlocal self\n    return self._launch()\nreturn nested()', ''),
+        ):
+            with self.subTest(precision=body, unrelated=tail):
+                actual, review = self._provenance_case(body, module_tail=tail)
+                self.assertEqual(actual, 'fixed')
+                rows = [r for r in review['receipt']['expanded_rows']
+                        if r['capability_kind'] == 'subprocess']
+                self.assertEqual([r['argv'] for r in rows], [['-m', 'fixed']])
+                self.assertFalse(review['unresolved_dynamic_blockers'])
+        for declaration in ('ReviewTests: object', 'ReviewTests = None\ndel ReviewTests'):
+            actual, review = self._provenance_case(
+                declaration + '\ntry:\n    ReviewTests._launch()\n'
+                'except NameError:\n    return self._launch(module="handled")'
+            )
+            self.assertEqual(actual, 'handled')
+            rows = [r for r in review['receipt']['expanded_rows']
+                    if r['capability_kind'] == 'subprocess']
+            self.assertEqual([r['argv'] for r in rows], [['-m', 'handled']])
+            self.assertFalse(review['unresolved_dynamic_blockers'])
+
+    def test_helper_provenance_module_exports_and_skip_identity_are_exact(self) -> None:
+        process = (
+            'subprocess.run([sys.executable, "-m", "exported"], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, timeout=5, check=False)'
+        )
+        for decorator, prefix, blocked in (
+            ('', '', False),
+            ('@unittest.skipUnless(True, "enabled")\n', '', False),
+            ('@unittest.skipIf(False, "enabled")\n', '', False),
+            ('@unittest.skip("disabled")\n', '', False),
+            ('@decorate\n', 'def decorate(value): return value\n', True),
+        ):
+            with self.subTest(decorator=decorator):
+                support = (
+                    'import subprocess, sys, unittest\n' + prefix + decorator
+                    + 'class Support:\n    @staticmethod\n    def launch():\n        '
+                    + process + '\n'
+                )
+                source = (
+                    'import unittest\nimport tests.review_support as support\n'
+                    'class ReviewTests(unittest.TestCase):\n'
+                    '    def test_static(self):\n        return support.Support.launch()\n'
+                    '    def test_denied(self): pass\n'
+                )
+                namespace = {}
+                exec(support.replace(process, 'return "exported"'), namespace)
+                self.assertEqual(namespace['Support'].launch(), 'exported')
+                review = self._review(sources={
+                    'tests/test_review.py': source.encode('utf-8'),
+                    'tests/review_support.py': support.encode('utf-8'),
+                })
+                if blocked:
+                    self.assertTrue(review['unresolved_dynamic_blockers'])
+                else:
+                    rows = [r for r in review['receipt']['expanded_rows']
+                            if r['capability_kind'] == 'subprocess']
+                    self.assertEqual([r['argv'] for r in rows], [['-m', 'exported']])
+                    self.assertFalse(review['unresolved_dynamic_blockers'])
+
+    def test_helper_provenance_imported_initialization_mutation_is_owner_scoped(self) -> None:
+        process = (
+            'subprocess.run([sys.executable, "-m", "fixed"], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, timeout=5, check=False)'
+        )
+        support = ('import subprocess, sys\nclass Support:\n'
+                   '    @staticmethod\n    def launch():\n        ' + process + '\n')
+        for member, expected_blocker in (('launch', True), ('unrelated', False)):
+            with self.subTest(member=member):
+                mutator = ('import tests.review_support as support\n'
+                           'support.Support.' + member + ' = None\n')
+                source = (
+                    'import unittest\nimport tests.review_support as support\n'
+                    'import tests.review_mutator\n'
+                    'class ReviewTests(unittest.TestCase):\n'
+                    '    def test_static(self): return support.Support.launch()\n'
+                    '    def test_denied(self): pass\n'
+                )
+                namespace = {}
+                exec(support.replace(process, 'return "fixed"'), namespace)
+                setattr(namespace['Support'], member, None)
+                if expected_blocker:
+                    with self.assertRaises(TypeError):
+                        namespace['Support'].launch()
+                else:
+                    self.assertEqual(namespace['Support'].launch(), 'fixed')
+                review = self._review(sources={
+                    'tests/test_review.py': source.encode('utf-8'),
+                    'tests/review_support.py': support.encode('utf-8'),
+                    'tests/review_mutator.py': mutator.encode('utf-8'),
+                })
+                self.assertEqual(bool(review['unresolved_dynamic_blockers']), expected_blocker)
+                if not expected_blocker:
+                    rows = [r for r in review['receipt']['expanded_rows']
+                            if r['capability_kind'] == 'subprocess']
+                    self.assertEqual([r['argv'] for r in rows], [['-m', 'fixed']])
+
+    def test_helper_effective_inputs_preserve_reached_owner_mutations(self) -> None:
+        cases = (
+            ('positional-default', 'def mutate(owner=ReviewTests):\n    owner._launch = None\nmutate()'),
+            ('posonly-default', 'def mutate(owner=ReviewTests, /):\n    owner._launch = None\nmutate()'),
+            ('kwonly-default', 'def mutate(*, owner=ReviewTests):\n    owner._launch = None\nmutate()'),
+            ('explicit-positional', 'def mutate(owner):\n    owner._launch = None\nmutate(ReviewTests)'),
+            ('explicit-keyword', 'def mutate(*, owner):\n    owner._launch = None\nmutate(owner=ReviewTests)'),
+            ('global-owner', 'def mutate():\n    ReviewTests._launch = None\nmutate()'),
+            ('local-owner', 'owner = ReviewTests\ndef mutate():\n    owner._launch = None\nmutate()'),
+            ('self-owner', 'def mutate():\n    self._launch = None\nmutate()'),
+            ('container-default', 'def mutate(owners=(ReviewTests,)):\n    owners[0]._launch = None\nmutate()'),
+            ('saved-default', 'owner = ReviewTests\ndef mutate(target=owner):\n    target._launch = None\nsaved = mutate\nowner = None\nsaved()'),
+            ('late-cell', 'owner = None\ndef mutate():\n    owner._launch = None\nowner = ReviewTests\nmutate()'),
+            ('nested-invocation', 'def outer(owner=ReviewTests):\n    def mutate():\n        owner._launch = None\n    mutate()\nouter()'),
+            ('before-raise', 'def mutate(owner=ReviewTests):\n    owner._launch = None\n    raise ValueError()\ntry:\n    mutate()\nexcept ValueError:\n    pass'),
+        )
+        for label, body in cases:
+            with self.subTest(effective_input=label):
+                target = 'self' if label == 'self-owner' else 'ReviewTests'
+                actual, review = self._provenance_case(body + '\nreturn ' + target + '._launch()')
+                self.assertIs(actual, TypeError)
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+                self.assertFalse([row for row in review['receipt']['expanded_rows']
+                                  if row['capability_kind'] == 'subprocess'])
+        for body in (
+            'self._mutate()\nreturn self._launch()',
+            'old = self\nsaved = self._mutate\nself = None\nsaved()\nreturn old._launch()',
+        ):
+            with self.subTest(captured_receiver=body):
+                actual, review = self._provenance_case(
+                    body, helper='    def _mutate(self):\n        self._launch = None\n',
+                )
+                self.assertIs(actual, TypeError)
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+                self.assertFalse([row for row in review['receipt']['expanded_rows']
+                                  if row['capability_kind'] == 'subprocess'])
+
+        for body, target in (
+            ('def mutate():\n    global ReviewTests\n    ReviewTests = None\nmutate()', 'ReviewTests'),
+            ('owner = ReviewTests\ndef mutate():\n    nonlocal owner\n    owner = None\nmutate()', 'owner'),
+        ):
+            with self.subTest(reached_name_effect=target):
+                actual, review = self._provenance_case(body + '\nreturn ' + target + '._launch()')
+                self.assertIs(actual, AttributeError)
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+                self.assertFalse([row for row in review['receipt']['expanded_rows']
+                                  if row['capability_kind'] == 'subprocess'])
+
+        actual, review = self._provenance_case(
+            'def mutate(owner=ReviewTests):\n    owner._launch = None\n'
+            'external(mutate)\nreturn ReviewTests._launch()',
+            module_tail='external = lambda callback: callback()\n',
+        )
+        self.assertIs(actual, TypeError)
+        self.assertTrue(review['unresolved_dynamic_blockers'])
+
+    def test_helper_effective_inputs_preserve_overrides_and_nonexecution(self) -> None:
+        cases = (
+            ('unused-default', 'def read(owner=ReviewTests):\n    return 1\nread()'),
+            ('unused-keyword-default', 'def read(*, owner=ReviewTests):\n    return 1\nread()'),
+            ('override', 'def mutate(owner=ReviewTests):\n    if owner is not None:\n        owner._launch = None\nmutate(None)'),
+            ('keyword-override', 'def mutate(*, owner=ReviewTests):\n    if owner is not None:\n        owner._launch = None\nmutate(owner=None)'),
+            ('captured-unrelated', 'owner = None\ndef mutate(target=owner):\n    if target is not None:\n        target._launch = None\nowner = ReviewTests\nmutate()'),
+            ('late-unrelated', 'owner = ReviewTests\ndef mutate():\n    if owner is not None:\n        owner._launch = None\nowner = None\nmutate()'),
+            ('dormant', 'def outer(owner=ReviewTests):\n    def mutate():\n        owner._launch = None\n    return 1\nouter()'),
+            ('raise-before', 'def mutate(owner=ReviewTests):\n    raise ValueError()\n    owner._launch = None\ntry:\n    mutate()\nexcept ValueError:\n    pass'),
+            ('invalid-posonly-keyword', 'def mutate(owner=ReviewTests, /):\n    owner._launch = None\ntry:\n    mutate(owner=None)\nexcept TypeError:\n    pass'),
+            ('invalid-duplicate', 'def mutate(owner):\n    owner._launch = None\ntry:\n    mutate(ReviewTests, owner=None)\nexcept TypeError:\n    pass'),
+        )
+        for label, body in cases:
+            with self.subTest(nonexecution=label):
+                actual, review = self._provenance_case(body + '\nreturn ReviewTests._launch()')
+                self.assertEqual(actual, 'fixed')
+                rows = [row for row in review['receipt']['expanded_rows']
+                        if row['capability_kind'] == 'subprocess']
+                self.assertEqual([row['argv'] for row in rows], [['-m', 'fixed']])
+                self.assertFalse(review['unresolved_dynamic_blockers'])
+        actual, review = self._provenance_case(
+            'self._mutate()\nreturn self._launch()',
+            helper='    def _mutate(self):\n        self.unrelated = None\n',
+        )
+        self.assertEqual(actual, 'fixed')
+        self.assertFalse(review['unresolved_dynamic_blockers'])
+
+    def test_helper_effective_input_matrix_distinguishes_execution_and_effects(self) -> None:
+        channels = (
+            ('positional', 'def operate(owner):', 'operate(ReviewTests)', '', 'owner'),
+            ('keyword', 'def operate(*, owner):', 'operate(owner=ReviewTests)', '', 'owner'),
+            ('positional-default', 'def operate(owner=ReviewTests):', 'operate()', '', 'owner'),
+            ('keyword-default', 'def operate(*, owner=ReviewTests):', 'operate()', '', 'owner'),
+            ('closure', 'def operate():', 'operate()', 'owner = ReviewTests\n', 'owner'),
+            ('global', 'def operate():', 'operate()', '', 'ReviewTests'),
+            ('receiver', 'def _operate(self):', 'self._operate()', '', 'self'),
+        )
+        for channel, signature, invocation, prefix, owner in channels:
+            for mode in ('write', 'read', 'dormant-write', 'write-then-raise', 'raise-then-write'):
+                with self.subTest(binding_channel=channel, effect_mode=mode):
+                    mutation = owner + '._launch = None'
+                    effect = 'unused = ' + owner if mode == 'read' else mutation
+                    if mode == 'write-then-raise':
+                        effect += '\nraise ValueError()'
+                    elif mode == 'raise-then-write':
+                        effect = 'raise ValueError()\n' + effect
+                    invoked = mode != 'dormant-write'
+                    call = invocation if invoked else 'pass'
+                    if 'raise' in mode:
+                        call = 'try:\n    ' + call + '\nexcept ValueError:\n    pass'
+                    helper = ''
+                    if channel == 'receiver':
+                        helper = '    ' + signature + '\n' + textwrap.indent(effect, '        ') + '\n'
+                        body = call + '\nreturn self._launch()'
+                    else:
+                        body = prefix + signature + '\n' + textwrap.indent(effect, '    ')
+                        body += '\n' + call + '\nreturn ReviewTests._launch()'
+                    actual, review = self._provenance_case(body, helper=helper)
+                    refused = mode in {'write', 'write-then-raise'}
+                    self.assertEqual(actual, TypeError if refused else 'fixed')
+                    self.assertEqual(bool(review['unresolved_dynamic_blockers']), refused)
+                    rows = [row for row in review['receipt']['expanded_rows']
+                            if row['capability_kind'] == 'subprocess']
+                    self.assertEqual([row['argv'] for row in rows],
+                                     [] if refused else [['-m', 'fixed']])
+
+    def test_helper_effective_inputs_cover_registered_defaults_and_class_receivers(self) -> None:
+        for signature, effect, refused in (
+            ('def mutate(owner=ReviewTests):', 'owner._launch = None', True),
+            ('def mutate(*, owner=ReviewTests):', 'owner._launch = None', True),
+            ('def mutate():', 'ReviewTests._launch = None', True),
+            ('def mutate(owner=ReviewTests):', 'unused = owner', False),
+        ):
+            with self.subTest(registered=signature, effect=effect):
+                actual, review = self._provenance_case(
+                    'mutate()\nreturn ReviewTests._launch()',
+                    module_tail=signature + '\n    ' + effect + '\n',
+                )
+                self.assertEqual(actual, TypeError if refused else 'fixed')
+                self.assertEqual(bool(review['unresolved_dynamic_blockers']), refused)
+                rows = [row for row in review['receipt']['expanded_rows']
+                        if row['capability_kind'] == 'subprocess']
+                self.assertEqual([row['argv'] for row in rows],
+                                 [] if refused else [['-m', 'fixed']])
+        for effect, refused in (('receiver._launch = None', True),
+                                ('receiver.unrelated = None', False)):
+            with self.subTest(class_receiver=effect):
+                actual, review = self._provenance_case(
+                    'saved = self._mutate\nself = None\nsaved()\nreturn ReviewTests._launch()',
+                    helper='    @classmethod\n    def _mutate(receiver):\n        ' + effect + '\n',
+                )
+                self.assertEqual(actual, TypeError if refused else 'fixed')
+                self.assertEqual(bool(review['unresolved_dynamic_blockers']), refused)
+                rows = [row for row in review['receipt']['expanded_rows']
+                        if row['capability_kind'] == 'subprocess']
+                self.assertEqual([row['argv'] for row in rows],
+                                 [] if refused else [['-m', 'fixed']])
+
+        for effect, refused in (('owner._launch = None', True), ('unused = owner', False)):
+            with self.subTest(unresolved_definition_default=effect):
+                actual, review = self._provenance_case(
+                    'mutate()\nreturn ReviewTests._launch()',
+                    module_tail='captured_owner = (ReviewTests,)\ndef mutate(owner=captured_owner[0]):\n'
+                                '    ' + effect + '\ncaptured_owner = None\n',
+                )
+                self.assertEqual(actual, TypeError if refused else 'fixed')
+                # This unstable module alias default is explicitly unsupported.
+                # It cannot silently grant authority after an unknown owner write.
+                self.assertEqual(bool(review['unresolved_dynamic_blockers']), refused)
+
+        with self.subTest(deferred_classmethod=True):
+            actual, review = self._provenance_case(
+                'self._mutate()\nreturn self._launch()',
+                helper='    @classmethod\n    def _mutate(owner):\n'
+                       '        owner._launch = None\n        yield None\n',
+            )
+            self.assertEqual(actual, 'fixed')
+            self.assertFalse(review['unresolved_dynamic_blockers'])
+            self.assertEqual([row['argv'] for row in review['receipt']['expanded_rows']
+                              if row['capability_kind'] == 'subprocess'], [['-m', 'fixed']])
+        for first, refused in (('raise', False), ('write', True)):
+            with self.subTest(nested_registered_order=first):
+                body = ('owner._abort()\nowner._launch = None' if first == 'raise'
+                        else 'owner._launch = None\nowner._abort()')
+                actual, review = self._provenance_case(
+                    'try:\n    self._mutate()\nexcept ValueError:\n    pass\nreturn self._launch()',
+                    helper='    @classmethod\n    def _abort(owner):\n        raise ValueError()\n'
+                           '    @classmethod\n    def _mutate(owner):\n'
+                           + textwrap.indent(body, '        ') + '\n',
+                )
+                self.assertEqual(actual, TypeError if refused else 'fixed')
+                self.assertEqual(bool(review['unresolved_dynamic_blockers']), refused)
+                self.assertEqual([row['argv'] for row in review['receipt']['expanded_rows']
+                                  if row['capability_kind'] == 'subprocess'],
+                                 [] if refused else [['-m', 'fixed']])
+
+        support = (
+            'import subprocess, sys\n'
+            'class Owner:\n    @staticmethod\n    def launch():\n        BODY\n'
+            'def mutate():\n    global Owner\n    Owner = None\n'
+        )
+        pure: dict[str, object] = {}
+        exec(compile(support.replace('BODY', 'return "fixed"'), '<owner-effect>', 'exec'), pure)
+        pure['mutate']()
+        with self.assertRaises(AttributeError):
+            pure['Owner'].launch()
+        process = 'subprocess.run([sys.executable, "-m", "fixed"], cwd=".", '
+        process += 'env={**__import__("os").environ, "SAFE": "1"}, timeout=5, check=False)'
+        review = self._review(sources={
+            'tests/owner_test_support.py': support.replace('BODY', process).encode(),
+            'tests/test_review.py': (
+                'import unittest\nimport owner_test_support as support\n'
+                'class ReviewTests(unittest.TestCase):\n    def test_static(self):\n'
+                '        support.mutate()\n        support.Owner.launch()\n'
+                '    def test_denied(self): pass\n'
+            ).encode(),
+        })
+        self.assertTrue(review['unresolved_dynamic_blockers'])
+
+    def test_descriptor_defaults_preserve_real_python_argument_binding(self) -> None:
+        cases = (
+            ("static-self-default", "@staticmethod", 'module="default"',
+             'self._launch()', "default", ""),
+            ("static-self-positional", "@staticmethod", 'module="default"',
+             'self._launch("explicit")', "explicit", ""),
+            ("static-self-keyword", "@staticmethod", 'module="default"',
+             'self._launch(module="explicit")', "explicit", ""),
+            ("static-class-default", "@staticmethod", 'module="default"',
+             'ReviewTests._launch()', "default", ""),
+            ("static-cls-keyword", "@staticmethod", 'module="default"',
+             'cls._launch(module="explicit")', "explicit", "@classmethod"),
+            ("ordinary-default-receiver", "", 'self=None, module="default"',
+             'self._launch()', "default", ""),
+            ("ordinary-explicit", "", 'self=None, module="default"',
+             'self._launch("explicit")', "explicit", ""),
+            ("ordinary-required-receiver", "", 'self, module="default"',
+             'self._launch()', "default", ""),
+            ("ordinary-unbound-class", "", 'self, module="default"',
+             'ReviewTests._launch(None, module="explicit")', "explicit", ""),
+            ("ordinary-unbound-cls", "", 'self, module="default"',
+             'cls._launch(None, module="explicit")', "explicit", "@classmethod"),
+            ("posonly-receiver-keyword", "", 'self, /, module="default"',
+             'self._launch(module="explicit")', "explicit", ""),
+            ("posonly-defaulted-receiver", "", 'self=None, /, module="default"',
+             'self._launch(module="explicit")', "explicit", ""),
+            ("class-default-receiver", "@classmethod", 'cls=None, module="default"',
+             'self._launch()', "default", ""),
+            ("class-qualified-call", "@classmethod", 'cls=None, module="default"',
+             'ReviewTests._launch(module="explicit")', "explicit", ""),
+            ("class-cls-call", "@classmethod", 'cls=None, module="default"',
+             'cls._launch(module="explicit")', "explicit", "@classmethod"),
+            ("class-posonly-receiver", "@classmethod", 'cls, /, module="default"',
+             'self._launch(module="explicit")', "explicit", ""),
+            ("class-posonly-defaulted", "@classmethod", 'cls=None, /, module="default"',
+             'self._launch()', "default", ""),
+        )
+        process = (
+            'subprocess.run([sys.executable, "-m", module], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, '
+            'timeout=timeout, check=False)'
+        )
+        for label, decorator, parameters, invocation, expected_module, caller in cases:
+            with self.subTest(binding=label):
+                entry = 'self._caller()' if caller else invocation
+                source = (
+                    'import subprocess, sys, unittest\n'
+                    'class ReviewTests(unittest.TestCase):\n'
+                    + (f'    {decorator}\n' if decorator else '')
+                    + f'    def _launch({parameters}, *, timeout=5):\n'
+                    + f'        {process}\n'
+                    + (
+                        f'    {caller}\n    def _caller(cls):\n'
+                        f'        return {invocation}\n'
+                        if caller else ''
+                    )
+                    + '    def test_static(self):\n'
+                    + f'        return {entry}\n'
+                    + '    def test_denied(self): pass\n'
+                )
+                # Only this pure projection executes; sensitive source is inspected.
+                namespace = {}
+                exec(source.replace(process, 'return (module, timeout)'), namespace)
+                actual = namespace['ReviewTests']('test_static').test_static()
+                self.assertEqual(actual, (expected_module, 5))
+                review = self._review(sources={'tests/test_review.py': source.encode('utf-8')})
+                rows = [row for row in review['receipt']['expanded_rows']
+                        if row['capability_kind'] == 'subprocess']
+                self.assertEqual([row['argv'] for row in rows], [['-m', actual[0]]])
+                self.assertEqual([row['timeout_ns'] for row in rows], [actual[1] * 10**9])
+                self.assertFalse(review['unresolved_dynamic_blockers'])
+
+    def test_receiver_descriptor_not_parameter_spelling_controls_binding(self) -> None:
+        cases = (
+            ("ordinary-entry-cls", "", "cls", 'self=None, module="default"',
+             'cls._launch("explicit")', "explicit"),
+            ("ordinary-helper-cls", "ordinary", "cls", 'self=None, module="default"',
+             'cls._launch("explicit")', "explicit"),
+            ("class-helper-self", "@classmethod", "self", 'self=None, module="default"',
+             'self._launch("receiver", "explicit")', "explicit"),
+            ("class-helper-self-default", "@classmethod", "self",
+             'self=None, module="default"', 'self._launch("receiver")', "default"),
+            ("invalid-ordinary-cls", "", "cls", 'self=None, module="default"',
+             'cls._launch("receiver", "explicit")', None),
+            ("invalid-class-self", "@classmethod", "self", 'self, module="default"',
+             'self._launch(module="explicit")', None),
+        )
+        process = (
+            'subprocess.run([sys.executable, "-m", module], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, '
+            'timeout=5, check=False)'
+        )
+        for label, caller, receiver, parameters, invocation, expected in cases:
+            with self.subTest(receiver=label):
+                forwarding = (
+                    (f'    {caller}\n' if caller.startswith('@') else '')
+                    + f'    def _caller({receiver}):\n'
+                    + f'        return {invocation}\n'
+                    if caller else ''
+                )
+                entry_receiver = 'self' if caller else receiver
+                entry = 'self._caller()' if caller else invocation
+                source = (
+                    'import subprocess, sys, unittest\n'
+                    'class ReviewTests(unittest.TestCase):\n'
+                    + f'    def _launch({parameters}):\n'
+                    + f'        {process}\n'
+                    + forwarding
+                    + f'    def test_static({entry_receiver}):\n'
+                    + f'        return {entry}\n'
+                    + '    def test_denied(self): pass\n'
+                )
+                namespace = {}
+                exec(source.replace(process, 'return module'), namespace)
+                if expected is None:
+                    with self.assertRaises(TypeError):
+                        namespace['ReviewTests']('test_static').test_static()
+                    for inspected in (
+                        source, source.replace('"-m", module', '"-m", "fixed"')
+                    ):
+                        review = self._review(
+                            sources={'tests/test_review.py': inspected.encode('utf-8')}
+                        )
+                        self.assertTrue(review['unresolved_dynamic_blockers'])
+                else:
+                    actual = namespace['ReviewTests']('test_static').test_static()
+                    self.assertEqual(actual, expected)
+                    review = self._review(
+                        sources={'tests/test_review.py': source.encode('utf-8')}
+                    )
+                    rows = [row for row in review['receipt']['expanded_rows']
+                            if row['capability_kind'] == 'subprocess']
+                    self.assertEqual([row['argv'] for row in rows], [['-m', actual]])
+                    self.assertFalse(review['unresolved_dynamic_blockers'])
+
+    def test_unknown_receiver_context_blocks_and_lexical_capture_is_preserved(self) -> None:
+        cases = (
+            ("static-unknown", "self",
+             '    @staticmethod\n    def _caller(self=None):\n'
+             '        return self._launch()\n',
+             'return self._caller()', AttributeError),
+            ("explicit-unbound", "self",
+             '    def _caller(self):\n        return self._launch()\n',
+             'return ReviewTests._caller(None)', AttributeError),
+            ("reassigned", "self", '',
+             'self = None\nreturn self._launch()', AttributeError),
+            ("nested-shadow", "self", '',
+             'def nested(self=None):\n    return self._launch()\nreturn nested()',
+             AttributeError),
+            ("nested-instance-cls", "cls", '',
+             'def nested():\n    return cls._launch()\nreturn nested()', None),
+        )
+        process = (
+            'subprocess.run([sys.executable, "-m", "fixed"], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, '
+            'timeout=5, check=False)'
+        )
+        for label, receiver, helper, entry, expected_error in cases:
+            with self.subTest(context=label):
+                source = (
+                    'import subprocess, sys, unittest\n'
+                    'class ReviewTests(unittest.TestCase):\n'
+                    '    def _launch(self):\n'
+                    + f'        {process}\n'
+                    + helper
+                    + f'    def test_static({receiver}):\n'
+                    + textwrap.indent(entry, '        ') + '\n'
+                    + '    def test_denied(self): pass\n'
+                )
+                namespace = {}
+                exec(source.replace(process, 'return "fixed"'), namespace)
+                if expected_error is not None:
+                    with self.assertRaises(expected_error):
+                        namespace['ReviewTests']('test_static').test_static()
+                else:
+                    self.assertEqual(
+                        namespace['ReviewTests']('test_static').test_static(), 'fixed'
+                    )
+                review = self._review(sources={'tests/test_review.py': source.encode('utf-8')})
+                if expected_error is not None:
+                    self.assertTrue(review['unresolved_dynamic_blockers'])
+                else:
+                    rows = [row for row in review['receipt']['expanded_rows']
+                            if row['capability_kind'] == 'subprocess']
+                    self.assertEqual([row['argv'] for row in rows], [['-m', 'fixed']])
+                    self.assertFalse(review['unresolved_dynamic_blockers'])
+
+    def test_invalid_static_helper_arguments_remain_blocked(self) -> None:
+        cases = (
+            ('module="default"', 'self._launch("a", "b")'),
+            ('module="default"', 'self._launch("a", module="b")'),
+            ('module="default"', 'self._launch(unknown="a")'),
+            ('module', 'self._launch()'),
+            ('module="default", /', 'self._launch(module="a")'),
+        )
+        process = (
+            'subprocess.run([sys.executable, "-m", module], cwd=".", '
+            'env={**__import__("os").environ, "SAFE": "1"}, '
+            'timeout=5, check=False)'
+        )
+        for parameters, invocation in cases:
+            with self.subTest(parameters=parameters, invocation=invocation):
+                source = (
+                    'import subprocess, sys, unittest\n'
+                    'class ReviewTests(unittest.TestCase):\n'
+                    '    @staticmethod\n'
+                    + f'    def _launch({parameters}):\n'
+                    + f'        {process}\n'
+                    + '    def test_static(self):\n'
+                    + f'        {invocation}\n'
+                    + '    def test_denied(self): pass\n'
+                )
+                namespace = {}
+                exec(source.replace(process, 'return module'), namespace)
+                with self.assertRaises(TypeError):
+                    namespace['ReviewTests']('test_static').test_static()
+                review = self._review(sources={'tests/test_review.py': source.encode('utf-8')})
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+                fixed_source = source.replace('"-m", module', '"-m", "fixed"')
+                fixed_review = self._review(
+                    sources={'tests/test_review.py': fixed_source.encode('utf-8')}
+                )
+                self.assertTrue(fixed_review['unresolved_dynamic_blockers'])
+
+    def test_unproven_helper_descriptor_provenance_remains_blocked(self) -> None:
+        cases = (
+            ("qualified", 'import builtins\n', '', '@builtins.staticmethod'),
+            ("alias", 'from builtins import staticmethod as static\n', '', '@static'),
+            ("module-shadow", 'staticmethod = lambda function: function\n', '',
+             '@staticmethod'),
+            ("class-shadow", '', '    staticmethod = lambda function: function\n',
+             '@staticmethod'),
+            ("shadowed-alias", 'from builtins import staticmethod as static\n'
+             'static = lambda function: function\n', '', '@static'),
+            ("class-shadowed-alias", 'from builtins import staticmethod as static\n',
+             '    static = lambda function: function\n', '@static'),
+            ("dynamic", 'def choose(): return staticmethod\n', '', '@choose()'),
+            ("stacked", '', '', '@staticmethod\n    @staticmethod'),
+            ("module-wildcard", 'from builtins import *\n', '', '@staticmethod'),
+            ("class-wildcard", '', '    from builtins import *\n', '@staticmethod'),
+            ("class-method-shadow", 'classmethod = lambda function: function\n', '',
+             '@classmethod'),
+        )
+        for label, module_prefix, class_prefix, decorator in cases:
+            with self.subTest(provenance=label):
+                source = (
+                    'import subprocess, sys, unittest\n'
+                    + module_prefix
+                    + 'class ReviewTests(unittest.TestCase):\n'
+                    + class_prefix
+                    + f'    {decorator}\n'
+                    + '    def _launch(self, module="default"):\n'
+                    + '        subprocess.run([sys.executable, "-m", module], cwd=".", '
+                    + 'env={**__import__("os").environ, "SAFE": "1"}, '
+                    + 'timeout=5, check=False)\n'
+                    + '    def test_static(self):\n'
+                    + '        self._launch(module="explicit")\n'
+                    + '    def test_denied(self): pass\n'
+                )
+                review = self._review(sources={'tests/test_review.py': source.encode('utf-8')})
+                self.assertTrue(review['unresolved_dynamic_blockers'])
+                fixed_source = source.replace('"-m", module', '"-m", "fixed"')
+                fixed_review = self._review(
+                    sources={'tests/test_review.py': fixed_source.encode('utf-8')}
+                )
+                self.assertTrue(fixed_review['unresolved_dynamic_blockers'])
+
     def test_helper_registry_and_argument_binding_fail_closed(self) -> None:
         ambiguous = {
             "tests/a/test_shared.py": ast.parse("def launch(): pass\n"),
@@ -29584,25 +30455,17 @@ class CheckedInInventoryTests(unittest.TestCase):
         )
         self.assertEqual(
             review["analysis_census"],
-            {
-                "subprocess_direct_site_count": 42,
-                "subprocess_helper_site_count": 5,
-                "cross_file_helper_edge_count": 27,
-                "cupy_call_node_count": 30,
-                "string_sink_decoy_count": 587,
-                "string_sink_decoy_sha256": (
-                    "7ee3ef8092721e401056b815d6d9c9bd7c208bac9ea1add4f6fdbd0a99ec548b"
-                ),
-                "string_sink_decoy_partitions": {
-                    "design_production": 17,
-                    "historical_production": 6,
-                    "prior_stabilization_synthetic": 34,
-                    "task2_synthetic": 530,
-                },
-                "analyzed_sites_sha256": (
-                    "be059b4bb1181ec8c5354daf552e09162341d2341a7e16c381ce14380818da10"
-                ),
-            },
+            {'subprocess_direct_site_count': 45,
+             'subprocess_helper_site_count': 5,
+             'cross_file_helper_edge_count': 27,
+             'cupy_call_node_count': 30,
+             'string_sink_decoy_count': 599,
+             'string_sink_decoy_sha256': '2136e9e38c556de45235202b2b38f729f35b7ef5ff3678932575c4c1e35689db',
+             'string_sink_decoy_partitions': {'design_production': 17,
+                                              'historical_production': 6,
+                                              'prior_stabilization_synthetic': 34,
+                                              'task2_synthetic': 542},
+             'analyzed_sites_sha256': '3170f99166d98d3879109a0d02ea68a096bf096ae79e1d0ab871d6ba764f6020'},
         )
         receipt = review["receipt"]
         expected_kind = {item_id: item_kind for item_kind, item_id in expected_universe}
@@ -29690,27 +30553,34 @@ class CheckedInInventoryTests(unittest.TestCase):
             ["unsupported subprocess keyword: capture_output"],
         )
         blockers = review["unresolved_dynamic_blockers"]
-        self.assertEqual(len(blockers), 355)
+        self.assertEqual(len(blockers), 895)
         self.assertEqual(
             Counter(row["reason"] for row in blockers),
             Counter(
-                {
-                    "unsupported subprocess keyword: capture_output": 45,
-                    "dynamic helper arguments prevent exact sink derivation": 15,
-                    "CuPy action or view is outside the approved call scope": 11,
-                    "dynamic repetition prevents a finite call bound": 2,
-                    "dynamic repetition prevents a finite helper call bound": 1,
-                    "mixed protected receiver is dynamically unresolved": 61,
-                    "unsupported subprocess keyword: stdin": 5,
-                    "registered probe implementation is absent": 1,
-                    "dynamic sensitive call result is unresolved": 15,
-                    "unregistered CuPy call is unresolved": 2,
-                    "deferred generator consumption is dynamically unresolved": 50,
-                    "protected value store target is dynamically unresolved": 6,
-                    "local class decorator runtime target is dynamically unresolved": 4,
-                    "max/min iterable contents are dynamically unresolved": 102,
-                    "max/min comparison dispatch is dynamically unresolved": 35,
-                }
+                {'CuPy action or view is outside the approved call scope': 11,
+                 'callback closure': 1,
+                 'deferred generator consumption is dynamically unresolved': 44,
+                 'dynamic helper arguments prevent exact sink derivation': 26,
+                 'dynamic repetition prevents a finite call bound': 2,
+                 'dynamic repetition prevents a finite helper call bound': 1,
+                 'dynamic sensitive call result is unresolved': 21,
+                 'helper callable identity was mutated': 43,
+                 'helper callable provenance is unresolved': 2,
+                 'helper descriptor member identity is unresolved': 16,
+                 'helper namespace effects are dynamically unresolved': 392,
+                 'helper namespace escape is dynamically unresolved': 35,
+                 'helper namespace identity was mutated': 12,
+                 'helper namespace store is dynamically unresolved': 17,
+                 'local class decorator runtime target is dynamically unresolved': 4,
+                 'max/min comparison dispatch is dynamically unresolved': 36,
+                 'max/min iterable contents are dynamically unresolved': 102,
+                 'mixed protected receiver is dynamically unresolved': 61,
+                 'protected value store target is dynamically unresolved': 3,
+                 'registered probe implementation is absent': 1,
+                 'unittest instance or class binding is dynamically unresolved': 10,
+                 'unregistered CuPy call is unresolved': 2,
+                 'unsupported subprocess keyword: capture_output': 48,
+                 'unsupported subprocess keyword: stdin': 5}
             ),
         )
         self.assertEqual(
@@ -29720,23 +30590,27 @@ class CheckedInInventoryTests(unittest.TestCase):
                 if row["reason"]
                 == "dynamic sensitive call result is unresolved"
             ],
-            [
-                ("tests/test_dependency_tape.py", 650),
-                ("tests/test_dependency_tape.py", 652),
-                ("tests/test_dependency_tape.py", 654),
-                ("tests/test_dependency_tape.py", 656),
-                ("tests/test_dependency_tape.py", 479),
-                ("tests/test_dependency_tape.py", 488),
-                ("tests/test_device_fold_resident_paths_v2.py", 106),
-                ("tests/test_device_fold_resident_paths_v2.py", 108),
-                ("tests/test_device_fold_resident_paths_v2.py", 111),
-                ("tests/test_device_fold_resident_paths_v2.py", 119),
-                ("tests/test_exact_collision_oracle.py", 98),
-                ("tests/test_multi_size_affine_cross_payoff.py", 134),
-                ("tests/test_native_simplex_audit_reanalysis.py", 411),
-                ("tests/test_one_seat_convex_generation.py", 66),
-                ("tests/test_one_seat_convex_generation.py", 81),
-            ],
+            [('tests/test_dependency_tape.py', 650),
+             ('tests/test_dependency_tape.py', 652),
+             ('tests/test_dependency_tape.py', 654),
+             ('tests/test_dependency_tape.py', 656),
+             ('tests/test_dependency_tape.py', 479),
+             ('tests/test_dependency_tape.py', 488),
+             ('tests/test_device_fold_resident_paths_v2.py', 106),
+             ('tests/test_device_fold_resident_paths_v2.py', 108),
+             ('tests/test_device_fold_resident_paths_v2.py', 111),
+             ('tests/test_device_fold_resident_paths_v2.py', 119),
+             ('tests/test_exact_collision_oracle.py', 98),
+             ('tests/test_inventory_and_profiles.py', 20783),
+             ('tests/test_inventory_and_profiles.py', 20783),
+             ('tests/test_inventory_and_profiles.py', 20783),
+             ('tests/test_inventory_and_profiles.py', 20783),
+             ('tests/test_inventory_and_profiles.py', 20783),
+             ('tests/test_multi_size_affine_cross_payoff.py', 134),
+             ('tests/test_native_simplex_audit_reanalysis.py', 411),
+             ('tests/test_one_seat_convex_generation.py', 66),
+             ('tests/test_one_seat_convex_generation.py', 81),
+             ('tests/test_v0a_replay.py', 600)],
         )
         self.assertEqual(
             [
@@ -29744,10 +30618,8 @@ class CheckedInInventoryTests(unittest.TestCase):
                 for row in blockers
                 if row["reason"] == "unregistered CuPy call is unresolved"
             ],
-            [
-                ("tests/test_resident_record_to_hand_fold_v2.py", 312),
-                ("tests/test_resident_record_to_hand_fold_v2.py", 313),
-            ],
+            [('tests/test_resident_record_to_hand_fold_v2.py', 312),
+             ('tests/test_resident_record_to_hand_fold_v2.py', 313)],
         )
         self.assertEqual(
             [
@@ -29756,58 +30628,50 @@ class CheckedInInventoryTests(unittest.TestCase):
                 if row["reason"]
                 == "deferred generator consumption is dynamically unresolved"
             ],
-            [
-                ("tests/test_canonical_affine_resident_automaton_cache.py", 33),
-                ("tests/test_canonical_affine_resident_automaton_cache.py", 44),
-                ("tests/test_canonical_affine_resident_automaton_cache.py", 49),
-                ("tests/test_canonical_affine_resident_automaton_cache.py", 54),
-                ("tests/test_canonical_affine_resident_automaton_cache.py", 65),
-                ("tests/test_canonical_affine_resident_automaton_cache.py", 33),
-                ("tests/test_canonical_affine_resident_automaton_cache.py", 44),
-                ("tests/test_canonical_affine_resident_automaton_cache.py", 49),
-                ("tests/test_canonical_affine_resident_automaton_cache.py", 54),
-                ("tests/test_coalition.py", 56),
-                ("tests/test_coalition.py", 56),
-                ("tests/test_coalition.py", 56),
-                ("tests/test_coalition.py", 56),
-                ("tests/test_coalition.py", 56),
-                ("tests/test_coalition.py", 56),
-                ("tests/test_complete_factorized_affine_evidence.py", 102),
-                ("tests/test_device_fold_resident_paths.py", 280),
-                ("tests/test_device_fold_resident_paths.py", 293),
-                ("tests/test_exact_collision_oracle.py", 93),
-                ("tests/test_exact_directional_face_oracle.py", 547),
-                ("tests/test_factorized_belief.py", 34),
-                ("tests/test_factorized_belief.py", 34),
-                ("tests/test_factorized_belief.py", 34),
-                ("tests/test_fresh_action_width_greedy.py", 229),
-                ("tests/test_fresh_action_width_transfer_structures.py", 288),
-                ("tests/test_fresh_action_width_transfer_structures.py", 292),
-                ("tests/test_full_width_river_capacity_preflight.py", 54),
-                ("tests/test_full_width_river_capacity_preflight_v2_result.py", 150),
-                ("tests/test_h32_selector_stable_affine_certificate_audit.py", 110),
-                ("tests/test_incremental_leaf_adjoint_response.py", 276),
-                ("tests/test_inventory_and_profiles.py", 1454),
-                ("tests/test_inventory_and_profiles.py", 1461),
-                ("tests/test_inventory_and_profiles.py", 2949),
-                ("tests/test_inventory_and_profiles.py", 4161),
-                ("tests/test_inventory_and_profiles.py", 4423),
-                ("tests/test_inventory_and_profiles.py", 5656),
-                ("tests/test_inventory_and_profiles.py", 12472),
-                ("tests/test_inventory_and_profiles.py", 12472),
-                ("tests/test_inventory_and_profiles.py", 12481),
-                ("tests/test_inventory_and_profiles.py", 16212),
-                ("tests/test_inventory_and_profiles.py", 18238),
-                ("tests/test_inventory_and_profiles.py", 18238),
-                ("tests/test_inventory_and_profiles.py", 4790),
-                ("tests/test_linear_program_certificate.py", 157),
-                ("tests/test_linear_program_certificate.py", 193),
-                ("tests/test_native_simplex_audit_reanalysis.py", 404),
-                ("tests/test_native_simplex_audit_reanalysis.py", 386),
-                ("tests/test_native_simplex_audit_reanalysis.py", 298),
-                ("tests/test_river_selective_screen.py", 320),
-                ("tests/test_shared_resident_response_context.py", 71),
-            ],
+            [('tests/test_canonical_affine_resident_automaton_cache.py', 33),
+             ('tests/test_canonical_affine_resident_automaton_cache.py', 44),
+             ('tests/test_canonical_affine_resident_automaton_cache.py', 49),
+             ('tests/test_canonical_affine_resident_automaton_cache.py', 54),
+             ('tests/test_canonical_affine_resident_automaton_cache.py', 65),
+             ('tests/test_canonical_affine_resident_automaton_cache.py', 33),
+             ('tests/test_canonical_affine_resident_automaton_cache.py', 44),
+             ('tests/test_canonical_affine_resident_automaton_cache.py', 49),
+             ('tests/test_canonical_affine_resident_automaton_cache.py', 54),
+             ('tests/test_coalition.py', 56),
+             ('tests/test_coalition.py', 56),
+             ('tests/test_coalition.py', 56),
+             ('tests/test_coalition.py', 56),
+             ('tests/test_coalition.py', 56),
+             ('tests/test_coalition.py', 56),
+             ('tests/test_complete_factorized_affine_evidence.py', 102),
+             ('tests/test_device_fold_resident_paths.py', 280),
+             ('tests/test_device_fold_resident_paths.py', 293),
+             ('tests/test_exact_collision_oracle.py', 93),
+             ('tests/test_exact_directional_face_oracle.py', 547),
+             ('tests/test_factorized_belief.py', 34),
+             ('tests/test_factorized_belief.py', 34),
+             ('tests/test_factorized_belief.py', 34),
+             ('tests/test_fresh_action_width_greedy.py', 229),
+             ('tests/test_fresh_action_width_transfer_structures.py', 288),
+             ('tests/test_fresh_action_width_transfer_structures.py', 292),
+             ('tests/test_full_width_river_capacity_preflight.py', 54),
+             ('tests/test_full_width_river_capacity_preflight_v2_result.py', 150),
+             ('tests/test_h32_selector_stable_affine_certificate_audit.py', 110),
+             ('tests/test_incremental_leaf_adjoint_response.py', 276),
+             ('tests/test_inventory_and_profiles.py', 1459),
+             ('tests/test_inventory_and_profiles.py', 1466),
+             ('tests/test_inventory_and_profiles.py', 2954),
+             ('tests/test_inventory_and_profiles.py', 4166),
+             ('tests/test_inventory_and_profiles.py', 4428),
+             ('tests/test_inventory_and_profiles.py', 5661),
+             ('tests/test_inventory_and_profiles.py', 4795),
+             ('tests/test_linear_program_certificate.py', 157),
+             ('tests/test_linear_program_certificate.py', 193),
+             ('tests/test_native_simplex_audit_reanalysis.py', 404),
+             ('tests/test_native_simplex_audit_reanalysis.py', 386),
+             ('tests/test_native_simplex_audit_reanalysis.py', 298),
+             ('tests/test_river_selective_screen.py', 320),
+             ('tests/test_shared_resident_response_context.py', 71)],
         )
         self.assertEqual(
             blockers,

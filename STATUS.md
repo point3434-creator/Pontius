@@ -15,24 +15,55 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Preregister the blueprint-only increment-one source contract below. This is
-an engineering integration boundary, not an executable experiment authority.
-The only new runtime namespace is `pontius.v0a`. No resolver candidate,
-action abstraction, training, h32 machinery, GPU work, network adapter, or
-subprocess belongs to this increment.
+**The analyzer repair leaves increment-one acceptance scope and continues as
+its own bounded task.** ADR-0485's permitted-paths constraints require exactly
+four things of this machinery: register `tests/test_v0a_hand_replay.py` in the
+inventory declaration, regenerate inventory and profile bytes through the
+authorized writer, refresh only mechanically affected census expectations while
+granting no capability, and add the CPU clone-safe suite to CI without demoting
+a hard gate. Criterion 9's required evidence is "New direct CPU gate and
+unchanged existing hard gates." The generator appears in the increment brief's
+seam inventory, not its acceptance criteria. Nothing in the preregistration
+conditions increment-one acceptance on the analyzer's capability inference.
 
-This candidate includes the prospective sequencing clarification to ADR-0482
-authorized by the controller's 2026-08-30 ruling on contradictory or circular
-process requirements. The same day's CodeRabbit retirement is recorded in
-`docs/workflow-amendment-2026-08-30.md`, which preserves
-the original workflow bytes and all other gates. These rulings resolve those
-process decisions; they are not authorization for a ceremonial commit. Until
-the reviewed decision is authorized and committed, this remains an isolated
-candidate, not an accepted mainline opening.
+**Increment one's slice C obligation is therefore registration only:** add the
+four v0a test paths to `STABILIZATION_TEST_FILES`, regenerate the inventory and
+profile bytes, refresh the two mechanically affected expectation constants in
+`tests/test_inventory_and_profiles.py` (the `stabilization_test_files` tuple and
+the unresolved-dynamic-blocker count 355 to 356), record the one conservative
+blocker named below, and add the v0a origins and the CPU gate under criteria 9
+and 10 unchanged.
+
+**This decision accepts, in writing, that increment one registers over a
+generator with known unsound capability inference.** That is justified on this
+evidence and not in general: the increment grants no capability, its seam
+inventory admits no subprocess, GPU or network, and the analyzer's only response
+to v0a code is a refusal rather than an approval. The r010 defect class is false
+negatives — unsafe outcomes wrongly approved — and this registration produces no
+approvals for that class to corrupt.
+
+**The rejected r010 pair and the R1/R2 rewrite artifacts are retained
+unchanged as evidence.** Parking is not deletion and not acceptance. R1 Gate A
+(source `c8fc013d2be7599aa41b873552dd2a11191f2be1342d1a8f2bd04a39dc1dbd5f`) and
+the closed R2 checkpoint 1
+(`41b4de563da886a7c674d49b25acd4332ba208906b403ec244d1a4aea856ee05`) remain
+frozen and immutable; the in-flight checkpoint 2 stops where it is. The
+successor task gets a fresh brief carrying the four Stage 0 fields installed
+below, and must state whether a hand-built abstract interpreter of Python
+semantics is the right shape for a test capability inventory at all, or whether
+declaration or observation removes the defect class.
+
+**The Gate 13 freeze lane stays paused at revision 23.** Its predeclared
+classifier kill criterion fired on a sixth residual; the disposition is recorded
+at `tmp/freeze-tools-design-r003-draft/classifier-shape-disposition-2026-09-04.md`
+(SHA-256 fff9a91a9a7f5e6bcc7d19ed3db1cde4148f1cbb8da10c64fcf55683ec125f5a).
+No revision 24 is authorized, no full rewrite is authorized, and no sixth proof
+tier is authorized. The successor direction is an oracle-backed differential
+corpus replacing the hand-enumerated family-completeness claim.
 
 ## Active next
 
-Build and review only the additive blueprint-only v0a increment-one source against ADR-0485 and the ADR-0484 brief, then source-seal it and rehearse under separate non-evidentiary identities; freeze measured operating budgets and the authoritative replay schedule in a separate append-only closure before requesting any one-shot invocation authority. Preserve the exact legal kernels, historical replay, and legacy dependency baseline. H32 and producer instrumentation remain increment two, the campaign remains increment three, and the compiled lane remains parked under ADR-0483. Separately continue evidence Tasks 4-9 before orchestration Tasks 3-10, then 11b and 12, with their capability approvals intact
+Build and review only the additive blueprint-only v0a increment-one source against ADR-0485 and the ADR-0484 brief, with slice C reduced to registration and mechanical regeneration of the inventory and profile bytes; then source-seal it and rehearse under separate non-evidentiary identities, and freeze measured operating budgets and the authoritative replay schedule in a separate append-only closure before requesting any one-shot invocation authority. Preserve the exact legal kernels, historical replay, and legacy dependency baseline. The slice C capability-analyzer soundness repair proceeds as its own bounded task under a fresh brief and blocks no increment-one gate; the Gate 13 freeze lane stays paused at revision 23 pending an oracle-backed classifier design. H32 and producer instrumentation remain increment two, the campaign remains increment three, and the compiled lane remains parked under ADR-0483. Separately continue evidence Tasks 4-9 before orchestration Tasks 3-10, then 11b and 12, with their capability approvals intact
 
 ## Revoked authorities
 
@@ -43,7 +74,7 @@ Build and review only the additive blueprint-only v0a increment-one source again
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0485](docs/decisions/ADR-0485-preregister-the-blueprint-only-v0a-hand-contract.md) — Preregister the blueprint-only v0a hand contract.
+Latest process decision: [ADR-0486](docs/decisions/ADR-0486-park-the-slice-c-capability-analyzer-repair.md) — Park the slice C capability-analyzer repair.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -51,7 +82,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0462](docs/decisions/ADR-0462-retain-the-timed-rrns-direct-launch-arity-rejection.md) | 2026-08-26 | accepted retained sole ADR-0461 calibration rejection; the fresh absolute-Git owner compiled and loaded the exact 28-kernel cubin, passed resource and reduced-memory admission, completed and independently verified one positional warmup cell, then the next RRNS timed cell reached `direct_prices_rrns_batch` with eight host arguments for a nine-parameter CUDA declaration and terminated with `CUDA_ERROR_INVALID_VALUE`, leaving zero measured calls and no materiality, topology, arithmetic-schedule, target, resolver, action-clock, quality, truncation, blueprint, or strength result | Retain the timed RRNS direct launch-arity rejection |
 | [ADR-0463](docs/decisions/ADR-0463-preregister-the-kernel-launch-arity-successor.md) | 2026-08-26 | accepted prospective launch-ABI repair only; the exact ADR-0462 artifact and parent sources remain immutable, one fresh scientific module may insert only the missing timed-RRNS `source_count` plus a CUDA-declaration-derived central arity contract, and fresh v3 lifecycle identities are frozen before successor source, compiler execution, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, or result | Preregister the kernel-launch arity successor |
 | [ADR-0464](docs/decisions/ADR-0464-correct-the-launch-arity-successor-before-source-seal.md) | 2026-08-26 | accepted prospective pre-source-seal completeness correction; ADR-0463's independent all-site audit found that `evaluate_selected_leaves_rrns_batch` declares ten parameters while its sole host call supplies eleven through an obsolete extra `np.uint64(scan_count)`, so the permitted v3 delta now includes removing exactly that argument in addition to inserting the missing direct `source_count`, while all 46 launch sites must match all 28 unchanged CUDA declarations before source seal and no compiler, device, timing, or fresh result exists | Correct the launch-arity successor before source seal |
 | [ADR-0465](docs/decisions/ADR-0465-source-seal-the-kernel-launch-arity-successor.md) | 2026-08-26 | accepted CPU-only launch-ABI source seal; the fresh v3 overlay makes exactly two call-site repairs against the immutable ADR-0458 scientific source, derives all 28 ordered kernel signatures from the byte-identical CUDA literal, guards every dispatch before the driver, and independently proves all 46 host launch sites have matching argument counts with both opposite-sign mutations rejecting, while the retained v2 rejection remains exact, the v3 result remains absent, and no compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Source-seal the kernel-launch-arity successor |
@@ -75,18 +105,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0483](docs/decisions/ADR-0483-park-the-compiled-lane-and-open-v0a-integration.md) | 2026-08-30 | accepted architecture-checkpoint ruling; the ADR-0476 checkpoint resolves to parking the compiled synthetic topology-calibration lane and returning effort to the playable v0a integration boundary, because the lane's own precondition — a bound production source-local base producer with measured algebra, epoch identity, refresh cadence, exponent admission, and cold-versus-hit frequency — is a deliverable of the river bridge that only v0a integration builds; every candidate and closure in the lane retains its exact recorded standing, the four source-sealed topology arms remain sealed assets, the serial-structural-cover diagnostic is retained as the reopened lane's first candidate hypothesis and not a result, the lane may reopen only on bridge-measured producer telemetry through a wholly fresh ADR-0482-governed preregistration that honors every ADR-0476 constraint, and the v0a boundary opens under the same rules with bridge instrumentation recording would-be base-producer events from its first increment | Park the compiled lane and open v0a integration |
 | [ADR-0484](docs/decisions/ADR-0484-clarify-the-v0a-increment-split-and-instrumentation.md) | 2026-08-30 | accepted prospective clarification of the ADR-0483 opening directive before any v0a lifecycle exists; increment one of the v0a lane is the blueprint-only complete hand — the ADR-0308 exact spine joined to the ADR-0290 explicit-deal loop with every controlled action answered by the immutable blueprint inside its own 15,000 ms wall, no h32 decision, no GPU dependency, and no resolver — while the prepared h32 certified river decision and the would-be base-producer bridge instrumentation belong to increment two, because a blueprint-only hand executes no base-structure machinery and instrumentation obligations attach where that machinery first executes; increment one records the frozen decision-record fields for every controlled action, the input boundary admits only public events and the controlled seat's own cards so the dealer's complete deal never reaches policy selection, the campaign increment's qualifying-h32 minimums must later be met by a declared, seed-sealed, steered or prepared-context deal schedule and never by weakening qualification, each landed increment's clone-safe suite subset joins the continuous-integration wall, and the reviewed increment-one brief at `docs/briefs/v0a-increment-1-brief.md` bounds the work without conferring any experiment authority | Clarify the v0a increment split and instrumentation |
 | [ADR-0485](docs/decisions/ADR-0485-preregister-the-blueprint-only-v0a-hand-contract.md) | 2026-08-30 | accepted prospective contract preregistration and explicit bootstrap-sequencing clarification; only the additive CPU blueprint-hand source contract is opened, an outer ActionClockLedger measures through offline-host delivery without altering the sealed V2 spine, operating budgets and an authoritative replay population remain unadmitted until a separate measured closure, and no source seal, rehearsal, owner invocation, integration result, timing result, or strategy result is asserted | Preregister the blueprint-only v0a hand contract |
+| [ADR-0486](docs/decisions/ADR-0486-park-the-slice-c-capability-analyzer-repair.md) | 2026-09-04 | accepted scope correction; the slice C capability-analyzer soundness repair is parked as its own bounded task and removed from v0a increment-one acceptance scope, increment one's obligation to the inventory machinery is reduced to registration and mechanical regeneration, the Gate 13 freeze lane is paused at its rejected revision 23, and no source seal, rehearsal, invocation, integration, timing, or strategy result is asserted or authorized | Park the slice C capability-analyzer repair |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0485](docs/decisions/ADR-0485-preregister-the-blueprint-only-v0a-hand-contract.md) — Preregister the blueprint-only v0a hand contract.
+- Latest ADR: [ADR-0486](docs/decisions/ADR-0486-park-the-slice-c-capability-analyzer-repair.md) — Park the slice C capability-analyzer repair.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 485.
-- ADR-header SHA-256: `e5e3bec444bc60e92676738ceae66f3248cabd96a898b8d1570fda00a31521e6`.
-- Current blockers: v0a source, source seal, rehearsal, measured operating-budget closure, authoritative replay population, and invocation authorization do not exist; v7 is permanently consumed and the compiled calibration is incomplete and parked; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, complete reduced compiled-calibration result, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists; broad-suite execution, capability approvals, and the holistic-audit backlog remain open.
+- Numbered decisions: 486.
+- ADR-header SHA-256: `552383363fb09e3ff24b6e7b08e04fc7f2be3c47702ee0963a8f85b128fc7f8b`.
+- Current blockers: the slice C analyzer retains sixteen reproduced public false negatives and its repair is parked, so the capability inventory is known unsound and the increment registers over it deliberately; the Gate 13 freeze utility has no accepted classifier and its revision 23 candidate is rejected; v0a source, source seal, rehearsal, measured operating-budget closure, authoritative replay population, and invocation authorization do not exist; v7 is permanently consumed and the compiled calibration is incomplete and parked; no production source-local base producer, refresh cadence, exponent admission, or width bound exists; no selected topology, complete reduced compiled-calibration result, population-25 result, actual-45 numerical result, global resolver-certificate integration, complete resolver iteration, known certificate count per action, or 15-second action result exists; no repeated-actor multiway existence result, off-tree opponent-action result, cross-street belief and certificate handoff, certified full-width river strategy bridge, trained blueprint, integrated bot, production action width, or poker-strength result exists; broad-suite execution, capability approvals, and the holistic-audit backlog remain open.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0485](docs/decisions/ADR-0485-preregister-the-blueprint-only-v0a-hand-contract.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0486](docs/decisions/ADR-0486-park-the-slice-c-capability-analyzer-repair.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

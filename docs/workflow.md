@@ -56,10 +56,85 @@ below **before implementation starts**: scope, tier, acceptance criteria, seam
 inventory, size budget, forbidden claims. The reviewer reviews the brief.
 Direction errors cost a page here and tens of thousands of lines later.
 
+Four of those fields decide more than the rest combined. Each has a default;
+the point is that the default must be written down rather than assumed.
+
+- **Ground truth.** Where the expected behaviour comes from: a published
+  standard, a mature reference implementation, a separately built model, real
+  observations, or a fixture whose expected result was not derived by the code
+  under test. "The author's own enumeration" is a permitted answer and is often
+  the right one — but it must be *stated*, because a check whose oracle came
+  from the same assumption as the implementation cannot test that assumption.
+- **Dependency statement.** Exactly which other work waits on this. Everything
+  not named may proceed in parallel. A local dependency declared as a global
+  one stops the project for no reason.
+- **Stop rule.** What causes adoption, one bounded correction, redesign, or
+  abandonment — written before the first round, not after the second failure.
+- **Budget.** The maximum review rounds or sessions before the task returns to
+  the controller for reauthorization.
+
+### Stage 0b — Design
+
+The brief says *what* must be true. This says *how*, and it exists before any
+implementation. The implementer drafts it; it is reviewed at its tier like any
+other candidate, and the design verdict applies.
+
+The case for it is this increment. R2-01 took three failed fixes and R2-03
+four, and in both the root cause was a decision nobody ever consciously made —
+what establishes policy authority, and how a failure cause reaches the receipt.
+The audits that finally settled them were design documents written four rounds
+too late. Two further findings, a hashing helper offered as replay verification
+and whole-hand deferred writes, were likewise decisions that fell out of the
+code rather than being chosen.
+
+A design document carries:
+
+- **Goals.** What this checkpoint must make true — referencing the brief's
+  acceptance criteria rather than restating them — and how each is observed.
+- **Design elements.** For each: the mechanism, the invariant it maintains,
+  and, the part that matters most, *every place that invariant must hold*.
+  R2-03 survived four rounds because "retain the cause before cleanup runs" was
+  applied where each finding pointed instead of everywhere it was true.
+- **What each element makes easy to get wrong.** More useful than generic pros
+  and cons, and it hands the reviewer their first place to look.
+- **Alternatives rejected, and why.** A rejected design with a stated reason is
+  often worth more than the chosen one: it is what stops the same wrong idea
+  being tried twice.
+- **Decisions needing a ruling.** Anything genuinely ambiguous, left open
+  rather than settled by the implementer's preference. r004 shipped one
+  interpretation of an ambiguous ADR sentence while asking for a ruling on it,
+  and the ruling went the other way.
+- **The coverage claim, stated early.** The category this design must cover and
+  how its members will be enumerated — declared before building rather than
+  defended afterwards.
+- **Ties to the whole project.** What this checkpoint makes possible next, what
+  it forecloses, and what it assumes from the ones before it.
+- **Barriers and blast radius.** What could stop this working, and what is
+  cheap to revise later versus what becomes sealed and permanent.
+- **What is deliberately not designed here.**
+
+**Granularity.** The test is whether a reviewer can *disagree* with something.
+Too vague if there is nothing to argue with; too detailed if checking it would
+mean reading the code. Name the mechanism and its invariant, not its
+implementation: "one append-only journal, every producer appends at the moment
+its cause occurs, the host reads the first entry as primary" is reviewable,
+while the method body that does it is only code arriving early — and code in a
+design document goes stale the moment it is written. One entry per contract or
+invariant, not per module or per function.
+
+**Proportionality.** Tier A needs a paragraph or nothing. Tier B, a page. Tier
+C, the full set above, reviewed as carefully as the code will be. The document
+lives in the round packet like any other reviewed artifact. This adds a review
+to the front of the pipeline and earns its place only if it removes more rounds
+than it costs — six rounds on one increment is the evidence that it can, and if
+a later checkpoint shows otherwise this stage should be cut rather than kept
+out of habit.
+
 ### Stage 1 — Implement
 
-The implementer works in its worktree. Every binding contract gets a
-deterministic RED reproduction before the fix and an integrated GREEN after.
+The implementer works in its worktree. A demonstrated behavioral defect gets
+a deterministic RED reproduction before the fix and an integrated GREEN after.
+Coverage-only corrections use the evidence-closure rule in Stage 4.
 The self-report records commands, exits, counts, and hashes — claims without
 receipts do not count.
 
@@ -150,6 +225,13 @@ report. That pair is the candidate's identity; the ref is now immutable.
 
 Open a **fresh** session and paste the round's `handoff.md` — the
 cold-review request template below.
+For a FIX round, the handoff links a frozen `coverage.md` and its SHA-256,
+but does not paste the claim itself. The reviewer first records an initial
+invariant and related-path inventory from the requirements and frozen source,
+then opens the structured coverage claim and compares the two. This is one
+review, not another approval stage; implementer transcripts remain excluded.
+A session exposed to the fix's design discussion cannot count as a cold pass;
+use a fresh reviewer context.
 The reviewer walks the checklist and the acceptance criteria against the ref.
 Output is a findings document bound to the manifest SHA, severity-ordered,
 with a concrete failure scenario for every Critical/Important finding.
@@ -178,11 +260,42 @@ the latter do not become acceptance gates merely by appearing in a review.
 Guidance is not permission for the reviewer to implement the fix, and it
 does not change the cold-input rules or the frozen review scope.
 
+**Design verdict (required).** The guidance above is advisory and can be
+skipped; this cannot. Every review states one design verdict beside its defect
+verdict, and states it even when the defect verdict is CLEAN:
+
+- **SOUND** — the shape fits the contract; any findings are ordinary defects.
+- **STRAINED** — it works, but the shape invites the defects being found; name
+  the change that would stop them recurring.
+- **WRONG SHAPE** — recommend redesign before further fixes; say what to build
+  instead and roughly what it costs.
+
+A **design finding** carries no reproduction requirement. Demanding
+"inputs → wrong outcome" of it is exactly what forces a reviewer to dress a
+design problem as a defect, or to drop it — `R2-05` (a hashing helper offered
+as replay verification) and `R2-09` (whole-hand deferred writes) both reached
+us in defect clothing. A design finding instead states: the failure mode the
+current shape invites, evidence it is already happening (rounds, findings, or
+repeated residuals), and the alternative with its cost. Design findings are
+never Critical and never block a candidate on their own; they are advisory
+until the controller adopts one.
+
+**After a second residual on one contract, or any WRONG SHAPE verdict, redesign
+is the default.** The disposition may still choose to patch, but must say why
+in writing. The burden is inverted deliberately: before that point patching is
+the sensible default and redesign needs the argument; after it the evidence
+says the shape is the problem, and continuing to patch needs the argument.
+
 ### Stage 4 — Fix rounds
 
-Each finding requires a deterministic RED reproduction against the frozen
-rejected candidate before the production edit, and an integrated GREEN after.
-Fixes freeze as the next round, `review/<task-id>/r<NNN+1>`. Two rules
+A demonstrated behavioral defect requires a deterministic RED reproduction
+against the frozen rejected candidate before the production edit, and an
+integrated GREEN after. For a coverage-only finding, establish the missing or
+unsound evidence, supply the independent behavioral check, and record its result.
+That check may pass on the rejected implementation; no invented product failure
+or production edit is required. If it exposes a behavioral defect, use the
+ordinary RED/GREEN correction path for that defect.
+Fixes freeze as the next round, `review/<task-id>/r<NNN+1>`. The rules below were
 learned at full price in Task 2:
 
 - **Rounds declare their kind.** Every frozen packet is a NEW-SURFACE round
@@ -196,6 +309,33 @@ learned at full price in Task 2:
   partway through fixing it. Learned at `v0a-i01-impl/r002`: slice B rode into
   slice A's fix round, and two residuals arrived indistinguishable from eight
   first-contact findings.
+- **State the failure category and coverage before fixing.** Alongside the
+  existing brief, name the violated invariant, how related paths were discovered,
+  which are affected, and the planned cases and limits. Keep this claim separate
+  from the cold reviewer's initial requirements input. Update it explicitly
+  as discovery changes. At freeze, put the final claim and evidence references
+  in `coverage.md`: discovered members, discovery method, exercised cases,
+  exclusions or uncertainty, and an observation that would falsify the claim.
+  A short paragraph with links to an inventory is enough; no extra approval
+  stage or exhaustive-proof claim is required. The handoff names the file and
+  its SHA-256 as deferred review input under Stage 3.
+- **Boundary discovery is shared work.** The reviewer independently challenges
+  the category and its limits, rather than treating the supplied reproductions
+  as exhaustive. Findings identify the invariant, demonstrated mechanism and
+  known related paths; unknown coverage stays explicit. Report missed members
+  or unsound discovery methods as coverage findings under the existing severity
+  rules, not automatic proof of a product defect. A blocking coverage finding
+  names an unmet acceptance requirement and a concrete unverified failure
+  scenario; advisory design concerns remain advisory.
+- **Category tests assert contract behavior.** Derive expected outcomes from
+  the contract or an independent reference, not the chosen implementation's
+  bookkeeping. Source searches and structural guards help discover paths but
+  do not replace checks through real public boundaries. For example, routing
+  every closure through a helper does not prove that the final receipt retains
+  every actual typed cause once and in occurrence order. Generated compound
+  schedules must show which faults actually occurred and in what order;
+  distinguish exercised, unreachable and still-uncovered combinations. Pair
+  coverage does not establish higher-order coverage.
 - **Count residuals, not rounds.** A residual is a finding whose own fix round
   failed to close it. One residual is ordinary — fixes are allowed to be
   incomplete. A second residual on the same contract stops in-place fixing:
@@ -279,6 +419,7 @@ D:\Pontius-handoffs\
       handoff.md              # cold-review instructions, scope, pinned inputs, finalizer
       candidate.json          # identity: ref, commit, base, tree, manifest digest
       manifest.sha256         # the sorted blob-hash rows themselves
+      coverage.md             # FIX only: frozen claim, deferred until independent inventory
       reviews\
         review-<NN>-<reviewer>.md   # attributed findings, one file per reviewer
       checks\                 # receipts: commands, environment identities, exits
@@ -381,8 +522,16 @@ Acceptance criteria: <numbered, individually testable>
 Seam inventory: <contracts crossed: subprocess / ABI / writer-reader /
   fixtures / locks / Git / cloud-sync / none>
 Size budget: <expected changed lines; slice plan if over ~3,000>
+Ground truth: <where expected behaviour comes from; say so plainly if it is
+  the author's own enumeration>
+Dependencies: <what must wait for this; everything unlisted proceeds>
+Stop rule: <what triggers adoption / one bounded correction / redesign /
+  abandonment>
+Budget: <max review rounds or sessions before reauthorization>
 Forbidden claims: <what this task does NOT prove or authorize>
 Test plan: <RED targets, focused suites, snapshot gates>
+FIX coverage planning: <separate draft-claim path; fill before implementation,
+  freeze as coverage.md; keep its contents out of initial cold-review inputs>
 ```
 
 ### Cold-review request (Stage 3 — the packet's `handoff.md`)
@@ -392,9 +541,14 @@ Adversarial review request.
 Candidate: refs/heads/review/<task-id>/r<NNN> at commit <sha>,
 manifest SHA-256 <manifest sha>, base <base sha>.
 Scope: <paths or named slices>.
+Round kind: <NEW-SURFACE or FIX>.
+FIX deferred input: coverage.md, SHA-256 <digest>; do not open it until your
+initial invariant and related-path inventory are recorded. Its claim includes
+discovered members/method, exercised cases, limits, and a falsifying observation.
 Inputs: docs/workflow.md (checklist v1), <path to task brief / acceptance
 map>. Do not read implementer transcripts, chat history, or report sections
-other than the evidence tables named here.
+other than the evidence tables named here and the deferred structured claim
+after the initial inventory.
 Rules: findings bind to the manifest SHA; every Critical/Important finding
 states a concrete failure scenario (inputs/state → wrong outcome); the
 helper-double rule applies literally; verdict CLEAN only if no finding
@@ -403,6 +557,15 @@ Where useful, include concrete engineering guidance: cause or hypothesis,
 technique, invariant protected, and verification. Separate required outcomes
 from advisory design choices; assess a bounded refactor or slice replacement
 when the permitted evidence shows that local fixes retain a structural cause.
+Also state one required design verdict — SOUND, STRAINED, or WRONG SHAPE —
+with a short justification, even if the defect verdict is CLEAN. A design
+finding needs no reproduction: give the failure mode the shape invites,
+evidence it is already happening, and the alternative with its cost.
+On a fix round, compare your recorded inventory with coverage.md. Challenge
+the category, discovery method, actual exercised cases, limits and independent
+test expectations. Grade coverage findings under the existing severity rules;
+missing coverage is not automatically proof of a product defect. Structural
+guards support, but do not replace, observable contract checks.
 Output: reviews/review-<NN>-<reviewer>.md in this round's packet,
-severity-ordered, one entry per finding.
+severity-ordered, one entry per finding, design verdict stated separately.
 ```

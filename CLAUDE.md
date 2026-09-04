@@ -88,8 +88,25 @@ review is `task-2-holistic-architecture-audit.md`.
 ## Environment and commands
 
 - Windows 11, PowerShell primary. Dev interpreter: `.venv` (CPython 3.14.6,
-  uv-managed). Release acceptance additionally requires a separate CPython 3.11
-  slot — its absence is an explicit gate, never a reason to substitute 3.14.
+  uv-managed). Release acceptance additionally requires the CPython 3.11 slot
+  at `D:\Pontius-tools\py311` — its absence is an explicit gate, never a
+  reason to substitute 3.14. Keep that slot outside every worktree: it is a
+  permanent tool, and a slot living inside a review worktree disappears when
+  that worktree is retired, silently removing the gate rather than failing it.
+- **Why the floor is 3.11.** `pyproject.toml` declares
+  `requires-python = ">=3.11"` and CI runs 3.11, so 3.11 is the supported
+  floor and must be tested, not assumed. It is not ceremony: the first genuine
+  3.11 execution found a real defect (ADR-0481 — `os.stat` reports a 32-bit
+  volume serial on ≤3.11 against 64-bit `FileIdInfo`), which had been invisible
+  for the project's whole history because development ran only on 3.14.
+  Raising or dropping the floor is a controller decision with its own ADR, not
+  a convenience choice at acceptance time.
+- **Run the floor first.** Development on the newest interpreter while
+  validating on the oldest is how 3.12+ behavior gets adopted silently — the
+  ADR-0481 identity defect and the f-string census's `JoinedStr` anchoring were
+  both that mistake. For CPU-only work with no optional dependencies (the v0a
+  lane), iterate on 3.11 first and confirm on 3.14; repo-wide this is not
+  possible, because the sparse-screen pins require ≥3.12.
 - Git for evidence paths: absolute `PONTIUS_GIT` (e.g.
   `C:/Program Files/Git/cmd/git.exe`), validated regular/non-reparse.
 - Typical dev run (iteration only, not acceptance):
@@ -101,6 +118,16 @@ review is `task-2-holistic-architecture-audit.md`.
   tests.
 - Style: Ruff config in `pyproject.toml`, line length 100, LF-only for
   governance outputs, no BOM, no trailing whitespace.
+
+## Proportionality
+
+Assurance work is bounded by what it protects. A support component larger than
+the component it protects — more lines, more review rounds, more ceremony —
+needs written justification in its brief before it grows further. Prove
+observable behaviour; bind implementation structure only where a specific
+control-flow or safety invariant needs it, and name the threat that binding
+addresses. A proof an attacker could defeat by editing the proof is defending
+nothing.
 
 ## When in doubt
 

@@ -42,9 +42,11 @@ chip-valued decision quality per millisecond under a hard 15,000 ms action wall
 7. **Exact types in evidence code.** `type(value) is int`, `type(value) is
    bool`. A `bool` never satisfies an integer field. Byte-exact digests, LF-only
    governance files.
-8. **Real paths, not doubles.** A helper double or state-shape test never
-   satisfies an ownership/transaction contract — only the real production path
-   under a real failure schedule does.
+8. **Real contracts, controlled triggers.** Ownership/transaction evidence must
+   exercise the real production path and the resource effects it claims.
+   An approved test may control a nondeterministic trigger at an explicit seam;
+   it may not substitute the contract implementation or its outcome oracle.
+   Follow the controlled-failure-schedule conditions in `docs/workflow.md`.
 9. **Cloud sync discipline.** Google Drive syncs this folder on demand only.
    Never trigger (or run during) a sync while a sealed reader or one-shot owner
    executes against this checkout — stray `.tmp.driveupload/` entries break

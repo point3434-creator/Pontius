@@ -17,7 +17,9 @@ by PROJECT.md, and the CLAUDE.md iron rules bind every participant here.
 2. **The reviewer gets a cold start.** A review session receives only the ref,
    the brief/acceptance map, and the checklist — never the implementer's
    reasoning transcript. An implementer's narrative primes a reviewer to see
-   what was intended instead of what is there.
+   what was intended instead of what is there. Stage 4's narrowly qualified
+   mechanical verification is the sole exception to requiring a fresh session;
+   it is not a new substantive cold pass.
 3. **Ceremony scales with blast radius; order never changes.** The sequence
    *freeze → review → tests → authorize → commit → push* is invariant. Tiers
    change review depth, never the order.
@@ -37,15 +39,52 @@ by PROJECT.md, and the CLAUDE.md iron rules bind every participant here.
 
 ## Change tiers
 
-Declare the tier in the brief. When in doubt, round up.
+Declare the tier and the protected invariant in the brief before implementation.
+Choose the highest material direct or indirect risk of the whole changed scope,
+including its consumers. Reviewers challenge the classification; unresolved
+uncertainty rounds up. A lower-tier label cannot override a task's stricter contract.
 
-- **Tier A — mechanical** (docs, config, renames, generated files): one light
-  review pass, then the gates. Minutes of ceremony.
-- **Tier B — ordinary code** (features, tools, non-evidence tests): the full
-  loop below with one reviewer.
-- **Tier C — evidence-adjacent** (ownership/transaction code, gates, readers,
-  analyzers, anything a sealed path depends on): the full loop plus a second
-  independent adversarial pass. The helper-double rule is enforced literally.
+- **Tier A — verified mechanical or non-normative change:** one independent
+  light review, then the applicable gates. No behavioral, authority, acceptance
+  or evidence-meaning change; examples are non-normative prose and verified reflow.
+- **Tier B — ordinary behavior:** the full loop with one reviewer for bounded
+  functionality that does not affect the Tier C invariants below.
+- **Tier C — protected contract:** the full loop plus a second independent
+  adversarial pass when a change can alter evidence validity, authorization,
+  identity/ownership/transaction guarantees, or acceptance enforcement. Changes
+  to these assurance rules themselves are Tier C.
+
+File type, size, directory and "test-only" labels do not establish a tier. A CI
+gate, generated exemption, test oracle or normative rule can be Tier C; mere
+proximity to sealed code is not sufficient. Explain the actual changed risk.
+Verified mechanical corrections to reviewed Tier B/C work use Stage 4 below;
+they do not retrospectively lower that work's substantive review requirement.
+
+### Controlled failure schedules
+
+The brief may authorize deterministic timing, scheduling, allocation-token reuse
+or injected faults at a named test boundary. No separate helper-double waiver is
+needed when all these conditions hold:
+
+- The real production path whose contract is claimed executes. Native/resource
+  operations whose correctness is claimed stay real; simulate only the trigger,
+  not successful cleanup, publication, ownership state or contract satisfaction.
+- State what was controlled, why the schedule is admissible, and what the test
+  cannot establish about the external system. This is not evidence that the OS,
+  network or allocator itself produces that schedule in a measured population.
+- Observe the outcome independently of the injector's bookkeeping or expected
+  result. Retain relevant real-boundary integration controls; a fake cannot
+  certify the boundary it replaces.
+- A deliberately incorrect behavior must make the independent contract check
+  fail through the production path. The injector must not veto or hide that
+  behavior before the outcome can be observed. Account for injected events and
+  retain deterministic cleanup and explicit failures for unexercised schedules.
+
+This applies to scoped correctness tests in disposable environments only. It
+does not open production/experimental execution, weaken an acceptance assertion,
+replace the contract with a helper double, or make state-shape checks sufficient.
+If a condition cannot be met, the proposed substitution is not authorized here;
+return to the controller instead of silently counting it as equivalent evidence.
 
 ## The loop
 
@@ -224,7 +263,8 @@ report. That pair is the candidate's identity; the ref is now immutable.
 ### Stage 3 — Cold review
 
 Open a **fresh** session and paste the round's `handoff.md` — the
-cold-review request template below.
+cold-review request template below. For the qualified mechanical route only,
+Stage 4 specifies a correction verification instead of another substantive pass.
 For a FIX round, the handoff links a frozen `coverage.md` and its SHA-256,
 but does not paste the claim itself. The reviewer first records an initial
 invariant and related-path inventory from the requirements and frozen source,
@@ -287,6 +327,45 @@ the sensible default and redesign needs the argument; after it the evidence
 says the shape is the problem, and continuing to patch needs the argument.
 
 ### Stage 4 — Fix rounds
+
+**Qualified mechanical correction.** A formatting, newline or non-normative
+correction may use one independent light verification instead of repeating the
+original Tier B/C substantive reviews, only when all of the following hold:
+
+1. The pinned substantive anchor has completed every review pass required by
+   its original tier, and all remaining required findings are mechanical. A
+   missing pass, unresolved behavioral/coverage finding or new contract change
+   cannot be carried through this route. Keep the original reports unchanged.
+2. The correction is within authorized scope. Enumerate the complete cumulative
+   delta from that anchor, not just the previous mechanical round. Establish no
+   behavior, normative meaning, authority, expected outcome or acceptance change.
+   AST equality alone is insufficient: inspect source-position, string/docstring,
+   generated-data and other relevant consumers. An independently regenerated
+   digest or layout census is permitted only if its meaning and checked population
+   remain unchanged; changed goldens or weakened tests are not presumed mechanical.
+3. Freeze a new ref and manifest. One reviewer who implemented neither the
+   substantive anchor nor the correction verifies eligibility, the exact delta,
+   derived artifacts and closure of every remaining finding. An earlier reviewer
+   may perform this check;
+   familiarity is allowed, authorship is not. Label the result mechanical
+   verification, not a fresh cold pass. If eligibility is unproved or a substantive
+   issue appears, stop this route and apply the ordinary tier/FIX rules.
+4. The new record binds both the anchor and corrected identities, cited prior
+   verdicts, eligibility evidence and correction verdict. Earlier non-CLEAN
+   reports retain their original status; together these records must establish
+   that no required finding remains before Stage 5. Approval never transfers
+   silently to changed bytes. Normal round budgets and residual rules still apply.
+5. Run focused correction checks and the unchanged applicable final acceptance
+   gates against the new candidate. Both supported interpreters, snapshot rules,
+   failure retention and exact per-commit authorization remain required. This
+   route changes review depth, not tests, source-opening permission or history.
+
+The substantive anchor stays fixed through chained mechanical corrections until
+the ordinary substantive passes required by the original tier establish another
+anchor. This prevents small corrections from concealing an unreviewed cumulative
+change. State the eligibility evidence in the existing handoff/coverage record;
+no new approval
+stage, review tier, special proof framework or automated equivalence claim is needed.
 
 A demonstrated behavioral defect requires a deterministic RED reproduction
 against the frozen rejected candidate before the production edit, and an
@@ -363,7 +442,9 @@ issued reports remain immutable. This guidance authorizes no rewrite by itself.
 
 ### Stage 5 — Acceptance gates, in fixed order
 
-1. Reviewer verdict CLEAN (both passes, for Tier C).
+1. Reviewer verdict CLEAN (both passes, for Tier C), or the complete qualified
+   mechanical record required by Stage 4 closing all remaining findings. This
+   is the only substitution for repeating the substantive passes on new bytes.
 2. Broad suites GREEN via the isolated snapshot procedure. Focused snapshot
    runs already happened at each freeze as the self-report's evidence; the
    broad population is spent only on reviewed code.
@@ -477,9 +558,9 @@ points at their current locations.
 Grown from the ADR bug ledger and the Task 2 fix rounds. Each new incident
 adds a line; lines are never removed.
 
-1. **Helper-double rule.** An ownership/transaction contract is satisfied only
-   by the real production path under a real failure schedule — never by a
-   helper double or state-shape test.
+1. **Real contract and independent oracle.** Apply the controlled-failure-schedule
+   conditions above. The production path and claimed resource effects stay real;
+   controlling the trigger cannot substitute the contract or its independent check.
 2. **Subprocess environment.** Every child launch is audited under the real
    scrubbed environment; Git only via absolute `PONTIUS_GIT`; no `PATH`
    lookup anywhere.
@@ -516,6 +597,7 @@ adds a line; lines are never removed.
 ```markdown
 # Task <id> brief — <title>
 Tier: A | B | C
+Protected invariant and direct/indirect changed risk: <why this tier applies>
 Base: <commit sha> on <branch>, worktree <path>
 Scope: <paths that may change; paths that must not>
 Acceptance criteria: <numbered, individually testable>
@@ -551,7 +633,7 @@ other than the evidence tables named here and the deferred structured claim
 after the initial inventory.
 Rules: findings bind to the manifest SHA; every Critical/Important finding
 states a concrete failure scenario (inputs/state → wrong outcome); the
-helper-double rule applies literally; verdict CLEAN only if no finding
+controlled-failure-schedule rule applies; verdict CLEAN only if no finding
 survives verification; name the required correction but do not implement it.
 Where useful, include concrete engineering guidance: cause or hypothesis,
 technique, invariant protected, and verification. Separate required outcomes

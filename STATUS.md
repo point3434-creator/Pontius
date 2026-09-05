@@ -15,16 +15,16 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept the exact reviewed portable-blueprint codec r002 with the separately
-reviewed Windows handle-fixture r002 as a CPU-only source asset. This closes the
-codec source acceptance opened by ADR-0490 and the inherited numeric handle-reuse
-fixture blocker within its tested Windows scope. No poker-strength, timing,
-training, policy-selection or operational result follows from source acceptance.
+Adopt three prospective engineering-workflow changes: qualified mechanical
+correction verification, controlled failure schedules with independent outcomes,
+and review tiers selected by changed contract risk. The normative definitions
+are the corresponding sections of docs/workflow.md and CLAUDE.md rule 8 in
+this decision's exact reviewed tree. No fourth rule or new proof system is added.
 
-Effect requires the separately authorized decision commit. A working ADR,
-generated STATUS, review ref or passing test run does not activate this seal.
-The integration changes the exact 12-path combined payload below, this new ADR,
-and generated STATUS only. Workflow-rule adjustments are not part of this decision.
+This takes effect only at the separately authorized decision commit. A draft,
+generated STATUS or review candidate does not activate it. The amendment itself
+uses the prior protocol: two independent Tier C reviews, not the lighter route
+it introduces, followed by isolated metadata acceptance and exact commit approval.
 
 ## Active next
 
@@ -39,7 +39,7 @@ Select the next bounded source task; no operating or research execution
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0491](docs/decisions/ADR-0491-source-seal-the-portable-blueprint-artifact.md) — Source-seal the portable blueprint artifact.
+Latest process decision: [ADR-0492](docs/decisions/ADR-0492-adopt-proportionate-engineering-review.md) — Adopt proportionate engineering review.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -47,7 +47,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0468](docs/decisions/ADR-0468-authorize-one-deferred-import-calibration-invocation.md) | 2026-08-26 | accepted exact one-generation invocation authorization; the current commit must be the sole child of source seal `ba6a3418b7c991238cc1a65898fd61fa03b4a3cb`, its changed-path set is exactly the frozen six-file authorization surface, no v4 implementation or test byte changes, and no public owner, compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists, while the authorization-dependent full-reader integration must still pass unskipped before the public owner is fired; revoked by ADR-0469 | Authorize one deferred-import calibration invocation |
 | [ADR-0469](docs/decisions/ADR-0469-retain-the-deferred-import-authorization-gate-rejection.md) | 2026-08-26 | accepted pre-invocation gate rejection and fresh-lifecycle preregistration; the exact ADR-0468 authorization-dependent reader integration ran 39 focused controls with 38 passing and one failing because the v4 writer produced the inherited `absolute_git_recovery` header field while the independent reader omitted and therefore never validated it, additional rebuilt-journal controls exposed bool/int aliases in exact-looking mapping comparisons, v4 is permanently closed uninvoked, and no v4 result, attempt marker, launch marker, compiler call, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Retain the deferred-import authorization-gate rejection |
 | [ADR-0470](docs/decisions/ADR-0470-retain-the-accidental-v5-preauthorization-attempt.md) | 2026-08-27 | accepted accidental-attempt retention and fresh-lifecycle preregistration; a source-seal negative launcher control inherited `PYTHONSAFEPATH=1`, called the real v5 owner despite omitting `-P`, wrote the exact 606-byte v5 attempt marker, and then rejected at absent authorization before any child launch, scientific import, compiler call, device access, timing value, or result; v5 is permanently closed, its marker is retained byte-exactly, and only a fresh v6 implementation may proceed | Retain the accidental v5 preauthorization attempt and preregister v6 |
 | [ADR-0471](docs/decisions/ADR-0471-source-seal-the-retained-attempt-successor.md) | 2026-08-27 | accepted CPU-only retained-attempt successor source seal; the fresh v6 launcher, runner, complete independent reader, exact retained-v5-attempt recovery header, durable attempt and one-use launch lifecycle, injected authorization and Git proof, and source-only controls pass 17/17 with zero skips; combined v4/v5/v6 regression passes 74/74 and the 35-test calibration-base regression passes; the retained 606-byte v5 attempt remains byte-exact, every v3/v4/v5 closed-state predicate and every v6 lifecycle path remains unchanged, and no public v6 owner, compiler call, CuPy import, device work, timing value, or result exists | Source-seal the retained-attempt successor |
@@ -71,18 +70,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0489](docs/decisions/ADR-0489-close-the-v0a-engineering-milestone.md) | 2026-09-04 | accepted engineering-only closure upon its separately authorized decision commit | Close the v0a engineering milestone |
 | [ADR-0490](docs/decisions/ADR-0490-open-the-portable-blueprint-artifact-source-round.md) | 2026-09-05 | accepted source-opening decision upon its separately authorized decision commit | Open the portable blueprint artifact source round |
 | [ADR-0491](docs/decisions/ADR-0491-source-seal-the-portable-blueprint-artifact.md) | 2026-09-05 | accepted source-only seal upon its separately authorized decision commit | Source-seal the portable blueprint artifact |
+| [ADR-0492](docs/decisions/ADR-0492-adopt-proportionate-engineering-review.md) | 2026-09-05 | accepted prospective workflow amendment upon its authorized decision commit | Adopt proportionate engineering review |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0491](docs/decisions/ADR-0491-source-seal-the-portable-blueprint-artifact.md) — Source-seal the portable blueprint artifact.
+- Latest ADR: [ADR-0492](docs/decisions/ADR-0492-adopt-proportionate-engineering-review.md) — Adopt proportionate engineering review.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 491.
-- ADR-header SHA-256: `c69a6a04383bec0adfd5076781777e082a9b4329826dc2b12344f7e6822e4274`.
-- Current blockers: operating budgets, authoritative population and invocation authority remain closed.
+- Numbered decisions: 492.
+- ADR-header SHA-256: `1d6de76a1e08c1802921575496c6aee466e21e766a15e340967fb91d200f4513`.
+- Current blockers: operating and research gates remain closed.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0491](docs/decisions/ADR-0491-source-seal-the-portable-blueprint-artifact.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0492](docs/decisions/ADR-0492-adopt-proportionate-engineering-review.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

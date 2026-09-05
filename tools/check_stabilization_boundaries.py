@@ -53,6 +53,12 @@ V0A_PERMITTED_INTERNAL = frozenset(
 )
 V0A_HOST_ONLY_INTERNAL = frozenset({"pontius.river"})
 V0A_HOST_MODULE = "pontius.v0a.replay"
+BLUEPRINT_ARTIFACT_ORIGIN_PATHS = frozenset(
+    {
+        "src/pontius/blueprint_artifact/__init__.py",
+        "src/pontius/blueprint_artifact/codec.py",
+    }
+)
 ORCHESTRATION_ORIGIN_PATHS = frozenset(
     {
         "tools/__init__.py",
@@ -66,6 +72,7 @@ ORCHESTRATION_ORIGIN_PATHS = frozenset(
         "tools/run_tests.py",
         "tools/stabilization_verification.py",
         "tools/test_child.py",
+        "tools/v0a_rehearsal_driver.py",
         "tools/test_orchestration/__init__.py",
         "tools/test_orchestration/configuration.py",
         "tools/test_orchestration/engine.py",
@@ -162,6 +169,8 @@ def enforce_legacy_edges(baseline: object, current: object) -> None:
             or added.startswith("pontius.evidence.")
             or added == "pontius.v0a"
             or added.startswith("pontius.v0a.")
+            or added == "pontius.blueprint_artifact"
+            or added.startswith("pontius.blueprint_artifact.")
         )
         if not classified:
             violations.append(f"new source module lacks stabilization classification: {added}")
@@ -211,6 +220,13 @@ def enforce_origin_classification(
         for path in sorted(current_sources)
         if path.startswith("src/pontius/evidence/") and path not in EVIDENCE_ORIGIN_PATHS
     ]
+    violations.extend(
+        f"unclassified stabilization origin: {path}"
+        for path in sorted(current_sources)
+        if path == "src/pontius/blueprint_artifact.py"
+        or path.startswith("src/pontius/blueprint_artifact/")
+        and path not in BLUEPRINT_ARTIFACT_ORIGIN_PATHS
+    )
     violations.extend(
         f"unclassified stabilization origin: {path}"
         for path in sorted(current_sources)
@@ -331,8 +347,34 @@ def enforce_orchestration_import_policy(sources: Mapping[str, bytes]) -> None:
         sibling = target == _ORCHESTRATION_SIBLING_PREFIX or target.startswith(
             _ORCHESTRATION_SIBLING_PREFIX + "."
         )
-        if not _is_stdlib(target) and not sibling:
+        driver_internal = origin == "tools.v0a_rehearsal_driver" and target in {
+            "pontius.immutable_blueprint",
+            "pontius.v0a.replay",
+            "pontius.v0a.trace",
+        }
+        if not _is_stdlib(target) and not sibling and not driver_internal:
             violations.append(f"forbidden orchestration import: {origin} -> {target}")
+    _raise_violations(violations)
+
+
+def enforce_blueprint_artifact_import_policy(sources: Mapping[str, bytes]) -> None:
+    """Keep the portable codec inert and limited to its two value modules."""
+
+    try:
+        edges = _BASELINE.import_edges(sources)
+    except _BASELINE.BaselineError as error:
+        raise BoundaryError(f"blueprint artifact sources cannot be scanned: {error}") from error
+    violations = []
+    family = "pontius.blueprint_artifact"
+    allowed = {"__future__", "json", "pontius.immutable_blueprint",
+               "pontius.no_limit_betting"}
+    for origin, target in edges:
+        in_family = origin == family or origin.startswith(family + ".")
+        targets_family = target == family or target.startswith(family + ".")
+        if in_family and target not in allowed:
+            violations.append(f"forbidden blueprint artifact import: {origin} -> {target}")
+        elif targets_family and not in_family:
+            violations.append(f"legacy origin imports blueprint artifact: {origin} -> {target}")
     _raise_violations(violations)
 
 
@@ -505,6 +547,7 @@ def check_repository(repository_root: Path) -> None:
     enforce_no_new_or_expanded_scc(parsed.graph, current_graph)
     enforce_evidence_import_policy(current_sources)
     enforce_v0a_import_policy(current_sources)
+    enforce_blueprint_artifact_import_policy(current_sources)
     enforce_orchestration_import_policy(tool_sources)
     _revalidate_repository_snapshot(
         baseline_snapshot, current_inventory, tool_inventory

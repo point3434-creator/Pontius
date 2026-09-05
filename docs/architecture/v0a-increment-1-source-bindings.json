@@ -1,0 +1,538 @@
+{
+  "event_schema": "pontius-v0a-event-v1",
+  "fixtures": [
+    {
+      "configuration_sha256": "69861c84550f07d2d72ae1466f90a838a1ceaa345645376d7797a129a9a9f0bf",
+      "deal_sha256": "fe1fd7c42a3d23693e58fac58829d87d2618cfffc293e5c76cbcdfd99e2bbb17",
+      "declaration": {
+        "big_blind": 2,
+        "board_text": [
+          "2c",
+          "7d",
+          "9h",
+          "Js",
+          "Qc"
+        ],
+        "button": 0,
+        "controlled_seat": 3,
+        "expected_controlled_actions": 4,
+        "expected_payouts": [
+          0,
+          0,
+          0,
+          12,
+          0,
+          0
+        ],
+        "expected_pots": [
+          12
+        ],
+        "hand_id": "control-A",
+        "hand_text": [
+          "As Ad",
+          "Kh Kd",
+          "Ts 8s",
+          "Ks Td",
+          "Ah 3h",
+          "4s 5s"
+        ],
+        "name": "control-A",
+        "script": [
+          {
+            "kind": "call",
+            "raise_to": null,
+            "seat": 4,
+            "street": "preflop"
+          },
+          {
+            "kind": "call",
+            "raise_to": null,
+            "seat": 5,
+            "street": "preflop"
+          },
+          {
+            "kind": "call",
+            "raise_to": null,
+            "seat": 0,
+            "street": "preflop"
+          },
+          {
+            "kind": "call",
+            "raise_to": null,
+            "seat": 1,
+            "street": "preflop"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 2,
+            "street": "preflop"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 1,
+            "street": "flop"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 2,
+            "street": "flop"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 4,
+            "street": "flop"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 5,
+            "street": "flop"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 0,
+            "street": "flop"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 1,
+            "street": "turn"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 2,
+            "street": "turn"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 4,
+            "street": "turn"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 5,
+            "street": "turn"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 0,
+            "street": "turn"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 1,
+            "street": "river"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 2,
+            "street": "river"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 4,
+            "street": "river"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 5,
+            "street": "river"
+          },
+          {
+            "kind": "check",
+            "raise_to": null,
+            "seat": 0,
+            "street": "river"
+          }
+        ],
+        "seed_label": "pontius-v0a-hand-replay-v1/control-A",
+        "small_blind": 1,
+        "starting_stacks": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ]
+      },
+      "materialized_deal": {
+        "board_runout": [
+          2,
+          20,
+          31,
+          37,
+          42
+        ],
+        "private_hands": [
+          [
+            48,
+            49
+          ],
+          [
+            44,
+            47
+          ],
+          [
+            25,
+            33
+          ],
+          [
+            32,
+            45
+          ],
+          [
+            7,
+            51
+          ],
+          [
+            9,
+            13
+          ]
+        ]
+      },
+      "suit_permutation": "hcsd"
+    },
+    {
+      "configuration_sha256": "762fb7122087739a2d9c16b5749568165919e8318e220dca5338efa0ee4125f2",
+      "deal_sha256": "897e3ffdd49aab7a4c34b008526da256eb03ff9f19dc79b968af2a473370f3e7",
+      "declaration": {
+        "big_blind": 2,
+        "board_text": [
+          "2c",
+          "7d",
+          "9h",
+          "Js",
+          "Qc"
+        ],
+        "button": 0,
+        "controlled_seat": 5,
+        "expected_controlled_actions": 2,
+        "expected_payouts": [
+          16,
+          10,
+          24,
+          30,
+          0,
+          0
+        ],
+        "expected_pots": [
+          24,
+          10,
+          16,
+          30
+        ],
+        "hand_id": "control-B",
+        "hand_text": [
+          "As Ad",
+          "Th 8h",
+          "Kc Tc",
+          "Kh Kd",
+          "Ah 3h",
+          "4s 5s"
+        ],
+        "name": "control-B",
+        "script": [
+          {
+            "kind": "raise",
+            "raise_to": 10,
+            "seat": 3,
+            "street": "preflop"
+          },
+          {
+            "kind": "call",
+            "raise_to": null,
+            "seat": 4,
+            "street": "preflop"
+          },
+          {
+            "kind": "call",
+            "raise_to": null,
+            "seat": 0,
+            "street": "preflop"
+          },
+          {
+            "kind": "call",
+            "raise_to": null,
+            "seat": 1,
+            "street": "preflop"
+          },
+          {
+            "kind": "call",
+            "raise_to": null,
+            "seat": 2,
+            "street": "preflop"
+          },
+          {
+            "kind": "raise",
+            "raise_to": 10,
+            "seat": 3,
+            "street": "flop"
+          },
+          {
+            "kind": "call",
+            "raise_to": null,
+            "seat": 4,
+            "street": "flop"
+          }
+        ],
+        "seed_label": "pontius-v0a-hand-replay-v1/control-B",
+        "small_blind": 1,
+        "starting_stacks": [
+          10,
+          6,
+          4,
+          20,
+          20,
+          20
+        ]
+      },
+      "materialized_deal": {
+        "board_runout": [
+          2,
+          21,
+          31,
+          36,
+          42
+        ],
+        "private_hands": [
+          [
+            48,
+            49
+          ],
+          [
+            27,
+            35
+          ],
+          [
+            34,
+            46
+          ],
+          [
+            45,
+            47
+          ],
+          [
+            7,
+            51
+          ],
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "suit_permutation": "hdsc"
+    }
+  ],
+  "host_api": "pontius.v0a.replay.ReplayHost.run",
+  "host_signature": "(self, *, destination=None, run_root=None) -> 'ReplayOutcome'",
+  "observed_import_origins": [
+    {
+      "bytes": 2553,
+      "module": "pontius",
+      "path": "src/pontius/__init__.py",
+      "sha256": "5dd4371cf5f30af8ccd637a1650da55700baf23be2665f16975cd5167f469031"
+    },
+    {
+      "bytes": 22397,
+      "module": "pontius.action_clock",
+      "path": "src/pontius/action_clock.py",
+      "sha256": "d1540ec3ce25b8247cf990b8649e3af0ebe9f3d25a98322aaf141afddf9a55bb"
+    },
+    {
+      "bytes": 17902,
+      "module": "pontius.cfr",
+      "path": "src/pontius/cfr.py",
+      "sha256": "d0e3c8fbc983a9863ec3feaa47cf1b932942623dd9f03eaed88d6e356e34051e"
+    },
+    {
+      "bytes": 13157,
+      "module": "pontius.coalition",
+      "path": "src/pontius/coalition.py",
+      "sha256": "6aee741a2f90d42c935bb85d6b8ac616bbcbbc3d90ef588112529c27133c86a3"
+    },
+    {
+      "bytes": 3954,
+      "module": "pontius.cuda_dll_bootstrap",
+      "path": "src/pontius/cuda_dll_bootstrap.py",
+      "sha256": "66d6bcfaadbaf47f110854380c227163cf052414f494a510dd53a4ea2ef91bef"
+    },
+    {
+      "bytes": 58864,
+      "module": "pontius.dependency_tape",
+      "path": "src/pontius/dependency_tape.py",
+      "sha256": "da7a89870b59dc151c8a056ab32468ed3206471959ac3b26dffca0d733c06501"
+    },
+    {
+      "bytes": 16641,
+      "module": "pontius.evaluation",
+      "path": "src/pontius/evaluation.py",
+      "sha256": "c362fb1e294bb8bac722adf479df4d2f27ddcf8c26390c037ec88f858702cda8"
+    },
+    {
+      "bytes": 21609,
+      "module": "pontius.factorized_belief",
+      "path": "src/pontius/factorized_belief.py",
+      "sha256": "8e9826b8fff4d311d6a1bba09b699a100322a53dc8896e4ff02eae2a8e3ce9c1"
+    },
+    {
+      "bytes": 13590,
+      "module": "pontius.full_width_belief",
+      "path": "src/pontius/full_width_belief.py",
+      "sha256": "3052c92264f5d4cce080dc652c1cf7c6245aede6dc7a4670e2b31220a8b006c6"
+    },
+    {
+      "bytes": 14898,
+      "module": "pontius.full_width_reference_policy",
+      "path": "src/pontius/full_width_reference_policy.py",
+      "sha256": "502d3631b9a66601f33de3db4e0f9a0742054b192403c2406c0f001d3b4ff7fe"
+    },
+    {
+      "bytes": 1379,
+      "module": "pontius.game",
+      "path": "src/pontius/game.py",
+      "sha256": "40a7ac22b6921241987db1237a506bd8cfb5a5f1027af61f7c594b4128bd2628"
+    },
+    {
+      "bytes": 8587,
+      "module": "pontius.holdem_cards",
+      "path": "src/pontius/holdem_cards.py",
+      "sha256": "97d987e188faddae48d29e96d883f3e67c649a9f5dc95d806f1169d2c6f6ac65"
+    },
+    {
+      "bytes": 14401,
+      "module": "pontius.immutable_blueprint",
+      "path": "src/pontius/immutable_blueprint.py",
+      "sha256": "300a5caa70febc954a9e47aa31b88aec345fe9ee6410b78b4d40b4d34fa1aaf8"
+    },
+    {
+      "bytes": 7664,
+      "module": "pontius.kuhn",
+      "path": "src/pontius/kuhn.py",
+      "sha256": "404cd07501ae715069d2c48b241bc6b904b2f9f843fbd26e3840b28a1132f272"
+    },
+    {
+      "bytes": 10809,
+      "module": "pontius.legal_decision_spine",
+      "path": "src/pontius/legal_decision_spine.py",
+      "sha256": "3ba182108c83977684f294f5495ec06f2b64706f4d562a02d2c60fde9c785a55"
+    },
+    {
+      "bytes": 16212,
+      "module": "pontius.legal_decision_spine_v2",
+      "path": "src/pontius/legal_decision_spine_v2.py",
+      "sha256": "a480918d5c6e5d06e2076ef64f7cccf14b63f61162b7b9d24dd7cae35825fca9"
+    },
+    {
+      "bytes": 33827,
+      "module": "pontius.no_limit_betting",
+      "path": "src/pontius/no_limit_betting.py",
+      "sha256": "9e2c45d575d28c759aea97c4f916a18584241cd84a6731e89bc609f32c2c7396"
+    },
+    {
+      "bytes": 11791,
+      "module": "pontius.preparation_bank",
+      "path": "src/pontius/preparation_bank.py",
+      "sha256": "4fb996a0988c74efecbe00574fd9c9d6601950e4cf74faea8d6d21d127f769ef"
+    },
+    {
+      "bytes": 23058,
+      "module": "pontius.reference_hand_replay",
+      "path": "src/pontius/reference_hand_replay.py",
+      "sha256": "d166535f3f2971728fc5b22725ad91651d071274a4238136b559bf0ea958af39"
+    },
+    {
+      "bytes": 21873,
+      "module": "pontius.river",
+      "path": "src/pontius/river.py",
+      "sha256": "bc56fefc3c24d371a9dd57048aa8e644a3ca6a111b35fe3dc1d5168bdb9046cb"
+    },
+    {
+      "bytes": 20560,
+      "module": "pontius.river_incremental",
+      "path": "src/pontius/river_incremental.py",
+      "sha256": "410bb101b6dfb784ff831da8edd59ef70afeb4195ef778e632afa74d495f5225"
+    },
+    {
+      "bytes": 18729,
+      "module": "pontius.river_multi_size",
+      "path": "src/pontius/river_multi_size.py",
+      "sha256": "52975da3efaf838ee159a8ad4b9a601859e66797aa1853d944def2b3aebda7fa"
+    },
+    {
+      "bytes": 18506,
+      "module": "pontius.river_multiway",
+      "path": "src/pontius/river_multiway.py",
+      "sha256": "942e2b4bf2acc0c5937b378a2d7620c5f318060d1068c84430af17e13de414d5"
+    },
+    {
+      "bytes": 9714,
+      "module": "pontius.street_deadline",
+      "path": "src/pontius/street_deadline.py",
+      "sha256": "8f803603e95013a4964aafedb941ed66426be5b4cf2fabdeb4a6f7a2f8abbf96"
+    },
+    {
+      "bytes": 2679,
+      "module": "pontius.updates",
+      "path": "src/pontius/updates.py",
+      "sha256": "76c08c39ebcda28c49e786099cc88236c33d71ea1d5e70dfff04ebb37aa7c704"
+    },
+    {
+      "bytes": 73,
+      "module": "pontius.v0a",
+      "path": "src/pontius/v0a/__init__.py",
+      "sha256": "86d349c4b79f150a4439df8d63c8d20854572895aaf7960f27647e7b1f198a8a"
+    },
+    {
+      "bytes": 3401,
+      "module": "pontius.v0a.clock",
+      "path": "src/pontius/v0a/clock.py",
+      "sha256": "42bd18d36a6353dbbcc44df1113eafa40ee5581b3e2479761990ab5c21c074bb"
+    },
+    {
+      "bytes": 22612,
+      "module": "pontius.v0a.model",
+      "path": "src/pontius/v0a/model.py",
+      "sha256": "3936d0216cdfc1b79500aac22908edd5e724b8da341801fcbafefa7c27a58e18"
+    },
+    {
+      "bytes": 40059,
+      "module": "pontius.v0a.replay",
+      "path": "src/pontius/v0a/replay.py",
+      "sha256": "ccd18b6540af9799a9feca9cd9884b4871fec7434012e911e37abdc0b1373a53"
+    },
+    {
+      "bytes": 50288,
+      "module": "pontius.v0a.runtime",
+      "path": "src/pontius/v0a/runtime.py",
+      "sha256": "307115a9a50be0a80b0cbba997f26f385abcbe1abdc32bd749495eb4692084ee"
+    },
+    {
+      "bytes": 53951,
+      "module": "pontius.v0a.trace",
+      "path": "src/pontius/v0a/trace.py",
+      "sha256": "4358b82b77defeb8bae3a40ab46f1cdfef61d49189b836577040e3e1e22081a1"
+    }
+  ],
+  "origin_limit": "Observed import closure, not arbitrary future dynamic reachability.",
+  "protocol_id": "pontius-v0a-hand-replay-v1",
+  "reader_api": "pontius.v0a.replay.verify_successful_trace",
+  "reader_signature": "(content: 'bytes', *, fixture: 'Fixture', blueprint: 'object', source_commit: 'str', source_manifest_sha256: 'str', expected_mode: 'str', expected_clock_kind: 'str') -> 'VerifiedTrace'",
+  "scope": "materialized source bindings only; no host run, seal or rehearsal",
+  "trace_schema": "pontius-v0a-trace-v1"
+}

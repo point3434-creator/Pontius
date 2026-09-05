@@ -229,6 +229,10 @@ STABILIZATION_TEST_FILES = (
     "tests/test_test_orchestration_protocol.py",
     "tests/test_test_orchestration_windows_job.py",
     "tests/test_test_orchestration_workspace.py",
+    "tests/test_v0a_contract_faults.py",
+    "tests/test_v0a_hand_replay.py",
+    "tests/test_v0a_replay.py",
+    "tests/test_v0a_trace.py",
 )
 
 _PATH_BEFORE_BOOTSTRAP = tuple(sys.path)
@@ -20746,6 +20750,65 @@ class DesignReviewTests(unittest.TestCase):
             )
         )
 
+    def test_unsupported_default_alignment_is_an_explicit_blocker(
+        self,
+    ) -> None:
+        source = _source(
+            """
+            import subprocess
+            import sys
+            import unittest
+
+            class ReviewTests(unittest.TestCase):
+                @staticmethod
+                def _launch(module="default", *, timeout=5):
+                    subprocess.run(
+                        [sys.executable, "-m", module],
+                        cwd=".",
+                        env={**__import__("os").environ, "SAFE": "1"},
+                        timeout=timeout,
+                        check=False,
+                    )
+
+                def test_static(self):
+                    self._launch()
+
+                def test_denied(self):
+                    pass
+            """
+        )
+
+        body_start = source.index(b"        subprocess.run(")
+        body_end = source.index(b"\n    def test_static", body_start)
+        inert = source[:body_start] + b"        return module\n" + source[body_end:]
+        nested = source.replace(
+            b"        self._launch()\n",
+            b"        def invoke():\n            self._launch()\n        invoke()\n",
+        )
+        for name, candidate in (("sink", source), ("inert", inert), ("nested", nested)):
+            with self.subTest(name=name):
+                try:
+                    review = self._review(sources={"tests/test_review.py": candidate})
+                except ValueError as error:
+                    self.fail(f"unsupported binding crashed instead of refusing: {error}")
+                self.assertFalse(review["receipt"]["expanded_rows"])
+                self.assertTrue(
+                    any(
+                        row["item_id"] == self.static_id
+                        and row["reason"]
+                        == "helper binding has fewer positional parameters than defaults"
+                        for row in review["unresolved_dynamic_blockers"]
+                    )
+                )
+                with self.assertRaisesRegex(
+                    self.generator.InventoryError, "unresolved dynamic design blockers"
+                ):
+                    self.generator.validate_design_approval(
+                        review,
+                        review["spec_capabilities_sha256"],
+                        review["design_review_receipt_sha256"],
+                    )
+
     def test_helper_registry_and_argument_binding_fail_closed(self) -> None:
         ambiguous = {
             "tests/a/test_shared.py": ast.parse("def launch(): pass\n"),
@@ -29585,22 +29648,22 @@ class CheckedInInventoryTests(unittest.TestCase):
         self.assertEqual(
             review["analysis_census"],
             {
-                "subprocess_direct_site_count": 42,
+                "subprocess_direct_site_count": 43,
                 "subprocess_helper_site_count": 5,
                 "cross_file_helper_edge_count": 27,
                 "cupy_call_node_count": 30,
-                "string_sink_decoy_count": 587,
+                "string_sink_decoy_count": 588,
                 "string_sink_decoy_sha256": (
-                    "7ee3ef8092721e401056b815d6d9c9bd7c208bac9ea1add4f6fdbd0a99ec548b"
+                    "bf4add353334a549793f8787d4ea91aaec0d5371a3516a9030e7f4ced105c589"
                 ),
                 "string_sink_decoy_partitions": {
                     "design_production": 17,
                     "historical_production": 6,
                     "prior_stabilization_synthetic": 34,
-                    "task2_synthetic": 530,
+                    "task2_synthetic": 531,
                 },
                 "analyzed_sites_sha256": (
-                    "be059b4bb1181ec8c5354daf552e09162341d2341a7e16c381ce14380818da10"
+                    "9d1f6f58620eb21ca721985786fd57d68cf8a5f3f5ac3a4f7cea05c8261ecadb"
                 ),
             },
         )
@@ -29690,26 +29753,29 @@ class CheckedInInventoryTests(unittest.TestCase):
             ["unsupported subprocess keyword: capture_output"],
         )
         blockers = review["unresolved_dynamic_blockers"]
-        self.assertEqual(len(blockers), 355)
+        self.assertEqual(len(blockers), 376)
         self.assertEqual(
             Counter(row["reason"] for row in blockers),
             Counter(
                 {
-                    "unsupported subprocess keyword: capture_output": 45,
+                    "unsupported subprocess keyword: capture_output": 46,
                     "dynamic helper arguments prevent exact sink derivation": 15,
+                    "helper binding has fewer positional parameters than defaults": 7,
                     "CuPy action or view is outside the approved call scope": 11,
                     "dynamic repetition prevents a finite call bound": 2,
                     "dynamic repetition prevents a finite helper call bound": 1,
                     "mixed protected receiver is dynamically unresolved": 61,
                     "unsupported subprocess keyword: stdin": 5,
                     "registered probe implementation is absent": 1,
-                    "dynamic sensitive call result is unresolved": 15,
+                    "dynamic sensitive call result is unresolved": 16,
                     "unregistered CuPy call is unresolved": 2,
                     "deferred generator consumption is dynamically unresolved": 50,
                     "protected value store target is dynamically unresolved": 6,
                     "local class decorator runtime target is dynamically unresolved": 4,
                     "max/min iterable contents are dynamically unresolved": 102,
-                    "max/min comparison dispatch is dynamically unresolved": 35,
+                    "max/min comparison dispatch is dynamically unresolved": 36,
+                    "callback closure": 1,
+                    "unittest instance or class binding is dynamically unresolved": 10,
                 }
             ),
         )
@@ -29736,6 +29802,7 @@ class CheckedInInventoryTests(unittest.TestCase):
                 ("tests/test_native_simplex_audit_reanalysis.py", 411),
                 ("tests/test_one_seat_convex_generation.py", 66),
                 ("tests/test_one_seat_convex_generation.py", 81),
+                ("tests/test_v0a_replay.py", 600),
             ],
         )
         self.assertEqual(
@@ -29787,19 +29854,19 @@ class CheckedInInventoryTests(unittest.TestCase):
                 ("tests/test_full_width_river_capacity_preflight_v2_result.py", 150),
                 ("tests/test_h32_selector_stable_affine_certificate_audit.py", 110),
                 ("tests/test_incremental_leaf_adjoint_response.py", 276),
-                ("tests/test_inventory_and_profiles.py", 1454),
-                ("tests/test_inventory_and_profiles.py", 1461),
-                ("tests/test_inventory_and_profiles.py", 2949),
-                ("tests/test_inventory_and_profiles.py", 4161),
-                ("tests/test_inventory_and_profiles.py", 4423),
-                ("tests/test_inventory_and_profiles.py", 5656),
-                ("tests/test_inventory_and_profiles.py", 12472),
-                ("tests/test_inventory_and_profiles.py", 12472),
-                ("tests/test_inventory_and_profiles.py", 12481),
-                ("tests/test_inventory_and_profiles.py", 16212),
-                ("tests/test_inventory_and_profiles.py", 18238),
-                ("tests/test_inventory_and_profiles.py", 18238),
-                ("tests/test_inventory_and_profiles.py", 4790),
+                ("tests/test_inventory_and_profiles.py", 1458),
+                ("tests/test_inventory_and_profiles.py", 1465),
+                ("tests/test_inventory_and_profiles.py", 2953),
+                ("tests/test_inventory_and_profiles.py", 4165),
+                ("tests/test_inventory_and_profiles.py", 4427),
+                ("tests/test_inventory_and_profiles.py", 5660),
+                ("tests/test_inventory_and_profiles.py", 12476),
+                ("tests/test_inventory_and_profiles.py", 12476),
+                ("tests/test_inventory_and_profiles.py", 12485),
+                ("tests/test_inventory_and_profiles.py", 16216),
+                ("tests/test_inventory_and_profiles.py", 18242),
+                ("tests/test_inventory_and_profiles.py", 18242),
+                ("tests/test_inventory_and_profiles.py", 4794),
                 ("tests/test_linear_program_certificate.py", 157),
                 ("tests/test_linear_program_certificate.py", 193),
                 ("tests/test_native_simplex_audit_reanalysis.py", 404),

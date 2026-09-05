@@ -104,6 +104,22 @@ jobs:
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tools\check_stabilization_boundaries.py
 
+      - name: v0a hand replay suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_hand_replay.py
+
+      - name: v0a trace suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_trace.py
+
+      - name: v0a replay suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_replay.py
+
+      - name: v0a contract faults suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_contract_faults.py
+
       - name: Ruff report (informational, non-gating)
         if: ${{ !cancelled() }}
         continue-on-error: true

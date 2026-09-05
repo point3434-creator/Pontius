@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 from collections.abc import Mapping, Sequence
 import importlib.util
 import os
@@ -30,6 +31,28 @@ EVIDENCE_ORIGIN_PATHS = frozenset(
         "src/pontius/evidence/retained_v7.py",
     }
 )
+V0A_ORIGIN_PATHS = frozenset(
+    {
+        "src/pontius/v0a/__init__.py",
+        "src/pontius/v0a/clock.py",
+        "src/pontius/v0a/model.py",
+        "src/pontius/v0a/replay.py",
+        "src/pontius/v0a/runtime.py",
+        "src/pontius/v0a/trace.py",
+    }
+)
+V0A_PERMITTED_INTERNAL = frozenset(
+    {
+        "pontius.action_clock",
+        "pontius.preparation_bank",
+        "pontius.legal_decision_spine_v2",
+        "pontius.no_limit_betting",
+        "pontius.holdem_cards",
+        "pontius.immutable_blueprint",
+    }
+)
+V0A_HOST_ONLY_INTERNAL = frozenset({"pontius.river"})
+V0A_HOST_MODULE = "pontius.v0a.replay"
 ORCHESTRATION_ORIGIN_PATHS = frozenset(
     {
         "tools/__init__.py",
@@ -134,7 +157,13 @@ def enforce_legacy_edges(baseline: object, current: object) -> None:
     for missing in sorted(baseline_modules - current_modules):
         violations.append(f"legacy module is missing: {missing}")
     for added in sorted(current_modules - baseline_modules):
-        if added != "pontius.evidence" and not added.startswith("pontius.evidence."):
+        classified = (
+            added == "pontius.evidence"
+            or added.startswith("pontius.evidence.")
+            or added == "pontius.v0a"
+            or added.startswith("pontius.v0a.")
+        )
+        if not classified:
             violations.append(f"new source module lacks stabilization classification: {added}")
     for origin in sorted(baseline_modules & current_modules):
         removed = baseline_edges[origin] - current_edges[origin]
@@ -184,6 +213,15 @@ def enforce_origin_classification(
     ]
     violations.extend(
         f"unclassified stabilization origin: {path}"
+        for path in sorted(current_sources)
+        if (
+            path == "src/pontius/v0a.py"
+            or path.startswith("src/pontius/v0a/")
+        )
+        and path not in V0A_ORIGIN_PATHS
+    )
+    violations.extend(
+        f"unclassified stabilization origin: {path}"
         for path in sorted(tool_sources)
         if path.startswith("tools/") and path not in ORCHESTRATION_ORIGIN_PATHS
     )
@@ -209,6 +247,73 @@ def enforce_evidence_import_policy(sources: Mapping[str, bytes]) -> None:
         )
         if not allowed:
             violations.append(f"forbidden evidence import: {origin} -> {target}")
+    _raise_violations(violations)
+
+
+def enforce_v0a_import_policy(sources: Mapping[str, bytes]) -> None:
+    """Apply ADR-0485's exact v0a dependency and complete-deal boundary."""
+
+    violations: list[str] = []
+    try:
+        edges = _BASELINE.import_edges(sources)
+        for path, raw in sorted(sources.items()):
+            origin = _BASELINE.module_name_for_path(path)
+            if (
+                origin != "pontius.v0a"
+                and not origin.startswith("pontius.v0a.")
+            ) or origin == V0A_HOST_MODULE:
+                continue
+            tree = _BASELINE._parse_source(raw, relative_path=path)
+            for node in ast.walk(tree):
+                forbidden = False
+                if isinstance(node, ast.ImportFrom):
+                    base = _BASELINE._resolve_from_base(
+                        origin,
+                        is_package=path.endswith("/__init__.py"),
+                        level=node.level,
+                        imported_module=node.module,
+                    )
+                    if base == "pontius.v0a" and any(
+                        alias.name == "replay" for alias in node.names
+                    ):
+                        violations.append(
+                            f"forbidden v0a import: {origin} -> {V0A_HOST_MODULE} "
+                            "(the explicit-deal host is never imported by a policy module)"
+                        )
+                    forbidden = any(
+                        alias.name == "SixSeatHoldemDeal"
+                        or (alias.name == "*" and base == "pontius.holdem_cards")
+                        for alias in node.names
+                    )
+                elif isinstance(node, ast.Name):
+                    forbidden = node.id == "SixSeatHoldemDeal"
+                elif isinstance(node, ast.Attribute):
+                    forbidden = node.attr == "SixSeatHoldemDeal"
+                if forbidden:
+                    violations.append(
+                        f"forbidden v0a complete-deal access: {origin}:{node.lineno} "
+                        "(only the explicit-deal host may use SixSeatHoldemDeal)"
+                    )
+    except _BASELINE.BaselineError as error:
+        raise BoundaryError(f"v0a sources cannot be scanned: {error}") from error
+    for origin, target in edges:
+        if origin != "pontius.v0a" and not origin.startswith("pontius.v0a."):
+            continue
+        sibling = target == "pontius.v0a" or target.startswith("pontius.v0a.")
+        if sibling:
+            if target == V0A_HOST_MODULE and origin != V0A_HOST_MODULE:
+                violations.append(
+                    f"forbidden v0a import: {origin} -> {target} "
+                    "(the explicit-deal host is never imported by a policy module)"
+                )
+            continue
+        if _is_stdlib(target):
+            continue
+        if target in V0A_PERMITTED_INTERNAL:
+            continue
+        if target in V0A_HOST_ONLY_INTERNAL and origin == V0A_HOST_MODULE:
+            continue
+        violations.append(f"forbidden v0a import: {origin} -> {target}")
     _raise_violations(violations)
 
 
@@ -399,6 +504,7 @@ def check_repository(repository_root: Path) -> None:
     enforce_legacy_edges(parsed.graph, current_graph)
     enforce_no_new_or_expanded_scc(parsed.graph, current_graph)
     enforce_evidence_import_policy(current_sources)
+    enforce_v0a_import_policy(current_sources)
     enforce_orchestration_import_policy(tool_sources)
     _revalidate_repository_snapshot(
         baseline_snapshot, current_inventory, tool_inventory

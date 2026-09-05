@@ -179,6 +179,10 @@ STABILIZATION_TEST_FILES = frozenset({
     "tests/test_test_orchestration_import_boundary.py",
     "tests/test_stabilization_verification.py",
     "tests/test_retained_evidence_inventory.py",
+    "tests/test_v0a_contract_faults.py",
+    "tests/test_v0a_hand_replay.py",
+    "tests/test_v0a_replay.py",
+    "tests/test_v0a_trace.py",
 })
 
 
@@ -21637,11 +21641,16 @@ def _helper_is_bound(
     )
 
 
+@dataclass(frozen=True, slots=True)
+class _HelperBindingRefusal:
+    reason: str
+
+
 def _bind_helper_arguments(
     call: ast.Call,
     definition: _ReviewFunction,
     aliases: Mapping[str, str],
-) -> dict[str, tuple[ast.expr, bool]] | None:
+) -> dict[str, tuple[ast.expr, bool]] | _HelperBindingRefusal | None:
     arguments = definition.node.args
     if (
         arguments.vararg is not None
@@ -21655,6 +21664,10 @@ def _bind_helper_arguments(
         if not positional:
             return None
         positional = positional[1:]
+    if len(arguments.defaults) > len(positional):
+        return _HelperBindingRefusal(
+            "helper binding has fewer positional parameters than defaults"
+        )
     if len(call.args) > len(positional):
         return None
     supplied: dict[str, tuple[ast.expr, bool]] = {}
@@ -22932,6 +22945,12 @@ def _review_body(
                 f"{relative_path}::<local:{local_name}:"
                 f"{int(getattr(local_node, 'lineno', 0))}>"
             )
+            supplied = _bind_helper_arguments(call, local_definition, call_aliases)
+            if isinstance(supplied, _HelperBindingRefusal):
+                blockers.append(
+                    _review_blocker(item_id, relative_path, call, supplied.reason)
+                )
+                continue
             if not _helper_has_sensitive_closure(
                 local_definition,
                 helper_registry,
@@ -22949,11 +22968,6 @@ def _review_body(
                     )
                 )
                 continue
-            supplied = _bind_helper_arguments(
-                call,
-                local_definition,
-                call_aliases,
-            )
             local_assignments = dict(call_assignments)
             argument_failure = supplied is None
             if supplied is not None:
@@ -23050,6 +23064,11 @@ def _review_body(
                 definition,
                 call_aliases,
             )
+            if isinstance(supplied_arguments, _HelperBindingRefusal):
+                blockers.append(
+                    _review_blocker(item_id, relative_path, call, supplied_arguments.reason)
+                )
+                continue
             argument_failure = supplied_arguments is None
             if supplied_arguments is None:
                 if not _helper_has_sensitive_closure(

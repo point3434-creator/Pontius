@@ -1367,6 +1367,126 @@ class StabilizationPolicyTests(unittest.TestCase):
             str(caught.exception),
         )
 
+    def test_v0a_origin_classification_is_the_exact_six_file_package(self) -> None:
+        expected = {
+            "src/pontius/v0a/__init__.py",
+            "src/pontius/v0a/clock.py",
+            "src/pontius/v0a/model.py",
+            "src/pontius/v0a/replay.py",
+            "src/pontius/v0a/runtime.py",
+            "src/pontius/v0a/trace.py",
+        }
+        actual = {
+            path.relative_to(REPOSITORY_ROOT).as_posix()
+            for path in (REPOSITORY_ROOT / "src" / "pontius" / "v0a").glob("*.py")
+        }
+        self.assertEqual(actual, expected)
+        CHECKER.enforce_origin_classification(
+            {path: b"" for path in expected},
+            {},
+        )
+
+        for undeclared in (
+            "src/pontius/v0a/unplanned.py",
+            "src/pontius/v0a.py",
+        ):
+            with self.subTest(undeclared=undeclared):
+                with self.assertRaises(CHECKER.BoundaryError) as caught:
+                    CHECKER.enforce_origin_classification(
+                        {**{path: b"" for path in expected}, undeclared: b""},
+                        {},
+                    )
+                self.assertIn(
+                    f"unclassified stabilization origin: {undeclared}",
+                    str(caught.exception),
+                )
+
+    def test_v0a_import_policy_allows_only_the_preregistered_dependencies(self) -> None:
+        policy = getattr(CHECKER, "enforce_v0a_import_policy", None)
+        self.assertTrue(callable(policy), "the v0a import policy is absent")
+        permitted = (
+            "pontius.action_clock",
+            "pontius.preparation_bank",
+            "pontius.legal_decision_spine_v2",
+            "pontius.no_limit_betting",
+            "pontius.holdem_cards",
+            "pontius.immutable_blueprint",
+        )
+        for target in permitted:
+            with self.subTest(permitted=target):
+                policy({"src/pontius/v0a/runtime.py": _source(f"import {target}\n")})
+        policy(
+            {
+                "src/pontius/v0a/trace.py": _source(
+                    "import json\nfrom . import model\n"
+                )
+            }
+        )
+
+        for target in ("pontius.status_generation", "cupy", "tests.fixture"):
+            with self.subTest(forbidden=target):
+                with self.assertRaises(CHECKER.BoundaryError) as caught:
+                    policy(
+                        {"src/pontius/v0a/runtime.py": _source(f"import {target}\n")}
+                    )
+                self.assertIn(
+                    f"forbidden v0a import: pontius.v0a.runtime -> {target}",
+                    str(caught.exception),
+                )
+
+    def test_only_replay_may_import_the_river_or_complete_deal(self) -> None:
+        policy = getattr(CHECKER, "enforce_v0a_import_policy", None)
+        self.assertTrue(callable(policy), "the v0a import policy is absent")
+        policy(
+            {
+                "src/pontius/v0a/replay.py": _source(
+                    "from ..holdem_cards import SixSeatHoldemDeal\n"
+                    "from .. import river\n"
+                )
+            }
+        )
+
+        forbidden_sources = (
+            "from pontius.holdem_cards import SixSeatHoldemDeal as Deal\n",
+            "import pontius.holdem_cards as cards\nvalue = cards.SixSeatHoldemDeal\n",
+            "from .. import holdem_cards as cards\n"
+            "def deferred():\n"
+            "    return cards.SixSeatHoldemDeal\n",
+            "from ..holdem_cards import *\n",
+        )
+        for source in forbidden_sources:
+            with self.subTest(source=source):
+                with self.assertRaises(CHECKER.BoundaryError) as caught:
+                    policy({"src/pontius/v0a/runtime.py": _source(source)})
+                self.assertIn("complete-deal", str(caught.exception))
+
+        with self.assertRaises(CHECKER.BoundaryError) as caught:
+            policy(
+                {
+                    "src/pontius/v0a.py": _source(
+                        "from pontius.holdem_cards import SixSeatHoldemDeal\n"
+                    )
+                }
+            )
+        self.assertIn("complete-deal", str(caught.exception))
+
+        for source in (
+            "from pontius.v0a import replay\n",
+            "from .replay import ReplayHost\n",
+            "import pontius.v0a.replay as host\n",
+        ):
+            with self.subTest(host_import=source):
+                with self.assertRaises(CHECKER.BoundaryError) as caught:
+                    policy({"src/pontius/v0a/runtime.py": _source(source)})
+                self.assertIn("explicit-deal host", str(caught.exception))
+
+        with self.assertRaises(CHECKER.BoundaryError) as caught:
+            policy({"src/pontius/v0a/runtime.py": _source("import pontius.river\n")})
+        self.assertIn("pontius.river", str(caught.exception))
+
+    def test_the_real_v0a_package_passes_the_public_boundary_gate(self) -> None:
+        CHECKER.check_repository(REPOSITORY_ROOT)
+
     def test_untouched_legacy_outgoing_edge_change_is_rejected(self) -> None:
         baseline = GENERATOR.scan_sources(
             {

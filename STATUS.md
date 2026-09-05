@@ -15,31 +15,21 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept the exact r004 library source and its bounded CPU acceptance. This
-records the controller's approval of the acceptance disposition, including the
-inherited fixture caveat and the library-only seal boundary. It takes effect as
-a source seal only at the separately authorized ceremonial decision commit.
-A working copy, review ref, generated STATUS, or this uncommitted record does
-not itself activate the seal. No experimental owner is admitted.
+Propose accepting the exact three-file v0a-driver/r001 candidate and its bounded
+review and regression evidence as a driver-only source seal. Controller approval
+and the separately authorized ceremonial commit are required for effect. Neither
+this working document, generated STATUS nor a frozen review ref activates a seal.
+The proposed integration is exactly the three reviewed additions, this new ADR,
+and regenerated STATUS.md. It changes no other accepted source or policy byte.
 
-The source candidate adds the six `pontius.v0a` modules and four test suites
-byte-identically from r007. Its remaining scope is registration, narrow origin
-and import boundaries, four direct CPU CI gates, and a typed refusal for the
-baseline helper binder's unrepresentable positional/default alignment. The
-expanded descriptor-provenance analyzer is not adopted. The refusal appears
-before sensitivity filtering at both consumers and grants no capability.
-ADR-0486's general analyzer-unsoundness disposition is unchanged.
-
-The source manifest binds all 17 files changed from the stated base. The full
-source tree binds the inherited repository dependencies, including package
-initialization; it is not limited to the six directly allowed runtime imports.
-No inherited kernel, historical replay, legacy dependency baseline, dependency
-lock, or retained evidence byte changes. The five manual registration/boundary/
-CI files contain 357 additions and 29 removals, below the 600-addition cap.
+This closes the driver source boundary left open by ADR-0487, not its separate
+executable-invocation requirement. The actual library seal remains
+af90155ebd970d0be6fe26969b121bd213a7f1f2. No change to the library, fixed fixtures,
+independent reader, writer, historical owners or consumed identities is admitted.
 
 ## Active next
 
-After the authorized source-seal commit, prepare a separately identified and reviewed non-evidentiary rehearsal driver with exact argv, disjoint identities and run root; request controller authorization before execution. Keep all other lanes parked. Measured operating budgets, authoritative replay population and one-shot invocation authority remain separate later decisions under ADR-0485
+Obtain controller approval for this exact driver source seal and integration commit; after that commit, prepare the separately bound non-evidentiary rehearsal invocation with exact driver identity, interpreter, argv, environment and disjoint run root, and request execution authorization. Keep every other lane parked
 
 ## Revoked authorities
 
@@ -50,7 +40,7 @@ After the authorized source-seal commit, prepare a separately identified and rev
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0487](docs/decisions/ADR-0487-source-seal-the-blueprint-only-v0a-hand-runtime.md) — Source-seal the blueprint-only v0a hand runtime.
+Latest process decision: [ADR-0488](docs/decisions/ADR-0488-source-seal-the-non-evidentiary-v0a-driver.md) — Source-seal the non-evidentiary v0a driver.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -58,7 +48,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0464](docs/decisions/ADR-0464-correct-the-launch-arity-successor-before-source-seal.md) | 2026-08-26 | accepted prospective pre-source-seal completeness correction; ADR-0463's independent all-site audit found that `evaluate_selected_leaves_rrns_batch` declares ten parameters while its sole host call supplies eleven through an obsolete extra `np.uint64(scan_count)`, so the permitted v3 delta now includes removing exactly that argument in addition to inserting the missing direct `source_count`, while all 46 launch sites must match all 28 unchanged CUDA declarations before source seal and no compiler, device, timing, or fresh result exists | Correct the launch-arity successor before source seal |
 | [ADR-0465](docs/decisions/ADR-0465-source-seal-the-kernel-launch-arity-successor.md) | 2026-08-26 | accepted CPU-only launch-ABI source seal; the fresh v3 overlay makes exactly two call-site repairs against the immutable ADR-0458 scientific source, derives all 28 ordered kernel signatures from the byte-identical CUDA literal, guards every dispatch before the driver, and independently proves all 46 host launch sites have matching argument counts with both opposite-sign mutations rejecting, while the retained v2 rejection remains exact, the v3 result remains absent, and no compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Source-seal the kernel-launch-arity successor |
 | [ADR-0466](docs/decisions/ADR-0466-reject-the-v3-source-seal-and-preregister-deferred-science-import.md) | 2026-08-26 | accepted prefire source-seal rejection and fresh lifecycle preregistration; three independent CPU-only audits prove that ADR-0465's v3 campaign child would resolve the immutable parent science instead of the repaired overlay and that the eagerly loaded overlay would make any successful journal fail the inherited bootstrap reader, so v3 is closed permanently uninvoked with both result and compiler/device evidence absent, while a fresh v4 owner must emit bootstrap before an explicit sealed-science import, bind the executed module and complete signature manifest, durably consume pre-writer attempts, and later require a one-commit invocation authorization | Reject the v3 source seal and preregister deferred science import |
 | [ADR-0467](docs/decisions/ADR-0467-source-seal-the-deferred-science-import-successor.md) | 2026-08-26 | accepted CPU-only deferred-import source seal; the fresh v4 public launcher, direct campaign child, independent reader, durable attempt and one-use launch lifecycle, source-only header contract, fresh-bytecode provenance checks, and terminal-sum controls pass 38 pre-authorization controls while the sole authorization-dependent integration remains deliberately dormant, both v3 and v4 results remain absent, and no public owner, compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Source-seal the deferred-science-import successor |
@@ -82,18 +71,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0485](docs/decisions/ADR-0485-preregister-the-blueprint-only-v0a-hand-contract.md) | 2026-08-30 | accepted prospective contract preregistration and explicit bootstrap-sequencing clarification; only the additive CPU blueprint-hand source contract is opened, an outer ActionClockLedger measures through offline-host delivery without altering the sealed V2 spine, operating budgets and an authoritative replay population remain unadmitted until a separate measured closure, and no source seal, rehearsal, owner invocation, integration result, timing result, or strategy result is asserted | Preregister the blueprint-only v0a hand contract |
 | [ADR-0486](docs/decisions/ADR-0486-park-the-slice-c-capability-analyzer-repair.md) | 2026-09-04 | accepted scope correction; the slice C capability-analyzer soundness repair is parked as its own bounded task and removed from v0a increment-one acceptance scope, increment one's obligation to the inventory machinery is reduced to registration and mechanical regeneration, the Gate 13 freeze lane is paused at its rejected revision 23, and no source seal, rehearsal, invocation, integration, timing, or strategy result is asserted or authorized | Park the slice C capability-analyzer repair |
 | [ADR-0487](docs/decisions/ADR-0487-source-seal-the-blueprint-only-v0a-hand-runtime.md) | 2026-09-04 | accepted library-only source seal upon its separately authorized decision commit; exact r004 source and r007 core are preserved, bounded CPU acceptance is complete, the inherited Windows fixture caveat remains open, and no rehearsal, invocation, timing, strategy, or strength result is authorized or asserted | Source-seal the blueprint-only v0a hand runtime |
+| [ADR-0488](docs/decisions/ADR-0488-source-seal-the-non-evidentiary-v0a-driver.md) | 2026-09-04 | accepted driver-only source seal upon controller approval and its separately authorized decision commit; this draft remains inactive until those conditions hold, two independent cold reviews and bounded v0a regression checks pass, no reviewed implementation byte changes, and no rehearsal or operational invocation is authorized | Source-seal the non-evidentiary v0a driver |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0487](docs/decisions/ADR-0487-source-seal-the-blueprint-only-v0a-hand-runtime.md) — Source-seal the blueprint-only v0a hand runtime.
+- Latest ADR: [ADR-0488](docs/decisions/ADR-0488-source-seal-the-non-evidentiary-v0a-driver.md) — Source-seal the non-evidentiary v0a driver.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 487.
-- ADR-header SHA-256: `bb77f3b505455a67e6a00aab5e579df69e98f26c03c37b34394a7e30709022e0`.
-- Current blockers: no rehearsal driver/argv, rehearsal report, measured operating-budget closure, authoritative replay population or invocation authority exists; inherited Windows fixture reliability remains open; the analyzer remains known unsound with zero grants, Gate 13 remains rejected at revision 23, and the research blockers and parked lanes of ADR-0485 and ADR-0486 remain unchanged.
+- Numbered decisions: 488.
+- ADR-header SHA-256: `3b7c3e14781260d1d4a501e922d7f1697b57cb68b3cf86c77d78f61311c24377`.
+- Current blockers: this driver seal is not active before its authorized decision commit; no exact rehearsal invocation or execution authorization, rehearsal report, measured operating-budget closure or authoritative replay population exists; the inherited Windows fixture issue and ADR-0485/0486 parked lanes and zero-grant analyzer remain unchanged.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0487](docs/decisions/ADR-0487-source-seal-the-blueprint-only-v0a-hand-runtime.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0488](docs/decisions/ADR-0488-source-seal-the-non-evidentiary-v0a-driver.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

@@ -15,21 +15,22 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Close increment one's engineering milestone as a source-sealed, CPU-only asset.
-The accepted library and driver source checks establish its engineering acceptance;
-the completed rehearsals retain their non-evidentiary standing. This is not an
-operational result, a trained policy, full v0a research completion or poker strength.
+Adopt the independently reviewed portable-blueprint design r002 and open its
+bounded, additive, CPU-only source round. The codec supplies complete immutable
+policy keys and actions as non-executable data to the existing runtime. It does
+not change poker semantics, improve strategy, train a policy or authorize a run.
 
-Defer the optional operational opening, including its measured budget/population
-closure and one-shot authorization. Do not implement the proposed operational
-launcher or versioned host/trace slice merely to repeat the fixed controls under
-another label. Open only the portable-blueprint artifact brief and design below.
-All other parked lanes stay parked. This disposition takes effect at its separately
-authorized decision commit; the working draft or generated STATUS cannot adopt it.
+This decision takes effect only at its separately authorized adoption commit.
+The reviewed proposal copies remain byte-identical historical inputs: their
+draft/prospective status does not activate permissions by itself. This ADR now
+adopts their specified mechanisms, constraints and acceptance requirements and
+activates the precise source opening below; it does not rewrite those copies.
+A working ADR or generated STATUS is not adoption. Implementation review and
+acceptance, a source seal and any later operating authority remain separate.
 
 ## Active next
 
-Review the portable-blueprint brief and design; no implementation yet
+Implement the bounded portable blueprint codec; no operating run
 
 ## Revoked authorities
 
@@ -40,7 +41,7 @@ Review the portable-blueprint brief and design; no implementation yet
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0489](docs/decisions/ADR-0489-close-the-v0a-engineering-milestone.md) — Close the v0a engineering milestone.
+Latest process decision: [ADR-0490](docs/decisions/ADR-0490-open-the-portable-blueprint-artifact-source-round.md) — Open the portable blueprint artifact source round.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -48,7 +49,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0466](docs/decisions/ADR-0466-reject-the-v3-source-seal-and-preregister-deferred-science-import.md) | 2026-08-26 | accepted prefire source-seal rejection and fresh lifecycle preregistration; three independent CPU-only audits prove that ADR-0465's v3 campaign child would resolve the immutable parent science instead of the repaired overlay and that the eagerly loaded overlay would make any successful journal fail the inherited bootstrap reader, so v3 is closed permanently uninvoked with both result and compiler/device evidence absent, while a fresh v4 owner must emit bootstrap before an explicit sealed-science import, bind the executed module and complete signature manifest, durably consume pre-writer attempts, and later require a one-commit invocation authorization | Reject the v3 source seal and preregister deferred science import |
 | [ADR-0467](docs/decisions/ADR-0467-source-seal-the-deferred-science-import-successor.md) | 2026-08-26 | accepted CPU-only deferred-import source seal; the fresh v4 public launcher, direct campaign child, independent reader, durable attempt and one-use launch lifecycle, source-only header contract, fresh-bytecode provenance checks, and terminal-sum controls pass 38 pre-authorization controls while the sole authorization-dependent integration remains deliberately dormant, both v3 and v4 results remain absent, and no public owner, compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Source-seal the deferred-science-import successor |
 | [ADR-0468](docs/decisions/ADR-0468-authorize-one-deferred-import-calibration-invocation.md) | 2026-08-26 | accepted exact one-generation invocation authorization; the current commit must be the sole child of source seal `ba6a3418b7c991238cc1a65898fd61fa03b4a3cb`, its changed-path set is exactly the frozen six-file authorization surface, no v4 implementation or test byte changes, and no public owner, compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists, while the authorization-dependent full-reader integration must still pass unskipped before the public owner is fired; revoked by ADR-0469 | Authorize one deferred-import calibration invocation |
 | [ADR-0469](docs/decisions/ADR-0469-retain-the-deferred-import-authorization-gate-rejection.md) | 2026-08-26 | accepted pre-invocation gate rejection and fresh-lifecycle preregistration; the exact ADR-0468 authorization-dependent reader integration ran 39 focused controls with 38 passing and one failing because the v4 writer produced the inherited `absolute_git_recovery` header field while the independent reader omitted and therefore never validated it, additional rebuilt-journal controls exposed bool/int aliases in exact-looking mapping comparisons, v4 is permanently closed uninvoked, and no v4 result, attempt marker, launch marker, compiler call, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Retain the deferred-import authorization-gate rejection |
@@ -72,18 +72,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0487](docs/decisions/ADR-0487-source-seal-the-blueprint-only-v0a-hand-runtime.md) | 2026-09-04 | accepted library-only source seal upon its separately authorized decision commit; exact r004 source and r007 core are preserved, bounded CPU acceptance is complete, the inherited Windows fixture caveat remains open, and no rehearsal, invocation, timing, strategy, or strength result is authorized or asserted | Source-seal the blueprint-only v0a hand runtime |
 | [ADR-0488](docs/decisions/ADR-0488-source-seal-the-non-evidentiary-v0a-driver.md) | 2026-09-04 | accepted driver-only source seal upon controller approval and its separately authorized decision commit; this draft remains inactive until those conditions hold, two independent cold reviews and bounded v0a regression checks pass, no reviewed implementation byte changes, and no rehearsal or operational invocation is authorized | Source-seal the non-evidentiary v0a driver |
 | [ADR-0489](docs/decisions/ADR-0489-close-the-v0a-engineering-milestone.md) | 2026-09-04 | accepted engineering-only closure upon its separately authorized decision commit | Close the v0a engineering milestone |
+| [ADR-0490](docs/decisions/ADR-0490-open-the-portable-blueprint-artifact-source-round.md) | 2026-09-05 | accepted source-opening decision upon its separately authorized decision commit | Open the portable blueprint artifact source round |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0489](docs/decisions/ADR-0489-close-the-v0a-engineering-milestone.md) — Close the v0a engineering milestone.
+- Latest ADR: [ADR-0490](docs/decisions/ADR-0490-open-the-portable-blueprint-artifact-source-round.md) — Open the portable blueprint artifact source round.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 489.
-- ADR-header SHA-256: `b09cfd0ac817e7279caefaa408c0bbdbd82f117b880c469262ffd7e784dccb1e`.
-- Current blockers: operational opening is deferred; ADR-0485/0486 research gates remain.
+- Numbered decisions: 490.
+- ADR-header SHA-256: `e1286452835707cd122219c97a2842656b4e131b2007208b698905d4c9a9d350`.
+- Current blockers: codec source acceptance remains open; operational and research gates remain.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0489](docs/decisions/ADR-0489-close-the-v0a-engineering-milestone.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0490](docs/decisions/ADR-0490-open-the-portable-blueprint-artifact-source-round.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

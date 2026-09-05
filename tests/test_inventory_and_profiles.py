@@ -206,6 +206,8 @@ V7_RETAINED_OVERLAYS = {
 STABILIZATION_TEST_FILES = (
     "tests/evidence_test_support.py",
     "tests/orchestration_test_support.py",
+    "tests/test_blueprint_artifact.py",
+    "tests/test_blueprint_artifact_boundary.py",
     "tests/test_evidence_authorization.py",
     "tests/test_evidence_errors_and_model.py",
     "tests/test_evidence_filesystem_and_git.py",
@@ -231,6 +233,7 @@ STABILIZATION_TEST_FILES = (
     "tests/test_test_orchestration_workspace.py",
     "tests/test_v0a_contract_faults.py",
     "tests/test_v0a_hand_replay.py",
+    "tests/test_v0a_rehearsal_driver.py",
     "tests/test_v0a_replay.py",
     "tests/test_v0a_trace.py",
 )
@@ -21113,9 +21116,331 @@ class DesignReviewTests(unittest.TestCase):
         )
 
 
+class _RoutedWindowsCall:
+    def __init__(self, routing, name, native):
+        object.__setattr__(self, "routing", routing)
+        object.__setattr__(self, "name", name)
+        object.__setattr__(self, "native", native)
+
+    def __setattr__(self, name, value):
+        setattr(self.native, name, value)
+
+    def __call__(self, *arguments):
+        return self.routing.call(self.name, self.native, arguments)
+
+
+class _ControlledWindowsHandles:
+    """Test-only numeric reuse; all resource operations still reach Windows."""
+
+    TOKEN_START = 1 << 48
+
+    def __init__(self, filesystem):
+        self.filesystem = filesystem
+        self.ctypes = filesystem.ctypes
+        self.live = {}
+        self.issued = set()
+        self.next_token = self.TOKEN_START
+        self.replacements = {}
+        self.unpublished = set()
+        _, _, self.raw_identity, self.raw_close = filesystem._windows_directory_api()
+        kernel = self.ctypes.WinDLL("kernel32", use_last_error=True)
+        self.raw_open = kernel.GetHandleInformation
+        self.raw_open.argtypes = (filesystem.wintypes.HANDLE, filesystem.wintypes.LPDWORD)
+        self.raw_open.restype = filesystem.wintypes.BOOL
+
+    def __enter__(self):
+        facade = ModuleType("controlled_windows_ctypes")
+        facade.__dict__.update(vars(self.ctypes))
+        facade.WinDLL = self.load
+        self.patch = mock.patch.object(self.filesystem, "ctypes", facade)
+        self.patch.__enter__()
+        return self
+
+    def __exit__(self, kind, error, traceback):
+        remaining = tuple(self.live.items())
+        unpublished = tuple(self.unpublished)
+        failures = []
+        try:
+            for token, native in remaining:
+                try:
+                    if self.raw_close(self.filesystem.wintypes.HANDLE(native)):
+                        del self.live[token]
+                    else:
+                        failures.append(native)
+                except BaseException as close_error:
+                    failures.append((native, repr(close_error)))
+            for native in unpublished:
+                try:
+                    if self.raw_close(self.filesystem.wintypes.HANDLE(native)):
+                        self.unpublished.remove(native)
+                    else:
+                        failures.append(native)
+                except BaseException as close_error:
+                    failures.append((native, repr(close_error)))
+        finally:
+            self.patch.__exit__(kind, error, traceback)
+        if remaining or unpublished:
+            raise AssertionError(
+                f"unexpected adapter-owned handles: {remaining}, {unpublished}; "
+                f"close failures: {failures}"
+            ) from error
+        return False
+
+    def resolve(self, handle):
+        numeric = int(getattr(handle, "value", handle) or 0)
+        if numeric in self.issued:
+            return self.live.get(numeric, 0)
+        if numeric >= self.TOKEN_START:
+            raise AssertionError("unknown synthetic handle or native/token collision")
+        return numeric
+
+    def publish(self, native, output=None, tokenize=True):
+        invalid = self.ctypes.c_void_p(-1).value
+        if not native or int(native) == invalid:
+            return native
+        token = None
+        try:
+            if not 0 < int(native) < self.TOKEN_START:
+                raise AssertionError("native/token range collision")
+            if not tokenize:
+                return native  # Ordinary path-read handles transfer to CRT ownership.
+            token = self.next_token
+            self.next_token += 1
+            self.issued.add(token)
+            self.live[token] = int(native)
+            if output is not None:
+                output.contents.value = token
+            return token
+        except BaseException as error:
+            if token is not None:
+                self.live.pop(token, None)
+            self.unpublished.add(int(native))
+            try:
+                if output is not None:
+                    output.contents.value = None
+            finally:
+                if not self.raw_close(self.filesystem.wintypes.HANDLE(native)):
+                    raise AssertionError("unpublished native acquisition close failed") from error
+                self.unpublished.remove(int(native))
+            raise
+
+    def reuse(self, retired, replacement):
+        if retired not in self.issued or retired in self.live or replacement not in self.live:
+            raise AssertionError("reuse requires one retired token and one live replacement")
+        native = self.live[replacement]
+        self.live[retired] = native
+        del self.live[replacement]
+        self.replacements[retired] = (native, self.native_identity(native))
+        return retired
+
+    def native_is_open(self, native):
+        flags = self.filesystem.wintypes.DWORD()
+        opened = bool(self.raw_open(
+            self.filesystem.wintypes.HANDLE(native), self.ctypes.byref(flags),
+        ))
+        if not opened and self.ctypes.get_last_error() != 6:
+            raise AssertionError("native liveness query failed without ERROR_INVALID_HANDLE")
+        return opened
+
+    def native_identity(self, native):
+        identity = self.filesystem._WindowsFileIdInformation()
+        if not self.raw_identity(
+            self.filesystem.wintypes.HANDLE(native), 18,
+            self.ctypes.byref(identity), self.ctypes.sizeof(identity),
+        ):
+            raise AssertionError("native replacement identity unavailable")
+        return int(identity.VolumeSerialNumber), bytes(identity.FileId.ByteIdentifier)
+
+    def assert_replacement_survived(self, token):
+        native, identity = self.replacements[token]
+        if not self.native_is_open(native) or self.native_identity(native) != identity:
+            raise AssertionError("native replacement was closed or changed")
+
+    def load(self, library, *arguments, **keywords):
+        names = {
+            "kernel32": ("CreateFileW", "CloseHandle", "GetHandleInformation",
+                         "GetFileInformationByHandle", "GetFileInformationByHandleEx",
+                         "ReadFile", "WriteFile", "FlushFileBuffers", "ReplaceFileW"),
+            "ntdll": ("NtCreateFile", "NtSetInformationFile"),
+        }
+        if library not in names:
+            raise AssertionError(f"unrouted Windows library: {library}")
+        native = self.ctypes.WinDLL(library, *arguments, **keywords)
+        facade = ModuleType(f"controlled_{library}")
+        for name in names[library]:
+            setattr(facade, name, _RoutedWindowsCall(self, name, getattr(native, name)))
+        return facade
+
+    def call(self, name, native, arguments):
+        args = list(arguments)
+        if name == "CreateFileW":
+            return self.publish(native(*args), tokenize=bool(args[5] & 0x02000000))
+        if name == "ReplaceFileW":
+            return native(*args)
+        structure = None
+        root = None
+        if name == "NtCreateFile":
+            structure = self.ctypes.cast(
+                args[2], self.ctypes.POINTER(self.filesystem._WindowsObjectAttributes),
+            ).contents
+        else:
+            args[0] = self.filesystem.wintypes.HANDLE(self.resolve(args[0]))
+            if name == "NtSetInformationFile" and args[4] in (10, 11):
+                structure = self.ctypes.cast(
+                    args[2], self.ctypes.POINTER(self.filesystem._WindowsFileRenameInformation),
+                ).contents
+        if structure is not None:
+            root = structure.RootDirectory
+            structure.RootDirectory = self.resolve(root)
+        try:
+            result = native(*args)
+        finally:
+            if structure is not None:
+                structure.RootDirectory = root
+        if name == "NtCreateFile":
+            output = self.ctypes.cast(args[0], self.ctypes.POINTER(self.filesystem.wintypes.HANDLE))
+            self.publish(output.contents.value, output)
+        elif name == "CloseHandle" and result:
+            token = int(getattr(arguments[0], "value", arguments[0]))
+            self.live.pop(token, None)
+            if token in self.replacements and self.native_is_open(args[0].value):
+                raise AssertionError("native replacement remained open after final close")
+        return result
+
+
 class AtomicAndGitBoundaryTests(unittest.TestCase):
     def setUp(self) -> None:
         self.generator = _load_generator()
+
+    def test_windows_controlled_reuse_preserves_native_resources(self) -> None:
+        if os.name != "nt":
+            return
+        generator = self.generator
+        with tempfile.TemporaryDirectory(prefix="pontius-controlled-reuse-") as temporary:
+            root = Path(temporary)
+            (root / "old").write_bytes(b"old\n")
+            (root / "replacement").write_bytes(b"replacement\n")
+            with _ControlledWindowsHandles(generator.secure_filesystem) as routing:
+                directory = generator._windows_open_governance_directory(root)[0]
+                old = generator._windows_open_relative_governance_file_raw(
+                    directory, "old", read_data=True, share_write=True, delete_access=False,
+                )
+                replacement = generator._windows_open_relative_governance_file_raw(
+                    directory, "replacement", read_data=True, share_write=True,
+                    delete_access=False,
+                )
+                try:
+                    self.assertNotEqual(old, replacement)
+                    self.assertTrue(generator._windows_try_close_file(old))
+                    self.assertFalse(generator._windows_governance_handle_is_open(old))
+                    retired_replacement = replacement
+                    replacement = routing.reuse(old, replacement)
+                    self.assertEqual(
+                        replacement, old, "controlled reuse must not depend on allocation",
+                    )
+                    self.assertFalse(
+                        generator._windows_governance_handle_is_open(retired_replacement)
+                    )
+                    routing.assert_replacement_survived(replacement)
+                    self.assertEqual(
+                        generator.secure_filesystem.read_regular_snapshot(
+                            root / "replacement", maximum_bytes=64, root=root,
+                        ).raw,
+                        b"replacement\n",
+                    )
+                finally:
+                    generator._windows_try_close_file(replacement)
+                    generator.secure_filesystem._windows_close_directory(directory)
+
+    def test_windows_controlled_reuse_detects_production_replay(self) -> None:
+        if os.name != "nt":
+            return
+        for helper, owner_type, method in (
+            ("_final3_windows_writer_reused_handles_are_role_isolated",
+             "_WindowsGovernanceFileOwner", "_resolve_ambiguous_close"),
+            ("_final3_windows_writer_reused_handles_are_role_isolated",
+             "_WindowsHandleOwner", "_reconcile_ambiguous_close"),
+            ("_round7_windows_file_owners_bind_before_caller_failure",
+             "_WindowsGovernanceFileOwner", "_resolve_ambiguous_close"),
+            ("_round9_windows_disposition_absence_beats_same_inode_reuse",
+             "_WindowsGovernanceFileOwner", "_resolve_ambiguous_close"),
+        ):
+            with self.subTest(replayed_close_helper=helper, owner_type=owner_type):
+                probe = AtomicAndGitBoundaryTests()
+                probe.setUp()
+                generator = probe.generator
+                closed = []
+                owner_class = getattr(generator, owner_type)
+                original = getattr(owner_class, method)
+                with _ControlledWindowsHandles(generator.secure_filesystem) as routing:
+                    def replay(owner, *labels):
+                        token = owner.ambiguous_handle
+                        if token in routing.replacements:
+                            native = routing.replacements[token][0]
+                            generator._windows_try_close_file(token)
+                            closed.append((native, routing.native_is_open(native)))
+                        return original(owner, *labels)
+
+                    with mock.patch.object(
+                        owner_class, method, replay,
+                    ):
+                        with self.assertRaisesRegex(
+                            AssertionError, "native replacement was closed",
+                        ):
+                            getattr(probe, helper)(routing)
+                    self.assertTrue(closed, "the mutant never replayed a production close")
+                    self.assertTrue(all(not is_open for _, is_open in closed))
+
+    def test_windows_controlled_reuse_releases_unpublished_and_leaked_handles(self) -> None:
+        if os.name != "nt":
+            return
+        generator = self.generator
+        filesystem = generator.secure_filesystem
+        original_ctypes = filesystem.ctypes
+        with tempfile.TemporaryDirectory(prefix="pontius-controlled-failures-") as temporary:
+            root = Path(temporary)
+            (root / "read").write_bytes(b"native\n")
+            with _ControlledWindowsHandles(filesystem) as routing:
+                directory = generator._windows_open_governance_directory(root)[0]
+                publish = routing.publish
+                acquired = []
+
+                def fail_publication(native, output=None, tokenize=True):
+                    acquired.append(native)
+                    with mock.patch.object(routing, "next_token", None):
+                        return publish(native, output, tokenize)
+
+                try:
+                    for acquire in (
+                        lambda: generator._windows_open_governance_directory(root),
+                        lambda: generator._windows_open_relative_governance_file_raw(
+                            directory, "read", read_data=True, share_write=True,
+                            delete_access=False,
+                        ),
+                    ):
+                        with mock.patch.object(routing, "publish", side_effect=fail_publication):
+                            with self.assertRaises((TypeError, generator.InventoryError)):
+                                acquire()
+                        self.assertFalse(routing.native_is_open(acquired[-1]))
+                    self.assertEqual(len(acquired), 2)
+                finally:
+                    filesystem._windows_close_directory(directory)
+            self.assertIs(filesystem.ctypes, original_ctypes)
+            for body_raises in (False, True):
+                routing = _ControlledWindowsHandles(filesystem)
+                with self.assertRaisesRegex(
+                    AssertionError, "unexpected adapter-owned handles",
+                ) as caught:
+                    with routing:
+                        token = generator._windows_open_governance_directory(root)[0]
+                        native = routing.live[token]
+                        if body_raises:
+                            raise ValueError("primary fixture error")
+                self.assertEqual(routing.live, {})
+                self.assertFalse(routing.native_is_open(native))
+                self.assertIs(filesystem.ctypes, original_ctypes)
+                if body_raises:
+                    self.assertIsInstance(caught.exception.__cause__, ValueError)
 
     def _round5_operation_entry_locks_before_git_source_and_destination_reads(
         self,
@@ -25698,7 +26023,7 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                             except OSError:
                                 pass
 
-    def _final3_windows_writer_reused_handles_are_role_isolated(self) -> None:
+    def _final3_windows_writer_reused_handles_are_role_isolated(self, routing) -> None:
         for selected_role in (
             "staging",
             "published",
@@ -25718,7 +26043,6 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                 manager = self.generator._GovernanceCleanupManager()
                 handles: dict[str, int] = {}
                 replacement: int | None = None
-                replacement_blockers: list[tuple[int, bool]] = []
                 selected_close_attempts = 0
                 real_open_directory = (
                     self.generator._windows_open_governance_directory
@@ -25788,25 +26112,17 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                 def reopen_same_file_handle(handle: int) -> bool:
                     nonlocal replacement, selected_close_attempts
                     selected_close_attempts += 1
-                    real_close_file(handle)
-                    for _ in range(4096):
-                        candidate = real_open_raw(
-                            handles[
-                                "lock_directory"
-                                if selected_role == "deterministic_lock"
-                                else "directory"
-                            ],
-                            target.name,
-                            share_write=True,
-                        )
-                        if candidate == handle:
-                            replacement = candidate
-                            break
-                        replacement_blockers.append((candidate, False))
-                    if replacement is None:
-                        raise AssertionError(
-                            "native file handle reuse could not be forced"
-                        )
+                    self.assertTrue(real_close_file(handle))
+                    candidate = real_open_raw(
+                        handles[
+                            "lock_directory"
+                            if selected_role == "deterministic_lock"
+                            else "directory"
+                        ],
+                        target.name,
+                        share_write=True,
+                    )
+                    replacement = routing.reuse(handle, candidate)
                     raise OSError("selected close consumed then raised")
 
                 def close_file(handle: int) -> bool:
@@ -25826,17 +26142,8 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                         and selected_close_attempts == 0
                     ):
                         selected_close_attempts += 1
-                        raw_close_directory(handle)
-                        for _ in range(4096):
-                            candidate = real_open_directory(root)[0]
-                            if candidate == numeric:
-                                replacement = candidate
-                                break
-                            replacement_blockers.append((candidate, True))
-                        if replacement is None:
-                            raise AssertionError(
-                                "native directory handle reuse could not be forced"
-                            )
+                        self.assertTrue(raw_close_directory(handle))
+                        replacement = routing.reuse(numeric, real_open_directory(root)[0])
                         raise OSError("selected close consumed then raised")
                     return int(bool(raw_close_directory(handle)))
 
@@ -25883,8 +26190,9 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                     self.assertEqual(
                         replacement,
                         handles[selected_role],
-                        "native handle was not deterministically reused",
+                        "controlled handle was not deterministically reused",
                     )
+                    routing.assert_replacement_survived(replacement)
                     self.assertTrue(
                         self.generator._windows_governance_handle_is_open(
                             replacement
@@ -25898,14 +26206,6 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                                 real_close_directory(replacement)
                             else:
                                 real_close_file(replacement)
-                        except BaseException:
-                            pass
-                    for blocker, is_directory in replacement_blockers:
-                        try:
-                            if is_directory:
-                                real_close_directory(blocker)
-                            else:
-                                real_close_file(blocker)
                         except BaseException:
                             pass
                     for descriptor in manager.pending_descriptors():
@@ -25929,7 +26229,7 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                             except OSError:
                                 pass
 
-    def _round7_windows_file_owners_bind_before_caller_failure(self) -> None:
+    def _round7_windows_file_owners_bind_before_caller_failure(self, routing) -> None:
         filesystem = self.generator.secure_filesystem
         issued_handle = 0x1234
 
@@ -26020,7 +26320,6 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                 selected_owner: object | None = None
                 replacement: int | None = None
                 replacement_identity: tuple[int, int] | None = None
-                replacement_blockers: list[int] = []
                 close_attempts = 0
                 injected = False
 
@@ -26093,33 +26392,16 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                             raise AssertionError("selected owner handle did not close")
                         if selected_directory is None:
                             raise AssertionError("selected owner directory is absent")
-                        for _ in range(4096):
-                            candidate = real_open_raw(
-                                selected_directory,
-                                unrelated.name,
-                                read_data=True,
-                                share_write=True,
-                                delete_access=False,
-                            )
-                            if candidate == handle:
-                                replacement = candidate
-                                replacement_identity = (
-                                    self.generator._windows_governance_handle_file_id(
-                                        candidate
-                                    )
-                                )
-                                break
-                            replacement_blockers.append(candidate)
-                        if replacement is None:
-                            raise AssertionError(
-                                "native handle reuse could not be forced"
-                            )
+                        candidate = real_open_raw(
+                            selected_directory, unrelated.name, read_data=True,
+                            share_write=True, delete_access=False,
+                        )
+                        replacement = routing.reuse(handle, candidate)
+                        replacement_identity = self.generator._windows_governance_handle_file_id(
+                            replacement
+                        )
                         raise OSError(
                             f"{family} close consumed then raised before retry"
-                        )
-                    if handle == replacement:
-                        raise AssertionError(
-                            "ambiguous owner replay-closed the reused handle"
                         )
                     return real_try_close(handle)
 
@@ -26174,6 +26456,7 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                     self.assertTrue(injected, f"{family} acquisition was not reached")
                     self.assertEqual(close_attempts, 1)
                     self.assertEqual(replacement, selected_handle)
+                    routing.assert_replacement_survived(replacement)
                     self.assertIsNotNone(selected_owner)
                     self.assertIsNotNone(
                         getattr(selected_owner, "expected_identity", None),
@@ -26210,11 +26493,6 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                             real_try_close(replacement)
                         except BaseException:
                             pass
-                    for blocker in replacement_blockers:
-                        try:
-                            real_try_close(blocker)
-                        except BaseException:
-                            pass
                     for _ in range(3):
                         descriptors = manager.pending_descriptors()
                         if not descriptors:
@@ -26241,7 +26519,7 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                         except OSError:
                             pass
 
-    def _round9_windows_disposition_absence_beats_same_inode_reuse(self) -> None:
+    def _round9_windows_disposition_absence_beats_same_inode_reuse(self, routing) -> None:
         real_create = self.generator._windows_create_relative_governance_file
         real_open_raw = self.generator._windows_open_relative_governance_file_raw
         real_try_close = self.generator._windows_try_close_file
@@ -26264,7 +26542,6 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                 selected_directory: int | None = None
                 selected_owner: object | None = None
                 replacement: int | None = None
-                blockers: list[int] = []
                 injected = False
                 close_attempts = 0
 
@@ -26332,28 +26609,17 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                             artifact_path.exists(),
                             "consuming disposition close did not remove its owned name",
                         )
-                        for _ in range(4096):
-                            candidate = real_open_raw(
-                                selected_directory,
-                                alias.name,
-                                read_data=True,
-                                share_write=True,
-                                delete_access=False,
-                            )
-                            if candidate == handle:
-                                replacement = candidate
-                                break
-                            blockers.append(candidate)
-                        if replacement is None:
-                            raise AssertionError("same-number hardlink reuse could not be forced")
+                        candidate = real_open_raw(
+                            selected_directory, alias.name, read_data=True,
+                            share_write=True, delete_access=False,
+                        )
+                        replacement = routing.reuse(handle, candidate)
                         self.assertEqual(
                             self.generator._windows_governance_handle_file_id(replacement),
                             expected_identity,
                             "hardlink replacement did not preserve the consumed owner's identity",
                         )
                         raise OSError("close consumed owned name then wrapper raised")
-                    if handle == replacement:
-                        raise AssertionError("cleanup replay-closed the hardlink replacement")
                     return real_try_close(handle)
 
                 def reject_after_publish(_snapshot: object) -> None:
@@ -26409,6 +26675,7 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                     )
                     self.assertTrue(getattr(selected_owner, "closed", False))
                     self.assertEqual(replacement, selected_handle)
+                    routing.assert_replacement_survived(replacement)
                     self.assertIsNone(
                         retry_error,
                         f"{family} absent owned name did not resolve: {retry_error!r}",
@@ -26443,11 +26710,6 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
                     ):
                         try:
                             real_try_close(selected_handle)
-                        except BaseException:
-                            pass
-                    for blocker in blockers:
-                        try:
-                            real_try_close(blocker)
                         except BaseException:
                             pass
                     for _ in range(4):
@@ -26791,9 +27053,10 @@ class AtomicAndGitBoundaryTests(unittest.TestCase):
         self._round6_windows_writer_directory_owner_is_monotonic()
         self._round6_windows_auxiliary_file_owners_are_retryable()
         self._round6_windows_namespace_free_ambiguous_closes_reconcile()
-        self._final3_windows_writer_reused_handles_are_role_isolated()
-        self._round7_windows_file_owners_bind_before_caller_failure()
-        self._round9_windows_disposition_absence_beats_same_inode_reuse()
+        with _ControlledWindowsHandles(self.generator.secure_filesystem) as routing:
+            self._final3_windows_writer_reused_handles_are_role_isolated(routing)
+            self._round7_windows_file_owners_bind_before_caller_failure(routing)
+            self._round9_windows_disposition_absence_beats_same_inode_reuse(routing)
         self._round9_windows_unbound_owners_bind_before_consuming_close()
         self._final3_windows_staging_cleanup_is_monotonic()
         self._final3_windows_lock_close_failure_remains_owned()
@@ -29649,12 +29912,12 @@ class CheckedInInventoryTests(unittest.TestCase):
             review["analysis_census"],
             {
                 "subprocess_direct_site_count": 43,
-                "subprocess_helper_site_count": 5,
+                "subprocess_helper_site_count": 6,
                 "cross_file_helper_edge_count": 27,
                 "cupy_call_node_count": 30,
                 "string_sink_decoy_count": 588,
                 "string_sink_decoy_sha256": (
-                    "bf4add353334a549793f8787d4ea91aaec0d5371a3516a9030e7f4ced105c589"
+                    "c62e275fa42bcb8cc9bef4a382990793adc03ecc9d9db1b6fcd35aeb9b23372e"
                 ),
                 "string_sink_decoy_partitions": {
                     "design_production": 17,
@@ -29663,7 +29926,7 @@ class CheckedInInventoryTests(unittest.TestCase):
                     "task2_synthetic": 531,
                 },
                 "analyzed_sites_sha256": (
-                    "9d1f6f58620eb21ca721985786fd57d68cf8a5f3f5ac3a4f7cea05c8261ecadb"
+                    "31879b63b1de2070ed2886cb104848b136cf5afa59c178c475d71d89fcd96e54"
                 ),
             },
         )
@@ -29753,13 +30016,13 @@ class CheckedInInventoryTests(unittest.TestCase):
             ["unsupported subprocess keyword: capture_output"],
         )
         blockers = review["unresolved_dynamic_blockers"]
-        self.assertEqual(len(blockers), 376)
+        self.assertEqual(len(blockers), 394)
         self.assertEqual(
             Counter(row["reason"] for row in blockers),
             Counter(
                 {
-                    "unsupported subprocess keyword: capture_output": 46,
-                    "dynamic helper arguments prevent exact sink derivation": 15,
+                    "unsupported subprocess keyword: capture_output": 55,
+                    "dynamic helper arguments prevent exact sink derivation": 24,
                     "helper binding has fewer positional parameters than defaults": 7,
                     "CuPy action or view is outside the approved call scope": 11,
                     "dynamic repetition prevents a finite call bound": 2,
@@ -29854,19 +30117,19 @@ class CheckedInInventoryTests(unittest.TestCase):
                 ("tests/test_full_width_river_capacity_preflight_v2_result.py", 150),
                 ("tests/test_h32_selector_stable_affine_certificate_audit.py", 110),
                 ("tests/test_incremental_leaf_adjoint_response.py", 276),
-                ("tests/test_inventory_and_profiles.py", 1458),
-                ("tests/test_inventory_and_profiles.py", 1465),
-                ("tests/test_inventory_and_profiles.py", 2953),
-                ("tests/test_inventory_and_profiles.py", 4165),
-                ("tests/test_inventory_and_profiles.py", 4427),
-                ("tests/test_inventory_and_profiles.py", 5660),
-                ("tests/test_inventory_and_profiles.py", 12476),
-                ("tests/test_inventory_and_profiles.py", 12476),
-                ("tests/test_inventory_and_profiles.py", 12485),
-                ("tests/test_inventory_and_profiles.py", 16216),
-                ("tests/test_inventory_and_profiles.py", 18242),
-                ("tests/test_inventory_and_profiles.py", 18242),
-                ("tests/test_inventory_and_profiles.py", 4794),
+                ("tests/test_inventory_and_profiles.py", 1461),
+                ("tests/test_inventory_and_profiles.py", 1468),
+                ("tests/test_inventory_and_profiles.py", 2956),
+                ("tests/test_inventory_and_profiles.py", 4168),
+                ("tests/test_inventory_and_profiles.py", 4430),
+                ("tests/test_inventory_and_profiles.py", 5663),
+                ("tests/test_inventory_and_profiles.py", 12479),
+                ("tests/test_inventory_and_profiles.py", 12479),
+                ("tests/test_inventory_and_profiles.py", 12488),
+                ("tests/test_inventory_and_profiles.py", 16219),
+                ("tests/test_inventory_and_profiles.py", 18245),
+                ("tests/test_inventory_and_profiles.py", 18245),
+                ("tests/test_inventory_and_profiles.py", 4797),
                 ("tests/test_linear_program_certificate.py", 157),
                 ("tests/test_linear_program_certificate.py", 193),
                 ("tests/test_native_simplex_audit_reanalysis.py", 404),

@@ -156,6 +156,8 @@ DECLARED_SKIPS = {
 STABILIZATION_TEST_FILES = frozenset({
     "tests/evidence_test_support.py",
     "tests/orchestration_test_support.py",
+    "tests/test_blueprint_artifact.py",
+    "tests/test_blueprint_artifact_boundary.py",
     "tests/test_evidence_errors_and_model.py",
     "tests/test_evidence_manifests.py",
     "tests/test_evidence_manifest_generation.py",
@@ -181,6 +183,7 @@ STABILIZATION_TEST_FILES = frozenset({
     "tests/test_retained_evidence_inventory.py",
     "tests/test_v0a_contract_faults.py",
     "tests/test_v0a_hand_replay.py",
+    "tests/test_v0a_rehearsal_driver.py",
     "tests/test_v0a_replay.py",
     "tests/test_v0a_trace.py",
 })

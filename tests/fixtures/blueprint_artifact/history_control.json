@@ -1,0 +1,31 @@
+{
+  "version": "pontius-v0a-blueprint-artifact-v1",
+  "source_id": "artifact-history-🚀",
+  "entries": [{
+    "key": {
+      "version": "blueprint-decision-key-v1",
+      "controlled_seat": 0,
+      "private_hand": [0, 1],
+      "board": [20, 21, 22],
+      "button": 0,
+      "small_blind": 1,
+      "big_blind": 2,
+      "street": "flop",
+      "starting_stacks": [200, 200, 200, 200, 200, 200],
+      "stacks": [200, 200, 200, 200, 200, 200],
+      "total_contributions": [0, 0, 0, 0, 0, 0],
+      "street_contributions": [0, 0, 0, 0, 0, 0],
+      "folded": [false, false, false, false, false, false],
+      "pending_seats": [0, 1],
+      "last_full_raise_size": 2,
+      "acted_at_bet": [null, null, null, null, null, null],
+      "public_history": [
+        ["preflop", 0, "fold", null, 0, false, null, 0],
+        ["preflop", 1, "check", null, 0, false, null, 0],
+        ["preflop", 2, "call", null, 2, false, null, 0],
+        ["preflop", 3, "raise", 6, 6, true, 3, 4]
+      ]
+    },
+    "action": {"kind": "check", "raise_to": null}
+  }]
+}

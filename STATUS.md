@@ -15,21 +15,21 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Propose accepting the exact three-file v0a-driver/r001 candidate and its bounded
-review and regression evidence as a driver-only source seal. Controller approval
-and the separately authorized ceremonial commit are required for effect. Neither
-this working document, generated STATUS nor a frozen review ref activates a seal.
-The proposed integration is exactly the three reviewed additions, this new ADR,
-and regenerated STATUS.md. It changes no other accepted source or policy byte.
+Close increment one's engineering milestone as a source-sealed, CPU-only asset.
+The accepted library and driver source checks establish its engineering acceptance;
+the completed rehearsals retain their non-evidentiary standing. This is not an
+operational result, a trained policy, full v0a research completion or poker strength.
 
-This closes the driver source boundary left open by ADR-0487, not its separate
-executable-invocation requirement. The actual library seal remains
-af90155ebd970d0be6fe26969b121bd213a7f1f2. No change to the library, fixed fixtures,
-independent reader, writer, historical owners or consumed identities is admitted.
+Defer the optional operational opening, including its measured budget/population
+closure and one-shot authorization. Do not implement the proposed operational
+launcher or versioned host/trace slice merely to repeat the fixed controls under
+another label. Open only the portable-blueprint artifact brief and design below.
+All other parked lanes stay parked. This disposition takes effect at its separately
+authorized decision commit; the working draft or generated STATUS cannot adopt it.
 
 ## Active next
 
-Obtain controller approval for this exact driver source seal and integration commit; after that commit, prepare the separately bound non-evidentiary rehearsal invocation with exact driver identity, interpreter, argv, environment and disjoint run root, and request execution authorization. Keep every other lane parked
+Review the portable-blueprint brief and design; no implementation yet
 
 ## Revoked authorities
 
@@ -40,7 +40,7 @@ Obtain controller approval for this exact driver source seal and integration com
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0488](docs/decisions/ADR-0488-source-seal-the-non-evidentiary-v0a-driver.md) — Source-seal the non-evidentiary v0a driver.
+Latest process decision: [ADR-0489](docs/decisions/ADR-0489-close-the-v0a-engineering-milestone.md) — Close the v0a engineering milestone.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -48,7 +48,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0465](docs/decisions/ADR-0465-source-seal-the-kernel-launch-arity-successor.md) | 2026-08-26 | accepted CPU-only launch-ABI source seal; the fresh v3 overlay makes exactly two call-site repairs against the immutable ADR-0458 scientific source, derives all 28 ordered kernel signatures from the byte-identical CUDA literal, guards every dispatch before the driver, and independently proves all 46 host launch sites have matching argument counts with both opposite-sign mutations rejecting, while the retained v2 rejection remains exact, the v3 result remains absent, and no compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Source-seal the kernel-launch-arity successor |
 | [ADR-0466](docs/decisions/ADR-0466-reject-the-v3-source-seal-and-preregister-deferred-science-import.md) | 2026-08-26 | accepted prefire source-seal rejection and fresh lifecycle preregistration; three independent CPU-only audits prove that ADR-0465's v3 campaign child would resolve the immutable parent science instead of the repaired overlay and that the eagerly loaded overlay would make any successful journal fail the inherited bootstrap reader, so v3 is closed permanently uninvoked with both result and compiler/device evidence absent, while a fresh v4 owner must emit bootstrap before an explicit sealed-science import, bind the executed module and complete signature manifest, durably consume pre-writer attempts, and later require a one-commit invocation authorization | Reject the v3 source seal and preregister deferred science import |
 | [ADR-0467](docs/decisions/ADR-0467-source-seal-the-deferred-science-import-successor.md) | 2026-08-26 | accepted CPU-only deferred-import source seal; the fresh v4 public launcher, direct campaign child, independent reader, durable attempt and one-use launch lifecycle, source-only header contract, fresh-bytecode provenance checks, and terminal-sum controls pass 38 pre-authorization controls while the sole authorization-dependent integration remains deliberately dormant, both v3 and v4 results remain absent, and no public owner, compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists | Source-seal the deferred-science-import successor |
 | [ADR-0468](docs/decisions/ADR-0468-authorize-one-deferred-import-calibration-invocation.md) | 2026-08-26 | accepted exact one-generation invocation authorization; the current commit must be the sole child of source seal `ba6a3418b7c991238cc1a65898fd61fa03b4a3cb`, its changed-path set is exactly the frozen six-file authorization surface, no v4 implementation or test byte changes, and no public owner, compiler, CuPy scientific import, device query, allocation, module load, kernel launch, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, quality, truncation, blueprint, or strength result exists, while the authorization-dependent full-reader integration must still pass unskipped before the public owner is fired; revoked by ADR-0469 | Authorize one deferred-import calibration invocation |
@@ -72,18 +71,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0486](docs/decisions/ADR-0486-park-the-slice-c-capability-analyzer-repair.md) | 2026-09-04 | accepted scope correction; the slice C capability-analyzer soundness repair is parked as its own bounded task and removed from v0a increment-one acceptance scope, increment one's obligation to the inventory machinery is reduced to registration and mechanical regeneration, the Gate 13 freeze lane is paused at its rejected revision 23, and no source seal, rehearsal, invocation, integration, timing, or strategy result is asserted or authorized | Park the slice C capability-analyzer repair |
 | [ADR-0487](docs/decisions/ADR-0487-source-seal-the-blueprint-only-v0a-hand-runtime.md) | 2026-09-04 | accepted library-only source seal upon its separately authorized decision commit; exact r004 source and r007 core are preserved, bounded CPU acceptance is complete, the inherited Windows fixture caveat remains open, and no rehearsal, invocation, timing, strategy, or strength result is authorized or asserted | Source-seal the blueprint-only v0a hand runtime |
 | [ADR-0488](docs/decisions/ADR-0488-source-seal-the-non-evidentiary-v0a-driver.md) | 2026-09-04 | accepted driver-only source seal upon controller approval and its separately authorized decision commit; this draft remains inactive until those conditions hold, two independent cold reviews and bounded v0a regression checks pass, no reviewed implementation byte changes, and no rehearsal or operational invocation is authorized | Source-seal the non-evidentiary v0a driver |
+| [ADR-0489](docs/decisions/ADR-0489-close-the-v0a-engineering-milestone.md) | 2026-09-04 | accepted engineering-only closure upon its separately authorized decision commit | Close the v0a engineering milestone |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0488](docs/decisions/ADR-0488-source-seal-the-non-evidentiary-v0a-driver.md) — Source-seal the non-evidentiary v0a driver.
+- Latest ADR: [ADR-0489](docs/decisions/ADR-0489-close-the-v0a-engineering-milestone.md) — Close the v0a engineering milestone.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 488.
-- ADR-header SHA-256: `3b7c3e14781260d1d4a501e922d7f1697b57cb68b3cf86c77d78f61311c24377`.
-- Current blockers: this driver seal is not active before its authorized decision commit; no exact rehearsal invocation or execution authorization, rehearsal report, measured operating-budget closure or authoritative replay population exists; the inherited Windows fixture issue and ADR-0485/0486 parked lanes and zero-grant analyzer remain unchanged.
+- Numbered decisions: 489.
+- ADR-header SHA-256: `b09cfd0ac817e7279caefaa408c0bbdbd82f117b880c469262ffd7e784dccb1e`.
+- Current blockers: operational opening is deferred; ADR-0485/0486 research gates remain.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0488](docs/decisions/ADR-0488-source-seal-the-non-evidentiary-v0a-driver.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0489](docs/decisions/ADR-0489-close-the-v0a-engineering-milestone.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

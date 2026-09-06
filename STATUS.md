@@ -15,22 +15,32 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept the exact reviewed watch-first table-session r001 as a CPU-only source
-asset, closing the implementation acceptance opened by ADR-0499. The new terminal
-tool composes the sealed one-hand host across a finite explicit schedule. Pontius
-plays five existing simple opponents; completed stacks carry and the button rotates.
-During each hand the terminal shows the bot's own cards, the public board and actual
-actions. Enter/n and q operate between hands. Automatic mode shares the lifecycle;
-automatic JSON mode produces one closed result.
+Prospectively permit one separately authorized, supervised terminal demonstration
+of the exact source-sealed watch-first session. Its purpose is to let the controller
+see cards, public actions, carried stacks and the between-hand controls. It yields
+no correctness acceptance, cost calibration, policy selection or research result.
+This proposal has no effect before its exact decision commit is authorized and made.
+The decision commit alone does not launch the demonstration.
 
-Effect requires the separately authorized decision commit. A working ADR,
-generated STATUS, review ref or passing test run does not activate this seal.
-Incorporate only the exact eleven source payload blobs below, this new ADR and
-generated STATUS. No further implementation or workflow-rule change belongs here.
+This is an explicit narrow exception to the blanket execution closures in
+ADR-0489 and ADR-0500, and to ADR-0485's operational prerequisites only for this
+named non-evidentiary display. It is not an inference that a run becomes permitted
+when called a demo. All formal operating, rehearsal, experimental and research
+invocations still require their existing prerequisites and separate authorization.
+The source acceptance and two original source reviews under ADR-0500 stand unchanged.
+
+The demo uses the unchanged executable correctness namespaces listed below because
+the sealed session, host and event adapter require those literal identities. For
+this one display only, this decision permits their use under external demonstration
+authority. Their names and event fields are not evidence of a test execution or an
+authorized research mode. Preserve them verbatim, including evidentiary=false in
+the event result. Do not patch a prefix, change a trace mode, promote an old run,
+or claim that the sealed parser now supports an authorized trace. This exception
+does not define a reusable authorization interface or change any semantic schema.
 
 ## Active next
 
-Select bounded operating-entry task; operating/research closed
+Authorize one supervised demo; formal operation/research closed
 
 ## Revoked authorities
 
@@ -41,7 +51,7 @@ Select bounded operating-entry task; operating/research closed
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0500](docs/decisions/ADR-0500-source-seal-the-watch-first-table-session.md) — Source-seal the watch-first table session.
+Latest process decision: [ADR-0501](docs/decisions/ADR-0501-permit-one-watch-first-demonstration.md) — Permit one watch-first demonstration.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -49,7 +59,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0477](docs/decisions/ADR-0477-replicate-the-retained-evidence-archive-off-machine.md) | 2026-08-29 | accepted operations decision; the repository gained its first off-machine replication after the OneDrive exit left exactly one copy of protocol-unreproducible evidence, and the archive now exists in a private GitHub remote (all branches), point-in-time snapshot refs for then-uncommitted evidence, a release asset carrying every retained result JSON including the gitignored and over-100 MB files, and a second-volume local mirror; the restore drill, push-on-commit automation, and a retained-evidence inventory test remain explicitly open, and replication is not evidence that restoration works | Replicate the retained evidence archive off-machine |
 | [ADR-0478](docs/decisions/ADR-0478-install-the-agent-charter-and-collaboration-protocol.md) | 2026-08-29 | accepted process decision; `CLAUDE.md` now binds every AI agent to nine iron rules (sealed history untouchable, consumed owners never rerun, no tuning against opened evidence, ceremonial commits with push-on-commit, snapshot-only test payloads, fail-closed blockers, exact types, real-path ownership tests, on-demand-only cloud sync), and `docs/workflow.md` installs the implementer/reviewer handoff protocol — immutable snapshot refs with blob-derived manifests as the exchange object, cold-context review, tiered ceremony with fixed gate order, a three-round circuit breaker, proactive slicing, single-writer ledger discipline, and a ten-line review checklist whose first line is the helper-double rule; the protocol survived its own first cold review, whose findings were fixed and mechanically verified before commit | Install the agent charter and collaboration protocol |
 | [ADR-0479](docs/decisions/ADR-0479-accept-the-evidence-layer-and-sealed-boundary-manifests.md) | 2026-08-29 | accepted process decision; the mainline now carries the first structured subpackage `pontius/evidence/` (typed errors, frozen validated models, strict manifest parsing) together with five governed data files that make the sealed boundary machine-checkable — `sealed-current-files.toml`, `sealed-current-absences.toml`, `historical-blobs.toml`, `retained-v7.toml`, and `dependency-baseline.toml` — plus their generators, the stabilization boundary checker, and their test suites; the sealed retained v7 artifacts (journal, attempt, consumed-launch marker) are byte-unchanged and now hash-bound in data rather than prose, and the boundary check passes from the integrated mainline | Accept the evidence layer and sealed-boundary manifests |
 | [ADR-0480](docs/decisions/ADR-0480-absorb-the-test-orchestration-stabilization.md) | 2026-08-29 | accepted process absorption; the 2026-08-27 through 2026-08-29 stabilization era — orchestration contracts (Task 1), Windows reparse/OneDrive architecture fixes (Task 11a), and the test inventory and profile generator (Task 2) — is integrated onto the mainline at merge `156f0b3` after two independent whole-candidate adversarial CLEAN reviews on the frozen 11-file manifest, a bound holistic architecture audit, and a controller substitution ruling for the unreachable CodeRabbit gate; the generator's `--check` and the stabilization boundary check both pass from the integrated primary checkout, checked-in capability state remains intentionally absent with every capability outcome deny-all pending the Task 10 approval gate, no broad scientific/GPU suite ran, and no ADR-0476 research blocker is cleared | Absorb the test-orchestration stabilization |
@@ -73,18 +82,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0498](docs/decisions/ADR-0498-source-seal-the-one-hand-table-host.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the one-hand table host |
 | [ADR-0499](docs/decisions/ADR-0499-open-the-watch-first-table-session-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the watch-first table session source round |
 | [ADR-0500](docs/decisions/ADR-0500-source-seal-the-watch-first-table-session.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the watch-first table session |
+| [ADR-0501](docs/decisions/ADR-0501-permit-one-watch-first-demonstration.md) | 2026-09-06 | accepted demonstration-only exception upon its separately authorized decision commit | Permit one watch-first demonstration |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0500](docs/decisions/ADR-0500-source-seal-the-watch-first-table-session.md) — Source-seal the watch-first table session.
+- Latest ADR: [ADR-0501](docs/decisions/ADR-0501-permit-one-watch-first-demonstration.md) — Permit one watch-first demonstration.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 500.
-- ADR-header SHA-256: `561687f2f0bbea4950d72620869654a08de857e1b6fa48cd0fd11097b1236525`.
-- Current blockers: operating budgets, authoritative population and invocation remain closed.
+- Numbered decisions: 501.
+- ADR-header SHA-256: `c865b805b52b1c1ed5e780190e404c9ba08d1f4a5dd7bab1b087be1f571219bb`.
+- Current blockers: demo launch approval pending; formal operating prerequisites open.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0500](docs/decisions/ADR-0500-source-seal-the-watch-first-table-session.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0501](docs/decisions/ADR-0501-permit-one-watch-first-demonstration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

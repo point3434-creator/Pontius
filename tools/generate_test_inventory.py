@@ -164,6 +164,7 @@ STABILIZATION_TEST_FILES = frozenset({
     "tests/test_evidence_filesystem_and_git.py",
     "tests/test_evidence_authorization.py",
     "tests/test_retained_v7_assessment.py",
+    "tests/test_seeded_deals.py", "tests/test_seeded_deals_boundary.py",
     "tests/test_evidence_import_boundary.py",
     "tests/test_test_orchestration_configuration.py",
     "tests/test_inventory_and_profiles.py",

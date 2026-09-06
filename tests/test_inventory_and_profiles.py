@@ -217,6 +217,7 @@ STABILIZATION_TEST_FILES = (
     "tests/test_hand_adapter_boundary.py", "tests/test_hand_scenario.py",
     "tests/test_inventory_and_profiles.py", "tests/test_retained_evidence_inventory.py",
     "tests/test_retained_v7_assessment.py",
+    "tests/test_seeded_deals.py", "tests/test_seeded_deals_boundary.py",
     "tests/test_stabilization_boundaries.py",
     "tests/test_stabilization_verification.py",
     "tests/test_test_orchestration_child.py",
@@ -29914,13 +29915,13 @@ class CheckedInInventoryTests(unittest.TestCase):
         self.assertEqual(
             review["analysis_census"],
             {
-                "subprocess_direct_site_count": 52,
-                "subprocess_helper_site_count": 16,
+                "subprocess_direct_site_count": 55,
+                "subprocess_helper_site_count": 17,
                 "cross_file_helper_edge_count": 27,
                 "cupy_call_node_count": 30,
                 "string_sink_decoy_count": 591,
                 "string_sink_decoy_sha256": (
-                    "f3a9351f709300a1c88e1deb13ea0695adf4131b2797528a54e542c012cd72fa"
+                    "af1619822ecd6aece87be723b9718ff129bb86098d9ba027bc6d59537b8c9860"
                 ),
                 "string_sink_decoy_partitions": {
                     "design_production": 17,
@@ -29929,7 +29930,7 @@ class CheckedInInventoryTests(unittest.TestCase):
                     "task2_synthetic": 531,
                 },
                 "analyzed_sites_sha256": (
-                    "5807a684bcdf8ebcc7bba918c31263d21c33e4aaf2f2562a75d940421ec209e9"
+                    "ef54287f338ba6c4cf987546b77d325a7915cb5c7ec16112968182fb2b1b8bc9"
                 ),
             },
         )
@@ -30019,14 +30020,14 @@ class CheckedInInventoryTests(unittest.TestCase):
             ["unsupported subprocess keyword: capture_output"],
         )
         blockers = review["unresolved_dynamic_blockers"]
-        self.assertEqual(len(blockers), 638)
+        self.assertEqual(len(blockers), 646)
         self.assertEqual(
             Counter(row["reason"] for row in blockers),
             Counter(
                 {
-                    "unsupported subprocess keyword: capture_output": 129,
-                    "dynamic helper arguments prevent exact sink derivation": 131,
-                    "unsupported subprocess keyword: input": 41,
+                    "unsupported subprocess keyword: capture_output": 135,
+                    "dynamic helper arguments prevent exact sink derivation": 132,
+                    "unsupported subprocess keyword: input": 42,
                     "subprocess executable is not the active Python worker": 9,
                     "helper binding has fewer positional parameters than defaults": 7,
                     "CuPy action or view is outside the approved call scope": 11,
@@ -30123,19 +30124,19 @@ class CheckedInInventoryTests(unittest.TestCase):
                 ("tests/test_h32_selector_stable_affine_certificate_audit.py", 110),
                 ("tests/test_hand_scenario.py", 51),
                 ("tests/test_incremental_leaf_adjoint_response.py", 276),
-                ("tests/test_inventory_and_profiles.py", 1464),
-                ("tests/test_inventory_and_profiles.py", 1471),
-                ("tests/test_inventory_and_profiles.py", 2959),
-                ("tests/test_inventory_and_profiles.py", 4171),
-                ("tests/test_inventory_and_profiles.py", 4433),
-                ("tests/test_inventory_and_profiles.py", 5666),
-                ("tests/test_inventory_and_profiles.py", 12482),
-                ("tests/test_inventory_and_profiles.py", 12482),
-                ("tests/test_inventory_and_profiles.py", 12491),
-                ("tests/test_inventory_and_profiles.py", 16222),
-                ("tests/test_inventory_and_profiles.py", 18248),
-                ("tests/test_inventory_and_profiles.py", 18248),
-                ("tests/test_inventory_and_profiles.py", 4800),
+                ("tests/test_inventory_and_profiles.py", 1465),
+                ("tests/test_inventory_and_profiles.py", 1472),
+                ("tests/test_inventory_and_profiles.py", 2960),
+                ("tests/test_inventory_and_profiles.py", 4172),
+                ("tests/test_inventory_and_profiles.py", 4434),
+                ("tests/test_inventory_and_profiles.py", 5667),
+                ("tests/test_inventory_and_profiles.py", 12483),
+                ("tests/test_inventory_and_profiles.py", 12483),
+                ("tests/test_inventory_and_profiles.py", 12492),
+                ("tests/test_inventory_and_profiles.py", 16223),
+                ("tests/test_inventory_and_profiles.py", 18249),
+                ("tests/test_inventory_and_profiles.py", 18249),
+                ("tests/test_inventory_and_profiles.py", 4801),
                 ("tests/test_linear_program_certificate.py", 157),
                 ("tests/test_linear_program_certificate.py", 193),
                 ("tests/test_native_simplex_audit_reanalysis.py", 404),

@@ -77,6 +77,7 @@ ORCHESTRATION_ORIGIN_PATHS = frozenset(
         "tools/v0a_event_adapter.py",
         "tools/v0a_table_host.py",
         "tools/v0a_table_session.py",
+        "tools/v0a_seeded_deals.py",
         "tools/test_orchestration/__init__.py",
         "tools/test_orchestration/configuration.py",
         "tools/test_orchestration/engine.py",
@@ -497,6 +498,38 @@ def enforce_table_session_import_policy(sources: Mapping[str, bytes]) -> None:
     _raise_violations(violations)
 
 
+def enforce_seeded_deals_import_policy(sources: Mapping[str, bytes]) -> None:
+    """ADR-0502: exact inert dealer imports and no dynamic import/exec routes."""
+    path = "tools/v0a_seeded_deals.py"
+    if path not in sources:
+        return
+    allowed = {"__future__", "argparse", "hashlib", "json", "os", "pathlib",
+               "re", "stat", "sys"}
+    forbidden = {"__import__", "__builtins__", "eval", "exec", "compile",
+                 "getattr", "globals", "locals", "vars", "modules",
+                 "import_module", "exec_module", "load_module", "run_module", "run_path"}
+    tree = _BASELINE._parse_source(sources[path], relative_path=path)
+    violations = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            if any(alias.name not in allowed for alias in node.names):
+                violations.append(f"forbidden seeded deals import at {path}:{node.lineno}")
+        elif isinstance(node, ast.ImportFrom):
+            if (node.level or node.module not in allowed or any(
+                alias.name == "*" or alias.name.startswith("_") or alias.name in forbidden
+                for alias in node.names
+            )):
+                violations.append(f"forbidden seeded deals import at {path}:{node.lineno}")
+        elif (isinstance(node, ast.Name) and node.id in forbidden or
+              isinstance(node, ast.Attribute) and
+              (node.attr in forbidden or node.attr.startswith("_") and not (
+                  node.attr == "__init__" and isinstance(node.value, ast.Call) and
+                  isinstance(node.value.func, ast.Name) and node.value.func.id == "super"
+                  and not node.value.args and not node.value.keywords))):
+            violations.append(f"forbidden seeded deals dynamic route at {path}:{node.lineno}")
+    _raise_violations(violations)
+
+
 def _read_regular_source(path: Path, *, root: Path) -> object:
     try:
         return _BASELINE.read_regular_snapshot(
@@ -671,6 +704,7 @@ def check_repository(repository_root: Path) -> None:
     enforce_event_adapter_import_policy({**current_sources, **tool_sources})
     enforce_table_host_import_policy({**current_sources, **tool_sources})
     enforce_table_session_import_policy({**current_sources, **tool_sources})
+    enforce_seeded_deals_import_policy(tool_sources)
     enforce_orchestration_import_policy(tool_sources)
     _revalidate_repository_snapshot(
         baseline_snapshot, current_inventory, tool_inventory

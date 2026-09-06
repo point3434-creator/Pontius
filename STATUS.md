@@ -15,22 +15,22 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept the exact reviewed one-hand reactive table host r001 as a CPU-only source
-asset. This closes the source acceptance opened by ADR-0497. A local dealer owns
-one finite six-seat deal, runs five declared simple opponents, and applies the
-controlled Pontius child's actual returned actions through the existing public
-betting kernel. Opponents react to the resulting state. Complete fold, showdown
-and unequal-stack all-in hands now have verified end-to-end correctness controls.
-Terminal interaction, repeated hands and stronger decision machinery remain next work.
+Adopt the reviewed watch-first table-session design r002 and open its bounded
+CPU-only source implementation. The controller chose to watch Pontius play five
+existing simple opponents before adding human poker actions. Compose the sealed
+one-hand host across a finite explicit schedule, carrying only completed stacks,
+rotating the button and showing the bot's cards, public board and actual actions.
+Enter/n and q operate between hands; an automatic mode shares the lifecycle.
 
-Effect requires the separately authorized decision commit. A working ADR,
-generated STATUS, review ref or passing test run does not activate this seal.
-Incorporate the exact 13-path payload below, this new ADR and generated STATUS
-only. No workflow-rule adjustment or further implementation change belongs here.
+Effect requires the separately authorized decision commit. The three copied
+proposal documents remain exact historical inputs; their conditional wording
+does not activate permissions. This ADR then activates only their exact source
+scope and boundaries. A working ADR, generated STATUS or review ref does not open
+implementation. Source acceptance and operating invocation remain separate.
 
 ## Active next
 
-Select bounded terminal/session source task; operating/research closed
+Implement the watch-first table session; operating/research closed
 
 ## Revoked authorities
 
@@ -41,7 +41,7 @@ Select bounded terminal/session source task; operating/research closed
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0498](docs/decisions/ADR-0498-source-seal-the-one-hand-table-host.md) — Source-seal the one-hand table host.
+Latest process decision: [ADR-0499](docs/decisions/ADR-0499-open-the-watch-first-table-session-source-round.md) — Open the watch-first table session source round.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -49,7 +49,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0475](docs/decisions/ADR-0475-authorize-one-v7-authorization-phase-calibration-invocation.md) | 2026-08-27 | accepted exact one-generation v7 invocation authorization; the current commit must be the sole child of source seal `56127da2970f5a8a8056a97a247ebe1fdf4b983b`, its changed-path set is exactly the frozen six-file authorization surface, no sealed implementation, test, recovery config, retained evidence, or lifecycle byte changes, and no public v7 owner, compiler call, CuPy import, device work, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, decision quality, truncation, blueprint, or strength result exists, while all 20 focused controls must still pass unchanged from this exact clean commit with the real live-authorization branch exercised before the public owner is fired; revoked by ADR-0476 | Authorize one v7 authorization-phase calibration invocation |
 | [ADR-0476](docs/decisions/ADR-0476-retain-the-v7-laboratory-wall-rejection.md) | 2026-08-27 | accepted complete-journal negative one-shot terminal and permanent v7 closure; the exact authorized public command ran once from commit `aaca2dda40e29be8ebd091d58e7853bce1c62fd8`, durably consumed its attempt and launch identities, retained a hash-valid 592-record journal, and terminated `laboratory_wall_rejected` after `1510053980800` ns against the frozen `1500000000000` ns laboratory wall; the public and outside-laboratory walls remained below their ceilings, but the incomplete campaign emitted no fit projection and selected no candidate, topology, or arithmetic schedule; zero authoritative complete-campaign measured calls and zero complete measured passes exist, while 89 stored partial-pass cells marked measured remain diagnostic only; no retry, continuation, compiled-calibration result, symbolic-45 projection, material-zeta claim, production numerical admission, resolver result, action-clock result, decision-quality result, truncation, blueprint result, or strength result is authorized | Retain the v7 laboratory-wall rejection |
 | [ADR-0477](docs/decisions/ADR-0477-replicate-the-retained-evidence-archive-off-machine.md) | 2026-08-29 | accepted operations decision; the repository gained its first off-machine replication after the OneDrive exit left exactly one copy of protocol-unreproducible evidence, and the archive now exists in a private GitHub remote (all branches), point-in-time snapshot refs for then-uncommitted evidence, a release asset carrying every retained result JSON including the gitignored and over-100 MB files, and a second-volume local mirror; the restore drill, push-on-commit automation, and a retained-evidence inventory test remain explicitly open, and replication is not evidence that restoration works | Replicate the retained evidence archive off-machine |
 | [ADR-0478](docs/decisions/ADR-0478-install-the-agent-charter-and-collaboration-protocol.md) | 2026-08-29 | accepted process decision; `CLAUDE.md` now binds every AI agent to nine iron rules (sealed history untouchable, consumed owners never rerun, no tuning against opened evidence, ceremonial commits with push-on-commit, snapshot-only test payloads, fail-closed blockers, exact types, real-path ownership tests, on-demand-only cloud sync), and `docs/workflow.md` installs the implementer/reviewer handoff protocol — immutable snapshot refs with blob-derived manifests as the exchange object, cold-context review, tiered ceremony with fixed gate order, a three-round circuit breaker, proactive slicing, single-writer ledger discipline, and a ten-line review checklist whose first line is the helper-double rule; the protocol survived its own first cold review, whose findings were fixed and mechanically verified before commit | Install the agent charter and collaboration protocol |
@@ -73,18 +72,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0496](docs/decisions/ADR-0496-source-seal-the-one-hand-event-interface.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the one-hand event interface |
 | [ADR-0497](docs/decisions/ADR-0497-open-the-one-hand-table-host-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the one-hand table host source round |
 | [ADR-0498](docs/decisions/ADR-0498-source-seal-the-one-hand-table-host.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the one-hand table host |
+| [ADR-0499](docs/decisions/ADR-0499-open-the-watch-first-table-session-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the watch-first table session source round |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0498](docs/decisions/ADR-0498-source-seal-the-one-hand-table-host.md) — Source-seal the one-hand table host.
+- Latest ADR: [ADR-0499](docs/decisions/ADR-0499-open-the-watch-first-table-session-source-round.md) — Open the watch-first table session source round.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 498.
-- ADR-header SHA-256: `2d340da69ac3bd8360787b8699f11ef8df97725eabb7b72a6c018644a3e92353`.
-- Current blockers: operating budgets, authoritative population and invocation remain closed.
+- Numbered decisions: 499.
+- ADR-header SHA-256: `afe992b04250d687e19de2751b44ef54b68d9cf9f84847039a315e00efcdca41`.
+- Current blockers: source acceptance pending; operating/research execution closed.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0498](docs/decisions/ADR-0498-source-seal-the-one-hand-table-host.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0499](docs/decisions/ADR-0499-open-the-watch-first-table-session-source-round.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

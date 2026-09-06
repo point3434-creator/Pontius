@@ -75,6 +75,7 @@ ORCHESTRATION_ORIGIN_PATHS = frozenset(
         "tools/v0a_rehearsal_driver.py",
         "tools/v0a_hand_adapter.py",
         "tools/v0a_event_adapter.py",
+        "tools/v0a_table_host.py",
         "tools/test_orchestration/__init__.py",
         "tools/test_orchestration/configuration.py",
         "tools/test_orchestration/engine.py",
@@ -369,8 +370,12 @@ def enforce_orchestration_import_policy(sources: Mapping[str, bytes]) -> None:
         event_internal = origin == "tools.v0a_event_adapter" and target in {
             "pontius.blueprint_artifact.codec", "pontius.v0a.model",
             "pontius.v0a.runtime", "pontius.v0a.clock", "pontius.v0a.trace"}
+        table_internal = origin == "tools.v0a_table_host" and target in {
+            "pontius.blueprint_artifact.codec", "pontius.no_limit_betting",
+            "pontius.holdem_cards", "pontius.legal_decision_spine_v2",
+            "pontius.v0a.model", "pontius.v0a.trace"}
         if (not _is_stdlib(target) and not sibling and not driver_internal
-                and not adapter_internal and not event_internal):
+                and not adapter_internal and not event_internal and not table_internal):
             violations.append(f"forbidden orchestration import: {origin} -> {target}")
     _raise_violations(violations)
 
@@ -392,7 +397,7 @@ def enforce_blueprint_artifact_import_policy(sources: Mapping[str, bytes]) -> No
         if in_family and target not in allowed:
             violations.append(f"forbidden blueprint artifact import: {origin} -> {target}")
         elif targets_family and not in_family and not (
-            origin in {"tools.v0a_hand_adapter", "tools.v0a_event_adapter"}
+            origin in {"tools.v0a_hand_adapter", "tools.v0a_event_adapter", "tools.v0a_table_host"}
             and target == family + ".codec"
         ):
             violations.append(f"legacy origin imports blueprint artifact: {origin} -> {target}")
@@ -442,6 +447,22 @@ def enforce_event_adapter_import_policy(sources: Mapping[str, bytes]) -> None:
         if edge_origin == origin and target not in allowed
     ]
     _raise_violations(violations)
+
+
+def enforce_table_host_import_policy(sources: Mapping[str, bytes]) -> None:
+    """ADR-0497: exact public game helpers and bounded native host transport."""
+    allowed = {
+        "__future__", "argparse", "base64", "ctypes", "dataclasses", "hashlib", "io",
+        "json", "math", "os", "pathlib", "queue", "re", "stat", "subprocess", "sys",
+        "threading", "time", "pontius.blueprint_artifact.codec", "pontius.no_limit_betting",
+        "pontius.holdem_cards", "pontius.legal_decision_spine_v2", "pontius.v0a.model",
+        "pontius.v0a.trace",
+    }
+    _raise_violations([
+        f"forbidden table host import: {origin} -> {target}"
+        for origin, target in _BASELINE.import_edges(sources)
+        if origin == "tools.v0a_table_host" and target not in allowed
+    ])
 
 
 def _read_regular_source(path: Path, *, root: Path) -> object:
@@ -616,6 +637,7 @@ def check_repository(repository_root: Path) -> None:
     enforce_blueprint_artifact_import_policy({**current_sources, **tool_sources})
     enforce_hand_adapter_import_policy({**current_sources, **tool_sources})
     enforce_event_adapter_import_policy({**current_sources, **tool_sources})
+    enforce_table_host_import_policy({**current_sources, **tool_sources})
     enforce_orchestration_import_policy(tool_sources)
     _revalidate_repository_snapshot(
         baseline_snapshot, current_inventory, tool_inventory

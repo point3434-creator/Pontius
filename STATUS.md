@@ -15,21 +15,32 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Accept the exact reviewed seeded-deal generator r001 as a CPU-only source asset,
-closing the bounded implementation acceptance opened by ADR-0502. One standalone
-stdlib tool materializes an existing-format six-seat session schedule from an
-explicit saved seed request. The pure per-hand interface is independently callable;
-the CLI saves a bounded schedule and receipt. It never launches poker or chooses
-a seed according to generated cards, actions or payouts.
+Prospectively permit one separately authorized supervised demonstration that joins
+the sealed seeded-deal generator to the sealed watch-first session. Save three
+shuffled hands from the exact seed below, then display that schedule once in
+automatic text mode. The controller can follow it on a phone without terminal
+input. Preserve the existing six-seat setup, passive opponents and empty blueprint.
+This is visible product behavior, not correctness acceptance or a strength result.
 
-Effect requires this exact decision's separately authorized commit. A working ADR,
-generated STATUS, review ref or passing test run does not activate this seal.
-Incorporate only the eleven exact source payload blobs below, this new ADR and
-generated STATUS. No additional implementation or workflow-rule change belongs here.
+The proposal has no effect before its exact decision commit is authorized and made.
+The commit alone grants no launch. One approval may explicitly name commit/push and
+the exact complete generation-and-session sequence; otherwise launch needs its own
+approval. Neither a generic historical approval nor the existence of source grants it.
+
+This is a narrow prospective exception to the execution closures in ADR-0489,
+ADR-0500 and ADR-0503, and to ADR-0485's operational prerequisites solely for this
+named non-evidentiary display. Formal operating, rehearsal, experimental, resource
+calibration, training and research prerequisites remain binding. ADR-0501's earlier
+fixed demonstration is completed and consumed; this does not repeat its identity.
+
+As in ADR-0501, permit the unchanged executable correctness namespace solely under
+this external demonstration authority. Preserve literal IDs, trace modes, fields
+and evidentiary=false. A correctness name does not turn this display into a test;
+no new machine-enforced scientific authorization interface is claimed or patched.
 
 ## Active next
 
-Select bounded seeded-deal session task; poker execution closed
+Authorize one seeded watch demo; formal operation/research closed
 
 ## Revoked authorities
 
@@ -40,7 +51,7 @@ Select bounded seeded-deal session task; poker execution closed
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0503](docs/decisions/ADR-0503-source-seal-the-seeded-deal-generator.md) — Source-seal the seeded-deal generator.
+Latest process decision: [ADR-0504](docs/decisions/ADR-0504-permit-one-seeded-watch-demonstration.md) — Permit one seeded watch demonstration.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -48,7 +59,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0480](docs/decisions/ADR-0480-absorb-the-test-orchestration-stabilization.md) | 2026-08-29 | accepted process absorption; the 2026-08-27 through 2026-08-29 stabilization era — orchestration contracts (Task 1), Windows reparse/OneDrive architecture fixes (Task 11a), and the test inventory and profile generator (Task 2) — is integrated onto the mainline at merge `156f0b3` after two independent whole-candidate adversarial CLEAN reviews on the frozen 11-file manifest, a bound holistic architecture audit, and a controller substitution ruling for the unreachable CodeRabbit gate; the generator's `--check` and the stabilization boundary check both pass from the integrated primary checkout, checked-in capability state remains intentionally absent with every capability outcome deny-all pending the Task 10 approval gate, no broad scientific/GPU suite ran, and no ADR-0476 research blocker is cleared | Absorb the test-orchestration stabilization |
 | [ADR-0481](docs/decisions/ADR-0481-record-the-release-interpreter-identity-correction.md) | 2026-08-30 | accepted Tier-C correction and evidence-label correction; the test-governance stack mixed 32-bit `os.stat` volume serials (CPython <= 3.11) with 64-bit `FileIdInfo` handle identities, so the generator's Git machinery, governance writer, and repository revalidation failed deterministically on the CPython 3.11 release interpreter while every recorded "isolated Python 3.11 snapshot" had actually executed on the 3.14.6 development venv; the correction uses full-width `FileIdInfo` identities on both sides of every such comparison with independent observations preserved and no replacement, reparse, ownership, or rollback check weakened, the string-decoy census is version-stable, the snapshot-runner successor asserts and records the actual child interpreter fail-closed, both independent Tier-C cold reviews returned CLEAN on the frozen manifest, the committed tree is byte-identical to the reviewed candidate, fresh disposable-snapshot suites pass on CPython 3.11.15 and 3.14.6, and the continuous-integration wall passed completely on a hosted runner's genuine CPython 3.11.9; historical results remain valid only as CPython 3.14.6 evidence, no retrospective 3.11 validation of any earlier run is implied, and no scientific result is recertified | Record the release-interpreter identity correction |
 | [ADR-0482](docs/decisions/ADR-0482-adopt-the-rehearsal-parking-and-lane-breaker-amendments.md) | 2026-08-30 | accepted protocol amendment; the evidence lifecycle gains a non-evidentiary rehearsal tier between source seal and invocation authorization, every future parking verdict names its category (`parked - falsified` permanent as today, or `parked - gate defect` eligible for exactly one fresh preregistration under a redesigned gate with every old panel discarded), and every future experiment lane preregisters lane-level kill criteria whose plumbing-death and budget breakers force a mandatory stand-down or architecture checkpoint; rehearsal output never feeds a fit, gate, claim, or selection, no wall or budget is frozen without a scaled rehearsal measurement as provenance, strength-claim evidence keeps permanent parking regardless of category, and nothing here reopens, reclassifies, or retries any already-parked candidate or consumed owner — historical reclassification requires its own future decision, and v7 remains permanently closed under ADR-0476's kill criteria | Adopt the rehearsal, parking, and lane-breaker amendments |
 | [ADR-0483](docs/decisions/ADR-0483-park-the-compiled-lane-and-open-v0a-integration.md) | 2026-08-30 | accepted architecture-checkpoint ruling; the ADR-0476 checkpoint resolves to parking the compiled synthetic topology-calibration lane and returning effort to the playable v0a integration boundary, because the lane's own precondition — a bound production source-local base producer with measured algebra, epoch identity, refresh cadence, exponent admission, and cold-versus-hit frequency — is a deliverable of the river bridge that only v0a integration builds; every candidate and closure in the lane retains its exact recorded standing, the four source-sealed topology arms remain sealed assets, the serial-structural-cover diagnostic is retained as the reopened lane's first candidate hypothesis and not a result, the lane may reopen only on bridge-measured producer telemetry through a wholly fresh ADR-0482-governed preregistration that honors every ADR-0476 constraint, and the v0a boundary opens under the same rules with bridge instrumentation recording would-be base-producer events from its first increment | Park the compiled lane and open v0a integration |
@@ -72,18 +82,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0501](docs/decisions/ADR-0501-permit-one-watch-first-demonstration.md) | 2026-09-06 | accepted demonstration-only exception upon its separately authorized decision commit | Permit one watch-first demonstration |
 | [ADR-0502](docs/decisions/ADR-0502-open-the-seeded-deal-generator-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the seeded-deal generator source round |
 | [ADR-0503](docs/decisions/ADR-0503-source-seal-the-seeded-deal-generator.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the seeded-deal generator |
+| [ADR-0504](docs/decisions/ADR-0504-permit-one-seeded-watch-demonstration.md) | 2026-09-06 | accepted demonstration-only exception upon its separately authorized decision commit | Permit one seeded watch demonstration |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0503](docs/decisions/ADR-0503-source-seal-the-seeded-deal-generator.md) — Source-seal the seeded-deal generator.
+- Latest ADR: [ADR-0504](docs/decisions/ADR-0504-permit-one-seeded-watch-demonstration.md) — Permit one seeded watch demonstration.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 503.
-- ADR-header SHA-256: `8ed911479199c559dc92493db99538aa29cc540db16e7169a02f38918019e78b`.
-- Current blockers: generated session population and invocation remain unadmitted.
+- Numbered decisions: 504.
+- ADR-header SHA-256: `e05ccd19c02a428cd23b4808a8ce4bd53a6c039a1a5a805b9b6cc058937a6833`.
+- Current blockers: exact demo launch approval pending; formal operating prerequisites open.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0503](docs/decisions/ADR-0503-source-seal-the-seeded-deal-generator.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0504](docs/decisions/ADR-0504-permit-one-seeded-watch-demonstration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

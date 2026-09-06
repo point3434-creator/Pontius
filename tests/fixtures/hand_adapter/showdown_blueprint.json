@@ -1,0 +1,83 @@
+{
+  "version": "pontius-v0a-blueprint-artifact-v1",
+  "source_id": "v0a-hand-adapter-correctness-showdown-policy",
+  "entries": [
+    {
+      "key": {
+        "version": "blueprint-decision-key-v1",
+        "controlled_seat": 3,
+        "private_hand": [
+          49,
+          51
+        ],
+        "board": [],
+        "button": 0,
+        "small_blind": 1,
+        "big_blind": 2,
+        "street": "preflop",
+        "starting_stacks": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "stacks": [
+          200,
+          199,
+          198,
+          200,
+          200,
+          200
+        ],
+        "total_contributions": [
+          0,
+          1,
+          2,
+          0,
+          0,
+          0
+        ],
+        "street_contributions": [
+          0,
+          1,
+          2,
+          0,
+          0,
+          0
+        ],
+        "folded": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "pending_seats": [
+          3,
+          4,
+          5,
+          0,
+          1,
+          2
+        ],
+        "last_full_raise_size": 2,
+        "acted_at_bet": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "public_history": []
+      },
+      "action": {
+        "kind": "call",
+        "raise_to": null
+      }
+    }
+  ]
+}

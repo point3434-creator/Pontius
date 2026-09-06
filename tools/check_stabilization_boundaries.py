@@ -73,6 +73,7 @@ ORCHESTRATION_ORIGIN_PATHS = frozenset(
         "tools/stabilization_verification.py",
         "tools/test_child.py",
         "tools/v0a_rehearsal_driver.py",
+        "tools/v0a_hand_adapter.py",
         "tools/test_orchestration/__init__.py",
         "tools/test_orchestration/configuration.py",
         "tools/test_orchestration/engine.py",
@@ -171,6 +172,8 @@ def enforce_legacy_edges(baseline: object, current: object) -> None:
             or added.startswith("pontius.v0a.")
             or added == "pontius.blueprint_artifact"
             or added.startswith("pontius.blueprint_artifact.")
+            or added == "pontius.hand_scenario"
+            or added.startswith("pontius.hand_scenario.")
         )
         if not classified:
             violations.append(f"new source module lacks stabilization classification: {added}")
@@ -220,6 +223,13 @@ def enforce_origin_classification(
         for path in sorted(current_sources)
         if path.startswith("src/pontius/evidence/") and path not in EVIDENCE_ORIGIN_PATHS
     ]
+    violations.extend(
+        f"unclassified stabilization origin: {path}"
+        for path in sorted(current_sources)
+        if (path == "src/pontius/hand_scenario.py" or path.startswith("src/pontius/hand_scenario/"))
+        and path not in {
+            "src/pontius/hand_scenario/__init__.py", "src/pontius/hand_scenario/codec.py"}
+    )
     violations.extend(
         f"unclassified stabilization origin: {path}"
         for path in sorted(current_sources)
@@ -352,7 +362,10 @@ def enforce_orchestration_import_policy(sources: Mapping[str, bytes]) -> None:
             "pontius.v0a.replay",
             "pontius.v0a.trace",
         }
-        if not _is_stdlib(target) and not sibling and not driver_internal:
+        adapter_internal = origin == "tools.v0a_hand_adapter" and target in {
+            "pontius.hand_scenario.codec", "pontius.blueprint_artifact.codec",
+            "pontius.v0a.replay", "pontius.v0a.trace"}
+        if not _is_stdlib(target) and not sibling and not driver_internal and not adapter_internal:
             violations.append(f"forbidden orchestration import: {origin} -> {target}")
     _raise_violations(violations)
 
@@ -373,8 +386,38 @@ def enforce_blueprint_artifact_import_policy(sources: Mapping[str, bytes]) -> No
         targets_family = target == family or target.startswith(family + ".")
         if in_family and target not in allowed:
             violations.append(f"forbidden blueprint artifact import: {origin} -> {target}")
-        elif targets_family and not in_family:
+        elif targets_family and not in_family and not (
+            origin == "tools.v0a_hand_adapter" and target == family + ".codec"
+        ):
             violations.append(f"legacy origin imports blueprint artifact: {origin} -> {target}")
+    _raise_violations(violations)
+
+
+def enforce_hand_adapter_import_policy(sources: Mapping[str, bytes]) -> None:
+    """ADR-0493: two inert/value origins and one exact host-side tool opening."""
+    allowed = {
+        "pontius.hand_scenario": set(),
+        "pontius.hand_scenario.codec": {"__future__", "dataclasses", "json",
+            "pontius.holdem_cards", "pontius.v0a.model", "pontius.v0a.replay"},
+        "tools.v0a_hand_adapter": {"__future__", "argparse", "hashlib", "io", "json",
+            "os", "pathlib", "re", "stat", "subprocess", "sys", "tarfile",
+            "pontius.hand_scenario.codec", "pontius.blueprint_artifact.codec",
+            "pontius.v0a.replay", "pontius.v0a.trace"},
+    }
+    violations = []
+    for origin, target in _BASELINE.import_edges(sources):
+        if origin in allowed and target not in allowed[origin]:
+            violations.append(f"forbidden hand adapter import: {origin} -> {target}")
+        scenario_target = target == "pontius.hand_scenario" or target.startswith(
+            "pontius.hand_scenario.")
+        if scenario_target and not (
+            origin == "tools.v0a_hand_adapter" and target == "pontius.hand_scenario.codec"
+        ):
+            violations.append(f"forbidden hand scenario incoming edge: {origin} -> {target}")
+    raw = sources.get("src/pontius/hand_scenario/__init__.py", b"")
+    if any(not (isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant)
+                and type(node.value.value) is str) for node in ast.parse(raw).body):
+        violations.append("hand_scenario package initializer must be inert")
     _raise_violations(violations)
 
 
@@ -547,7 +590,8 @@ def check_repository(repository_root: Path) -> None:
     enforce_no_new_or_expanded_scc(parsed.graph, current_graph)
     enforce_evidence_import_policy(current_sources)
     enforce_v0a_import_policy(current_sources)
-    enforce_blueprint_artifact_import_policy(current_sources)
+    enforce_blueprint_artifact_import_policy({**current_sources, **tool_sources})
+    enforce_hand_adapter_import_policy({**current_sources, **tool_sources})
     enforce_orchestration_import_policy(tool_sources)
     _revalidate_repository_snapshot(
         baseline_snapshot, current_inventory, tool_inventory

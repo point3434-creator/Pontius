@@ -1,0 +1,210 @@
+{
+  "version": "pontius-v0a-hand-scenario-v1",
+  "case_id": "v0a-hand-adapter-correctness-showdown",
+  "button": 0,
+  "controlled_seat": 3,
+  "starting_stacks": [
+    200,
+    200,
+    200,
+    200,
+    200,
+    200
+  ],
+  "small_blind": 1,
+  "big_blind": 2,
+  "board": [
+    "2c",
+    "5d",
+    "7h",
+    "9s",
+    "Kc"
+  ],
+  "hands": [
+    [
+      "Kh",
+      "Kd"
+    ],
+    [
+      "Qh",
+      "Qd"
+    ],
+    [
+      "Jh",
+      "Jd"
+    ],
+    [
+      "As",
+      "Ad"
+    ],
+    [
+      "Th",
+      "Td"
+    ],
+    [
+      "8h",
+      "8d"
+    ]
+  ],
+  "opponent_actions": [
+    {
+      "street": "preflop",
+      "seat": 4,
+      "kind": "call",
+      "raise_to": null
+    },
+    {
+      "street": "preflop",
+      "seat": 5,
+      "kind": "call",
+      "raise_to": null
+    },
+    {
+      "street": "preflop",
+      "seat": 0,
+      "kind": "call",
+      "raise_to": null
+    },
+    {
+      "street": "preflop",
+      "seat": 1,
+      "kind": "call",
+      "raise_to": null
+    },
+    {
+      "street": "preflop",
+      "seat": 2,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "flop",
+      "seat": 1,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "flop",
+      "seat": 2,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "flop",
+      "seat": 4,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "flop",
+      "seat": 5,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "flop",
+      "seat": 0,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "turn",
+      "seat": 1,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "turn",
+      "seat": 2,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "turn",
+      "seat": 4,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "turn",
+      "seat": 5,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "turn",
+      "seat": 0,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "river",
+      "seat": 1,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "river",
+      "seat": 2,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "river",
+      "seat": 4,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "river",
+      "seat": 5,
+      "kind": "check",
+      "raise_to": null
+    },
+    {
+      "street": "river",
+      "seat": 0,
+      "kind": "check",
+      "raise_to": null
+    }
+  ],
+  "expected": {
+    "payouts": [
+      12,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "pots": [
+      12
+    ],
+    "controlled_actions": [
+      {
+        "street": "preflop",
+        "kind": "call",
+        "raise_to": null,
+        "selection_reason": "table_hit"
+      },
+      {
+        "street": "flop",
+        "kind": "check",
+        "raise_to": null,
+        "selection_reason": "passive_default"
+      },
+      {
+        "street": "turn",
+        "kind": "check",
+        "raise_to": null,
+        "selection_reason": "passive_default"
+      },
+      {
+        "street": "river",
+        "kind": "check",
+        "raise_to": null,
+        "selection_reason": "passive_default"
+      }
+    ]
+  }
+}

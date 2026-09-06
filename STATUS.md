@@ -15,32 +15,20 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Prospectively permit one separately authorized, supervised terminal demonstration
-of the exact source-sealed watch-first session. Its purpose is to let the controller
-see cards, public actions, carried stacks and the between-hand controls. It yields
-no correctness acceptance, cost calibration, policy selection or research result.
-This proposal has no effect before its exact decision commit is authorized and made.
-The decision commit alone does not launch the demonstration.
+Open the bounded CPU-only seeded-deal generator described in
+docs/architecture/v0a-seeded-deals-r001.md. The controller selected reproducible
+random dealing after viewing the completed fixed two-hand demonstration. Add a
+standalone data generator that saves an existing-format session schedule from an
+explicit saved seed request. Preserve every sealed poker runtime and tool byte.
 
-This is an explicit narrow exception to the blanket execution closures in
-ADR-0489 and ADR-0500, and to ADR-0485's operational prerequisites only for this
-named non-evidentiary display. It is not an inference that a run becomes permitted
-when called a demo. All formal operating, rehearsal, experimental and research
-invocations still require their existing prerequisites and separate authorization.
-The source acceptance and two original source reviews under ADR-0500 stand unchanged.
-
-The demo uses the unchanged executable correctness namespaces listed below because
-the sealed session, host and event adapter require those literal identities. For
-this one display only, this decision permits their use under external demonstration
-authority. Their names and event fields are not evidence of a test execution or an
-authorized research mode. Preserve them verbatim, including evidentiary=false in
-the event result. Do not patch a prefix, change a trace mode, promote an old run,
-or claim that the sealed parser now supports an authorized trace. This exception
-does not define a reusable authorization interface or change any semantic schema.
+Effect requires this exact decision's separately authorized commit. A draft,
+review ref, generated STATUS or passing metadata check opens no implementation.
+After adoption, source work and the named finite correctness controls are allowed;
+source acceptance and permission to play generated hands remain separate.
 
 ## Active next
 
-Authorize one supervised demo; formal operation/research closed
+Implement the bounded seeded-deal generator; poker execution closed
 
 ## Revoked authorities
 
@@ -51,7 +39,7 @@ Authorize one supervised demo; formal operation/research closed
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0501](docs/decisions/ADR-0501-permit-one-watch-first-demonstration.md) — Permit one watch-first demonstration.
+Latest process decision: [ADR-0502](docs/decisions/ADR-0502-open-the-seeded-deal-generator-source-round.md) — Open the seeded-deal generator source round.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -59,7 +47,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0478](docs/decisions/ADR-0478-install-the-agent-charter-and-collaboration-protocol.md) | 2026-08-29 | accepted process decision; `CLAUDE.md` now binds every AI agent to nine iron rules (sealed history untouchable, consumed owners never rerun, no tuning against opened evidence, ceremonial commits with push-on-commit, snapshot-only test payloads, fail-closed blockers, exact types, real-path ownership tests, on-demand-only cloud sync), and `docs/workflow.md` installs the implementer/reviewer handoff protocol — immutable snapshot refs with blob-derived manifests as the exchange object, cold-context review, tiered ceremony with fixed gate order, a three-round circuit breaker, proactive slicing, single-writer ledger discipline, and a ten-line review checklist whose first line is the helper-double rule; the protocol survived its own first cold review, whose findings were fixed and mechanically verified before commit | Install the agent charter and collaboration protocol |
 | [ADR-0479](docs/decisions/ADR-0479-accept-the-evidence-layer-and-sealed-boundary-manifests.md) | 2026-08-29 | accepted process decision; the mainline now carries the first structured subpackage `pontius/evidence/` (typed errors, frozen validated models, strict manifest parsing) together with five governed data files that make the sealed boundary machine-checkable — `sealed-current-files.toml`, `sealed-current-absences.toml`, `historical-blobs.toml`, `retained-v7.toml`, and `dependency-baseline.toml` — plus their generators, the stabilization boundary checker, and their test suites; the sealed retained v7 artifacts (journal, attempt, consumed-launch marker) are byte-unchanged and now hash-bound in data rather than prose, and the boundary check passes from the integrated mainline | Accept the evidence layer and sealed-boundary manifests |
 | [ADR-0480](docs/decisions/ADR-0480-absorb-the-test-orchestration-stabilization.md) | 2026-08-29 | accepted process absorption; the 2026-08-27 through 2026-08-29 stabilization era — orchestration contracts (Task 1), Windows reparse/OneDrive architecture fixes (Task 11a), and the test inventory and profile generator (Task 2) — is integrated onto the mainline at merge `156f0b3` after two independent whole-candidate adversarial CLEAN reviews on the frozen 11-file manifest, a bound holistic architecture audit, and a controller substitution ruling for the unreachable CodeRabbit gate; the generator's `--check` and the stabilization boundary check both pass from the integrated primary checkout, checked-in capability state remains intentionally absent with every capability outcome deny-all pending the Task 10 approval gate, no broad scientific/GPU suite ran, and no ADR-0476 research blocker is cleared | Absorb the test-orchestration stabilization |
 | [ADR-0481](docs/decisions/ADR-0481-record-the-release-interpreter-identity-correction.md) | 2026-08-30 | accepted Tier-C correction and evidence-label correction; the test-governance stack mixed 32-bit `os.stat` volume serials (CPython <= 3.11) with 64-bit `FileIdInfo` handle identities, so the generator's Git machinery, governance writer, and repository revalidation failed deterministically on the CPython 3.11 release interpreter while every recorded "isolated Python 3.11 snapshot" had actually executed on the 3.14.6 development venv; the correction uses full-width `FileIdInfo` identities on both sides of every such comparison with independent observations preserved and no replacement, reparse, ownership, or rollback check weakened, the string-decoy census is version-stable, the snapshot-runner successor asserts and records the actual child interpreter fail-closed, both independent Tier-C cold reviews returned CLEAN on the frozen manifest, the committed tree is byte-identical to the reviewed candidate, fresh disposable-snapshot suites pass on CPython 3.11.15 and 3.14.6, and the continuous-integration wall passed completely on a hosted runner's genuine CPython 3.11.9; historical results remain valid only as CPython 3.14.6 evidence, no retrospective 3.11 validation of any earlier run is implied, and no scientific result is recertified | Record the release-interpreter identity correction |
@@ -83,18 +70,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0499](docs/decisions/ADR-0499-open-the-watch-first-table-session-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the watch-first table session source round |
 | [ADR-0500](docs/decisions/ADR-0500-source-seal-the-watch-first-table-session.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the watch-first table session |
 | [ADR-0501](docs/decisions/ADR-0501-permit-one-watch-first-demonstration.md) | 2026-09-06 | accepted demonstration-only exception upon its separately authorized decision commit | Permit one watch-first demonstration |
+| [ADR-0502](docs/decisions/ADR-0502-open-the-seeded-deal-generator-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the seeded-deal generator source round |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0501](docs/decisions/ADR-0501-permit-one-watch-first-demonstration.md) — Permit one watch-first demonstration.
+- Latest ADR: [ADR-0502](docs/decisions/ADR-0502-open-the-seeded-deal-generator-source-round.md) — Open the seeded-deal generator source round.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 501.
-- ADR-header SHA-256: `c865b805b52b1c1ed5e780190e404c9ba08d1f4a5dd7bab1b087be1f571219bb`.
-- Current blockers: demo launch approval pending; formal operating prerequisites open.
+- Numbered decisions: 502.
+- ADR-header SHA-256: `44ad59673bcbea27504c41a3a326102486b3b4da3927d29a79e6c5a06288d1bb`.
+- Current blockers: generator source acceptance pending; no new session authority.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0501](docs/decisions/ADR-0501-permit-one-watch-first-demonstration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0502](docs/decisions/ADR-0502-open-the-seeded-deal-generator-source-round.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

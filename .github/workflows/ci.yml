@@ -140,6 +140,14 @@ jobs:
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_v0a_table_host_boundary.py
 
+      - name: v0a table session suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_table_session.py
+
+      - name: v0a table session boundary suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_table_session_boundary.py
+
       - name: v0a hand replay suite
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_v0a_hand_replay.py

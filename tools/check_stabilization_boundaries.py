@@ -76,6 +76,7 @@ ORCHESTRATION_ORIGIN_PATHS = frozenset(
         "tools/v0a_hand_adapter.py",
         "tools/v0a_event_adapter.py",
         "tools/v0a_table_host.py",
+        "tools/v0a_table_session.py",
         "tools/test_orchestration/__init__.py",
         "tools/test_orchestration/configuration.py",
         "tools/test_orchestration/engine.py",
@@ -465,6 +466,37 @@ def enforce_table_host_import_policy(sources: Mapping[str, bytes]) -> None:
     ])
 
 
+def enforce_table_session_import_policy(sources: Mapping[str, bytes]) -> None:
+    """ADR-0499: closed imports and the one explicitly admitted host-source binding."""
+    allowed = {
+        "__future__", "argparse", "base64", "dataclasses", "hashlib", "json", "os",
+        "pathlib", "re", "stat", "subprocess", "sys", "types",
+    }
+    violations = [
+        f"forbidden table session import: {origin} -> {target}"
+        for origin, target in _BASELINE.import_edges(sources)
+        if origin == "tools.v0a_table_session" and target not in allowed
+    ]
+    path = "tools/v0a_table_session.py"
+    if path in sources:
+        tree = _BASELINE._parse_source(sources[path], relative_path=path)
+        # This checks the declared dependency, not general dynamic-execution soundness.
+        bindings = {name: [] for name in ("HOST", "HOST_BLOB")}
+        for node in tree.body:
+            if isinstance(node, ast.Assign):
+                for target in node.targets:
+                    if isinstance(target, ast.Name) and target.id in bindings:
+                        bindings[target.id].append(
+                            node.value.value if isinstance(node.value, ast.Constant) else None
+                        )
+        if bindings != {
+            "HOST": ["tools/v0a_table_host.py"],
+            "HOST_BLOB": ["0faa101f9be9940f9ae935df51f8c79e2eeb2b15"],
+        }:
+            violations.append("table session fixed host binding differs from ADR-0499")
+    _raise_violations(violations)
+
+
 def _read_regular_source(path: Path, *, root: Path) -> object:
     try:
         return _BASELINE.read_regular_snapshot(
@@ -638,6 +670,7 @@ def check_repository(repository_root: Path) -> None:
     enforce_hand_adapter_import_policy({**current_sources, **tool_sources})
     enforce_event_adapter_import_policy({**current_sources, **tool_sources})
     enforce_table_host_import_policy({**current_sources, **tool_sources})
+    enforce_table_session_import_policy({**current_sources, **tool_sources})
     enforce_orchestration_import_policy(tool_sources)
     _revalidate_repository_snapshot(
         baseline_snapshot, current_inventory, tool_inventory

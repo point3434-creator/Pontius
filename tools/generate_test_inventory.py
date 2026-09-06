@@ -187,6 +187,7 @@ STABILIZATION_TEST_FILES = frozenset({
     "tests/test_v0a_rehearsal_driver.py",
     "tests/test_v0a_replay.py",
     "tests/test_v0a_table_host.py", "tests/test_v0a_table_host_boundary.py",
+    "tests/test_v0a_table_session.py", "tests/test_v0a_table_session_boundary.py",
     "tests/test_v0a_trace.py",
 })
 

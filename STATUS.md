@@ -15,22 +15,22 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Adopt the reviewed watch-first table-session design r002 and open its bounded
-CPU-only source implementation. The controller chose to watch Pontius play five
-existing simple opponents before adding human poker actions. Compose the sealed
-one-hand host across a finite explicit schedule, carrying only completed stacks,
-rotating the button and showing the bot's cards, public board and actual actions.
-Enter/n and q operate between hands; an automatic mode shares the lifecycle.
+Accept the exact reviewed watch-first table-session r001 as a CPU-only source
+asset, closing the implementation acceptance opened by ADR-0499. The new terminal
+tool composes the sealed one-hand host across a finite explicit schedule. Pontius
+plays five existing simple opponents; completed stacks carry and the button rotates.
+During each hand the terminal shows the bot's own cards, the public board and actual
+actions. Enter/n and q operate between hands. Automatic mode shares the lifecycle;
+automatic JSON mode produces one closed result.
 
-Effect requires the separately authorized decision commit. The three copied
-proposal documents remain exact historical inputs; their conditional wording
-does not activate permissions. This ADR then activates only their exact source
-scope and boundaries. A working ADR, generated STATUS or review ref does not open
-implementation. Source acceptance and operating invocation remain separate.
+Effect requires the separately authorized decision commit. A working ADR,
+generated STATUS, review ref or passing test run does not activate this seal.
+Incorporate only the exact eleven source payload blobs below, this new ADR and
+generated STATUS. No further implementation or workflow-rule change belongs here.
 
 ## Active next
 
-Implement the watch-first table session; operating/research closed
+Select bounded operating-entry task; operating/research closed
 
 ## Revoked authorities
 
@@ -41,7 +41,7 @@ Implement the watch-first table session; operating/research closed
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0499](docs/decisions/ADR-0499-open-the-watch-first-table-session-source-round.md) — Open the watch-first table session source round.
+Latest process decision: [ADR-0500](docs/decisions/ADR-0500-source-seal-the-watch-first-table-session.md) — Source-seal the watch-first table session.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -49,7 +49,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0476](docs/decisions/ADR-0476-retain-the-v7-laboratory-wall-rejection.md) | 2026-08-27 | accepted complete-journal negative one-shot terminal and permanent v7 closure; the exact authorized public command ran once from commit `aaca2dda40e29be8ebd091d58e7853bce1c62fd8`, durably consumed its attempt and launch identities, retained a hash-valid 592-record journal, and terminated `laboratory_wall_rejected` after `1510053980800` ns against the frozen `1500000000000` ns laboratory wall; the public and outside-laboratory walls remained below their ceilings, but the incomplete campaign emitted no fit projection and selected no candidate, topology, or arithmetic schedule; zero authoritative complete-campaign measured calls and zero complete measured passes exist, while 89 stored partial-pass cells marked measured remain diagnostic only; no retry, continuation, compiled-calibration result, symbolic-45 projection, material-zeta claim, production numerical admission, resolver result, action-clock result, decision-quality result, truncation, blueprint result, or strength result is authorized | Retain the v7 laboratory-wall rejection |
 | [ADR-0477](docs/decisions/ADR-0477-replicate-the-retained-evidence-archive-off-machine.md) | 2026-08-29 | accepted operations decision; the repository gained its first off-machine replication after the OneDrive exit left exactly one copy of protocol-unreproducible evidence, and the archive now exists in a private GitHub remote (all branches), point-in-time snapshot refs for then-uncommitted evidence, a release asset carrying every retained result JSON including the gitignored and over-100 MB files, and a second-volume local mirror; the restore drill, push-on-commit automation, and a retained-evidence inventory test remain explicitly open, and replication is not evidence that restoration works | Replicate the retained evidence archive off-machine |
 | [ADR-0478](docs/decisions/ADR-0478-install-the-agent-charter-and-collaboration-protocol.md) | 2026-08-29 | accepted process decision; `CLAUDE.md` now binds every AI agent to nine iron rules (sealed history untouchable, consumed owners never rerun, no tuning against opened evidence, ceremonial commits with push-on-commit, snapshot-only test payloads, fail-closed blockers, exact types, real-path ownership tests, on-demand-only cloud sync), and `docs/workflow.md` installs the implementer/reviewer handoff protocol — immutable snapshot refs with blob-derived manifests as the exchange object, cold-context review, tiered ceremony with fixed gate order, a three-round circuit breaker, proactive slicing, single-writer ledger discipline, and a ten-line review checklist whose first line is the helper-double rule; the protocol survived its own first cold review, whose findings were fixed and mechanically verified before commit | Install the agent charter and collaboration protocol |
 | [ADR-0479](docs/decisions/ADR-0479-accept-the-evidence-layer-and-sealed-boundary-manifests.md) | 2026-08-29 | accepted process decision; the mainline now carries the first structured subpackage `pontius/evidence/` (typed errors, frozen validated models, strict manifest parsing) together with five governed data files that make the sealed boundary machine-checkable — `sealed-current-files.toml`, `sealed-current-absences.toml`, `historical-blobs.toml`, `retained-v7.toml`, and `dependency-baseline.toml` — plus their generators, the stabilization boundary checker, and their test suites; the sealed retained v7 artifacts (journal, attempt, consumed-launch marker) are byte-unchanged and now hash-bound in data rather than prose, and the boundary check passes from the integrated mainline | Accept the evidence layer and sealed-boundary manifests |
@@ -73,18 +72,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0497](docs/decisions/ADR-0497-open-the-one-hand-table-host-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the one-hand table host source round |
 | [ADR-0498](docs/decisions/ADR-0498-source-seal-the-one-hand-table-host.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the one-hand table host |
 | [ADR-0499](docs/decisions/ADR-0499-open-the-watch-first-table-session-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the watch-first table session source round |
+| [ADR-0500](docs/decisions/ADR-0500-source-seal-the-watch-first-table-session.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the watch-first table session |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0499](docs/decisions/ADR-0499-open-the-watch-first-table-session-source-round.md) — Open the watch-first table session source round.
+- Latest ADR: [ADR-0500](docs/decisions/ADR-0500-source-seal-the-watch-first-table-session.md) — Source-seal the watch-first table session.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 499.
-- ADR-header SHA-256: `afe992b04250d687e19de2751b44ef54b68d9cf9f84847039a315e00efcdca41`.
-- Current blockers: source acceptance pending; operating/research execution closed.
+- Numbered decisions: 500.
+- ADR-header SHA-256: `561687f2f0bbea4950d72620869654a08de857e1b6fa48cd0fd11097b1236525`.
+- Current blockers: operating budgets, authoritative population and invocation remain closed.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0499](docs/decisions/ADR-0499-open-the-watch-first-table-session-source-round.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0500](docs/decisions/ADR-0500-source-seal-the-watch-first-table-session.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

@@ -124,6 +124,14 @@ jobs:
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_hand_adapter_boundary.py
 
+      - name: v0a event adapter suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_event_adapter.py
+
+      - name: v0a event adapter boundary suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_event_adapter_boundary.py
+
       - name: v0a hand replay suite
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_v0a_hand_replay.py

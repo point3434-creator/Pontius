@@ -231,7 +231,8 @@ STABILIZATION_TEST_FILES = (
     "tests/test_test_orchestration_protocol.py",
     "tests/test_test_orchestration_windows_job.py",
     "tests/test_test_orchestration_workspace.py",
-    "tests/test_v0a_contract_faults.py", "tests/test_v0a_hand_adapter.py",
+    "tests/test_v0a_contract_faults.py", "tests/test_v0a_event_adapter.py",
+    "tests/test_v0a_event_adapter_boundary.py", "tests/test_v0a_hand_adapter.py",
     "tests/test_v0a_hand_replay.py",
     "tests/test_v0a_rehearsal_driver.py",
     "tests/test_v0a_replay.py",
@@ -29911,13 +29912,13 @@ class CheckedInInventoryTests(unittest.TestCase):
         self.assertEqual(
             review["analysis_census"],
             {
-                "subprocess_direct_site_count": 45,
-                "subprocess_helper_site_count": 8,
+                "subprocess_direct_site_count": 47,
+                "subprocess_helper_site_count": 11,
                 "cross_file_helper_edge_count": 27,
                 "cupy_call_node_count": 30,
                 "string_sink_decoy_count": 588,
                 "string_sink_decoy_sha256": (
-                    "c62e275fa42bcb8cc9bef4a382990793adc03ecc9d9db1b6fcd35aeb9b23372e"
+                    "21834e50473a9b64afe3949246a890bbf99ec4994d1edef7d01f78d13e2080fe"
                 ),
                 "string_sink_decoy_partitions": {
                     "design_production": 17,
@@ -29926,7 +29927,7 @@ class CheckedInInventoryTests(unittest.TestCase):
                     "task2_synthetic": 531,
                 },
                 "analyzed_sites_sha256": (
-                    "fd472d6cf78d25abe76e2c94ce23345f001616143eefd29f1d2cc5f7cbdb4757"
+                    "14ba4057abae5cf0d9cbb52409df34e0683fcf7cb0ba7df3745448771fd6a166"
                 ),
             },
         )
@@ -30016,25 +30017,25 @@ class CheckedInInventoryTests(unittest.TestCase):
             ["unsupported subprocess keyword: capture_output"],
         )
         blockers = review["unresolved_dynamic_blockers"]
-        self.assertEqual(len(blockers), 471)
+        self.assertEqual(len(blockers), 523)
         self.assertEqual(
             Counter(row["reason"] for row in blockers),
             Counter(
                 {
-                    "unsupported subprocess keyword: capture_output": 74,
-                    "dynamic helper arguments prevent exact sink derivation": 58,
-                    "unsupported subprocess keyword: input": 15,
-                    "subprocess executable is not the active Python worker": 8,
+                    "unsupported subprocess keyword: capture_output": 75,
+                    "dynamic helper arguments prevent exact sink derivation": 78,
+                    "unsupported subprocess keyword: input": 34,
+                    "subprocess executable is not the active Python worker": 9,
                     "helper binding has fewer positional parameters than defaults": 7,
                     "CuPy action or view is outside the approved call scope": 11,
                     "dynamic repetition prevents a finite call bound": 2,
                     "dynamic repetition prevents a finite helper call bound": 1,
                     "mixed protected receiver is dynamically unresolved": 61,
-                    "unsupported subprocess keyword: stdin": 5,
+                    "unsupported subprocess keyword: stdin": 14,
                     "registered probe implementation is absent": 1,
                     "dynamic sensitive call result is unresolved": 16,
                     "unregistered CuPy call is unresolved": 2,
-                    "deferred generator consumption is dynamically unresolved": 51,
+                    "deferred generator consumption is dynamically unresolved": 53,
                     "protected value store target is dynamically unresolved": 6,
                     "local class decorator runtime target is dynamically unresolved": 4,
                     "max/min iterable contents are dynamically unresolved": 102,
@@ -30120,19 +30121,19 @@ class CheckedInInventoryTests(unittest.TestCase):
                 ("tests/test_h32_selector_stable_affine_certificate_audit.py", 110),
                 ("tests/test_hand_scenario.py", 51),
                 ("tests/test_incremental_leaf_adjoint_response.py", 276),
-                ("tests/test_inventory_and_profiles.py", 1461),
-                ("tests/test_inventory_and_profiles.py", 1468),
-                ("tests/test_inventory_and_profiles.py", 2956),
-                ("tests/test_inventory_and_profiles.py", 4168),
-                ("tests/test_inventory_and_profiles.py", 4430),
-                ("tests/test_inventory_and_profiles.py", 5663),
-                ("tests/test_inventory_and_profiles.py", 12479),
-                ("tests/test_inventory_and_profiles.py", 12479),
-                ("tests/test_inventory_and_profiles.py", 12488),
-                ("tests/test_inventory_and_profiles.py", 16219),
-                ("tests/test_inventory_and_profiles.py", 18245),
-                ("tests/test_inventory_and_profiles.py", 18245),
-                ("tests/test_inventory_and_profiles.py", 4797),
+                ("tests/test_inventory_and_profiles.py", 1462),
+                ("tests/test_inventory_and_profiles.py", 1469),
+                ("tests/test_inventory_and_profiles.py", 2957),
+                ("tests/test_inventory_and_profiles.py", 4169),
+                ("tests/test_inventory_and_profiles.py", 4431),
+                ("tests/test_inventory_and_profiles.py", 5664),
+                ("tests/test_inventory_and_profiles.py", 12480),
+                ("tests/test_inventory_and_profiles.py", 12480),
+                ("tests/test_inventory_and_profiles.py", 12489),
+                ("tests/test_inventory_and_profiles.py", 16220),
+                ("tests/test_inventory_and_profiles.py", 18246),
+                ("tests/test_inventory_and_profiles.py", 18246),
+                ("tests/test_inventory_and_profiles.py", 4798),
                 ("tests/test_linear_program_certificate.py", 157),
                 ("tests/test_linear_program_certificate.py", 193),
                 ("tests/test_native_simplex_audit_reanalysis.py", 404),
@@ -30140,6 +30141,8 @@ class CheckedInInventoryTests(unittest.TestCase):
                 ("tests/test_native_simplex_audit_reanalysis.py", 298),
                 ("tests/test_river_selective_screen.py", 320),
                 ("tests/test_shared_resident_response_context.py", 71),
+                ("tests/test_v0a_event_adapter_boundary.py", 197),
+                ("tests/test_v0a_event_adapter_boundary.py", 207),
             ],
         )
         self.assertEqual(

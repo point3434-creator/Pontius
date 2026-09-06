@@ -74,6 +74,7 @@ ORCHESTRATION_ORIGIN_PATHS = frozenset(
         "tools/test_child.py",
         "tools/v0a_rehearsal_driver.py",
         "tools/v0a_hand_adapter.py",
+        "tools/v0a_event_adapter.py",
         "tools/test_orchestration/__init__.py",
         "tools/test_orchestration/configuration.py",
         "tools/test_orchestration/engine.py",
@@ -365,7 +366,11 @@ def enforce_orchestration_import_policy(sources: Mapping[str, bytes]) -> None:
         adapter_internal = origin == "tools.v0a_hand_adapter" and target in {
             "pontius.hand_scenario.codec", "pontius.blueprint_artifact.codec",
             "pontius.v0a.replay", "pontius.v0a.trace"}
-        if not _is_stdlib(target) and not sibling and not driver_internal and not adapter_internal:
+        event_internal = origin == "tools.v0a_event_adapter" and target in {
+            "pontius.blueprint_artifact.codec", "pontius.v0a.model",
+            "pontius.v0a.runtime", "pontius.v0a.clock", "pontius.v0a.trace"}
+        if (not _is_stdlib(target) and not sibling and not driver_internal
+                and not adapter_internal and not event_internal):
             violations.append(f"forbidden orchestration import: {origin} -> {target}")
     _raise_violations(violations)
 
@@ -387,7 +392,8 @@ def enforce_blueprint_artifact_import_policy(sources: Mapping[str, bytes]) -> No
         if in_family and target not in allowed:
             violations.append(f"forbidden blueprint artifact import: {origin} -> {target}")
         elif targets_family and not in_family and not (
-            origin == "tools.v0a_hand_adapter" and target == family + ".codec"
+            origin in {"tools.v0a_hand_adapter", "tools.v0a_event_adapter"}
+            and target == family + ".codec"
         ):
             violations.append(f"legacy origin imports blueprint artifact: {origin} -> {target}")
     _raise_violations(violations)
@@ -418,6 +424,23 @@ def enforce_hand_adapter_import_policy(sources: Mapping[str, bytes]) -> None:
     if any(not (isinstance(node, ast.Expr) and isinstance(node.value, ast.Constant)
                 and type(node.value.value) is str) for node in ast.parse(raw).body):
         violations.append("hand_scenario package initializer must be inert")
+    _raise_violations(violations)
+
+
+def enforce_event_adapter_import_policy(sources: Mapping[str, bytes]) -> None:
+    """ADR-0495: one exact host tool with no generalized dependency opening."""
+    origin = "tools.v0a_event_adapter"
+    allowed = {
+        "__future__", "argparse", "hashlib", "io", "json", "msvcrt", "os",
+        "pathlib", "re", "stat", "subprocess", "sys",
+        "pontius.blueprint_artifact.codec", "pontius.v0a.model",
+        "pontius.v0a.runtime", "pontius.v0a.clock", "pontius.v0a.trace",
+    }
+    violations = [
+        f"forbidden event adapter import: {edge_origin} -> {target}"
+        for edge_origin, target in _BASELINE.import_edges(sources)
+        if edge_origin == origin and target not in allowed
+    ]
     _raise_violations(violations)
 
 
@@ -592,6 +615,7 @@ def check_repository(repository_root: Path) -> None:
     enforce_v0a_import_policy(current_sources)
     enforce_blueprint_artifact_import_policy({**current_sources, **tool_sources})
     enforce_hand_adapter_import_policy({**current_sources, **tool_sources})
+    enforce_event_adapter_import_policy({**current_sources, **tool_sources})
     enforce_orchestration_import_policy(tool_sources)
     _revalidate_repository_snapshot(
         baseline_snapshot, current_inventory, tool_inventory

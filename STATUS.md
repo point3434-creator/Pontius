@@ -15,23 +15,21 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Adopt the independently reviewed one-hand file adapter design r003 and open
-its bounded CPU-only source round. A saved portable blueprint and a scripted
-hand JSON file will feed the existing ReplayHost, followed by independent
-persisted-trace verification and a concise actions/settlement summary. Selecting
-these inputs will not require Python edits. This supplies a correctness adapter,
-not a trained policy, interactive opponent, strategy evaluation or operating run.
+Accept the exact reviewed one-hand file adapter implementation r003 as a CPU-only
+source asset. This closes source acceptance opened by ADR-0493. A scripted hand
+JSON file and portable blueprint feed the existing ReplayHost; the adapter checks
+the persisted trace independently and emits a concise actions/settlement summary.
+Choosing these correctness inputs requires no Python edits. This is not a trained
+policy, interactive opponent, strategy evaluation or operating result.
 
-This decision takes effect only at its separately authorized adoption commit.
-The copied proposal files remain byte-identical historical inputs: their draft
-and conditional wording does not activate permissions by itself. This ADR adopts
-their specified mechanisms, constraints and acceptance map and activates only
-the exact source opening below. A working ADR, generated STATUS or review ref
-does not open implementation. Source acceptance/seal and invocation stay separate.
+Effect requires the separately authorized decision commit. A working ADR,
+generated STATUS, review ref or passing test run does not activate this seal.
+Incorporate the exact 16-path payload below, this new ADR and generated STATUS
+only. No workflow-rule adjustment or further implementation change belongs here.
 
 ## Active next
 
-Implement the bounded one-hand file adapter; no operating run
+Select the next bounded source task; no operating or research execution
 
 ## Revoked authorities
 
@@ -42,7 +40,7 @@ Implement the bounded one-hand file adapter; no operating run
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0493](docs/decisions/ADR-0493-open-the-one-hand-file-adapter-source-round.md) — Open the one-hand file adapter source round.
+Latest process decision: [ADR-0494](docs/decisions/ADR-0494-source-seal-the-one-hand-file-adapter.md) — Source-seal the one-hand file adapter.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -50,7 +48,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0470](docs/decisions/ADR-0470-retain-the-accidental-v5-preauthorization-attempt.md) | 2026-08-27 | accepted accidental-attempt retention and fresh-lifecycle preregistration; a source-seal negative launcher control inherited `PYTHONSAFEPATH=1`, called the real v5 owner despite omitting `-P`, wrote the exact 606-byte v5 attempt marker, and then rejected at absent authorization before any child launch, scientific import, compiler call, device access, timing value, or result; v5 is permanently closed, its marker is retained byte-exactly, and only a fresh v6 implementation may proceed | Retain the accidental v5 preauthorization attempt and preregister v6 |
 | [ADR-0471](docs/decisions/ADR-0471-source-seal-the-retained-attempt-successor.md) | 2026-08-27 | accepted CPU-only retained-attempt successor source seal; the fresh v6 launcher, runner, complete independent reader, exact retained-v5-attempt recovery header, durable attempt and one-use launch lifecycle, injected authorization and Git proof, and source-only controls pass 17/17 with zero skips; combined v4/v5/v6 regression passes 74/74 and the 35-test calibration-base regression passes; the retained 606-byte v5 attempt remains byte-exact, every v3/v4/v5 closed-state predicate and every v6 lifecycle path remains unchanged, and no public v6 owner, compiler call, CuPy import, device work, timing value, or result exists | Source-seal the retained-attempt successor |
 | [ADR-0472](docs/decisions/ADR-0472-authorize-one-v6-retained-attempt-calibration-invocation.md) | 2026-08-27 | accepted exact one-generation v6 invocation authorization; the current commit must be the sole child of source seal `d633f3fb469a27dee688587293c6efb1d2cb2757`, its changed-path set is exactly the frozen six-file authorization surface, no sealed implementation, test, recovery config, retained attempt, or lifecycle byte changes, and no public v6 owner, compiler call, CuPy import, device work, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, decision quality, truncation, blueprint, or strength result exists, while all 17 focused controls must still pass from this exact clean commit with the live authorization branch exercised before the public owner is fired; revoked by ADR-0473 | Authorize one v6 retained-attempt calibration invocation |
 | [ADR-0473](docs/decisions/ADR-0473-retain-the-v6-authorization-phase-gate-rejection.md) | 2026-08-27 | accepted pre-invocation authorization-phase gate rejection and fresh-lifecycle preregistration; the exact clean ADR-0472 authorization run discovered 17 focused tests but all 17 failed in common setup before any test body because the fixture required the authorization file to be absent while the intended live-authorization branch required it present, a safe post-failure diagnostic found that the unreachable live body also computed inherited dependency hashes outside the successor binding domain, v6 is permanently closed uninvoked, and no v6 result, attempt marker, launch marker, compiler call, CuPy import, device work, timing value, scientific row, topology selection, target numerical work, resolver integration, action fit, decision quality, truncation, blueprint, or strength result exists | Retain the v6 authorization-phase gate rejection |
@@ -74,18 +71,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0491](docs/decisions/ADR-0491-source-seal-the-portable-blueprint-artifact.md) | 2026-09-05 | accepted source-only seal upon its separately authorized decision commit | Source-seal the portable blueprint artifact |
 | [ADR-0492](docs/decisions/ADR-0492-adopt-proportionate-engineering-review.md) | 2026-09-05 | accepted prospective workflow amendment upon its authorized decision commit | Adopt proportionate engineering review |
 | [ADR-0493](docs/decisions/ADR-0493-open-the-one-hand-file-adapter-source-round.md) | 2026-09-05 | accepted source-opening decision upon its separately authorized commit | Open the one-hand file adapter source round |
+| [ADR-0494](docs/decisions/ADR-0494-source-seal-the-one-hand-file-adapter.md) | 2026-09-05 | accepted source-only seal upon its separately authorized decision commit | Source-seal the one-hand file adapter |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0493](docs/decisions/ADR-0493-open-the-one-hand-file-adapter-source-round.md) — Open the one-hand file adapter source round.
+- Latest ADR: [ADR-0494](docs/decisions/ADR-0494-source-seal-the-one-hand-file-adapter.md) — Source-seal the one-hand file adapter.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 493.
-- ADR-header SHA-256: `cb9ccd5c1a4f03046a9343272df5d8b004b76486a50927608b8df98e8c58237d`.
-- Current blockers: adapter source acceptance remains open; operating and research gates remain.
+- Numbered decisions: 494.
+- ADR-header SHA-256: `85dea1ff846dc0a253891c1f8ce007b560c5821eae11e9af98d184377cad402d`.
+- Current blockers: operating budgets, authoritative population and invocation remain closed.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0493](docs/decisions/ADR-0493-open-the-one-hand-file-adapter-source-round.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0494](docs/decisions/ADR-0494-source-seal-the-one-hand-file-adapter.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

@@ -214,8 +214,8 @@ STABILIZATION_TEST_FILES = (
     "tests/test_evidence_import_boundary.py",
     "tests/test_evidence_manifest_generation.py",
     "tests/test_evidence_manifests.py",
-    "tests/test_inventory_and_profiles.py",
-    "tests/test_retained_evidence_inventory.py",
+    "tests/test_hand_adapter_boundary.py", "tests/test_hand_scenario.py",
+    "tests/test_inventory_and_profiles.py", "tests/test_retained_evidence_inventory.py",
     "tests/test_retained_v7_assessment.py",
     "tests/test_stabilization_boundaries.py",
     "tests/test_stabilization_verification.py",
@@ -231,7 +231,7 @@ STABILIZATION_TEST_FILES = (
     "tests/test_test_orchestration_protocol.py",
     "tests/test_test_orchestration_windows_job.py",
     "tests/test_test_orchestration_workspace.py",
-    "tests/test_v0a_contract_faults.py",
+    "tests/test_v0a_contract_faults.py", "tests/test_v0a_hand_adapter.py",
     "tests/test_v0a_hand_replay.py",
     "tests/test_v0a_rehearsal_driver.py",
     "tests/test_v0a_replay.py",
@@ -29911,8 +29911,8 @@ class CheckedInInventoryTests(unittest.TestCase):
         self.assertEqual(
             review["analysis_census"],
             {
-                "subprocess_direct_site_count": 43,
-                "subprocess_helper_site_count": 6,
+                "subprocess_direct_site_count": 45,
+                "subprocess_helper_site_count": 8,
                 "cross_file_helper_edge_count": 27,
                 "cupy_call_node_count": 30,
                 "string_sink_decoy_count": 588,
@@ -29926,7 +29926,7 @@ class CheckedInInventoryTests(unittest.TestCase):
                     "task2_synthetic": 531,
                 },
                 "analyzed_sites_sha256": (
-                    "31879b63b1de2070ed2886cb104848b136cf5afa59c178c475d71d89fcd96e54"
+                    "fd472d6cf78d25abe76e2c94ce23345f001616143eefd29f1d2cc5f7cbdb4757"
                 ),
             },
         )
@@ -30016,13 +30016,15 @@ class CheckedInInventoryTests(unittest.TestCase):
             ["unsupported subprocess keyword: capture_output"],
         )
         blockers = review["unresolved_dynamic_blockers"]
-        self.assertEqual(len(blockers), 394)
+        self.assertEqual(len(blockers), 471)
         self.assertEqual(
             Counter(row["reason"] for row in blockers),
             Counter(
                 {
-                    "unsupported subprocess keyword: capture_output": 55,
-                    "dynamic helper arguments prevent exact sink derivation": 24,
+                    "unsupported subprocess keyword: capture_output": 74,
+                    "dynamic helper arguments prevent exact sink derivation": 58,
+                    "unsupported subprocess keyword: input": 15,
+                    "subprocess executable is not the active Python worker": 8,
                     "helper binding has fewer positional parameters than defaults": 7,
                     "CuPy action or view is outside the approved call scope": 11,
                     "dynamic repetition prevents a finite call bound": 2,
@@ -30032,7 +30034,7 @@ class CheckedInInventoryTests(unittest.TestCase):
                     "registered probe implementation is absent": 1,
                     "dynamic sensitive call result is unresolved": 16,
                     "unregistered CuPy call is unresolved": 2,
-                    "deferred generator consumption is dynamically unresolved": 50,
+                    "deferred generator consumption is dynamically unresolved": 51,
                     "protected value store target is dynamically unresolved": 6,
                     "local class decorator runtime target is dynamically unresolved": 4,
                     "max/min iterable contents are dynamically unresolved": 102,
@@ -30116,6 +30118,7 @@ class CheckedInInventoryTests(unittest.TestCase):
                 ("tests/test_full_width_river_capacity_preflight.py", 54),
                 ("tests/test_full_width_river_capacity_preflight_v2_result.py", 150),
                 ("tests/test_h32_selector_stable_affine_certificate_audit.py", 110),
+                ("tests/test_hand_scenario.py", 51),
                 ("tests/test_incremental_leaf_adjoint_response.py", 276),
                 ("tests/test_inventory_and_profiles.py", 1461),
                 ("tests/test_inventory_and_profiles.py", 1468),

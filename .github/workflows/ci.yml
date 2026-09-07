@@ -128,6 +128,22 @@ jobs:
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_v0a_event_adapter.py
 
+      - name: Decision provider suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_decision_provider.py
+
+      - name: Decision provider runtime suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_decision_provider_runtime.py
+
+      - name: Decision provider transport suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_decision_provider_transport.py
+
+      - name: Decision provider session suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_decision_provider_session.py
+
       - name: v0a event adapter boundary suite
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_v0a_event_adapter_boundary.py

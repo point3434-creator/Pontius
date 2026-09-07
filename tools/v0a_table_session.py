@@ -17,7 +17,7 @@ VERSION = 'pontius-v0a-table-session-v1'
 PREFIX = VERSION + '-correctness-'
 HOST = 'tools/v0a_table_host.py'
 SELF = 'tools/v0a_table_session.py'
-HOST_BLOB = '0faa101f9be9940f9ae935df51f8c79e2eeb2b15'
+HOST_BLOB = '6ec8a162b053158203663c48e82314b10750f962'
 ALIAS = 'pontius_v0a_table_session_host'
 
 
@@ -224,11 +224,18 @@ class Session:
         self.args, self.renderer, self.command = args, renderer, command
         self.admission, self.active = None, None
         self.failures = []
+        self.strategy = getattr(args, 'strategy', 'blueprint-v1')
+        self.baseline = self.strategy == 'baseline-rules-v1'
+        self.prefix = 'pontius-v0a-table-session-v2-correctness-' if self.baseline else PREFIX
+        self.identity = None
         self.report = dict(version='pontius-v0a-table-session-result-v1',
             session_id=args.session_id, status='failed', stop_reason=None, failure_reason=None,
             secondary_failures=[], source_commit=None, input_sha256=None,
             blueprint_artifact_sha256=None, blueprint_sha256=None, requested_hands=None,
             completed_hands=0, next_button=None, carried_stacks=None, hands=[])
+        if self.baseline:
+            self.report.update(version='pontius-v0a-table-session-result-v2',
+                               provider=None, config_sha256=None)
 
     def add_error(self, error, failures, phase):
         if isinstance(error, KeyboardInterrupt):
@@ -243,7 +250,7 @@ class Session:
                 failures.append(item)
 
     def prepare(self):
-        require(re.fullmatch(re.escape(PREFIX) + '[A-Za-z0-9_-]{1,40}', self.args.session_id),
+        require(re.fullmatch(re.escape(self.prefix) + '[A-Za-z0-9_-]{1,40}', self.args.session_id),
                 'input_invalid')
         self.admission = Admission(Path.cwd())
         self.host, self.modules = self.admission.host, self.admission.modules
@@ -258,6 +265,13 @@ class Session:
         except (ValueError, TypeError) as error:
             raise Refusal('input_invalid') from error
         self.report['blueprint_sha256'] = blueprint.digest
+        self.blueprint = blueprint
+        if self.baseline:
+            self.identity = self.modules.providers.make_provider(self.strategy, blueprint).identity
+            self.report.update(provider=self.identity.provider,
+                               config_sha256=self.identity.config_sha256)
+            if self.renderer is not None:
+                self.renderer.line('Strategy: ' + self.identity.provider)
         self.report.update(requested_hands=len(self.schedule.hands),
             next_button=self.schedule.common['button'],
             carried_stacks=list(self.schedule.common['starting_stacks']))
@@ -271,8 +285,9 @@ class Session:
         self.validate()
         config, raw = self.schedule.derive(index, self.report['carried_stacks'],
                                            self.report['next_button'])
-        suffix = self.args.session_id[len(PREFIX):] + '-h%02d' % (index + 1)
-        child_id = self.host.PROTOCOL + '-correctness-table-' + suffix
+        suffix = self.args.session_id[len(self.prefix):] + '-h%02d' % (index + 1)
+        protocol = 'pontius-v0a-event-interface-v2' if self.baseline else self.host.PROTOCOL
+        child_id = protocol + '-correctness-table-' + suffix
         table = self.host.Table(config, self.modules, child_id)
         hand = dict(version='pontius-v0a-table-session-hand-result-v1',
             session_id='pontius-v0a-table-host-v1-correctness-' + suffix, status='failed',
@@ -282,6 +297,10 @@ class Session:
             blueprint_sha256=self.report['blueprint_sha256'], source_commit=self.admission.commit,
             applied_actions=table.applied_actions, settlement=None, child_exit_code=None,
             child_stdout_base64='', child_stderr_base64='', capture_truncated=False)
+        if self.baseline:
+            hand.update(version='pontius-v0a-table-session-hand-result-v2',
+                session_id='pontius-v0a-table-host-v2-correctness-' + suffix,
+                provider=self.identity.provider, config_sha256=self.identity.config_sha256)
         entry = dict(ordinal=index + 1, button=config.button,
                      starting_stacks=list(config.starting_stacks), result=hand)
         self.report['hands'].append(entry)
@@ -290,9 +309,10 @@ class Session:
         phase = 'process_start_failed'
         try:
             connection = self.host.ChildConnection(self.admission.source, self.blueprint_input.path,
-                                                   child_id, failures)
+                                                   child_id, failures, self.strategy)
             consumer = self.host.WireConsumer(connection, self.admission.source, table,
-                self.report['blueprint_artifact_sha256'], self.report['blueprint_sha256'])
+                self.report['blueprint_artifact_sha256'], self.report['blueprint_sha256'],
+                self.identity, self.blueprint if self.baseline else None)
             phase = 'protocol_invalid'
             consumer.ready()
             if self.renderer is not None:
@@ -307,6 +327,8 @@ class Session:
                     view = visible(table, index + 1, cursor)
                     cursor = len(table.applied_actions)
                     self.renderer.update(view)
+                    if self.baseline and table.bot_index in consumer.reasons:
+                        self.renderer.line('Reason: ' + consumer.reasons.pop(table.bot_index))
                 phase = 'protocol_invalid'
                 event = table.next_event()
             provisional = consumer.complete()
@@ -399,6 +421,8 @@ def arguments(argv=None):
     for flag in ('session', 'blueprint', 'session-id'):
         parser.add_argument('--' + flag, required=True)
     parser.add_argument('--auto', action='store_true')
+    parser.add_argument('--strategy', choices=('blueprint-v1', 'baseline-rules-v1'),
+                        default='blueprint-v1')
     parser.add_argument('--format', choices=('text', 'json'), default='text')
     args = parser.parse_args(argv)
     if args.format == 'json' and not args.auto:

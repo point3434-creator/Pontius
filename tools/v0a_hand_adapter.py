@@ -12,8 +12,10 @@ import stat
 import subprocess
 import sys
 
-BASE = '7a387e995e3b37232d2379332927247a4d49c64e'
-ADDITIONS = ('src/pontius/hand_scenario/__init__.py', 'src/pontius/hand_scenario/codec.py')
+BASE = 'e205cd8cd6f46a50db8b2d0cb1f39366da0f2767'
+ADDITIONS = tuple('src/pontius/decision_provider/' + name + '.py'
+                  for name in ('__init__', 'model', 'providers', 'selection', 'codec'))
+EXCEPTIONS = ('src/pontius/v0a/runtime.py', 'tools/v0a_hand_adapter.py')
 TOOLS = ('tools/v0a_hand_adapter.py', 'tools/v0a_rehearsal_driver.py')
 PREFIX = 'pontius-v0a-hand-replay-v1-correctness-adapter-'
 
@@ -60,7 +62,7 @@ class Source:
         current, inherited = self.inventory(self.commit), self.inventory(BASE)
         require(set(current) == set(inherited) | set(ADDITIONS) | {TOOLS[0]},
                 'SOURCE: unexpected committed source population')
-        require(all(current[p] == oid for p, oid in inherited.items()),
+        require(all(current[p] == oid for p, oid in inherited.items() if p not in EXCEPTIONS),
                 'SOURCE: inherited source differs from pinned base')
         stream = io.BytesIO(self.command('cat-file', '--batch',
                              content=('\n'.join(current.values()) + '\n').encode('ascii')))

@@ -9,7 +9,11 @@ remains controller diagnostics.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, fields, replace
+
+from ..decision_provider.model import DecisionObservation, ProviderDecisionRecord, ProviderIdentity
+from ..decision_provider.providers import make_provider
+from ..decision_provider.selection import Selection, resolve_proposal
 
 from ..action_clock import ActionClockLedger
 from ..holdem_cards import OneSeatCardState
@@ -325,8 +329,25 @@ class _OwnedInterval:
 class HandRuntime:
     """One complete blueprint-only hand behind a strict public event boundary."""
 
-    def __init__(self, *, blueprint: object, mailbox: object, clock: object | None = None) -> None:
+    def __init__(self, *, blueprint: object, mailbox: object, clock: object | None = None,
+                 strategy: str = "blueprint-v1", source_manifest_sha256: str | None = None) -> None:
         admitted_blueprint = _admit_blueprint(blueprint)
+        if type(strategy) is not str or strategy not in ("blueprint-v1", "baseline-rules-v1"):
+            raise ValueError("unknown fixed strategy")
+        if strategy != "blueprint-v1" and (type(source_manifest_sha256) is not str
+                or len(source_manifest_sha256) != 64
+                or any(c not in "0123456789abcdef" for c in source_manifest_sha256)):
+            raise ValueError("baseline requires admitted source manifest")
+        self.strategy = strategy
+        self.source_manifest_sha256 = source_manifest_sha256
+        self._provider = None if strategy == "blueprint-v1" else make_provider(
+            strategy, admitted_blueprint)
+        self._provider_identity = None if self._provider is None else self._provider.identity
+        self._provider_binding = None if self._provider_identity is None else (
+            self._provider_identity.provider, self._provider_identity.config_sha256)
+        self._provider_type = type(self._provider)
+        self._provider_source = source_manifest_sha256
+        self._provider_context = None
         if not hasattr(mailbox, "deliver"):
             raise TypeError("runtime requires a host mailbox")
         witness = clock if isinstance(clock, MonotonicWitness) else MonotonicWitness(clock)
@@ -361,6 +382,10 @@ class HandRuntime:
         self._retained_witness_failure: BaseException | None = None
 
     # -- public observation ------------------------------------------------
+
+    @property
+    def provider_identity(self) -> ProviderIdentity | None:
+        return self._provider_identity
 
     @property
     def blueprint_sha256(self) -> str:
@@ -848,7 +873,14 @@ class HandRuntime:
     def _decide(self, event: Event, wall_start_ns: int) -> DispatchOutcome:
         self._action_index += 1
         self._street_action_index += 1
-        record = self._decide_inner(event, wall_start_ns, self._action_index)
+        self._provider_context = None
+        try:
+            record = self._decide_inner(event, wall_start_ns, self._action_index)
+        except _HandFailure as failure:
+            if self._provider_context is not None and failure.decision is None:
+                failure.decision = self._provider_record(
+                    event, failure.timing, failure.code, failure.delivery_status)
+            raise
         spine = self._spine
         assert spine is not None
         if spine.state.is_terminal and spine.state.terminal_reason is TerminalReason.FOLD:
@@ -906,7 +938,11 @@ class HandRuntime:
         self._require_bound_selection(selection, cards, state_before, ticket.decision,
                                       wall_start_ns)
 
-        selected = HandAction.from_betting_action(selection.action)
+        action = selection.action
+        if self._provider_binding is not None:
+            action = self._select_provider(selection, cards, state_before, ticket.decision,
+                                           action_index, wall_start_ns)
+        selected = HandAction.from_betting_action(action)
         envelope = ActionEnvelope(
             hand_id=self._hand_id,
             action_index=action_index,
@@ -922,11 +958,18 @@ class HandRuntime:
             raise self._clock_hand_failure(error, wall_start_ns) from error
         self._record_established(ready)
         work_cutoff_crossed = bool(self._known_cutoff) or ready.work_remaining_seconds <= 0.0
+        if self._provider_binding is not None:
+            self._require_provider_binding(wall_start_ns)
+        if self._provider_context is not None and work_cutoff_crossed:
+            self._provider_late()
+            action = selection.action
+            selected = HandAction.from_betting_action(action)
+            envelope = replace(envelope, action=selected)
 
         try:
             emitted = spine.emit_controlled_action(
                 candidate=None,
-                fallback=selection.action,
+                fallback=action,
             )
         except (ClockInvalidError, ClockReversedError) as error:
             raise self._clock_hand_failure(error, wall_start_ns) from error
@@ -1021,6 +1064,104 @@ class HandRuntime:
             )
         return record
 
+    def _require_provider_binding(self, wall_start_ns: int) -> None:
+        try:
+            identity = self._provider.identity
+            valid = (type(self._provider) is self._provider_type
+                     and type(identity) is ProviderIdentity
+                     and type(identity.provider) is str and type(identity.config_sha256) is str
+                     and (identity.provider, identity.config_sha256) == self._provider_binding
+                     and type(self.strategy) is str and self.strategy == identity.provider
+                     and type(self.source_manifest_sha256) is str
+                     and self.source_manifest_sha256 == self._provider_source)
+        except (ClockInvalidError, ClockReversedError) as error:
+            raise self._clock_hand_failure(error, wall_start_ns) from error
+        except Exception:
+            valid = False
+        if not valid:
+            raise _HandFailure(FailureCode.SOURCE_BINDING_MISMATCH,
+                timing=self._interrupted_timing(FailureCode.SOURCE_BINDING_MISMATCH, wall_start_ns))
+
+    def _select_provider(self, fallback, cards, betting, decision, action_index, wall_start_ns):
+        self._require_provider_binding(wall_start_ns)
+        try:
+            observation = DecisionObservation(
+                "pontius-decision-observation-v1", self._hand_id, action_index,
+                cards, betting, decision, 0)
+            ready = self._outer.snapshot()
+            self._record_established(ready)
+            observation = replace(observation, remaining_work_ns=max(
+                0, min(14_000_000_000, int(ready.work_remaining_seconds * 1_000_000_000))))
+            offered = replace(observation)
+        except (ClockInvalidError, ClockReversedError) as error:
+            raise self._clock_hand_failure(error, wall_start_ns) from error
+        except (TypeError, ValueError, AttributeError, RecursionError) as error:
+            raise _HandFailure(FailureCode.INVALID_DECISION_CONTEXT,
+                timing=self._interrupted_timing(FailureCode.INVALID_DECISION_CONTEXT,
+                                                wall_start_ns)) from error
+        reason = "table_hit" if fallback.table_hit else "passive_default"
+        result = Selection(None, "not_called", "provider_skipped_cutoff",
+                           "blueprint_fallback", fallback.action)
+        self._provider_context = (observation, fallback, result)
+        if not self._known_cutoff:
+            try:
+                proposal = self._provider.propose(offered)
+            except (ClockInvalidError, ClockReversedError) as error:
+                self._provider_context = (observation, fallback, Selection(
+                    None, "error", "provider_error", "blueprint_fallback", fallback.action))
+                raise self._clock_hand_failure(error, wall_start_ns) from error
+            except Exception:
+                result = Selection(None, "error", "provider_error",
+                                   "blueprint_fallback", fallback.action)
+            else:
+                try:
+                    result = resolve_proposal(observation, proposal, fallback.action, reason)
+                except (ClockInvalidError, ClockReversedError) as error:
+                    raise self._clock_hand_failure(error, wall_start_ns) from error
+                except (TypeError, ValueError, AttributeError, RecursionError) as error:
+                    self._provider_context = None
+                    raise _HandFailure(FailureCode.INVALID_DECISION_CONTEXT,
+                        timing=self._interrupted_timing(FailureCode.INVALID_DECISION_CONTEXT,
+                                                        wall_start_ns)) from error
+            self._provider_context = (observation, fallback, result)
+            self._require_provider_binding(wall_start_ns)
+        return result.selected_action
+
+    def _provider_late(self):
+        observation, fallback, result = self._provider_context
+        if result.provider_outcome != "not_called":
+            result = replace(result, selection_reason="provider_late",
+                             selection_origin="blueprint_fallback", selected_action=fallback.action)
+            self._provider_context = (observation, fallback, result)
+
+    def _provider_record(self, event, timing, failure_reason,
+                         delivery_status=DeliveryStatus.ACCEPTED):
+        observation, fallback, result = self._provider_context
+        after = self._spine.state
+        applied = after is not observation.betting and after != observation.betting
+        selected = HandAction.from_betting_action(result.selected_action)
+        return ProviderDecisionRecord(
+            schema_version="pontius-provider-decision-v1", hand_id=self._hand_id,
+            event_index=event.event_index, action_index=self._action_index,
+            street_action_index=self._street_action_index, seat=self._controlled_seat,
+            street=observation.betting.street.value,
+            state_before_sha256=public_betting_state_sha256(observation.betting),
+            state_after_sha256=public_betting_state_sha256(after) if applied else None,
+            visible_cards_sha256=visible_cards_sha256(observation.cards),
+            decision_sha256=observation.decision_sha256,
+            source_manifest_sha256=self._provider_source,
+            provider=self._provider_binding[0],
+            config_sha256=self._provider_binding[1],
+            fallback_blueprint_sha256=fallback.source_digest,
+            fallback_action=HandAction.from_betting_action(fallback.action),
+            fallback_reason="table_hit" if fallback.table_hit else "passive_default",
+            proposal=result.proposal, provider_outcome=result.provider_outcome,
+            selection_reason=result.selection_reason, selection_origin=result.selection_origin,
+            selected_action=selected, applied_action=selected if applied else None,
+            delivery_status=delivery_status,
+            delivered_action=selected if delivery_status is DeliveryStatus.ACCEPTED else None,
+            timing=timing, preparation_use=PreparationUseRecord(), failure_reason=failure_reason)
+
     def _require_bound_selection(
         self,
         selection: BlueprintSelection,
@@ -1111,6 +1252,8 @@ class HandRuntime:
     ) -> DecisionRecord:
         assert self._cards is not None and self._hand_id is not None
         assert self._controlled_seat is not None
+        if self._provider_context is not None:
+            return self._provider_record(event, timing, failure_reason)
         return DecisionRecord(
             hand_id=self._hand_id,
             event_index=event.event_index,

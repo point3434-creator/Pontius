@@ -15,30 +15,22 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Open the CPU-only selectable decision-provider increment under the approved design
-in docs/architecture/v0a-decision-provider-r001/brief.md and design.md, the exact
-source-contract.md in that directory, and the companion implementation plan at
-docs/superpowers/plans/2026-09-06-decision-provider.md. The controller approved
-the reviewed design and scoped prospective source supersession. This decision
-requires its own exact commit authorization; a draft or design approval alone
-does not adopt it. No source implementation runs before that adoption.
+Accept the exact reviewed selectable decision-provider source as a CPU-only asset,
+closing the complete implementation opened by ADR-0505. A fixed baseline now works
+through the hand runtime, event interface, independently checking host and multi-hand
+session. The engine retains visible-state admission, legal actions, continuous action
+timing, fallback, application and delivery. The separate provider proposes an action
+from an owned visible observation and has no authority to operate those boundaries.
 
-The outcome is one selectable baseline operating through the real runtime,
-event interface, host and multi-hand session. A provider-only library is incomplete.
-The engine keeps legal state, visible-state admission, the continuous action wall,
-fallback, application and delivery. The baseline follows the fixed approved rules;
-it introduces neither a trained policy nor a claim of strategic improvement.
-
-The source contract is the precise refinement of the approved architecture.
-It gives abstention an explicit null-action representation, distinguishes skipped,
-late, invalid and exceptional provider responses, specifies six-card evaluation,
-and preserves the historical rehearsal driver without reassigning its source seal.
-An additive codec file keeps new records separate from the old model/trace format.
-The approved design copies remain unchanged records of the architecture review.
+Effect requires this exact decision's separately authorized commit. Draft metadata,
+passing correctness tests and review refs do not activate a source seal. Incorporate
+only the 23 bound source payloads, this new ADR and generated STATUS. The accepted
+baseline is the fixed rule set from the approved design, with no playing-strength
+or trained-policy claim. Source acceptance grants no poker invocation.
 
 ## Active next
 
-Implement the selectable provider and baseline through a complete session
+Select a bounded baseline demonstration; poker execution remains closed
 
 ## Revoked authorities
 
@@ -49,7 +41,7 @@ Implement the selectable provider and baseline through a complete session
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0505](docs/decisions/ADR-0505-open-the-selectable-decision-provider-source-round.md) — Open the selectable decision-provider source round.
+Latest process decision: [ADR-0506](docs/decisions/ADR-0506-source-seal-the-selectable-decision-provider.md) — Source-seal the selectable decision provider.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -57,7 +49,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0482](docs/decisions/ADR-0482-adopt-the-rehearsal-parking-and-lane-breaker-amendments.md) | 2026-08-30 | accepted protocol amendment; the evidence lifecycle gains a non-evidentiary rehearsal tier between source seal and invocation authorization, every future parking verdict names its category (`parked - falsified` permanent as today, or `parked - gate defect` eligible for exactly one fresh preregistration under a redesigned gate with every old panel discarded), and every future experiment lane preregisters lane-level kill criteria whose plumbing-death and budget breakers force a mandatory stand-down or architecture checkpoint; rehearsal output never feeds a fit, gate, claim, or selection, no wall or budget is frozen without a scaled rehearsal measurement as provenance, strength-claim evidence keeps permanent parking regardless of category, and nothing here reopens, reclassifies, or retries any already-parked candidate or consumed owner — historical reclassification requires its own future decision, and v7 remains permanently closed under ADR-0476's kill criteria | Adopt the rehearsal, parking, and lane-breaker amendments |
 | [ADR-0483](docs/decisions/ADR-0483-park-the-compiled-lane-and-open-v0a-integration.md) | 2026-08-30 | accepted architecture-checkpoint ruling; the ADR-0476 checkpoint resolves to parking the compiled synthetic topology-calibration lane and returning effort to the playable v0a integration boundary, because the lane's own precondition — a bound production source-local base producer with measured algebra, epoch identity, refresh cadence, exponent admission, and cold-versus-hit frequency — is a deliverable of the river bridge that only v0a integration builds; every candidate and closure in the lane retains its exact recorded standing, the four source-sealed topology arms remain sealed assets, the serial-structural-cover diagnostic is retained as the reopened lane's first candidate hypothesis and not a result, the lane may reopen only on bridge-measured producer telemetry through a wholly fresh ADR-0482-governed preregistration that honors every ADR-0476 constraint, and the v0a boundary opens under the same rules with bridge instrumentation recording would-be base-producer events from its first increment | Park the compiled lane and open v0a integration |
 | [ADR-0484](docs/decisions/ADR-0484-clarify-the-v0a-increment-split-and-instrumentation.md) | 2026-08-30 | accepted prospective clarification of the ADR-0483 opening directive before any v0a lifecycle exists; increment one of the v0a lane is the blueprint-only complete hand — the ADR-0308 exact spine joined to the ADR-0290 explicit-deal loop with every controlled action answered by the immutable blueprint inside its own 15,000 ms wall, no h32 decision, no GPU dependency, and no resolver — while the prepared h32 certified river decision and the would-be base-producer bridge instrumentation belong to increment two, because a blueprint-only hand executes no base-structure machinery and instrumentation obligations attach where that machinery first executes; increment one records the frozen decision-record fields for every controlled action, the input boundary admits only public events and the controlled seat's own cards so the dealer's complete deal never reaches policy selection, the campaign increment's qualifying-h32 minimums must later be met by a declared, seed-sealed, steered or prepared-context deal schedule and never by weakening qualification, each landed increment's clone-safe suite subset joins the continuous-integration wall, and the reviewed increment-one brief at `docs/briefs/v0a-increment-1-brief.md` bounds the work without conferring any experiment authority | Clarify the v0a increment split and instrumentation |
 | [ADR-0485](docs/decisions/ADR-0485-preregister-the-blueprint-only-v0a-hand-contract.md) | 2026-08-30 | accepted prospective contract preregistration and explicit bootstrap-sequencing clarification; only the additive CPU blueprint-hand source contract is opened, an outer ActionClockLedger measures through offline-host delivery without altering the sealed V2 spine, operating budgets and an authoritative replay population remain unadmitted until a separate measured closure, and no source seal, rehearsal, owner invocation, integration result, timing result, or strategy result is asserted | Preregister the blueprint-only v0a hand contract |
@@ -81,18 +72,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0503](docs/decisions/ADR-0503-source-seal-the-seeded-deal-generator.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the seeded-deal generator |
 | [ADR-0504](docs/decisions/ADR-0504-permit-one-seeded-watch-demonstration.md) | 2026-09-06 | accepted demonstration-only exception upon its separately authorized decision commit | Permit one seeded watch demonstration |
 | [ADR-0505](docs/decisions/ADR-0505-open-the-selectable-decision-provider-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the selectable decision-provider source round |
+| [ADR-0506](docs/decisions/ADR-0506-source-seal-the-selectable-decision-provider.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the selectable decision provider |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0505](docs/decisions/ADR-0505-open-the-selectable-decision-provider-source-round.md) — Open the selectable decision-provider source round.
+- Latest ADR: [ADR-0506](docs/decisions/ADR-0506-source-seal-the-selectable-decision-provider.md) — Source-seal the selectable decision provider.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 505.
-- ADR-header SHA-256: `2f60466fe6a131f97456c8714e38a8f38b437329f8d985987bf0c50068f48bc5`.
-- Current blockers: provider source acceptance pending; operating and research prerequisites open.
+- Numbered decisions: 506.
+- ADR-header SHA-256: `f35fd2aa5ee60507c461daa7f9e735eb4cc4c1054465523c487930e918aee720`.
+- Current blockers: baseline demonstration population and invocation remain unadmitted.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0505](docs/decisions/ADR-0505-open-the-selectable-decision-provider-source-round.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0506](docs/decisions/ADR-0506-source-seal-the-selectable-decision-provider.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

@@ -13,7 +13,11 @@ import stat
 import subprocess
 import sys
 
-BASE = '5f90279ab3d7d78fe790b115a697c52262280c0d'
+BASE = 'e205cd8cd6f46a50db8b2d0cb1f39366da0f2767'
+ADDITIONS = tuple('src/pontius/decision_provider/' + name + '.py'
+                  for name in ('__init__', 'model', 'providers', 'selection', 'codec'))
+EXCEPTIONS = ('src/pontius/v0a/runtime.py', 'tools/v0a_hand_adapter.py',
+              'tools/v0a_event_adapter.py')
 TOOLS = ('tools/v0a_event_adapter.py', 'tools/v0a_hand_adapter.py',
          'tools/v0a_rehearsal_driver.py')
 PROTOCOL = 'pontius-v0a-event-interface-v1'
@@ -61,9 +65,9 @@ class Source:
                     if not k.upper().startswith(('GIT_', 'PYTHON', 'PONTIUS_'))}
         self.commit = self.head()
         current, inherited = self.inventory(self.commit), self.inventory(BASE)
-        require(set(current) == set(inherited) | {TOOLS[0]},
+        require(set(current) == set(inherited) | set(ADDITIONS),
                 'SOURCE: unexpected committed source population')
-        require(all(current[p] == oid for p, oid in inherited.items()),
+        require(all(current[p] == oid for p, oid in inherited.items() if p not in EXCEPTIONS),
                 'SOURCE: inherited source differs from pinned base')
         stream = io.BytesIO(self.command('cat-file', '--batch',
                             content=('\n'.join(current.values()) + '\n').encode('ascii')))
@@ -136,6 +140,9 @@ class Source:
         import pontius.v0a.runtime as core
         import pontius.v0a.clock as clock
         import pontius.v0a.trace as trace
+        import pontius.decision_provider.codec as provider_codec
+        import pontius.decision_provider.providers as providers
+        self.provider_codec, self.providers = provider_codec, providers
         for name, module in tuple(sys.modules.items()):
             if name == 'pontius' or name.startswith('pontius.'):
                 relative = 'src/' + name.replace('.', '/')
@@ -259,13 +266,14 @@ def runtime_type(model, core, clock):
 
 class PipeOutput:
     """A full-count local write is a receipt, not a consumer-application acknowledgement."""
-    def __init__(self, session_id, model, trace, descriptor):
+    def __init__(self, session_id, model, trace, descriptor, protocol=PROTOCOL):
         self.session_id, self.model, self.trace = session_id, model, trace
         self.descriptor = descriptor
+        self.protocol = protocol
         self.identities = set()
 
     def frame(self, kind, **fields):
-        value = dict(protocol=PROTOCOL, session_id=self.session_id, type=kind, **fields)
+        value = dict(protocol=self.protocol, session_id=self.session_id, type=kind, **fields)
         raw = (json.dumps(value, sort_keys=True, separators=(',', ':'), allow_nan=False)
                + '\n').encode('utf-8')
         require(os.write(self.descriptor, raw) == len(raw), 'OUTPUT: incomplete frame write')
@@ -294,7 +302,8 @@ def refuse(reason):
     return 1
 
 
-def run_session(runtime, output, source, artifact_hash, core, trace, model):
+def run_session(runtime, output, source, artifact_hash, core, trace, model,
+                identity=None, provider_codec=None):
     """Required host intervals, pre-publication cut, then a separate closing receipt."""
     codes = model.FailureCode
     settlement = None
@@ -304,7 +313,9 @@ def run_session(runtime, output, source, artifact_hash, core, trace, model):
             output.frame('ready', source_commit=source.commit,
                          source_manifest_sha256=source.manifest,
                          blueprint_artifact_sha256=artifact_hash,
-                         blueprint_sha256=runtime.blueprint_sha256, evidentiary=False)
+                         blueprint_sha256=runtime.blueprint_sha256, evidentiary=False,
+                         **({} if identity is None else dict(provider=identity.provider,
+                                                            config_sha256=identity.config_sha256)))
         while not runtime.hand_complete:
             try:
                 raw = sys.stdin.buffer.readline(FRAME_LIMIT + 1)
@@ -312,12 +323,26 @@ def run_session(runtime, output, source, artifact_hash, core, trace, model):
                 runtime.record(codes.INVALID_EVENT)
                 break
             outcome = runtime.dispatch_frame(raw)
-            with runtime.owned_bookkeeping(body_failure=codes.TRACE_WRITE_FAILED, required=True):
+            attempted = False
+            def publish_event():
+                nonlocal attempted
+                attempted = True
                 output.frame('event_result', event_index=runtime.event_index, status=outcome.status,
                              decision=None if outcome.decision is None else
-                             trace.decision_payload(outcome.decision),
+                             (provider_codec or trace).decision_payload(outcome.decision),
                              failure=None if outcome.failure is None else
                              trace.failure_payload(outcome.failure))
+            try:
+                with runtime.owned_bookkeeping(body_failure=codes.TRACE_WRITE_FAILED,
+                                               required=True):
+                    publish_event()
+            except core.OperationFailed:
+                if (provider_codec is None or outcome.status != 'failed' or attempted
+                        or outcome.decision is None):
+                    raise
+                # Retain a constructed v2 failure even when no further interval can
+                # open. Accounting stays incomplete; an attempted write is never retried.
+                publish_event()
             if outcome.status == 'failed':
                 break
         if runtime.hand_complete and not runtime.closure_failures:
@@ -375,21 +400,30 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, allow_abbrev=False)
     parser.add_argument('--blueprint', required=True)
     parser.add_argument('--session-id', required=True)
+    parser.add_argument('--strategy', choices=('blueprint-v1', 'baseline-rules-v1'),
+                        default='blueprint-v1')
     try:
         args = parser.parse_args(argv)
-        require(re.fullmatch(re.escape(PREFIX) + '[A-Za-z0-9_-]{1,64}', args.session_id),
+        baseline = args.strategy == 'baseline-rules-v1'
+        protocol = 'pontius-v0a-event-interface-v2' if baseline else PROTOCOL
+        require(re.fullmatch(re.escape(protocol + '-correctness-') + '[A-Za-z0-9_-]{1,64}',
+                             args.session_id),
                 'IDENTITY: invalid correctness session')
         source = Source(Path.cwd())
         raw = checked_path(Path(args.blueprint)).read_bytes()
         codec, model, core, clock, trace = source.load()
         blueprint = codec.decode_blueprint(raw)
+        identity = (source.providers.make_provider(args.strategy, blueprint).identity
+                    if baseline else None)
         msvcrt.setmode(sys.stdin.fileno(), os.O_BINARY)
         msvcrt.setmode(sys.stdout.fileno(), os.O_BINARY)
-        output = PipeOutput(args.session_id, model, trace, sys.stdout.fileno())
+        output = PipeOutput(args.session_id, model, trace, sys.stdout.fileno(), protocol)
         runtime = runtime_type(model, core, clock)(session_id=args.session_id,
-                                                   blueprint=blueprint, mailbox=output)
+            blueprint=blueprint, mailbox=output, strategy=args.strategy,
+            source_manifest_sha256=source.manifest if baseline else None)
         return run_session(runtime, output, source, hashlib.sha256(raw).hexdigest(),
-                           core, trace, model)
+                           core, trace, model, identity,
+                           source.provider_codec if baseline else None)
     except BaseException as error:
         return refuse(type(error).__name__)
 

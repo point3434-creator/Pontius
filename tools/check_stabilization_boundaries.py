@@ -53,6 +53,13 @@ V0A_PERMITTED_INTERNAL = frozenset(
 )
 V0A_HOST_ONLY_INTERNAL = frozenset({"pontius.river"})
 V0A_HOST_MODULE = "pontius.v0a.replay"
+DECISION_PROVIDER_ORIGIN_PATHS = frozenset(
+    f"src/pontius/decision_provider/{name}.py"
+    for name in ("__init__", "model", "providers", "selection", "codec")
+)
+_PROVIDER = "pontius.decision_provider"
+_PROVIDER_RUNTIME = {_PROVIDER + "." + name for name in ("model", "providers", "selection")}
+_PROVIDER_TRANSPORT = {_PROVIDER + "." + name for name in ("model", "providers", "codec")}
 BLUEPRINT_ARTIFACT_ORIGIN_PATHS = frozenset(
     {
         "src/pontius/blueprint_artifact/__init__.py",
@@ -178,6 +185,8 @@ def enforce_legacy_edges(baseline: object, current: object) -> None:
             or added.startswith("pontius.blueprint_artifact.")
             or added == "pontius.hand_scenario"
             or added.startswith("pontius.hand_scenario.")
+            or added in {_BASELINE.module_name_for_path(path)
+                         for path in DECISION_PROVIDER_ORIGIN_PATHS}
         )
         if not classified:
             violations.append(f"new source module lacks stabilization classification: {added}")
@@ -249,6 +258,13 @@ def enforce_origin_classification(
             or path.startswith("src/pontius/v0a/")
         )
         and path not in V0A_ORIGIN_PATHS
+    )
+    violations.extend(
+        f"unclassified stabilization origin: {path}"
+        for path in sorted(current_sources)
+        if (path == "src/pontius/decision_provider.py"
+            or path.startswith("src/pontius/decision_provider/"))
+        and path not in DECISION_PROVIDER_ORIGIN_PATHS
     )
     violations.extend(
         f"unclassified stabilization origin: {path}"
@@ -343,6 +359,8 @@ def enforce_v0a_import_policy(sources: Mapping[str, bytes]) -> None:
             continue
         if target in V0A_HOST_ONLY_INTERNAL and origin == V0A_HOST_MODULE:
             continue
+        if origin == "pontius.v0a.runtime" and target in _PROVIDER_RUNTIME:
+            continue
         violations.append(f"forbidden v0a import: {origin} -> {target}")
     _raise_violations(violations)
 
@@ -376,9 +394,55 @@ def enforce_orchestration_import_policy(sources: Mapping[str, bytes]) -> None:
             "pontius.blueprint_artifact.codec", "pontius.no_limit_betting",
             "pontius.holdem_cards", "pontius.legal_decision_spine_v2",
             "pontius.v0a.model", "pontius.v0a.trace"}
+        provider_internal = (origin in {"tools.v0a_event_adapter", "tools.v0a_table_host"}
+                             and target in _PROVIDER_TRANSPORT)
         if (not _is_stdlib(target) and not sibling and not driver_internal
-                and not adapter_internal and not event_internal and not table_internal):
+                and not adapter_internal and not event_internal and not table_internal
+                and not provider_internal):
             violations.append(f"forbidden orchestration import: {origin} -> {target}")
+    _raise_violations(violations)
+
+
+def enforce_decision_provider_import_policy(sources: Mapping[str, bytes]) -> None:
+    """ADR-0505: exact trusted provider sources, with no complete-deal or I/O routes."""
+    allowed = {
+        _PROVIDER: set(),
+        _PROVIDER + ".model": {"__future__", "dataclasses", "enum", "hashlib", "json", "math",
+            "pontius.holdem_cards", "pontius.no_limit_betting", "pontius.immutable_blueprint",
+            "pontius.v0a.model"},
+        _PROVIDER + ".providers": {"__future__", "itertools", _PROVIDER + ".model",
+            "pontius.immutable_blueprint", "pontius.no_limit_betting", "pontius.river"},
+        _PROVIDER + ".selection": {"__future__", _PROVIDER + ".model", _PROVIDER + ".providers",
+            "pontius.immutable_blueprint", "pontius.no_limit_betting"},
+        _PROVIDER + ".codec": {"__future__", "json", "math", _PROVIDER + ".model",
+            "pontius.v0a.model", "pontius.v0a.trace"},
+    }
+    incoming = {"pontius.v0a.runtime": _PROVIDER_RUNTIME,
+        "tools.v0a_event_adapter": _PROVIDER_TRANSPORT,
+        "tools.v0a_table_host": _PROVIDER_TRANSPORT}
+    violations = []
+    for origin, target in _BASELINE.import_edges(sources):
+        if origin in allowed and target not in allowed[origin]:
+            violations.append(f"forbidden decision provider import: {origin} -> {target}")
+        if (target == _PROVIDER or target.startswith(_PROVIDER + ".")) and not (
+            target in allowed.get(origin, set()) or target in incoming.get(origin, set())
+        ):
+            violations.append(f"forbidden decision provider incoming edge: {origin} -> {target}")
+    forbidden = {"SixSeatHoldemDeal", "__import__", "__builtins__", "eval", "exec", "compile",
+        "open", "input", "globals", "locals", "vars", "modules",
+        "import_module", "exec_module", "load_module", "run_module", "run_path"}
+    for path in sorted(DECISION_PROVIDER_ORIGIN_PATHS & sources.keys()):
+        tree = _BASELINE._parse_source(sources[path], relative_path=path)
+        if path.endswith("/__init__.py") and any(not (isinstance(node, ast.Expr)
+            and isinstance(node.value, ast.Constant) and type(node.value.value) is str)
+            for node in tree.body):
+            violations.append("decision_provider package initializer must be inert")
+        for node in ast.walk(tree):
+            if (isinstance(node, ast.Name) and node.id in forbidden or
+                isinstance(node, ast.Attribute) and node.attr in forbidden or
+                isinstance(node, ast.ImportFrom) and any(
+                    alias.name == "*" or alias.name in forbidden for alias in node.names)):
+                violations.append(f"forbidden decision provider route: {path}:{node.lineno}")
     _raise_violations(violations)
 
 
@@ -443,6 +507,7 @@ def enforce_event_adapter_import_policy(sources: Mapping[str, bytes]) -> None:
         "pontius.blueprint_artifact.codec", "pontius.v0a.model",
         "pontius.v0a.runtime", "pontius.v0a.clock", "pontius.v0a.trace",
     }
+    allowed |= _PROVIDER_TRANSPORT
     violations = [
         f"forbidden event adapter import: {edge_origin} -> {target}"
         for edge_origin, target in _BASELINE.import_edges(sources)
@@ -460,6 +525,7 @@ def enforce_table_host_import_policy(sources: Mapping[str, bytes]) -> None:
         "pontius.holdem_cards", "pontius.legal_decision_spine_v2", "pontius.v0a.model",
         "pontius.v0a.trace",
     }
+    allowed |= _PROVIDER_TRANSPORT
     _raise_violations([
         f"forbidden table host import: {origin} -> {target}"
         for origin, target in _BASELINE.import_edges(sources)
@@ -492,7 +558,7 @@ def enforce_table_session_import_policy(sources: Mapping[str, bytes]) -> None:
                         )
         if bindings != {
             "HOST": ["tools/v0a_table_host.py"],
-            "HOST_BLOB": ["0faa101f9be9940f9ae935df51f8c79e2eeb2b15"],
+            "HOST_BLOB": ["6ec8a162b053158203663c48e82314b10750f962"],
         }:
             violations.append("table session fixed host binding differs from ADR-0499")
     _raise_violations(violations)
@@ -699,6 +765,7 @@ def check_repository(repository_root: Path) -> None:
     enforce_no_new_or_expanded_scc(parsed.graph, current_graph)
     enforce_evidence_import_policy(current_sources)
     enforce_v0a_import_policy(current_sources)
+    enforce_decision_provider_import_policy({**current_sources, **tool_sources})
     enforce_blueprint_artifact_import_policy({**current_sources, **tool_sources})
     enforce_hand_adapter_import_policy({**current_sources, **tool_sources})
     enforce_event_adapter_import_policy({**current_sources, **tool_sources})

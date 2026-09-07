@@ -154,6 +154,8 @@ DECLARED_SKIPS = {
     ),
 }
 STABILIZATION_TEST_FILES = frozenset({
+    "tests/test_decision_provider.py", "tests/test_decision_provider_runtime.py",
+    "tests/test_decision_provider_session.py", "tests/test_decision_provider_transport.py",
     "tests/evidence_test_support.py",
     "tests/orchestration_test_support.py",
     "tests/test_blueprint_artifact.py", "tests/test_hand_scenario.py",

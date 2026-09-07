@@ -25,7 +25,11 @@ PREFIX = 'pontius-v0a-table-host-v1-correctness-'
 POLICIES = ('passive', 'fold_to_bet', 'min_raise_once', 'shove_once')
 EVENT_LIMIT = ACTION_LIMIT = 256
 CREATE_SUSPENDED = 0x00000004
-BASE = '1329c2c201bbf2f396946f2ebf460ee944ae4ece'
+BASE = 'e205cd8cd6f46a50db8b2d0cb1f39366da0f2767'
+ADDITIONS = tuple('src/pontius/decision_provider/' + name + '.py'
+                  for name in ('__init__', 'model', 'providers', 'selection', 'codec'))
+EXCEPTIONS = ('src/pontius/v0a/runtime.py', 'tools/v0a_hand_adapter.py',
+              'tools/v0a_event_adapter.py', 'tools/v0a_table_host.py')
 TOOLS = ('tools/v0a_table_host.py', 'tools/v0a_event_adapter.py',
          'tools/v0a_hand_adapter.py', 'tools/v0a_rehearsal_driver.py')
 
@@ -101,6 +105,9 @@ class Modules:
     spine: object
     model: object
     trace: object
+    provider_model: object = None
+    providers: object = None
+    provider_codec: object = None
 
 
 def checked_path(path, *, directory=False, d_local=True):
@@ -155,8 +162,9 @@ class Source:
                     if not k.upper().startswith(('GIT_', 'PYTHON', 'PONTIUS_'))}
         self.commit = self.head()
         current, inherited = self.inventory(self.commit), self.inventory(BASE)
-        require(set(current) == set(inherited) | {TOOLS[0]}
-                and all(current[p] == oid for p, oid in inherited.items()), 'source_invalid')
+        require(set(current) == set(inherited) | set(ADDITIONS)
+                and all(current[p] == oid for p, oid in inherited.items()
+                        if p not in EXCEPTIONS), 'source_invalid')
         stream = io.BytesIO(self.command('cat-file', '--batch',
             content=('\n'.join(current.values()) + '\n').encode('ascii')))
         self.expected = {}
@@ -230,8 +238,12 @@ class Source:
         import pontius.legal_decision_spine_v2 as spine
         import pontius.v0a.model as model
         import pontius.v0a.trace as trace
+        import pontius.decision_provider.model as provider_model
+        import pontius.decision_provider.providers as providers
+        import pontius.decision_provider.codec as provider_codec
         self.check()
-        return Modules(codec, betting, cards, spine, model, trace)
+        return Modules(codec, betting, cards, spine, model, trace,
+                       provider_model, providers, provider_codec)
 
 
 @dataclass(frozen=True)
@@ -511,7 +523,7 @@ BOOTSTRAP = (
 
 class ChildConnection:
     """Bound all transport waits without moving game mutation into I/O workers."""
-    def __init__(self, source, blueprint_path, child_id, failures):
+    def __init__(self, source, blueprint_path, child_id, failures, strategy='blueprint-v1'):
         self.failures, self.proc, self.job = failures, None, None
         self.frames, self.writes = queue.Queue(8), queue.Queue(1)
         self.stop, self.threads = threading.Event(), []
@@ -528,7 +540,8 @@ class ChildConnection:
             phase = 'process_start_failed'
             self.proc = subprocess.Popen([str(source.python), '-B', '-P', '-S', '-c', BOOTSTRAP,
                 str(source.repo / TOOLS[1]), '--blueprint', str(blueprint_path),
-                '--session-id', child_id], cwd=source.repo, env=environment, stdin=subprocess.PIPE,
+                '--session-id', child_id, '--strategy', strategy], cwd=source.repo,
+                env=environment, stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, bufsize=0, close_fds=True,
                 creationflags=subprocess.CREATE_NO_WINDOW | CREATE_SUSPENDED)
             phase = 'containment_failed'
@@ -694,22 +707,38 @@ def finite_seconds(value):
 
 
 class WireConsumer:
-    def __init__(self, connection, source, table, artifact_hash, policy_hash):
+    def __init__(self, connection, source, table, artifact_hash, policy_hash,
+                 identity=None, blueprint=None):
         self.connection, self.source, self.table = connection, source, table
         self.artifact_hash, self.policy_hash = artifact_hash, policy_hash
         self.model = table.modules.model
+        self.identity = identity
+        self.protocol = 'pontius-v0a-event-interface-v2' if identity is not None else PROTOCOL
+        self.reasons = {}
+        if identity is not None:
+            try:
+                codec = table.modules.codec
+                self.blueprint = codec.decode_blueprint(codec.encode_blueprint(blueprint))
+            except (TypeError, ValueError) as error:
+                raise HostRefusal('source_invalid') from error
+            require(self.blueprint.digest == policy_hash, 'source_invalid')
 
     def read(self, kind, deadline):
         raw = self.connection.receive(deadline)
         require(type(raw) is bytes and raw.endswith(b'\n'), 'protocol_invalid')
         row = decode_json(raw, code='protocol_invalid', digits=640, floats=True)
         require(type(row) is dict and type(row.get('type')) is str and row['type'] in WIRE_FIELDS)
-        exact_object(row, 'protocol session_id type ' + WIRE_FIELDS[row['type']])
-        require(row['protocol'] == PROTOCOL and row['session_id'] == self.table.child_id)
+        extra = (' provider config_sha256'
+                 if self.identity is not None and row['type'] == 'ready' else '')
+        exact_object(row, 'protocol session_id type ' + WIRE_FIELDS[row['type']] + extra)
+        require(row['protocol'] == self.protocol and row['session_id'] == self.table.child_id)
         if kind == 'action' and row['type'] == 'event_result' and row['status'] == 'failed':
             require(integer(row['event_index']) and row['event_index'] == self.table.event_index
-                    and row['decision'] is None)
-            self.failure(row['failure'])
+                    and (row['decision'] is None or self.identity is not None))
+            if row['decision'] is not None:
+                self.decision(row['decision'], self.pending_expected, successful=False)
+                require(row['decision']['delivery_status'] != 'accepted')
+            self.failure(row['failure'], row['decision'] if self.identity is not None else None)
             raise HostRefusal('child_failed')
         require(row['type'] == kind)
         return row
@@ -741,7 +770,7 @@ class WireConsumer:
                         - result.elapsed_ns / 1e9) <= 2e-9)
         return result
 
-    def failure(self, value):
+    def failure(self, value, decision=None):
         exact_object(value, 'hand_id event_index action_index code delivery_status '
                      'delivered_action timing')
         try:
@@ -755,6 +784,11 @@ class WireConsumer:
             self.model.FailureRecord(**parsed)
         except (ValueError, TypeError) as error:
             raise HostRefusal('protocol_invalid') from error
+        if decision is not None:
+            require(value['code'] == decision['failure_reason']
+                    and all(value[key] == decision[key] for key in (
+                        'hand_id', 'event_index', 'action_index', 'delivery_status',
+                        'delivered_action', 'timing')))
 
     def ready(self):
         row = self.read('ready', self.connection.startup_deadline)
@@ -762,8 +796,67 @@ class WireConsumer:
                 and row['source_manifest_sha256'] == self.source.child_manifest
                 and row['blueprint_artifact_sha256'] == self.artifact_hash
                 and row['blueprint_sha256'] == self.policy_hash and row['evidentiary'] is False)
+        if self.identity is not None:
+            require(row['provider'] == self.identity.provider
+                    and row['config_sha256'] == self.identity.config_sha256)
 
-    def decision(self, value, expected):
+    def provider_expected(self):
+        table, modules = self.table, self.table.modules
+        self.context_state = table.state
+        observation = modules.provider_model.DecisionObservation(
+            version='pontius-decision-observation-v1', hand_id=table.child_id,
+            action_index=table.bot_index + 1, cards=table.views[table.config.controlled_seat],
+            betting=table.state, decision=table.state.legal_decision(), remaining_work_ns=0)
+        fallback = self.blueprint.action_for(cards=observation.cards, betting=observation.betting,
+                                            decision=observation.decision)
+        return dict(hand_id=table.child_id, event_index=table.event_index,
+            action_index=table.bot_index + 1, street_action_index=table.street_index + 1,
+            seat=table.config.controlled_seat, street=table.state.street.value,
+            state_before_sha256=modules.spine.public_betting_state_sha256(table.state),
+            visible_cards_sha256=modules.model.visible_cards_sha256(observation.cards),
+            decision_sha256=observation.decision_sha256,
+            source_manifest_sha256=self.source.child_manifest, provider=self.identity.provider,
+            config_sha256=self.identity.config_sha256, fallback_blueprint_sha256=self.policy_hash,
+            fallback_action=modules.trace.action_payload(
+                self.model.HandAction.from_betting_action(fallback.action)),
+            fallback_reason='table_hit' if fallback.table_hit else 'passive_default')
+
+    def decision(self, value, expected, *, successful=True):
+        if self.identity is not None:
+            try:
+                self.table.modules.provider_codec.validate_decision(value)
+                self.context_state.apply_action(
+                    self.action(value['fallback_action']).to_betting_action())
+                changed = self.context_state.apply_action(
+                    self.action(value['selected_action']).to_betting_action())
+            except (ValueError, TypeError) as error:
+                raise HostRefusal('protocol_invalid') from error
+            require(all(value[k] == v for k, v in expected.items()), 'state_mismatch')
+            proposal = value['proposal']
+            if proposal is not None:
+                valid = proposal['decision_sha256'] == value['decision_sha256']
+                if proposal['action'] is not None:
+                    try:
+                        self.context_state.apply_action(
+                            self.action(proposal['action']).to_betting_action())
+                    except (ValueError, TypeError):
+                        valid = False
+                require(valid == (value['provider_outcome'] in ('proposed', 'abstained')),
+                        'state_mismatch')
+            if value['applied_action'] is not None:
+                require(value['state_after_sha256'] ==
+                        self.table.modules.spine.public_betting_state_sha256(changed),
+                        'state_mismatch')
+            if successful:
+                timing = self.timing(value['timing'])
+                require(value['failure_reason'] is None
+                        and timing.status == self.model.TimingStatus.COMPLETED
+                        and value['delivery_status'] == 'accepted'
+                        and value['delivered_action'] == value['applied_action'])
+                reason = (value['proposal']['reason'] if value['selection_origin'] == 'provider'
+                          else 'fallback_' + value['selection_reason'])
+                self.reasons[value['action_index']] = reason
+            return
         exact_object(value, 'hand_id event_index action_index street_action_index seat street '
                      'state_before_sha256 state_after_sha256 visible_cards_sha256 blueprint_sha256 '
                      'selected_action selection_reason spine_reason timing preparation_use '
@@ -791,6 +884,8 @@ class WireConsumer:
         self.connection.send((json.dumps(event, separators=(',', ':')) + '\n').encode(), deadline)
         expected = None
         if table.expects_action():
+            provider_expected = self.provider_expected() if self.identity is not None else None
+            self.pending_expected = provider_expected
             row = self.read('action', deadline)
             require(integer(row['action_index'], 1) and integer(row['seat'], 0, 5)
                     and row['hand_id'] == table.child_id
@@ -805,6 +900,9 @@ class WireConsumer:
                 visible_cards_sha256=modules.model.visible_cards_sha256(
                     table.views[table.config.controlled_seat]),
                 blueprint_sha256=self.policy_hash, selected_action=row['action'])
+            if provider_expected is not None:
+                expected = dict(provider_expected, selected_action=row['action'],
+                                applied_action=row['action'])
             table.apply_bot(action)
             expected['state_after_sha256'] = modules.spine.public_betting_state_sha256(table.state)
         row = self.read('event_result', deadline)
@@ -812,8 +910,11 @@ class WireConsumer:
                 and type(row['status']) is str
                 and row['status'] in ('accepted', 'decided', 'failed'))
         if row['status'] == 'failed':
-            require(row['decision'] is None)
-            self.failure(row['failure'])
+            require(row['decision'] is None or self.identity is not None)
+            if row['decision'] is not None:
+                require(expected is not None)
+                self.decision(row['decision'], expected, successful=False)
+            self.failure(row['failure'], row['decision'] if self.identity is not None else None)
             raise HostRefusal('child_failed')
         require(row['failure'] is None)
         if expected is None:
@@ -890,11 +991,18 @@ def main(argv=None):
         parser = argparse.ArgumentParser(description=__doc__, allow_abbrev=False, add_help=False)
         for flag in ('table', 'blueprint', 'session-id'):
             parser.add_argument('--' + flag, required=True)
+        parser.add_argument('--strategy', choices=('blueprint-v1', 'baseline-rules-v1'),
+                            default='blueprint-v1')
         args = parser.parse_args(argv)
+        baseline = args.strategy == 'baseline-rules-v1'
+        prefix = 'pontius-v0a-table-host-v2-correctness-' if baseline else PREFIX
+        protocol = 'pontius-v0a-event-interface-v2' if baseline else PROTOCOL
+        if baseline:
+            report.update(version='pontius-v0a-table-result-v2', provider=None, config_sha256=None)
         report['session_id'] = args.session_id
-        require(re.fullmatch(re.escape(PREFIX) + '[A-Za-z0-9_-]{1,48}', args.session_id),
+        require(re.fullmatch(re.escape(prefix) + '[A-Za-z0-9_-]{1,48}', args.session_id),
                 'input_invalid')
-        child_id = PROTOCOL + '-correctness-table-' + args.session_id[len(PREFIX):]
+        child_id = protocol + '-correctness-table-' + args.session_id[len(prefix):]
         phase = 'source_invalid'
         source = Source(Path.cwd())
         report['source_commit'] = source.commit
@@ -909,11 +1017,17 @@ def main(argv=None):
         config = TableInput.decode(table_input.raw, modules)
         blueprint = modules.codec.decode_blueprint(blueprint_input.raw)
         report['blueprint_sha256'] = blueprint.digest
+        identity = (modules.providers.make_provider(args.strategy, blueprint).identity
+                    if baseline else None)
+        if baseline:
+            report.update(provider=identity.provider, config_sha256=identity.config_sha256)
         table = Table(config, modules, child_id)
         phase = 'process_start_failed'
-        connection = ChildConnection(source, blueprint_input.path, child_id, failures)
+        connection = ChildConnection(source, blueprint_input.path, child_id,
+                                     failures, args.strategy)
         consumer = WireConsumer(connection, source, table, report['blueprint_artifact_sha256'],
-                                report['blueprint_sha256'])
+                                report['blueprint_sha256'], identity,
+                                blueprint if baseline else None)
         phase = 'protocol_invalid'
         consumer.ready()
         event = table.start_event()

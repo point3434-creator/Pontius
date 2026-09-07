@@ -482,10 +482,11 @@ class RegistrationPolicyTests(unittest.TestCase):
         raw = TOOL.read_bytes()
         key = 'tools/v0a_table_session.py'
         checker.enforce_table_session_import_policy({key: raw})
+        self.assertEqual(raw.count(b'6ec8a162b053158203663c48e82314b10750f962'), 1)
         for changed in (raw + b'\nimport signal\n', raw + b'\nimport pontius.v0a.runtime\n',
                         raw + b'\nimport tools.v0a_event_adapter\n',
                         raw.replace(b'tools/v0a_table_host.py', b'tools/v0a_event_adapter.py'),
-                        raw.replace(b'0faa101f9be9940f9ae935df51f8c79e2eeb2b15', b'0'*40)):
+                        raw.replace(b'6ec8a162b053158203663c48e82314b10750f962', b'0'*40)):
             with self.assertRaises(checker.BoundaryError):
                 checker.enforce_table_session_import_policy({key: changed})
 

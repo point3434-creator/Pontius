@@ -236,9 +236,9 @@ STABILIZATION_TEST_FILES = (
     "tests/test_test_orchestration_workspace.py",
     "tests/test_v0a_contract_faults.py",
     "tests/test_v0a_evaluation_boundary.py", "tests/test_v0a_evaluation_contract.py",
-    "tests/test_v0a_evaluation_runner.py", "tests/test_v0a_event_adapter.py",
-    "tests/test_v0a_event_adapter_boundary.py", "tests/test_v0a_hand_adapter.py",
-    "tests/test_v0a_hand_replay.py",
+    "tests/test_v0a_evaluation_runner.py", "tests/test_v0a_evaluation_v2.py",
+    "tests/test_v0a_event_adapter.py", "tests/test_v0a_event_adapter_boundary.py",
+    "tests/test_v0a_hand_adapter.py", "tests/test_v0a_hand_replay.py",
     "tests/test_v0a_rehearsal_driver.py",
     "tests/test_v0a_replay.py",
     "tests/test_v0a_table_host.py", "tests/test_v0a_table_host_boundary.py",
@@ -30024,7 +30024,7 @@ class CheckedInInventoryTests(unittest.TestCase):
             ["unsupported subprocess keyword: capture_output"],
         )
         blockers = review["unresolved_dynamic_blockers"]
-        self.assertEqual(len(blockers), 693)
+        self.assertEqual(len(blockers), 695)
         self.assertEqual(
             Counter(row["reason"] for row in blockers),
             Counter(
@@ -30037,7 +30037,7 @@ class CheckedInInventoryTests(unittest.TestCase):
                     "CuPy action or view is outside the approved call scope": 11,
                     "dynamic repetition prevents a finite call bound": 2,
                     "dynamic repetition prevents a finite helper call bound": 1,
-                    "mixed protected receiver is dynamically unresolved": 67,
+                    "mixed protected receiver is dynamically unresolved": 68,
                     "unsupported subprocess keyword: stdin": 15,
                     "registered probe implementation is absent": 1,
                     "dynamic sensitive call result is unresolved": 16,
@@ -30046,7 +30046,7 @@ class CheckedInInventoryTests(unittest.TestCase):
                     "protected value store target is dynamically unresolved": 6,
                     "local class decorator runtime target is dynamically unresolved": 4,
                     "max/min iterable contents are dynamically unresolved": 102,
-                    "max/min comparison dispatch is dynamically unresolved": 36,
+                    "max/min comparison dispatch is dynamically unresolved": 37,
                     "callback closure": 1,
                     "unittest instance or class binding is dynamically unresolved": 10,
                     "protected namespace member mutation is dynamically unresolved": 3,

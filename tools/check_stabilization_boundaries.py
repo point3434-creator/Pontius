@@ -86,6 +86,7 @@ ORCHESTRATION_ORIGIN_PATHS = frozenset(
         "tools/v0a_table_session.py",
         "tools/v0a_seeded_deals.py",
         "tools/v0a_evaluation.py",
+        "tools/v0a_evaluation_v2.py",
         "tools/v0a_evaluation_contract.py",
         "tools/test_orchestration/__init__.py",
         "tools/test_orchestration/configuration.py",
@@ -606,6 +607,7 @@ def enforce_evaluation_import_policy(sources: Mapping[str, bytes]) -> None:
         "tools/v0a_evaluation.py": {"__future__", "argparse", "ctypes", "hashlib", "json", "os",
             "pathlib", "re", "stat", "subprocess", "sys", "threading", "time", "types"},
     }
+    policies["tools/v0a_evaluation_v2.py"] = policies["tools/v0a_evaluation.py"]
     fixed = ast.parse("""
 OLD = tuple('tools/' + n + '.py' for n in ('v0a_rehearsal_driver', 'v0a_hand_adapter',
     'v0a_event_adapter', 'v0a_table_host', 'v0a_table_session', 'v0a_seeded_deals'))
@@ -630,12 +632,15 @@ for alias, path in zip(ALIASES, (NEW[1], OLD[5], OLD[3])):
         if path not in sources:
             continue
         tree = _BASELINE._parse_source(sources[path], relative_path=path)
-        wrapper = path == "tools/v0a_evaluation.py"
+        wrapper = path in ("tools/v0a_evaluation.py", "tools/v0a_evaluation_v2.py")
         routes = [n for n in ast.walk(tree) if isinstance(n, ast.Name)
                   and n.id in {"exec", "compile"}]
         if wrapper:
             for expected in fixed:
                 name = expected.targets[0].id
+                if name == "NEW":
+                    expected = ast.parse(
+                        f"NEW = ({path!r}, 'tools/v0a_evaluation_contract.py')").body[0]
                 actual = [n for n in tree.body if isinstance(n, ast.Assign) and any(
                     isinstance(t, ast.Name) and t.id == name for t in n.targets)]
                 if len(actual) != 1 or ast.dump(actual[0]) != ast.dump(expected):

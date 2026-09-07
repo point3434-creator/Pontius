@@ -188,6 +188,25 @@ jobs:
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_v0a_evaluation_boundary.py
 
+      - name: Paired evaluation v2 bounded-read suite
+        if: ${{ !cancelled() }}
+        run: |
+          # Native source admission requires D:, outside the D:\a reparse workspace.
+          $v2Root = 'D:\pv2'
+          $v2Temp = 'D:\ptv2'
+          $v2Origin = 'C:\px\Pontius'
+          & $env:PONTIUS_GIT -c core.autocrlf=false clone --shared --no-checkout $v2Origin $v2Root
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & $env:PONTIUS_GIT -C $v2Root -c core.autocrlf=false checkout --detach ${{ github.sha }}
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          New-Item -ItemType Directory -ErrorAction Stop $v2Temp | Out-Null
+          $env:TEMP = $v2Temp
+          $env:TMP = $v2Temp
+          $env:PYTHONPATH = Join-Path $v2Root 'src'
+          Set-Location -LiteralPath $v2Root
+          & 'C:\px\Pontius\.venv\Scripts\python.exe' -B -P tests\test_v0a_evaluation_v2.py
+          exit $LASTEXITCODE
+
       - name: v0a trace suite
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_v0a_trace.py

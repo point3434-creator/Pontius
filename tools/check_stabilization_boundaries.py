@@ -57,6 +57,11 @@ DECISION_PROVIDER_ORIGIN_PATHS = frozenset(
     f"src/pontius/decision_provider/{name}.py"
     for name in ("__init__", "model", "providers", "selection", "codec")
 )
+BLUEPRINT_PREPARATION_ORIGIN_PATHS = frozenset(
+    {"src/pontius/blueprint_preparation/__init__.py",
+     "src/pontius/blueprint_preparation/lookup.py"}
+)
+_PREPARED_LOOKUP = "pontius.blueprint_preparation.lookup"
 _PROVIDER = "pontius.decision_provider"
 _PROVIDER_RUNTIME = {_PROVIDER + "." + name for name in ("model", "providers", "selection")}
 _PROVIDER_TRANSPORT = {_PROVIDER + "." + name for name in ("model", "providers", "codec")}
@@ -87,7 +92,9 @@ ORCHESTRATION_ORIGIN_PATHS = frozenset(
         "tools/v0a_seeded_deals.py",
         "tools/v0a_evaluation.py",
         "tools/v0a_evaluation_v2.py",
+        "tools/v0a_evaluation_v3.py",
         "tools/v0a_evaluation_contract.py",
+        "tools/run_evaluation_history.py",
         "tools/test_orchestration/__init__.py",
         "tools/test_orchestration/configuration.py",
         "tools/test_orchestration/engine.py",
@@ -190,6 +197,8 @@ def enforce_legacy_edges(baseline: object, current: object) -> None:
             or added.startswith("pontius.hand_scenario.")
             or added in {_BASELINE.module_name_for_path(path)
                          for path in DECISION_PROVIDER_ORIGIN_PATHS}
+            or added in {_BASELINE.module_name_for_path(path)
+                         for path in BLUEPRINT_PREPARATION_ORIGIN_PATHS}
         )
         if not classified:
             violations.append(f"new source module lacks stabilization classification: {added}")
@@ -268,6 +277,13 @@ def enforce_origin_classification(
         if (path == "src/pontius/decision_provider.py"
             or path.startswith("src/pontius/decision_provider/"))
         and path not in DECISION_PROVIDER_ORIGIN_PATHS
+    )
+    violations.extend(
+        f"unclassified stabilization origin: {path}"
+        for path in sorted(current_sources)
+        if (path == "src/pontius/blueprint_preparation.py"
+            or path.startswith("src/pontius/blueprint_preparation/"))
+        and path not in BLUEPRINT_PREPARATION_ORIGIN_PATHS
     )
     violations.extend(
         f"unclassified stabilization origin: {path}"
@@ -364,6 +380,8 @@ def enforce_v0a_import_policy(sources: Mapping[str, bytes]) -> None:
             continue
         if origin == "pontius.v0a.runtime" and target in _PROVIDER_RUNTIME:
             continue
+        if origin == "pontius.v0a.runtime" and target == _PREPARED_LOOKUP:
+            continue
         violations.append(f"forbidden v0a import: {origin} -> {target}")
     _raise_violations(violations)
 
@@ -421,6 +439,7 @@ def enforce_decision_provider_import_policy(sources: Mapping[str, bytes]) -> Non
             "pontius.v0a.model", "pontius.v0a.trace"},
     }
     incoming = {"pontius.v0a.runtime": _PROVIDER_RUNTIME,
+        _PREPARED_LOOKUP: {_PROVIDER + ".model"},
         "tools.v0a_event_adapter": _PROVIDER_TRANSPORT,
         "tools.v0a_table_host": _PROVIDER_TRANSPORT}
     violations = []
@@ -446,6 +465,40 @@ def enforce_decision_provider_import_policy(sources: Mapping[str, bytes]) -> Non
                 isinstance(node, ast.ImportFrom) and any(
                     alias.name == "*" or alias.name in forbidden for alias in node.names)):
                 violations.append(f"forbidden decision provider route: {path}:{node.lineno}")
+    _raise_violations(violations)
+
+
+def enforce_blueprint_preparation_import_policy(sources: Mapping[str, bytes]) -> None:
+    """ADR-0513: one owned value lookup and its exact runtime incoming edge."""
+    family = "pontius.blueprint_preparation"
+    allowed = {"__future__", "dataclasses", "hashlib", "types", _PROVIDER + ".model",
+               "pontius.immutable_blueprint", "pontius.no_limit_betting"}
+    forbidden = {"SixSeatHoldemDeal", "__import__", "__builtins__", "eval", "exec", "compile",
+        "open", "input", "globals", "locals", "vars", "modules",
+        "import_module", "exec_module", "load_module", "run_module", "run_path"}
+    violations = []
+    for origin, target in _BASELINE.import_edges(sources):
+        if (origin == family or origin.startswith(family + ".")) and not (
+            origin == _PREPARED_LOOKUP and target in allowed
+        ):
+            violations.append(f"forbidden blueprint preparation import: {origin} -> {target}")
+        if (target == family or target.startswith(family + ".")) and not (
+            origin == "pontius.v0a.runtime" and target == _PREPARED_LOOKUP
+        ):
+            violations.append(
+                f"forbidden blueprint preparation incoming edge: {origin} -> {target}")
+    for path in sorted(BLUEPRINT_PREPARATION_ORIGIN_PATHS & sources.keys()):
+        tree = _BASELINE._parse_source(sources[path], relative_path=path)
+        if path.endswith("/__init__.py") and any(not (isinstance(node, ast.Expr)
+            and isinstance(node.value, ast.Constant) and type(node.value.value) is str)
+            for node in tree.body):
+            violations.append("blueprint_preparation package initializer must be inert")
+        for node in ast.walk(tree):
+            if (isinstance(node, ast.Name) and node.id in forbidden or
+                isinstance(node, ast.Attribute) and node.attr in forbidden or
+                isinstance(node, ast.ImportFrom) and any(
+                    alias.name == "*" or alias.name in forbidden for alias in node.names)):
+                violations.append(f"forbidden blueprint preparation route: {path}:{node.lineno}")
     _raise_violations(violations)
 
 
@@ -561,7 +614,7 @@ def enforce_table_session_import_policy(sources: Mapping[str, bytes]) -> None:
                         )
         if bindings != {
             "HOST": ["tools/v0a_table_host.py"],
-            "HOST_BLOB": ["6ec8a162b053158203663c48e82314b10750f962"],
+            "HOST_BLOB": ["7beb178989b3ff98b684093ce4022667a1c61ece"],
         }:
             violations.append("table session fixed host binding differs from ADR-0499")
     _raise_violations(violations)
@@ -608,6 +661,7 @@ def enforce_evaluation_import_policy(sources: Mapping[str, bytes]) -> None:
             "pathlib", "re", "stat", "subprocess", "sys", "threading", "time", "types"},
     }
     policies["tools/v0a_evaluation_v2.py"] = policies["tools/v0a_evaluation.py"]
+    policies["tools/v0a_evaluation_v3.py"] = policies["tools/v0a_evaluation.py"]
     fixed = ast.parse("""
 OLD = tuple('tools/' + n + '.py' for n in ('v0a_rehearsal_driver', 'v0a_hand_adapter',
     'v0a_event_adapter', 'v0a_table_host', 'v0a_table_session', 'v0a_seeded_deals'))
@@ -632,7 +686,8 @@ for alias, path in zip(ALIASES, (NEW[1], OLD[5], OLD[3])):
         if path not in sources:
             continue
         tree = _BASELINE._parse_source(sources[path], relative_path=path)
-        wrapper = path in ("tools/v0a_evaluation.py", "tools/v0a_evaluation_v2.py")
+        wrapper = path in ("tools/v0a_evaluation.py", "tools/v0a_evaluation_v2.py",
+                           "tools/v0a_evaluation_v3.py")
         routes = [n for n in ast.walk(tree) if isinstance(n, ast.Name)
                   and n.id in {"exec", "compile"}]
         if wrapper:
@@ -674,6 +729,63 @@ for alias, path in zip(ALIASES, (NEW[1], OLD[5], OLD[3])):
             if invalid:
                 violations.append(f"forbidden evaluation dependency at {path}:{node.lineno}")
     _raise_violations(violations)
+
+
+def enforce_evaluation_history_import_policy(sources: Mapping[str, bytes]) -> None:
+    """ADR-0513: fixed historical suites, exact CLI and standard-library-only origin."""
+    path = "tools/run_evaluation_history.py"
+    if path not in sources:
+        return
+    allowed = {"__future__", "argparse", "ctypes", "hashlib", "json", "os", "pathlib",
+               "re", "stat", "subprocess", "sys"}
+    forbidden = {"__import__", "__builtins__", "eval", "exec", "compile", "getattr",
+        "globals", "locals", "vars", "modules", "import_module", "exec_module",
+        "load_module", "run_module", "run_path"}
+    fixed = ast.parse("""
+BASE_COMMIT = '363c9fb669e19a30375537ee5e92ea338a840a2d'
+BASE_TREE = '10cc82ff78a84ef901242b2f69540f6a74ec498b'
+SUITES = {'runner': ('tests/test_v0a_evaluation_runner.py', 28),
+          'boundary': ('tests/test_v0a_evaluation_boundary.py', 19),
+          'v2': ('tests/test_v0a_evaluation_v2.py', 8)}
+""").body
+    arguments = ast.parse("""
+parser.add_argument('--source-root', type=Path, required=True)
+parser.add_argument('--run-root', type=Path, required=True)
+parser.add_argument('--suite', choices=(*SUITES, 'all'), required=True)
+""").body
+    tree = _BASELINE._parse_source(sources[path], relative_path=path)
+    violations = []
+    for expected in fixed:
+        name = expected.targets[0].id
+        actual = [node for node in tree.body if isinstance(node, ast.Assign) and any(
+            isinstance(target, ast.Name) and target.id == name for target in node.targets)]
+        if len(actual) != 1 or ast.dump(actual[0]) != ast.dump(expected):
+            violations.append(f"historical evaluation fixed {name} binding differs")
+    actual_arguments = [node for node in ast.walk(tree) if isinstance(node, ast.Call)
+                        and isinstance(node.func, ast.Attribute)
+                        and node.func.attr == "add_argument"]
+    if sorted(ast.dump(node) for node in actual_arguments) != sorted(
+        ast.dump(node.value) for node in arguments
+    ):
+        violations.append("historical evaluation fixed CLI arguments differ")
+    for origin, target in _BASELINE.import_edges(sources):
+        if target == "tools.run_evaluation_history":
+            violations.append(f"forbidden historical evaluation incoming edge: {origin}")
+    for node in ast.walk(tree):
+        invalid = False
+        if isinstance(node, ast.Import):
+            invalid = any(alias.name not in allowed for alias in node.names)
+        elif isinstance(node, ast.ImportFrom):
+            invalid = node.level or node.module not in allowed or any(
+                alias.name == "*" or alias.name.startswith("_") for alias in node.names)
+        elif isinstance(node, ast.Name):
+            invalid = node.id in forbidden
+        elif isinstance(node, ast.Attribute):
+            invalid = node.attr in forbidden
+        if invalid:
+            violations.append(f"forbidden historical evaluation dependency: {path}:{node.lineno}")
+    _raise_violations(violations)
+
 
 def _read_regular_source(path: Path, *, root: Path) -> object:
     try:
@@ -845,6 +957,7 @@ def check_repository(repository_root: Path) -> None:
     enforce_evidence_import_policy(current_sources)
     enforce_v0a_import_policy(current_sources)
     enforce_decision_provider_import_policy({**current_sources, **tool_sources})
+    enforce_blueprint_preparation_import_policy({**current_sources, **tool_sources})
     enforce_blueprint_artifact_import_policy({**current_sources, **tool_sources})
     enforce_hand_adapter_import_policy({**current_sources, **tool_sources})
     enforce_event_adapter_import_policy({**current_sources, **tool_sources})
@@ -852,6 +965,7 @@ def check_repository(repository_root: Path) -> None:
     enforce_table_session_import_policy({**current_sources, **tool_sources})
     enforce_seeded_deals_import_policy(tool_sources)
     enforce_evaluation_import_policy(tool_sources)
+    enforce_evaluation_history_import_policy({**current_sources, **tool_sources})
     enforce_orchestration_import_policy(tool_sources)
     _revalidate_repository_snapshot(
         baseline_snapshot, current_inventory, tool_inventory

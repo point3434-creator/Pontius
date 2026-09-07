@@ -84,6 +84,7 @@ SNAPSHOT_PAIRS = (
     ("cbfa3598f22c7aba7d824f71356ca156f8b01b0c", "9873ff13131c91b058307643dc838a8452268fbb"),
     ("56127da2970f5a8a8056a97a247ebe1fdf4b983b", "ee2437ba1b2efbf2dc4ab3c21bbacdbf26c58648"),
     ("aaca2dda40e29be8ebd091d58e7853bce1c62fd8", "e7bd077f40b1970e9b40a83c891996ab02cd5ffd"),
+    ("363c9fb669e19a30375537ee5e92ea338a840a2d", "10cc82ff78a84ef901242b2f69540f6a74ec498b"),
 )
 
 
@@ -97,12 +98,12 @@ AUTHORIZATION_PATHS = (
 )
 
 
-APPROVED_ENTRY_COUNT = 167
-APPROVED_ENTRIES_SHA256 = "812ce6b5e2573219f75f1fce08d1e117b7fdf930efeab3e31f228eea40499c89"
-APPROVED_SEED_SHA256 = "812ce6b5e2573219f75f1fce08d1e117b7fdf930efeab3e31f228eea40499c89"
+APPROVED_ENTRY_COUNT = 170
+APPROVED_ENTRIES_SHA256 = "7311fbe67c736ae1d7c72e15aa438db8aee6efc063de3459d95abadbaa0754c8"
+APPROVED_SEED_SHA256 = "7311fbe67c736ae1d7c72e15aa438db8aee6efc063de3459d95abadbaa0754c8"
 APPROVED_HISTORICAL_SEED_TABLE = """
 pontius evidence historical seed review v1
-normalized_sha256	812ce6b5e2573219f75f1fce08d1e117b7fdf930efeab3e31f228eea40499c89
+normalized_sha256	7311fbe67c736ae1d7c72e15aa438db8aee6efc063de3459d95abadbaa0754c8
 columns	commit	relative_path	git_blob_oid	raw_sha256	role	phase	governing_decision
 row	08bb6857f47f9669b8f531c65079d4decd52a573	docs/decisions/ADR-0461-source-seal-the-absolute-git-compiled-calibration-successor.md	034015f78f5907713246e38dd371baef67464c00	88409fabac8d4a34ce3d109a33752ef9ee04a0459367fa688b3c4bce04345376	governing_decision	v2_source_seal	ADR-0461
 row	08bb6857f47f9669b8f531c65079d4decd52a573	src/pontius/__init__.py	32f2bbd3f3022fb902ee1e58f1bbc7b0640b4b7e	5dd4371cf5f30af8ccd637a1650da55700baf23be2665f16975cd5167f469031	source_dependency	v2_source_seal	ADR-0461
@@ -112,6 +113,9 @@ row	08bb6857f47f9669b8f531c65079d4decd52a573	src/pontius/legal_river_quotient_co
 row	08bb6857f47f9669b8f531c65079d4decd52a573	src/pontius/legal_river_quotient_compiled_global_separation_calibration_v2_result.py	dedf21d02e4659e6fef84dfc636f8467c7198d9e	c6503455927f14d728346979ce1519149e8d2d89284e4d439162dcffc092a5ff	source_dependency	v2_source_seal	ADR-0461
 row	08bb6857f47f9669b8f531c65079d4decd52a573	src/pontius/legal_river_quotient_compiled_global_separation_calibration_v2_runner.py	428f9feaf80e393965367358d264e1ce40941891	b2de9d318349763cbfef851d81deaca37dfd149b5d74cd0a3749ec2a84155628	source_dependency	v2_source_seal	ADR-0461
 row	08bb6857f47f9669b8f531c65079d4decd52a573	tests/test_legal_river_quotient_compiled_global_separation_calibration_v2.py	9a31b2c1e6cedd3f5dd3bba4cc7682097104c961	49d5963ea2abc020b749baea8c1b0191c5487465824985d4f886a1c6d89d57b0	selected_test	v2_source_seal	ADR-0461
+row	363c9fb669e19a30375537ee5e92ea338a840a2d	tests/test_v0a_evaluation_boundary.py	f2b9534c896fa308e3e777ce3d86c3e5b3034d1d	4a7e323c021c1dace35345782873d8ac2a302eeb6bb7b00df7b9d3445c5f980c	selected_test	v0a_evaluation_legacy	ADR-0512
+row	363c9fb669e19a30375537ee5e92ea338a840a2d	tests/test_v0a_evaluation_runner.py	edd186ccfd6764b93b8b973793d84bdb562e1130	9fa3adcd5b350bdcfccfaba251999579e8a37d9d2d63bc7d8789c982ffd3774a	selected_test	v0a_evaluation_legacy	ADR-0512
+row	363c9fb669e19a30375537ee5e92ea338a840a2d	tests/test_v0a_evaluation_v2.py	477001e2407a9d097359622716b36183d37bb679	76121d42cb8646ea5d47e9f5076cec646a0ea0558c20921ec5b148aac93210cd	selected_test	v0a_evaluation_legacy	ADR-0512
 row	3de8e0c9eebf67f2cc2573041242a869468de6e9	docs/decisions/ADR-0462-retain-the-timed-rrns-direct-launch-arity-rejection.md	6e14215b04297e6d746fcc75e6ee86dcabc24470	1d3e678bef7649c0d51fcf07b34050d7a561c984cd76bc78b920c13fd391f788	governing_decision	v2_retained_rejection	ADR-0462
 row	3de8e0c9eebf67f2cc2573041242a869468de6e9	src/pontius/legal_river_quotient_compiled_global_separation_calibration_v2_outcome.py	50f4b3e362e074ea9a51a8c4960da3a1b802e441	a2a55040bb881b146109e44608ddbaa7c8b1b9019e788a012cfc1f40fd2a8d42	source_dependency	v2_retained_rejection	ADR-0462
 row	3de8e0c9eebf67f2cc2573041242a869468de6e9	src/pontius/legal_river_quotient_compiled_global_separation_calibration_v2_result.py	dedf21d02e4659e6fef84dfc636f8467c7198d9e	c6503455927f14d728346979ce1519149e8d2d89284e4d439162dcffc092a5ff	source_dependency	v2_retained_rejection	ADR-0462
@@ -375,6 +379,26 @@ class EvidenceManifestGenerationTests(unittest.TestCase):
         authorization_rows = [row for row in state["blobs"] if row["phase"] == "v7_live_authorization"]
         self.assertEqual(tuple(row["relative_path"] for row in authorization_rows), AUTHORIZATION_PATHS)
         self.assertEqual(len(authorization_rows), 6)
+
+    def test_legacy_evaluation_extension_preserves_all_prior_historical_rows(self) -> None:
+        state = GENERATOR.derive_manifest_state(REPOSITORY_ROOT)
+        legacy = [row for row in state["blobs"] if row["phase"] == "v0a_evaluation_legacy"]
+        previous = [row for row in state["blobs"] if row["phase"] != "v0a_evaluation_legacy"]
+        self.assertEqual(len(previous), 167)
+        self.assertEqual(GENERATOR.historical_entries_sha256(previous),
+            "812ce6b5e2573219f75f1fce08d1e117b7fdf930efeab3e31f228eea40499c89")
+        self.assertEqual([row["relative_path"] for row in legacy], [
+            "tests/test_v0a_evaluation_boundary.py", "tests/test_v0a_evaluation_runner.py",
+            "tests/test_v0a_evaluation_v2.py",
+        ])
+        self.assertEqual({row["role"] for row in legacy}, {"selected_test"})
+        self.assertEqual({row["governing_decision"] for row in legacy}, {"ADR-0512"})
+        self.assertEqual(state["snapshots"][-1], {
+            "phase": "v0a_evaluation_legacy",
+            "commit": "363c9fb669e19a30375537ee5e92ea338a840a2d",
+            "root_tree_oid": "10cc82ff78a84ef901242b2f69540f6a74ec498b",
+            "governing_decision": "ADR-0512",
+        })
 
     def test_historical_entry_digest_is_order_independent_and_covers_every_field(self) -> None:
         first = {"commit": "1" * 40, "relative_path": "src/a.py", "git_blob_oid": "2" * 40, "raw_sha256": "3" * 64, "role": "source_dependency", "phase": "phase-a", "governing_decision": "ADR-0001"}

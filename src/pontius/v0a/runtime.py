@@ -11,6 +11,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, fields, replace
 
+from ..blueprint_preparation.lookup import PreparedBlueprint
 from ..decision_provider.model import DecisionObservation, ProviderDecisionRecord, ProviderIdentity
 from ..decision_provider.providers import make_provider
 from ..decision_provider.selection import Selection, resolve_proposal
@@ -148,6 +149,18 @@ def _select_admitted_blueprint_action(
     betting: NoLimitBettingState,
     decision: LegalBettingDecision,
 ) -> BlueprintSelection:
+    """Preserve the four-input admitted-selector interface for legacy callers."""
+    return _select_owned_blueprint_action(source, cards, betting, decision)
+
+
+def _select_owned_blueprint_action(
+    source: ImmutableBlueprintActionSource,
+    cards: OneSeatCardState,
+    betting: NoLimitBettingState,
+    decision: LegalBettingDecision,
+    *,
+    prepared: PreparedBlueprint | None = None,
+) -> BlueprintSelection:
     """Select from a runtime-owned policy; no repeated table admission or extra hash."""
     try:
         if (type(cards) is not OneSeatCardState or type(betting) is not NoLimitBettingState
@@ -165,9 +178,16 @@ def _select_admitted_blueprint_action(
     except (TypeError, ValueError, AttributeError, AssertionError, RecursionError):
         raise InvalidDecisionContextError("invalid exact legal decision context") from None
     try:
-        selection = ImmutableBlueprintActionSource.action_for(
-            source, cards=cards, betting=betting, decision=decision
-        )
+        if prepared is None:
+            selection = ImmutableBlueprintActionSource.action_for(
+                source, cards=cards, betting=betting, decision=decision
+            )
+        elif type(prepared) is PreparedBlueprint:
+            selection = PreparedBlueprint.action_for(
+                prepared, cards=cards, betting=betting, decision=decision
+            )
+        else:
+            raise TypeError("runtime preparation requires an exact prepared blueprint")
     except (ClockInvalidError, ClockReversedError):
         raise
     except (TypeError, ValueError, AssertionError):
@@ -374,6 +394,7 @@ class HandRuntime:
         self._complete = False
         self._boundary_open = False
         self._blueprint_digest: str | None = None
+        self._prepared_blueprint: PreparedBlueprint | None = None
         self._known_cutoff: bool | None = None
         self._known_deadline: bool | None = None
         self._accepted_deliveries = 0
@@ -661,7 +682,13 @@ class HandRuntime:
     ) -> DispatchOutcome:
         if self._spine is not None:
             raise _HandFailure(FailureCode.EVENT_ORDER)
-        digest = getattr(self._blueprint, "digest", None)
+        try:
+            prepared = PreparedBlueprint(self._blueprint)
+            digest = prepared.digest
+        except (ClockInvalidError, ClockReversedError) as error:
+            raise self._clock_hand_failure(error, wall_start_ns) from error
+        except Exception as error:
+            raise _HandFailure(FailureCode.SOURCE_BINDING_MISMATCH) from error
         if (
             type(digest) is not str
             or len(digest) != 64
@@ -691,6 +718,7 @@ class HandRuntime:
         self._hand_id = event.hand_id
         self._controlled_seat = event.controlled_seat
         self._blueprint_digest = digest
+        self._prepared_blueprint = prepared
         self._next_event_index = 1
         return self._finish_boundary(
             boundary, event, wall_start_ns, terminal_at_entry=terminal_at_entry
@@ -912,11 +940,12 @@ class HandRuntime:
             ) from error
 
         try:
-            selection = _select_admitted_blueprint_action(
+            selection = _select_owned_blueprint_action(
                 source=self._blueprint,
                 cards=cards,
                 betting=state_before,
                 decision=ticket.decision,
+                prepared=self._prepared_blueprint,
             )
         except (ClockInvalidError, ClockReversedError) as error:
             raise self._clock_hand_failure(error, wall_start_ns) from error

@@ -80,6 +80,18 @@ SNAPSHOTS = (
     {"phase": "v6_authorization_rejection", "commit": "cbfa3598f22c7aba7d824f71356ca156f8b01b0c", "root_tree_oid": "9873ff13131c91b058307643dc838a8452268fbb", "governing_decision": "ADR-0472"},
     {"phase": "v7_source_seal", "commit": "56127da2970f5a8a8056a97a247ebe1fdf4b983b", "root_tree_oid": "ee2437ba1b2efbf2dc4ab3c21bbacdbf26c58648", "governing_decision": "ADR-0474"},
     {"phase": "v7_live_authorization", "commit": "aaca2dda40e29be8ebd091d58e7853bce1c62fd8", "root_tree_oid": "e7bd077f40b1970e9b40a83c891996ab02cd5ffd", "governing_decision": "ADR-0475"},
+    {
+        "phase": "v0a_evaluation_legacy",
+        "commit": "363c9fb669e19a30375537ee5e92ea338a840a2d",
+        "root_tree_oid": "10cc82ff78a84ef901242b2f69540f6a74ec498b",
+        "governing_decision": "ADR-0512",
+    },
+)
+
+LEGACY_EVALUATION_TEST_PATHS = (
+    "tests/test_v0a_evaluation_boundary.py",
+    "tests/test_v0a_evaluation_runner.py",
+    "tests/test_v0a_evaluation_v2.py",
 )
 
 EARLIER_PHASES = (
@@ -1588,6 +1600,17 @@ def derive_manifest_state(repository_root: Path) -> dict[str, object]:
                 role="authorization_surface",
                 phase=str(authorization_snapshot["phase"]),
                 decision=str(authorization_snapshot["governing_decision"]),
+            )
+            _append_unique_row(rows, identities, row)
+        evaluation_snapshot = SNAPSHOTS[11]
+        for path in LEGACY_EVALUATION_TEST_PATHS:
+            row = _row(
+                git,
+                commit=str(evaluation_snapshot["commit"]),
+                relative_path=path,
+                role="selected_test",
+                phase=str(evaluation_snapshot["phase"]),
+                decision=str(evaluation_snapshot["governing_decision"]),
             )
             _append_unique_row(rows, identities, row)
     rows.sort(key=lambda item: (str(item["commit"]), str(item["relative_path"])))

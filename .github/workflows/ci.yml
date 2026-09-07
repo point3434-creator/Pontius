@@ -176,6 +176,18 @@ jobs:
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_seeded_deals_boundary.py
 
+      - name: Paired evaluation contract suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_evaluation_contract.py
+
+      - name: Paired evaluation runner suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_evaluation_runner.py
+
+      - name: Paired evaluation boundary suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_evaluation_boundary.py
+
       - name: v0a trace suite
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_v0a_trace.py

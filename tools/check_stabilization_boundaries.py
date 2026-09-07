@@ -85,6 +85,8 @@ ORCHESTRATION_ORIGIN_PATHS = frozenset(
         "tools/v0a_table_host.py",
         "tools/v0a_table_session.py",
         "tools/v0a_seeded_deals.py",
+        "tools/v0a_evaluation.py",
+        "tools/v0a_evaluation_contract.py",
         "tools/test_orchestration/__init__.py",
         "tools/test_orchestration/configuration.py",
         "tools/test_orchestration/engine.py",
@@ -596,6 +598,78 @@ def enforce_seeded_deals_import_policy(sources: Mapping[str, bytes]) -> None:
     _raise_violations(violations)
 
 
+def enforce_evaluation_import_policy(sources: Mapping[str, bytes]) -> None:
+    """ADR-0508: closed imports and three captured, fixed raw loader edges."""
+    policies = {
+        "tools/v0a_evaluation_contract.py": {
+            "__future__", "base64", "hashlib", "json", "math", "re"},
+        "tools/v0a_evaluation.py": {"__future__", "argparse", "ctypes", "hashlib", "json", "os",
+            "pathlib", "re", "stat", "subprocess", "sys", "threading", "time", "types"},
+    }
+    fixed = ast.parse("""
+OLD = tuple('tools/' + n + '.py' for n in ('v0a_rehearsal_driver', 'v0a_hand_adapter',
+    'v0a_event_adapter', 'v0a_table_host', 'v0a_table_session', 'v0a_seeded_deals'))
+NEW = ('tools/v0a_evaluation.py', 'tools/v0a_evaluation_contract.py')
+ALIASES = ('_pontius_evaluation_contract', '_pontius_evaluation_dealer', '_pontius_evaluation_host')
+""").body
+    loader = ast.parse("""
+for alias, path in zip(ALIASES, (NEW[1], OLD[5], OLD[3])):
+    module = types.ModuleType(alias)
+    module.__file__ = str(repo / path)
+    sys.modules[alias] = module
+    s.modules[alias] = module
+    exec(compile(s.raw[path], module.__file__, 'exec'), module.__dict__)
+""").body[0]
+    getters = {ast.dump(ast.parse(text, mode="eval").body) for text in (
+        "getattr(self, 'modules', {})", "getattr(error, 'secondary', ())",
+        "getattr(error, 'code', str(error) if isinstance(error, ValueError) else phase)")}
+    forbidden = {"__import__", "__builtins__", "eval", "globals", "locals", "vars",
+                 "import_module", "exec_module", "load_module", "run_module", "run_path"}
+    violations = []
+    for path, allowed in policies.items():
+        if path not in sources:
+            continue
+        tree = _BASELINE._parse_source(sources[path], relative_path=path)
+        wrapper = path == "tools/v0a_evaluation.py"
+        routes = [n for n in ast.walk(tree) if isinstance(n, ast.Name)
+                  and n.id in {"exec", "compile"}]
+        if wrapper:
+            for expected in fixed:
+                name = expected.targets[0].id
+                actual = [n for n in tree.body if isinstance(n, ast.Assign) and any(
+                    isinstance(t, ast.Name) and t.id == name for t in n.targets)]
+                if len(actual) != 1 or ast.dump(actual[0]) != ast.dump(expected):
+                    violations.append(f"evaluation fixed {name} binding differs")
+            functions = [n for n in tree.body if isinstance(n, ast.FunctionDef)
+                         and n.name == "admit_source"]
+            loops = [n for f in functions for n in f.body if isinstance(n, ast.For)
+                     and ast.dump(n) == ast.dump(loader)]
+            if (len(functions) != 1 or len(loops) != 1 or len(routes) != 2 or
+                    any(n not in list(ast.walk(loops[0])) for n in routes)):
+                violations.append("evaluation captured raw loader differs")
+        elif routes:
+            violations.append("evaluation contract has a dynamic execution route")
+        for node in ast.walk(tree):
+            invalid = False
+            if isinstance(node, ast.Import):
+                invalid = any(alias.name not in allowed for alias in node.names)
+            elif isinstance(node, ast.ImportFrom):
+                invalid = node.level or node.module not in allowed or any(
+                    alias.name == "*" or alias.name.startswith("_") for alias in node.names)
+            elif isinstance(node, ast.Name):
+                invalid = node.id in forbidden
+            elif isinstance(node, ast.Attribute):
+                invalid = (node.attr in forbidden or node.attr in {"Source", "Table", "Session"}
+                    or isinstance(node.value, ast.Attribute) and
+                    (node.value.attr == "host" and node.attr != "Job" or
+                     node.value.attr == "dealer" and node.attr != "deal_for_hand"))
+            elif (isinstance(node, ast.Call) and isinstance(node.func, ast.Name)
+                  and node.func.id == "getattr"):
+                invalid = not wrapper or ast.dump(node) not in getters
+            if invalid:
+                violations.append(f"forbidden evaluation dependency at {path}:{node.lineno}")
+    _raise_violations(violations)
+
 def _read_regular_source(path: Path, *, root: Path) -> object:
     try:
         return _BASELINE.read_regular_snapshot(
@@ -772,6 +846,7 @@ def check_repository(repository_root: Path) -> None:
     enforce_table_host_import_policy({**current_sources, **tool_sources})
     enforce_table_session_import_policy({**current_sources, **tool_sources})
     enforce_seeded_deals_import_policy(tool_sources)
+    enforce_evaluation_import_policy(tool_sources)
     enforce_orchestration_import_policy(tool_sources)
     _revalidate_repository_snapshot(
         baseline_snapshot, current_inventory, tool_inventory

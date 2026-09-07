@@ -15,31 +15,22 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Open the CPU-only paired local evaluation source increment under the brief, design
-and source-contract in docs/architecture/v0a-evaluation-r001/ and implementation plan
-docs/superpowers/plans/2026-09-07-paired-local-evaluation.md. The controller requested
-preparation of this bounded proposal; it has no effect until its exact decision
-commit is expressly authorized and made. No implementation occurs before adoption.
+Accept the exact reviewed paired local evaluation source as a CPU-only asset,
+closing the source increment opened by ADR-0508. The outer loop fixes matched
+baseline-rules-v1 and blueprint-v1 trials before execution, reuses the unchanged
+public session CLI, and reports paired chip differences only for the complete
+planned population. This source decision makes no playing-strength claim.
 
-The deliverable is a reproducible outer loop comparing baseline-rules-v1 and
-blueprint-v1 through the unchanged public session CLI. Each matched pair shares
-identical one-hand input, resets six 200-chip stacks, and uses the existing opponent
-scripts. Every deal/lineup covers all six seats. Alternating strategy order is fixed
-before outcomes. Source acceptance judges the comparison machinery, not profitability.
-
-Reports preserve applied actions, baseline fallback and legacy choice distinctions,
-timing observations, incomplete captures and separate action/hand/session failure
-observations. A complete aggregate requires
-the complete planned population; no survivor-only score or missing-as-zero result.
-Every partial attempt remains retained and cannot be resumed or rerolled. Whole-run
-deadline, native descendant containment and final publication have explicit contracts.
-The deadline covers verification of both closed/read-back final files and publication
-commit; subsequent visibility release and CLI return may be later. Consumers require
-the absent pending guard and fully validated bound files, not process exit alone.
+Effect requires this exact decision's separately authorized commit. Draft metadata,
+review refs and passing correctness controls do not activate a source seal.
+Incorporate only the twelve bound source paths, this new ADR and generated STATUS.
+The six prospective registration exceptions close with these accepted versions;
+all files outside the permitted source surface remain unchanged.
+Source acceptance grants no actual comparative evaluation or demonstration.
 
 ## Active next
 
-Implement the bounded paired evaluation loop after exact adoption
+Preregister a bounded paired evaluation population and invocation
 
 ## Revoked authorities
 
@@ -50,7 +41,7 @@ Implement the bounded paired evaluation loop after exact adoption
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0508](docs/decisions/ADR-0508-open-the-paired-local-evaluation-source-round.md) — Open the paired local evaluation source round.
+Latest process decision: [ADR-0509](docs/decisions/ADR-0509-source-seal-the-paired-local-evaluation-loop.md) — Source-seal the paired local evaluation loop.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -58,7 +49,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0485](docs/decisions/ADR-0485-preregister-the-blueprint-only-v0a-hand-contract.md) | 2026-08-30 | accepted prospective contract preregistration and explicit bootstrap-sequencing clarification; only the additive CPU blueprint-hand source contract is opened, an outer ActionClockLedger measures through offline-host delivery without altering the sealed V2 spine, operating budgets and an authoritative replay population remain unadmitted until a separate measured closure, and no source seal, rehearsal, owner invocation, integration result, timing result, or strategy result is asserted | Preregister the blueprint-only v0a hand contract |
 | [ADR-0486](docs/decisions/ADR-0486-park-the-slice-c-capability-analyzer-repair.md) | 2026-09-04 | accepted scope correction; the slice C capability-analyzer soundness repair is parked as its own bounded task and removed from v0a increment-one acceptance scope, increment one's obligation to the inventory machinery is reduced to registration and mechanical regeneration, the Gate 13 freeze lane is paused at its rejected revision 23, and no source seal, rehearsal, invocation, integration, timing, or strategy result is asserted or authorized | Park the slice C capability-analyzer repair |
 | [ADR-0487](docs/decisions/ADR-0487-source-seal-the-blueprint-only-v0a-hand-runtime.md) | 2026-09-04 | accepted library-only source seal upon its separately authorized decision commit; exact r004 source and r007 core are preserved, bounded CPU acceptance is complete, the inherited Windows fixture caveat remains open, and no rehearsal, invocation, timing, strategy, or strength result is authorized or asserted | Source-seal the blueprint-only v0a hand runtime |
 | [ADR-0488](docs/decisions/ADR-0488-source-seal-the-non-evidentiary-v0a-driver.md) | 2026-09-04 | accepted driver-only source seal upon controller approval and its separately authorized decision commit; this draft remains inactive until those conditions hold, two independent cold reviews and bounded v0a regression checks pass, no reviewed implementation byte changes, and no rehearsal or operational invocation is authorized | Source-seal the non-evidentiary v0a driver |
@@ -82,18 +72,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0506](docs/decisions/ADR-0506-source-seal-the-selectable-decision-provider.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the selectable decision provider |
 | [ADR-0507](docs/decisions/ADR-0507-permit-one-baseline-watch-demonstration.md) | 2026-09-07 | accepted demonstration-only exception upon its separately authorized decision commit | Permit one baseline watch demonstration |
 | [ADR-0508](docs/decisions/ADR-0508-open-the-paired-local-evaluation-source-round.md) | 2026-09-07 | accepted source-opening decision upon its separately authorized commit | Open the paired local evaluation source round |
+| [ADR-0509](docs/decisions/ADR-0509-source-seal-the-paired-local-evaluation-loop.md) | 2026-09-07 | accepted source-only seal upon its separately authorized decision commit | Source-seal the paired local evaluation loop |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0508](docs/decisions/ADR-0508-open-the-paired-local-evaluation-source-round.md) — Open the paired local evaluation source round.
+- Latest ADR: [ADR-0509](docs/decisions/ADR-0509-source-seal-the-paired-local-evaluation-loop.md) — Source-seal the paired local evaluation loop.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 508.
-- ADR-header SHA-256: `a34e76789b9a927eff2621858187c50643b129ec1c991a7e4f3eb7d79134408d`.
-- Current blockers: evaluation source acceptance pending; no evaluation population admitted.
+- Numbered decisions: 509.
+- ADR-header SHA-256: `300870b1d751c1de31a34ad6d134bc51d1b9c3bf54172dfea863739ae53124ad`.
+- Current blockers: evaluation population and invocation remain unadmitted.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0508](docs/decisions/ADR-0508-open-the-paired-local-evaluation-source-round.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0509](docs/decisions/ADR-0509-source-seal-the-paired-local-evaluation-loop.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

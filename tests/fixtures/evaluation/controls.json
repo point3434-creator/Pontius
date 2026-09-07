@@ -1,0 +1,634 @@
+{
+  "request": {
+    "version": "pontius-v0a-evaluation-request-v1",
+    "seed": "0000000000000000000000000000000000000000000000000000000000000000",
+    "deal_count": 1,
+    "lineups": [
+      [
+        "passive",
+        "passive",
+        "passive",
+        "passive",
+        "passive"
+      ]
+    ],
+    "seat_start": 2,
+    "initial_button": 3,
+    "total_budget_ms": 900000,
+    "trial_budget_ms": 60000
+  },
+  "deals": [
+    {
+      "private_hands": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "board_runout": [
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    }
+  ],
+  "binding": {
+    "ordinal": 1,
+    "pair_index": 0,
+    "strategy": "baseline-rules-v1",
+    "session_id": "",
+    "input_path": "pairs/p000.json",
+    "input_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "source_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "source_manifest_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "child_source_manifest_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "blueprint_artifact_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "blueprint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "controlled_seat": 2,
+    "button": 3,
+    "table_input_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "cleanup_complete": true,
+    "provider": "baseline-rules-v1",
+    "config_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  },
+  "frames_v1": [
+    {
+      "protocol": "pontius-v0a-event-interface-v1",
+      "session_id": "pontius-v0a-event-interface-v1-correctness-table-eval-control-u001-h01",
+      "type": "ready",
+      "source_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "source_manifest_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "blueprint_artifact_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "blueprint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "evidentiary": false
+    },
+    {
+      "protocol": "pontius-v0a-event-interface-v1",
+      "session_id": "pontius-v0a-event-interface-v1-correctness-table-eval-control-u001-h01",
+      "type": "action",
+      "hand_id": "pontius-v0a-event-interface-v1-correctness-table-eval-control-u001-h01",
+      "action_index": 1,
+      "seat": 2,
+      "street": "preflop",
+      "action": {
+        "kind": "check",
+        "raise_to": null
+      }
+    },
+    {
+      "protocol": "pontius-v0a-event-interface-v1",
+      "session_id": "pontius-v0a-event-interface-v1-correctness-table-eval-control-u001-h01",
+      "type": "event_result",
+      "event_index": 0,
+      "status": "decided",
+      "decision": {
+        "hand_id": "pontius-v0a-event-interface-v1-correctness-table-eval-control-u001-h01",
+        "event_index": 0,
+        "action_index": 1,
+        "street_action_index": 1,
+        "seat": 2,
+        "street": "preflop",
+        "state_before_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "state_after_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "visible_cards_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "selected_action": {
+          "kind": "check",
+          "raise_to": null
+        },
+        "timing": {
+          "status": "completed",
+          "interruption_reason": null,
+          "wall_start_ns": 0,
+          "last_valid_observation_ns": 1,
+          "emission_observed_ns": 1,
+          "elapsed_ns": 1,
+          "response_compute_seconds": 0.0,
+          "response_uninstrumented_seconds": 1e-9,
+          "work_cutoff_crossed": false,
+          "deadline_crossed": false
+        },
+        "preparation_use": {
+          "producer_status": "producer_absent",
+          "artifact_sha256s": [],
+          "credited_seconds": 0
+        },
+        "failure_reason": null,
+        "blueprint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "selection_reason": "passive_default",
+        "spine_reason": "candidate"
+      },
+      "failure": null
+    },
+    {
+      "protocol": "pontius-v0a-event-interface-v1",
+      "session_id": "pontius-v0a-event-interface-v1-correctness-table-eval-control-u001-h01",
+      "type": "hand_result",
+      "complete": true,
+      "settlement": {
+        "payouts": [
+          0,
+          0,
+          4,
+          0,
+          0,
+          0
+        ],
+        "final_stacks": [
+          196,
+          200,
+          204,
+          200,
+          200,
+          200
+        ],
+        "pots": [
+          {
+            "amount": 4,
+            "seats": [
+              2
+            ]
+          }
+        ]
+      },
+      "rank_source": "not_required",
+      "evidentiary": false,
+      "preparation_compute_seconds": 0.0,
+      "post_terminal_compute_seconds": 0.0,
+      "interrupted_response_count": 0,
+      "accounting_complete": true,
+      "failure_reason": null,
+      "secondary_failures": []
+    },
+    {
+      "protocol": "pontius-v0a-event-interface-v1",
+      "session_id": "pontius-v0a-event-interface-v1-correctness-table-eval-control-u001-h01",
+      "type": "session_result",
+      "status": "completed",
+      "terminal_publication_compute_seconds": 0.0,
+      "accounting_complete": true,
+      "failure_reason": null,
+      "secondary_failures": [],
+      "accounting_scope": "runtime_begin_to_final_publication",
+      "evidentiary": false
+    }
+  ],
+  "report_v1": {
+    "version": "pontius-v0a-table-session-result-v1",
+    "session_id": "pontius-v0a-table-session-v1-correctness-eval-control-u001",
+    "status": "completed",
+    "stop_reason": null,
+    "failure_reason": null,
+    "secondary_failures": [],
+    "source_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "input_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "blueprint_artifact_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "blueprint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "requested_hands": 1,
+    "completed_hands": 1,
+    "next_button": 4,
+    "carried_stacks": [
+      196,
+      200,
+      204,
+      200,
+      200,
+      200
+    ],
+    "hands": [
+      {
+        "ordinal": 1,
+        "button": 3,
+        "starting_stacks": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "result": {
+          "version": "pontius-v0a-table-session-hand-result-v1",
+          "session_id": "pontius-v0a-table-host-v1-correctness-eval-control-u001-h01",
+          "status": "completed",
+          "failure_reason": null,
+          "secondary_failures": [],
+          "input_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "blueprint_artifact_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "blueprint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "applied_actions": [
+            {
+              "index": 0,
+              "seat": 2,
+              "street": "preflop",
+              "action": {
+                "kind": "check",
+                "raise_to": null
+              },
+              "origin": "bot"
+            }
+          ],
+          "settlement": {
+            "payouts": [
+              0,
+              0,
+              4,
+              0,
+              0,
+              0
+            ],
+            "final_stacks": [
+              196,
+              200,
+              204,
+              200,
+              200,
+              200
+            ],
+            "pots": [
+              {
+                "amount": 4,
+                "seats": [
+                  2
+                ]
+              }
+            ]
+          },
+          "child_exit_code": 0,
+          "child_stdout_base64": "",
+          "child_stderr_base64": "",
+          "capture_truncated": false
+        }
+      }
+    ]
+  },
+  "failed_event_v1": {
+    "protocol": "pontius-v0a-event-interface-v1",
+    "session_id": "pontius-v0a-event-interface-v1-correctness-table-eval-control-u001-h01",
+    "type": "event_result",
+    "event_index": 0,
+    "status": "failed",
+    "decision": null,
+    "failure": {
+      "hand_id": "pontius-v0a-event-interface-v1-correctness-table-eval-control-u001-h01",
+      "event_index": 0,
+      "action_index": 1,
+      "code": "delivery_rejected",
+      "delivery_status": "rejected",
+      "delivered_action": null,
+      "timing": {
+        "status": "interrupted",
+        "interruption_reason": "delivery_rejected",
+        "wall_start_ns": 0,
+        "last_valid_observation_ns": 1,
+        "emission_observed_ns": null,
+        "elapsed_ns": null,
+        "response_compute_seconds": null,
+        "response_uninstrumented_seconds": null,
+        "work_cutoff_crossed": null,
+        "deadline_crossed": null
+      }
+    }
+  },
+  "frames_v2": [
+    {
+      "protocol": "pontius-v0a-event-interface-v2",
+      "session_id": "pontius-v0a-event-interface-v2-correctness-table-eval-control-u001-h01",
+      "type": "ready",
+      "source_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "source_manifest_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "blueprint_artifact_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "blueprint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "evidentiary": false,
+      "provider": "baseline-rules-v1",
+      "config_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    },
+    {
+      "protocol": "pontius-v0a-event-interface-v2",
+      "session_id": "pontius-v0a-event-interface-v2-correctness-table-eval-control-u001-h01",
+      "type": "action",
+      "hand_id": "pontius-v0a-event-interface-v2-correctness-table-eval-control-u001-h01",
+      "action_index": 1,
+      "seat": 2,
+      "street": "preflop",
+      "action": {
+        "kind": "check",
+        "raise_to": null
+      }
+    },
+    {
+      "protocol": "pontius-v0a-event-interface-v2",
+      "session_id": "pontius-v0a-event-interface-v2-correctness-table-eval-control-u001-h01",
+      "type": "event_result",
+      "event_index": 0,
+      "status": "decided",
+      "decision": {
+        "hand_id": "pontius-v0a-event-interface-v2-correctness-table-eval-control-u001-h01",
+        "event_index": 0,
+        "action_index": 1,
+        "street_action_index": 1,
+        "seat": 2,
+        "street": "preflop",
+        "state_before_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "state_after_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "visible_cards_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "selected_action": {
+          "kind": "check",
+          "raise_to": null
+        },
+        "timing": {
+          "status": "completed",
+          "interruption_reason": null,
+          "wall_start_ns": 0,
+          "last_valid_observation_ns": 1,
+          "emission_observed_ns": 1,
+          "elapsed_ns": 1,
+          "response_compute_seconds": 0.0,
+          "response_uninstrumented_seconds": 1e-9,
+          "work_cutoff_crossed": false,
+          "deadline_crossed": false
+        },
+        "preparation_use": {
+          "producer_status": "producer_absent",
+          "artifact_sha256s": [],
+          "credited_seconds": 0
+        },
+        "failure_reason": null,
+        "schema_version": "pontius-provider-decision-v1",
+        "decision_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "source_manifest_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "provider": "baseline-rules-v1",
+        "config_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "fallback_blueprint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "fallback_action": {
+          "kind": "check",
+          "raise_to": null
+        },
+        "fallback_reason": "passive_default",
+        "proposal": null,
+        "provider_outcome": "error",
+        "selection_reason": "provider_error",
+        "selection_origin": "blueprint_fallback",
+        "applied_action": {
+          "kind": "check",
+          "raise_to": null
+        },
+        "delivery_status": "accepted",
+        "delivered_action": {
+          "kind": "check",
+          "raise_to": null
+        }
+      },
+      "failure": null
+    },
+    {
+      "protocol": "pontius-v0a-event-interface-v2",
+      "session_id": "pontius-v0a-event-interface-v2-correctness-table-eval-control-u001-h01",
+      "type": "hand_result",
+      "complete": true,
+      "settlement": {
+        "payouts": [
+          0,
+          0,
+          4,
+          0,
+          0,
+          0
+        ],
+        "final_stacks": [
+          196,
+          200,
+          204,
+          200,
+          200,
+          200
+        ],
+        "pots": [
+          {
+            "amount": 4,
+            "seats": [
+              2
+            ]
+          }
+        ]
+      },
+      "rank_source": "not_required",
+      "evidentiary": false,
+      "preparation_compute_seconds": 0.0,
+      "post_terminal_compute_seconds": 0.0,
+      "interrupted_response_count": 0,
+      "accounting_complete": true,
+      "failure_reason": null,
+      "secondary_failures": []
+    },
+    {
+      "protocol": "pontius-v0a-event-interface-v2",
+      "session_id": "pontius-v0a-event-interface-v2-correctness-table-eval-control-u001-h01",
+      "type": "session_result",
+      "status": "completed",
+      "terminal_publication_compute_seconds": 0.0,
+      "accounting_complete": true,
+      "failure_reason": null,
+      "secondary_failures": [],
+      "accounting_scope": "runtime_begin_to_final_publication",
+      "evidentiary": false
+    }
+  ],
+  "report_v2": {
+    "version": "pontius-v0a-table-session-result-v2",
+    "session_id": "pontius-v0a-table-session-v2-correctness-eval-control-u001",
+    "status": "completed",
+    "stop_reason": null,
+    "failure_reason": null,
+    "secondary_failures": [],
+    "source_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "input_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "blueprint_artifact_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "blueprint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "requested_hands": 1,
+    "completed_hands": 1,
+    "next_button": 4,
+    "carried_stacks": [
+      196,
+      200,
+      204,
+      200,
+      200,
+      200
+    ],
+    "provider": "baseline-rules-v1",
+    "config_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "hands": [
+      {
+        "ordinal": 1,
+        "button": 3,
+        "starting_stacks": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "result": {
+          "version": "pontius-v0a-table-session-hand-result-v2",
+          "session_id": "pontius-v0a-table-host-v2-correctness-eval-control-u001-h01",
+          "status": "completed",
+          "failure_reason": null,
+          "secondary_failures": [],
+          "input_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "blueprint_artifact_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "blueprint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "source_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "provider": "baseline-rules-v1",
+          "config_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "applied_actions": [
+            {
+              "index": 0,
+              "seat": 2,
+              "street": "preflop",
+              "action": {
+                "kind": "check",
+                "raise_to": null
+              },
+              "origin": "bot"
+            }
+          ],
+          "settlement": {
+            "payouts": [
+              0,
+              0,
+              4,
+              0,
+              0,
+              0
+            ],
+            "final_stacks": [
+              196,
+              200,
+              204,
+              200,
+              200,
+              200
+            ],
+            "pots": [
+              {
+                "amount": 4,
+                "seats": [
+                  2
+                ]
+              }
+            ]
+          },
+          "child_exit_code": 0,
+          "child_stdout_base64": "",
+          "child_stderr_base64": "",
+          "capture_truncated": false
+        }
+      }
+    ]
+  },
+  "failed_event_v2": {
+    "protocol": "pontius-v0a-event-interface-v2",
+    "session_id": "pontius-v0a-event-interface-v2-correctness-table-eval-control-u001-h01",
+    "type": "event_result",
+    "event_index": 0,
+    "status": "failed",
+    "decision": {
+      "hand_id": "pontius-v0a-event-interface-v2-correctness-table-eval-control-u001-h01",
+      "event_index": 0,
+      "action_index": 1,
+      "street_action_index": 1,
+      "seat": 2,
+      "street": "preflop",
+      "state_before_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "state_after_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "visible_cards_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "selected_action": {
+        "kind": "check",
+        "raise_to": null
+      },
+      "timing": {
+        "status": "interrupted",
+        "interruption_reason": "delivery_rejected",
+        "wall_start_ns": 0,
+        "last_valid_observation_ns": 1,
+        "emission_observed_ns": null,
+        "elapsed_ns": null,
+        "response_compute_seconds": null,
+        "response_uninstrumented_seconds": null,
+        "work_cutoff_crossed": null,
+        "deadline_crossed": null
+      },
+      "preparation_use": {
+        "producer_status": "producer_absent",
+        "artifact_sha256s": [],
+        "credited_seconds": 0
+      },
+      "failure_reason": "delivery_rejected",
+      "schema_version": "pontius-provider-decision-v1",
+      "decision_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "source_manifest_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "provider": "baseline-rules-v1",
+      "config_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "fallback_blueprint_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "fallback_action": {
+        "kind": "check",
+        "raise_to": null
+      },
+      "fallback_reason": "passive_default",
+      "proposal": null,
+      "provider_outcome": "error",
+      "selection_reason": "provider_error",
+      "selection_origin": "blueprint_fallback",
+      "applied_action": {
+        "kind": "check",
+        "raise_to": null
+      },
+      "delivery_status": "rejected",
+      "delivered_action": null
+    },
+    "failure": {
+      "hand_id": "pontius-v0a-event-interface-v2-correctness-table-eval-control-u001-h01",
+      "event_index": 0,
+      "action_index": 1,
+      "code": "delivery_rejected",
+      "delivery_status": "rejected",
+      "delivered_action": null,
+      "timing": {
+        "status": "interrupted",
+        "interruption_reason": "delivery_rejected",
+        "wall_start_ns": 0,
+        "last_valid_observation_ns": 1,
+        "emission_observed_ns": null,
+        "elapsed_ns": null,
+        "response_compute_seconds": null,
+        "response_uninstrumented_seconds": null,
+        "work_cutoff_crossed": null,
+        "deadline_crossed": null
+      }
+    }
+  }
+}

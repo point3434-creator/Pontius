@@ -15,32 +15,30 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Prospectively permit one separately authorized supervised demonstration that joins
-the sealed seeded-deal generator to the sealed watch-first session. Save three
-shuffled hands from the exact seed below, then display that schedule once in
-automatic text mode. The controller can follow it on a phone without terminal
-input. Preserve the existing six-seat setup, passive opponents and empty blueprint.
-This is visible product behavior, not correctness acceptance or a strength result.
+Open the CPU-only selectable decision-provider increment under the approved design
+in docs/architecture/v0a-decision-provider-r001/brief.md and design.md, the exact
+source-contract.md in that directory, and the companion implementation plan at
+docs/superpowers/plans/2026-09-06-decision-provider.md. The controller approved
+the reviewed design and scoped prospective source supersession. This decision
+requires its own exact commit authorization; a draft or design approval alone
+does not adopt it. No source implementation runs before that adoption.
 
-The proposal has no effect before its exact decision commit is authorized and made.
-The commit alone grants no launch. One approval may explicitly name commit/push and
-the exact complete generation-and-session sequence; otherwise launch needs its own
-approval. Neither a generic historical approval nor the existence of source grants it.
+The outcome is one selectable baseline operating through the real runtime,
+event interface, host and multi-hand session. A provider-only library is incomplete.
+The engine keeps legal state, visible-state admission, the continuous action wall,
+fallback, application and delivery. The baseline follows the fixed approved rules;
+it introduces neither a trained policy nor a claim of strategic improvement.
 
-This is a narrow prospective exception to the execution closures in ADR-0489,
-ADR-0500 and ADR-0503, and to ADR-0485's operational prerequisites solely for this
-named non-evidentiary display. Formal operating, rehearsal, experimental, resource
-calibration, training and research prerequisites remain binding. ADR-0501's earlier
-fixed demonstration is completed and consumed; this does not repeat its identity.
-
-As in ADR-0501, permit the unchanged executable correctness namespace solely under
-this external demonstration authority. Preserve literal IDs, trace modes, fields
-and evidentiary=false. A correctness name does not turn this display into a test;
-no new machine-enforced scientific authorization interface is claimed or patched.
+The source contract is the precise refinement of the approved architecture.
+It gives abstention an explicit null-action representation, distinguishes skipped,
+late, invalid and exceptional provider responses, specifies six-card evaluation,
+and preserves the historical rehearsal driver without reassigning its source seal.
+An additive codec file keeps new records separate from the old model/trace format.
+The approved design copies remain unchanged records of the architecture review.
 
 ## Active next
 
-Authorize one seeded watch demo; formal operation/research closed
+Implement the selectable provider and baseline through a complete session
 
 ## Revoked authorities
 
@@ -51,7 +49,7 @@ Authorize one seeded watch demo; formal operation/research closed
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0504](docs/decisions/ADR-0504-permit-one-seeded-watch-demonstration.md) — Permit one seeded watch demonstration.
+Latest process decision: [ADR-0505](docs/decisions/ADR-0505-open-the-selectable-decision-provider-source-round.md) — Open the selectable decision-provider source round.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -59,7 +57,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0481](docs/decisions/ADR-0481-record-the-release-interpreter-identity-correction.md) | 2026-08-30 | accepted Tier-C correction and evidence-label correction; the test-governance stack mixed 32-bit `os.stat` volume serials (CPython <= 3.11) with 64-bit `FileIdInfo` handle identities, so the generator's Git machinery, governance writer, and repository revalidation failed deterministically on the CPython 3.11 release interpreter while every recorded "isolated Python 3.11 snapshot" had actually executed on the 3.14.6 development venv; the correction uses full-width `FileIdInfo` identities on both sides of every such comparison with independent observations preserved and no replacement, reparse, ownership, or rollback check weakened, the string-decoy census is version-stable, the snapshot-runner successor asserts and records the actual child interpreter fail-closed, both independent Tier-C cold reviews returned CLEAN on the frozen manifest, the committed tree is byte-identical to the reviewed candidate, fresh disposable-snapshot suites pass on CPython 3.11.15 and 3.14.6, and the continuous-integration wall passed completely on a hosted runner's genuine CPython 3.11.9; historical results remain valid only as CPython 3.14.6 evidence, no retrospective 3.11 validation of any earlier run is implied, and no scientific result is recertified | Record the release-interpreter identity correction |
 | [ADR-0482](docs/decisions/ADR-0482-adopt-the-rehearsal-parking-and-lane-breaker-amendments.md) | 2026-08-30 | accepted protocol amendment; the evidence lifecycle gains a non-evidentiary rehearsal tier between source seal and invocation authorization, every future parking verdict names its category (`parked - falsified` permanent as today, or `parked - gate defect` eligible for exactly one fresh preregistration under a redesigned gate with every old panel discarded), and every future experiment lane preregisters lane-level kill criteria whose plumbing-death and budget breakers force a mandatory stand-down or architecture checkpoint; rehearsal output never feeds a fit, gate, claim, or selection, no wall or budget is frozen without a scaled rehearsal measurement as provenance, strength-claim evidence keeps permanent parking regardless of category, and nothing here reopens, reclassifies, or retries any already-parked candidate or consumed owner — historical reclassification requires its own future decision, and v7 remains permanently closed under ADR-0476's kill criteria | Adopt the rehearsal, parking, and lane-breaker amendments |
 | [ADR-0483](docs/decisions/ADR-0483-park-the-compiled-lane-and-open-v0a-integration.md) | 2026-08-30 | accepted architecture-checkpoint ruling; the ADR-0476 checkpoint resolves to parking the compiled synthetic topology-calibration lane and returning effort to the playable v0a integration boundary, because the lane's own precondition — a bound production source-local base producer with measured algebra, epoch identity, refresh cadence, exponent admission, and cold-versus-hit frequency — is a deliverable of the river bridge that only v0a integration builds; every candidate and closure in the lane retains its exact recorded standing, the four source-sealed topology arms remain sealed assets, the serial-structural-cover diagnostic is retained as the reopened lane's first candidate hypothesis and not a result, the lane may reopen only on bridge-measured producer telemetry through a wholly fresh ADR-0482-governed preregistration that honors every ADR-0476 constraint, and the v0a boundary opens under the same rules with bridge instrumentation recording would-be base-producer events from its first increment | Park the compiled lane and open v0a integration |
 | [ADR-0484](docs/decisions/ADR-0484-clarify-the-v0a-increment-split-and-instrumentation.md) | 2026-08-30 | accepted prospective clarification of the ADR-0483 opening directive before any v0a lifecycle exists; increment one of the v0a lane is the blueprint-only complete hand — the ADR-0308 exact spine joined to the ADR-0290 explicit-deal loop with every controlled action answered by the immutable blueprint inside its own 15,000 ms wall, no h32 decision, no GPU dependency, and no resolver — while the prepared h32 certified river decision and the would-be base-producer bridge instrumentation belong to increment two, because a blueprint-only hand executes no base-structure machinery and instrumentation obligations attach where that machinery first executes; increment one records the frozen decision-record fields for every controlled action, the input boundary admits only public events and the controlled seat's own cards so the dealer's complete deal never reaches policy selection, the campaign increment's qualifying-h32 minimums must later be met by a declared, seed-sealed, steered or prepared-context deal schedule and never by weakening qualification, each landed increment's clone-safe suite subset joins the continuous-integration wall, and the reviewed increment-one brief at `docs/briefs/v0a-increment-1-brief.md` bounds the work without conferring any experiment authority | Clarify the v0a increment split and instrumentation |
@@ -83,18 +80,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0502](docs/decisions/ADR-0502-open-the-seeded-deal-generator-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the seeded-deal generator source round |
 | [ADR-0503](docs/decisions/ADR-0503-source-seal-the-seeded-deal-generator.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the seeded-deal generator |
 | [ADR-0504](docs/decisions/ADR-0504-permit-one-seeded-watch-demonstration.md) | 2026-09-06 | accepted demonstration-only exception upon its separately authorized decision commit | Permit one seeded watch demonstration |
+| [ADR-0505](docs/decisions/ADR-0505-open-the-selectable-decision-provider-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the selectable decision-provider source round |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0504](docs/decisions/ADR-0504-permit-one-seeded-watch-demonstration.md) — Permit one seeded watch demonstration.
+- Latest ADR: [ADR-0505](docs/decisions/ADR-0505-open-the-selectable-decision-provider-source-round.md) — Open the selectable decision-provider source round.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 504.
-- ADR-header SHA-256: `e05ccd19c02a428cd23b4808a8ce4bd53a6c039a1a5a805b9b6cc058937a6833`.
-- Current blockers: exact demo launch approval pending; formal operating prerequisites open.
+- Numbered decisions: 505.
+- ADR-header SHA-256: `2f60466fe6a131f97456c8714e38a8f38b437329f8d985987bf0c50068f48bc5`.
+- Current blockers: provider source acceptance pending; operating and research prerequisites open.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0504](docs/decisions/ADR-0504-permit-one-seeded-watch-demonstration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0505](docs/decisions/ADR-0505-open-the-selectable-decision-provider-source-round.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

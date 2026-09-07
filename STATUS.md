@@ -15,22 +15,26 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Adopt `tools/v0a_evaluation_v2.py` as the bounded-read successor to the sealed v1
-paired evaluator. Its two-location change selects its own source origin and reads
-one byte beyond the observed file size, after the unchanged cap admission. All
-file/handle/ancestor checks, captured source loading, child contracts, cleanup,
-clocks and publication semantics remain intact. V1 schemas and evaluation-ID
-syntax retain their meaning; source commit and manifest distinguish v2.
+Upon this decision's separately authorized commit, open the immutable blueprint
+preparation source round defined by the brief, design and source contract under
+`docs/architecture/v0a-blueprint-preparation-r001/`, with the implementation plan
+at `docs/superpowers/plans/2026-09-07-blueprint-preparation.md`.
 
-Retain the completed performance pass and synthetic non-empty blueprint cost
-probe as engineering observations. The controller authorized the focused pass,
-then asked to follow the versioned-correction and measurement recommendations.
-No learned strategy, tuning, benchmark gate relaxation, or native engine migration
-is adopted. Exact decision commit/push authorization is the final adoption step.
+The controller requested commit/push of ADR-0512 and continuation to the next
+step. ADR-0512 is committed as `363c9fb669e19a30375537ee5e92ea338a840a2d`.
+This proposal completes its named design checkpoint; it requires its own exact
+decision authorization before source implementation. It claims no new speedup.
+
+Prepare an owned exact-key blueprint and unchanged canonical digest once per
+runtime hand, inside the existing hand-start accounting interval. Reuse it for
+real blueprint actions and baseline fallback. A direct Python provider exposes
+equivalent values for future engineering use. Preserve the legacy host lookup
+as an independent check of the child, and keep all artifact, provider, legal-action
+and action-clock semantics unchanged.
 
 ## Active next
 
-Design immutable blueprint digest and lookup preparation
+Implement accounted immutable blueprint preparation
 
 ## Revoked authorities
 
@@ -41,7 +45,7 @@ Design immutable blueprint digest and lookup preparation
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0512](docs/decisions/ADR-0512-adopt-bounded-reads-in-paired-evaluation-v2.md) — Adopt bounded reads in paired evaluation v2.
+Latest process decision: [ADR-0513](docs/decisions/ADR-0513-open-the-immutable-blueprint-preparation-source-round.md) — Open the immutable blueprint preparation source round.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -49,7 +53,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0489](docs/decisions/ADR-0489-close-the-v0a-engineering-milestone.md) | 2026-09-04 | accepted engineering-only closure upon its separately authorized decision commit | Close the v0a engineering milestone |
 | [ADR-0490](docs/decisions/ADR-0490-open-the-portable-blueprint-artifact-source-round.md) | 2026-09-05 | accepted source-opening decision upon its separately authorized decision commit | Open the portable blueprint artifact source round |
 | [ADR-0491](docs/decisions/ADR-0491-source-seal-the-portable-blueprint-artifact.md) | 2026-09-05 | accepted source-only seal upon its separately authorized decision commit | Source-seal the portable blueprint artifact |
 | [ADR-0492](docs/decisions/ADR-0492-adopt-proportionate-engineering-review.md) | 2026-09-05 | accepted prospective workflow amendment upon its authorized decision commit | Adopt proportionate engineering review |
@@ -73,18 +76,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0510](docs/decisions/ADR-0510-preregister-the-first-paired-evaluation-rehearsal.md) | 2026-09-07 | accepted rehearsal-only preregistration upon its separately authorized decision commit | Preregister the first paired evaluation rehearsal |
 | [ADR-0511](docs/decisions/ADR-0511-close-the-measured-paired-comparison-contract.md) | 2026-09-07 | accepted bounded descriptive comparison contract upon its authorized decision commit | Close the measured paired comparison contract |
 | [ADR-0512](docs/decisions/ADR-0512-adopt-bounded-reads-in-paired-evaluation-v2.md) | 2026-09-07 | accepted engineering-only successor upon its separately authorized decision commit | Adopt bounded reads in paired evaluation v2 |
+| [ADR-0513](docs/decisions/ADR-0513-open-the-immutable-blueprint-preparation-source-round.md) | 2026-09-07 | accepted source-opening decision upon its separately authorized commit | Open the immutable blueprint preparation source round |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0512](docs/decisions/ADR-0512-adopt-bounded-reads-in-paired-evaluation-v2.md) — Adopt bounded reads in paired evaluation v2.
+- Latest ADR: [ADR-0513](docs/decisions/ADR-0513-open-the-immutable-blueprint-preparation-source-round.md) — Open the immutable blueprint preparation source round.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 512.
-- ADR-header SHA-256: `5798a3066c0cfda32c8c8f2d7227fce63518feba7d3b5846858dd7274ea66a9f`.
-- Current blockers: strength, full-evaluation resources and worst-case action latency unknown.
+- Numbered decisions: 513.
+- ADR-header SHA-256: `93ac740e1856fc0bd663a591ff0640c88fba24ff94ff9405cb8bbb5a89105c7b`.
+- Current blockers: prepared source acceptance pending; strength and worst-case latency unknown.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0512](docs/decisions/ADR-0512-adopt-bounded-reads-in-paired-evaluation-v2.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0513](docs/decisions/ADR-0513-open-the-immutable-blueprint-preparation-source-round.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

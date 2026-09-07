@@ -25,9 +25,9 @@ PREFIX = 'pontius-v0a-table-host-v1-correctness-'
 POLICIES = ('passive', 'fold_to_bet', 'min_raise_once', 'shove_once')
 EVENT_LIMIT = ACTION_LIMIT = 256
 CREATE_SUSPENDED = 0x00000004
-BASE = 'e205cd8cd6f46a50db8b2d0cb1f39366da0f2767'
-ADDITIONS = tuple('src/pontius/decision_provider/' + name + '.py'
-                  for name in ('__init__', 'model', 'providers', 'selection', 'codec'))
+BASE = '363c9fb669e19a30375537ee5e92ea338a840a2d'
+ADDITIONS = tuple('src/pontius/blueprint_preparation/' + name + '.py'
+                  for name in ('__init__', 'lookup'))
 EXCEPTIONS = ('src/pontius/v0a/runtime.py', 'tools/v0a_hand_adapter.py',
               'tools/v0a_event_adapter.py', 'tools/v0a_table_host.py')
 TOOLS = ('tools/v0a_table_host.py', 'tools/v0a_event_adapter.py',

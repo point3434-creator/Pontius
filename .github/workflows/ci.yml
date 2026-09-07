@@ -1,6 +1,6 @@
 # Walking-skeleton CI: the CPU-safe governance and orchestration suites on the
 # CPython 3.11 release slot, every push. This is the fast early-warning layer,
-# not acceptance evidence — acceptance still requires the disposable-snapshot
+# not acceptance evidence â€” acceptance still requires the disposable-snapshot
 # procedure of CLAUDE.md rule 5. GPU/H32/scientific suites are intentionally
 # excluded (hosted runners have no RTX 5080); they remain snapshot-only.
 name: CI
@@ -27,7 +27,7 @@ jobs:
       run:
         # The runner workspace under D:\a traverses a reparse/mount ancestor,
         # which the evidence configuration reader rejects by design. Suites
-        # therefore run from a local clone at a mount-clean, short path — the
+        # therefore run from a local clone at a mount-clean, short path â€” the
         # CI analogue of the disposable-snapshot policy. The fresh clone also
         # re-materializes the sealed -text pins on every run.
         working-directory: C:\px\Pontius
@@ -87,7 +87,7 @@ jobs:
 
       # Downstream gates execute regardless of earlier failures so unreached
       # gates get verified; each still fails the job on its own defects, and
-      # a failed inventory suite above keeps the job red — nothing is masked.
+      # a failed inventory suite above keeps the job red â€” nothing is masked.
       - name: Stabilization boundaries suite
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tests\test_stabilization_boundaries.py
@@ -182,29 +182,185 @@ jobs:
 
       - name: Paired evaluation runner suite
         if: ${{ !cancelled() }}
-        run: .venv\Scripts\python.exe -B -P tests\test_v0a_evaluation_runner.py
+        run: |
+          & .venv\Scripts\python.exe -B -P tools\run_evaluation_history.py `
+            --source-root 'C:\px\Pontius' --run-root 'D:\ph-runner' --suite runner
+          exit $LASTEXITCODE
 
       - name: Paired evaluation boundary suite
         if: ${{ !cancelled() }}
-        run: .venv\Scripts\python.exe -B -P tests\test_v0a_evaluation_boundary.py
+        run: |
+          & .venv\Scripts\python.exe -B -P tools\run_evaluation_history.py `
+            --source-root 'C:\px\Pontius' --run-root 'D:\ph-boundary' --suite boundary
+          exit $LASTEXITCODE
 
       - name: Paired evaluation v2 bounded-read suite
         if: ${{ !cancelled() }}
         run: |
-          # Native source admission requires D:, outside the D:\a reparse workspace.
-          $v2Root = 'D:\pv2'
-          $v2Temp = 'D:\ptv2'
-          $v2Origin = 'C:\px\Pontius'
-          & $env:PONTIUS_GIT -c core.autocrlf=false clone --shared --no-checkout $v2Origin $v2Root
+          & .venv\Scripts\python.exe -B -P tools\run_evaluation_history.py `
+            --source-root 'C:\px\Pontius' --run-root 'D:\ph-v2' --suite v2
+          exit $LASTEXITCODE
+
+      - name: Blueprint preparation suite
+        if: ${{ !cancelled() }}
+        run: |
+          # Admission requires a fresh native D: checkout outside D:\a.
+          $source = 'D:\pb-prep'
+          $temporary = 'D:\pt-prep'
+          $origin = 'C:\px\Pontius'
+          if (Test-Path -LiteralPath $source) { throw 'Source already exists' }
+          if ((Get-Item -LiteralPath 'D:\').Attributes -band [IO.FileAttributes]::ReparsePoint) {
+            throw 'D: is a reparse point'
+          }
+          $keep = @('SystemRoot', 'WINDIR', 'SystemDrive', 'COMSPEC', 'USERPROFILE',
+            'APPDATA', 'LOCALAPPDATA', 'PONTIUS_GIT')
+          Get-ChildItem Env: | Where-Object { $_.Name -notin $keep } | ForEach-Object {
+            Remove-Item -LiteralPath ('Env:\' + $_.Name)
+          }
+          & $env:PONTIUS_GIT -c core.autocrlf=false -c core.longpaths=true `
+            clone --shared --no-checkout $origin $source
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          & $env:PONTIUS_GIT -C $v2Root -c core.autocrlf=false checkout --detach ${{ github.sha }}
+          & $env:PONTIUS_GIT -C $source -c core.autocrlf=false -c core.longpaths=true `
+            checkout --detach ${{ github.sha }}
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          New-Item -ItemType Directory -ErrorAction Stop $v2Temp | Out-Null
-          $env:TEMP = $v2Temp
-          $env:TMP = $v2Temp
-          $env:PYTHONPATH = Join-Path $v2Root 'src'
-          Set-Location -LiteralPath $v2Root
-          & 'C:\px\Pontius\.venv\Scripts\python.exe' -B -P tests\test_v0a_evaluation_v2.py
+          New-Item -ItemType Directory -ErrorAction Stop $temporary | Out-Null
+          $env:TEMP = $temporary
+          $env:TMP = $temporary
+          $env:PYTHONPATH = Join-Path $source 'src'
+          $env:PYTHONNOUSERSITE = '1'
+          $env:PYTHONIOENCODING = 'utf-8'
+          Set-Location -LiteralPath $source
+          & 'C:\px\Pontius\.venv\Scripts\python.exe' -B -P tests\test_blueprint_preparation.py
+          exit $LASTEXITCODE
+
+      - name: Blueprint preparation runtime suite
+        if: ${{ !cancelled() }}
+        run: |
+          # Admission requires a fresh native D: checkout outside D:\a.
+          $source = 'D:\pb-runtime'
+          $temporary = 'D:\pt-runtime'
+          $origin = 'C:\px\Pontius'
+          if (Test-Path -LiteralPath $source) { throw 'Source already exists' }
+          if ((Get-Item -LiteralPath 'D:\').Attributes -band [IO.FileAttributes]::ReparsePoint) {
+            throw 'D: is a reparse point'
+          }
+          $keep = @('SystemRoot', 'WINDIR', 'SystemDrive', 'COMSPEC', 'USERPROFILE',
+            'APPDATA', 'LOCALAPPDATA', 'PONTIUS_GIT')
+          Get-ChildItem Env: | Where-Object { $_.Name -notin $keep } | ForEach-Object {
+            Remove-Item -LiteralPath ('Env:\' + $_.Name)
+          }
+          & $env:PONTIUS_GIT -c core.autocrlf=false -c core.longpaths=true `
+            clone --shared --no-checkout $origin $source
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & $env:PONTIUS_GIT -C $source -c core.autocrlf=false -c core.longpaths=true `
+            checkout --detach ${{ github.sha }}
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          New-Item -ItemType Directory -ErrorAction Stop $temporary | Out-Null
+          $env:TEMP = $temporary
+          $env:TMP = $temporary
+          $env:PYTHONPATH = Join-Path $source 'src'
+          $env:PYTHONNOUSERSITE = '1'
+          $env:PYTHONIOENCODING = 'utf-8'
+          Set-Location -LiteralPath $source
+          & 'C:\px\Pontius\.venv\Scripts\python.exe' -B -P `
+            tests\test_blueprint_preparation_runtime.py
+          exit $LASTEXITCODE
+
+      - name: Blueprint preparation transport suite
+        if: ${{ !cancelled() }}
+        run: |
+          # Admission requires a fresh native D: checkout outside D:\a.
+          $source = 'D:\pb-transport'
+          $temporary = 'D:\pt-transport'
+          $origin = 'C:\px\Pontius'
+          if (Test-Path -LiteralPath $source) { throw 'Source already exists' }
+          if ((Get-Item -LiteralPath 'D:\').Attributes -band [IO.FileAttributes]::ReparsePoint) {
+            throw 'D: is a reparse point'
+          }
+          $keep = @('SystemRoot', 'WINDIR', 'SystemDrive', 'COMSPEC', 'USERPROFILE',
+            'APPDATA', 'LOCALAPPDATA', 'PONTIUS_GIT')
+          Get-ChildItem Env: | Where-Object { $_.Name -notin $keep } | ForEach-Object {
+            Remove-Item -LiteralPath ('Env:\' + $_.Name)
+          }
+          & $env:PONTIUS_GIT -c core.autocrlf=false -c core.longpaths=true `
+            clone --shared --no-checkout $origin $source
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & $env:PONTIUS_GIT -C $source -c core.autocrlf=false -c core.longpaths=true `
+            checkout --detach ${{ github.sha }}
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          New-Item -ItemType Directory -ErrorAction Stop $temporary | Out-Null
+          $env:TEMP = $temporary
+          $env:TMP = $temporary
+          $env:PYTHONPATH = Join-Path $source 'src'
+          $env:PYTHONNOUSERSITE = '1'
+          $env:PYTHONIOENCODING = 'utf-8'
+          Set-Location -LiteralPath $source
+          & 'C:\px\Pontius\.venv\Scripts\python.exe' -B -P `
+            tests\test_blueprint_preparation_transport.py
+          exit $LASTEXITCODE
+
+      - name: Paired evaluation v3 suite
+        if: ${{ !cancelled() }}
+        run: |
+          # Admission requires a fresh native D: checkout outside D:\a.
+          $source = 'D:\pb-v3'
+          $temporary = 'D:\pt-v3'
+          $origin = 'C:\px\Pontius'
+          if (Test-Path -LiteralPath $source) { throw 'Source already exists' }
+          if ((Get-Item -LiteralPath 'D:\').Attributes -band [IO.FileAttributes]::ReparsePoint) {
+            throw 'D: is a reparse point'
+          }
+          $keep = @('SystemRoot', 'WINDIR', 'SystemDrive', 'COMSPEC', 'USERPROFILE',
+            'APPDATA', 'LOCALAPPDATA', 'PONTIUS_GIT')
+          Get-ChildItem Env: | Where-Object { $_.Name -notin $keep } | ForEach-Object {
+            Remove-Item -LiteralPath ('Env:\' + $_.Name)
+          }
+          & $env:PONTIUS_GIT -c core.autocrlf=false -c core.longpaths=true `
+            clone --shared --no-checkout $origin $source
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & $env:PONTIUS_GIT -C $source -c core.autocrlf=false -c core.longpaths=true `
+            checkout --detach ${{ github.sha }}
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          New-Item -ItemType Directory -ErrorAction Stop $temporary | Out-Null
+          $env:TEMP = $temporary
+          $env:TMP = $temporary
+          $env:PYTHONPATH = Join-Path $source 'src'
+          $env:PYTHONNOUSERSITE = '1'
+          $env:PYTHONIOENCODING = 'utf-8'
+          Set-Location -LiteralPath $source
+          & 'C:\px\Pontius\.venv\Scripts\python.exe' -B -P tests\test_v0a_evaluation_v3.py
+          exit $LASTEXITCODE
+
+      - name: Historical evaluation launcher suite
+        if: ${{ !cancelled() }}
+        run: |
+          # Admission requires a fresh native D: checkout outside D:\a.
+          $source = 'D:\pb-history'
+          $temporary = 'D:\pt-history'
+          $origin = 'C:\px\Pontius'
+          if (Test-Path -LiteralPath $source) { throw 'Source already exists' }
+          if ((Get-Item -LiteralPath 'D:\').Attributes -band [IO.FileAttributes]::ReparsePoint) {
+            throw 'D: is a reparse point'
+          }
+          $keep = @('SystemRoot', 'WINDIR', 'SystemDrive', 'COMSPEC', 'USERPROFILE',
+            'APPDATA', 'LOCALAPPDATA', 'PONTIUS_GIT')
+          Get-ChildItem Env: | Where-Object { $_.Name -notin $keep } | ForEach-Object {
+            Remove-Item -LiteralPath ('Env:\' + $_.Name)
+          }
+          & $env:PONTIUS_GIT -c core.autocrlf=false -c core.longpaths=true `
+            clone --shared --no-checkout $origin $source
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & $env:PONTIUS_GIT -C $source -c core.autocrlf=false -c core.longpaths=true `
+            checkout --detach ${{ github.sha }}
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          New-Item -ItemType Directory -ErrorAction Stop $temporary | Out-Null
+          $env:TEMP = $temporary
+          $env:TMP = $temporary
+          $env:PYTHONPATH = Join-Path $source 'src'
+          $env:PYTHONNOUSERSITE = '1'
+          $env:PYTHONIOENCODING = 'utf-8'
+          Set-Location -LiteralPath $source
+          & 'C:\px\Pontius\.venv\Scripts\python.exe' -B -P tests\test_evaluation_history.py
           exit $LASTEXITCODE
 
       - name: v0a trace suite

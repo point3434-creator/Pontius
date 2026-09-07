@@ -119,6 +119,125 @@ HISTORICAL_CLASSES = {
     "CompiledGlobalSeparationCalibrationV6Tests": "historical:v6-phases",
     "CompiledGlobalSeparationCalibrationV7Tests": "historical:v7-phases",
 }
+# ADR-0513 fixes these post-baseline IDs to the unchanged evaluator source at B.
+LEGACY_EVALUATION_IDS = {
+    "tests/test_v0a_evaluation_runner.py": frozenset({
+        "tests/test_v0a_evaluation_runner.py::"
+            "AdmissionTests::test_admit_exact_source_without_poker_imports",
+        "tests/test_v0a_evaluation_runner.py::"
+            "AdmissionTests::test_ancestor_replacement_changes_stable_read_identity",
+        "tests/test_v0a_evaluation_runner.py::"
+            "AdmissionTests::test_cli_parse_error_uses_failure_exit",
+        "tests/test_v0a_evaluation_runner.py::"
+            "AdmissionTests::test_existing_output_root_refuses_without_overwrite",
+        "tests/test_v0a_evaluation_runner.py::"
+            "AdmissionTests::test_loaded_helper_origin_drift_refuses",
+        "tests/test_v0a_evaluation_runner.py::"
+            "AdmissionTests::test_non_native_git_refuses_before_first_git_command",
+        "tests/test_v0a_evaluation_runner.py::"
+            "AdmissionTests::test_preloaded_alias_refuses",
+        "tests/test_v0a_evaluation_runner.py::"
+            "MatrixTests::test_one_zero_seed_twelve_public_sessions",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeIdentityTests::test_admitted_native_drift_refuses_before_execution",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeIdentityTests::test_each_initial_native_command_revalidates_captured_identity",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeIdentityTests::test_unchanged_disposable_native_admits_and_rechecks",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_assignment_failure_never_executes_child",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_bypassing_assignment_fails_independent_marker_check",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_cleanup_refusal_is_retained_after_actual_close",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_constructor_secondary_cleanup_failure_is_not_complete",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_creation_exception_keeps_cleanup_unknown",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_expired_trial_admission_never_launches",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_intent_then_capture_failure_retains_unknown_launch",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_interrupt_after_real_resume_stops_child",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_observation_finishes_after_trial_deadline",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_overflow_stops_observed_native_descendant",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_partial_json_keeps_raw_capture_and_refuses_report",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_stderr_overflow_is_capped_and_stopped",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_stdout_overflow_is_capped_and_stopped",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_timeout_stops_child",
+        "tests/test_v0a_evaluation_runner.py::"
+            "NativeTests::test_timeout_stops_observed_native_descendant",
+        "tests/test_v0a_evaluation_runner.py::"
+            "RetentionTests::test_completed_trial_retention_fault_clears_score",
+        "tests/test_v0a_evaluation_runner.py::"
+            "RetentionTests::test_completed_trial_retention_interrupt_clears_score",
+    }),
+    "tests/test_v0a_evaluation_boundary.py": frozenset({
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_actual_child_drift_keeps_prefix_and_stops_later_units",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_child_environment_drops_finite_poison_values",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_completion_faults_partial_interrupt_and_actual_delays",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_fsync_and_final_file_collision_preserve_guard",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_missing_final_clock_mutant_breaks_independent_oracle",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_normal_and_final_clock_edges",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_preloaded_modules_and_changed_helper_identity_refuse",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_raw_source_new_tool_missing_helper_and_extra_paths_refuse",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_reader_rechecks_actual_guard_and_file_identity",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_real_source_drift_after_child_and_before_publication_refuses",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_release_delay_failure_and_ambiguity",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_result_write_flush_close_readback_faults",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_revalidation_rejects_actual_saved_file_drift",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_root_and_guard_object_collisions_preserve_prior_owner",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_saved_inputs_drift_before_trial_prevents_child",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_total_deadline_covers_real_reduction",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_whole_trial_exact_fit_one_ns_short_and_revalidation_delay",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "BoundaryTests::test_wrong_interpreter_flags_and_git_refuse_without_root",
+        "tests/test_v0a_evaluation_boundary.py::"
+            "RegistrationBoundaryTests::test_exact_loader_and_import_controls",
+    }),
+    "tests/test_v0a_evaluation_v2.py": frozenset({
+        "tests/test_v0a_evaluation_v2.py::"
+            "BoundedReadTests::test_ancestor_replacement_refuses_with_same_file_identity",
+        "tests/test_v0a_evaluation_v2.py::"
+            "BoundedReadTests::test_create_file_round_trip_and_no_overwrite",
+        "tests/test_v0a_evaluation_v2.py::"
+            "BoundedReadTests::test_read_request_respects_observed_size_ceiling",
+        "tests/test_v0a_evaluation_v2.py::"
+            "BoundedReadTests::test_real_growth_shrink_and_named_replacement_refuse",
+        "tests/test_v0a_evaluation_v2.py::"
+            "BoundedReadTests::test_restored_growth_discriminates_missing_extra_byte",
+        "tests/test_v0a_evaluation_v2.py::"
+            "BoundedReadTests::test_stable_bytes_tokens_and_cap_boundaries",
+        "tests/test_v0a_evaluation_v2.py::"
+            "SuccessorBoundaryTests::test_exact_source_admission_and_sealed_helper",
+        "tests/test_v0a_evaluation_v2.py::"
+            "SuccessorBoundaryTests::test_import_guard_requires_each_exact_origin_and_loader",
+    }),
+}
 V4_NEGATIVE_ID = (
     "tests/test_legal_river_quotient_compiled_global_separation_calibration_v4.py::"
     "CompiledGlobalSeparationCalibrationV4Tests::"
@@ -154,6 +273,11 @@ DECLARED_SKIPS = {
     ),
 }
 STABILIZATION_TEST_FILES = frozenset({
+    "tests/test_blueprint_preparation.py",
+    "tests/test_blueprint_preparation_runtime.py",
+    "tests/test_blueprint_preparation_transport.py",
+    "tests/test_evaluation_history.py",
+    "tests/test_v0a_evaluation_v3.py",
     "tests/test_decision_provider.py", "tests/test_decision_provider_runtime.py",
     "tests/test_decision_provider_session.py", "tests/test_decision_provider_transport.py",
     "tests/evidence_test_support.py",
@@ -1726,6 +1850,10 @@ def discover_test_sources(sources: Mapping[str, bytes]) -> Discovery:
 
 
 def _profile_for(method: TestMethod) -> tuple[str, str]:
+    if method.relative_path in LEGACY_EVALUATION_IDS:
+        if method.stable_id not in LEGACY_EVALUATION_IDS[method.relative_path]:
+            raise InventoryError(f"unapproved legacy evaluation stable ID: {method.stable_id}")
+        return "historical", f"historical:{PurePosixPath(method.relative_path).stem}"
     historical = HISTORICAL_CLASSES.get(method.case_name)
     if historical is not None:
         if method.stable_id == V4_NEGATIVE_ID:
@@ -1849,7 +1977,11 @@ def build_inventory(
             # are deliberately unable to reassign an existing stable ID.
         else:
             profile_name, payload_id = _profile_for(method)
-            if profile_name != "current":
+            if profile_name != "current" and not (
+                profile_name == "historical"
+                and method.relative_path in LEGACY_EVALUATION_IDS
+                and method.stable_id in LEGACY_EVALUATION_IDS[method.relative_path]
+            ):
                 raise InventoryError("post-baseline stabilization tests must be current-owned")
             entry = {
                 "stable_id": method.stable_id,
@@ -1857,9 +1989,9 @@ def build_inventory(
                 "case_name": method.case_name,
                 "method_name": method.method_name,
                 "assignment": {
-                    "profile_name": "current",
+                    "profile_name": profile_name,
                     "payload_id": payload_id,
-                    "expectation": _expectation(method, profile_name="current"),
+                    "expectation": _expectation(method, profile_name=profile_name),
                 },
                 "introduced_after_baseline": True,
             }
@@ -2016,6 +2148,10 @@ SNAPSHOTS = {
         "aaca2dda40e29be8ebd091d58e7853bce1c62fd8",
         "e7bd077f40b1970e9b40a83c891996ab02cd5ffd",
     ),
+    "v0a_evaluation_legacy": (
+        "363c9fb669e19a30375537ee5e92ea338a840a2d",
+        "10cc82ff78a84ef901242b2f69540f6a74ec498b",
+    ),
 }
 CASE_PAYLOADS = {
     "base_source_seal": ("historical:base-source",),
@@ -2033,6 +2169,11 @@ CASE_PAYLOADS = {
     "v7_source_seal": ("historical:v7-phases",),
     "v7_live_authorization": ("historical:v7-phases",),
     "v7_retained_probe": ("historical:v7-retained-probe",),
+    "v0a_evaluation_legacy": (
+        "historical:test_v0a_evaluation_runner",
+        "historical:test_v0a_evaluation_boundary",
+        "historical:test_v0a_evaluation_v2",
+    ),
 }
 
 

@@ -17,7 +17,7 @@ VERSION = 'pontius-v0a-table-session-v1'
 PREFIX = VERSION + '-correctness-'
 HOST = 'tools/v0a_table_host.py'
 SELF = 'tools/v0a_table_session.py'
-HOST_BLOB = '6ec8a162b053158203663c48e82314b10750f962'
+HOST_BLOB = '7beb178989b3ff98b684093ce4022667a1c61ece'
 ALIAS = 'pontius_v0a_table_session_host'
 
 

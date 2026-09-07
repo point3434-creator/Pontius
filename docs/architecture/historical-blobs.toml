@@ -1,15 +1,21 @@
 schema_version = "pontius-historical-blobs-v1"
 baseline_commit = "a842c4b6a73a2991a63a481f4107580b72750582"
-snapshot_count = 11
-entry_count = 167
-entries_sha256 = "812ce6b5e2573219f75f1fce08d1e117b7fdf930efeab3e31f228eea40499c89"
-approved_seed_sha256 = "812ce6b5e2573219f75f1fce08d1e117b7fdf930efeab3e31f228eea40499c89"
+snapshot_count = 12
+entry_count = 170
+entries_sha256 = "7311fbe67c736ae1d7c72e15aa438db8aee6efc063de3459d95abadbaa0754c8"
+approved_seed_sha256 = "7311fbe67c736ae1d7c72e15aa438db8aee6efc063de3459d95abadbaa0754c8"
 
 [[snapshots]]
 phase = "v2_source_seal"
 commit = "08bb6857f47f9669b8f531c65079d4decd52a573"
 root_tree_oid = "0d01a4133a4e6ab10467ad0bd298630149702a73"
 governing_decision = "ADR-0461"
+
+[[snapshots]]
+phase = "v0a_evaluation_legacy"
+commit = "363c9fb669e19a30375537ee5e92ea338a840a2d"
+root_tree_oid = "10cc82ff78a84ef901242b2f69540f6a74ec498b"
+governing_decision = "ADR-0512"
 
 [[snapshots]]
 phase = "v2_retained_rejection"
@@ -142,6 +148,33 @@ raw_sha256 = "49d5963ea2abc020b749baea8c1b0191c5487465824985d4f886a1c6d89d57b0"
 role = "selected_test"
 phase = "v2_source_seal"
 governing_decision = "ADR-0461"
+
+[[blobs]]
+commit = "363c9fb669e19a30375537ee5e92ea338a840a2d"
+relative_path = "tests/test_v0a_evaluation_boundary.py"
+git_blob_oid = "f2b9534c896fa308e3e777ce3d86c3e5b3034d1d"
+raw_sha256 = "4a7e323c021c1dace35345782873d8ac2a302eeb6bb7b00df7b9d3445c5f980c"
+role = "selected_test"
+phase = "v0a_evaluation_legacy"
+governing_decision = "ADR-0512"
+
+[[blobs]]
+commit = "363c9fb669e19a30375537ee5e92ea338a840a2d"
+relative_path = "tests/test_v0a_evaluation_runner.py"
+git_blob_oid = "edd186ccfd6764b93b8b973793d84bdb562e1130"
+raw_sha256 = "9fa3adcd5b350bdcfccfaba251999579e8a37d9d2d63bc7d8789c982ffd3774a"
+role = "selected_test"
+phase = "v0a_evaluation_legacy"
+governing_decision = "ADR-0512"
+
+[[blobs]]
+commit = "363c9fb669e19a30375537ee5e92ea338a840a2d"
+relative_path = "tests/test_v0a_evaluation_v2.py"
+git_blob_oid = "477001e2407a9d097359622716b36183d37bb679"
+raw_sha256 = "76121d42cb8646ea5d47e9f5076cec646a0ea0558c20921ec5b148aac93210cd"
+role = "selected_test"
+phase = "v0a_evaluation_legacy"
+governing_decision = "ADR-0512"
 
 [[blobs]]
 commit = "3de8e0c9eebf67f2cc2573041242a869468de6e9"

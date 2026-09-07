@@ -100,6 +100,18 @@ HISTORICAL_PAYLOAD_LOCKS = {
         20,
         "6f62dc5b6cd8b61709d9ef148384fa9cf319d54b88281d6ea45245496852112c",
     ),
+    "historical:test_v0a_evaluation_runner": (
+        28,
+        "a108bd12aacade38f9989e87d5fb2fe3c332835e1f55b4bc7baa9be667cdd2c9",
+    ),
+    "historical:test_v0a_evaluation_boundary": (
+        19,
+        "dd15a8e31b1bc5b823a98991063af478dc15a95e158d7bff874d711d2e938284",
+    ),
+    "historical:test_v0a_evaluation_v2": (
+        8,
+        "3e8ca7d9ae28ced9d24fe8e4c7dd72d573bf02890e9725bfeb90af004cee83cd",
+    ),
 }
 
 DECLARED_UNCONDITIONAL_SKIPS = {
@@ -180,6 +192,22 @@ HISTORICAL_SNAPSHOTS = {
         "aaca2dda40e29be8ebd091d58e7853bce1c62fd8",
         "e7bd077f40b1970e9b40a83c891996ab02cd5ffd",
     ),
+    "v0a_evaluation_legacy": (
+        "363c9fb669e19a30375537ee5e92ea338a840a2d",
+        "10cc82ff78a84ef901242b2f69540f6a74ec498b",
+    ),
+}
+
+LEGACY_EVALUATION_FILES = {
+    "tests/test_v0a_evaluation_runner.py": (
+        "9fa3adcd5b350bdcfccfaba251999579e8a37d9d2d63bc7d8789c982ffd3774a"
+    ),
+    "tests/test_v0a_evaluation_boundary.py": (
+        "4a7e323c021c1dace35345782873d8ac2a302eeb6bb7b00df7b9d3445c5f980c"
+    ),
+    "tests/test_v0a_evaluation_v2.py": (
+        "76121d42cb8646ea5d47e9f5076cec646a0ea0558c20921ec5b148aac93210cd"
+    ),
 }
 
 V7_RETAINED_OVERLAYS = {
@@ -208,8 +236,12 @@ STABILIZATION_TEST_FILES = (
     "tests/orchestration_test_support.py",
     "tests/test_blueprint_artifact.py",
     "tests/test_blueprint_artifact_boundary.py",
+    "tests/test_blueprint_preparation.py",
+    "tests/test_blueprint_preparation_runtime.py",
+    "tests/test_blueprint_preparation_transport.py",
     "tests/test_decision_provider.py", "tests/test_decision_provider_runtime.py",
     "tests/test_decision_provider_session.py", "tests/test_decision_provider_transport.py",
+    "tests/test_evaluation_history.py",
     "tests/test_evidence_authorization.py",
     "tests/test_evidence_errors_and_model.py",
     "tests/test_evidence_filesystem_and_git.py",
@@ -237,6 +269,7 @@ STABILIZATION_TEST_FILES = (
     "tests/test_v0a_contract_faults.py",
     "tests/test_v0a_evaluation_boundary.py", "tests/test_v0a_evaluation_contract.py",
     "tests/test_v0a_evaluation_runner.py", "tests/test_v0a_evaluation_v2.py",
+    "tests/test_v0a_evaluation_v3.py",
     "tests/test_v0a_event_adapter.py", "tests/test_v0a_event_adapter_boundary.py",
     "tests/test_v0a_hand_adapter.py", "tests/test_v0a_hand_replay.py",
     "tests/test_v0a_rehearsal_driver.py",
@@ -1765,6 +1798,68 @@ class MaterializedOwnershipTests(unittest.TestCase):
         self.assertEqual(_assignment(row)["profile_name"], "current")
         self.assertIs(row["introduced_after_baseline"], True)
         self.assertNotIn("baseline_assignment", row)
+
+    def test_exact_legacy_evaluation_ids_are_historical_after_baseline(self) -> None:
+        working = dict(self.baseline_sources)
+        for path, digest in LEGACY_EVALUATION_FILES.items():
+            raw = (SNAPSHOT_ROOT / path).read_bytes()
+            self.assertEqual(sha256(raw).hexdigest(), digest)
+            working[path] = raw
+        document = self.generator.build_inventory(
+            self.baseline_sources, working, enforce_baseline_lock=False
+        )
+        entries = _entries_by_id(document)
+        for path in LEGACY_EVALUATION_FILES:
+            rows = [row for row in entries.values() if row["relative_path"] == path]
+            payload_id = "historical:" + Path(path).stem
+            count, digest = HISTORICAL_PAYLOAD_LOCKS[payload_id]
+            self.assertEqual(len(rows), count)
+            self.assertEqual(_ids_digest([row["stable_id"] for row in rows]), digest)
+            for row in rows:
+                self.assertEqual(_assignment(row), {
+                    "profile_name": "historical", "payload_id": payload_id,
+                    "expectation": {"kind": "case_defined"},
+                })
+                self.assertIs(row["introduced_after_baseline"], True)
+                self.assertNotIn("baseline_assignment", row)
+
+    def test_legacy_evaluation_exception_refuses_an_unlisted_id(self) -> None:
+        for path in LEGACY_EVALUATION_FILES:
+            working = dict(self.baseline_sources)
+            working[path] = _source("""
+                import unittest
+                class UnlistedTests(unittest.TestCase):
+                    def test_unlisted(self): pass
+            """)
+            with self.subTest(path=path), self.assertRaisesRegex(
+                self.generator.InventoryError, "unapproved legacy evaluation stable ID"
+            ):
+                self.generator.build_inventory(
+                    self.baseline_sources, working, enforce_baseline_lock=False
+                )
+
+    def test_legacy_evaluation_exception_does_not_open_other_historical_additions(self) -> None:
+        working = dict(self.baseline_sources)
+        working["tests/test_inventory_and_profiles.py"] = _source("""
+            import unittest
+            class CompiledGlobalSeparationSourceSealTests(unittest.TestCase):
+                def test_added(self): pass
+        """)
+        with self.assertRaisesRegex(self.generator.InventoryError, "must be current-owned"):
+            self.generator.build_inventory(
+                self.baseline_sources, working, enforce_baseline_lock=False
+            )
+        original_path = "tests/test_v0a_evaluation_v2.py"
+        raw = (SNAPSHOT_ROOT / original_path).read_bytes()
+        self.assertEqual(sha256(raw).hexdigest(), LEGACY_EVALUATION_FILES[original_path])
+        working["tests/test_inventory_and_profiles.py"] = raw
+        document = self.generator.build_inventory(
+            self.baseline_sources, working, enforce_baseline_lock=False
+        )
+        relocated = [row for row in document["entries"] if row.get("introduced_after_baseline")]
+        self.assertEqual(len(relocated), 8)
+        for row in relocated:
+            self.assertEqual(_assignment(row)["profile_name"], "current")
 
     def test_declared_skip_requires_the_exact_outer_literal_and_reason_code(self) -> None:
         stable_id, (literal, reason_code, _) = next(
@@ -30194,7 +30289,11 @@ class CheckedInInventoryTests(unittest.TestCase):
         for row in introduced:
             with self.subTest(stable_id=row["stable_id"]):
                 self.assertIn(row["relative_path"], allowed)
-                self.assertEqual(_assignment(row)["profile_name"], "current")
+                expected = (
+                    "historical" if row["relative_path"] in LEGACY_EVALUATION_FILES
+                    else "current"
+                )
+                self.assertEqual(_assignment(row)["profile_name"], expected)
 
     def test_entry_shapes_selectors_and_expectation_variants_are_exact(self) -> None:
         stable_ids = []
@@ -30469,6 +30568,26 @@ class CheckedInProfileTests(unittest.TestCase):
                         "raw_sha256": raw_sha256,
                     },
                 )
+
+    def test_legacy_evaluation_case_has_exact_vector_and_no_capability_grants(self) -> None:
+        cases = {row["case_id"]: row for row in self.document["historical_case"]}
+        case = cases["case:v0a_evaluation_legacy"]
+        payload_ids = sorted("historical:" + Path(path).stem for path in LEGACY_EVALUATION_FILES)
+        self.assertEqual(case["payload_ids"], payload_ids)
+        self.assertEqual(case["overlay_ids"], [])
+        self.assertEqual(case["expected_vector"], {
+            "kind": "positive", "passed": 55, "assertion_failed": 0,
+            "setup_failed": 0, "body_entered": 55, "owner_calls": 0,
+            "scientific_calls": 0,
+        })
+        self.assertEqual(len(case["item_expectation"]), 55)
+        self.assertEqual({row["outcome"] for row in case["item_expectation"]}, {"pass"})
+        payloads = {row["payload_id"]: row for row in self.document["payload"]}
+        for payload_id in payload_ids:
+            self.assertEqual(payloads[payload_id]["target_kind"], "historical_clone")
+            self.assertEqual(payloads[payload_id]["allowed_interpreter_slots"], ["development"])
+        self.assertEqual(self.document["spec_capabilities_sha256"], ZERO_SHA256)
+        self.assertEqual(self.document["capability_bindings_sha256"], ZERO_SHA256)
 
     def test_historical_negative_vectors_and_item_outcomes_are_fail_closed(self) -> None:
         cases = {row["case_id"]: row for row in self.document["historical_case"]}

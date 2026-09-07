@@ -15,33 +15,31 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Prospectively permit one separately authorized supervised demonstration that joins
-the sealed seeded-deal generator to the accepted baseline-rules-v1 session. Save three
-shuffled hands from the exact seed below, then display that schedule once in
-automatic text mode. The controller can follow it on a phone without terminal
-input. Preserve the existing six-seat setup, passive opponents and empty blueprint.
-The baseline uses the accepted fixed-rule provider with blueprint fallback. This is
-visible product behavior, not correctness acceptance or a strength result.
+Open the CPU-only paired local evaluation source increment under the brief, design
+and source-contract in docs/architecture/v0a-evaluation-r001/ and implementation plan
+docs/superpowers/plans/2026-09-07-paired-local-evaluation.md. The controller requested
+preparation of this bounded proposal; it has no effect until its exact decision
+commit is expressly authorized and made. No implementation occurs before adoption.
 
-The proposal has no effect before its exact decision commit is authorized and made.
-The commit alone grants no launch. One approval may explicitly name commit/push and
-the exact complete generation-and-session sequence; otherwise launch needs its own
-approval. Neither a generic historical approval nor the existence of source grants it.
+The deliverable is a reproducible outer loop comparing baseline-rules-v1 and
+blueprint-v1 through the unchanged public session CLI. Each matched pair shares
+identical one-hand input, resets six 200-chip stacks, and uses the existing opponent
+scripts. Every deal/lineup covers all six seats. Alternating strategy order is fixed
+before outcomes. Source acceptance judges the comparison machinery, not profitability.
 
-This is a narrow prospective exception to the execution closures in ADR-0489,
-ADR-0500, ADR-0503 and ADR-0506, and to ADR-0485's operational prerequisites solely for this
-named non-evidentiary display. Formal operating, rehearsal, experimental, resource
-calibration, training and research prerequisites remain binding. ADR-0501 and ADR-0504's earlier
-demonstrations are completed and consumed; neither identity is reused.
-
-As in ADR-0501, permit the unchanged executable correctness namespace solely under
-this external demonstration authority. Preserve literal IDs, trace modes, fields
-and evidentiary=false. A correctness name does not turn this display into a test;
-no new machine-enforced scientific authorization interface is claimed or patched.
+Reports preserve applied actions, baseline fallback and legacy choice distinctions,
+timing observations, incomplete captures and separate action/hand/session failure
+observations. A complete aggregate requires
+the complete planned population; no survivor-only score or missing-as-zero result.
+Every partial attempt remains retained and cannot be resumed or rerolled. Whole-run
+deadline, native descendant containment and final publication have explicit contracts.
+The deadline covers verification of both closed/read-back final files and publication
+commit; subsequent visibility release and CLI return may be later. Consumers require
+the absent pending guard and fully validated bound files, not process exit alone.
 
 ## Active next
 
-Authorize one baseline watch demo; formal operation/research closed
+Implement the bounded paired evaluation loop after exact adoption
 
 ## Revoked authorities
 
@@ -52,7 +50,7 @@ Authorize one baseline watch demo; formal operation/research closed
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0507](docs/decisions/ADR-0507-permit-one-baseline-watch-demonstration.md) — Permit one baseline watch demonstration.
+Latest process decision: [ADR-0508](docs/decisions/ADR-0508-open-the-paired-local-evaluation-source-round.md) — Open the paired local evaluation source round.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -60,7 +58,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0484](docs/decisions/ADR-0484-clarify-the-v0a-increment-split-and-instrumentation.md) | 2026-08-30 | accepted prospective clarification of the ADR-0483 opening directive before any v0a lifecycle exists; increment one of the v0a lane is the blueprint-only complete hand — the ADR-0308 exact spine joined to the ADR-0290 explicit-deal loop with every controlled action answered by the immutable blueprint inside its own 15,000 ms wall, no h32 decision, no GPU dependency, and no resolver — while the prepared h32 certified river decision and the would-be base-producer bridge instrumentation belong to increment two, because a blueprint-only hand executes no base-structure machinery and instrumentation obligations attach where that machinery first executes; increment one records the frozen decision-record fields for every controlled action, the input boundary admits only public events and the controlled seat's own cards so the dealer's complete deal never reaches policy selection, the campaign increment's qualifying-h32 minimums must later be met by a declared, seed-sealed, steered or prepared-context deal schedule and never by weakening qualification, each landed increment's clone-safe suite subset joins the continuous-integration wall, and the reviewed increment-one brief at `docs/briefs/v0a-increment-1-brief.md` bounds the work without conferring any experiment authority | Clarify the v0a increment split and instrumentation |
 | [ADR-0485](docs/decisions/ADR-0485-preregister-the-blueprint-only-v0a-hand-contract.md) | 2026-08-30 | accepted prospective contract preregistration and explicit bootstrap-sequencing clarification; only the additive CPU blueprint-hand source contract is opened, an outer ActionClockLedger measures through offline-host delivery without altering the sealed V2 spine, operating budgets and an authoritative replay population remain unadmitted until a separate measured closure, and no source seal, rehearsal, owner invocation, integration result, timing result, or strategy result is asserted | Preregister the blueprint-only v0a hand contract |
 | [ADR-0486](docs/decisions/ADR-0486-park-the-slice-c-capability-analyzer-repair.md) | 2026-09-04 | accepted scope correction; the slice C capability-analyzer soundness repair is parked as its own bounded task and removed from v0a increment-one acceptance scope, increment one's obligation to the inventory machinery is reduced to registration and mechanical regeneration, the Gate 13 freeze lane is paused at its rejected revision 23, and no source seal, rehearsal, invocation, integration, timing, or strategy result is asserted or authorized | Park the slice C capability-analyzer repair |
 | [ADR-0487](docs/decisions/ADR-0487-source-seal-the-blueprint-only-v0a-hand-runtime.md) | 2026-09-04 | accepted library-only source seal upon its separately authorized decision commit; exact r004 source and r007 core are preserved, bounded CPU acceptance is complete, the inherited Windows fixture caveat remains open, and no rehearsal, invocation, timing, strategy, or strength result is authorized or asserted | Source-seal the blueprint-only v0a hand runtime |
@@ -84,18 +81,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0505](docs/decisions/ADR-0505-open-the-selectable-decision-provider-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the selectable decision-provider source round |
 | [ADR-0506](docs/decisions/ADR-0506-source-seal-the-selectable-decision-provider.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the selectable decision provider |
 | [ADR-0507](docs/decisions/ADR-0507-permit-one-baseline-watch-demonstration.md) | 2026-09-07 | accepted demonstration-only exception upon its separately authorized decision commit | Permit one baseline watch demonstration |
+| [ADR-0508](docs/decisions/ADR-0508-open-the-paired-local-evaluation-source-round.md) | 2026-09-07 | accepted source-opening decision upon its separately authorized commit | Open the paired local evaluation source round |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0507](docs/decisions/ADR-0507-permit-one-baseline-watch-demonstration.md) — Permit one baseline watch demonstration.
+- Latest ADR: [ADR-0508](docs/decisions/ADR-0508-open-the-paired-local-evaluation-source-round.md) — Open the paired local evaluation source round.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 507.
-- ADR-header SHA-256: `7c53cb64da1a3bd68f1d88b5e614582a94ffff1a21d5cf28325171b2e870e7c6`.
-- Current blockers: exact demo launch approval pending; formal operating prerequisites open.
+- Numbered decisions: 508.
+- ADR-header SHA-256: `a34e76789b9a927eff2621858187c50643b129ec1c991a7e4f3eb7d79134408d`.
+- Current blockers: evaluation source acceptance pending; no evaluation population admitted.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0507](docs/decisions/ADR-0507-permit-one-baseline-watch-demonstration.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0508](docs/decisions/ADR-0508-open-the-paired-local-evaluation-source-round.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

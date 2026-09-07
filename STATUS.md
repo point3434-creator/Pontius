@@ -15,28 +15,26 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Preregister one supervised, non-evidentiary cost rehearsal of the exact paired
-evaluation source sealed by ADR-0509. The controller asked to proceed toward the
-first bounded evaluation. ADR-0482 and ADR-0485 require scaled rehearsal provenance
-before freezing operating budgets; source correctness tests do not supply that
-authority. This rehearsal is the necessary preparation step, not the evaluation.
+Retain ADR-0510's completed, non-evidentiary cost rehearsal and close only the
+measured operating contract for one descriptive paired comparison. The controller
+asked to proceed to this measured decision after the completed rehearsal. The
+companion operating-contract.md, cost-basis.json and evaluation-request.json under
+docs/architecture/v0a-paired-closure-r001/ are normative with this decision.
+No candidate bytes take effect until exact review, acceptance and decision adoption.
+Commit approval and launch approval are distinct; exact approval may bundle both.
 
-The companion contract is docs/architecture/v0a-paired-prereg-r001/preregistration.md.
-Its literal rehearsal-request.json fixes the entire synthetic schedule before play.
-No source, existing test, fixture, policy, registration or historical decision changes.
-The intended subsequent descriptive evaluation has two new deals, these same two
-lineups and all six positions: 24 pairs and 48 trials. This is a planning target,
-not an admitted population, measured ceiling, scientific sample or invocation grant.
-Its fresh seed/request and operating limits require a later measured closure.
-
-This draft has no effect until its exact reviewed decision commit is authorized
-and made. The commit alone does not launch anything. Exact approval may expressly
-bundle commit/push with the single rehearsal below; otherwise launch needs its own
-approval. No generic historical launch authorization transfers to this owner.
+Prospectively supersede ADR-0489's deferred operational opening and ADR-0508/0509's
+source-only prohibition solely for this named comparison under separate launch
+authority. ADR-0510's consumed rehearsal stays closed. This is a descriptive local
+engineering comparison of two fixed existing policies, not research/strength,
+league, real play, training, tuning or an operational opening of other v0a owners.
+The unchanged correctness namespace and evidentiary=false remain literal. External
+authority permits only the descriptive arithmetic below; no machine-enforced
+authorization or research evidentiary status is claimed.
 
 ## Active next
 
-Authorize one paired cost rehearsal, then prepare measured evaluation closure
+Authorize the single 48-trial descriptive paired comparison
 
 ## Revoked authorities
 
@@ -47,7 +45,7 @@ Authorize one paired cost rehearsal, then prepare measured evaluation closure
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0510](docs/decisions/ADR-0510-preregister-the-first-paired-evaluation-rehearsal.md) — Preregister the first paired evaluation rehearsal.
+Latest process decision: [ADR-0511](docs/decisions/ADR-0511-close-the-measured-paired-comparison-contract.md) — Close the measured paired comparison contract.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -55,7 +53,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0487](docs/decisions/ADR-0487-source-seal-the-blueprint-only-v0a-hand-runtime.md) | 2026-09-04 | accepted library-only source seal upon its separately authorized decision commit; exact r004 source and r007 core are preserved, bounded CPU acceptance is complete, the inherited Windows fixture caveat remains open, and no rehearsal, invocation, timing, strategy, or strength result is authorized or asserted | Source-seal the blueprint-only v0a hand runtime |
 | [ADR-0488](docs/decisions/ADR-0488-source-seal-the-non-evidentiary-v0a-driver.md) | 2026-09-04 | accepted driver-only source seal upon controller approval and its separately authorized decision commit; this draft remains inactive until those conditions hold, two independent cold reviews and bounded v0a regression checks pass, no reviewed implementation byte changes, and no rehearsal or operational invocation is authorized | Source-seal the non-evidentiary v0a driver |
 | [ADR-0489](docs/decisions/ADR-0489-close-the-v0a-engineering-milestone.md) | 2026-09-04 | accepted engineering-only closure upon its separately authorized decision commit | Close the v0a engineering milestone |
 | [ADR-0490](docs/decisions/ADR-0490-open-the-portable-blueprint-artifact-source-round.md) | 2026-09-05 | accepted source-opening decision upon its separately authorized decision commit | Open the portable blueprint artifact source round |
@@ -79,18 +76,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0508](docs/decisions/ADR-0508-open-the-paired-local-evaluation-source-round.md) | 2026-09-07 | accepted source-opening decision upon its separately authorized commit | Open the paired local evaluation source round |
 | [ADR-0509](docs/decisions/ADR-0509-source-seal-the-paired-local-evaluation-loop.md) | 2026-09-07 | accepted source-only seal upon its separately authorized decision commit | Source-seal the paired local evaluation loop |
 | [ADR-0510](docs/decisions/ADR-0510-preregister-the-first-paired-evaluation-rehearsal.md) | 2026-09-07 | accepted rehearsal-only preregistration upon its separately authorized decision commit | Preregister the first paired evaluation rehearsal |
+| [ADR-0511](docs/decisions/ADR-0511-close-the-measured-paired-comparison-contract.md) | 2026-09-07 | accepted bounded descriptive comparison contract upon its authorized decision commit | Close the measured paired comparison contract |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0510](docs/decisions/ADR-0510-preregister-the-first-paired-evaluation-rehearsal.md) — Preregister the first paired evaluation rehearsal.
+- Latest ADR: [ADR-0511](docs/decisions/ADR-0511-close-the-measured-paired-comparison-contract.md) — Close the measured paired comparison contract.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 510.
-- ADR-header SHA-256: `bbbc25014103629ca5ec8ccf70b9ce03cbbe9c1e2600a9ebdc0219a5871bbf83`.
-- Current blockers: rehearsal unrun; measured operating closure and evaluation invocation unadmitted.
+- Numbered decisions: 511.
+- ADR-header SHA-256: `f7bc0abc6571e605b67661997d124e0fce53030012b605957a364d1c492bbb57`.
+- Current blockers: comparison unrun; strength and full-evaluation resource evidence absent.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0510](docs/decisions/ADR-0510-preregister-the-first-paired-evaluation-rehearsal.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0511](docs/decisions/ADR-0511-close-the-measured-paired-comparison-contract.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

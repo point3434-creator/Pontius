@@ -239,6 +239,10 @@ STABILIZATION_TEST_FILES = (
     "tests/test_blueprint_preparation.py",
     "tests/test_blueprint_preparation_runtime.py",
     "tests/test_blueprint_preparation_transport.py",
+    "tests/test_blueprint_workload_measure.py",
+    "tests/test_blueprint_workload_population.py",
+    "tests/test_blueprint_workload_report.py",
+    "tests/test_blueprint_workload_session.py",
     "tests/test_decision_provider.py", "tests/test_decision_provider_runtime.py",
     "tests/test_decision_provider_session.py", "tests/test_decision_provider_transport.py",
     "tests/test_evaluation_history.py",
@@ -30015,21 +30019,21 @@ class CheckedInInventoryTests(unittest.TestCase):
             review["analysis_census"],
             {
                 "subprocess_direct_site_count": 64,
-                "subprocess_helper_site_count": 22,
+                "subprocess_helper_site_count": 23,
                 "cross_file_helper_edge_count": 27,
                 "cupy_call_node_count": 30,
-                "string_sink_decoy_count": 593,
+                "string_sink_decoy_count": 596,
                 "string_sink_decoy_sha256": (
-                    "80851ee801825ddf7c5f56f457bfc3ec2c0bb50554d9cd95bc1307bb7faf42e9"
+                    "bfe1c65601d21021646ba81421812841fac92ea62a5622dba6a931563c4eef05"
                 ),
                 "string_sink_decoy_partitions": {
                     "design_production": 17,
                     "historical_production": 6,
-                    "prior_stabilization_synthetic": 39,
+                    "prior_stabilization_synthetic": 42,
                     "task2_synthetic": 531,
                 },
                 "analyzed_sites_sha256": (
-                    "319dc22e67ef8e6eaab87f2ed0f886eeee0e58e8569904b67cb9d3027bc56322"
+                    "59a44131e43290265598ef71e452486db511792278ea9c872560f195c0814df9"
                 ),
             },
         )

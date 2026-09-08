@@ -15,25 +15,23 @@ Status: accepted label-free engineering control; cache mechanics pass and timed 
 
 ## Current decision
 
-Admit the exact representative blueprint workload r003 source for one exploratory
-invocation, without rework. After receiving both blocking findings and the proposed
-redesign, the controller directed: "Let's run with what we have no rework".
-This decision records that choice. It does not declare either finding repaired or
-either issued review CLEAN, and it does not adopt the abandoned redesign proposal.
+Permit one exploratory invocation of the unchanged representative blueprint workload
+admitted by ADR-0516, implementing the controller's direction to run what exists
+without rework. Execute the public qualify mode once, then run once only if the
+retained qualification succeeds and its recorded stage stays within 1800 seconds.
+Read and retain the result, including failure and partial observations. No retry,
+resume, replacement success or further implementation change is authorized.
 
-For this single use, the controller's direction supersedes ADR-0515's ordinary
-two-CLEAN source-adoption prerequisite and the remaining post-review source gates
-and added-CI rehearsals. Those gates remain unrun, not passed. The existing finite
-development and registration evidence is the available preparation for this use.
-No further correction candidate or live correctness repetition is opened here.
-
-This exception pins source for the companion invocation decision only. It grants
-no playing-strength, worst-case-latency, deployment or general production-readiness
-claim. The research head and governing action-clock contract remain unchanged.
+ADR-0516 preserves the two NOT CLEAN reviews and records the single-use exception
+to normal source acceptance. This decision does not repair their findings or turn
+the output into evidence of compliant monitoring, deployment readiness, playing
+strength or a worst-case latency bound. Numerical findings retain their observed
+case counts and limitations; final standing remains exploratory even if the raw
+report's internal clean flag is true.
 
 ## Active next
 
-Authorize the unchanged workload's single exploratory invocation
+Execute and retain the unchanged workload's single exploratory run
 
 ## Revoked authorities
 
@@ -44,7 +42,7 @@ Authorize the unchanged workload's single exploratory invocation
 
 ## Evidence protocol
 
-Latest process decision: [ADR-0516](docs/decisions/ADR-0516-admit-the-unchanged-blueprint-workload-for-one-exploratory-run.md) — Admit the unchanged blueprint workload for one exploratory run.
+Latest process decision: [ADR-0517](docs/decisions/ADR-0517-permit-one-unchanged-blueprint-workload-invocation.md) — Permit one unchanged blueprint workload invocation.
 
 Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
@@ -52,7 +50,6 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 
 | ADR | Date | Status | Decision |
 |---:|---|---|---|
-| [ADR-0493](docs/decisions/ADR-0493-open-the-one-hand-file-adapter-source-round.md) | 2026-09-05 | accepted source-opening decision upon its separately authorized commit | Open the one-hand file adapter source round |
 | [ADR-0494](docs/decisions/ADR-0494-source-seal-the-one-hand-file-adapter.md) | 2026-09-05 | accepted source-only seal upon its separately authorized decision commit | Source-seal the one-hand file adapter |
 | [ADR-0495](docs/decisions/ADR-0495-open-the-one-hand-event-interface-source-round.md) | 2026-09-06 | accepted source-opening decision upon its separately authorized commit | Open the one-hand event interface source round |
 | [ADR-0496](docs/decisions/ADR-0496-source-seal-the-one-hand-event-interface.md) | 2026-09-06 | accepted source-only seal upon its separately authorized decision commit | Source-seal the one-hand event interface |
@@ -76,18 +73,19 @@ Canonical rules: [PROJECT.md](PROJECT.md#evidence-and-dissent-protocol).
 | [ADR-0514](docs/decisions/ADR-0514-source-seal-accounted-immutable-blueprint-preparation.md) | 2026-09-07 | accepted engineering source seal upon its separately authorized decision commit | Source-seal accounted immutable blueprint preparation |
 | [ADR-0515](docs/decisions/ADR-0515-open-the-representative-blueprint-workload-source-round.md) | 2026-09-07 | accepted source-opening decision upon its separately authorized commit | Open the representative blueprint workload source round |
 | [ADR-0516](docs/decisions/ADR-0516-admit-the-unchanged-blueprint-workload-for-one-exploratory-run.md) | 2026-09-08 | accepted one-run source exception upon its separately authorized decision commit | Admit the unchanged blueprint workload for one exploratory run |
+| [ADR-0517](docs/decisions/ADR-0517-permit-one-unchanged-blueprint-workload-invocation.md) | 2026-09-08 | accepted one-run exploratory authority upon its separately authorized decision commit | Permit one unchanged blueprint workload invocation |
 
 ## Repository snapshot
 
-- Latest ADR: [ADR-0516](docs/decisions/ADR-0516-admit-the-unchanged-blueprint-workload-for-one-exploratory-run.md) — Admit the unchanged blueprint workload for one exploratory run.
+- Latest ADR: [ADR-0517](docs/decisions/ADR-0517-permit-one-unchanged-blueprint-workload-invocation.md) — Permit one unchanged blueprint workload invocation.
 - Governing runtime contract: [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md) — Make the action clock and preparation bank authoritative.
-- Numbered decisions: 516.
-- ADR-header SHA-256: `b317810ac6203fa8a18f48c16f88c3f4e2aa1ecf6ad9af73bbebab3b2b6a6763`.
-- Current blockers: known qualification and monitoring defects; exploratory workload unrun.
+- Numbered decisions: 517.
+- ADR-header SHA-256: `0b98e7e9952d2ecf2370c1316a4db8d5c6bea6f2d8f8fae48c7e50938585692c`.
+- Current blockers: known qualification and monitoring limitations; workload results unmeasured.
 
 ## Required reading before continuation
 
 1. [PROJECT.md](PROJECT.md)
 2. [STATUS.md](STATUS.md)
 3. [ROADMAP.md](ROADMAP.md)
-4. [ADR-0516](docs/decisions/ADR-0516-admit-the-unchanged-blueprint-workload-for-one-exploratory-run.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies
+4. [ADR-0517](docs/decisions/ADR-0517-permit-one-unchanged-blueprint-workload-invocation.md), [ADR-0280](docs/decisions/ADR-0280-exact-pre-bet-row-cache-passes-cpu-h2-fail-closed-control.md), [ADR-0307](docs/decisions/ADR-0307-make-action-clock-and-preparation-bank-authoritative.md), and their dependencies

@@ -273,6 +273,10 @@ DECLARED_SKIPS = {
     ),
 }
 STABILIZATION_TEST_FILES = frozenset({
+    "tests/test_blueprint_workload_population.py",
+    "tests/test_blueprint_workload_measure.py",
+    "tests/test_blueprint_workload_session.py",
+    "tests/test_blueprint_workload_report.py",
     "tests/test_blueprint_preparation.py",
     "tests/test_blueprint_preparation_runtime.py",
     "tests/test_blueprint_preparation_transport.py",

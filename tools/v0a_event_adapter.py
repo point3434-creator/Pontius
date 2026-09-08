@@ -3,23 +3,14 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import io
 import json
 import msvcrt
 import os
 from pathlib import Path
 import re
 import stat
-import subprocess
 import sys
 
-BASE = '363c9fb669e19a30375537ee5e92ea338a840a2d'
-ADDITIONS = tuple('src/pontius/blueprint_preparation/' + name + '.py'
-                  for name in ('__init__', 'lookup'))
-EXCEPTIONS = ('src/pontius/v0a/runtime.py', 'tools/v0a_hand_adapter.py',
-              'tools/v0a_event_adapter.py')
-TOOLS = ('tools/v0a_event_adapter.py', 'tools/v0a_hand_adapter.py',
-         'tools/v0a_rehearsal_driver.py')
 PROTOCOL = 'pontius-v0a-event-interface-v1'
 PREFIX = PROTOCOL + '-correctness-'
 FRAME_LIMIT = 16384
@@ -41,7 +32,7 @@ def regular(path, directory=False):
             'PATH: require regular non-reparse source')
 
 
-def checked_path(path, *, directory=False, d_local=True):
+def checked_path(path, *, directory=False, d_local=False):
     require(path.is_absolute() and len(path.drive) == 2 and '..' not in path.parts
             and (not d_local or path.drive.upper() == 'D:'), 'PATH: absolute local path required')
     for parent in path.parents:
@@ -51,90 +42,18 @@ def checked_path(path, *, directory=False, d_local=True):
 
 
 class Source:
-    """Raw commit/blob binding; bootstrap precedes the declared runtime accounting."""
-    def __init__(self, repo):
-        require(os.name == 'nt' and sys.flags.dont_write_bytecode and sys.flags.safe_path,
-                'SOURCE: require Windows Python -B -P')
-        require(not any(n == 'pontius' or n.startswith('pontius.') for n in sys.modules),
-                'SOURCE: pontius must not be preloaded')
-        self.repo = checked_path(repo, directory=True)
-        require(Path(__file__).absolute() == self.repo / TOOLS[0],
-                'SOURCE: executed tool origin differs')
-        self.git = checked_path(Path(os.environ.get('PONTIUS_GIT', '')), d_local=False)
-        self.env = {k: v for k, v in os.environ.items()
-                    if not k.upper().startswith(('GIT_', 'PYTHON', 'PONTIUS_'))}
-        self.commit = self.head()
-        current, inherited = self.inventory(self.commit), self.inventory(BASE)
-        require(set(current) == set(inherited) | set(ADDITIONS),
-                'SOURCE: unexpected committed source population')
-        require(all(current[p] == oid for p, oid in inherited.items() if p not in EXCEPTIONS),
-                'SOURCE: inherited source differs from pinned base')
-        stream = io.BytesIO(self.command('cat-file', '--batch',
-                            content=('\n'.join(current.values()) + '\n').encode('ascii')))
-        self.expected = {}
-        for path, oid in current.items():
-            header = stream.readline().split()
-            require(len(header) == 3 and header[:2] == [oid.encode(), b'blob'],
-                    'SOURCE: unexpected raw object')
-            content = stream.read(int(header[2]))
-            require(len(content) == int(header[2]) and stream.read(1) == b'\n',
-                    'SOURCE: truncated raw blob')
-            self.expected[path] = content
-        require(stream.read() == b'', 'SOURCE: extra raw object output')
-        rows = sorted(hashlib.sha256(raw).hexdigest().encode() + b'  ' + path.encode() + b'\n'
-                      for path, raw in self.expected.items())
-        self.manifest = hashlib.sha256(b''.join(rows)).hexdigest()
-        self.check()
-
-    def command(self, *args, content=None):
-        result = subprocess.run([str(self.git), '--no-replace-objects', '--no-optional-locks',
-                                 '-C', str(self.repo), *args], input=content, env=self.env,
-                                capture_output=True, timeout=30)
-        require(result.returncode == 0, 'SOURCE: raw Git operation failed')
-        return result.stdout
-
-    def head(self):
-        commit = self.command('rev-parse', '--verify', 'HEAD^{commit}').decode('ascii').strip()
-        require(re.fullmatch('[0-9a-f]{40}', commit), 'SOURCE: invalid commit identity')
-        return commit
-
-    def inventory(self, commit):
-        entries = self.command('ls-tree', '-r', '-z', commit, '--', 'src/pontius', *TOOLS)
-        result = {}
-        for row in entries.split(b'\0'):
-            if not row:
-                continue
-            metadata, name = row.split(b'\t', 1)
-            mode, kind, oid = metadata.split()
-            require(mode in (b'100644', b'100755') and kind == b'blob',
-                    'SOURCE: committed source must be regular blobs')
-            result[name.decode('utf-8')] = oid.decode('ascii')
-        require(result, 'SOURCE: empty raw source inventory')
-        return result
-
-    def check(self):
-        require(self.head() == self.commit, 'SOURCE: HEAD changed during invocation')
-        package = checked_path(self.repo / 'src/pontius', directory=True)
-        actual, directories = {}, set()
-        for parent, dirs, files in os.walk(package, followlinks=False):
-            for name in dirs:
-                path = Path(parent) / name
-                regular(path, directory=True)
-                directories.add(path.relative_to(self.repo).as_posix())
-            for name in files:
-                path = Path(parent) / name
-                regular(path)
-                actual[path.relative_to(self.repo).as_posix()] = path.read_bytes()
-        expected_dirs = {p.as_posix() for name in self.expected
-                         if name.startswith('src/pontius/') for p in Path(name).parents
-                         if p.as_posix().startswith('src/pontius/')}
-        require(directories == expected_dirs, 'SOURCE: extra or missing package directory')
-        for name in TOOLS:
-            actual[name] = checked_path(self.repo / name).read_bytes()
-        require(actual == self.expected, 'SOURCE: missing, changed, extra or cached source')
+    """Use the enclosing run identity; standalone use verifies once."""
+    def __init__(self, repo, *, reviewed_commit=None, development=False):
+        self.repo = Path(repo).resolve()
+        sys.path.insert(0, str(self.repo / 'src'))
+        from pontius.execution import begin_run, CONTEXT_ENV
+        self.context = begin_run(self.repo, reviewed_commit=reviewed_commit,
+                                 allow_working_tree=development,
+                                 inherited=os.environ.get(CONTEXT_ENV))
+        self.commit = self.context['commit']
+        self.manifest = self.context['source_sha256']
 
     def load(self):
-        sys.path.insert(0, str(self.repo / 'src'))
         import pontius.blueprint_artifact.codec as codec
         import pontius.v0a.model as model
         import pontius.v0a.runtime as core
@@ -143,14 +62,8 @@ class Source:
         import pontius.decision_provider.codec as provider_codec
         import pontius.decision_provider.providers as providers
         self.provider_codec, self.providers = provider_codec, providers
-        for name, module in tuple(sys.modules.items()):
-            if name == 'pontius' or name.startswith('pontius.'):
-                relative = 'src/' + name.replace('.', '/')
-                origin = Path(module.__file__).absolute()
-                require(any(origin == self.repo / path and path in self.expected
-                            for path in (relative + '.py', relative + '/__init__.py')),
-                        'SOURCE: delayed import origin differs')
         return codec, model, core, clock, trace
+
 
 
 def reject_number(token):
@@ -348,9 +261,6 @@ def run_session(runtime, output, source, artifact_hash, core, trace, model,
         if runtime.hand_complete and not runtime.closure_failures:
             with runtime.owned_bookkeeping(body_failure=codes.SETTLEMENT_MISMATCH, required=True):
                 settlement = runtime.settle()
-            with runtime.owned_bookkeeping(body_failure=codes.SOURCE_BINDING_MISMATCH,
-                                           required=True):
-                source.check()
     except core.OperationFailed:
         pass  # The public owner has already retained the actual cause and cleanup faults.
     totals, causes = runtime.accounting(), runtime.closure_failures
@@ -402,6 +312,8 @@ def main(argv=None):
     parser.add_argument('--session-id', required=True)
     parser.add_argument('--strategy', choices=('blueprint-v1', 'baseline-rules-v1'),
                         default='blueprint-v1')
+    parser.add_argument('--reviewed-commit')
+    parser.add_argument('--development', action='store_true')
     try:
         args = parser.parse_args(argv)
         baseline = args.strategy == 'baseline-rules-v1'
@@ -409,7 +321,8 @@ def main(argv=None):
         require(re.fullmatch(re.escape(protocol + '-correctness-') + '[A-Za-z0-9_-]{1,64}',
                              args.session_id),
                 'IDENTITY: invalid correctness session')
-        source = Source(Path.cwd())
+        source = Source(Path.cwd(), reviewed_commit=args.reviewed_commit,
+                        development=args.development)
         raw = checked_path(Path(args.blueprint)).read_bytes()
         codec, model, core, clock, trace = source.load()
         blueprint = codec.decode_blueprint(raw)

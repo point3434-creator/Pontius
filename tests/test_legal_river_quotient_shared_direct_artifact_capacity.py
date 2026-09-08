@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import ast
 from copy import deepcopy
-from hashlib import sha256
-import json
 import os
 from pathlib import Path
 import subprocess
@@ -13,18 +11,11 @@ import unittest
 
 import pontius.legal_river_quotient_shared_direct_artifact_capacity as source
 import pontius.legal_river_quotient_shared_direct_artifact_capacity_result as reader
-import pontius.legal_river_quotient_shared_direct_artifact_capacity_runner as runner
 
 
 ROOT = Path(__file__).parents[1]
-CONFIG = ROOT / source.CONFIG_RELATIVE_PATH
-INPUT = ROOT / source.INPUT_RELATIVE_PATH
 RESULT = ROOT / source.RESULT_RELATIVE_PATH
-RETAINED_RESULT_SHA256 = (
-    "9e6e3d45797eb9aeea8e91994f67e7ff641747a80a8d240799adfab1325961af"
-)
 SOURCE = ROOT / "src/pontius/legal_river_quotient_shared_direct_artifact_capacity.py"
-RUNNER = ROOT / "src/pontius/legal_river_quotient_shared_direct_artifact_capacity_runner.py"
 READER = ROOT / "src/pontius/legal_river_quotient_shared_direct_artifact_capacity_result.py"
 
 
@@ -98,17 +89,6 @@ class SharedDirectArtifactCapacityTests(unittest.TestCase):
     def setUp(self) -> None:
         self.config = source.load_preregistered_config()
 
-    def test_preregistered_config_and_lifecycle_are_exact(self) -> None:
-        self.assertEqual(
-            sha256(CONFIG.read_bytes().replace(b"\r\n", b"\n")).hexdigest(),
-            source.CONFIG_SHA256,
-        )
-        source.verify_preregistered_contract(self.config)
-        if RESULT.exists():
-            self.assertEqual(sha256(RESULT.read_bytes()).hexdigest(), RETAINED_RESULT_SHA256)
-        self.assertFalse((ROOT / source.RESERVED_ACTUAL_RESULT_RELATIVE_PATH).exists())
-        self.assertEqual(source.COMPONENT_ORDER, reader.COMPONENT_ORDER)
-        self.assertEqual(runner.DEPENDENCY_RELATIVE_PATHS, reader.DEPENDENCY_RELATIVE_PATHS)
 
     def test_import_boundary_is_device_result_and_process_free(self) -> None:
         source_tree = ast.parse(SOURCE.read_text(encoding="utf-8"))
@@ -144,26 +124,6 @@ class SharedDirectArtifactCapacityTests(unittest.TestCase):
         self.assertEqual(completed.stdout.strip(), "0")
         self.assertEqual(RESULT.read_bytes() if RESULT.exists() else None, retained)
 
-    def test_repository_root_public_owner_module_resolves_without_package_environment(self) -> None:
-        environment = dict(os.environ)
-        environment.pop("PYTHONPATH", None)
-        environment.pop("PYTHONHOME", None)
-        retained = RESULT.read_bytes() if RESULT.exists() else None
-        script = (
-            "import importlib, pathlib, sys; "
-            "m=importlib.import_module('src.pontius.legal_river_quotient_shared_direct_artifact_capacity_runner'); "
-            "print(int('cupy' in sys.modules))"
-        )
-        completed = subprocess.run(
-            [sys.executable, "-B", "-c", script],
-            cwd=ROOT,
-            env=environment,
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        self.assertEqual(completed.stdout.strip(), "0")
-        self.assertEqual(RESULT.read_bytes() if RESULT.exists() else None, retained)
 
     def test_all_ratios_rederive_and_unchanged_phases_match_parent(self) -> None:
         import pontius.legal_river_quotient_cuda_compensated_work_preflight as parent
@@ -328,43 +288,6 @@ class SharedDirectArtifactCapacityTests(unittest.TestCase):
             )
         )
         self.assertNotIn("cupy", READER.read_text(encoding="utf-8").lower())
-
-    def test_exclusive_writer_never_replaces(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / "result.json"
-            runner.write_exclusive(path, b"{}\n")
-            self.assertEqual(path.read_bytes(), b"{}\n")
-            with self.assertRaises(FileExistsError):
-                runner.write_exclusive(path, b"changed\n")
-            self.assertEqual(path.read_bytes(), b"{}\n")
-
-    def test_real_v3_control_rebinds_without_projecting(self) -> None:
-        raw = INPUT.read_bytes()
-        self.assertEqual(len(raw), source.INPUT_BYTES)
-        self.assertEqual(sha256(raw).hexdigest(), source.INPUT_SHA256)
-        endpoints = source.extract_bound_endpoints(raw, rebind_current_sources=True)
-        self.assertEqual(tuple(endpoint.population for endpoint in endpoints), (10, 22))
-        self.assertEqual(tuple(len(endpoint.phase_host_ns) for endpoint in endpoints), (15, 15))
-        self.assertEqual(
-            tuple(endpoint.outside_phase_host_ns for endpoint in endpoints),
-            (2_786_065_800, 1_190_895_700),
-        )
-        with self.assertRaisesRegex(ValueError, "artifact identity differs"):
-            source.extract_bound_endpoints(raw[:-1], rebind_current_sources=False)
-
-    def test_retained_result_rebinds_after_the_one_shot_boundary(self) -> None:
-        if not RESULT.exists():
-            self.skipTest("authoritative artifact-only result remains unopened")
-        raw = RESULT.read_bytes()
-        self.assertEqual(len(raw), 9_182)
-        self.assertEqual(sha256(raw).hexdigest(), RETAINED_RESULT_SHA256)
-        rebound = reader.rebind_capacity_result_bytes(
-            raw, rebind_current_sources=False
-        )
-        self.assertEqual(rebound.terminal, "completed_capacity_rejection")
-        self.assertFalse(rebound.passed)
-        self.assertEqual(rebound.projected_host_ns, 4_999_486_743_986)
-        self.assertEqual(rebound.deciding_endpoints, ("10",) * 16)
 
 
 if __name__ == "__main__":

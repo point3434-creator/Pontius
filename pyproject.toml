@@ -14,7 +14,7 @@ sparse-screen = [
 ]
 
 [dependency-groups]
-dev = ["ruff>=0.16.5", "mypy>=1.14"]
+dev = ["pytest>=8", "ruff>=0.16.5", "mypy>=1.14"]
 
 [tool.uv]
 # CAUTION: the development .venv carries undeclared GPU packages (CuPy for the
@@ -27,7 +27,10 @@ line-length = 100
 target-version = "py311"
 
 [tool.ruff.lint]
-# House ruleset: correctness classes plus trailing-whitespace, final-newline,
-# and the 100-column rule. Report-only in CI until a reviewed cleanup lands;
-# never auto-fix accepted or sealed code outside the workflow protocol.
 select = ["E4", "E7", "E9", "F", "W291", "W292", "W293", "E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_pontius.py"]
+pythonpath = ["src", "tests"]
+addopts = "-ra"

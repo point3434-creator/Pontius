@@ -1,14 +1,11 @@
 from __future__ import annotations
 
-import ast
 from copy import deepcopy
 from hashlib import sha256
-import json
 import os
 from pathlib import Path
 import subprocess
 import sys
-import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -21,38 +18,15 @@ from pontius.durable_evidence_journal import (
 )
 from pontius import legal_river_quotient_cuda_shared_direct_device_result as v1_reader
 from pontius import legal_river_quotient_cuda_shared_direct_device_v2_result as reader
-from pontius import legal_river_quotient_cuda_shared_direct_device_v2_runner as runner
 from tests import test_legal_river_quotient_cuda_shared_direct_device as v1_controls
 
 
 _ROOT = Path(__file__).parents[1]
-_CONFIG = _ROOT / runner.CONFIG_RELATIVE_PATH
-_LAUNCHER = _ROOT / runner.LAUNCHER_RELATIVE_PATH
-_RESULT = _ROOT / runner.RESULT_RELATIVE_PATH
-_V1_RESULT = _ROOT / runner.V1_RESULT_RELATIVE_PATH
-_RESERVED = _ROOT / runner.RESERVED_ACTUAL_RESULT_RELATIVE_PATH
+_V1_RESULT = _ROOT / reader.V1_RESULT_RELATIVE_PATH
 
 
 def _semantic(payload: dict[str, object]) -> str:
     return sha256(canonical_journal_json_bytes(payload)).hexdigest()
-
-
-def _independent_canonical_lf(path: Path) -> str:
-    source = path.read_bytes()
-    normalized = bytearray()
-    index = 0
-    while index < len(source):
-        if (
-            source[index] == 13
-            and index + 1 < len(source)
-            and source[index + 1] == 10
-        ):
-            normalized.append(10)
-            index += 2
-        else:
-            normalized.append(source[index])
-            index += 1
-    return sha256(bytes(normalized)).hexdigest()
 
 
 def _journal(
@@ -134,54 +108,7 @@ def _rewrite(raw: bytes, mutate) -> bytes:
     )
 
 
-class LauncherSafeSharedDirectV2Tests(unittest.TestCase):
-    def test_corrected_config_and_all_result_absences(self) -> None:
-        self.assertEqual(
-            runner.canonical_lf_sha256(_CONFIG), runner.CONFIG_SHA256
-        )
-        runner.verify_preregistered_contract()
-        reader.verify_preregistered_contract()
-        self.assertFalse(_RESULT.exists())
-        self.assertFalse(_V1_RESULT.exists())
-        self.assertFalse(_RESERVED.exists())
-
-    def test_root_launcher_is_stdlib_first_and_no_argument(self) -> None:
-        source = _LAUNCHER.read_text(encoding="utf-8")
-        tree = ast.parse(source)
-        imports = {
-            alias.name
-            for node in ast.walk(tree)
-            if isinstance(node, ast.Import)
-            for alias in node.names
-        }
-        self.assertEqual(imports, {"os", "runpy", "sys"})
-        self.assertIn("Path(__file__).resolve().parent", source)
-        self.assertIn('os.environ.pop("PYTHONPATH", None)', source)
-        self.assertIn("runpy.run_module(_RUNNER_MODULE", source)
-        self.assertIn("len(sys.argv) != 1", source)
-
-    def test_runner_never_imports_or_invokes_consumed_v1_runner(self) -> None:
-        path = _ROOT / (
-            "src/pontius/"
-            "legal_river_quotient_cuda_shared_direct_device_v2_runner.py"
-        )
-        source = path.read_text(encoding="utf-8")
-        tree = ast.parse(source)
-        imported = {
-            alias.name
-            for node in ast.walk(tree)
-            if isinstance(node, ast.Import)
-            for alias in node.names
-        }
-        self.assertNotIn(
-            "pontius.legal_river_quotient_cuda_shared_direct_device_runner",
-            imported,
-        )
-        self.assertNotIn(
-            "from .legal_river_quotient_cuda_shared_direct_device_runner",
-            source,
-        )
-        self.assertIn("[sys.executable, \"-B\", str(_LAUNCHER)]", source)
+class SharedDirectV2ReaderTests(unittest.TestCase):
 
     def test_reader_is_cupy_owner_and_adapter_free(self) -> None:
         code = (
@@ -205,151 +132,6 @@ class LauncherSafeSharedDirectV2Tests(unittest.TestCase):
         )
         self.assertEqual(completed.stdout.splitlines(), ["0", "0", "0"])
 
-    def test_scrubbed_external_cwd_probe_crosses_both_launchers(self) -> None:
-        environment = dict(os.environ)
-        environment.pop("PYTHONPATH", None)
-        environment.pop("PYTHONHOME", None)
-        environment["PYTHONNOUSERSITE"] = "1"
-        environment["PONTIUS_ADR0422_PUBLIC_LAUNCHER_PROBE"] = "1"
-        with tempfile.TemporaryDirectory() as directory:
-            completed = subprocess.run(
-                [sys.executable, "-B", str(_LAUNCHER)],
-                cwd=directory,
-                env=environment,
-                check=True,
-                capture_output=True,
-                text=True,
-                timeout=15.0,
-            )
-        self.assertEqual(completed.stderr, "")
-        self.assertEqual(len(completed.stdout.splitlines()), 1)
-        probe = json.loads(completed.stdout)
-        self.assertEqual(
-            canonical_journal_json_bytes(probe) + b"\n",
-            completed.stdout.encode("utf-8"),
-        )
-        self.assertEqual(probe["parent"], {
-            key: value
-            for key, value in probe["child"].items()
-            if key not in {"schema_version", "challenge_sha256"}
-        })
-        self.assertFalse(probe["pythonpath_present"])
-        self.assertFalse(probe["pythonhome_present"])
-        self.assertFalse(probe["parent"]["cupy_imported"])
-        self.assertFalse(probe["parent"]["science_adapter_imported"])
-        self.assertEqual(
-            probe["child_command"],
-            [sys.executable, "-B", str(_LAUNCHER.resolve())],
-        )
-        self.assertFalse(_RESULT.exists())
-        self.assertFalse(_V1_RESULT.exists())
-        self.assertFalse(_RESERVED.exists())
-
-    def test_real_root_launched_bootstrap_handshake_is_v1_shaped(self) -> None:
-        event = runner.run_no_cuda_bootstrap_handshake()
-        self.assertEqual(
-            set(event),
-            {
-                "schema_version",
-                "challenge_sha256",
-                "literal_module",
-                "spec_name",
-                "runtime_name",
-                "cupy_imported",
-            },
-        )
-        self.assertEqual(event["literal_module"], runner.LITERAL_WORKER_MODULE)
-        self.assertEqual(event["runtime_name"], "__main__")
-        self.assertFalse(event["cupy_imported"])
-
-    def test_dependency_inventories_are_identical_and_parent_complete(self) -> None:
-        self.assertEqual(
-            runner.DEPENDENCY_RELATIVE_PATHS,
-            reader.DEPENDENCY_RELATIVE_PATHS,
-        )
-        self.assertTrue(
-            set(v1_reader.DEPENDENCY_RELATIVE_PATHS)
-            <= set(reader.DEPENDENCY_RELATIVE_PATHS)
-        )
-        self.assertIn(
-            "docs/decisions/"
-            "ADR-0423-correct-the-v2-reader-lifecycle-transduction-before-source.md",
-            reader.DEPENDENCY_RELATIVE_PATHS,
-        )
-
-    def test_parent_hashes_rebind_exactly_from_the_corrected_config(self) -> None:
-        runner.verify_preregistered_contract()
-        config = json.loads(_CONFIG.read_text(encoding="utf-8"))
-        retained = config["retained_parent_contract"]
-        for prefix in (
-            "v1_config",
-            "v1_source_seal_adr",
-            "v1_failure_adr",
-            "v1_adapter",
-            "v1_runner",
-            "v1_reader",
-            "v1_controls",
-        ):
-            path = _ROOT / retained[f"{prefix}_relative_path"]
-            digest = sha256(
-                path.read_bytes().replace(b"\r\n", b"\n")
-            ).hexdigest()
-            self.assertEqual(
-                digest, retained[f"{prefix}_canonical_lf_sha256"]
-            )
-
-    def test_canonical_lf_helper_matches_independent_byte_loop(self) -> None:
-        paths = {
-            _CONFIG,
-            _LAUNCHER,
-            _ROOT
-            / "src/pontius/legal_river_quotient_cuda_shared_direct_device_v2_runner.py",
-            _ROOT
-            / "src/pontius/legal_river_quotient_cuda_shared_direct_device_v2_result.py",
-            Path(__file__),
-        }
-        paths.update(
-            _ROOT / relative
-            for relative in reader.DEPENDENCY_RELATIVE_PATHS
-            if not relative.startswith("artifacts/")
-        )
-        for path in paths:
-            self.assertEqual(
-                runner.canonical_lf_sha256(path),
-                _independent_canonical_lf(path),
-                str(path),
-            )
-
-    def test_literal_escape_text_rewrite_reproduces_only_false_receipts(self) -> None:
-        literal_token = bytes((92, 114, 92, 110))
-        wrong_replacement = bytes((92, 110))
-        expected = {
-            "src/pontius/legal_river_quotient_cuda_shared_direct_device.py": (
-                2,
-                "a064c9485c3cc9f9a9e7dbbe03719070ae93c9672cc23895d22ff8638283c25b",
-            ),
-            "src/pontius/legal_river_quotient_cuda_shared_direct_device_runner.py": (
-                2,
-                "dcf5f0166adcadf23123ace98dedf2bbf799abcd521ec585d5f143bdc2e7f3db",
-            ),
-            "src/pontius/legal_river_quotient_cuda_shared_direct_device_result.py": (
-                3,
-                "ce7f820ade6472990df88634fe2d2c9215b5ef97a255ab9caafa07edfc8912b9",
-            ),
-        }
-        for relative, (count, false_digest) in expected.items():
-            raw = (_ROOT / relative).read_bytes()
-            self.assertEqual(raw.count(literal_token), count)
-            self.assertEqual(
-                sha256(
-                    raw.replace(literal_token, wrong_replacement)
-                ).hexdigest(),
-                false_digest,
-            )
-            self.assertNotEqual(
-                false_digest,
-                _independent_canonical_lf(_ROOT / relative),
-            )
 
     def test_minimal_infrastructure_journal_transduces(self) -> None:
         raw = _v2_journal(v1_controls._minimal_infrastructure_journal())
@@ -381,20 +163,6 @@ class LauncherSafeSharedDirectV2Tests(unittest.TestCase):
                 "bootstrap.spec_name",
             ),
         )
-
-    def test_current_dependency_closure_rebinds_without_results(self) -> None:
-        raw = _v2_journal(v1_controls._minimal_infrastructure_journal())
-
-        def bind_current(payloads) -> None:
-            payloads[0]["dependency_hashes"] = runner.dependency_hashes()
-
-        rebound = reader.rebind_shared_direct_device_v2_journal(
-            _rewrite(raw, bind_current), rebind_current_sources=True
-        )
-        self.assertEqual(rebound.terminal, "infrastructure_failure")
-        self.assertFalse(_RESULT.exists())
-        self.assertFalse(_V1_RESULT.exists())
-        self.assertFalse(_RESERVED.exists())
 
     def test_complete_synthetic_science_transduces_without_payload_edits(self) -> None:
         raw = _v2_journal(v1_controls._complete_synthetic_journal())
@@ -548,25 +316,6 @@ class LauncherSafeSharedDirectV2Tests(unittest.TestCase):
                 raw, rebind_current_sources=False
             )
         self.assertNotIn(_V1_RESULT, opened)
-
-    def test_public_launcher_rejects_arguments_without_results(self) -> None:
-        environment = dict(os.environ)
-        environment.pop("PYTHONPATH", None)
-        environment["PYTHONNOUSERSITE"] = "1"
-        completed = subprocess.run(
-            [sys.executable, "-B", str(_LAUNCHER), "forbidden"],
-            cwd=_ROOT,
-            env=environment,
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=15.0,
-        )
-        self.assertNotEqual(completed.returncode, 0)
-        self.assertIn("accepts no arguments", completed.stderr)
-        self.assertFalse(_RESULT.exists())
-        self.assertFalse(_V1_RESULT.exists())
-        self.assertFalse(_RESERVED.exists())
 
 
 if __name__ == "__main__":

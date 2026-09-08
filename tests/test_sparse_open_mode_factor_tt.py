@@ -1,15 +1,53 @@
 from __future__ import annotations
 
 import importlib.util
+import math
 import unittest
 
 import numpy as np
 
-from pontius.factor_tt_contraction_audit import _synthetic_train
 from pontius.open_mode_factor_tt import contract_open_mode_batch
 from pontius.sparse_incidence_open_mode import SparseBidirectionalIncidence
 from pontius.sparse_open_mode_factor_tt import contract_sparse_open_mode_batch
+from pontius.tensor_train import TensorTrain
 from tests.test_open_mode_factor_tt import _belief, _compile
+
+
+def _synthetic_train(
+    *,
+    hand_count: int,
+    players: int,
+    rank: int,
+    seed: int,
+) -> TensorTrain:
+    rng = np.random.default_rng(seed)
+    ranks = (1, *(rank for _ in range(players - 1)), 1)
+    cores = []
+    for mode in range(players):
+        previous_rank = ranks[mode]
+        next_rank = ranks[mode + 1]
+        values = rng.normal(
+            0.0,
+            1.0 / math.sqrt(max(1, previous_rank)),
+            size=(previous_rank, hand_count, next_rank),
+        )
+        cores.append(values)
+    return TensorTrain(
+        shape=(hand_count,) * players,
+        cores=tuple(cores),
+        decomposition_singular_values=tuple(
+            np.empty(0, dtype=np.float64) for _ in range(players - 1)
+        ),
+    )
+
+
+class SyntheticTrainFixtureTests(unittest.TestCase):
+    def test_synthetic_train_is_deterministic(self) -> None:
+        first = _synthetic_train(hand_count=3, players=6, rank=4, seed=7)
+        second = _synthetic_train(hand_count=3, players=6, rank=4, seed=7)
+        self.assertEqual(first.ranks, (1, 4, 4, 4, 4, 4, 1))
+        for left, right in zip(first.cores, second.cores, strict=True):
+            self.assertTrue((left == right).all())
 
 
 @unittest.skipUnless(importlib.util.find_spec("scipy"), "optional SciPy screen")

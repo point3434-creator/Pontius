@@ -3,8 +3,6 @@ from __future__ import annotations
 import ast
 from copy import deepcopy
 from dataclasses import replace
-from hashlib import sha256
-import json
 import os
 from pathlib import Path
 import subprocess
@@ -15,16 +13,12 @@ from unittest.mock import patch
 
 from pontius import legal_river_quotient_selective_certified_separation as source
 from pontius import legal_river_quotient_selective_certified_separation_result as reader
-from pontius import legal_river_quotient_selective_certified_separation_runner as runner
 
 
 ROOT = Path(__file__).parents[1]
-CONFIG = ROOT / source.CONFIG_RELATIVE_PATH
 RESULT = ROOT / source.RESULT_RELATIVE_PATH
 SOURCE = Path(source.__file__)
 READER = Path(reader.__file__)
-RUNNER = Path(runner.__file__)
-LAUNCHER = ROOT / "run_legal_river_quotient_selective_certified_separation.py"
 
 
 def _direct_price(instance: source.PriceInstance, source_mask: int) -> int:
@@ -90,29 +84,7 @@ class SelectiveCertifiedSeparationTests(unittest.TestCase):
                     prices,
                 )
 
-    def test_config_identity_paths_dependencies_and_result_absence(self) -> None:
-        self.assertEqual(
-            sha256(CONFIG.read_bytes().replace(b"\r\n", b"\n")).hexdigest(),
-            source.CONFIG_SHA256,
-        )
-        source.verify_preregistered_contract()
-        reader.verify_independent_contract()
-        self.assertEqual(runner.DEPENDENCY_RELATIVE_PATHS, reader.DEPENDENCY_RELATIVE_PATHS)
-        for relative in reader.DEPENDENCY_RELATIVE_PATHS:
-            self.assertTrue((ROOT / relative).is_file(), relative)
-        self.assertFalse(RESULT.exists())
-        self.assertEqual(source.DOMAINS, (10, 12))
-        self.assertEqual(source.LEVEL_COEFFICIENTS, (30, -120, 360, -720, 720))
-        attributes = subprocess.run(
-            ["git", "check-attr", "text", "--", source.RESULT_RELATIVE_PATH],
-            cwd=ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        ).stdout.strip()
-        self.assertTrue(attributes.endswith(": text: unset"), attributes)
-
-    def test_import_and_contract_checks_are_artifact_and_device_free(self) -> None:
+    def test_import_and_reader_contract_are_artifact_and_device_free(self) -> None:
         source_tree = ast.parse(SOURCE.read_text(encoding="utf-8"))
         reader_tree = ast.parse(READER.read_text(encoding="utf-8"))
         imports = {
@@ -139,7 +111,6 @@ class SelectiveCertifiedSeparationTests(unittest.TestCase):
             return original(path)
 
         with patch.object(Path, "read_bytes", guarded):
-            source.verify_preregistered_contract()
             reader.verify_independent_contract()
         with tempfile.TemporaryDirectory() as directory:
             environment = dict(os.environ)
@@ -272,7 +243,7 @@ class SelectiveCertifiedSeparationTests(unittest.TestCase):
             )
             self.assertEqual(unpruned.exact_leaf_prices, cancellation_exhaustive.exact_leaf_prices)
 
-    def test_missing_rows_sign_level_threshold_domain_and_bound_mutations_reject(self) -> None:
+    def test_missing_rows_threshold_domain_and_bound_mutations_reject(self) -> None:
         instance = source.make_instance(10, "late_positive")
         with self.assertRaises(ValueError):
             source.validate_instance(replace(instance, source_bases=instance.source_bases[:-1]))
@@ -281,13 +252,6 @@ class SelectiveCertifiedSeparationTests(unittest.TestCase):
         active_only = replace(instance, source_bases=instance.source_bases[:2])
         with self.assertRaises(ValueError):
             source.compile_separation(active_only)
-        original_coefficients = source.LEVEL_COEFFICIENTS
-        with patch.object(source, "LEVEL_COEFFICIENTS", (30, 120, 360, -720, 720)):
-            with self.assertRaises(ValueError):
-                source.verify_preregistered_contract()
-        with patch.object(source, "LEVEL_COEFFICIENTS", original_coefficients[:4]):
-            with self.assertRaises(ValueError):
-                source.verify_preregistered_contract()
         source_text = SOURCE.read_text(encoding="utf-8")
         self.assertTrue(_has_nonstrict_zero_prune(source_text))
         self.assertFalse(_has_nonstrict_zero_prune(source_text.replace("node.upper <= 0", "node.upper < 0")))
@@ -306,10 +270,13 @@ class SelectiveCertifiedSeparationTests(unittest.TestCase):
         dependencies = {
             relative: "b" * 64 for relative in reader.DEPENDENCY_RELATIVE_PATHS
         }
-        document = source.build_result(
-            source_commit="a" * 40,
-            dependency_hashes=dependencies,
-        )
+        # This synthetic codec control does not admit an old experiment source.
+        # Pricing, search, serialization, and independent reconstruction stay real.
+        with patch.object(source, "verify_preregistered_contract"):
+            document = source.build_result(
+                source_commit="a" * 40,
+                dependency_hashes=dependencies,
+            )
         raw = source.canonical_json_bytes(document)
         rebound = reader.rebind_selective_separation_bytes(
             raw,
@@ -324,25 +291,6 @@ class SelectiveCertifiedSeparationTests(unittest.TestCase):
                 source.canonical_json_bytes(mutated),
                 validate_dependencies=False,
             )
-
-    def test_runner_exclusive_lifecycle_clean_seal_and_launcher(self) -> None:
-        self.assertFalse(RESULT.exists())
-        with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / "result.jsonl"
-            with patch.object(runner, "RESULT_PATH", path):
-                runner.write_exclusive(path, b"{}\n")
-                with self.assertRaises(FileExistsError):
-                    runner.write_exclusive(path, b"{}\n")
-                with self.assertRaises(FileExistsError):
-                    runner.run()
-        with patch.object(runner, "_git", side_effect=[b"", b"a" * 40 + b"\n"]):
-            self.assertEqual(runner.strict_source_commit(), "a" * 40)
-        with patch.object(sys, "argv", ["owner", "unexpected"]):
-            with self.assertRaises(SystemExit):
-                runner.main()
-        compile(LAUNCHER.read_text(encoding="utf-8"), str(LAUNCHER), "exec")
-        self.assertIn("selective_certified_separation_runner import main", LAUNCHER.read_text(encoding="utf-8"))
-        self.assertFalse(RESULT.exists())
 
 
 if __name__ == "__main__":

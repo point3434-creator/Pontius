@@ -1,947 +1,127 @@
 # Pontius
 
-Pontius is a research project for building an adaptive successor to a
-Pluribus-style six-player no-limit Texas hold'em agent. The objective is useful,
-certified strategy improvement under a hard wall-clock boundary, not iteration
-count.
-
-The current research spine is an exact six-player river control at 32 hands per
-seat (`h32`). It combines factorized beliefs, shared public topology, resident
-GPU solving, unilateral-deviation certificates, and an immutable-blueprint
-fallback. The authoritative target is maximum marginal chip-valued decision
-quality per millisecond of attributable online compute, subject to one hard
-15-second continuous response wall whenever the controlled seat acts and a
-one-second emission reserve. Prior-street and opponent-turn computation may be
-credited only through an exact matching prepared artifact; it never extends
-the live response deadline. Earlier cumulative-street results remain historical
-systems controls, not deployment or broad strategy-quality claims.
-
-ADR-0308 installs that contract as `ActionClockLedger`, `PreparationBank`, and
-`LegalDecisionSpineV2`. Exact event boundaries now start each action wall before
-state-transition work, preparation claims are one-use and bound to the exact
-public state plus semantic/source provenance, and late candidates fail closed
-to a legal fallback. This is verified resource accounting, not evidence that
-speculation improves play or that a complete decision fits the live host.
-
-ADR-0290 carries ADR-0288's explicit-deal reference loop, built on ADR-0286,
-across five complete 1,225/1,081/1,035/990 opponent axes on every street. Exact
-rational public-action likelihoods update only their actor, hard card
-disjointness is retained, board reveals filter every axis, and the unchanged
-four-street hand remains inside its historical cumulative-street ledgers. The
-immutable policy is deliberately passive and untrained; normalized full-width
-marginals, scalable value contraction, action abstraction, a credible full-game
-blueprint, resolver candidates, and strength evidence remain unconnected.
-
-ADR-0292 rejects the first fixed action-sizing lattice before it reaches that
-loop. Its exact legal lattice and rational off-tree projector pass all 45,456
-three-chip states and 60,732 transitions, but the frozen reduced river panel
-has only one informative context and v1 recovers none of that context's
-full-over-minimum/all-in gain. The code remains a parked oracle and baseline;
-any successor requires a fresh development/confirmation preregistration.
-
-ADR-0294 rejects the dyadic successor on confirmation-panel power before
-replay integration. V2 conditionally recovers 94.51% of the available gain and
-halves v1's aggregate normalized loss, but only five of 24 deterministic
-contexts are informative versus the frozen minimum of eight. Both candidates
-remain parked; the next work is candidate-blind sizing-power diagnostics, not
-another post-outcome fraction adjustment.
-
-ADR-0296 rejects the subsequent candidate-blind pool qualifier: its first seed
-reaches 12 material contexts, but the second reaches only 11 within the frozen
-96-context cap. No candidate was evaluated and the third batch remains value-
-unopened. A follow-up over-open incident is recorded explicitly; the maintained
-successor now owns batch identity and stop state rather than trusting a caller
-loop. The next work must test a richer reduced sizing game before v3.
-
-ADR-0297 now freezes that next test without opening a pool or value. It changes
-only the private-type width from three-by-three to four-by-four, retains the
-candidate-blind full-versus-minimum/all-in comparison, and adds exact LP-work
-ceilings. ADR-0298 seals three structural pools and their digests in a separate
-value-free module before the owned runner invocation.
-
-ADR-0299 records a clean pass: the three batches reach 12 qualifiers after 23,
-24, and 32 openings, with numerical, diversity, teacher, and pivot gates clean.
-The result authorizes only preregistration of one v3 mechanism and fresh dual-
-panel evaluation; none of these development panels may fit or confirm v3.
-
-ADR-0300 freezes collision-repair v3 before source implementation. ADR-0301
-now records its exhaustively validated exact-legal source and immutable digest:
-v2's two-pot action remains whenever distinct, and three-halves pot substitutes
-only on a mandatory-anchor collision. Two exact fresh stream seeds are sealed;
-ADR-0302 now seals their value-free 48-context representative family and
-separate 96-context qualification pool. ADR-0303's candidate-blind full/narrow
-screen reaches 24 unambiguous qualifiers after 60 contexts and seals the final
-panel before candidate values. ADR-0304 now rejects v3 before integration: its
-normalized-loss gates pass on both families, but the qualified panel recovers
-only 80.05% of the available raw-chip full-over-minimum/all-in gain versus the
-frozen 90% floor. V1, v2, and v3 remain parked; a successor requires a new
-prospective mechanism and wholly fresh panels. ADR-0305 now freezes that
-successor before code: v4 retains v3's set and uses exact-rational maximin
-pot-odds filling to spend otherwise unused slots under the same seven-raise
-ceiling. Three exact fresh streams and two separately gated qualified
-replications are committed prospectively. ADR-0306 now freezes the value-free
-v4 source after exhaustive legality, v3-inclusion, exact-capacity, projection,
-and bounded-work checks. ADR-0309 now seals the value-free 48/96/96 fresh
-structures, their raw attempt counts, and zero overlap with the finite prior
-inventory. ADR-0310 rejects v4's ordered qualification: A reaches 24
-qualifiers after 73 contexts, but B's full-integer LP at context 21 fails the
-native solver's primal verification. No final panel or candidate value is
-accepted, and the source remains disconnected from replay, blueprint, the
-convex master, and resolving. The next gate is a prospectively preregistered
-candidate-independent native-simplex robustness audit, not a v4 retry.
-ADR-0311 now freezes that audit's exact micro and fresh sizing corpora,
-metamorphic representations, backend options, independent bounds, and kill
-criteria before any corpus source or new LP value. ADR-0312 now seals the pure
-  unit-tagged compiler, 48 micro inputs, 64 fresh contexts, 177 bases, and 885
-  exact representations without invoking a backend or opening an optimum. The
-  ADR-0313 runner is now source-sealed with typed failure-complete observations,
-  exact micro enumeration, original-coordinate sizing reconstruction, outward
-  certificate plumbing, frozen environment/options, and the exact 2,655-call
-  schedule. ADR-0314 now retains the complete 2,655-observation result. Every
-  HiGHS dual-simplex and IPM arm passes, while native records 36 failures. The
-  literal gate rejects because it over-specified the known regression's entire
-  failing-row set instead of its recorded unique maximum row 215. ADR-0315 now
-  source-seals the artifact-only correction and synthetic controls before any
-  authoritative retained-evidence read. ADR-0316's temporally separated
-  exact-digest reanalysis passes every corrected conjunct and makes HiGHS dual
-  simplex eligible only for a later prospective replacement-adapter
-  evaluation. No adapter, runtime or quality result, v4 revival, or consumer
-  migration is authorized.
-
-ADR-0317 separates two solver classes that ADR-0316's direction had blurred.
-The rejected native simplex remains in the compact reduced-sizing oracle, so
-the active source boundary is a certified canonical HiGHS dual-simplex adapter
-for that oracle. The one-seat behavioral master already uses HiGHS; its
-retained solve calls consume only 0.063%-0.151% of complete measured ledgers,
-so persistence and specialization are parked under a prospective 5%
-perfect-solver materiality trigger. No solver source, result, consumer, or
-candidate is changed by ADR-0317.
-
-ADR-0318 now source-seals that canonical sizing adapter. HiGHS-DS is an
-untrusted proposer: exact normalized policy evaluation supplies a feasible
-behavioral lower bound, and an outward-rounded trusted-box certificate supplies
-the upper bound. Eleven analytic, bounded-teacher, corruption, source, and
-runtime controls pass. No sealed 177-base validation, legacy consumer change,
-candidate value, or production replacement exists yet.
-
-ADR-0319 now source-seals the failure-complete canonical validation runner
-without opening a retained base result. Its immutable schedule counts exactly
-one public HiGHS-DS proposal for each of 177 canonical bases: 48 exact micro
-LPs use exact vertex/certificate authority, while 129 sizing LPs use ADR-0318
-and a second ADR-0313 reconstruction. Nine unsealed controls pass; the next
-boundary is the single sealed invocation, not a consumer or action-width claim.
-
-ADR-0320 retains that one authorized invocation. All 177 observations pass
-with exactly one public proposal each, including 48/48 micro and 129/129 sizing
-gates; the largest sizing certificate interval is `8.50e-11` chips. This opens
-only a separately preregistered certified-v2 reduced-sizing consumer. No
-consumer, six-player action-width mechanism, complete-decision latency, or
-poker-strength result exists yet.
-
-ADR-0321 now preregisters that additive consumer before source or fresh values.
-It is limited to an exact two-live-seat river opening with a fold/call-only
-responder, keeps kernel raise-to totals distinct from reduced bet increments,
-and can return certified research evidence or a typed no-action rejection. It
-cannot emit a production betting action or stand in for multiway response rows.
-
-ADR-0322 now source-seals the implementation. Eleven unsealed controls prove
-exact legal/context binding, nominal amount conversion, one-call solver trust,
-source/runtime fail-closed behavior, complete exception chains, and no action
-emission. No fresh ladder value, complete-decision timing, or strength result
-is part of that engineering pass.
-
-ADR-0323 now preregisters a fresh certified finite-block action-width owner,
-not action-abstraction v5. Complete kernel-legal integer universes and
-exhaustive anchored best-subset teachers are the bounded authority; direct
-finite-block prices become valid only after the exact fold/call response rows
-for the proposed size are closed. Development may choose a width, while one
-commit-derived fresh panel only confirms or rejects it. No structure or fresh
-sizing value exists at this boundary.
-
-ADR-0324 now source-seals the value-free development structures. The fresh
-SHA-256 stream retains 96 unique h4 contexts after 440 attempts, with exact
-kernel universes of 7, 9, or 11 raises and 12,556 prospectively enumerated
-anchored subsets at raise widths two through six. No sizing solve occurred,
-and the transfer pool still has no constructor. Candidate-blind qualification
-must receive its own source seal before the first value.
-
-ADR-0325 now seals that candidate-blind qualifier without opening the pool.
-Its 192-task schedule pairs each complete universe with its anchored
-raise-width-two subset, classifies only conservative certified chip intervals,
-and owns target, exhaustion, ambiguity, consumer-rejection, and unexpected-
-failure evidence.
-
-ADR-0326 retains its one authorized invocation. The exact prefix stops at
-context 50 with 16 qualifiers, 35 nonqualifiers, zero ambiguity, and 102
-one-call accepted arms. The canonical artifact rebinds every endpoint and
-semantic identity without solving again; result SHA-256 is
-`d8bcf79a08eed1af6fece257b4917424e71123574c4a99b858c7a7e93cf2a7f5`
-and the 16-context development-panel SHA-256 is
-`7757bfb37bc28f4a23707f9b4dfae9401ffb0afa016e87890d18a18117c66792`.
-No intermediate-width value is open. The next checkpoint is source-only: seal
-the 2,495-task exhaustive bounded teacher before invoking it.
-
-ADR-0327 now passes that source-only checkpoint. The sealed owner freezes all
-2,495 full-then-subset requests, conservative normalized regret, set-valued
-teacher intervals, strict dominance, sole-survivor uniqueness, and a
-reporting-only equivalence set that may honestly be empty. Nondominated-set
-cardinality is retained as the plateau measurement; no milliseconds-based
-secondary rule can edit it. A no-clobber staging marker is persisted before
-any future value call and canonical bytes are verified before publication. No
-development intermediate-width value was opened. The next boundary is exactly
-one retained teacher invocation, not greedy pricing or an action-width selection.
-
-ADR-0328 retains that sole invocation. All 2,495 calls completed, and the
-4,975,258-byte canonical artifact independently rebinds every task,
-request/legal/LP identity, endpoint, regret, normalization, survivor set, and
-nested digest without a solver call. Width three is the first exhaustive-
-teacher width to pass the preregistered full-regret maximum and mean limits,
-but it is not a selected action width: the direct closed finite-block greedy
-recovery and teacher-excess gates remain unopened. The next checkpoint is
-source-only again: seal that greedy owner before any price or candidate value.
-
-ADR-0329 passes that source-only checkpoint without opening a greedy value.
-The owner freezes all 2,479 exact subset arms and every 7,848 possible
-one-raise transition, including incumbent/augmented request, legal-set, LP,
-semantic response-row-set, and own-block identities. One realized path will
-make exactly 400 calls. Each proposal has complete h4 fold/call closure before
-pricing, exact ties choose the smaller raise, all five development conjuncts
-recompute from retained evidence, and a no-clobber artifact witness exists
-before any future call. The next boundary is its single retained invocation;
-transfer and production remain closed.
-
-ADR-0330 records that invocation as an artifact-boundary failure, not a sizing
-result. The completed-result path certifies that all 400 calls occurred, but a
-self-referential width-gate digest raised `RecursionError` before publication.
-No final artifact, price, curve, or selected width survives; only the exact
-58-byte `.partial` witness remains. The digest cycle is repaired, both public
-campaign entries are permanently closed against replay, and the next eligible
-work is a source-sealed non-replay study on a new untouched population with
-synthetic success serialization and a write-ahead evidence journal before any
-new value.
-
-ADR-0331 preregisters that recovery without creating its population or opening
-a value. Its seed derives only from committed ADR-0330 state; all 96 new
-semantic contexts must be disjoint from all 96 original development contexts.
-Before a solver-bearing successor is eligible, one value-free owner must pass
-a canonical 402-record synthetic success journal, self-free hash chaining,
-append/flush/`fsync` receipts, exact prefix recovery, and retained torn-tail
-controls. Qualification, teacher, greedy, transfer, and action paths remain
-closed.
-
-ADR-0332 passes that value-free source gate. The new compiler accepts 96 unique
-h4 contexts after 551 attempts and proves semantic disjointness from every one
-of the original 96 contexts. The durable journal is exclusive/no-clobber,
-returns receipts only after flush plus `fsync`, and preserves exact verified
-prefixes with untouched torn tails. Its 610,098-byte systems-only fixture
-rebinds one header, 400 observations, four populated width summaries, five
-distinct gates, and one terminal. The fixture's fake width three is not sizing
-evidence. Replacement qualification remains value-unopened and must receive a
-separate source seal next.
-
-ADR-0333 now supplies that source seal without opening a replacement value.
-Its exact 192-task schedule runs complete universe then anchored width two per
-context and stops at qualifier 16 or the first distinct exhaustion, ambiguity,
-nested-reversal, typed-rejection, or unexpected-exception boundary. Every next
-call requires the preceding post-`fsync` receipt. Accepted evidence retains an
-exact policy and dual hint so the solver-free reader reconstructs both certified
-endpoints rather than trusting journal hashes. Synthetic target, failure, torn-
-tail, fully rehashed corruption, and append-failure controls pass.
-
-ADR-0334 retains that one public invocation without retry. Its exact
-391,986-byte journal contains one header, 98 accepted one-call observations,
-and one target terminal after 49 complete contexts: 16 qualifying, 33
-nonqualifying, and zero ambiguous. A solver-free rebinder reconstructs every
-policy lower bound, dual-certified upper bound, classification, terminal, and
-the exact 16-context target-only panel while the campaign, consumer, and solver
-paths are disabled. The journal records no elapsed time and is not a latency
-result. The next boundary is source-only: seal the new panel's 2,113-task
-exhaustive teacher before opening any width-three-through-six value. No selected
-width or production action exists.
-
-ADR-0335 now seals that replacement teacher without opening a value. Its exact
-2,113-task schedule contains one full legal universe per retained context and
-every anchored subset at raise widths two through six. Conservative interval
-subtraction, set-valued nondominance, sole-survivor uniqueness, reporting-only
-equivalence, exact payoff-span normalization, policy/dual witness rebinding,
-post-`fsync` continuation, and distinct semantic/infrastructure stops are
-fixed. A complete 6,616,076-byte synthetic journal proves the success-shaped
-serializer and independent reader with all solver paths unopened. The next
-boundary is the sole no-clobber teacher invocation from a clean commit, not a
-selected width or production action.
-
-ADR-0336 retains that sole invocation: all 2,113 real arms were accepted and
-the exact 8,027,171-byte journal independently rebinds without a solver. Width
-two passes the frozen maximum-regret conjunct but narrowly fails the mean;
-width three is the first width passing both and is also the descriptive median
-knee. Tail positions 9 and 11 retain certified-positive lower regret until
-width four. Wider menus open large set-valued plateaus. This is an h4
-target-panel teacher curve, not a selected mechanism, latency result, or
-production action width. The next checkpoint is a source-sealed additive
-376-call non-replay direct mechanism before any new value.
-
-ADR-0337 now seals that direct owner without opening a price. The complete
-graph has 2,097 anchored arms and 6,543 response-closed one-raise transitions;
-the frozen adaptive path has exactly 376 prospective calls. Selection uses the
-greatest behavioral lower endpoint and then the smaller raise-to total on an
-exact tie. A 378-record solver-free synthetic journal proves post-`fsync`
-continuation, dynamic branch rebinding, all five gate fields, and the complete
-terminal path. Its fake width three is schema evidence only. The next
-checkpoint is the sole no-clobber real invocation from this clean committed
-source, not transfer, capacity, latency, action, or production width.
-
-ADR-0338 retains that sole invocation as an exact 1,437,835-byte journal and
-rebinds it without a solver or campaign call. All 376 arms were accepted and
-all five frozen gates first pass at raise width three, including a 97.7775%
-conservative aggregate-recovery lower endpoint. The selected third raise is
-context-dependent across the 16 menus, so this is a development width rather
-than a fixed ladder or production action width. The journal records no
-latency. Next is a source-only, commit-seeded untouched transfer population
-and semantic non-overlap proof before any transfer value.
-
-ADR-0339 now seals that untouched transfer population without opening a value.
-The pre-value source-commit seed yields the first 96 admissible contexts after
-478 raw candidates, 13,587 prospective anchored subsets, and zero counterparts
-in the exact 1,244-context enumerated prior inventory. A nonzero-base control
-proves raise-to-to-increment conversion explicitly. Width three remains only
-the selected development width. Next is a separately source-sealed,
-candidate-blind transfer qualifier; no qualifier, transfer result, capacity
-claim, or action exists yet.
-
-ADR-0340 now source-seals the separate 192-task transfer qualifier and a
-solver-free target-only panel rebinder. It preserves the full-then-width-two
-order, unchanged classifier, first-16 stop, exact post-`fsync` receipts, typed
-semantic/infrastructure failures, and independent real policy/dual witness
-checks. A pre-seal repair makes a complete wrong-campaign first record reject
-instead of appearing as an empty prefix. The 111,357-byte synthetic target is
-systems evidence only; the prospective real artifact remains absent. Next is
-the sole no-clobber transfer-qualification invocation from this committed
-source, not a teacher, width-three result, latency claim, or action.
-
-ADR-0341 retains that one permitted invocation as an exact 378,108-byte
-journal. It reached the frozen first-16 target after 47 contexts and 94 accepted
-one-call arms; 31 contexts were nonqualifying, with no ambiguity, rejection, or
-retry. The solver-free result owner seals the exact target panel and rejects
-byte, campaign, terminal, witness, or panel-identity drift. This qualifies a
-fresh transfer panel; it does not confirm width three. Next is a source-only
-transfer-confirmation owner that applies the frozen context-local width-three
-mechanism without width reselection and retains the all-conjuncts gate.
-
-ADR-0342 now source-seals that confirmation owner without opening a real
-width-three value. It reuses the 32 exact retained full/width-two arms as prior
-evidence and schedules only 126 new width-three candidate calls. Those calls
-simultaneously run the frozen lower-endpoint/smaller-raise mechanism and form
-the exhaustive width-three interval teacher. The owner normalizes only by each
-context's explicit payoff span and requires all five unchanged conjuncts;
-partial passage is a completed rejection, not confirmation. Distinct consumer,
-numerical, unexpected, and infrastructure terminals preserve exact durable
-prefixes. Complete confirmed and rejected synthetic journals pass, but are
-systems fixtures only. The prospective real artifact remains absent; next is
-the sole no-clobber confirmation invocation from the committed ADR-0342 source.
-
-ADR-0343 now retains that sole invocation. All 126 real candidate calls are
-accepted, the exact 16-context panel completes, and every unchanged conjunct
-passes. The conservative gate reports maximum normalized full-regret upper
-`0.00032224468507681322`, mean upper `0.000049192473917409513`, aggregate-
-recovery lower `0.9723098159302147`, and maximum/mean teacher-excess uppers
-below `1.56e-14`. A solver-free owner rebinds the exact 445,731-byte journal,
-all witnesses, context-local menus, teachers, and gate identities. Width three
-therefore transfers on this untouched reduced panel. It remains context-local
-reduced-game evidence, not a universal ladder, full-width production strategy,
-complete action-clock result, or strength claim.
-
-ADR-0344 source-sealed the first legal responder-raise keystone before opening
-its result. A new checked-to heads-up river bridge derives all actions
-and chip settlement from the exact six-seat betting kernel. Its frozen
-six-strategic-node tree includes both a full raise and a legal short all-in that
-the intentionally simplified legacy sizing game cannot represent. The opener
-acts twice, so the behavioral shortcut must reject and sequence-form row
-generation must match a separate 16-by-18 complete normal-form teacher. This
-is a one-hand semantic boundary only: no h4 coefficient, row-capacity,
-multiway, latency, production-action, or strength result follows.
-
-ADR-0345 retains the sole invocation from clean commit `ff2b8ce`. All 24
-frozen gates pass in a 7,400-byte artifact: six strategic and eleven terminal
-nodes match, the independent chip oracle has zero stored error, the legacy
-short-all-in omission is detected, the behavioral shortcut rejects, and the
-sequence-form result matches the 16-by-18 complete teacher at
-`2.333333333333333` within the frozen tolerance. A solver-free owner seals the
-artifact and source closure. The `0.791`-second tiny-game campaign is not an
-action-latency result. Only a separately preregistered h4 coefficient
-differential is authorized. The separate
-[prediction ledger](docs/PREDICTION_LEDGER.md) is reporting-only; forecast 2
-remains open with only its semantic conjunct observed.
-
-ADR-0346 source-sealed the authorized h4 coefficient differential before
-opening its result. The exact ADR-0345 public tree is widened to four hands per
-player and 16 dyadically weighted legal deals. The repeated actor has 12
-information sets and 32 sequence variables. Four payoff rows and two derived
-gain rows will be compared coefficient-by-coefficient against a separate
-Fraction enumerator, then rebound at six frozen acting policies. A coverage
-response reaches both the full-raise and short-all-in final-response histories.
-The teacher imports neither the Float64 subject nor the evaluator; no endpoint
-responder selector is recomputed. This gate carries no row-capacity, selector-
-stability, latency, action, or quality claim.
-
-ADR-0347 retains the sole clean invocation in a 100,710-byte artifact. All 34
-frozen gates pass. A solver-free owner rebinds all 192 serialized Float64/
-Fraction coefficient pairs, all 36 affine/direct endpoint identities, exact
-profile zero-sum, and both derived gain-row identities without importing the
-closed runner, game, evaluator, teacher, or optimizer. Every retained error is
-zero, and both repeated-actor final-response histories have nonzero coverage.
-This crosses one finite h4 coefficient gate only. The 1.743-second tiny CPU
-campaign is not response-row capacity or action latency. Next is a separate
-responder-row-growth preregistration; selector stability, preparation-bank
-recovery, multiway closure, off-tree actions, and full-width capacity remain
-unopened.
-
-ADR-0348 source-sealed the legal h4 responder-row-growth audit without opening
-its target trajectory. A read-only observer wraps one unchanged production
-generator call and retains complete response signatures, every 32-coordinate
-row, restricted-master diagnostics, exact oracle work, independently rebound
-conditioning, and canonical semantic row bytes. A separate Fraction pass uses
-only subject-selected tapes. The 60-second subject and 120-second complete
-walls are infrastructure guards, not action latency. A pass can authorize only
-a separately preregistered selector-stability successor.
-
-ADR-0349 retains the sole clean invocation in a 50,963-byte artifact. All 25
-gates pass: the two inherited exact rows converge in one 18-pivot master and
-zero rows are generated. The responder tape changes at the candidate but has
-exact gain zero, so no cut is violated; that is not a selector-stability
-result. A solver-free owner rebinds every tape, Fraction row and evaluation,
-the `2^-53` final gap, conditioning, oracle counts, and 21,691 semantic row
-bytes. The 0.686-second subject campaign is infrastructure, not action
-latency, and the exact `27/64` finite objective is not poker quality. Next is a
-prospectively frozen selector-window gate; full-width capacity remains a
-separate lane.
-
-ADR-0350 source-seals that selector gate before opening any h4 target value.
-Four selector-free, downstream-relevant sequence-form rays—three public-block
-one-step DCFR regret vertices and the retained-master proposal—are fixed by
-full policy digest. A Fraction normal-fan teacher returns the honest three-
-valued map `fixed` / `tie_unresolved` / `switched`, including exact unresolved
-interval measure and separate tie points. Total-function tape identity alone
-gates certificates; reachable-support identity reports behavioral and phantom
-downstream changes without authority. Exact legacy breakpoints, fixed-tape
-values, maximum-envelope direction, engineered crossing/tie controls, and 136
-production selector calls on an untouched dyadic schedule are frozen. The
-60-second selector and 120-second total walls are infrastructure only. A pass
-can authorize a separate h4 selector-stable affine integration
-preregistration, not full width, action timing, action quality, or strength.
-
-ADR-0351 retains the sole 1,493,122-byte artifact but rejects that recorded
-authorization. The exact fan map passes independent rebinding, including all
-136 production values, exact breakpoints, active affine rows, and maximum-
-envelope direction. Its own honest output exposed the bug: every acting-player
-section has reachable `tie_unresolved` measure one, while the v1 certificate
-reported scale one because a nonclosing slope bypassed the zero source margin.
-A solver-free owner records four such violations and returns no successor
-authority. `selector_window_v2` now fails closed at every source margin inside
-the semantic reserve before inspecting slope. The old helper and public runner
-are permanently closed.
-
-ADR-0352 now source-seals the tie-aware active-row recovery without opening
-its h4 result. Exact local maximizers are closed into complete total tapes and
-all of their affine rows are retained. `selector_window_v2` is available only
-to exact singleton sources; tied sources dispatch to the complete maximum
-envelope after every v2 window fails closed. Both source and current pruned
-tapes are serialized, while total-function identity remains the certificate
-authority. The prospective same-fixture run is development integration only,
-not untouched confirmation, full-width capacity, action latency, or quality.
-
-ADR-0353 retains that run's first terminal as a bounded rejection. The exact
-local-maximizer Cartesian product exceeded the frozen 256-tape per-sample bound
-before any completed h4 section, affine row, or envelope was serialized. The
-961-byte artifact and clean source closure now have a solver-free owner; the
-public runner is permanently closed. The successor must preserve the total
-active strategy set symbolically, keep reachable-support identity separate,
-and validate a compact affine-row quotient against exhaustive controls before
-another h4 target value is opened. This is representation evidence, not action
-latency, full-width capacity, decision quality, or poker strength.
-
-ADR-0354 source-seals the factorized successor with no h4 target value opened.
-It uses two independent exact lexicographic passes to compute the minimum and maximum
-directional slopes of the complete active response face without materializing
-its Cartesian tape product. Total-function and reachable-support cardinalities
-remain separate arbitrary-precision outputs, and the work ledger reports both
-linear logical operations and integer bit lengths. The exact selector fan
-still owns the full ray; the composed seam control catches a source-dominated
-row crossing at one half. A shared tie-semantics registry now requires every
-named consumer to pass its applicable controls. Next comes a separately
-preregistered legal h4 directional-face diagnostic, never a replay of the
-closed ADR-0352 runner.
-
-ADR-0355 now seals that next one-shot diagnostic while all legal h4 face
-outcomes remain unopened. It freezes four inherited directions, two target
-players, eight composed fan/face sections, and 136 scheduled exact point calls.
-The result must retain both cardinalities, both lexicographic extrema, every
-active factor, complete fan geometry, and measurable work with zero tape
-materialization. Cardinality, ties, crossings, slopes, and cell counts are
-observations rather than gates. The clean committed invocation will write one
-exclusive terminal; this is still finite h4 infrastructure, not full-width or
-15-second decision evidence.
-
-ADR-0356 retains and solver-free rebinds that sole 3,888,072-byte terminal.
-All eight fan/face sections and 136 scheduled calls pass with zero tapes
-materialized. The largest exact total face has 104,976 members but only one
-reachable-support behavior, demonstrating why the Cartesian predecessor died
-and why factorized face calculus is the right representation. The two live
-responder crossings remain exactly `15/19` and `139/163`. This is a finite
-same-fixture development diagnostic, not action latency or poker quality; it
-opens only a separately preregistered tie-aware affine integration successor.
-
-ADR-0357 source-seals that integration mechanism without opening another h4
-value. `factorized_tie_aware_affine` treats the exact normal fan as the ray
-authority and the two-pass factorized face as the point authority. Exact
-source ties enter a maximum envelope with zero elected-tape scoring; exact
-singletons alone may use selector-window v2. Synthetic controls match an
-exhaustive small oracle, preserve repeated-actor 4-versus-3 identity, and
-integrate a 4,096-member face with zero Cartesian tape materialization. A
-separate exclusive h4 owner must still be preregistered, and any same-fixture
-pass remains development-only pending untouched confirmation.
-
-ADR-0358 preregisters that exclusive legal h4 owner while leaving its result
-path absent. It freezes the four inherited directions by two target players,
-reproduces every ADR-0356 section digest, dispatches exact source ties to the
-factorized envelope and exact singletons to selector-window v2 or typed closure,
-and retains complete point/ray/cardinality/work/epigraph summaries. The 180-
-second subject wall is the sum of eight live builds only. Natural modes,
-windows, pieces, cardinalities, crossings, and runtimes are outcomes rather
-than gates. Invoke exactly once from a clean committed boundary; any pass is
-same-fixture development integration, not confirmation, action latency, full-
-width capacity, decision quality, or strength.
-
-ADR-0359 retains that sole 259,550-byte terminal as a same-fixture development
-pass. All 22 gates are true: four exact source ties use the factorized envelope,
-four exact singletons use positive v2 windows, and zero tapes or actions are
-materialized. The summaries contain 12 fan rows but ten interval-owning convex
-pieces; two rows tie only at the endpoint. A standard-library owner rederives
-the source faces, compact envelopes, seams, dispatch, work, aggregates and
-gates while labeling omitted non-source factors, non-quotient rows, and the
-live section digest authenticated-only. Untouched confirmation must use a
-fresh sealed population and a complete reconstruction-ready schema.
-
-ADR-0360 source-seals that fresh population without opening a target value.
-Four first-in-stream legal h4 contexts are derived only from the clean
-pre-result ADR-0358 source commit; none is filtered, skipped, or replaced by an
-observed mode or value, and all are semantically distinct from the one exposed
-development fixture. The successor contract freezes three one-step regret
-vertices plus one converged row-growth proposal per context, 32 total affine
-sections, complete raw fan/face/epigraph serialization, zero tape
-materialization, bounded laboratory walls, and all-or-nothing interpretation.
-The next step is a separate one-shot owner preregistration, not an invocation.
-
-ADR-0364 retains and closes the sole ADR-0363 full-width-capacity invocation.
-Its exact 798-byte artifact is a typed Windows telemetry failure: the untyped
-`GetProcessMemoryInfo` boundary rejected before the reduced control or literal
-target, so no capacity result exists. Explicitly typed PSAPI and Kernel32
-diagnostics both succeed. The successor must be an additive source-sealed v2
-owner with a new exclusive path; never patch or invoke v1 again.
-
-ADR-0365 source-seals that v2 successor without opening a target. Explicit
-Win64 signatures, dual native readers, same-PID PowerShell control, the pinned
-GPU runtime seam, exact v1 lineage, and a new exclusive result path are bound.
-The 512 MiB reader-delta allowance is telemetry-only. Invoke v2 once from its
-clean source commit; it still answers only ADR-0363's narrow capacity question.
-
-ADR-0366 retains v2's sole passing guard and representation rejection. Exact
-persistent numeric lower bounds are 249.486 GB base, 437.434 GB bidirectional,
-202.627 GB optimistic scalar, and 14.679 GB resident belief; every cap/reserve
-check rejects before all target allocations and contractions. This retires the
-current explicit-half-assignment storage, not exact full width itself. The next
-gate is an exact non-enumerative card-conflict representation; truncation has
-not been authorized.
-
-ADR-0367 preregisters that representation's first algebra gate. Labeled
-three-pair source deals may be summed into their six-card occupied masks only
-when all three source seats are closed; every requested open seat must be on
-the query/right half. The resulting disjointness operator is an exact
-subset-containment inclusion-exclusion transform whose reverse is its
-transpose. The frozen small-game controls include dense and current
-FactorTT/open-mode differentials, source-seat permutation, fixed-card
-projection, and cold-versus-topology-stable one-seat refresh. No source,
-full-width capacity, latency, action, or truncation result is opened yet.
-
-ADR-0368 closes that algebra gate. The exact bounded reference matches literal
-compatibility, its labeled-record transpose, dense six-seat enumeration, and
-the current FactorTT `left_to_right` open-mode path. Three-source-seat
-permutation and one-seat refresh are canonically identical to their controls;
-unsafe open-source or fixed-card requests fail closed. This proves the quotient
-mechanism on finite games, not scalable construction. Complete full-width
-memory, scratch, work, placement, and reserve bounds come next, before any GPU
-or literal target source. A complete repository audit passed 1,732 of 1,733
-tests with two expected skips; the one deterministic failure is the immutable
-ADR-0365 pre-invocation test still requiring ADR-0366's now-retained result to
-be absent. The sealed control is preserved and the lifecycle defect is explicit.
-
-ADR-0369 now freezes the next checkpoint without opening hardware work. The
-preallocation proposal uses implicit combination-ranked six-card source masks,
-retains the 893,970 labeled four-card query records, and prices the exact
-transpose of that same operator. It must account for the 176-column reference-
-hand feature width, a safe 2,971-column envelope, streamed source/query scratch,
-automata, forbidden tensor-train export, results, full source refresh, and
-host/device reserves. A passing byte model will still leave GPU numerical
-identity and the 14-second throughput question unanswered.
-
-ADR-0370 completes that source arithmetic. The fixture layout peaks at
-492,448,676 device bytes; the safe 2,971-column envelope peaks at
-8,126,480,964, so both pass the unchanged fixed byte/reserve gates. The result
-is deliberately not called runtime capacity: one source refresh still carries
-81,711,241,920 containment additions, with no measured kernel or latency. The
-next gate is a bounded-exact GPU numerical/throughput keystone, not a literal
-full-width solve and not support truncation. Full discovery added no new
-regression: 1,744 of 1,747 tests passed, two skipped, and the sole failure is
-the already recorded immutable pre-invocation result-absence predicate.
-
-ADR-0371 now freezes the bounded GPU mechanism before device source. Its exact
-cardinality-layer recurrence lowers the fixture's logical containment bill to
-9,789,072,480 scalar edge additions, but that arithmetic reduction is not a
-speed measurement. The complete ten-card universe is the only executable
-population. Direct-automaton forward/adjoint and affine-fold differentials,
-full source refresh, deterministic repeatability, separate numerical
-envelopes, exact work accounting, mutation controls, and reject-before-CuPy
-allocation guards must all pass before any staged or literal-width experiment.
-
-ADR-0372 closes that bounded gate: all 22 controls pass on the complete ten-
-card population on the RTX 5080. Exact forward and record-level adjoint,
-direct automaton, sunk/reach fold, current-stack normalized chip value, full
-source refresh, query-only reuse, warm byte identity, fixed/live admission,
-and five adversarial mutations agree. Cold/warm/source-refresh device sums are
-0.4435/0.2958/0.4346 ms, explicitly reduced units with no 45-card or action
-interpretation. A staged non-45-card scaling preregistration is next.
-
-ADR-0373 now freezes that scaling experiment before implementation: complete
-10/16/22/28/34/40-card axes, a rank-127/width-128 direct automaton, repeated
-cold/warm/full-refresh/query-only/adjoint units, exact selected direct scans,
-full dot products, allocation and work ledgers, durable first-terminal
-evidence, and fail-closed stage/campaign walls. Its owner must be source-sealed
-with the real journal absent and can never accept 45 cards.
-
-ADR-0374 implements that owner and source-seals its complete work, allocation,
-raw-evidence, CUDA-ownership, durable-journal, and solver-free reconstruction
-path before any real stage. ADR-0375 retains its sole invocation as a zero-
-stage missing-parent infrastructure failure and permanently closes v1 rather
-than retrying it.
-
-ADR-0376 source-seals the additive recovery. The repository now owns a tracked,
-hash-bound artifact marker; v2 checks that marker, its fresh exclusive paths,
-and both closed v1 paths before stage authority. Eight focused controls pass
-without a real device call, and every ADR-0373 scientific field is unchanged.
-The next capacity act is one clean v2 invocation, not a 45-card probe or an
-action-quality result. Full discovery passed 1,782 of 1,785 tests with two
-optional skips; its sole failure is the already recorded immutable ADR-0365
-pre-invocation absence predicate encountering ADR-0366's retained result.
-
-ADR-0377 retains the sole v2 journal as a complete non-target pass. All 126
-gates pass at 10/16/22/28/34/40 cards, every pool returns to zero, and the
-40-card requested peak is 10.046424 GB against 15.710814 GB live free memory.
-The 40-card warm, full-refresh, query-only, and adjoint medians are 327.622,
-296.192, 32.319, and 1,015.458 ms. Its 49,557.238 ms independent direct scan
-is validation infrastructure and dominates the stage wall; none of these is a
-solve or 15-second action measurement. Literal 45 cards remain uncalled. The
-next capacity boundary derives production and validation lifetimes separately
-and proves streamed validation before any target owner can be sealed.
-
-ADR-0378 freezes that boundary without opening a target. The future source
-model must sweep typed host/device array births and deaths, keep one complete
-host reference plus a 64-MiB staging window, forbid full device references and
-full dot-product temporaries, and release the forward state before allocating
-the unique adjoint. It must prove bounded chunk coverage and literal byte
-comparison without CuPy. Arithmetic passage will still not be live admission
-or action latency.
-
-ADR-0379 now passes the exact source model. The 45-card streamed schedule's
-device peak is 11,755,029,796 bytes at the forward-dot phase and its host peak
-is 9,353,336,216 bytes; forward state dies before the 9,645,290,380-byte
-adjoint phase. The 12 GB numeric cap margin is only 244,970,204 bytes, and
-allocator/runtime classes remain excluded. This is fixed arithmetic, not live
-admission. A bounded 10/22-card CUDA seam must validate complete host-held byte
-references, streamed dot numerics, lifecycle, and real allocation high-water
-before a literal owner can be considered.
-
-ADR-0380 freezes that bounded seam before implementation. Complete 10- and
-22-card populations exercise both exact reduced closure and a two-chunk
-76,403,712-byte source reference. One device unary is overwritten between
-classes; complete host bytes remain authoritative; forward operands die before
-the unique adjoint is allocated; and allocator pools plus physical free memory
-are sampled after every ownership transition. The public seam takes no
-arguments, and any other width—including 45—must fail before CuPy import.
-
-ADR-0381 now passes the bounded CUDA seam. All 32 gates pass at both 10 and 22
-cards; complete ten-card exact errors peak at `2.05e-15`, and the 22-card dot
-error is `5.68e-14`. The mandatory 76,403,712-byte source reference crosses
-two chunks, the observed pool-total high-water is 204,377,088 bytes against a
-271,464,560-byte conservative bound, and the allocator returns to its exact
-starting state. This validates validation plumbing—not literal 45-card
-capacity. A separately preregistered one-shot target owner is next.
-
-ADR-0382 now preregisters that owner without implementing or invoking it. The
-future no-argument `.venv`/`-B` command gets one exclusive durable terminal,
-fresh host/device admission, exact 125-chunk source streaming, named allocator
-telemetry, and fail-closed release. Target pass, rejection, OOM, and
-infrastructure failure are all permanent first outcomes. Literal 45-card
-values remain unopened until a separate source seal is committed.
-
-ADR-0383 commits that source seal without invoking it. The config hash-binds
-the target, no-argument owner, standard-library rebinder, exact 35-allocation/
-19-scientific-call ledgers, and source-only controls. The owner fsyncs its
-header before config, Git, target import, or CuPy; the result is still absent.
-The next boundary is one clean public invocation followed by a separate
-artifact-only assessment, with no retry or smaller-width substitution.
-
-ADR-0384 retains the sole literal-45 invocation. Its 21,663-byte journal
-rebinds to `completed_pass` with all 27 gates true: exact full-width river
-quotient forward/adjoint identity, live admission, modeled ownership, and
-absolute pool release pass on the named RTX 5080. The 219.667-second campaign
-and its 116.178-second direct validation oracle are laboratory evidence, not a
-solve or action result. The next boundary is an actual legal river-context
-quotient bridge, not truncation selection or a quality claim.
-
-ADR-0385 preregisters that source-only bridge around one action-conditioned,
-six-way legal river context with five complete 990-hand opponent axes. It
-freezes the table-seat/local-card mapping and a reduced leaf-adjoint
-differential before bridge source. The current showdown automaton is admitted
-only for a 60-chip flat pot whose every possible tie split is integral;
-odd-chip and side-pot contexts fail closed rather than being approximated.
-
-ADR-0386 source-seals the bridge without executing a full-width quotient. The
-actual-context host fixture is rank 175/width 176 with 893,970 complete query
-labels; exact reduced settlement, quotient, transpose, open-mode, leaf-adjoint,
-and paired-seat controls pass. Consumer-resident NumPy payload is 15,888,996
-bytes, retained validation is 84,972 bytes, and the 79,216-byte warm view is
-explicitly nonadditive. No action, action timing, or quality result is opened.
-
-ADR-0387 prospectively freezes the next source-only consumer-capacity seam.
-Global feature ranges `[0,128)` and `[128,176)` partition every state plus the
-single reach feature 175 exactly once; partial numerator/reach values normalize
-only after recombination. Forward records and adjoint occupancies now have
-separate typed chunk contracts, full compatible/covector/unique-adjoint arrays
-are forbidden, and forward storage must die before adjoint birth. The capacity
-verdict, CuPy execution, full-width value, resolver, action, and 15-second gate
-all remain unopened.
-
-ADR-0388 source-seals that CuPy-free seam. Fifty-eight physical shape/dtype
-rows produce a 15,973,968-byte host peak and a 9,910,940,332-byte device peak;
-the fixed cap and minimum-physical reserve inequalities pass, with live
-admission still absent. A complete exact ten-card rank-175 control proves the
-128+48 forward, normalize-once fold, adjoint, reversed-order, chunk, and
-transpose identities. This is source capacity and bounded algebra only: no
-45-card value, device result, iteration, action, timing, quality, or truncation
-decision exists.
-
-ADR-0389 preregisters the additive actual-context CUDA consumer before source
-or device values. It freezes globally offset-aware 128+48 kernels, distinct
-forward/query/source chunk types, numerator/reach and transpose units, exact
-work ledgers, 25 named allocation births, live-admission telemetry, complete
-ten-card and multi-chunk 25-card device controls, and a durable one-shot owner
-whose result remains absent. The next checkpoint is its bounded source seal,
-not the actual 45-card invocation, a solve, an action, or a quality inference.
-
-ADR-0390 retains that bounded source seal as a numerical rejection. The exact
-ten-card campaign passes, and the 25-card campaign passes offsets, direct rows,
-folds, adjoints, global chunk-independent byte identity, allocation, release,
-and wall controls. Its unnormalized forward and transpose scalars are adjacent
-Float64 values, leaving an absolute `0x1p-20` residual against ADR-0389's
-separate `2e-10` ceiling even though the relative residual is `1.385e-16`.
-The ceiling was not relaxed: no actual owner was source-sealed, the reserved
-artifact is absent, and all 45-card counters remain zero. The next question is
-a preregistered same-memory compensated-feature tiling, not a full-width call.
-
-ADR-0391 now preregisters that arithmetic repair without opening its source.
-Global logical ranges `[0,64)`, `[64,128)`, and `[128,176)` map to adjacent
-high/low Float64 pairs in the existing 128-column workspace. Pairs stay
-unevaluated through the operator and deterministic global reduction; exact
-binary-rational contribution sums independently audit the reducer. The
-original absolute and relative ceilings, complete 10/25 populations, chunks,
-runtime, memory, and wall gates remain unchanged. No successor module, actual
-owner, reader, artifact, or 45-card value exists yet.
-
-ADR-0392 repairs one pre-source completeness omission: paired recurrences need
-division by exact integers 1–6, and query weights need a frozen factor order.
-The additive v2 overlay fixes a two-residual paired-division sequence, source
-and query seat/factor order, paired covectors, pair-times-pair fold/adjoint
-products, and exact-rational normalization. No successor source or value was
-opened; every ADR-0391 limit and claim boundary remains unchanged.
-
-ADR-0393 retains the implemented paired-tile line as a wall rejection. All 54
-strict primitives, paired query weights, and the complete ten-card exact-row,
-transpose, tile-order, repeat, offset, poison, mutation, and release controls
-pass; its exact represented forward/transpose residual is about `1.45e-25`.
-The first frozen complete 25-card invocation, however, remained nonterminal
-beyond the 180-second population wall and was stopped at the 600-second
-laboratory boundary before any 25-card scalar existed. No retry, actual owner,
-reader, artifact, 45-card value, action-time result, or quality claim exists.
-The active boundary is the source-sealed work-decomposed successor whose
-capacity projection must pass before another complete numerical invocation.
-
-ADR-0394 now freezes that preflight before successor source or timing. The
-direct controls become source-rank-major while preserving source, query, and
-feature accumulation order; at the projected 25-card geometry this cuts
-direct-fold source unranking from 1,994,854,400 visits to 34,003,200 without
-discarding the 611,229,696 coefficient additions. Complete 10- and 22-card
-campaigns will populate an exclusive 16-phase host-wall ledger; only exact
-integer work ratios, a frozen 5/4 guard, and pure 25-card geometry may produce
-the preflight projection.
-
-ADR-0395 corrects one prospective instrument omission before result: exact
-spill traffic is unavailable under the frozen compiler path, so the composite
-contract instead requires an ELF cubin, independent raw CUDA-13.3 `cuobjdump`
-reparse, the maximum of driver/cubin register and backing instruments, and a
-4,096-byte-per-thread ceiling priced inside the inherited device reserve.
-ADR-0396 source-seals that composite implementation. Its 18 device-free and
-synthetic controls pass, including exact phase boundaries, every constituent
-work/live-shape/chunk ratio, rogue-25 rejection, resource mutations, and owner
-failure terminals. The one-shot result, every 25-card numerical value, and
-every action-time or quality claim remained absent at that source boundary.
-ADR-0397 now retains the sole v1 invocation as a 5,322-byte infrastructure
-terminal: the public module's context-sensitive `__name__` became `__main__`,
-so its child attempted `python -m __main__` and failed before worker import,
-CuPy, calibration, or any phase row. V1 is permanently closed. ADR-0398 now
-preregisters the additive recovery while every v2 source and result path is
-absent: new lifecycle identities, a literal worker module, and a no-CUDA child
-handshake with a fresh challenge through the actual shared subprocess seam.
-It may not change the frozen science. ADR-0399 source-seals that recovery: 16
-focused controls pass, including the real device-free worker birth, exact wall
-and pipe cleanup, adversarial framing/order/mutation failures, and a complete
-synthetic scientific rebind. ADR-0400 now retains the sole v2 invocation. Its
-fresh handshake passed, then the compiler-failure reporter tried to normalize
-a frozen slots `CudaRuntimeIdentity` through a `__dict__`-only fallback and
-masked the antecedent exception. The four-record journal has zero phase rows
-and no projection. V2 is permanently closed; a new additive serializer
-recovery must be sealed before any further campaign. ADR-0401 now freezes that
-v3 recovery before source: only the exact six-field `CudaRuntimeIdentity` is
-newly encodable, unknown objects reject, and a real no-CUDA child must force a
-compiler failure through the unchanged scientific reporter with its original
-reason intact. ADR-0402 source-seals that recovery: all 16 corrected controls
-pass, including the literal child and complete nested rebinding. ADR-0403 now
-retains the sole V3 invocation as a seven-record resource-inspector rejection:
-bootstrap and serializer probe passed, then CUDA 13.3 `cuobjdump` returned
-status 4294967295 before any resource row, calibration phase, or projection.
-V3 is permanently closed; the next gate is an additive exact-cubin inspector
-qualification that retains the cubin and raw tool streams before selection.
-ADR-0404 now preregisters that diagnostic corpus before source: one unchanged
-compile, exact cubin-first durability, driver rows, and five ordered CUDA 13.3
-binary command captures. The diagnostic cannot select an inspector or open
-calibration; every successor source and result path remains absent.
-ADR-0405 source-seals the implementation after 15 corrected controls: the
-ACK protocol makes fsync a prerequisite for child progress, exact prospective
-envelopes reserve a bindable terminal inside the 48 MiB cap, and literal
-device-free children prove full flow, silent-wall enforcement, and
-post-terminal rejection. ADR-0406 retains the sole real diagnostic as a
-complete raw corpus. The driver accepts the exact ELF-magic payload, while
-CUDA 13.3 `cuobjdump` and `nvdisasm` reject that same file through their payload
-operations. No inspector or resource gate follows from the capture pass. The
-next boundary is a preregistered GPU-free selector over only the immutable
-artifact, with an honest empty-selection terminal. ADR-0407 now freezes that
-selector: only a zero-return, complete three-kernel `REG`/`STACK`/`LOCAL`
-resource operation may qualify, and qualification cannot depend on whether the
-reported values pass their later ceilings. Source and result remain unopened.
-ADR-0408 now source-seals the selector after 12 synthetic controls. The exact
-input assessment has not run, the result remains absent, and the only next
-authority is its one clean deterministic no-argument invocation.
-ADR-0409 retains that invocation as `no_qualified_inspector`. The resource
-gate is still unopened. A narrow one-byte ELF suffix hypothesis is the next
-prospective diagnostic; it is not yet an accepted repair or capacity result.
-ADR-0410 now freezes that diagnostic down to one exact appended zero, one
-repaired hash, the same bytes for offline inspection and module load, and exact
-driver-row preservation. ADR-0411 now source-seals the exact transform,
-exclusive owner, independent reader, and 22 controls. Payload and stream caps
-are semantically separate despite their current equal values. No real tool,
-module load, launch, or suffix result existed at that seal. ADR-0412 now
-  retains the sole invocation as `suffix_reconstruction_pass`: exact repaired
-  bytes pass the required tool and module seams. This qualifies an instrument,
-  not the resource, capacity, latency, or quality gates. ADR-0413 now freezes
-  the fresh V4 consumer: repair occurs before module load, the same repaired
-  bytes are executed and inspected, and the unchanged ADR-0394/0395 science
-  remains the only resource and capacity authority. V4 source and results were
-  absent at that checkpoint. ADR-0414 corrects its pre-source transport
-  arithmetic with chunked raw streams, a 64 MiB journal, and distinct parser-
-  admission bounds;
-  no evidence was opened by that correction. ADR-0415 now source-seals the
-  composite repair-before-load adapter, ACK-gated chunked owner, independent
-  reader, and 17 focused controls. ADR-0416 retains its sole clean invocation
-  as `completed_capacity_rejection`: the repaired cubin, resource gates, and
-  complete 10/22 numerical campaigns pass, but the frozen projection is
-  7,260.753615922 seconds against 180 seconds. Population 25 never ran. The
-  immediate checkpoint is a prospectively frozen structural-work successor
-  for the four dominant phases, not a replay, threshold change, truncation
-  decision, action, or quality claim. ADR-0417 now freezes one exact successor:
-  the direct-fold coefficient vector also owns the eight selected query pairs,
-  deleting their second source traversal without changing pair order.
-  ADR-0418 completes its additive CPU/static source seal after nine focused
-  controls and zero CuPy/device operations. ADR-0419 now preregisters the
-  exclusive complete-10 byte differential, complete-10/22 shared-path owner,
-  exact compiler-container evidence, and 15-phase validation ledger. Its
-  source-only adapter/owner/reader seal is completed by ADR-0420 after 18
-  controls. The independent reader rebinds a complete 86-observation synthetic
-  pass, rejects cross-family wall overlap, and binds cleanup without a resource
-  command to an early failure terminal. The timing ledger now synchronizes
-  before host stamps while keeping full population elapsed wall distinct from
-  phase sums. No real compile, module load, launch, replacement capacity rule,
-  population-25 value, action, or quality result exists. ADR-0421 now consumes
-  the first public command as
-  a pre-import launcher failure: repository Python could not discover `src`
-  without ambient `PYTHONPATH`, so no owner journal or device work exists. The
-  next authority is a fresh, prospectively sealed repository-root launcher
-  proven through a scrubbed-environment handshake, never a retry of ADR-0420.
-  ADR-0422 now freezes the V2 root-launcher, recursive child-launch, fresh
-  journal identity, and checked V1-reader transduction before source. Implement
-  and source-seal those paths next with all result paths absent. ADR-0423
-  corrects the reader seam before source by allowing only the independently
-  validated V2 lifecycle identity fields required for V1 semantic projection;
-  all post-bootstrap evidence remains unchanged. ADR-0424 corrects three false
-  inherited parent hashes produced by an over-escaped shell audit; no V1 file
-  changed. ADR-0425 completes the corrected V2 source seal: 20 V2 and 18 parent
-  controls pass, including the scrubbed external-working-directory two-launcher
-  probe, with no CuPy, device, or result operation. ADR-0426 retains its sole
-  invocation as a population-10 sample-plan rejection: execution selected seven
-  rows while evidence expected the frozen sixteen, so no population row or
-  projection survived and population 22 never opened. V2 is closed. ADR-0428
-  now source-seals ADR-0427's fresh shared-plan boundary: identical immutable
-  rank/feature/shape objects feed execution and evidence through every generated
-  wrapper seam, and historical drift fails before CuPy. Twenty-one focused
-  controls and the scrubbed two-launcher probe pass. ADR-0429 retains the sole
-  V3 invocation as a complete 10/22 validation pass and consumes it. No capacity
-  projection, population-25 value, action-latency, quality, or exact-integer
-  inference exists. ADR-0430 now freezes an artifact-only fit assessor with all
-  phase ratios, outside-phase wall, guards, lifecycle, and result identities
-  fixed before source or projected value. ADR-0431 source-seals it and ADR-0432
-  retains the sole 4,999.487-second conservative rejection. ADR-0433 now
-  preregisters a CPU-only captured-pair exact-integer successor: distinct
-  forward/adjoint factorial weights, signed guard-limb bounds, exact terminal
-  rounding, and literal 45-card work/memory formulas are fixed before source.
-  ADR-0434 then catches and corrects three false parent hashes caused by the
-  already-known literal-escape normalization defect before source seal. The
-  implementation and science are unchanged; two-config rebinding plus an
-  independent byte-loop hash differential is now required. Population 25,
-  CUDA, the actual consumer, timing, and quality remain closed.
-  ADR-0435 passes that corrected source gate: exact captured-pair encoding,
-  distinct forward/adjoint integer recurrences, literal identities, semantic
-  limb bounds, one correctly rounded terminal value, explicit six-label
-  coverage, natural-ten and signed-twelve controls, and symbolic literal-45
-  work all pass. This is a CPU semantic keystone, not a device or bot result.
-
-## Current checkpoint
-
-See the generated [STATUS.md](STATUS.md) for the current decision and immediate
-work. [PROJECT.md](PROJECT.md) defines the contract, [ROADMAP.md](ROADMAP.md)
-defines checkpoint gates, and [RUNBOOK.md](RUNBOOK.md) records the supported
-verification environments.
-
-## Quick start
-
-The original exact CPU laboratory still uses only Python's standard library.
-Set `PYTHONPATH` to `src`, then run its smoke test:
+Pontius is a poker bot and a reusable poker research library. The bot supplies a
+playable target; game models, solvers, evaluation, abstractions, and codecs let
+experiments improve it. Current small-game and reduced-population results do
+not establish multiway poker strength.
+
+## Development
+
+Python 3.11 or newer is required. Create a fresh environment with:
+
+```powershell
+uv sync --group dev
+uv run pytest
+```
+
+Do not sync over a GPU environment containing undeclared packages; use a separate
+virtual environment for CPU development. The default test manifest is
+`tests/cases.json`. One parameterized pytest entry point runs its existing
+behavioral unittest suites, preserving their assertions and fixtures.
+To focus a suite, use `uv run pytest -k blueprint_preparation`.
+Other retained research suites can be run explicitly with, for example:
 
 ```powershell
 $env:PYTHONPATH = "src"
-python -m unittest discover -s tests -v
-python -m pontius.experiment --game kuhn2 --solver lcfr --iterations 20000 --report-every 2000
+python -m unittest discover -s tests -p test_occupied_card_quotient.py
 ```
 
-The current wide GPU evidence path additionally requires the pinned SciPy,
-CuPy, and CUDA runtime described in [RUNBOOK.md](RUNBOOK.md). The repository-
-local Windows CUDA DLL bundle is discovered automatically when Pontius is
-imported; the environment variable is now an explicit override, not a required
-shell ritual. Use the pinned path for the complete regression suite and never
-treat a reproduction of an already opened result as fresh evidence.
+The CPU suites exercise game rules, CFR, evaluation, resolving, blueprint codecs,
+providers, runtime clocks, and replay/trace behavior. GPU checks require their
+own CUDA environment and are not silently counted as passing CPU coverage.
+
+## Where work belongs
+
+- `src/pontius/`: reusable game, solver, runtime, and codec code. New experiment
+  orchestration does not belong in the library. Existing one-off code is being
+  removed after its findings are harvested.
+- `tools/`: user-facing bot, evaluation, and benchmark entry points.
+- `experiments/`: one dated script per research question, importing the library
+  and never imported by it. Code needed by two experiments graduates into the
+  library with a test.
+- [Experiment results](experiments/RESULTS.md): the short research index links
+  seven maintained categories, their conclusions, limitations, and evidence.
+  [Brainstorming](experiments/brainstorming.md) preserves external ideas and
+  corrections; the [research roadmap](experiments/research-roadmap.md) connects
+  them to evidence and ranks the next useful experiments.
+  The long historical ledger is archived. Git history preserves deleted code;
+  raw measurements need separate retention.
+- `execution_journal.jsonl`: one outcome line per run or benchmark.
+- `STATUS.md`: generated from the journal, using
+  `python -m pontius.status_generation` with `PYTHONPATH=src`.
+- `docs/archive/`: historical ADRs and root documentation. These are references,
+  not current instructions or prerequisites for development.
+
+The maintained bot entry points are `tools/v0a_table_host.py` and
+`tools/v0a_table_session.py`. They verify the source once and share that identity
+with hand processes. Use `--reviewed-commit SHA` for reviewed execution; the
+current HEAD is the default. `--development` permits a dirty checkout and records
+it as unreviewed. Source comparison accounts for Git text newline conversion;
+the journal also records the hash of the actual source bytes. The recorded
+scope includes source, tools, tests and fixtures, CI, dependency files, and Git
+text attributes; archived documents and retained run outputs are excluded.
+
+The blueprint benchmark reuses an existing `population.json`, `plan.json`, and
+their referenced artifacts. For a focused check:
+
+```powershell
+python -B -P tools/v0a_blueprint_workload.py run --development `
+  --population-root D:/bww515/as-is-run-001 `
+  --kinds construction --sizes 883 --cells 3 --seconds 60
+```
+
+Adjust the population directory to your retained corpus. One worker runs all
+selected cells for the invoking Python runtime. The controller checks HEAD and
+the selected inputs before each nonce-bound grant, without per-cell files.
+Memory is limited for the whole worker job from suspended launch. Job memory
+peaks accumulate across cells; traced allocation measurements remain scoped to
+the measured operation. Each run writes `runtimes.json` and a final `result.json`
+under `experiments/results/runs/`, then one journal line. Historical benchmark
+artifacts remain readable with `read --result LEGACY_RUN_DIRECTORY`.
+
+Historical experiment orchestration still embedded in the library and
+paired-evaluation wrappers needs further cleanup. The root research launchers
+have been retired; use the maintained commands in `tools/`. The CPU suites
+exercise the reusable evaluation library. Passing model tests is not a new
+full-matrix or GPU benchmark result.
+Historical evaluation preparation and run-coordination scripts are preserved
+in [the helper archive](docs/archive/root-helpers/); they are reference material,
+not maintained commands. Their relocation and recovery limits are recorded in
+the results index.
+
+## Working rules
+
+The goal is a working poker bot supported by reusable research capabilities.
+Everything in this repository is judged by whether it serves that.
+
+1. Verify once, at boundaries: hash source against the reviewed commit at run
+   start and outputs at run end. No cell, iteration, or call gets a separate
+   seal, admission, or verification write. Lightweight per-cell HEAD/input
+   reads and nonce/grant messages are permitted; they create no verification files.
+2. Delete unused versioned, seal, and result companions rather than combining
+   them into a new pattern. Preserve each one-off finding first; Git history
+   and its commit SHA are the code archive. Keep live bot dependencies and
+   reusable research capabilities with a test and a caller or a one-line
+   capability entry.
+3. Explain the reason before adding any file, abstraction, config schema, or
+   process document. Ask when the need is uncertain.
+4. Use one parameterized pytest harness and a small data manifest. Do not
+   regenerate test inventories or enforce ADR freshness.
+5. Record each run or benchmark once in `execution_journal.jsonl`. Before
+   finishing work that changes evidence or interpretation, update the relevant
+   family summary: conclusion, population, measurement scope, limitations,
+   source/run references, and review date. Keep failures and later corrections
+   distinct. A confirming run can add a brief evidence note without repeating
+   the narrative. Update the results index only when the category conclusion,
+   priority, or coverage changes. Source changes that invalidate an old claim
+   must mark it historical or pending remeasurement. Update brainstorming and
+   roadmap entries when findings resolve an idea or change priorities; keep
+   external proposals distinct from measured results. STATUS stays generated
+   from the journal. ADRs are for structural changes only, at most one per week
+   without asking; archived ADRs are not required reading.
+6. Keep one README under three pages and one journal-generated STATUS at the
+   root. Archive other root documents.
+7. Measure before optimizing: no performance-driven format, library, or
+   code-path change without a number showing it matters.
+8. Prefer readable code: plain names, no one-letter variables outside loops,
+   and no long chained `require` conditions.

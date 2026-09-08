@@ -6,12 +6,12 @@ import base64
 import ctypes
 from dataclasses import dataclass
 import hashlib
-import io
 import json
 import math
 import os
 from pathlib import Path
 import queue
+import shutil
 import re
 import stat
 import subprocess
@@ -25,13 +25,6 @@ PREFIX = 'pontius-v0a-table-host-v1-correctness-'
 POLICIES = ('passive', 'fold_to_bet', 'min_raise_once', 'shove_once')
 EVENT_LIMIT = ACTION_LIMIT = 256
 CREATE_SUSPENDED = 0x00000004
-BASE = '363c9fb669e19a30375537ee5e92ea338a840a2d'
-ADDITIONS = tuple('src/pontius/blueprint_preparation/' + name + '.py'
-                  for name in ('__init__', 'lookup'))
-EXCEPTIONS = ('src/pontius/v0a/runtime.py', 'tools/v0a_hand_adapter.py',
-              'tools/v0a_event_adapter.py', 'tools/v0a_table_host.py')
-TOOLS = ('tools/v0a_table_host.py', 'tools/v0a_event_adapter.py',
-         'tools/v0a_hand_adapter.py', 'tools/v0a_rehearsal_driver.py')
 
 
 class HostRefusal(ValueError):
@@ -110,7 +103,7 @@ class Modules:
     provider_codec: object = None
 
 
-def checked_path(path, *, directory=False, d_local=True):
+def checked_path(path, *, directory=False, d_local=False):
     require(path.is_absolute() and len(path.drive) == 2 and '..' not in path.parts
             and (not d_local or path.drive.upper() == 'D:'), 'source_invalid')
     for current in (*path.parents, path):
@@ -134,7 +127,8 @@ class OwnedInput:
             with self.path.open('rb') as stream:
                 raw = stream.read(self.limit + 1)
             after = self.path.stat()
-            identity = lambda s: (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns)
+            def identity(info):
+                return info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns
             require(identity(before) == identity(after) and 0 < len(raw) <= self.limit,
                     'input_invalid')
             return raw, identity(after)
@@ -146,89 +140,19 @@ class OwnedInput:
 
 
 class Source:
-    """Admit raw source before importing any game code; bind the child subset separately."""
-    def __init__(self, repo):
-        require(os.name == 'nt' and sys.implementation.name == 'cpython'
-                and sys.flags.dont_write_bytecode and sys.flags.safe_path, 'source_invalid')
-        require(not any(n == 'pontius' or n.startswith('pontius.') for n in sys.modules),
-                'source_invalid')
-        self.repo = checked_path(repo, directory=True)
-        self.python = checked_path(Path(sys.executable), d_local=False)
-        # Existing dependencies remain available without executing site/.pth startup hooks.
-        checked_path(self.python.parent.parent / 'Lib/site-packages', directory=True, d_local=False)
-        self.git = checked_path(Path(os.environ.get('PONTIUS_GIT', '')), d_local=False)
-        require(Path(__file__).absolute() == self.repo / TOOLS[0], 'source_invalid')
-        self.env = {k: v for k, v in os.environ.items()
-                    if not k.upper().startswith(('GIT_', 'PYTHON', 'PONTIUS_'))}
-        self.commit = self.head()
-        current, inherited = self.inventory(self.commit), self.inventory(BASE)
-        require(set(current) == set(inherited) | set(ADDITIONS)
-                and all(current[p] == oid for p, oid in inherited.items()
-                        if p not in EXCEPTIONS), 'source_invalid')
-        stream = io.BytesIO(self.command('cat-file', '--batch',
-            content=('\n'.join(current.values()) + '\n').encode('ascii')))
-        self.expected = {}
-        for path, oid in current.items():
-            header = stream.readline().split()
-            require(len(header) == 3 and header[:2] == [oid.encode(), b'blob'], 'source_invalid')
-            size = int(header[2])
-            raw = stream.read(size)
-            require(len(raw) == size and stream.read(1) == b'\n', 'source_invalid')
-            self.expected[path] = raw
-        require(stream.read() == b'', 'source_invalid')
-        rows = sorted(hashlib.sha256(raw).hexdigest().encode() + b'  ' + p.encode() + b'\n'
-                      for p, raw in self.expected.items() if p != TOOLS[0])
-        self.child_manifest = hashlib.sha256(b''.join(rows)).hexdigest()
-        self.check()
-
-    def command(self, *args, content=None):
-        result = subprocess.run([str(self.git), '--no-replace-objects', '--no-optional-locks',
-            '-C', str(self.repo), *args], input=content, env=self.env,
-            capture_output=True, timeout=30)
-        require(result.returncode == 0, 'source_invalid')
-        return result.stdout
-
-    def head(self):
-        value = self.command('rev-parse', '--verify', 'HEAD^{commit}').decode('ascii').strip()
-        require(re.fullmatch('[0-9a-f]{40}', value), 'source_invalid')
-        return value
-
-    def inventory(self, commit):
-        entries = self.command('ls-tree', '-r', '-z', commit, '--', 'src/pontius', *TOOLS)
-        result = {}
-        for row in entries.split(b'\0'):
-            if row:
-                metadata, name = row.split(b'\t', 1)
-                mode, kind, oid = metadata.split()
-                require(mode in (b'100644', b'100755') and kind == b'blob', 'source_invalid')
-                result[name.decode('utf-8')] = oid.decode('ascii')
-        require(result, 'source_invalid')
-        return result
-
-    def check(self):
-        require(self.head() == self.commit, 'source_invalid')
-        package = checked_path(self.repo / 'src/pontius', directory=True)
-        actual, directories = {}, set()
-        for parent, dirs, files in os.walk(package, followlinks=False):
-            for name in dirs:
-                path = checked_path(Path(parent) / name, directory=True)
-                directories.add(path.relative_to(self.repo).as_posix())
-            for name in files:
-                path = checked_path(Path(parent) / name)
-                actual[path.relative_to(self.repo).as_posix()] = path.read_bytes()
-        expected_dirs = {p.as_posix() for name in self.expected if name.startswith('src/pontius/')
-                         for p in Path(name).parents if p.as_posix().startswith('src/pontius/')}
-        require(directories == expected_dirs, 'source_invalid')
-        for name in TOOLS:
-            actual[name] = checked_path(self.repo / name).read_bytes()
-        require(actual == self.expected, 'source_invalid')
-        for name, module in tuple(sys.modules.items()):
-            if name == 'pontius' or name.startswith('pontius.'):
-                relative = 'src/' + name.replace('.', '/')
-                origin = Path(getattr(module, '__file__', '')).absolute()
-                require(any(origin == self.repo / p and p in self.expected
-                            for p in (relative + '.py', relative + '/__init__.py')),
-                        'source_invalid')
+    """A source identity shared by every hand in a run."""
+    def __init__(self, repo, *, reviewed_commit=None, development=False):
+        self.repo = Path(repo).resolve()
+        sys.path.insert(0, str(self.repo / 'src'))
+        from pontius.execution import begin_run, CONTEXT_ENV
+        self.context = begin_run(self.repo, reviewed_commit=reviewed_commit,
+                                 allow_working_tree=development,
+                                 inherited=os.environ.get(CONTEXT_ENV))
+        self.commit = self.context['commit']
+        self.manifest = self.context['source_sha256']
+        self.python = Path(sys.executable).resolve()
+        self.git = os.environ.get('PONTIUS_GIT') or shutil.which('git')
+        self.child_manifest = self.manifest
 
     def load(self):
         sys.path.insert(0, str(self.repo / 'src'))
@@ -241,9 +165,9 @@ class Source:
         import pontius.decision_provider.model as provider_model
         import pontius.decision_provider.providers as providers
         import pontius.decision_provider.codec as provider_codec
-        self.check()
         return Modules(codec, betting, cards, spine, model, trace,
                        provider_model, providers, provider_codec)
+
 
 
 @dataclass(frozen=True)
@@ -400,8 +324,8 @@ class Failures:
 
 
 class Job:
-    """Own one non-inheritable kill-on-close native job; no breakaway fallback."""
-    def __init__(self):
+    """Own a kill-on-close native job, optionally with a whole-job memory limit."""
+    def __init__(self, memory_limit=None):
         class Limits(ctypes.Structure):
             _fields_ = [('process_time', ctypes.c_longlong), ('job_time', ctypes.c_longlong),
                         ('flags', ctypes.c_ulong), ('minimum', ctypes.c_size_t),
@@ -435,6 +359,10 @@ class Job:
         require(self.handle, 'containment_failed')
         limits = Extended()
         limits.basic.flags = 0x2000
+        if memory_limit is not None:
+            limits.basic.flags |= 0x200
+            limits.memory[1] = memory_limit
+        self.limits_type = Extended
         try:
             require(self.api.SetInformationJobObject(self.handle, 9, ctypes.byref(limits),
                     ctypes.sizeof(limits)), 'containment_failed')
@@ -445,6 +373,12 @@ class Job:
             except BaseException:
                 secondary = ('cleanup_failed',)
             raise HostRefusal('containment_failed', secondary=secondary) from error
+
+    def peak_memory(self):
+        limits = self.limits_type()
+        require(self.api.QueryInformationJobObject(self.handle, 9, ctypes.byref(limits),
+                ctypes.sizeof(limits), None), 'memory_sample_failed')
+        return limits.memory[3]
 
     def assign(self, process):
         require(self.api.AssignProcessToJobObject(self.handle, int(process._handle)),
@@ -537,9 +471,11 @@ class ChildConnection:
                 'COMSPEC', 'USERPROFILE', 'APPDATA', 'LOCALAPPDATA', 'TEMP', 'TMP')
                 if k in os.environ}
             environment['PONTIUS_GIT'] = str(source.git)
+            from pontius.execution import child_context, CONTEXT_ENV
+            environment[CONTEXT_ENV] = child_context(source.context)
             phase = 'process_start_failed'
             self.proc = subprocess.Popen([str(source.python), '-B', '-P', '-S', '-c', BOOTSTRAP,
-                str(source.repo / TOOLS[1]), '--blueprint', str(blueprint_path),
+                str(source.repo / 'tools/v0a_event_adapter.py'), '--blueprint', str(blueprint_path),
                 '--session-id', child_id, '--strategy', strategy], cwd=source.repo,
                 env=environment, stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, bufsize=0, close_fds=True,
@@ -978,6 +914,8 @@ class WireConsumer:
 
 
 def main(argv=None):
+    started = time.perf_counter()
+    source = None
     failures = Failures()
     report = dict(version='pontius-v0a-table-result-v1', session_id=None, status='failed',
         failure_reason=None, secondary_failures=[], input_sha256=None,
@@ -993,6 +931,8 @@ def main(argv=None):
             parser.add_argument('--' + flag, required=True)
         parser.add_argument('--strategy', choices=('blueprint-v1', 'baseline-rules-v1'),
                             default='blueprint-v1')
+        parser.add_argument('--reviewed-commit')
+        parser.add_argument('--development', action='store_true')
         args = parser.parse_args(argv)
         baseline = args.strategy == 'baseline-rules-v1'
         prefix = 'pontius-v0a-table-host-v2-correctness-' if baseline else PREFIX
@@ -1004,7 +944,8 @@ def main(argv=None):
                 'input_invalid')
         child_id = protocol + '-correctness-table-' + args.session_id[len(prefix):]
         phase = 'source_invalid'
-        source = Source(Path.cwd())
+        source = Source(Path.cwd(), reviewed_commit=args.reviewed_commit,
+                        development=args.development)
         report['source_commit'] = source.commit
         phase = 'input_invalid'
         table_input, blueprint_input = OwnedInput(Path(args.table), 16384), OwnedInput(
@@ -1035,11 +976,6 @@ def main(argv=None):
             consumer.exchange(event)
             event = table.next_event()
         provisional = consumer.complete()
-        phase = 'source_invalid'
-        source.check()
-        phase = 'input_invalid'
-        table_input.check()
-        blueprint_input.check()
     except BaseException as error:
         if isinstance(error, HostRefusal) and error.connection is not None:
             connection = error.connection
@@ -1057,6 +993,9 @@ def main(argv=None):
         report.update(status='completed', settlement=provisional)
     report.update(failure_reason=failures.items[0] if failures.items else None,
                   secondary_failures=failures.items[1:])
+    if source is not None:
+        from pontius.execution import finish_run
+        finish_run(source.context, 'v0a_table_host', report, time.perf_counter() - started)
     try:
         raw = (json.dumps(report, sort_keys=True, separators=(',', ':'), allow_nan=False)
                + '\n').encode('utf-8')

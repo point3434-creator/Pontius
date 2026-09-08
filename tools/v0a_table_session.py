@@ -8,16 +8,13 @@ import json
 import os
 from pathlib import Path
 import re
-import stat
-import subprocess
 import sys
 import types
+import time
 
 VERSION = 'pontius-v0a-table-session-v1'
 PREFIX = VERSION + '-correctness-'
 HOST = 'tools/v0a_table_host.py'
-SELF = 'tools/v0a_table_session.py'
-HOST_BLOB = '7beb178989b3ff98b684093ce4022667a1c61ece'
 ALIAS = 'pontius_v0a_table_session_host'
 
 
@@ -37,77 +34,32 @@ def encode(value):
             + '\n').encode('utf-8')
 
 
-def regular(path, directory=False):
-    require(path.is_absolute() and len(path.drive) == 2 and '..' not in path.parts)
-    for current in (*path.parents, path):
-        info = current.lstat()
-        require(not info.st_file_attributes & stat.FILE_ATTRIBUTE_REPARSE_POINT
-                and (stat.S_ISDIR(info.st_mode) if current != path or directory
-                     else stat.S_ISREG(info.st_mode)))
-    return path
 
 
-def source_bytes(path):
-    before = regular(path).stat()
-    with path.open('rb') as stream:
-        raw = stream.read(1048577)
-    after = regular(path).stat()
-    identity = lambda s: (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns)
-    require(identity(before) == identity(after) and 0 < len(raw) <= 1048576)
-    return raw, identity(after)
 
 
 class Admission:
-    def __init__(self, repo):
-        require(os.name == 'nt' and sys.implementation.name == 'cpython'
-                and sys.dont_write_bytecode and sys.flags.safe_path)
-        require(not any(n == 'pontius' or n.startswith('pontius.') for n in sys.modules)
-                and ALIAS not in sys.modules)
-        self.repo = regular(repo, True)
-        require(repo.drive.upper() == 'D:' and Path(__file__).absolute() == repo / SELF)
-        regular(Path(sys.executable))
-        self.git = regular(Path(os.environ.get('PONTIUS_GIT', '')))
-        self.env = {k: v for k, v in os.environ.items()
-                    if not k.upper().startswith(('GIT_', 'PYTHON', 'PONTIUS_'))}
-        self.commit = self.command('rev-parse', '--verify', 'HEAD^{commit}').decode().strip()
-        require(re.fullmatch('[0-9a-f]{40}', self.commit))
-        self.expected = {}
-        for name in (SELF, HOST):
-            row = self.command('ls-tree', self.commit, '--', name).split()
-            require(len(row) == 4 and row[0] in (b'100644', b'100755') and row[1] == b'blob'
-                    and row[3] == name.encode())
-            if name == HOST:
-                require(row[2].decode() == HOST_BLOB)
-            raw = self.command('cat-file', 'blob', row[2].decode())
-            observed = source_bytes(repo / name)
-            require(observed[0] == raw)
-            self.expected[name] = observed
-        self.check()
-        host = types.ModuleType(ALIAS)
-        host.__file__, host.__package__ = str(repo / HOST), ''
-        sys.modules[ALIAS] = host
-        exec(compile(self.expected[HOST][0], host.__file__, 'exec'), host.__dict__)
+    """Load the host once and share its run identity across all hands."""
+    def __init__(self, repo, *, reviewed_commit=None, development=False):
+        self.repo = Path(repo).resolve()
+        host = sys.modules.get(ALIAS)
+        if host is None:
+            host = types.ModuleType(ALIAS)
+            host.__file__, host.__package__ = str(self.repo / HOST), ''
+            sys.modules[ALIAS] = host
+            try:
+                exec(compile((self.repo / HOST).read_bytes(), host.__file__, 'exec'), host.__dict__)
+            except BaseException:
+                del sys.modules[ALIAS]
+                raise
+        elif Path(host.__file__).resolve() != self.repo / HOST:
+            raise ValueError('cached host belongs to a different repository')
         self.host = host
-        self.source = host.Source(repo)
+        self.source = host.Source(self.repo, reviewed_commit=reviewed_commit,
+                                  development=development)
+        self.commit = self.source.commit
         self.modules = self.source.load()
-        self.check()
 
-    def command(self, *args):
-        result = subprocess.run([str(self.git), '--no-replace-objects', '--no-optional-locks',
-            '-C', str(self.repo), *args], env=self.env, capture_output=True, timeout=30)
-        require(result.returncode == 0)
-        return result.stdout
-
-    def check(self):
-        try:
-            require(self.command('rev-parse', '--verify', 'HEAD^{commit}').decode().strip()
-                    == self.commit)
-            for name, expected in self.expected.items():
-                require(source_bytes(self.repo / name) == expected)
-            if hasattr(self, 'source'):
-                self.source.check()
-        except (OSError, ValueError, subprocess.SubprocessError) as error:
-            raise Refusal('source_invalid') from error
 
 
 class Schedule:
@@ -252,7 +204,9 @@ class Session:
     def prepare(self):
         require(re.fullmatch(re.escape(self.prefix) + '[A-Za-z0-9_-]{1,40}', self.args.session_id),
                 'input_invalid')
-        self.admission = Admission(Path.cwd())
+        self.admission = Admission(Path.cwd(),
+            reviewed_commit=getattr(self.args, 'reviewed_commit', None),
+            development=getattr(self.args, 'development', False))
         self.host, self.modules = self.admission.host, self.admission.modules
         self.report['source_commit'] = self.admission.commit
         self.session_input = self.host.OwnedInput(Path(self.args.session), 16384)
@@ -276,13 +230,7 @@ class Session:
             next_button=self.schedule.common['button'],
             carried_stacks=list(self.schedule.common['starting_stacks']))
 
-    def validate(self):
-        self.admission.check()
-        self.session_input.check()
-        self.blueprint_input.check()
-
     def play_hand(self, index):
-        self.validate()
         config, raw = self.schedule.derive(index, self.report['carried_stacks'],
                                            self.report['next_button'])
         suffix = self.args.session_id[len(self.prefix):] + '-h%02d' % (index + 1)
@@ -332,7 +280,6 @@ class Session:
                 phase = 'protocol_invalid'
                 event = table.next_event()
             provisional = consumer.complete()
-            self.validate()
         except BaseException as error:
             if isinstance(error, self.host.HostRefusal) and error.connection is not None:
                 connection = error.connection
@@ -348,7 +295,6 @@ class Session:
                     child_stderr_base64=base64.b64encode(connection.stderr).decode('ascii'),
                     capture_truncated=connection.truncated)
         try:
-            self.validate()
             if not failures.items:
                 require(provisional is not None and type(hand['child_exit_code']) is int
                         and hand['child_exit_code'] == 0 and not hand['capture_truncated'],
@@ -402,7 +348,6 @@ class Session:
                     if command != 'next':
                         self.report.update(status='stopped', stop_reason=command)
                         break
-            self.validate()
         except BaseException as error:
             self.add_error(error, self.failures, phase)
             if self.active is not None:
@@ -424,6 +369,8 @@ def arguments(argv=None):
     parser.add_argument('--strategy', choices=('blueprint-v1', 'baseline-rules-v1'),
                         default='blueprint-v1')
     parser.add_argument('--format', choices=('text', 'json'), default='text')
+    parser.add_argument('--reviewed-commit')
+    parser.add_argument('--development', action='store_true')
     args = parser.parse_args(argv)
     if args.format == 'json' and not args.auto:
         parser.error('--format json requires --auto')
@@ -433,7 +380,13 @@ def arguments(argv=None):
 def main(argv=None):
     args = arguments(argv)
     renderer = Renderer(sys.stdout.fileno()) if args.format == 'text' else None
-    report = Session(args, renderer).run()
+    started = time.perf_counter()
+    session = Session(args, renderer)
+    report = session.run()
+    if session.admission is not None:
+        from pontius.execution import finish_run
+        finish_run(session.admission.source.context, 'v0a_table_session', report,
+                   time.perf_counter() - started)
     try:
         if renderer is not None:
             renderer.final(report['status'], report['failure_reason'] or report['stop_reason'],

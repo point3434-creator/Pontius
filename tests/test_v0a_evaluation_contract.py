@@ -77,7 +77,7 @@ class ContractTests(unittest.TestCase):
                  canonical.replace(b'"deal_count":1', b'"deal_count":NaN'),
                  canonical.replace(b'"deal_count":1', b'"deal_count":100000000'),
                  raw(dict(FIXTURE['request'], extra=None)), b' ' * 4097,
-                 canonical.replace(b'passive', b'pass\u0069ve')]
+            canonical.replace(b'passive', br'pass\u0069ve')]
         for data in cases:
             with self.subTest(data=data[:60]), self.assertRaises(ValueError):
                 C.decode_request(data)

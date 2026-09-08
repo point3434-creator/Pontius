@@ -1,0 +1,1 @@
+{"status": "passed", "summary": "New in-memory fixture exactly matches old writer bytes for success and infrastructure failure; no GPU execution"}

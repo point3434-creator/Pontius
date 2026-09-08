@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import ast
 from copy import deepcopy
 from dataclasses import FrozenInstanceError
 from hashlib import sha256
@@ -9,14 +8,12 @@ import os
 from pathlib import Path
 import subprocess
 import sys
-import tempfile
 from types import MappingProxyType, SimpleNamespace
 import unittest
 from unittest.mock import patch
 
 from pontius.durable_evidence_journal import (
     JournalRecordEnvelope,
-    JournalRecordKind,
     build_journal_record_body,
     canonical_journal_json_bytes,
     recover_journal_bytes,
@@ -26,18 +23,13 @@ from pontius import legal_river_quotient_cuda_compensated_work_preflight as v4
 from pontius import legal_river_quotient_cuda_shared_direct_device as parent
 from pontius import legal_river_quotient_cuda_shared_direct_device_v2_result as v2_reader
 from pontius import legal_river_quotient_cuda_shared_direct_device_v3_result as reader
-from pontius import legal_river_quotient_cuda_shared_direct_device_v3_runner as runner
 from pontius import legal_river_quotient_cuda_shared_direct_sample_plan as sample_plan
 from tests import test_legal_river_quotient_cuda_shared_direct_device_v2 as v2_controls
 
 
 _ROOT = Path(__file__).parents[1]
-_CONFIG = _ROOT / runner.CONFIG_RELATIVE_PATH
-_LAUNCHER = _ROOT / runner.LAUNCHER_RELATIVE_PATH
-_RESULT = _ROOT / runner.RESULT_RELATIVE_PATH
-_V2_RESULT = _ROOT / runner.V2_RESULT_RELATIVE_PATH
-_V1_RESULT = _ROOT / runner.V1_RESULT_RELATIVE_PATH
-_RESERVED = _ROOT / runner.RESERVED_ACTUAL_RESULT_RELATIVE_PATH
+_CONFIG = _ROOT / sample_plan.CONFIG_RELATIVE_PATH
+_V2_RESULT = _ROOT / reader.V2_RESULT_RELATIVE_PATH
 
 
 def _semantic(payload) -> str:
@@ -136,27 +128,6 @@ def _shape_execution(cards: int, rows: int) -> SimpleNamespace:
 
 
 class SharedSamplePlanV3Tests(unittest.TestCase):
-    def test_config_parent_artifact_and_result_lifecycle(self) -> None:
-        runner.verify_preregistered_contract()
-        reader.verify_preregistered_contract()
-        sample_plan.verify_preregistered_contract()
-        self.assertFalse(_RESULT.exists())
-        self.assertTrue(_V2_RESULT.is_file())
-        self.assertEqual(_V2_RESULT.stat().st_size, runner.V2_RESULT_BYTES)
-        self.assertEqual(
-            sha256(_V2_RESULT.read_bytes()).hexdigest(),
-            runner.V2_RESULT_SHA256,
-        )
-        self.assertFalse(_V1_RESULT.exists())
-        self.assertFalse(_RESERVED.exists())
-
-    def test_retained_v2_rebinds_to_the_exact_failure(self) -> None:
-        rebound = v2_reader.rebind_shared_direct_device_v2_file(_V2_RESULT)
-        self.assertEqual(rebound.terminal, "population_scientific_rejection")
-        self.assertFalse(rebound.passed)
-        self.assertEqual(rebound.source_commit, "db01621604846316693e7dcc3cd52bbc0838da02")
-        self.assertEqual(rebound.populations, ())
-        self.assertEqual(rebound.phase_count, 2768)
 
     def test_literal_plans_are_frozen_read_only_and_exact(self) -> None:
         self.assertIsInstance(
@@ -208,13 +179,6 @@ class SharedSamplePlanV3Tests(unittest.TestCase):
             sample_plan._population_evidence,
         )
 
-    def test_source_seal_report_is_device_free(self) -> None:
-        before = parent._CUPY_IMPORT_CALLS
-        report = sample_plan.source_seal_report()
-        self.assertTrue(report["all_gates_pass"])
-        self.assertEqual(parent._CUPY_IMPORT_CALLS, before)
-        self.assertNotIn("cupy", sys.modules)
-        self.assertFalse(_RESULT.exists())
 
     def test_historical_seven_row_helper_rejects_before_cupy(self) -> None:
         self.assertEqual(tuple(map(len, paired._sample_rows(10))), (7, 7))
@@ -264,44 +228,6 @@ class SharedSamplePlanV3Tests(unittest.TestCase):
             self.assertEqual(plan.fold_pair_shape, (16, 2, 2))
             self.assertEqual(plan.adjoint_pair_shape, (16, 8, 2))
 
-    def test_root_launcher_is_stdlib_first_and_no_argument(self) -> None:
-        source = _LAUNCHER.read_text(encoding="utf-8")
-        tree = ast.parse(source)
-        imports = {
-            alias.name
-            for node in ast.walk(tree)
-            if isinstance(node, ast.Import)
-            for alias in node.names
-        }
-        self.assertEqual(imports, {"os", "runpy", "sys"})
-        self.assertIn("Path(__file__).resolve().parent", source)
-        self.assertIn('os.environ.pop("PYTHONPATH", None)', source)
-        self.assertIn("runpy.run_module(_RUNNER_MODULE", source)
-        self.assertIn("len(sys.argv) != 1", source)
-
-    def test_runner_never_imports_consumed_runners(self) -> None:
-        path = _ROOT / (
-            "src/pontius/"
-            "legal_river_quotient_cuda_shared_direct_device_v3_runner.py"
-        )
-        source = path.read_text(encoding="utf-8")
-        self.assertNotIn(
-            "from .legal_river_quotient_cuda_shared_direct_device_v2_runner",
-            source,
-        )
-        self.assertNotIn(
-            "from .legal_river_quotient_cuda_shared_direct_device_runner",
-            source,
-        )
-        campaign = ast.parse(source)
-        imports = [
-            node
-            for node in ast.walk(campaign)
-            if isinstance(node, ast.ImportFrom)
-            and node.module
-            == "legal_river_quotient_cuda_shared_direct_sample_plan"
-        ]
-        self.assertEqual(len(imports), 1)
 
     def test_reader_is_cupy_owner_adapter_and_v2_artifact_free(self) -> None:
         code = (
@@ -327,57 +253,6 @@ class SharedSamplePlanV3Tests(unittest.TestCase):
         )
         self.assertEqual(completed.stdout.splitlines(), ["0", "0", "0", "0"])
 
-    def test_scrubbed_external_cwd_probe_crosses_both_launchers(self) -> None:
-        environment = dict(os.environ)
-        environment.pop("PYTHONPATH", None)
-        environment.pop("PYTHONHOME", None)
-        environment["PYTHONNOUSERSITE"] = "1"
-        environment["PONTIUS_ADR0427_PUBLIC_LAUNCHER_PROBE"] = "1"
-        with tempfile.TemporaryDirectory() as directory:
-            completed = subprocess.run(
-                [sys.executable, "-B", str(_LAUNCHER)],
-                cwd=directory,
-                env=environment,
-                check=True,
-                capture_output=True,
-                text=True,
-                timeout=15.0,
-            )
-        self.assertEqual(completed.stderr, "")
-        self.assertEqual(len(completed.stdout.splitlines()), 1)
-        probe = json.loads(completed.stdout)
-        self.assertEqual(
-            canonical_journal_json_bytes(probe) + b"\n",
-            completed.stdout.encode("utf-8"),
-        )
-        self.assertFalse(probe["pythonpath_present"])
-        self.assertFalse(probe["pythonhome_present"])
-        self.assertFalse(probe["parent"]["cupy_imported"])
-        self.assertFalse(probe["parent"]["science_adapter_imported"])
-        self.assertTrue(probe["v2_result_retained"])
-        self.assertFalse(_RESULT.exists())
-
-    def test_real_root_launched_bootstrap_is_device_free(self) -> None:
-        event = runner.run_no_cuda_bootstrap_handshake()
-        self.assertEqual(event["literal_module"], runner.LITERAL_WORKER_MODULE)
-        self.assertEqual(event["runtime_name"], "__main__")
-        self.assertFalse(event["cupy_imported"])
-        self.assertNotIn("cupy", sys.modules)
-
-    def test_dependency_inventories_are_identical_and_parent_complete(self) -> None:
-        self.assertEqual(
-            runner.DEPENDENCY_RELATIVE_PATHS,
-            reader.DEPENDENCY_RELATIVE_PATHS,
-        )
-        self.assertTrue(
-            set(v2_reader.DEPENDENCY_RELATIVE_PATHS)
-            <= set(reader.DEPENDENCY_RELATIVE_PATHS)
-        )
-        self.assertIn(reader.V2_RESULT_RELATIVE_PATH, reader.DEPENDENCY_RELATIVE_PATHS)
-        self.assertIn(
-            "src/pontius/legal_river_quotient_cuda_shared_direct_sample_plan.py",
-            reader.DEPENDENCY_RELATIVE_PATHS,
-        )
 
     def test_minimal_infrastructure_journal_transduces(self) -> None:
         raw = _v3_journal(
@@ -426,22 +301,6 @@ class SharedSamplePlanV3Tests(unittest.TestCase):
             recovery.records[-1].body.payload,
             translated.records[-1].body.payload,
         )
-
-    def test_current_dependency_closure_rebinds_without_v3_result(self) -> None:
-        raw = _v3_journal(
-            v2_controls._v2_journal(
-                v2_controls.v1_controls._minimal_infrastructure_journal()
-            )
-        )
-
-        def bind_current(payloads) -> None:
-            payloads[0]["dependency_hashes"] = runner.dependency_hashes()
-
-        rebound = reader.rebind_shared_direct_device_v3_journal(
-            _rewrite(raw, bind_current), rebind_current_sources=True
-        )
-        self.assertEqual(rebound.terminal, "infrastructure_failure")
-        self.assertFalse(_RESULT.exists())
 
     def test_lifecycle_allowlist_is_literal_and_complete(self) -> None:
         raw = _v3_journal(
@@ -514,23 +373,6 @@ class SharedSamplePlanV3Tests(unittest.TestCase):
                 raw, rebind_current_sources=False
             )
         self.assertNotIn(_V2_RESULT, opened)
-
-    def test_public_launcher_rejects_arguments_without_result(self) -> None:
-        environment = dict(os.environ)
-        environment.pop("PYTHONPATH", None)
-        environment["PYTHONNOUSERSITE"] = "1"
-        completed = subprocess.run(
-            [sys.executable, "-B", str(_LAUNCHER), "forbidden"],
-            cwd=_ROOT,
-            env=environment,
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=15.0,
-        )
-        self.assertNotEqual(completed.returncode, 0)
-        self.assertIn("accepts no arguments", completed.stderr)
-        self.assertFalse(_RESULT.exists())
 
 
 if __name__ == "__main__":

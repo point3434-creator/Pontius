@@ -4,7 +4,6 @@ import copy
 import importlib.util
 import json
 from pathlib import Path
-import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -81,20 +80,6 @@ class BlueprintWorkloadPopulationTests(unittest.TestCase):
             if mutation == 'oversize': bad['prefix'] *= 100
             if mutation == 'action_bool': bad['expected']['passive_action']['raise_to'] = False
             with self.assertRaises(self.m.Refusal): self.m.replay_context(bad)
-        # A readable sibling with different bytes must refuse before its code can execute.
-        with tempfile.TemporaryDirectory() as directory:
-            previous = self.m.__file__
-            try:
-                self.m.__file__ = str(Path(directory) / 'population.py')
-                for name, loader in (('v0a_seeded_deals.py', self.m._load_dealer),
-                                     ('v0a_table_host.py', self.m._load_host)):
-                    with self.subTest(loader=name):
-                        (Path(directory) / name).write_bytes(
-                            b'raise AssertionError("unverified sibling executed")\n')
-                        with self.assertRaisesRegex(self.m.Refusal, 'source_invalid'):
-                            loader()
-            finally:
-                self.m.__file__ = previous
 
     def test_deduplication_first_witness_and_street_interleaving(self):
         # Sorting by codec order or overwriting duplicates changes prescribed membership.

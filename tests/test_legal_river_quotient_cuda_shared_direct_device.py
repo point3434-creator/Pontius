@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import ast
+import base64
 from copy import deepcopy
 from hashlib import sha256
 from math import comb
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -20,7 +22,6 @@ from pontius.durable_evidence_journal import (
 )
 from pontius import legal_river_quotient_cuda_shared_direct_device as device
 from pontius import legal_river_quotient_cuda_shared_direct_device_result as reader
-from pontius import legal_river_quotient_cuda_shared_direct_device_runner as runner
 
 
 _ROOT = Path(__file__).parents[1]
@@ -308,7 +309,25 @@ def _complete_synthetic_journal() -> bytes:
             },
         ),
     ]
-    payload = device.reference_repaired_cubin()
+    # Use the retained bytes as a fixture without re-admitting its old source tree.
+    fixture_raw = (_ROOT / device.REFERENCE_SUFFIX_ARTIFACT_RELATIVE_PATH).read_bytes()
+    if len(fixture_raw) != device.REFERENCE_SUFFIX_ARTIFACT_BYTES:
+        raise ValueError("synthetic journal fixture size differs")
+    if sha256(fixture_raw).hexdigest() != device.REFERENCE_SUFFIX_ARTIFACT_SHA256:
+        raise ValueError("synthetic journal fixture hash differs")
+    fixture_events = [json.loads(line)["body"]["payload"] for line in fixture_raw.splitlines()]
+    repaired_events = [
+        event for event in fixture_events if event.get("event_kind") == "repaired_payload"
+    ]
+    if len(repaired_events) != 1:
+        raise ValueError("synthetic journal repaired payload count differs")
+    payload = base64.b64decode(
+        repaired_events[0]["event"]["repaired_payload"]["base64"], validate=True
+    )
+    if len(payload) != device.REFERENCE_REPAIRED_CUBIN_BYTES:
+        raise ValueError("synthetic journal cubin size differs")
+    if sha256(payload).hexdigest() != device.REFERENCE_REPAIRED_CUBIN_SHA256:
+        raise ValueError("synthetic journal cubin hash differs")
     device._emit_raw_chunks(
         lambda kind, event: events.append((kind, dict(event))),
         kind="compiler_payload_chunk",
@@ -684,7 +703,6 @@ class SharedDirectDeviceSourceSealTests(unittest.TestCase):
         code = (
             "import sys; "
             "import pontius.legal_river_quotient_cuda_shared_direct_device as d; "
-            "import pontius.legal_river_quotient_cuda_shared_direct_device_runner; "
             "import pontius.legal_river_quotient_cuda_shared_direct_device_result; "
             "assert 'cupy' not in sys.modules; "
             "assert d.cupy_import_call_count() == 0"
@@ -1114,11 +1132,6 @@ class SharedDirectDeviceSourceSealTests(unittest.TestCase):
             reader.rebind_shared_direct_device_journal(
                 overlapping, rebind_current_sources=False
             )
-
-    def test_real_minus_b_no_cupy_handshake_crosses_transport(self) -> None:
-        handshake = runner.run_no_cuda_bootstrap_handshake()
-        self.assertEqual(handshake["runtime_name"], "__main__")
-        self.assertFalse(handshake["cupy_imported"])
 
 
 if __name__ == "__main__":

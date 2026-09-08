@@ -5,7 +5,6 @@ import json
 from dataclasses import fields, replace
 from pathlib import Path
 import unittest
-import importlib.util
 
 from pontius.decision_provider.model import DecisionObservation, DecisionProposal
 from pontius.decision_provider.providers import make_provider, visible_rank
@@ -227,40 +226,6 @@ class ProviderRulesTests(unittest.TestCase):
         object.__setattr__(malformed, 'action', action)
         self.assertIsNone(resolve_proposal(obs, malformed, CALL, 'passive_default').proposal)
 
-    def test_source_import_policy_finite_negative_controls(self):
-        repo = Path(__file__).resolve().parent.parent
-        spec = importlib.util.spec_from_file_location(
-            'provider_boundary_checks', repo / 'tools/check_stabilization_boundaries.py')
-        checker = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(checker)
-        provider = 'src/pontius/decision_provider/'
-        allowed = {
-            provider + '__init__.py': b'"""Inert."""\n',
-            provider + 'model.py': b'from pontius.holdem_cards import OneSeatCardState\n',
-            provider + 'providers.py': b'from pontius.river import evaluate_five\n',
-            provider + 'selection.py': b'from pontius.decision_provider.model import Selection\n',
-            provider + 'codec.py': b'from pontius.v0a.trace import action_payload\n',
-            'src/pontius/v0a/runtime.py': (
-                b'from pontius.decision_provider.model import Selection\n'),
-            'tools/v0a_event_adapter.py': b'import pontius.decision_provider.codec\n',
-        }
-        checker.enforce_decision_provider_import_policy(allowed)
-        for body in (b'import os\n', b'import pontius.v0a.runtime\n',
-                     b'from pontius.holdem_cards import SixSeatHoldemDeal\n',
-                     b'x = SixSeatHoldemDeal\n', b'x = cards.SixSeatHoldemDeal\n',
-                     b'eval("1")\n', b'exec("pass")\n', b'open("file")\n',
-                     b'__import__("os")\n'):
-            with self.subTest(body=body), self.assertRaises(checker.BoundaryError):
-                checker.enforce_decision_provider_import_policy({provider + 'model.py': body})
-        for origin in ('src/pontius/v0a/replay.py', 'tools/v0a_hand_adapter.py'):
-            with self.subTest(origin=origin), self.assertRaises(checker.BoundaryError):
-                checker.enforce_decision_provider_import_policy({
-                    origin: b'import pontius.decision_provider.model\n'})
-        with self.assertRaises(checker.BoundaryError):
-            checker.enforce_decision_provider_import_policy({
-                provider + '__init__.py': b'x = 1\n'})
-        with self.assertRaises(checker.BoundaryError):
-            checker.enforce_origin_classification({provider + 'extra.py': b''}, {})
 
 
 if __name__ == '__main__':

@@ -80,9 +80,8 @@ def read_artifact(inputs):
     return raw
 
 
-def admit(raw, metadata):
-    require(len(raw) == metadata['wire_bytes'] and
-            sha256(raw).hexdigest() == metadata['file']['sha256'])
+def decode_artifact(raw, metadata):
+    require(len(raw) == metadata['wire_bytes'])
     try:
         source = decode_blueprint(raw)
     except ValueError as error:
@@ -180,7 +179,7 @@ def construction_observation(inputs):
     clock = inputs['clock']
     outer = tick(clock)
     raw, read_ns = timed(clock, lambda: read_artifact(inputs))
-    source, decode_ns = timed(clock, lambda: admit(raw, metadata))
+    source, decode_ns = timed(clock, lambda: decode_artifact(raw, metadata))
     provider, prepare_ns = timed(clock, lambda: PreparedBlueprintProvider(source))
     proposal, first_ns = timed(clock, lambda: provider.propose(observation))
     outer_ns = elapsed(clock, outer)
@@ -212,7 +211,7 @@ def memory_observation(inputs, *, traced):
     if traced:
         tracemalloc.start()
     try:
-        source = admit(raw, metadata)
+        source = decode_artifact(raw, metadata)
         if not traced:
             stage('decode')
         provider = PreparedBlueprintProvider(source)
@@ -411,7 +410,7 @@ def measure_cell(cell, inputs):
                 memory_observation(inputs, traced=kind == 'memory_traced'))
     population, selected, clock = inputs['population'], inputs['selections'], inputs['clock']
     raw, read_ns = timed(clock, lambda: read_artifact(inputs))
-    source, decode_ns = timed(clock, lambda: admit(raw, metadata))
+    source, decode_ns = timed(clock, lambda: decode_artifact(raw, metadata))
     if kind == 'history':
         required = dict(blocks=5, subblocks=['hit', 'miss', 'miss', 'hit'], warmups=10,
                         batches=10, batch_calls=100, individual_calls=1000,

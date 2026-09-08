@@ -11,3 +11,7 @@ dist/
 experiments/results/*.json
 !experiments/results/.gitkeep
 
+
+# Local inspection reports, test scratch and dependency cache.
+/tmp/
+/experiments/results/runs/

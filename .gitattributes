@@ -52,3 +52,11 @@
 /artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v5.attempt.json -text
 /artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.attempt.json -text
 /artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.launch-consumed.json -text
+
+# Codec fixtures assert canonical LF bytes on every platform.
+/tests/fixtures/**/*.json text eol=lf
+
+# Preserve archived helper originals and the checkpoint's hash-referenced outputs.
+/docs/archive/root-helpers/** -text
+/experiments/results/20260908T*.json -text
+/experiments/results/runs/** -text

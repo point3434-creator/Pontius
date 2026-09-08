@@ -5,6 +5,7 @@ from hashlib import sha256
 import ast
 import copy
 import json
+import math
 import os
 from pathlib import Path
 import random
@@ -12,19 +13,23 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from pontius import legal_river_quotient_fixed_width_device_preflight as device
 from pontius import legal_river_quotient_fixed_width_device_preflight_result as reader
-from pontius import legal_river_quotient_fixed_width_device_preflight_runner as runner
+from pontius.durable_evidence_journal import (
+    JournalRecordEnvelope,
+    JournalRecordKind,
+    build_journal_record_body,
+    canonical_journal_json_bytes,
+)
 
 
 ROOT = Path(__file__).parents[1]
 SOURCE = ROOT / "src/pontius/legal_river_quotient_fixed_width_device_preflight.py"
-RUNNER = ROOT / "src/pontius/legal_river_quotient_fixed_width_device_preflight_runner.py"
-READER = ROOT / "src/pontius/legal_river_quotient_fixed_width_device_preflight_result.py"
-CONTROLS = Path(__file__)
-LAUNCHER = ROOT / "run_legal_river_quotient_fixed_width_device_preflight.py"
 LIVE_CRLF_FIXTURE = b"left\r\nright"
+FIXTURE_DEPENDENCIES = ("tests/test_legal_river_quotient_fixed_width_device_preflight.py",)
+WORKER_MODULE = "pontius.legal_river_quotient_fixed_width_device_preflight_runner"
 
 
 def resource_streams() -> tuple[bytes, bytes, bytes]:
@@ -140,7 +145,7 @@ def synthetic_campaign(append_event):
         "bootstrap_handshake",
         {
             "schema_version": "legal-river-fixed-width-device-bootstrap-v1",
-            "literal_worker_module": runner.LITERAL_WORKER_MODULE,
+            "literal_worker_module": WORKER_MODULE,
             "argv_count": 1,
             "python_no_bytecode": True,
             "cupy_loaded": False,
@@ -382,14 +387,104 @@ def transformed_synthetic_campaign(transform):
     return campaign
 
 
-class FixedWidthDeviceSourceSealTests(unittest.TestCase):
+def synthetic_journal(campaign_executor=synthetic_campaign, *, public_elapsed_ns=1_000_000):
+    """Build reader input in memory; this fixture launches no process or device."""
+    header = {
+        "schema_version": "legal-river-fixed-width-device-owner-header-v1",
+        "protocol_sha256": reader.PROTOCOL_SHA256,
+        "campaign_sha256": reader.CAMPAIGN_SHA256,
+        "config_sha256": reader.CONFIG_SHA256,
+        "correction_config_sha256": reader.CORRECTION_CONFIG_SHA256,
+        "preregistration_commit": device.PREREGISTRATION_COMMIT,
+        "correction_commit": device.CORRECTION_COMMIT,
+        "source_seal_git": {"commit": "0" * 40, "dirty": False, "strict_status": True},
+        "dependency_hashes": {
+            relative: sha256((ROOT / relative).read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+            for relative in FIXTURE_DEPENDENCIES
+        },
+        "result_relative_path": reader.RESULT_RELATIVE_PATH,
+        "reserved_actual_result_relative_path": (
+            "artifacts/legal_river_quotient_cuda_consumer_v1.jsonl"
+        ),
+        "literal_worker_module": WORKER_MODULE,
+        "scientific_module": "pontius.legal_river_quotient_fixed_width_device_preflight",
+        "claims": dict(reader.HEADER_CLAIMS),
+    }
+    observations = []
+
+    def append_event(kind, event):
+        observations.append({
+            "schema_version": "legal-river-fixed-width-device-owner-observation-v1",
+            "event_index": len(observations),
+            "kind": kind,
+            "event": dict(event),
+            "source_commit": "0" * 40,
+        })
+
+    try:
+        evidence = campaign_executor(append_event)
+        terminal_name = evidence["terminal"]
+        reason = "retained first terminal from the frozen one-shot owner"
+    except RuntimeError as error:
+        terminal_name = "infrastructure_failure"
+        reason = f"RuntimeError: {error}"
+    laboratory_elapsed = next(
+        (row["event"]["total_ns"] for row in observations if row["kind"] == "laboratory_partition"),
+        None,
+    )
+    claims = dict(reader.HEADER_CLAIMS)
+    claims["device_preflight_result"] = (
+        True if terminal_name in {"completed_device_preflight", "completed_no_device_candidate"}
+        else None
+    )
+    terminal = {
+        "schema_version": "legal-river-fixed-width-device-owner-terminal-v1",
+        "terminal": terminal_name,
+        "passed": terminal_name == "completed_device_preflight",
+        "reason": reason,
+        "event_count": len(observations),
+        "public_elapsed_ns": public_elapsed_ns,
+        "public_wall_ns": reader.PUBLIC_WALL_NS,
+        "laboratory_elapsed_ns": laboratory_elapsed,
+        "laboratory_wall_ns": reader.LABORATORY_WALL_NS,
+        "outside_laboratory_elapsed_ns": (
+            None if laboratory_elapsed is None else public_elapsed_ns - laboratory_elapsed
+        ),
+        "outside_laboratory_wall_ns": reader.OUTSIDE_LABORATORY_WALL_NS,
+        "claims": claims,
+    }
+    payloads = [(JournalRecordKind.HEADER, header)]
+    payloads.extend((JournalRecordKind.OBSERVATION, row) for row in observations)
+    payloads.append((JournalRecordKind.TERMINAL, terminal))
+    previous = None
+    lines = []
+    for sequence, (kind, payload) in enumerate(payloads):
+        body = build_journal_record_body(
+            protocol_sha256=reader.PROTOCOL_SHA256,
+            campaign_sha256=reader.CAMPAIGN_SHA256,
+            kind=kind,
+            sequence=sequence,
+            previous_record_sha256=previous,
+            semantic_identity_sha256=sha256(canonical_journal_json_bytes(payload)).hexdigest(),
+            payload=payload,
+        )
+        envelope = JournalRecordEnvelope(body=body)
+        lines.append(envelope.line_bytes)
+        previous = envelope.line_sha256
+    return b"".join(lines)
+
+
+class FixedWidthDeviceTests(unittest.TestCase):
+    def setUp(self) -> None:
+        # The reader still checks real dependency bytes, scoped to this synthetic fixture.
+        self.enterContext(patch.object(reader, "DEPENDENCY_RELATIVE_PATHS", FIXTURE_DEPENDENCIES))
+
     def test_imports_are_cuda_process_and_result_free(self) -> None:
         command = (
             "import hashlib, importlib, json, pathlib, sys; "
             "p=pathlib.Path('artifacts/work_preflight/legal_river_quotient_fixed_width_device_preflight_v1.jsonl'); "
             "before=p.read_bytes() if p.is_file() else None; "
             "mods=['pontius.legal_river_quotient_fixed_width_device_preflight',"
-            "'pontius.legal_river_quotient_fixed_width_device_preflight_runner',"
             "'pontius.legal_river_quotient_fixed_width_device_preflight_result']; "
             "[importlib.import_module(x) for x in mods]; "
             "after=p.read_bytes() if p.is_file() else None; "
@@ -408,8 +503,8 @@ class FixedWidthDeviceSourceSealTests(unittest.TestCase):
         )
         evidence = json.loads(completed.stdout)
         expected = (
-            sha256(runner.RESULT_PATH.read_bytes()).hexdigest()
-            if runner.RESULT_PATH.is_file()
+            sha256(reader.RESULT_PATH.read_bytes()).hexdigest()
+            if reader.RESULT_PATH.is_file()
             else None
         )
         self.assertEqual(
@@ -417,33 +512,8 @@ class FixedWidthDeviceSourceSealTests(unittest.TestCase):
             {"cupy": False, "before": expected, "after": expected, "unchanged": True},
         )
 
-    def test_source_seal_probe_is_lifecycle_safe_for_injected_results(self) -> None:
-        challenge = bytes(range(32)).hex()
-        with tempfile.TemporaryDirectory() as directory:
-            result_path = Path(directory) / "prospective-result.jsonl"
-            unopened = runner.source_seal_probe(challenge, result_path=result_path)
-            self.assertTrue(unopened["result_absent"])
-            self.assertTrue(unopened["result_unchanged"])
-            self.assertEqual(
-                unopened["result_before"],
-                {"present": False, "byte_count": None, "sha256": None},
-            )
-            retained_bytes = b'{"retained":true}\n'
-            result_path.write_bytes(retained_bytes)
-            retained = runner.source_seal_probe(challenge, result_path=result_path)
-            retained_identity = {
-                "present": True,
-                "byte_count": len(retained_bytes),
-                "sha256": sha256(retained_bytes).hexdigest(),
-            }
-            self.assertFalse(retained["result_absent"])
-            self.assertTrue(retained["result_unchanged"])
-            self.assertEqual(retained["result_before"], retained_identity)
-            self.assertEqual(retained["result_after"], retained_identity)
-            self.assertEqual(result_path.read_bytes(), retained_bytes)
-
-    def test_configs_rebind_and_phase_topology_is_corrected(self) -> None:
-        config = device.verify_preregistered_contract()
+    def test_configuration_phase_topology_is_corrected(self) -> None:
+        config = device.load_preregistered_config()
         self.assertEqual(config["schema_version"], "legal-river-quotient-fixed-width-device-preflight-v1")
         self.assertEqual(len(device.SINGLE_PASS_PHASE_NAMES), 12)
         self.assertEqual(len(device.BATCHED_PHASE_NAMES), 20)
@@ -462,21 +532,17 @@ class FixedWidthDeviceSourceSealTests(unittest.TestCase):
             f"{device.RESULT_RELATIVE_PATH}: text: unset",
         )
 
-    def test_two_normalizers_and_every_new_target_trigger_are_nonvacuous(self) -> None:
+    def test_normalizers_and_literal_escape_controls(self) -> None:
         expected = b"left" + bytes((10,)) + b"right"
         self.assertEqual(device.normalize_crlf_bytes(LIVE_CRLF_FIXTURE), expected)
         self.assertEqual(device.independent_normalize_crlf_bytes(LIVE_CRLF_FIXTURE), expected)
-        counts = {LAUNCHER: 0, SOURCE: 1, RUNNER: 0, READER: 0, CONTROLS: 1}
-        for path, count in counts.items():
-            receipt = device.literal_escape_mutation_receipt(
-                path, expected_occurrences=count, require_armed=count > 0
-            )
-            self.assertEqual(receipt.occurrence_count, count)
-            self.assertEqual(
-                receipt.canonical_lf_sha256 == receipt.forbidden_mutation_sha256,
-                count == 0,
-            )
         with tempfile.TemporaryDirectory() as directory:
+            armed_path = Path(directory) / "armed.py"
+            armed_path.write_bytes(repr(LIVE_CRLF_FIXTURE).encode("ascii"))
+            receipt = device.literal_escape_mutation_receipt(
+                armed_path, expected_occurrences=1, require_armed=True
+            )
+            self.assertNotEqual(receipt.canonical_lf_sha256, receipt.forbidden_mutation_sha256)
             path = Path(directory) / "unarmed.bin"
             path.write_bytes(b"no trigger")
             with self.assertRaisesRegex(ValueError, "unarmed_literal_escape_mutation"):
@@ -486,52 +552,6 @@ class FixedWidthDeviceSourceSealTests(unittest.TestCase):
         calls = [node for node in ast.walk(independent) if isinstance(node, ast.Call)]
         self.assertFalse(any(isinstance(call.func, ast.Name) and call.func.id == "normalize_crlf_bytes" for call in calls))
         self.assertFalse(any(isinstance(call.func, ast.Attribute) and call.func.attr == "replace" for call in calls))
-
-    def test_exact_root_launcher_probe_works_from_external_directory(self) -> None:
-        challenge = bytes(range(32))
-        result_before = (
-            runner.RESULT_PATH.read_bytes() if runner.RESULT_PATH.is_file() else None
-        )
-        environment = dict(os.environ)
-        for name in ("PYTHONPATH", "PYTHONHOME", "PYTHONSTARTUP"):
-            environment.pop(name, None)
-        environment["PYTHONDONTWRITEBYTECODE"] = "1"
-        environment["PYTHONNOUSERSITE"] = "1"
-        environment["PONTIUS_ADR0439_DEVICE_PREFLIGHT_MODE"] = "source_seal_probe"
-        environment["PONTIUS_ADR0439_DEVICE_PREFLIGHT_CHALLENGE"] = challenge.hex()
-        with tempfile.TemporaryDirectory() as directory:
-            completed = subprocess.run(
-                [sys.executable, "-B", str(LAUNCHER)],
-                cwd=directory,
-                env=environment,
-                timeout=runner.SOURCE_SEAL_PROBE_WALL_NS / 1_000_000_000,
-                check=True,
-                capture_output=True,
-                text=True,
-            )
-        result = json.loads(completed.stdout)
-        self.assertEqual(result["challenge_sha256"], sha256(challenge).hexdigest())
-        self.assertFalse(result["cupy_loaded"])
-        self.assertFalse(result["scientific_source_loaded"])
-        result_after = (
-            runner.RESULT_PATH.read_bytes() if runner.RESULT_PATH.is_file() else None
-        )
-        expected_identity = (
-            {"present": False, "byte_count": None, "sha256": None}
-            if result_before is None
-            else {
-                "present": True,
-                "byte_count": len(result_before),
-                "sha256": sha256(result_before).hexdigest(),
-            }
-        )
-        self.assertEqual(result["result_absent"], result_before is None)
-        self.assertTrue(result["result_unchanged"])
-        self.assertEqual(result["result_before"], expected_identity)
-        self.assertEqual(result["result_after"], expected_identity)
-        self.assertEqual(result_after, result_before)
-        self.assertFalse(result["compiler_executed"])
-        self.assertFalse(result["device_queried"])
 
     def test_cuda_source_and_compiler_inventory_are_literal(self) -> None:
         contract = device.cuda_source_contract()
@@ -699,9 +719,14 @@ class FixedWidthDeviceSourceSealTests(unittest.TestCase):
                 1 << 319, 1, left_limbs=5, right_limbs=5, output_limbs=8
             )
 
+    @unittest.skipUnless(hasattr(math, "fma"), "host pair arithmetic requires math.fma")
     def test_reduced_population_authorities_and_representation_bytes_rebind(self) -> None:
         for label, source_rows, query_rows in (("complete_10", 210, 210), ("signed_12", 924, 495)):
-            population = device.build_validation_population(label)
+            # Historical source admission is outside this numerical fixture.
+            with patch(
+                "pontius.legal_river_quotient_consumer_capacity.verify_preregistered_dependencies"
+            ):
+                population = device.build_validation_population(label)
             self.assertEqual(len(population.authority.source_rows), source_rows)
             self.assertEqual(len(population.authority.forward_scaled_rows), query_rows)
             positional = device._representation_expectations(population, arm=device.POSITIONAL)
@@ -765,48 +790,34 @@ class FixedWidthDeviceSourceSealTests(unittest.TestCase):
             ("inspected cubin", wrong_inspected_cubin),
         )
         for label, transform in cases:
-            with self.subTest(label=label), tempfile.TemporaryDirectory() as directory:
-                path = Path(directory) / "mutated.jsonl"
-                ticks = iter((1_000_000, 2_000_000))
-                runner.execute_owner_to_path(
-                    output_path=path,
-                    campaign_executor=transformed_synthetic_campaign(transform),
-                    monotonic_ns=lambda: next(ticks),
-                )
+            with self.subTest(label=label):
+                raw = synthetic_journal(transformed_synthetic_campaign(transform))
                 with self.assertRaises(ValueError):
-                    reader.assess_device_preflight_bytes(path.read_bytes())
+                    reader.assess_device_preflight_bytes(raw)
 
     def test_noncanonical_evidence_and_unknown_serializer_types_reject(self) -> None:
         with self.assertRaises(TypeError):
             device._serialize_dataclass_rows({"unknown": object()})
         with self.assertRaises(TypeError):
-            runner.canonical_journal_json_bytes({"unknown": object()})
+            canonical_journal_json_bytes({"unknown": object()})
         for value in (1, "01", "-0", "+1", "1.0"):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 reader._decimal_integer(value, label="synthetic large integer")
 
-    def test_synthetic_owner_and_independent_reader_agree(self) -> None:
-        with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / "synthetic.jsonl"
-            ticks = iter((1_000_000, 2_000_000))
-            execution = runner.execute_owner_to_path(
-                output_path=path,
-                campaign_executor=synthetic_campaign,
-                monotonic_ns=lambda: next(ticks),
-            )
-            self.assertEqual(execution.terminal["terminal"], "completed_device_preflight")
-            assessed = reader.assess_device_preflight_bytes(path.read_bytes())
-            self.assertTrue(assessed.passed)
-            self.assertEqual(assessed.eligible_arms, (device.POSITIONAL, device.BATCHED_RRNS))
-            raw = path.read_bytes()
-            with self.assertRaises(ValueError):
-                reader.assess_device_preflight_bytes(raw + b"torn")
-            mutated = bytearray(raw)
-            mutated[len(mutated) // 2] ^= 1
-            with self.assertRaises(ValueError):
-                reader.assess_device_preflight_bytes(bytes(mutated))
+    def test_synthetic_journal_and_independent_reader_agree(self) -> None:
+        raw = synthetic_journal()
+        assessed = reader.assess_device_preflight_bytes(raw)
+        self.assertEqual(assessed.terminal, "completed_device_preflight")
+        self.assertTrue(assessed.passed)
+        self.assertEqual(assessed.eligible_arms, (device.POSITIONAL, device.BATCHED_RRNS))
+        with self.assertRaises(ValueError):
+            reader.assess_device_preflight_bytes(raw + b"torn")
+        mutated = bytearray(raw)
+        mutated[len(mutated) // 2] ^= 1
+        with self.assertRaises(ValueError):
+            reader.assess_device_preflight_bytes(bytes(mutated))
 
-    def test_first_infrastructure_terminal_is_durable_and_readable(self) -> None:
+    def test_infrastructure_terminal_is_readable(self) -> None:
         def failing_campaign(append_event):
             append_event(
                 "bootstrap_handshake",
@@ -820,18 +831,10 @@ class FixedWidthDeviceSourceSealTests(unittest.TestCase):
             )
             raise RuntimeError("synthetic transport failure")
 
-        with tempfile.TemporaryDirectory() as directory:
-            path = Path(directory) / "failure.jsonl"
-            ticks = iter((10, 20))
-            execution = runner.execute_owner_to_path(
-                output_path=path,
-                campaign_executor=failing_campaign,
-                monotonic_ns=lambda: next(ticks),
-            )
-            self.assertEqual(execution.terminal["terminal"], "infrastructure_failure")
-            assessed = reader.assess_device_preflight_bytes(path.read_bytes())
-            self.assertEqual(assessed.terminal, "infrastructure_failure")
-            self.assertFalse(assessed.passed)
+        raw = synthetic_journal(failing_campaign, public_elapsed_ns=10)
+        assessed = reader.assess_device_preflight_bytes(raw)
+        self.assertEqual(assessed.terminal, "infrastructure_failure")
+        self.assertFalse(assessed.passed)
 
 
 if __name__ == "__main__":

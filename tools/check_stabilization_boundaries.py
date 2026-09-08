@@ -65,6 +65,19 @@ _PREPARED_LOOKUP = "pontius.blueprint_preparation.lookup"
 _PROVIDER = "pontius.decision_provider"
 _PROVIDER_RUNTIME = {_PROVIDER + "." + name for name in ("model", "providers", "selection")}
 _PROVIDER_TRANSPORT = {_PROVIDER + "." + name for name in ("model", "providers", "codec")}
+_WORKLOAD_POPULATION = "tools.v0a_blueprint_workload_population"
+_WORKLOAD_MEASURE = "tools.v0a_blueprint_workload_measure"
+_WORKLOAD_POKER = frozenset({
+    "pontius.no_limit_betting", "pontius.holdem_cards", "pontius.immutable_blueprint",
+    "pontius.blueprint_artifact.codec", "pontius.decision_provider.model",
+    "pontius.decision_provider.providers",
+})
+_WORKLOAD_IMPORTS = {
+    "tools.v0a_blueprint_workload": frozenset(),
+    _WORKLOAD_POPULATION: _WORKLOAD_POKER,
+    _WORKLOAD_MEASURE: _WORKLOAD_POKER | {_PREPARED_LOOKUP},
+    "tools.v0a_blueprint_workload_report": frozenset(),
+}
 BLUEPRINT_ARTIFACT_ORIGIN_PATHS = frozenset(
     {
         "src/pontius/blueprint_artifact/__init__.py",
@@ -94,6 +107,10 @@ ORCHESTRATION_ORIGIN_PATHS = frozenset(
         "tools/v0a_evaluation_v2.py",
         "tools/v0a_evaluation_v3.py",
         "tools/v0a_evaluation_contract.py",
+        "tools/v0a_blueprint_workload.py",
+        "tools/v0a_blueprint_workload_population.py",
+        "tools/v0a_blueprint_workload_measure.py",
+        "tools/v0a_blueprint_workload_report.py",
         "tools/run_evaluation_history.py",
         "tools/test_orchestration/__init__.py",
         "tools/test_orchestration/configuration.py",
@@ -417,9 +434,10 @@ def enforce_orchestration_import_policy(sources: Mapping[str, bytes]) -> None:
             "pontius.v0a.model", "pontius.v0a.trace"}
         provider_internal = (origin in {"tools.v0a_event_adapter", "tools.v0a_table_host"}
                              and target in _PROVIDER_TRANSPORT)
+        workload_internal = target in _WORKLOAD_IMPORTS.get(origin, frozenset())
         if (not _is_stdlib(target) and not sibling and not driver_internal
                 and not adapter_internal and not event_internal and not table_internal
-                and not provider_internal):
+                and not provider_internal and not workload_internal):
             violations.append(f"forbidden orchestration import: {origin} -> {target}")
     _raise_violations(violations)
 
@@ -441,7 +459,9 @@ def enforce_decision_provider_import_policy(sources: Mapping[str, bytes]) -> Non
     incoming = {"pontius.v0a.runtime": _PROVIDER_RUNTIME,
         _PREPARED_LOOKUP: {_PROVIDER + ".model"},
         "tools.v0a_event_adapter": _PROVIDER_TRANSPORT,
-        "tools.v0a_table_host": _PROVIDER_TRANSPORT}
+        "tools.v0a_table_host": _PROVIDER_TRANSPORT,
+        _WORKLOAD_POPULATION: {_PROVIDER + ".model", _PROVIDER + ".providers"},
+        _WORKLOAD_MEASURE: {_PROVIDER + ".model", _PROVIDER + ".providers"}}
     violations = []
     for origin, target in _BASELINE.import_edges(sources):
         if origin in allowed and target not in allowed[origin]:
@@ -483,7 +503,7 @@ def enforce_blueprint_preparation_import_policy(sources: Mapping[str, bytes]) ->
         ):
             violations.append(f"forbidden blueprint preparation import: {origin} -> {target}")
         if (target == family or target.startswith(family + ".")) and not (
-            origin == "pontius.v0a.runtime" and target == _PREPARED_LOOKUP
+            origin in {"pontius.v0a.runtime", _WORKLOAD_MEASURE} and target == _PREPARED_LOOKUP
         ):
             violations.append(
                 f"forbidden blueprint preparation incoming edge: {origin} -> {target}")
@@ -519,7 +539,8 @@ def enforce_blueprint_artifact_import_policy(sources: Mapping[str, bytes]) -> No
         if in_family and target not in allowed:
             violations.append(f"forbidden blueprint artifact import: {origin} -> {target}")
         elif targets_family and not in_family and not (
-            origin in {"tools.v0a_hand_adapter", "tools.v0a_event_adapter", "tools.v0a_table_host"}
+            origin in {"tools.v0a_hand_adapter", "tools.v0a_event_adapter", "tools.v0a_table_host",
+                       _WORKLOAD_POPULATION, _WORKLOAD_MEASURE}
             and target == family + ".codec"
         ):
             violations.append(f"legacy origin imports blueprint artifact: {origin} -> {target}")
@@ -787,6 +808,108 @@ parser.add_argument('--suite', choices=(*SUITES, 'all'), required=True)
     _raise_violations(violations)
 
 
+def enforce_blueprint_workload_import_policy(sources: Mapping[str, bytes]) -> None:
+    """ADR-0515: four exact tools and captured loaders, with no production incoming edge."""
+    standard = {
+        "tools.v0a_blueprint_workload": {
+            "__future__", "argparse", "base64", "ctypes", "hashlib", "io", "json", "msvcrt",
+            "os", "pathlib", "queue", "re", "stat", "subprocess", "sys", "threading", "time",
+            "types"},
+        _WORKLOAD_POPULATION: {"__future__", "hashlib", "json", "pathlib", "re", "sys", "types"},
+        _WORKLOAD_MEASURE: {"__future__", "gc", "hashlib", "pathlib", "re", "sys", "time",
+                            "tracemalloc"},
+        "tools.v0a_blueprint_workload_report": {
+            "base64", "hashlib", "json", "math", "pathlib", "re", "stat", "statistics"},
+    }
+    violations = []
+    for origin, target in _BASELINE.import_edges(sources):
+        if origin in standard and target not in standard[origin] | _WORKLOAD_IMPORTS[origin]:
+            violations.append(f"forbidden blueprint workload import: {origin} -> {target}")
+        if target in standard:
+            violations.append(f"forbidden blueprint workload incoming edge: {origin} -> {target}")
+    launcher_loader = ast.parse('''
+def load_tool(name, root=None, captured=None):
+    require(name in TOOLS, 'source_invalid')
+    root = Path(__file__).absolute().parents[1] if root is None else root
+    relative, oid = TOOLS[name]
+    if captured is None:
+        with OwnedFile(root / relative, code='source_invalid') as owned:
+            raw = owned.raw
+    else:
+        raw = captured[relative]
+    require(oid is None or hashlib.sha1(
+        b'blob ' + str(len(raw)).encode('ascii') + b'\\0' + raw).hexdigest() == oid,
+        'source_invalid')
+    alias = 'pontius_workload_' + name
+    module = types.ModuleType(alias)
+    module.__file__, module.__package__ = str(root / relative), ''
+    sys.modules[alias] = module
+    exec(compile(raw, module.__file__, 'exec'), module.__dict__)
+    return module
+''').body[0]
+    loaders = {"tools.v0a_blueprint_workload": [launcher_loader],
+               _WORKLOAD_POPULATION: []}
+    for name, filename, alias, oid in (
+        ('_load_dealer', 'v0a_seeded_deals.py', 'workload_captured_dealer',
+         '2963004e38c6e66f76ae9ce3bd474063eee870fe'),
+        ('_load_host', 'v0a_table_host.py', 'workload_captured_host',
+         '7beb178989b3ff98b684093ce4022667a1c61ece'),
+    ):
+        loaders[_WORKLOAD_POPULATION].append(ast.parse(f'''
+def {name}():
+    path = Path(__file__).resolve().parent / {filename!r}
+    raw = path.read_bytes()
+    require(hashlib.sha1(b'blob ' + str(len(raw)).encode('ascii') + b'\\0' + raw).hexdigest()
+            == {oid!r}, 'source_invalid')
+    module = ModuleType({alias!r})
+    module.__file__ = str(path)
+    sys.modules[module.__name__] = module
+    exec(compile(raw, str(path), 'exec'), module.__dict__)
+    return module
+''').body[0])
+    targets = {
+        'host': ('tools/v0a_table_host.py', '7beb178989b3ff98b684093ce4022667a1c61ece'),
+        'session': ('tools/v0a_table_session.py', '5b0608b74e46a5366d3412a11aa06c850110960e'),
+        'population': ('tools/v0a_blueprint_workload_population.py', None),
+        'measure': ('tools/v0a_blueprint_workload_measure.py', None),
+        'report': ('tools/v0a_blueprint_workload_report.py', None),
+    }
+    forbidden = {"__import__", "__builtins__", "eval", "globals", "locals", "vars",
+                 "import_module", "exec_module", "load_module", "run_module", "run_path",
+                 "spec_from_file_location", "module_from_spec", "SourceFileLoader"}
+    for origin in standard:
+        path = origin.replace('.', '/') + '.py'
+        if path not in sources:
+            continue
+        tree = _BASELINE._parse_source(sources[path], relative_path=path)
+        admitted = set()
+        for expected in loaders.get(origin, []):
+            actual = [n for n in tree.body if isinstance(n, ast.FunctionDef)
+                      and n.name == expected.name]
+            if len(actual) != 1 or ast.dump(actual[0]) != ast.dump(expected):
+                violations.append(f"blueprint workload captured loader differs: {path}")
+            else:
+                admitted.update(ast.walk(actual[0]))
+        if origin == "tools.v0a_blueprint_workload":
+            actual = [n for n in tree.body if isinstance(n, ast.Assign) and any(
+                isinstance(t, ast.Name) and t.id == 'TOOLS' for t in n.targets)]
+            try:
+                valid = len(actual) == 1 and ast.literal_eval(actual[0].value) == targets
+            except (ValueError, TypeError):
+                valid = False
+            if not valid:
+                violations.append("blueprint workload fixed loader targets differ")
+        for node in ast.walk(tree):
+            name = node.id if isinstance(node, ast.Name) else (
+                node.attr if isinstance(node, ast.Attribute) else None)
+            if (name in forbidden or name in {'exec', 'compile'} and node not in admitted
+                or isinstance(node, ast.ImportFrom) and (node.level or any(
+                    alias.name == '*' for alias in node.names))):
+                violations.append(
+                    f"forbidden blueprint workload dynamic route: {path}:{node.lineno}")
+    _raise_violations(violations)
+
+
 def _read_regular_source(path: Path, *, root: Path) -> object:
     try:
         return _BASELINE.read_regular_snapshot(
@@ -966,6 +1089,7 @@ def check_repository(repository_root: Path) -> None:
     enforce_seeded_deals_import_policy(tool_sources)
     enforce_evaluation_import_policy(tool_sources)
     enforce_evaluation_history_import_policy({**current_sources, **tool_sources})
+    enforce_blueprint_workload_import_policy({**current_sources, **tool_sources})
     enforce_orchestration_import_policy(tool_sources)
     _revalidate_repository_snapshot(
         baseline_snapshot, current_inventory, tool_inventory

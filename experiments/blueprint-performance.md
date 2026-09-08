@@ -69,6 +69,27 @@ establish confidence intervals or worst-case latency.
 
 ## What changed, and what remains open
 
+The original September 7 read-cost diagnosis at source
+`5845f32f010a44d924abc2f50ae142d1c6adec1b` compared four 12-trial runs:
+unchanged **88.931 s**, profiled **95.360 s**, bounded-read prototype **47.859 s**,
+and unchanged confirmation **95.554 s**. All 48 trials completed with matching
+actions, settlements, carried stacks, counters, and chip arithmetic. An ABBA
+component probe over the same 500 files returned identical bytes/identity tokens
+and reduced median time from **1.300 s to 0.328 s** (about **3.96x**). The parent
+profile attributed **41.928 s self time** to 21,635 buffered reads; overlapping
+cumulative profile rows must not be added.
+
+That prototype changed the requested read length from `cap + 1` to
+`observed_size + 1`; it did not establish that each old request physically read
+16 MiB from disk. It was injected in memory, so the unchanged production source
+manifest alone does not identify its executed code. The original launcher and
+report are retained in the [work-folder archive](../docs/archive/work-folders-2026-09-08.zip)
+under `performance-pass-20260907/`. One candidate matrix, two unprofiled controls,
+run order, caching, host load, and concurrent filesystem discovery limit the
+speedup claim. The later source-bound 12-trial result was **49.2236669 s**;
+see the [adopted bounded-read report](../docs/architecture/v0a-bounded-reads-r001/performance-report.md).
+These are historical measurements, not a new benchmark of the current harness.
+
 The original representative workload completed only 18 of 341 cells in a
 3,604.311-second measured envelope. Worker intervals consumed 1,904.602 seconds
 and between-worker gaps another 1,699.709 seconds. It never reached completed
@@ -80,6 +101,16 @@ each grant, caches loaded tools, and uses one worker per invoking runtime. Whole
 worker-job memory supervision starts at suspended launch. Two session cells
 also completed with cleanup confirmed, but used an empty artifact and one hand
 each; they establish functional execution, not large-table deadline performance.
+
+The retired workload staging records preserve why the earlier source review
+failed. At r003 candidate `2e1457046c640045fe0b404bfc3d6f78cd5e4b45`, review found
+that qualification could reuse a stale relative time budget after slow grant
+preparation, and memory sampling began only after worker readiness. These were
+control-flow defects, not observations of an actual overbudget qualification or
+3 GiB excursion. The current deadline and suspended-launch supervision controls
+address the relevant lifecycle boundaries; the old review remains historical
+evidence. Its disposition and failed development checks are in the archive under
+`blueprint-workload-source/r003/`.
 
 | Next question | Evidence needed before changing the bot |
 |---|---|
@@ -114,6 +145,16 @@ not recovered by cloning. Development source digests identify scoped bytes;
 the final cleanup checkpoint does not reconstruct every intermediate dirty
 checkout used by earlier runs. No new performance claim follows from archiving
 these outputs.
+
+The September 8 work-folder cleanup additionally preserves local historical
+findings, review packets, helper originals, and development checks in
+[one recovery ZIP](../docs/archive/work-folders-2026-09-08.zip). Its `recovery.json`
+maps every original path to either a ZIP member or an exact Git blob reachable
+from `7bdef39b741c5f9968a1187d3c49d3d05b99e915`. In particular,
+`blueprint-workload-as-is/r001/findings.json` and `findings.md` are recoverable
+locally. The archive does not contain the full machine-local measured attempt or
+input corpus. Archived next-action notes and publication scripts are superseded
+reference material, not current commands.
 
 Related background: the [earlier bounded-read report](../docs/architecture/v0a-bounded-reads-r001/performance-report.md)
 measured the separate 12-trial evaluation wrapper. Its throughput results should

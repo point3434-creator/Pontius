@@ -428,3 +428,44 @@ All fifteen passed on 3.14; fourteen passed and one skipped on 3.11. Failed atte
 remain in the journal. No library module, persistent fixture file, result artifact,
 production arithmetic, or production reader changed. Historical worker names in
 journal schemas and dependency inventories remain recovery metadata.
+
+## Root work-folder cleanup — 2026-09-08
+
+**Question:** do the eight remaining work folders and two handoff files contain
+research capability or unique findings needed by future work? **Method:** inventory
+all 7,402 files, inspect reports/review dispositions and scripts, search maintained
+callers, and compare exact file bytes with Git blobs reachable from cleanup
+checkpoint `7bdef39b741c5f9968a1187d3c49d3d05b99e915`. **Result:** no live callers
+or reusable library implementation needing extraction were found. The folders
+hold one-off diagnostics, administrative scripts, source/test staging copies,
+review packets, failed development checks, and a virtual-environment bootstrap.
+
+| Retired location | Files | Finding retained |
+|---|---:|---|
+| `blueprint-design-work/` | 2 | Preparation design/adoption helpers; no measured result |
+| `blueprint-implementation-work/` | 67 | Preparation measurements and compatibility are already summarized; adoption `7242891bc8020d33737c3a027ef88d1b65bb2ace`; original failures/helpers preserved |
+| `blueprint-workload-as-is/` | 46 | 18/341 cells completed; 883-entry cap result and incomplete-run caveats remain in the blueprint summary |
+| `blueprint-workload-opening/` | 41 | Documentation review and staged design revisions; no performance execution |
+| `blueprint-workload-review/` | 2 | Design-review bundle explicitly contains no new measurements |
+| `blueprint-workload-source/` | 7,211 | Rejected lifecycle reviews and failed/passing development checks; no new research result inferred from test fixtures |
+| `bounded-read-work/` | 19 | Adopted 12-trial bounded-read result: 49.2236669 s; report and helper originals retained |
+| `performance-pass-20260907/` | 12 | Historical read-cost diagnosis, prototype identity and host-load caveats harvested below |
+| Two evaluation handoff files | 2 | Proposed upload inventory/attributes, not evidence of a completed upload |
+
+The additional useful finding is the original 500-file ABBA read probe:
+**1.300 s to 0.328 s**, with identical returned bytes/identity tokens, at source
+`5845f32f010a44d924abc2f50ae142d1c6adec1b`. Its four 12-trial diagnostic runs
+preserved behavior, but the candidate was injected in memory and timing had
+run-order/cache/host-load limitations. The [blueprint performance summary](blueprint-performance.md)
+now preserves the numbers and the distinction from the later source-bound run.
+The r003 workload review's stale qualification budget and pre-ready memory gap
+are also summarized there as historical control-flow findings, not measured
+deadline or memory excursions.
+
+**Recovery:** [work-folders-2026-09-08.zip](../docs/archive/work-folders-2026-09-08.zip)
+preserves 7,309 original files; 93 exact duplicates are recoverable from Git.
+The ZIP's `README.txt` explains recovery, and `recovery.json` records all original
+paths, byte counts, SHA-256s, and Git blob IDs where applicable. Every recovery
+entry was checked against the original bytes before removal. The 222,391,380-byte
+working set becomes one 28,019,285-byte archive. External raw-result directories
+are not included. No historical script, poker experiment, or GPU run was executed.

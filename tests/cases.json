@@ -42,5 +42,7 @@
   "test_leaf_adjoint_evaluation",
   "test_blueprint_workload_population",
   "test_blueprint_workload_measure",
-  "test_blueprint_workload_session"
+  "test_blueprint_workload_session",
+  "test_eval_bridge",
+  "test_eval_panel_tool"
 ]

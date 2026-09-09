@@ -4,13 +4,16 @@ from __future__ import annotations
 
 import base64
 import copy
+import dis
 import hashlib
 import importlib.util
+import inspect
 import io
 import json
 import os
 from pathlib import Path
 import shutil
+import signal
 import subprocess
 import sys
 import tempfile
@@ -485,6 +488,59 @@ class RealRunOwnershipTests(unittest.TestCase):
         self.assertEqual(len(rows), 1, result)
         self.assertIn("production", rows[0]["stages"])
         self.assertEqual(rows[0]["stages"]["production"]["production"]["check_total"], 0)
+
+    def test_console_interrupt_cannot_race_a_true_cleanup_certificate(self):
+        lines, first = inspect.getsourcelines(self.tool.supervise)
+        assignment = first + next(index for index, line in enumerate(lines)
+                                  if 'report["cleanup_verified"] = (' in line)
+        stores = {item.offset for item in dis.get_instructions(self.tool.supervise)
+                  if item.opname == "STORE_SUBSCR" and item.positions.lineno == assignment}
+        # CPython can duplicate a finally body along normal and exceptional paths.
+        self.assertTrue(stores, "cleanup certificate assignment was not located")
+        interrupted = []
+
+        def interrupt_at_store(frame, event, arg):
+            if (frame.f_code.co_name == "supervise"
+                    and frame.f_code.co_filename == self.tool.__file__):
+                frame.f_trace_opcodes = True
+                if event == "opcode" and frame.f_lasti in stores and not interrupted:
+                    interrupted.append(True)
+                    signal.raise_signal(signal.SIGINT)
+            return interrupt_at_store
+
+        previous = sys.gettrace()
+        try:
+            sys.settrace(interrupt_at_store)
+            code, result, _ = self.run_and_read(CAPACITY)
+        finally:
+            sys.settrace(previous)
+        self.assertEqual(interrupted, [True])
+        self.assertEqual((code, result["status"]), (1, "interrupted"))
+        self.assertFalse(result["cleanup_verified"], result["cleanup"])
+
+    def test_interrupt_at_native_job_acquisition_still_releases_the_job(self):
+        host = self.tool.load_host()
+        native_job = host.Job
+        acquired = []
+
+        def acquire_then_interrupt(*args, **kwargs):
+            job = native_job(*args, **kwargs)
+            acquired.append(job)
+            signal.raise_signal(signal.SIGINT)
+            return job
+
+        try:
+            with patch.object(host, "Job", acquire_then_interrupt):
+                code, result, _ = self.run_and_read(CAPACITY)
+            released = [job.handle is None for job in acquired]
+        finally:
+            for job in acquired:
+                if job.handle is not None:
+                    job.close()  # Fixture owns any leak; never replay a raw native handle.
+        self.assertEqual((code, result["status"]), (1, "interrupted"))
+        self.assertEqual(released, [True], "acquired native Job escaped cleanup protection")
+        self.assertEqual(result["cleanup"]["close job"], "ok")
+        self.assertFalse(result["cleanup_verified"])
 
     def test_interrupt_after_native_rename_keeps_final_file_bound(self):
         replace = os.replace

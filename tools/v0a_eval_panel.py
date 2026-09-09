@@ -343,7 +343,6 @@ def supervise(plan, context, seconds, memory_bytes, report=None):
     """
     admitted = validate_plan(plan)
     host = load_host()
-    job = host.Job(memory_limit=memory_bytes)
     events = queue.Queue()
     if report is None:
         report = dict(status="failed", observations=[], errors=[])
@@ -351,7 +350,7 @@ def supervise(plan, context, seconds, memory_bytes, report=None):
     report.update(peak_job_memory_bytes=0, cleanup_verified=False, cleanup={},
                   resource_state_verified=False)
     started = time.perf_counter()
-    process, assigned, threads = None, False, []
+    job, process, assigned, threads = None, None, False, []
 
     def receive(stream):
         try:
@@ -403,6 +402,9 @@ def supervise(plan, context, seconds, memory_bytes, report=None):
 
     with defer_interrupts(report):
         try:
+            job = host.Job(memory_limit=memory_bytes)
+            if report["status"] == "interrupted":
+                raise KeyboardInterrupt
             environment = dict(os.environ, **{CONTEXT_ENV: child_context(context)})
             process = subprocess.Popen(
                 [sys.executable, "-B", "-P", str(Path(__file__)), "worker"], cwd=ROOT,
@@ -474,10 +476,13 @@ def supervise(plan, context, seconds, memory_bytes, report=None):
                         stream, max(0, cleanup_deadline - time.perf_counter())))
                 attempt("drain", drain)
                 attempt("verify", verify)
-            attempt("close job", job.close)
-            report["cleanup_verified"] = (
-                report["resource_state_verified"]
-                and all(value == "ok" for value in report["cleanup"].values()))
+            if job is not None:
+                attempt("close job", job.close)
+    # The normal handler must be restored before finalizing this certificate. A late
+    # console interrupt then unwinds instead of silently changing its inputs mid-store.
+    report["cleanup_verified"] = (
+        report["resource_state_verified"]
+        and all(value == "ok" for value in report["cleanup"].values()))
     if admitted.document["phase"] == "preflight":
         report["sample_complete"] = complete_sample(observations, admitted) is not None
         if report["status"] == "completed" and not report["sample_complete"]:

@@ -9,6 +9,7 @@ import math
 from pontius.holdem_cards import OneSeatCardState
 from pontius.immutable_blueprint import (
     BlueprintActionEntry, BlueprintDecisionKey, ImmutableBlueprintActionSource,
+    WeightedBlueprintAction,
 )
 from pontius.no_limit_betting import (
     BettingAction, BettingActionKind, BettingActionRecord, BettingStreet,
@@ -54,7 +55,8 @@ def own_value(value, _depth=0):
         return tuple(own_value(item, _depth + 1) for item in value)
     if kind in (OneSeatCardState, NoLimitBettingState, LegalBettingDecision, RaiseBounds,
                 BettingAction, BettingActionRecord, BlueprintActionEntry, BlueprintDecisionKey,
-                ImmutableBlueprintActionSource, DecisionProposal, ProviderIdentity,
+                ImmutableBlueprintActionSource, WeightedBlueprintAction,
+                DecisionProposal, ProviderIdentity,
                 HandAction, TimingRecord, PreparationUseRecord, ProviderDecisionRecord):
         return kind(**{f.name: own_value(getattr(value, f.name), _depth + 1)
                        for f in fields(kind)})

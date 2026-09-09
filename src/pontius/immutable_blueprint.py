@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from hashlib import sha256
+from secrets import randbelow
 
 from .holdem_cards import Card, HoleCards, OneSeatCardState
 from .no_limit_betting import (
@@ -252,14 +253,58 @@ class BlueprintDecisionKey:
 
 
 @dataclass(frozen=True, slots=True)
+class WeightedBlueprintAction:
+    """Exact positive integer masses over distinct semantic actions.
+
+    Total mass is the denominator. Zero-probability actions are omitted.
+    Sorting makes selection order and serialization independent of input order.
+    """
+
+    choices: tuple[tuple[BettingAction, int], ...]
+
+    def __post_init__(self) -> None:
+        if type(self.choices) is not tuple or not self.choices:
+            raise ValueError("weighted blueprint choices must be a nonempty tuple")
+        for choice in self.choices:
+            if type(choice) is not tuple or len(choice) != 2:
+                raise TypeError("weighted choice must be an action/weight pair")
+            action, weight = choice
+            if type(action) is not BettingAction:
+                raise TypeError("weighted choice requires an exact semantic action")
+            if type(weight) is not int or weight <= 0:
+                raise ValueError("weighted choice requires a positive integer weight")
+        if len({action for action, _ in self.choices}) != len(self.choices):
+            raise ValueError("weighted blueprint contains duplicate actions")
+        if sum(weight for _, weight in self.choices) >= 2**63:
+            raise ValueError("weighted blueprint total must be smaller than 2**63")
+        ordered = tuple(sorted(self.choices, key=lambda pair: (
+            pair[0].kind.value, pair[0].raise_to or 0)))
+        object.__setattr__(self, "choices", ordered)
+
+    def sample(self) -> BettingAction:
+        """Draw once per selection; system randomness is never derived from cards."""
+        if len(self.choices) == 1:
+            return self.choices[0][0]
+        total = sum(weight for _, weight in self.choices)
+        ticket = randbelow(total)
+        if type(ticket) is not int or not 0 <= ticket < total:
+            raise ValueError("random ticket is outside the weighted distribution")
+        for action, weight in self.choices:
+            if ticket < weight:
+                return action
+            ticket -= weight
+        raise AssertionError("weighted selection exhausted a validated distribution")
+
+
+@dataclass(frozen=True, slots=True)
 class BlueprintActionEntry:
     key: BlueprintDecisionKey
-    action: BettingAction
+    action: BettingAction | WeightedBlueprintAction
 
     def __post_init__(self) -> None:
         if not isinstance(self.key, BlueprintDecisionKey):
             raise TypeError("blueprint entry key must be exact and future-blind")
-        if not isinstance(self.action, BettingAction):
+        if not isinstance(self.action, (BettingAction, WeightedBlueprintAction)):
             raise TypeError("blueprint entry action must be semantic")
 
 
@@ -284,11 +329,15 @@ def passive_blueprint_action(decision: LegalBettingDecision) -> BettingAction:
 
 
 def require_legal_blueprint_action(
-    action: BettingAction,
+    action: BettingAction | WeightedBlueprintAction,
     decision: LegalBettingDecision,
 ) -> None:
     """Fail closed unless one semantic action is inside the exact decision."""
 
+    if isinstance(action, WeightedBlueprintAction):
+        for candidate, _ in action.choices:
+            require_legal_blueprint_action(candidate, decision)
+        return
     if action.kind not in decision.action_kinds:
         raise ValueError("immutable blueprint selected an unavailable action kind")
     if action.kind is BettingActionKind.RAISE:
@@ -320,7 +369,22 @@ class ImmutableBlueprintActionSource:
         if len(set(keys)) != len(keys):
             raise ValueError("immutable blueprint contains a duplicate decision key")
 
+    @property
+    def uses_mixed_actions(self) -> bool:
+        return any(isinstance(entry.action, WeightedBlueprintAction) for entry in self.entries)
+
     def canonical_bytes(self) -> bytes:
+        if self.uses_mixed_actions:
+            rows = []
+            for entry in self.entries:
+                choices = (entry.action.choices if isinstance(entry.action, WeightedBlueprintAction)
+                           else ((entry.action, 1),))
+                rows.append((entry.key.digest, tuple(
+                    (action.kind.value, action.raise_to, weight) for action, weight in choices)))
+            return json.dumps(dict(entries=sorted(rows), source_id=self.source_id,
+                                   version="immutable-reference-blueprint-v2"),
+                              allow_nan=False, separators=(",", ":"),
+                              sort_keys=True).encode("ascii")
         entries = sorted(
             (
                 entry.key.digest,
@@ -367,6 +431,8 @@ class ImmutableBlueprintActionSource:
             else passive_blueprint_action(decision)
         )
         require_legal_blueprint_action(action, decision)
+        if isinstance(action, WeightedBlueprintAction):
+            action = action.sample()
         return BlueprintSelection(
             key=key,
             action=action,
@@ -380,6 +446,7 @@ __all__ = [
     "BlueprintDecisionKey",
     "BlueprintSelection",
     "ImmutableBlueprintActionSource",
+    "WeightedBlueprintAction",
     "passive_blueprint_action",
     "require_legal_blueprint_action",
 ]

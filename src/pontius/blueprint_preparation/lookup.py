@@ -17,6 +17,7 @@ from pontius.immutable_blueprint import (
     BlueprintDecisionKey,
     BlueprintSelection,
     ImmutableBlueprintActionSource,
+    WeightedBlueprintAction,
     passive_blueprint_action,
     require_legal_blueprint_action,
 )
@@ -29,7 +30,7 @@ class PreparedBlueprint:
 
     _canonical: bytes
     _digest: str
-    _actions: MappingProxyType[BlueprintDecisionKey, BettingAction]
+    _actions: MappingProxyType[BlueprintDecisionKey, BettingAction | WeightedBlueprintAction]
 
     def __init__(self, source: ImmutableBlueprintActionSource):
         if type(source) is not ImmutableBlueprintActionSource:
@@ -61,6 +62,8 @@ class PreparedBlueprint:
         if action is None:
             action = passive_blueprint_action(decision)
         require_legal_blueprint_action(action, decision)
+        if isinstance(action, WeightedBlueprintAction):
+            action = action.sample()
         return BlueprintSelection(
             key=own_value(key),
             action=own_value(action),

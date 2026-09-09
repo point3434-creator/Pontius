@@ -28,7 +28,7 @@ the brainstorming caused an earlier result.
 | Regularize search against imperfect leaves | [Solver foundations](solver-foundations.md): selected anchored averages helped, but depth-one replacement harmed a strong blueprint even with exact leaves. [Safe search](safe-search.md): certification plus fallback has useful reduced-game evidence. | **Motivation, not validation.** Compare one declared regularized method against average-policy controls and no-op; do not assume the final iterate is better. |
 | Spend model accuracy on important decisions and deviations | [Solver foundations](solver-foundations.md): matched root-error trials improved 0/20 times when localized to low-reach leaves, versus 19/20 or 20/20 in high-reach groups. | **Direct reason to reject a reach-only error objective.** Test downstream policy quality and rare profitable deviations; this does not validate a neural uncertainty score. |
 | Adapt a compact action menu | [Action abstraction](action-abstraction.md): context-dependent width three recovered 97.2310% aggregate available gain on 16 fresh qualified h4 heads-up river contexts, with fold/call responders. Earlier variants failed. | **Strongest existing policy-design connection.** Extend narrowly; test equivalent-action invariance before adding a regularizer. No global bet ladder or full-game result follows. |
-| Distill a useful policy into a deployable blueprint | [Bot validation](bot-validation.md): runtime, codec, replay, and evaluation components work in their tested scopes. [Blueprint performance](blueprint-performance.md): 883 history-rich entries fit just below 1 MiB; keys occupy 95.7%. | **Available plumbing, missing strength evidence.** A small trained artifact is a useful next bridge. Capacity is representation-specific; a warm lookup benchmark is not a training result. |
+| Distill a useful policy into a deployable blueprint | [Bot validation](bot-validation.md): weighted export preserves tested policies. The next 768-hand / 96-session comparison rejected a coarse transferable fallback and simple prior pooling despite correct execution. One average improvement concealed a 0.830-chip regression. [Blueprint performance](blueprint-performance.md): history-rich keys also constrain capacity. | **Preserving a policy is solved within the tested domain; improving it still needs better state features and objectives.** Test range composition and conditional acceptance against the retained counterexample, then use fresh final cases. No full-game strength follows. |
 | Use coherent opponent regimes and robust continuations | Existing multiplayer evaluation separates unilateral improvement, aggregate NashConv, and stronger opponent assumptions. | **Open modeling question.** No validated latent-opponent model or full-game exploitation floor is established. Start with complete, explicit continuation profiles. |
 
 ## Ranked research sequence
@@ -120,15 +120,39 @@ exact reference and comparison to explicit exploration.
 
 ## Practical bot track alongside the scientific sequence
 
-1. **Create a small trained-policy deployment bridge.** Choose an already
-   exactly evaluable abstraction, export through the existing codec/provider,
-   and compare its decisions with the teacher. Make unsupported states and
-   fallback explicit. This tests training-to-runtime integration; it does not
-   establish full-game strength or require waiting for six-dealt exactness.
-2. **Establish a fresh deal/opponent evaluation panel.** Separate development
+The active-action integration prerequisite now has a passing bounded result:
+[48 diagnostic sessions](blueprint-performance.md#what-changed-and-what-remains-open)
+covered bets, re-raises, folds, all-in calls and deliberate fallback. These are
+hand-built actions. The subsequent trained river pilot passed its runtime
+bridge but failed its deterministic-export quality gate. The weighted follow-up
+preserved quality through serialization and per-hand sampled-table execution.
+Native weighted artifacts now also pass 100 direct hands and 36 subprocess
+sessions, with sampling charged inside the decision interval.
+The six-board panel then passed 576 direct hands and 48 sessions: four trained
+roots retained quality, two deliberately uncovered roots used passive fallback,
+and three covered roots became substantially more exploitable under reversed
+prior weights. Maximum session response remained below one millisecond for the
+48,097-byte artifact. Those are finite-panel findings, not a full-game ranking.
+Measure supported-state coverage explicitly alongside decision quality; exact
+history keys can miss on new trajectories.
+
+1. **Repair the measured policy failures before broader deployment.** The
+   follow-up comparison rejected both first candidates. Range-strength-bin
+   fallback improved mean worst tested NashConv 37.62% but harmed an already-safe
+   root by 0.830 chips; pooled-prior training worsened mean worst performance
+   17.39%. Use the low-pair counterexample to test betting-range composition as
+   an additional feature, and compare an explicit worst-case objective with
+   simple prior averaging. A per-situation acceptance check with fallback is
+   a useful control for unconditional replacement. Keep the baseline intact,
+   evaluate all candidates under identical priors including their misses, and
+   freeze new final cases before selecting a revision. The three failed final
+   roots are now development evidence. A better finite table alone still does
+   not demonstrate unseen-board generalization or full-game strength.
+2. **Establish independent paired playing evaluation.** Separate development
    from held-out deals, use matched randomness where appropriate, and report
-   uncertainty. The existing fixed-policy comparison used only two deals;
-   it cannot rank general playing strength.
+   uncertainty that respects shared roots and deals. Compare complete policies
+   including their fallbacks. The existing fixed-policy comparison used only
+   two deals; it cannot rank general playing strength.
 3. **Measure actual live preparation reuse and clock margins.** The direct
    eight-hand reuse measurement excludes transport and decode. A runtime change
    still needs an explicit lifetime/mutation contract and first-decision ledger

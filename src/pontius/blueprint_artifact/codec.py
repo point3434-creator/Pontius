@@ -1,4 +1,4 @@
-"""Strict deterministic byte codec for immutable blueprint action sources."""
+"""Strict canonical byte codec for fixed or weighted immutable blueprints."""
 
 from __future__ import annotations
 
@@ -8,6 +8,7 @@ from pontius.immutable_blueprint import (
     BlueprintActionEntry,
     BlueprintDecisionKey,
     ImmutableBlueprintActionSource,
+    WeightedBlueprintAction,
 )
 from pontius.no_limit_betting import (
     BettingAction,
@@ -18,6 +19,7 @@ from pontius.no_limit_betting import (
 
 
 _ARTIFACT_VERSION = "pontius-v0a-blueprint-artifact-v1"
+_WEIGHTED_ARTIFACT_VERSION = "pontius-v0a-blueprint-artifact-v2"
 _KEY_VERSION = "blueprint-decision-key-v1"
 _INTEGER_LIMIT = 10**640
 _ROOT_FIELDS = frozenset({"version", "source_id", "entries"})
@@ -184,7 +186,7 @@ def _key(value: object, path: str, *, wire: bool) -> tuple[BlueprintDecisionKey,
     return rebuilt, document
 
 
-def _action(value: object, path: str, *, wire: bool) -> tuple[BettingAction, dict]:
+def _single_action(value: object, path: str, *, wire: bool) -> tuple[BettingAction, dict]:
     if wire:
         data = _object(value, _ACTION_FIELDS, path)
         kind = _label(data["kind"], BettingActionKind, f"{path}.kind")
@@ -204,13 +206,44 @@ def _action(value: object, path: str, *, wire: bool) -> tuple[BettingAction, dic
     return rebuilt, {"kind": kind.value, "raise_to": raise_amount}
 
 
+def _action(value: object, path: str, *, wire: bool, allow_weighted: bool):
+    weighted = (type(value) is dict and "choices" in value) if wire else (
+        type(value) is WeightedBlueprintAction)
+    if not weighted:
+        return _single_action(value, path, wire=wire)
+    if not allow_weighted:
+        _refuse(path, "weighted choices require artifact v2")
+    raw_choices = (_object(value, frozenset({"choices"}), path)["choices"] if wire
+                   else _slot(value, "choices", path))
+    choices, serialized = [], []
+    for index, raw in enumerate(_sequence(raw_choices, f"{path}.choices", wire=wire)):
+        location = f"{path}.choices[{index}]"
+        if wire:
+            row = _object(raw, frozenset({"action", "weight"}), location)
+            raw_action, raw_weight = row["action"], row["weight"]
+        else:
+            raw_action, raw_weight = _sequence(raw, location, wire=False, width=2)
+        action, action_document = _single_action(raw_action, f"{location}.action", wire=wire)
+        weight = _integer(raw_weight, f"{location}.weight", lower=1, upper=2**63)
+        choices.append((action, weight))
+        serialized.append((action, dict(action=action_document, weight=weight)))
+    rebuilt = WeightedBlueprintAction(tuple(choices))
+    if not wire and rebuilt != value:
+        _refuse(path, "is not a canonical weighted action graph")
+    ordered = [row for _, row in sorted(serialized, key=lambda pair: (
+        pair[0].kind.value, pair[0].raise_to or 0))]
+    return rebuilt, {"choices": ordered}
+
+
 def _admit(document: object, *, wire: bool) -> tuple[ImmutableBlueprintActionSource, dict]:
     if wire:
         root = _object(document, _ROOT_FIELDS, "root")
-        if _text(root["version"], "root.version") != _ARTIFACT_VERSION:
+        version = _text(root["version"], "root.version")
+        if version not in (_ARTIFACT_VERSION, _WEIGHTED_ARTIFACT_VERSION):
             _refuse("root.version", "unsupported version")
         source_id, raw_entries = _text(root["source_id"], "root.source_id"), root["entries"]
     else:
+        version = _WEIGHTED_ARTIFACT_VERSION
         if type(document) is not ImmutableBlueprintActionSource:
             _refuse("source", "must be an exact ImmutableBlueprintActionSource")
         source_id = _text(_slot(document, "source_id", "source"), "source.source_id")
@@ -230,14 +263,16 @@ def _admit(document: object, *, wire: bool) -> tuple[ImmutableBlueprintActionSou
             raw_key = _slot(raw, "key", path)
             raw_action = _slot(raw, "action", path)
         key, key_document = _key(raw_key, f"{path}.key", wire=wire)
-        action, action_document = _action(raw_action, f"{path}.action", wire=wire)
+        action, action_document = _action(raw_action, f"{path}.action", wire=wire,
+                                         allow_weighted=version == _WEIGHTED_ARTIFACT_VERSION)
         admitted.append(BlueprintActionEntry(key, action))
         serialized.append((key, {"key": key_document, "action": action_document}))
     source = ImmutableBlueprintActionSource(source_id, tuple(admitted))
     if not wire and source != document:
         _refuse("source", "is not a canonical exact source graph")
     ordered = [item for _, item in sorted(serialized, key=lambda pair: pair[0].canonical_bytes())]
-    return source, {"version": _ARTIFACT_VERSION, "source_id": source_id, "entries": ordered}
+    output_version = _WEIGHTED_ARTIFACT_VERSION if source.uses_mixed_actions else _ARTIFACT_VERSION
+    return source, {"version": output_version, "source_id": source_id, "entries": ordered}
 
 
 def _pairs(pairs: list[tuple[str, object]]) -> dict[str, object]:

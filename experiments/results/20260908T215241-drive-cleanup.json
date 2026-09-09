@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "source_commit": "b378104cd2934f248a9545d7d482b0db25db813c",
+  "snapshot_directories_removed": 420,
+  "original_files": 754470,
+  "original_bytes": 157335954043,
+  "archive_bytes": 638310386,
+  "observed_free_increase_bytes": 158446497792,
+  "free_before_bytes": 593212891136,
+  "free_after_bytes": 751659388928,
+  "restore_checks_passed": 6,
+  "archives": [
+    {
+      "path": "D:\\Pontius-local-archive\\2026-09-08\\snapshots-deduplicated.zip",
+      "sha256": "fa21a37a1d6812d2d71594d0f41820b8720792f6e38a274b43d8eddf7c2618f7",
+      "bytes": 55196587,
+      "original_files": 150581,
+      "original_bytes": 29850966101
+    },
+    {
+      "path": "D:\\Pontius-local-archive\\2026-09-08\\research-snapshots-deduplicated.zip",
+      "sha256": "d7ec4972007c4204ba548fded131ce44699dc78f17545fdc29d1508c23d8e21f",
+      "bytes": 350124822,
+      "original_files": 589623,
+      "original_bytes": 124054661196
+    },
+    {
+      "path": "D:\\Pontius-local-archive\\2026-09-08\\review-snapshots-deduplicated.zip",
+      "sha256": "e484cb6b3f6d7b3ef70d0e5f62b338d62369adf61e05de272323c2768aea5386",
+      "bytes": 232988977,
+      "original_files": 14266,
+      "original_bytes": 3430326746
+    }
+  ],
+  "preserved_junction_folders": [
+    "D:\\pontius-snapshots\\v0a-i01-r002-4b9831493f2b4f30acc081e8df5e8654",
+    "D:\\pontius-snapshots\\v0a-i01-r002-c988362507a842839a2e58c1d6907e19"
+  ],
+  "preserved_loose_files": 261,
+  "preserved_tracked_originals": 17,
+  "repository_status": "D:/Pontius clean and synchronized with origin/master",
+  "duration_seconds": 2958.7337923049927
+}

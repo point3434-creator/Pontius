@@ -49,6 +49,8 @@ class BaselineProvider(BlueprintProvider):
 
     def __init__(self, blueprint):
         super().__init__(blueprint)
+        if self._blueprint.uses_mixed_actions:
+            raise ValueError('baseline requires a deterministic fallback blueprint')
         config = dict(max_raises_per_street=1, playable_any_pair=True, playable_rank_min=10,
             playable_suited_ace=True, postflop_pair_call_cap_bb=1, postflop_two_pair_call_cap_bb=2,
             preflop_call_cap_bb=2, premium_ace_kickers=[12, 13], premium_call_cap_bb=None,

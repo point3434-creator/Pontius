@@ -23,6 +23,7 @@ from ..immutable_blueprint import (
     BlueprintDecisionKey,
     BlueprintSelection,
     ImmutableBlueprintActionSource,
+    WeightedBlueprintAction,
     passive_blueprint_action,
     require_legal_blueprint_action,
 )
@@ -79,6 +80,7 @@ class InvalidBlueprintEntryError(RuntimeError):
 
 _POLICY_RECORD_TYPES = (
     ImmutableBlueprintActionSource, BlueprintActionEntry, BlueprintDecisionKey,
+    WeightedBlueprintAction,
     BettingAction, BettingActionRecord, OneSeatCardState, NoLimitBettingState,
     LegalBettingDecision, RaiseBounds,
 )

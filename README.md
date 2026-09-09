@@ -61,6 +61,19 @@ the journal also records the hash of the actual source bytes. The recorded
 scope includes source, tools, tests and fixtures, CI, dependency files, and Git
 text attributes; archived documents and retained run outputs are excluded.
 
+The `blueprint-v1` strategy accepts deterministic artifact v1 and weighted
+artifact v2. Use `WeightedBlueprintAction(((CALL, 2), (FOLD, 1)))` from
+`pontius.immutable_blueprint` as an entry's action to call with probability 2/3.
+Weights are positive integers, actions are distinct, and total weight must be
+less than `2**63`; omit zero-probability actions. The codec selects v2 when any
+entry is weighted and preserves v1 bytes for deterministic tables. Every action
+in a matching distribution must be legal. Sampling uses system randomness inside
+the decision clock; misses retain passive fallback. The rule-based baseline
+still requires a deterministic fallback table. Repeatable unit tests inject
+draws; normal sessions use fresh randomness. The
+[native river result](experiments/bot-validation.md#native-weighted-artifact-and-subprocess-sessions)
+documents the current small-game evidence and limits.
+
 The blueprint benchmark reuses an existing `population.json`, `plan.json`, and
 their referenced artifacts. For a focused check:
 

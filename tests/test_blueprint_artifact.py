@@ -79,6 +79,37 @@ class StepClock:
         self.now += 1_000
         return self.now
 class BlueprintArtifactTests(unittest.TestCase):
+    def test_weighted_artifact_round_trip_and_identity(self):
+        from pontius.immutable_blueprint import WeightedBlueprintAction
+        from pontius.no_limit_betting import CALL, FOLD
+        action = WeightedBlueprintAction(((CALL, 2), (FOLD, 1)))
+        source = expected_raise(action)
+        raw = encode_blueprint(source)
+        self.assertEqual(json.loads(raw)['version'], 'pontius-v0a-blueprint-artifact-v2')
+        self.assertEqual(decode_blueprint(raw), source)
+        self.assertEqual(encode_blueprint(decode_blueprint(raw)), raw)
+        self.assertEqual(source.digest, expected_raise(
+            WeightedBlueprintAction(((FOLD, 1), (CALL, 2)))).digest)
+        self.assertNotEqual(source.digest, expected_raise(
+            WeightedBlueprintAction(((CALL, 1), (FOLD, 2)))).digest)
+        self.assertEqual(encode_blueprint(expected_raise()), RAISE.read_bytes())
+
+    def test_weighted_artifact_rejects_malformed_weights_and_mixed_v1(self):
+        from pontius.immutable_blueprint import WeightedBlueprintAction
+        from pontius.no_limit_betting import CALL, FOLD
+        raw = encode_blueprint(expected_raise(WeightedBlueprintAction(((CALL, 2), (FOLD, 1)))))
+        for weight in (0, -1, True, 0.5, '2', 2**63):
+            document = json.loads(raw)
+            document['entries'][0]['action']['choices'][0]['weight'] = weight
+            self.assert_refused(json.dumps(document).encode())
+        document = json.loads(raw)
+        document['version'] = 'pontius-v0a-blueprint-artifact-v1'
+        self.assert_refused(json.dumps(document).encode())
+        for choices in ((), ((CALL, 0),), ((CALL, 1), (CALL, 2)),
+                        ((CALL, 2**62), (FOLD, 2**62))):
+            with self.assertRaises((ValueError, TypeError)):
+                WeightedBlueprintAction(choices)
+
     def assert_refused(self, raw: object) -> None:
         self.assertRaises(BlueprintArtifactError, decode_blueprint, raw)
     def test_handwritten_fixtures_full_keys_actions_and_canonical_bytes(self) -> None:

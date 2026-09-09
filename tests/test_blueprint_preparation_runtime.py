@@ -53,6 +53,85 @@ def table(action=CALL, hit=True):
 
 
 class PreparedRuntimeTests(unittest.TestCase):
+    def test_weighted_seeded_replay_and_owned_probabilities(self):
+        import random
+        from pontius.immutable_blueprint import WeightedBlueprintAction
+        from pontius.no_limit_betting import FOLD
+        source = table(WeightedBlueprintAction(((CALL, 2), (FOLD, 1))))
+        def sequence():
+            generator = random.Random(92184)
+            actions = []
+            with patch('pontius.immutable_blueprint.randbelow', side_effect=generator.randrange):
+                for _ in range(30):
+                    runtime = self.make_runtime(source)
+                    actions.append(runtime.dispatch(start()).decision.selected_action.kind)
+            return actions
+        first = sequence()
+        self.assertEqual(first, sequence())
+        self.assertEqual(set(first), {'call', 'fold'})
+        runtime = self.make_runtime(source)
+        object.__setattr__(source.entries[0].action, 'choices', ((FOLD, 1),))
+        with patch('pontius.immutable_blueprint.randbelow', return_value=0):
+            result = runtime.dispatch(start())
+        self.assertEqual(result.decision.selected_action.kind, 'call')
+
+    def test_weighted_sampling_cutoff_is_visible_in_the_ledger(self):
+        from pontius.immutable_blueprint import WeightedBlueprintAction
+        from pontius.no_limit_betting import FOLD
+        clock = Clock()
+        runtime = self.make_runtime(table(WeightedBlueprintAction(((CALL, 2), (FOLD, 1)))),
+                                    clock=clock)
+        def delayed(total):
+            clock.now = 14_000_000_000
+            return 0
+        with patch('pontius.immutable_blueprint.randbelow', side_effect=delayed):
+            result = runtime.dispatch(start())
+        self.assertEqual(result.failure.code, FailureCode.WORK_CUTOFF_EXCEEDED)
+        self.assertTrue(result.decision.timing.work_cutoff_crossed)
+        self.assertEqual(result.decision.timing.elapsed_ns, 14_000_000_000)
+
+    def test_weighted_choices_are_sampled_once_inside_charged_interval(self):
+        from pontius.immutable_blueprint import WeightedBlueprintAction
+        from pontius.no_limit_betting import FOLD
+        for ticket, expected in ((0, CALL), (1, CALL), (2, FOLD)):
+            clock, mailbox = Clock(), Mailbox()
+            source = table(WeightedBlueprintAction(((CALL, 2), (FOLD, 1))))
+            runtime = self.make_runtime(source, clock=clock, mailbox=mailbox)
+            def draw(total):
+                self.assertEqual(total, 3)
+                clock.now += 3_000_000
+                return ticket
+            with patch('pontius.immutable_blueprint.randbelow', side_effect=draw) as sampled:
+                result = runtime.dispatch(start())
+            sampled.assert_called_once_with(3)
+            self.assertEqual(result.status, 'decided')
+            self.assertEqual(result.decision.selected_action,
+                             HandAction.from_betting_action(expected))
+            self.assertEqual(result.decision.timing.elapsed_ns, 3_000_000)
+            self.assertEqual(result.decision.selection_reason, 'table_hit')
+            self.assertEqual(len(mailbox.envelopes), 1)
+
+    def test_illegal_weighted_support_is_refused_before_sampling(self):
+        from pontius.immutable_blueprint import WeightedBlueprintAction
+        source = table(WeightedBlueprintAction(((CALL, 100), (raise_to(1), 1))))
+        runtime = self.make_runtime(source)
+        with patch('pontius.immutable_blueprint.randbelow') as sampled:
+            result = runtime.dispatch(start())
+        sampled.assert_not_called()
+        self.assertEqual(result.failure.code, FailureCode.INVALID_BLUEPRINT_ENTRY)
+
+    def test_weighted_miss_does_not_draw_and_baseline_rejects_mixed_fallback(self):
+        from pontius.immutable_blueprint import WeightedBlueprintAction
+        from pontius.no_limit_betting import FOLD
+        source = table(WeightedBlueprintAction(((CALL, 2), (FOLD, 1))))
+        with self.assertRaisesRegex(ValueError, 'deterministic'):
+            self.make_runtime(source, strategy='baseline-rules-v1')
+        runtime = self.make_runtime(table(hit=False))
+        with patch('pontius.immutable_blueprint.randbelow') as sampled:
+            result = runtime.dispatch(start())
+        sampled.assert_not_called()
+        self.assertEqual(result.decision.selection_reason, 'passive_default')
+
     def make_runtime(self, blueprint=None, strategy='blueprint-v1', clock=None, mailbox=None):
         return HandRuntime(blueprint=blueprint or table(), strategy=strategy,
             source_manifest_sha256='1'*64, clock=clock or Clock(), mailbox=mailbox or Mailbox())

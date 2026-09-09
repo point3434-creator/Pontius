@@ -1,0 +1,1 @@
+{"error": "Refusal: input_invalid", "experiment_sha256": "beb9467b4a75454a70405bb1733823f853d1843a0ba22583c482c950f2bfe124", "planned": 48, "source_sha256": "1768ee6762a543d3638897ffb1b837e22d4989d610a54f739f009ee09e56230b", "source_verified": true, "status": "failed", "summary": "0/48 active diagnostic session cells; failed; 2.023s", "total_seconds": 2.0227528000000348}

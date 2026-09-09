@@ -1,0 +1,1 @@
+{"big_blind":2,"button":0,"controlled_seat":0,"hands":[{"board_runout":[27,31,24,36,0],"private_hands":[[30,50],[3,10],[18,40],[26,46],[5,35],[19,43]]}],"opponents":[null,"passive","fold_to_bet","passive","passive","passive"],"small_blind":1,"starting_stacks":[200,200,200,200,200,200],"version":"pontius-v0a-table-session-v1"}

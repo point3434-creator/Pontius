@@ -19,6 +19,7 @@ import sys
 import tempfile
 import threading
 import time
+import tracemalloc
 import unittest
 from unittest.mock import patch
 from contextlib import redirect_stdout
@@ -136,11 +137,96 @@ class PlanAdmissionTests(unittest.TestCase):
                                        ("development_hands",), as_ad * 2))
 
 
+class TimingTests(unittest.TestCase):
+    def test_body_runs_once_without_tracing_and_marks_memory_unavailable(self):
+        calls = []
+        value = object()
+
+        def body():
+            calls.append(tracemalloc.is_tracing())
+            return value
+
+        actual, cost = TOOL.measure(body)
+        self.assertIs(actual, value)
+        self.assertEqual(calls, [False])
+        self.assertFalse(tracemalloc.is_tracing())
+        self.assertEqual(cost["timing_mode"], "untraced-body-v1")
+        self.assertIsNone(cost["traced_peak_bytes"])
+        self.assertEqual(cost["traced_peak_status"], "not_collected")
+        self.assertGreaterEqual(cost["elapsed_seconds"], 0)
+        self.assertGreaterEqual(cost["cpu_seconds"], 0)
+
+    def test_preexisting_tracer_is_refused_without_calling_body_or_stopping_it(self):
+        calls = []
+        tracemalloc.start()
+        try:
+            with self.assertRaisesRegex(ValueError, "tracing"):
+                TOOL.measure(lambda: calls.append(True))
+            self.assertEqual(calls, [])
+            self.assertTrue(tracemalloc.is_tracing())
+        finally:
+            tracemalloc.stop()
+
+    def test_tracer_started_by_body_prevents_a_mislabeled_cost(self):
+        try:
+            with self.assertRaisesRegex(ValueError, "tracing"):
+                TOOL.measure(tracemalloc.start)
+            self.assertTrue(tracemalloc.is_tracing())
+        finally:
+            tracemalloc.stop()
+
+    def test_clocks_cover_only_the_single_body_not_tracer_or_postcheck_cost(self):
+        clock, calls = [0.0, 0.0], []
+        real_stop, real_state = tracemalloc.stop, tracemalloc.is_tracing
+
+        def state():
+            clock[0] += 100
+            clock[1] += 50
+            return real_state()
+
+        def teardown():
+            real_stop()
+            clock[0] += 1000
+            clock[1] += 500
+
+        def body():
+            calls.append(True)
+            clock[0] += 3
+            clock[1] += 2
+            return "body result"
+
+        with (patch.object(TOOL.time, "perf_counter", side_effect=lambda: clock[0]),
+              patch.object(TOOL.time, "process_time", side_effect=lambda: clock[1]),
+              patch.object(TOOL.tracemalloc, "is_tracing", side_effect=state),
+              patch.object(TOOL.tracemalloc, "stop", side_effect=teardown)):
+            value, cost = TOOL.measure(body)
+        self.assertEqual((value, calls), ("body result", [True]))
+        self.assertEqual((cost["elapsed_seconds"], cost["cpu_seconds"]), (3, 2))
+
+    def test_body_exception_propagates_without_a_second_invocation(self):
+        failure, calls = RuntimeError("body failed"), []
+
+        def body():
+            calls.append(tracemalloc.is_tracing())
+            raise failure
+
+        with self.assertRaises(RuntimeError) as caught:
+            TOOL.measure(body)
+        self.assertIs(caught.exception, failure)
+        self.assertEqual(calls, [False])
+        self.assertFalse(tracemalloc.is_tracing())
+
+
 class WorkerTests(unittest.TestCase):
     def test_capacity_phase_emits_boundary_bytes(self):
         events = collect(CAPACITY)
         self.assertEqual([event["event"] for event in events], ["ready", "observation"])
         observation = events[1]
+        for event in events:
+            cost = event["initialization_cost"] if event["event"] == "ready" else event["cost"]
+            self.assertEqual(cost["timing_mode"], "untraced-body-v1")
+            self.assertIsNone(cost["traced_peak_bytes"])
+            self.assertEqual(cost["traced_peak_status"], "not_collected")
         self.assertEqual(observation["probe"]["cap"], 1048576)
         self.assertTrue(0 < observation["probe"]["largest_fitting"] <= 1081)
         self.assertEqual(len(observation["boundary_base64"]),
@@ -191,12 +277,28 @@ class WorkerTests(unittest.TestCase):
         for unit in admitted.schedule:
             role, board, hand = unit.record_key
             stages = {name: {} for name in TOOL.STAGES}
-            stages["production"] = dict(cost=dict(elapsed_seconds=0.5))
+            stages["production"] = dict(cost=dict(
+                elapsed_seconds=0.5, timing_mode="untraced-body-v1",
+                traced_peak_bytes=None, traced_peak_status="not_collected"))
             stages["comparison"] = dict(comparison=dict(passed=True))
             rows.append(dict(kind="preflight", label=role, board=list(board), hand=hand,
                              complete=True, stages=stages))
         estimate = TOOL.full_pool_estimate(rows, 1081, admitted)
         self.assertEqual((estimate["kind"], estimate["sample"]), ("estimate", 4))
+        self.assertEqual(estimate["timing_mode"], "untraced-body-v1")
+        self.assertIn("without allocation tracing", estimate["assumptions"])
+        self.assertEqual(estimate["production_seconds_mean"], 540.5)
+        for key, value in (("timing_mode", ...), ("timing_mode", "traced-body-v1"),
+                           ("timing_mode", "unknown"), ("traced_peak_bytes", 0),
+                           ("traced_peak_bytes", ...), ("traced_peak_status", ...),
+                           ("traced_peak_status", "collected")):
+            invalid = altered(rows[2], ("stages", "production", "cost", key), value)
+            incompatible = copy.deepcopy(rows)
+            incompatible[2] = invalid
+            refused = TOOL.full_pool_estimate(incompatible, 1081, admitted)
+            self.assertEqual(refused["kind"], "not_estimated")
+            self.assertIn("timing", refused["reason"])
+            self.assertNotIn("production_seconds_mean", refused)
         rows[3]["complete"] = False
         partial = TOOL.full_pool_estimate(rows, 1081, admitted)
         self.assertEqual(partial["kind"], "not_estimated")
@@ -219,6 +321,9 @@ class WorkerTests(unittest.TestCase):
         self.assertTrue(events[2]["repeat_matches"])
         for event in events[1:-1]:
             self.assertIn("elapsed_seconds", event["cost"])
+            self.assertEqual(event["cost"]["timing_mode"], "untraced-body-v1")
+            self.assertIsNone(event["cost"]["traced_peak_bytes"])
+            self.assertEqual(event["cost"]["traced_peak_status"], "not_collected")
             self.assertIn("hits", event["cache_after"])
 
     def test_exhausted_budget_stops_before_the_next_hand(self):
@@ -233,11 +338,44 @@ class WorkerTests(unittest.TestCase):
 
 
 class RealSupervisorTests(unittest.TestCase):
-    """Each case launches the actual worker inside the actual Job; nothing is mocked."""
+    """Actual workers and Jobs; controlled triggers never substitute native resource results."""
 
     @classmethod
     def setUpClass(cls):
         cls.context = begin_run(ROOT, allow_working_tree=True)
+
+    def stop_at_reference_budget(self):
+        """Hold the real reference entry; the real supervisor/Job enforce the deadline."""
+        control_source = '''import pathlib, runpy, sys, threading
+target, marker = map(pathlib.Path, sys.argv[1:])
+reference = target.parent.parent / "src/pontius/eval_bridge.py"
+def hold(frame, event, argument):
+    if (event == "call" and frame.f_code.co_name == "build_reference"
+            and pathlib.Path(frame.f_code.co_filename) == reference):
+        sys.setprofile(None)
+        marker.write_bytes(b"reference entered")
+        threading.Event().wait(30)
+sys.setprofile(hold)
+sys.argv = [str(target), "worker"]
+runpy.run_path(str(target), run_name="__main__")
+'''
+        real_popen, launches = subprocess.Popen, []
+        with tempfile.TemporaryDirectory() as directory:
+            wrapper, marker = Path(directory) / "control.py", Path(directory) / "entered"
+            wrapper.write_text(control_source, encoding="utf-8")
+
+            def launch(argv, *args, **kwargs):
+                if len(argv) == 5 and Path(argv[3]) == Path(TOOL.__file__) and argv[4] == "worker":
+                    launches.append(True)
+                    argv = [*argv[:3], str(wrapper), argv[3], str(marker)]
+                return real_popen(argv, *args, **kwargs)
+
+            with patch.object(TOOL.subprocess, "Popen", side_effect=launch):
+                report = TOOL.supervise(
+                    royal_subset(seconds=6), self.context, 6, 2048 * 1024 * 1024)
+            self.assertEqual(launches, [True])
+            self.assertEqual(marker.read_bytes(), b"reference entered")
+        return report
 
     def test_capacity_runs_to_completion_under_containment(self):
         report = TOOL.supervise(CAPACITY, self.context, 600, 2048 * 1024 * 1024)
@@ -259,7 +397,7 @@ class RealSupervisorTests(unittest.TestCase):
 
         with patch.object(host.Job, "active", failing_query), \
                 patch.object(threading.Thread, "join", failing_join):
-            report = TOOL.supervise(royal_subset(seconds=6), self.context, 6, 2048 * 1024 * 1024)
+            report = self.stop_at_reference_budget()
         cleanup = report["cleanup"]
         self.assertEqual(report["status"], "budget_exhausted", report)
         self.assertFalse(report["cleanup_verified"])
@@ -303,7 +441,7 @@ class RealSupervisorTests(unittest.TestCase):
         self.assertEqual(report["observations"], [])
 
     def test_budget_kill_during_reference_keeps_the_completed_production_stage(self):
-        report = TOOL.supervise(royal_subset(seconds=6), self.context, 6, 2048 * 1024 * 1024)
+        report = self.stop_at_reference_budget()
         self.assertEqual(report["status"], "budget_exhausted", report)
         self.assertTrue(report["cleanup_verified"])
         self.assertEqual(len(report["observations"]), 1)
@@ -457,6 +595,17 @@ class RealRunOwnershipTests(unittest.TestCase):
         self.assertTrue(controls[0]["complete"])
         self.assertEqual((result["full_pool_estimate"]["kind"],
                           result["full_pool_estimate"]["sample"]), ("estimate", 4))
+        estimate = result["full_pool_estimate"]
+        self.assertEqual(estimate["timing_mode"], "untraced-body-v1")
+        self.assertIn("without allocation tracing", estimate["assumptions"])
+        costs = [row["stages"]["production"]["cost"]["elapsed_seconds"] for row in development]
+        self.assertEqual(estimate["production_seconds_mean"], sum(costs) / 4 * estimate["hands"])
+        for row in rows:
+            for stage in row["stages"].values():
+                self.assertEqual(stage["cost"]["timing_mode"], "untraced-body-v1")
+                self.assertIsNone(stage["cost"]["traced_peak_bytes"])
+                self.assertEqual(stage["cost"]["traced_peak_status"], "not_collected")
+        self.assertGreater(result["peak_job_memory_bytes"], 0)
 
     def test_interrupt_after_cleanup_retains_real_drained_stages(self):
         host = self.tool.load_host()

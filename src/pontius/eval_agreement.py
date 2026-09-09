@@ -7,6 +7,7 @@ import json
 import math
 
 from .blueprint_preparation.lookup import PreparedBlueprint
+from .decision_provider.codec import validate_decision
 from .eval_bridge import hand_name, replay_root, root_key
 from .holdem_cards import OneSeatCardState, SixSeatHoldemDeal
 from .legal_decision_spine_v2 import public_betting_state_sha256
@@ -36,11 +37,61 @@ def require(condition, cause):
         raise Unusable(cause)
 
 
+def exact_fields(value, fields, cause):
+    require(type(value) is dict and set(value) == set(fields), cause)
+
+
+def exact_integer(value, expected):
+    return type(value) is int and value == expected
+
+
+def parsed_action(value):
+    exact_fields(value, ('kind', 'raise_to'), 'wire:action_fields')
+    return HandAction(**value)
+
+
+def admitted_decision(record, protocol, ready):
+    """Validate received shapes before constructors can normalize or supply defaults."""
+    clean(record, 'decision')
+    if protocol.endswith('v2'):
+        validate_decision(record)
+        require(all(record[k] == ready[k]
+                    for k in ('provider', 'config_sha256', 'source_manifest_sha256'))
+                and record['fallback_blueprint_sha256'] == ready['blueprint_sha256'],
+                'wire:provider_identity')
+        require(record['delivery_status'] == 'accepted'
+                and record['delivered_action'] == record['applied_action']
+                == record['selected_action'], 'wire:delivery')
+    else:
+        exact_fields(record, DecisionRecord.__dataclass_fields__, 'wire:decision_fields')
+        prep = record['preparation_use']
+        exact_fields(prep, PreparationUseRecord.__dataclass_fields__, 'wire:preparation_fields')
+        require(prep['producer_status'] == 'producer_absent'
+                and type(prep['artifact_sha256s']) is list and prep['artifact_sha256s'] == []
+                and exact_integer(prep['credited_seconds'], 0), 'wire:preparation_absence')
+        # Unknown string labels remain observable agreement disagreements, never defaults.
+        require(type(record['selection_reason']) is str, 'wire:selection_reason_type')
+    exact_fields(record['timing'], TimingRecord.__dataclass_fields__, 'wire:timing_fields')
+    timing = dict(record['timing'])
+    timing['status'] = TimingStatus(timing['status'])
+    parsed = TimingRecord(**timing)
+    require(parsed.status is TimingStatus.COMPLETED and not parsed.work_cutoff_crossed
+            and not parsed.deadline_crossed and parsed.elapsed_ns <= 15_000_000_000,
+            'wire:decision_timing')
+    require(abs(parsed.response_compute_seconds + parsed.response_uninstrumented_seconds
+                - parsed.elapsed_ns / 1e9) <= 2e-9, 'wire:decision_timing')
+    if protocol.endswith('v1'):
+        DecisionRecord(**dict(record, timing=parsed,
+            selected_action=parsed_action(record['selected_action']),
+            preparation_use=PreparationUseRecord(**dict(prep, artifact_sha256s=())),
+            selection_reason=SelectionReason.PASSIVE_DEFAULT))
+
+
 def clean(value, label):
     require(type(value) is dict, label + ':missing')
     secondary = [] if label == 'decision' else value['secondary_failures']
     causes = [value['failure_reason'], *secondary]
-    require(value['failure_reason'] is None and secondary == [],
+    require(value['failure_reason'] is None and type(secondary) is list and secondary == [],
             label + ':' + ','.join(str(v) for v in causes if v is not None))
 
 
@@ -79,6 +130,13 @@ def bind_identity(ready, hand, report):
             'wire:child_session_identity')
     for field in ('source_commit', 'blueprint_artifact_sha256', 'blueprint_sha256'):
         require(ready[field] == hand[field] == report[field], 'wire:identity_mismatch:' + field)
+    if version == 'v2':
+        require(ready['provider'] == 'baseline-rules-v1', 'wire:provider')
+        for field in ('provider', 'config_sha256'):
+            require(ready[field] == hand[field] == report[field], 'wire:identity_mismatch:' + field)
+        value = ready['config_sha256']
+        require(type(value) is str and len(value) == 64
+                and all(c in '0123456789abcdef' for c in value), 'wire:config_digest')
     # Session envelopes do not retain the manifest hash; admission owns that comparison.
     for field, length in (('source_commit', 40), ('source_manifest_sha256', 64),
                           ('blueprint_artifact_sha256', 64)):
@@ -103,6 +161,7 @@ def frames_for(hand, blueprint, report):
             and type(identity) is str and bool(identity), 'wire:identity')
     require(ready['blueprint_sha256'] == blueprint.digest
             and hand['blueprint_sha256'] == blueprint.digest, 'wire:blueprint_identity')
+    require(ready['evidentiary'] is False, 'wire:ready_evidentiary')
     bind_identity(ready, hand, report)
     for row in frames:
         kind = row['type']
@@ -117,6 +176,10 @@ def frames_for(hand, blueprint, report):
     for row in frames[1:-2]:
         if row['type'] == 'action':
             require(pending is None, 'wire:duplicate_action')
+            require(type(row['action_index']) is int and row['action_index'] >= 1
+                    and type(row['seat']) is int and 0 <= row['seat'] <= 5,
+                    'wire:action_counters')
+            parsed_action(row['action'])
             pending = row
             continue
         require(row['type'] == 'event_result', 'wire:unexpected_frame')
@@ -128,31 +191,12 @@ def frames_for(hand, blueprint, report):
         require((row['status'] == 'decided') == (record is not None), 'wire:decision_status')
         require((pending is not None) == (record is not None), 'wire:missing_action_or_decision')
         if record is not None:
-            clean(record, 'decision')
+            admitted_decision(record, protocol, ready)
             require(record['event_index'] == row['event_index'] and record['hand_id'] == identity,
                     'wire:decision_identity')
             require(all(pending[k] == record[k]
                         for k in ('hand_id', 'action_index', 'seat', 'street'))
                     and pending['action'] == record['selected_action'], 'wire:action_mismatch')
-            timing = dict(record['timing'])
-            timing['status'] = TimingStatus(timing['status'])
-            parsed = TimingRecord(**timing)
-            require(parsed.status is TimingStatus.COMPLETED and not parsed.work_cutoff_crossed
-                    and not parsed.deadline_crossed and parsed.elapsed_ns <= 15_000_000_000,
-                    'wire:decision_timing')
-            require(abs(parsed.response_compute_seconds + parsed.response_uninstrumented_seconds
-                        - parsed.elapsed_ns / 1e9) <= 2e-9, 'wire:decision_timing')
-            if protocol.endswith('v1'):
-                prep = dict(record['preparation_use'])
-                prep['artifact_sha256s'] = tuple(prep['artifact_sha256s'])
-                DecisionRecord(**dict(record, timing=parsed,
-                    selected_action=HandAction(**record['selected_action']),
-                    preparation_use=PreparationUseRecord(**prep),
-                    selection_reason=SelectionReason.PASSIVE_DEFAULT))
-            if protocol.endswith('v2'):
-                require(record['delivery_status'] == 'accepted'
-                        and record['delivered_action'] == record['applied_action']
-                        == record['selected_action'], 'wire:delivery')
         events.append(row)
         pending = None
     require(pending is None, 'wire:unpaired_action')
@@ -160,7 +204,8 @@ def frames_for(hand, blueprint, report):
         clean(row, label)
         require(row['accounting_complete'] is True and row['evidentiary'] is False,
                 label + ':unaccounted')
-    require(terminal['complete'] is True and terminal['interrupted_response_count'] == 0
+    require(terminal['complete'] is True
+            and exact_integer(terminal['interrupted_response_count'], 0)
             and seconds(terminal['preparation_compute_seconds'])
             and seconds(terminal['post_terminal_compute_seconds']), 'hand:incomplete')
     require(closing['status'] == 'completed'
@@ -174,21 +219,26 @@ def frames_for(hand, blueprint, report):
 
 
 def replay(hand, entry, deal, stacks):
-    require(entry['button'] == 0 and entry['starting_stacks'] == [stacks] * 6,
+    require(exact_integer(entry['button'], 0)
+            and type(entry['starting_stacks']) is list and len(entry['starting_stacks']) == 6
+            and all(exact_integer(v, stacks) for v in entry['starting_stacks']),
             'replay:initial_state')
     state = NoLimitBettingState.new_hand(button=0, starting_stacks=(stacks,) * 6,
                                          small_blind=1, big_blind=2)
     expected, event_index, street_index = [], 0, 0
+    require(type(hand['applied_actions']) is list, 'replay:actions_shape')
     for index, row in enumerate(hand['applied_actions']):
+        exact_fields(row, ('index', 'seat', 'street', 'action', 'origin'), 'replay:action_fields')
         while state.round_complete and not state.is_terminal:
             state = state.advance_street()
             event_index += 1
             street_index = 0
-        require(row['index'] == index and row['seat'] == state.acting_seat
+        require(exact_integer(row['index'], index)
+                and exact_integer(row['seat'], state.acting_seat)
                 and row['street'] == state.street.value, 'replay:action_order')
         seat = state.acting_seat
         require(row['origin'] == ('bot' if seat == 2 else 'opponent'), 'replay:origin')
-        action = HandAction(**row['action']).to_betting_action()
+        action = parsed_action(row['action']).to_betting_action()
         before, state = state, state.apply_action(action)
         if seat != 2:
             event_index += 1
@@ -239,10 +289,12 @@ def classify(session_report, *, blueprint, teacher_actions, board, private_hands
         clean(session_report, 'session')
         require(session_report['status'] == 'completed'
                 and session_report['stop_reason'] is None, 'session:not_completed')
-        require(session_report['requested_hands'] == 1 and session_report['completed_hands'] == 1
-                and len(session_report['hands']) == 1, 'session:missing_or_extra_outcome')
+        require(exact_integer(session_report['requested_hands'], 1)
+                and exact_integer(session_report['completed_hands'], 1)
+                and type(session_report['hands']) is list and len(session_report['hands']) == 1,
+                'session:missing_or_extra_outcome')
         entry = session_report['hands'][0]
-        require(entry['ordinal'] == 1, 'session:ordinal')
+        require(exact_integer(entry['ordinal'], 1), 'session:ordinal')
         hand = entry['result']
         clean(hand, 'outcome')
         require(hand['status'] == 'completed', 'outcome:not_completed')

@@ -1,0 +1,10 @@
+{
+  "version": "pontius-eval-panel-plan-v1",
+  "phase": "preflight",
+  "board": ["2c", "7d", "9h", "Js", "Qc"],
+  "stacks": 4,
+  "pool_seed": "5e4f7c2a9b1d3e6f8a0c2b4d6e8f1a3c5b7d9e0f2a4c6e8b1d3f5a7c9e0b2d4f",
+  "development_hands": [["As", "Ad"], ["Kh", "Kd"], ["Td", "8d"], ["3c", "4d"]],
+  "controls": [{"board": ["Ts", "Js", "Qs", "Ks", "As"], "hand": ["2c", "3d"]}],
+  "resource": {"seconds": 3600, "memory_mib": 2048}
+}

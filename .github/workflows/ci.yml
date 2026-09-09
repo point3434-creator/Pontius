@@ -104,6 +104,29 @@ jobs:
         if: ${{ !cancelled() }}
         run: .venv\Scripts\python.exe -B -P tools\check_stabilization_boundaries.py
 
+      # v0a increment one, per the ADR-0484 continuous-integration growth rule:
+      # each landed increment contributes its clone-safe suite subset. These are
+      # CPU-only and need no archive or device gating.
+      - name: v0a boundaries suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_boundaries.py
+
+      - name: v0a hand replay suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_hand_replay.py
+
+      - name: v0a trace suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_trace.py
+
+      - name: v0a replay host suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_replay.py
+
+      - name: v0a contract faults suite
+        if: ${{ !cancelled() }}
+        run: .venv\Scripts\python.exe -B -P tests\test_v0a_contract_faults.py
+
       - name: Ruff report (informational, non-gating)
         if: ${{ !cancelled() }}
         continue-on-error: true

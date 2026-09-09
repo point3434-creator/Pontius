@@ -244,7 +244,8 @@ def supervise(request, context, seconds, memory_bytes):
                 if cell["kind"] == "session":
                     parameters = cell["parameters"]
                     names.append(
-                        f"sessions/d{parameters['deal']}-s{parameters['seat']}-l{parameters['lineup']}.json"
+                        f"sessions/d{parameters['deal']}-s{parameters['seat']}"
+                        f"-l{parameters['lineup']}.json"
                     )
                 for name in names:
                     remaining_seconds()
@@ -324,9 +325,22 @@ def supervise(request, context, seconds, memory_bytes):
                 elif process.poll() is None:
                     process.kill()
                 process.wait(timeout=10)
-                process.stdin.close()
                 for thread in threads:
                     thread.join(timeout=10)
+                streams_closed = False
+                if any(thread.is_alive() for thread in threads):
+                    errors.append("cleanup: pipe users did not stop; streams left open")
+                else:
+                    streams_closed = True
+                    for stream in (process.stdin, process.stdout, process.stderr):
+                        try:
+                            stream.close()
+                        except Exception as error:
+                            streams_closed = False
+                            errors.append(f"cleanup: {type(error).__name__}: {error}")
+                    streams_closed = streams_closed and all(
+                        stream.closed for stream in (process.stdin, process.stdout, process.stderr)
+                    )
                 while not events.empty():
                     event = events.get_nowait()
                     if event["event"] == "cell_completed":
@@ -334,7 +348,7 @@ def supervise(request, context, seconds, memory_bytes):
                         current = None
                     elif event["event"] in ("cell_started", "cell_failed"):
                         current = event["id"]
-                report["cleanup_verified"] = job.active() == 0 and not any(
+                report["cleanup_verified"] = streams_closed and job.active() == 0 and not any(
                     thread.is_alive() for thread in threads
                 )
                 report["worker_exit_code"] = process.returncode

@@ -9,6 +9,7 @@ import math
 import os
 from pathlib import Path
 import random
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -26,6 +27,9 @@ from pontius.durable_evidence_journal import (
 
 
 ROOT = Path(__file__).parents[1]
+GIT = os.environ.get("PONTIUS_GIT") or shutil.which("git")
+if GIT is None or not Path(GIT).is_absolute():
+    raise RuntimeError("an absolute Git executable is required for these fixtures")
 SOURCE = ROOT / "src/pontius/legal_river_quotient_fixed_width_device_preflight.py"
 LIVE_CRLF_FIXTURE = b"left\r\nright"
 FIXTURE_DEPENDENCIES = ("tests/test_legal_river_quotient_fixed_width_device_preflight.py",)
@@ -54,7 +58,9 @@ def resource_streams() -> tuple[bytes, bytes, bytes]:
     )
 
 
-def command_evidence(argv: tuple[str, ...], stdout: bytes = b"", stderr: bytes = b"") -> dict[str, object]:
+def command_evidence(
+    argv: tuple[str, ...], stdout: bytes = b"", stderr: bytes = b""
+) -> dict[str, object]:
     return device.BoundedCommand(
         argv=argv,
         return_code=0,
@@ -169,7 +175,9 @@ def synthetic_campaign(append_event):
             "commands": {
                 "nvcc": command_evidence((str(device.NVCC_PATH), "--version"), b"release 13.3"),
                 "cuobjdump": command_evidence((str(device.CUOBJDUMP_PATH), "--version"), b"V13.3"),
-                "nvdisasm": command_evidence((str(device.NVDISASM_PATH), "--version"), b"release 13.3"),
+                "nvdisasm": command_evidence(
+                    (str(device.NVDISASM_PATH), "--version"), b"release 13.3"
+                ),
             },
         },
     )
@@ -482,7 +490,8 @@ class FixedWidthDeviceTests(unittest.TestCase):
     def test_imports_are_cuda_process_and_result_free(self) -> None:
         command = (
             "import hashlib, importlib, json, pathlib, sys; "
-            "p=pathlib.Path('artifacts/work_preflight/legal_river_quotient_fixed_width_device_preflight_v1.jsonl'); "
+            "p=pathlib.Path('artifacts/work_preflight/"
+            "legal_river_quotient_fixed_width_device_preflight_v1.jsonl'); "
             "before=p.read_bytes() if p.is_file() else None; "
             "mods=['pontius.legal_river_quotient_fixed_width_device_preflight',"
             "'pontius.legal_river_quotient_fixed_width_device_preflight_result']; "
@@ -514,14 +523,19 @@ class FixedWidthDeviceTests(unittest.TestCase):
 
     def test_configuration_phase_topology_is_corrected(self) -> None:
         config = device.load_preregistered_config()
-        self.assertEqual(config["schema_version"], "legal-river-quotient-fixed-width-device-preflight-v1")
+        self.assertEqual(
+            config["schema_version"], "legal-river-quotient-fixed-width-device-preflight-v1"
+        )
         self.assertEqual(len(device.SINGLE_PASS_PHASE_NAMES), 12)
         self.assertEqual(len(device.BATCHED_PHASE_NAMES), 20)
         self.assertEqual(len(device._candidate_schedule()), 21)
-        self.assertEqual(device.phase_names_for_arm(device.BATCHED_RRNS)[9], "first_batch_output_drain_and_workspace_reuse_boundary")
+        self.assertEqual(
+            device.phase_names_for_arm(device.BATCHED_RRNS)[9],
+            "first_batch_output_drain_and_workspace_reuse_boundary",
+        )
         self.assertIn("scalar_output_transfer", device.BATCHED_PHASE_NAMES[17])
         attributes = subprocess.run(
-            ["git", "check-attr", "text", "--", device.RESULT_RELATIVE_PATH],
+            [GIT, "check-attr", "text", "--", device.RESULT_RELATIVE_PATH],
             cwd=ROOT,
             check=True,
             capture_output=True,
@@ -546,12 +560,22 @@ class FixedWidthDeviceTests(unittest.TestCase):
             path = Path(directory) / "unarmed.bin"
             path.write_bytes(b"no trigger")
             with self.assertRaisesRegex(ValueError, "unarmed_literal_escape_mutation"):
-                device.literal_escape_mutation_receipt(path, expected_occurrences=0, require_armed=True)
+                device.literal_escape_mutation_receipt(
+                    path, expected_occurrences=0, require_armed=True
+                )
         tree = ast.parse(SOURCE.read_text(encoding="utf-8"))
-        independent = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == "independent_normalize_crlf_bytes")
+        independent = next(
+            node for node in tree.body
+            if isinstance(node, ast.FunctionDef) and node.name == "independent_normalize_crlf_bytes"
+        )
         calls = [node for node in ast.walk(independent) if isinstance(node, ast.Call)]
-        self.assertFalse(any(isinstance(call.func, ast.Name) and call.func.id == "normalize_crlf_bytes" for call in calls))
-        self.assertFalse(any(isinstance(call.func, ast.Attribute) and call.func.attr == "replace" for call in calls))
+        self.assertFalse(any(
+            isinstance(call.func, ast.Name) and call.func.id == "normalize_crlf_bytes"
+            for call in calls
+        ))
+        self.assertFalse(any(
+            isinstance(call.func, ast.Attribute) and call.func.attr == "replace" for call in calls
+        ))
 
     def test_cuda_source_and_compiler_inventory_are_literal(self) -> None:
         contract = device.cuda_source_contract()
@@ -568,7 +592,9 @@ class FixedWidthDeviceTests(unittest.TestCase):
         source = SOURCE.read_text(encoding="utf-8")
         self.assertNotIn("drain_and_verify", source)
         first_drain = source.index("batch_output_digests[str(batch)] = drain_outputs(batch)")
-        second_drain = source.index("batch_output_digests[str(last_batch)] = drain_outputs(last_batch)")
+        second_drain = source.index(
+            "batch_output_digests[str(last_batch)] = drain_outputs(last_batch)"
+        )
         differential = source.index("for batch in batches:", second_drain)
         table_fault = source.index("table_codeword = fixed.RRNSValue", differential)
         self.assertLess(first_drain, second_drain)
@@ -591,7 +617,9 @@ class FixedWidthDeviceTests(unittest.TestCase):
         }
         first = device.KERNEL_NAMES[0]
         ptxas[first] = replace(ptxas[first], registers=33, stack_frame_bytes=17)
-        cubin[first] = replace(cubin[first], registers=35, stack_bytes=11, local_bytes=13, shared_bytes=5)
+        cubin[first] = replace(
+            cubin[first], registers=35, stack_bytes=11, local_bytes=13, shared_bytes=5
+        )
         combined = device.combine_resource_evidence(
             ptxas, cubin, sass, driver, device_shared_limit_bytes=8
         )
@@ -638,7 +666,9 @@ class FixedWidthDeviceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             device.parse_cuobjdump_resource_usage(cubin_raw + cubin_raw)
         with self.assertRaises(ValueError):
-            device.parse_nvdisasm_local_sites(sass_raw.replace(b".global positional_contract", b".weak positional_contract"))
+            device.parse_nvdisasm_local_sites(
+                sass_raw.replace(b".global positional_contract", b".weak positional_contract")
+            )
 
     def test_binary_phase_wall_and_memory_boundaries_fail_closed(self) -> None:
         encoded = device.encode_binary(b"abc")
@@ -661,12 +691,16 @@ class FixedWidthDeviceTests(unittest.TestCase):
         self.assertTrue(device.wall_passes(30_000_000_000, 30_000_000_000))
         self.assertFalse(device.wall_passes(30_000_000_001, 30_000_000_000))
         exact = device.memory_liveness(
-            (device.BufferLifetime("x", "x", device.EXPECTED_DEVICE_TOTAL_BYTES - device.DEVICE_RESERVE_BYTES, 0, 1),),
+            (device.BufferLifetime(
+                "x", "x", device.EXPECTED_DEVICE_TOTAL_BYTES - device.DEVICE_RESERVE_BYTES, 0, 1
+            ),),
             boundary_count=2,
         )
         self.assertTrue(exact.eligible)
         over = device.memory_liveness(
-            (device.BufferLifetime("x", "x", device.EXPECTED_DEVICE_TOTAL_BYTES - device.DEVICE_RESERVE_BYTES + 1, 0, 1),),
+            (device.BufferLifetime(
+                "x", "x", device.EXPECTED_DEVICE_TOTAL_BYTES - device.DEVICE_RESERVE_BYTES + 1, 0, 1
+            ),),
             boundary_count=2,
         )
         self.assertFalse(over.eligible)
@@ -681,7 +715,8 @@ class FixedWidthDeviceTests(unittest.TestCase):
 
     def test_command_streams_are_concurrently_bounded_before_parse(self) -> None:
         completed = device.run_bounded_command(
-            (sys.executable, "-B", "-c", "import sys;sys.stdout.write('x'*4096);sys.stderr.write('y'*4096)"),
+            (sys.executable, "-B", "-c",
+             "import sys;sys.stdout.write('x'*4096);sys.stderr.write('y'*4096)"),
             wall_ns=5_000_000_000,
             stdout_limit=128,
             stderr_limit=128,

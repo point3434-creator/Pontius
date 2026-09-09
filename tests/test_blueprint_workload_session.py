@@ -9,6 +9,7 @@ import io
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -20,6 +21,9 @@ from unittest.mock import patch
 from pontius.execution import begin_run, child_context, CONTEXT_ENV, finish_run
 
 ROOT = Path(__file__).resolve().parents[1]
+GIT = os.environ.get("PONTIUS_GIT") or shutil.which("git")
+if GIT is None or not Path(GIT).is_absolute():
+    raise RuntimeError("an absolute Git executable is required for these fixtures")
 SPEC = importlib.util.spec_from_file_location(
     "workload_controller_tests", ROOT / "tools/v0a_blueprint_workload.py"
 )
@@ -50,7 +54,7 @@ class SourceBoundaryTests(unittest.TestCase):
                 "fixture",
             ),
         ):
-            subprocess.run(["git", "-C", str(self.root), *args], check=True, capture_output=True)
+            subprocess.run([GIT, "-C", str(self.root), *args], check=True, capture_output=True)
 
     def test_reviewed_source_matches_and_drift_is_rejected(self):
         context = begin_run(self.root)
@@ -85,7 +89,7 @@ class SourceBoundaryTests(unittest.TestCase):
     def test_staged_source_additions_are_not_hidden_by_the_index(self):
         original = begin_run(self.root)
         (self.root / "src/extra.py").write_text("value = 2\n", encoding="utf-8")
-        subprocess.run(["git", "-C", str(self.root), "add", "src/extra.py"], check=True)
+        subprocess.run([GIT, "-C", str(self.root), "add", "src/extra.py"], check=True)
         with self.assertRaisesRegex(ValueError, "differs"):
             begin_run(self.root)
         candidate = begin_run(self.root, allow_working_tree=True)
@@ -149,8 +153,51 @@ class PersistentWorkerTests(unittest.TestCase):
         )
         self.context = json.loads(os.environ[CONTEXT_ENV])
 
+    def supervise(self, seconds=15, *, close_error=False):
+        processes = []
+        real_popen = subprocess.Popen
+
+        def observe(*args, **kwargs):
+            process = real_popen(*args, **kwargs)
+            if kwargs.get("creationflags", 0) & CONTROLLER.load_tool("table_host").CREATE_SUSPENDED:
+                processes.append(process)
+                for stream in (process.stdin, process.stdout, process.stderr):
+                    self.addCleanup(stream.close)
+                if close_error:
+                    real_close = process.stdout.close
+
+                    def close_then_fail():
+                        real_close()
+                        raise OSError("injected post-close failure")
+
+                    closer = patch.object(process.stdout, "close", side_effect=close_then_fail)
+                    closer.start()
+                    self.addCleanup(closer.stop)
+                    self.addCleanup(real_close)
+            return process
+
+        with patch.object(CONTROLLER.subprocess, "Popen", side_effect=observe):
+            report = CONTROLLER.supervise(
+                self.request, self.context, seconds, 3072 * 1024 * 1024
+            )
+        self.assertEqual(len(processes), 1)
+        process = processes[0]
+        self.assertIsNotNone(process.poll(), "real worker survived supervision")
+        self.assertTrue(
+            all(getattr(process, name).closed for name in ("stdin", "stdout", "stderr")),
+            "supervision returned with an open real worker pipe",
+        )
+        return report
+
+    def test_pipe_close_error_withholds_cleanup_certificate(self):
+        report = self.supervise(close_error=True)
+        self.assertEqual(report["status"], "failed", report)
+        self.assertFalse(report["cleanup_verified"])
+        self.assertEqual(report["completed"], 2)
+        self.assertTrue(any("injected post-close failure" in error for error in report["errors"]))
+
     def test_two_cells_use_one_worker_and_two_in_memory_grants(self):
-        report = CONTROLLER.supervise(self.request, self.context, 15, 3072 * 1024 * 1024)
+        report = self.supervise()
         self.assertEqual(report["status"], "completed", report)
         self.assertEqual(report["completed"], 2)
         self.assertEqual(report["grants"], 2)
@@ -161,7 +208,7 @@ class PersistentWorkerTests(unittest.TestCase):
 
     def test_changed_cell_input_is_refused_before_grant(self):
         (self.root / "artifacts/0.json").write_bytes(b"{}")
-        report = CONTROLLER.supervise(self.request, self.context, 15, 3072 * 1024 * 1024)
+        report = self.supervise()
         self.assertEqual(report["status"], "failed")
         self.assertEqual(report["grants"], 0)
         self.assertEqual(report["completed"], 0)
@@ -182,7 +229,7 @@ class PersistentWorkerTests(unittest.TestCase):
                     super().join(timeout)
 
         with patch.object(CONTROLLER.threading, "Thread", DelayedStderrThread):
-            report = CONTROLLER.supervise(self.request, self.context, 15, 3072 * 1024 * 1024)
+            report = self.supervise()
         self.assertEqual(report["completed"], 2)
         self.assertEqual(report["worker_exit_code"], 0)
         self.assertTrue(report["cleanup_verified"])
@@ -190,7 +237,7 @@ class PersistentWorkerTests(unittest.TestCase):
         self.assertEqual(report["status"], "failed")
 
     def test_budget_stops_worker_during_startup_and_cleans_job(self):
-        report = CONTROLLER.supervise(self.request, self.context, 0.01, 3072 * 1024 * 1024)
+        report = self.supervise(0.01)
         self.assertEqual(report["status"], "budget_exhausted")
         self.assertTrue(report["cleanup_verified"])
         self.assertLess(report["completed"], 2)
@@ -198,7 +245,7 @@ class PersistentWorkerTests(unittest.TestCase):
     def test_assignment_failure_does_not_leave_suspended_worker(self):
         host = CONTROLLER.load_tool("table_host")
         with patch.object(host.Job, "assign", side_effect=OSError("assignment failed")):
-            report = CONTROLLER.supervise(self.request, self.context, 15, 3072 * 1024 * 1024)
+            report = self.supervise()
         self.assertEqual(report["status"], "failed")
         self.assertTrue(report["cleanup_verified"])
         self.assertIsNotNone(report["worker_exit_code"])
@@ -209,7 +256,7 @@ class PersistentWorkerTests(unittest.TestCase):
             return self.context["head"].encode()
 
         with patch.object(CONTROLLER, "git", side_effect=slow_head):
-            report = CONTROLLER.supervise(self.request, self.context, 0.8, 3072 * 1024 * 1024)
+            report = self.supervise(0.8)
         self.assertEqual(report["status"], "budget_exhausted")
         self.assertEqual(report["grants"], 0)
         self.assertTrue(report["cleanup_verified"])

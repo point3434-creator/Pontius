@@ -6,16 +6,19 @@ import base64
 import copy
 import hashlib
 import importlib.util
+import io
 import json
 import os
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 import tempfile
 import threading
 import time
 import unittest
 from unittest.mock import patch
+from contextlib import redirect_stdout
 
 from pontius.execution import begin_run
 
@@ -352,6 +355,118 @@ class OwnershipTests(unittest.TestCase):
         self.assertEqual(record["status"], "interrupted")
         result = json.loads((self.root / record["output"]).read_text(encoding="utf-8"))
         self.assertEqual(len(result["observations"]), 1)
+
+
+class RealRunOwnershipTests(unittest.TestCase):
+    """Real worker, native cleanup, publication and result owner in a disposable clone."""
+
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name) / "snapshot"
+        git = os.environ["PONTIUS_GIT"]
+        commit = subprocess.run([git, "-C", str(ROOT), "rev-parse", "HEAD"],
+                                check=True, capture_output=True, text=True).stdout.strip()
+        subprocess.run([git, "clone", "--shared", "--no-checkout", str(ROOT), str(self.root)],
+                       check=True, capture_output=True)
+        subprocess.run([git, "-C", str(self.root), "checkout", "--detach", commit],
+                       check=True, capture_output=True)
+        name = "eval_panel_disposable_owner"
+        spec = importlib.util.spec_from_file_location(name, self.root / "tools/v0a_eval_panel.py")
+        self.tool = importlib.util.module_from_spec(spec)
+        sys.modules[name] = self.tool
+        self.addCleanup(sys.modules.pop, name, None)
+        spec.loader.exec_module(self.tool)
+
+    def run_and_read(self, plan):
+        plan_path = self.root / "plan.json"
+        plan_path.write_text(json.dumps(plan), encoding="utf-8")
+        before = self.root / "execution_journal.jsonl"
+        old_lines = before.read_text().splitlines() if before.exists() else []
+        with redirect_stdout(io.StringIO()):
+            code = self.tool.main(["run", "--plan", str(plan_path)])
+        lines = before.read_text().splitlines()
+        self.assertEqual(len(lines), len(old_lines) + 1)
+        entry = json.loads(lines[-1])
+        self.assertTrue(entry["source_verified"])
+        result_path = self.root / entry["output"]
+        result = json.loads(result_path.read_text())
+        self.assertEqual(entry["output_sha256"],
+                         hashlib.sha256(result_path.read_bytes()).hexdigest())
+        return code, result, result_path.parent
+
+    def test_failed_last_release_cannot_certify_cleanup(self):
+        host = self.tool.load_host()
+        close = host.Job.close
+        released = []
+
+        def close_then_fail(job):
+            close(job)  # Native close remains real; control the reported failure after release.
+            released.append(job.handle is None)
+            raise OSError("controlled post-release failure")
+
+        with patch.object(host.Job, "close", close_then_fail):
+            code, result, _ = self.run_and_read(CAPACITY)
+        self.assertEqual(released, [True])
+        self.assertEqual((code, result["status"]), (1, "failed"))
+        self.assertFalse(result["cleanup_verified"], result["cleanup"])
+        self.assertTrue(result["cleanup"]["close job"].startswith("OSError"))
+        self.assertIsNotNone(result["worker_exit_code"])
+
+    def test_interrupt_after_cleanup_retains_real_drained_stages(self):
+        host = self.tool.load_host()
+        close = host.Job.close
+        closed, interrupted = [], []
+
+        def close_and_arm(job):
+            close(job)
+            closed.append(True)
+
+        def interrupt_after_release(frame, event, arg):
+            if (event == "line" and closed and not interrupted
+                    and frame.f_code.co_name == "supervise"
+                    and frame.f_code.co_filename == self.tool.__file__):
+                interrupted.append(True)
+                raise KeyboardInterrupt
+            return interrupt_after_release
+
+        previous = sys.gettrace()
+        try:
+            with patch.object(host.Job, "close", close_and_arm):
+                sys.settrace(interrupt_after_release)
+                code, result, _ = self.run_and_read(royal_subset(seconds=6))
+        finally:
+            sys.settrace(previous)
+        self.assertEqual(interrupted, [True])
+        self.assertEqual((code, result["status"]), (1, "interrupted"))
+        rows = [row for row in result["observations"] if row["kind"] == "preflight"]
+        self.assertEqual(len(rows), 1, result)
+        self.assertIn("production", rows[0]["stages"])
+        self.assertEqual(rows[0]["stages"]["production"]["production"]["check_total"], 0)
+
+    def test_interrupt_after_native_rename_keeps_final_file_bound(self):
+        replace = os.replace
+        published = []
+
+        def publish_then_interrupt(source, destination):
+            replace(source, destination)
+            if Path(destination).name.startswith("capacity-boundary-") and not published:
+                published.append(Path(destination))
+                raise KeyboardInterrupt
+
+        with patch.object(os, "replace", publish_then_interrupt):
+            code, result, directory = self.run_and_read(CAPACITY)
+        self.assertEqual((code, result["status"]), (1, "interrupted"))
+        self.assertEqual(len(published), 1)
+        row = result["observations"][0]
+        bindings = {value["path"]: value for value in row["boundary_artifacts"].values()}
+        files = list(directory.glob("capacity-boundary-*.blueprint.json"))
+        self.assertEqual(files, published)
+        for path in files:
+            self.assertIn(path.name, bindings)
+            self.assertEqual(bindings[path.name]["bytes"], path.stat().st_size)
+            self.assertEqual(bindings[path.name]["sha256"],
+                             hashlib.sha256(path.read_bytes()).hexdigest())
 
 
 if __name__ == "__main__":

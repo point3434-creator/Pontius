@@ -36,6 +36,7 @@ from pontius.execution import begin_run, child_context, CONTEXT_ENV, finish_run 
 PLAN_VERSION = "pontius-eval-panel-plan-v2"
 PLAN_LIMIT = 262_144
 MEMORY_LIMIT_MIB = 1 << 20
+TIMING_MODE = "untraced-body-v1"
 COMMON_KEYS = frozenset({"version", "phase", "runtime", "board", "stacks", "prefix",
                          "hand_universe_sha256", "hand_count", "pool_seed", "permutation",
                          "resource"})
@@ -198,16 +199,15 @@ def json_safe(value):
 
 
 def measure(function):
-    """Elapsed, process CPU, and traced allocation peak; the platform peak is the job's."""
-    tracemalloc.start()
+    """Time one untraced invocation; allocation tracing is unavailable, Job peak is separate."""
+    refuse(not tracemalloc.is_tracing(), "allocation tracing is active before measurement")
     started, cpu = time.perf_counter(), time.process_time()
-    try:
-        value = function()
-    finally:
-        _, traced_peak = tracemalloc.get_traced_memory()
-        tracemalloc.stop()
-    return value, dict(elapsed_seconds=time.perf_counter() - started,
-                       cpu_seconds=time.process_time() - cpu, traced_peak_bytes=traced_peak)
+    value = function()
+    elapsed, cpu_seconds = time.perf_counter() - started, time.process_time() - cpu
+    refuse(not tracemalloc.is_tracing(), "allocation tracing became active during measurement")
+    return value, dict(elapsed_seconds=elapsed, cpu_seconds=cpu_seconds,
+                       timing_mode=TIMING_MODE, traced_peak_bytes=None,
+                       traced_peak_status="not_collected")
 
 
 def cache_state():
@@ -563,13 +563,20 @@ def full_pool_estimate(observations, hero_count, admitted):
     complete = complete_sample(observations, admitted)
     if complete is None:
         return dict(kind="not_estimated", reason="admitted sample incomplete or disagrees")
-    costs = [complete[unit.record_key]["stages"]["production"]["cost"]["elapsed_seconds"]
+    inputs = [complete[unit.record_key]["stages"]["production"]["cost"]
              for unit in admitted.schedule if unit.role == "development"]
-    return dict(kind="estimate", hands=hero_count, sample=len(costs),
+    if any(type(cost) is not dict or cost.get("timing_mode") != TIMING_MODE
+           or "traced_peak_bytes" not in cost or cost["traced_peak_bytes"] is not None
+           or cost.get("traced_peak_status") != "not_collected" for cost in inputs):
+        return dict(kind="not_estimated", reason="production timing provenance is incompatible")
+    costs = [cost["elapsed_seconds"] for cost in inputs]
+    return dict(kind="estimate", hands=hero_count, sample=len(costs), timing_mode=TIMING_MODE,
                 production_seconds_min=min(costs) * hero_count,
                 production_seconds_mean=sum(costs) / len(costs) * hero_count,
                 production_seconds_max=max(costs) * hero_count,
-                assumptions="first sampled hand is cold; later hands reuse cached villain "
+                assumptions="single body invocations without allocation tracing; "
+                            "timing checks and reporting excluded; "
+                            "first sampled hand is cold; later hands reuse cached villain "
                             "ranks; production only; the sealed reference is sample-only")
 
 

@@ -1,6 +1,6 @@
 """Slice A export bridge: replayed river root, capacity, per-hand T1, singleton reference.
 
-Everything here works on one hero hand at a time. Production action values are exact
+Teacher computation works on one hero hand at a time. Production action values are exact
 integer net-chip totals from the kernel's own settlement over the 990 compatible villain
 hands. The independent reference is the sealed ``LegalHeadsUpRiverContinuation`` for a
 single hero hand, evaluated through the sealed evaluators and validated against the
@@ -18,6 +18,9 @@ import math
 import random
 
 from .blueprint_artifact.codec import decode_blueprint, encode_blueprint
+from .blueprint_preparation.lookup import PreparedBlueprint
+from .decision_provider.model import DecisionObservation
+from .decision_provider.providers import BlueprintProvider
 from .evaluation import best_response, collect_information_sets, expected_utilities
 from .game import CHANCE_PLAYER, TERMINAL_PLAYER
 from .holdem_cards import DECK, OneSeatCardState
@@ -231,6 +234,191 @@ def hand_totals(root, board, hero):
     return dict(hand=hand_name(hero), check_total=totals[CHECK], bet_total=totals[bet],
                 denominator=VILLAIN_COUNT, action=str(action), bet=str(bet), work=work,
                 **outcomes)
+
+
+def _teacher_json(document):
+    return json.dumps(document, sort_keys=True, separators=(",", ":"),
+                      ensure_ascii=True, allow_nan=False).encode("ascii")
+
+
+def _teacher_domain():
+    return dict(version="pontius-river-teacher-v1", prefix=prefix_document(),
+                root=dict(button=0, starting_stacks=[DECLARED_STACK] * SEAT_COUNT,
+                          small_blind=1, big_blind=2, controlled_seat=CONTROLLED_SEAT),
+                opponent=dict(seat=VILLAIN_SEAT, response="always_call",
+                              range="uniform_compatible_hands", denominator=VILLAIN_COUNT))
+
+
+def _teacher_validate(document):
+    """Validate declared row consistency, not the truth of an unevaluated poker policy."""
+    domain = _teacher_domain()
+    if type(document) is not dict or set(document) != set(domain) | {
+            "board", "permutation", "hands", "rows"}:
+        raise ValueError("teacher has missing or unknown fields")
+    if any(_teacher_json(document[name]) != _teacher_json(value)
+           for name, value in domain.items()):
+        raise ValueError("teacher differs from the fixed root, prefix or opponent law")
+    if type(document["board"]) is not list or any(
+            type(name) is not str for name in document["board"]):
+        raise ValueError("teacher board must contain canonical card names")
+    board = board_cards(document["board"])
+    if document["board"] != [format_card(card) for card in board]:
+        raise ValueError("teacher board names must use canonical rank and suit spelling")
+    universe = {hand_name(hand): hand for hand in hero_hands(board)}
+    permutation, hands, rows = (document[name] for name in ("permutation", "hands", "rows"))
+    if any(type(value) is not list for value in (permutation, hands, rows)):
+        raise ValueError("teacher permutation, hands and rows must be arrays")
+    if (len(permutation) != HERO_COUNT or any(type(name) is not str for name in permutation)
+            or set(permutation) != set(universe)):
+        raise ValueError("teacher permutation must cover the complete distinct hand universe")
+    if not hands or hands != permutation[:len(hands)] or len(rows) != len(hands):
+        raise ValueError("teacher H and rows must cover a nonempty exact permutation prefix")
+    actions = {}
+    core = {"hand", "check_total", "bet_total", "denominator", "action", "bet"}
+    outcomes = {"wins", "losses", "ties"}
+    for name, row in zip(hands, rows):
+        if type(row) is not dict or not core <= set(row) or set(row) - core - outcomes - {"work"}:
+            raise ValueError("teacher row has missing or unknown fields")
+        if row["hand"] != name or type(row["hand"]) is not str:
+            raise ValueError("teacher rows must cover H exactly in order")
+        if any(type(row[field]) is not int for field in
+               ("check_total", "bet_total", "denominator")):
+            raise ValueError("teacher totals and denominator must be exact integers")
+        check, bet = row["check_total"], row["bet_total"]
+        if (row["denominator"] != VILLAIN_COUNT or abs(check) > 2 * VILLAIN_COUNT
+                or check % 2 or bet != 2 * check):
+            raise ValueError("teacher totals violate the declared s=4 settlement domain")
+        action = DECLARED_BET if bet > check else CHECK
+        if (type(row["action"]) is not str or row["action"] != str(action)
+                or type(row["bet"]) is not str or row["bet"] != str(DECLARED_BET)):
+            raise ValueError("teacher action must maximize totals with CHECK first on a tie")
+        if outcomes & set(row):
+            if not outcomes <= set(row) or any(type(row[field]) is not int or row[field] < 0
+                                               for field in outcomes):
+                raise ValueError("teacher outcome counts must be complete nonnegative integers")
+            if (sum(row[field] for field in outcomes) != VILLAIN_COUNT
+                    or check != 2 * (row["wins"] - row["losses"])):
+                raise ValueError("teacher outcome counts and supplied totals disagree")
+        if "work" in row:
+            expected_work = dict(villain_hands=VILLAIN_COUNT, settlements=2 * VILLAIN_COUNT,
+                                 ranker_calls=VILLAIN_COUNT + 1)
+            if _teacher_json(row["work"]) != _teacher_json(expected_work):
+                raise ValueError("teacher work metadata differs from per-hand enumeration")
+        actions[name] = action
+    return board, tuple(universe[name] for name in hands), actions
+
+
+def teacher_bytes(board, permutation, rows):
+    """Freeze supplied per-hand rows and H as canonical ASCII JSON; never solve a hand.
+
+    The complete strength-blind permutation is bound along with its nonempty solved
+    prefix. Core row fields are mandatory; outcome counts and work may be omitted,
+    but supplied metadata must exactly match the current hand_totals schema.
+    """
+    if (type(board) is not tuple or len(board) != 5
+            or any(type(card) is not int or card not in DECK for card in board)):
+        raise ValueError("teacher board must be a tuple of five exact card integers")
+    if type(permutation) not in (tuple, list) or any(
+            type(hand) is not tuple or len(hand) != 2
+            or any(type(card) is not int or card not in DECK for card in hand)
+            for hand in permutation):
+        raise ValueError("teacher permutation must contain exact two-card tuples")
+    if type(rows) not in (tuple, list) or any(type(row) is not dict for row in rows):
+        raise ValueError("teacher rows must be a sequence of exact dictionaries")
+    document = dict(_teacher_domain(), board=[format_card(card) for card in board],
+                    permutation=[hand_name(hand) for hand in permutation],
+                    hands=[row.get("hand") for row in rows], rows=list(rows))
+    _teacher_validate(document)
+    return _teacher_json(document)
+
+
+def teacher_actions(raw):
+    """Read only canonical immutable teacher bytes, including duplicate-key refusal."""
+    if type(raw) is not bytes:
+        raise TypeError("teacher input must be immutable bytes")
+    document = json.loads(raw)
+    # Equality also refuses duplicate keys, whitespace, NaN, and alternate spellings.
+    if _teacher_json(document) != raw:
+        raise ValueError("teacher input must use the declared canonical JSON serialization")
+    return _teacher_validate(document)
+
+
+def _teacher_entries(raw):
+    board, hands, actions = teacher_actions(raw)
+    root = require_declared_root(replay_root())
+    # Traverse the legal continuation shape: no second hero decision is reachable.
+    _terminal(root.apply_action(CHECK))
+    response = root.apply_action(DECLARED_BET)
+    if (response.acting_seat != VILLAIN_SEAT
+            or response.legal_decision().action_kinds != (BettingActionKind.FOLD,
+                                                         BettingActionKind.CALL)):
+        raise ValueError("teacher root does not have the declared singleton decision shape")
+    for action in (CALL, FOLD):
+        _terminal(response.apply_action(action))
+    entries = tuple(BlueprintActionEntry(root_key(root, board, hand), actions[hand_name(hand)])
+                    for hand in hands)
+    return board, hands, actions, root, entries
+
+
+def export_teacher(raw, cap=ARTIFACT_CAP):
+    """Encode supplied teacher policy only; validate actual wire size and full decoded rows."""
+    if type(cap) is not int or cap <= 0 or cap > ARTIFACT_CAP:
+        raise ValueError("artifact cap must be a positive integer no larger than ARTIFACT_CAP")
+    _, hands, _, _, entries = _teacher_entries(raw)
+    teacher_digest = sha256(raw).hexdigest()
+    source = ImmutableBlueprintActionSource("t1:" + teacher_digest, entries)
+    wire = encode_blueprint(source)
+    if len(wire) > cap:
+        raise ValueError("actual encoded teacher artifact exceeds the declared wire cap")
+    decoded = decode_blueprint(wire)
+    expected = {entry.key: entry.action for entry in entries}
+    actual = {entry.key: entry.action for entry in decoded.entries}
+    if (decoded.source_id != source.source_id or len(decoded.entries) != len(entries)
+            or actual != expected):
+        raise ValueError("decoded artifact differs from the complete teacher key/action map")
+    return wire, dict(passed=True, teacher_sha256=teacher_digest, source_id=source.source_id,
+                      source_sha256=decoded.digest, wire_sha256=sha256(wire).hexdigest(),
+                      wire_bytes=len(wire), cap=cap, hands_count=len(hands),
+                      keys_equal=True, actions_equal=True)
+
+
+def validate_membership(raw, wire):
+    """Exhaustive library/provider root check, separate from any host agreement claim."""
+    board, hands, actions, root, entries = _teacher_entries(raw)
+    source = decode_blueprint(wire)
+    expected = {entry.key: entry.action for entry in entries}
+    actual = {entry.key: entry.action for entry in source.entries}
+    exact = (source.source_id == "t1:" + sha256(raw).hexdigest()
+             and len(source.entries) == len(entries) and actual == expected)
+    prepared, provider = PreparedBlueprint(source), BlueprintProvider(source)
+    rows, hits, unsupported, disagreements = [], 0, 0, 0
+    decision = root.legal_decision()
+    for index, hand in enumerate(hero_hands(board), 1):
+        name = hand_name(hand)
+        cards = OneSeatCardState(controlled_seat=CONTROLLED_SEAT, private_hand=hand,
+                                 street=BettingStreet.RIVER, board=board)
+        selection = prepared.action_for(cards=cards, betting=root, decision=decision)
+        observation = DecisionObservation("pontius-decision-observation-v1", "membership",
+                                          index, cards, root, decision, 14_000_000_000)
+        proposal = provider.propose(observation)
+        in_pool, wanted = name in actions, actions.get(name, CHECK)
+        reason = "blueprint_hit" if in_pool else "blueprint_default"
+        passed = (selection.key == root_key(root, board, hand)
+                  and selection.table_hit == in_pool and selection.action == wanted
+                  and proposal.reason == reason and proposal.action == wanted
+                  and proposal.decision_sha256 == observation.decision_sha256)
+        classification = ("hit" if in_pool else "unsupported") if passed else "disagreement"
+        hits += classification == "hit"
+        unsupported += classification == "unsupported"
+        disagreements += not passed
+        rows.append(dict(hand=name, in_pool=in_pool, table_hit=selection.table_hit,
+                         prepared_action=str(selection.action),
+                         provider_action=str(proposal.action),
+                         provider_reason=proposal.reason, classification=classification))
+    return dict(passed=exact and disagreements == 0, scope="exhaustive_library_provider_root",
+                teacher_sha256=sha256(raw).hexdigest(), wire_sha256=sha256(wire).hexdigest(),
+                exact_entries=exact, universe_count=len(rows), hands_count=len(hands),
+                hits=hits, unsupported=unsupported, disagreements=disagreements, rows=rows)
 
 
 def build_reference(root, board, hero):

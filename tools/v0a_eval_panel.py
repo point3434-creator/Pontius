@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+from contextlib import contextmanager
 import hashlib
 import importlib.util
 import json
@@ -19,6 +20,7 @@ import math
 import os
 from pathlib import Path
 import queue
+import signal
 import subprocess
 import sys
 import threading
@@ -263,6 +265,44 @@ def worker():
         return 1
 
 
+@contextmanager
+def defer_interrupts(report):
+    """Record console interrupts without unwinding between owned release operations."""
+    previous = None
+    if threading.current_thread() is threading.main_thread():
+        previous = signal.getsignal(signal.SIGINT)
+
+        def interrupted(signum, frame):
+            report["status"] = "interrupted"
+            report["cleanup"]["console interrupt"] = "interrupted"
+
+        signal.signal(signal.SIGINT, interrupted)
+    try:
+        yield
+    finally:
+        if previous is not None:
+            signal.signal(signal.SIGINT, previous)
+
+
+def close_stream(stream, timeout):
+    """One closer owns the stream even if another I/O thread holds its lock past cleanup."""
+    done, failures = threading.Event(), []
+
+    def close():
+        try:
+            stream.close()
+        except BaseException as error:
+            failures.append(error)
+        finally:
+            done.set()
+
+    threading.Thread(target=close, daemon=True).start()
+    if not done.wait(timeout):
+        raise TimeoutError("stream close remains pending in its owning thread")
+    if failures:
+        raise failures[0]
+
+
 def supervise(plan, context, seconds, memory_bytes, report=None):
     """One worker from suspended launch inside a memory-limited job; cleanup never loses data.
 
@@ -270,15 +310,16 @@ def supervise(plan, context, seconds, memory_bytes, report=None):
     orphaned. Every cleanup release is its own bounded attempt (``attempt`` below): a
     failure or an interrupt in one is recorded under ``report["cleanup"]`` and never
     prevents the next, and the job is closed last. The caller may own ``report``, so
-    drained observations survive even if this function is unwound.
+    drained observations are caller-owned from first receipt, even if this function unwinds.
     """
     host = load_host()
     job = host.Job(memory_limit=memory_bytes)
-    events, hands = queue.Queue(), {}
+    events = queue.Queue()
     if report is None:
         report = dict(status="failed", observations=[], errors=[])
     observations, errors = report["observations"], report["errors"]
-    report.update(peak_job_memory_bytes=0, cleanup_verified=False, cleanup={})
+    report.update(peak_job_memory_bytes=0, cleanup_verified=False, cleanup={},
+                  resource_state_verified=False)
     started = time.perf_counter()
     process, assigned, threads = None, False, []
 
@@ -308,15 +349,21 @@ def supervise(plan, context, seconds, memory_bytes, report=None):
                 observations.append(event)
             elif kind in ("stage", "hand_completed"):
                 key = (event["label"], tuple(event["board"]), event["hand"])
-                record = hands.setdefault(key, dict(
-                    hand=event["hand"], label=event["label"], board=event["board"],
-                    kind="preflight", stages={}, complete=False))
+                record = next((row for row in observations if row.get("kind") == "preflight"
+                               and (row["label"], tuple(row["board"]), row["hand"]) == key), None)
+                if record is None:
+                    observations.append(dict(
+                        hand=event["hand"], label=event["label"], board=event["board"],
+                        kind="preflight", stages={}, complete=False, missing_stages=list(STAGES)))
+                    record = observations[-1]
                 if record["complete"]:
                     errors.append(f"repeated observation of {event['label']} {event['hand']}")
                 elif kind == "stage":
                     record["stages"][event["stage"]] = {
                         name: value for name, value in event.items()
                         if name not in ("event", "stage", "hand", "label", "board")}
+                    record["missing_stages"] = [name for name in STAGES
+                                                if name not in record["stages"]]
                 else:
                     record["complete"] = True
             elif kind == "failed":
@@ -324,71 +371,83 @@ def supervise(plan, context, seconds, memory_bytes, report=None):
             elif kind == "ready":
                 report["ready"] = event
 
-    try:
-        environment = dict(os.environ, **{CONTEXT_ENV: child_context(context)})
-        process = subprocess.Popen(
-            [sys.executable, "-B", "-P", str(Path(__file__)), "worker"], cwd=ROOT,
-            env=environment, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE, text=True, encoding="utf-8",
-            creationflags=host.CREATE_SUSPENDED | subprocess.CREATE_NO_WINDOW)
-        job.assign(process)
-        assigned = True
-        for function, stream in ((receive, process.stdout), (receive_errors, process.stderr),
-                                 (send, process.stdin)):
-            thread = threading.Thread(target=function, args=(stream,), daemon=True)
-            thread.start()
-            threads.append(thread)
-        job.resume(process)
-        while True:
-            report["peak_job_memory_bytes"] = max(
-                report["peak_job_memory_bytes"], job.peak_memory())
-            drain()
-            if process.poll() is not None and not threads[0].is_alive() and events.empty():
-                report["status"] = (
-                    "completed" if process.returncode == 0 and not errors else "failed")
-                break
-            if time.perf_counter() - started >= seconds:
-                report["status"] = "budget_exhausted"
-                break
-            time.sleep(0.02)
-    except KeyboardInterrupt:
-        report["status"] = "interrupted"
-    except Exception as error:
-        errors.append(f"{type(error).__name__}: {error}")
-    finally:
-        def attempt(name, function):
-            try:
-                function()
-                report["cleanup"][name] = "ok"
-            except KeyboardInterrupt:
-                report["cleanup"][name] = "interrupted"
-                report["status"] = "interrupted"
-            except Exception as error:
-                report["cleanup"][name] = f"{type(error).__name__}: {error}"
-                errors.append(f"cleanup {name}: {report['cleanup'][name]}")
+    with defer_interrupts(report):
+        try:
+            environment = dict(os.environ, **{CONTEXT_ENV: child_context(context)})
+            process = subprocess.Popen(
+                [sys.executable, "-B", "-P", str(Path(__file__)), "worker"], cwd=ROOT,
+                env=environment, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE, text=True, encoding="utf-8",
+                creationflags=host.CREATE_SUSPENDED | subprocess.CREATE_NO_WINDOW)
+            job.assign(process)
+            assigned = True
+            for function, stream in ((receive, process.stdout), (receive_errors, process.stderr),
+                                     (send, process.stdin)):
+                thread = threading.Thread(target=function, args=(stream,), daemon=True)
+                thread.start()
+                threads.append(thread)
+            job.resume(process)
+            while True:
+                report["peak_job_memory_bytes"] = max(
+                    report["peak_job_memory_bytes"], job.peak_memory())
+                drain()
+                if report["status"] == "interrupted":
+                    break
+                if process.poll() is not None and not threads[0].is_alive() and events.empty():
+                    report["status"] = (
+                        "completed" if process.returncode == 0 and not errors else "failed")
+                    break
+                if time.perf_counter() - started >= seconds:
+                    report["status"] = "budget_exhausted"
+                    break
+                time.sleep(0.02)
+        except KeyboardInterrupt:
+            report["status"] = "interrupted"
+        except Exception as error:
+            errors.append(f"{type(error).__name__}: {error}")
+        finally:
+            def attempt(name, function):
+                try:
+                    function()
+                    report["cleanup"][name] = "ok"
+                except KeyboardInterrupt:
+                    report["cleanup"][name] = "interrupted"
+                    report["status"] = "interrupted"
+                except Exception as error:
+                    report["cleanup"][name] = f"{type(error).__name__}: {error}"
+                    errors.append(f"cleanup {name}: {report['cleanup'][name]}")
 
-        def verify():
-            report["worker_exit_code"] = process.poll()
+            def verify():
+                report["worker_exit_code"] = process.poll()
+                report["resource_state_verified"] = (
+                    job.active() == 0 and report["worker_exit_code"] is not None
+                    and not any(thread.is_alive() for thread in threads)
+                    and all(stream.closed for stream in streams))
+
+            cleanup_deadline = time.perf_counter() + 10
+
+            def join(thread):
+                thread.join(timeout=max(0, cleanup_deadline - time.perf_counter()))
+                if thread.is_alive():
+                    raise TimeoutError("I/O thread did not exit before the cleanup deadline")
+
+            if process is not None:
+                streams = (process.stdin, process.stdout, process.stderr)
+                attempt("terminate job", lambda: (
+                    job.terminate() if assigned and job.active() else None))
+                attempt("kill process", lambda: process.kill() if process.poll() is None else None)
+                attempt("wait", lambda: process.wait(timeout=10))
+                for index, thread in enumerate(threads):
+                    attempt(f"join thread {index}", lambda thread=thread: join(thread))
+                for name, stream in zip(("stdin", "stdout", "stderr"), streams):
+                    attempt("close " + name, lambda stream=stream: close_stream(
+                        stream, max(0, cleanup_deadline - time.perf_counter())))
+                attempt("drain", drain)
+                attempt("verify", verify)
+            attempt("close job", job.close)
             report["cleanup_verified"] = (
-                job.active() == 0 and report["worker_exit_code"] is not None
-                and not any(thread.is_alive() for thread in threads)
-                and all(stream.closed for stream in streams))
-
-        if process is not None:
-            streams = (process.stdin, process.stdout, process.stderr)
-            attempt("terminate job", lambda: job.terminate() if assigned and job.active() else None)
-            attempt("kill process", lambda: process.kill() if process.poll() is None else None)
-            attempt("wait", lambda: process.wait(timeout=10))
-            for index, thread in enumerate(threads):
-                attempt(f"join thread {index}", lambda thread=thread: thread.join(timeout=10))
-            for name, stream in zip(("stdin", "stdout", "stderr"), streams):
-                attempt("close " + name, stream.close)
-            attempt("drain", drain)
-            attempt("verify", verify)
-        attempt("close job", job.close)
-    for record in hands.values():
-        record["missing_stages"] = [name for name in STAGES if name not in record["stages"]]
-        observations.append(record)
+                report["resource_state_verified"]
+                and all(value == "ok" for value in report["cleanup"].values()))
     if report["status"] == "completed" and (errors or not report["cleanup_verified"]
                                             or any(not row.get("complete", True)
                                                    for row in observations)):
@@ -405,19 +464,33 @@ def retain_boundaries(report, run_directory):
             continue
         pending = row.get("boundary_base64", {})
         retained = row.setdefault("boundary_artifacts", {})
+        publications = row.setdefault("boundary_publications", {})
         try:
             for count in sorted(pending):
                 raw = base64.b64decode(pending[count])
                 path = run_directory / f"capacity-boundary-{count}.blueprint.json"
                 staging = path.with_name(path.name + ".partial")
-                staging.write_bytes(raw)
-                os.replace(staging, path)
-                retained[count] = dict(path=path.name, bytes=len(raw),
-                                       sha256=hashlib.sha256(raw).hexdigest())
-                del pending[count]
+                identity = dict(path=path.name, bytes=len(raw),
+                                sha256=hashlib.sha256(raw).hexdigest())
+                publication = publications.setdefault(count, dict(**identity, state="pending"))
+                try:
+                    staging.write_bytes(raw)
+                    publication["state"] = "publishing"
+                    os.replace(staging, path)
+                finally:
+                    # A rename may have succeeded before interruption was delivered. The
+                    # intended identity was registered first; reconcile the actual file.
+                    if path.is_file():
+                        observed = path.read_bytes()
+                        refuse(observed == raw, "published boundary differs from measured bytes")
+                        retained[count] = identity
+                        publication["state"] = "bound"
+                        del pending[count]
+                    else:
+                        publication["state"] = "pending"
         finally:
             if pending:
-                row["boundary_retention"] = ("incomplete; unwritten encodings remain in "
+                row["boundary_retention"] = ("incomplete; recoverable encodings remain in "
                                              "boundary_base64")
             else:
                 row.pop("boundary_base64", None)

@@ -27,6 +27,7 @@ import threading
 import time
 import tracemalloc
 import uuid
+from typing import NamedTuple
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
@@ -46,6 +47,28 @@ ROYAL_CONTROL = dict(board=["Ts", "Js", "Qs", "Ks", "As"], hand=["2c", "3d"])
 STAGES = ("production", "production_warm", "reference_construction", "forced_check",
           "forced_bet", "best_response", "comparison")
 HEX = "0123456789abcdef"
+
+
+class ScheduledHand(NamedTuple):
+    role: str
+    board: tuple
+    hand: tuple
+
+    @property
+    def record_key(self):
+        from pontius import eval_bridge as bridge
+        return (self.role, tuple(bridge.format_card(card) for card in self.board),
+                bridge.hand_name(self.hand))
+
+
+class AdmittedPlan(NamedTuple):
+    """Immutable wire snapshot and role-bearing schedule shared by all local consumers."""
+    wire: str
+    schedule: tuple
+
+    @property
+    def document(self):
+        return json.loads(self.wire)
 
 
 def refuse(condition, message):
@@ -88,6 +111,8 @@ def finite(value):
 def validate_plan(plan):
     """Every mandatory input is checked against the replayed game; nothing is defaulted."""
     from pontius import eval_bridge as bridge
+    if isinstance(plan, AdmittedPlan):
+        return plan
     refuse(isinstance(plan, dict) and plan.get("version") == PLAN_VERSION, "unknown plan version")
     phase = plan.get("phase")
     refuse(phase in ("capacity", "preflight"), "plan phase must be capacity or preflight")
@@ -121,6 +146,7 @@ def validate_plan(plan):
            "resource.seconds must be a finite positive number")
     refuse(type(memory) is int and 1 <= memory <= MEMORY_LIMIT_MIB,
            "resource.memory_mib must be an exact integer within 1..1048576")
+    sample = ()
     if phase == "preflight":
         refuse(plan["coverage"] in COVERAGE, "coverage must be declared-full or test-subset")
         hands, controls = plan["development_hands"], plan["controls"]
@@ -128,15 +154,20 @@ def validate_plan(plan):
                and all(type(control) is dict and set(control) == {"board", "hand"}
                        for control in controls),
                "development_hands must be a list and controls {board, hand} objects")
-        sample = [sample_identity(bridge, plan["board"], hand) for hand in hands]
-        sample += [sample_identity(bridge, control["board"], control["hand"])
-                   for control in controls]
-        refuse(len(set(sample)) == len(sample), "development_hands and controls must be distinct")
+        sample = tuple(ScheduledHand("development", *sample_identity(bridge, plan["board"], hand))
+                       for hand in hands)
+        sample += tuple(ScheduledHand("control", *sample_identity(
+            bridge, control["board"], control["hand"])) for control in controls)
+        refuse(len({(unit.board, unit.hand) for unit in sample}) == len(sample),
+               "development_hands and controls must be distinct")
         if plan["coverage"] == "declared-full":
-            refuse(sorted(sample) == sorted(declared_sample(bridge)),
+            declared = declared_sample(bridge)
+            expected = [ScheduledHand("development", *identity) for identity in declared[:-1]]
+            expected += [ScheduledHand("control", *declared[-1])]
+            refuse(plan["board"] == DEVELOPMENT_BOARD and set(sample) == set(expected),
                    "declared-full preflight must sample exactly the declared board, the four "
                    "declared hands and the royal control")
-    return plan
+    return AdmittedPlan(json.dumps(plan, separators=(",", ":")), sample)
 
 
 def sample_identity(bridge, board_names, hand_names):
@@ -221,6 +252,8 @@ def preflight_hand(bridge, root, board, hero, label, emit):
 def run_plan(plan, emit, deadline):
     """Execute one phase; stops at the first reference disagreement or exhausted budget."""
     from pontius import eval_bridge as bridge
+    admitted = validate_plan(plan)
+    plan = admitted.document
     board = bridge.board_cards(plan["board"])
     root, initialization = measure(lambda: bridge.replay_root(stacks=plan["stacks"]))
     bridge.require_declared_root(root)
@@ -235,11 +268,7 @@ def run_plan(plan, emit, deadline):
                   boundary_base64={str(count): base64.b64encode(raw).decode("ascii")
                                    for count, raw in boundary.items()}))
         return
-    units = [(*sample_identity(bridge, plan["board"], hand), "development")
-             for hand in plan["development_hands"]]
-    units += [(*sample_identity(bridge, control["board"], control["hand"]), "control")
-              for control in plan["controls"]]
-    for unit_board, hero, label in units:
+    for label, unit_board, hero in admitted.schedule:
         if time.perf_counter() >= deadline:
             emit(dict(event="failed", error="preflight budget exhausted before the next hand"))
             return
@@ -312,6 +341,7 @@ def supervise(plan, context, seconds, memory_bytes, report=None):
     prevents the next, and the job is closed last. The caller may own ``report``, so
     drained observations are caller-owned from first receipt, even if this function unwinds.
     """
+    admitted = validate_plan(plan)
     host = load_host()
     job = host.Job(memory_limit=memory_bytes)
     events = queue.Queue()
@@ -336,7 +366,7 @@ def supervise(plan, context, seconds, memory_bytes, report=None):
 
     def send(stream):
         try:
-            stream.write(json.dumps(dict(plan=plan, seconds=seconds)) + "\n")
+            stream.write(json.dumps(dict(plan=admitted.document, seconds=seconds)) + "\n")
             stream.flush()
         except (BrokenPipeError, OSError):
             pass
@@ -448,6 +478,10 @@ def supervise(plan, context, seconds, memory_bytes, report=None):
             report["cleanup_verified"] = (
                 report["resource_state_verified"]
                 and all(value == "ok" for value in report["cleanup"].values()))
+    if admitted.document["phase"] == "preflight":
+        report["sample_complete"] = complete_sample(observations, admitted) is not None
+        if report["status"] == "completed" and not report["sample_complete"]:
+            errors.append("the admitted role-bearing sample is incomplete or disagrees")
     if report["status"] == "completed" and (errors or not report["cleanup_verified"]
                                             or any(not row.get("complete", True)
                                                    for row in observations)):
@@ -497,23 +531,35 @@ def retain_boundaries(report, run_directory):
                 row["boundary_retention"] = "complete"
 
 
-def full_pool_estimate(observations, hero_count, coverage):
+def complete_sample(observations, admitted):
+    """Reconcile actual completed records against the same schedule the worker executes."""
+    required = {unit.record_key for unit in admitted.schedule}
+    records = {}
+    for row in observations:
+        if row.get("kind") != "preflight":
+            continue
+        key = row["label"], tuple(row["board"]), row["hand"]
+        stages = row["stages"]
+        if (key not in required or key in records or row["complete"] is not True
+                or set(stages) != set(STAGES)
+                or stages["comparison"]["comparison"]["passed"] is not True):
+            return None
+        records[key] = row
+    return records if set(records) == required else None
+
+
+def full_pool_estimate(observations, hero_count, admitted):
     """Production-only estimate from a declared-full sample; the reference is sample-only."""
+    coverage = admitted.document.get("coverage")
     if coverage is None:
         return None
     if coverage != "declared-full":
         return dict(kind="not_estimated", reason=f"coverage is {coverage}")
-    from pontius import eval_bridge as bridge
-    required = {bridge.hand_name(hand)
-                for _, hand in declared_sample(bridge)[:len(DEVELOPMENT_HANDS)]}
-    complete = {row["hand"]: row for row in observations
-                if row.get("kind") == "preflight" and row["label"] == "development"
-                and row["board"] == DEVELOPMENT_BOARD and row["complete"]}
-    if not required <= set(complete):
-        return dict(kind="not_estimated", reason="declared-full sample incomplete; missing "
-                    + ", ".join(sorted(required - set(complete))))
-    costs = [complete[name]["stages"]["production"]["cost"]["elapsed_seconds"]
-             for name in sorted(required)]
+    complete = complete_sample(observations, admitted)
+    if complete is None:
+        return dict(kind="not_estimated", reason="admitted sample incomplete or disagrees")
+    costs = [complete[unit.record_key]["stages"]["production"]["cost"]["elapsed_seconds"]
+             for unit in admitted.schedule if unit.role == "development"]
     return dict(kind="estimate", hands=hero_count, sample=len(costs),
                 production_seconds_min=min(costs) * hero_count,
                 production_seconds_mean=sum(costs) / len(costs) * hero_count,
@@ -546,8 +592,9 @@ def main(argv=None):
             source_sha256=context["source_sha256"])]) + "\n", encoding="utf-8")
         plan_raw = args.plan.read_bytes()
         report["plan_sha256"] = hashlib.sha256(plan_raw).hexdigest()
-        plan = validate_plan(parse_plan(plan_raw))
-        supervise(plan, context, plan["resource"]["seconds"],
+        admitted = validate_plan(parse_plan(plan_raw))
+        plan = admitted.document
+        supervise(admitted, context, plan["resource"]["seconds"],
                   plan["resource"]["memory_mib"] * 1024 * 1024, report)
         retain_boundaries(report, run_directory)
         from pontius.eval_bridge import HERO_COUNT
@@ -556,7 +603,7 @@ def main(argv=None):
                       permutation_sha256=hashlib.sha256(
                           json.dumps(plan["permutation"]).encode()).hexdigest(),
                       full_pool_estimate=full_pool_estimate(
-                          report["observations"], HERO_COUNT, plan.get("coverage")))
+                          report["observations"], HERO_COUNT, admitted))
     except KeyboardInterrupt:
         report.update(status="interrupted", error="interrupted before completion")
     except Exception as error:

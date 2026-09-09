@@ -66,6 +66,22 @@ def collect(plan, seconds=600):
 
 
 class PlanAdmissionTests(unittest.TestCase):
+    def test_declared_full_refuses_role_movement(self):
+        for count in (1, 4):
+            moved = copy.deepcopy(PREFLIGHT)
+            moved["controls"] += [dict(board=moved["board"], hand=hand)
+                                  for hand in moved["development_hands"][:count]]
+            moved["development_hands"] = moved["development_hands"][count:]
+            with self.subTest(moved=count), self.assertRaises(ValueError):
+                TOOL.validate_plan(moved)
+        rebound = royal_subset()
+        rebound.update(coverage="declared-full", development_hands=[],
+                       controls=[dict(board=PREFLIGHT["board"], hand=hand)
+                                 for hand in PREFLIGHT["development_hands"]]
+                       + [copy.deepcopy(PREFLIGHT["controls"][0])])
+        with self.assertRaises(ValueError):
+            TOOL.validate_plan(rebound)
+
     def test_parse_refuses_size_nonfinite_numbers_and_constants(self):
         TOOL.validate_plan(TOOL.parse_plan(CAPACITY_RAW))
         for raw in (b"", b"x" * (TOOL.PLAN_LIMIT + 1),
@@ -167,21 +183,29 @@ class WorkerTests(unittest.TestCase):
                              encodings["8"])
 
     def test_full_pool_estimate_needs_every_declared_hand_complete(self):
-        from pontius import eval_bridge as bridge
-        names = [bridge.hand_name(hand) for _, hand in TOOL.declared_sample(bridge)[:4]]
-        rows = [dict(kind="preflight", label="development", board=TOOL.DEVELOPMENT_BOARD,
-                     hand=name, complete=True,
-                     stages=dict(production=dict(cost=dict(elapsed_seconds=0.5))))
-                for name in names]
-        estimate = TOOL.full_pool_estimate(rows, 1081, "declared-full")
+        admitted = TOOL.validate_plan(PREFLIGHT)
+        rows = []  # Labeled estimator fixtures; real five-hand integration is tested separately.
+        for unit in admitted.schedule:
+            role, board, hand = unit.record_key
+            stages = {name: {} for name in TOOL.STAGES}
+            stages["production"] = dict(cost=dict(elapsed_seconds=0.5))
+            stages["comparison"] = dict(comparison=dict(passed=True))
+            rows.append(dict(kind="preflight", label=role, board=list(board), hand=hand,
+                             complete=True, stages=stages))
+        estimate = TOOL.full_pool_estimate(rows, 1081, admitted)
         self.assertEqual((estimate["kind"], estimate["sample"]), ("estimate", 4))
         rows[3]["complete"] = False
-        partial = TOOL.full_pool_estimate(rows, 1081, "declared-full")
+        partial = TOOL.full_pool_estimate(rows, 1081, admitted)
         self.assertEqual(partial["kind"], "not_estimated")
-        self.assertIn(names[3], partial["reason"])
-        self.assertEqual(TOOL.full_pool_estimate(rows, 1081, "test-subset")["kind"],
+        rows[3]["complete"] = True
+        self.assertEqual(TOOL.full_pool_estimate(rows[:-1], 1081, admitted)["kind"],
                          "not_estimated")
-        self.assertIsNone(TOOL.full_pool_estimate(rows, 1081, None))
+        rows[-1]["stages"]["comparison"]["comparison"]["passed"] = False
+        self.assertEqual(TOOL.full_pool_estimate(rows, 1081, admitted)["kind"], "not_estimated")
+        self.assertEqual(TOOL.full_pool_estimate(
+            rows, 1081, TOOL.validate_plan(royal_subset()))["kind"],
+                         "not_estimated")
+        self.assertIsNone(TOOL.full_pool_estimate(rows, 1081, TOOL.validate_plan(CAPACITY)))
 
     def test_preflight_emits_one_stage_per_measured_step(self):
         events = collect(royal_subset())
@@ -314,7 +338,7 @@ class OwnershipTests(unittest.TestCase):
         calls = []
 
         def fake_supervise(plan, context, seconds, memory_bytes, report):
-            calls.append(plan["phase"])
+            calls.append(plan.document["phase"])
             report.update({key: value for key, value in supervised.items() if key != "raise"})
             if "raise" in supervised:
                 raise supervised["raise"]
@@ -413,6 +437,23 @@ class RealRunOwnershipTests(unittest.TestCase):
         self.assertFalse(result["cleanup_verified"], result["cleanup"])
         self.assertTrue(result["cleanup"]["close job"].startswith("OSError"))
         self.assertIsNotNone(result["worker_exit_code"])
+
+    def test_declared_full_real_worker_and_estimator_use_the_same_roles(self):
+        code, result, _ = self.run_and_read(PREFLIGHT)
+        self.assertEqual((code, result["status"]), (0, "completed"), result)
+        rows = result["observations"]
+        development = [row for row in rows if row["label"] == "development"]
+        controls = [row for row in rows if row["label"] == "control"]
+        self.assertEqual({row["hand"] for row in development}, {"AdAs", "KdKh", "8dTd", "3c4d"})
+        self.assertEqual(len(development), 4)
+        self.assertTrue(all(row["board"] == ["2c", "7d", "9h", "Js", "Qc"]
+                            and row["complete"] and not row["missing_stages"]
+                            and row["stages"]["comparison"]["comparison"]["passed"]
+                            for row in development))
+        self.assertEqual([(row["board"], row["hand"]) for row in controls], [(ROYAL, "2c3d")])
+        self.assertTrue(controls[0]["complete"])
+        self.assertEqual((result["full_pool_estimate"]["kind"],
+                          result["full_pool_estimate"]["sample"]), ("estimate", 4))
 
     def test_interrupt_after_cleanup_retains_real_drained_stages(self):
         host = self.tool.load_host()

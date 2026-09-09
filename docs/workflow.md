@@ -8,6 +8,16 @@ testing, and commit. It governs collaboration mechanics only: the evidence
 lifecycle (preregister → source-seal → authorize once → retain) remains owned
 by PROJECT.md, and the CLAUDE.md iron rules bind every participant here.
 
+## Supported runtime
+
+The controller's 2026-09-09 ruling makes CPython 3.14 the only supported runtime
+for development, verification, CI and new experiments. `.python-version` pins
+3.14.6. This supersedes older instructions to run 3.11 first or both interpreters.
+Frozen packets and historical evidence retain their original bytes and labels;
+do not rewrite them or infer new 3.11 execution obligations from them. New packets
+must include this ruling among their governing inputs. Snapshot isolation, actual
+interpreter identity checks and explicit run authorization still apply.
+
 ## Principles
 
 1. **Exchange immutable refs, not conversations.** The handoff object between
@@ -356,7 +366,7 @@ original Tier B/C substantive reviews, only when all of the following hold:
    that no required finding remains before Stage 5. Approval never transfers
    silently to changed bytes. Normal round budgets and residual rules still apply.
 5. Run focused correction checks and the unchanged applicable final acceptance
-   gates against the new candidate. Both supported interpreters, snapshot rules,
+   gates against the new candidate. CPython 3.14 verification, snapshot rules,
    failure retention and exact per-commit authorization remain required. This
    route changes review depth, not tests, source-opening permission or history.
 

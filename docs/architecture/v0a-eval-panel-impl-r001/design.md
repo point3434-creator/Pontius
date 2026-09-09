@@ -107,7 +107,7 @@ absolute error is at most 4*(u+(1+u)*gamma_989), less than 4*gamma_1000 and
 less than E. The returned best_response value uses expected_utilities too.
 No underflow/overflow occurs in this domain. This bound does not assume the
 implementation of Python's built-in sum or use it as the tie oracle. At code
-verification, check these domain assumptions on both supported interpreters;
+verification, check these domain assumptions on the supported CPython 3.14 runtime;
 an unsupported numeric environment cannot pass by borrowing this bound.
 
 Validate before choosing an action. Treat each finite returned float as its
@@ -139,7 +139,7 @@ production tie, a changed total, and both signs of the smallest nonzero lattice
 gap. Wrong non-tie actions must fail even when their reference values are close.
 Arithmetic fixtures exercise the comparison boundary and are labeled as such;
 they do not impersonate a sealed poker game. Real sealed checks use the declared
-development sample on both interpreters. During an authorized full-H solve,
+development sample on CPython 3.14.6. During an authorized full-H solve,
 record the first exact tie with nonzero per-deal returns and add its singleton
 reference check. If none exists, state absence only over the completed census
 of H; if that census was not completed, report the tie search as unverified.
@@ -309,7 +309,7 @@ Implementation order, all inside the existing Slice A budget:
    with their limited conclusion. Check the remaining review-round budget before
    each candidate; checkpoints do not reset it or grant reauthorization.
 
-Use Python 3.11.15 before 3.14.6, -B -P, explicit snapshot imports, scrubbed
+Use CPython 3.14.6 only, -B -P, explicit snapshot imports, scrubbed
 environment and absolute PONTIUS_GIT. A failed environment check is not a product
 failure; do not retry an ambiguous retained invocation as if it never occurred.
 All steps above are planned work; this specification supplies no green receipt.

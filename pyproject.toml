@@ -2,15 +2,14 @@
 name = "pontius"
 version = "0.1.0"
 description = "Exact-game laboratory for an adaptive neural multiplayer poker agent"
-requires-python = ">=3.11"
+requires-python = ">=3.14,<3.15"
 dependencies = ["numpy>=1.26"]
 
 [project.optional-dependencies]
-# The sparse-screen pins require CPython >= 3.12; the 3.11 release slot never
-# uses this extra, so it is inert there rather than blocking resolution.
+# These sparse-screen pins apply to the supported CPython 3.14 runtime.
 sparse-screen = [
-    "numpy==2.5.2; python_full_version >= '3.12'",
-    "scipy==1.18.0; python_full_version >= '3.12'",
+    "numpy==2.5.2",
+    "scipy==1.18.0",
 ]
 
 [dependency-groups]
@@ -24,7 +23,7 @@ package = false
 
 [tool.ruff]
 line-length = 100
-target-version = "py311"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F", "W291", "W292", "W293", "E501"]

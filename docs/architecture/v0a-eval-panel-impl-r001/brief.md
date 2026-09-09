@@ -153,7 +153,7 @@ Review this specification cold before implementation. Keep capacity, per-hand
 preflight and bridge completion within Slice A; do not import Slice B while
 fixing a Slice A review. A code freeze has its own candidate and manifest.
 
-Run authorized new/affected correctness suites on Python 3.11.15 before 3.14.6,
+Run authorized new/affected correctness suites on CPython 3.14.6 only,
 under the repository's disposable-snapshot procedure with -B -P, scrubbed
 environment and absolute PONTIUS_GIT. Focused snapshot receipts belong to the
 code freeze; broad suites follow two clean Tier C reviews. Measurements require

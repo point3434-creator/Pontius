@@ -7,7 +7,11 @@ not establish multiway poker strength.
 
 ## Development
 
-Python 3.11 or newer is required. Create a fresh environment with:
+CPython 3.14 is the only supported runtime for development, tests, CI and new
+experiments. `.python-version` pins the current interpreter to 3.14.6;
+`pyproject.toml` restricts support to the 3.14 series. Older frozen documents and
+results retain their original interpreter labels; they do not require new 3.11 runs.
+Create a fresh environment with:
 
 ```powershell
 uv sync --group dev

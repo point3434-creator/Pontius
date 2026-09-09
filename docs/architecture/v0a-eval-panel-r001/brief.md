@@ -147,7 +147,7 @@ clustering, the pairing rule, the loss budget, and the decision the result will
 support. Tuning against an opened holdout result voids the run.
 
 Run the new suites and the affected unchanged evaluation, provider, codec and
-inventory checks on Python 3.11.15 before 3.14.6, `-B -P`, scrubbed environments,
+inventory checks on CPython 3.14.6 only, `-B -P`, scrubbed environments,
 absolute native Git. Preserve raw evidence and exact candidate identity.
 
 ## Dependencies, stop rule, and what this cannot claim

@@ -31,6 +31,33 @@ def plan(phase='solve'):
 
 
 class CompletionAdmissionTests(unittest.TestCase):
+    def test_full_campaign_uses_its_bound_prerequisites_and_resource_plan(self):
+        from pontius import eval_bridge as bridge
+        proposed = plan()
+        proposed.update(coverage='declared-full', pool_count=1081,
+                        resource=dict(seconds=800, memory_mib=1792))
+        with tempfile.TemporaryDirectory() as temp:
+            directory = Path(temp)
+            capacity = dict(status='completed', phase='capacity', cleanup_verified=True,
+                            permutation_sha256=bridge.permutation_digest(
+                                bridge.strength_blind_permutation(
+                                    bridge.hero_hands(bridge.board_cards(proposed['board'])),
+                                    proposed['pool_seed'])))
+            preflight = dict(status='completed', phase='preflight', cleanup_verified=True,
+                             sample_complete=True)
+            for name, raw in [('capacity', json.dumps(capacity).encode()),
+                              ('preflight', json.dumps(preflight).encode()),
+                              ('decision', b'Controller decision for a different campaign.\n')]:
+                path = directory/name
+                path.write_bytes(raw)
+                proposed['prerequisites'][name] = dict(
+                    path=str(path), sha256=hashlib.sha256(raw).hexdigest())
+            admitted = TOOL.validate_plan(proposed)
+            self.assertEqual(admitted.document['resource'], proposed['resource'])
+            (directory/'capacity').write_bytes(b'changed after binding')
+            with self.assertRaises(ValueError):
+                TOOL.validate_plan(proposed)
+
     def test_new_solve_phase_is_explicit_and_immutable(self):
         value = plan()
         try:

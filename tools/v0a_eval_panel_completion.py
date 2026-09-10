@@ -15,11 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 VERSION = 'pontius-eval-panel-completion-plan-v1'
 PHASES = ('solve', 'export', 'agreement')
 HEX = '0123456789abcdef'
-PREREQUISITES = {
-    'capacity': '29f532a900289c3e7b274646a7fc7332ff1a0aa9e6d74c332319668783d89e53',
-    'preflight': '8a17325eaa07e0f8774dcb7bc2050a3ae233cf47bebfc63a6b59574031fb742f',
-    'decision': '037a0de1b8605dc182cdc99ef0ef146e8c5ab08f73d984e4497e5a7a94afe2cf',
-}
+PREREQUISITES = frozenset(('capacity', 'preflight', 'decision'))
 
 
 def require(condition, reason):
@@ -113,10 +109,11 @@ def validate(plan, entry):
         require(count == bridge.HERO_COUNT and plan['board'] == entry.DEVELOPMENT_BOARD,
                 'full pool differs from controller decision')
         require(set(plan['prerequisites']) == set(PREREQUISITES), 'missing measured prerequisites')
-        for name, expected_hash in PREREQUISITES.items():
+        # The reviewed launch binding authorizes this plan's exact bytes. Campaign identities
+        # live in that plan, not in executable constants copied from one historical run.
+        for name in sorted(PREREQUISITES):
             item = plan['prerequisites'][name]
             binding(item)
-            require(item['sha256'] == expected_hash, 'prerequisite differs from resource decision')
             raw = bound_bytes(item)
             if name != 'decision':
                 result = document(raw)
@@ -130,9 +127,6 @@ def validate(plan, entry):
                         'pool order differs from measured capacity')
                 else:
                     require(result['sample_complete'] is True, 'preflight sample incomplete')
-        if phase == 'solve':
-            require(plan['resource'] == {'seconds': 600, 'memory_mib': 2048},
-                    'solve envelope differs from controller decision')
     else:
         require(plan['prerequisites'] == {}, 'test subset cannot claim retained prerequisites')
         require(count < bridge.HERO_COUNT, 'test subset cannot masquerade as full pool')

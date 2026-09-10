@@ -61,6 +61,10 @@ the journal also records the hash of the actual source bytes. The recorded
 scope includes source, tools, tests and fixtures, CI, dependency files, and Git
 text attributes; archived documents and retained run outputs are excluded.
 
+The [shared evaluation runner](docs/eval-runner.md) is a consolidation candidate for future
+bound evaluation campaigns. It requires Python 3.14 and owns one-shot launch records and
+evidence collection; its adoption and each retained invocation require separate approval.
+
 The blueprint benchmark reuses an existing `population.json`, `plan.json`, and
 their referenced artifacts. For a focused check:
 

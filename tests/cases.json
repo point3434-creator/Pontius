@@ -48,5 +48,6 @@
   "test_eval_export",
   "test_eval_agreement",
   "test_eval_completion_tool",
-  "test_eval_protocol"
+  "test_eval_protocol",
+  "test_retained_eval_run"
 ]

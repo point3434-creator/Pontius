@@ -44,5 +44,9 @@
   "test_blueprint_workload_measure",
   "test_blueprint_workload_session",
   "test_eval_bridge",
-  "test_eval_panel_tool"
+  "test_eval_panel_tool",
+  "test_eval_export",
+  "test_eval_agreement",
+  "test_eval_completion_tool",
+  "test_eval_protocol"
 ]

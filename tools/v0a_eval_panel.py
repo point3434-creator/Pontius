@@ -1,4 +1,4 @@
-"""Slice A evaluation-panel entry: capacity and per-hand preflight in one supervised worker.
+"""Slice A evaluation-panel entry with one supervised worker per explicit phase.
 
 Plan contract (schema ``pontius-eval-panel-plan-v2``): the phases implemented here are
 ``capacity`` and ``preflight``. Both bind the runtime, the replayed prefix, the complete
@@ -6,6 +6,8 @@ hand universe, the pool seed and the resulting ordered permutation, and finite r
 limits. ``preflight`` also declares its coverage, development hands and controls. The
 seed/index witness bank of the later agreement phase is not an input to these two phases
 and is refused if present; that is a stated phase-specific reading, not a dropped field.
+The completion-plan-v1 schema adds separately bound solve, export and agreement phases
+through v0a_eval_panel_completion.py. No phase automatically invokes the next phase.
 """
 
 from __future__ import annotations
@@ -99,6 +101,23 @@ def parse_plan(raw):
     return plan
 
 
+def load_completion():
+    name = 'pontius_eval_panel_completion'
+    path = ROOT / 'tools/v0a_eval_panel_completion.py'
+    if name not in sys.modules:
+        spec = importlib.util.spec_from_file_location(name, path)
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[name] = module
+        try:
+            spec.loader.exec_module(module)
+        except BaseException:
+            del sys.modules[name]
+            raise
+    refuse(Path(sys.modules[name].__file__).resolve() == path.resolve(),
+           'completion module belongs to a different root')
+    return sys.modules[name]
+
+
 def finite(value):
     if isinstance(value, float):
         return math.isfinite(value)
@@ -114,6 +133,12 @@ def validate_plan(plan):
     from pontius import eval_bridge as bridge
     if isinstance(plan, AdmittedPlan):
         return plan
+    if type(plan) is dict and plan.get('version') == 'pontius-eval-panel-completion-plan-v1':
+        from types import SimpleNamespace
+        entry = SimpleNamespace(COMMON_KEYS=COMMON_KEYS, PLAN_VERSION=PLAN_VERSION,
+                                DEVELOPMENT_BOARD=DEVELOPMENT_BOARD,
+                                validate_plan=validate_plan, AdmittedPlan=AdmittedPlan)
+        return load_completion().validate(plan, entry)
     refuse(isinstance(plan, dict) and plan.get("version") == PLAN_VERSION, "unknown plan version")
     phase = plan.get("phase")
     refuse(phase in ("capacity", "preflight"), "plan phase must be capacity or preflight")
@@ -254,6 +279,9 @@ def run_plan(plan, emit, deadline):
     from pontius import eval_bridge as bridge
     admitted = validate_plan(plan)
     plan = admitted.document
+    if plan['phase'] in ('solve', 'export', 'agreement'):
+        load_completion().run(plan, emit, deadline, measure)
+        return
     board = bridge.board_cards(plan["board"])
     root, initialization = measure(lambda: bridge.replay_root(stacks=plan["stacks"]))
     bridge.require_declared_root(root)
@@ -487,6 +515,13 @@ def supervise(plan, context, seconds, memory_bytes, report=None):
         report["sample_complete"] = complete_sample(observations, admitted) is not None
         if report["status"] == "completed" and not report["sample_complete"]:
             errors.append("the admitted role-bearing sample is incomplete or disagrees")
+    elif admitted.document['phase'] in ('solve', 'export', 'agreement'):
+        report['phase_complete'] = load_completion().complete(observations, admitted.document)
+        if admitted.document['phase'] == 'agreement':
+            report['agreement_accounting'] = load_completion().accounting(
+                observations, admitted.document)
+        if report['status'] == 'completed' and not report['phase_complete']:
+            errors.append('the admitted completion phase is incomplete or disagrees')
     if report["status"] == "completed" and (errors or not report["cleanup_verified"]
                                             or any(not row.get("complete", True)
                                                    for row in observations)):
@@ -606,16 +641,22 @@ def main(argv=None):
         report["plan_sha256"] = hashlib.sha256(plan_raw).hexdigest()
         admitted = validate_plan(parse_plan(plan_raw))
         plan = admitted.document
+        if plan['phase'] in ('solve', 'export', 'agreement'):
+            report.update(phase=plan['phase'], coverage=plan['coverage'],
+                          plan={k: v for k, v in plan.items() if k != 'permutation'})
         supervise(admitted, context, plan["resource"]["seconds"],
                   plan["resource"]["memory_mib"] * 1024 * 1024, report)
         retain_boundaries(report, run_directory)
+        if plan['phase'] in ('solve', 'export', 'agreement'):
+            load_completion().retain(report, run_directory)
         from pontius.eval_bridge import HERO_COUNT
         report.update(phase=plan["phase"], coverage=plan.get("coverage"),
                       plan={key: value for key, value in plan.items() if key != "permutation"},
                       permutation_sha256=hashlib.sha256(
                           json.dumps(plan["permutation"]).encode()).hexdigest(),
-                      full_pool_estimate=full_pool_estimate(
-                          report["observations"], HERO_COUNT, admitted))
+                      full_pool_estimate=(full_pool_estimate(
+                          report["observations"], HERO_COUNT, admitted)
+                          if plan['phase'] in ('capacity', 'preflight') else None))
     except KeyboardInterrupt:
         report.update(status="interrupted", error="interrupted before completion")
     except Exception as error:

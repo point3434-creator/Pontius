@@ -117,6 +117,40 @@ def finite_float(value):
     return parsed
 
 
+def decode_frame(raw):
+    """Admit one physical LF frame under the frozen host's bounded JSON contract."""
+    require(type(raw) is bytes and 0 < len(raw) <= 16384 and raw.endswith(b'\n'),
+            'wire:frame_size_or_termination')
+    require(b'\r' not in raw and not raw.startswith(b'\xef\xbb\xbf'), 'wire:frame_bytes')
+    depth, quoted, escaped = 0, False, False
+    for byte in raw:
+        if quoted:
+            if escaped:
+                escaped = False
+            elif byte == 92:
+                escaped = True
+            elif byte == 34:
+                quoted = False
+        elif byte == 34:
+            quoted = True
+        elif byte in (91, 123):
+            depth += 1
+            require(depth <= 8, 'wire:json_depth')
+        elif byte in (93, 125):
+            depth -= 1
+
+    def number(token):
+        require(len(token.lstrip('-')) <= 640, 'wire:integer_digits')
+        return int(token)
+
+    try:
+        return json.loads(raw.decode('utf-8'), object_pairs_hook=unique_object,
+                          parse_int=number, parse_constant=reject_constant,
+                          parse_float=finite_float)
+    except RecursionError as error:
+        raise Unusable('wire:json_recursion') from error
+
+
 def bind_identity(ready, hand, report):
     version = ready['protocol'][-2:]
     prefix = 'pontius-v0a-table-session-' + version + '-correctness-'
@@ -148,10 +182,9 @@ def bind_identity(ready, hand, report):
 
 def frames_for(hand, blueprint, report):
     raw = base64.b64decode(hand['child_stdout_base64'], validate=True)
-    require(raw and raw.endswith(b'\n'), 'wire:incomplete_frame')
-    frames = [json.loads(line, object_pairs_hook=unique_object, parse_constant=reject_constant,
-                          parse_float=finite_float)
-              for line in raw.decode('utf-8').splitlines()]
+    require(0 < len(raw) <= 2097152, 'wire:capture_size')
+    require(raw.endswith(b'\n'), 'wire:incomplete_frame')
+    frames = [decode_frame(line + b'\n') for line in raw.split(b'\n')[:-1]]
     require(len(frames) >= 3 and all(type(row) is dict for row in frames), 'wire:shape')
     ready, terminal, closing = frames[0], frames[-2], frames[-1]
     require(ready['type'] == 'ready' and terminal['type'] == 'hand_result'

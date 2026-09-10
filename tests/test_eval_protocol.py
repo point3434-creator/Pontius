@@ -3,6 +3,7 @@ import base64
 import copy
 import json
 import os
+import sys
 from pathlib import Path
 import tempfile
 from types import SimpleNamespace
@@ -131,6 +132,86 @@ class RetainedProtocolTests(unittest.TestCase):
                     self.assertEqual(result['classification'], 'excluded', result)
                     self.assertFalse(result['chip_eligible'], result)
                     self.assertIsNone(result['chips'], result)
+
+            original = base64.b64decode(
+                control['hands'][0]['result']['child_stdout_base64'], validate=True)
+            host = sys.modules[module.ALIAS]
+
+            def host_accepts(raw):
+                if not raw.endswith(b'\n') or len(raw) > 2097152:
+                    return False
+                try:
+                    for line in raw.split(b'\n')[:-1]:
+                        host.decode_json(line + b'\n', code='protocol_invalid',
+                                         digits=640, floats=True)
+                except host.HostRefusal:
+                    return False
+                return True
+
+            first, rest = original.split(b'\n', 1)
+            at_limit = first + b' ' * (16383 - len(first)) + b'\n' + rest
+            variants = [('frame_at_limit', at_limit, True)]
+            variants += [('separator_' + str(ord(sep)),
+                          original.replace(b'\n', sep.encode(), 1), False)
+                         for sep in ('\r', '\v', '\f', '\x1c', '\x1d', '\x1e',
+                                     '\x85', '\u2028', '\u2029')]
+            variants += [('CRLF', original.replace(b'\n', b'\r\n'), False),
+                         ('frame_over_limit', at_limit.replace(b'\n', b' \n', 1), False),
+                         ('BOM', b'\xef\xbb\xbf' + original, False),
+                         ('invalid_UTF8', b'\xff' + original, False),
+                         ('unfinished', original[:-1], False),
+                         ('capture_over_limit', b' ' * 2097152 + original, False)]
+            frames = [json.loads(line) for line in original.split(b'\n')[:-1]]
+            timing = next(f['decision']['timing'] for f in frames if f.get('decision'))
+            for key in ('wall_start_ns', 'last_valid_observation_ns', 'emission_observed_ns'):
+                timing[key] += 10 ** 640
+            variants.append(('integer_over_limit', b''.join(json.dumps(f).encode() + b'\n'
+                                                            for f in frames), False))
+            for name, raw, accepted in variants:
+                with self.subTest(strategy=strategy, framing=name):
+                    self.assertEqual(host_accepts(raw), accepted, name)
+                    changed = copy.deepcopy(control)
+                    changed['hands'][0]['result']['child_stdout_base64'] = (
+                        base64.b64encode(raw).decode())
+                    outcome = classify(changed, strategy=strategy, **kwargs)
+                    if accepted:
+                        self.assertEqual(outcome, classify(control, strategy=strategy, **kwargs))
+                    else:
+                        self.assertEqual(outcome['classification'], 'excluded', outcome)
+                        self.assertFalse(outcome['chip_eligible'], outcome)
+                        self.assertIsNone(outcome['chips'], outcome)
+                        self.assertTrue(outcome['causes'], outcome)
+
+    def test_raw_decoder_matches_frozen_host_boundaries(self):
+        from pontius import eval_agreement
+        decoder = getattr(eval_agreement, 'decode_frame', None)
+        self.assertTrue(callable(decoder), 'raw-frame admission boundary is missing')
+        host = TOOL.load_completion().load_tool('v0a_table_host')
+        valid = [b'{}\n', b'{"n":' + b'9' * 640 + b'}\n',
+                 b'{"v":' + b'[' * 7 + b'0' + b']' * 7 + b'}\n',
+                 b'{"f":1.25e-5}\n', b'{"n":-0}\n',
+                 b'{}' + b' ' * 16381 + b'\n',
+                 json.dumps({'quoted': '\\"[[[[[[[[[[}}', 'unicode': '\u2028'}).encode() + b'\n']
+        invalid = [b'', b'\n', b'{}\r\n', b'\xef\xbb\xbf{}\n', b'\xff\n',
+                   b'{"n":' + b'9' * 641 + b'}\n',
+                   b'{"n":-' + b'9' * 641 + b'}\n',
+                   b'{"v":' + b'[' * 8 + b'0' + b']' * 8 + b'}\n',
+                   b'[' * 2000 + b'0' + b']' * 2000 + b'\n',
+                   b'{}' + b' ' * 16382 + b'\n', b'{"n":1,"n":1}\n',
+                   b'{"n":NaN}\n', b'{"n":Infinity}\n', b'{}{}\n']
+        for index, raw in enumerate(valid):
+            with self.subTest(valid=index):
+                expected = host.decode_json(raw, code='protocol_invalid', digits=640, floats=True)
+                self.assertEqual(decoder(raw), expected)
+        for index, raw in enumerate(invalid):
+            with self.subTest(invalid=index):
+                with self.assertRaises(host.HostRefusal):
+                    host.decode_json(raw, code='protocol_invalid', digits=640, floats=True)
+                with self.assertRaises(ValueError):
+                    decoder(raw)
+        # The existing classifier finite-number contract is stricter than raw host JSON.
+        with self.assertRaises(ValueError):
+            decoder(b'{"n":1e9999}\n')
 
 
 if __name__ == '__main__':

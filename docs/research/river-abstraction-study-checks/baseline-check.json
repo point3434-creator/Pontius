@@ -1,0 +1,19 @@
+{
+  "backend": "python-fallback",
+  "baseline_sources": {
+    "abstraction.py": "91ae39e94d8f1e2f908bcc3be2690d6e7a9114e4c1143330c290fe7c463a5518",
+    "evaluator.py": "de8f618eca9d316320ca2d06fb16a7eb9b02b00e973644c3530fcbfd6c9ca0b6"
+  },
+  "board": [
+    0,
+    21,
+    30,
+    39,
+    40
+  ],
+  "equity_and_bucket_mismatches": [],
+  "hands": 1081,
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "scope": "One development board; exact hex float and 200-bin identities.",
+  "script_sha256": "79b1e718d4f54c14bea69aee001aad85cd256f9db52e0993486b411b726922d5"
+}

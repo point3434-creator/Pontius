@@ -1,0 +1,15 @@
+{
+  "exact_fold_and_call": "-10/13",
+  "compact_player1_last_hand_regrets": [
+    1.1102230246251565e-16,
+    0.0
+  ],
+  "scalar_fold": -0.7692307692307693,
+  "scalar_call": -0.7692307692307693,
+  "scalar_regrets": [
+    0.0,
+    0.0
+  ],
+  "compact_current_call": 0.0,
+  "diagnostic_classification": "Exact rational indifference; floating-point sign at regret zero changes the subsequent policy trajectory. Not a payoff/BR formula failure."
+}

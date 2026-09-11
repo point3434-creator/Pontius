@@ -1,0 +1,26 @@
+{
+  "all_children_exit_zero": true,
+  "analysis_complete": false,
+  "receipts": [
+    {
+      "case": "d0-uniform",
+      "exit": 0,
+      "wall_seconds": 1.6231234000006225
+    },
+    {
+      "case": "d0-polarized",
+      "exit": 0,
+      "wall_seconds": 1.6324766999896383
+    },
+    {
+      "case": "d1-uniform",
+      "exit": 0,
+      "wall_seconds": 1.659524999995483
+    },
+    {
+      "case": "d1-polarized",
+      "exit": 0,
+      "wall_seconds": 1.66162759999861
+    }
+  ]
+}

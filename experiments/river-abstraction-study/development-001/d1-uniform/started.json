@@ -1,0 +1,36 @@
+{
+  "board": [
+    2,
+    22,
+    38,
+    40,
+    47
+  ],
+  "command": [
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_abstraction_study.py",
+    "--output",
+    "D:\\Pontius\\tmp\\river-study-development-20260910-01\\d1-uniform",
+    "--board",
+    "1",
+    "--regime",
+    "uniform",
+    "--hands",
+    "96",
+    "--iterations",
+    "10000"
+  ],
+  "hands_per_player": 96,
+  "iterations": 10000,
+  "kind": "development-only; not retained campaign or strength evidence",
+  "numpy": "2.5.2",
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "regime": "uniform",
+  "source_sha256": {
+    "docs/research/river-abstraction-study.md": "f84662863d401be76b0f97508c0d1b48e624d069fbb7a8d19d4081770bc060b2",
+    "src/pontius/__init__.py": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba",
+    "src/pontius/game.py": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2",
+    "src/pontius/river.py": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7",
+    "src/pontius/river_abstraction_study.py": "915dbeedc30104e9b7efea55678d38b3cb920b183bf113edf3d65135c4f75c46",
+    "tools/river_abstraction_study.py": "9fdfa583303efdf942c25bffb1e092a56590d9e4ed2eada83e7e04a0f02293bd"
+  }
+}

@@ -9,6 +9,7 @@
   "test_no_limit_betting",
   "test_holdem_cards",
   "test_river",
+  "test_river_abstraction_study",
   "test_river_multi_size",
   "test_river_multiway",
   "test_river_incremental",

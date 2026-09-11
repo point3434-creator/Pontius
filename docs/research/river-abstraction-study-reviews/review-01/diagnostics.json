@@ -1,0 +1,30 @@
+{
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "numpy": "2.5.2",
+  "independent_baseline_backend": "python-fallback",
+  "baseline_bit_identical_equities_and_bins": 1081,
+  "pure_response_trials": 40,
+  "cfr_scalar_trajectory_steps": 800,
+  "max_pure_response_absolute_error": 1.7763568394002505e-15,
+  "prepared_polarized_hands_per_player": 16,
+  "accepted_polarized_deals": 225,
+  "occupied_polarized_groups": {
+    "exact": [
+      16,
+      16
+    ],
+    "uniform_equity_200": [
+      12,
+      13
+    ],
+    "range_equity": [
+      12,
+      13
+    ],
+    "range_response": [
+      12,
+      13
+    ]
+  },
+  "passed": true
+}

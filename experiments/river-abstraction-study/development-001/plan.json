@@ -1,0 +1,42 @@
+{
+  "case_timeout_seconds": 60,
+  "cases": [
+    {
+      "board": 0,
+      "regime": "uniform"
+    },
+    {
+      "board": 0,
+      "regime": "polarized"
+    },
+    {
+      "board": 1,
+      "regime": "uniform"
+    },
+    {
+      "board": 1,
+      "regime": "polarized"
+    }
+  ],
+  "hands_per_player": 96,
+  "iterations": 10000,
+  "kind": "local development trial, not formal retained campaign or holdout",
+  "maximum_cases": 4,
+  "memory_scope": "No measured RSS cap; fixed 96x96 payoff matrix and 96 maximum groups.",
+  "review_report_sha256": "e293a723539fb01e8fb87a894c0019fd694d32f49e9f03e79f17590f0445f831",
+  "reviewed_identity": {
+    "branch": "codex/river-abstraction-study",
+    "parent": "ce73bf3e9cc996990e5fa5dbece8e16e14c8e0b7",
+    "root": "D:/Pontius-worktrees/eval-runner-consolidation",
+    "sha256": {
+      "docs/research/river-abstraction-study.md": "f84662863d401be76b0f97508c0d1b48e624d069fbb7a8d19d4081770bc060b2",
+      "src/pontius/river_abstraction_study.py": "915dbeedc30104e9b7efea55678d38b3cb920b183bf113edf3d65135c4f75c46",
+      "tests/cases.json": "5fea3ed8055957ce0dd3354038fafd664c1b212965fdf521011d1efe5f3aa15d",
+      "tests/test_river_abstraction_study.py": "66ac130e0e6bf0d5baa5ebe229771be1dc83452899ef28ea30e5f852871c7c5a",
+      "tools/river_abstraction_study.py": "9fdfa583303efdf942c25bffb1e092a56590d9e4ed2eada83e7e04a0f02293bd"
+    }
+  },
+  "script_sha256": "8efe434bb714b26e32665c6eb3fa745c8c6f161158e635cd5e1ee603c2026f5d",
+  "sequential": true,
+  "user_request": "Let's try it"
+}

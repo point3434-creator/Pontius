@@ -1,0 +1,41 @@
+{
+  "baseline_cross_check": {
+    "equity_and_bucket_mismatches": 0,
+    "hands": 1081
+  },
+  "branch": "codex/river-abstraction-study",
+  "lint": {
+    "result": "passed",
+    "scope": [
+      "src/pontius/river_abstraction_study.py",
+      "tools/river_abstraction_study.py",
+      "tests/test_river_abstraction_study.py"
+    ],
+    "tool": "ruff check"
+  },
+  "parent": "ce73bf3e9cc996990e5fa5dbece8e16e14c8e0b7",
+  "scope": "Development candidate only. No formal comparison or holdout was run.",
+  "sha256": {
+    "docs/research/river-abstraction-study-checks/baseline-check.json": "d4416fe0c900df4696bec1c05d59fb73e165b1bf8fc439458704a0eee03aa02b",
+    "docs/research/river-abstraction-study-checks/baseline_check.py": "79b1e718d4f54c14bea69aee001aad85cd256f9db52e0993486b411b726922d5",
+    "docs/research/river-abstraction-study-checks/development-smoke/inputs.json": "1a7d0abeab924c8d994454c7ec00dca708011c33e0e96d8476665a811699ebf8",
+    "docs/research/river-abstraction-study-checks/development-smoke/manifest.json": "64f59e0e827bc1965c56d8536df639f96fe07beceb152f8ad399c7140b0dd641",
+    "docs/research/river-abstraction-study-checks/development-smoke/result.json": "9bbd01ead5e4a87307478b843b81c04adb45fd9670bc58b16ca512bf12b1d104",
+    "docs/research/river-abstraction-study-checks/development-smoke/started.json": "6daa6bb941476945ba0d4bc4564c7407a1babcc4c0ad6c8399398246ef22368d",
+    "docs/research/river-abstraction-study-checks/final-tests.xml": "4e01e5cfc61ee77cbf6c651c381eccccafa5e33ff56952ef85b440505030d560",
+    "docs/research/river-abstraction-study.md": "f84662863d401be76b0f97508c0d1b48e624d069fbb7a8d19d4081770bc060b2",
+    "docs/superpowers/plans/2026-09-10-river-abstraction-study.md": "efb050eb9fb4f0d9ac2665e10569d31088943ff796e19708bbdf2f92ed3b22b2",
+    "src/pontius/river_abstraction_study.py": "915dbeedc30104e9b7efea55678d38b3cb920b183bf113edf3d65135c4f75c46",
+    "tests/cases.json": "5fea3ed8055957ce0dd3354038fafd664c1b212965fdf521011d1efe5f3aa15d",
+    "tests/test_river_abstraction_study.py": "66ac130e0e6bf0d5baa5ebe229771be1dc83452899ef28ea30e5f852871c7c5a",
+    "tools/river_abstraction_study.py": "9fdfa583303efdf942c25bffb1e092a56590d9e4ed2eada83e7e04a0f02293bd"
+  },
+  "status": "author verified; opposing review pending; uncommitted",
+  "tests": {
+    "cases": 55,
+    "command": "python -W error::ResourceWarning -m pytest -q tests/test_river_abstraction_study.py tests/test_river.py tests/test_cfr.py tests/test_evaluation.py",
+    "failed": 0,
+    "python": "3.14.6",
+    "skipped": 0
+  }
+}

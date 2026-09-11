@@ -1,0 +1,1 @@
+{"complete": true, "output": "D:\\Pontius\\tmp\\river-study-development-20260910-01\\d1-polarized", "accepted_joint_deals": 8440, "records": 12}

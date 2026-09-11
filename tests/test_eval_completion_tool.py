@@ -217,7 +217,8 @@ class CompletionPhaseTests(unittest.TestCase):
             subprocess.run([git, '-C', str(directory), 'checkout', '--detach', context['commit']],
                            check=True, capture_output=True)
             # Dirty correctness also exercises current bytes; frozen runs copy identical blobs.
-            for name in ('src/pontius/eval_bridge.py', 'src/pontius/eval_agreement.py',
+            for name in ('src/pontius/immutable_blueprint.py',
+                         'src/pontius/eval_bridge.py', 'src/pontius/eval_agreement.py',
                          'tools/v0a_eval_panel.py', 'tools/v0a_eval_panel_completion.py'):
                 shutil.copyfile(ROOT / name, directory / name)
 

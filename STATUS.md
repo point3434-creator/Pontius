@@ -2,10 +2,11 @@
 
 Generated from execution_journal.jsonl.
 
-Recorded runs: 64. Most recent 12 below.
+Recorded runs: 65. Most recent 12 below.
 
 | Recorded (UTC) | Command | Outcome | Seconds | Finding |
 |---|---|---|---:|---|
+| 2026-09-10T23:04:53.468482+00:00 | pytest -q -p no:cacheprovider -k blueprint or decision_provider or v0a or eval_bridge or eval_agreement or eval_protocol | passed | 30.734 | 349 unittest cases exercised; 0 skipped; pytest exit 0 |
 | 2026-09-10T21:45:16.690390+00:00 | pytest -q -p no:cacheprovider -k retained_eval_run or eval_completion_tool or eval_protocol | passed | 59.210 | 44 unittest cases exercised; 0 skipped; pytest exit 0 |
 | 2026-09-10T21:16:27.196063+00:00 | pytest -q -p no:cacheprovider | passed | 256.838 | 665 unittest cases exercised; 10 skipped; pytest exit 0 |
 | 2026-09-10T21:10:38.154823+00:00 | pytest -q -p no:cacheprovider | failed | 255.157 | 634 unittest cases exercised; 0 skipped; pytest exit 1 |
@@ -17,4 +18,3 @@ Recorded runs: 64. Most recent 12 below.
 | 2026-09-08T17:51:34.300521+00:00 | pytest -p no:cacheprovider -q -k test_legal_river_quotient_shared_direct_artifact_capacity | passed | 0.659 | 10 unittest cases exercised; 0 skipped; pytest exit 0 |
 | 2026-09-08T17:50:13.008845+00:00 | pytest -q -p no:cacheprovider -k blueprint_workload_session | passed | 5.984 | 15 unittest cases exercised; 0 skipped; pytest exit 0 |
 | 2026-09-08T17:49:45.807071+00:00 | pytest -q -k blueprint_workload_session | failed | 6.237 | 15 unittest cases exercised; 0 skipped; pytest exit 1 |
-| 2026-09-08T17:38:19.512083+00:00 | pytest -p no:cacheprovider -q | passed | 81.924 | 541 unittest cases exercised; 10 skipped; pytest exit 0 |

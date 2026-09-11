@@ -505,12 +505,7 @@ class PreparedBlueprintProviderTests(unittest.TestCase):
                     for obs, expected in zip(observations, (raise_to(4), CALL)):
                         self.assertEqual(provider.propose(obs).action, expected)
                         self.assertEqual(provider.identity.provider, "blueprint-v1")
-                if constructor is PreparedBlueprintProvider:
-                    self.assertEqual(len(calls), 1, "canonicalization repeated on warm lookup")
-                else:
-                    self.assertEqual(len(calls), 17)
-                    with self.assertRaisesRegex(AssertionError, "canonicalization repeated"):
-                        self.assertEqual(len(calls), 1, "canonicalization repeated on warm lookup")
+                self.assertEqual(len(calls), 1, "canonicalization repeated on warm lookup")
 
 
 if __name__ == "__main__":

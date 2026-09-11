@@ -23,8 +23,15 @@ from .no_limit_betting import (
 _HistoryAtom = tuple[str, int, str, int | None, int, bool, int | None, int]
 
 
+class _DigestCache:
+    # Derived state is deliberately not a dataclass field: equality, hashing,
+    # replacement, codecs and exact-field admission retain their value contract.
+    # Admission rebuilds the fields and never imports a caller's cached digest.
+    __slots__ = ("_cached_digest",)
+
+
 @dataclass(frozen=True, slots=True)
-class BlueprintDecisionKey:
+class BlueprintDecisionKey(_DigestCache):
     """Exact one-seat information key with no future or opponent-private cards."""
 
     controlled_seat: int
@@ -248,7 +255,11 @@ class BlueprintDecisionKey:
 
     @property
     def digest(self) -> str:
-        return sha256(self.canonical_bytes()).hexdigest()
+        digest = getattr(self, "_cached_digest", None)
+        if digest is None:
+            digest = sha256(self.canonical_bytes()).hexdigest()
+            object.__setattr__(self, "_cached_digest", digest)
+        return digest
 
 
 @dataclass(frozen=True, slots=True)
@@ -303,7 +314,7 @@ def require_legal_blueprint_action(
 
 
 @dataclass(frozen=True, slots=True)
-class ImmutableBlueprintActionSource:
+class ImmutableBlueprintActionSource(_DigestCache):
     """Digest-bound exact table with a deliberately weak passive default."""
 
     source_id: str
@@ -343,7 +354,11 @@ class ImmutableBlueprintActionSource:
 
     @property
     def digest(self) -> str:
-        return sha256(self.canonical_bytes()).hexdigest()
+        digest = getattr(self, "_cached_digest", None)
+        if digest is None:
+            digest = sha256(self.canonical_bytes()).hexdigest()
+            object.__setattr__(self, "_cached_digest", digest)
+        return digest
 
     def action_for(
         self,

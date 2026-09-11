@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import unittest
+from hashlib import sha256
+from unittest.mock import patch
 from dataclasses import fields, replace
 
 from pontius.holdem_cards import OneSeatCardState, make_hole, parse_cards
@@ -64,6 +66,79 @@ def _flop_context() -> tuple[
 
 
 class ImmutableBlueprintTests(unittest.TestCase):
+    def test_repeated_identity_reads_do_not_repeat_serialization(self):
+        _, _, key = _preflop_context()
+        source = ImmutableBlueprintActionSource("cached", (BlueprintActionEntry(key, CALL),))
+        expected_key = sha256(key.canonical_bytes()).hexdigest()
+        expected_source = sha256(source.canonical_bytes()).hexdigest()
+        self.assertEqual((key.digest, source.digest), (expected_key, expected_source))
+        with patch("pontius.immutable_blueprint.json.dumps", side_effect=AssertionError(
+                "identity reserialized after first read")):
+            self.assertEqual((key.digest, source.digest), (expected_key, expected_source))
+
+    def test_admission_rebuilds_identity_after_caller_cache_poisoning(self):
+        from pontius.decision_provider.model import own_value
+        from pontius.blueprint_preparation.lookup import PreparedBlueprint
+        from pontius.v0a.runtime import _admit_blueprint
+
+        cards, betting, key = _preflop_context()
+        source = ImmutableBlueprintActionSource("admitted", (BlueprintActionEntry(key, CALL),))
+        original = source.digest
+        # Cache state is not authority: valid field changes must be re-admitted.
+        object.__setattr__(key, "button", 1)
+        fresh_key = replace(key)
+        fresh = replace(source, entries=(BlueprintActionEntry(fresh_key, CALL),))
+        expected = sha256(fresh.canonical_bytes()).hexdigest()
+        self.assertNotEqual(expected, original)
+        for admit in (own_value, _admit_blueprint, PreparedBlueprint):
+            with self.subTest(admit=admit.__name__):
+                self.assertEqual(admit(source).digest, expected)
+
+    def test_replace_recomputes_cached_identity_and_preserves_value_equality(self):
+        _, _, key = _preflop_context()
+        source = ImmutableBlueprintActionSource("replace", (BlueprintActionEntry(key, CALL),))
+        original = source.digest
+        copy = replace(source)
+        self.assertEqual(source, copy)
+        self.assertEqual(hash(source), hash(copy))
+        self.assertEqual(copy.digest, original)
+        changed = replace(source, source_id="changed")
+        self.assertNotEqual(changed.digest, original)
+        changed_key = replace(key, button=1)
+        self.assertEqual(changed_key.digest, sha256(changed_key.canonical_bytes()).hexdigest())
+        self.assertNotEqual(changed_key.digest, key.digest)
+
+    def test_admission_ignores_forged_derived_slots(self):
+        from pontius.decision_provider.model import own_value
+        from pontius.blueprint_preparation.lookup import PreparedBlueprint
+        from pontius.v0a.runtime import _admit_blueprint
+
+        _, _, key = _preflop_context()
+        source = ImmutableBlueprintActionSource("forged-cache", (BlueprintActionEntry(key, CALL),))
+        expected = source.digest
+        object.__setattr__(key, "_cached_digest", object())
+        object.__setattr__(source, "_cached_digest", object())
+        for admit in (own_value, _admit_blueprint, PreparedBlueprint):
+            with self.subTest(admit=admit.__name__):
+                self.assertEqual(admit(source).digest, expected)
+
+    def test_copy_pickle_and_dataclass_views_do_not_depend_on_cache_state(self):
+        from copy import copy, deepcopy
+        import pickle
+
+        _, _, key = _preflop_context()
+        source = ImmutableBlueprintActionSource("copy-cache", (BlueprintActionEntry(key, CALL),))
+        for value in (key, source):
+            before = repr(value), hash(value), tuple(f.name for f in fields(value))
+            expected = value.digest
+            self.assertEqual(before, (repr(value), hash(value),
+                                      tuple(f.name for f in fields(value))))
+            self.assertNotIn("_cached_digest", before[2])
+            for clone in (copy(value), deepcopy(value), pickle.loads(pickle.dumps(value))):
+                self.assertEqual(clone, value)
+                self.assertEqual(clone.digest, expected)
+                self.assertEqual(clone.canonical_bytes(), value.canonical_bytes())
+
     def test_empty_table_has_deliberately_weak_total_passive_rule(self) -> None:
         source = ImmutableBlueprintActionSource("empty-reference-v1")
         cards, betting, _ = _preflop_context()

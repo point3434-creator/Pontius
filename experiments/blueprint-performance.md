@@ -8,6 +8,29 @@ reducing the space occupied by full-history keys. The benchmark harness now runs
 multiple cells in one worker, so those questions are practical to investigate.
 Live deadline margins and poker strength remain unestablished.
 
+**2026-09-12 early-street reference:** a separate sampled-CFR capability now
+trains preflop/flop rows and exports complete action probabilities. In four
+100-iteration, equal-100bb cells (ordinary/linear updates crossed with two frozen
+diagnostic continuations), each table contained 13,598–13,899 rows and no
+turn/river rows. Serialized policy files were 23.83–24.49 MB; this is a verbose
+research format, not the live provider's 1 MiB action artifact. All held-out
+flop decisions missed the exact-key table. No flop row's exported average was
+nonuniform. This measures sparse coverage, not a playing-strength improvement.
+
+The [bounded run](results/runs/20260912T195909-206645-early-blueprint/result.json)
+retains milestones 0/50/100, paired returns, source identity and three-step exact
+serial resumes. A separate
+[capacity-stop run](results/runs/20260912T200105-973505-early-blueprint/result.json)
+retained iteration zero and reproduced the same limit on restart. The
+[experiment](2026-09-12-early-blueprint.py) uses the existing exact six-seat ledger
+and all six dealt hands. Windows corruption, sync-failure and real child-process
+interruption tests exercise checkpoint recovery; Linux power-loss durability,
+resident-memory scaling, target-EPYC throughput and live deadline integration
+remain untested. Checkpoint scans retain full generation payloads and must be
+redesigned before large-table retention. These results support reference
+machinery and a next abstraction/continuation experiment, not a long exact-flop
+training launch. Review date: 2026-09-12.
+
 This page consolidates the blueprint cost findings. It covers artifact capacity,
 provider preparation, and the harness that measures them. Solver quality and GPU
 experiments belong to other families. Detailed reports and raw runs remain

@@ -1,5 +1,16 @@
 # Research roadmap: connect ideas to evidence
 
+**2026-09-12 parallel blueprint track:** an isolated serial preflop/flop sampled
+CFR reference now has exact small-game update/averaging checks, immutable
+milestones and tested Windows recovery. The
+[bounded pilot](blueprint-performance.md) showed sparse exact-flop coverage;
+it did not rank CFR variants or establish poker strength. The next useful
+blueprint experiment compares a fixed flop abstraction or conditional flop-job
+population under the same versioned continuation and evaluation panel. Better
+range-conditioned leaf values and a compact stochastic provider remain required
+before long training and live fallback integration. This does not select or
+replace the ongoing river-solver research agenda below.
+
 Reviewed 2026-09-08. [Completed evidence](RESULTS.md) · [Brainstorming and revisions](brainstorming.md)
 
 **My highest-value new scientific question is whether exact folded-card work

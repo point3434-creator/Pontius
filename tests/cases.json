@@ -1,6 +1,10 @@
 [
   "test_kuhn",
   "test_cfr",
+  "test_sampled_cfr",
+  "test_sampled_cfr_oracles",
+  "test_training_checkpoint",
+  "test_early_holdem",
   "test_updates",
   "test_evaluation",
   "test_depth_limited",

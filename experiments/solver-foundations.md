@@ -14,6 +14,19 @@ anchoring results were exploratory controls; later held-out selection and
 resolving results belong in [Safe search](safe-search.md). This consolidation
 reads retained reports and configurations; it does not rerun the experiments.
 
+**2026-09-12 sampled reference:** `sampled_cfr.py` adds frozen-profile external
+sampling with ordinary or iteration-linear regret and average updates. Separate
+target-policy/uniform-opponent averaging paths avoid the naive multiplayer
+opponent-node shortcut. Exact three-player regret and average oracles, direct
+linear-scaling checks, heads-up Kuhn best-response checks, and full-state restart
+comparisons pass. The
+[100-iteration hold'em pilot](results/runs/20260912T195909-206645-early-blueprint/result.json)
+uses two explicit diagnostic later-street policies, 169 preflop classes, exact
+suit-canonical flop keys, and one aggressive action per early street. Four cells
+and 32 shared evaluation deal blocks per panel do not select a superior CFR
+variant or establish six-player equilibrium convergence. Broad flop coverage
+was absent; see [coverage and storage findings](blueprint-performance.md).
+
 **Reading the terms:** a *blueprint* is the frozen baseline policy; *no-op*
 keeps it. *NashConv* sums each player's gain from a unilateral best response,
 so smaller is better; it is not a win rate. *Average policy* accumulates

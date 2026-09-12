@@ -4,6 +4,12 @@ Reviewed 2026-09-08. Start here for the current conclusions; follow a category
 for methods, exceptions, and evidence. These are conclusions from Pontius's
 linked local records, not a literature review or a new experiment.
 
+**2026-09-12 addition:** the [early-street reference](blueprint-performance.md)
+adds sampled-CFR correctness, checkpoint/restart tests and a four-cell bounded
+hold'em pilot. Exact flop coverage was absent on its held-out evaluation;
+neither an algorithm winner nor stronger poker play is established. Existing
+family conclusions and live-clock limits remain as stated.
+
 Three maintained views serve different questions:
 
 | View | Use it for |

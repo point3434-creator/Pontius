@@ -1,5 +1,18 @@
 # Brainstorming: ideas, revisions, and open questions
 
+**2026-09-12 supplied blueprint memo:** retain conditional flop jobs, versioned
+continuation interfaces, measured table sizes and permanent milestones as
+testable proposals. Do not adopt the claims that two or three range/value
+sweeps converge, public flops make full six-player range solving small, PCFR+
+universally beats sampled/DCFR methods, equal SPR identifies equal games, or
+torn stochastic accumulators are harmless. A public flop has 1,176 possible
+private combinations per player, not 1,081. These are corrections to an external
+proposal, not empirical algorithm rankings. The
+[bounded early-street experiment](2026-09-12-early-blueprint.py) supplies a sampled
+reference; its exact flop keys had zero held-out hits after 100 iterations.
+That observation motivates testing abstraction/conditional-job reuse, not an
+unsupported conclusion that any particular alternative wins.
+
 Reviewed 2026-09-08. [Completed evidence](RESULTS.md) · [Priorities and evidence connections](research-roadmap.md)
 
 **The useful direction is a compact baseline policy plus selective search,

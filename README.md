@@ -5,6 +5,10 @@ playable target; game models, solvers, evaluation, abstractions, and codecs let
 experiments improve it. Current small-game and reduced-population results do
 not establish multiway poker strength.
 
+For the early-street training reference, see the
+[Ubuntu quickstart](docs/early-blueprint-linux.md): download the blueprint branch,
+install its environment, run the tests, then run the bounded experiment.
+
 ## Development
 
 CPython 3.14 is the only supported runtime for development, tests, CI and new

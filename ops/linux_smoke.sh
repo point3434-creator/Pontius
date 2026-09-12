@@ -6,6 +6,10 @@
 #   ./linux_smoke.sh ~/Pontius
 set -uo pipefail
 
+# The uv installer drops its binary in ~/.local/bin, which a non-login shell
+# does not always carry on PATH.
+export PATH="$HOME/.local/bin:$PATH"
+
 repo="${1:-$HOME/Pontius}"
 cd "$repo" || { echo "no repository at $repo"; exit 2; }
 

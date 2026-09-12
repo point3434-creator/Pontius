@@ -29,8 +29,8 @@ ExecStart=%h/.local/bin/uv run --no-sync python -B -P tools/v0a_blueprint_worklo
 # cgroup v2 replaces the Windows job object the harness uses for memory limits.
 # Set MemoryMax below total RAM so a runaway run is killed instead of swapping
 # the box to a standstill.
-MemoryMax=24G
-MemoryHigh=20G
+MemoryMax=96G
+MemoryHigh=80G
 CPUWeight=100
 Nice=5
 

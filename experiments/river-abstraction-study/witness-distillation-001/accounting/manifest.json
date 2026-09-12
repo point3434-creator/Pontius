@@ -1,0 +1,10 @@
+{
+  "accounting-green.xml": "d15da28e9da863b214e8872bf44ceca6a4cb57ba4da881e3bece2f16ce6bb551",
+  "accounting-red.xml": "9e378237da9369fbf9e2cf175a4917c33e1d0c2842fa6feaa18c8f6713042c4a",
+  "approval-template.txt": "1420fc5babc5d548224f7f6cfee6be49b43fd43b3bbd73f96315363ebabd18c2",
+  "contract.md": "3b4831ed3b562a88242c8d82fe8e90e1e4e85c639c02494f806985b1b39986b1",
+  "lint.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+  "measure_invocation.py": "c675cbfd5a6d57b7e43144b26ca2e14462cc87b91682c56faf2388595cb25e7f",
+  "run-command.txt": "90bcda762cda4b1fab8fcc6cb9954ea250f7a70a8a41b5267320c299ac2dc0fd",
+  "test_accounting.py": "7f4d4fd21b29ebe645bb76fd6a631a2a5369f2451e43ce423e4ecf0036bcb368"
+}

@@ -1,6 +1,6 @@
 # Research and engineering results
 
-Reviewed 2026-09-08. Start here for the current conclusions; follow a category
+River research updated 2026-09-12; other families last consolidated 2026-09-08. Start here for the current conclusions; follow a category
 for methods, exceptions, and evidence. These are conclusions from Pontius's
 linked local records, not a literature review or a new experiment.
 
@@ -18,6 +18,22 @@ representation primitives. The bot and measurement harness provide working
 integration paths. The evidence reviewed here does **not** yet establish a
 strong full-game multiway policy or a complete full-width resolver that acts
 within the live clock.
+
+## Latest research consolidation — 2026-09-12
+
+The [solver family summary](solver-foundations.md#river-representation-and-solver-findings-through-2026-09-12)
+now consolidates all 35 retained river milestones through full-combo-direct-002.
+The [experiment index](../docs/research/README.md) links every milestone report.
+
+Learned action preferences transferred to new boards, and guarded size repair improved
+restricted-game strategies. The latest actual-stack tests narrow that opportunity:
+three of four states have only one distinct legal size in the tested menu. Direct
+full-hand LP then beat the existing compressed learner's measured error and solve time
+in all four games. Only two passed the strict exact gap threshold; the two misses remain
+open. This favors a direct reference and a larger-tree cost test over more repair tuning.
+The [assessment](river-abstraction-study/full-combo-direct-002/assessment.md) includes
+all four errors and per-hand tables. These are restricted heads-up river results,
+not full-hand betting-tree coverage, independent replications, or six-max strength.
 
 ## Choose a question
 
@@ -54,11 +70,10 @@ within the live clock.
    too expensive. An experiment can also fail administratively while its
    retained scientific payload supports a narrower, separately stated finding.
 
-The [research roadmap](research-roadmap.md) now combines these findings with the
-external brainstorming. It prioritizes a terminal semantic differential and
-fixed-fold reuse study alongside a small trained-policy deployment bridge and
-fresh deal/opponent evaluation. These are proposed priorities, not completed
-results; the roadmap holds the detailed ordering and prerequisites.
+The [research roadmap](research-roadmap.md) separates the current river follow-up from
+the broader earlier agenda. Direct-solve numerical closure and a larger actual-stack
+tree come first on this lane. Folded-card reuse, neural/tabular comparisons, and fresh
+bot-strength evaluation remain valuable open questions, not completed findings.
 
 ## Keep this reference useful
 

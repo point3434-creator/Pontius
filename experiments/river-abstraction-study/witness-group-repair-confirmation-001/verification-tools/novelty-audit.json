@@ -1,0 +1,10 @@
+{
+  "direct_suit_permutations": 24,
+  "excluded_suit_classes": 52,
+  "fresh_boards": 16,
+  "historical_literal_boards": 52,
+  "historical_plans": 21,
+  "passed": true,
+  "plan_sha256": "941ce0a4d1121cad0d2fdf43076c8871a08b79ef444b3a11547552ee13e42d31",
+  "project_code_executed": false
+}

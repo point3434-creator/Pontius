@@ -1,0 +1,14 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\tmp\\multibet-size-repair-author\\experiment.py",
+    "verify",
+    "D:\\Pontius\\tmp\\multibet-size-repair-author\\plan.json",
+    "dde3ee53b54d1a634b51600eba77b814d212b1a483bd0928ee9cd171e19b3544"
+  ],
+  "exit": 0,
+  "seconds": 64.48739789999672
+}

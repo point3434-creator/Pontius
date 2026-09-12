@@ -1,0 +1,8 @@
+{
+  "arithmetic": "Fraction from binary64 and exact certificate endpoints",
+  "board_units": 8,
+  "decision_flags_checked": 5,
+  "evaluation_cells": 64,
+  "passed": true,
+  "summary_scalar_checks": 4255
+}

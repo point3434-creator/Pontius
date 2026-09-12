@@ -1,0 +1,13 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_witness_groups.py",
+    "worker",
+    "--plan",
+    "D:\\Pontius\\tmp\\witness-groups-review-01\\independent-smoke\\partial-plan.json",
+    "--sha256",
+    "616353e8b163189fc2c898e3d94123597c41663b32a23b69345771160ebf65ba"
+  ],
+  "plan_sha256": "616353e8b163189fc2c898e3d94123597c41663b32a23b69345771160ebf65ba"
+}

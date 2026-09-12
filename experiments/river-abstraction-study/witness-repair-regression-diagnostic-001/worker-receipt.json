@@ -1,0 +1,13 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\tmp\\witness-repair-regression-author\\diagnostic.py",
+    "D:/Pontius/tmp/witness-repair-regression-author/plan.json",
+    "77cd26fa6fe558a2f8a0c077da03b563fd2ec087536d1c58da2cdd0c3b1dcb64"
+  ],
+  "exit": 0,
+  "seconds": 113.71672329999274
+}

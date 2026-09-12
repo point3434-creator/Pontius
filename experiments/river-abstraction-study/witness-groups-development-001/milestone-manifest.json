@@ -1,0 +1,22 @@
+{
+  "development-0-polarized.json": "d1f827f435d8e45ba9f1836137409ac1b6ef8328cb8d0a96c39aa9fed6b2d99b",
+  "development-0-uniform.json": "b8390c6efa7df4d3351ae0a1f2b0162b37910724ff7dfa5e6584114d34628943",
+  "development-1-polarized.json": "cb7558a09b3ebb5f1ef12c8d471fa9856316efea91e85302a2014574b491c0b4",
+  "development-1-uniform.json": "1d7072b741c02e8b2b83585d1e2138d997205238fbb760aa1beed67c6ebd578b",
+  "invocation/analysis.json": "d3a248bc285c4ed14893fbfa1f8faf346b8ab53ac595ade9b3fec6b74184f4a9",
+  "invocation/authorization.json": "d62b58a8fc660094b644de5a19085169fc70314a1eed14bf13e8e4f43aa315c1",
+  "invocation/launch.json": "6ea9222e6d7e62645d179cc32f3cc474b8d6d876037107c755a43f1c8f06423a",
+  "invocation/receipt.json": "88ea7d224830d2f3bb684dd60ad2303eb3920bc12b98e1795e1af889d8cf917a",
+  "invocation/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "invocation/stdout.txt": "4ba577489dcebe1b3eae47888e4af6958ba86da7fbffc9a0979f5c725a05c9d9",
+  "invocation/verification.json": "73ca4da9e3fb8e58df148f0aeee89a567d0f06b05d3c02d99414c7816bcbec58",
+  "manifest.json": "f59787e32d87e16c8955392a01e84aeffd2daa176fd175da17e7849d302bafab",
+  "plan.json": "9581a2a8e8d74d9d66e31abed59a61cff7625b769be4521a303b0c343f0ed855",
+  "receipt.json": "9a29916a69516f8b25260801f300d002abe16134cddf533063a192633c1b899a",
+  "started.json": "a5e487e135d0c1a1af95436b530b83f2edd106fd5d4cd3071978d4d54aea604f",
+  "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "summary.json": "89ce37ec2a67c25d397897864105436fc72bb913b9aef8e74304c6ac20d2dab4",
+  "verification-tools/run-approved-once.py": "45dbde8f31def135e89a5862f7e45ef33bef163003ad36245988d913caa47714",
+  "verification-tools/verify-retained.py": "2e727a77d6578e686e856a6c43c7556ff61599fbc4793e21d2ce39d69db4c8a9"
+}

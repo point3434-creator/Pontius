@@ -1,0 +1,4 @@
+case 0: not_applicable_single_size
+case 1: evaluated
+case 2: not_applicable_single_size
+case 3: not_applicable_single_size

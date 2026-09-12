@@ -1,0 +1,65 @@
+FFF.F
+======================================================================
+FAIL: test_against_exhaustive_partitions (__main__.ProjectionTests.test_against_exhaustive_partitions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-order-diagnostic-author\test_projection.py", line 35, in test_against_exhaustive_partitions
+    self.assertLessEqual(max(abs(a-b) for a,b in zip(actual,expected)),2e-15)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0.06666666666666668 not less than or equal to 2e-15
+
+======================================================================
+FAIL: test_crossing_requires_pooling_not_sorting (__main__.ProjectionTests.test_crossing_requires_pooling_not_sorting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-order-diagnostic-author\test_projection.py", line 22, in test_crossing_requires_pooling_not_sorting
+    self.assertEqual(triplet([.2,.8,.1]),[.5,.5,.1])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [0.2, 0.8, 0.1] != [0.5, 0.5, 0.1]
+
+First differing element 0:
+0.2
+0.5
+
+- [0.2, 0.8, 0.1]
+?    ^    ^
+
++ [0.5, 0.5, 0.1]
+?    ^    ^
+
+
+======================================================================
+FAIL: test_invalid_input_refused (__main__.ProjectionTests.test_invalid_input_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-order-diagnostic-author\test_projection.py", line 45, in test_invalid_input_refused
+    with self.assertRaises(ValueError):triplet(x)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_witness_boundaries_preserved (__main__.ProjectionTests.test_witness_boundaries_preserved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-order-diagnostic-author\test_projection.py", line 40, in test_witness_boundaries_preserved
+    self.assertEqual(project([[.2,.8,.1,1.,.4,0.,0.,.5,1.]]),
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     [[.5,.5,.1,1.,.4,0.,.5,.5,.5]])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [[0.2, 0.8, 0.1, 1.0, 0.4, 0.0, 0.0, 0.5, 1.0]] != [[0.5, 0.5, 0.1, 1.0, 0.4, 0.0, 0.5, 0.5, 0.5]]
+
+First differing element 0:
+[0.2, 0.8, 0.1, 1.0, 0.4, 0.0, 0.0, 0.5, 1.0]
+[0.5, 0.5, 0.1, 1.0, 0.4, 0.0, 0.5, 0.5, 0.5]
+
+- [[0.2, 0.8, 0.1, 1.0, 0.4, 0.0, 0.0, 0.5, 1.0]]
+?     ^    ^                      -----     ^
+
++ [[0.5, 0.5, 0.1, 1.0, 0.4, 0.0, 0.5, 0.5, 0.5]]
+?     ^    ^                           ^ +++ ++
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+FAILED (failures=4)

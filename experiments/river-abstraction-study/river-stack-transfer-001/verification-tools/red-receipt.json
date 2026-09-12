@@ -1,0 +1,2 @@
+{"exit": 1, "failure": "ModuleNotFoundError: No module named 'stack_bridge'",
+ "meaning": "Actual-stack tests written and run before adapter implementation; Python 3.14.6."}

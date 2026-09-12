@@ -1,0 +1,11 @@
+{
+  "asymmetric_certificates": 384,
+  "cases": 96,
+  "composed_profiles": 288,
+  "exact_witness_decompositions": 192,
+  "independent_cold_review": false,
+  "model_fits": 0,
+  "new_lp_calls": 0,
+  "passed": true,
+  "training_updates": 0
+}

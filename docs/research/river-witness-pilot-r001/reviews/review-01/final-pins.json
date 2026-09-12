@@ -1,0 +1,254 @@
+[
+  {
+    "Kind": "candidate",
+    "Path": ".gitattributes",
+    "Expected": "05643f64722156ab4e5e007f3d6d414a211344cfc7d6d15809e811184d0021eb",
+    "Actual": "05643f64722156ab4e5e007f3d6d414a211344cfc7d6d15809e811184d0021eb",
+    "Match": true
+  },
+  {
+    "Kind": "candidate",
+    "Path": "docs/research/river-witness-pilot-r001/plan.json",
+    "Expected": "535a3fa5b4d55d8bc6cc29763c63b5ab41f89cf0ea190bca90f9c00a5a8c9d2c",
+    "Actual": "535a3fa5b4d55d8bc6cc29763c63b5ab41f89cf0ea190bca90f9c00a5a8c9d2c",
+    "Match": true
+  },
+  {
+    "Kind": "candidate",
+    "Path": "docs/research/river-witness-pilot.md",
+    "Expected": "64adda53ae3be12ec09f99f7b3678733151ae08258f8f97ae5ec5c05f041d6b1",
+    "Actual": "64adda53ae3be12ec09f99f7b3678733151ae08258f8f97ae5ec5c05f041d6b1",
+    "Match": true
+  },
+  {
+    "Kind": "candidate",
+    "Path": "src/pontius/river_witness_pilot.py",
+    "Expected": "696aa6796f592f8d1faa02884a007a3cc431137119406d2bac665bf03cb0469d",
+    "Actual": "696aa6796f592f8d1faa02884a007a3cc431137119406d2bac665bf03cb0469d",
+    "Match": true
+  },
+  {
+    "Kind": "candidate",
+    "Path": "tests/cases.json",
+    "Expected": "8b4c7838918e3c539a54857075073cc3201faa64552f7b1f879ec8495d97d7d3",
+    "Actual": "8b4c7838918e3c539a54857075073cc3201faa64552f7b1f879ec8495d97d7d3",
+    "Match": true
+  },
+  {
+    "Kind": "candidate",
+    "Path": "tests/test_river_witness_pilot.py",
+    "Expected": "68af0c2fa32ffb5935a78d510466b602ca810e8883d5356b4fffdc42c88ca030",
+    "Actual": "68af0c2fa32ffb5935a78d510466b602ca810e8883d5356b4fffdc42c88ca030",
+    "Match": true
+  },
+  {
+    "Kind": "candidate",
+    "Path": "tools/river_witness_pilot.py",
+    "Expected": "8292b1972ef2f094c44e15fb56e9ad558fe0c1c668ab7eb2256534b79b8a6f16",
+    "Actual": "8292b1972ef2f094c44e15fb56e9ad558fe0c1c668ab7eb2256534b79b8a6f16",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "approval-template.txt",
+    "Expected": "00a9678f70291f6db163f24d1123c8f4460135df20191bbaed672f1074415108",
+    "Actual": "00a9678f70291f6db163f24d1123c8f4460135df20191bbaed672f1074415108",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "checks/author-receipt.json",
+    "Expected": "b17ad4c501d309b6720e82121e7af277c0ea783424bdc257963e2285ae906bc8",
+    "Actual": "b17ad4c501d309b6720e82121e7af277c0ea783424bdc257963e2285ae906bc8",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "checks/core-green.xml",
+    "Expected": "03224467fdf1a521f38834b3ce11ff170a93aabe8471add580d85d0f3e78861e",
+    "Actual": "03224467fdf1a521f38834b3ce11ff170a93aabe8471add580d85d0f3e78861e",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "checks/core-red.xml",
+    "Expected": "1f1116820ca368f8ffd6632d4aa7b8f9c764085e3ce6d7047786a9b0313d660d",
+    "Actual": "1f1116820ca368f8ffd6632d4aa7b8f9c764085e3ce6d7047786a9b0313d660d",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "checks/lint.txt",
+    "Expected": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "Actual": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "checks/tool-green.xml",
+    "Expected": "1218c5cb887b9c432b65e96ec4ee853c1086d26e6d3b2c7084baa0983a0465f7",
+    "Actual": "1218c5cb887b9c432b65e96ec4ee853c1086d26e6d3b2c7084baa0983a0465f7",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "checks/tool-red.xml",
+    "Expected": "3e7e91161f10ac3f71ccbeaa4bbc569da6d4dbc0f7224849d388e50c92e78974",
+    "Actual": "3e7e91161f10ac3f71ccbeaa4bbc569da6d4dbc0f7224849d388e50c92e78974",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "checks/verified-tests.xml",
+    "Expected": "1e2d047a6524c0ec3181b4f5d48664ebbc92c300ff4bfd31f74386c46a662364",
+    "Actual": "1e2d047a6524c0ec3181b4f5d48664ebbc92c300ff4bfd31f74386c46a662364",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "execution-request.md",
+    "Expected": "4e72b30ed79e16921ee9ab21258665c88c729256b5e39221ca85a8654527b3f5",
+    "Actual": "4e72b30ed79e16921ee9ab21258665c88c729256b5e39221ca85a8654527b3f5",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "handoff.md",
+    "Expected": "3a110c4f1ae7eb22e194267c602ea089a8a47f53d605b9324bb1a8bf89c4ea07",
+    "Actual": "3a110c4f1ae7eb22e194267c602ea089a8a47f53d605b9324bb1a8bf89c4ea07",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "identity.json",
+    "Expected": "baa5a07f7a9eb705ed6366bd1ff618e6d68b92908e03c11abde72a7554fee2aa",
+    "Actual": "baa5a07f7a9eb705ed6366bd1ff618e6d68b92908e03c11abde72a7554fee2aa",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "plan.json",
+    "Expected": "535a3fa5b4d55d8bc6cc29763c63b5ab41f89cf0ea190bca90f9c00a5a8c9d2c",
+    "Actual": "535a3fa5b4d55d8bc6cc29763c63b5ab41f89cf0ea190bca90f9c00a5a8c9d2c",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "predecessor-metadata/.gitattributes",
+    "Expected": "117a4716b1fee6248b9f42642ccf78065cf9b8efbdffd5daeb9fb6c6867b49f6",
+    "Actual": "117a4716b1fee6248b9f42642ccf78065cf9b8efbdffd5daeb9fb6c6867b49f6",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "predecessor-metadata/docs/research/README.md",
+    "Expected": "bb89a09e430ac8dfaa4d332fde31fac0217050b6e15b37995da44d3f24512be5",
+    "Actual": "bb89a09e430ac8dfaa4d332fde31fac0217050b6e15b37995da44d3f24512be5",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "predecessor-metadata/tests/cases.json",
+    "Expected": "da76050985d5187879002eff3c9875ff0ee6fcc39588c9e7f777de354fde6b72",
+    "Actual": "da76050985d5187879002eff3c9875ff0ee6fcc39588c9e7f777de354fde6b72",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "run-command.txt",
+    "Expected": "a44d58b18e918f544d4bee6c717400d08caef699303f4579a15771e461f31921",
+    "Actual": "a44d58b18e918f544d4bee6c717400d08caef699303f4579a15771e461f31921",
+    "Match": true
+  },
+  {
+    "Kind": "freeze",
+    "Path": "selection.json",
+    "Expected": "4a53d525c141a8332ab1599f59d0e168a9d65261ab4d5b116547fb43e023548f",
+    "Actual": "4a53d525c141a8332ab1599f59d0e168a9d65261ab4d5b116547fb43e023548f",
+    "Match": true
+  },
+  {
+    "Kind": "source",
+    "Path": "docs/research/river-group-optimality.md",
+    "Expected": "5b0adde6bb4a976fb7ab67e64a95c00726e10d56d705aa4c9ec4e0adac2e9e73",
+    "Actual": "5b0adde6bb4a976fb7ab67e64a95c00726e10d56d705aa4c9ec4e0adac2e9e73",
+    "Match": true
+  },
+  {
+    "Kind": "source",
+    "Path": "docs/research/river-witness-groups.md",
+    "Expected": "bae49329b4bca346b01eb42df6abcf99e3f5f661a9cb96764223ab4a433ac30e",
+    "Actual": "bae49329b4bca346b01eb42df6abcf99e3f5f661a9cb96764223ab4a433ac30e",
+    "Match": true
+  },
+  {
+    "Kind": "source",
+    "Path": "docs/research/river-witness-pilot.md",
+    "Expected": "64adda53ae3be12ec09f99f7b3678733151ae08258f8f97ae5ec5c05f041d6b1",
+    "Actual": "64adda53ae3be12ec09f99f7b3678733151ae08258f8f97ae5ec5c05f041d6b1",
+    "Match": true
+  },
+  {
+    "Kind": "source",
+    "Path": "src/pontius/__init__.py",
+    "Expected": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba",
+    "Actual": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba",
+    "Match": true
+  },
+  {
+    "Kind": "source",
+    "Path": "src/pontius/game.py",
+    "Expected": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2",
+    "Actual": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2",
+    "Match": true
+  },
+  {
+    "Kind": "source",
+    "Path": "src/pontius/river.py",
+    "Expected": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7",
+    "Actual": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7",
+    "Match": true
+  },
+  {
+    "Kind": "source",
+    "Path": "src/pontius/river_abstraction_study.py",
+    "Expected": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "Actual": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "Match": true
+  },
+  {
+    "Kind": "source",
+    "Path": "src/pontius/river_group_optimality.py",
+    "Expected": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "Actual": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "Match": true
+  },
+  {
+    "Kind": "source",
+    "Path": "src/pontius/river_witness_groups.py",
+    "Expected": "2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e",
+    "Actual": "2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e",
+    "Match": true
+  },
+  {
+    "Kind": "source",
+    "Path": "src/pontius/river_witness_pilot.py",
+    "Expected": "696aa6796f592f8d1faa02884a007a3cc431137119406d2bac665bf03cb0469d",
+    "Actual": "696aa6796f592f8d1faa02884a007a3cc431137119406d2bac665bf03cb0469d",
+    "Match": true
+  },
+  {
+    "Kind": "source",
+    "Path": "tools/river_group_optimality.py",
+    "Expected": "b637f02177d43f15376d2933805d92fe8eeefd4e9a1b11dada809c68da5a391a",
+    "Actual": "b637f02177d43f15376d2933805d92fe8eeefd4e9a1b11dada809c68da5a391a",
+    "Match": true
+  },
+  {
+    "Kind": "source",
+    "Path": "tools/river_witness_pilot.py",
+    "Expected": "8292b1972ef2f094c44e15fb56e9ad558fe0c1c668ab7eb2256534b79b8a6f16",
+    "Actual": "8292b1972ef2f094c44e15fb56e9ad558fe0c1c668ab7eb2256534b79b8a6f16",
+    "Match": true
+  }
+]

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.195" timestamp="2026-09-10T23:08:38.549239-04:00" hostname="JeffPC"><testcase classname="tests.test_river_abstraction_holdout.CampaignTests" name="test_comparisons_preserve_signs_controls_and_all_checkpoints" time="0.004"><failure message="AttributeError: module 'river_abstraction_campaign' has no attribute 'summarize'">self = &lt;test_river_abstraction_holdout.CampaignTests testMethod=test_comparisons_preserve_signs_controls_and_all_checkpoints&gt;
+
+    def test_comparisons_preserve_signs_controls_and_all_checkpoints(self):
+        plan = self.runner.make_plan(Path('unused-holdout').resolve())
+        records = []
+        for step in (100, 1000, 10000):
+            for index, case in enumerate(plan['cases']):
+                values = dict(exact=0, uniform_equity_200=10, range_equity=12,
+                              range_response=(9, 10, 11, 8)[index])
+                for method, value in values.items():
+                    records.append(dict(case=case['id'], method=method, iteration=step,
+                                        full_game={'exploitability': value},
+                                        full_game_fraction_of_pot={'exploitability': value / 10}))
+&gt;       summary = self.runner.summarize(plan, records, [])
+                  ^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'river_abstraction_campaign' has no attribute 'summarize'
+
+tests\test_river_abstraction_holdout.py:148: AttributeError</failure></testcase></testsuite></testsuites>

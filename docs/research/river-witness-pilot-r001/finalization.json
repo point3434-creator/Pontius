@@ -1,0 +1,19 @@
+{
+  "authorization_exists": false,
+  "candidate_identity_preserved": true,
+  "current_readme_sha256": "54d657b9122da52073ccd426b1d0ee91dd4c87b6050c59b440d2ae7bed6d065b",
+  "fresh_case_lp_calls": 0,
+  "frozen_members_preserved": true,
+  "output_exists": false,
+  "plan_sha256": "535a3fa5b4d55d8bc6cc29763c63b5ab41f89cf0ea190bca90f9c00a5a8c9d2c",
+  "prior_readme_sha256": "bb89a09e430ac8dfaa4d332fde31fac0217050b6e15b37995da44d3f24512be5",
+  "review_files": {
+    "dependency-tests.xml": "4be2107a88c9f34ce82cccc502c6cd323d5e4026a09ed4cafcb8f4042b60add7",
+    "final-pins.json": "78c992be658b3f273534a20132f76de888744cb78dbcead144261c370ed1ba26",
+    "independent_checks.py": "9d37e726410beb4851510e57025a834242d8d53a995f4e8b86e085931a41c59e",
+    "inventory.md": "b6cb466b6aec3bfe36a47ee05186cf53f01e024d37f130d4cb0fd892c97064a3",
+    "pilot-tests.xml": "8ea28731ddc4b36bba37fc9fb4a0560684e77e6bbc0ec592371e6ac488c3aa6c",
+    "report.md": "83b4eafb04985f46fa7ff7c4f95905e9de2500e9fcb42151a57b2bf4a2864a86",
+    "seals.json": "a0905d6c71c01bb2e73da3a99dd74d975ea96d0e1d22d4d0f1ba3a8d003d5b87"
+  }
+}

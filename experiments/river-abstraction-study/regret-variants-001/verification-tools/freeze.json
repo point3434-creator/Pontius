@@ -1,0 +1,8 @@
+{
+  "cases": 16,
+  "plan_sha256": "954f02a1ad7de5f3ff3bb47e6b00424ba924cf7da0cfac5fc44a3f00dae16799",
+  "preflight_passed": true,
+  "repetitions": 2,
+  "retained_invoked": false,
+  "variants": 3
+}

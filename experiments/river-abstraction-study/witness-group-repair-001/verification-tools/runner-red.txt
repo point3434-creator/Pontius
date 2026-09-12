@@ -1,0 +1,35 @@
+test_changed_pin_refuses_before_claim (__main__.RunnerTests.test_changed_pin_refuses_before_claim) ... FAIL
+test_complete_synthetic_path_and_duplicate_refusal (__main__.RunnerTests.test_complete_synthetic_path_and_duplicate_refusal) ... FAIL
+test_missing_row_and_corrupt_operation_are_rejected (__main__.RunnerTests.test_missing_row_and_corrupt_operation_are_rejected) ... FAIL
+
+======================================================================
+FAIL: test_changed_pin_refuses_before_claim (__main__.RunnerTests.test_changed_pin_refuses_before_claim)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-group-repair-author\test_runner.py", line 9, in setUp
+    self.assertTrue(callable(getattr(e, 'make_plan', None)), 'runner is absent')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : runner is absent
+
+======================================================================
+FAIL: test_complete_synthetic_path_and_duplicate_refusal (__main__.RunnerTests.test_complete_synthetic_path_and_duplicate_refusal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-group-repair-author\test_runner.py", line 9, in setUp
+    self.assertTrue(callable(getattr(e, 'make_plan', None)), 'runner is absent')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : runner is absent
+
+======================================================================
+FAIL: test_missing_row_and_corrupt_operation_are_rejected (__main__.RunnerTests.test_missing_row_and_corrupt_operation_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-group-repair-author\test_runner.py", line 9, in setUp
+    self.assertTrue(callable(getattr(e, 'make_plan', None)), 'runner is absent')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : runner is absent
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=3)

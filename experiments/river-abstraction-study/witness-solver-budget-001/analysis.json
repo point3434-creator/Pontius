@@ -1,0 +1,218 @@
+{
+  "board_counts": {
+    "iterations:10000": {
+      "higher": 3,
+      "lower": 13
+    },
+    "seconds:0.5": {
+      "higher": 3,
+      "lower": 13
+    }
+  },
+  "numerical_improvement_pass": true,
+  "relative_reductions_percent": {
+    "iterations:100": 3.776714287488591,
+    "iterations:1000": 13.002109726630842,
+    "iterations:10000": 16.79950774339331,
+    "seconds:0.05": 12.197091541103175,
+    "seconds:0.2": 16.701775762571977,
+    "seconds:0.5": 17.073124804420765
+  },
+  "robustness_pass": true,
+  "worst_cases": {
+    "iterations:10000": [
+      {
+        "candidate": 0.022900707301653944,
+        "case": {
+          "board": [
+            6,
+            14,
+            15,
+            20,
+            23
+          ],
+          "board_index": 15,
+          "id": "b15-p2-uniform",
+          "pool": 2,
+          "regime": "uniform",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.008271155503553729,
+        "reference": 0.014629551798100215
+      },
+      {
+        "candidate": 0.01777909274055789,
+        "case": {
+          "board": [
+            15,
+            16,
+            17,
+            18,
+            30
+          ],
+          "board_index": 14,
+          "id": "b14-p0-polarized",
+          "pool": 0,
+          "regime": "polarized",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.007050838650357938,
+        "reference": 0.010728254090199951
+      },
+      {
+        "candidate": 0.015199098929925992,
+        "case": {
+          "board": [
+            6,
+            7,
+            30,
+            36,
+            40
+          ],
+          "board_index": 11,
+          "id": "b11-p0-uniform",
+          "pool": 0,
+          "regime": "uniform",
+          "texture": "one-pair"
+        },
+        "delta": 0.00598199916476394,
+        "reference": 0.009217099765162051
+      },
+      {
+        "candidate": 0.010257307603148469,
+        "case": {
+          "board": [
+            15,
+            16,
+            17,
+            18,
+            30
+          ],
+          "board_index": 14,
+          "id": "b14-p0-uniform",
+          "pool": 0,
+          "regime": "uniform",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.0037098263081705163,
+        "reference": 0.006547481294977953
+      },
+      {
+        "candidate": 0.012157546585104317,
+        "case": {
+          "board": [
+            1,
+            12,
+            13,
+            36,
+            38
+          ],
+          "board_index": 12,
+          "id": "b12-p0-polarized",
+          "pool": 0,
+          "regime": "polarized",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.0036326474365535044,
+        "reference": 0.008524899148550813
+      }
+    ],
+    "seconds:0.5": [
+      {
+        "candidate": 0.02288587567053983,
+        "case": {
+          "board": [
+            6,
+            14,
+            15,
+            20,
+            23
+          ],
+          "board_index": 15,
+          "id": "b15-p2-uniform",
+          "pool": 2,
+          "regime": "uniform",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.008174152727646879,
+        "reference": 0.01471172294289295
+      },
+      {
+        "candidate": 0.017680881381803498,
+        "case": {
+          "board": [
+            15,
+            16,
+            17,
+            18,
+            30
+          ],
+          "board_index": 14,
+          "id": "b14-p0-polarized",
+          "pool": 0,
+          "regime": "polarized",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.006971765539364074,
+        "reference": 0.010709115842439424
+      },
+      {
+        "candidate": 0.015831970237058086,
+        "case": {
+          "board": [
+            6,
+            7,
+            30,
+            36,
+            40
+          ],
+          "board_index": 11,
+          "id": "b11-p0-uniform",
+          "pool": 0,
+          "regime": "uniform",
+          "texture": "one-pair"
+        },
+        "delta": 0.006606192928180913,
+        "reference": 0.009225777308877173
+      },
+      {
+        "candidate": 0.012316878744845291,
+        "case": {
+          "board": [
+            1,
+            12,
+            13,
+            36,
+            38
+          ],
+          "board_index": 12,
+          "id": "b12-p0-polarized",
+          "pool": 0,
+          "regime": "polarized",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.003782364107191332,
+        "reference": 0.00853451463765396
+      },
+      {
+        "candidate": 0.010206365070287752,
+        "case": {
+          "board": [
+            15,
+            16,
+            17,
+            18,
+            30
+          ],
+          "board_index": 14,
+          "id": "b14-p0-uniform",
+          "pool": 0,
+          "regime": "uniform",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.0036887581302134835,
+        "reference": 0.006517606940074268
+      }
+    ]
+  }
+}

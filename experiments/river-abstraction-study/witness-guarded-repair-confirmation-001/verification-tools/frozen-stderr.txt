@@ -1,0 +1,15 @@
+test_exchange_objective_matches_exhaustive_binary_group_policies (test_repair.RepairTests.test_exchange_objective_matches_exhaustive_binary_group_policies) ... ok
+test_no_conflict_zero_advantage_or_insufficient_groups_is_noop (test_repair.RepairTests.test_no_conflict_zero_advantage_or_insufficient_groups_is_noop) ... ok
+test_rejects_tampered_witness_before_proposal (test_repair.RepairTests.test_rejects_tampered_witness_before_proposal) ... ok
+test_split_merge_removes_known_restriction_cost (test_repair.RepairTests.test_split_merge_removes_known_restriction_cost) ... ok
+test_utility_signs_and_joint_mass (test_repair.RepairTests.test_utility_signs_and_joint_mass) ... ok
+test_zeros_have_deterministic_side_and_witness_score_reconstructs (test_repair.RepairTests.test_zeros_have_deterministic_side_and_witness_score_reconstructs) ... ok
+test_changed_pin_refuses_before_claim (test_runner.RunnerTests.test_changed_pin_refuses_before_claim) ... ok
+test_complete_synthetic_path_and_duplicate_refusal (test_runner.RunnerTests.test_complete_synthetic_path_and_duplicate_refusal) ... ok
+test_missing_row_and_corrupt_operation_are_rejected (test_runner.RunnerTests.test_missing_row_and_corrupt_operation_are_rejected) ... ok
+test_summary_keeps_certified_bounds_and_long_control_separate (test_runner.RunnerTests.test_summary_keeps_certified_bounds_and_long_control_separate) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 2.603s
+
+OK

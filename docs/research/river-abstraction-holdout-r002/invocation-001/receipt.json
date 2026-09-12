@@ -1,0 +1,8 @@
+{
+  "exit": 0,
+  "wall_seconds": 8.745879299996886,
+  "completed_at_utc": "2026-09-11T03:39:43.383308+00:00",
+  "plan_sha256": "7377d6a37503f8a11e54b06dafcd783ed29e3b0e523d3569bbcfe17dc2a2533c",
+  "stdout_sha256": "62d46291ce4a6aa711cb61ff394f7c80fd679a812945b432f0f8a570c2b07c3c",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

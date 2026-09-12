@@ -1,0 +1,99 @@
+{
+  "campaign_files_verified": 35,
+  "complete_profiles": 48,
+  "comparisons_verified": 18,
+  "child_exits": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "original_state_max_error_chips": 1.0894063429134349e-15,
+  "plan_sha256": "7377d6a37503f8a11e54b06dafcd783ed29e3b0e523d3569bbcfe17dc2a2533c",
+  "invocation_wall_seconds": 8.745879299996886,
+  "headline_means_chips": {
+    "exact": 0.00018281814890502845,
+    "range_equity": 0.00920226637668867,
+    "range_response": 0.009002733805434374,
+    "uniform_equity_200": 0.010639761977691758
+  },
+  "reduction_vs_baseline_percent": {
+    "exact": 98.2817458765681,
+    "range_equity": 13.51059924100807,
+    "range_response": 15.385947314326376,
+    "uniform_equity_200": 0.0
+  },
+  "response_reduction_vs_range_equity_percent": 2.1682981462018414,
+  "headline_comparisons": [
+    {
+      "case_pattern": "mixed",
+      "cases": [
+        {
+          "case": "holdout-0-uniform",
+          "difference": -0.0023897106692217923,
+          "difference_fraction_of_pot": -0.00023897106692217932
+        },
+        {
+          "case": "holdout-0-polarized",
+          "difference": -0.0010678288804558123,
+          "difference_fraction_of_pot": -0.00010678288804558123
+        },
+        {
+          "case": "holdout-1-uniform",
+          "difference": 1.7713806425845302e-05,
+          "difference_fraction_of_pot": 1.7713806425845302e-06
+        },
+        {
+          "case": "holdout-1-polarized",
+          "difference": -0.0031082869457777773,
+          "difference_fraction_of_pot": -0.00031082869457777775
+        }
+      ],
+      "iteration": 10000,
+      "mean_difference": -0.0016370281722573841,
+      "mean_difference_fraction_of_pot": -0.00016370281722573844,
+      "method": "range_response",
+      "reference": "uniform_equity_200",
+      "sign_counts": {
+        "equal": 0,
+        "higher": 1,
+        "lower": 3
+      }
+    },
+    {
+      "case_pattern": "mixed",
+      "cases": [
+        {
+          "case": "holdout-0-uniform",
+          "difference": -0.002795528249169843,
+          "difference_fraction_of_pot": -0.0002795528249169843
+        },
+        {
+          "case": "holdout-0-polarized",
+          "difference": 0.0037422915780136734,
+          "difference_fraction_of_pot": 0.00037422915780136725
+        },
+        {
+          "case": "holdout-1-uniform",
+          "difference": -5.0521874363579355e-05,
+          "difference_fraction_of_pot": -5.052187436357957e-06
+        },
+        {
+          "case": "holdout-1-polarized",
+          "difference": -0.0016943717394974356,
+          "difference_fraction_of_pot": -0.00016943717394974354
+        }
+      ],
+      "iteration": 10000,
+      "mean_difference": -0.00019953257125429613,
+      "mean_difference_fraction_of_pot": -1.9953257125429635e-05,
+      "method": "range_response",
+      "reference": "range_equity",
+      "sign_counts": {
+        "equal": 0,
+        "higher": 1,
+        "lower": 3
+      }
+    }
+  ]
+}

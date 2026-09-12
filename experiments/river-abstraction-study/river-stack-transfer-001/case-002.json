@@ -1,0 +1,248 @@
+{
+  "engine_audit": {
+    "checks": 15,
+    "outcomes": [
+      -1,
+      0,
+      1
+    ],
+    "records": [
+      {
+        "centered_chips": "-184",
+        "hero_hand": [
+          0,
+          4
+        ],
+        "kind": "check",
+        "sign": -1,
+        "size": 44,
+        "villain_hand": [
+          1,
+          21
+        ]
+      },
+      {
+        "centered_chips": "184",
+        "hero_hand": [
+          0,
+          4
+        ],
+        "kind": "fold",
+        "sign": -1,
+        "size": 44,
+        "villain_hand": [
+          1,
+          21
+        ]
+      },
+      {
+        "centered_chips": "-228",
+        "hero_hand": [
+          0,
+          4
+        ],
+        "kind": "call",
+        "sign": -1,
+        "size": 44,
+        "villain_hand": [
+          1,
+          21
+        ]
+      },
+      {
+        "centered_chips": "184",
+        "hero_hand": [
+          0,
+          4
+        ],
+        "kind": "fold",
+        "sign": -1,
+        "size": 44,
+        "villain_hand": [
+          1,
+          21
+        ]
+      },
+      {
+        "centered_chips": "-228",
+        "hero_hand": [
+          0,
+          4
+        ],
+        "kind": "call",
+        "sign": -1,
+        "size": 44,
+        "villain_hand": [
+          1,
+          21
+        ]
+      },
+      {
+        "centered_chips": "0",
+        "hero_hand": [
+          0,
+          4
+        ],
+        "kind": "check",
+        "sign": 0,
+        "size": 44,
+        "villain_hand": [
+          1,
+          5
+        ]
+      },
+      {
+        "centered_chips": "184",
+        "hero_hand": [
+          0,
+          4
+        ],
+        "kind": "fold",
+        "sign": 0,
+        "size": 44,
+        "villain_hand": [
+          1,
+          5
+        ]
+      },
+      {
+        "centered_chips": "0",
+        "hero_hand": [
+          0,
+          4
+        ],
+        "kind": "call",
+        "sign": 0,
+        "size": 44,
+        "villain_hand": [
+          1,
+          5
+        ]
+      },
+      {
+        "centered_chips": "184",
+        "hero_hand": [
+          0,
+          4
+        ],
+        "kind": "fold",
+        "sign": 0,
+        "size": 44,
+        "villain_hand": [
+          1,
+          5
+        ]
+      },
+      {
+        "centered_chips": "0",
+        "hero_hand": [
+          0,
+          4
+        ],
+        "kind": "call",
+        "sign": 0,
+        "size": 44,
+        "villain_hand": [
+          1,
+          5
+        ]
+      },
+      {
+        "centered_chips": "184",
+        "hero_hand": [
+          0,
+          1
+        ],
+        "kind": "check",
+        "sign": 1,
+        "size": 44,
+        "villain_hand": [
+          4,
+          5
+        ]
+      },
+      {
+        "centered_chips": "184",
+        "hero_hand": [
+          0,
+          1
+        ],
+        "kind": "fold",
+        "sign": 1,
+        "size": 44,
+        "villain_hand": [
+          4,
+          5
+        ]
+      },
+      {
+        "centered_chips": "228",
+        "hero_hand": [
+          0,
+          1
+        ],
+        "kind": "call",
+        "sign": 1,
+        "size": 44,
+        "villain_hand": [
+          4,
+          5
+        ]
+      },
+      {
+        "centered_chips": "184",
+        "hero_hand": [
+          0,
+          1
+        ],
+        "kind": "fold",
+        "sign": 1,
+        "size": 44,
+        "villain_hand": [
+          4,
+          5
+        ]
+      },
+      {
+        "centered_chips": "228",
+        "hero_hand": [
+          0,
+          1
+        ],
+        "kind": "call",
+        "sign": 1,
+        "size": 44,
+        "villain_hand": [
+          4,
+          5
+        ]
+      }
+    ],
+    "tie_centered_chips": 0.0
+  },
+  "menu": {
+    "action_ids": [
+      5,
+      5
+    ],
+    "applicable": false,
+    "distinct_sizes": [
+      44
+    ],
+    "effective_stack": 44,
+    "legal_actions": [
+      1,
+      5
+    ],
+    "pot": 368,
+    "reason": "one distinct all-in size",
+    "sizes": [
+      44,
+      44
+    ],
+    "spr": 0.11956521739130435
+  },
+  "source": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\blueprint-range-transfer-001\\input-002.json",
+  "source_sha256": "a14ba3399003dd616100a67e2299fc1d5c43b5490d1b49870c8f4fcf4a5d996c",
+  "status": "not_applicable_single_size"
+}

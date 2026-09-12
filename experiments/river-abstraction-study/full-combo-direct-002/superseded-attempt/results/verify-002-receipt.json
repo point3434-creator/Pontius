@@ -1,0 +1,20 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\tmp\\full-combo-direct-author\\experiment.py",
+    "verify",
+    "D:\\Pontius\\tmp\\full-combo-direct-author\\plan.json",
+    "2068996b26a539f7ccdcf36b66390e5e2fa253ff80ed863d4c17613e26904586",
+    "2"
+  ],
+  "exit": 0,
+  "os_peak_commit_bytes": 831488,
+  "sampled_peak_private_bytes": 831488,
+  "sampled_peak_working_set_bytes": 4702208,
+  "samples": 178,
+  "seconds": 9.014147000008961,
+  "stop_reason": null
+}

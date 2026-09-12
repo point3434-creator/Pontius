@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="5" time="0.765" timestamp="2026-09-11T07:53:59.409091-04:00" hostname="JeffPC"><testcase classname="tests.test_river_witness_pilot.PilotTests" name="test_board_level_aggregation_retains_pool_variation_and_missingness_fails" time="0.001"><failure message="AssertionError: unexpectedly None : fresh-board and hand-pool pilot is not implemented">self = &lt;test_river_witness_pilot.PilotTests testMethod=test_board_level_aggregation_retains_pool_variation_and_missingness_fails&gt;
+
+    def test_board_level_aggregation_retains_pool_variation_and_missingness_fails(self):
+&gt;       module = self.module()
+                 ^^^^^^^^^^^^^
+
+tests\test_river_witness_pilot.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_pilot.py:20: in module
+    self.assertIsNotNone(importlib.util.find_spec('pontius.river_witness_pilot'),
+E   AssertionError: unexpectedly None : fresh-board and hand-pool pilot is not implemented</failure></testcase><testcase classname="tests.test_river_witness_pilot.PilotTests" name="test_panel_has_eight_fresh_suit_classes_and_two_per_texture" time="0.000"><failure message="AssertionError: unexpectedly None : fresh-board and hand-pool pilot is not implemented">self = &lt;test_river_witness_pilot.PilotTests testMethod=test_panel_has_eight_fresh_suit_classes_and_two_per_texture&gt;
+
+    def test_panel_has_eight_fresh_suit_classes_and_two_per_texture(self):
+&gt;       module = self.module()
+                 ^^^^^^^^^^^^^
+
+tests\test_river_witness_pilot.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_pilot.py:20: in module
+    self.assertIsNotNone(importlib.util.find_spec('pontius.river_witness_pilot'),
+E   AssertionError: unexpectedly None : fresh-board and hand-pool pilot is not implemented</failure></testcase><testcase classname="tests.test_river_witness_pilot.PilotTests" name="test_texture_partition_and_invalid_cards" time="0.000"><failure message="AssertionError: unexpectedly None : fresh-board and hand-pool pilot is not implemented">self = &lt;test_river_witness_pilot.PilotTests testMethod=test_texture_partition_and_invalid_cards&gt;
+
+    def test_texture_partition_and_invalid_cards(self):
+&gt;       module = self.module()
+                 ^^^^^^^^^^^^^
+
+tests\test_river_witness_pilot.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_pilot.py:20: in module
+    self.assertIsNotNone(importlib.util.find_spec('pontius.river_witness_pilot'),
+E   AssertionError: unexpectedly None : fresh-board and hand-pool pilot is not implemented</failure></testcase><testcase classname="tests.test_river_witness_pilot.PilotTests" name="test_three_pool_draws_are_reproducible_legal_and_shared_between_regimes" time="0.000"><failure message="AssertionError: unexpectedly None : fresh-board and hand-pool pilot is not implemented">self = &lt;test_river_witness_pilot.PilotTests testMethod=test_three_pool_draws_are_reproducible_legal_and_shared_between_regimes&gt;
+
+    def test_three_pool_draws_are_reproducible_legal_and_shared_between_regimes(self):
+&gt;       module = self.module()
+                 ^^^^^^^^^^^^^
+
+tests\test_river_witness_pilot.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_pilot.py:20: in module
+    self.assertIsNotNone(importlib.util.find_spec('pontius.river_witness_pilot'),
+E   AssertionError: unexpectedly None : fresh-board and hand-pool pilot is not implemented</failure></testcase><testcase classname="tests.test_river_witness_pilot.PilotTests" name="test_two_hand_generation_certification_and_parent_validation" time="0.000"><failure message="AssertionError: unexpectedly None : fresh-board and hand-pool pilot is not implemented">self = &lt;test_river_witness_pilot.PilotTests testMethod=test_two_hand_generation_certification_and_parent_validation&gt;
+
+    def test_two_hand_generation_certification_and_parent_validation(self):
+&gt;       module = self.module()
+                 ^^^^^^^^^^^^^
+
+tests\test_river_witness_pilot.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_pilot.py:20: in module
+    self.assertIsNotNone(importlib.util.find_spec('pontius.river_witness_pilot'),
+E   AssertionError: unexpectedly None : fresh-board and hand-pool pilot is not implemented</failure></testcase></testsuite></testsuites>

@@ -1,0 +1,13 @@
+{
+  "groups_per_seat": 16,
+  "independent_enumeration_seconds": 0.15009380000992678,
+  "meaning": "Synthetic timing only; not a production runtime guarantee.",
+  "passed": true,
+  "proposal_seconds": 0.23261969999293797,
+  "scored_research_panel": false,
+  "synthetic_shape": [
+    96,
+    96
+  ],
+  "tests": 10
+}

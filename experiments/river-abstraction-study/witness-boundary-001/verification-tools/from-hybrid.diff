@@ -1,0 +1,200 @@
+--- sealed-hybrid/experiment.py
++++ boundary/experiment.py
+@@ -1,4 +1,4 @@
+-"""Fixed combined-feature intervention; standalone research, no model training."""
++"""Fixed boundary-resolution intervention; standalone research, no model training."""
+ from collections import Counter
+ from fractions import Fraction as Q
+ from hashlib import sha256
+@@ -17,56 +17,43 @@
+ import numpy as np
+ import scipy
+ from pontius.river_abstraction_study import anchored_clusters
+-from pontius.river_witness_groups import difference
++from pontius.river_witness_groups import difference, action_advantages
+ import pontius.river_group_optimality as opt
+ 
+ read=lambda p:json.loads(Path(p).read_bytes())
+ digest=lambda p:sha256(Path(p).read_bytes()).hexdigest()
+-NEW=('raw11','hybrid')
++NEW=('clipped_oracle','clipped_prediction')
+ 
+ def write(path,value):
+     with Path(path).open('x',encoding='utf-8',newline='\n') as f:
+         f.write(json.dumps(value,sort_keys=True,indent=2,allow_nan=False)+'\n')
+ 
+-def scale(samples):
+-    values=[]
+-    for features,weights in samples:
+-        x,w=np.asarray(features,float),np.asarray(weights,float)
+-        assert x.ndim==2 and w.shape==(len(x),) and (w>0).all()
+-        assert np.isfinite(x).all() and np.isfinite(w).all()
+-        w=w/w.sum()
+-        center=w@x
+-        values.append(float(w@np.square(x-center).sum(axis=1)))
+-    result=float(np.sqrt(np.mean(values)))
+-    assert np.isfinite(result) and result>0
+-    return result
+-
+-def features(raw,prediction,scales):
+-    x,p=np.asarray(raw,float),np.asarray(prediction,float)
+-    assert x.ndim==2 and x.shape[1]==11 and p.shape==(len(x),4)
+-    assert np.isfinite(x).all() and np.isfinite(p).all()
+-    assert set(scales)=={'raw','prediction'}
+-    assert all(np.isfinite(v) and v>0 for v in scales.values())
+-    return dict(raw11=x/scales['raw'],
+-                hybrid=np.column_stack((x/scales['raw'],p/scales['prediction'])))
++def clip(features):
++    x=np.asarray(features,float)
++    assert x.ndim==2 and x.shape[1]==4 and len(x)>0 and np.isfinite(x).all()
++    return np.clip(x,-.5,.5)
+ 
+ def self_test():
+-    # Equal cases, not equal rows; second case offset must not increase within spread.
+-    assert scale([([[0],[2]],[1,1]),([[100],[104]],[3,1])])==np.sqrt(2)
+-    x=np.zeros((5,11)); p=np.ones((5,4))*6
+-    f=features(x,p,dict(raw=2,prediction=3))
+-    assert np.array_equal(f['hybrid'][:,:11],f['raw11'])
+-    assert np.array_equal(f['hybrid'][:,11:],np.ones((5,4))*2)
+-    for k in range(1,6):
+-        assert len(set(anchored_clusters(f['hybrid'],np.ones(5),k)))==k
+-    for bad in (0,-1,float('nan')):
+-        try: features(x,p,dict(raw=bad,prediction=1))
++    x=np.array([[-2,-.5,-.1,0],[.1,.5,2,4.]])
++    expected=np.array([[-.5,-.5,-.1,0],[.1,.5,.5,.5]])
++    assert np.array_equal(clip(x),expected)
++    assert np.array_equal(np.sign(clip(x)),np.sign(x))
++    assert np.array_equal(clip(clip(x)),clip(x))
++    assert np.array_equal(clip(x)[np.abs(x)<=.5],x[np.abs(x)<=.5])
++    # Independent arms share a transform but cannot overwrite or consume each other.
++    prediction=np.ones((2,4))*-.2
++    before=prediction.copy(); oracle=clip(x)
++    assert np.array_equal(clip(prediction),before) and np.array_equal(prediction,before)
++    assert not np.array_equal(oracle,clip(prediction))
++    tied=clip(np.ones((7,4))*10)
++    for k in range(1,8): assert len(set(anchored_clusters(tied,np.ones(7),k)))==k
++    for bad in (np.array([[0,1]]),np.array([[0,0,0,float('nan')]]),
++                np.array([[0,0,0,float('inf')]]),np.empty((0,4))):
++        try: clip(bad)
+         except AssertionError: pass
+-        else: raise AssertionError('bad scale accepted')
+-    try: scale([([[1],[1]],[1,1])])
+-    except AssertionError: pass
+-    else: raise AssertionError('zero spread accepted')
+-    print('PASS: equal-case weighted scales, offsets, concatenation, capacity, invalid scales.')
++        else: raise AssertionError('invalid features accepted')
++    print('PASS: clipping endpoints/interior/signs/idempotence, arm separation, ties, refusals.')
++
+ 
+ def bindings(plan):
+     assert sys.version_info[:3]==(3,14,6)
+@@ -81,46 +68,45 @@
+     tool.student.fit_model=tool.student.fit_models=np.linalg.solve=nofit
+     return tool
+ 
+-def scales_for(plan):
+-    train=Path(plan['training'])
+-    cases=read(train/'plan.json')['cases']
+-    rows=[read(Path(plan['diagnostic'])/('training-'+c['id']+'.json')) for c in cases]
+-    assert len(rows)==48
+-    return [{key:scale([(r['seats'][seat][field],r['seats'][seat]['weights']) for r in rows])
+-             for key,field in (('raw','raw'),('prediction','prediction'))} for seat in (0,1)]
+-
+-def inputs(plan,tool,case,cache,scales):
++def transform_config(plan):
++    assert plan['clip_magnitude']==.5
++    return dict(clip_magnitude=.5)
++
++def inputs(plan,tool,case,cache,config):
++    assert config==dict(clip_magnitude=.5)
+     saved=read(Path(plan['evaluation'])/(case['id']+'.json'))
+-    diagnostic=read(Path(plan['diagnostic'])/('evaluation-'+case['id']+'.json'))
+-    assert diagnostic['case']==saved['case']==case
++    assert saved['case']==case
+     equities=tool.old.equities_for(case,cache)
+     matrix,oldgroups,rebuilt=tool.pilot.build_inputs(case,96,equities)
+     assert tool.pilot.canonical_json(rebuilt)==tool.pilot.canonical_json(saved['teacher']['inputs'])
+-    groups={method:[] for method in NEW}
++    groups={method:[] for method in NEW}; feature_rows={method:[] for method in NEW}
+     models=read(Path(plan['evaluation'])/'models.json')['models']
+     for seat in (0,1):
+-        data=diagnostic['seats'][seat]
+         raw=tool.student.raw_features(matrix,equities,seat)
+-        assert np.array_equal(raw,data['raw'])
+         prediction=tool.student.predict(models[seat],raw)
+-        assert np.array_equal(prediction,data['prediction'])
+         assert np.array_equal(prediction,saved['student']['proposal']['features'][seat])
+-        f=features(raw,prediction,scales[seat])
++        opponents=[r['solution'][f'seat{seat}']['call' if seat==0 else 'bet']
++                   for r in saved['teacher']['bank']['methods']]
++        oracle=action_advantages(matrix,opponents,seat)
++        assert np.array_equal(oracle,saved['teacher']['candidate']['proposal']['features'][seat])
++        transformed=dict(clipped_oracle=clip(oracle),clipped_prediction=clip(prediction))
+         weights=matrix.joint.sum(axis=1-seat)
+         k=len(set(oldgroups['uniform_equity_200'][seat]))
+         for method in NEW:
+-            labels=anchored_clusters(f[method],weights,k).tolist()
++            labels=anchored_clusters(transformed[method],weights,k).tolist()
+             assert len(set(labels))==k
+             groups[method].append(labels)
+-    return matrix,groups,saved
+-
+-def record(case,groups,saved,solutions):
++            feature_rows[method].append(transformed[method].tolist())
++    return matrix,groups,saved,feature_rows
++
++
++def record(case,groups,saved,solutions,feature_rows):
+     floors={c['method']:c['solution']['minimum_exploitability']
+             for c in saved['teacher']['bank']['methods']}
+     floors['direct_witness']=saved['teacher']['candidate']['solution']['minimum_exploitability']
+     floors['predicted_only']=saved['student']['solution']['minimum_exploitability']
+     floors.update({m:solutions[m]['minimum_exploitability'] for m in NEW})
+-    return dict(case=case,groups=groups,solutions=solutions,floors=floors,
++    return dict(case=case,groups=groups,features=feature_rows,solutions=solutions,floors=floors,
+         comparisons={m:{other:difference(floors[m],value) for other,value in floors.items()
+                          if other!=m} for m in NEW})
+ 
+@@ -149,8 +135,8 @@
+                              for b in range(8)})
+ 
+ def worker(plan,out):
+-    bindings(plan); tool=helpers(); scales=scales_for(plan)
+-    write(out/'scales.json',scales)
++    bindings(plan); tool=helpers(); config=transform_config(plan)
++    write(out/'transform.json',config)
+     calls=0; original=opt.linprog
+     def counted(*args,**kwargs):
+         nonlocal calls
+@@ -160,9 +146,9 @@
+     opt.linprog=counted
+     cache={}
+     for case in plan['cases']:
+-        matrix,groups,saved=inputs(plan,tool,case,cache,scales)
++        matrix,groups,saved,feature_rows=inputs(plan,tool,case,cache,config)
+         solutions={m:opt.solve_groups(matrix,groups[m]) for m in NEW}
+-        write(out/(case['id']+'.json'),record(case,groups,saved,solutions))
++        write(out/(case['id']+'.json'),record(case,groups,saved,solutions,feature_rows))
+     assert calls==192
+     bindings(plan)
+     write(out/'worker-complete.json',dict(complete=True,cases=48,lp_calls=calls))
+@@ -171,15 +157,15 @@
+     tool=helpers()
+     def forbidden(*a,**kw): raise AssertionError('parent optimizer call forbidden')
+     opt.linprog=opt.solve_groups=forbidden
+-    scales=scales_for(plan)
+-    assert scales==read(out/'scales.json')
++    config=transform_config(plan)
++    assert config==read(out/'transform.json')
+     rows=[]; cache={}
+     for case in plan['cases']:
+         row=read(out/(case['id']+'.json'))
+-        matrix,groups,saved=inputs(plan,tool,case,cache,scales)
++        matrix,groups,saved,feature_rows=inputs(plan,tool,case,cache,config)
+         for method in NEW:
+             opt.verify_solution(matrix,groups[method],row['solutions'][method])
+-        assert record(case,groups,saved,row['solutions'])==row
++        assert record(case,groups,saved,row['solutions'],feature_rows)==row
+         rows.append(row)
+     bindings(plan)
+     write(out/'summary.json',summary(rows))

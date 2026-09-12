@@ -1,0 +1,13 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\tmp\\witness-seat-crossover-author\\experiment.py",
+    "worker",
+    "D:\\Pontius\\tmp\\witness-seat-crossover-author\\plan.json",
+    "2b988ada37d3ec3a016819b50425ec07f2b198b4e13123fc3e0f4309021b02df"
+  ],
+  "plan_sha256": "2b988ada37d3ec3a016819b50425ec07f2b198b4e13123fc3e0f4309021b02df"
+}

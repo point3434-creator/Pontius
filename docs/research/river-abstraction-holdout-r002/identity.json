@@ -1,0 +1,18 @@
+{
+  "base": "1b4d1a0e26cd4da90ff74678de2e48ef53ec5599",
+  "branch": "codex/river-abstraction-holdout",
+  "root": "D:\\Pontius-worktrees\\eval-runner-consolidation",
+  "scope": "holdout admission, normalized reporting and bound four-case runner",
+  "source_status": "uncommitted; holdout not executed",
+  "plan_sha256": "7377d6a37503f8a11e54b06dafcd783ed29e3b0e523d3569bbcfe17dc2a2533c",
+  "sha256": {
+    ".gitattributes": "7f72e288100510e7ae6f8dfc2c079d65b88f357615a271a14309231f81f146f0",
+    "src/pontius/river_abstraction_study.py": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "tools/river_abstraction_study.py": "744614308370c6e32ca1763077418248ad34ecdabdce2150dbf05515fa76f889",
+    "tools/river_abstraction_campaign.py": "2b434f925444dde0a2d3d08241dbcbf26bc5d82ce1936ceccc85178a15a27688",
+    "tests/test_river_abstraction_holdout.py": "c67bbe536be80ffa9c4813cd374b9148bb3b79a5d6a08bcafefea16b2c3bace1",
+    "tests/cases.json": "2194f7af21d6e503a0514df7282fdddff1169e7761bbdc0fd056395635084bcf",
+    "docs/research/river-abstraction-holdout.md": "10f4907dd04bef680d796dc5cb1fc537e816032ec691eceebe2b7a7d7ce895af",
+    "docs/research/river-abstraction-holdout-r002/plan.json": "7377d6a37503f8a11e54b06dafcd783ed29e3b0e523d3569bbcfe17dc2a2533c"
+  }
+}

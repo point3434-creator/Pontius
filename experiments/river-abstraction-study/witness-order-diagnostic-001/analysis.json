@@ -1,0 +1,115 @@
+{
+  "10": {
+    "actual_reductions_percent": {
+      "ordinal": 1.0420683781673534e-05,
+      "ordinary_preference": -16.21917027737568,
+      "range_response": 16.10273080093481,
+      "sign_conditioned": 1.1621117976089375
+    },
+    "board_directions": {
+      "ordinal": {
+        "lower": 1,
+        "overlapping": 7
+      },
+      "ordinary_preference": {
+        "higher": 6,
+        "lower": 2
+      },
+      "range_response": {
+        "higher": 2,
+        "lower": 6
+      },
+      "sign_conditioned": {
+        "higher": 3,
+        "lower": 4,
+        "overlapping": 1
+      }
+    },
+    "caller_partition_cells": {
+      "changed": 1,
+      "identical": 31
+    },
+    "floor_exceeds_reference_actual": {
+      "ordinal": false,
+      "ordinary_preference": true,
+      "range_response": false,
+      "sign_conditioned": false
+    },
+    "floor_reductions_percent": {
+      "ordinal": 0.0,
+      "ordinary_preference": -17.042974084644495,
+      "range_response": 16.3787148753601,
+      "sign_conditioned": 1.3850409615409474
+    },
+    "leave_one_board_out_directions": {
+      "ordinal": {
+        "lower": 7,
+        "overlapping": 1
+      },
+      "ordinary_preference": {
+        "higher": 8
+      },
+      "range_response": {
+        "lower": 8
+      },
+      "sign_conditioned": {
+        "higher": 1,
+        "lower": 7
+      }
+    }
+  },
+  "5": {
+    "actual_reductions_percent": {
+      "ordinal": 0.0,
+      "ordinary_preference": -4.620736116905721,
+      "range_response": 9.691864112354718,
+      "sign_conditioned": -9.476720174734522
+    },
+    "board_directions": {
+      "ordinal": {
+        "overlapping": 8
+      },
+      "ordinary_preference": {
+        "higher": 5,
+        "lower": 3
+      },
+      "range_response": {
+        "higher": 1,
+        "lower": 7
+      },
+      "sign_conditioned": {
+        "higher": 5,
+        "lower": 3
+      }
+    },
+    "caller_partition_cells": {
+      "identical": 32
+    },
+    "floor_exceeds_reference_actual": {
+      "ordinal": false,
+      "ordinary_preference": true,
+      "range_response": false,
+      "sign_conditioned": true
+    },
+    "floor_reductions_percent": {
+      "ordinal": -1.95611388494199e-14,
+      "ordinary_preference": -4.860844411045658,
+      "range_response": 9.863879607817434,
+      "sign_conditioned": -9.614959614505036
+    },
+    "leave_one_board_out_directions": {
+      "ordinal": {
+        "overlapping": 8
+      },
+      "ordinary_preference": {
+        "higher": 8
+      },
+      "range_response": {
+        "lower": 8
+      },
+      "sign_conditioned": {
+        "higher": 8
+      }
+    }
+  }
+}

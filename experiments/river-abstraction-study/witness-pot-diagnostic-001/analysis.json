@@ -1,0 +1,119 @@
+{
+  "intersection": {
+    "board_counts": {
+      "learned_br_minus_cfr": {
+        "lower": 4
+      },
+      "learned_minus_response_br": {
+        "higher": 3,
+        "lower": 1
+      },
+      "learned_minus_response_cfr": {
+        "higher": 2,
+        "lower": 2
+      },
+      "response_br_minus_cfr": {
+        "lower": 4
+      }
+    },
+    "learned_br_reduction_percent": 31.077548009291696,
+    "learned_residual_removed_percent": 96.8956332101792,
+    "leave_one_board_out_counts": {
+      "learned_br_minus_cfr": {
+        "lower": 4
+      },
+      "learned_minus_response_br": {
+        "higher": 4
+      },
+      "learned_minus_response_cfr": {
+        "higher": 3,
+        "lower": 1
+      },
+      "response_br_minus_cfr": {
+        "lower": 4
+      }
+    },
+    "response_br_reduction_percent": 33.98300355101903
+  },
+  "oracle_reduction_percent": {
+    "half_witness": 89.0359517402657,
+    "ordinary_preference": 83.89204463478777,
+    "range_response": 83.40687591014238
+  },
+  "paired_trips": {
+    "board_counts": {
+      "learned_br_minus_cfr": {
+        "lower": 4
+      },
+      "learned_minus_response_br": {
+        "higher": 3,
+        "lower": 1
+      },
+      "learned_minus_response_cfr": {
+        "higher": 1,
+        "lower": 3
+      },
+      "response_br_minus_cfr": {
+        "lower": 4
+      }
+    },
+    "learned_br_reduction_percent": 28.59393283029632,
+    "learned_residual_removed_percent": 97.39207857585816,
+    "leave_one_board_out_counts": {
+      "learned_br_minus_cfr": {
+        "lower": 4
+      },
+      "learned_minus_response_br": {
+        "higher": 3,
+        "lower": 1
+      },
+      "learned_minus_response_cfr": {
+        "higher": 1,
+        "lower": 3
+      },
+      "response_br_minus_cfr": {
+        "lower": 4
+      }
+    },
+    "response_br_reduction_percent": 31.859502432193135
+  },
+  "polarized": {
+    "board_counts": {
+      "learned_br_minus_cfr": {
+        "higher": 1,
+        "lower": 15
+      },
+      "learned_minus_response_br": {
+        "higher": 7,
+        "lower": 9
+      },
+      "learned_minus_response_cfr": {
+        "higher": 7,
+        "lower": 9
+      },
+      "response_br_minus_cfr": {
+        "higher": 1,
+        "lower": 15
+      }
+    },
+    "learned_br_reduction_percent": 30.67926871869055,
+    "learned_residual_removed_percent": 94.21433526545403,
+    "leave_one_board_out_counts": {
+      "learned_br_minus_cfr": {
+        "lower": 16
+      },
+      "learned_minus_response_br": {
+        "higher": 3,
+        "lower": 13
+      },
+      "learned_minus_response_cfr": {
+        "higher": 13,
+        "lower": 3
+      },
+      "response_br_minus_cfr": {
+        "lower": 16
+      }
+    },
+    "response_br_reduction_percent": 28.756443923201427
+  }
+}

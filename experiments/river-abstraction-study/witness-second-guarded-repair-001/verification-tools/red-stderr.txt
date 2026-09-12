@@ -1,0 +1,18 @@
+test_second (unittest.loader._FailedTest.test_second) ... ERROR
+
+======================================================================
+ERROR: test_second (unittest.loader._FailedTest.test_second)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_second
+Traceback (most recent call last):
+  File "C:\Users\point\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+  File "D:\Pontius\tmp\witness-second-repair-author\test_second.py", line 8, in <module>
+    import experiment as e
+ModuleNotFoundError: No module named 'experiment'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

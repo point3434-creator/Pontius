@@ -1,0 +1,1 @@
+& 'D:\Pontius\tmp\group-opt-author\venv\Scripts\python.exe' -B 'D:/Pontius-worktrees/eval-runner-consolidation/tools/river_group_optimality.py' run --plan 'D:/Pontius-worktrees/eval-runner-consolidation/docs/research/river-group-optimality-r001/plan.json' --sha256 'de07461ea9364a4fb40d0bce72a506549bc30ac609761bb0bc57ff4600c3b11c'

@@ -1,0 +1,106 @@
+{
+  "boards": [
+    {
+      "board": [
+        10,
+        25,
+        34,
+        43,
+        45
+      ],
+      "board_index": 0,
+      "cards": "4h 8d Th Qs Kd",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        22,
+        33,
+        37,
+        44
+      ],
+      "board_index": 1,
+      "cards": "4h 7h Td Jd Kc",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        4,
+        13,
+        23,
+        31,
+        47
+      ],
+      "board_index": 2,
+      "cards": "3c 5d 7s 9s Ks",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        1,
+        4,
+        28,
+        43,
+        48
+      ],
+      "board_index": 3,
+      "cards": "2d 3c 9c Qs Ac",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        11,
+        26,
+        27,
+        30,
+        48
+      ],
+      "board_index": 4,
+      "cards": "4s 8h 8s 9h Ac",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        10,
+        12,
+        15,
+        47,
+        49
+      ],
+      "board_index": 5,
+      "cards": "4h 5c 5s Ks Ad",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        17,
+        18,
+        19,
+        20,
+        30
+      ],
+      "board_index": 6,
+      "cards": "6d 6h 6s 7c 9h",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        6,
+        9,
+        10,
+        33,
+        35
+      ],
+      "board_index": 7,
+      "cards": "3h 4d 4h Td Ts",
+      "texture": "multiple-pairs-or-trips"
+    }
+  ],
+  "cases": 48,
+  "holdings_per_seat": 96,
+  "pools_per_board": 3,
+  "regimes": 2,
+  "scored": false,
+  "seed": "river-witness-pilot-001"
+}

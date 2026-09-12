@@ -1,0 +1,1 @@
+& 'D:/Pontius-worktrees/eval-runner-consolidation/.venv/Scripts/python.exe' -B 'D:/Pontius-worktrees/eval-runner-consolidation/tools/river_abstraction_campaign.py' run --plan 'D:/Pontius-worktrees/eval-runner-consolidation/docs/research/river-abstraction-holdout-r002/plan.json' --sha256 '7377d6a37503f8a11e54b06dafcd783ed29e3b0e523d3569bbcfe17dc2a2533c'

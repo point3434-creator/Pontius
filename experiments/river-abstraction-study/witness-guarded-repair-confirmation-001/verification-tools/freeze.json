@@ -1,0 +1,11 @@
+{
+  "boards": 16,
+  "cases": 64,
+  "excluded_board_classes": 68,
+  "gate_calls": 64,
+  "lp_calls": 256,
+  "pinned_files": 98,
+  "plan_sha256": "e0a94349e9ae336391e3d3a45d4c753881edbd2adfab9df3c6bbd77e9c565b30",
+  "retained_invoked": false,
+  "solver_trajectories": 128
+}

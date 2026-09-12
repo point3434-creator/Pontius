@@ -1,0 +1,8 @@
+{
+  "context": "Reply to explicit request for one execution of the reviewed fixed-group diagnostic plan.",
+  "plan_path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\docs\\research\\river-group-optimality-r001\\plan.json",
+  "plan_sha256": "de07461ea9364a4fb40d0bce72a506549bc30ac609761bb0bc57ff4600c3b11c",
+  "recorded_at_utc": "2026-09-11T04:55:27.630835+00:00",
+  "scope": "One bound diagnostic invocation only; no retry, commit, push or later experiment.",
+  "user_words_verbatim": "I approve"
+}

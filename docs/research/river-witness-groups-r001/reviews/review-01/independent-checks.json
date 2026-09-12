@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "scalar_feature_checks": 6,
+  "asymmetric_source_checks": 2,
+  "source_swap_fixture_distinguishes_wrong_seat": true,
+  "synthetic_candidate_lp_calls": 2,
+  "synthetic_control_lp_calls": 8,
+  "asymmetric_certificates_enumerated": 2,
+  "paired_policy_upper_endpoint_exact": true,
+  "interval_boundary_checks": 4,
+  "wrong_input_binding_rejected": true,
+  "real_two_hand_parent_and_worker_passed": true,
+  "partial_manifest_error_rejected": true,
+  "development_groups_constructed": 0,
+  "development_lp_calls": 0
+}

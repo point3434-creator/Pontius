@@ -1,0 +1,10 @@
+{
+  "arms_per_case": 4,
+  "attempts": {
+    "fit": 0,
+    "lp": 0
+  },
+  "cases": 48,
+  "complete": true,
+  "fresh_asymmetric_certificates": 192
+}

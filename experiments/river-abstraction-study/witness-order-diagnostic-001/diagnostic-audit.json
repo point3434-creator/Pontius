@@ -1,0 +1,6 @@
+{
+  "maximum_discrepancy": 4.996003610813204e-16,
+  "passed": true,
+  "scalar_checks": 384,
+  "scope": "post-run independent scalar diagnostics; no solver execution"
+}

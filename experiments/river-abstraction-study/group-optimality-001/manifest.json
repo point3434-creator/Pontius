@@ -1,0 +1,16 @@
+{
+  "development-0-polarized.json": "43e5aad2ccfacf29b24fdfa95a6b0ad97580f4dbbf6f63d35266f54d201035de",
+  "development-0-uniform.json": "a8e186700025f387a71cdbf3e5da0859e2737a8d436bd464b4ae2298a9a83056",
+  "development-1-polarized.json": "93cc60e17e40ffb475ceac5c28ae005fd6b0d4587013ef01e6dec6f89e7a5766",
+  "development-1-uniform.json": "50f50fb8e167923ec2764c5cb0c5f8e83f040b8c8b2344df5189488b50feb16f",
+  "holdout-0-polarized.json": "ce0af7e94b0420fe212aaee9f3af82fca853b52d7960fef798512aa17f519add",
+  "holdout-0-uniform.json": "6eae74c56ae922eddd40d999b8125c1bdc3e2c8ac3470e0e9dfcd75cc71a531d",
+  "holdout-1-polarized.json": "a7dc67509b1cbbf3c554d6e5166ae3edde8e9eedadbd633791698f652fbb9719",
+  "holdout-1-uniform.json": "6da2883eb09d0baa46da261ad22436097104d8b7f5e586fed2a1684c6b99b51c",
+  "plan.json": "de07461ea9364a4fb40d0bce72a506549bc30ac609761bb0bc57ff4600c3b11c",
+  "receipt.json": "c5286c339d7f0b80a492f2fbd932eb4b9938b20a8509dd90722c6f382c4e813e",
+  "started.json": "97931ee39f216150da2a5b33075e400e42409ba7ba6863fff74415908cb3d6e7",
+  "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "summary.json": "8dfbc4be03fa11cde0603ecacca11e2183d5a209bec2f6dbf509858604829b54"
+}

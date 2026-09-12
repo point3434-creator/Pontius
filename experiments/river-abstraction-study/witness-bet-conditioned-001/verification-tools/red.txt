@@ -1,0 +1,14 @@
+F
+======================================================================
+FAIL: test_conditioned_input_changes_only_bet_terms (__main__.Tests.test_conditioned_input_changes_only_bet_terms)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-bet-conditioned-author\test_model.py", line 12, in test_conditioned_input_changes_only_bet_terms
+    self.assertTrue(np.all(a[:,12]==.5))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: np.False_ is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

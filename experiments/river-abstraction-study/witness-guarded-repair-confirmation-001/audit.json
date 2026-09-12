@@ -1,0 +1,12 @@
+{
+  "asymmetric_certificates": 256,
+  "cases": 64,
+  "independent_security_pairs": 128,
+  "independently_enumerated_exchanges": 79485,
+  "model_fits": 0,
+  "passed": true,
+  "replayed_updates": 3840000,
+  "saved_profiles": 256,
+  "selected_profiles": 64,
+  "verifier_lp_calls": 0
+}

@@ -1,0 +1,21 @@
+{
+  "base_commit": "1b4d1a0e26cd4da90ff74678de2e48ef53ec5599",
+  "branch": "codex/river-abstraction-holdout",
+  "interpreter": "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+  "plan_sha256": "47b26fc64aa3b2ddb36ebe11a02d16253b240a61672cff162c51af689728e524",
+  "predecessor_metadata": {
+    ".gitattributes": "05643f64722156ab4e5e007f3d6d414a211344cfc7d6d15809e811184d0021eb",
+    "docs/research/README.md": "b4777fdc0c7e0b2cddda5fa47bd41ae043f5bf05403c1c45951e970169e6ddbf",
+    "tests/cases.json": "8b4c7838918e3c539a54857075073cc3201faa64552f7b1f879ec8495d97d7d3"
+  },
+  "sha256": {
+    ".gitattributes": "643ba1ed2efc47ba71596c515b0884a1e4800ff80ffdb1fd15bcd4217ffeda82",
+    "docs/research/river-witness-distillation-r001/plan.json": "47b26fc64aa3b2ddb36ebe11a02d16253b240a61672cff162c51af689728e524",
+    "docs/research/river-witness-distillation.md": "d937949c3045d49c2f71ddae130874c90d30bda63d2e492f36c9f592dda4f3ab",
+    "src/pontius/river_witness_distillation.py": "ad33fbc2b0a569a7587bfc68a08c32dd9c7b38a288c39430093903d294e0eb30",
+    "tests/cases.json": "7019ba3ae7a5d78998bfb3559287f0adec98136ea2c1004544e759c3b832031c",
+    "tests/test_river_witness_distillation.py": "672738329790da23eb3515ec45942398febc8d19bdd9bdc1cf22908023acaaf6",
+    "tools/river_witness_distillation.py": "bcb15dbb84d03858221569890d5ef06b21437a9ba5c6531adea531450959cedb"
+  },
+  "source_status": "uncommitted candidate"
+}

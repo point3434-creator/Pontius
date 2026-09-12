@@ -1,0 +1,97 @@
+{
+  "analysis": {
+    "10": {
+      "accepted_changed_seats": 54,
+      "board_directions": {
+        "better": 16
+      },
+      "boards_versus_continuation": {
+        "better": 16
+      },
+      "changed_seats": 64,
+      "continuation_directions": {
+        "better": 32
+      },
+      "continuation_reduction_percent": 0.5010263863485079,
+      "lobo_beats_continuation": true,
+      "raw_directions": {
+        "better": 26,
+        "worse": 6
+      },
+      "second_directions": {
+        "better": 30,
+        "equal": 2
+      },
+      "second_reduction_percent": 29.4661723817024,
+      "total_reduction_from_original_percent": 54.77730652941336,
+      "versus_continuation_directions": {
+        "better": 30,
+        "worse": 2
+      },
+      "versus_continuation_reduction_percent": 29.110999785609653
+    },
+    "5": {
+      "accepted_changed_seats": 55,
+      "board_directions": {
+        "better": 16
+      },
+      "boards_versus_continuation": {
+        "better": 16
+      },
+      "changed_seats": 61,
+      "continuation_directions": {
+        "better": 32
+      },
+      "continuation_reduction_percent": 0.7029068633117116,
+      "lobo_beats_continuation": true,
+      "raw_directions": {
+        "better": 26,
+        "equal": 1,
+        "worse": 5
+      },
+      "second_directions": {
+        "better": 31,
+        "equal": 1
+      },
+      "second_reduction_percent": 30.38917552821831,
+      "total_reduction_from_original_percent": 54.586321586258805,
+      "versus_continuation_directions": {
+        "better": 30,
+        "worse": 2
+      },
+      "versus_continuation_reduction_percent": 29.89641260096275
+    }
+  },
+  "arithmetic_checks": 2267,
+  "incremental_costs": {
+    "10": {
+      "component_totals": {
+        "continuation_gate": 5.426596800010884,
+        "continuation_updates": 8.56924800001434,
+        "proposal": 7.660083200054942,
+        "repair_gate": 5.249613299994962,
+        "repair_training": 9.199803400057135,
+        "witness": 11.392277000035392
+      },
+      "mean_continuation_seconds": 0.43737015000078827,
+      "mean_second_gate_seconds": 0.16405041562484257,
+      "mean_second_seconds": 1.046930528129451,
+      "second_to_continuation_ratio": 2.393694512822981
+    },
+    "5": {
+      "component_totals": {
+        "continuation_gate": 5.1836233000212815,
+        "continuation_updates": 8.583744900039164,
+        "proposal": 7.594423899980029,
+        "repair_gate": 5.2493747000116855,
+        "repair_training": 9.199809600191657,
+        "witness": 11.52936509999563
+      },
+      "mean_continuation_seconds": 0.43023025625188893,
+      "mean_second_gate_seconds": 0.16404295937536517,
+      "mean_second_seconds": 1.0491554156305938,
+      "second_to_continuation_ratio": 2.4385904998191013
+    }
+  },
+  "passed": true
+}

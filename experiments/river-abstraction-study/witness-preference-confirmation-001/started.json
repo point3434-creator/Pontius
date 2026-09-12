@@ -1,0 +1,13 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\tmp\\witness-preference-confirmation-author\\experiment.py",
+    "worker",
+    "D:\\Pontius\\tmp\\witness-preference-confirmation-author\\plan.json",
+    "6eedadefb5d6f5a3cd516ad6ccc27d5905660d76d517777d207d5c2f24ac36ce"
+  ],
+  "plan_sha256": "6eedadefb5d6f5a3cd516ad6ccc27d5905660d76d517777d207d5c2f24ac36ce"
+}

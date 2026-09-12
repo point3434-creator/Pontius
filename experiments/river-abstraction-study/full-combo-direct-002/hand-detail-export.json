@@ -1,0 +1,32 @@
+{
+  "caller": "Call probabilities conditional on facing the named bet; fold is one minus call",
+  "files": [
+    {
+      "case": 0,
+      "filename": "hand-detail-000-v2.csv",
+      "rows": 1081,
+      "sha256": "b4cfe47f6cd241c54df70413d48cc915845ecaa85106cab0ab6aee77af69c0b4"
+    },
+    {
+      "case": 1,
+      "filename": "hand-detail-001-v2.csv",
+      "rows": 1081,
+      "sha256": "757928c6025078f10d2763bdf529adbb5be1aa8c55b54c8a8450c3bb30c3a117"
+    },
+    {
+      "case": 2,
+      "filename": "hand-detail-002-v2.csv",
+      "rows": 1081,
+      "sha256": "493ba5a5b29ab00ae03371c580a97f1f33edd2a785364b2fb1dcaed5740179aa"
+    },
+    {
+      "case": 3,
+      "filename": "hand-detail-003-v2.csv",
+      "rows": 1081,
+      "sha256": "078f0c63542ecf71cf1310826b055c2176fe85015b0ad2bc842ec76a4634ea89"
+    }
+  ],
+  "limitation": "Responses at unreachable branches can differ without changing exploitability",
+  "probabilities": "Bettor rows normalized exactly as in the certificate, then rendered binary64",
+  "purpose": "Post-run view of retained policies; no new solve or strategy selection"
+}

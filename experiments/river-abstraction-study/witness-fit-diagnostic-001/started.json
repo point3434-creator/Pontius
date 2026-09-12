@@ -1,0 +1,10 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "D:\\Pontius\\tmp\\witness-fit-diagnostic-author\\diagnose.py",
+    "worker",
+    "D:\\Pontius\\tmp\\witness-fit-diagnostic-author\\plan.json"
+  ],
+  "plan_sha256": "27eb14d933ca71a31e5cb31410800f8296f313c5f53b372c668ff0fd1d320fcd"
+}

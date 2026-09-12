@@ -1,0 +1,8 @@
+{
+  "bettor_trajectories": 16,
+  "cases": 8,
+  "decisions": 16,
+  "lp_calls": 16,
+  "plan_sha256": "dde3ee53b54d1a634b51600eba77b814d212b1a483bd0928ee9cd171e19b3544",
+  "retained_invoked": false
+}

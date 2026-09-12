@@ -1,0 +1,17 @@
+{
+  "plan_sha256": "7377d6a37503f8a11e54b06dafcd783ed29e3b0e523d3569bbcfe17dc2a2533c",
+  "review_files": {
+    "identity-recheck-02-final.json": "1f4e8ef4eff6fa5e45d036b3a0a4e183ea7232f887f3b591a5fe42b0a88930b9",
+    "identity-recheck-02-start.json": "aaefce48d436f9867f909dce373213e94317f150073df2780d9d90baff67be02",
+    "plan-validation-recheck-02.txt": "6a4436dbcc1194b9403f2f27bba7f35b5820d23b8794a8dd0828749fb1d74cf4",
+    "pytest-recheck-02.txt": "613127d4d4790959ff1f71d4f7362ff88f220e4515843f616f880a377adc29a7",
+    "recheck-02-inventory.md": "85ff689a8e2b66e0a93d782f3bffec6babb1c6cbe2a26447235c30d76af96e0f",
+    "recheck-02.md": "f7cbfd6b0bf48dec8413b0cc7507db6be2d8d574d351e97c80b05d4533349d46"
+  },
+  "identity_members_verified": 8,
+  "computational_sources_verified": 8,
+  "holdout_output_exists": false,
+  "holdout_executed": false,
+  "committed": false,
+  "pushed": false
+}

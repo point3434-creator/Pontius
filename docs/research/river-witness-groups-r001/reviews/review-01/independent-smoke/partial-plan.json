@@ -1,0 +1,48 @@
+{
+  "cases": [
+    {
+      "directory": "D:\\Pontius\\tmp\\witness-groups-review-01\\independent-smoke\\input",
+      "files": {
+        "inputs.json": "e67a1310b2057bb9ec0696a94b4c7e99c7a3431d76b8c04967cbff019b580d63",
+        "manifest.json": "f5e6002fb8a551234ca80a59c577afd10da7c0eee77dfb6a3d294db566aa537b",
+        "result.json": "9b317d8692b4a55505f908a747c06892872fabc8fad283854fa408469765bc78",
+        "started.json": "864c5309f2f59851b0103483d53d648fdcce828225a25b1c9043be015f304f1c"
+      },
+      "id": "smoke",
+      "witness_file": "D:\\Pontius\\tmp\\witness-groups-review-01\\independent-smoke\\bank\\smoke.json",
+      "witness_sha256": "f90f16e7df7284b793a48ca9e8055c5c0c6be4af39e9fd59ea862983570efdc5"
+    }
+  ],
+  "executable": "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+  "hands": 2,
+  "mode": "smoke",
+  "numpy": "2.5.2",
+  "output_directory": "D:\\Pontius\\tmp\\witness-groups-review-01\\independent-smoke\\partial-manifest",
+  "python": "3.14.6",
+  "schema": "river-witness-groups-v1",
+  "scipy": "1.18.0",
+  "sources": {
+    "docs/research/river-group-optimality.md": "5b0adde6bb4a976fb7ab67e64a95c00726e10d56d705aa4c9ec4e0adac2e9e73",
+    "docs/research/river-witness-groups.md": "bae49329b4bca346b01eb42df6abcf99e3f5f661a9cb96764223ab4a433ac30e",
+    "src/pontius/__init__.py": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba",
+    "src/pontius/game.py": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2",
+    "src/pontius/river.py": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7",
+    "src/pontius/river_abstraction_study.py": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "src/pontius/river_group_optimality.py": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "src/pontius/river_witness_groups.py": "2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e",
+    "tools/river_group_optimality.py": "b637f02177d43f15376d2933805d92fe8eeefd4e9a1b11dada809c68da5a391a",
+    "tools/river_witness_groups.py": "8e930aea2d6e3a66408577de44420cedb1a6aae1dde73e15a0cabcdd4d04bc76"
+  },
+  "steps": [
+    10
+  ],
+  "timeout_seconds": 120,
+  "witness_manifest": {
+    "path": "D:\\Pontius\\tmp\\witness-groups-review-01\\independent-smoke\\bank\\manifest.json",
+    "sha256": "3639dade3bacbfefbf5d9826a1697b83fbf2b2df436eb0b2fc28733347de4afa"
+  },
+  "witness_plan": {
+    "path": "D:\\Pontius\\tmp\\witness-groups-review-01\\independent-smoke\\bank\\plan.json",
+    "sha256": "fbaf64f891f62fec4c012dfa2fa971ac6e5dcd7880a6db33e24b00a950144c3a"
+  }
+}

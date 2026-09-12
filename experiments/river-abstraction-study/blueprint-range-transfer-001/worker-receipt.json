@@ -1,0 +1,14 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\tmp\\blueprint-range-transfer-author\\experiment.py",
+    "worker",
+    "D:\\Pontius\\tmp\\blueprint-range-transfer-author\\plan.json",
+    "0a2b6be2b87c712dc30a701dc89910675773290d6101fb4592ea06ce9bc55de8"
+  ],
+  "exit": 0,
+  "seconds": 87.64148689998547
+}

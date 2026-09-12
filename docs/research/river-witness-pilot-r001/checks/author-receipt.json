@@ -1,0 +1,37 @@
+{
+  "build_execution": "Synthetic summaries and two-hand old-board fixtures only.",
+  "errors": 0,
+  "failures": 0,
+  "fresh_board_equity_evaluations": 0,
+  "fresh_case_lp_calls": 0,
+  "lint_exit": 0,
+  "numpy": "2.5.2",
+  "plan_generation": "Selection and hashing only; admitted by pinned driver.",
+  "preserved_milestones": {
+    "development-001": {
+      "manifest_sha256": "a153950ea6db082caf7da757f9524fc7b9b4cda936efd39bc26fa674a20db0a0",
+      "members": 34
+    },
+    "group-optimality-001": {
+      "manifest_sha256": "9a3fa19f0f663aecd982ab8037267509693a81b6fb2e925f8292649f1fca93ea",
+      "members": 24
+    },
+    "holdout-001": {
+      "manifest_sha256": "44692a7fc77c39de361bd463a6e4cc2951c9082ba1b561903b8a681780900d65",
+      "members": 44
+    },
+    "witness-groups-development-001": {
+      "manifest_sha256": "05c94f41f797e6f9675007e1e309b31052fd721a07e7199257884b8b17cadb32",
+      "members": 20
+    }
+  },
+  "previous_packet_preserved": true,
+  "python": "3.14.6",
+  "red_core": "Five tests failed for absent module.",
+  "red_driver": "Three tests failed for absent driver; five core tests passed.",
+  "resource_warning": "error",
+  "scipy": "1.18.0",
+  "skipped": 0,
+  "style_correction": "Nine line-length violations corrected before freeze.",
+  "tests": 95
+}

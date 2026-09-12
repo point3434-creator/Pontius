@@ -1,0 +1,19 @@
+{
+  "command": [
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\.venv\\Scripts\\python.exe",
+    "-B",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_abstraction_study.py",
+    "--output",
+    "D:\\Pontius-training\\river-abstraction-study\\holdout-001\\holdout-1-uniform",
+    "--split",
+    "holdout",
+    "--board",
+    "1",
+    "--regime",
+    "uniform",
+    "--hands",
+    "96",
+    "--iterations",
+    "10000"
+  ]
+}

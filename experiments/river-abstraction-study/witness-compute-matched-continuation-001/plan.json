@@ -1,0 +1,547 @@
+{
+  "block_updates": 100,
+  "budgets": [
+    {
+      "total_seconds": 0.9982009999803267,
+      "work_seconds": 0.8463207999884617
+    },
+    {
+      "total_seconds": 1.022534399991855,
+      "work_seconds": 0.861766499991063
+    },
+    {
+      "total_seconds": 1.0500958000775427,
+      "work_seconds": 0.8880160000699107
+    },
+    {
+      "total_seconds": 1.0541834000032395,
+      "work_seconds": 0.8911248999938834
+    },
+    {
+      "total_seconds": 1.0782137000351213,
+      "work_seconds": 0.9029998000187334
+    },
+    {
+      "total_seconds": 1.0536788999743294,
+      "work_seconds": 0.8904870999976993
+    },
+    {
+      "total_seconds": 1.046236699941801,
+      "work_seconds": 0.883919399959268
+    },
+    {
+      "total_seconds": 1.0271383999788668,
+      "work_seconds": 0.8662712999794167
+    },
+    {
+      "total_seconds": 1.082221999997273,
+      "work_seconds": 0.8993516000045929
+    },
+    {
+      "total_seconds": 1.1005437999847345,
+      "work_seconds": 0.931109800003469
+    },
+    {
+      "total_seconds": 1.0881249999802094,
+      "work_seconds": 0.9225309999892488
+    },
+    {
+      "total_seconds": 1.0521495999710169,
+      "work_seconds": 0.8855434999859426
+    },
+    {
+      "total_seconds": 1.065363800007617,
+      "work_seconds": 0.8910733000084292
+    },
+    {
+      "total_seconds": 1.0538564999878872,
+      "work_seconds": 0.8888745000003837
+    },
+    {
+      "total_seconds": 1.0471868999884464,
+      "work_seconds": 0.8772715000086464
+    },
+    {
+      "total_seconds": 1.108915100019658,
+      "work_seconds": 0.933617900009267
+    },
+    {
+      "total_seconds": 1.0664726999821141,
+      "work_seconds": 0.9018776999728289
+    },
+    {
+      "total_seconds": 1.0475480999739375,
+      "work_seconds": 0.8848910999658983
+    },
+    {
+      "total_seconds": 1.0862709999782965,
+      "work_seconds": 0.9220206999743823
+    },
+    {
+      "total_seconds": 1.0122373000194784,
+      "work_seconds": 0.8521726000180934
+    },
+    {
+      "total_seconds": 1.0448173999902792,
+      "work_seconds": 0.8728626999945845
+    },
+    {
+      "total_seconds": 1.0432622000516858,
+      "work_seconds": 0.8815435000578873
+    },
+    {
+      "total_seconds": 1.0505949999787845,
+      "work_seconds": 0.8890015999786556
+    },
+    {
+      "total_seconds": 1.0377841999870725,
+      "work_seconds": 0.872746199980611
+    },
+    {
+      "total_seconds": 1.0508702999795787,
+      "work_seconds": 0.8926815999730024
+    },
+    {
+      "total_seconds": 1.0293617000279482,
+      "work_seconds": 0.8662970000004862
+    },
+    {
+      "total_seconds": 1.0421027000120375,
+      "work_seconds": 0.8834430000279099
+    },
+    {
+      "total_seconds": 1.0457441999751609,
+      "work_seconds": 0.8884246999805328
+    },
+    {
+      "total_seconds": 1.059151399997063,
+      "work_seconds": 0.880576800002018
+    },
+    {
+      "total_seconds": 1.058028200030094,
+      "work_seconds": 0.8970067000191193
+    },
+    {
+      "total_seconds": 1.03254100002232,
+      "work_seconds": 0.8680676000367384
+    },
+    {
+      "total_seconds": 1.0125366000283975,
+      "work_seconds": 0.8539712000347208
+    },
+    {
+      "total_seconds": 1.0761634999944363,
+      "work_seconds": 0.9081722999981139
+    },
+    {
+      "total_seconds": 1.0618769000284374,
+      "work_seconds": 0.8922986000252422
+    },
+    {
+      "total_seconds": 1.064343000005465,
+      "work_seconds": 0.9017225000134204
+    },
+    {
+      "total_seconds": 1.0303031000075862,
+      "work_seconds": 0.8627274000027683
+    },
+    {
+      "total_seconds": 1.0493098000588361,
+      "work_seconds": 0.8698469000519253
+    },
+    {
+      "total_seconds": 1.052413399971556,
+      "work_seconds": 0.8897965999785811
+    },
+    {
+      "total_seconds": 1.0317927000287455,
+      "work_seconds": 0.8721674000262283
+    },
+    {
+      "total_seconds": 1.0515652000613045,
+      "work_seconds": 0.8857315000495873
+    },
+    {
+      "total_seconds": 1.0296592000231612,
+      "work_seconds": 0.8758480000251438
+    },
+    {
+      "total_seconds": 1.0016270999913104,
+      "work_seconds": 0.8439489000011235
+    },
+    {
+      "total_seconds": 1.0152066000446212,
+      "work_seconds": 0.8564876000164077
+    },
+    {
+      "total_seconds": 1.1039363999734633,
+      "work_seconds": 0.9101523999706842
+    },
+    {
+      "total_seconds": 1.0504484999983106,
+      "work_seconds": 0.8884153999970295
+    },
+    {
+      "total_seconds": 1.0581767000549007,
+      "work_seconds": 0.8984578000672627
+    },
+    {
+      "total_seconds": 1.0277460000070278,
+      "work_seconds": 0.8684216999972705
+    },
+    {
+      "total_seconds": 1.0311369000119157,
+      "work_seconds": 0.8693845999951009
+    },
+    {
+      "total_seconds": 1.1027771000226494,
+      "work_seconds": 0.9385248000035062
+    },
+    {
+      "total_seconds": 1.0610821999725886,
+      "work_seconds": 0.8991209999658167
+    },
+    {
+      "total_seconds": 1.0450834000075702,
+      "work_seconds": 0.8820469999918714
+    },
+    {
+      "total_seconds": 1.0585140000330284,
+      "work_seconds": 0.8985394000483211
+    },
+    {
+      "total_seconds": 1.0234764000051655,
+      "work_seconds": 0.8674563000095077
+    },
+    {
+      "total_seconds": 1.0508665000088513,
+      "work_seconds": 0.8891185000247788
+    },
+    {
+      "total_seconds": 1.0400993999501225,
+      "work_seconds": 0.878105899959337
+    },
+    {
+      "total_seconds": 1.0228943999973126,
+      "work_seconds": 0.8616785999911372
+    },
+    {
+      "total_seconds": 1.071029600017937,
+      "work_seconds": 0.9124384000024293
+    },
+    {
+      "total_seconds": 1.0098758000240196,
+      "work_seconds": 0.8511824000161141
+    },
+    {
+      "total_seconds": 1.0145415000151843,
+      "work_seconds": 0.8542433000111487
+    },
+    {
+      "total_seconds": 1.0498971000197344,
+      "work_seconds": 0.883265600015875
+    },
+    {
+      "total_seconds": 1.0263115000270773,
+      "work_seconds": 0.8690316000138409
+    },
+    {
+      "total_seconds": 1.0548843000433408,
+      "work_seconds": 0.8911024000262842
+    },
+    {
+      "total_seconds": 1.0165187000238802,
+      "work_seconds": 0.8586544000427239
+    },
+    {
+      "total_seconds": 1.0432242999377195,
+      "work_seconds": 0.879809399950318
+    }
+  ],
+  "fitting_tasks": 0,
+  "fresh_boards": false,
+  "frozen_at_utc": "2026-09-12T02:01:32.668865+00:00",
+  "iteration_cap": 200000,
+  "name": "witness-compute-matched-continuation-001",
+  "numpy": "2.5.2",
+  "output": "D:\\Pontius-training\\river-abstraction-study\\witness-compute-matched-continuation-001",
+  "phase_timeout_seconds": 900,
+  "pins": {
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\development-001\\milestone-manifest.json": "a153950ea6db082caf7da757f9524fc7b9b4cda936efd39bc26fa674a20db0a0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\group-optimality-001\\milestone-manifest.json": "9a3fa19f0f663aecd982ab8037267509693a81b6fb2e925f8292649f1fca93ea",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\holdout-001\\milestone-manifest.json": "44692a7fc77c39de361bd463a6e4cc2951c9082ba1b561903b8a681780900d65",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-bet-conditioned-001\\milestone-manifest.json": "06bc9a4baae10e0970fd20f2bf439f2c21fbd4ebbc34a488b3e06bdbaf37c8ab",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-bet-transfer-001\\milestone-manifest.json": "7bd4993682435a0080e0ce407efd3d7aaf417209861bc4a138a8cc458791d96f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-boundary-001\\milestone-manifest.json": "f66bae19b5efe17bb93623a26358d3b4e642c2af847b674a6636ca3b41997133",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-clipped-target-001\\milestone-manifest.json": "3e4defba41f95c8926d08e0c2ee79b29de91e39047279e02cf10d01159f323cc",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-distillation-001\\milestone-manifest.json": "bc5768f4f5899b296bf7fd33eac6385021e99fffad56be47c0107608cc0bc052",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-fit-diagnostic-001\\milestone-manifest.json": "bae3d425d8cb2683b5902761474dae216acc3eca503e40dbf737f60ca1046755",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\milestone-manifest.json": "acdd5a2eaa54b31180cb692450e466cce4ae8a52a25e78dab62a0e760ec84f0a",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\verification-tools\\environment.py": "e143e20e30da8c0af08511db1f54001ab7e2024b857b08fc08b36ee8b7864e1c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\verification-tools\\experiment.py": "66776826646f19d981840d2a0a4639e5f674932b642775aac005ae2385240268",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\verification-tools\\repair.py": "30563d20f8e62b59f974f66ae3a3fa1f0c9963f467e6c1ffb50ed923f3ff36ca",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-confirmation-001\\milestone-manifest.json": "9520a603c28c27333d3bba246c7459587f8ea5edd9eac5153e3d33ccf28dbbee",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-confirmation-001\\verification-tools\\confirmation.py": "6dc72cb20cd29e91ad4aa539ec9824433a53c7cb63090d6d3a3bafb0a46af8bb",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-groups-development-001\\milestone-manifest.json": "05c94f41f797e6f9675007e1e309b31052fd721a07e7199257884b8b17cadb32",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-000.json": "e377aee678ee2508d70889f7e8b74613448bc49bf1e0cadbb9f32b94a3ecc8df",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-001.json": "cfd09be9644b27c4b31262100ce001196f24fa13216897d3175d8afb9636e32e",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-002.json": "0504b901e56d82cc30628e4c4ed88edb7e1950b0f6c1d12531dffb90334c41bd",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-003.json": "896cc77673a078e154bb8bcb6353f2d423d325c681efa7d556a3217c6cdf335e",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-004.json": "25d823b7c3e0fd80ac0119186cd6ce77663e98888c55dfb5b56180437eb55d3e",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-005.json": "a3d0563503e2056511e2599c1e5808c969bf815a4b4da7eab6c654aef4b738a2",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-006.json": "9b9960be66d1198ad90c198b3df09f3388dcfa007b0286b7fefe19f7dc7845c7",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-007.json": "71d82018abf5aa8b5f3d8caf8c8c61cdd0b81538bc2f2fc29fcb7a75874c4c45",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-008.json": "e4dfe68804cdd0d5d2bd3d5b58885cc5c50055a95816bcc0e9a1d538b7f764f7",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-009.json": "4ebc9bf35b6ad7bdf7fa1202a6cce9b3745415aa621dccfef1e75d1005ff8014",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-010.json": "01908456e862ffff4b45d77a5acc86347976f962e74355ad408bb567af0627bc",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-011.json": "cc3162962d9192df3fab0facf0621c64dd37ef155ee211caae934640f1776747",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-012.json": "ce01f365337e990f3e957dec08063bcf4a77c9888d0fcfb76b22103408412ae9",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-013.json": "13d0eb31b7a2ced70f382a99bbd6ccea85fe416ebba0e729a85289ab038a07fd",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-014.json": "502180fb6caddb1b48f3a122f7993e6888d49966e0ea19ae9d743e0092bf8b95",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-015.json": "d93207f9ff85169d7829583845df4c0debe4adcaedc6b530327cd834919f15f1",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-016.json": "ac1cb4b40afb3bc84fb1ed52d631bac3d277b893a810fe9b0fe8acc4dba959cf",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-017.json": "1b393b7ac638fbe91230464fff360f0cb46ed200264503134e53d39f5b2ba91c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-018.json": "4dc8f095a7b1bf69a120e532189c7bd01789a3302a201ca262b0aa55d4e724d0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-019.json": "b099dd89440390d05416bb4171f6b2d09c81b1e3f5e59f4e604c94554a0e61d7",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-020.json": "d644ccc9e536d826cf3cb5704a27be1872592fa50780dfee05df82976772a03c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-021.json": "db5dc8579bac18c8bf927a080b48b533d1ec647ecfc5a7fb43543bd1ce55c820",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-022.json": "63633fb822ea988fd1c1a32eb3ebca26e8c7c1979e016f521809c03e1d6085c2",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-023.json": "00269ff8e923c71e72bb53a1a8cd98fff0a4dc49542f2536b603a2b3a42a7490",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-024.json": "1ecf81c8e4746213439e010608f9f2825c975561a8c6a0f8ec97b61fd1b58a8f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-025.json": "abbd1ca1a82d49c223131e55143704b03699791e348c796d722bf9c81db55995",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-026.json": "8cf004991b7028e1996ba74b12c36e800430a6c080e134b36557394b7110b1a4",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-027.json": "ebec53285943b1861898d7ce3d5f8edada10f4e78686a24ee6d88ba83bf66215",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-028.json": "cd9e44cf06b322b3851331471d1dbaac325914f0a62c430bfaac15ac925f052e",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-029.json": "5152fabd53fc2588293443205b70825cebdc01859256f756a0b5e148f4ec47ad",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-030.json": "42e71bbffe3452cce717c4260e678b00a7773e0aceb8de3004ccebb3dde6b532",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-031.json": "b0f99e248512c17852101f1dfb274fcd457a63ba3feb6670584bf3ed8c84eeb5",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-032.json": "05ca88b675eea7676e8fca42cb46d936c176dc871ac26d86228468938cac7fd5",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-033.json": "f8d9f4bb89da115e6df23f0d1aaa0974a2fdbb9f8d32b61344cca20c6c908db1",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-034.json": "72d85eb732ab59acafd95ab2f4ac6e305c34caf956e46fe2389d7172fd7f611b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-035.json": "60c577c6d94972a7cb0a9961eaf48cfc878a6bebeb07de95e05464f05819c607",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-036.json": "7075adfacb2c2616b1c674127d9ae73ecb6d9cfb2ed435c90bd037bad7ffdbef",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-037.json": "cea54adaa2c04a1d46b6316c1e67628e550e769350fb3f1447b21e8acfea2bec",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-038.json": "d1b554151dc5e5733b314712fefa11d939fd64f95727d3718de53f57ef85fca0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-039.json": "c87899055d4340fd9aa6dd83f3e960521235a330c8edac224fc6054261b3d834",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-040.json": "e721ce66ef6466eb59c6a07c03078bf198e61d0305c93a920d57d5d83eb672e9",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-041.json": "4ed944d9a464a93b81f03b08e48829203ee42d4a7a2f153fb379f3c0919e3363",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-042.json": "f4e0e7eaaf2b39c0ea735421482a8b734bff79a433d6cc68f713dae24f940d6f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-043.json": "a263f1fe7689d5d12e5f70489393c269475c85a1788bb6c047bf99be0c19bb03",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-044.json": "a8fc004458442233f91f760d4be389d714c6c386979a29e149c72857d6c1f4a0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-045.json": "e604938054139a695d5d2318b21ba3e83b9ab2a830af3d275c8a9357fc035994",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-046.json": "23cdb69c1ddb324e94d91aed2860e4f6a954ff054ec832dc4f5e6d2bd578d3ac",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-047.json": "831a437f21cc660fea680511663856c42dd71cc72947361185977d43a1018899",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-048.json": "ca36b19305f7b815489717eafaf55e19fa5beefe5bdd0d74aa96951a54528aae",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-049.json": "d3fe605e2587bf1b942011b97ea475615c6da0a5c2be5ca6ab266d864f35af1a",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-050.json": "bcfac470094274dff02f6c992be9174c2f38b7d299da3fe1a01d2d2c8def3e71",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-051.json": "fbd6d30f2387539afeaa6cd0750133c26e3848503dc7f4c608ea8aecf1e10f05",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-052.json": "f0d5964d85d348219176d5262b2c7afd06996d607dd1c81c8eace47ab7db9a8b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-053.json": "8898989b5765722523ce6d992f4e784c236274f5bee6892864528f5c046348ec",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-054.json": "db142fbda453d53a2e1724898639dd2fb8f8bf0def329f2778257845e236ee7d",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-055.json": "43549cd6c4bcb3dab731dfe122e1625e666e577a9443e1c0bb77c11f701af1fe",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-056.json": "294fa87640968e21757636f2e880cf7796fc18b406c1acfd2ee4db8e6b10ca8b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-057.json": "4cf0cf4614a0a0c86d11bfe39991afabbea05fb0a727eb5491da38ddbb12e562",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-058.json": "c1e38e0934fb60af273726d93c72eb522e337492b6571c3f3f9d87a7c42c85fc",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-059.json": "3d3fec629d6f01c66c54fc1504858d38e24ffc2e98db600c040f5619b4f36393",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-060.json": "3bd811e707718d8b2fd8deedef1d51a3dfc2fefc2afb9a97740e7da6960b7bce",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-061.json": "97b767daa6930f8b0fd19a21199e81888760324eeff1623140fe44102596cfeb",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-062.json": "1ced3ccf4c07fdcaebb09ec3f348177827c3a281b8a280206c54a40fe7afffd1",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\case-063.json": "ec6a3b5fe12376042d82876b9f0943adb25c507efd3ff5a5d7be789af9a64f42",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\milestone-manifest.json": "a6c40ae7d19219d7e499e5386c5bcb3e3e0bb0aa0db6495d6da12ebe933619c0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\verification-tools\\base.py": "4a81a5f4ef051c367ceaf60542c3aa79266b7ecf963885ee15df3a16a211bb46",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\verification-tools\\gate.py": "aff81869e8d927033351f9513c529848e6af7ad8bc03db4381e0f8dcb1115c88",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-hybrid-001\\milestone-manifest.json": "ea6f2920650b3657d92183de2e7d0c5776ef3c15577b3f8e7804044bf6a54d54",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-order-diagnostic-001\\milestone-manifest.json": "811653151b941feec6bbf548d83bc528580a9599ea60055c74cc22b56551b743",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\milestone-manifest.json": "078b3e0ab9962d99102eb4d315a08dc3f33eeca2ba0ff1a6bdb2e179ed446f23",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-pilot-001\\milestone-manifest.json": "d3b52b5f3c6046c6c36f2c967fa6d9e5e6f43608465da2cc974f94e54a121032",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-pot-diagnostic-001\\milestone-manifest.json": "bba5346e6b12db621cf7e96239436438d9c7316e8538756120b33177798b441f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-preference-001\\milestone-manifest.json": "15de2891f758824d1a7db69117f4bfbb6b6e893b0fe87ad86a1e409d304636c4",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-preference-confirmation-001\\candidate.json": "ee50b041d7a096fc223082df5b02845a551171bfca062ae8cae22a1e791ad8ce",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-preference-confirmation-001\\milestone-manifest.json": "59a13dcab4d8a497004ebb138adee1f5502b32d276fba406e2fb724f1a116b22",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-repair-regression-diagnostic-001\\milestone-manifest.json": "12d9a49f57b6e0a34e53a0289488341038a5dfcd8efd00d2fcfe8f36e27c4f58",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-seat-crossover-001\\milestone-manifest.json": "c2cc1f9f5cd7a5247933b3a70ad1f3ebb73e174e3506e492f33746f61fc4777b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-000.json": "25ea863d238513022b81b5e01803f79fbb9467a51c078b8815d851b742f81169",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-001.json": "884e586b545cc7326cf8d67d1b837e11baf66518087f1cbbb7d304bb695df9e8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-002.json": "96bbcd828d2bdbb3285cb3bb0d71405f778124746c486c68a049c150e4f9fad8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-003.json": "b1bd8788fdafa6f2fbc003235ef13301e45b8ea8128cdc008a2e65da01e19a96",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-004.json": "661c81202b46aab37471d93d3f3877fc0b9cc3d218912e723a01737112f486e1",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-005.json": "7abe590dbf9add99a70aebf2b9dd0b35b6d871278133d904be8ed8e79a4e5fc4",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-006.json": "205bfe4fb0695c972aa43def6033c33ffe35fc40340885dc2ff715d3ff6cbd5d",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-007.json": "d04e01865ea482dd600c15971ff7653842d2a8e7bd07848d798a595f80ef6cae",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-008.json": "7d4143807cdc93223ab82aa1bda69d5cb663f35f0e75f474dcfb39a7ac087046",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-009.json": "9383d09c02b413d22218c5648583d94bc14f2d3bd4460c533c4d934282d55914",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-010.json": "b8f258d5a3aedac33126f2058a89a58f654a2ece944c906ba311180ca01f2214",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-011.json": "d7a4eb3e9e6ec2a429f0e239dc6e6cb155afb2a0858a5c695d1c1b206ccac78a",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-012.json": "d66ab782024047b6ca867b6e577bb0998589824ee44df0c7e428dbc62fd053e6",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-013.json": "53ca3ece8a31df81a05c52f573533275859b62184c4e4ae5fdfffc2aa4aa95f8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-014.json": "e353f8f90e3668695e14e3e352684b84840cd843f78d754a48d25862b6db440e",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-015.json": "038cfeb7abc39e0e68574f4035cc015bf0b306a209d3abb03d5b669343ff952a",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-016.json": "df35e722bcfdae15c1927df06ebf3a67d4b4361b956414f75bdbd0ca1aa58913",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-017.json": "d2b44210a1b7b790609040dd19a476723b2e814f4f983ea10d0cf2890ab787aa",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-018.json": "dc6753036c165c0e036de1ad01051aeab6203295bf96e46d2b8bdff80876189a",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-019.json": "2518217ccfa6ca73d0df2141c5f4e016a84b11b21a3848b763130101f7a670d4",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-020.json": "0063b9757a4ce38914e501862f646bdb46d2ce703455e46d1325578813578b6e",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-021.json": "661276dfd9acb2ba1eddbb00ba16cb9fcaa70e6906a942e043da67eda4833f31",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-022.json": "a526c9d9b0eae119f3fd44a6568cb564513fd9b0995ac4fa67e50b80e5fb5887",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-023.json": "ae8c3fbd95ff2d73204999f0b521353ec3a847bcc4c9c8e65c3bf6243f9a1ec6",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-024.json": "bad7faebe669dc18623f1ae47afb272c9c36a1941282265b02c86510ed3a0713",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-025.json": "9c577511fa9bc5234b56d88ff7842cc787a1dc875554f7b6f7f53e69b01b738d",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-026.json": "a3a9e9538b9ead44631067547840a4d668e2ca457b43169dda83b820a368ceda",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-027.json": "41e1b669fb380aa3dc482baaf4e11d5bf25e6719ccc494eef8957c7b974bf5eb",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-028.json": "ae12230bc59b22dd4f90355d319d3b94391b3bf3022ab42533e73941de94dbfa",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-029.json": "de223883d29583fb75280dcfeb399842cde59bd7879d12b911efc14791d73f0a",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-030.json": "3659052649a52405718a920a041eae4b8c88edd396af00e92d9561e52d5d799e",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-031.json": "f69b3d93443a4fb51d9366d68a4dd5e393c1d760c646f30213d51d7c121e7b7c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-032.json": "c5de7d3c44c7368188d12289e16092cfd5c8b652aff9e397ac613fb89e3a6b77",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-033.json": "08147bb26f36991ce3b0c925b1c79ca07cd213b5e9e96290e972cf0ca36d82bb",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-034.json": "0b9cd9e074514b6bb98d6cd8db5f3a635f916541efdd91e7ebbce2e8b2fcaaaf",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-035.json": "2bac81ac830c23b386661162f09146c59cfa7ca4f2d6e88d8ba7eea131b5c2e1",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-036.json": "9b2283fc3cf1bfc8bfdcff80b9474cfd2889b3cbd7a212bd8dcd52f1bac83136",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-037.json": "e6b2b31c5dcfea64d705ef52b3b2368d1a6596a6c4db36d78f95f4134c50d8c2",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-038.json": "83a5d3b9270a004cdc4277286e0f5820f0b8c8dd2ac60b407f19d76ddb69cacb",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-039.json": "b9bcad21de0404e1718ca4718590b0f0d8fe03769bb61493b0ef6bef4b7a03de",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-040.json": "83dd2f3ebb16a72a49e23f04516ac810a8eed99ba6098c266debb1edd7095043",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-041.json": "be631d59573d0cdd533ea2c98e55ecd34cdd53eecbd705140c9e23d24580ed74",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-042.json": "8e4ea493f67ffe4f6783de5574baf439871e207fc88f133fd0509d265f2c4a99",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-043.json": "ffc29c959ef0c3cd01a9a5e1cf8de343a1b78c233ee9979888cc10beca424a2f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-044.json": "a336840abf82c81093e08b7da8dbd3dd77ec7eb3a6b372cc0aa4e7beb078b50a",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-045.json": "cc1a2dcb52c7d2765353b0a531959bf7b2b59fa8f2cf1b9e57d40bf6d151ff1b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-046.json": "4f44b279b2fc61e5d37d1e7768481ff129548ae2981e3c4dcfbfecded226ff31",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-047.json": "1cc25cdf191bcb89aa6fe1e77f3464c1ff0678179341d48f806fc5b0723414cc",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-048.json": "054031fb7d53cbb208644537364493fff972cc032fc73e3e41ed8089e7db482f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-049.json": "dee0a96827f299e87c02b7f0c05c4c4f110e1e32cfe022e1d18cdd9d30140d11",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-050.json": "7f240ceb76d475222dc854ffd10c447548f104ac5fcd352d46294a38e67b941d",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-051.json": "dc8ca7a6c3f14891a0c3c093e6ce887f450b4b979b1591187c74ed04291c9d86",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-052.json": "f71dc0cc8b036b80ef3c555defcc78513448cfe9fda8a10d2d5e59dcf89296e8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-053.json": "69513d02235c42c8cf2acef5a0e3eb0fe07d7bfecf27d6a4b09fb5e3a9dc061f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-054.json": "d208e14ea70582ea5dce72565e00f2fa5f5cf6cdc722fe68c9fcc552ff79caed",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-055.json": "1ecd2fe2a75601b4591f935fdc01c455069c4831e1cbcc449eeb5e99e2b28169",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-056.json": "5fe4723f9b32014592545f76ee5158ca0c02bc70987a8ff2e1797dbbf8d825ea",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-057.json": "46fe6601244536bc8afa2568c0d47ec4c11413dec82fa2eb11bba9f0d763df3a",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-058.json": "9289f9fe3b352016668ebe5b133c2040da920bb88dc9514215c951d54c56fa88",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-059.json": "3a0d50d3d90fc005ee66bbd370e527666bafb4547e12300809c046388f1050f4",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-060.json": "102f88655b7d61eb22b489825d127d1d4dc9134855c47262365250d2ade4b776",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-061.json": "f957ca9872dcbf957f446f4ae8134ad5483882ba892080b5f5a5ca9866092cc6",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-062.json": "92fb0c528828df31fe5929b303690afd5913e40b106943a52eab7fbbec2c5dd9",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-063.json": "06f201a52e04ff78da0073b39dc8dcbac4a34e9a5cdaadeb8b39299e67700f6f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\milestone-manifest.json": "e85b8f60865a11ef3e1e4749f234b8f4d36935a746eb122b0b052e9a15d4840f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\verification-tools\\support.py": "b912db5bfcd0e26d4d9ea34950592eecb41ec301140282faf47cba1b9cbab407",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\milestone-manifest.json": "d39ac27ca3fa2dc4d84b17791ba01d6b125d883184d293a059a677e24b8c8292",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\verification-tools\\soft.py": "47c4aa718d383a4b6fb2b06b505809dada8f9c1cdcdf3a6b32526f7762e77b37",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-solver-budget-001\\milestone-manifest.json": "5ba746aa32ca8ba154e131287edb8212cc6743fcce95dcfc76d08a503d2be7a8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\__init__.py": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\action_clock.py": "12e5f4ec46363a077e368e331fe2e0068b70209c73ed6e3b8fa43e6b21b29a23",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\cfr.py": "c46c1a98eceedb69a666916201a0cbfba6793eb139440afa95b729047384496f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\coalition.py": "eb8cd737a8fba4fa87612cf4739309f3a65981c486e2195f06cf2604e7c99fe0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\cuda_dll_bootstrap.py": "5ad4dfea9b7fe84d2ff010b5812a9a86d7bf19682094489297a29c797b49eba7",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\dependency_tape.py": "2302e0a987cc0edc85e89d2829595f983e2c444435d3bdfde1bf5ef9463ed392",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\evaluation.py": "ff4d212735d597b4713480b2ce0192a957915469e3a872758e037ee25ea7ede7",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\factorized_belief.py": "d26b418d1d850e7a92ac5e4573ab2c050c0e0dfc1bf7cad1db72ffd0ac52d951",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\full_width_belief.py": "b9659090b5b0e5e570103d4f7693a400cd9acb18c28e9da92d402dce5fa26992",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\full_width_reference_policy.py": "ea9dd91c8b5f03bc616cbc8b6b31c40f33a1543a0fd2b03e32b8ce57b59bc1e6",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\game.py": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\holdem_cards.py": "714d3ed7a29af3a9205e53b097408c71b43040c0191fc763cae6c87dec887799",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\immutable_blueprint.py": "2ee8b75f94b3c11fd46ffd684391f1a02255f0e2d198f3f1c91c04b1d94d0d6c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\kuhn.py": "95220933193fed0b3052b769737420299506e3f93ce27597396b0c1299952ac8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\legal_decision_spine.py": "6402eaff40b921b74ca4beb312430db19e20a123963c326ad46b4d5a33c321b4",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\legal_decision_spine_v2.py": "a0c20a29dc5da5af95f373b2617163bd53c24591256ef5342f30c20fb4bc08de",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\no_limit_betting.py": "66b398e7ebba535f9c25728fd8b57a599310434cd41610e9107e37762ed98cdf",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\preparation_bank.py": "8e2df920149ee7d2a4556c418680c9f4e214c525116c09cce79844888aa10210",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\reference_hand_replay.py": "069ae2e8241b4fc2e4bf2480ecb1dc4bbfbae1f690e885e8540708c2a5b768e0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river.py": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_abstraction_study.py": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_group_optimality.py": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_incremental.py": "567cca8d00a5a88fc8b6cab7e425d3020efc971f6d35003f804e08007a3a88e2",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_multi_size.py": "d1139b0d935a56ee3f56fad2b2e6e3807eba4443b2d0a3f6ff2ed231e03735a0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_multiway.py": "b957ef89ec3a3371df99feeb3d871294de43620183b6b0e792bc6717d0d4c445",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_witness_distillation.py": "ad33fbc2b0a569a7587bfc68a08c32dd9c7b38a288c39430093903d294e0eb30",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_witness_groups.py": "2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_witness_pilot.py": "696aa6796f592f8d1faa02884a007a3cc431137119406d2bac665bf03cb0469d",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\street_deadline.py": "7d00872c174b973df01d52b07e1a8a6f952c517b7254ee0e092083562b5e779c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\updates.py": "c6aacfc70a6adcf52fdb8b5c452a8e37c0131e142ae99aa2c5651262e8fdd933",
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe": "199ce15a9f0d4f9522edba59338e4879d28cf61f88e377b8164bcb716275ed22",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\bridge.py": "dd1232bb5d111dd737431cad156935bbd685adc896141d68e4e09921c0341033",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\design.md": "5c481f13806df7cf7118572d8df57a078220e51cb58ad60c1becfc28211e3ca5",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\experiment.py": "cba92d2129c690f34cd94363cb1f37e14575cdfe49978c50532a5bd482f059b0",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\frozen-stderr.txt": "30d61fed103e1e7eceffc2fc194fb188208d5b72ba9def9dc15bd988741af6ff",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\frozen-stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\new-stderr.txt": "b3c3a55d049fc87038ef6145370ae8be41f71d174541eedcd19d70fc5af07adf",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\new-stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\preflight.json": "b813260acc2669519503d720c157c5f02eab8be1f77dddebe20c1311ff8d7f20",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\prepare.py": "a31137c75a53315e6a3969c766201fcb0d75be69175f5ce5f11ecc3c2362e0f3",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\red-exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\red-stderr.txt": "81b3aaaffe789273d9f1fd04a3ab56ae747ff838cbdbaac8812d214e617f1d0d",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\test_timing.py": "9fd6ae20c667091c3aed5876c497aa70717cce551b4eefb8696fa46ab083cf9c",
+    "D:\\Pontius\\tmp\\witness-compute-match-author\\worktree-before.json": "a2a4e159c748d14b5a928457acde5551b672436f3da93a1367b688d87e1001b2"
+  },
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "scipy": "1.18.0",
+  "source_head": "1b4d1a0e26cd4da90ff74678de2e48ef53ec5599",
+  "sources": [
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-000.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-001.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-002.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-003.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-004.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-005.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-006.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-007.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-008.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-009.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-010.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-011.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-012.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-013.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-014.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-015.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-016.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-017.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-018.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-019.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-020.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-021.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-022.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-023.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-024.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-025.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-026.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-027.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-028.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-029.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-030.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-031.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-032.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-033.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-034.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-035.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-036.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-037.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-038.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-039.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-040.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-041.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-042.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-043.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-044.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-045.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-046.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-047.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-048.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-049.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-050.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-051.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-052.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-053.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-054.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-055.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-056.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-057.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-058.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-059.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-060.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-061.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-062.json",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\case-063.json"
+  ],
+  "user_words_verbatim": "Let's run it"
+}

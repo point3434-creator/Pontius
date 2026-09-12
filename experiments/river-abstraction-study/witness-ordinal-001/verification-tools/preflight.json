@@ -1,0 +1,17 @@
+{
+  "fit_boundary_tests": 8,
+  "green_exit": 0,
+  "ordinal_tests": 6,
+  "passed": true,
+  "python": "3.14.6",
+  "receipts": [
+    "red.txt",
+    "green.txt",
+    "model-preflight.txt",
+    "solver-preflight.txt"
+  ],
+  "red_exit": 1,
+  "red_reason": "repeated sign labels omit magnitude cutoffs",
+  "scored_panel_rehearsal": false,
+  "solver_tests": 6
+}

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_group_optimality.py",
+    "worker",
+    "--plan",
+    "D:\\Pontius\\tmp\\group-optimality-review-01\\failure-plan-manifest-write.json",
+    "--sha256",
+    "0baa36e658aaab27d0c5f648bc710e2a1fb12ff4ca956d6d6c872ee1117919f6"
+  ],
+  "plan_sha256": "0baa36e658aaab27d0c5f648bc710e2a1fb12ff4ca956d6d6c872ee1117919f6"
+}

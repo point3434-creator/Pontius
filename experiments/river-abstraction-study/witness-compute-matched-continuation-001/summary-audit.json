@@ -1,0 +1,144 @@
+{
+  "analysis": {
+    "10": {
+      "board_directions": {
+        "generous": {
+          "better": 16
+        },
+        "matched": {
+          "better": 16
+        }
+      },
+      "continuation_gain_percent": {
+        "generous": 0.858660819654638,
+        "matched": 0.8182124823857377
+      },
+      "extra_iteration_ranges": {
+        "generous": [
+          32500,
+          42400
+        ],
+        "matched": [
+          26400,
+          35600
+        ]
+      },
+      "lobo_beats_generous": true,
+      "matched_over_budget_cases": 11,
+      "mean_actual_seconds": {
+        "generous": 1.2147257561700826,
+        "matched": 1.0454166562012688
+      },
+      "mean_extra_iterations": {
+        "generous": 38925.0,
+        "matched": 32640.625
+      },
+      "mean_group_floor": 0.01871013537296093,
+      "mean_reference_seconds": 1.046930528129451,
+      "mean_total_ratios": {
+        "generous": 1.1602735076800474,
+        "matched": 0.998553990080997
+      },
+      "means": {
+        "generous": 0.018800390937692188,
+        "incumbent": 0.018963220683849046,
+        "matched": 0.018808061245151438,
+        "repair": 0.013375485388023441
+      },
+      "ratio_ranges": {
+        "generous": [
+          1.1445986070771417,
+          1.2279166350611124
+        ],
+        "matched": [
+          0.9712601195944689,
+          1.0233571057495972
+        ]
+      },
+      "repair_below_floor_cases": 30,
+      "repair_gain_percent": {
+        "generous": 28.855280550536644,
+        "matched": 28.884294804859113
+      },
+      "versus_generous": {
+        "better": 30,
+        "worse": 2
+      },
+      "versus_matched": {
+        "better": 30,
+        "worse": 2
+      }
+    },
+    "5": {
+      "board_directions": {
+        "generous": {
+          "better": 16
+        },
+        "matched": {
+          "better": 16
+        }
+      },
+      "continuation_gain_percent": {
+        "generous": 1.1986811606877454,
+        "matched": 1.1447738771261073
+      },
+      "extra_iteration_ranges": {
+        "generous": [
+          33300,
+          42100
+        ],
+        "matched": [
+          29000,
+          35800
+        ]
+      },
+      "lobo_beats_generous": true,
+      "matched_over_budget_cases": 10,
+      "mean_actual_seconds": {
+        "generous": 1.2170177718708146,
+        "matched": 1.049617093719462
+      },
+      "mean_extra_iterations": {
+        "generous": 39306.25,
+        "matched": 33125.0
+      },
+      "mean_group_floor": 0.009176545285251853,
+      "mean_reference_seconds": 1.0491554156305938,
+      "mean_total_ratios": {
+        "generous": 1.1599976073509828,
+        "matched": 1.0004400473771473
+      },
+      "means": {
+        "generous": 0.009231606231037444,
+        "incumbent": 0.009343606279235476,
+        "matched": 0.009236643115369274,
+        "repair": 0.00650416136637298
+      },
+      "ratio_ranges": {
+        "generous": [
+          1.144333066173597,
+          1.2135307283309114
+        ],
+        "matched": [
+          0.9770625802808998,
+          1.061512297033771
+        ]
+      },
+      "repair_below_floor_cases": 29,
+      "repair_gain_percent": {
+        "generous": 29.544640406071075,
+        "matched": 29.583060803221816
+      },
+      "versus_generous": {
+        "better": 30,
+        "worse": 2
+      },
+      "versus_matched": {
+        "better": 30,
+        "worse": 2
+      }
+    }
+  },
+  "arithmetic_checks": 3041,
+  "passed": true
+}

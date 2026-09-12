@@ -1,0 +1,24 @@
+{
+  "binding": {
+    "approval": {
+      "plan_sha256": "47b26fc64aa3b2ddb36ebe11a02d16253b240a61672cff162c51af689728e524",
+      "recorded_at_utc": "2026-09-11T13:11:10.2447436Z",
+      "recorder_sha256": "c675cbfd5a6d57b7e43144b26ca2e14462cc87b91682c56faf2388595cb25e7f",
+      "user_words_verbatim": "I approve"
+    },
+    "plan_sha256": "47b26fc64aa3b2ddb36ebe11a02d16253b240a61672cff162c51af689728e524",
+    "recorder_sha256": "c675cbfd5a6d57b7e43144b26ca2e14462cc87b91682c56faf2388595cb25e7f"
+  },
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_witness_distillation.py",
+    "run",
+    "--plan",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\docs\\research\\river-witness-distillation-r001\\plan.json",
+    "--sha256",
+    "47b26fc64aa3b2ddb36ebe11a02d16253b240a61672cff162c51af689728e524"
+  ],
+  "cwd": "D:\\Pontius-worktrees\\eval-runner-consolidation",
+  "recorded_at_utc": "2026-09-11T13:11:11.256792+00:00"
+}

@@ -1,0 +1,11 @@
+{
+  "identity_source_input_comparisons_verified": 46,
+  "output_exists": false,
+  "observed_case_lp_calls": 0,
+  "plan_sha256": "de07461ea9364a4fb40d0bce72a506549bc30ac609761bb0bc57ff4600c3b11c",
+  "reviews": {
+    "report.md": "6897c63a8f87d8b8a9f03ffbcb3e5b1eb3b1fe066f2a7f993f98dc952609682e",
+    "inventory.md": "2a7e34fcf4d2d40e494b9d3b7fa538a27f66f9afd296e86b71971b27c6b70b1c"
+  },
+  "source_status": "uncommitted; not pushed"
+}

@@ -1,0 +1,211 @@
+{
+  "aggregate": {
+    "exact": {
+      "candidate_mean_lower": 0.0036547801400661226,
+      "candidate_mean_upper": 0.0036547801400662393,
+      "case_counts": {
+        "higher": 4,
+        "lower": 0,
+        "overlapping": 0
+      },
+      "control_mean_lower": 0.0,
+      "control_mean_upper": 6.344766015815453e-17,
+      "reduction_percent_approx": null
+    },
+    "range_equity": {
+      "candidate_mean_lower": 0.0036547801400661226,
+      "candidate_mean_upper": 0.0036547801400662393,
+      "case_counts": {
+        "higher": 1,
+        "lower": 3,
+        "overlapping": 0
+      },
+      "control_mean_lower": 0.005529314051851358,
+      "control_mean_upper": 0.005529314051851551,
+      "reduction_percent_approx": 33.901744306919916
+    },
+    "range_response": {
+      "candidate_mean_lower": 0.0036547801400661226,
+      "candidate_mean_upper": 0.0036547801400662393,
+      "case_counts": {
+        "higher": 1,
+        "lower": 3,
+        "overlapping": 0
+      },
+      "control_mean_lower": 0.005138089770239781,
+      "control_mean_upper": 0.005138089770239868,
+      "reduction_percent_approx": 28.868892847397813
+    },
+    "uniform_equity_200": {
+      "candidate_mean_lower": 0.0036547801400661226,
+      "candidate_mean_upper": 0.0036547801400662393,
+      "case_counts": {
+        "higher": 0,
+        "lower": 4,
+        "overlapping": 0
+      },
+      "control_mean_lower": 0.00871571747216193,
+      "control_mean_upper": 0.008715717472162028,
+      "reduction_percent_approx": 58.066789662015125
+    }
+  },
+  "cases": [
+    {
+      "candidate_floor_lower": 0.006268110137376774,
+      "candidate_floor_upper": 0.006268110137376971,
+      "case": "development-0-uniform",
+      "controls": {
+        "exact": {
+          "classification": "higher",
+          "difference_lower": 0.006268110137376711,
+          "difference_upper": 0.006268110137376971,
+          "floor_lower": 0.0,
+          "floor_upper": 6.346388731846839e-17
+        },
+        "range_equity": {
+          "classification": "higher",
+          "difference_lower": 0.0012991646738866982,
+          "difference_upper": 0.0012991646738870128,
+          "floor_lower": 0.004968945463489958,
+          "floor_upper": 0.004968945463490076
+        },
+        "range_response": {
+          "classification": "higher",
+          "difference_lower": 0.00019007408424584103,
+          "difference_upper": 0.00019007408424612923,
+          "floor_lower": 0.006078036053130842,
+          "floor_upper": 0.006078036053130933
+        },
+        "uniform_equity_200": {
+          "classification": "lower",
+          "difference_lower": -0.0014406185153746584,
+          "difference_upper": -0.001440618515374383,
+          "floor_lower": 0.0077087286527513545,
+          "floor_upper": 0.0077087286527514325
+        }
+      },
+      "groups": [
+        37,
+        36
+      ]
+    },
+    {
+      "candidate_floor_lower": 0.006494147753132153,
+      "candidate_floor_upper": 0.006494147753132231,
+      "case": "development-0-polarized",
+      "controls": {
+        "exact": {
+          "classification": "higher",
+          "difference_lower": 0.006494147753132075,
+          "difference_upper": 0.006494147753132231,
+          "floor_lower": 0.0,
+          "floor_upper": 7.766155495696957e-17
+        },
+        "range_equity": {
+          "classification": "lower",
+          "difference_lower": -0.001015448557762563,
+          "difference_upper": -0.0010154485577620928,
+          "floor_lower": 0.007509596310894324,
+          "floor_upper": 0.007509596310894716
+        },
+        "range_response": {
+          "classification": "lower",
+          "difference_lower": -0.0007357478375332228,
+          "difference_upper": -0.0007357478375330727,
+          "floor_lower": 0.007229895590665303,
+          "floor_upper": 0.007229895590665375
+        },
+        "uniform_equity_200": {
+          "classification": "lower",
+          "difference_lower": -0.004972199317081918,
+          "difference_upper": -0.004972199317081683,
+          "floor_lower": 0.011466347070213915,
+          "floor_upper": 0.01146634707021407
+        }
+      },
+      "groups": [
+        37,
+        36
+      ]
+    },
+    {
+      "candidate_floor_lower": 0.0017690231700893955,
+      "candidate_floor_upper": 0.001769023170089532,
+      "case": "development-1-uniform",
+      "controls": {
+        "exact": {
+          "classification": "higher",
+          "difference_lower": 0.0017690231700893267,
+          "difference_upper": 0.001769023170089532,
+          "floor_lower": 0.0,
+          "floor_upper": 6.87805526067392e-17
+        },
+        "range_equity": {
+          "classification": "lower",
+          "difference_lower": -0.002072284284962142,
+          "difference_upper": -0.002072284284961903,
+          "floor_lower": 0.003841307455051435,
+          "floor_upper": 0.0038413074550515377
+        },
+        "range_response": {
+          "classification": "lower",
+          "difference_lower": -0.0009955897840970567,
+          "difference_upper": -0.0009955897840967847,
+          "floor_lower": 0.002764612954186317,
+          "floor_upper": 0.002764612954186452
+        },
+        "uniform_equity_200": {
+          "classification": "lower",
+          "difference_lower": -0.004959142029639795,
+          "difference_upper": -0.0049591420296395865,
+          "floor_lower": 0.006728165199729119,
+          "floor_upper": 0.00672816519972919
+        }
+      },
+      "groups": [
+        45,
+        51
+      ]
+    },
+    {
+      "candidate_floor_lower": 8.783949966616796e-05,
+      "candidate_floor_upper": 8.783949966622215e-05,
+      "case": "development-1-polarized",
+      "controls": {
+        "exact": {
+          "classification": "higher",
+          "difference_lower": 8.783949966612408e-05,
+          "difference_upper": 8.783949966622215e-05,
+          "floor_lower": 0.0,
+          "floor_upper": 4.3884645750440994e-17
+        },
+        "range_equity": {
+          "classification": "lower",
+          "difference_lower": -0.005709567478303707,
+          "difference_upper": -0.005709567478303491,
+          "floor_lower": 0.005797406977969714,
+          "floor_upper": 0.005797406977969875
+        },
+        "range_response": {
+          "classification": "lower",
+          "difference_lower": -0.004391974983310542,
+          "difference_upper": -0.004391974983310439,
+          "floor_lower": 0.004479814482976661,
+          "floor_upper": 0.00447981448297671
+        },
+        "uniform_equity_200": {
+          "classification": "lower",
+          "difference_lower": -0.00887178946628725,
+          "difference_upper": -0.008871789466287115,
+          "floor_lower": 0.008959628965953337,
+          "floor_upper": 0.008959628965953419
+        }
+      },
+      "groups": [
+        45,
+        51
+      ]
+    }
+  ],
+  "interpretation": "Oracle-assisted, matched-capacity development screen. Prior witness cost excluded. No fresh holdout or six-max strength claim."
+}

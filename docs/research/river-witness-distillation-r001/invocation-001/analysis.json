@@ -1,0 +1,300 @@
+{
+  "boards": [
+    {
+      "board": [
+        1,
+        6,
+        9,
+        15,
+        46
+      ],
+      "floors": {
+        "exact": 2.2193117379402494e-17,
+        "predicted_witness": 0.006347832266340883,
+        "range_equity": 0.003482274947203435,
+        "range_response": 0.003241754457512485,
+        "uniform_equity_200": 0.0027978565557867084
+      },
+      "index": 0,
+      "primary_delta": 0.0028655573191374477,
+      "response_delta": 0.0031060778088283984,
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        5,
+        9,
+        31,
+        35,
+        48
+      ],
+      "floors": {
+        "exact": 3.345475468732434e-17,
+        "predicted_witness": 0.008567855416004142,
+        "range_equity": 0.00462455031427663,
+        "range_response": 0.003078213783853757,
+        "uniform_equity_200": 0.005509130740522807
+      },
+      "index": 1,
+      "primary_delta": 0.003943305101727513,
+      "response_delta": 0.005489641632150385,
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        11,
+        14,
+        31,
+        39,
+        49
+      ],
+      "floors": {
+        "exact": 1.8849641877248624e-17,
+        "predicted_witness": 0.00434838072463241,
+        "range_equity": 0.002862178437706075,
+        "range_response": 0.0015714763802165553,
+        "uniform_equity_200": 0.0034674375891760134
+      },
+      "index": 2,
+      "primary_delta": 0.0014862022869263352,
+      "response_delta": 0.002776904344415855,
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        3,
+        26,
+        31,
+        41,
+        47
+      ],
+      "floors": {
+        "exact": 4.831402096404813e-17,
+        "predicted_witness": 0.008221313016184645,
+        "range_equity": 0.00395712449149408,
+        "range_response": 0.0030676954474421407,
+        "uniform_equity_200": 0.007158260112171868
+      },
+      "index": 3,
+      "primary_delta": 0.004264188524690564,
+      "response_delta": 0.005153617568742504,
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        4,
+        34,
+        37,
+        39,
+        45
+      ],
+      "floors": {
+        "exact": 5.569404659138105e-17,
+        "predicted_witness": 0.010742264496468819,
+        "range_equity": 0.009354935319362464,
+        "range_response": 0.008928618564272036,
+        "uniform_equity_200": 0.009900861108919681
+      },
+      "index": 4,
+      "primary_delta": 0.001387329177106356,
+      "response_delta": 0.0018136459321967822,
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        29,
+        37,
+        38,
+        42,
+        49
+      ],
+      "floors": {
+        "exact": 1.6631329002020937e-17,
+        "predicted_witness": 0.017353920987994882,
+        "range_equity": 0.004792533984575683,
+        "range_response": 0.003562535439528536,
+        "uniform_equity_200": 0.01414758973200825
+      },
+      "index": 5,
+      "primary_delta": 0.012561387003419201,
+      "response_delta": 0.013791385548466347,
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        14,
+        15,
+        28,
+        46,
+        47
+      ],
+      "floors": {
+        "exact": 7.706301890122192e-17,
+        "predicted_witness": 0.015005314193912994,
+        "range_equity": 0.00848942651887362,
+        "range_response": 0.008947528835644454,
+        "uniform_equity_200": 0.011373272936636302
+      },
+      "index": 6,
+      "primary_delta": 0.006515887675039373,
+      "response_delta": 0.00605778535826854,
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        18,
+        19,
+        38,
+        40,
+        41
+      ],
+      "floors": {
+        "exact": 2.615231455197278e-17,
+        "predicted_witness": 0.014841913591684318,
+        "range_equity": 0.008332324777208444,
+        "range_response": 0.008652873996270394,
+        "uniform_equity_200": 0.011611162403107602
+      },
+      "index": 7,
+      "primary_delta": 0.006509588814475873,
+      "response_delta": 0.006189039595413922,
+      "texture": "multiple-pairs-or-trips"
+    }
+  ],
+  "counts": {
+    "exact": {
+      "higher": 48,
+      "lower": 0,
+      "overlapping": 0
+    },
+    "range_equity": {
+      "higher": 41,
+      "lower": 6,
+      "overlapping": 1
+    },
+    "range_response": {
+      "higher": 43,
+      "lower": 5,
+      "overlapping": 0
+    },
+    "uniform_equity_200": {
+      "higher": 33,
+      "lower": 15,
+      "overlapping": 0
+    }
+  },
+  "equity_preparation_seconds": 2.734225000080187,
+  "fit_seconds": 0.026005899999290705,
+  "lobo_primary": [
+    0.005238269797626459,
+    0.0050843058286850215,
+    0.005435320516513761,
+    0.0050384653396903,
+    0.005449445246488044,
+    0.0038531512713004946,
+    0.004716794032497613,
+    0.00471769386972097
+  ],
+  "mean_floors": {
+    "exact": 3.729403049432753e-17,
+    "predicted_witness": 0.010678599336652887,
+    "range_equity": 0.005736918598837554,
+    "range_response": 0.005131337113092545,
+    "uniform_equity_200": 0.008245696397291153
+  },
+  "nonimprovement_cases": [
+    "b00-p0-uniform",
+    "b00-p0-polarized",
+    "b00-p1-uniform",
+    "b00-p1-polarized",
+    "b00-p2-uniform",
+    "b00-p2-polarized",
+    "b01-p0-uniform",
+    "b01-p1-uniform",
+    "b01-p1-polarized",
+    "b01-p2-uniform",
+    "b01-p2-polarized",
+    "b02-p0-uniform",
+    "b02-p0-polarized",
+    "b02-p1-uniform",
+    "b02-p1-polarized",
+    "b02-p2-uniform",
+    "b03-p0-uniform",
+    "b03-p0-polarized",
+    "b03-p1-uniform",
+    "b03-p1-polarized",
+    "b03-p2-uniform",
+    "b03-p2-polarized",
+    "b04-p0-uniform",
+    "b04-p0-polarized",
+    "b04-p1-uniform",
+    "b04-p2-polarized",
+    "b05-p0-uniform",
+    "b05-p0-polarized",
+    "b05-p1-polarized",
+    "b05-p2-uniform",
+    "b05-p2-polarized",
+    "b06-p0-uniform",
+    "b06-p0-polarized",
+    "b06-p1-uniform",
+    "b06-p1-polarized",
+    "b06-p2-uniform",
+    "b06-p2-polarized",
+    "b07-p0-uniform",
+    "b07-p0-polarized",
+    "b07-p1-uniform",
+    "b07-p2-uniform",
+    "b07-p2-polarized"
+  ],
+  "oracle_gap": 0.00841832727095065,
+  "oracle_gap_counts": {
+    "higher": 46,
+    "lower": 2,
+    "overlapping": 0
+  },
+  "oracle_witness_floor": 0.0022602720657022364,
+  "reductions_percent": {
+    "range_equity": -86.13824046268745,
+    "range_response": -108.10558927041782,
+    "uniform_equity_200": -29.50512391119544
+  },
+  "regimes": {
+    "polarized": {
+      "floors": {
+        "exact": 2.7074636497934134e-17,
+        "predicted_witness": 0.01169358353398772,
+        "range_equity": 0.005602446385202189,
+        "range_response": 0.004064202268756721,
+        "uniform_equity_200": 0.00932626650682802
+      },
+      "primary_counts": {
+        "higher": 20,
+        "lower": 4,
+        "overlapping": 0
+      }
+    },
+    "uniform": {
+      "floors": {
+        "exact": 4.7513424490720934e-17,
+        "predicted_witness": 0.009663615139318054,
+        "range_equity": 0.005871390812472919,
+        "range_response": 0.006198471957428369,
+        "uniform_equity_200": 0.0071651262877542865
+      },
+      "primary_counts": {
+        "higher": 21,
+        "lower": 2,
+        "overlapping": 1
+      }
+    }
+  },
+  "seconds": {
+    "game_and_control_preparation": 5.240792800061172,
+    "oracle_rebuild_and_solve": 189.47412389997044,
+    "prediction_and_clustering": 1.039674199972069,
+    "student_solve_and_verification": 30.167774200090207
+  },
+  "training_validation_seconds": 62.17869560001418,
+  "whole_command_seconds": 429.4083301000064,
+  "worker_seconds": 292.5702246000001
+}

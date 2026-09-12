@@ -1,0 +1,62 @@
+{
+  "analysis": {
+    "bet-10-k-16": {
+      "actual_change_percent": 18.211010033533803,
+      "all_omitted_board_actual_deltas_negative": false,
+      "board_directions": {
+        "higher": 8
+      },
+      "floor_change_percent": 18.956589018223212,
+      "timed_change_percent": 17.822535607566458
+    },
+    "bet-10-k-32": {
+      "actual_change_percent": 31.06097615145924,
+      "all_omitted_board_actual_deltas_negative": false,
+      "board_directions": {
+        "higher": 8
+      },
+      "floor_change_percent": 33.193906172558044,
+      "timed_change_percent": 29.620381635128968
+    },
+    "bet-10-k-8": {
+      "actual_change_percent": 20.641757281785587,
+      "all_omitted_board_actual_deltas_negative": false,
+      "board_directions": {
+        "higher": 8
+      },
+      "floor_change_percent": 20.952018032663446,
+      "timed_change_percent": 20.37138557252036
+    },
+    "bet-5-k-16": {
+      "actual_change_percent": 12.13248514706724,
+      "all_omitted_board_actual_deltas_negative": false,
+      "board_directions": {
+        "higher": 8
+      },
+      "floor_change_percent": 12.611535864160217,
+      "timed_change_percent": 11.675126543699154
+    },
+    "bet-5-k-32": {
+      "actual_change_percent": 24.18189435779634,
+      "all_omitted_board_actual_deltas_negative": false,
+      "board_directions": {
+        "higher": 7,
+        "lower": 1
+      },
+      "floor_change_percent": 26.5717666850817,
+      "timed_change_percent": 22.67518104709534
+    },
+    "bet-5-k-8": {
+      "actual_change_percent": 8.575549978697428,
+      "all_omitted_board_actual_deltas_negative": false,
+      "board_directions": {
+        "higher": 7,
+        "lower": 1
+      },
+      "floor_change_percent": 8.977018298336791,
+      "timed_change_percent": 8.393773064092724
+    }
+  },
+  "passed": true,
+  "rational_checks": 1657
+}

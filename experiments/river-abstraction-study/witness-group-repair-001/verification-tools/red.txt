@@ -1,0 +1,65 @@
+test_exchange_objective_matches_exhaustive_binary_group_policies (__main__.RepairTests.test_exchange_objective_matches_exhaustive_binary_group_policies) ... FAIL
+test_no_conflict_zero_advantage_or_insufficient_groups_is_noop (__main__.RepairTests.test_no_conflict_zero_advantage_or_insufficient_groups_is_noop) ... FAIL
+test_rejects_tampered_witness_before_proposal (__main__.RepairTests.test_rejects_tampered_witness_before_proposal) ... FAIL
+test_split_merge_removes_known_restriction_cost (__main__.RepairTests.test_split_merge_removes_known_restriction_cost) ... FAIL
+test_utility_signs_and_joint_mass (__main__.RepairTests.test_utility_signs_and_joint_mass) ... FAIL
+test_zeros_have_deterministic_side_and_witness_score_reconstructs (__main__.RepairTests.test_zeros_have_deterministic_side_and_witness_score_reconstructs) ... FAIL
+
+======================================================================
+FAIL: test_exchange_objective_matches_exhaustive_binary_group_policies (__main__.RepairTests.test_exchange_objective_matches_exhaustive_binary_group_policies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-group-repair-author\test_repair.py", line 16, in setUp
+    self.assertTrue(callable(getattr(repair, 'propose', None)), 'repair is absent')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : repair is absent
+
+======================================================================
+FAIL: test_no_conflict_zero_advantage_or_insufficient_groups_is_noop (__main__.RepairTests.test_no_conflict_zero_advantage_or_insufficient_groups_is_noop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-group-repair-author\test_repair.py", line 16, in setUp
+    self.assertTrue(callable(getattr(repair, 'propose', None)), 'repair is absent')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : repair is absent
+
+======================================================================
+FAIL: test_rejects_tampered_witness_before_proposal (__main__.RepairTests.test_rejects_tampered_witness_before_proposal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-group-repair-author\test_repair.py", line 16, in setUp
+    self.assertTrue(callable(getattr(repair, 'propose', None)), 'repair is absent')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : repair is absent
+
+======================================================================
+FAIL: test_split_merge_removes_known_restriction_cost (__main__.RepairTests.test_split_merge_removes_known_restriction_cost)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-group-repair-author\test_repair.py", line 16, in setUp
+    self.assertTrue(callable(getattr(repair, 'propose', None)), 'repair is absent')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : repair is absent
+
+======================================================================
+FAIL: test_utility_signs_and_joint_mass (__main__.RepairTests.test_utility_signs_and_joint_mass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-group-repair-author\test_repair.py", line 16, in setUp
+    self.assertTrue(callable(getattr(repair, 'propose', None)), 'repair is absent')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : repair is absent
+
+======================================================================
+FAIL: test_zeros_have_deterministic_side_and_witness_score_reconstructs (__main__.RepairTests.test_zeros_have_deterministic_side_and_witness_score_reconstructs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-group-repair-author\test_repair.py", line 16, in setUp
+    self.assertTrue(callable(getattr(repair, 'propose', None)), 'repair is absent')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : repair is absent
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+FAILED (failures=6)

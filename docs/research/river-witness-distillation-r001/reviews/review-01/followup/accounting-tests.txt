@@ -1,0 +1,11 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: D:\Pontius-worktrees\eval-runner-consolidation
+configfile: pyproject.toml
+collected 3 items
+
+..\..\..\..\Pontius-worktrees\eval-runner-consolidation\docs\research\river-witness-distillation-r001\accounting\test_accounting.py . [ 33%]
+..                                                                       [100%]
+
+- generated xml file: D:\Pontius\tmp\witness-distill-review-01\followup\accounting-tests.xml -
+============================== 3 passed in 0.36s ==============================

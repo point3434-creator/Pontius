@@ -1,0 +1,44 @@
+[
+  {
+    "Path": ".gitattributes",
+    "Expected": "008eb16130968c6b9d55f9414fb809228e534e66f3c0661a72c2f37e5cdffab1",
+    "Actual": "008eb16130968c6b9d55f9414fb809228e534e66f3c0661a72c2f37e5cdffab1",
+    "Match": true
+  },
+  {
+    "Path": "docs/research/river-group-optimality-r001/plan.json",
+    "Expected": "de07461ea9364a4fb40d0bce72a506549bc30ac609761bb0bc57ff4600c3b11c",
+    "Actual": "de07461ea9364a4fb40d0bce72a506549bc30ac609761bb0bc57ff4600c3b11c",
+    "Match": true
+  },
+  {
+    "Path": "docs/research/river-group-optimality.md",
+    "Expected": "5b0adde6bb4a976fb7ab67e64a95c00726e10d56d705aa4c9ec4e0adac2e9e73",
+    "Actual": "5b0adde6bb4a976fb7ab67e64a95c00726e10d56d705aa4c9ec4e0adac2e9e73",
+    "Match": true
+  },
+  {
+    "Path": "src/pontius/river_group_optimality.py",
+    "Expected": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "Actual": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "Match": true
+  },
+  {
+    "Path": "tests/cases.json",
+    "Expected": "5cb7e68ba666be72c35ce2fc1e08d5969cbdb8b0cd0f0e6cce3171ec000bb419",
+    "Actual": "5cb7e68ba666be72c35ce2fc1e08d5969cbdb8b0cd0f0e6cce3171ec000bb419",
+    "Match": true
+  },
+  {
+    "Path": "tests/test_river_group_optimality.py",
+    "Expected": "180d724016c65fe0795033d8860129d0dbfdc04e9498dc95ddab87383ecf5aee",
+    "Actual": "180d724016c65fe0795033d8860129d0dbfdc04e9498dc95ddab87383ecf5aee",
+    "Match": true
+  },
+  {
+    "Path": "tools/river_group_optimality.py",
+    "Expected": "b637f02177d43f15376d2933805d92fe8eeefd4e9a1b11dada809c68da5a391a",
+    "Actual": "b637f02177d43f15376d2933805d92fe8eeefd4e9a1b11dada809c68da5a391a",
+    "Match": true
+  }
+]

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="2" failures="0" skipped="0" tests="2" time="0.343" timestamp="2026-09-11T00:18:39.225271-04:00" hostname="JeffPC"><testcase classname="tests.test_river_group_optimality.DiagnosticToolTests" name="test_admission_refuses_changed_sources_and_input_bytes" time="0.001"><error message="failed on setup with &quot;FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_group_optimality.py'&quot;">cls = &lt;class 'test_river_group_optimality.DiagnosticToolTests'&gt;
+
+    @classmethod
+    def setUpClass(cls):
+        path = Path(__file__).resolve().parents[1] / 'tools/river_group_optimality.py'
+        spec = importlib.util.spec_from_file_location('group_tool', path)
+        cls.tool = importlib.util.module_from_spec(spec)
+&gt;       spec.loader.exec_module(cls.tool)
+
+tests\test_river_group_optimality.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+&lt;frozen importlib._bootstrap_external&gt;:755: in exec_module
+    ???
+&lt;frozen importlib._bootstrap_external&gt;:892: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;_frozen_importlib_external.SourceFileLoader object at 0x0000014857C7D670&gt;
+path = 'D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_group_optimality.py'
+
+&gt;   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_group_optimality.py'
+
+&lt;frozen importlib._bootstrap_external&gt;:950: FileNotFoundError</error></testcase><testcase classname="tests.test_river_group_optimality.DiagnosticToolTests" name="test_bound_smoke_and_saved_policy_reconciliation" time="0.000"><error message="failed on setup with &quot;FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_group_optimality.py'&quot;">cls = &lt;class 'test_river_group_optimality.DiagnosticToolTests'&gt;
+
+    @classmethod
+    def setUpClass(cls):
+        path = Path(__file__).resolve().parents[1] / 'tools/river_group_optimality.py'
+        spec = importlib.util.spec_from_file_location('group_tool', path)
+        cls.tool = importlib.util.module_from_spec(spec)
+&gt;       spec.loader.exec_module(cls.tool)
+
+tests\test_river_group_optimality.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+&lt;frozen importlib._bootstrap_external&gt;:755: in exec_module
+    ???
+&lt;frozen importlib._bootstrap_external&gt;:892: in get_code
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;_frozen_importlib_external.SourceFileLoader object at 0x0000014857C7D670&gt;
+path = 'D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_group_optimality.py'
+
+&gt;   ???
+E   FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_group_optimality.py'
+
+&lt;frozen importlib._bootstrap_external&gt;:950: FileNotFoundError</error></testcase></testsuite></testsuites>

@@ -1,0 +1,20 @@
+{
+  "cases": 4,
+  "fresh_boards": 1,
+  "gate_calls": 16,
+  "lp_calls": 16,
+  "pinned_files": 110,
+  "plan_sha256": "349338e22fa92fd02aaeb5820f81c0ed55013dfd105ee12223b16cfa1615e48c",
+  "retained_invoked": false,
+  "selection": {
+    "attempt": 8,
+    "board": [
+      25,
+      36,
+      38,
+      40,
+      51
+    ],
+    "texture": "one-pair"
+  }
+}

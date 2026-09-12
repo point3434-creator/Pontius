@@ -1,0 +1,15 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-c",
+    "import time; time.sleep(2)"
+  ],
+  "exit": 1,
+  "os_peak_commit_bytes": 397312,
+  "sampled_peak_private_bytes": 397312,
+  "sampled_peak_working_set_bytes": 2633728,
+  "samples": 1,
+  "seconds": 0.05307809999794699,
+  "stop_reason": "sampled_private_memory_limit"
+}

@@ -1,0 +1,12 @@
+{
+  "asymmetric_certificates": 128,
+  "cases": 64,
+  "independent_gate_audits": 128,
+  "new_lp_calls": 0,
+  "passed": true,
+  "raw_profiles": 128,
+  "replayed_updates": 3143400,
+  "retained_reference_profiles": 128,
+  "selected_profiles": 128,
+  "timing_traces": 64
+}

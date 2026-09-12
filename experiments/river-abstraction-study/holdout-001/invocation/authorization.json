@@ -1,0 +1,8 @@
+{
+  "user_words_verbatim": "i approve",
+  "context": "Reply to explicit request to approve one execution of this bound r002 holdout plan.",
+  "plan_path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\docs\\research\\river-abstraction-holdout-r002\\plan.json",
+  "plan_sha256": "7377d6a37503f8a11e54b06dafcd783ed29e3b0e523d3569bbcfe17dc2a2533c",
+  "scope": "One holdout invocation only; no commit, push or subsequent experiment.",
+  "recorded_at_utc": "2026-09-11T03:39:34.637059+00:00"
+}

@@ -1,0 +1,15 @@
+test_both_improve (test_gate.GateTests.test_both_improve) ... ok
+test_exact_ties_are_accepted (test_gate.GateTests.test_exact_ties_are_accepted) ... ok
+test_independent_security_matches_toy_values (test_gate.GateTests.test_independent_security_matches_toy_values) ... ok
+test_invalid_probability_refuses (test_gate.GateTests.test_invalid_probability_refuses) ... ok
+test_keep_original_bettor (test_gate.GateTests.test_keep_original_bettor) ... ok
+test_keep_original_caller (test_gate.GateTests.test_keep_original_caller) ... ok
+test_no_lp_is_used (test_gate.GateTests.test_no_lp_is_used) ... ok
+test_bad_plan_digest_refuses_before_claim (test_experiment.RunnerTests.test_bad_plan_digest_refuses_before_claim) ... ok
+test_failed_child_retained_and_duplicate_refused (test_experiment.RunnerTests.test_failed_child_retained_and_duplicate_refused) ... ok
+test_selection_balanced_repeatable_and_suit_fresh (test_experiment.RunnerTests.test_selection_balanced_repeatable_and_suit_fresh) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.032s
+
+OK

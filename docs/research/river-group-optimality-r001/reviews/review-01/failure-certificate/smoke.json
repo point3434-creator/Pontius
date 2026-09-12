@@ -1,0 +1,245 @@
+{
+  "case": "smoke",
+  "methods": [
+    {
+      "method": "exact",
+      "saved": [
+        {
+          "avoidable_gap": {
+            "lower_chips_approx": 1.25,
+            "lower_exact": "90071992547409915/72057594037927936",
+            "upper_chips_approx": 1.25,
+            "upper_exact": "5/4"
+          },
+          "iteration": 10,
+          "saved_exploitability_chips_approx": 1.25,
+          "saved_exploitability_exact": "5/4"
+        }
+      ],
+      "solution": {
+        "minimum_exploitability": {
+          "lower_chips_approx": 0.0,
+          "lower_exact": "0",
+          "upper_chips_approx": 6.938893903907228e-17,
+          "upper_exact": "5/72057594037927936"
+        },
+        "seat0": {
+          "bet": [
+            0,
+            0
+          ],
+          "call": [
+            0.0,
+            0.6666666666666667
+          ],
+          "gap_exact": "5/36028797018963968",
+          "lp_iterations": 3,
+          "value": {
+            "lower_chips_approx": 3.3333333333333335,
+            "lower_exact": "120095990063213225/36028797018963968",
+            "upper_chips_approx": 3.3333333333333335,
+            "upper_exact": "60047995031606615/18014398509481984"
+          }
+        },
+        "seat1": {
+          "bet": [
+            0.3333333333333333,
+            1.0
+          ],
+          "call": [
+            0.0,
+            0.6666666666666666
+          ],
+          "gap_exact": "5/36028797018963968",
+          "lp_iterations": 1,
+          "value": {
+            "lower_chips_approx": 3.3333333333333335,
+            "lower_exact": "120095990063213225/36028797018963968",
+            "upper_chips_approx": 3.3333333333333335,
+            "upper_exact": "60047995031606615/18014398509481984"
+          }
+        }
+      }
+    },
+    {
+      "method": "uniform_equity_200",
+      "saved": [
+        {
+          "avoidable_gap": {
+            "lower_chips_approx": 1.25,
+            "lower_exact": "90071992547409915/72057594037927936",
+            "upper_chips_approx": 1.25,
+            "upper_exact": "5/4"
+          },
+          "iteration": 10,
+          "saved_exploitability_chips_approx": 1.25,
+          "saved_exploitability_exact": "5/4"
+        }
+      ],
+      "solution": {
+        "minimum_exploitability": {
+          "lower_chips_approx": 0.0,
+          "lower_exact": "0",
+          "upper_chips_approx": 6.938893903907228e-17,
+          "upper_exact": "5/72057594037927936"
+        },
+        "seat0": {
+          "bet": [
+            0.3333333333333333,
+            1.0
+          ],
+          "call": [
+            0.0,
+            0.6666666666666667
+          ],
+          "gap_exact": "5/36028797018963968",
+          "lp_iterations": 3,
+          "value": {
+            "lower_chips_approx": 3.3333333333333335,
+            "lower_exact": "120095990063213225/36028797018963968",
+            "upper_chips_approx": 3.3333333333333335,
+            "upper_exact": "60047995031606615/18014398509481984"
+          }
+        },
+        "seat1": {
+          "bet": [
+            0.3333333333333333,
+            1.0
+          ],
+          "call": [
+            0.0,
+            0.6666666666666666
+          ],
+          "gap_exact": "5/36028797018963968",
+          "lp_iterations": 1,
+          "value": {
+            "lower_chips_approx": 3.3333333333333335,
+            "lower_exact": "120095990063213225/36028797018963968",
+            "upper_chips_approx": 3.3333333333333335,
+            "upper_exact": "60047995031606615/18014398509481984"
+          }
+        }
+      }
+    },
+    {
+      "method": "range_equity",
+      "saved": [
+        {
+          "avoidable_gap": {
+            "lower_chips_approx": 1.25,
+            "lower_exact": "90071992547409915/72057594037927936",
+            "upper_chips_approx": 1.25,
+            "upper_exact": "5/4"
+          },
+          "iteration": 10,
+          "saved_exploitability_chips_approx": 1.25,
+          "saved_exploitability_exact": "5/4"
+        }
+      ],
+      "solution": {
+        "minimum_exploitability": {
+          "lower_chips_approx": 0.0,
+          "lower_exact": "0",
+          "upper_chips_approx": 6.938893903907228e-17,
+          "upper_exact": "5/72057594037927936"
+        },
+        "seat0": {
+          "bet": [
+            0.3333333333333333,
+            1.0
+          ],
+          "call": [
+            0.0,
+            0.6666666666666667
+          ],
+          "gap_exact": "5/36028797018963968",
+          "lp_iterations": 3,
+          "value": {
+            "lower_chips_approx": 3.3333333333333335,
+            "lower_exact": "120095990063213225/36028797018963968",
+            "upper_chips_approx": 3.3333333333333335,
+            "upper_exact": "60047995031606615/18014398509481984"
+          }
+        },
+        "seat1": {
+          "bet": [
+            0.3333333333333333,
+            1.0
+          ],
+          "call": [
+            0.0,
+            0.6666666666666666
+          ],
+          "gap_exact": "5/36028797018963968",
+          "lp_iterations": 1,
+          "value": {
+            "lower_chips_approx": 3.3333333333333335,
+            "lower_exact": "120095990063213225/36028797018963968",
+            "upper_chips_approx": 3.3333333333333335,
+            "upper_exact": "60047995031606615/18014398509481984"
+          }
+        }
+      }
+    },
+    {
+      "method": "range_response",
+      "saved": [
+        {
+          "avoidable_gap": {
+            "lower_chips_approx": 1.25,
+            "lower_exact": "90071992547409915/72057594037927936",
+            "upper_chips_approx": 1.25,
+            "upper_exact": "5/4"
+          },
+          "iteration": 10,
+          "saved_exploitability_chips_approx": 1.25,
+          "saved_exploitability_exact": "5/4"
+        }
+      ],
+      "solution": {
+        "minimum_exploitability": {
+          "lower_chips_approx": 0.0,
+          "lower_exact": "0",
+          "upper_chips_approx": 6.938893903907228e-17,
+          "upper_exact": "5/72057594037927936"
+        },
+        "seat0": {
+          "bet": [
+            0.3333333333333333,
+            1.0
+          ],
+          "call": [
+            0.0,
+            0.6666666666666667
+          ],
+          "gap_exact": "5/36028797018963968",
+          "lp_iterations": 3,
+          "value": {
+            "lower_chips_approx": 3.3333333333333335,
+            "lower_exact": "120095990063213225/36028797018963968",
+            "upper_chips_approx": 3.3333333333333335,
+            "upper_exact": "60047995031606615/18014398509481984"
+          }
+        },
+        "seat1": {
+          "bet": [
+            0.3333333333333333,
+            1.0
+          ],
+          "call": [
+            0.0,
+            0.6666666666666666
+          ],
+          "gap_exact": "5/36028797018963968",
+          "lp_iterations": 1,
+          "value": {
+            "lower_chips_approx": 3.3333333333333335,
+            "lower_exact": "120095990063213225/36028797018963968",
+            "upper_chips_approx": 3.3333333333333335,
+            "upper_exact": "60047995031606615/18014398509481984"
+          }
+        }
+      }
+    }
+  ]
+}

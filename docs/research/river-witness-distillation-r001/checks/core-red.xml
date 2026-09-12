@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="5" skipped="0" tests="5" time="0.933" timestamp="2026-09-11T08:38:12.699878-04:00" hostname="JeffPC"><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_polynomial_design_and_weighted_ridge_have_hand_checked_solution" time="0.001"><failure message="AssertionError: unexpectedly None : witness feature predictor is not implemented">self = &lt;test_river_witness_distillation.DistillationTests testMethod=test_polynomial_design_and_weighted_ridge_have_hand_checked_solution&gt;
+
+    def test_polynomial_design_and_weighted_ridge_have_hand_checked_solution(self):
+&gt;       m = self.module()
+            ^^^^^^^^^^^^^
+
+tests\test_river_witness_distillation.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_distillation.py:20: in module
+    self.assertIsNotNone(importlib.util.find_spec('pontius.river_witness_distillation'),
+E   AssertionError: unexpectedly None : witness feature predictor is not implemented</failure></testcase><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_proposal_never_needs_teacher_and_parent_rejects_corruption" time="0.000"><failure message="AssertionError: unexpectedly None : witness feature predictor is not implemented">self = &lt;test_river_witness_distillation.DistillationTests testMethod=test_proposal_never_needs_teacher_and_parent_rejects_corruption&gt;
+
+    def test_proposal_never_needs_teacher_and_parent_rejects_corruption(self):
+&gt;       m = self.module()
+            ^^^^^^^^^^^^^
+
+tests\test_river_witness_distillation.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_distillation.py:20: in module
+    self.assertIsNotNone(importlib.util.find_spec('pontius.river_witness_distillation'),
+E   AssertionError: unexpectedly None : witness feature predictor is not implemented</failure></testcase><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_raw_features_use_only_equity_and_range_context" time="0.000"><failure message="AssertionError: unexpectedly None : witness feature predictor is not implemented">self = &lt;test_river_witness_distillation.DistillationTests testMethod=test_raw_features_use_only_equity_and_range_context&gt;
+
+    def test_raw_features_use_only_equity_and_range_context(self):
+&gt;       m = self.module()
+            ^^^^^^^^^^^^^
+
+tests\test_river_witness_distillation.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_distillation.py:20: in module
+    self.assertIsNotNone(importlib.util.find_spec('pontius.river_witness_distillation'),
+E   AssertionError: unexpectedly None : witness feature predictor is not implemented</failure></testcase><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_reserved_boards_exclude_all_observed_suit_classes" time="0.000"><failure message="AssertionError: unexpectedly None : witness feature predictor is not implemented">self = &lt;test_river_witness_distillation.DistillationTests testMethod=test_reserved_boards_exclude_all_observed_suit_classes&gt;
+
+    def test_reserved_boards_exclude_all_observed_suit_classes(self):
+&gt;       m = self.module()
+            ^^^^^^^^^^^^^
+
+tests\test_river_witness_distillation.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_distillation.py:20: in module
+    self.assertIsNotNone(importlib.util.find_spec('pontius.river_witness_distillation'),
+E   AssertionError: unexpectedly None : witness feature predictor is not implemented</failure></testcase><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_summary_reports_student_and_oracle_without_ratio_on_zero_gain" time="0.000"><failure message="AssertionError: unexpectedly None : witness feature predictor is not implemented">self = &lt;test_river_witness_distillation.DistillationTests testMethod=test_summary_reports_student_and_oracle_without_ratio_on_zero_gain&gt;
+
+    def test_summary_reports_student_and_oracle_without_ratio_on_zero_gain(self):
+&gt;       m = self.module()
+            ^^^^^^^^^^^^^
+
+tests\test_river_witness_distillation.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_distillation.py:20: in module
+    self.assertIsNotNone(importlib.util.find_spec('pontius.river_witness_distillation'),
+E   AssertionError: unexpectedly None : witness feature predictor is not implemented</failure></testcase></testsuite></testsuites>

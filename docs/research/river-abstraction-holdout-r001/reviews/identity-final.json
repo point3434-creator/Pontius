@@ -1,0 +1,56 @@
+{
+  "branch": "codex/river-abstraction-holdout",
+  "head": "1b4d1a0e26cd4da90ff74678de2e48ef53ec5599",
+  "branch_match": true,
+  "base_match": true,
+  "members": [
+    {
+      "path": ".gitattributes",
+      "expected": "7f72e288100510e7ae6f8dfc2c079d65b88f357615a271a14309231f81f146f0",
+      "actual": "7f72e288100510e7ae6f8dfc2c079d65b88f357615a271a14309231f81f146f0",
+      "match": true
+    },
+    {
+      "path": "src/pontius/river_abstraction_study.py",
+      "expected": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+      "actual": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+      "match": true
+    },
+    {
+      "path": "tools/river_abstraction_study.py",
+      "expected": "744614308370c6e32ca1763077418248ad34ecdabdce2150dbf05515fa76f889",
+      "actual": "744614308370c6e32ca1763077418248ad34ecdabdce2150dbf05515fa76f889",
+      "match": true
+    },
+    {
+      "path": "tools/river_abstraction_campaign.py",
+      "expected": "dc1fc4427966dda08f1dbb6a8a7ceeb8ed99640f281787fd025d1c79826ff4e9",
+      "actual": "dc1fc4427966dda08f1dbb6a8a7ceeb8ed99640f281787fd025d1c79826ff4e9",
+      "match": true
+    },
+    {
+      "path": "tests/test_river_abstraction_holdout.py",
+      "expected": "8d8a71bc106ab3967276cce8dff2c4ce8e8304825596f01b0fd6cdcf4469fc7e",
+      "actual": "8d8a71bc106ab3967276cce8dff2c4ce8e8304825596f01b0fd6cdcf4469fc7e",
+      "match": true
+    },
+    {
+      "path": "tests/cases.json",
+      "expected": "2194f7af21d6e503a0514df7282fdddff1169e7761bbdc0fd056395635084bcf",
+      "actual": "2194f7af21d6e503a0514df7282fdddff1169e7761bbdc0fd056395635084bcf",
+      "match": true
+    },
+    {
+      "path": "docs/research/river-abstraction-holdout.md",
+      "expected": "10f4907dd04bef680d796dc5cb1fc537e816032ec691eceebe2b7a7d7ce895af",
+      "actual": "10f4907dd04bef680d796dc5cb1fc537e816032ec691eceebe2b7a7d7ce895af",
+      "match": true
+    },
+    {
+      "path": "docs/research/river-abstraction-holdout-r001/plan.json",
+      "expected": "579fe72afb5a467f7e25cec83bee2ea6faf42e4d21cb3ae96a499545e846d266",
+      "actual": "579fe72afb5a467f7e25cec83bee2ea6faf42e4d21cb3ae96a499545e846d266",
+      "match": true
+    }
+  ]
+}

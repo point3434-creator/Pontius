@@ -1,0 +1,66 @@
+{
+  "analysis": {
+    "10": {
+      "accepted_changed_seats": 61,
+      "all_regimes_improve": true,
+      "all_textures_improve": true,
+      "board_directions": {
+        "better": 16
+      },
+      "changed_seats": 64,
+      "guarded_directions": {
+        "better": 32
+      },
+      "guarded_reduction_percent": 35.885099394697875,
+      "leave_one_board_out_all_improve": true,
+      "raw_directions": {
+        "better": 30,
+        "worse": 2
+      },
+      "raw_reduction_percent": 33.73801563330039,
+      "versus_50k_reduction_percent": 35.529275329004186
+    },
+    "5": {
+      "accepted_changed_seats": 61,
+      "all_regimes_improve": true,
+      "all_textures_improve": true,
+      "board_directions": {
+        "better": 16
+      },
+      "changed_seats": 63,
+      "guarded_directions": {
+        "better": 32
+      },
+      "guarded_reduction_percent": 34.76060834166581,
+      "leave_one_board_out_all_improve": true,
+      "raw_directions": {
+        "better": 31,
+        "worse": 1
+      },
+      "raw_reduction_percent": 33.453420316644824,
+      "versus_50k_reduction_percent": 34.24133512398072
+    }
+  },
+  "arithmetic_checks": 1293,
+  "costs": {
+    "components_total_seconds": {
+      "acceptance": 11.683799599908525,
+      "baseline_witness": 25.542656999983592,
+      "original10k_solver": 20.58626290000393,
+      "preparation": 11.254339700069977,
+      "proposal": 17.022191100171767,
+      "repaired10k_solver": 20.572750800085487
+    },
+    "diagnostic_repaired_lp_seconds": 25.574054399941815,
+    "extra_original40k_update_seconds": 77.307341000007,
+    "gate_component_share_percent": 10.954041251232503,
+    "max_gate_seconds": 0.20677530000102706,
+    "mean_component_seconds": 1.6665937671909887,
+    "mean_gate_seconds": 0.1825593687485707,
+    "median_gate_seconds": 0.17928894999204203,
+    "min_gate_seconds": 0.1603127999987919,
+    "scope": "Single-run component sums, not an independently timed standalone production launch.",
+    "total_component_seconds": 106.66200110022328
+  },
+  "passed": true
+}

@@ -1,0 +1,6 @@
+Exact packet plan parse/schema/digest/source binding: PASS
+Python: 3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]
+NumPy: 2.5.2
+Plan grid: 4 cases x 4 methods x 3 checkpoints = 48
+Hands: 96 iterations: 10000
+No execute_plan, verify_case, study_case or card evaluation called.

@@ -1,0 +1,1 @@
+{"complete": true, "output": "D:\\Pontius-training\\river-abstraction-study\\holdout-001\\holdout-1-polarized", "accepted_joint_deals": 8424, "records": 12}

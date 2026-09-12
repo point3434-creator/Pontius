@@ -1,0 +1,56 @@
+{
+  "cases": [
+    {
+      "case": 0,
+      "compressed_error": 0.0051860139191863795,
+      "full_error": 4.9555902445210475e-09,
+      "full_seconds": 1.372756600001594,
+      "grouped_seconds": 5.411601799976779,
+      "os_peak_commit_mib": 1106.13671875,
+      "sampled_private_mib": 1026.2578125,
+      "setup_seconds": 0.38736079999944195,
+      "strict_pass": true
+    },
+    {
+      "case": 1,
+      "compressed_error": 0.015486020143441814,
+      "full_error": 1.3708768849084325e-07,
+      "full_seconds": 4.603820099990116,
+      "grouped_seconds": 7.5961791000154335,
+      "os_peak_commit_mib": 2219.98828125,
+      "sampled_private_mib": 2192.26953125,
+      "setup_seconds": 0.536203800002113,
+      "strict_pass": false
+    },
+    {
+      "case": 2,
+      "compressed_error": 0.0017010452085880839,
+      "full_error": 4.464393643573575e-09,
+      "full_seconds": 1.4810367999889422,
+      "grouped_seconds": 5.571543600002769,
+      "os_peak_commit_mib": 1144.56640625,
+      "sampled_private_mib": 1082.5078125,
+      "setup_seconds": 0.3720898000174202,
+      "strict_pass": true
+    },
+    {
+      "case": 3,
+      "compressed_error": 0.003740553749762949,
+      "full_error": 2.164931288857963e-08,
+      "full_seconds": 1.3872243000078015,
+      "grouped_seconds": 5.601154699979816,
+      "os_peak_commit_mib": 1112.30078125,
+      "sampled_private_mib": 1076.20703125,
+      "setup_seconds": 0.3791761999891605,
+      "strict_pass": false
+    }
+  ],
+  "first_attempt_policy_identity": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "new_solver_invocations": 0,
+  "strict_passes": 2
+}

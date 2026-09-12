@@ -1,0 +1,474 @@
+{
+  "bank": {
+    "case": "b00-p0-uniform",
+    "methods": [
+      {
+        "method": "exact",
+        "saved": [],
+        "solution": {
+          "minimum_exploitability": {
+            "lower_chips_approx": 0.0,
+            "lower_exact": "0",
+            "upper_chips_approx": 0.0,
+            "upper_exact": "0"
+          },
+          "seat0": {
+            "bet": [
+              0.0,
+              0.0
+            ],
+            "call": [
+              1.0,
+              1.0
+            ],
+            "gap_exact": "0",
+            "lp_iterations": 1,
+            "value": {
+              "lower_chips_approx": -1.6666666666666665,
+              "lower_exact": "-3752999689475413/2251799813685248",
+              "upper_chips_approx": -1.6666666666666665,
+              "upper_exact": "-3752999689475413/2251799813685248"
+            }
+          },
+          "seat1": {
+            "bet": [
+              0.0,
+              0.0
+            ],
+            "call": [
+              0.0,
+              1.0
+            ],
+            "gap_exact": "0",
+            "lp_iterations": 0,
+            "value": {
+              "lower_chips_approx": -1.6666666666666665,
+              "lower_exact": "-3752999689475413/2251799813685248",
+              "upper_chips_approx": -1.6666666666666665,
+              "upper_exact": "-3752999689475413/2251799813685248"
+            }
+          }
+        }
+      },
+      {
+        "method": "uniform_equity_200",
+        "saved": [],
+        "solution": {
+          "minimum_exploitability": {
+            "lower_chips_approx": 0.0,
+            "lower_exact": "0",
+            "upper_chips_approx": 0.0,
+            "upper_exact": "0"
+          },
+          "seat0": {
+            "bet": [
+              0.0,
+              0.0
+            ],
+            "call": [
+              1.0,
+              1.0
+            ],
+            "gap_exact": "0",
+            "lp_iterations": 1,
+            "value": {
+              "lower_chips_approx": -1.6666666666666665,
+              "lower_exact": "-3752999689475413/2251799813685248",
+              "upper_chips_approx": -1.6666666666666665,
+              "upper_exact": "-3752999689475413/2251799813685248"
+            }
+          },
+          "seat1": {
+            "bet": [
+              0.0,
+              0.0
+            ],
+            "call": [
+              0.0,
+              1.0
+            ],
+            "gap_exact": "0",
+            "lp_iterations": 0,
+            "value": {
+              "lower_chips_approx": -1.6666666666666665,
+              "lower_exact": "-3752999689475413/2251799813685248",
+              "upper_chips_approx": -1.6666666666666665,
+              "upper_exact": "-3752999689475413/2251799813685248"
+            }
+          }
+        }
+      },
+      {
+        "method": "range_equity",
+        "saved": [],
+        "solution": {
+          "minimum_exploitability": {
+            "lower_chips_approx": 0.0,
+            "lower_exact": "0",
+            "upper_chips_approx": 0.0,
+            "upper_exact": "0"
+          },
+          "seat0": {
+            "bet": [
+              0.0,
+              0.0
+            ],
+            "call": [
+              1.0,
+              1.0
+            ],
+            "gap_exact": "0",
+            "lp_iterations": 1,
+            "value": {
+              "lower_chips_approx": -1.6666666666666665,
+              "lower_exact": "-3752999689475413/2251799813685248",
+              "upper_chips_approx": -1.6666666666666665,
+              "upper_exact": "-3752999689475413/2251799813685248"
+            }
+          },
+          "seat1": {
+            "bet": [
+              0.0,
+              0.0
+            ],
+            "call": [
+              0.0,
+              1.0
+            ],
+            "gap_exact": "0",
+            "lp_iterations": 0,
+            "value": {
+              "lower_chips_approx": -1.6666666666666665,
+              "lower_exact": "-3752999689475413/2251799813685248",
+              "upper_chips_approx": -1.6666666666666665,
+              "upper_exact": "-3752999689475413/2251799813685248"
+            }
+          }
+        }
+      },
+      {
+        "method": "range_response",
+        "saved": [],
+        "solution": {
+          "minimum_exploitability": {
+            "lower_chips_approx": 0.0,
+            "lower_exact": "0",
+            "upper_chips_approx": 0.0,
+            "upper_exact": "0"
+          },
+          "seat0": {
+            "bet": [
+              0.0,
+              0.0
+            ],
+            "call": [
+              1.0,
+              1.0
+            ],
+            "gap_exact": "0",
+            "lp_iterations": 1,
+            "value": {
+              "lower_chips_approx": -1.6666666666666665,
+              "lower_exact": "-3752999689475413/2251799813685248",
+              "upper_chips_approx": -1.6666666666666665,
+              "upper_exact": "-3752999689475413/2251799813685248"
+            }
+          },
+          "seat1": {
+            "bet": [
+              0.0,
+              0.0
+            ],
+            "call": [
+              0.0,
+              1.0
+            ],
+            "gap_exact": "0",
+            "lp_iterations": 0,
+            "value": {
+              "lower_chips_approx": -1.6666666666666665,
+              "lower_exact": "-3752999689475413/2251799813685248",
+              "upper_chips_approx": -1.6666666666666665,
+              "upper_exact": "-3752999689475413/2251799813685248"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "candidate": {
+    "case": "b00-p0-uniform",
+    "comparisons": {
+      "exact": {
+        "classification": "overlapping",
+        "lower_chips_approx": 0.0,
+        "lower_exact": "0",
+        "upper_chips_approx": 0.0,
+        "upper_exact": "0"
+      },
+      "range_equity": {
+        "classification": "overlapping",
+        "lower_chips_approx": 0.0,
+        "lower_exact": "0",
+        "upper_chips_approx": 0.0,
+        "upper_exact": "0"
+      },
+      "range_response": {
+        "classification": "overlapping",
+        "lower_chips_approx": 0.0,
+        "lower_exact": "0",
+        "upper_chips_approx": 0.0,
+        "upper_exact": "0"
+      },
+      "uniform_equity_200": {
+        "classification": "overlapping",
+        "lower_chips_approx": 0.0,
+        "lower_exact": "0",
+        "upper_chips_approx": 0.0,
+        "upper_exact": "0"
+      }
+    },
+    "proposal": {
+      "bank_methods": [
+        "exact",
+        "uniform_equity_200",
+        "range_equity",
+        "range_response"
+      ],
+      "features": [
+        [
+          [
+            -5.000000000000001,
+            -5.000000000000001,
+            -5.000000000000001,
+            -5.000000000000001
+          ],
+          [
+            -6.661338147750939e-16,
+            -6.661338147750939e-16,
+            -6.661338147750939e-16,
+            -6.661338147750939e-16
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        ]
+      ],
+      "groups": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "marginals": [
+        [
+          0.3333333333333333,
+          0.6666666666666666
+        ],
+        [
+          0.3333333333333333,
+          0.6666666666666666
+        ]
+      ],
+      "method": "witness_advantage"
+    },
+    "solution": {
+      "minimum_exploitability": {
+        "lower_chips_approx": 0.0,
+        "lower_exact": "0",
+        "upper_chips_approx": 0.0,
+        "upper_exact": "0"
+      },
+      "seat0": {
+        "bet": [
+          0.0,
+          0.0
+        ],
+        "call": [
+          1.0,
+          1.0
+        ],
+        "gap_exact": "0",
+        "lp_iterations": 1,
+        "value": {
+          "lower_chips_approx": -1.6666666666666665,
+          "lower_exact": "-3752999689475413/2251799813685248",
+          "upper_chips_approx": -1.6666666666666665,
+          "upper_exact": "-3752999689475413/2251799813685248"
+        }
+      },
+      "seat1": {
+        "bet": [
+          0.0,
+          0.0
+        ],
+        "call": [
+          0.0,
+          1.0
+        ],
+        "gap_exact": "0",
+        "lp_iterations": 0,
+        "value": {
+          "lower_chips_approx": -1.6666666666666665,
+          "lower_exact": "-3752999689475413/2251799813685248",
+          "upper_chips_approx": -1.6666666666666665,
+          "upper_exact": "-3752999689475413/2251799813685248"
+        }
+      }
+    }
+  },
+  "case": {
+    "board": [
+      0,
+      21,
+      30,
+      39,
+      40
+    ],
+    "board_index": 0,
+    "id": "b00-p0-uniform",
+    "pool": 0,
+    "regime": "uniform",
+    "texture": "unpaired-no-flush"
+  },
+  "inputs": {
+    "accepted_joint_deals": 3,
+    "bet": 5,
+    "board": [
+      0,
+      21,
+      30,
+      39,
+      40
+    ],
+    "groups": {
+      "exact": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "range_equity": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "range_response": [
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "uniform_equity_200": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    "hands": [
+      [
+        [
+          23,
+          35
+        ],
+        [
+          31,
+          32
+        ]
+      ],
+      [
+        [
+          13,
+          35
+        ],
+        [
+          28,
+          50
+        ]
+      ]
+    ],
+    "joint": [
+      [
+        0.0,
+        0.3333333333333333
+      ],
+      [
+        0.3333333333333333,
+        0.3333333333333333
+      ]
+    ],
+    "pot": 10,
+    "provenance_digest": "6ecb1840d53928287bc7750472f37152c85160b162bf48550843a276222f204a",
+    "ranges": [
+      [
+        [
+          [
+            23,
+            35
+          ],
+          1
+        ],
+        [
+          [
+            31,
+            32
+          ],
+          1
+        ]
+      ],
+      [
+        [
+          [
+            13,
+            35
+          ],
+          1
+        ],
+        [
+          [
+            28,
+            50
+          ],
+          1
+        ]
+      ]
+    ],
+    "stacks": [
+      20,
+      20
+    ]
+  }
+}

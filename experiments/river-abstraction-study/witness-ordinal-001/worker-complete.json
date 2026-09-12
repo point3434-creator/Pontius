@@ -1,0 +1,9 @@
+{
+  "checkpoint_policies": 768,
+  "complete": true,
+  "evaluation_cells": 64,
+  "fit_tasks": 18,
+  "lp_calls": 1024,
+  "training_cells": 64,
+  "trajectories": 256
+}

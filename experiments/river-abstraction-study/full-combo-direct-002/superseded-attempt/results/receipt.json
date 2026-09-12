@@ -1,0 +1,27 @@
+{
+  "cases": [
+    {
+      "case": 0,
+      "verify": true,
+      "worker": true
+    },
+    {
+      "case": 1,
+      "verify": true,
+      "worker": true
+    },
+    {
+      "case": 2,
+      "verify": true,
+      "worker": true
+    },
+    {
+      "case": 3,
+      "verify": true,
+      "worker": true
+    }
+  ],
+  "complete": true,
+  "result_manifest_sha256": "bcefb357da60baecd7ada4ecbee0f9262667b5f6f1f6f09516970d22470b986e",
+  "seconds": 84.19883690000279
+}

@@ -1,0 +1,16 @@
+{
+  "additional_lp_calls": 0,
+  "asymmetric_gap_records": 480,
+  "board_units": 8,
+  "case_comparisons": 192,
+  "cases": 48,
+  "floor_interval_identities": 240,
+  "independent_aggregate_checks": "Overall, board, pool, regime, texture, SD and leave-one-board-out.",
+  "limitation": "Post-run audit checks retained arithmetic and identity. Full game, feature and certificate reconstruction was performed by the frozen parent before its successful exit; this audit does not repeat that evaluator or optimization.",
+  "manifest_members": 54,
+  "manifest_sha256": "42ada4db7938d7d1da9b5aa9bad0ebc62795e423c5c3a8c854b7eec07c5a73a7",
+  "maximum_certificate_width_chips": 1.702613527477365e-15,
+  "maximum_certificate_width_exact": "35361899480078496409/20769187434139310514121985316880384",
+  "passed": true,
+  "verifier_sha256": "53e5205ff5170fb63685df799892c8a5d32c326cfb15d05fbf8532b78e8622d7"
+}

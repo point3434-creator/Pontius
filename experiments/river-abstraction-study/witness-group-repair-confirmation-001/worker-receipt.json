@@ -1,0 +1,14 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\tmp\\witness-group-repair-confirmation-author\\confirmation.py",
+    "worker",
+    "D:\\Pontius\\tmp\\witness-group-repair-confirmation-author\\plan.json",
+    "941ce0a4d1121cad0d2fdf43076c8871a08b79ef444b3a11547552ee13e42d31"
+  ],
+  "exit": 0,
+  "seconds": 210.12522180000087
+}

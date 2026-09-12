@@ -1,0 +1,9 @@
+{
+  "original_review_manifest_sha256": "ce26b6828ac225fe191a18884b59a5f360e9798445053d031433ad299e5455d8",
+  "accounting_manifest_sha256": "618ac5e076cdc1b99211076b98f0d1fd0434912d2897554978f7f12ac898b64e",
+  "current_sha256": "f4ee4fc303890edb499273268535c835f4cd89a0ccc88425425558b1163c1002",
+  "controller_authorization_exists": false,
+  "invocation_directory_exists": false,
+  "bound_output_exists": false,
+  "disposition_exists": false
+}

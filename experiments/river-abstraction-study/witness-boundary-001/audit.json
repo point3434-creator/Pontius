@@ -1,0 +1,14 @@
+{
+  "aggregate_records": 1034,
+  "asymmetric_gaps": 192,
+  "auditor_sha256": "4ff617a495ef1d44b2787c0d6e2ecb1259a5797a1b59608f07574b2380f886b1",
+  "cases": 48,
+  "clipped_values_independently_verified": 73728,
+  "maximum_certificate_gap": 6.239365905359426e-16,
+  "new_audit_fits": 0,
+  "new_audit_lp_calls": 0,
+  "new_floor_identities": 96,
+  "passed": true,
+  "result_manifest_sha256": "51966ab55ca840eb56ecc0cc20f46b4ea57539b78d6ec6c8aa0917e7a507e90f",
+  "signed_comparisons": 672
+}

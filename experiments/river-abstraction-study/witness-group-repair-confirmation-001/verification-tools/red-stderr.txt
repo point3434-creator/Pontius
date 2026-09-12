@@ -1,0 +1,18 @@
+test_confirmation (unittest.loader._FailedTest.test_confirmation) ... ERROR
+
+======================================================================
+ERROR: test_confirmation (unittest.loader._FailedTest.test_confirmation)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_confirmation
+Traceback (most recent call last):
+  File "C:\Users\point\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+  File "D:\Pontius\tmp\witness-group-repair-confirmation-author\test_confirmation.py", line 4, in <module>
+    import confirmation as c
+ModuleNotFoundError: No module named 'confirmation'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

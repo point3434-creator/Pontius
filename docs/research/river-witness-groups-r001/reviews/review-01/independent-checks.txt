@@ -1,0 +1,4 @@
+  File "D:\Pontius\tmp\witness-groups-review-01\independent_checks.py", line 24
+    return sum(((1-Q(float(x[i])))*Q(float(game.check[i,j])) + Q(float(x[i]))*((1-Q(float(y[j])))*Q(float(game.fold[i,j]))+Q(float(y[j]))*Q(float(game.call[i,j]))) for i in range(len(x)) for j in range(len(y)))
+              ^
+SyntaxError: '(' was never closed

@@ -1,0 +1,13 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_witness_distillation.py",
+    "worker",
+    "--plan",
+    "D:\\Pontius\\tmp\\witness-distill-review-01\\independent-smoke-plan.json",
+    "--sha256",
+    "8221813e8492ff4551905cddd951c3d84812f69f0e8c1d0fb8cccb31a16f6ce0"
+  ],
+  "plan_sha256": "8221813e8492ff4551905cddd951c3d84812f69f0e8c1d0fb8cccb31a16f6ce0"
+}

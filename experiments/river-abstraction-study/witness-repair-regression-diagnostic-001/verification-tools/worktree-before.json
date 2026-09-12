@@ -1,0 +1,10 @@
+{
+  "head": "1b4d1a0e26cd4da90ff74678de2e48ef53ec5599",
+  "modified_tracked_files": {
+    ".gitattributes": "643ba1ed2efc47ba71596c515b0884a1e4800ff80ffdb1fd15bcd4217ffeda82",
+    "docs/research/README.md": "621438bd560c3639d0f5989bcda0f02bb16af5fa735fba8f389f9816779142db",
+    "src/pontius/river_abstraction_study.py": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "tests/cases.json": "7019ba3ae7a5d78998bfb3559287f0adec98136ea2c1004544e759c3b832031c",
+    "tools/river_abstraction_study.py": "744614308370c6e32ca1763077418248ad34ecdabdce2150dbf05515fa76f889"
+  }
+}

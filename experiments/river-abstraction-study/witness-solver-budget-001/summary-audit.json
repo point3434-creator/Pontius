@@ -1,0 +1,7 @@
+{
+  "all_cases": 96,
+  "all_checkpoint_policies": 3456,
+  "arithmetic": "Fraction from binary64",
+  "passed": true,
+  "summary_scalars_verified": 1511
+}

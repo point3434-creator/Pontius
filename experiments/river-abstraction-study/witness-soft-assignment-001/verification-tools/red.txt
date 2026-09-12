@@ -1,0 +1,101 @@
+test_duplicate_centers_single_group_and_exact_center (__main__.SoftTests.test_duplicate_centers_single_group_and_exact_center) ... FAIL
+test_invalid_embeddings_refused_before_algebra (__main__.SoftTests.test_invalid_embeddings_refused_before_algebra) ... FAIL
+test_learner_reaches_restriction_floor_and_replays (__main__.SoftTests.test_learner_reaches_restriction_floor_and_replays) ... FAIL
+test_one_hot_floor_matches_old_certified_solver (__main__.SoftTests.test_one_hot_floor_matches_old_certified_solver) ... FAIL
+test_soft_certificates_match_enumerated_latent_corners (__main__.SoftTests.test_soft_certificates_match_enumerated_latent_corners) ... FAIL
+test_softening_can_destroy_an_exact_policy_class (__main__.SoftTests.test_softening_can_destroy_an_exact_policy_class) ... FAIL
+test_tampered_witness_and_suboptimal_lp_are_rejected (__main__.SoftTests.test_tampered_witness_and_suboptimal_lp_are_rejected) ... FAIL
+test_two_neighbour_weights_and_exact_row_mass (__main__.SoftTests.test_two_neighbour_weights_and_exact_row_mass) ... FAIL
+
+======================================================================
+FAIL: test_duplicate_centers_single_group_and_exact_center (__main__.SoftTests.test_duplicate_centers_single_group_and_exact_center)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-soft-assignment-author\test_soft.py", line 18, in setUp
+    self.assertTrue(callable(getattr(soft, 'assignments', None)),
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    'soft assignment implementation is absent')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : soft assignment implementation is absent
+
+======================================================================
+FAIL: test_invalid_embeddings_refused_before_algebra (__main__.SoftTests.test_invalid_embeddings_refused_before_algebra)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-soft-assignment-author\test_soft.py", line 18, in setUp
+    self.assertTrue(callable(getattr(soft, 'assignments', None)),
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    'soft assignment implementation is absent')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : soft assignment implementation is absent
+
+======================================================================
+FAIL: test_learner_reaches_restriction_floor_and_replays (__main__.SoftTests.test_learner_reaches_restriction_floor_and_replays)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-soft-assignment-author\test_soft.py", line 18, in setUp
+    self.assertTrue(callable(getattr(soft, 'assignments', None)),
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    'soft assignment implementation is absent')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : soft assignment implementation is absent
+
+======================================================================
+FAIL: test_one_hot_floor_matches_old_certified_solver (__main__.SoftTests.test_one_hot_floor_matches_old_certified_solver)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-soft-assignment-author\test_soft.py", line 18, in setUp
+    self.assertTrue(callable(getattr(soft, 'assignments', None)),
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    'soft assignment implementation is absent')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : soft assignment implementation is absent
+
+======================================================================
+FAIL: test_soft_certificates_match_enumerated_latent_corners (__main__.SoftTests.test_soft_certificates_match_enumerated_latent_corners)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-soft-assignment-author\test_soft.py", line 18, in setUp
+    self.assertTrue(callable(getattr(soft, 'assignments', None)),
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    'soft assignment implementation is absent')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : soft assignment implementation is absent
+
+======================================================================
+FAIL: test_softening_can_destroy_an_exact_policy_class (__main__.SoftTests.test_softening_can_destroy_an_exact_policy_class)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-soft-assignment-author\test_soft.py", line 18, in setUp
+    self.assertTrue(callable(getattr(soft, 'assignments', None)),
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    'soft assignment implementation is absent')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : soft assignment implementation is absent
+
+======================================================================
+FAIL: test_tampered_witness_and_suboptimal_lp_are_rejected (__main__.SoftTests.test_tampered_witness_and_suboptimal_lp_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-soft-assignment-author\test_soft.py", line 18, in setUp
+    self.assertTrue(callable(getattr(soft, 'assignments', None)),
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    'soft assignment implementation is absent')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : soft assignment implementation is absent
+
+======================================================================
+FAIL: test_two_neighbour_weights_and_exact_row_mass (__main__.SoftTests.test_two_neighbour_weights_and_exact_row_mass)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-soft-assignment-author\test_soft.py", line 18, in setUp
+    self.assertTrue(callable(getattr(soft, 'assignments', None)),
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    'soft assignment implementation is absent')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : soft assignment implementation is absent
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.001s
+
+FAILED (failures=8)

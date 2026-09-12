@@ -1,0 +1,16 @@
+[
+  {
+    "path": ".gitattributes",
+    "predecessor_sha256": "7f72e288100510e7ae6f8dfc2c079d65b88f357615a271a14309231f81f146f0",
+    "pin_match": true,
+    "previous_bytes_preserved": true,
+    "increment": "\n/src/pontius/river_group_optimality.py -text\n/tools/river_group_optimality.py -text\n/tests/test_river_group_optimality.py -text\n"
+  },
+  {
+    "path": "tests/cases.json",
+    "predecessor_sha256": "2194f7af21d6e503a0514df7282fdddff1169e7761bbdc0fd056395635084bcf",
+    "pin_match": true,
+    "previous_bytes_preserved": true,
+    "increment": "  \"test_river_group_optimality\",\r\n"
+  }
+]

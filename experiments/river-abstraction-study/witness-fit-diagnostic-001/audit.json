@@ -1,0 +1,10 @@
+{
+  "auditor_sha256": "cc3903a51df40c5e3ef0ac7d9ee494d2c94271df2202820a4672e42ba2751b84",
+  "cases": 96,
+  "extra_fits": 0,
+  "extra_lp_calls": 0,
+  "extra_prediction_calls": 0,
+  "method": "Independent stdlib scalar sums from retained hand arrays; no production metrics import.",
+  "metric_values_checked": 4928,
+  "passed": true
+}

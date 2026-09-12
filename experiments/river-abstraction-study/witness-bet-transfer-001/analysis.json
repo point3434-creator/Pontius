@@ -1,0 +1,345 @@
+{
+  "10.0": {
+    "actual_reduction_percent": 7.924922801510582,
+    "board_actual_counts": {
+      "higher": 3,
+      "lower": 13
+    },
+    "board_floor_counts": {
+      "higher": 4,
+      "lower": 12
+    },
+    "failed_robustness_panels": [
+      {
+        "actual_delta": -2.306747769133602e-05,
+        "floor_delta": 0.00033576284395850044,
+        "label": "multiple-pairs-or-trips",
+        "panel": "textures"
+      },
+      {
+        "actual_delta": 0.0002328714509604275,
+        "floor_delta": -4.863707900516184e-05,
+        "label": "polarized",
+        "panel": "regimes"
+      }
+    ],
+    "floor_reduction_percent": 10.404330640097388,
+    "worst_actual": [
+      {
+        "candidate": 0.0371219772414052,
+        "case": {
+          "board": [
+            6,
+            14,
+            15,
+            20,
+            23
+          ],
+          "board_index": 15,
+          "id": "b15-p2-uniform",
+          "pool": 2,
+          "regime": "uniform",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.017918989446882527,
+        "reference": 0.019202987794522675
+      },
+      {
+        "candidate": 0.026906280986867648,
+        "case": {
+          "board": [
+            15,
+            16,
+            17,
+            18,
+            30
+          ],
+          "board_index": 14,
+          "id": "b14-p0-polarized",
+          "pool": 0,
+          "regime": "polarized",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.015285124573490183,
+        "reference": 0.011621156413377465
+      },
+      {
+        "candidate": 0.020293108361760792,
+        "case": {
+          "board": [
+            15,
+            16,
+            17,
+            18,
+            30
+          ],
+          "board_index": 14,
+          "id": "b14-p0-uniform",
+          "pool": 0,
+          "regime": "uniform",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.008781331067298837,
+        "reference": 0.011511777294461956
+      },
+      {
+        "candidate": 0.02033049079428262,
+        "case": {
+          "board": [
+            15,
+            16,
+            17,
+            18,
+            30
+          ],
+          "board_index": 14,
+          "id": "b14-p2-polarized",
+          "pool": 2,
+          "regime": "polarized",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.00792674345610117,
+        "reference": 0.012403747338181448
+      },
+      {
+        "candidate": 0.015687794393091856,
+        "case": {
+          "board": [
+            3,
+            25,
+            30,
+            31,
+            34
+          ],
+          "board_index": 8,
+          "id": "b08-p2-uniform",
+          "pool": 2,
+          "regime": "uniform",
+          "texture": "one-pair"
+        },
+        "delta": 0.00729302542239986,
+        "reference": 0.008394768970691996
+      }
+    ]
+  },
+  "2.5": {
+    "actual_reduction_percent": 17.123508064112837,
+    "board_actual_counts": {
+      "higher": 2,
+      "lower": 14
+    },
+    "board_floor_counts": {
+      "higher": 2,
+      "lower": 14
+    },
+    "failed_robustness_panels": [],
+    "floor_reduction_percent": 21.46902635321507,
+    "worst_actual": [
+      {
+        "candidate": 0.007693385741644909,
+        "case": {
+          "board": [
+            16,
+            18,
+            21,
+            23,
+            36
+          ],
+          "board_index": 13,
+          "id": "b13-p0-uniform",
+          "pool": 0,
+          "regime": "uniform",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.0071349483380063194,
+        "reference": 0.0005584374036385897
+      },
+      {
+        "candidate": 0.006023990033730775,
+        "case": {
+          "board": [
+            10,
+            17,
+            27,
+            35,
+            37
+          ],
+          "board_index": 1,
+          "id": "b01-p1-uniform",
+          "pool": 1,
+          "regime": "uniform",
+          "texture": "unpaired-no-flush"
+        },
+        "delta": 0.0027054212861440594,
+        "reference": 0.0033185687475867157
+      },
+      {
+        "candidate": 0.006747984717630495,
+        "case": {
+          "board": [
+            10,
+            17,
+            27,
+            35,
+            37
+          ],
+          "board_index": 1,
+          "id": "b01-p1-polarized",
+          "pool": 1,
+          "regime": "polarized",
+          "texture": "unpaired-no-flush"
+        },
+        "delta": 0.002454988852347517,
+        "reference": 0.004292995865282978
+      },
+      {
+        "candidate": 0.0047091525458188566,
+        "case": {
+          "board": [
+            1,
+            7,
+            18,
+            33,
+            36
+          ],
+          "board_index": 3,
+          "id": "b03-p1-uniform",
+          "pool": 1,
+          "regime": "uniform",
+          "texture": "unpaired-no-flush"
+        },
+        "delta": 0.0020307049394021615,
+        "reference": 0.002678447606416695
+      },
+      {
+        "candidate": 0.00912194023001972,
+        "case": {
+          "board": [
+            6,
+            7,
+            30,
+            36,
+            40
+          ],
+          "board_index": 11,
+          "id": "b11-p2-uniform",
+          "pool": 2,
+          "regime": "uniform",
+          "texture": "one-pair"
+        },
+        "delta": 0.001966222753623903,
+        "reference": 0.007155717476395818
+      }
+    ]
+  },
+  "5.0": {
+    "actual_reduction_percent": 16.79950774339331,
+    "board_actual_counts": {
+      "higher": 3,
+      "lower": 13
+    },
+    "board_floor_counts": {
+      "higher": 1,
+      "lower": 15
+    },
+    "failed_robustness_panels": [],
+    "floor_reduction_percent": 23.317538623055178,
+    "worst_actual": [
+      {
+        "candidate": 0.022900707301653944,
+        "case": {
+          "board": [
+            6,
+            14,
+            15,
+            20,
+            23
+          ],
+          "board_index": 15,
+          "id": "b15-p2-uniform",
+          "pool": 2,
+          "regime": "uniform",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.008271155503553729,
+        "reference": 0.014629551798100215
+      },
+      {
+        "candidate": 0.01777909274055789,
+        "case": {
+          "board": [
+            15,
+            16,
+            17,
+            18,
+            30
+          ],
+          "board_index": 14,
+          "id": "b14-p0-polarized",
+          "pool": 0,
+          "regime": "polarized",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.007050838650357938,
+        "reference": 0.010728254090199951
+      },
+      {
+        "candidate": 0.015199098929925992,
+        "case": {
+          "board": [
+            6,
+            7,
+            30,
+            36,
+            40
+          ],
+          "board_index": 11,
+          "id": "b11-p0-uniform",
+          "pool": 0,
+          "regime": "uniform",
+          "texture": "one-pair"
+        },
+        "delta": 0.00598199916476394,
+        "reference": 0.009217099765162051
+      },
+      {
+        "candidate": 0.010257307603148469,
+        "case": {
+          "board": [
+            15,
+            16,
+            17,
+            18,
+            30
+          ],
+          "board_index": 14,
+          "id": "b14-p0-uniform",
+          "pool": 0,
+          "regime": "uniform",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.0037098263081705163,
+        "reference": 0.006547481294977953
+      },
+      {
+        "candidate": 0.012157546585104317,
+        "case": {
+          "board": [
+            1,
+            12,
+            13,
+            36,
+            38
+          ],
+          "board_index": 12,
+          "id": "b12-p0-polarized",
+          "pool": 0,
+          "regime": "polarized",
+          "texture": "multiple-pairs-or-trips"
+        },
+        "delta": 0.0036326474365535044,
+        "reference": 0.008524899148550813
+      }
+    ]
+  }
+}

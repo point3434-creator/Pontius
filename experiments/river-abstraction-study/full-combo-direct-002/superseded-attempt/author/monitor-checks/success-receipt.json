@@ -1,0 +1,15 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-c",
+    "print(123)"
+  ],
+  "exit": 0,
+  "os_peak_commit_bytes": 831488,
+  "sampled_peak_private_bytes": 831488,
+  "sampled_peak_working_set_bytes": 4702208,
+  "samples": 2,
+  "seconds": 0.11803630000213161,
+  "stop_reason": null
+}

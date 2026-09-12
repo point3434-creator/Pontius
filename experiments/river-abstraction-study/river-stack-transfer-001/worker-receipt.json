@@ -1,0 +1,14 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\tmp\\river-stack-transfer-author\\experiment.py",
+    "worker",
+    "D:\\Pontius\\tmp\\river-stack-transfer-author\\plan.json",
+    "c1165c814901e49a7a424fac7acf8d71681b3204666bbd20c6089f8f9a4623c7"
+  ],
+  "exit": 0,
+  "seconds": 20.76574209998944
+}

@@ -1,0 +1,284 @@
+{
+  "all_full_certified": false,
+  "cases": [
+    {
+      "case": 0,
+      "compressed_exploitability": 0.0051860139191863795,
+      "compressed_seconds": 5.411601799976779,
+      "compressed_training_seconds": 5.23112109999056,
+      "floor_status": "certified",
+      "full_exact_bound_seconds": 0.17925869999453425,
+      "full_exploitability": 4.9555902445210475e-09,
+      "full_seconds": 1.372756600001594,
+      "full_status": "certified",
+      "grouping_floor": [
+        0.005163456024169278,
+        0.005163456024172281
+      ],
+      "lp_calls": {
+        "floor": [
+          {
+            "iterations": 1739,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.03290620000916533,
+            "status": 0
+          },
+          {
+            "iterations": 14,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.008428500004811212,
+            "status": 0
+          },
+          {
+            "iterations": 31,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.030952699977206066,
+            "status": 0
+          },
+          {
+            "iterations": 830,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.027577999979257584,
+            "status": 0
+          }
+        ],
+        "full": [
+          {
+            "iterations": 1810,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.611439700005576,
+            "status": 0
+          },
+          {
+            "iterations": 844,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.3937609999848064,
+            "status": 0
+          }
+        ]
+      },
+      "os_worker_peak_commit_mib": 1106.13671875,
+      "pot": 279,
+      "process_exit": 0,
+      "process_stop": null,
+      "sampled_worker_private_mib": 1026.2578125,
+      "setup_seconds": 0.38736079999944195,
+      "sizes": [
+        76
+      ],
+      "time_ratio_full_over_compressed": 0.2536691816473792,
+      "value_interval": [
+        "321244931669224062401681772553713917632107/348449143727040986586495598010130648530944",
+        "2569959480982131337060443119995006678110553/2787593149816327892691964784081045188247552"
+      ],
+      "verified": true
+    },
+    {
+      "case": 1,
+      "compressed_exploitability": 0.015486020143441814,
+      "compressed_seconds": 7.5961791000154335,
+      "compressed_training_seconds": 7.287314200017136,
+      "floor_status": "certified",
+      "full_exact_bound_seconds": 0.35944309999467805,
+      "full_seconds": 4.603820099990116,
+      "full_status": "not_certified",
+      "grouping_floor": [
+        0.015404118935748914,
+        0.015404118935749589
+      ],
+      "lp_calls": {
+        "floor": [
+          {
+            "iterations": 3451,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.13071399999898858,
+            "status": 0
+          },
+          {
+            "iterations": 42,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.01674650001223199,
+            "status": 0
+          },
+          {
+            "iterations": 1324,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.059949199989205226,
+            "status": 0
+          },
+          {
+            "iterations": 693,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.04964450001716614,
+            "status": 0
+          }
+        ],
+        "full": [
+          {
+            "iterations": 5597,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 3.0998926000029314,
+            "status": 0
+          },
+          {
+            "iterations": 675,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.8136158999986947,
+            "status": 0
+          }
+        ]
+      },
+      "os_worker_peak_commit_mib": 2219.98828125,
+      "pot": 29,
+      "process_exit": 0,
+      "process_stop": null,
+      "sampled_worker_private_mib": 2192.26953125,
+      "setup_seconds": 0.536203800002113,
+      "sizes": [
+        14,
+        29
+      ],
+      "verified": true
+    },
+    {
+      "case": 2,
+      "compressed_exploitability": 0.0017010452085880839,
+      "compressed_seconds": 5.571543600002769,
+      "compressed_training_seconds": 5.353335699997842,
+      "floor_status": "certified",
+      "full_exact_bound_seconds": 0.19180380000034347,
+      "full_exploitability": 4.464393643573575e-09,
+      "full_seconds": 1.4810367999889422,
+      "full_status": "certified",
+      "grouping_floor": [
+        0.0016879597950815177,
+        0.0016879597950825286
+      ],
+      "lp_calls": {
+        "floor": [
+          {
+            "iterations": 1700,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.036275100021157414,
+            "status": 0
+          },
+          {
+            "iterations": 20,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.010373700002674013,
+            "status": 0
+          },
+          {
+            "iterations": 35,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.03868639998836443,
+            "status": 0
+          },
+          {
+            "iterations": 554,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.031243299978086725,
+            "status": 0
+          }
+        ],
+        "full": [
+          {
+            "iterations": 2146,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.6846196999831591,
+            "status": 0
+          },
+          {
+            "iterations": 643,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.41512620000867173,
+            "status": 0
+          }
+        ]
+      },
+      "os_worker_peak_commit_mib": 1144.56640625,
+      "pot": 368,
+      "process_exit": 0,
+      "process_stop": null,
+      "sampled_worker_private_mib": 1082.5078125,
+      "setup_seconds": 0.3720898000174202,
+      "sizes": [
+        44
+      ],
+      "time_ratio_full_over_compressed": 0.2658216297523376,
+      "value_interval": [
+        "5035373506473833500186837929482831076822070097443686322627456720005845609862198895913832669546490065828913627076955166133/22035198959674953757096900132439918773278654555638067436499495567769099861172556079818813395278939360628124316780724224000",
+        "1244154053847611811531662473092566419007/5444517870735015415413993718908291383296"
+      ],
+      "verified": true
+    },
+    {
+      "case": 3,
+      "compressed_exploitability": 0.003740553749762949,
+      "compressed_seconds": 5.601154699979816,
+      "compressed_training_seconds": 5.438756999996258,
+      "floor_status": "certified",
+      "full_exact_bound_seconds": 0.16687820001970977,
+      "full_seconds": 1.3872243000078015,
+      "full_status": "not_certified",
+      "grouping_floor": [
+        0.003724934286555779,
+        0.003724934286556656
+      ],
+      "lp_calls": {
+        "floor": [
+          {
+            "iterations": 1497,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.03334460000041872,
+            "status": 0
+          },
+          {
+            "iterations": 15,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.009483600006205961,
+            "status": 0
+          },
+          {
+            "iterations": 38,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.03074349998496473,
+            "status": 0
+          },
+          {
+            "iterations": 426,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.02685419999761507,
+            "status": 0
+          }
+        ],
+        "full": [
+          {
+            "iterations": 1903,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.6352872999850661,
+            "status": 0
+          },
+          {
+            "iterations": 445,
+            "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+            "seconds": 0.39174350001849234,
+            "status": 0
+          }
+        ]
+      },
+      "os_worker_peak_commit_mib": 1112.30078125,
+      "pot": 318,
+      "process_exit": 0,
+      "process_stop": null,
+      "sampled_worker_private_mib": 1076.20703125,
+      "setup_seconds": 0.3791761999891605,
+      "sizes": [
+        45
+      ],
+      "verified": true
+    }
+  ],
+  "complete": true,
+  "means": null
+}

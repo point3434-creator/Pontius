@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="5" time="1.990" timestamp="2026-09-11T08:40:12.103447-04:00" hostname="JeffPC"><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_polynomial_design_and_weighted_ridge_have_hand_checked_solution" time="0.009" /><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_proposal_never_needs_teacher_and_parent_rejects_corruption" time="0.394"><failure message="KeyError: 'minimum_exploitability'">self = &lt;test_river_witness_distillation.DistillationTests testMethod=test_proposal_never_needs_teacher_and_parent_rejects_corruption&gt;
+
+    def test_proposal_never_needs_teacher_and_parent_rejects_corruption(self):
+        m = self.module()
+        case = pilot.case_grid([DEVELOPMENT_BOARDS[0]])[0]
+        equities = uniform_equities(case['board'])
+        matrix,groups,_ = pilot.build_inputs(case,2,equities)
+        teacher = pilot.solve_record(case,2,equities)
+        models = m.fit_models([(matrix,equities,teacher)])
+        with patch('pontius.river_group_optimality.linprog',
+                   side_effect=AssertionError('prediction cannot solve')):
+            proposal = m.propose(matrix,groups,equities,models)
+        self.assertEqual([len(set(g)) for g in proposal['groups']],
+                         [len(set(g)) for g in groups['uniform_equity_200']])
+&gt;       record = m.solve_record(case,2,equities,models)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_river_witness_distillation.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\pontius\river_witness_distillation.py:134: in solve_record
+    student = student_record(matrix,groups,equities,models,teacher,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+matrix = PayoffGame(joint=array([[0.        , 0.33333333],
+       [0.33333333, 0.33333333]]), check=array([[ 0.        , -1.666...5), (31, 32)), ((13, 35), (28, 50))), source_digest='6ecb1840d53928287bc7750472f37152c85160b162bf48550843a276222f204a')
+groups = {'exact': (array([0, 1]), array([0, 1])), 'uniform_equity_200': (array([0, 1]), array([0, 1])), 'range_equity': (array([1, 0]), array([1, 0])), 'range_response': (array([1, 0]), array([1, 0]))}
+equities = {(1, 2): 0.9555555555555556, (1, 3): 0.9555555555555556, (1, 4): 0.4111111111111111, (1, 5): 0.4111111111111111, ...}
+models = [{'schema': 'quadratic-ridge-witness-v1', 'alpha': 0.001, 'features': ['low_mass', 'low_win', 'low_tie', 'middle_mass'...], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], ...]}]
+teacher = {'case': {'id': 'b00-p0-uniform', 'board_index': 0, 'board': [0, 21, 30, 39, 40], 'texture': 'unpaired-no-flush', ...}...range_response': {'lower_exact': '0', 'upper_exact': '0', 'lower_chips_approx': 0.0, 'upper_chips_approx': 0.0, ...}}}}
+solution = {'seat0': {'bet': [0.0, 0.0], 'call': [1.0, 1.0], 'value': {'lower_exact': '-3752999689475413/2251799813685248', 'uppe...inimum_exploitability': {'lower_exact': '0', 'upper_exact': '0', 'lower_chips_approx': 0.0, 'upper_chips_approx': 0.0}}
+
+    def student_record(matrix, groups, equities, models, teacher, solution):
+        proposal = propose(matrix,groups,equities,models)
+        verified = verify_solution(matrix,proposal['groups'],solution)
+&gt;       floor = verified['minimum_exploitability']
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'minimum_exploitability'
+
+src\pontius\river_witness_distillation.py:110: KeyError</failure></testcase><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_raw_features_use_only_equity_and_range_context" time="0.288" /><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_reserved_boards_exclude_all_observed_suit_classes" time="0.007" /><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_summary_reports_student_and_oracle_without_ratio_on_zero_gain" time="0.335"><failure message="KeyError: 'minimum_exploitability'">self = &lt;test_river_witness_distillation.DistillationTests testMethod=test_summary_reports_student_and_oracle_without_ratio_on_zero_gain&gt;
+
+    def test_summary_reports_student_and_oracle_without_ratio_on_zero_gain(self):
+        m = self.module()
+        case = pilot.case_grid([DEVELOPMENT_BOARDS[0]])[0]
+        equities = uniform_equities(case['board'])
+        matrix,_,_ = pilot.build_inputs(case,2,equities)
+        teacher = pilot.solve_record(case,2,equities)
+        models = m.fit_models([(matrix,equities,teacher)])
+&gt;       row = m.solve_record(case,2,equities,models)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_river_witness_distillation.py:113: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\pontius\river_witness_distillation.py:134: in solve_record
+    student = student_record(matrix,groups,equities,models,teacher,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+matrix = PayoffGame(joint=array([[0.        , 0.33333333],
+       [0.33333333, 0.33333333]]), check=array([[ 0.        , -1.666...5), (31, 32)), ((13, 35), (28, 50))), source_digest='6ecb1840d53928287bc7750472f37152c85160b162bf48550843a276222f204a')
+groups = {'exact': (array([0, 1]), array([0, 1])), 'uniform_equity_200': (array([0, 1]), array([0, 1])), 'range_equity': (array([1, 0]), array([1, 0])), 'range_response': (array([1, 0]), array([1, 0]))}
+equities = {(1, 2): 0.9555555555555556, (1, 3): 0.9555555555555556, (1, 4): 0.4111111111111111, (1, 5): 0.4111111111111111, ...}
+models = [{'schema': 'quadratic-ridge-witness-v1', 'alpha': 0.001, 'features': ['low_mass', 'low_win', 'low_tie', 'middle_mass'...], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], ...]}]
+teacher = {'case': {'id': 'b00-p0-uniform', 'board_index': 0, 'board': [0, 21, 30, 39, 40], 'texture': 'unpaired-no-flush', ...}...range_response': {'lower_exact': '0', 'upper_exact': '0', 'lower_chips_approx': 0.0, 'upper_chips_approx': 0.0, ...}}}}
+solution = {'seat0': {'bet': [0.0, 0.0], 'call': [1.0, 1.0], 'value': {'lower_exact': '-3752999689475413/2251799813685248', 'uppe...inimum_exploitability': {'lower_exact': '0', 'upper_exact': '0', 'lower_chips_approx': 0.0, 'upper_chips_approx': 0.0}}
+
+    def student_record(matrix, groups, equities, models, teacher, solution):
+        proposal = propose(matrix,groups,equities,models)
+        verified = verify_solution(matrix,proposal['groups'],solution)
+&gt;       floor = verified['minimum_exploitability']
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'minimum_exploitability'
+
+src\pontius\river_witness_distillation.py:110: KeyError</failure></testcase></testsuite></testsuites>

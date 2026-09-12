@@ -1,0 +1,44 @@
+{
+  "capacities": [
+    8,
+    16,
+    32
+  ],
+  "cells": 32,
+  "fixed_trajectories": 192,
+  "lp_calls": 384,
+  "paired_method_cells": 96,
+  "pinned_files": 84,
+  "plan_sha256": "5fbecc5d02a4fa60e32f621efb052bd01e095b9e33fc1bd888562ab61cddc0e0",
+  "retained_invoked": false,
+  "retained_output_exists": false,
+  "run_command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\tmp\\witness-soft-assignment-author\\experiment.py",
+    "run",
+    "D:\\Pontius\\tmp\\witness-soft-assignment-author\\plan.json",
+    "5fbecc5d02a4fa60e32f621efb052bd01e095b9e33fc1bd888562ab61cddc0e0"
+  ],
+  "synthetic_preflight": {
+    "capacity": 16,
+    "certificate_and_one_profile_verification_seconds": 0.21885500001371838,
+    "learner_setup_and_10000_updates_seconds": 0.27076100002159365,
+    "lp_and_exact_certification_seconds": 0.33524970000144094,
+    "meaning": "One synthetic cost observation, not an execution-time guarantee.",
+    "numpy": "2.5.2",
+    "passed": true,
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "scipy": "1.18.0",
+    "scored_research_panel": false,
+    "source_hygiene": "AST valid; at most 100 columns; no trailing whitespace",
+    "synthetic_shape": [
+      96,
+      96
+    ],
+    "tests": 14
+  },
+  "timed_trajectories": 576
+}

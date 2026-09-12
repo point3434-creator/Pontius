@@ -1,0 +1,17 @@
+{
+  "additional_fits": 0,
+  "additional_lp_calls": 0,
+  "aggregate_checks": "Both panels: overall, board, pool, regime, texture, SD, leave-one-board-out; oracle gap.",
+  "asymmetric_gap_records": 576,
+  "board_units": 8,
+  "case_comparisons": 432,
+  "cases": 48,
+  "floor_identities": 288,
+  "limitation": "Post-run retained arithmetic/identity audit. Frozen parent independently refit models and reconstructed games/features/certificates before successful exit; no repeat optimization.",
+  "manifest_members": 56,
+  "manifest_sha256": "a738c67dc5f14506123b72daff3af91462b5faaca7c14c38ae19c9f1f589c9fc",
+  "maximum_certificate_width_chips": 1.724198002104499e-15,
+  "maximum_certificate_width_exact": "4476273934909608105/2596148429267413814265248164610048",
+  "passed": true,
+  "verifier_sha256": "b53daeea4a22673518450a1130db6b2efe4932d16558b0e848b9cce3054ccd29"
+}

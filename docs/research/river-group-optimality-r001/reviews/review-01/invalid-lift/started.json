@@ -1,0 +1,12 @@
+{
+  "board": [
+    0,
+    21,
+    30,
+    39,
+    40
+  ],
+  "hands_per_player": 2,
+  "iterations": 10,
+  "regime": "uniform"
+}

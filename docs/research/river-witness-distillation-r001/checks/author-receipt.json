@@ -1,0 +1,41 @@
+{
+  "actual_training_fits": 0,
+  "errors": 0,
+  "failures": 0,
+  "initial_red": "Five tests failed for absent core; three later failed for absent driver.",
+  "intermediate_failure": "Two tests caught treating verify_solution interval as a solution record; new consumer corrected without changing the existing kernel.",
+  "lint_exit": 0,
+  "numpy": "2.5.2",
+  "preserved_milestones": {
+    "development-001": {
+      "manifest_sha256": "a153950ea6db082caf7da757f9524fc7b9b4cda936efd39bc26fa674a20db0a0",
+      "members": 34
+    },
+    "group-optimality-001": {
+      "manifest_sha256": "9a3fa19f0f663aecd982ab8037267509693a81b6fb2e925f8292649f1fca93ea",
+      "members": 24
+    },
+    "holdout-001": {
+      "manifest_sha256": "44692a7fc77c39de361bd463a6e4cc2951c9082ba1b561903b8a681780900d65",
+      "members": 44
+    },
+    "witness-groups-development-001": {
+      "manifest_sha256": "05c94f41f797e6f9675007e1e309b31052fd721a07e7199257884b8b17cadb32",
+      "members": 20
+    },
+    "witness-pilot-001": {
+      "manifest_sha256": "d3b52b5f3c6046c6c36f2c967fa6d9e5e6f43608465da2cc974f94e54a121032",
+      "members": 64
+    }
+  },
+  "previous_packet_and_invocation_preserved": true,
+  "python": "3.14.6",
+  "reserved_equity_evaluations": 0,
+  "reserved_lp_calls": 0,
+  "resource_warning": "error",
+  "scipy": "1.18.0",
+  "skipped": 0,
+  "style_corrections": "Removed unused import and shortened one line before freeze.",
+  "tests": 104,
+  "tests_scope": "Synthetic regression and two-hand old-board fixtures; full-plan metadata only."
+}

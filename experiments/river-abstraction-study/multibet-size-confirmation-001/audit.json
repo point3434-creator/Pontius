@@ -1,0 +1,10 @@
+{
+  "cases": 16,
+  "enumerated_partitions": 13020,
+  "incumbent_certificates": 32,
+  "independent_gate_audits": 32,
+  "new_verifier_lp_calls": 0,
+  "passed": true,
+  "proposed_certificates": 32,
+  "replayed_updates": 2400000
+}

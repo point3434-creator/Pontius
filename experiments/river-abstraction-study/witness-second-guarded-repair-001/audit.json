@@ -1,0 +1,13 @@
+{
+  "asymmetric_certificates": 256,
+  "cases": 64,
+  "independent_gate_audits": 128,
+  "independently_enumerated_exchanges": 72870,
+  "model_fits": 0,
+  "passed": true,
+  "replayed_updates": 1920000,
+  "retained_incumbents": 64,
+  "saved_profiles": 256,
+  "selected_profiles": 128,
+  "verifier_lp_calls": 0
+}

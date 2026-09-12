@@ -1,0 +1,15 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\tmp\\witness-order-diagnostic-author\\experiment.py",
+    "verify",
+    "D:\\Pontius\\tmp\\witness-order-diagnostic-author\\plan.json",
+    "b44a481451da99326b19aa7b953cabc5813697f5465f470c45a4743f530027da"
+  ],
+  "exit": 0,
+  "seconds": 185.41571440000553,
+  "timeout_seconds": 900
+}

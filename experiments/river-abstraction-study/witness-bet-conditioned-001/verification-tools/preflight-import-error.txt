@@ -1,0 +1,23 @@
+..E..E..
+======================================================================
+ERROR: test_fresh_selection_excludes_suit_equivalents (__main__.Tests.test_fresh_selection_excludes_suit_equivalents)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-bet-conditioned-author\test_model.py", line 56, in test_fresh_selection_excludes_suit_equivalents
+    boards,receipt=e.select(excluded,tool.pilot)
+                   ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+TypeError: select() takes 1 positional argument but 2 were given
+
+======================================================================
+ERROR: test_learned_prediction_ignores_holdout_witness_targets (__main__.Tests.test_learned_prediction_ignores_holdout_witness_targets)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-bet-conditioned-author\test_model.py", line 85, in test_learned_prediction_ignores_holdout_witness_targets
+    a=e.proposal(core,ws(0),models);b=e.proposal(core,ws(1),models)
+      ^^^^^^^^^^
+AttributeError: module 'experiment' has no attribute 'proposal'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.354s
+
+FAILED (errors=2)

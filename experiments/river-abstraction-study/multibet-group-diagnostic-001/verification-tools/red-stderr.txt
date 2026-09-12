@@ -1,0 +1,18 @@
+test_multi (unittest.loader._FailedTest.test_multi) ... ERROR
+
+======================================================================
+ERROR: test_multi (unittest.loader._FailedTest.test_multi)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_multi
+Traceback (most recent call last):
+  File "C:\Users\point\AppData\Local\Python\pythoncore-3.14-64\Lib\unittest\loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+  File "D:\Pontius\tmp\multibet-diagnostic-author\test_multi.py", line 5, in <module>
+    import multi as m
+ModuleNotFoundError: No module named 'multi'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

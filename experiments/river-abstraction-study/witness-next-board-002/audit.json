@@ -1,0 +1,9 @@
+{
+  "asymmetric_certificates": 16,
+  "cases": 4,
+  "independent_exchanges": 11760,
+  "independent_gate_audits": 16,
+  "new_verifier_lp_calls": 0,
+  "passed": true,
+  "replayed_updates": 317300
+}

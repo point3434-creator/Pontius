@@ -1,0 +1,70 @@
+{
+  "alpha": 0.001,
+  "cases": [
+    {
+      "board": [
+        2,
+        22,
+        38,
+        40,
+        47
+      ],
+      "board_index": 0,
+      "id": "b00-p0-uniform",
+      "pool": 0,
+      "regime": "uniform",
+      "texture": "unpaired-flush-possible"
+    }
+  ],
+  "executable": "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+  "hands": 2,
+  "lp_calls": 12,
+  "mode": "smoke",
+  "numpy": "2.5.2",
+  "output_directory": "D:\\Pontius\\tmp\\witness-distill-review-01\\independent-smoke-output",
+  "python": "3.14.6",
+  "schema": "river-witness-distillation-v1",
+  "scipy": "1.18.0",
+  "selection_seed": "river-witness-distillation-001",
+  "sources": {
+    "docs/research/river-group-optimality.md": "5b0adde6bb4a976fb7ab67e64a95c00726e10d56d705aa4c9ec4e0adac2e9e73",
+    "docs/research/river-witness-distillation.md": "d937949c3045d49c2f71ddae130874c90d30bda63d2e492f36c9f592dda4f3ab",
+    "docs/research/river-witness-groups.md": "bae49329b4bca346b01eb42df6abcf99e3f5f661a9cb96764223ab4a433ac30e",
+    "docs/research/river-witness-pilot.md": "64adda53ae3be12ec09f99f7b3678733151ae08258f8f97ae5ec5c05f041d6b1",
+    "src/pontius/__init__.py": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba",
+    "src/pontius/game.py": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2",
+    "src/pontius/river.py": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7",
+    "src/pontius/river_abstraction_study.py": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "src/pontius/river_group_optimality.py": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "src/pontius/river_witness_distillation.py": "ad33fbc2b0a569a7587bfc68a08c32dd9c7b38a288c39430093903d294e0eb30",
+    "src/pontius/river_witness_groups.py": "2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e",
+    "src/pontius/river_witness_pilot.py": "696aa6796f592f8d1faa02884a007a3cc431137119406d2bac665bf03cb0469d",
+    "tools/river_group_optimality.py": "b637f02177d43f15376d2933805d92fe8eeefd4e9a1b11dada809c68da5a391a",
+    "tools/river_witness_distillation.py": "bcb15dbb84d03858221569890d5ef06b21437a9ba5c6531adea531450959cedb",
+    "tools/river_witness_pilot.py": "8292b1972ef2f094c44e15fb56e9ad558fe0c1c668ab7eb2256534b79b8a6f16"
+  },
+  "timeout_seconds": 1200,
+  "training": {
+    "directory": "D:\\Pontius\\tmp\\witness-distill-review-01\\independent-smoke-training",
+    "files": {
+      "b00-p0-uniform.json": "3c759f5b98672bc3def429a33dde54002c68ca4f5f5ad0a49db671532aa3b10f",
+      "plan.json": "d7171acf0ce9e244e3d71904b2b0fd8ef832ea053876a2cb0665991db90d83f1"
+    }
+  },
+  "training_cases": [
+    {
+      "board": [
+        0,
+        21,
+        30,
+        39,
+        40
+      ],
+      "board_index": 0,
+      "id": "b00-p0-uniform",
+      "pool": 0,
+      "regime": "uniform",
+      "texture": "unpaired-no-flush"
+    }
+  ]
+}

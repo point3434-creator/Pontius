@@ -1,0 +1,10 @@
+test_bet_sizes_observed_separately (test_multi.MultiTests.test_bet_sizes_observed_separately) ... ok
+test_bounds_equal_enumerated_responses (test_multi.MultiTests.test_bounds_equal_enumerated_responses) ... ok
+test_negative_policy_refused (test_multi.MultiTests.test_negative_policy_refused) ... ok
+test_one_bet_agrees_with_frozen_solver_and_training (test_multi.MultiTests.test_one_bet_agrees_with_frozen_solver_and_training) ... ok
+test_size_conflict_has_known_group_floor (test_multi.MultiTests.test_size_conflict_has_known_group_floor) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.041s
+
+OK

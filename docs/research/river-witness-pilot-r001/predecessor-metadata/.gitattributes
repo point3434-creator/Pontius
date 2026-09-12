@@ -1,0 +1,82 @@
+/experiments/results/h32-pre-bet-action-width-capacity-v1.json -text
+/experiments/results/h32-pre-bet-action-width-capacity-v1.partial.json -text
+/experiments/configs/h32-pre-bet-initial-row-cache-seed-v1.json -text
+/experiments/results/h32-pre-bet-initial-row-cache-seed-v1.json -text
+/experiments/results/h32-pre-bet-initial-row-cache-seed-v1.partial.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/01-panel-1-balanced-seat5-one-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/01-panel-1-balanced-seat5-two-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/02-panel-1-blocker-heavy-seat5-one-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/02-panel-1-blocker-heavy-seat5-two-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/03-panel-2-blocker-heavy-seat5-one-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/03-panel-2-blocker-heavy-seat5-two-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/04-panel-2-balanced-seat5-one-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/04-panel-2-balanced-seat5-two-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/05-panel-3-balanced-seat5-one-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/05-panel-3-balanced-seat5-two-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/06-panel-3-blocker-heavy-seat5-one-size.json -text
+/experiments/cache/h32-pre-bet-initial-row-cache-seed-v1/06-panel-3-blocker-heavy-seat5-two-size.json -text
+/experiments/results/certified-sizing-canonical-validation-v1.json -text
+/experiments/results/certified-sizing-canonical-validation-assessment-v1.json -text
+/experiments/results/fresh-action-width-development-qualification-v1.json -text
+/experiments/results/fresh-action-width-exhaustive-development-teacher-v1.json -text
+/experiments/results/fresh-action-width-closed-finite-block-greedy-development-v1.json -text
+/experiments/results/fresh-action-width-closed-finite-block-greedy-development-v1.json.partial -text
+/experiments/results/fresh-action-width-nonreplay-qualification-v1.jsonl -text
+/experiments/results/fresh-action-width-nonreplay-exhaustive-teacher-v1.jsonl -text
+/experiments/results/fresh-action-width-nonreplay-closed-finite-block-greedy-v1.jsonl -text
+/experiments/results/fresh-action-width-transfer-qualification-v1.jsonl -text
+/experiments/results/fresh-action-width-transfer-confirmation-v1.jsonl -text
+/experiments/results/responder-raise-semantics-keystone-v1.json -text
+/experiments/configs/legal-responder-raise-h4-coefficient-differential-v1.json -text
+/experiments/results/legal-responder-raise-h4-coefficient-differential-v1.json -text
+/experiments/results/legal-responder-raise-h4-row-growth-v1.json -text
+/experiments/results/legal-responder-raise-h4-selector-window-v1.json -text
+/experiments/configs/legal-responder-raise-h4-tie-aware-affine-v1.json -text
+/experiments/results/legal-responder-raise-h4-tie-aware-affine-v1.json -text
+/experiments/results/legal-responder-raise-h4-directional-face-v1.json -text
+/experiments/configs/legal-responder-raise-h4-factorized-affine-v1.json -text
+/experiments/results/legal-responder-raise-h4-factorized-affine-v1.json -text
+/experiments/configs/legal-h4-factorized-affine-confirmation-v1.json -text
+/experiments/results/legal-h4-factorized-affine-confirmation-v1.json -text
+/experiments/configs/full-width-river-capacity-preflight-v1.json -text
+/experiments/results/full-width-river-capacity-preflight-v1.json -text
+/experiments/configs/full-width-river-capacity-preflight-v2.json -text
+/experiments/results/full-width-river-capacity-preflight-v2.json -text
+/artifacts/gpu_occupied_card_quotient_staged_scaling_v2.jsonl -text
+/artifacts/literal_45_quotient_target_v1.jsonl -text
+/artifacts/legal_river_quotient_cuda_consumer_v1.jsonl -text
+/docs/architecture/dependency-baseline.toml text eol=lf
+/tests/test-inventory.json text eol=lf
+/tests/test-profiles.toml text eol=lf
+/experiments/configs/legal-river-quotient-compiled-global-separation-calibration-v9-corrected-invocation-authorization.json -text
+/artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v5.attempt.json -text
+/artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.attempt.json -text
+/artifacts/work_preflight/legal_river_quotient_compiled_global_separation_calibration_v7.launch-consumed.json -text
+
+# Codec fixtures assert canonical LF bytes on every platform.
+/tests/fixtures/**/*.json text eol=lf
+
+# Preserve archived helper originals and the checkpoint's hash-referenced outputs.
+/docs/archive/root-helpers/** -text
+/experiments/results/20260908T*.json -text
+/experiments/results/runs/** -text
+
+# Keep the reviewed river study and hash-referenced evidence byte-exact.
+/docs/research/** -text
+/experiments/river-abstraction-study/** -text
+/src/pontius/river_abstraction_study.py -text
+/tools/river_abstraction_study.py -text
+/tests/test_river_abstraction_study.py -text
+/tests/cases.json -text
+/docs/superpowers/plans/2026-09-10-river-abstraction-study.md -text
+
+/tools/river_abstraction_campaign.py -text
+/tests/test_river_abstraction_holdout.py -text
+
+/src/pontius/river_group_optimality.py -text
+/tools/river_group_optimality.py -text
+/tests/test_river_group_optimality.py -text
+
+/src/pontius/river_witness_groups.py -text
+/tools/river_witness_groups.py -text
+/tests/test_river_witness_groups.py -text

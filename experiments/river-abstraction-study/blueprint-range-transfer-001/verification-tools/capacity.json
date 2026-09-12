@@ -1,0 +1,18 @@
+{
+  "backend": "phevaluator-c",
+  "dimensions": [
+    1081,
+    1081
+  ],
+  "passed": true,
+  "research_outcomes": 0,
+  "seconds": {
+    "both_roles_setup_1000": 0.2800625000090804,
+    "build": 0.14529449999099597,
+    "exact_setup": 0.27213810000102967,
+    "gate": 0.43128730001626536,
+    "proposal": 0.19741439999779686,
+    "two_certificate_pairs": 1.3559844999981578
+  },
+  "synthetic": true
+}

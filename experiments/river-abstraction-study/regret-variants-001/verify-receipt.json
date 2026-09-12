@@ -1,0 +1,14 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\tmp\\regret-variants-author\\experiment.py",
+    "verify",
+    "D:\\Pontius\\tmp\\regret-variants-author\\plan.json",
+    "954f02a1ad7de5f3ff3bb47e6b00424ba924cf7da0cfac5fc44a3f00dae16799"
+  ],
+  "exit": 0,
+  "seconds": 240.9028177
+}

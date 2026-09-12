@@ -1,0 +1,33 @@
+{
+  "command": "python -B -W error::ResourceWarning -m pytest -q -p no:cacheprovider tests/test_river_witness_groups.py tests/test_river_group_optimality.py tests/test_river_abstraction_study.py tests/test_river_abstraction_holdout.py tests/test_river.py tests/test_cfr.py tests/test_evaluation.py",
+  "earlier_packet_preserved": true,
+  "errors": 0,
+  "failures": 0,
+  "first_full_check": "87 tests passed; lint found 10 formatting/style violations, corrected before freeze.",
+  "lint_exit": 0,
+  "numpy": "2.5.2",
+  "plan_generation": "Hash-only plan creation and admission; no saved-case features or optimization.",
+  "preserved_milestones": {
+    "development-001": {
+      "manifest_sha256": "a153950ea6db082caf7da757f9524fc7b9b4cda936efd39bc26fa674a20db0a0",
+      "members": 34
+    },
+    "group-optimality-001": {
+      "manifest_sha256": "9a3fa19f0f663aecd982ab8037267509693a81b6fb2e925f8292649f1fca93ea",
+      "members": 24
+    },
+    "holdout-001": {
+      "manifest_sha256": "44692a7fc77c39de361bd463a6e4cc2951c9082ba1b561903b8a681780900d65",
+      "members": 44
+    }
+  },
+  "python": "3.14.6",
+  "red_core": "Six behavior assertions failed because the module was absent.",
+  "red_driver": "Four driver assertions failed because the runner was absent; six core tests passed.",
+  "resource_warning": "error",
+  "saved_case_group_constructions": 0,
+  "saved_case_lp_calls": 0,
+  "scipy": "1.18.0",
+  "skipped": 0,
+  "tests": 87
+}

@@ -1,0 +1,54 @@
+{
+  "branch": "codex/river-abstraction-holdout",
+  "head": "1b4d1a0e26cd4da90ff74678de2e48ef53ec5599",
+  "members": [
+    {
+      "path": ".gitattributes",
+      "expected": "7f72e288100510e7ae6f8dfc2c079d65b88f357615a271a14309231f81f146f0",
+      "actual": "7f72e288100510e7ae6f8dfc2c079d65b88f357615a271a14309231f81f146f0",
+      "match": true
+    },
+    {
+      "path": "src/pontius/river_abstraction_study.py",
+      "expected": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+      "actual": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+      "match": true
+    },
+    {
+      "path": "tools/river_abstraction_study.py",
+      "expected": "744614308370c6e32ca1763077418248ad34ecdabdce2150dbf05515fa76f889",
+      "actual": "744614308370c6e32ca1763077418248ad34ecdabdce2150dbf05515fa76f889",
+      "match": true
+    },
+    {
+      "path": "tools/river_abstraction_campaign.py",
+      "expected": "2b434f925444dde0a2d3d08241dbcbf26bc5d82ce1936ceccc85178a15a27688",
+      "actual": "2b434f925444dde0a2d3d08241dbcbf26bc5d82ce1936ceccc85178a15a27688",
+      "match": true
+    },
+    {
+      "path": "tests/test_river_abstraction_holdout.py",
+      "expected": "c67bbe536be80ffa9c4813cd374b9148bb3b79a5d6a08bcafefea16b2c3bace1",
+      "actual": "c67bbe536be80ffa9c4813cd374b9148bb3b79a5d6a08bcafefea16b2c3bace1",
+      "match": true
+    },
+    {
+      "path": "tests/cases.json",
+      "expected": "2194f7af21d6e503a0514df7282fdddff1169e7761bbdc0fd056395635084bcf",
+      "actual": "2194f7af21d6e503a0514df7282fdddff1169e7761bbdc0fd056395635084bcf",
+      "match": true
+    },
+    {
+      "path": "docs/research/river-abstraction-holdout.md",
+      "expected": "10f4907dd04bef680d796dc5cb1fc537e816032ec691eceebe2b7a7d7ce895af",
+      "actual": "10f4907dd04bef680d796dc5cb1fc537e816032ec691eceebe2b7a7d7ce895af",
+      "match": true
+    },
+    {
+      "path": "docs/research/river-abstraction-holdout-r002/plan.json",
+      "expected": "7377d6a37503f8a11e54b06dafcd783ed29e3b0e523d3569bbcfe17dc2a2533c",
+      "actual": "7377d6a37503f8a11e54b06dafcd783ed29e3b0e523d3569bbcfe17dc2a2533c",
+      "match": true
+    }
+  ]
+}

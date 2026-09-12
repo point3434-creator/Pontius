@@ -1,0 +1,12 @@
+{
+  "arithmetic": "Fraction from binary64 and exact certificate endpoints",
+  "decision_flags_checked": 4,
+  "panel_sizes": [
+    48,
+    24,
+    12
+  ],
+  "passed": true,
+  "summary_scalar_checks": 2093,
+  "union_cases": 60
+}

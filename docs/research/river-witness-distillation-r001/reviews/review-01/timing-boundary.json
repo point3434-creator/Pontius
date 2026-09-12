@@ -1,0 +1,36 @@
+{
+  "outer_measured_seconds": 2.40777240000898,
+  "production_receipt_seconds": 1.7179629000020213,
+  "omitted_from_production_receipt_seconds": 0.6898095000069588,
+  "production_receipt_keys": [
+    "exit",
+    "seconds"
+  ],
+  "production_summary_keys": [
+    "complete",
+    "case_count",
+    "board_units",
+    "lp_calls_planned",
+    "student",
+    "oracle",
+    "oracle_gap",
+    "prediction_errors",
+    "seconds",
+    "meaning",
+    "nonimprovement_cases",
+    "training",
+    "equity_preparation_seconds"
+  ],
+  "production_manifest_keys": [
+    "b00-p0-uniform.json",
+    "models.json",
+    "plan.json",
+    "preparation.json",
+    "receipt.json",
+    "started.json",
+    "stderr.txt",
+    "stdout.txt",
+    "summary.json"
+  ],
+  "scope": "one training case on old board 0 and one test case on old board 1; two holdings per seat; reviewer outer measurement is scratch only"
+}

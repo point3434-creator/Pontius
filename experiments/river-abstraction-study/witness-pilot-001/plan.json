@@ -1,0 +1,701 @@
+{
+  "cases": [
+    {
+      "board": [
+        10,
+        25,
+        34,
+        43,
+        45
+      ],
+      "board_index": 0,
+      "id": "b00-p0-uniform",
+      "pool": 0,
+      "regime": "uniform",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        25,
+        34,
+        43,
+        45
+      ],
+      "board_index": 0,
+      "id": "b00-p0-polarized",
+      "pool": 0,
+      "regime": "polarized",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        25,
+        34,
+        43,
+        45
+      ],
+      "board_index": 0,
+      "id": "b00-p1-uniform",
+      "pool": 1,
+      "regime": "uniform",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        25,
+        34,
+        43,
+        45
+      ],
+      "board_index": 0,
+      "id": "b00-p1-polarized",
+      "pool": 1,
+      "regime": "polarized",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        25,
+        34,
+        43,
+        45
+      ],
+      "board_index": 0,
+      "id": "b00-p2-uniform",
+      "pool": 2,
+      "regime": "uniform",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        25,
+        34,
+        43,
+        45
+      ],
+      "board_index": 0,
+      "id": "b00-p2-polarized",
+      "pool": 2,
+      "regime": "polarized",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        22,
+        33,
+        37,
+        44
+      ],
+      "board_index": 1,
+      "id": "b01-p0-uniform",
+      "pool": 0,
+      "regime": "uniform",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        22,
+        33,
+        37,
+        44
+      ],
+      "board_index": 1,
+      "id": "b01-p0-polarized",
+      "pool": 0,
+      "regime": "polarized",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        22,
+        33,
+        37,
+        44
+      ],
+      "board_index": 1,
+      "id": "b01-p1-uniform",
+      "pool": 1,
+      "regime": "uniform",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        22,
+        33,
+        37,
+        44
+      ],
+      "board_index": 1,
+      "id": "b01-p1-polarized",
+      "pool": 1,
+      "regime": "polarized",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        22,
+        33,
+        37,
+        44
+      ],
+      "board_index": 1,
+      "id": "b01-p2-uniform",
+      "pool": 2,
+      "regime": "uniform",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        22,
+        33,
+        37,
+        44
+      ],
+      "board_index": 1,
+      "id": "b01-p2-polarized",
+      "pool": 2,
+      "regime": "polarized",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        4,
+        13,
+        23,
+        31,
+        47
+      ],
+      "board_index": 2,
+      "id": "b02-p0-uniform",
+      "pool": 0,
+      "regime": "uniform",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        4,
+        13,
+        23,
+        31,
+        47
+      ],
+      "board_index": 2,
+      "id": "b02-p0-polarized",
+      "pool": 0,
+      "regime": "polarized",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        4,
+        13,
+        23,
+        31,
+        47
+      ],
+      "board_index": 2,
+      "id": "b02-p1-uniform",
+      "pool": 1,
+      "regime": "uniform",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        4,
+        13,
+        23,
+        31,
+        47
+      ],
+      "board_index": 2,
+      "id": "b02-p1-polarized",
+      "pool": 1,
+      "regime": "polarized",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        4,
+        13,
+        23,
+        31,
+        47
+      ],
+      "board_index": 2,
+      "id": "b02-p2-uniform",
+      "pool": 2,
+      "regime": "uniform",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        4,
+        13,
+        23,
+        31,
+        47
+      ],
+      "board_index": 2,
+      "id": "b02-p2-polarized",
+      "pool": 2,
+      "regime": "polarized",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        1,
+        4,
+        28,
+        43,
+        48
+      ],
+      "board_index": 3,
+      "id": "b03-p0-uniform",
+      "pool": 0,
+      "regime": "uniform",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        1,
+        4,
+        28,
+        43,
+        48
+      ],
+      "board_index": 3,
+      "id": "b03-p0-polarized",
+      "pool": 0,
+      "regime": "polarized",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        1,
+        4,
+        28,
+        43,
+        48
+      ],
+      "board_index": 3,
+      "id": "b03-p1-uniform",
+      "pool": 1,
+      "regime": "uniform",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        1,
+        4,
+        28,
+        43,
+        48
+      ],
+      "board_index": 3,
+      "id": "b03-p1-polarized",
+      "pool": 1,
+      "regime": "polarized",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        1,
+        4,
+        28,
+        43,
+        48
+      ],
+      "board_index": 3,
+      "id": "b03-p2-uniform",
+      "pool": 2,
+      "regime": "uniform",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        1,
+        4,
+        28,
+        43,
+        48
+      ],
+      "board_index": 3,
+      "id": "b03-p2-polarized",
+      "pool": 2,
+      "regime": "polarized",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        11,
+        26,
+        27,
+        30,
+        48
+      ],
+      "board_index": 4,
+      "id": "b04-p0-uniform",
+      "pool": 0,
+      "regime": "uniform",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        11,
+        26,
+        27,
+        30,
+        48
+      ],
+      "board_index": 4,
+      "id": "b04-p0-polarized",
+      "pool": 0,
+      "regime": "polarized",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        11,
+        26,
+        27,
+        30,
+        48
+      ],
+      "board_index": 4,
+      "id": "b04-p1-uniform",
+      "pool": 1,
+      "regime": "uniform",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        11,
+        26,
+        27,
+        30,
+        48
+      ],
+      "board_index": 4,
+      "id": "b04-p1-polarized",
+      "pool": 1,
+      "regime": "polarized",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        11,
+        26,
+        27,
+        30,
+        48
+      ],
+      "board_index": 4,
+      "id": "b04-p2-uniform",
+      "pool": 2,
+      "regime": "uniform",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        11,
+        26,
+        27,
+        30,
+        48
+      ],
+      "board_index": 4,
+      "id": "b04-p2-polarized",
+      "pool": 2,
+      "regime": "polarized",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        10,
+        12,
+        15,
+        47,
+        49
+      ],
+      "board_index": 5,
+      "id": "b05-p0-uniform",
+      "pool": 0,
+      "regime": "uniform",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        10,
+        12,
+        15,
+        47,
+        49
+      ],
+      "board_index": 5,
+      "id": "b05-p0-polarized",
+      "pool": 0,
+      "regime": "polarized",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        10,
+        12,
+        15,
+        47,
+        49
+      ],
+      "board_index": 5,
+      "id": "b05-p1-uniform",
+      "pool": 1,
+      "regime": "uniform",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        10,
+        12,
+        15,
+        47,
+        49
+      ],
+      "board_index": 5,
+      "id": "b05-p1-polarized",
+      "pool": 1,
+      "regime": "polarized",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        10,
+        12,
+        15,
+        47,
+        49
+      ],
+      "board_index": 5,
+      "id": "b05-p2-uniform",
+      "pool": 2,
+      "regime": "uniform",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        10,
+        12,
+        15,
+        47,
+        49
+      ],
+      "board_index": 5,
+      "id": "b05-p2-polarized",
+      "pool": 2,
+      "regime": "polarized",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        17,
+        18,
+        19,
+        20,
+        30
+      ],
+      "board_index": 6,
+      "id": "b06-p0-uniform",
+      "pool": 0,
+      "regime": "uniform",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        17,
+        18,
+        19,
+        20,
+        30
+      ],
+      "board_index": 6,
+      "id": "b06-p0-polarized",
+      "pool": 0,
+      "regime": "polarized",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        17,
+        18,
+        19,
+        20,
+        30
+      ],
+      "board_index": 6,
+      "id": "b06-p1-uniform",
+      "pool": 1,
+      "regime": "uniform",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        17,
+        18,
+        19,
+        20,
+        30
+      ],
+      "board_index": 6,
+      "id": "b06-p1-polarized",
+      "pool": 1,
+      "regime": "polarized",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        17,
+        18,
+        19,
+        20,
+        30
+      ],
+      "board_index": 6,
+      "id": "b06-p2-uniform",
+      "pool": 2,
+      "regime": "uniform",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        17,
+        18,
+        19,
+        20,
+        30
+      ],
+      "board_index": 6,
+      "id": "b06-p2-polarized",
+      "pool": 2,
+      "regime": "polarized",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        6,
+        9,
+        10,
+        33,
+        35
+      ],
+      "board_index": 7,
+      "id": "b07-p0-uniform",
+      "pool": 0,
+      "regime": "uniform",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        6,
+        9,
+        10,
+        33,
+        35
+      ],
+      "board_index": 7,
+      "id": "b07-p0-polarized",
+      "pool": 0,
+      "regime": "polarized",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        6,
+        9,
+        10,
+        33,
+        35
+      ],
+      "board_index": 7,
+      "id": "b07-p1-uniform",
+      "pool": 1,
+      "regime": "uniform",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        6,
+        9,
+        10,
+        33,
+        35
+      ],
+      "board_index": 7,
+      "id": "b07-p1-polarized",
+      "pool": 1,
+      "regime": "polarized",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        6,
+        9,
+        10,
+        33,
+        35
+      ],
+      "board_index": 7,
+      "id": "b07-p2-uniform",
+      "pool": 2,
+      "regime": "uniform",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        6,
+        9,
+        10,
+        33,
+        35
+      ],
+      "board_index": 7,
+      "id": "b07-p2-polarized",
+      "pool": 2,
+      "regime": "polarized",
+      "texture": "multiple-pairs-or-trips"
+    }
+  ],
+  "executable": "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+  "hands": 96,
+  "lp_calls": 480,
+  "mode": "pilot",
+  "numpy": "2.5.2",
+  "output_directory": "D:\\Pontius-training\\river-abstraction-study\\witness-pilot-001",
+  "python": "3.14.6",
+  "schema": "river-witness-pilot-v1",
+  "scipy": "1.18.0",
+  "selection_seed": "river-witness-pilot-001",
+  "sources": {
+    "docs/research/river-group-optimality.md": "5b0adde6bb4a976fb7ab67e64a95c00726e10d56d705aa4c9ec4e0adac2e9e73",
+    "docs/research/river-witness-groups.md": "bae49329b4bca346b01eb42df6abcf99e3f5f661a9cb96764223ab4a433ac30e",
+    "docs/research/river-witness-pilot.md": "64adda53ae3be12ec09f99f7b3678733151ae08258f8f97ae5ec5c05f041d6b1",
+    "src/pontius/__init__.py": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba",
+    "src/pontius/game.py": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2",
+    "src/pontius/river.py": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7",
+    "src/pontius/river_abstraction_study.py": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "src/pontius/river_group_optimality.py": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "src/pontius/river_witness_groups.py": "2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e",
+    "src/pontius/river_witness_pilot.py": "696aa6796f592f8d1faa02884a007a3cc431137119406d2bac665bf03cb0469d",
+    "tools/river_group_optimality.py": "b637f02177d43f15376d2933805d92fe8eeefd4e9a1b11dada809c68da5a391a",
+    "tools/river_witness_pilot.py": "8292b1972ef2f094c44e15fb56e9ad558fe0c1c668ab7eb2256534b79b8a6f16"
+  },
+  "timeout_seconds": 1200
+}

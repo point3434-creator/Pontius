@@ -1,0 +1,10 @@
+test_bad_digest_refuses_before_claim (test_second.SecondStepTests.test_bad_digest_refuses_before_claim) ... ok
+test_failed_child_is_preserved_and_never_relaunched (test_second.SecondStepTests.test_failed_child_is_preserved_and_never_relaunched) ... ok
+test_iteration_increment_excludes_reconstruction (test_second.SecondStepTests.test_iteration_increment_excludes_reconstruction) ... ok
+test_iteration_increment_rejects_wrong_budget (test_second.SecondStepTests.test_iteration_increment_rejects_wrong_budget) ... ok
+test_use_selected_state_not_unconditionally_repaired_groups (test_second.SecondStepTests.test_use_selected_state_not_unconditionally_repaired_groups) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.016s
+
+OK

@@ -1,0 +1,8 @@
+test_all_four_actual_games_and_unchanged_two_size (test_direct.Direct.test_all_four_actual_games_and_unchanged_two_size) ... ok
+test_literal_one_and_two_bet_bounds (test_direct.Direct.test_literal_one_and_two_bet_bounds) ... ok
+test_lp_matches_literal_certificate (test_direct.Direct.test_lp_matches_literal_certificate) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.170s
+
+OK

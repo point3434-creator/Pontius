@@ -1,0 +1,18 @@
+{
+  "capacity": 16,
+  "certificate_and_one_profile_verification_seconds": 0.21885500001371838,
+  "learner_setup_and_10000_updates_seconds": 0.27076100002159365,
+  "lp_and_exact_certification_seconds": 0.33524970000144094,
+  "meaning": "One synthetic cost observation, not an execution-time guarantee.",
+  "numpy": "2.5.2",
+  "passed": true,
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "scipy": "1.18.0",
+  "scored_research_panel": false,
+  "source_hygiene": "AST valid; at most 100 columns; no trailing whitespace",
+  "synthetic_shape": [
+    96,
+    96
+  ],
+  "tests": 14
+}

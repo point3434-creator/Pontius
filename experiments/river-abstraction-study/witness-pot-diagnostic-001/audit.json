@@ -1,0 +1,10 @@
+{
+  "certificates": 600,
+  "checkpoint_policies": 720,
+  "lp_policy_targets": 120,
+  "maximum_scalar_discrepancy": 8.881784197001252e-16,
+  "model_fits": 0,
+  "parent_lp_calls": 0,
+  "passed": true,
+  "replayed_paired_iterations": 12000000
+}

@@ -1,0 +1,19 @@
+test_duplicate_centers_single_group_and_exact_center (test_soft.SoftTests.test_duplicate_centers_single_group_and_exact_center) ... ok
+test_hard_learner_matches_frozen_predecessor_step_for_step (test_soft.SoftTests.test_hard_learner_matches_frozen_predecessor_step_for_step) ... ok
+test_invalid_embeddings_refused_before_algebra (test_soft.SoftTests.test_invalid_embeddings_refused_before_algebra) ... ok
+test_learner_reaches_restriction_floor_and_replays (test_soft.SoftTests.test_learner_reaches_restriction_floor_and_replays) ... ok
+test_nonsymmetric_extrema_against_independent_corner_enumeration (test_soft.SoftTests.test_nonsymmetric_extrema_against_independent_corner_enumeration) ... ok
+test_one_hot_floor_matches_old_certified_solver (test_soft.SoftTests.test_one_hot_floor_matches_old_certified_solver) ... ok
+test_soft_certificates_match_enumerated_latent_corners (test_soft.SoftTests.test_soft_certificates_match_enumerated_latent_corners) ... ok
+test_softening_can_destroy_an_exact_policy_class (test_soft.SoftTests.test_softening_can_destroy_an_exact_policy_class) ... ok
+test_tampered_witness_and_suboptimal_lp_are_rejected (test_soft.SoftTests.test_tampered_witness_and_suboptimal_lp_are_rejected) ... ok
+test_two_neighbour_weights_and_exact_row_mass (test_soft.SoftTests.test_two_neighbour_weights_and_exact_row_mass) ... ok
+test_full_synthetic_run_and_duplicate_refusal (test_runner.RunnerTests.test_full_synthetic_run_and_duplicate_refusal) ... ok
+test_paired_summary_uses_bounds_and_all_timer_repeats (test_runner.RunnerTests.test_paired_summary_uses_bounds_and_all_timer_repeats) ... ok
+test_verifier_rejects_missing_case_and_tampered_policy_without_lp (test_runner.RunnerTests.test_verifier_rejects_missing_case_and_tampered_policy_without_lp) ... ok
+test_wrong_plan_digest_and_input_pin_refuse_without_output (test_runner.RunnerTests.test_wrong_plan_digest_and_input_pin_refuse_without_output) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 2.602s
+
+OK

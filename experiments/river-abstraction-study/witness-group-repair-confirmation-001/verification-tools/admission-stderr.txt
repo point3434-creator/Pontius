@@ -1,0 +1,11 @@
+test_failed_child_is_retained_and_cannot_be_relaunched (test_confirmation.AdmissionTests.test_failed_child_is_retained_and_cannot_be_relaunched) ... ok
+test_panel_has_exactly_the_declared_cells (test_confirmation.AdmissionTests.test_panel_has_exactly_the_declared_cells) ... ok
+test_recursive_history_includes_training_and_exclusions (test_confirmation.AdmissionTests.test_recursive_history_includes_training_and_exclusions) ... ok
+test_run_refuses_bad_plan_digest_without_output (test_confirmation.AdmissionTests.test_run_refuses_bad_plan_digest_without_output) ... ok
+test_selection_is_balanced_repeatable_and_fresh (test_confirmation.AdmissionTests.test_selection_is_balanced_repeatable_and_fresh) ... ok
+test_suit_relabels_do_not_make_a_fresh_board (test_confirmation.AdmissionTests.test_suit_relabels_do_not_make_a_fresh_board) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.034s
+
+OK

@@ -1,0 +1,8 @@
+{
+  "cases": 64,
+  "complete": true,
+  "fitting_tasks": 0,
+  "gates": 64,
+  "new_lp_calls": 256,
+  "trajectories": 128
+}

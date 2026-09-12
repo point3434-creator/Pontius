@@ -1,0 +1,8 @@
+{
+  "complete": true,
+  "fitting_tasks": 0,
+  "fixed_trajectories": 192,
+  "lp_calls": 384,
+  "paired_cells": 96,
+  "timed_trajectories": 576
+}

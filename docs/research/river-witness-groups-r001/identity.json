@@ -1,0 +1,20 @@
+{
+  "base_commit": "1b4d1a0e26cd4da90ff74678de2e48ef53ec5599",
+  "branch": "codex/river-abstraction-holdout",
+  "interpreter": "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+  "plan_sha256": "9581a2a8e8d74d9d66e31abed59a61cff7625b769be4521a303b0c343f0ed855",
+  "predecessor_metadata": {
+    ".gitattributes": "008eb16130968c6b9d55f9414fb809228e534e66f3c0661a72c2f37e5cdffab1",
+    "tests/cases.json": "5cb7e68ba666be72c35ce2fc1e08d5969cbdb8b0cd0f0e6cce3171ec000bb419"
+  },
+  "sha256": {
+    ".gitattributes": "117a4716b1fee6248b9f42642ccf78065cf9b8efbdffd5daeb9fb6c6867b49f6",
+    "docs/research/river-witness-groups-r001/plan.json": "9581a2a8e8d74d9d66e31abed59a61cff7625b769be4521a303b0c343f0ed855",
+    "docs/research/river-witness-groups.md": "bae49329b4bca346b01eb42df6abcf99e3f5f661a9cb96764223ab4a433ac30e",
+    "src/pontius/river_witness_groups.py": "2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e",
+    "tests/cases.json": "da76050985d5187879002eff3c9875ff0ee6fcc39588c9e7f777de354fde6b72",
+    "tests/test_river_witness_groups.py": "527e020785a68fd2a4d988fea518c852a13a78ca98eaa8e281f9de5462e2fa1d",
+    "tools/river_witness_groups.py": "8e930aea2d6e3a66408577de44420cedb1a6aae1dde73e15a0cabcdd4d04bc76"
+  },
+  "source_status": "uncommitted candidate"
+}

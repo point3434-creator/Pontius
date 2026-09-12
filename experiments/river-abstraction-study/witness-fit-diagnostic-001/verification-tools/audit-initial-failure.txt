@@ -1,0 +1,5 @@
+The initial audit exited 1 before metric recomputation. It sorted filenames lexically,
+putting polarized before uniform, then compared that order to the retained plan order.
+The plan orders uniform before polarized. No missing or changed research case was found.
+The scratch-only audit was corrected to load files explicitly in each retained plan's order.
+The diagnostic source, plan, one invocation and all original outputs were unchanged.

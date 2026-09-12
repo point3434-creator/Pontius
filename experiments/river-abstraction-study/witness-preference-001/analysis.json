@@ -1,0 +1,5489 @@
+{
+  "boards": {
+    "0": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 4,
+              "overlapping": 2
+            },
+            "delta": 0.0030917874017666654
+          },
+          "new_new": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": 0.0005717941184419705
+          },
+          "new_old": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": 0.0011172166772451344
+          },
+          "old_new": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": 0.0010348703564326519
+          },
+          "old_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.0015802929152358158
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": 0.001451989453721804
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0003904875454367487
+          },
+          "range_response": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.00014996705574579826
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": 0.0015252681250448935
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0016397979480448617
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": -0.001451989453721804
+          },
+          "new_new": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0008801953352798334
+          },
+          "new_old": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0003347727764766694
+          },
+          "old_new": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.00041711909728915213
+          },
+          "old_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.0001283034615140119
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0018424769991585526
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.001601956509467602
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 7.327867132308952e-05
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0015665192767217722
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": -0.0015252681250448935
+          },
+          "new_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0009534740066029229
+          },
+          "new_old": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.00040805144779975896
+          },
+          "old_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0004903977686122416
+          },
+          "old_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 5.502479019092236e-05
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -7.327867132308952e-05
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.001915755670481642
+          },
+          "range_response": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0016752351807906916
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 2.082920059486029e-17,
+        "exact_preference": 0.0030917874017666862,
+        "new_new": 0.002519993283324716,
+        "new_old": 0.001974570724521552,
+        "old_new": 0.002056917045334035,
+        "old_old": 0.0015114944865308707,
+        "ordinary_preference": 0.0016397979480448825,
+        "range_equity": 0.003482274947203435,
+        "range_response": 0.003241754457512485,
+        "weighted_preference": 0.001566519276721793
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": 0.00012721850301142617
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0002771855587572269
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.0005625640512270846
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0010393924582405175
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 1,
+              "overlapping": 3
+            },
+            "delta": 4.9228864849296484e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.00012250753617238603
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.0005133351863777881
+          },
+          "caller": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0011618999944129035
+          }
+        }
+      }
+    },
+    "1": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 4,
+              "overlapping": 2
+            },
+            "delta": 0.0006498201860238867
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.003531970118764483
+          },
+          "new_old": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0010289564528512837
+          },
+          "old_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0029964014082704063
+          },
+          "old_old": {
+            "counts": {
+              "higher": 2,
+              "lower": 3,
+              "overlapping": 1
+            },
+            "delta": -0.0004933877423572116
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0008494084169811375
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.003970840463653577
+          },
+          "range_response": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0024245039332307047
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.001439484947480201
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0014992286030050242
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0008494084169811375
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0026825617017833454
+          },
+          "new_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": -0.0001795480358701461
+          },
+          "old_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.002146992991289269
+          },
+          "old_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.000356020674623926
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0031214320466724397
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0015750955162495673
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0005900765304990635
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0020893051335040876
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.001439484947480201
+          },
+          "new_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0020924851712842817
+          },
+          "new_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.0004105284946289174
+          },
+          "old_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0015569164607902052
+          },
+          "old_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.0009460972051229895
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0005900765304990635
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0025313555161733765
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0009850189857505038
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 3.889664599165535e-06,
+        "exact_preference": 0.0006537098506230523,
+        "new_new": 0.004185679969387535,
+        "new_old": 0.001682666303474336,
+        "old_new": 0.0036501112588934585,
+        "old_old": 0.0011470975929802638,
+        "ordinary_preference": 0.0015031182676041898,
+        "range_equity": 0.00462455031427663,
+        "range_response": 0.003078213783853757,
+        "weighted_preference": 0.0020931947981032532
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 3,
+              "overlapping": 2
+            },
+            "delta": -0.0007362564202677106
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0016882475129630012
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 3,
+              "overlapping": 2
+            },
+            "delta": -0.000524296826856787
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0010507986893927804
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 1,
+              "overlapping": 4
+            },
+            "delta": -1.786026999768632e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0006079368004967498
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 3,
+              "overlapping": 1
+            },
+            "delta": -0.0005421570968544733
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0004428618888960305
+          }
+        }
+      }
+    },
+    "2": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 2,
+              "overlapping": 4
+            },
+            "delta": 0.00023461841812188685
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.002946839364501328
+          },
+          "new_old": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.0007492311947826193
+          },
+          "old_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0025837992822226445
+          },
+          "old_old": {
+            "counts": {
+              "lower": 3,
+              "overlapping": 3
+            },
+            "delta": -0.000386191112503938
+          },
+          "ordinary_preference": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0011537133277925754
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0026275600195841747
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0013368579620946554
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0007642480949873345
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0013883317459144624
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0011537133277925754
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0017931260367087527
+          },
+          "new_old": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.00040448213300995614
+          },
+          "old_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0014300859544300688
+          },
+          "old_old": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0007675222152886375
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0014738466917915995
+          },
+          "range_response": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.00018314463430207985
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.00038946523280524093
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0009988665131092213
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0007642480949873345
+          },
+          "new_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0021825912695139934
+          },
+          "new_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 1.501690020471521e-05
+          },
+          "old_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.00181955118723531
+          },
+          "old_old": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0003780569824833965
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.00038946523280524093
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0018633119245968404
+          },
+          "range_response": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0005726098671073208
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 1.3150088069078082e-17,
+        "exact_preference": 0.00023461841812190003,
+        "new_new": 0.003181457782623228,
+        "new_old": 0.0009838496129045194,
+        "old_new": 0.0028184177003445442,
+        "old_old": 0.000620809530625838,
+        "ordinary_preference": 0.0013883317459144754,
+        "range_equity": 0.002862178437706075,
+        "range_response": 0.0015714763802165553,
+        "weighted_preference": 0.0009988665131092345
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "lower": 3,
+              "overlapping": 3
+            },
+            "delta": -0.00019274007263644688
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0011441178894582118
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 2,
+              "overlapping": 3
+            },
+            "delta": -3.700521874208765e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0001461394155599922
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "overlapping": 5
+            },
+            "delta": 3.28497845054178e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.00042231501731065875
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 1,
+              "overlapping": 3
+            },
+            "delta": -4.155434236669851e-06
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0005684544328706509
+          }
+        }
+      }
+    },
+    "3": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 4,
+              "overlapping": 2
+            },
+            "delta": 0.0009986923925211643
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.004692147379608923
+          },
+          "new_old": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0009941167171830237
+          },
+          "old_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.003978161214626973
+          },
+          "old_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.0002801305522010734
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0008210030203630254
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.002952911355172669
+          },
+          "range_response": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.002063482311120729
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0007511590711086773
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0018196954128841896
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0008210030203630254
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.003871144359245898
+          },
+          "new_old": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.00017311369681999832
+          },
+          "old_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0031571581942639476
+          },
+          "old_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 2,
+              "overlapping": 1
+            },
+            "delta": 0.000540872468161952
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0021319083348096436
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.0012424792907577036
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 3,
+              "lower": 2,
+              "overlapping": 1
+            },
+            "delta": 6.984394925434818e-05
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0017498514636298413
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0007511590711086773
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0039409883085002465
+          },
+          "new_old": {
+            "counts": {
+              "higher": 2,
+              "lower": 3,
+              "overlapping": 1
+            },
+            "delta": -0.0002429576460743465
+          },
+          "old_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.003227002143518296
+          },
+          "old_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 1,
+              "overlapping": 1
+            },
+            "delta": 0.0004710285189076038
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 2,
+              "lower": 3,
+              "overlapping": 1
+            },
+            "delta": -6.984394925434818e-05
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0022017522840639915
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.001312323240012052
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 5.520743800247301e-06,
+        "exact_preference": 0.0010042131363214115,
+        "new_new": 0.005696360515930335,
+        "new_old": 0.001998329853504435,
+        "old_new": 0.004982374350948384,
+        "old_old": 0.001284343688522485,
+        "ordinary_preference": 0.0018252161566844369,
+        "range_equity": 0.00395712449149408,
+        "range_response": 0.0030676954474421407,
+        "weighted_preference": 0.0017553722074300888
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.00015234152682488654
+          },
+          "caller": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0019111407842958483
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.0005803098993906625
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 3,
+              "overlapping": 1
+            },
+            "delta": -0.0006621693913670412
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "overlapping": 3
+            },
+            "delta": 0.0001216479472030212
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 3,
+              "overlapping": 1
+            },
+            "delta": -0.00019149189645736937
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.0004586619521876413
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.0008536612878244105
+          }
+        }
+      }
+    },
+    "4": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.002588780783911807
+          },
+          "new_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0048334328157122195
+          },
+          "new_old": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0033676140579469126
+          },
+          "old_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0033902071789574774
+          },
+          "old_old": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0019243884211921705
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.00343599084326239
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.005870217238933249
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.005443900483842822
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0030894013795297335
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.006024771627174197
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.00343599084326239
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0013974419724498296
+          },
+          "new_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 6.837678531547733e-05
+          },
+          "old_new": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 4.578366430491243e-05
+          },
+          "old_old": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0015116024220702194
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.002434226395670859
+          },
+          "range_response": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.002007909640580433
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": 0.00034658946373265645
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.005678182163441541
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0030894013795297335
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.001744031436182486
+          },
+          "new_old": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0002782126784171791
+          },
+          "old_new": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.000300805799427744
+          },
+          "old_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.001165012958337563
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": -0.00034658946373265645
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0027808158594035156
+          },
+          "range_response": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0023544991043130893
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0008959372965174071,
+        "exact_preference": 0.0034847180804292144,
+        "new_new": 0.008318150896141433,
+        "new_old": 0.006852332138376127,
+        "old_new": 0.006874925259386691,
+        "old_old": 0.0054091065016213845,
+        "ordinary_preference": 0.006920708923691604,
+        "range_equity": 0.009354935319362464,
+        "range_response": 0.008928618564272036,
+        "weighted_preference": 0.0065741194599589475
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0027174143738324997
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.002726486110010323
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0014663234881748493
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0005415861524055833
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 4,
+              "lower": 1,
+              "overlapping": 1
+            },
+            "delta": 7.766010712705005e-06
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.00035435547444536146
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.0014585574774621446
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0008959416268509448
+          }
+        }
+      }
+    },
+    "5": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 5,
+              "overlapping": 1
+            },
+            "delta": 0.000732908016061682
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.004911498894269266
+          },
+          "new_old": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.010036804588442479
+          },
+          "old_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.002483471592878508
+          },
+          "old_old": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.007608777287051721
+          },
+          "ordinary_preference": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0021534020628877692
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0038946581760273915
+          },
+          "range_response": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.002664659630980245
+          },
+          "weighted_preference": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0019367593950615203
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.002886310078949451
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0021534020628877692
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.002758096831381497
+          },
+          "new_old": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.007883402525554709
+          },
+          "old_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": -0.00033006952999073907
+          },
+          "old_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.0054553752241639514
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.0017412561131396223
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0005112575680924755
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 3,
+              "lower": 1,
+              "overlapping": 2
+            },
+            "delta": 0.00021664266782624877
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0026696674111232025
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0019367593950615203
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0029747394992077456
+          },
+          "new_old": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.008100045193380957
+          },
+          "old_new": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.0005467121978169878
+          },
+          "old_old": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0056720178919902
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 3,
+              "overlapping": 2
+            },
+            "delta": -0.00021664266782624877
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.001957898780965871
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0007279002359187243
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.00016496779248660905,
+        "exact_preference": 0.0008978758085482911,
+        "new_new": 0.005809374702817558,
+        "new_old": 0.010934680396990769,
+        "old_new": 0.003381347401426799,
+        "old_old": 0.008506653095600012,
+        "ordinary_preference": 0.0030512778714360603,
+        "range_equity": 0.004792533984575683,
+        "range_response": 0.003562535439528536,
+        "weighted_preference": 0.0028346352036098116
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.002107640692482697
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0005570189384975495
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 3,
+              "overlapping": 1
+            },
+            "delta": -0.00017859350809973392
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 3,
+              "overlapping": 1
+            },
+            "delta": -0.0003326640599927416
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 1,
+              "overlapping": 3
+            },
+            "delta": 7.085233841227657e-05
+          },
+          "caller": {
+            "counts": {
+              "lower": 4,
+              "overlapping": 2
+            },
+            "delta": -0.00028749500623852535
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 3,
+              "overlapping": 1
+            },
+            "delta": -0.00010774116968745735
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.0006201590662312669
+          }
+        }
+      }
+    },
+    "6": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.004539443878426916
+          },
+          "new_new": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.00326651111449169
+          },
+          "new_old": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0027166899907179213
+          },
+          "old_new": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0005469480026532768
+          },
+          "old_old": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": 2.8731211204921728e-06
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.0001448814074090039
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0022599950360070974
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0027180973527779297
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.00032794722610441116
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.00468432528583592
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.0001448814074090039
+          },
+          "new_new": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0031216297070826866
+          },
+          "new_old": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0025718085833089173
+          },
+          "old_new": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.00040206659524427295
+          },
+          "old_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.00014775452852949607
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0021151136285980933
+          },
+          "range_response": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.002573215945368926
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": -0.00018306581869540725
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.004867391104531327
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.00032794722610441116
+          },
+          "new_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.002938563888387279
+          },
+          "new_old": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.00238874276461351
+          },
+          "old_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0002190007765488657
+          },
+          "old_old": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": 0.00033082034722490335
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": 0.00018306581869540725
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.001932047809902686
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0023901501266735186
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0016899876044396077,
+        "exact_preference": 0.006229431482866523,
+        "new_new": 0.009495942597358214,
+        "new_old": 0.008946121473584446,
+        "old_new": 0.0067763794855198005,
+        "old_old": 0.006226558361746032,
+        "ordinary_preference": 0.006374312890275528,
+        "range_equity": 0.00848942651887362,
+        "range_response": 0.008947528835644454,
+        "weighted_preference": 0.006557378708970935
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0001424911018058183
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.002575606250972112
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.0011864374881801001
+          },
+          "caller": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.001386778457188826
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.0016191502851686825
+          },
+          "caller": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0014360844664732752
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.00043271279698858236
+          },
+          "caller": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.002822862923662101
+          }
+        }
+      }
+    },
+    "7": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.0036280906846350796
+          },
+          "new_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.00244240068806437
+          },
+          "new_old": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0020403194480271814
+          },
+          "old_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0195359494178413
+          },
+          "old_old": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.019133868177804114
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0011344655709430325
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0037023216416320185
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.00402287086069397
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.005277449768247753
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.004762556255578112
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0011344655709430325
+          },
+          "new_new": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0013079351171213377
+          },
+          "new_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.0009058538770841489
+          },
+          "old_new": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.01840148384689827
+          },
+          "old_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.01799940260686108
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0025678560706889862
+          },
+          "range_response": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0028884052897509374
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.00414298419730472
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.008905540452882832
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.005277449768247753
+          },
+          "new_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.0028350490801833826
+          },
+          "new_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.0032371303202205714
+          },
+          "old_new": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.01425849964959355
+          },
+          "old_old": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.01385641840955636
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.00414298419730472
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.001575128126615734
+          },
+          "range_response": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.0012545789075537827
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0010019124509413459,
+        "exact_preference": 0.004630003135576426,
+        "new_new": 0.007072403823640796,
+        "new_old": 0.006670322583603607,
+        "old_new": 0.024165952553417726,
+        "old_old": 0.02376387131338054,
+        "ordinary_preference": 0.0057644687065194575,
+        "range_equity": 0.008332324777208444,
+        "range_response": 0.008652873996270394,
+        "weighted_preference": 0.009907452903824178
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.005033863085057384
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": 0.0010109922243634142
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0016762015769568362
+          },
+          "caller": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0012122037127941013
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.004126659693366761
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": 1.6324503937958716e-05
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 4,
+              "lower": 1,
+              "overlapping": 1
+            },
+            "delta": 0.002450458116409925
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0011958792088561426
+          }
+        }
+      }
+    }
+  },
+  "expected_wrong_action_cost": {
+    "evaluation": {
+      "ordinary_preference": [
+        [
+          0.08024136411798316,
+          0.09002897518562109,
+          0.08649634766686827,
+          0.08635818628735246
+        ],
+        [
+          0.07818587772511987,
+          0.08699281673423039,
+          0.08167445743200577,
+          0.07981745954509377
+        ]
+      ],
+      "weighted_preference": [
+        [
+          0.08201037742958749,
+          0.08989601121230316,
+          0.08649035404250605,
+          0.08484910113720714
+        ],
+        [
+          0.031090323432058788,
+          0.04118492770262407,
+          0.03810799851655338,
+          0.03803532893517339
+        ]
+      ]
+    },
+    "training": {
+      "ordinary_preference": [
+        [
+          0.07420275570692005,
+          0.08080007260149595,
+          0.07795382974912927,
+          0.07909328143631167
+        ],
+        [
+          0.06466004493685096,
+          0.07282130056006458,
+          0.07025608597568724,
+          0.06766971263024915
+        ]
+      ],
+      "weighted_preference": [
+        [
+          0.07449138655114372,
+          0.07773156032961825,
+          0.07577055686851951,
+          0.07614405816984775
+        ],
+        [
+          0.02921467800131799,
+          0.03795052022239067,
+          0.03568833464417193,
+          0.03493493625746864
+        ]
+      ]
+    }
+  },
+  "lobo": {
+    "0": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 27,
+              "lower": 6,
+              "overlapping": 9
+            },
+            "delta": 0.001910336337100346
+          },
+          "new_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.003803542910773183
+          },
+          "new_old": {
+            "counts": {
+              "higher": 7,
+              "lower": 34,
+              "overlapping": 1
+            },
+            "delta": -0.002990533207135917
+          },
+          "old_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.005073562585350084
+          },
+          "old_old": {
+            "counts": {
+              "higher": 9,
+              "lower": 29,
+              "overlapping": 4
+            },
+            "delta": -0.004260552881712819
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": -0.001384694949948419
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.003611214847287168
+          },
+          "range_response": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.0029534817906772936
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 8,
+              "lower": 34
+            },
+            "delta": -0.0019409214117885186
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.0032950312870487653
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 35,
+              "lower": 7
+            },
+            "delta": 0.001384694949948419
+          },
+          "new_new": {
+            "counts": {
+              "higher": 2,
+              "lower": 40
+            },
+            "delta": -0.002418847960824764
+          },
+          "new_old": {
+            "counts": {
+              "higher": 17,
+              "lower": 24,
+              "overlapping": 1
+            },
+            "delta": -0.0016058382571874981
+          },
+          "old_new": {
+            "counts": {
+              "higher": 13,
+              "lower": 29
+            },
+            "delta": -0.003688867635401665
+          },
+          "old_old": {
+            "counts": {
+              "higher": 27,
+              "lower": 14,
+              "overlapping": 1
+            },
+            "delta": -0.0028758579317644003
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 40,
+              "overlapping": 1
+            },
+            "delta": -0.002226519897338749
+          },
+          "range_response": {
+            "counts": {
+              "higher": 7,
+              "lower": 34,
+              "overlapping": 1
+            },
+            "delta": -0.0015687868407288747
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 19,
+              "lower": 20,
+              "overlapping": 3
+            },
+            "delta": -0.0005562264618400995
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.003851257748888865
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 34,
+              "lower": 8
+            },
+            "delta": 0.0019409214117885186
+          },
+          "new_new": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": -0.0018626214989846642
+          },
+          "new_old": {
+            "counts": {
+              "higher": 16,
+              "lower": 25,
+              "overlapping": 1
+            },
+            "delta": -0.0010496117953473986
+          },
+          "old_new": {
+            "counts": {
+              "higher": 10,
+              "lower": 32
+            },
+            "delta": -0.0031326411735615655
+          },
+          "old_old": {
+            "counts": {
+              "higher": 23,
+              "lower": 18,
+              "overlapping": 1
+            },
+            "delta": -0.002319631469924301
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 20,
+              "lower": 19,
+              "overlapping": 3
+            },
+            "delta": 0.0005562264618400995
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 6,
+              "lower": 35,
+              "overlapping": 1
+            },
+            "delta": -0.0016702934354986495
+          },
+          "range_response": {
+            "counts": {
+              "higher": 9,
+              "lower": 32,
+              "overlapping": 1
+            },
+            "delta": -0.0010125603788887752
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0005374593646834851,
+        "exact_preference": 0.002447795701783831,
+        "new_new": 0.006251338612557014,
+        "new_old": 0.005438328908919749,
+        "old_new": 0.007521358287133915,
+        "old_old": 0.0067083485834966506,
+        "ordinary_preference": 0.0038324906517322502,
+        "range_equity": 0.006059010549071,
+        "range_response": 0.005401277492461125,
+        "weighted_preference": 0.00438871711357235
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 4,
+              "lower": 33,
+              "overlapping": 5
+            },
+            "delta": -0.001583249610415349
+          },
+          "caller": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.0013702321802619474
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 6,
+              "lower": 28,
+              "overlapping": 8
+            },
+            "delta": -0.0008070240009144366
+          },
+          "caller": {
+            "counts": {
+              "higher": 11,
+              "lower": 29,
+              "overlapping": 2
+            },
+            "delta": -0.000761762839814438
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 19,
+              "lower": 7,
+              "overlapping": 16
+            },
+            "delta": 0.0008515808270530255
+          },
+          "caller": {
+            "counts": {
+              "higher": 12,
+              "lower": 27,
+              "overlapping": 3
+            },
+            "delta": -0.00029535436521292593
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 15,
+              "lower": 19,
+              "overlapping": 8
+            },
+            "delta": 4.455682613858877e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 8,
+              "lower": 31,
+              "overlapping": 3
+            },
+            "delta": -0.001057117205027364
+          }
+        }
+      }
+    },
+    "1": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 27,
+              "lower": 6,
+              "overlapping": 9
+            },
+            "delta": 0.0022591887964921718
+          },
+          "new_new": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.0032172908768865467
+          },
+          "new_old": {
+            "counts": {
+              "higher": 8,
+              "lower": 33,
+              "overlapping": 1
+            },
+            "delta": -0.0026839370456935717
+          },
+          "old_new": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.004497666618963933
+          },
+          "old_old": {
+            "counts": {
+              "higher": 10,
+              "lower": 29,
+              "overlapping": 3
+            },
+            "delta": -0.003964312787770958
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 8,
+              "lower": 34
+            },
+            "delta": -0.0010559238255622846
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.0030997358589704782
+          },
+          "range_response": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.002628547951036593
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 9,
+              "lower": 33
+            },
+            "delta": -0.001517385258570648
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.0033151126220544564
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 34,
+              "lower": 8
+            },
+            "delta": 0.0010559238255622846
+          },
+          "new_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.002161367051324262
+          },
+          "new_old": {
+            "counts": {
+              "higher": 14,
+              "lower": 27,
+              "overlapping": 1
+            },
+            "delta": -0.001628013220131287
+          },
+          "old_new": {
+            "counts": {
+              "higher": 14,
+              "lower": 28
+            },
+            "delta": -0.003441742793401648
+          },
+          "old_old": {
+            "counts": {
+              "higher": 26,
+              "lower": 15,
+              "overlapping": 1
+            },
+            "delta": -0.0029083889622086734
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 40,
+              "overlapping": 1
+            },
+            "delta": -0.0020438120334081936
+          },
+          "range_response": {
+            "counts": {
+              "higher": 7,
+              "lower": 34,
+              "overlapping": 1
+            },
+            "delta": -0.0015726241254743081
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 21,
+              "lower": 18,
+              "overlapping": 3
+            },
+            "delta": -0.00046146143300836336
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.0037765740550628197
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": 0.001517385258570648
+          },
+          "new_new": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": -0.0016999056183158987
+          },
+          "new_old": {
+            "counts": {
+              "higher": 14,
+              "lower": 27,
+              "overlapping": 1
+            },
+            "delta": -0.0011665517871229237
+          },
+          "old_new": {
+            "counts": {
+              "higher": 10,
+              "lower": 32
+            },
+            "delta": -0.0029802813603932846
+          },
+          "old_old": {
+            "counts": {
+              "higher": 22,
+              "lower": 19,
+              "overlapping": 1
+            },
+            "delta": -0.00244692752920031
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 18,
+              "lower": 21,
+              "overlapping": 3
+            },
+            "delta": 0.00046146143300836336
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 5,
+              "lower": 36,
+              "overlapping": 1
+            },
+            "delta": -0.0015823506003998305
+          },
+          "range_response": {
+            "counts": {
+              "higher": 8,
+              "lower": 33,
+              "overlapping": 1
+            },
+            "delta": -0.0011111626924659448
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0005369036983121787,
+        "exact_preference": 0.0027960924948043503,
+        "new_new": 0.006013383371690897,
+        "new_old": 0.0054800295404979224,
+        "old_new": 0.007293759113768283,
+        "old_old": 0.006760405282575308,
+        "ordinary_preference": 0.003852016320366635,
+        "range_equity": 0.0058958283537748285,
+        "range_response": 0.005424640445840943,
+        "weighted_preference": 0.004313477753374998
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 4,
+              "lower": 34,
+              "overlapping": 4
+            },
+            "delta": -0.0014598960499469008
+          },
+          "caller": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.001168651901089694
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 5,
+              "lower": 30,
+              "overlapping": 7
+            },
+            "delta": -0.0008124907472530506
+          },
+          "caller": {
+            "counts": {
+              "higher": 11,
+              "lower": 29,
+              "overlapping": 2
+            },
+            "delta": -0.0007601333782212576
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 20,
+              "lower": 7,
+              "overlapping": 15
+            },
+            "delta": 0.000861164989174023
+          },
+          "caller": {
+            "counts": {
+              "higher": 10,
+              "lower": 29,
+              "overlapping": 3
+            },
+            "delta": -0.00039970355616565965
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 14,
+              "lower": 20,
+              "overlapping": 8
+            },
+            "delta": 4.867424192097236e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 6,
+              "lower": 33,
+              "overlapping": 3
+            },
+            "delta": -0.0011598369343869173
+          }
+        }
+      }
+    },
+    "2": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 29,
+              "lower": 6,
+              "overlapping": 7
+            },
+            "delta": 0.002318503334763886
+          },
+          "new_new": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.003300880984638426
+          },
+          "new_old": {
+            "counts": {
+              "higher": 9,
+              "lower": 33
+            },
+            "delta": -0.002723897796846238
+          },
+          "old_new": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.004556609779827899
+          },
+          "old_old": {
+            "counts": {
+              "higher": 12,
+              "lower": 29,
+              "overlapping": 1
+            },
+            "delta": -0.003979626592035711
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 9,
+              "lower": 33
+            },
+            "delta": -0.001012451695446365
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.003291633065266107
+          },
+          "range_response": {
+            "counts": {
+              "higher": 5,
+              "lower": 37
+            },
+            "delta": -0.002783925946913171
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 9,
+              "lower": 33
+            },
+            "delta": -0.001613847666069629
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.003330955030210251
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": 0.001012451695446365
+          },
+          "new_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.002288429289192061
+          },
+          "new_old": {
+            "counts": {
+              "higher": 13,
+              "lower": 28,
+              "overlapping": 1
+            },
+            "delta": -0.0017114461013998732
+          },
+          "old_new": {
+            "counts": {
+              "higher": 15,
+              "lower": 27
+            },
+            "delta": -0.003544158084381534
+          },
+          "old_old": {
+            "counts": {
+              "higher": 25,
+              "lower": 16,
+              "overlapping": 1
+            },
+            "delta": -0.0029671748965893465
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 41,
+              "overlapping": 1
+            },
+            "delta": -0.0022791813698197425
+          },
+          "range_response": {
+            "counts": {
+              "higher": 6,
+              "lower": 35,
+              "overlapping": 1
+            },
+            "delta": -0.0017714742514668065
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 17,
+              "lower": 22,
+              "overlapping": 3
+            },
+            "delta": -0.000601395970623264
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.003932351000833514
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": 0.001613847666069629
+          },
+          "new_new": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": -0.001687033318568797
+          },
+          "new_old": {
+            "counts": {
+              "higher": 14,
+              "lower": 27,
+              "overlapping": 1
+            },
+            "delta": -0.0011100501307766092
+          },
+          "old_new": {
+            "counts": {
+              "higher": 10,
+              "lower": 32
+            },
+            "delta": -0.00294276211375827
+          },
+          "old_old": {
+            "counts": {
+              "higher": 21,
+              "lower": 20,
+              "overlapping": 1
+            },
+            "delta": -0.0023657789259660827
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 22,
+              "lower": 17,
+              "overlapping": 3
+            },
+            "delta": 0.000601395970623264
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 5,
+              "lower": 36,
+              "overlapping": 1
+            },
+            "delta": -0.0016777853991964784
+          },
+          "range_response": {
+            "counts": {
+              "higher": 7,
+              "lower": 34,
+              "overlapping": 1
+            },
+            "delta": -0.0011700782808435424
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0005374593646834862,
+        "exact_preference": 0.002855962699447372,
+        "new_new": 0.006156843684085798,
+        "new_old": 0.00557986049629361,
+        "old_new": 0.007412572479275271,
+        "old_old": 0.006835589291483084,
+        "ordinary_preference": 0.003868414394893737,
+        "range_equity": 0.00614759576471348,
+        "range_response": 0.005639888646360543,
+        "weighted_preference": 0.004469810365517001
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 5,
+              "lower": 34,
+              "overlapping": 3
+            },
+            "delta": -0.001537541242465653
+          },
+          "caller": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.0012463847044475208
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 5,
+              "lower": 31,
+              "overlapping": 6
+            },
+            "delta": -0.0008821038341265791
+          },
+          "caller": {
+            "counts": {
+              "higher": 10,
+              "lower": 30,
+              "overlapping": 2
+            },
+            "delta": -0.0008893704173402274
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 20,
+              "lower": 8,
+              "overlapping": 14
+            },
+            "delta": 0.0008539206956735795
+          },
+          "caller": {
+            "counts": {
+              "higher": 14,
+              "lower": 25,
+              "overlapping": 3
+            },
+            "delta": -0.00025252472505031553
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 14,
+              "lower": 22,
+              "overlapping": 6
+            },
+            "delta": -2.818313845299955e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 6,
+              "lower": 33,
+              "overlapping": 3
+            },
+            "delta": -0.001141895142390543
+          }
+        }
+      }
+    },
+    "3": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 27,
+              "lower": 6,
+              "overlapping": 9
+            },
+            "delta": 0.0022093499098497036
+          },
+          "new_new": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.003051551268194484
+          },
+          "new_old": {
+            "counts": {
+              "higher": 7,
+              "lower": 34,
+              "overlapping": 1
+            },
+            "delta": -0.0026889141507890372
+          },
+          "old_new": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.004357415218055852
+          },
+          "old_old": {
+            "counts": {
+              "higher": 9,
+              "lower": 29,
+              "overlapping": 4
+            },
+            "delta": -0.0039947781006504065
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 8,
+              "lower": 34
+            },
+            "delta": -0.001059981739364872
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.0032451543030391798
+          },
+          "range_response": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.0026801224684808752
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 9,
+              "lower": 33
+            },
+            "delta": -0.0016157175266237227
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.0032693316492145756
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 34,
+              "lower": 8
+            },
+            "delta": 0.001059981739364872
+          },
+          "new_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.0019915695288296115
+          },
+          "new_old": {
+            "counts": {
+              "higher": 17,
+              "lower": 25
+            },
+            "delta": -0.0016289324114241654
+          },
+          "old_new": {
+            "counts": {
+              "higher": 15,
+              "lower": 27
+            },
+            "delta": -0.00329743347869098
+          },
+          "old_old": {
+            "counts": {
+              "higher": 27,
+              "lower": 15
+            },
+            "delta": -0.0029347963612855344
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 40,
+              "overlapping": 1
+            },
+            "delta": -0.0021851725636743077
+          },
+          "range_response": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": -0.001620140729116003
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 19,
+              "lower": 21,
+              "overlapping": 2
+            },
+            "delta": -0.0005557357872588508
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.003825067436473426
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": 0.0016157175266237227
+          },
+          "new_new": {
+            "counts": {
+              "higher": 8,
+              "lower": 34
+            },
+            "delta": -0.001435833741570761
+          },
+          "new_old": {
+            "counts": {
+              "higher": 16,
+              "lower": 26
+            },
+            "delta": -0.0010731966241653147
+          },
+          "old_new": {
+            "counts": {
+              "higher": 11,
+              "lower": 31
+            },
+            "delta": -0.002741697691432129
+          },
+          "old_old": {
+            "counts": {
+              "higher": 22,
+              "lower": 20
+            },
+            "delta": -0.0023790605740266835
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 21,
+              "lower": 19,
+              "overlapping": 2
+            },
+            "delta": 0.0005557357872588508
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 6,
+              "lower": 35,
+              "overlapping": 1
+            },
+            "delta": -0.0016294367764154568
+          },
+          "range_response": {
+            "counts": {
+              "higher": 8,
+              "lower": 34
+            },
+            "delta": -0.0010644049418571523
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0005366706869977385,
+        "exact_preference": 0.0027460205968474418,
+        "new_new": 0.005797571865041926,
+        "new_old": 0.005434934747636479,
+        "old_new": 0.007103435814903294,
+        "old_old": 0.006740798697497849,
+        "ordinary_preference": 0.003806002336212314,
+        "range_equity": 0.005991174899886621,
+        "range_response": 0.005426143065328317,
+        "weighted_preference": 0.004361738123471164
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 33,
+              "overlapping": 6
+            },
+            "delta": -0.0015433124632958759
+          },
+          "caller": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": -0.0011368100051850013
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 6,
+              "lower": 28,
+              "overlapping": 8
+            },
+            "delta": -0.0008044888797482113
+          },
+          "caller": {
+            "counts": {
+              "higher": 10,
+              "lower": 31,
+              "overlapping": 1
+            },
+            "delta": -0.0008156518493677917
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 18,
+              "lower": 8,
+              "overlapping": 16
+            },
+            "delta": 0.0008412352438596362
+          },
+          "caller": {
+            "counts": {
+              "higher": 13,
+              "lower": 27,
+              "overlapping": 2
+            },
+            "delta": -0.00028549945660078543
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 15,
+              "lower": 19,
+              "overlapping": 8
+            },
+            "delta": 3.674636411142494e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 7,
+              "lower": 33,
+              "overlapping": 2
+            },
+            "delta": -0.0011011513059685772
+          }
+        }
+      }
+    },
+    "4": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 28,
+              "lower": 3,
+              "overlapping": 11
+            },
+            "delta": 0.001982194425365326
+          },
+          "new_new": {
+            "counts": {
+              "higher": 5,
+              "lower": 37
+            },
+            "delta": -0.0030313676344654416
+          },
+          "new_old": {
+            "counts": {
+              "higher": 8,
+              "lower": 33,
+              "overlapping": 1
+            },
+            "delta": -0.0023498431021084817
+          },
+          "old_new": {
+            "counts": {
+              "higher": 5,
+              "lower": 37
+            },
+            "delta": -0.004441408651722923
+          },
+          "old_old": {
+            "counts": {
+              "higher": 11,
+              "lower": 27,
+              "overlapping": 4
+            },
+            "delta": -0.003759884119365964
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 8,
+              "lower": 34
+            },
+            "delta": -0.0006864120503792486
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 5,
+              "lower": 37
+            },
+            "delta": -0.002828396319644811
+          },
+          "range_response": {
+            "counts": {
+              "higher": 5,
+              "lower": 37
+            },
+            "delta": -0.0021972055866634334
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 9,
+              "lower": 33
+            },
+            "delta": -0.0012816829111350005
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.0026686064757445744
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 34,
+              "lower": 8
+            },
+            "delta": 0.0006864120503792486
+          },
+          "new_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.0023449555840861927
+          },
+          "new_old": {
+            "counts": {
+              "higher": 14,
+              "lower": 27,
+              "overlapping": 1
+            },
+            "delta": -0.0016634310517292332
+          },
+          "old_new": {
+            "counts": {
+              "higher": 12,
+              "lower": 30
+            },
+            "delta": -0.003754996601343674
+          },
+          "old_old": {
+            "counts": {
+              "higher": 25,
+              "lower": 16,
+              "overlapping": 1
+            },
+            "delta": -0.0030734720689867155
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 40,
+              "overlapping": 1
+            },
+            "delta": -0.0021419842692655625
+          },
+          "range_response": {
+            "counts": {
+              "higher": 8,
+              "lower": 33,
+              "overlapping": 1
+            },
+            "delta": -0.0015107935362841847
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 20,
+              "lower": 19,
+              "overlapping": 3
+            },
+            "delta": -0.0005952708607557519
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.0032638773365003264
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": 0.0012816829111350005
+          },
+          "new_new": {
+            "counts": {
+              "higher": 8,
+              "lower": 34
+            },
+            "delta": -0.001749684723330441
+          },
+          "new_old": {
+            "counts": {
+              "higher": 16,
+              "lower": 25,
+              "overlapping": 1
+            },
+            "delta": -0.0010681601909734815
+          },
+          "old_new": {
+            "counts": {
+              "higher": 9,
+              "lower": 33
+            },
+            "delta": -0.003159725740587922
+          },
+          "old_old": {
+            "counts": {
+              "higher": 22,
+              "lower": 19,
+              "overlapping": 1
+            },
+            "delta": -0.0024782012082309635
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 19,
+              "lower": 20,
+              "overlapping": 3
+            },
+            "delta": 0.0005952708607557519
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 6,
+              "lower": 35,
+              "overlapping": 1
+            },
+            "delta": -0.0015467134085098105
+          },
+          "range_response": {
+            "counts": {
+              "higher": 9,
+              "lower": 32,
+              "overlapping": 1
+            },
+            "delta": -0.0009155226755284327
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0004094683223238585,
+        "exact_preference": 0.002391662747689184,
+        "new_new": 0.005423030382154626,
+        "new_old": 0.004741505849797666,
+        "old_new": 0.006833071399412107,
+        "old_old": 0.006151546867055148,
+        "ordinary_preference": 0.003078074798068433,
+        "range_equity": 0.005220059067333995,
+        "range_response": 0.004588868334352617,
+        "weighted_preference": 0.0036733456588241846
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 5,
+              "lower": 31,
+              "overlapping": 6
+            },
+            "delta": -0.0011768734851519312
+          },
+          "caller": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.001020332101511505
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 6,
+              "lower": 27,
+              "overlapping": 9
+            },
+            "delta": -0.0006779155099218988
+          },
+          "caller": {
+            "counts": {
+              "higher": 11,
+              "lower": 29,
+              "overlapping": 2
+            },
+            "delta": -0.0008328780263622857
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 7,
+              "overlapping": 18
+            },
+            "delta": 0.0008575040919296814
+          },
+          "caller": {
+            "counts": {
+              "higher": 13,
+              "lower": 26,
+              "overlapping": 3
+            },
+            "delta": -0.00026223323117392945
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 16,
+              "lower": 18,
+              "overlapping": 8
+            },
+            "delta": 0.00017958858200778255
+          },
+          "caller": {
+            "counts": {
+              "higher": 7,
+              "lower": 32,
+              "overlapping": 3
+            },
+            "delta": -0.0010951112575362152
+          }
+        }
+      }
+    },
+    "5": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 26,
+              "lower": 6,
+              "overlapping": 10
+            },
+            "delta": 0.0022473191064867723
+          },
+          "new_new": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.0030202153375287204
+          },
+          "new_old": {
+            "counts": {
+              "higher": 9,
+              "lower": 32,
+              "overlapping": 1
+            },
+            "delta": -0.0013971015977519725
+          },
+          "old_new": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.004570942306877061
+          },
+          "old_old": {
+            "counts": {
+              "higher": 12,
+              "lower": 26,
+              "overlapping": 4
+            },
+            "delta": -0.002947828567100314
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 9,
+              "lower": 33
+            },
+            "delta": -0.0008696390190041944
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.0031106190429170764
+          },
+          "range_response": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.00259423999421523
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 10,
+              "lower": 32
+            },
+            "delta": -0.0014463460517733166
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.0031169581254909665
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": 0.0008696390190041944
+          },
+          "new_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.002150576318524526
+          },
+          "new_old": {
+            "counts": {
+              "higher": 18,
+              "lower": 23,
+              "overlapping": 1
+            },
+            "delta": -0.0005274625787477781
+          },
+          "old_new": {
+            "counts": {
+              "higher": 11,
+              "lower": 31
+            },
+            "delta": -0.0037013032878728666
+          },
+          "old_old": {
+            "counts": {
+              "higher": 27,
+              "lower": 14,
+              "overlapping": 1
+            },
+            "delta": -0.0020781895480961195
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 41
+            },
+            "delta": -0.002240980023912882
+          },
+          "range_response": {
+            "counts": {
+              "higher": 7,
+              "lower": 34,
+              "overlapping": 1
+            },
+            "delta": -0.0017246009752110356
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 19,
+              "lower": 22,
+              "overlapping": 1
+            },
+            "delta": -0.0005767070327691222
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.003693665158260089
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 32,
+              "lower": 10
+            },
+            "delta": 0.0014463460517733166
+          },
+          "new_new": {
+            "counts": {
+              "higher": 8,
+              "lower": 34
+            },
+            "delta": -0.0015738692857554038
+          },
+          "new_old": {
+            "counts": {
+              "higher": 18,
+              "lower": 23,
+              "overlapping": 1
+            },
+            "delta": 4.9244454021344166e-05
+          },
+          "old_new": {
+            "counts": {
+              "higher": 8,
+              "lower": 34
+            },
+            "delta": -0.0031245962551037444
+          },
+          "old_old": {
+            "counts": {
+              "higher": 24,
+              "lower": 17,
+              "overlapping": 1
+            },
+            "delta": -0.0015014825153269974
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 22,
+              "lower": 19,
+              "overlapping": 1
+            },
+            "delta": 0.0005767070327691222
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.0016642729911437598
+          },
+          "range_response": {
+            "counts": {
+              "higher": 8,
+              "lower": 33,
+              "overlapping": 1
+            },
+            "delta": -0.0011478939424419134
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.000513892537185401,
+        "exact_preference": 0.0027612116436721732,
+        "new_new": 0.005781426981200894,
+        "new_old": 0.004158313241424146,
+        "old_new": 0.007332153950549235,
+        "old_old": 0.005709040210772487,
+        "ordinary_preference": 0.003630850662676368,
+        "range_equity": 0.00587183068658925,
+        "range_response": 0.005355451637887403,
+        "weighted_preference": 0.00420755769544549
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 5,
+              "lower": 31,
+              "overlapping": 6
+            },
+            "delta": -0.0012639840110590457
+          },
+          "caller": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.001330255983156187
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 4,
+              "lower": 30,
+              "overlapping": 8
+            },
+            "delta": -0.0008618769356469153
+          },
+          "caller": {
+            "counts": {
+              "higher": 10,
+              "lower": 31,
+              "overlapping": 1
+            },
+            "delta": -0.0008627240395641203
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 19,
+              "lower": 7,
+              "overlapping": 16
+            },
+            "delta": 0.0008484917594011711
+          },
+          "caller": {
+            "counts": {
+              "higher": 15,
+              "lower": 26,
+              "overlapping": 1
+            },
+            "delta": -0.00027178472663204887
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 14,
+              "lower": 20,
+              "overlapping": 8
+            },
+            "delta": -1.3385176245744195e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 7,
+              "lower": 33,
+              "overlapping": 2
+            },
+            "delta": -0.0011345087661961692
+          }
+        }
+      }
+    },
+    "6": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 26,
+              "lower": 5,
+              "overlapping": 11
+            },
+            "delta": 0.0017035282690060246
+          },
+          "new_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.00325521359178266
+          },
+          "new_old": {
+            "counts": {
+              "higher": 7,
+              "lower": 34,
+              "overlapping": 1
+            },
+            "delta": -0.0024428322545697666
+          },
+          "old_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.004847588534052094
+          },
+          "old_old": {
+            "counts": {
+              "higher": 10,
+              "lower": 28,
+              "overlapping": 4
+            },
+            "delta": -0.004035207196839202
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.0011565705412154466
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.0033441423486342613
+          },
+          "range_response": {
+            "counts": {
+              "higher": 5,
+              "lower": 37
+            },
+            "delta": -0.0025866060339584176
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": -0.0016761763616243322
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.0028600988102214712
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 36,
+              "lower": 6
+            },
+            "delta": 0.0011565705412154466
+          },
+          "new_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.0020986430505672135
+          },
+          "new_old": {
+            "counts": {
+              "higher": 18,
+              "lower": 23,
+              "overlapping": 1
+            },
+            "delta": -0.0012862617133543198
+          },
+          "old_new": {
+            "counts": {
+              "higher": 12,
+              "lower": 30
+            },
+            "delta": -0.0036910179928366475
+          },
+          "old_old": {
+            "counts": {
+              "higher": 26,
+              "lower": 15,
+              "overlapping": 1
+            },
+            "delta": -0.002878636655623755
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 40,
+              "overlapping": 1
+            },
+            "delta": -0.0021875718074188147
+          },
+          "range_response": {
+            "counts": {
+              "higher": 6,
+              "lower": 35,
+              "overlapping": 1
+            },
+            "delta": -0.0014300354927429713
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 18,
+              "lower": 21,
+              "overlapping": 3
+            },
+            "delta": -0.0005196058204088857
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.003379704630630357
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 35,
+              "lower": 7
+            },
+            "delta": 0.0016761763616243322
+          },
+          "new_new": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": -0.0015790372301583277
+          },
+          "new_old": {
+            "counts": {
+              "higher": 17,
+              "lower": 24,
+              "overlapping": 1
+            },
+            "delta": -0.000766655892945434
+          },
+          "old_new": {
+            "counts": {
+              "higher": 10,
+              "lower": 32
+            },
+            "delta": -0.003171412172427762
+          },
+          "old_old": {
+            "counts": {
+              "higher": 24,
+              "lower": 17,
+              "overlapping": 1
+            },
+            "delta": -0.0023590308352148693
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 21,
+              "lower": 18,
+              "overlapping": 3
+            },
+            "delta": 0.0005196058204088857
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 5,
+              "lower": 36,
+              "overlapping": 1
+            },
+            "delta": -0.001667965987009929
+          },
+          "range_response": {
+            "counts": {
+              "higher": 8,
+              "lower": 33,
+              "overlapping": 1
+            },
+            "delta": -0.0009104296723340856
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0002960325640492584,
+        "exact_preference": 0.001999560833055283,
+        "new_new": 0.005254774424837943,
+        "new_old": 0.004442393087625049,
+        "old_new": 0.006847149367107377,
+        "old_old": 0.006034768029894485,
+        "ordinary_preference": 0.0031561313742707294,
+        "range_equity": 0.0053437031816895445,
+        "range_response": 0.0045861668670137004,
+        "weighted_preference": 0.0036757371946796154
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 4,
+              "lower": 32,
+              "overlapping": 6
+            },
+            "delta": -0.0015447196668700283
+          },
+          "caller": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.0010418863670883923
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 5,
+              "lower": 29,
+              "overlapping": 8
+            },
+            "delta": -0.0007178992242068631
+          },
+          "caller": {
+            "counts": {
+              "higher": 9,
+              "lower": 31,
+              "overlapping": 2
+            },
+            "delta": -0.0007121362685361082
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 18,
+              "lower": 5,
+              "overlapping": 19
+            },
+            "delta": 0.0006273063384359703
+          },
+          "caller": {
+            "counts": {
+              "higher": 15,
+              "lower": 24,
+              "overlapping": 3
+            },
+            "delta": -0.00010770051802708462
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 12,
+              "lower": 21,
+              "overlapping": 9
+            },
+            "delta": -9.059288577089273e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 8,
+              "lower": 32,
+              "overlapping": 2
+            },
+            "delta": -0.0008198367865631928
+          }
+        }
+      }
+    },
+    "7": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 27,
+              "lower": 4,
+              "overlapping": 11
+            },
+            "delta": 0.0018337215824048585
+          },
+          "new_new": {
+            "counts": {
+              "higher": 5,
+              "lower": 37
+            },
+            "delta": -0.0033729436527008484
+          },
+          "new_old": {
+            "counts": {
+              "higher": 8,
+              "lower": 33,
+              "overlapping": 1
+            },
+            "delta": -0.0025394566178113006
+          },
+          "old_new": {
+            "counts": {
+              "higher": 5,
+              "lower": 37
+            },
+            "delta": -0.0021348740461680908
+          },
+          "old_old": {
+            "counts": {
+              "higher": 11,
+              "lower": 27,
+              "overlapping": 4
+            },
+            "delta": -0.0013013870112785438
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 8,
+              "lower": 34
+            },
+            "delta": -0.0010152013749962997
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 5,
+              "lower": 37
+            },
+            "delta": -0.0031380956906878438
+          },
+          "range_response": {
+            "counts": {
+              "higher": 5,
+              "lower": 37
+            },
+            "delta": -0.0024002098185418406
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 9,
+              "lower": 33
+            },
+            "delta": -0.0009691045698895692
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.002848922957401158
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 34,
+              "lower": 8
+            },
+            "delta": 0.0010152013749962997
+          },
+          "new_new": {
+            "counts": {
+              "higher": 2,
+              "lower": 40
+            },
+            "delta": -0.002357742277704549
+          },
+          "new_old": {
+            "counts": {
+              "higher": 15,
+              "lower": 26,
+              "overlapping": 1
+            },
+            "delta": -0.001524255242815001
+          },
+          "old_new": {
+            "counts": {
+              "higher": 13,
+              "lower": 29
+            },
+            "delta": -0.001119672671171791
+          },
+          "old_old": {
+            "counts": {
+              "higher": 27,
+              "lower": 14,
+              "overlapping": 1
+            },
+            "delta": -0.00028618563628224407
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 40,
+              "overlapping": 1
+            },
+            "delta": -0.0021228943156915443
+          },
+          "range_response": {
+            "counts": {
+              "higher": 8,
+              "lower": 33,
+              "overlapping": 1
+            },
+            "delta": -0.001385008443545541
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 21,
+              "lower": 18,
+              "overlapping": 3
+            },
+            "delta": 4.609680510673044e-05
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.0028028261522944275
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": 0.0009691045698895692
+          },
+          "new_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.002403839082811279
+          },
+          "new_old": {
+            "counts": {
+              "higher": 15,
+              "lower": 26,
+              "overlapping": 1
+            },
+            "delta": -0.0015703520479217314
+          },
+          "old_new": {
+            "counts": {
+              "higher": 9,
+              "lower": 33
+            },
+            "delta": -0.0011657694762785215
+          },
+          "old_old": {
+            "counts": {
+              "higher": 24,
+              "lower": 17,
+              "overlapping": 1
+            },
+            "delta": -0.0003322824413889745
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 18,
+              "lower": 21,
+              "overlapping": 3
+            },
+            "delta": -4.609680510673044e-05
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 3,
+              "lower": 38,
+              "overlapping": 1
+            },
+            "delta": -0.002168991120798275
+          },
+          "range_response": {
+            "counts": {
+              "higher": 6,
+              "lower": 35,
+              "overlapping": 1
+            },
+            "delta": -0.0014311052486522715
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0003943290145490101,
+        "exact_preference": 0.0022280505969538684,
+        "new_new": 0.005600994249654717,
+        "new_old": 0.004767507214765169,
+        "old_new": 0.004362924643121959,
+        "old_old": 0.003529437608232412,
+        "ordinary_preference": 0.0032432519719501683,
+        "range_equity": 0.005366146287641712,
+        "range_response": 0.004628260415495709,
+        "weighted_preference": 0.0031971551668434376
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 5,
+              "lower": 31,
+              "overlapping": 6
+            },
+            "delta": -0.0008459522406912333
+          },
+          "caller": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": -0.0015542575778506103
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 5,
+              "lower": 28,
+              "overlapping": 9
+            },
+            "delta": -0.0006479329258101865
+          },
+          "caller": {
+            "counts": {
+              "higher": 12,
+              "lower": 28,
+              "overlapping": 2
+            },
+            "delta": -0.0007370755177353546
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 16,
+              "lower": 7,
+              "overlapping": 19
+            },
+            "delta": 0.0002690907086933876
+          },
+          "caller": {
+            "counts": {
+              "higher": 13,
+              "lower": 26,
+              "overlapping": 3
+            },
+            "delta": -0.00031518751380011804
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 12,
+              "lower": 22,
+              "overlapping": 8
+            },
+            "delta": -0.0003788422171167988
+          },
+          "caller": {
+            "counts": {
+              "higher": 7,
+              "lower": 32,
+              "overlapping": 3
+            },
+            "delta": -0.0010522630315354727
+          }
+        }
+      }
+    }
+  },
+  "overall": {
+    "comparisons": {
+      "exact_preference": {
+        "clipped_oracle": {
+          "counts": {
+            "higher": 31,
+            "lower": 6,
+            "overlapping": 11
+          },
+          "delta": 0.002058017720183636
+        },
+        "new_new": {
+          "counts": {
+            "higher": 6,
+            "lower": 42
+          },
+          "delta": -0.0032566257821212887
+        },
+        "new_old": {
+          "counts": {
+            "higher": 9,
+            "lower": 38,
+            "overlapping": 1
+          },
+          "delta": -0.0024770644715882855
+        },
+        "old_new": {
+          "counts": {
+            "higher": 6,
+            "lower": 42
+          },
+          "delta": -0.004310008467627242
+        },
+        "old_old": {
+          "counts": {
+            "higher": 12,
+            "lower": 32,
+            "overlapping": 4
+          },
+          "delta": -0.00353044715709424
+        },
+        "ordinary_preference": {
+          "counts": {
+            "higher": 9,
+            "lower": 39
+          },
+          "delta": -0.0010301093994896412
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 6,
+            "lower": 42
+          },
+          "delta": -0.0032086239345558657
+        },
+        "range_response": {
+          "counts": {
+            "higher": 6,
+            "lower": 42
+          },
+          "delta": -0.002603042448810857
+        },
+        "weighted_preference": {
+          "counts": {
+            "higher": 10,
+            "lower": 38
+          },
+          "delta": -0.001507647719684342
+        }
+      },
+      "ordinary_preference": {
+        "clipped_oracle": {
+          "counts": {
+            "higher": 48
+          },
+          "delta": 0.0030881271196732773
+        },
+        "exact_preference": {
+          "counts": {
+            "higher": 39,
+            "lower": 9
+          },
+          "delta": 0.0010301093994896412
+        },
+        "new_new": {
+          "counts": {
+            "higher": 4,
+            "lower": 44
+          },
+          "delta": -0.0022265163826316473
+        },
+        "new_old": {
+          "counts": {
+            "higher": 18,
+            "lower": 29,
+            "overlapping": 1
+          },
+          "delta": -0.0014469550720986445
+        },
+        "old_new": {
+          "counts": {
+            "higher": 15,
+            "lower": 33
+          },
+          "delta": -0.0032798990681376008
+        },
+        "old_old": {
+          "counts": {
+            "higher": 30,
+            "lower": 17,
+            "overlapping": 1
+          },
+          "delta": -0.0025003377576045985
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 1,
+            "lower": 46,
+            "overlapping": 1
+          },
+          "delta": -0.0021785145350662247
+        },
+        "range_response": {
+          "counts": {
+            "higher": 8,
+            "lower": 39,
+            "overlapping": 1
+          },
+          "delta": -0.0015729330493212156
+        },
+        "weighted_preference": {
+          "counts": {
+            "higher": 22,
+            "lower": 23,
+            "overlapping": 3
+          },
+          "delta": -0.0004775383201947009
+        }
+      },
+      "weighted_preference": {
+        "clipped_oracle": {
+          "counts": {
+            "higher": 48
+          },
+          "delta": 0.003565665439867978
+        },
+        "exact_preference": {
+          "counts": {
+            "higher": 38,
+            "lower": 10
+          },
+          "delta": 0.001507647719684342
+        },
+        "new_new": {
+          "counts": {
+            "higher": 8,
+            "lower": 40
+          },
+          "delta": -0.0017489780624369467
+        },
+        "new_old": {
+          "counts": {
+            "higher": 18,
+            "lower": 29,
+            "overlapping": 1
+          },
+          "delta": -0.0009694167519039436
+        },
+        "old_new": {
+          "counts": {
+            "higher": 11,
+            "lower": 37
+          },
+          "delta": -0.0028023607479428997
+        },
+        "old_old": {
+          "counts": {
+            "higher": 26,
+            "lower": 21,
+            "overlapping": 1
+          },
+          "delta": -0.002022799437409898
+        },
+        "ordinary_preference": {
+          "counts": {
+            "higher": 23,
+            "lower": 22,
+            "overlapping": 3
+          },
+          "delta": 0.0004775383201947009
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 6,
+            "lower": 41,
+            "overlapping": 1
+          },
+          "delta": -0.0017009762148715237
+        },
+        "range_response": {
+          "counts": {
+            "higher": 9,
+            "lower": 38,
+            "overlapping": 1
+          },
+          "delta": -0.0010953947291265148
+        }
+      }
+    },
+    "floors": {
+      "clipped_oracle": 0.00047027694409805206,
+      "exact_preference": 0.002528294664281688,
+      "new_new": 0.005784920446402977,
+      "new_old": 0.005005359135869974,
+      "old_new": 0.00683830313190893,
+      "old_old": 0.006058741821375928,
+      "ordinary_preference": 0.003558404063771329,
+      "range_equity": 0.005736918598837554,
+      "range_response": 0.005131337113092545,
+      "weighted_preference": 0.00403594238396603
+    },
+    "seat_effects": {
+      "exact_preference": {
+        "bettor": {
+          "counts": {
+            "higher": 5,
+            "lower": 37,
+            "overlapping": 6
+          },
+          "delta": -0.0013694410962370022
+        },
+        "caller": {
+          "counts": {
+            "higher": 7,
+            "lower": 41
+          },
+          "delta": -0.0012336013525738572
+        }
+      },
+      "ordinary_preference": {
+        "bettor": {
+          "counts": {
+            "higher": 6,
+            "lower": 33,
+            "overlapping": 9
+          },
+          "delta": -0.0007764665072035176
+        },
+        "caller": {
+          "counts": {
+            "higher": 12,
+            "lower": 34,
+            "overlapping": 2
+          },
+          "delta": -0.000796466542117698
+        }
+      },
+      "weighted_minus_ordinary": {
+        "bettor": {
+          "counts": {
+            "higher": 21,
+            "lower": 8,
+            "overlapping": 19
+          },
+          "delta": 0.0007512868317775594
+        },
+        "caller": {
+          "counts": {
+            "higher": 15,
+            "lower": 30,
+            "overlapping": 3
+          },
+          "delta": -0.00027374851158285847
+        }
+      },
+      "weighted_preference": {
+        "bettor": {
+          "counts": {
+            "higher": 16,
+            "lower": 23,
+            "overlapping": 9
+          },
+          "delta": -2.5179675425958338e-05
+        },
+        "caller": {
+          "counts": {
+            "higher": 8,
+            "lower": 37,
+            "overlapping": 3
+          },
+          "delta": -0.0010702150537005564
+        }
+      }
+    }
+  },
+  "preidentified": {
+    "b07-p1-polarized": {
+      "clipped_oracle": 0.0008815001006254618,
+      "exact_preference": 0.002903251641838747,
+      "new_new": 0.004689309998212472,
+      "new_old": 0.004805382027871201,
+      "old_new": 0.06645626676757192,
+      "old_old": 0.06657233879723065,
+      "ordinary_preference": 0.00544609963158735,
+      "range_equity": 0.007661914677772398,
+      "range_response": 0.010144316179575587,
+      "weighted_preference": 0.006211554642348772
+    },
+    "b07-p2-polarized": {
+      "clipped_oracle": 0.00019769148129537603,
+      "exact_preference": 0.0005181064572426078,
+      "new_new": 0.004408449680046469,
+      "new_old": 0.003976477880273634,
+      "old_new": 0.04847444267846741,
+      "old_old": 0.04804247087869457,
+      "ordinary_preference": 0.00452577711184592,
+      "range_equity": 0.010612092786503761,
+      "range_response": 0.008609137372226296,
+      "weighted_preference": 0.0188154450261778
+    }
+  },
+  "regimes": {
+    "polarized": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 14,
+              "lower": 3,
+              "overlapping": 7
+            },
+            "delta": 0.002235230864189331
+          },
+          "new_new": {
+            "counts": {
+              "higher": 3,
+              "lower": 21
+            },
+            "delta": -0.002702568213042074
+          },
+          "new_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 19,
+              "overlapping": 1
+            },
+            "delta": -0.0031963650245462054
+          },
+          "old_new": {
+            "counts": {
+              "higher": 3,
+              "lower": 21
+            },
+            "delta": -0.005963948271794084
+          },
+          "old_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 18,
+              "overlapping": 2
+            },
+            "delta": -0.006457745083298216
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 4,
+              "lower": 20
+            },
+            "delta": -0.00079493573359224
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 3,
+              "lower": 21
+            },
+            "delta": -0.003122326332513456
+          },
+          "range_response": {
+            "counts": {
+              "higher": 4,
+              "lower": 20
+            },
+            "delta": -0.0015840822160679874
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 19
+            },
+            "delta": -0.0018334803410053693
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 24
+            },
+            "delta": 0.003030166597781571
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 20,
+              "lower": 4
+            },
+            "delta": 0.00079493573359224
+          },
+          "new_new": {
+            "counts": {
+              "higher": 3,
+              "lower": 21
+            },
+            "delta": -0.0019076324794498338
+          },
+          "new_old": {
+            "counts": {
+              "higher": 9,
+              "lower": 14,
+              "overlapping": 1
+            },
+            "delta": -0.0024014292909539654
+          },
+          "old_new": {
+            "counts": {
+              "higher": 6,
+              "lower": 18
+            },
+            "delta": -0.005169012538201844
+          },
+          "old_old": {
+            "counts": {
+              "higher": 11,
+              "lower": 12,
+              "overlapping": 1
+            },
+            "delta": -0.005662809349705976
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 23,
+              "overlapping": 1
+            },
+            "delta": -0.002327390598921216
+          },
+          "range_response": {
+            "counts": {
+              "higher": 7,
+              "lower": 16,
+              "overlapping": 1
+            },
+            "delta": -0.0007891464824757475
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 9,
+              "lower": 12,
+              "overlapping": 3
+            },
+            "delta": -0.0010385446074131293
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 24
+            },
+            "delta": 0.004068711205194701
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 19,
+              "lower": 5
+            },
+            "delta": 0.0018334803410053693
+          },
+          "new_new": {
+            "counts": {
+              "higher": 7,
+              "lower": 17
+            },
+            "delta": -0.0008690878720367046
+          },
+          "new_old": {
+            "counts": {
+              "higher": 10,
+              "lower": 13,
+              "overlapping": 1
+            },
+            "delta": -0.0013628846835408363
+          },
+          "old_new": {
+            "counts": {
+              "higher": 7,
+              "lower": 17
+            },
+            "delta": -0.004130467930788714
+          },
+          "old_old": {
+            "counts": {
+              "higher": 11,
+              "lower": 12,
+              "overlapping": 1
+            },
+            "delta": -0.004624264742292847
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 12,
+              "lower": 9,
+              "overlapping": 3
+            },
+            "delta": 0.0010385446074131293
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 4,
+              "lower": 19,
+              "overlapping": 1
+            },
+            "delta": -0.0012888459915080866
+          },
+          "range_response": {
+            "counts": {
+              "higher": 7,
+              "lower": 16,
+              "overlapping": 1
+            },
+            "delta": 0.00024939812493738174
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.00024488918849940237,
+        "exact_preference": 0.0024801200526887333,
+        "new_new": 0.0051826882657308075,
+        "new_old": 0.005676485077234939,
+        "old_new": 0.008444068324482816,
+        "old_old": 0.008937865135986949,
+        "ordinary_preference": 0.0032750557862809733,
+        "range_equity": 0.005602446385202189,
+        "range_response": 0.004064202268756721,
+        "weighted_preference": 0.004313600393694102
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 16,
+              "overlapping": 5
+            },
+            "delta": -0.0007830177772560762
+          },
+          "caller": {
+            "counts": {
+              "higher": 5,
+              "lower": 19
+            },
+            "delta": -0.0008010644388119145
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 4,
+              "lower": 12,
+              "overlapping": 8
+            },
+            "delta": -0.00036212043922432223
+          },
+          "caller": {
+            "counts": {
+              "higher": 8,
+              "lower": 14,
+              "overlapping": 2
+            },
+            "delta": -0.00042702604325142523
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 10,
+              "lower": 2,
+              "overlapping": 12
+            },
+            "delta": 0.0012738910401464386
+          },
+          "caller": {
+            "counts": {
+              "higher": 8,
+              "lower": 13,
+              "overlapping": 3
+            },
+            "delta": -0.00023534643273330925
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 11,
+              "lower": 6,
+              "overlapping": 7
+            },
+            "delta": 0.0009117706009221162
+          },
+          "caller": {
+            "counts": {
+              "higher": 4,
+              "lower": 17,
+              "overlapping": 3
+            },
+            "delta": -0.0006623724759847345
+          }
+        }
+      }
+    },
+    "uniform": {
+      "comparisons": {
+        "exact_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 17,
+              "lower": 3,
+              "overlapping": 4
+            },
+            "delta": 0.0018808045761779409
+          },
+          "new_new": {
+            "counts": {
+              "higher": 3,
+              "lower": 21
+            },
+            "delta": -0.0038106833512005036
+          },
+          "new_old": {
+            "counts": {
+              "higher": 5,
+              "lower": 19
+            },
+            "delta": -0.0017577639186303659
+          },
+          "old_new": {
+            "counts": {
+              "higher": 3,
+              "lower": 21
+            },
+            "delta": -0.0026560686634604005
+          },
+          "old_old": {
+            "counts": {
+              "higher": 8,
+              "lower": 14,
+              "overlapping": 2
+            },
+            "delta": -0.0006031492308902636
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 19
+            },
+            "delta": -0.0012652830653870424
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 3,
+              "lower": 21
+            },
+            "delta": -0.0032949215365982755
+          },
+          "range_response": {
+            "counts": {
+              "higher": 2,
+              "lower": 22
+            },
+            "delta": -0.0036220026815537263
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 5,
+              "lower": 19
+            },
+            "delta": -0.001181815098363315
+          }
+        },
+        "ordinary_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 24
+            },
+            "delta": 0.0031460876415649835
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 19,
+              "lower": 5
+            },
+            "delta": 0.0012652830653870424
+          },
+          "new_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 23
+            },
+            "delta": -0.002545400285813461
+          },
+          "new_old": {
+            "counts": {
+              "higher": 9,
+              "lower": 15
+            },
+            "delta": -0.0004924808532433234
+          },
+          "old_new": {
+            "counts": {
+              "higher": 9,
+              "lower": 15
+            },
+            "delta": -0.001390785598073358
+          },
+          "old_old": {
+            "counts": {
+              "higher": 19,
+              "lower": 5
+            },
+            "delta": 0.0006621338344967789
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 23
+            },
+            "delta": -0.002029638471211233
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 23
+            },
+            "delta": -0.002356719616166684
+          },
+          "weighted_preference": {
+            "counts": {
+              "higher": 13,
+              "lower": 11
+            },
+            "delta": 8.346796702372751e-05
+          }
+        },
+        "weighted_preference": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 24
+            },
+            "delta": 0.0030626196745412557
+          },
+          "exact_preference": {
+            "counts": {
+              "higher": 19,
+              "lower": 5
+            },
+            "delta": 0.001181815098363315
+          },
+          "new_new": {
+            "counts": {
+              "higher": 1,
+              "lower": 23
+            },
+            "delta": -0.0026288682528371886
+          },
+          "new_old": {
+            "counts": {
+              "higher": 8,
+              "lower": 16
+            },
+            "delta": -0.000575948820267051
+          },
+          "old_new": {
+            "counts": {
+              "higher": 4,
+              "lower": 20
+            },
+            "delta": -0.0014742535650970855
+          },
+          "old_old": {
+            "counts": {
+              "higher": 15,
+              "lower": 9
+            },
+            "delta": 0.0005786658674730514
+          },
+          "ordinary_preference": {
+            "counts": {
+              "higher": 11,
+              "lower": 13
+            },
+            "delta": -8.346796702372751e-05
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 2,
+              "lower": 22
+            },
+            "delta": -0.0021131064382349605
+          },
+          "range_response": {
+            "counts": {
+              "higher": 2,
+              "lower": 22
+            },
+            "delta": -0.0024401875831904112
+          }
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0006956646996967018,
+        "exact_preference": 0.0025764692758746426,
+        "new_new": 0.006387152627075146,
+        "new_old": 0.004334233194505008,
+        "old_new": 0.0052325379393350436,
+        "old_old": 0.0031796185067649065,
+        "ordinary_preference": 0.003841752341261685,
+        "range_equity": 0.005871390812472919,
+        "range_response": 0.006198471957428369,
+        "weighted_preference": 0.0037582843742379577
+      },
+      "seat_effects": {
+        "exact_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 21,
+              "overlapping": 1
+            },
+            "delta": -0.001955864415217928
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 22
+            },
+            "delta": -0.0016661382663358
+          }
+        },
+        "ordinary_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 21,
+              "overlapping": 1
+            },
+            "delta": -0.001190812575182713
+          },
+          "caller": {
+            "counts": {
+              "higher": 4,
+              "lower": 20
+            },
+            "delta": -0.0011659070409839707
+          }
+        },
+        "weighted_minus_ordinary": {
+          "bettor": {
+            "counts": {
+              "higher": 11,
+              "lower": 6,
+              "overlapping": 7
+            },
+            "delta": 0.0002286826234086801
+          },
+          "caller": {
+            "counts": {
+              "higher": 7,
+              "lower": 17
+            },
+            "delta": -0.00031215059043240763
+          }
+        },
+        "weighted_preference": {
+          "bettor": {
+            "counts": {
+              "higher": 5,
+              "lower": 17,
+              "overlapping": 2
+            },
+            "delta": -0.0009621299517740329
+          },
+          "caller": {
+            "counts": {
+              "higher": 4,
+              "lower": 20
+            },
+            "delta": -0.0014780576314163782
+          }
+        }
+      }
+    }
+  }
+}

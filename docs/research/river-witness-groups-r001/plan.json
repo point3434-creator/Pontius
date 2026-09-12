@@ -1,0 +1,86 @@
+{
+  "cases": [
+    {
+      "directory": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\development-001\\d0-uniform",
+      "files": {
+        "inputs.json": "0257c110eb078878b40e6424941b6b2434671f5b09152077568870375e6b5bec",
+        "manifest.json": "461ea0d24b355938432ff38e44dbdebff63092e51b1569bcc0c26bbb255913c0",
+        "result.json": "1eafc5723ec64b8a0679738ea8b14d9b7406516e41eee7de0b9558c5873e2bde",
+        "started.json": "e795457771637c6849776aaf6b13d8b9a134aaac7b548ad7c683f24d6484d059"
+      },
+      "id": "development-0-uniform",
+      "witness_file": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\group-optimality-001\\development-0-uniform.json",
+      "witness_sha256": "a8e186700025f387a71cdbf3e5da0859e2737a8d436bd464b4ae2298a9a83056"
+    },
+    {
+      "directory": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\development-001\\d0-polarized",
+      "files": {
+        "inputs.json": "17fa060dc6768eb8db995823361a6ee1def52b7456d69466cd342612c50512cc",
+        "manifest.json": "f4513987f63a86e38484b2c8a09d36d6e02735a28426f76331da1909855c7312",
+        "result.json": "3000d2b32de4c1d99e693ad5187560e988a03e2b342e9242b31c24a17eb369f5",
+        "started.json": "e66a4486458ac6f626f772a94ced5a6c15eefd3f086d999d58927d669f8a04be"
+      },
+      "id": "development-0-polarized",
+      "witness_file": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\group-optimality-001\\development-0-polarized.json",
+      "witness_sha256": "43e5aad2ccfacf29b24fdfa95a6b0ad97580f4dbbf6f63d35266f54d201035de"
+    },
+    {
+      "directory": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\development-001\\d1-uniform",
+      "files": {
+        "inputs.json": "6300ed7822517283509b8c7d45e266e392e11244fa0153cc4f0063b4ab36a24c",
+        "manifest.json": "ceffcb8423436a462648bdf4280fb1af5c07ed13f2dd0b7f4d9fd0af601577b8",
+        "result.json": "1825bc1b05503d5e422990b0868f095aea1559882c7224d7eeac786767b33dbd",
+        "started.json": "75c4f38765c559c28802dc129b4796b1a68e390c7eb37801fec72a23955cf4c3"
+      },
+      "id": "development-1-uniform",
+      "witness_file": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\group-optimality-001\\development-1-uniform.json",
+      "witness_sha256": "50f50fb8e167923ec2764c5cb0c5f8e83f040b8c8b2344df5189488b50feb16f"
+    },
+    {
+      "directory": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\development-001\\d1-polarized",
+      "files": {
+        "inputs.json": "d5d46a568920599be9fbf7847cacd28eb242985f40711ba608f219f39fe6d8d2",
+        "manifest.json": "454b11555e7e9e2490e0067f08fb4ba8e967b92431b7ba500cf0163fbe430b59",
+        "result.json": "9bf957d63c536652538bd85248bacce81afe2762d9850e1f820409099d2bf43b",
+        "started.json": "b2b7c6a22318b8c1b6d85cf8e8d124a36e4c4baf2b6e840a9caa0485215e4273"
+      },
+      "id": "development-1-polarized",
+      "witness_file": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\group-optimality-001\\development-1-polarized.json",
+      "witness_sha256": "93cc60e17e40ffb475ceac5c28ae005fd6b0d4587013ef01e6dec6f89e7a5766"
+    }
+  ],
+  "executable": "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+  "hands": 96,
+  "mode": "development",
+  "numpy": "2.5.2",
+  "output_directory": "D:\\Pontius-training\\river-abstraction-study\\witness-groups-development-001",
+  "python": "3.14.6",
+  "schema": "river-witness-groups-v1",
+  "scipy": "1.18.0",
+  "sources": {
+    "docs/research/river-group-optimality.md": "5b0adde6bb4a976fb7ab67e64a95c00726e10d56d705aa4c9ec4e0adac2e9e73",
+    "docs/research/river-witness-groups.md": "bae49329b4bca346b01eb42df6abcf99e3f5f661a9cb96764223ab4a433ac30e",
+    "src/pontius/__init__.py": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba",
+    "src/pontius/game.py": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2",
+    "src/pontius/river.py": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7",
+    "src/pontius/river_abstraction_study.py": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "src/pontius/river_group_optimality.py": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "src/pontius/river_witness_groups.py": "2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e",
+    "tools/river_group_optimality.py": "b637f02177d43f15376d2933805d92fe8eeefd4e9a1b11dada809c68da5a391a",
+    "tools/river_witness_groups.py": "8e930aea2d6e3a66408577de44420cedb1a6aae1dde73e15a0cabcdd4d04bc76"
+  },
+  "steps": [
+    100,
+    1000,
+    10000
+  ],
+  "timeout_seconds": 120,
+  "witness_manifest": {
+    "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\group-optimality-001\\manifest.json",
+    "sha256": "f1eaccc4abc7edcad8b06c3fe3395b5e72b8e87abbc373cf693edff8752b3d6b"
+  },
+  "witness_plan": {
+    "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\group-optimality-001\\plan.json",
+    "sha256": "de07461ea9364a4fb40d0bce72a506549bc30ac609761bb0bc57ff4600c3b11c"
+  }
+}

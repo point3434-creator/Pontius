@@ -1,0 +1,41 @@
+{
+  "analysis": {
+    "10": {
+      "actual_change_percent": -38.70438864408028,
+      "board_directions": {
+        "lower": 8
+      },
+      "changed_seats": 31,
+      "floor_case_directions": {
+        "lower": 15,
+        "overlapping": 1
+      },
+      "floor_change_percent": -39.45799459188765,
+      "mean_fixed_witness_gain": [
+        0.025226818849171283,
+        0.006895096631627081
+      ],
+      "versus_longer_control_percent": -38.08519299578089
+    },
+    "5": {
+      "actual_change_percent": -35.86738249019626,
+      "board_directions": {
+        "higher": 2,
+        "lower": 6
+      },
+      "changed_seats": 32,
+      "floor_case_directions": {
+        "higher": 3,
+        "lower": 13
+      },
+      "floor_change_percent": -36.22806023733668,
+      "mean_fixed_witness_gain": [
+        0.012886035505553908,
+        0.006291853284003634
+      ],
+      "versus_longer_control_percent": -35.13321707674574
+    }
+  },
+  "passed": true,
+  "rational_checks": 599
+}

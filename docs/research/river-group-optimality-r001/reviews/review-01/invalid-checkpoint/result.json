@@ -1,0 +1,134 @@
+{
+  "accepted_joint_deals": 4,
+  "complete": true,
+  "records": [
+    {
+      "full_game": {
+        "deviation0": 1.25,
+        "deviation1": 1.25,
+        "exploitability": 1.25,
+        "lower": 2.5,
+        "upper": 5.0,
+        "value": 3.75
+      },
+      "group_bet": [
+        0.5,
+        0.5
+      ],
+      "group_call": [
+        0.5,
+        0.5
+      ],
+      "hand_bet": [
+        0.5,
+        0.5
+      ],
+      "hand_call": [
+        0.5,
+        0.5
+      ],
+      "iteration": 11,
+      "method": "exact",
+      "occupied_groups": [
+        2,
+        2
+      ]
+    },
+    {
+      "full_game": {
+        "deviation0": 1.25,
+        "deviation1": 1.25,
+        "exploitability": 1.25,
+        "lower": 2.5,
+        "upper": 5.0,
+        "value": 3.75
+      },
+      "group_bet": [
+        0.5,
+        0.5
+      ],
+      "group_call": [
+        0.5,
+        0.5
+      ],
+      "hand_bet": [
+        0.5,
+        0.5
+      ],
+      "hand_call": [
+        0.5,
+        0.5
+      ],
+      "iteration": 10,
+      "method": "uniform_equity_200",
+      "occupied_groups": [
+        2,
+        2
+      ]
+    },
+    {
+      "full_game": {
+        "deviation0": 1.25,
+        "deviation1": 1.25,
+        "exploitability": 1.25,
+        "lower": 2.5,
+        "upper": 5.0,
+        "value": 3.75
+      },
+      "group_bet": [
+        0.5,
+        0.5
+      ],
+      "group_call": [
+        0.5,
+        0.5
+      ],
+      "hand_bet": [
+        0.5,
+        0.5
+      ],
+      "hand_call": [
+        0.5,
+        0.5
+      ],
+      "iteration": 10,
+      "method": "range_equity",
+      "occupied_groups": [
+        2,
+        2
+      ]
+    },
+    {
+      "full_game": {
+        "deviation0": 1.25,
+        "deviation1": 1.25,
+        "exploitability": 1.25,
+        "lower": 2.5,
+        "upper": 5.0,
+        "value": 3.75
+      },
+      "group_bet": [
+        0.5,
+        0.5
+      ],
+      "group_call": [
+        0.5,
+        0.5
+      ],
+      "hand_bet": [
+        0.5,
+        0.5
+      ],
+      "hand_call": [
+        0.5,
+        0.5
+      ],
+      "iteration": 10,
+      "method": "range_response",
+      "occupied_groups": [
+        2,
+        2
+      ]
+    }
+  ]
+}

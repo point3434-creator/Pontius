@@ -1,0 +1,7 @@
+{
+  "asymmetric_certificates": 32,
+  "cases": 16,
+  "joint_role_updates": 800000,
+  "new_lp_calls": 0,
+  "passed": true
+}

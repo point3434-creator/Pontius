@@ -1,0 +1,1 @@
+I authorize one execution of D:/Pontius-worktrees/eval-runner-consolidation/docs/research/river-witness-groups-r001/plan.json with SHA-256 9581a2a8e8d74d9d66e31abed59a61cff7625b769be4521a303b0c343f0ed855, under its fixed development workload and timeout bounds.

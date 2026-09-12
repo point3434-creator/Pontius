@@ -1,0 +1,188 @@
+{
+  "confirmation": {
+    "10": {
+      "baseline_actual": 0.024700495202491405,
+      "cases": 32,
+      "changed_seats": 63,
+      "damaged_seats": 3,
+      "damaged_seats_changing_optimum": 3,
+      "damaged_seats_with_costly_new_merge": 3,
+      "damaged_seats_with_free_old_merge": 3,
+      "gates": {
+        "floor": {
+          "accepted_seats": 60,
+          "actual_directions": {
+            "better": 32
+          },
+          "change_percent": -41.101977016400895,
+          "floor_regressions": 0,
+          "mean_actual": 0.014548103341426182
+        },
+        "security": {
+          "accepted_seats": 60,
+          "actual_directions": {
+            "better": 32
+          },
+          "change_percent": -41.101977016400895,
+          "floor_regressions": 0,
+          "mean_actual": 0.014548103341426182
+        },
+        "structural": {
+          "accepted_seats": 50,
+          "actual_directions": {
+            "better": 30,
+            "equal": 2
+          },
+          "change_percent": -34.17503261122835,
+          "floor_regressions": 0,
+          "mean_actual": 0.01625909291190507
+        }
+      },
+      "raw_actual": 0.015332532550627586,
+      "raw_directions": {
+        "better": 31,
+        "worse": 1
+      }
+    },
+    "5": {
+      "baseline_actual": 0.01207253236543313,
+      "cases": 32,
+      "changed_seats": 64,
+      "damaged_seats": 5,
+      "damaged_seats_changing_optimum": 5,
+      "damaged_seats_with_costly_new_merge": 5,
+      "damaged_seats_with_free_old_merge": 5,
+      "gates": {
+        "floor": {
+          "accepted_seats": 57,
+          "actual_directions": {
+            "better": 31,
+            "worse": 1
+          },
+          "change_percent": -27.12792175330327,
+          "floor_regressions": 0,
+          "mean_actual": 0.008797505231696218
+        },
+        "security": {
+          "accepted_seats": 57,
+          "actual_directions": {
+            "better": 31,
+            "equal": 1
+          },
+          "change_percent": -27.16292340672024,
+          "floor_regressions": 0,
+          "mean_actual": 0.008793279645759019
+        },
+        "structural": {
+          "accepted_seats": 53,
+          "actual_directions": {
+            "better": 30,
+            "equal": 1,
+            "worse": 1
+          },
+          "change_percent": -23.549386362917275,
+          "floor_regressions": 0,
+          "mean_actual": 0.009229525074909047
+        }
+      },
+      "raw_actual": 0.009133265289031951,
+      "raw_directions": {
+        "better": 28,
+        "worse": 4
+      }
+    }
+  },
+  "pilot": {
+    "10": {
+      "baseline_actual": 0.022517919792112175,
+      "cases": 16,
+      "changed_seats": 31,
+      "damaged_seats": 2,
+      "damaged_seats_changing_optimum": 2,
+      "damaged_seats_with_costly_new_merge": 2,
+      "damaged_seats_with_free_old_merge": 2,
+      "gates": {
+        "floor": {
+          "accepted_seats": 28,
+          "actual_directions": {
+            "better": 15,
+            "equal": 1
+          },
+          "change_percent": -38.75609208287767,
+          "floor_regressions": 0,
+          "mean_actual": 0.013790854062332646
+        },
+        "security": {
+          "accepted_seats": 27,
+          "actual_directions": {
+            "better": 15,
+            "equal": 1
+          },
+          "change_percent": -38.824867162484196,
+          "floor_regressions": 0,
+          "mean_actual": 0.013775367345069886
+        },
+        "structural": {
+          "accepted_seats": 22,
+          "actual_directions": {
+            "better": 14,
+            "equal": 1,
+            "worse": 1
+          },
+          "change_percent": -22.13316755267003,
+          "floor_regressions": 0,
+          "mean_actual": 0.01753399087514814
+        }
+      },
+      "raw_actual": 0.013802496601210806,
+      "raw_directions": {
+        "better": 15,
+        "worse": 1
+      }
+    },
+    "5": {
+      "baseline_actual": 0.011856035079899017,
+      "cases": 16,
+      "changed_seats": 32,
+      "damaged_seats": 3,
+      "damaged_seats_changing_optimum": 3,
+      "damaged_seats_with_costly_new_merge": 3,
+      "damaged_seats_with_free_old_merge": 3,
+      "gates": {
+        "floor": {
+          "accepted_seats": 28,
+          "actual_directions": {
+            "better": 16
+          },
+          "change_percent": -40.31746136285185,
+          "floor_regressions": 0,
+          "mean_actual": 0.00707598271739457
+        },
+        "security": {
+          "accepted_seats": 28,
+          "actual_directions": {
+            "better": 16
+          },
+          "change_percent": -40.31746136285185,
+          "floor_regressions": 0,
+          "mean_actual": 0.00707598271739457
+        },
+        "structural": {
+          "accepted_seats": 25,
+          "actual_directions": {
+            "better": 15,
+            "equal": 1
+          },
+          "change_percent": -36.20190586579167,
+          "floor_regressions": 0,
+          "mean_actual": 0.007563924420858736
+        }
+      },
+      "raw_actual": 0.007603585629619791,
+      "raw_directions": {
+        "better": 13,
+        "worse": 3
+      }
+    }
+  }
+}

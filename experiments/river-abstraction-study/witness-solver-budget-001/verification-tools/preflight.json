@@ -1,0 +1,17 @@
+{
+  "existing_tests": {
+    "command": "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe -B -W error::ResourceWarning -m pytest tests/test_river_abstraction_study.py::PayoffTests -q -p no:cacheprovider",
+    "exit": 0,
+    "passed": 7,
+    "seconds": 0.33
+  },
+  "passed": true,
+  "provenance": "Executed in the author session before freeze; outputs retained in tool history.",
+  "python": "3.14.6",
+  "scored_rehearsal": false,
+  "synthetic": {
+    "checks": "scalar BR; pre-boundary policy; multiple crossed budgets; setup miss; equality",
+    "command": "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe -B -W error::ResourceWarning D:\\Pontius\\tmp\\witness-solver-budget-author/experiment.py self-test",
+    "exit": 0
+  }
+}

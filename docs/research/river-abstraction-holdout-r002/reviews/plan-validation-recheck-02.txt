@@ -1,0 +1,5 @@
+Exact r002 plan parse/schema/digest/source binding: PASS
+Python: 3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]
+NumPy: 2.5.2
+Population and schedule: 4 cases; 96 hands; 10000 iterations
+No execute_plan, verify_case, study_case or card evaluation called.

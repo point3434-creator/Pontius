@@ -1,0 +1,7 @@
+{
+  "base": "1b4d1a0e26cd4da90ff74678de2e48ef53ec5599",
+  "payoff_cfr_equity_clustering_and_features_byte_unchanged": true,
+  "hand_selection_and_range_weight_body_byte_unchanged": true,
+  "unchanged_kernel_prefix_sha256": "0fb06ce1a0db69abf3fbde3d051ea6b6b4647b4288a739b1861e423e9fb7dbe7",
+  "candidate_kernel_sha256": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b"
+}

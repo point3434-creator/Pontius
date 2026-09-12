@@ -1,0 +1,98 @@
+{
+  "actual_training_fitted": false,
+  "evaluation_boards": [
+    {
+      "board": [
+        1,
+        6,
+        9,
+        15,
+        46
+      ],
+      "cards": "2d 3h 4d 5s Kh",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        5,
+        9,
+        31,
+        35,
+        48
+      ],
+      "cards": "3d 4d 9s Ts Ac",
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        11,
+        14,
+        31,
+        39,
+        49
+      ],
+      "cards": "4s 5h 9s Js Ad",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        3,
+        26,
+        31,
+        41,
+        47
+      ],
+      "cards": "2s 8h 9s Qd Ks",
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        4,
+        34,
+        37,
+        39,
+        45
+      ],
+      "cards": "3c Th Jd Js Kd",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        29,
+        37,
+        38,
+        42,
+        49
+      ],
+      "cards": "9d Jd Jh Qh Ad",
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        14,
+        15,
+        28,
+        46,
+        47
+      ],
+      "cards": "5h 5s 9c Kh Ks",
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        18,
+        19,
+        38,
+        40,
+        41
+      ],
+      "cards": "6h 6s Jh Qc Qd",
+      "texture": "multiple-pairs-or-trips"
+    }
+  ],
+  "evaluation_cases": 48,
+  "lp_calls": 576,
+  "reserved_scores_evaluated": false,
+  "seed": "river-witness-distillation-001",
+  "training_boards": 8
+}

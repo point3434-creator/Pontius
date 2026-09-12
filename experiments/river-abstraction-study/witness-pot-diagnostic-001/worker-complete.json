@@ -1,0 +1,10 @@
+{
+  "cases": 60,
+  "checkpoints": 720,
+  "complete": true,
+  "lp_targets": 120,
+  "model_fits": 0,
+  "new_lp_calls": 96,
+  "oracle_group_pairs": 48,
+  "trajectories": 240
+}

@@ -1,0 +1,8 @@
+{
+  "cases": 16,
+  "fresh_boards": 8,
+  "inherited_algorithm_unchanged": true,
+  "lp_calls": 96,
+  "plan_sha256": "8c5b28d1a543744819234afafab9a9822e029e249758c531edd038974d7c784a",
+  "retained_invoked": false
+}

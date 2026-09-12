@@ -1,0 +1,19 @@
+{
+  "approval-template.txt": "00a9678f70291f6db163f24d1123c8f4460135df20191bbaed672f1074415108",
+  "checks/author-receipt.json": "b17ad4c501d309b6720e82121e7af277c0ea783424bdc257963e2285ae906bc8",
+  "checks/core-green.xml": "03224467fdf1a521f38834b3ce11ff170a93aabe8471add580d85d0f3e78861e",
+  "checks/core-red.xml": "1f1116820ca368f8ffd6632d4aa7b8f9c764085e3ce6d7047786a9b0313d660d",
+  "checks/lint.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+  "checks/tool-green.xml": "1218c5cb887b9c432b65e96ec4ee853c1086d26e6d3b2c7084baa0983a0465f7",
+  "checks/tool-red.xml": "3e7e91161f10ac3f71ccbeaa4bbc569da6d4dbc0f7224849d388e50c92e78974",
+  "checks/verified-tests.xml": "1e2d047a6524c0ec3181b4f5d48664ebbc92c300ff4bfd31f74386c46a662364",
+  "execution-request.md": "4e72b30ed79e16921ee9ab21258665c88c729256b5e39221ca85a8654527b3f5",
+  "handoff.md": "3a110c4f1ae7eb22e194267c602ea089a8a47f53d605b9324bb1a8bf89c4ea07",
+  "identity.json": "baa5a07f7a9eb705ed6366bd1ff618e6d68b92908e03c11abde72a7554fee2aa",
+  "plan.json": "535a3fa5b4d55d8bc6cc29763c63b5ab41f89cf0ea190bca90f9c00a5a8c9d2c",
+  "predecessor-metadata/.gitattributes": "117a4716b1fee6248b9f42642ccf78065cf9b8efbdffd5daeb9fb6c6867b49f6",
+  "predecessor-metadata/docs/research/README.md": "bb89a09e430ac8dfaa4d332fde31fac0217050b6e15b37995da44d3f24512be5",
+  "predecessor-metadata/tests/cases.json": "da76050985d5187879002eff3c9875ff0ee6fcc39588c9e7f777de354fde6b72",
+  "run-command.txt": "a44d58b18e918f544d4bee6c717400d08caef699303f4579a15771e461f31921",
+  "selection.json": "4a53d525c141a8332ab1599f59d0e168a9d65261ab4d5b116547fb43e023548f"
+}

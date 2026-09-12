@@ -1,0 +1,9 @@
+test_bettor_only_matches_retained_trainer (test_repair.RepairTests.test_bettor_only_matches_retained_trainer) ... ok
+test_gate_rejects_worse_and_accepts_tie (test_repair.RepairTests.test_gate_rejects_worse_and_accepts_tie) ... ok
+test_known_split_gain_and_capacity (test_repair.RepairTests.test_known_split_gain_and_capacity) ... ok
+test_merge_cost_can_cancel_split_gain (test_repair.RepairTests.test_merge_cost_can_cancel_split_gain) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.020s
+
+OK

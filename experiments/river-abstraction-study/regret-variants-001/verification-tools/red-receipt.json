@@ -1,0 +1,7 @@
+{
+  "command": "python.exe -B -W error::ResourceWarning -m unittest test_variants -v",
+  "python": "3.14.6",
+  "exit": 1,
+  "failure": "ModuleNotFoundError: No module named 'variants'",
+  "interpretation": "New implementation absent; analytic tests written before implementation."
+}

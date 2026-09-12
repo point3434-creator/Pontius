@@ -1,0 +1,21 @@
+{
+  "command": [
+    "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "-c",
+    "import sys,runpy; sys.path.insert(0,'D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages'); sys.path.insert(0,'D:\\\\Pontius\\\\tmp\\\\full-combo-direct-r002-author'); sys.argv=sys.argv[1:]; runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+    "D:\\Pontius\\tmp\\full-combo-direct-r002-author\\allocate.py"
+  ],
+  "exit": 1,
+  "observed_pid": 27880,
+  "os_peak_commit_bytes": 142016512,
+  "sampled_peak_private_bytes": 142008320,
+  "sampled_peak_working_set_bytes": 147365888,
+  "samples": 2,
+  "seconds": 0.08489060000283644,
+  "stop_reason": "sampled_private_memory_limit"
+}

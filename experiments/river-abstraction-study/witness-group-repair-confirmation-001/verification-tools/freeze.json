@@ -1,0 +1,13 @@
+{
+  "boards": 16,
+  "cases": 64,
+  "excluded_board_classes": 52,
+  "fitting_tasks": 0,
+  "hard_rss_cap": null,
+  "lp_calls": 256,
+  "phase_timeout_seconds": 900,
+  "pinned_files": 90,
+  "plan_sha256": "941ce0a4d1121cad0d2fdf43076c8871a08b79ef444b3a11547552ee13e42d31",
+  "retained_invoked": false,
+  "trajectories": 128
+}

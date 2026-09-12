@@ -1,0 +1,8 @@
+{
+  "context": "Reply to the explicit request for one execution of the reviewed bound 48-case pilot plan.",
+  "plan_path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\docs\\research\\river-witness-pilot-r001\\plan.json",
+  "plan_sha256": "535a3fa5b4d55d8bc6cc29763c63b5ab41f89cf0ea190bca90f9c00a5a8c9d2c",
+  "recorded_at_utc": "2026-09-11T12:17:35.799280+00:00",
+  "scope": "One 48-case pilot invocation only; no retry, commit, push or later experiment.",
+  "user_words_verbatim": "I approve"
+}

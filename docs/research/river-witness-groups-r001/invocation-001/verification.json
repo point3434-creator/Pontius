@@ -1,0 +1,17 @@
+{
+  "additional_lp_calls": 0,
+  "exact_case_comparisons": 16,
+  "exact_mean_comparisons": 4,
+  "limitation": "Independent scalar accumulation reuses reconstructed payoff matrices; not an independent card evaluator. Exact certificate rechecking uses the frozen kernel.",
+  "maximum_certificate_width_chips": 3.8289000896702505e-16,
+  "maximum_certificate_width_exact": "1988078590723856049/5192296858534827628530496329220096",
+  "maximum_feature_discrepancy_chips": 8.881784197001252e-15,
+  "maximum_value_discrepancy_chips": 1.1102230246251565e-16,
+  "passed": true,
+  "result_manifest_members": 10,
+  "result_manifest_sha256": "f59787e32d87e16c8955392a01e84aeffd2daa176fd175da17e7849d302bafab",
+  "scalar_asymmetric_certificates": 8,
+  "scalar_combined_policies": 4,
+  "scalar_feature_entries": 3072,
+  "verifier_sha256": "2e727a77d6578e686e856a6c43c7556ff61599fbc4793e21d2ce39d69db4c8a9"
+}

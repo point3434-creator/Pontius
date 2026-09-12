@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="8" time="1.365" timestamp="2026-09-11T07:57:32.243064-04:00" hostname="JeffPC"><testcase classname="tests.test_river_witness_pilot.PilotTests" name="test_board_level_aggregation_retains_pool_variation_and_missingness_fails" time="0.642" /><testcase classname="tests.test_river_witness_pilot.PilotTests" name="test_panel_has_eight_fresh_suit_classes_and_two_per_texture" time="0.008" /><testcase classname="tests.test_river_witness_pilot.PilotTests" name="test_texture_partition_and_invalid_cards" time="0.000" /><testcase classname="tests.test_river_witness_pilot.PilotTests" name="test_three_pool_draws_are_reproducible_legal_and_shared_between_regimes" time="0.012" /><testcase classname="tests.test_river_witness_pilot.PilotTests" name="test_two_hand_generation_certification_and_parent_validation" time="0.376" /><testcase classname="tests.test_river_witness_pilot.PilotToolTests" name="test_failure_timeout_missing_output_and_evidence_errors_never_succeed" time="0.001"><failure message="AssertionError: False is not true : bounded pilot driver is not implemented">self = &lt;test_river_witness_pilot.PilotToolTests testMethod=test_failure_timeout_missing_output_and_evidence_errors_never_succeed&gt;
+
+    def test_failure_timeout_missing_output_and_evidence_errors_never_succeed(self):
+&gt;       tool = self.tool()
+               ^^^^^^^^^^^
+
+tests\test_river_witness_pilot.py:192: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_pilot.py:131: in tool
+    self.assertTrue(path.exists(), 'bounded pilot driver is not implemented')
+E   AssertionError: False is not true : bounded pilot driver is not implemented</failure></testcase><testcase classname="tests.test_river_witness_pilot.PilotToolTests" name="test_full_plan_is_selection_only_and_refuses_changed_grid_sources_and_limits" time="0.000"><failure message="AssertionError: False is not true : bounded pilot driver is not implemented">self = &lt;test_river_witness_pilot.PilotToolTests testMethod=test_full_plan_is_selection_only_and_refuses_changed_grid_sources_and_limits&gt;
+
+    def test_full_plan_is_selection_only_and_refuses_changed_grid_sources_and_limits(self):
+&gt;       tool = self.tool()
+               ^^^^^^^^^^^
+
+tests\test_river_witness_pilot.py:143: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_pilot.py:131: in tool
+    self.assertTrue(path.exists(), 'bounded pilot driver is not implemented')
+E   AssertionError: False is not true : bounded pilot driver is not implemented</failure></testcase><testcase classname="tests.test_river_witness_pilot.PilotToolTests" name="test_real_two_hand_smoke_and_parent_rejection" time="0.000"><failure message="AssertionError: False is not true : bounded pilot driver is not implemented">self = &lt;test_river_witness_pilot.PilotToolTests testMethod=test_real_two_hand_smoke_and_parent_rejection&gt;
+
+    def test_real_two_hand_smoke_and_parent_rejection(self):
+&gt;       tool = self.tool()
+               ^^^^^^^^^^^
+
+tests\test_river_witness_pilot.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_pilot.py:131: in tool
+    self.assertTrue(path.exists(), 'bounded pilot driver is not implemented')
+E   AssertionError: False is not true : bounded pilot driver is not implemented</failure></testcase></testsuite></testsuites>

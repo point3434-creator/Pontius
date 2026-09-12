@@ -1,0 +1,10 @@
+{
+  "certificates": 1408,
+  "checkpoint_policies": 768,
+  "fit_tasks_reproduced": 18,
+  "maximum_scalar_discrepancy": 1.1102230246251565e-15,
+  "parent_lp_calls": 0,
+  "passed": true,
+  "replayed_iterations": 12800000,
+  "training_evaluation_disjoint": true
+}

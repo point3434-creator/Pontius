@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="0.105" timestamp="2026-09-11T09:01:04.740550-04:00" hostname="JeffPC"><testcase classname=".AccountingTests" name="test_approval_must_bind_plan_and_recorder" time="0.001"><failure message="AssertionError: False is not true : bound outer timing recorder is not implemented">self = &lt;test_accounting.AccountingTests testMethod=test_approval_must_bind_plan_and_recorder&gt;
+
+    def test_approval_must_bind_plan_and_recorder(self):
+&gt;       m = self.module()
+            ^^^^^^^^^^^^^
+
+tmp\witness-distill-author\test_accounting.py:55: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tmp\witness-distill-author\test_accounting.py:15: in module
+    self.assertTrue(path.exists(),'bound outer timing recorder is not implemented')
+E   AssertionError: False is not true : bound outer timing recorder is not implemented</failure></testcase><testcase classname=".AccountingTests" name="test_child_failure_and_evidence_write_error_do_not_become_success" time="0.000"><failure message="AssertionError: False is not true : bound outer timing recorder is not implemented">self = &lt;test_accounting.AccountingTests testMethod=test_child_failure_and_evidence_write_error_do_not_become_success&gt;
+
+    def test_child_failure_and_evidence_write_error_do_not_become_success(self):
+&gt;       m = self.module()
+            ^^^^^^^^^^^^^
+
+tmp\witness-distill-author\test_accounting.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tmp\witness-distill-author\test_accounting.py:15: in module
+    self.assertTrue(path.exists(),'bound outer timing recorder is not implemented')
+E   AssertionError: False is not true : bound outer timing recorder is not implemented</failure></testcase><testcase classname=".AccountingTests" name="test_retained_duration_includes_phase_after_worker_and_binds_command" time="0.000"><failure message="AssertionError: False is not true : bound outer timing recorder is not implemented">self = &lt;test_accounting.AccountingTests testMethod=test_retained_duration_includes_phase_after_worker_and_binds_command&gt;
+
+    def test_retained_duration_includes_phase_after_worker_and_binds_command(self):
+&gt;       m = self.module()
+            ^^^^^^^^^^^^^
+
+tmp\witness-distill-author\test_accounting.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tmp\witness-distill-author\test_accounting.py:15: in module
+    self.assertTrue(path.exists(),'bound outer timing recorder is not implemented')
+E   AssertionError: False is not true : bound outer timing recorder is not implemented</failure></testcase></testsuite></testsuites>

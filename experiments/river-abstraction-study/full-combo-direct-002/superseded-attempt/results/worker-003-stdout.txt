@@ -1,0 +1,2 @@
+case 3 compressed completed
+case 3 full completed

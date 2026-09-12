@@ -1,0 +1,18 @@
+{
+  "binding": {
+    "purpose": "inert same-reviewer F1 follow-up; not research authorization",
+    "test_identity": "late-parent-phase-v1"
+  },
+  "boundary": "Immediately before subprocess.run through its return: includes command startup, worker, parent refit/verification, summary and manifest writes, and exit; excludes recorder preflight and writing this outer receipt.",
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "-c",
+    "import sys; print('failure retained',file=sys.stderr); sys.exit(7)"
+  ],
+  "ended_at_utc": "2026-09-11T13:06:08.182779+00:00",
+  "exit": 7,
+  "whole_command_seconds": 0.0669237999827601
+}

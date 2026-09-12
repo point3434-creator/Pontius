@@ -1,0 +1,199 @@
+{
+  "candidate_method_cases": 1,
+  "cases": [
+    {
+      "case": "smoke",
+      "comparisons": {
+        "exact": {
+          "classification": "overlapping",
+          "lower_chips_approx": -6.938893903907228e-17,
+          "lower_exact": "-5/72057594037927936",
+          "upper_chips_approx": 6.938893903907228e-17,
+          "upper_exact": "5/72057594037927936"
+        },
+        "range_equity": {
+          "classification": "overlapping",
+          "lower_chips_approx": -6.938893903907228e-17,
+          "lower_exact": "-5/72057594037927936",
+          "upper_chips_approx": 6.938893903907228e-17,
+          "upper_exact": "5/72057594037927936"
+        },
+        "range_response": {
+          "classification": "overlapping",
+          "lower_chips_approx": -6.938893903907228e-17,
+          "lower_exact": "-5/72057594037927936",
+          "upper_chips_approx": 6.938893903907228e-17,
+          "upper_exact": "5/72057594037927936"
+        },
+        "uniform_equity_200": {
+          "classification": "overlapping",
+          "lower_chips_approx": -6.938893903907228e-17,
+          "lower_exact": "-5/72057594037927936",
+          "upper_chips_approx": 6.938893903907228e-17,
+          "upper_exact": "5/72057594037927936"
+        }
+      },
+      "proposal": {
+        "bank_methods": [
+          "exact",
+          "uniform_equity_200",
+          "range_equity",
+          "range_response"
+        ],
+        "features": [
+          [
+            [
+              -8.881784197001252e-16,
+              -8.881784197001252e-16,
+              -8.881784197001252e-16,
+              -8.881784197001252e-16
+            ],
+            [
+              1.666666666666667,
+              1.666666666666667,
+              1.666666666666667,
+              1.666666666666667
+            ]
+          ],
+          [
+            [
+              -3.333333333333333,
+              -3.333333333333333,
+              -3.333333333333333,
+              -3.333333333333333
+            ],
+            [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          ]
+        ],
+        "groups": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "marginals": [
+          [
+            0.5,
+            0.5
+          ],
+          [
+            0.5,
+            0.5
+          ]
+        ],
+        "method": "witness_advantage"
+      },
+      "solution": {
+        "minimum_exploitability": {
+          "lower_chips_approx": 0.0,
+          "lower_exact": "0",
+          "upper_chips_approx": 6.938893903907228e-17,
+          "upper_exact": "5/72057594037927936"
+        },
+        "seat0": {
+          "bet": [
+            0.3333333333333333,
+            1.0
+          ],
+          "call": [
+            0.0,
+            0.6666666666666667
+          ],
+          "gap_exact": "5/36028797018963968",
+          "lp_iterations": 3,
+          "value": {
+            "lower_chips_approx": 3.3333333333333335,
+            "lower_exact": "120095990063213225/36028797018963968",
+            "upper_chips_approx": 3.3333333333333335,
+            "upper_exact": "60047995031606615/18014398509481984"
+          }
+        },
+        "seat1": {
+          "bet": [
+            0.3333333333333333,
+            1.0
+          ],
+          "call": [
+            0.0,
+            0.6666666666666666
+          ],
+          "gap_exact": "5/36028797018963968",
+          "lp_iterations": 1,
+          "value": {
+            "lower_chips_approx": 3.3333333333333335,
+            "lower_exact": "120095990063213225/36028797018963968",
+            "upper_chips_approx": 3.3333333333333335,
+            "upper_exact": "60047995031606615/18014398509481984"
+          }
+        }
+      }
+    }
+  ],
+  "cohort": "smoke",
+  "comparisons": {
+    "exact": {
+      "case_counts": {
+        "higher": 0,
+        "lower": 0,
+        "overlapping": 1
+      },
+      "lower_chips_approx": -6.938893903907228e-17,
+      "lower_exact": "-5/72057594037927936",
+      "upper_chips_approx": 6.938893903907228e-17,
+      "upper_exact": "5/72057594037927936"
+    },
+    "range_equity": {
+      "case_counts": {
+        "higher": 0,
+        "lower": 0,
+        "overlapping": 1
+      },
+      "lower_chips_approx": -6.938893903907228e-17,
+      "lower_exact": "-5/72057594037927936",
+      "upper_chips_approx": 6.938893903907228e-17,
+      "upper_exact": "5/72057594037927936"
+    },
+    "range_response": {
+      "case_counts": {
+        "higher": 0,
+        "lower": 0,
+        "overlapping": 1
+      },
+      "lower_chips_approx": -6.938893903907228e-17,
+      "lower_exact": "-5/72057594037927936",
+      "upper_chips_approx": 6.938893903907228e-17,
+      "upper_exact": "5/72057594037927936"
+    },
+    "uniform_equity_200": {
+      "case_counts": {
+        "higher": 0,
+        "lower": 0,
+        "overlapping": 1
+      },
+      "lower_chips_approx": -6.938893903907228e-17,
+      "lower_exact": "-5/72057594037927936",
+      "upper_chips_approx": 6.938893903907228e-17,
+      "upper_exact": "5/72057594037927936"
+    }
+  },
+  "complete": true,
+  "interpretation": "Oracle-assisted development screen at matched group capacity; prior witness construction cost excluded; no fresh holdout or strength claim.",
+  "lp_calls_planned": 2,
+  "minimum_exploitability": {
+    "lower_chips_approx": 0.0,
+    "lower_exact": "0",
+    "upper_chips_approx": 6.938893903907228e-17,
+    "upper_exact": "5/72057594037927936"
+  },
+  "primary_control": "range_equity",
+  "secondary_control": "range_response"
+}

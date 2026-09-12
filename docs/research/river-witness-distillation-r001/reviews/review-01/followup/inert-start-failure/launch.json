@@ -1,0 +1,11 @@
+{
+  "binding": {
+    "purpose": "inert same-reviewer F1 follow-up; not research authorization",
+    "test_identity": "late-parent-phase-v1"
+  },
+  "command": [
+    "D:\\Pontius\\tmp\\witness-distill-review-01\\followup\\absent-inert-executable.exe"
+  ],
+  "cwd": "D:\\Pontius\\tmp\\witness-distill-review-01\\followup",
+  "recorded_at_utc": "2026-09-11T13:06:08.187428+00:00"
+}

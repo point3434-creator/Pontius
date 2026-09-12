@@ -1,0 +1,9 @@
+{
+  "case_bet_cells": 288,
+  "complete": true,
+  "model_fits": 0,
+  "new_cfr_trajectories": 576,
+  "new_lp_calls": 1152,
+  "new_policy_checkpoints": 1728,
+  "reused_policy_checkpoints": 864
+}

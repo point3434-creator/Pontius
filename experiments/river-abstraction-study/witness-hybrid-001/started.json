@@ -1,0 +1,10 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "D:\\Pontius\\tmp\\witness-hybrid-author\\experiment.py",
+    "worker",
+    "D:\\Pontius\\tmp\\witness-hybrid-author\\plan.json"
+  ],
+  "plan_sha256": "1c6427451920593ebb458e724e4a5e82e0df6b3cd17db46cee5d9bacfa056bed"
+}

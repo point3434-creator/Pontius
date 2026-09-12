@@ -1,0 +1,10 @@
+{
+  "case": 3,
+  "coefficients": 3505683,
+  "floor_status": "certified",
+  "full_status": "not_certified",
+  "literal_settlements": 15,
+  "new_lp_calls": 0,
+  "passed": true,
+  "replayed_updates": 50000
+}

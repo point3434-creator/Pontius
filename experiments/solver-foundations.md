@@ -1,6 +1,6 @@
 # Solver updates, multiplayer controls, and leaf sensitivity
 
-[Results index](RESULTS.md) · Consolidated 2026-09-08 · Historical exact-game evidence
+[Results index](RESULTS.md) · Updated 2026-09-12 · Historical controls and retained river research
 
 **Conclusion:** these experiments established useful solver controls and exposed
 why a locally converged search can worsen a strong blueprint. They did not
@@ -9,7 +9,7 @@ rankings changed with game, iteration budget, anchoring, and leaf error. The
 durable lesson is to evaluate the resulting policy in the original game, retain
 an exact-leaf control, and measure where approximation error occurs.
 
-This page covers EXP-0001–0007, recorded on August 18–19, 2026. Their favorable
+The historical section covers EXP-0001–0007, recorded on August 18–19, 2026. Their favorable
 anchoring results were exploratory controls; later held-out selection and
 resolving results belong in [Safe search](safe-search.md). This consolidation
 reads retained reports and configurations; it does not rerun the experiments.
@@ -21,6 +21,79 @@ iteration policies, while *current policy* is the final iterate. *Counterfactual
 reach* excludes the evaluated player's own action probabilities, retaining
 chance and opponents' reach. *Δ NashConv* below means change from the blueprint
 unless an exact-control comparison is explicitly named; negative is better.
+
+## River representation and solver findings through 2026-09-12
+
+The recent chain contains 35 retained milestones, from development-001 through
+full-combo-direct-002. The [complete experiment index](../docs/research/README.md)
+links the individual reports, frozen designs, and raw evidence. These results extend
+the older solver controls below; they do not replace their different populations.
+
+**Current conclusion:** learned hand groups can preserve strategically useful information,
+and exact acceptance checks can protect local repairs. However, direct full-hand LP solving
+is now the better reference operating point on the four tested restricted river games.
+Do not add more repair variants to that family before testing a larger action tree.
+
+| Question | Finding and retained evidence | What it supports, and what it does not |
+|---|---|---|
+| Does strategically informed grouping transfer? | The first [holdout](../docs/research/river-abstraction-holdout-001.md) reduced mean exploitability 15.39% versus uniform-equity bins, but only 2.17% versus range-equity groups; both comparisons won three cases and lost one. | The development gain of 49.19% shrank materially. Board and range dependence must remain visible. |
+| Is remaining error caused by training or grouping? | [Certified grouping floors](../docs/research/river-group-optimality-001.md) separate representational restrictions from the policy's remaining gap across eight cases and 96 saved profiles. | More iterations cannot remove a certified fixed-group floor. This is a useful diagnostic independent of which grouping wins. |
+| Can a learned target preserve useful decisions? | Frozen ordinary action-preference models [confirmed](../docs/research/river-witness-preference-confirmation-001.md) a 23.32% lower mean grouping floor versus range-response on 16 new boards / 96 cases; 15 board means improved and one worsened. | Directional and declared sensitivity criteria passed. These are restricted-game comparisons, not a neural-versus-tabular bot-strength result or a statistical confidence level. |
+| Did more elaborate features consistently help? | [Clipped targets](../docs/research/river-witness-clipped-target-001.md) repaired severe cases while worsening most others. [Ordinal targets](../docs/research/river-witness-ordinal-001.md) failed the practical replacement criteria. [Soft assignment](../docs/research/river-witness-soft-assignment-001.md) failed both primary support criteria. | Preserve these non-improvements. Better fit or richer features alone do not establish a better resulting strategy. |
+| Can a local regrouping repair beat continued training? | The [size-aware repair confirmation](../docs/research/river-multibet-size-confirmation-001.md) accepted 13 of 16 candidates, rejected three, and lowered mean error 8.83% versus continuation at about 13% more compute. | A fixed-capacity bettor split/merge with a fixed caller and an exact security gate earned a [frozen research baseline](../docs/research/river-multibet-size-repair-baseline.md). It is not a general multiplayer safety theorem. |
+| Do alternative update recipes improve this learner? | [Regret variants](../docs/research/river-regret-variants-001.md) compared plain regret matching, regret matching plus, and discounting on the same 16 cases. At 50,000 updates, plain matching had the lowest mean residual and error; targets passed 16/16, 12/16, and 14/16 respectively. | The two alternatives did not earn fresh confirmation. These are fixed-game best-response learner adaptations, not a universal ranking of CFR algorithms. |
+| Does repair survive reached ranges? | [Public-range transfer](../docs/research/river-blueprint-range-transfer-001.md) used four reached river states and all 1,081 holdings per role. Repair beat continuation in all four normalized games, with a 19.43% mean reduction; one case contributed about 89.74% of total gain. | A useful pilot, heavily concentrated and based on an early fallback-heavy blueprint. Changing range source and hand-pool size together prevents a clean causal attribution. |
+| Does the actual stack preserve the repair opportunity? | [Actual-stack transfer](../docs/research/river-stack-transfer-001.md) found that half-pot and pot-sized bets both collapse to all-in in three of four states. The sole distinct-size case improved about 2.10%. | Three cases are structurally inapplicable to size repair, not failed repairs or excluded inconvenient outcomes. Do not pool only the eligible case into a full-population claim. |
+| Is compression necessary in these river games? | [Direct full-hand comparison](../docs/research/river-full-combo-direct-002.md) gave lower measured error and shorter measured solve time in all four cases than the existing 50,000-update K=16 learner. | This compares particular LP and iterative implementations, changing solver and representation together. It does not establish an inherent speed advantage of full representation. |
+
+### Latest full-hand detail and numerical boundary
+
+Each case represents all 1,081 holdings per player and 1,070,190 collision-free ordered
+deals. Check ends at showdown; a bet permits only fold or call. Three cases have one
+all-in size; one has sizes 14 and 29. There are no subsequent bets or raises.
+
+| Situation | K=16 error | Full-hand error | Strict full-hand threshold | Grouped time s | Full time s |
+|---|---:|---:|---|---:|---:|
+| 1 | 0.005186013919 | 4.9555902445e-9 | Pass | 5.412 | 1.373 |
+| 2 | 0.015486020143 | 1.3708768849e-7 | Miss | 7.596 | 4.604 |
+| 3 | 0.001701045209 | 4.4643936436e-9 | Pass | 5.572 | 1.481 |
+| 4 | 0.003740553750 | 2.1649312889e-8 | Miss | 5.601 | 1.387 |
+
+Error is half the unrestricted-response gap, with payoffs normalized by 10/actual pot.
+Strict acceptance requires gap <= 1e-8, hence error <= 5e-9. All four LP pairs returned
+numerical success; only two passed that exact threshold. The other errors were recovered
+from retained vectors without another solve or a relaxed threshold. See the
+[post-run assessment and four per-hand CSVs](../experiments/river-abstraction-study/full-combo-direct-002/assessment.md).
+Exact rational bounds concern the stored binary64 payoff matrix.
+
+Times include each arm's solve and final scoring/certification, exclude shared preparation
+(0.372-0.536 s) and grouping-floor diagnostics, and have one observation per case.
+Whole-worker OS peak commit was 1,106-2,220 MiB, including both arms and diagnostic LPs;
+it cannot be assigned exclusively to either solver. The first attempt observed the
+Windows launcher rather than its worker, invalidating its memory figures and stop claims.
+Its bytes remain under superseded-attempt/. The corrected run checked the executing PID
+and observed a 128 MiB allocation. Its 50 ms sampled memory stop is not a hard cap.
+
+### What to retain, pause, and test next
+
+- Retain certified grouping floors, full-hand best-response scoring, per-role acceptance
+  gates, and matched continuation controls as reusable research tools.
+- Keep the successful learned grouping and size repair as frozen comparison baselines.
+  Pause incremental target/repair tuning on this restricted family.
+- Resolve the two strict numerical misses before treating all four direct solves as
+  certified references. Preserve the failed thresholds and current raw vectors.
+- Then measure the smallest larger river tree that includes play after a check and
+  a raise response, using actual pots/stacks and complete setup/solve/scoring cost.
+  Establish where full solving becomes expensive before choosing compression or a network.
+
+All 35 milestones remain separate records, including failures and corrections. They
+are not 35 independent replications: many diagnostics reuse observed panels. Finite-game
+enumeration removes match-sampling variance within each declared game; it does not remove
+uncertainty from board selection, range modeling, or transfer to another betting tree.
+Reached ranges are factorized and fallback-heavy; folded-player cards are not jointly
+marginalized. No result here establishes six-max playing strength or a live-clock resolver.
+Python 3.14.6 was used for this research chain. No retained research was rerun for this
+consolidation, and publication does not authorize another invocation or policy adoption.
 
 ## Which results support those conclusions?
 

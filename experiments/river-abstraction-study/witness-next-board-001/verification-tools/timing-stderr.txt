@@ -1,0 +1,10 @@
+test_before_core_crossing_and_after_total_crossing (test_timing.TimingTests.test_before_core_crossing_and_after_total_crossing) ... ok
+test_budget_includes_fresh_witness_proposal_setup_and_gate (test_timing.TimingTests.test_budget_includes_fresh_witness_proposal_setup_and_gate) ... ok
+test_invalid_budget_order_fails (test_timing.TimingTests.test_invalid_budget_order_fails) ... ok
+test_iteration_cap_fails_instead_of_returning_partial_result (test_timing.TimingTests.test_iteration_cap_fails_instead_of_returning_partial_result) ... ok
+test_zero_extra_updates_if_first_block_crosses_core_budget (test_timing.TimingTests.test_zero_extra_updates_if_first_block_crosses_core_budget) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK

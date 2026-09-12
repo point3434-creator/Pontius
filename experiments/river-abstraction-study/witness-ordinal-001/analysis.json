@@ -1,0 +1,446 @@
+{
+  "10": {
+    "actual_reductions_percent": {
+      "ordinary_preference": -16.219182388209173,
+      "range_response": 16.102722058264774,
+      "sign_conditioned": 1.1621014980240782
+    },
+    "board_counts": {
+      "ordinary_preference": {
+        "higher": 6,
+        "lower": 2
+      },
+      "range_response": {
+        "higher": 2,
+        "lower": 6
+      },
+      "sign_conditioned": {
+        "higher": 3,
+        "lower": 4,
+        "overlapping": 1
+      }
+    },
+    "failures": [
+      {
+        "actual_delta": 0.00012386354216687052,
+        "category": "textures",
+        "floor_delta": 7.676884561565879e-05,
+        "label": "multiple-pairs-or-trips",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.0006683010973622481,
+        "category": "textures",
+        "floor_delta": 0.0006326064498179581,
+        "label": "multiple-pairs-or-trips",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0006426710426172197,
+        "category": "textures",
+        "floor_delta": 0.0006641602503447081,
+        "label": "one-pair",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0006901030424332905,
+        "category": "textures",
+        "floor_delta": 0.0007049372199510564,
+        "label": "one-pair",
+        "reference": "range_response"
+      },
+      {
+        "actual_delta": 0.0025868260682570237,
+        "category": "textures",
+        "floor_delta": 0.0026677815755455593,
+        "label": "unpaired-no-flush",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.001183547074288152,
+        "category": "regimes",
+        "floor_delta": 0.0012159270283479333,
+        "label": "polarized",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0003699606325050452,
+        "category": "regimes",
+        "floor_delta": 0.0003668683428857739,
+        "label": "uniform",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.0006245016547544243,
+        "category": "regimes",
+        "floor_delta": 0.0006272752767656884,
+        "label": "uniform",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0002900307073456259,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0002861180714857372,
+        "label": "0",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0010372175349153117,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0010581755413453847,
+        "label": "1",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0009498876153141654,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0009683771239224036,
+        "label": "2",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0011969397179205901,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0012176094149163018,
+        "label": "3",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0009315920387768311,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.000948863261979518,
+        "label": "4",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0009511290679526219,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0009678935866232757,
+        "label": "5",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0009654819688920731,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0009950246725317176,
+        "label": "6",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 5.193476324816632e-05,
+        "category": "leave_one_board_out",
+        "floor_delta": 4.0685123115325004e-05,
+        "label": "7",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.0009099162650530861,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0009307475476501477,
+        "label": "7",
+        "reference": "ordinary_preference"
+      }
+    ],
+    "floor_reductions_percent": {
+      "ordinary_preference": -17.042974084644495,
+      "range_response": 16.3787148753601,
+      "sign_conditioned": 1.3850409615409474
+    },
+    "omit_board_counts": {
+      "ordinary_preference": {
+        "higher": 8
+      },
+      "range_response": {
+        "lower": 8
+      },
+      "sign_conditioned": {
+        "higher": 1,
+        "lower": 7
+      }
+    },
+    "posthoc_seat_contributions": {
+      "ordinary_preference": {
+        "bettor": {
+          "lower_exact": "8118682777507206210364117585856059324335507963/23384026197294446691258957323460528314494920687616",
+          "upper_exact": "8118682777513027705349106073252267551791920645/23384026197294446691258957323460528314494920687616"
+        },
+        "caller": {
+          "lower_exact": "12509583232303582401177377216439922201/21778071482940061661655974875633165533184",
+          "upper_exact": "97731119002395654136039469650708247/170141183460469231731687303715884105728"
+        },
+        "closure_error": 1.0842021724855044e-19
+      },
+      "range_response": {
+        "bettor": {
+          "lower_exact": "-26880573078840199159748245623307882801438537221/23384026197294446691258957323460528314494920687616",
+          "upper_exact": "-13440286539417392276632406659087003703481132251/11692013098647223345629478661730264157247460343808"
+        },
+        "caller": {
+          "lower_exact": "-1963129139470944282892127736635887719/21778071482940061661655974875633165533184",
+          "upper_exact": "-3834236600523331608354249203239923/42535295865117307932921825928971026432"
+        },
+        "closure_error": 0.0
+      },
+      "sign_conditioned": {
+        "bettor": {
+          "lower_exact": "133108334506595087006265509603942314638690811/23384026197294446691258957323460528314494920687616",
+          "upper_exact": "133108334510915432987876605972075469087847941/23384026197294446691258957323460528314494920687616"
+        },
+        "caller": {
+          "lower_exact": "-2059863642460904851856475228698870119/21778071482940061661655974875633165533184",
+          "upper_exact": "-4423523489287974825884878418261975479001728981/46768052394588893382517914646921056628989841375232"
+        },
+        "closure_error": 0.0
+      }
+    }
+  },
+  "5": {
+    "actual_reductions_percent": {
+      "ordinary_preference": -4.620736116905721,
+      "range_response": 9.691864112354718,
+      "sign_conditioned": -9.476720174734522
+    },
+    "board_counts": {
+      "ordinary_preference": {
+        "higher": 5,
+        "lower": 3
+      },
+      "range_response": {
+        "higher": 1,
+        "lower": 7
+      },
+      "sign_conditioned": {
+        "higher": 5,
+        "lower": 3
+      }
+    },
+    "failures": [
+      {
+        "actual_delta": 0.0009212027891396506,
+        "category": "textures",
+        "floor_delta": 0.0009154028175746629,
+        "label": "multiple-pairs-or-trips",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.0008572057711314102,
+        "category": "textures",
+        "floor_delta": 0.0008653585355339039,
+        "label": "multiple-pairs-or-trips",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 9.499067501933349e-05,
+        "category": "textures",
+        "floor_delta": 9.793664264277765e-05,
+        "label": "one-pair",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.00012015666245277987,
+        "category": "textures",
+        "floor_delta": 0.00013022588270632203,
+        "label": "one-pair",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 1.3080101433190355e-05,
+        "category": "textures",
+        "floor_delta": 1.779771629066519e-05,
+        "label": "one-pair",
+        "reference": "range_response"
+      },
+      {
+        "actual_delta": 0.0011309344011457157,
+        "category": "textures",
+        "floor_delta": 0.0011281210339004306,
+        "label": "unpaired-no-flush",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.00036561940767377253,
+        "category": "regimes",
+        "floor_delta": 0.0003615571111782966,
+        "label": "polarized",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.00041803143139970407,
+        "category": "regimes",
+        "floor_delta": 0.0004163249499202582,
+        "label": "uniform",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.0005651295541354573,
+        "category": "regimes",
+        "floor_delta": 0.0005683259876659792,
+        "label": "uniform",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.00023246306463261483,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.00022901170521124673,
+        "label": "0",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.0003733300448209754,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0003770372033939372,
+        "label": "0",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0003400137796954397,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.00033767606921555,
+        "label": "1",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 9.34566147714864e-05,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0001017767892230478,
+        "label": "1",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.00048804784215589154,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0004856072391768069,
+        "label": "2",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.00018739216003528042,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.00019296978616195108,
+        "label": "2",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0005732177416874379,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0005707426511989019,
+        "label": "3",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.0003104973009177898,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.00031739069477366413,
+        "label": "3",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.000501380476212389,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0004971286319349437,
+        "label": "4",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.00023921635934657276,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0002437488556930051,
+        "label": "4",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0003670802898660604,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.00036389753999403957,
+        "label": "5",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.00018340630630028478,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.00018885827099926,
+        "label": "5",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.00032487172858874713,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0003210912283147104,
+        "label": "6",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 0.00013583102446025025,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0001419962106912749,
+        "label": "6",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.00030752843345532594,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0003063731793480199,
+        "label": "7",
+        "reference": "sign_conditioned"
+      },
+      {
+        "actual_delta": 7.62061815641415e-05,
+        "category": "leave_one_board_out",
+        "floor_delta": 8.057301519310969e-05,
+        "label": "7",
+        "reference": "ordinary_preference"
+      }
+    ],
+    "floor_reductions_percent": {
+      "ordinary_preference": -4.860844411045638,
+      "range_response": 9.863879607817454,
+      "sign_conditioned": -9.614959614505013
+    },
+    "omit_board_counts": {
+      "ordinary_preference": {
+        "higher": 8
+      },
+      "range_response": {
+        "lower": 8
+      },
+      "sign_conditioned": {
+        "higher": 8
+      }
+    },
+    "posthoc_seat_contributions": {
+      "ordinary_preference": {
+        "bettor": {
+          "lower_exact": "1279144922757969855929221087188603/42535295865117307932921825928971026432",
+          "upper_exact": "5116579691053382003606926650925567/170141183460469231731687303715884105728"
+        },
+        "caller": {
+          "lower_exact": "14927447378339944921466989711705827/85070591730234615865843651857942052864",
+          "upper_exact": "14927447378346280357944338461431875/85070591730234615865843651857942052864"
+        },
+        "closure_error": 0.0
+      },
+      "range_response": {
+        "bettor": {
+          "lower_exact": "-19712717088090797449612810072837501/42535295865117307932921825928971026432",
+          "upper_exact": "-78850868352340681022078576663247361/170141183460469231731687303715884105728"
+        },
+        "caller": {
+          "lower_exact": "-463517674759718076975324524609597/21267647932558653966460912964485513216",
+          "upper_exact": "-1019286146153226915057600762691804601129372425/46768052394588893382517914646921056628989841375232"
+        },
+        "closure_error": 0.0
+      },
+      "sign_conditioned": {
+        "bettor": {
+          "lower_exact": "447544736204752095263168182465055/21267647932558653966460912964485513216",
+          "upper_exact": "3580357889657441647568923980901655/170141183460469231731687303715884105728"
+        },
+        "caller": {
+          "lower_exact": "125189058688672126708758400354442901/340282366920938463463374607431768211456",
+          "upper_exact": "31297264672172812618291735099769453/85070591730234615865843651857942052864"
+        },
+        "closure_error": 0.0
+      }
+    }
+  }
+}

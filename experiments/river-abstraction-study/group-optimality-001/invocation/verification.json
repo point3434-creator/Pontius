@@ -1,0 +1,19 @@
+{
+  "exact_aggregate_checks": 32,
+  "limitation": "Independent scalar accumulation reuses reconstructed PayoffGame matrices; not an independent card evaluator. The bound parent reverified exact rational certificates.",
+  "manifest_members": 14,
+  "max_scalar_discrepancy_chips": 2.185751579730777e-16,
+  "maximum_certificate_width_chips": 2.290964809802032e-15,
+  "maximum_certificate_width_exact": "185865146639827025/81129638414606681695789005144064",
+  "optimization_calls": 0,
+  "pass_": true,
+  "pinned_identity_members": 7,
+  "pinned_input_members": 32,
+  "pinned_source_members": 7,
+  "preserved_packet_members": 89,
+  "result_manifest_sha256": "f1eaccc4abc7edcad8b06c3fe3395b5e72b8e87abbc373cf693edff8752b3d6b",
+  "scalar_combined_policies": 32,
+  "scalar_saddle_pairs": 64,
+  "scalar_saved_profiles": 96,
+  "verification_script_sha256": "54b22f3e4c517ce7a1322e2b2f048ed9499c252d3b79276a9fb4415232e8cbef"
+}

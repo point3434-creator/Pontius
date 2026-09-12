@@ -1,0 +1,10 @@
+{
+  "cases": 64,
+  "fresh_boards": false,
+  "gate_calls": 128,
+  "new_lp_calls": 0,
+  "pinned_files": 206,
+  "plan_sha256": "b27e14569ef3f97ca7e036c12300894c6095930fb22d91186449d7b7056ed21d",
+  "retained_invoked": false,
+  "timed_trajectories": 64
+}

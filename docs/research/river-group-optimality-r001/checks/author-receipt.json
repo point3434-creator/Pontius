@@ -1,0 +1,28 @@
+{
+  "tests": 75,
+  "failures": 0,
+  "skips": 0,
+  "lint": "passed",
+  "diagnostic_saved_cases_optimized": false,
+  "output_exists": false,
+  "previous_holdout_computational_sources_unchanged": true,
+  "prior_metadata_preserved": {
+    ".gitattributes": "7f72e288100510e7ae6f8dfc2c079d65b88f357615a271a14309231f81f146f0",
+    "tests/cases.json": "2194f7af21d6e503a0514df7282fdddff1169e7761bbdc0fd056395635084bcf"
+  },
+  "source_identity_verified": true,
+  "plan_sha256": "de07461ea9364a4fb40d0bce72a506549bc30ac609761bb0bc57ff4600c3b11c",
+  "checks": {
+    "boundary-red.xml": "31d31d22daa8794a4e1e0fc790a68d0d0bd920cb0d376bf79dc67b70324f1742",
+    "final-tests.xml": "a7f6355cb09e1e440bcd3067ea4580fad46e0e9fc0af081199bfcd844a50a578",
+    "kernel-green.xml": "effeb55fe3fb99d29fe49e79dfbf163ccad87157266b5d389bbeb2e6b5f3c5ba",
+    "kernel-red.xml": "84c103652ff82fb9293f5a755c4918eac0c05b2e2d5765c93c9ff7decffa3496",
+    "tool-green.xml": "1efaddb01f68235e291b88dee8f6cdea38108c36e52caf4cdf87373dde67f94e",
+    "tool-red.xml": "541ab11989ee4ef15cec86794057c3a761fe3b6764bb8d1b2139b6586072d88e"
+  },
+  "limitations": [
+    "First test invocation used an existing environment without pytest; no tests ran there. The isolated pinned environment ran all listed tests.",
+    "The dense synthetic 96x96 solve cost 0.363 s in one tool-output-only observation. This is not a retained-case timing forecast.",
+    "Default test registry skips this optional suite without Python 3.14.6 and SciPy. The explicit research run above skipped zero tests."
+  ]
+}

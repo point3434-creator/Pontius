@@ -1,0 +1,7 @@
+{
+  "arithmetic": "Fraction from retained binary64, exact interval endpoints",
+  "case_bet_cells": 288,
+  "decision_flags_checked": 3,
+  "passed": true,
+  "summary_scalar_checks": 6266
+}

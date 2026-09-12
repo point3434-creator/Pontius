@@ -1,0 +1,193 @@
+{
+  "between_board_sd": {
+    "exact": 0.00125518213887198,
+    "range_equity": 0.0013813797309301273,
+    "range_response": 0.0014013375272357315,
+    "uniform_equity_200": 0.0024972574242763676
+  },
+  "boards": [
+    {
+      "board": [
+        10,
+        25,
+        34,
+        43,
+        45
+      ],
+      "candidate": 0.002289370194758717,
+      "delta_range_equity": -0.006695530880128389,
+      "delta_range_response": -0.005149819174273909,
+      "index": 0,
+      "pool_sd": 0.0009222111488983836,
+      "range_equity": 0.008984901074887107,
+      "range_response": 0.007439189369032625,
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        10,
+        22,
+        33,
+        37,
+        44
+      ],
+      "candidate": 0.0016387104596731618,
+      "delta_range_equity": -0.005362071403563505,
+      "delta_range_response": -0.00298765238207988,
+      "index": 1,
+      "pool_sd": 0.0022787153199729814,
+      "range_equity": 0.007000781863236666,
+      "range_response": 0.004626362841753042,
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "board": [
+        4,
+        13,
+        23,
+        31,
+        47
+      ],
+      "candidate": 0.0002420538034772975,
+      "delta_range_equity": -0.002738319822483426,
+      "delta_range_response": -0.0018300309270478901,
+      "index": 2,
+      "pool_sd": 0.0008156699841382842,
+      "range_equity": 0.0029803736259607235,
+      "range_response": 0.0020720847305251877,
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        1,
+        4,
+        28,
+        43,
+        48
+      ],
+      "candidate": 0.00033037427986537125,
+      "delta_range_equity": -0.0026799691916846342,
+      "delta_range_response": -0.0016084480236046234,
+      "index": 3,
+      "pool_sd": 0.0005237477756662905,
+      "range_equity": 0.003010343471550005,
+      "range_response": 0.0019388223034699946,
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "board": [
+        11,
+        26,
+        27,
+        30,
+        48
+      ],
+      "candidate": 0.002339730986876331,
+      "delta_range_equity": -0.0032244513581808506,
+      "delta_range_response": -0.0024615547606714277,
+      "index": 4,
+      "pool_sd": 0.0035446291641378466,
+      "range_equity": 0.005564182345057182,
+      "range_response": 0.004801285747547759,
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        10,
+        12,
+        15,
+        47,
+        49
+      ],
+      "candidate": 0.0032961133437039874,
+      "delta_range_equity": -0.0036354027300621572,
+      "delta_range_response": -0.0041025885902690575,
+      "index": 5,
+      "pool_sd": 0.0024090243737203984,
+      "range_equity": 0.006931516073766145,
+      "range_response": 0.0073987019339730445,
+      "texture": "one-pair"
+    },
+    {
+      "board": [
+        17,
+        18,
+        19,
+        20,
+        30
+      ],
+      "candidate": 0.0016489550540158388,
+      "delta_range_equity": -0.004310103881645948,
+      "delta_range_response": -0.0033767406905592314,
+      "index": 6,
+      "pool_sd": 0.0019890149164201146,
+      "range_equity": 0.005959058935661787,
+      "range_response": 0.00502569574457507,
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "board": [
+        6,
+        9,
+        10,
+        33,
+        35
+      ],
+      "candidate": 0.003745021374053472,
+      "delta_range_equity": -0.004479258103721269,
+      "delta_range_response": -0.005267254803287914,
+      "index": 7,
+      "pool_sd": 0.0015920698604424907,
+      "range_equity": 0.008224279477774741,
+      "range_response": 0.009012276177341386,
+      "texture": "multiple-pairs-or-trips"
+    }
+  ],
+  "counts": {
+    "exact": {
+      "higher": 41,
+      "lower": 0,
+      "overlapping": 7
+    },
+    "range_equity": {
+      "higher": 3,
+      "lower": 45,
+      "overlapping": 0
+    },
+    "range_response": {
+      "higher": 4,
+      "lower": 44,
+      "overlapping": 0
+    },
+    "uniform_equity_200": {
+      "higher": 1,
+      "lower": 47,
+      "overlapping": 0
+    }
+  },
+  "lobo_primary": [
+    -0.0037756537844773983,
+    -0.0039661479954152395,
+    -0.00434096964985525,
+    -0.0043493054542550775,
+    -0.0042715222876127616,
+    -0.004212814948772575,
+    -0.00411642906997489,
+    -0.004092264181106987
+  ],
+  "mean_floors": {
+    "exact": 4.1420840090505586e-17,
+    "range_equity": 0.006081929608486795,
+    "range_response": 0.005289302356027263,
+    "uniform_equity_200": 0.007981487322067044,
+    "witness_advantage": 0.001941291187053022
+  },
+  "reductions_percent": {
+    "exact": null,
+    "range_equity": 68.08099876157524,
+    "range_response": 63.29778378351008,
+    "uniform_equity_200": 75.67757601160649
+  },
+  "whole_invocation_seconds": 249.0768077999819,
+  "worker_seconds": 191.52423969999654
+}

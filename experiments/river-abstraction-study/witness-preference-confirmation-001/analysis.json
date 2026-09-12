@@ -1,0 +1,3347 @@
+{
+  "boards": {
+    "0": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.002212710980794582
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 1,
+            "lower": 5
+          },
+          "delta": -0.0021227638221067886
+        },
+        "range_response": {
+          "counts": {
+            "higher": 2,
+            "lower": 4
+          },
+          "delta": -0.0003812535359264166
+        }
+      },
+      "floors": {
+        "exact": 4.6254058782306913e-17,
+        "ordinary_preference": 0.0022127109807946284,
+        "range_equity": 0.004335474802901417,
+        "range_response": 0.002593964516721045
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "overlapping": 5
+            },
+            "delta": 4.1321221256978166e-06
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0022085788586689095
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.0012636010167978277
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0008591628053089608
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "lower": 4,
+              "overlapping": 2
+            },
+            "delta": -0.0006325907300246158
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": 0.0002513371940981991
+          }
+        }
+      }
+    },
+    "1": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.0038477713535581704
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 2,
+            "lower": 4
+          },
+          "delta": -0.0006829736074514189
+        },
+        "range_response": {
+          "counts": {
+            "higher": 2,
+            "lower": 4
+          },
+          "delta": -0.0008401680052525554
+        }
+      },
+      "floors": {
+        "exact": 3.974453785456002e-17,
+        "ordinary_preference": 0.0038477713535582103,
+        "range_equity": 0.004530744961009629,
+        "range_response": 0.004687939358810765
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0012012821252724776
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0026464892282857316
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.0001607649637545367
+          },
+          "caller": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": -0.0005222086436968823
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.0002197566867755524
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0006204113184770031
+          }
+        }
+      }
+    },
+    "10": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 5,
+            "overlapping": 1
+          },
+          "delta": 0.003615720300108669
+        },
+        "range_equity": {
+          "counts": {
+            "lower": 5,
+            "overlapping": 1
+          },
+          "delta": -0.002044419420120391
+        },
+        "range_response": {
+          "counts": {
+            "lower": 5,
+            "overlapping": 1
+          },
+          "delta": -0.0017994288772902281
+        }
+      },
+      "floors": {
+        "exact": 4.2288603602068154e-17,
+        "ordinary_preference": 0.003615720300108711,
+        "range_equity": 0.005660139720229102,
+        "range_response": 0.0054151491773989395
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 5,
+              "overlapping": 1
+            },
+            "delta": 0.0018277360089343038
+          },
+          "caller": {
+            "counts": {
+              "higher": 5,
+              "overlapping": 1
+            },
+            "delta": 0.001787984291174442
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.001270586941251982
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.0007738324788684091
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.001201140953785708
+          },
+          "caller": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.0005982879235045201
+          }
+        }
+      }
+    },
+    "11": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.006326067635653732
+        },
+        "range_equity": {
+          "counts": {
+            "lower": 6
+          },
+          "delta": -0.001608981537746677
+        },
+        "range_response": {
+          "counts": {
+            "higher": 4,
+            "lower": 2
+          },
+          "delta": 0.00027149804711370834
+        }
+      },
+      "floors": {
+        "exact": 4.6171284291632474e-17,
+        "ordinary_preference": 0.006326067635653778,
+        "range_equity": 0.007935049173400455,
+        "range_response": 0.00605456958854007
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0022196138485418558
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.004106453787111904
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.000941063460639052
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0006679180771076251
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0006461993683716757
+          },
+          "caller": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.000917697415485384
+          }
+        }
+      }
+    },
+    "12": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.007196952251025247
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 1,
+            "lower": 5
+          },
+          "delta": -0.0018368196221414705
+        },
+        "range_response": {
+          "counts": {
+            "higher": 2,
+            "lower": 4
+          },
+          "delta": -0.002701753272467387
+        }
+      },
+      "floors": {
+        "exact": 2.931263037682746e-17,
+        "ordinary_preference": 0.0071969522510252765,
+        "range_equity": 0.009033771873166747,
+        "range_response": 0.009898705523492663
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0026071447570782903
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.004589807493946982
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.0005828328803485578
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0012539867417929128
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.00043757606653209354
+          },
+          "caller": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0022641772059352936
+          }
+        }
+      }
+    },
+    "13": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.004935678751958931
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 1,
+            "lower": 5
+          },
+          "delta": -0.0011738748392642346
+        },
+        "range_response": {
+          "counts": {
+            "higher": 1,
+            "lower": 5
+          },
+          "delta": -0.001170285160117459
+        }
+      },
+      "floors": {
+        "exact": 5.417918053237737e-17,
+        "ordinary_preference": 0.004935678751958985,
+        "range_equity": 0.00610955359122322,
+        "range_response": 0.006105963912076445
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0030291454814171323
+          },
+          "caller": {
+            "counts": {
+              "higher": 5,
+              "overlapping": 1
+            },
+            "delta": 0.0019065332705418647
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.0005281349010432347
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0006457399382209998
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.00025339075377139885
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0009168944063460602
+          }
+        }
+      }
+    },
+    "14": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.006188254374390921
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 2,
+            "lower": 4
+          },
+          "delta": -0.0017363744517939885
+        },
+        "range_response": {
+          "counts": {
+            "higher": 2,
+            "lower": 4
+          },
+          "delta": -0.0018083703415061596
+        }
+      },
+      "floors": {
+        "exact": 4.93351619463721e-17,
+        "ordinary_preference": 0.00618825437439097,
+        "range_equity": 0.007924628826184959,
+        "range_response": 0.00799662471589713
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.001269188770290228
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.004919065604100723
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 2,
+              "overlapping": 1
+            },
+            "delta": 0.000127597204608558
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0018639716564025465
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.00011141847634219446
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0016969518651639651
+          }
+        }
+      }
+    },
+    "15": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.006177807539465192
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 1,
+            "lower": 5
+          },
+          "delta": -0.00032424532782187487
+        },
+        "range_response": {
+          "counts": {
+            "higher": 2,
+            "lower": 4
+          },
+          "delta": -0.0007644800693268146
+        }
+      },
+      "floors": {
+        "exact": 6.05298629557974e-17,
+        "ordinary_preference": 0.006177807539465252,
+        "range_equity": 0.006502052867287127,
+        "range_response": 0.006942287608792067
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.002568204928597539
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0036096026108676784
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.0010085086289729336
+          },
+          "caller": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.0013327539567948084
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 2,
+              "overlapping": 1
+            },
+            "delta": 0.001019465450476031
+          },
+          "caller": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0017839455198028456
+          }
+        }
+      }
+    },
+    "2": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.0017955887926780114
+        },
+        "range_equity": {
+          "counts": {
+            "lower": 6
+          },
+          "delta": -0.0014251061001837922
+        },
+        "range_response": {
+          "counts": {
+            "lower": 6
+          },
+          "delta": -0.0013174041470215728
+        }
+      },
+      "floors": {
+        "exact": 3.6181868784299955e-17,
+        "ordinary_preference": 0.0017955887926780476,
+        "range_equity": 0.0032206948928618397,
+        "range_response": 0.0031129929396996204
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "overlapping": 4
+            },
+            "delta": 0.00044804115764962723
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0013475476350284135
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "lower": 4,
+              "overlapping": 2
+            },
+            "delta": -0.00022242168529400982
+          },
+          "caller": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0012026844148897826
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 2,
+              "overlapping": 2
+            },
+            "delta": -4.1109645811564486e-05
+          },
+          "caller": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0012762945012100083
+          }
+        }
+      }
+    },
+    "3": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.0016134001464927921
+        },
+        "range_equity": {
+          "counts": {
+            "lower": 6
+          },
+          "delta": -0.0024221640429541724
+        },
+        "range_response": {
+          "counts": {
+            "higher": 1,
+            "lower": 5
+          },
+          "delta": -0.0007713458457375305
+        }
+      },
+      "floors": {
+        "exact": 4.3892412288163354e-17,
+        "ordinary_preference": 0.0016134001464928362,
+        "range_equity": 0.004035564189447009,
+        "range_response": 0.0023847459922303666
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "overlapping": 4
+            },
+            "delta": 0.00022036689541123387
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0013930332510815795
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.0007827938436780181
+          },
+          "caller": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0016393701992761544
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 3,
+              "overlapping": 2
+            },
+            "delta": -0.00011482472259458913
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0006565211231429413
+          }
+        }
+      }
+    },
+    "4": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.0006138910974543642
+        },
+        "range_equity": {
+          "counts": {
+            "lower": 6
+          },
+          "delta": -0.0021838692122889856
+        },
+        "range_response": {
+          "counts": {
+            "higher": 1,
+            "lower": 4,
+            "overlapping": 1
+          },
+          "delta": -0.0009069584227384894
+        }
+      },
+      "floors": {
+        "exact": 3.7799260249315726e-17,
+        "ordinary_preference": 0.000613891097454402,
+        "range_equity": 0.0027977603097433875,
+        "range_response": 0.0015208495201928915
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "overlapping": 6
+            },
+            "delta": 1.6852751510497216e-17
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0006138910974543833
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0009332559432075561
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0012506132690814295
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "lower": 3,
+              "overlapping": 3
+            },
+            "delta": -0.00024239539547937975
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.0006645630272591096
+          }
+        }
+      }
+    },
+    "5": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.001178080636445345
+        },
+        "range_equity": {
+          "counts": {
+            "lower": 6
+          },
+          "delta": -0.0018748333189717674
+        },
+        "range_response": {
+          "counts": {
+            "higher": 1,
+            "lower": 5
+          },
+          "delta": -0.0009758781601133038
+        }
+      },
+      "floors": {
+        "exact": 3.1160854014328657e-17,
+        "ordinary_preference": 0.001178080636445376,
+        "range_equity": 0.0030529139554171434,
+        "range_response": 0.0021539587965586798
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "overlapping": 6
+            },
+            "delta": 3.140206202308254e-17
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0011780806364453827
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.0010144849304132043
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0008603483885585632
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.0004865017723643862
+          },
+          "caller": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0004893763877489176
+          }
+        }
+      }
+    },
+    "6": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.0005268312050956721
+        },
+        "range_equity": {
+          "counts": {
+            "lower": 6
+          },
+          "delta": -0.0017851612475817905
+        },
+        "range_response": {
+          "counts": {
+            "higher": 1,
+            "lower": 4,
+            "overlapping": 1
+          },
+          "delta": -0.0007063151823811476
+        }
+      },
+      "floors": {
+        "exact": 2.0746302418596036e-17,
+        "ordinary_preference": 0.0005268312050956928,
+        "range_equity": 0.0023119924526774833,
+        "range_response": 0.0012331463874768404
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "overlapping": 5
+            },
+            "delta": 6.544416957893254e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.00046138703551675404
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "lower": 4,
+              "overlapping": 2
+            },
+            "delta": -0.0005656068038341737
+          },
+          "caller": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0012195544437476166
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "lower": 3,
+              "overlapping": 3
+            },
+            "delta": -0.0005643558868306083
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 3,
+              "overlapping": 1
+            },
+            "delta": -0.0001419592955505394
+          }
+        }
+      }
+    },
+    "7": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.0018289602250139963
+        },
+        "range_equity": {
+          "counts": {
+            "lower": 6
+          },
+          "delta": -0.002174797382388328
+        },
+        "range_response": {
+          "counts": {
+            "higher": 1,
+            "lower": 5
+          },
+          "delta": -0.00044373626083946084
+        }
+      },
+      "floors": {
+        "exact": 7.167139913936514e-17,
+        "ordinary_preference": 0.001828960225014068,
+        "range_equity": 0.004003757607402396,
+        "range_response": 0.0022726964858535287
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "overlapping": 4
+            },
+            "delta": 0.0005276919185904012
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0013012683064236438
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "lower": 4,
+              "overlapping": 2
+            },
+            "delta": -0.000953899675409953
+          },
+          "caller": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.001220897706978375
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 2,
+              "overlapping": 2
+            },
+            "delta": -0.00013108555675931733
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 3,
+              "overlapping": 1
+            },
+            "delta": -0.0003126507040801435
+          }
+        }
+      }
+    },
+    "8": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.004002114132294534
+        },
+        "range_equity": {
+          "counts": {
+            "lower": 6
+          },
+          "delta": -0.0020817785925962033
+        },
+        "range_response": {
+          "counts": {
+            "higher": 1,
+            "lower": 5
+          },
+          "delta": -0.0014561873471458668
+        }
+      },
+      "floors": {
+        "exact": 5.471381846098563e-17,
+        "ordinary_preference": 0.004002114132294589,
+        "range_equity": 0.006083892724890792,
+        "range_response": 0.005458301479440456
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 5,
+              "overlapping": 1
+            },
+            "delta": 0.00027307352831118894
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0037290406039833905
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0008903421565194374
+          },
+          "caller": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.001191436436076766
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "lower": 5,
+              "overlapping": 1
+            },
+            "delta": -0.0014732394355892796
+          },
+          "caller": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 1.7052088443412664e-05
+          }
+        }
+      }
+    },
+    "9": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.0013990329849140138
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 1,
+            "lower": 5
+          },
+          "delta": -0.001198112305181025
+        },
+        "range_response": {
+          "counts": {
+            "higher": 2,
+            "lower": 4
+          },
+          "delta": -0.00048365952068917564
+        }
+      },
+      "floors": {
+        "exact": 1.892353562419812e-17,
+        "ordinary_preference": 0.0013990329849140326,
+        "range_equity": 0.0025971452900950577,
+        "range_response": 0.0018826925056032082
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "overlapping": 4
+            },
+            "delta": 6.20975709313214e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0013369354139827119
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "lower": 4,
+              "overlapping": 2
+            },
+            "delta": -0.0005088245261253878
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0006892877790556374
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "lower": 3,
+              "overlapping": 3
+            },
+            "delta": -0.00024388464812575468
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.00023977487256342093
+          }
+        }
+      }
+    }
+  },
+  "directional_replication_pass": true,
+  "lobo": {
+    "0": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.0034164100951033062
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 8,
+            "lower": 81,
+            "overlapping": 1
+          },
+          "delta": -0.0016369007338990747
+        },
+        "range_response": {
+          "counts": {
+            "higher": 21,
+            "lower": 66,
+            "overlapping": 3
+          },
+          "delta": -0.0010582981710342296
+        }
+      },
+      "floors": {
+        "exact": 4.244338083592584e-17,
+        "ordinary_preference": 0.0034164100951033483,
+        "range_equity": 0.005053310829002423,
+        "range_response": 0.004474708266137578
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 55,
+              "overlapping": 35
+            },
+            "delta": 0.001087935410706972
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.002328474684396372
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 61,
+              "overlapping": 12
+            },
+            "delta": -0.0005479271251958408
+          },
+          "caller": {
+            "counts": {
+              "higher": 14,
+              "lower": 74,
+              "overlapping": 2
+            },
+            "delta": -0.001088973608703234
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 20,
+              "lower": 51,
+              "overlapping": 19
+            },
+            "delta": -0.0003431609279104981
+          },
+          "caller": {
+            "counts": {
+              "higher": 21,
+              "lower": 65,
+              "overlapping": 4
+            },
+            "delta": -0.0007151372431237315
+          }
+        }
+      }
+    },
+    "1": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.0033074060702524
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 7,
+            "lower": 82,
+            "overlapping": 1
+          },
+          "delta": -0.0017328867482094327
+        },
+        "range_response": {
+          "counts": {
+            "higher": 21,
+            "lower": 66,
+            "overlapping": 3
+          },
+          "delta": -0.0010277038730791537
+        }
+      },
+      "floors": {
+        "exact": 4.2877348897775634e-17,
+        "ordinary_preference": 0.003307406070252443,
+        "range_equity": 0.005040292818461876,
+        "range_response": 0.004335109943331597
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 50,
+              "overlapping": 40
+            },
+            "delta": 0.0010081254104971867
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.0022992806597552508
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 14,
+              "lower": 63,
+              "overlapping": 13
+            },
+            "delta": -0.0006214495287320601
+          },
+          "caller": {
+            "counts": {
+              "higher": 11,
+              "lower": 77,
+              "overlapping": 2
+            },
+            "delta": -0.0011114372194773725
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 52,
+              "overlapping": 21
+            },
+            "delta": -0.00037068319746043566
+          },
+          "caller": {
+            "counts": {
+              "higher": 21,
+              "lower": 65,
+              "overlapping": 4
+            },
+            "delta": -0.000657020675618718
+          }
+        }
+      }
+    },
+    "10": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 90
+          },
+          "delta": 0.003322876140482367
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 9,
+            "lower": 81
+          },
+          "delta": -0.0016421236940315012
+        },
+        "range_response": {
+          "counts": {
+            "higher": 23,
+            "lower": 65,
+            "overlapping": 2
+          },
+          "delta": -0.0009637531482766421
+        }
+      },
+      "floors": {
+        "exact": 4.2707744514608425e-17,
+        "ordinary_preference": 0.0033228761404824098,
+        "range_equity": 0.0049649998345139106,
+        "range_response": 0.0042866292887590515
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 51,
+              "overlapping": 39
+            },
+            "delta": 0.0009663618182530649
+          },
+          "caller": {
+            "counts": {
+              "higher": 89,
+              "overlapping": 1
+            },
+            "delta": 0.0023565143222293366
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 16,
+              "lower": 62,
+              "overlapping": 12
+            },
+            "delta": -0.0005474613968988972
+          },
+          "caller": {
+            "counts": {
+              "higher": 14,
+              "lower": 75,
+              "overlapping": 1
+            },
+            "delta": -0.001094662297132604
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 20,
+              "lower": 50,
+              "overlapping": 20
+            },
+            "delta": -0.0003052575796597586
+          },
+          "caller": {
+            "counts": {
+              "higher": 23,
+              "lower": 64,
+              "overlapping": 3
+            },
+            "delta": -0.0006584955686168835
+          }
+        }
+      }
+    },
+    "11": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.0031421863181126963
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 9,
+            "lower": 80,
+            "overlapping": 1
+          },
+          "delta": -0.0016711528861897487
+        },
+        "range_response": {
+          "counts": {
+            "higher": 19,
+            "lower": 68,
+            "overlapping": 3
+          },
+          "delta": -0.0011018149432369046
+        }
+      },
+      "floors": {
+        "exact": 4.244889913530413e-17,
+        "ordinary_preference": 0.0031421863181127383,
+        "range_equity": 0.004813339204302487,
+        "range_response": 0.004244001261349643
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 50,
+              "overlapping": 40
+            },
+            "delta": 0.0009402366289458948
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.0022019496891668394
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 60,
+              "overlapping": 13
+            },
+            "delta": -0.0005694296289397592
+          },
+          "caller": {
+            "counts": {
+              "higher": 13,
+              "lower": 75,
+              "overlapping": 2
+            },
+            "delta": -0.0011017232572499895
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 19,
+              "lower": 50,
+              "overlapping": 21
+            },
+            "delta": -0.0003422536853540274
+          },
+          "caller": {
+            "counts": {
+              "higher": 18,
+              "lower": 68,
+              "overlapping": 4
+            },
+            "delta": -0.0007595612578828771
+          }
+        }
+      }
+    },
+    "12": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.003084127343754595
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 8,
+            "lower": 81,
+            "overlapping": 1
+          },
+          "delta": -0.0016559636805634293
+        },
+        "range_response": {
+          "counts": {
+            "higher": 21,
+            "lower": 66,
+            "overlapping": 3
+          },
+          "delta": -0.0009035981885981648
+        }
+      },
+      "floors": {
+        "exact": 4.357280939629114e-17,
+        "ordinary_preference": 0.0030841273437546388,
+        "range_equity": 0.004740091024318068,
+        "range_response": 0.0039877255323528035
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 50,
+              "overlapping": 40
+            },
+            "delta": 0.0009144012350434658
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.0021697261087111675
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 14,
+              "lower": 63,
+              "overlapping": 13
+            },
+            "delta": -0.0005933116676257921
+          },
+          "caller": {
+            "counts": {
+              "higher": 14,
+              "lower": 74,
+              "overlapping": 2
+            },
+            "delta": -0.0010626520129376372
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 52,
+              "overlapping": 21
+            },
+            "delta": -0.0003561619054766662
+          },
+          "caller": {
+            "counts": {
+              "higher": 23,
+              "lower": 63,
+              "overlapping": 4
+            },
+            "delta": -0.0005474362831214986
+          }
+        }
+      }
+    },
+    "13": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.003234878910359016
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 8,
+            "lower": 81,
+            "overlapping": 1
+          },
+          "delta": -0.0017001599994219117
+        },
+        "range_response": {
+          "counts": {
+            "higher": 22,
+            "lower": 65,
+            "overlapping": 3
+          },
+          "delta": -0.0010056960627548267
+        }
+      },
+      "floors": {
+        "exact": 4.191503938592114e-17,
+        "ordinary_preference": 0.003234878910359058,
+        "range_equity": 0.004935038909780969,
+        "range_response": 0.004240574973113885
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 50,
+              "overlapping": 40
+            },
+            "delta": 0.0008862678534208763
+          },
+          "caller": {
+            "counts": {
+              "higher": 89,
+              "overlapping": 1
+            },
+            "delta": 0.002348611056938175
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 14,
+              "lower": 63,
+              "overlapping": 13
+            },
+            "delta": -0.0005969581995794803
+          },
+          "caller": {
+            "counts": {
+              "higher": 14,
+              "lower": 74,
+              "overlapping": 2
+            },
+            "delta": -0.0011032017998424313
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 18,
+              "lower": 51,
+              "overlapping": 21
+            },
+            "delta": -0.0003684409263273792
+          },
+          "caller": {
+            "counts": {
+              "higher": 22,
+              "lower": 64,
+              "overlapping": 4
+            },
+            "delta": -0.0006372551364274474
+          }
+        }
+      }
+    },
+    "14": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.00315137386886355
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 7,
+            "lower": 82,
+            "overlapping": 1
+          },
+          "delta": -0.0016626600252532613
+        },
+        "range_response": {
+          "counts": {
+            "higher": 21,
+            "lower": 66,
+            "overlapping": 3
+          },
+          "delta": -0.0009631570506622467
+        }
+      },
+      "floors": {
+        "exact": 4.223797395832149e-17,
+        "ordinary_preference": 0.0031513738688635925,
+        "range_equity": 0.004814033894116854,
+        "range_response": 0.004114530919525839
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 50,
+              "overlapping": 40
+            },
+            "delta": 0.0010035983008293366
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.0021477755680342514
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 14,
+              "lower": 64,
+              "overlapping": 12
+            },
+            "delta": -0.0006406736732895999
+          },
+          "caller": {
+            "counts": {
+              "higher": 14,
+              "lower": 74,
+              "overlapping": 2
+            },
+            "delta": -0.0010219863519636615
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 52,
+              "overlapping": 21
+            },
+            "delta": -0.0003779057448226595
+          },
+          "caller": {
+            "counts": {
+              "higher": 22,
+              "lower": 64,
+              "overlapping": 4
+            },
+            "delta": -0.0005852513058395871
+          }
+        }
+      }
+    },
+    "15": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.0031520703245252655
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 8,
+            "lower": 81,
+            "overlapping": 1
+          },
+          "delta": -0.0017568019668514022
+        },
+        "range_response": {
+          "counts": {
+            "higher": 21,
+            "lower": 66,
+            "overlapping": 3
+          },
+          "delta": -0.001032749735474203
+        }
+      },
+      "floors": {
+        "exact": 4.1491660557693137e-17,
+        "ordinary_preference": 0.003152070324525307,
+        "range_equity": 0.004908872291376709,
+        "range_response": 0.00418482005999951
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 50,
+              "overlapping": 40
+            },
+            "delta": 0.0009169972236088492
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.002235073100916454
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 14,
+              "lower": 63,
+              "overlapping": 13
+            },
+            "delta": -0.0006994011015805582
+          },
+          "caller": {
+            "counts": {
+              "higher": 15,
+              "lower": 74,
+              "overlapping": 1
+            },
+            "delta": -0.0010574008652708441
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 53,
+              "overlapping": 20
+            },
+            "delta": -0.0004532980066105412
+          },
+          "caller": {
+            "counts": {
+              "higher": 23,
+              "lower": 63,
+              "overlapping": 4
+            },
+            "delta": -0.0005794517288636618
+          }
+        }
+      }
+    },
+    "2": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.003444218240977744
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 9,
+            "lower": 80,
+            "overlapping": 1
+          },
+          "delta": -0.0016834112486939412
+        },
+        "range_response": {
+          "counts": {
+            "higher": 23,
+            "lower": 64,
+            "overlapping": 3
+          },
+          "delta": -0.0009958881302945524
+        }
+      },
+      "floors": {
+        "exact": 4.3114860169126305e-17,
+        "ordinary_preference": 0.0034442182409777874,
+        "range_equity": 0.005127629489671728,
+        "range_response": 0.004440106371272339
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 54,
+              "overlapping": 36
+            },
+            "delta": 0.0010583414750053768
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.002385876765972405
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 62,
+              "overlapping": 11
+            },
+            "delta": -0.0006173390806294286
+          },
+          "caller": {
+            "counts": {
+              "higher": 15,
+              "lower": 73,
+              "overlapping": 2
+            },
+            "delta": -0.0010660721680645126
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 18,
+              "lower": 53,
+              "overlapping": 19
+            },
+            "delta": -0.00038259300019136816
+          },
+          "caller": {
+            "counts": {
+              "higher": 23,
+              "lower": 63,
+              "overlapping": 4
+            },
+            "delta": -0.0006132951301031843
+          }
+        }
+      }
+    },
+    "3": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.0034563641507234255
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 9,
+            "lower": 80,
+            "overlapping": 1
+          },
+          "delta": -0.0016169407191759157
+        },
+        "range_response": {
+          "counts": {
+            "higher": 22,
+            "lower": 65,
+            "overlapping": 3
+          },
+          "delta": -0.001032292017046822
+        }
+      },
+      "floors": {
+        "exact": 4.260082393553541e-17,
+        "ordinary_preference": 0.003456364150723468,
+        "range_equity": 0.005073304869899384,
+        "range_response": 0.00448865616777029
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 54,
+              "overlapping": 36
+            },
+            "delta": 0.0010735197591546029
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.002382844391568861
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 61,
+              "overlapping": 12
+            },
+            "delta": -0.0005799809367371614
+          },
+          "caller": {
+            "counts": {
+              "higher": 15,
+              "lower": 73,
+              "overlapping": 2
+            },
+            "delta": -0.0010369597824387543
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 19,
+              "lower": 52,
+              "overlapping": 19
+            },
+            "delta": -0.00037767866173916655
+          },
+          "caller": {
+            "counts": {
+              "higher": 22,
+              "lower": 64,
+              "overlapping": 4
+            },
+            "delta": -0.0006546133553076554
+          }
+        }
+      }
+    },
+    "4": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.0035229980873259874
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 9,
+            "lower": 80,
+            "overlapping": 1
+          },
+          "delta": -0.0016328270412202615
+        },
+        "range_response": {
+          "counts": {
+            "higher": 22,
+            "lower": 66,
+            "overlapping": 2
+          },
+          "delta": -0.0010232511785800914
+        }
+      },
+      "floors": {
+        "exact": 4.300703407145859e-17,
+        "ordinary_preference": 0.0035229980873260304,
+        "range_equity": 0.005155825128546292,
+        "range_response": 0.004546249265906121
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 56,
+              "overlapping": 34
+            },
+            "delta": 0.0010882108855153508
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.002434787201810674
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 60,
+              "overlapping": 13
+            },
+            "delta": -0.0005699501301018589
+          },
+          "caller": {
+            "counts": {
+              "higher": 14,
+              "lower": 74,
+              "overlapping": 2
+            },
+            "delta": -0.0010628769111184027
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 20,
+              "lower": 52,
+              "overlapping": 18
+            },
+            "delta": -0.0003691739502135138
+          },
+          "caller": {
+            "counts": {
+              "higher": 22,
+              "lower": 65,
+              "overlapping": 3
+            },
+            "delta": -0.0006540772283665776
+          }
+        }
+      }
+    },
+    "5": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.0034853854513932554
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 9,
+            "lower": 80,
+            "overlapping": 1
+          },
+          "delta": -0.0016534294341080762
+        },
+        "range_response": {
+          "counts": {
+            "higher": 22,
+            "lower": 65,
+            "overlapping": 3
+          },
+          "delta": -0.0010186565294217705
+        }
+      },
+      "floors": {
+        "exact": 4.344959448712439e-17,
+        "ordinary_preference": 0.0034853854513932987,
+        "range_equity": 0.005138814885501375,
+        "range_response": 0.004504041980815069
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 56,
+              "overlapping": 34
+            },
+            "delta": 0.0010882108855153497
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.0023971745658779406
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 61,
+              "overlapping": 12
+            },
+            "delta": -0.000564534864288149
+          },
+          "caller": {
+            "counts": {
+              "higher": 14,
+              "lower": 74,
+              "overlapping": 2
+            },
+            "delta": -0.0010888945698199271
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 20,
+              "lower": 50,
+              "overlapping": 20
+            },
+            "delta": -0.0003529001917545134
+          },
+          "caller": {
+            "counts": {
+              "higher": 22,
+              "lower": 64,
+              "overlapping": 4
+            },
+            "delta": -0.000665756337667257
+          }
+        }
+      }
+    },
+    "6": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.0035288020801499
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 9,
+            "lower": 80,
+            "overlapping": 1
+          },
+          "delta": -0.0016594075722007413
+        },
+        "range_response": {
+          "counts": {
+            "higher": 22,
+            "lower": 66,
+            "overlapping": 2
+          },
+          "delta": -0.001036627394603914
+        }
+      },
+      "floors": {
+        "exact": 4.41438979268399e-17,
+        "ordinary_preference": 0.003528802080149944,
+        "range_equity": 0.005188209652350686,
+        "range_response": 0.004565429474753858
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 55,
+              "overlapping": 35
+            },
+            "delta": 0.0010838479408767563
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.0024449541392731824
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 62,
+              "overlapping": 11
+            },
+            "delta": -0.000594460072726751
+          },
+          "caller": {
+            "counts": {
+              "higher": 15,
+              "lower": 73,
+              "overlapping": 2
+            },
+            "delta": -0.0010649474994739903
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 20,
+              "lower": 52,
+              "overlapping": 18
+            },
+            "delta": -0.00034770991745676526
+          },
+          "caller": {
+            "counts": {
+              "higher": 21,
+              "lower": 66,
+              "overlapping": 3
+            },
+            "delta": -0.0006889174771471489
+          }
+        }
+      }
+    },
+    "7": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.003441993478822012
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 9,
+            "lower": 80,
+            "overlapping": 1
+          },
+          "delta": -0.0016334318298803054
+        },
+        "range_response": {
+          "counts": {
+            "higher": 22,
+            "lower": 65,
+            "overlapping": 3
+          },
+          "delta": -0.0010541326560400265
+        }
+      },
+      "floors": {
+        "exact": 4.0748891478788625e-17,
+        "ordinary_preference": 0.0034419934788220527,
+        "range_equity": 0.005075425308702358,
+        "range_response": 0.004496126134862079
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 54,
+              "overlapping": 36
+            },
+            "delta": 0.0010530314242759918
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.0023889620545460566
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 62,
+              "overlapping": 11
+            },
+            "delta": -0.0005685738812883658
+          },
+          "caller": {
+            "counts": {
+              "higher": 15,
+              "lower": 73,
+              "overlapping": 2
+            },
+            "delta": -0.0010648579485919396
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 18,
+              "lower": 53,
+              "overlapping": 19
+            },
+            "delta": -0.00037659460612818465
+          },
+          "caller": {
+            "counts": {
+              "higher": 21,
+              "lower": 66,
+              "overlapping": 3
+            },
+            "delta": -0.0006775380499118419
+          }
+        }
+      }
+    },
+    "8": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.003297116551669976
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 9,
+            "lower": 80,
+            "overlapping": 1
+          },
+          "delta": -0.0016396330825331137
+        },
+        "range_response": {
+          "counts": {
+            "higher": 22,
+            "lower": 65,
+            "overlapping": 3
+          },
+          "delta": -0.0009866359169529329
+        }
+      },
+      "floors": {
+        "exact": 4.187939685734726e-17,
+        "ordinary_preference": 0.003297116551670018,
+        "range_equity": 0.004936749634203132,
+        "range_response": 0.00428375246862295
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 51,
+              "overlapping": 39
+            },
+            "delta": 0.0010700059836279393
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.0022271105680420735
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 16,
+              "lower": 61,
+              "overlapping": 13
+            },
+            "delta": -0.0005728110492144001
+          },
+          "caller": {
+            "counts": {
+              "higher": 15,
+              "lower": 73,
+              "overlapping": 2
+            },
+            "delta": -0.0010668220333187135
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 20,
+              "lower": 50,
+              "overlapping": 20
+            },
+            "delta": -0.00028711768087285385
+          },
+          "caller": {
+            "counts": {
+              "higher": 20,
+              "lower": 66,
+              "overlapping": 4
+            },
+            "delta": -0.000699518236080079
+          }
+        }
+      }
+    },
+    "9": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 89,
+            "overlapping": 1
+          },
+          "delta": 0.003470655294828677
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 8,
+            "lower": 81,
+            "overlapping": 1
+          },
+          "delta": -0.0016985441683607923
+        },
+        "range_response": {
+          "counts": {
+            "higher": 21,
+            "lower": 66,
+            "overlapping": 3
+          },
+          "delta": -0.001051471105383379
+        }
+      },
+      "floors": {
+        "exact": 4.426541571313309e-17,
+        "ordinary_preference": 0.0034706552948287213,
+        "range_equity": 0.005169199463189514,
+        "range_response": 0.004522126400212101
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 54,
+              "overlapping": 36
+            },
+            "delta": 0.0010840710474532638
+          },
+          "caller": {
+            "counts": {
+              "higher": 88,
+              "overlapping": 2
+            },
+            "delta": 0.002386584247375452
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 17,
+              "lower": 62,
+              "overlapping": 11
+            },
+            "delta": -0.0005982455579073368
+          },
+          "caller": {
+            "counts": {
+              "higher": 13,
+              "lower": 75,
+              "overlapping": 2
+            },
+            "delta": -0.0011002986104534556
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 20,
+              "lower": 52,
+              "overlapping": 18
+            },
+            "delta": -0.0003690746667037555
+          },
+          "caller": {
+            "counts": {
+              "higher": 21,
+              "lower": 65,
+              "overlapping": 4
+            },
+            "delta": -0.0006823964386796235
+          }
+        }
+      }
+    }
+  },
+  "overall": {
+    "comparisons": {
+      "exact": {
+        "counts": {
+          "higher": 95,
+          "overlapping": 1
+        },
+        "delta": 0.003341178900459011
+      },
+      "range_equity": {
+        "counts": {
+          "higher": 9,
+          "lower": 86,
+          "overlapping": 1
+        },
+        "delta": -0.0016672671769120569
+      },
+      "range_response": {
+        "counts": {
+          "higher": 23,
+          "lower": 70,
+          "overlapping": 3
+        },
+        "delta": -0.0010159828813399911
+      }
+    },
+    "floors": {
+      "exact": 4.268154820757466e-17,
+      "ordinary_preference": 0.0033411789004590534,
+      "range_equity": 0.00500844607737111,
+      "range_response": 0.004357161781799045
+    },
+    "seat_effects": {
+      "exact": {
+        "bettor": {
+          "counts": {
+            "higher": 56,
+            "overlapping": 40
+          },
+          "delta": 0.0010201977051706424
+        },
+        "caller": {
+          "counts": {
+            "higher": 94,
+            "overlapping": 2
+          },
+          "delta": 0.002320981195288406
+        }
+      },
+      "range_equity": {
+        "bettor": {
+          "counts": {
+            "higher": 17,
+            "lower": 66,
+            "overlapping": 13
+          },
+          "delta": -0.000592656743420965
+        },
+        "caller": {
+          "counts": {
+            "higher": 15,
+            "lower": 79,
+            "overlapping": 2
+          },
+          "delta": -0.001074610433491092
+        }
+      },
+      "range_response": {
+        "bettor": {
+          "counts": {
+            "higher": 20,
+            "lower": 55,
+            "overlapping": 21
+          },
+          "delta": -0.00036125029054263045
+        },
+        "caller": {
+          "counts": {
+            "higher": 23,
+            "lower": 69,
+            "overlapping": 4
+          },
+          "delta": -0.0006547325907973608
+        }
+      }
+    }
+  },
+  "regimes": {
+    "polarized": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 47,
+            "overlapping": 1
+          },
+          "delta": 0.0028554579625767866
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 6,
+            "lower": 41,
+            "overlapping": 1
+          },
+          "delta": -0.0015195679398538008
+        },
+        "range_response": {
+          "counts": {
+            "higher": 13,
+            "lower": 33,
+            "overlapping": 2
+          },
+          "delta": -0.0005161554209715722
+        }
+      },
+      "floors": {
+        "exact": 3.091854870144844e-17,
+        "ordinary_preference": 0.0028554579625768173,
+        "range_equity": 0.004375025902430618,
+        "range_response": 0.0033716133835483895
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 22,
+              "overlapping": 26
+            },
+            "delta": 0.0007335865554572004
+          },
+          "caller": {
+            "counts": {
+              "higher": 46,
+              "overlapping": 2
+            },
+            "delta": 0.002121871407119614
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 9,
+              "lower": 27,
+              "overlapping": 12
+            },
+            "delta": -0.0004724884125910482
+          },
+          "caller": {
+            "counts": {
+              "higher": 7,
+              "lower": 39,
+              "overlapping": 2
+            },
+            "delta": -0.0010470795272627526
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 11,
+              "lower": 17,
+              "overlapping": 20
+            },
+            "delta": -5.256536522354089e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 14,
+              "lower": 32,
+              "overlapping": 2
+            },
+            "delta": -0.00046359005574803135
+          }
+        }
+      }
+    },
+    "uniform": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 48
+          },
+          "delta": 0.0038268998383412353
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 3,
+            "lower": 45
+          },
+          "delta": -0.0018149664139703128
+        },
+        "range_response": {
+          "counts": {
+            "higher": 10,
+            "lower": 37,
+            "overlapping": 1
+          },
+          "delta": -0.0015158103417084103
+        }
+      },
+      "floors": {
+        "exact": 5.444454771370087e-17,
+        "ordinary_preference": 0.0038268998383412895,
+        "range_equity": 0.005641866252311603,
+        "range_response": 0.0053427101800497
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 34,
+              "overlapping": 14
+            },
+            "delta": 0.0013068088548840843
+          },
+          "caller": {
+            "counts": {
+              "higher": 48
+            },
+            "delta": 0.0025200909834571976
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 8,
+              "lower": 39,
+              "overlapping": 1
+            },
+            "delta": -0.0007128250742508817
+          },
+          "caller": {
+            "counts": {
+              "higher": 8,
+              "lower": 40
+            },
+            "delta": -0.001102141339719431
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 9,
+              "lower": 38,
+              "overlapping": 1
+            },
+            "delta": -0.00066993521586172
+          },
+          "caller": {
+            "counts": {
+              "higher": 9,
+              "lower": 37,
+              "overlapping": 2
+            },
+            "delta": -0.0008458751258466902
+          }
+        }
+      }
+    }
+  },
+  "sensitivity_pass": true,
+  "stage_seconds": {
+    "clustering_seconds": 2.549873400013894,
+    "prediction_seconds": 0.005366700061131269,
+    "preparation_seconds": 16.465733799850568,
+    "solve_and_certificate_seconds": 153.56148699994083
+  },
+  "textures": {
+    "multiple-pairs-or-trips": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 24
+          },
+          "delta": 0.0061246732292100725
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 5,
+            "lower": 19
+          },
+          "delta": -0.0012678285602553921
+        },
+        "range_response": {
+          "counts": {
+            "higher": 7,
+            "lower": 17
+          },
+          "delta": -0.001611222210854455
+        }
+      },
+      "floors": {
+        "exact": 4.8339208952843583e-17,
+        "ordinary_preference": 0.006124673229210121,
+        "range_equity": 0.007392501789465513,
+        "range_response": 0.007735895440064576
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 24
+            },
+            "delta": 0.0023684209843457976
+          },
+          "caller": {
+            "counts": {
+              "higher": 23,
+              "overlapping": 1
+            },
+            "delta": 0.003756252244864312
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 12,
+              "lower": 11,
+              "overlapping": 1
+            },
+            "delta": 6.284513047424802e-06
+          },
+          "caller": {
+            "counts": {
+              "higher": 3,
+              "lower": 20,
+              "overlapping": 1
+            },
+            "delta": -0.0012741130733028168
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 11,
+              "lower": 12,
+              "overlapping": 1
+            },
+            "delta": 5.4270038457586034e-05
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 22
+            },
+            "delta": -0.001665492249312041
+          }
+        }
+      }
+    },
+    "one-pair": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 23,
+            "overlapping": 1
+          },
+          "delta": 0.0038357337632427373
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 1,
+            "lower": 22,
+            "overlapping": 1
+          },
+          "delta": -0.0017333229639110743
+        },
+        "range_response": {
+          "counts": {
+            "higher": 7,
+            "lower": 16,
+            "overlapping": 1
+          },
+          "delta": -0.0008669444245028905
+        }
+      },
+      "floors": {
+        "exact": 4.052431049472109e-17,
+        "ordinary_preference": 0.0038357337632427776,
+        "range_equity": 0.005569056727153852,
+        "range_response": 0.004702678187745668
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 18,
+              "overlapping": 6
+            },
+            "delta": 0.0010956302391796674
+          },
+          "caller": {
+            "counts": {
+              "higher": 23,
+              "overlapping": 1
+            },
+            "delta": 0.002740103524063112
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 19,
+              "overlapping": 3
+            },
+            "delta": -0.0009027042711339648
+          },
+          "caller": {
+            "counts": {
+              "higher": 5,
+              "lower": 18,
+              "overlapping": 1
+            },
+            "delta": -0.0008306186927771094
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 1,
+              "lower": 18,
+              "overlapping": 5
+            },
+            "delta": -0.0008911161014681045
+          },
+          "caller": {
+            "counts": {
+              "higher": 10,
+              "lower": 13,
+              "overlapping": 1
+            },
+            "delta": 2.41716769652139e-05
+          }
+        }
+      }
+    },
+    "unpaired-flush-possible": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 24
+          },
+          "delta": 0.0010369407910023444
+        },
+        "range_equity": {
+          "counts": {
+            "lower": 24
+          },
+          "delta": -0.002004665290307718
+        },
+        "range_response": {
+          "counts": {
+            "higher": 4,
+            "lower": 18,
+            "overlapping": 2
+          },
+          "delta": -0.0007582220065181004
+        }
+      },
+      "floors": {
+        "exact": 4.034445395540139e-17,
+        "ordinary_preference": 0.0010369407910023848,
+        "range_equity": 0.0030416060813101024,
+        "range_response": 0.001795162797520485
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "overlapping": 21
+            },
+            "delta": 0.0001482840220423455
+          },
+          "caller": {
+            "counts": {
+              "higher": 24
+            },
+            "delta": 0.000888656768960041
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "lower": 19,
+              "overlapping": 5
+            },
+            "delta": -0.0008668118382162218
+          },
+          "caller": {
+            "counts": {
+              "higher": 2,
+              "lower": 22
+            },
+            "delta": -0.001137853452091496
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 2,
+              "lower": 13,
+              "overlapping": 9
+            },
+            "delta": -0.00035608465285842287
+          },
+          "caller": {
+            "counts": {
+              "higher": 6,
+              "lower": 15,
+              "overlapping": 3
+            },
+            "delta": -0.00040213735365967755
+          }
+        }
+      }
+    },
+    "unpaired-no-flush": {
+      "comparisons": {
+        "exact": {
+          "counts": {
+            "higher": 24
+          },
+          "delta": 0.002367367818380889
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 3,
+            "lower": 21
+          },
+          "delta": -0.0016632518931740431
+        },
+        "range_response": {
+          "counts": {
+            "higher": 5,
+            "lower": 19
+          },
+          "delta": -0.0008275428834845188
+        }
+      },
+      "floors": {
+        "exact": 4.151821942733256e-17,
+        "ordinary_preference": 0.0023673678183809307,
+        "range_equity": 0.004030619711554974,
+        "range_response": 0.0031949107018654495
+      },
+      "seat_effects": {
+        "exact": {
+          "bettor": {
+            "counts": {
+              "higher": 11,
+              "overlapping": 13
+            },
+            "delta": 0.0004684555751147591
+          },
+          "caller": {
+            "counts": {
+              "higher": 24
+            },
+            "delta": 0.0018989122432661585
+          }
+        },
+        "range_equity": {
+          "bettor": {
+            "counts": {
+              "higher": 3,
+              "lower": 17,
+              "overlapping": 4
+            },
+            "delta": -0.0006073953773810981
+          },
+          "caller": {
+            "counts": {
+              "higher": 5,
+              "lower": 19
+            },
+            "delta": -0.001055856515792945
+          }
+        },
+        "range_response": {
+          "bettor": {
+            "counts": {
+              "higher": 6,
+              "lower": 12,
+              "overlapping": 6
+            },
+            "delta": -0.00025207044630158045
+          },
+          "caller": {
+            "counts": {
+              "higher": 5,
+              "lower": 19
+            },
+            "delta": -0.0005754724371829383
+          }
+        }
+      }
+    }
+  },
+  "worker_plus_parent_seconds": 271.55749169999035,
+  "worker_seconds": 174.52584789998946,
+  "worst_cases": [
+    {
+      "candidate": 0.016024502840909043,
+      "case": {
+        "board": [
+          6,
+          14,
+          15,
+          20,
+          23
+        ],
+        "board_index": 15,
+        "id": "b15-p2-uniform",
+        "pool": 2,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      },
+      "delta": 0.005385365456425945,
+      "reference": 0.010639137384483098
+    },
+    {
+      "candidate": 0.00883493029619409,
+      "case": {
+        "board": [
+          1,
+          12,
+          13,
+          36,
+          38
+        ],
+        "board_index": 12,
+        "id": "b12-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      },
+      "delta": 0.003672759842304504,
+      "reference": 0.005162170453889585
+    },
+    {
+      "candidate": 0.00848097890495378,
+      "case": {
+        "board": [
+          15,
+          16,
+          17,
+          18,
+          30
+        ],
+        "board_index": 14,
+        "id": "b14-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      },
+      "delta": 0.003161476071073645,
+      "reference": 0.005319502833880135
+    },
+    {
+      "candidate": 0.005461496450027309,
+      "case": {
+        "board": [
+          2,
+          13,
+          17,
+          26,
+          47
+        ],
+        "board_index": 0,
+        "id": "b00-p1-polarized",
+        "pool": 1,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      },
+      "delta": 0.002427331755567692,
+      "reference": 0.0030341646944596168
+    },
+    {
+      "candidate": 0.010119517812425198,
+      "case": {
+        "board": [
+          15,
+          16,
+          17,
+          18,
+          30
+        ],
+        "board_index": 14,
+        "id": "b14-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      },
+      "delta": 0.0021700150998172642,
+      "reference": 0.007949502712607933
+    }
+  ]
+}

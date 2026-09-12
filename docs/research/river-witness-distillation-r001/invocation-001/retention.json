@@ -1,0 +1,35 @@
+{
+  "commit_performed": false,
+  "milestone_directory": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-distillation-001",
+  "milestone_manifest_sha256": "bc5768f4f5899b296bf7fd33eac6385021e99fffad56be47c0107608cc0bc052",
+  "milestone_members": 75,
+  "original_output_files": 57,
+  "original_output_unchanged": true,
+  "preserved_prior_milestones": {
+    "development-001": {
+      "manifest_sha256": "a153950ea6db082caf7da757f9524fc7b9b4cda936efd39bc26fa674a20db0a0",
+      "members": 34
+    },
+    "group-optimality-001": {
+      "manifest_sha256": "9a3fa19f0f663aecd982ab8037267509693a81b6fb2e925f8292649f1fca93ea",
+      "members": 24
+    },
+    "holdout-001": {
+      "manifest_sha256": "44692a7fc77c39de361bd463a6e4cc2951c9082ba1b561903b8a681780900d65",
+      "members": 44
+    },
+    "witness-groups-development-001": {
+      "manifest_sha256": "05c94f41f797e6f9675007e1e309b31052fd721a07e7199257884b8b17cadb32",
+      "members": 20
+    },
+    "witness-pilot-001": {
+      "manifest_sha256": "d3b52b5f3c6046c6c36f2c967fa6d9e5e6f43608465da2cc974f94e54a121032",
+      "members": 64
+    }
+  },
+  "prior_packet_members_preserved": 84,
+  "push_performed": false,
+  "report_sha256": "aaf330ac77d8311175506054e257cc9a4159f503ff48dc010b49b0bd0e5e40e7",
+  "total_bytes": 70988175,
+  "total_files": 76
+}

@@ -1,0 +1,106 @@
+{
+  "analysis": {
+    "10": {
+      "actual_case_directions": {
+        "higher": 1,
+        "lower": 31
+      },
+      "actual_change_percent": -37.92621392837064,
+      "board_directions": {
+        "higher": 1,
+        "lower": 15
+      },
+      "changed_seats": 63,
+      "floor_case_directions": {
+        "higher": 2,
+        "lower": 30
+      },
+      "floor_change_percent": -38.298084523732165,
+      "leave_one_board_out_all_improve": true,
+      "mean_fixed_witness_gain": [
+        0.026678159333588393,
+        0.008456692855813049
+      ],
+      "regime_actual_deltas": {
+        "polarized": -0.007759524245809343,
+        "uniform": -0.010976401057918292
+      },
+      "texture_actual_deltas": {
+        "multiple-pairs-or-trips": -0.0025145202666758655,
+        "one-pair": -0.007098284491333501,
+        "unpaired-flush-possible": -0.011358904698467176,
+        "unpaired-no-flush": -0.016500141150978725
+      },
+      "versus_longer_control_percent": -37.42353090633639,
+      "worst_case": {
+        "actual_delta_exact": "14432868651084724365925791876299473415/1361129467683753853853498429727072845824",
+        "case": {
+          "board": [
+            29,
+            32,
+            49,
+            50,
+            51
+          ],
+          "board_index": 15,
+          "id": "b15-p0-uniform",
+          "pool": 0,
+          "regime": "uniform",
+          "texture": "multiple-pairs-or-trips"
+        }
+      }
+    },
+    "5": {
+      "actual_case_directions": {
+        "higher": 4,
+        "lower": 28
+      },
+      "actual_change_percent": -24.346731799345445,
+      "board_directions": {
+        "higher": 1,
+        "lower": 15
+      },
+      "changed_seats": 64,
+      "floor_case_directions": {
+        "higher": 4,
+        "lower": 28
+      },
+      "floor_change_percent": -24.59680357080577,
+      "leave_one_board_out_all_improve": true,
+      "mean_fixed_witness_gain": [
+        0.012103298246949286,
+        0.0050139500297528535
+      ],
+      "regime_actual_deltas": {
+        "polarized": -0.0032811380415211124,
+        "uniform": -0.0025973961112812465
+      },
+      "texture_actual_deltas": {
+        "multiple-pairs-or-trips": -0.002298348719091709,
+        "one-pair": -0.0011592267851144999,
+        "unpaired-flush-possible": -0.006300818100254858,
+        "unpaired-no-flush": -0.0019986747011436516
+      },
+      "versus_longer_control_percent": -23.530915416874976,
+      "worst_case": {
+        "actual_delta_exact": "3987021012070577687549667707794041785/1361129467683753853853498429727072845824",
+        "case": {
+          "board": [
+            6,
+            10,
+            31,
+            44,
+            51
+          ],
+          "board_index": 3,
+          "id": "b03-p0-uniform",
+          "pool": 0,
+          "regime": "uniform",
+          "texture": "unpaired-no-flush"
+        }
+      }
+    }
+  },
+  "passed": true,
+  "rational_checks": 1015
+}

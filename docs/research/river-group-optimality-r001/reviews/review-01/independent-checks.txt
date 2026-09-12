@@ -1,0 +1,14 @@
+ENVIRONMENT D:\Pontius\tmp\group-opt-author\venv\Scripts\python.exe 3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)] 2.5.2 1.18.0
+SYNTHETIC 36 group-games; 72 asymmetric certificates cross-checked against exact pure-strategy enumeration and independent simplex normal-form LP certificates
+OBSERVED DATA ONLY [{"capacities": {"exact": [96, 96], "range_equity": [37, 36], "range_response": [37, 36], "uniform_equity_200": [37, 36]}, "case": "development-0-uniform", "records": 12, "shape": [96, 96]}, {"capacities": {"exact": [96, 96], "range_equity": [37, 36], "range_response": [37, 36], "uniform_equity_200": [37, 36]}, "case": "development-0-polarized", "records": 12, "shape": [96, 96]}, {"capacities": {"exact": [96, 96], "range_equity": [45, 51], "range_response": [45, 51], "uniform_equity_200": [45, 51]}, "case": "development-1-uniform", "records": 12, "shape": [96, 96]}, {"capacities": {"exact": [96, 96], "range_equity": [45, 51], "range_response": [45, 51], "uniform_equity_200": [45, 51]}, "case": "development-1-polarized", "records": 12, "shape": [96, 96]}, {"capacities": {"exact": [96, 96], "range_equity": [25, 26], "range_response": [25, 26], "uniform_equity_200": [25, 26]}, "case": "holdout-0-uniform", "records": 12, "shape": [96, 96]}, {"capacities": {"exact": [96, 96], "range_equity": [25, 26], "range_response": [25, 26], "uniform_equity_200": [25, 26]}, "case": "holdout-0-polarized", "records": 12, "shape": [96, 96]}, {"capacities": {"exact": [96, 96], "range_equity": [62, 62], "range_response": [62, 62], "uniform_equity_200": [62, 62]}, "case": "holdout-1-uniform", "records": 12, "shape": [96, 96]}, {"capacities": {"exact": [96, 96], "range_equity": [62, 62], "range_response": [62, 62], "uniform_equity_200": [62, 62]}, "case": "holdout-1-polarized", "records": 12, "shape": [96, 96]}]
+PERSISTENT REAL SMOKE de2bbef55f36f462bcb13a04eed13fc7290e2f379f2a89c87999a27cdf6efad5 manifest 045f925880b5d98016673826d46801acb937fc60760fb4ce2306b9eba7cc37a0
+SEMANTIC REJECTION lift saved policy lift mismatch
+SEMANTIC REJECTION metric saved value mismatch
+SEMANTIC REJECTION joint game reconstruction mismatch
+SEMANTIC REJECTION exact_groups exact reference compressed
+SEMANTIC REJECTION checkpoint incomplete checkpoint grid
+SEMANTIC REJECTION capacity unequal compressed capacity
+PARENT FAILURE certificate ValueError certificate record mismatch
+PARENT FAILURE summary-write OSError review injected evidence write failure
+PARENT FAILURE manifest-write OSError review injected evidence write failure
+ALL SUPPLEMENTAL CHECKS PASSED

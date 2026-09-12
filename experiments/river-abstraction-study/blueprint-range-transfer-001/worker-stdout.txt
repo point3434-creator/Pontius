@@ -1,0 +1,9 @@
+captured 4 states in 91 hands
+reconstructed 1/4 in 0.77s
+completed 1/4
+reconstructed 2/4 in 0.65s
+completed 2/4
+reconstructed 3/4 in 0.84s
+completed 3/4
+reconstructed 4/4 in 0.54s
+completed 4/4

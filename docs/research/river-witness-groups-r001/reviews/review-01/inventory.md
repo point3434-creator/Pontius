@@ -1,0 +1,34 @@
+# Sealed independent requirement/invariant inventory
+
+Sealed before opening checks/ or any author receipt. Target: witness-action-value grouping r001, uncommitted candidate rooted at D:/Pontius-worktrees/eval-runner-consolidation; base 1b4d1a0e26cd4da90ff74678de2e48ef53ec5599; branch codex/river-abstraction-holdout. Inventory is immutable after this write; later evidence and verdicts go in report.md.
+
+## Disclosure and evidence boundary
+
+Dispatched as a subagent with only the parent task instructions and general system/developer/user context. The automatically supplied memory summary was present in inherited context, but no memory file, prior review, disposition, progress.md, INDEX.md, conversation transcript, unrelated scratch, other inventory or parent conclusion was opened or used. Read order: handoff; identity and governing document; new source/tool/test and plan; reused mathematical, reconstruction and clustering dependencies. Process-only skill files code-verification, verification-matrix and using-superpowers were read; using-superpowers explicitly exempts dispatched subagents. An accidental read of a nonexistent skill-adjacent 'not-real' path returned no content. Root AGENTS.md lookup returned no content. Git status exposed changed path names only, including README.md, without opening their contents.
+
+## Independent requirements and falsifiers
+
+| ID | Requirement or risk | Observable evidence / reachable falsifier |
+|---|---|---|
+| R1 | Exact candidate identity, seven identity file pins, plan pin, base and branch | Recompute SHA-256 before and after; compare read-only Git identity. Any mismatch falsifies reviewed identity. |
+| R2 | Ten pinned computation/document files and sixteen original development files; four witness files plus producer plan/manifest; exact input-to-witness mapping | Hash all allowed bindings; invoke read-only verify_bindings with optimizer and clustering disabled. Repoint a synthetic bank producer to different input hashes and require rejection. |
+| R3 | Fixed four development cases in declared order; no held-out feature/group/score input | Trace plan/runtime input access and result-grid enforcement. Any scoring/group construction over a holdout or omitted/reordered case falsifies scope. |
+| R4 | Bettor bet-minus-check = sum((1-y)F+yA-C)/own marginal | Independently enumerate weighted payoff differences on small dense rectangular games with nonzero check costs. Sign, transpose, omitted check or extra joint weighting must disagree. |
+| R5 | Caller call-minus-fold = sum x(F-A)/own marginal; retain bet reach | Independently enumerate player-1 action payoff differences; zero betting gives zero, scaling x scales features, scaling all masses leaves features fixed. Dividing by facing-bet reach falsifies contract. |
+| R6 | Bank columns exact, uniform_equity_200, range_equity, range_response; seat0.call for bettor, seat1.bet for caller | Construct small valid certificates with distinguishable unrestricted witnesses; compare exact expected columns; prohibit LP while proposing. |
+| R7 | Positive marginals, feasible finite per-hand witnesses; original controls must be exact/matched capacity | Invalid policy, zero marginal, grouped exact or changed occupied capacity must reject. |
+| R8 | Deterministic unchanged anchored_clusters: marginal weights, weighted farthest first, hand-index ties, 20 iterations, occupied anchors | Inspect reused implementation and test repeats/tied features at full requested occupied count. No whitening/scaling/extra features. |
+| R9 | Both asymmetric LP certificates valid over full opponent hand class, each exact-rational width <=1e-8 on binary64 coefficients | Independently enumerate best-response endpoints on small games, compare certified floor and achieved paired policy upper endpoint; corrupt certificate must reject. No LP on 96-hand saved cases. |
+| R10 | Difference [Lc-Ub,Uc-Lb], strict sign classifications, equal case weighting, no winner/subset selection | Synthetic positive/negative/zero-crossing intervals, exact rational aggregation across all four case IDs; missing case must reject. |
+| R11 | Output retains features, marginals, labels, method order, solutions and signed comparisons | Parent reconstruction must reject tampered records without optimizing; real two-hand subprocess must produce and validate complete evidence. |
+| R12 | Bound Python 3.14.6 / NumPy 2.5.2 / SciPy 1.18.0, one BLAS thread before import, 8 sequential LP calls with 5s/10000 caps and 120s worker timeout | Inspect boundaries, verify runtime versions, run synthetic worker only. Full development duration and capacity feasibility remain unmeasured. |
+| R13 | Atomic fresh output reservation, retained evidence, final completion requires parent success plus final manifest | Real two-hand success and reuse rejection; inject nonzero exit, timeout, missing/corrupt result, certificate and evidence-write failures. Any successful parent completion after such failure falsifies fail-closed contract. |
+| R14 | Source/input verification before launch and again before completion; strict JSON | Inspect paths and exercise synthetic drift/malformed cases. Partial output is not completion. Hard kills and hostile concurrent mutation excluded by spec. |
+| R15 | Oracle-information and prior-compute limits, already observed development population | Docs/output must disclose exact full-hand witness information, excluded prior generation cost, unequal feature budget and no fresh holdout/generalization/strength claims. |
+| R16 | Preservation and review scope | Only exclusive scratch writes; no source/metadata edits, dependency install, commit, push, new agents, bound development launch or saved 96-hand group construction/LP. Compare metadata predecessor bindings and preserve hashes. |
+
+## Planned evidence
+
+Use the specified interpreter with -B and ResourceWarning as error. Run targeted existing witness-group tests with pytest -p no:cacheprovider and all temporary directories routed under this scratch. Read existing predecessor test fixture only as needed. Add independent bounded scratch checks for scalar action deltas, distinguishable witness columns, pure-policy response enumeration, input mapping and evidence failures. Recompute source/input pins and identity without grouping/optimizing saved cases. Inspect author checks only after sealing this inventory; do not treat author assertions as fresh execution evidence.
+
+Specification and engineering verdicts will be separate. Material findings require severity, confidence, exact affected behavior, evidence, consequence, minimal remediation direction and a reachable falsifier. No further correction round for documentation-only advisories.

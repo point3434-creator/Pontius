@@ -1,0 +1,9 @@
+test_actual_menu_census (test_stack.StackTransfer.test_actual_menu_census) ... ok
+test_collapsed_sizes_refuse_solver_entry (test_stack.StackTransfer.test_collapsed_sizes_refuse_solver_entry) ... ok
+test_literal_engine_settlement_and_ties (test_stack.StackTransfer.test_literal_engine_settlement_and_ties) ... ok
+test_unchanged_ranges_and_groups (test_stack.StackTransfer.test_unchanged_ranges_and_groups) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.347s
+
+OK

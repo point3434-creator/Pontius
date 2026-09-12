@@ -1,0 +1,19 @@
+{
+  "existing_tests": 13,
+  "green_exit": 0,
+  "import_collision": "Caught by preflight, fixed before freeze; failed receipt retained",
+  "model_tests": 8,
+  "passed": true,
+  "python": "3.14.6",
+  "receipts": [
+    "red.txt",
+    "green.txt",
+    "preflight-import-error.txt",
+    "solver-preflight.txt",
+    "existing-preflight.txt"
+  ],
+  "red_exit": 1,
+  "red_reason": "missing bet input",
+  "scored_panel_rehearsal": false,
+  "solver_tests": 6
+}

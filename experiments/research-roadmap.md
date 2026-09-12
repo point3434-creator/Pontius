@@ -1,19 +1,25 @@
 # Research roadmap: connect ideas to evidence
 
-Reviewed 2026-09-08. [Completed evidence](RESULTS.md) · [Brainstorming and revisions](brainstorming.md)
+Current lane updated 2026-09-12; broader agenda reviewed 2026-09-08. [Completed evidence](RESULTS.md) · [Brainstorming and revisions](brainstorming.md)
 
-**My highest-value new scientific question is whether exact folded-card work
-can be prepared once and reused cheaply while active strategies change.**
-First establish that the proposed terminal operator computes the right poker
-quantities. Then measure preparation, reuse, and the strategic cost of simpler
-alternatives. The latest brainstorming makes this more informative than another
-general GPU speed forecast or committing now to a large neural system.
+## Current river lane — updated 2026-09-12
 
-At the same time, keep the bot-facing objective concrete: build a small trained
-policy that can travel through the existing provider and be evaluated on fresh
-deals/opponents. That practical track should not wait for a full six-player
-exact solver. The ranking below reflects expected decision value and readiness,
-not measured return on research time or a claim that later ideas are inferior.
+The [35-milestone synthesis](solver-foundations.md#river-representation-and-solver-findings-through-2026-09-12)
+changes the immediate priority. On four actual-pot restricted river games, direct full-hand
+LP produced less error in less measured solve time than the existing compressed learner.
+Two strict certificate misses remain. Extra grouping repair is therefore paused here.
+
+1. Diagnose those two numerical misses using the retained matrices/vectors and preserve
+   the original threshold; any new solver comparison needs a distinct bounded experiment.
+2. Test a larger river action tree with play after check and raise responses, actual stacks,
+   and a direct full-hand reference where affordable. Measure complete cost and memory.
+3. Revisit tabular, learned, or hybrid compression when the larger problem demonstrates a
+   resource bottleneck. Hold game, evaluation, and timing boundaries fixed for that comparison.
+
+This is a proposed sequence, not launch authority. The bot machinery track remains on hold
+while research is the user's priority. The broader September 8 agenda below remains a
+backlog; its older numbered ranking is not the current river execution order. Folded-card
+exactness/reuse and later-street-to-earlier-street transfer remain open, useful directions.
 
 ## What has connected into something useful?
 

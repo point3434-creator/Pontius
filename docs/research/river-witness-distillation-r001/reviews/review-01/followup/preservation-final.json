@@ -1,0 +1,996 @@
+[
+  {
+    "binding": "identity",
+    "path": ".gitattributes",
+    "expected": "643ba1ed2efc47ba71596c515b0884a1e4800ff80ffdb1fd15bcd4217ffeda82",
+    "actual": "643ba1ed2efc47ba71596c515b0884a1e4800ff80ffdb1fd15bcd4217ffeda82",
+    "matches": true
+  },
+  {
+    "binding": "identity",
+    "path": "docs/research/river-witness-distillation-r001/plan.json",
+    "expected": "47b26fc64aa3b2ddb36ebe11a02d16253b240a61672cff162c51af689728e524",
+    "actual": "47b26fc64aa3b2ddb36ebe11a02d16253b240a61672cff162c51af689728e524",
+    "matches": true
+  },
+  {
+    "binding": "identity",
+    "path": "docs/research/river-witness-distillation.md",
+    "expected": "d937949c3045d49c2f71ddae130874c90d30bda63d2e492f36c9f592dda4f3ab",
+    "actual": "d937949c3045d49c2f71ddae130874c90d30bda63d2e492f36c9f592dda4f3ab",
+    "matches": true
+  },
+  {
+    "binding": "identity",
+    "path": "src/pontius/river_witness_distillation.py",
+    "expected": "ad33fbc2b0a569a7587bfc68a08c32dd9c7b38a288c39430093903d294e0eb30",
+    "actual": "ad33fbc2b0a569a7587bfc68a08c32dd9c7b38a288c39430093903d294e0eb30",
+    "matches": true
+  },
+  {
+    "binding": "identity",
+    "path": "tests/cases.json",
+    "expected": "7019ba3ae7a5d78998bfb3559287f0adec98136ea2c1004544e759c3b832031c",
+    "actual": "7019ba3ae7a5d78998bfb3559287f0adec98136ea2c1004544e759c3b832031c",
+    "matches": true
+  },
+  {
+    "binding": "identity",
+    "path": "tests/test_river_witness_distillation.py",
+    "expected": "672738329790da23eb3515ec45942398febc8d19bdd9bdc1cf22908023acaaf6",
+    "actual": "672738329790da23eb3515ec45942398febc8d19bdd9bdc1cf22908023acaaf6",
+    "matches": true
+  },
+  {
+    "binding": "identity",
+    "path": "tools/river_witness_distillation.py",
+    "expected": "bcb15dbb84d03858221569890d5ef06b21437a9ba5c6531adea531450959cedb",
+    "actual": "bcb15dbb84d03858221569890d5ef06b21437a9ba5c6531adea531450959cedb",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "approval-template.txt",
+    "expected": "32b164343731076c9c6ad860e14691bb6cb3777780a7b23e7e2eee069a242ddc",
+    "actual": "32b164343731076c9c6ad860e14691bb6cb3777780a7b23e7e2eee069a242ddc",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "checks/author-receipt.json",
+    "expected": "f2ca40022a7de945a356c8ced00ea8c73d18ce2592d3d92f563d21ed1edf9481",
+    "actual": "f2ca40022a7de945a356c8ced00ea8c73d18ce2592d3d92f563d21ed1edf9481",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "checks/core-green-fixed.xml",
+    "expected": "d897e9277354326db525e24b7d71a040f11e24d932d4f32b406a98135f1aa2f8",
+    "actual": "d897e9277354326db525e24b7d71a040f11e24d932d4f32b406a98135f1aa2f8",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "checks/core-green.xml",
+    "expected": "711d68da87b8b8f1be2c118ff6a4f4df82b4e94460334ba01cfa1e8a2f452b09",
+    "actual": "711d68da87b8b8f1be2c118ff6a4f4df82b4e94460334ba01cfa1e8a2f452b09",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "checks/core-red.xml",
+    "expected": "c9caf33fe67b5c4d06647ee0ccaa43379bdb6633ee7c30e37085a0f93bd4f711",
+    "actual": "c9caf33fe67b5c4d06647ee0ccaa43379bdb6633ee7c30e37085a0f93bd4f711",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "checks/lint.txt",
+    "expected": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "actual": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "checks/tool-green.xml",
+    "expected": "e2f15e09144c587ad769164309abd4474b3eb063f4c29c0646a189bcc8929aec",
+    "actual": "e2f15e09144c587ad769164309abd4474b3eb063f4c29c0646a189bcc8929aec",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "checks/tool-red.xml",
+    "expected": "c03aa525d0a2bc7501847c8ccbea44f0660ca86aaca938266990bcfbc4ebeb50",
+    "actual": "c03aa525d0a2bc7501847c8ccbea44f0660ca86aaca938266990bcfbc4ebeb50",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "checks/verified-tests.xml",
+    "expected": "c74f2aab404b1f2d4fa552e844939be20f1a268ba049bad7c90a111e858cdda6",
+    "actual": "c74f2aab404b1f2d4fa552e844939be20f1a268ba049bad7c90a111e858cdda6",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "execution-request.md",
+    "expected": "d9f05c0fbbd814e70e29f7bdec811d1fead7b1ab3dac09bd73de0266a91baa1d",
+    "actual": "d9f05c0fbbd814e70e29f7bdec811d1fead7b1ab3dac09bd73de0266a91baa1d",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "handoff.md",
+    "expected": "681d6bb05c0bb5bb399f02f89520b82c1a43058836095b7d2c792863923b0f31",
+    "actual": "681d6bb05c0bb5bb399f02f89520b82c1a43058836095b7d2c792863923b0f31",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "identity.json",
+    "expected": "a45ed16bb9e0a3d6446fad9e68ece84d4d0fe75abdf72e6ae2c749e2f22d23e4",
+    "actual": "a45ed16bb9e0a3d6446fad9e68ece84d4d0fe75abdf72e6ae2c749e2f22d23e4",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "plan.json",
+    "expected": "47b26fc64aa3b2ddb36ebe11a02d16253b240a61672cff162c51af689728e524",
+    "actual": "47b26fc64aa3b2ddb36ebe11a02d16253b240a61672cff162c51af689728e524",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "predecessor-metadata/.gitattributes",
+    "expected": "05643f64722156ab4e5e007f3d6d414a211344cfc7d6d15809e811184d0021eb",
+    "actual": "05643f64722156ab4e5e007f3d6d414a211344cfc7d6d15809e811184d0021eb",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "predecessor-metadata/docs/research/README.md",
+    "expected": "b4777fdc0c7e0b2cddda5fa47bd41ae043f5bf05403c1c45951e970169e6ddbf",
+    "actual": "b4777fdc0c7e0b2cddda5fa47bd41ae043f5bf05403c1c45951e970169e6ddbf",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "predecessor-metadata/tests/cases.json",
+    "expected": "8b4c7838918e3c539a54857075073cc3201faa64552f7b1f879ec8495d97d7d3",
+    "actual": "8b4c7838918e3c539a54857075073cc3201faa64552f7b1f879ec8495d97d7d3",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "run-command.txt",
+    "expected": "735ca0e50e8d4863a811f426824cee4f512abebb5388a0bbc99f0306c9bba403",
+    "actual": "735ca0e50e8d4863a811f426824cee4f512abebb5388a0bbc99f0306c9bba403",
+    "matches": true
+  },
+  {
+    "binding": "freeze",
+    "path": "selection.json",
+    "expected": "194c5dbff429755ac12fdccf39dd96f637d4615958bf2963ec9452a45c153010",
+    "actual": "194c5dbff429755ac12fdccf39dd96f637d4615958bf2963ec9452a45c153010",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "docs/research/river-group-optimality.md",
+    "expected": "5b0adde6bb4a976fb7ab67e64a95c00726e10d56d705aa4c9ec4e0adac2e9e73",
+    "actual": "5b0adde6bb4a976fb7ab67e64a95c00726e10d56d705aa4c9ec4e0adac2e9e73",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "docs/research/river-witness-distillation.md",
+    "expected": "d937949c3045d49c2f71ddae130874c90d30bda63d2e492f36c9f592dda4f3ab",
+    "actual": "d937949c3045d49c2f71ddae130874c90d30bda63d2e492f36c9f592dda4f3ab",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "docs/research/river-witness-groups.md",
+    "expected": "bae49329b4bca346b01eb42df6abcf99e3f5f661a9cb96764223ab4a433ac30e",
+    "actual": "bae49329b4bca346b01eb42df6abcf99e3f5f661a9cb96764223ab4a433ac30e",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "docs/research/river-witness-pilot.md",
+    "expected": "64adda53ae3be12ec09f99f7b3678733151ae08258f8f97ae5ec5c05f041d6b1",
+    "actual": "64adda53ae3be12ec09f99f7b3678733151ae08258f8f97ae5ec5c05f041d6b1",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "src/pontius/__init__.py",
+    "expected": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba",
+    "actual": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "src/pontius/game.py",
+    "expected": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2",
+    "actual": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "src/pontius/river.py",
+    "expected": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7",
+    "actual": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "src/pontius/river_abstraction_study.py",
+    "expected": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "actual": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "src/pontius/river_group_optimality.py",
+    "expected": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "actual": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "src/pontius/river_witness_distillation.py",
+    "expected": "ad33fbc2b0a569a7587bfc68a08c32dd9c7b38a288c39430093903d294e0eb30",
+    "actual": "ad33fbc2b0a569a7587bfc68a08c32dd9c7b38a288c39430093903d294e0eb30",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "src/pontius/river_witness_groups.py",
+    "expected": "2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e",
+    "actual": "2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "src/pontius/river_witness_pilot.py",
+    "expected": "696aa6796f592f8d1faa02884a007a3cc431137119406d2bac665bf03cb0469d",
+    "actual": "696aa6796f592f8d1faa02884a007a3cc431137119406d2bac665bf03cb0469d",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "tools/river_group_optimality.py",
+    "expected": "b637f02177d43f15376d2933805d92fe8eeefd4e9a1b11dada809c68da5a391a",
+    "actual": "b637f02177d43f15376d2933805d92fe8eeefd4e9a1b11dada809c68da5a391a",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "tools/river_witness_distillation.py",
+    "expected": "bcb15dbb84d03858221569890d5ef06b21437a9ba5c6531adea531450959cedb",
+    "actual": "bcb15dbb84d03858221569890d5ef06b21437a9ba5c6531adea531450959cedb",
+    "matches": true
+  },
+  {
+    "binding": "sources",
+    "path": "tools/river_witness_pilot.py",
+    "expected": "8292b1972ef2f094c44e15fb56e9ad558fe0c1c668ab7eb2256534b79b8a6f16",
+    "actual": "8292b1972ef2f094c44e15fb56e9ad558fe0c1c668ab7eb2256534b79b8a6f16",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b00-p0-polarized.json",
+    "expected": "2d393540f42ca9e33e064ac92766f1f773092b92e3873a2cdaf471a71a20c78e",
+    "actual": "2d393540f42ca9e33e064ac92766f1f773092b92e3873a2cdaf471a71a20c78e",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b00-p0-uniform.json",
+    "expected": "b036fa817c5dd403fb3054a0e4651881c23160c87b372d3da6a5f76772e69040",
+    "actual": "b036fa817c5dd403fb3054a0e4651881c23160c87b372d3da6a5f76772e69040",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b00-p1-polarized.json",
+    "expected": "1a2d8c7b6c42960bc9ca9bbddf89e68d193c0241c5887424be426b8be42b157b",
+    "actual": "1a2d8c7b6c42960bc9ca9bbddf89e68d193c0241c5887424be426b8be42b157b",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b00-p1-uniform.json",
+    "expected": "9aed05d36b5b7cbce1bdee928fbf95588bee003c479a6be1291d90c9eb1aa895",
+    "actual": "9aed05d36b5b7cbce1bdee928fbf95588bee003c479a6be1291d90c9eb1aa895",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b00-p2-polarized.json",
+    "expected": "ffaeaad9a65f64ca4eceda2c8366cf73803ada439f693f204f9e9199c2c18c0a",
+    "actual": "ffaeaad9a65f64ca4eceda2c8366cf73803ada439f693f204f9e9199c2c18c0a",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b00-p2-uniform.json",
+    "expected": "6cd00423b6e70f8dafdd4d0c3469e630bba318a75e58f6fe9bbdfb9ffb18e9eb",
+    "actual": "6cd00423b6e70f8dafdd4d0c3469e630bba318a75e58f6fe9bbdfb9ffb18e9eb",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b01-p0-polarized.json",
+    "expected": "da999d01c781f6d37334901f4a73c83daef775e5327caa624c610e4c50a68c25",
+    "actual": "da999d01c781f6d37334901f4a73c83daef775e5327caa624c610e4c50a68c25",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b01-p0-uniform.json",
+    "expected": "5fce1a91caade0372af0a5fbdef108f13b3e2d7b618785b22ca5c90e6e935383",
+    "actual": "5fce1a91caade0372af0a5fbdef108f13b3e2d7b618785b22ca5c90e6e935383",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b01-p1-polarized.json",
+    "expected": "b8947dc33d2d6c26f53af6fa863b21f7f488655f3b9f9ad294c1db79ad6cf312",
+    "actual": "b8947dc33d2d6c26f53af6fa863b21f7f488655f3b9f9ad294c1db79ad6cf312",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b01-p1-uniform.json",
+    "expected": "db57cce7375f9339b7cdeb0612ece926ee9018e3c176e1112ca4ce316212637e",
+    "actual": "db57cce7375f9339b7cdeb0612ece926ee9018e3c176e1112ca4ce316212637e",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b01-p2-polarized.json",
+    "expected": "5e52167242c589532cdb1c1e992a4de1694add4634ce6375e19d2088ec997dfe",
+    "actual": "5e52167242c589532cdb1c1e992a4de1694add4634ce6375e19d2088ec997dfe",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b01-p2-uniform.json",
+    "expected": "482caf7a01cff96bc47143fca93d2a3ce02d7b118d68e741e37fd3d0a3275b54",
+    "actual": "482caf7a01cff96bc47143fca93d2a3ce02d7b118d68e741e37fd3d0a3275b54",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b02-p0-polarized.json",
+    "expected": "3fa7c297a16f8c479adcf7322e2fdcfc8ca3c737bc8f484b910a1562e4fceec6",
+    "actual": "3fa7c297a16f8c479adcf7322e2fdcfc8ca3c737bc8f484b910a1562e4fceec6",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b02-p0-uniform.json",
+    "expected": "5684a1127dc88addf596c04091ad9855810b0bfcf8c7c05b106f466fca8c7bd5",
+    "actual": "5684a1127dc88addf596c04091ad9855810b0bfcf8c7c05b106f466fca8c7bd5",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b02-p1-polarized.json",
+    "expected": "09d7cd99566046ac7e335974aeddfd4274292409c3d65976bb40fcb92e1d9e3a",
+    "actual": "09d7cd99566046ac7e335974aeddfd4274292409c3d65976bb40fcb92e1d9e3a",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b02-p1-uniform.json",
+    "expected": "0d80c8a0d05c9db952332fa3e9dc5361bbbad09a0d1767e2e6bd6354d59a2368",
+    "actual": "0d80c8a0d05c9db952332fa3e9dc5361bbbad09a0d1767e2e6bd6354d59a2368",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b02-p2-polarized.json",
+    "expected": "1e5515c901b01a6c761607d521f98974c84e4d797e9516f60e1c2ae94d57a574",
+    "actual": "1e5515c901b01a6c761607d521f98974c84e4d797e9516f60e1c2ae94d57a574",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b02-p2-uniform.json",
+    "expected": "6cebcb3b8d2db06743f0033191fdc0e77a6d94a142501ec7bd832c8cdd54a5dc",
+    "actual": "6cebcb3b8d2db06743f0033191fdc0e77a6d94a142501ec7bd832c8cdd54a5dc",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b03-p0-polarized.json",
+    "expected": "73fccb61c54564927a3061606ef9fe93ce58a73e36c1344da82a6188c93df5cb",
+    "actual": "73fccb61c54564927a3061606ef9fe93ce58a73e36c1344da82a6188c93df5cb",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b03-p0-uniform.json",
+    "expected": "c296cc7f4ee7d288f010eed7ae7128ac4e90c58fa72d78d9bc93e37926ec97f2",
+    "actual": "c296cc7f4ee7d288f010eed7ae7128ac4e90c58fa72d78d9bc93e37926ec97f2",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b03-p1-polarized.json",
+    "expected": "9075449ad36de86b1f96d8f75df0ed2c9d7645a766559484e94623628da5333d",
+    "actual": "9075449ad36de86b1f96d8f75df0ed2c9d7645a766559484e94623628da5333d",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b03-p1-uniform.json",
+    "expected": "5f9abd571102d8aac06548ebc2a49685ebadfdf6da46193276de24c45a5c13c4",
+    "actual": "5f9abd571102d8aac06548ebc2a49685ebadfdf6da46193276de24c45a5c13c4",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b03-p2-polarized.json",
+    "expected": "61c9cbe3946d0c9b28621fb5697e034db16c30494ae600d80dd34a1fa4a0700c",
+    "actual": "61c9cbe3946d0c9b28621fb5697e034db16c30494ae600d80dd34a1fa4a0700c",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b03-p2-uniform.json",
+    "expected": "c705a0acb3304d4aa779bb15fdd4ec675bd2f8ef1a729dc0ee0f5d8fc813e9b4",
+    "actual": "c705a0acb3304d4aa779bb15fdd4ec675bd2f8ef1a729dc0ee0f5d8fc813e9b4",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b04-p0-polarized.json",
+    "expected": "5a0288331268fed294d622e0a669ddddaacc5821619b2a4cca37f35a3ec82d79",
+    "actual": "5a0288331268fed294d622e0a669ddddaacc5821619b2a4cca37f35a3ec82d79",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b04-p0-uniform.json",
+    "expected": "e194f172bfa91852a3d37664bf57ff44a8d3be620658c9b0dda58e7d1a3d1cb5",
+    "actual": "e194f172bfa91852a3d37664bf57ff44a8d3be620658c9b0dda58e7d1a3d1cb5",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b04-p1-polarized.json",
+    "expected": "ad9e6971bbf12bcdf882af1c62edae154147984a97e353d9dc4cb68de6d22ca0",
+    "actual": "ad9e6971bbf12bcdf882af1c62edae154147984a97e353d9dc4cb68de6d22ca0",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b04-p1-uniform.json",
+    "expected": "b0d0008eb1e68cf4c36e7fae56c48947d646e2485a8f8ef7f6c91e22a2c18431",
+    "actual": "b0d0008eb1e68cf4c36e7fae56c48947d646e2485a8f8ef7f6c91e22a2c18431",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b04-p2-polarized.json",
+    "expected": "6e63d38fde96d1186fb8255756d3ac9b092629db9587ae4bf2d1cdf4a3885969",
+    "actual": "6e63d38fde96d1186fb8255756d3ac9b092629db9587ae4bf2d1cdf4a3885969",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b04-p2-uniform.json",
+    "expected": "9744b0a308cc9da9f7b05f877bd9167a301437384ba44832fb598daa0d8df16f",
+    "actual": "9744b0a308cc9da9f7b05f877bd9167a301437384ba44832fb598daa0d8df16f",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b05-p0-polarized.json",
+    "expected": "39ce163e381b14cde026175fcc71821af9cad8e61c775077f0fc0466278f0437",
+    "actual": "39ce163e381b14cde026175fcc71821af9cad8e61c775077f0fc0466278f0437",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b05-p0-uniform.json",
+    "expected": "8403f073cd6ccd0206e1cb46a2ac9a8db86d929fa9d83e23f283e8ca49b67ac9",
+    "actual": "8403f073cd6ccd0206e1cb46a2ac9a8db86d929fa9d83e23f283e8ca49b67ac9",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b05-p1-polarized.json",
+    "expected": "8b53d131033410d1dd8681750e89cd3643862956439e651ca08b15625d128cb1",
+    "actual": "8b53d131033410d1dd8681750e89cd3643862956439e651ca08b15625d128cb1",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b05-p1-uniform.json",
+    "expected": "576b0d39e00bf658d0c98f020eadce6c3b0eb3e6595e372f8ca922481857e1c7",
+    "actual": "576b0d39e00bf658d0c98f020eadce6c3b0eb3e6595e372f8ca922481857e1c7",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b05-p2-polarized.json",
+    "expected": "40823f9ebda12ef9ab0bf2314754f0f1a0eed63b6df27c07f531fe39343aa889",
+    "actual": "40823f9ebda12ef9ab0bf2314754f0f1a0eed63b6df27c07f531fe39343aa889",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b05-p2-uniform.json",
+    "expected": "0512cfc67ef7862e2eb8ecfa5b31eb1db46d1cec46f418b5cb8d759f251a305a",
+    "actual": "0512cfc67ef7862e2eb8ecfa5b31eb1db46d1cec46f418b5cb8d759f251a305a",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b06-p0-polarized.json",
+    "expected": "4d765ffa253cd81e0959bd3a7f0a36136236f72e7760cd7c3a7e45d1fc43a6b6",
+    "actual": "4d765ffa253cd81e0959bd3a7f0a36136236f72e7760cd7c3a7e45d1fc43a6b6",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b06-p0-uniform.json",
+    "expected": "7317f414b4be21ffdad3d9eca32c779a42ba21e8c5961e702477092c38818dd3",
+    "actual": "7317f414b4be21ffdad3d9eca32c779a42ba21e8c5961e702477092c38818dd3",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b06-p1-polarized.json",
+    "expected": "09554370f79e62e2e1f182a5a3d3837f3664dff67be1b37c11fe072f53be0baa",
+    "actual": "09554370f79e62e2e1f182a5a3d3837f3664dff67be1b37c11fe072f53be0baa",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b06-p1-uniform.json",
+    "expected": "dfb4c9ddb65b553282533a4339a62a1bf732fd25145784db015b4077085fd482",
+    "actual": "dfb4c9ddb65b553282533a4339a62a1bf732fd25145784db015b4077085fd482",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b06-p2-polarized.json",
+    "expected": "5ee8a1e7321ea41713872f8004e6b15c79b3f1f269fec997c34ca7fd8c43c09a",
+    "actual": "5ee8a1e7321ea41713872f8004e6b15c79b3f1f269fec997c34ca7fd8c43c09a",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b06-p2-uniform.json",
+    "expected": "d635ad826fb102b175b206f7fcadeec34e67c596e09a1b93bdae28f6a2ad9f1c",
+    "actual": "d635ad826fb102b175b206f7fcadeec34e67c596e09a1b93bdae28f6a2ad9f1c",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b07-p0-polarized.json",
+    "expected": "b60b6b14886ea31ae4ebfa57cd3f07f8b224200ef99f38863ebcaac272874c40",
+    "actual": "b60b6b14886ea31ae4ebfa57cd3f07f8b224200ef99f38863ebcaac272874c40",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b07-p0-uniform.json",
+    "expected": "cc6b4f4dd9f88ade3ffef1d52f4272c087fae348f4962155ef99c7116cb8f79e",
+    "actual": "cc6b4f4dd9f88ade3ffef1d52f4272c087fae348f4962155ef99c7116cb8f79e",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b07-p1-polarized.json",
+    "expected": "ac7b67a657b33e61c3b856219aa74380e6f2a234a3bb6a980f604f839aaa5004",
+    "actual": "ac7b67a657b33e61c3b856219aa74380e6f2a234a3bb6a980f604f839aaa5004",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b07-p1-uniform.json",
+    "expected": "cb07408b46e888fb0837c4832fbd23182775dee5a4b05d21a954a44cb9f3f311",
+    "actual": "cb07408b46e888fb0837c4832fbd23182775dee5a4b05d21a954a44cb9f3f311",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b07-p2-polarized.json",
+    "expected": "41191ee56a2f65000133203cfa4ad978f5f7d18f16dadd79bc1d0c9fc9581ebe",
+    "actual": "41191ee56a2f65000133203cfa4ad978f5f7d18f16dadd79bc1d0c9fc9581ebe",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "b07-p2-uniform.json",
+    "expected": "e132b4abfa7ae36e60d0b7305596f88a500bc9648560cbf94604149557fa671c",
+    "actual": "e132b4abfa7ae36e60d0b7305596f88a500bc9648560cbf94604149557fa671c",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "invocation/analysis.json",
+    "expected": "4996c1af9833ba6079d64c2b42e587f0496baef60aa0785529a55be2118ac0e9",
+    "actual": "4996c1af9833ba6079d64c2b42e587f0496baef60aa0785529a55be2118ac0e9",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "invocation/authorization.json",
+    "expected": "d593288d826dac6eff9ef9302754a96230a439831a55fa81f67ee6d23cb751da",
+    "actual": "d593288d826dac6eff9ef9302754a96230a439831a55fa81f67ee6d23cb751da",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "invocation/launch.json",
+    "expected": "0ad1a592b1b71c34823bc6d5b41a458c584eb385f1f621fd4860764baeb78cd8",
+    "actual": "0ad1a592b1b71c34823bc6d5b41a458c584eb385f1f621fd4860764baeb78cd8",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "invocation/receipt.json",
+    "expected": "525dd6c571a0b85532430ca614746ad4f071acdab991f123698b624c5d06b29a",
+    "actual": "525dd6c571a0b85532430ca614746ad4f071acdab991f123698b624c5d06b29a",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "invocation/stderr.txt",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "invocation/stdout.txt",
+    "expected": "258253a391ec95ae71c06607df09d580da97ee5d4100b16adab086e060abd07a",
+    "actual": "258253a391ec95ae71c06607df09d580da97ee5d4100b16adab086e060abd07a",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "invocation/verification.json",
+    "expected": "82505ae8bd4f0b3a52531146ff8773cfb86a2c83add2c8ceffe85869b76bb6a9",
+    "actual": "82505ae8bd4f0b3a52531146ff8773cfb86a2c83add2c8ceffe85869b76bb6a9",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "manifest.json",
+    "expected": "42ada4db7938d7d1da9b5aa9bad0ebc62795e423c5c3a8c854b7eec07c5a73a7",
+    "actual": "42ada4db7938d7d1da9b5aa9bad0ebc62795e423c5c3a8c854b7eec07c5a73a7",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "milestone-manifest.json",
+    "expected": "d3b52b5f3c6046c6c36f2c967fa6d9e5e6f43608465da2cc974f94e54a121032",
+    "actual": "d3b52b5f3c6046c6c36f2c967fa6d9e5e6f43608465da2cc974f94e54a121032",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "plan.json",
+    "expected": "535a3fa5b4d55d8bc6cc29763c63b5ab41f89cf0ea190bca90f9c00a5a8c9d2c",
+    "actual": "535a3fa5b4d55d8bc6cc29763c63b5ab41f89cf0ea190bca90f9c00a5a8c9d2c",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "receipt.json",
+    "expected": "4be8b259b2701c38018985e4f24903fdc761d040feb4754ae98a6a2368833d9b",
+    "actual": "4be8b259b2701c38018985e4f24903fdc761d040feb4754ae98a6a2368833d9b",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "started.json",
+    "expected": "00d70283f9d2139ec2e290f8f7d9abdecc7273dd5e55c6c58e27ba1af9921505",
+    "actual": "00d70283f9d2139ec2e290f8f7d9abdecc7273dd5e55c6c58e27ba1af9921505",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "stderr.txt",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "stdout.txt",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "summary.json",
+    "expected": "2ad2cac27b17661210fd07b1df346f013df6809207d7bf00222dd46df803523f",
+    "actual": "2ad2cac27b17661210fd07b1df346f013df6809207d7bf00222dd46df803523f",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "verification-tools/run-approved-once.py",
+    "expected": "f73d377afb4961e17b903a07ec28af3c6752f6d23051a7ee2b54de5d1ab666be",
+    "actual": "f73d377afb4961e17b903a07ec28af3c6752f6d23051a7ee2b54de5d1ab666be",
+    "matches": true
+  },
+  {
+    "binding": "training",
+    "path": "verification-tools/verify-retained.py",
+    "expected": "53e5205ff5170fb63685df799892c8a5d32c326cfb15d05fbf8532b78e8622d7",
+    "actual": "53e5205ff5170fb63685df799892c8a5d32c326cfb15d05fbf8532b78e8622d7",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "identity-final.json",
+    "expected": "2d15eb3e397e4904fec66ee76fb16412c5d194b784b88e151864895721564585",
+    "actual": "2d15eb3e397e4904fec66ee76fb16412c5d194b784b88e151864895721564585",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "identity-initial.json",
+    "expected": "2d15eb3e397e4904fec66ee76fb16412c5d194b784b88e151864895721564585",
+    "actual": "2d15eb3e397e4904fec66ee76fb16412c5d194b784b88e151864895721564585",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-output/b00-p0-uniform.json",
+    "expected": "c81e594daa487eb0bb965a3bae3545ba7530033335e072c61d074e5b8d3becee",
+    "actual": "c81e594daa487eb0bb965a3bae3545ba7530033335e072c61d074e5b8d3becee",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-output/manifest.json",
+    "expected": "a703aa122f1538c2ea13a9bfd4c6cebbb9446bd1057d4a81e8785abde3f9367d",
+    "actual": "a703aa122f1538c2ea13a9bfd4c6cebbb9446bd1057d4a81e8785abde3f9367d",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-output/models.json",
+    "expected": "b88e52f5a3f2d072f3986ac826463e9768e7eacfae352ced25ae215af0f01ff2",
+    "actual": "b88e52f5a3f2d072f3986ac826463e9768e7eacfae352ced25ae215af0f01ff2",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-output/plan.json",
+    "expected": "8221813e8492ff4551905cddd951c3d84812f69f0e8c1d0fb8cccb31a16f6ce0",
+    "actual": "8221813e8492ff4551905cddd951c3d84812f69f0e8c1d0fb8cccb31a16f6ce0",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-output/preparation.json",
+    "expected": "1533f111d8488e1658ce34b0b11f45acfaebaf280e1b55b66291416f75f92c90",
+    "actual": "1533f111d8488e1658ce34b0b11f45acfaebaf280e1b55b66291416f75f92c90",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-output/receipt.json",
+    "expected": "a75d0f17e560f83cfe85def3e57f20e697577171d05a0f95613deb4a407c6a62",
+    "actual": "a75d0f17e560f83cfe85def3e57f20e697577171d05a0f95613deb4a407c6a62",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-output/started.json",
+    "expected": "e82fe193e716ffb680aa7d458b39ea147f6532d77d9087224df73356f5319fc0",
+    "actual": "e82fe193e716ffb680aa7d458b39ea147f6532d77d9087224df73356f5319fc0",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-output/stderr.txt",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-output/stdout.txt",
+    "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-output/summary.json",
+    "expected": "da85974fb47215eeb3c9e769efab4963902efbde127fb97dc81bbc14c27144c9",
+    "actual": "da85974fb47215eeb3c9e769efab4963902efbde127fb97dc81bbc14c27144c9",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-plan.json",
+    "expected": "8221813e8492ff4551905cddd951c3d84812f69f0e8c1d0fb8cccb31a16f6ce0",
+    "actual": "8221813e8492ff4551905cddd951c3d84812f69f0e8c1d0fb8cccb31a16f6ce0",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-training/b00-p0-uniform.json",
+    "expected": "3c759f5b98672bc3def429a33dde54002c68ca4f5f5ad0a49db671532aa3b10f",
+    "actual": "3c759f5b98672bc3def429a33dde54002c68ca4f5f5ad0a49db671532aa3b10f",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-smoke-training/plan.json",
+    "expected": "d7171acf0ce9e244e3d71904b2b0fd8ef832ea053876a2cb0665991db90d83f1",
+    "actual": "d7171acf0ce9e244e3d71904b2b0fd8ef832ea053876a2cb0665991db90d83f1",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-tests-fixed.txt",
+    "expected": "34cf2ccde5f36a728a78d6026939dc3c10a4d1301e7320497196cd1765e8a109",
+    "actual": "34cf2ccde5f36a728a78d6026939dc3c10a4d1301e7320497196cd1765e8a109",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-tests-fixed.xml",
+    "expected": "a541c870373ba4c9511d921612e108ff2948bd32f3b517c84e09d457518057d5",
+    "actual": "a541c870373ba4c9511d921612e108ff2948bd32f3b517c84e09d457518057d5",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-tests.txt",
+    "expected": "9444e5f00b1f2f6e5f186e2d01b0076b8f5068bd72a58e1fae24beadad063ab8",
+    "actual": "9444e5f00b1f2f6e5f186e2d01b0076b8f5068bd72a58e1fae24beadad063ab8",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "independent-tests.xml",
+    "expected": "7d98326756345711e2b994424fefede4de404399ecf3cb69cb43d6adb4feb2f7",
+    "actual": "7d98326756345711e2b994424fefede4de404399ecf3cb69cb43d6adb4feb2f7",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "inventory.md",
+    "expected": "427562a8801044e19555408c7c105e0c2fe243b8b2e46f164b6bc117886b6678",
+    "actual": "427562a8801044e19555408c7c105e0c2fe243b8b2e46f164b6bc117886b6678",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "inventory.sha256",
+    "expected": "646285662929ceabee2cd0a2c2d4c3881e7117653f9fe7700f8de4c6467aaabe",
+    "actual": "646285662929ceabee2cd0a2c2d4c3881e7117653f9fe7700f8de4c6467aaabe",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "new-tests-escalated.txt",
+    "expected": "78d6cf1b73a0507e5fb64670d566a4ea4c744d9a190f229daa4f587c269147e1",
+    "actual": "78d6cf1b73a0507e5fb64670d566a4ea4c744d9a190f229daa4f587c269147e1",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "new-tests.txt",
+    "expected": "562020e02f902aef2994b5869de6ab358263613248448f85780dd7afab17b250",
+    "actual": "562020e02f902aef2994b5869de6ab358263613248448f85780dd7afab17b250",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "new-tests.xml",
+    "expected": "7e97dcb0650bc858c27b7bee0c1b28d871d8231e3fc147e7acb5bbc5f5e0e17e",
+    "actual": "7e97dcb0650bc858c27b7bee0c1b28d871d8231e3fc147e7acb5bbc5f5e0e17e",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "report.md",
+    "expected": "4dfb29b31c37b737d9cc8db9732a7ba1cb726e46f41f5725f5ef751da8d0a208",
+    "actual": "4dfb29b31c37b737d9cc8db9732a7ba1cb726e46f41f5725f5ef751da8d0a208",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "report.sha256",
+    "expected": "c998600f35897f702af7091217cbcd9f330b5e4bcd41bdb13b8f6d244645fdfe",
+    "actual": "c998600f35897f702af7091217cbcd9f330b5e4bcd41bdb13b8f6d244645fdfe",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "test_independent.py",
+    "expected": "22740bbd36979da098fde6df087c607d5051aad881a94d68596769b80612c433",
+    "actual": "22740bbd36979da098fde6df087c607d5051aad881a94d68596769b80612c433",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "timing-boundary.json",
+    "expected": "06ed3d4d819a19e4766da829237a5a1c5fa22b09e1aed40a9341517a915b3282",
+    "actual": "06ed3d4d819a19e4766da829237a5a1c5fa22b09e1aed40a9341517a915b3282",
+    "matches": true
+  },
+  {
+    "binding": "original-review",
+    "path": "verify_identity.ps1",
+    "expected": "a081be13aced1ca9bf1c080e2d92e3d44ddc04b9677eb3da8491588be5e4f312",
+    "actual": "a081be13aced1ca9bf1c080e2d92e3d44ddc04b9677eb3da8491588be5e4f312",
+    "matches": true
+  },
+  {
+    "binding": "accounting",
+    "path": "accounting-green.xml",
+    "expected": "d15da28e9da863b214e8872bf44ceca6a4cb57ba4da881e3bece2f16ce6bb551",
+    "actual": "d15da28e9da863b214e8872bf44ceca6a4cb57ba4da881e3bece2f16ce6bb551",
+    "matches": true
+  },
+  {
+    "binding": "accounting",
+    "path": "accounting-red.xml",
+    "expected": "9e378237da9369fbf9e2cf175a4917c33e1d0c2842fa6feaa18c8f6713042c4a",
+    "actual": "9e378237da9369fbf9e2cf175a4917c33e1d0c2842fa6feaa18c8f6713042c4a",
+    "matches": true
+  },
+  {
+    "binding": "accounting",
+    "path": "approval-template.txt",
+    "expected": "1420fc5babc5d548224f7f6cfee6be49b43fd43b3bbd73f96315363ebabd18c2",
+    "actual": "1420fc5babc5d548224f7f6cfee6be49b43fd43b3bbd73f96315363ebabd18c2",
+    "matches": true
+  },
+  {
+    "binding": "accounting",
+    "path": "contract.md",
+    "expected": "3b4831ed3b562a88242c8d82fe8e90e1e4e85c639c02494f806985b1b39986b1",
+    "actual": "3b4831ed3b562a88242c8d82fe8e90e1e4e85c639c02494f806985b1b39986b1",
+    "matches": true
+  },
+  {
+    "binding": "accounting",
+    "path": "lint.txt",
+    "expected": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "actual": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "matches": true
+  },
+  {
+    "binding": "accounting",
+    "path": "measure_invocation.py",
+    "expected": "c675cbfd5a6d57b7e43144b26ca2e14462cc87b91682c56faf2388595cb25e7f",
+    "actual": "c675cbfd5a6d57b7e43144b26ca2e14462cc87b91682c56faf2388595cb25e7f",
+    "matches": true
+  },
+  {
+    "binding": "accounting",
+    "path": "run-command.txt",
+    "expected": "90bcda762cda4b1fab8fcc6cb9954ea250f7a70a8a41b5267320c299ac2dc0fd",
+    "actual": "90bcda762cda4b1fab8fcc6cb9954ea250f7a70a8a41b5267320c299ac2dc0fd",
+    "matches": true
+  },
+  {
+    "binding": "accounting",
+    "path": "test_accounting.py",
+    "expected": "7f4d4fd21b29ebe645bb76fd6a631a2a5369f2451e43ce423e4ecf0036bcb368",
+    "actual": "7f4d4fd21b29ebe645bb76fd6a631a2a5369f2451e43ce423e4ecf0036bcb368",
+    "matches": true
+  }
+]

@@ -220,10 +220,18 @@ def representations(matrix, equities):
 DEVELOPMENT_BOARDS = ((0, 21, 30, 39, 40), (2, 22, 38, 40, 47))
 
 
+HOLDOUT_BOARDS = ((4, 5, 26, 35, 49), (11, 19, 27, 33, 42))
+
+
 def development_case(board, hand_count=16, regime='uniform'):
+    return study_case(board, hand_count, regime, split='development')
+
+
+def study_case(board, hand_count=16, regime='uniform', *, split='development'):
     board = tuple(sorted(board))
-    if board not in DEVELOPMENT_BOARDS:
-        raise ValueError('this development driver does not admit holdout or arbitrary boards')
+    pools = {'development': DEVELOPMENT_BOARDS, 'holdout': HOLDOUT_BOARDS}
+    if split not in pools or board not in pools[split]:
+        raise ValueError('board must belong to the explicitly selected study split')
     if type(hand_count) is not int or not 2 <= hand_count <= 96:
         raise ValueError('hand count must be an integer in [2,96]')
     if regime not in ('uniform', 'polarized'):

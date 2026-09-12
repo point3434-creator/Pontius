@@ -1,0 +1,2 @@
+{"exit":1,"failure":"ModuleNotFoundError: No module named 'direct'",
+ "meaning":"Tests for the single-size evaluator and full-hand adapter preceded implementation."}

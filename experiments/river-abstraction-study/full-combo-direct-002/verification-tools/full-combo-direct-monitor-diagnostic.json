@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "executable": "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+      "executing_pid": 72580,
+      "observed_pid": 63144,
+      "private_bytes": 835584
+    },
+    {
+      "executable": "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+      "executing_pid": 69152,
+      "observed_pid": 69152,
+      "private_bytes": 140382208
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-"""Single-case development driver. The multi-case retained campaign is a later gate."""
+"""Single-case study driver. Holdout access requires explicit split selection."""
 
 from __future__ import annotations
 
@@ -20,7 +20,8 @@ sys.path.insert(0, str(ROOT / 'src'))
 import numpy as np  # noqa: E402 -- BLAS environment and source path must precede imports.
 
 from pontius.river_abstraction_study import (  # noqa: E402
-    CFR, DEVELOPMENT_BOARDS, PayoffGame, development_case, representations,
+    CFR, DEVELOPMENT_BOARDS, HOLDOUT_BOARDS, PayoffGame, development_case,
+    representations, study_case,
 )
 
 
@@ -43,6 +44,11 @@ def run(args):
         raise RuntimeError('this study requires CPython 3.14.6')
     if tracemalloc.is_tracing():
         raise RuntimeError('timing with allocation tracing is forbidden')
+    split = getattr(args, 'split', 'development')
+    boards = {'development': DEVELOPMENT_BOARDS, 'holdout': HOLDOUT_BOARDS}
+    if split not in boards or type(args.board) is not int or args.board not in (0, 1):
+        raise ValueError('explicit study split and board index required')
+    board = boards[split][args.board]
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
     sources = ['src/pontius/river_abstraction_study.py', 'src/pontius/river.py',
@@ -50,15 +56,18 @@ def run(args):
                'tools/river_abstraction_study.py', 'docs/research/river-abstraction-study.md']
     try:
         write_json(output / 'started.json', {
-            'kind': 'development-only; not retained campaign or strength evidence',
+            'kind': 'study case; not evidence of general poker strength', 'split': split,
             'python': sys.version, 'numpy': np.__version__, 'command': sys.argv,
             'source_sha256': {p: sha256((ROOT / p).read_bytes()).hexdigest() for p in sources},
-            'board': list(DEVELOPMENT_BOARDS[args.board]), 'hands_per_player': args.hands,
+            'board': list(board), 'hands_per_player': args.hands,
             'regime': args.regime, 'iterations': args.iterations,
         })
         started = perf_counter()
-        game, equities, ranges = development_case(
-            DEVELOPMENT_BOARDS[args.board], args.hands, args.regime)
+        if split == 'development':
+            game, equities, ranges = development_case(board, args.hands, args.regime)
+        else:
+            game, equities, ranges = study_case(
+                board, args.hands, args.regime, split=split)
         matrix = PayoffGame.from_river(game)
         compilation_seconds = perf_counter() - started
         started = perf_counter()
@@ -102,6 +111,9 @@ def run(args):
                     'group_bet': x.tolist(), 'group_call': y.tolist(),
                     'hand_bet': lifted[0].tolist(), 'hand_call': lifted[1].tolist(),
                     'full_game': full, 'restricted_game': restricted,
+                    'full_game_fraction_of_pot': {k: v / game.pot for k, v in full.items()},
+                    'restricted_game_fraction_of_pot': {
+                        k: v / game.pot for k, v in restricted.items()},
                     'full_exploitability_fraction_of_pot': full['exploitability'] / game.pot,
                     'training_seconds_cumulative': training_seconds,
                     'aggregation_seconds': aggregation_seconds,
@@ -109,7 +121,7 @@ def run(args):
                     'solver_array_bytes': sum(a.nbytes for a in arrays),
                 })
         write_json(output / 'result.json', {
-            'complete': True, 'kind': 'development-only',
+            'complete': True, 'kind': 'study-case', 'split': split,
             'compile_seconds': compilation_seconds, 'all_grouping_seconds': grouping_seconds,
             'accepted_joint_deals': len(game.deals), 'records': records,
             'limits': [
@@ -132,6 +144,7 @@ def run(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--split', choices=('development', 'holdout'), default='development')
     parser.add_argument('--board', type=int, choices=(0, 1), default=0)
     parser.add_argument('--hands', type=bounded_integer(2, 96), default=16)
     parser.add_argument('--regime', choices=('uniform', 'polarized'), default='uniform')

@@ -1,0 +1,11 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.6, pytest-9.1.1, pluggy-1.6.0
+rootdir: D:\Pontius-worktrees\eval-runner-consolidation
+configfile: pyproject.toml
+collected 9 items
+
+..\..\..\Pontius-worktrees\eval-runner-consolidation\tests\test_river_witness_distillation.py . [ 11%]
+........                                                                 [100%]
+
+- generated xml file: D:\Pontius\tmp\witness-distill-review-01\new-tests.xml --
+============================== 9 passed in 8.11s ==============================

@@ -1,0 +1,13 @@
+test_certificate_parity (test_kernel.ExactKernel.test_certificate_parity) ... ok
+test_dyadic_extreme_coefficients (test_kernel.ExactKernel.test_dyadic_extreme_coefficients) ... ok
+test_literal_parity_all_group_shapes (test_kernel.ExactKernel.test_literal_parity_all_group_shapes) ... ok
+test_zero_and_tie_payoffs (test_kernel.ExactKernel.test_zero_and_tie_payoffs) ... ok
+test_literal_payoffs_on_full_game_subset (test_inputs.Inputs.test_literal_payoffs_on_full_game_subset) ... ok
+test_native_order_and_exact_ties_against_python_reference (test_inputs.Inputs.test_native_order_and_exact_ties_against_python_reference) ... ok
+test_private_cards_do_not_enter_ranges (test_inputs.Inputs.test_private_cards_do_not_enter_ranges) ... ok
+test_unchanged_state_required_and_no_target_replacement (test_inputs.Inputs.test_unchanged_state_required_and_no_target_replacement) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.188s
+
+OK

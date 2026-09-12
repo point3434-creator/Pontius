@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "research_invocations": 0,
+  "missing_approval_stopped_before_subprocess": true,
+  "inert_success_seconds": 0.1478722000028938,
+  "late_phase_seconds_minimum": 0.08,
+  "nonzero_child_exit": 7,
+  "start_failure_record_retained": true,
+  "binding_and_both_captures_retained": true
+}

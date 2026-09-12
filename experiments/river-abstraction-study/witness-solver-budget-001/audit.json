@@ -1,0 +1,10 @@
+{
+  "certificates": 576,
+  "lp_calls": 0,
+  "maximum_scalar_discrepancy": 1.7763568394002505e-15,
+  "model_fits": 0,
+  "passed": true,
+  "policies": 3456,
+  "replayed_steps": 5157759,
+  "scalar_policy_metrics": 20736
+}

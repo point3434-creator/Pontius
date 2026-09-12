@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="8" time="2.016" timestamp="2026-09-11T08:42:26.392174-04:00" hostname="JeffPC"><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_polynomial_design_and_weighted_ridge_have_hand_checked_solution" time="0.009" /><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_proposal_never_needs_teacher_and_parent_rejects_corruption" time="0.439" /><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_raw_features_use_only_equity_and_range_context" time="0.283" /><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_reserved_boards_exclude_all_observed_suit_classes" time="0.007" /><testcase classname="tests.test_river_witness_distillation.DistillationTests" name="test_summary_reports_student_and_oracle_without_ratio_on_zero_gain" time="0.327" /><testcase classname="tests.test_river_witness_distillation.DistillationToolTests" name="test_binding_refuses_recipe_source_training_drift_before_output" time="0.001"><failure message="AssertionError: False is not true : distillation runner is not implemented">self = &lt;test_river_witness_distillation.DistillationToolTests testMethod=test_binding_refuses_recipe_source_training_drift_before_output&gt;
+
+    def test_binding_refuses_recipe_source_training_drift_before_output(self):
+&gt;       tool = self.tool()
+               ^^^^^^^^^^^
+
+tests\test_river_witness_distillation.py:155: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_distillation.py:133: in tool
+    self.assertTrue(path.exists(), 'distillation runner is not implemented')
+E   AssertionError: False is not true : distillation runner is not implemented</failure></testcase><testcase classname="tests.test_river_witness_distillation.DistillationToolTests" name="test_failed_worker_timeout_and_manifest_error_never_complete" time="0.000"><failure message="AssertionError: False is not true : distillation runner is not implemented">self = &lt;test_river_witness_distillation.DistillationToolTests testMethod=test_failed_worker_timeout_and_manifest_error_never_complete&gt;
+
+    def test_failed_worker_timeout_and_manifest_error_never_complete(self):
+&gt;       tool = self.tool()
+               ^^^^^^^^^^^
+
+tests\test_river_witness_distillation.py:208: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_distillation.py:133: in tool
+    self.assertTrue(path.exists(), 'distillation runner is not implemented')
+E   AssertionError: False is not true : distillation runner is not implemented</failure></testcase><testcase classname="tests.test_river_witness_distillation.DistillationToolTests" name="test_two_hand_full_process_and_parent_refuses_wrong_model" time="0.000"><failure message="AssertionError: False is not true : distillation runner is not implemented">self = &lt;test_river_witness_distillation.DistillationToolTests testMethod=test_two_hand_full_process_and_parent_refuses_wrong_model&gt;
+
+    def test_two_hand_full_process_and_parent_refuses_wrong_model(self):
+&gt;       tool = self.tool()
+               ^^^^^^^^^^^
+
+tests\test_river_witness_distillation.py:183: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_distillation.py:133: in tool
+    self.assertTrue(path.exists(), 'distillation runner is not implemented')
+E   AssertionError: False is not true : distillation runner is not implemented</failure></testcase></testsuite></testsuites>

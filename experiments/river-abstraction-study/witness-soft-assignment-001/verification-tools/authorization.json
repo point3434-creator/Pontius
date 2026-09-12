@@ -1,0 +1,10 @@
+{
+  "user_words_verbatim": "I approve",
+  "scope": "One retained witness-soft-assignment-001 run and its verifier",
+  "plan_sha256": "5fbecc5d02a4fa60e32f621efb052bd01e095b9e33fc1bd888562ab61cddc0e0",
+  "worker_timeout_seconds": 1800,
+  "verifier_timeout_seconds": 1800,
+  "hard_memory_cap": null,
+  "automatic_retry_authorized": false,
+  "commit_push_or_adoption_authorized": false
+}

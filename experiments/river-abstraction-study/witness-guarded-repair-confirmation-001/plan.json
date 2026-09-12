@@ -1,0 +1,2006 @@
+{
+  "boards": [
+    [
+      1,
+      14,
+      27,
+      29,
+      42
+    ],
+    [
+      8,
+      26,
+      36,
+      45,
+      49
+    ],
+    [
+      9,
+      15,
+      40,
+      45,
+      51
+    ],
+    [
+      4,
+      14,
+      37,
+      40,
+      51
+    ],
+    [
+      18,
+      23,
+      31,
+      39,
+      44
+    ],
+    [
+      13,
+      26,
+      34,
+      38,
+      44
+    ],
+    [
+      2,
+      14,
+      20,
+      34,
+      36
+    ],
+    [
+      11,
+      35,
+      36,
+      40,
+      51
+    ],
+    [
+      5,
+      15,
+      34,
+      35,
+      51
+    ],
+    [
+      7,
+      16,
+      19,
+      27,
+      41
+    ],
+    [
+      6,
+      14,
+      33,
+      41,
+      42
+    ],
+    [
+      22,
+      23,
+      24,
+      33,
+      40
+    ],
+    [
+      0,
+      2,
+      27,
+      46,
+      47
+    ],
+    [
+      8,
+      10,
+      33,
+      36,
+      37
+    ],
+    [
+      22,
+      38,
+      44,
+      46,
+      47
+    ],
+    [
+      13,
+      17,
+      18,
+      40,
+      43
+    ]
+  ],
+  "control_checkpoints": [
+    10000,
+    50000
+  ],
+  "entries": [
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          1,
+          14,
+          27,
+          29,
+          42
+        ],
+        "board_index": 0,
+        "id": "b00-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          1,
+          14,
+          27,
+          29,
+          42
+        ],
+        "board_index": 0,
+        "id": "b00-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          1,
+          14,
+          27,
+          29,
+          42
+        ],
+        "board_index": 0,
+        "id": "b00-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          1,
+          14,
+          27,
+          29,
+          42
+        ],
+        "board_index": 0,
+        "id": "b00-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          8,
+          26,
+          36,
+          45,
+          49
+        ],
+        "board_index": 1,
+        "id": "b01-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          8,
+          26,
+          36,
+          45,
+          49
+        ],
+        "board_index": 1,
+        "id": "b01-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          8,
+          26,
+          36,
+          45,
+          49
+        ],
+        "board_index": 1,
+        "id": "b01-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          8,
+          26,
+          36,
+          45,
+          49
+        ],
+        "board_index": 1,
+        "id": "b01-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          9,
+          15,
+          40,
+          45,
+          51
+        ],
+        "board_index": 2,
+        "id": "b02-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          9,
+          15,
+          40,
+          45,
+          51
+        ],
+        "board_index": 2,
+        "id": "b02-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          9,
+          15,
+          40,
+          45,
+          51
+        ],
+        "board_index": 2,
+        "id": "b02-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          9,
+          15,
+          40,
+          45,
+          51
+        ],
+        "board_index": 2,
+        "id": "b02-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          4,
+          14,
+          37,
+          40,
+          51
+        ],
+        "board_index": 3,
+        "id": "b03-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          4,
+          14,
+          37,
+          40,
+          51
+        ],
+        "board_index": 3,
+        "id": "b03-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          4,
+          14,
+          37,
+          40,
+          51
+        ],
+        "board_index": 3,
+        "id": "b03-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          4,
+          14,
+          37,
+          40,
+          51
+        ],
+        "board_index": 3,
+        "id": "b03-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          18,
+          23,
+          31,
+          39,
+          44
+        ],
+        "board_index": 4,
+        "id": "b04-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          18,
+          23,
+          31,
+          39,
+          44
+        ],
+        "board_index": 4,
+        "id": "b04-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          18,
+          23,
+          31,
+          39,
+          44
+        ],
+        "board_index": 4,
+        "id": "b04-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          18,
+          23,
+          31,
+          39,
+          44
+        ],
+        "board_index": 4,
+        "id": "b04-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          13,
+          26,
+          34,
+          38,
+          44
+        ],
+        "board_index": 5,
+        "id": "b05-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          13,
+          26,
+          34,
+          38,
+          44
+        ],
+        "board_index": 5,
+        "id": "b05-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          13,
+          26,
+          34,
+          38,
+          44
+        ],
+        "board_index": 5,
+        "id": "b05-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          13,
+          26,
+          34,
+          38,
+          44
+        ],
+        "board_index": 5,
+        "id": "b05-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          2,
+          14,
+          20,
+          34,
+          36
+        ],
+        "board_index": 6,
+        "id": "b06-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          2,
+          14,
+          20,
+          34,
+          36
+        ],
+        "board_index": 6,
+        "id": "b06-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          2,
+          14,
+          20,
+          34,
+          36
+        ],
+        "board_index": 6,
+        "id": "b06-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          2,
+          14,
+          20,
+          34,
+          36
+        ],
+        "board_index": 6,
+        "id": "b06-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          11,
+          35,
+          36,
+          40,
+          51
+        ],
+        "board_index": 7,
+        "id": "b07-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          11,
+          35,
+          36,
+          40,
+          51
+        ],
+        "board_index": 7,
+        "id": "b07-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          11,
+          35,
+          36,
+          40,
+          51
+        ],
+        "board_index": 7,
+        "id": "b07-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          11,
+          35,
+          36,
+          40,
+          51
+        ],
+        "board_index": 7,
+        "id": "b07-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-flush-possible"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          5,
+          15,
+          34,
+          35,
+          51
+        ],
+        "board_index": 8,
+        "id": "b08-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          5,
+          15,
+          34,
+          35,
+          51
+        ],
+        "board_index": 8,
+        "id": "b08-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          5,
+          15,
+          34,
+          35,
+          51
+        ],
+        "board_index": 8,
+        "id": "b08-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          5,
+          15,
+          34,
+          35,
+          51
+        ],
+        "board_index": 8,
+        "id": "b08-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          7,
+          16,
+          19,
+          27,
+          41
+        ],
+        "board_index": 9,
+        "id": "b09-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          7,
+          16,
+          19,
+          27,
+          41
+        ],
+        "board_index": 9,
+        "id": "b09-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          7,
+          16,
+          19,
+          27,
+          41
+        ],
+        "board_index": 9,
+        "id": "b09-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          7,
+          16,
+          19,
+          27,
+          41
+        ],
+        "board_index": 9,
+        "id": "b09-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          6,
+          14,
+          33,
+          41,
+          42
+        ],
+        "board_index": 10,
+        "id": "b10-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          6,
+          14,
+          33,
+          41,
+          42
+        ],
+        "board_index": 10,
+        "id": "b10-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          6,
+          14,
+          33,
+          41,
+          42
+        ],
+        "board_index": 10,
+        "id": "b10-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          6,
+          14,
+          33,
+          41,
+          42
+        ],
+        "board_index": 10,
+        "id": "b10-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          22,
+          23,
+          24,
+          33,
+          40
+        ],
+        "board_index": 11,
+        "id": "b11-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          22,
+          23,
+          24,
+          33,
+          40
+        ],
+        "board_index": 11,
+        "id": "b11-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          22,
+          23,
+          24,
+          33,
+          40
+        ],
+        "board_index": 11,
+        "id": "b11-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          22,
+          23,
+          24,
+          33,
+          40
+        ],
+        "board_index": 11,
+        "id": "b11-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "one-pair"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          0,
+          2,
+          27,
+          46,
+          47
+        ],
+        "board_index": 12,
+        "id": "b12-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          0,
+          2,
+          27,
+          46,
+          47
+        ],
+        "board_index": 12,
+        "id": "b12-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          0,
+          2,
+          27,
+          46,
+          47
+        ],
+        "board_index": 12,
+        "id": "b12-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          0,
+          2,
+          27,
+          46,
+          47
+        ],
+        "board_index": 12,
+        "id": "b12-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          8,
+          10,
+          33,
+          36,
+          37
+        ],
+        "board_index": 13,
+        "id": "b13-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          8,
+          10,
+          33,
+          36,
+          37
+        ],
+        "board_index": 13,
+        "id": "b13-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          8,
+          10,
+          33,
+          36,
+          37
+        ],
+        "board_index": 13,
+        "id": "b13-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          8,
+          10,
+          33,
+          36,
+          37
+        ],
+        "board_index": 13,
+        "id": "b13-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          22,
+          38,
+          44,
+          46,
+          47
+        ],
+        "board_index": 14,
+        "id": "b14-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          22,
+          38,
+          44,
+          46,
+          47
+        ],
+        "board_index": 14,
+        "id": "b14-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          22,
+          38,
+          44,
+          46,
+          47
+        ],
+        "board_index": 14,
+        "id": "b14-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          22,
+          38,
+          44,
+          46,
+          47
+        ],
+        "board_index": 14,
+        "id": "b14-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          13,
+          17,
+          18,
+          40,
+          43
+        ],
+        "board_index": 15,
+        "id": "b15-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          13,
+          17,
+          18,
+          40,
+          43
+        ],
+        "board_index": 15,
+        "id": "b15-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          13,
+          17,
+          18,
+          40,
+          43
+        ],
+        "board_index": 15,
+        "id": "b15-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      }
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          13,
+          17,
+          18,
+          40,
+          43
+        ],
+        "board_index": 15,
+        "id": "b15-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      }
+    }
+  ],
+  "excluded_boards": [
+    [
+      0,
+      1,
+      4,
+      13,
+      38
+    ],
+    [
+      0,
+      4,
+      12,
+      29,
+      33
+    ],
+    [
+      0,
+      5,
+      8,
+      14,
+      45
+    ],
+    [
+      0,
+      5,
+      18,
+      32,
+      39
+    ],
+    [
+      0,
+      5,
+      28,
+      42,
+      44
+    ],
+    [
+      0,
+      5,
+      29,
+      42,
+      49
+    ],
+    [
+      0,
+      9,
+      18,
+      22,
+      31
+    ],
+    [
+      0,
+      9,
+      22,
+      46,
+      50
+    ],
+    [
+      0,
+      12,
+      13,
+      37,
+      38
+    ],
+    [
+      0,
+      12,
+      17,
+      26,
+      32
+    ],
+    [
+      0,
+      13,
+      17,
+      24,
+      46
+    ],
+    [
+      0,
+      13,
+      26,
+      37,
+      49
+    ],
+    [
+      0,
+      13,
+      32,
+      40,
+      42
+    ],
+    [
+      0,
+      20,
+      36,
+      41,
+      46
+    ],
+    [
+      0,
+      21,
+      30,
+      39,
+      40
+    ],
+    [
+      0,
+      25,
+      28,
+      30,
+      34
+    ],
+    [
+      0,
+      25,
+      28,
+      42,
+      44
+    ],
+    [
+      0,
+      41,
+      42,
+      47,
+      48
+    ],
+    [
+      4,
+      5,
+      10,
+      11,
+      12
+    ],
+    [
+      4,
+      5,
+      24,
+      26,
+      31
+    ],
+    [
+      4,
+      5,
+      26,
+      35,
+      48
+    ],
+    [
+      4,
+      5,
+      28,
+      38,
+      42
+    ],
+    [
+      4,
+      8,
+      9,
+      33,
+      34
+    ],
+    [
+      4,
+      8,
+      20,
+      41,
+      46
+    ],
+    [
+      4,
+      8,
+      29,
+      33,
+      50
+    ],
+    [
+      4,
+      8,
+      29,
+      46,
+      49
+    ],
+    [
+      4,
+      9,
+      13,
+      37,
+      38
+    ],
+    [
+      4,
+      9,
+      26,
+      30,
+      34
+    ],
+    [
+      4,
+      12,
+      13,
+      14,
+      49
+    ],
+    [
+      4,
+      12,
+      13,
+      21,
+      22
+    ],
+    [
+      4,
+      12,
+      25,
+      34,
+      41
+    ],
+    [
+      4,
+      12,
+      29,
+      33,
+      34
+    ],
+    [
+      4,
+      13,
+      18,
+      22,
+      32
+    ],
+    [
+      4,
+      13,
+      22,
+      30,
+      46
+    ],
+    [
+      4,
+      13,
+      25,
+      28,
+      36
+    ],
+    [
+      4,
+      13,
+      30,
+      32,
+      33
+    ],
+    [
+      4,
+      21,
+      28,
+      30,
+      31
+    ],
+    [
+      4,
+      21,
+      30,
+      44,
+      51
+    ],
+    [
+      4,
+      33,
+      38,
+      39,
+      46
+    ],
+    [
+      8,
+      9,
+      12,
+      28,
+      46
+    ],
+    [
+      8,
+      9,
+      38,
+      40,
+      42
+    ],
+    [
+      8,
+      12,
+      17,
+      22,
+      27
+    ],
+    [
+      8,
+      13,
+      14,
+      45,
+      51
+    ],
+    [
+      8,
+      13,
+      21,
+      25,
+      46
+    ],
+    [
+      8,
+      13,
+      28,
+      36,
+      50
+    ],
+    [
+      8,
+      16,
+      24,
+      33,
+      42
+    ],
+    [
+      8,
+      17,
+      26,
+      34,
+      37
+    ],
+    [
+      8,
+      20,
+      33,
+      37,
+      46
+    ],
+    [
+      8,
+      24,
+      25,
+      29,
+      50
+    ],
+    [
+      8,
+      25,
+      32,
+      42,
+      45
+    ],
+    [
+      12,
+      13,
+      16,
+      32,
+      33
+    ],
+    [
+      12,
+      13,
+      30,
+      44,
+      45
+    ],
+    [
+      12,
+      17,
+      18,
+      19,
+      29
+    ],
+    [
+      12,
+      17,
+      22,
+      35,
+      45
+    ],
+    [
+      12,
+      17,
+      22,
+      43,
+      49
+    ],
+    [
+      12,
+      17,
+      26,
+      46,
+      50
+    ],
+    [
+      12,
+      21,
+      34,
+      50,
+      51
+    ],
+    [
+      12,
+      21,
+      41,
+      44,
+      48
+    ],
+    [
+      12,
+      24,
+      25,
+      26,
+      27
+    ],
+    [
+      12,
+      25,
+      38,
+      44,
+      49
+    ],
+    [
+      16,
+      17,
+      18,
+      23,
+      28
+    ],
+    [
+      16,
+      17,
+      22,
+      23,
+      36
+    ],
+    [
+      16,
+      17,
+      36,
+      42,
+      43
+    ],
+    [
+      16,
+      21,
+      28,
+      45,
+      49
+    ],
+    [
+      20,
+      21,
+      32,
+      44,
+      50
+    ],
+    [
+      24,
+      25,
+      32,
+      38,
+      46
+    ],
+    [
+      28,
+      33,
+      48,
+      50,
+      51
+    ],
+    [
+      28,
+      36,
+      37,
+      41,
+      48
+    ]
+  ],
+  "fitting_tasks": 0,
+  "frozen_at_utc": "2026-09-12T00:02:29.647951+00:00",
+  "historical_plans": {
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\development-001\\plan.json": "5d59f94ff650244307338b067903ce6260c8ca07662db1ec53030cb624593c1d",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\group-optimality-001\\plan.json": "de07461ea9364a4fb40d0bce72a506549bc30ac609761bb0bc57ff4600c3b11c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\holdout-001\\plan.json": "7377d6a37503f8a11e54b06dafcd783ed29e3b0e523d3569bbcfe17dc2a2533c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-bet-conditioned-001\\plan.json": "f2d982cbada98dbc1b773df6644c1fc85aaa97dde7b3f079febcd8e6545e5430",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-bet-transfer-001\\plan.json": "46bf03c49d70eb121cffe13e77810cfb0edd42866c6833ffd96fe08aa6037320",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-boundary-001\\plan.json": "5c9e86c2343c7e01ac226d332c756446577c7ce3785bd40a3c5080b33fddd179",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-clipped-target-001\\plan.json": "5a7bb7fe6e29de0c2f8d1ee15f0375d20446dd6eed32659ba0052eb6d30ff137",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-distillation-001\\plan.json": "47b26fc64aa3b2ddb36ebe11a02d16253b240a61672cff162c51af689728e524",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-fit-diagnostic-001\\plan.json": "27eb14d933ca71a31e5cb31410800f8296f313c5f53b372c668ff0fd1d320fcd",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\plan.json": "a59cc604a25b4dd399e7e578aae8f6b35f2dc0751c2f205223a41417c6d65287",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-confirmation-001\\plan.json": "941ce0a4d1121cad0d2fdf43076c8871a08b79ef444b3a11547552ee13e42d31",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-groups-development-001\\plan.json": "9581a2a8e8d74d9d66e31abed59a61cff7625b769be4521a303b0c343f0ed855",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-hybrid-001\\plan.json": "1c6427451920593ebb458e724e4a5e82e0df6b3cd17db46cee5d9bacfa056bed",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-order-diagnostic-001\\plan.json": "b44a481451da99326b19aa7b953cabc5813697f5465f470c45a4743f530027da",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\plan.json": "ea7a42e7559c22e8682b9e76907329fcb5533e7cf54cfa0267321a3baa3da4fc",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-pilot-001\\plan.json": "535a3fa5b4d55d8bc6cc29763c63b5ab41f89cf0ea190bca90f9c00a5a8c9d2c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-pot-diagnostic-001\\plan.json": "d36f7afc29177f1ebee9c6b73a821ae7ee8b70b0db4fbca618a8f1cff0aa94c0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-preference-001\\plan.json": "94e122258da4afbe5774be5fdede69bc90f1a81a8e0db9ebaaf7ed7f9c37f93b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-preference-confirmation-001\\plan.json": "6eedadefb5d6f5a3cd516ad6ccc27d5905660d76d517777d207d5c2f24ac36ce",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-repair-regression-diagnostic-001\\plan.json": "77cd26fa6fe558a2f8a0c077da03b563fd2ec087536d1c58da2cdd0c3b1dcb64",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-seat-crossover-001\\plan.json": "2b988ada37d3ec3a016819b50425ec07f2b198b4e13123fc3e0f4309021b02df",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\plan.json": "5fbecc5d02a4fa60e32f621efb052bd01e095b9e33fc1bd888562ab61cddc0e0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-solver-budget-001\\plan.json": "f942bb32b63d130520d9d58978e0c2c2f2e0def7016035f444dbebda6c7732ea"
+  },
+  "name": "witness-guarded-repair-confirmation-001",
+  "numpy": "2.5.2",
+  "output": "D:\\Pontius-training\\river-abstraction-study\\witness-guarded-repair-confirmation-001",
+  "phase_timeout_seconds": 900,
+  "pins": {
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\development-001\\milestone-manifest.json": "a153950ea6db082caf7da757f9524fc7b9b4cda936efd39bc26fa674a20db0a0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\development-001\\plan.json": "5d59f94ff650244307338b067903ce6260c8ca07662db1ec53030cb624593c1d",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\group-optimality-001\\milestone-manifest.json": "9a3fa19f0f663aecd982ab8037267509693a81b6fb2e925f8292649f1fca93ea",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\group-optimality-001\\plan.json": "de07461ea9364a4fb40d0bce72a506549bc30ac609761bb0bc57ff4600c3b11c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\holdout-001\\milestone-manifest.json": "44692a7fc77c39de361bd463a6e4cc2951c9082ba1b561903b8a681780900d65",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\holdout-001\\plan.json": "7377d6a37503f8a11e54b06dafcd783ed29e3b0e523d3569bbcfe17dc2a2533c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-bet-conditioned-001\\milestone-manifest.json": "06bc9a4baae10e0970fd20f2bf439f2c21fbd4ebbc34a488b3e06bdbaf37c8ab",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-bet-conditioned-001\\plan.json": "f2d982cbada98dbc1b773df6644c1fc85aaa97dde7b3f079febcd8e6545e5430",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-bet-transfer-001\\milestone-manifest.json": "7bd4993682435a0080e0ce407efd3d7aaf417209861bc4a138a8cc458791d96f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-bet-transfer-001\\plan.json": "46bf03c49d70eb121cffe13e77810cfb0edd42866c6833ffd96fe08aa6037320",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-boundary-001\\milestone-manifest.json": "f66bae19b5efe17bb93623a26358d3b4e642c2af847b674a6636ca3b41997133",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-boundary-001\\plan.json": "5c9e86c2343c7e01ac226d332c756446577c7ce3785bd40a3c5080b33fddd179",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-clipped-target-001\\milestone-manifest.json": "3e4defba41f95c8926d08e0c2ee79b29de91e39047279e02cf10d01159f323cc",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-clipped-target-001\\plan.json": "5a7bb7fe6e29de0c2f8d1ee15f0375d20446dd6eed32659ba0052eb6d30ff137",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-distillation-001\\milestone-manifest.json": "bc5768f4f5899b296bf7fd33eac6385021e99fffad56be47c0107608cc0bc052",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-distillation-001\\plan.json": "47b26fc64aa3b2ddb36ebe11a02d16253b240a61672cff162c51af689728e524",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-fit-diagnostic-001\\milestone-manifest.json": "bae3d425d8cb2683b5902761474dae216acc3eca503e40dbf737f60ca1046755",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-fit-diagnostic-001\\plan.json": "27eb14d933ca71a31e5cb31410800f8296f313c5f53b372c668ff0fd1d320fcd",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\milestone-manifest.json": "acdd5a2eaa54b31180cb692450e466cce4ae8a52a25e78dab62a0e760ec84f0a",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\plan.json": "a59cc604a25b4dd399e7e578aae8f6b35f2dc0751c2f205223a41417c6d65287",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\verification-tools\\environment.py": "e143e20e30da8c0af08511db1f54001ab7e2024b857b08fc08b36ee8b7864e1c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\verification-tools\\experiment.py": "66776826646f19d981840d2a0a4639e5f674932b642775aac005ae2385240268",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\verification-tools\\repair.py": "30563d20f8e62b59f974f66ae3a3fa1f0c9963f467e6c1ffb50ed923f3ff36ca",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-confirmation-001\\milestone-manifest.json": "9520a603c28c27333d3bba246c7459587f8ea5edd9eac5153e3d33ccf28dbbee",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-confirmation-001\\plan.json": "941ce0a4d1121cad0d2fdf43076c8871a08b79ef444b3a11547552ee13e42d31",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-confirmation-001\\verification-tools\\confirmation.py": "6dc72cb20cd29e91ad4aa539ec9824433a53c7cb63090d6d3a3bafb0a46af8bb",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-groups-development-001\\milestone-manifest.json": "05c94f41f797e6f9675007e1e309b31052fd721a07e7199257884b8b17cadb32",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-groups-development-001\\plan.json": "9581a2a8e8d74d9d66e31abed59a61cff7625b769be4521a303b0c343f0ed855",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-hybrid-001\\milestone-manifest.json": "ea6f2920650b3657d92183de2e7d0c5776ef3c15577b3f8e7804044bf6a54d54",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-hybrid-001\\plan.json": "1c6427451920593ebb458e724e4a5e82e0df6b3cd17db46cee5d9bacfa056bed",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-order-diagnostic-001\\milestone-manifest.json": "811653151b941feec6bbf548d83bc528580a9599ea60055c74cc22b56551b743",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-order-diagnostic-001\\plan.json": "b44a481451da99326b19aa7b953cabc5813697f5465f470c45a4743f530027da",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\milestone-manifest.json": "078b3e0ab9962d99102eb4d315a08dc3f33eeca2ba0ff1a6bdb2e179ed446f23",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\plan.json": "ea7a42e7559c22e8682b9e76907329fcb5533e7cf54cfa0267321a3baa3da4fc",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-pilot-001\\milestone-manifest.json": "d3b52b5f3c6046c6c36f2c967fa6d9e5e6f43608465da2cc974f94e54a121032",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-pilot-001\\plan.json": "535a3fa5b4d55d8bc6cc29763c63b5ab41f89cf0ea190bca90f9c00a5a8c9d2c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-pot-diagnostic-001\\milestone-manifest.json": "bba5346e6b12db621cf7e96239436438d9c7316e8538756120b33177798b441f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-pot-diagnostic-001\\plan.json": "d36f7afc29177f1ebee9c6b73a821ae7ee8b70b0db4fbca618a8f1cff0aa94c0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-preference-001\\milestone-manifest.json": "15de2891f758824d1a7db69117f4bfbb6b6e893b0fe87ad86a1e409d304636c4",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-preference-001\\plan.json": "94e122258da4afbe5774be5fdede69bc90f1a81a8e0db9ebaaf7ed7f9c37f93b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-preference-confirmation-001\\candidate.json": "ee50b041d7a096fc223082df5b02845a551171bfca062ae8cae22a1e791ad8ce",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-preference-confirmation-001\\milestone-manifest.json": "59a13dcab4d8a497004ebb138adee1f5502b32d276fba406e2fb724f1a116b22",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-preference-confirmation-001\\plan.json": "6eedadefb5d6f5a3cd516ad6ccc27d5905660d76d517777d207d5c2f24ac36ce",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-repair-regression-diagnostic-001\\milestone-manifest.json": "12d9a49f57b6e0a34e53a0289488341038a5dfcd8efd00d2fcfe8f36e27c4f58",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-repair-regression-diagnostic-001\\plan.json": "77cd26fa6fe558a2f8a0c077da03b563fd2ec087536d1c58da2cdd0c3b1dcb64",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-seat-crossover-001\\milestone-manifest.json": "c2cc1f9f5cd7a5247933b3a70ad1f3ebb73e174e3506e492f33746f61fc4777b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-seat-crossover-001\\plan.json": "2b988ada37d3ec3a016819b50425ec07f2b198b4e13123fc3e0f4309021b02df",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\milestone-manifest.json": "d39ac27ca3fa2dc4d84b17791ba01d6b125d883184d293a059a677e24b8c8292",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\plan.json": "5fbecc5d02a4fa60e32f621efb052bd01e095b9e33fc1bd888562ab61cddc0e0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\verification-tools\\soft.py": "47c4aa718d383a4b6fb2b06b505809dada8f9c1cdcdf3a6b32526f7762e77b37",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-solver-budget-001\\milestone-manifest.json": "5ba746aa32ca8ba154e131287edb8212cc6743fcce95dcfc76d08a503d2be7a8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-solver-budget-001\\plan.json": "f942bb32b63d130520d9d58978e0c2c2f2e0def7016035f444dbebda6c7732ea",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\__init__.py": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\action_clock.py": "12e5f4ec46363a077e368e331fe2e0068b70209c73ed6e3b8fa43e6b21b29a23",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\cfr.py": "c46c1a98eceedb69a666916201a0cbfba6793eb139440afa95b729047384496f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\coalition.py": "eb8cd737a8fba4fa87612cf4739309f3a65981c486e2195f06cf2604e7c99fe0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\cuda_dll_bootstrap.py": "5ad4dfea9b7fe84d2ff010b5812a9a86d7bf19682094489297a29c797b49eba7",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\dependency_tape.py": "2302e0a987cc0edc85e89d2829595f983e2c444435d3bdfde1bf5ef9463ed392",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\evaluation.py": "ff4d212735d597b4713480b2ce0192a957915469e3a872758e037ee25ea7ede7",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\factorized_belief.py": "d26b418d1d850e7a92ac5e4573ab2c050c0e0dfc1bf7cad1db72ffd0ac52d951",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\full_width_belief.py": "b9659090b5b0e5e570103d4f7693a400cd9acb18c28e9da92d402dce5fa26992",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\full_width_reference_policy.py": "ea9dd91c8b5f03bc616cbc8b6b31c40f33a1543a0fd2b03e32b8ce57b59bc1e6",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\game.py": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\holdem_cards.py": "714d3ed7a29af3a9205e53b097408c71b43040c0191fc763cae6c87dec887799",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\immutable_blueprint.py": "2ee8b75f94b3c11fd46ffd684391f1a02255f0e2d198f3f1c91c04b1d94d0d6c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\kuhn.py": "95220933193fed0b3052b769737420299506e3f93ce27597396b0c1299952ac8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\legal_decision_spine.py": "6402eaff40b921b74ca4beb312430db19e20a123963c326ad46b4d5a33c321b4",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\legal_decision_spine_v2.py": "a0c20a29dc5da5af95f373b2617163bd53c24591256ef5342f30c20fb4bc08de",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\no_limit_betting.py": "66b398e7ebba535f9c25728fd8b57a599310434cd41610e9107e37762ed98cdf",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\preparation_bank.py": "8e2df920149ee7d2a4556c418680c9f4e214c525116c09cce79844888aa10210",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\reference_hand_replay.py": "069ae2e8241b4fc2e4bf2480ecb1dc4bbfbae1f690e885e8540708c2a5b768e0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river.py": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_abstraction_study.py": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_group_optimality.py": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_incremental.py": "567cca8d00a5a88fc8b6cab7e425d3020efc971f6d35003f804e08007a3a88e2",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_multi_size.py": "d1139b0d935a56ee3f56fad2b2e6e3807eba4443b2d0a3f6ff2ed231e03735a0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_multiway.py": "b957ef89ec3a3371df99feeb3d871294de43620183b6b0e792bc6717d0d4c445",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_witness_distillation.py": "ad33fbc2b0a569a7587bfc68a08c32dd9c7b38a288c39430093903d294e0eb30",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_witness_groups.py": "2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_witness_pilot.py": "696aa6796f592f8d1faa02884a007a3cc431137119406d2bac665bf03cb0469d",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\street_deadline.py": "7d00872c174b973df01d52b07e1a8a6f952c517b7254ee0e092083562b5e779c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\updates.py": "c6aacfc70a6adcf52fdb8b5c452a8e37c0131e142ae99aa2c5651262e8fdd933",
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe": "199ce15a9f0d4f9522edba59338e4879d28cf61f88e377b8164bcb716275ed22",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\base.py": "4a81a5f4ef051c367ceaf60542c3aa79266b7ecf963885ee15df3a16a211bb46",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\design.md": "1a017959b56ebc7587cb1406943e103bc98ad53233d316dc61ed3417f337a846",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\experiment.py": "5ecc5aca34d2049e46a4d926aa46568c16833863fb1717685ee449beecdf3f1e",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\frozen-stderr.txt": "5159861da6ad6e711814bfd6432e08be38eff5477a4f51205aa4d9363d31deb3",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\frozen-stdout.txt": "2fd8e3c709cf1b9baab9336aa53fb11fd43a70be9aea6e73cbfb98d70e0a2f55",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\gate.py": "aff81869e8d927033351f9513c529848e6af7ad8bc03db4381e0f8dcb1115c88",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\new-stderr.txt": "9ce7469e728588dff90ead4ed2165812c8f512e0bc7909f97d015e04ff980e2b",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\new-stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\preflight.json": "0284437053d0588e358a4782f3618c38a2ebbae1655149a90b9c9bbde45848c1",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\prepare.py": "d97e3c96410b842bb9e48e337ae7ffa6efdab8b2561f893c923130b878b13b02",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\red-exit.txt": "f1b2f662800122bed0ff255693df89c4487fbdcf453d3524a42d4ec20c3d9c04",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\red-stderr.txt": "5eb2037bde5cb1d740b14031a946a7544066bc1f8592b4786f39ef144ed23d48",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\test_experiment.py": "4fe53d71ac371b1e632990af089c86b33bc699e4ad5b3345e3a211c543b8a701",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\test_gate.py": "6b3d4a573e15d34f0cded567be149025a17d24ab7f8968899c2af500c7e379a0",
+    "D:\\Pontius\\tmp\\witness-guarded-repair-author\\worktree-before.json": "2a416a909c08d742a534b9c6cf1325404106b5076addbe455bf07f8df91330d0"
+  },
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "repaired_checkpoints": [
+    1000,
+    10000
+  ],
+  "scipy": "1.18.0",
+  "selection_receipt": [
+    {
+      "attempt": 0,
+      "board": [
+        1,
+        14,
+        27,
+        29,
+        42
+      ],
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "attempt": 1,
+      "board": [
+        5,
+        15,
+        34,
+        35,
+        51
+      ],
+      "texture": "one-pair"
+    },
+    {
+      "attempt": 2,
+      "board": [
+        18,
+        23,
+        31,
+        39,
+        44
+      ],
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "attempt": 3,
+      "board": [
+        7,
+        16,
+        19,
+        27,
+        41
+      ],
+      "texture": "one-pair"
+    },
+    {
+      "attempt": 4,
+      "board": [
+        13,
+        26,
+        34,
+        38,
+        44
+      ],
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "attempt": 5,
+      "board": [
+        2,
+        14,
+        20,
+        34,
+        36
+      ],
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "attempt": 6,
+      "board": [
+        0,
+        2,
+        27,
+        46,
+        47
+      ],
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "attempt": 7,
+      "board": [
+        6,
+        14,
+        33,
+        41,
+        42
+      ],
+      "texture": "one-pair"
+    },
+    {
+      "attempt": 8,
+      "board": [
+        22,
+        23,
+        24,
+        33,
+        40
+      ],
+      "texture": "one-pair"
+    },
+    {
+      "attempt": 10,
+      "board": [
+        8,
+        26,
+        36,
+        45,
+        49
+      ],
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "attempt": 11,
+      "board": [
+        11,
+        35,
+        36,
+        40,
+        51
+      ],
+      "texture": "unpaired-flush-possible"
+    },
+    {
+      "attempt": 17,
+      "board": [
+        9,
+        15,
+        40,
+        45,
+        51
+      ],
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "attempt": 18,
+      "board": [
+        8,
+        10,
+        33,
+        36,
+        37
+      ],
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "attempt": 20,
+      "board": [
+        4,
+        14,
+        37,
+        40,
+        51
+      ],
+      "texture": "unpaired-no-flush"
+    },
+    {
+      "attempt": 31,
+      "board": [
+        22,
+        38,
+        44,
+        46,
+        47
+      ],
+      "texture": "multiple-pairs-or-trips"
+    },
+    {
+      "attempt": 44,
+      "board": [
+        13,
+        17,
+        18,
+        40,
+        43
+      ],
+      "texture": "multiple-pairs-or-trips"
+    }
+  ],
+  "selection_seed": "witness-guarded-repair-confirmation-001",
+  "source_head": "1b4d1a0e26cd4da90ff74678de2e48ef53ec5599",
+  "user_words_verbatim": "Let's build and run it"
+}

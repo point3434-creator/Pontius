@@ -1,0 +1,15 @@
+{
+  "python": "3.14.6",
+  "tests": 64,
+  "failures": 0,
+  "skips": 0,
+  "lint": "passed",
+  "source_identity_verified": true,
+  "holdout_output_exists": false,
+  "holdout_evaluated": false,
+  "plan_sha256": "579fe72afb5a467f7e25cec83bee2ea6faf42e4d21cb3ae96a499545e846d266",
+  "checks": {
+    "algorithm-preservation.json": "6bed3c4c3673b6ff726846076ce1d928af8162bdaa83a592edf000da3ca6edd4",
+    "final-tests.xml": "7f72a788852c3372c13a143f7fbfb539f0a9069796e40e11156d5ad392dc2e83"
+  }
+}

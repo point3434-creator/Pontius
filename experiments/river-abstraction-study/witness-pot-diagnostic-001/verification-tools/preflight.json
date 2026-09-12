@@ -1,0 +1,26 @@
+{
+  "existing": {
+    "command": "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe -B -W error::ResourceWarning -m pytest tests/test_river_abstraction_study.py::PayoffTests tests/test_river_group_optimality.py::OptimalityTests -q -p no:cacheprovider",
+    "exit": 0,
+    "seconds": 0.92,
+    "tests": 13
+  },
+  "green": {
+    "command": "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe -B -W error::ResourceWarning D:\\Pontius\\tmp\\witness-pot-diagnostic-author/test_br.py",
+    "exit": 0,
+    "seconds": 0.48,
+    "source_sha256": "dc14477621111a865ae18d410d571e88642c367235bc9028aec3f24007447dc3",
+    "tests": 6
+  },
+  "passed": true,
+  "provenance": "Executed before freeze; console output in tool history. RED method unchanged; GREEN suite additionally includes the witness-feature test. RED source retained byte-exact.",
+  "python": "3.14.6",
+  "red": {
+    "command": "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe -B -W error::ResourceWarning D:\\Pontius\\tmp\\witness-pot-diagnostic-author/test_br.py BRTests.test_first_update_uses_unrestricted_best_responses",
+    "exit": 1,
+    "observed": "uniform [0.5,0.5], expected [1,0]",
+    "source_sha256": "6daf2509303f6cf3347c540d8121a50ab47cb351f4d65d45d1ab4bbdea2b7c8a",
+    "test": "test_first_update_uses_unrestricted_best_responses"
+  },
+  "scored_panel_rehearsal": false
+}

@@ -1,0 +1,10 @@
+{
+  "cases": 16,
+  "certificates": 32,
+  "historical_50k_matches": 16,
+  "independently_transformed_replay_updates": 2400000,
+  "new_lp_calls": 0,
+  "passed": true,
+  "profiles": 240,
+  "repeated_trajectory_identity_checks": 48
+}

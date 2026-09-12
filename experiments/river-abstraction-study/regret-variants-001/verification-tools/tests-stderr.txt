@@ -1,0 +1,13 @@
+test_discount_uses_updated_sign_and_one_based_time (test_variants.Updates.test_discount_uses_updated_sign_and_one_based_time) ... ok
+test_plain_bit_identical_to_frozen_trainer (test_variants.Updates.test_plain_bit_identical_to_frozen_trainer) ... ok
+test_plain_retains_negative_regret (test_variants.Updates.test_plain_retains_negative_regret) ... ok
+test_plus_clips_after_addition (test_variants.Updates.test_plus_clips_after_addition) ... ok
+test_quadratic_average (test_variants.Updates.test_quadratic_average) ... ok
+test_reject_unknown_variant (test_variants.Updates.test_reject_unknown_variant) ... ok
+test_small_game_certificate (test_variants.Updates.test_small_game_certificate) ... ok
+test_censoring_and_sampled_reversal (test_analysis.Metrics.test_censoring_and_sampled_reversal) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.749s
+
+OK

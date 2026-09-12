@@ -1,0 +1,25 @@
+F
+======================================================================
+FAIL: test_threshold_order_and_boundaries (__main__.Tests.test_threshold_order_and_boundaries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-ordinal-author\test_ordinal.py", line 9, in test_threshold_order_and_boundaries
+    self.assertEqual(ordinal.targets(a).tolist(),expected)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [[0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 1.0, 1.0, 1.0]] != [[0.5, 0.0, 0.0, 1.0, 0.5, 0.0, 1.0, 1.0, 0.5]]
+
+First differing element 0:
+[0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 1.0, 1.0, 1.0]
+[0.5, 0.0, 0.0, 1.0, 0.5, 0.0, 1.0, 1.0, 0.5]
+
+- [[0.0, 0.0, 0.0, 0.5, 0.5, 0.5, 1.0, 1.0, 1.0]]
+?     ^                   ^ -----           ^ ^
+
++ [[0.5, 0.0, 0.0, 1.0, 0.5, 0.0, 1.0, 1.0, 0.5]]
+?     ^            +++++       ^            ^ ^
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

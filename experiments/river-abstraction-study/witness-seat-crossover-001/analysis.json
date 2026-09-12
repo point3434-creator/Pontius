@@ -1,0 +1,2993 @@
+{
+  "boards": {
+    "0": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.002519993283324695
+          },
+          "old_old": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0010084987967938453
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0009622816638787192
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0007217611741877687
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.001974570724521531
+          },
+          "old_old": {
+            "counts": {
+              "higher": 5,
+              "overlapping": 1
+            },
+            "delta": 0.0004630762379906813
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0015077042226818833
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0012671837329909328
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.002056917045334014
+          },
+          "old_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.000545422558803164
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0014253579018694005
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.00118483741217845
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0015114944865308498
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 6
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0019707804606725644
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.001730259970981614
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 5,
+            "overlapping": 1
+          },
+          "delta": 0.0004630762379906813
+        },
+        "both": {
+          "counts": {
+            "higher": 5,
+            "lower": 1
+          },
+          "delta": 0.0010084987967938453
+        },
+        "caller": {
+          "counts": {
+            "higher": 4,
+            "lower": 2
+          },
+          "delta": 0.000545422558803164
+        }
+      },
+      "floors": {
+        "clipped_oracle": 2.082920059486029e-17,
+        "new_new": 0.002519993283324716,
+        "new_old": 0.001974570724521552,
+        "old_new": 0.002056917045334035,
+        "old_old": 0.0015114944865308707,
+        "range_equity": 0.003482274947203435,
+        "range_response": 0.003241754457512485
+      }
+    },
+    "1": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.004181790304788369
+          },
+          "old_old": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0030385823764072714
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.00043887034488909445
+          },
+          "range_response": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.001107466185533778
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0016787766388751703
+          },
+          "old_old": {
+            "counts": {
+              "higher": 3,
+              "overlapping": 3
+            },
+            "delta": 0.000535568710494072
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0029418840108022936
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0013955474803794212
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.003646221594294293
+          },
+          "old_old": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0025030136659131945
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.000974439055383171
+          },
+          "range_response": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0005718974750397015
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 4,
+              "overlapping": 2
+            },
+            "delta": 0.0011432079283810984
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 6
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0034774527212963658
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0019311161908734933
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 3,
+            "overlapping": 3
+          },
+          "delta": 0.0005355687104940766
+        },
+        "both": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.0030385823764072757
+        },
+        "caller": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.0025030136659131993
+        }
+      },
+      "floors": {
+        "clipped_oracle": 3.889664599165535e-06,
+        "new_new": 0.004185679969387535,
+        "new_old": 0.001682666303474336,
+        "old_new": 0.0036501112588934585,
+        "old_old": 0.0011470975929802638,
+        "range_equity": 0.00462455031427663,
+        "range_response": 0.003078213783853757
+      }
+    },
+    "2": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.003181457782623215
+          },
+          "old_old": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.00256064825199739
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.00031927934491715317
+          },
+          "range_response": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0016099814024066728
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 5,
+              "overlapping": 1
+            },
+            "delta": 0.0009838496129045062
+          },
+          "old_old": {
+            "counts": {
+              "higher": 2,
+              "overlapping": 4
+            },
+            "delta": 0.0003630400822786813
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0018783288248015557
+          },
+          "range_response": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.000587626767312036
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.002818417700344531
+          },
+          "old_old": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0021976081697187063
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -4.376073736153054e-05
+          },
+          "range_response": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0012469413201279891
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 3,
+              "overlapping": 3
+            },
+            "delta": 0.0006208095306258249
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 6
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.002241368907080237
+          },
+          "range_response": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0009506668495907173
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 2,
+            "overlapping": 4
+          },
+          "delta": 0.00036304008227868367
+        },
+        "both": {
+          "counts": {
+            "higher": 5,
+            "lower": 1
+          },
+          "delta": 0.0025606482519973926
+        },
+        "caller": {
+          "counts": {
+            "higher": 5,
+            "lower": 1
+          },
+          "delta": 0.002197608169718709
+        }
+      },
+      "floors": {
+        "clipped_oracle": 1.3150088069078082e-17,
+        "new_new": 0.003181457782623228,
+        "new_old": 0.0009838496129045194,
+        "old_new": 0.0028184177003445442,
+        "old_old": 0.000620809530625838,
+        "range_equity": 0.002862178437706075,
+        "range_response": 0.0015714763802165553
+      }
+    },
+    "3": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.005690839772130088
+          },
+          "old_old": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.00441201682740785
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0017392360244362546
+          },
+          "range_response": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0026286650684881944
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.001992809109704188
+          },
+          "old_old": {
+            "counts": {
+              "higher": 4,
+              "overlapping": 2
+            },
+            "delta": 0.0007139861649819503
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0019587946379896453
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.0010693655939377053
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.004976853607148137
+          },
+          "old_old": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0036980306624259
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.0010252498594543042
+          },
+          "range_response": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.001914678903506244
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0012788229447222375
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 6
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0026727808029715955
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 4,
+              "overlapping": 1
+            },
+            "delta": -0.0017833517589196557
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 4,
+            "overlapping": 2
+          },
+          "delta": 0.0007139861649819503
+        },
+        "both": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.00441201682740785
+        },
+        "caller": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.0036980306624259
+        }
+      },
+      "floors": {
+        "clipped_oracle": 5.520743800247301e-06,
+        "new_new": 0.005696360515930335,
+        "new_old": 0.001998329853504435,
+        "old_new": 0.004982374350948384,
+        "old_old": 0.001284343688522485,
+        "range_equity": 0.00395712449149408,
+        "range_response": 0.0030676954474421407
+      }
+    },
+    "4": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.007422213599624027
+          },
+          "old_old": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.002909044394520049
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0010367844232210296
+          },
+          "range_response": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": -0.0006104676681306032
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.00595639484185872
+          },
+          "old_old": {
+            "counts": {
+              "higher": 5,
+              "overlapping": 1
+            },
+            "delta": 0.001443225636754742
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0025026031809863365
+          },
+          "range_response": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0020762864258959102
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.005978987962869285
+          },
+          "old_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.001465818757765307
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0024800100599757717
+          },
+          "range_response": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0020536933048853454
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.004513169205103978
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 6
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.003945828817741078
+          },
+          "range_response": {
+            "counts": {
+              "lower": 6
+            },
+            "delta": -0.0035195120626506523
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 5,
+            "overlapping": 1
+          },
+          "delta": 0.001443225636754742
+        },
+        "both": {
+          "counts": {
+            "higher": 5,
+            "lower": 1
+          },
+          "delta": 0.002909044394520049
+        },
+        "caller": {
+          "counts": {
+            "higher": 4,
+            "lower": 2
+          },
+          "delta": 0.001465818757765307
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0008959372965174071,
+        "new_new": 0.008318150896141433,
+        "new_old": 0.006852332138376127,
+        "old_new": 0.006874925259386691,
+        "old_old": 0.0054091065016213845,
+        "range_equity": 0.009354935319362464,
+        "range_response": 0.008928618564272036
+      }
+    },
+    "5": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.005644406910330948
+          },
+          "old_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.0026972783927824546
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.0010168407182418746
+          },
+          "range_response": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.0022468392632890213
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.010769712604504161
+          },
+          "old_old": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.002428027301390758
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.006142146412415087
+          },
+          "range_response": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.007372144957462233
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0032163796089401905
+          },
+          "old_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.005125305694173212
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0014111865831488834
+          },
+          "range_response": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.00018118803810173646
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.008341685303113402
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 6
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.003714119111024329
+          },
+          "range_response": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.004944117656071476
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.002428027301390758
+        },
+        "both": {
+          "counts": {
+            "higher": 3,
+            "lower": 3
+          },
+          "delta": -0.0026972783927824546
+        },
+        "caller": {
+          "counts": {
+            "higher": 3,
+            "lower": 3
+          },
+          "delta": -0.005125305694173212
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.00016496779248660905,
+        "new_new": 0.005809374702817558,
+        "new_old": 0.010934680396990769,
+        "old_new": 0.003381347401426799,
+        "old_old": 0.008506653095600012,
+        "range_equity": 0.004792533984575683,
+        "range_response": 0.003562535439528536
+      }
+    },
+    "6": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.007805954992918606
+          },
+          "old_old": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0032693842356121823
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.001006516078484593
+          },
+          "range_response": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.0005484137617137604
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.007256133869144837
+          },
+          "old_old": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0027195631118384135
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.000456694954710824
+          },
+          "range_response": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -1.4073620600086428e-06
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.005086391881080193
+          },
+          "old_old": {
+            "counts": {
+              "higher": 5,
+              "lower": 1
+            },
+            "delta": 0.000549821123773769
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0017130470333538205
+          },
+          "range_response": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.002171149350124653
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.0045365707573064235
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 6
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0022628681571275895
+          },
+          "range_response": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.002720970473898422
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.0027195631118384135
+        },
+        "both": {
+          "counts": {
+            "higher": 6
+          },
+          "delta": 0.0032693842356121823
+        },
+        "caller": {
+          "counts": {
+            "higher": 5,
+            "lower": 1
+          },
+          "delta": 0.000549821123773769
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0016899876044396077,
+        "new_new": 0.009495942597358214,
+        "new_old": 0.008946121473584446,
+        "old_new": 0.0067763794855198005,
+        "old_old": 0.006226558361746032,
+        "range_equity": 0.00848942651887362,
+        "range_response": 0.008947528835644454
+      }
+    },
+    "7": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.006070491372699449
+          },
+          "old_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.016691467489739743
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.0012599209535676483
+          },
+          "range_response": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0015804701726296
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.005668410132662261
+          },
+          "old_old": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": -0.01709354872977693
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 1,
+              "lower": 5
+            },
+            "delta": -0.0016620021936048371
+          },
+          "range_response": {
+            "counts": {
+              "higher": 2,
+              "lower": 4
+            },
+            "delta": -0.0019825514126667887
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.023164040102476382
+          },
+          "old_old": {
+            "counts": {
+              "higher": 4,
+              "lower": 2
+            },
+            "delta": 0.0004020812400371888
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.015833627776209284
+          },
+          "range_response": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.015513078557147331
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 6
+            },
+            "delta": 0.022761958862439192
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 6
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.015431546536172094
+          },
+          "range_response": {
+            "counts": {
+              "higher": 3,
+              "lower": 3
+            },
+            "delta": 0.015110997317110143
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 3,
+            "lower": 3
+          },
+          "delta": -0.01709354872977693
+        },
+        "both": {
+          "counts": {
+            "higher": 3,
+            "lower": 3
+          },
+          "delta": -0.016691467489739743
+        },
+        "caller": {
+          "counts": {
+            "higher": 4,
+            "lower": 2
+          },
+          "delta": 0.0004020812400371888
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0010019124509413459,
+        "new_new": 0.007072403823640796,
+        "new_old": 0.006670322583603607,
+        "old_new": 0.024165952553417726,
+        "old_old": 0.02376387131338054,
+        "range_equity": 0.008332324777208444,
+        "range_response": 0.008652873996270394
+      }
+    }
+  },
+  "lobo": {
+    "0": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.005713879247873529
+          },
+          "old_old": {
+            "counts": {
+              "higher": 34,
+              "lower": 8
+            },
+            "delta": -0.00045700997093963634
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 21,
+              "lower": 21
+            },
+            "delta": 0.0001923280634860147
+          },
+          "range_response": {
+            "counts": {
+              "higher": 30,
+              "lower": 12
+            },
+            "delta": 0.0008500611200958891
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 41,
+              "overlapping": 1
+            },
+            "delta": 0.004900869544236263
+          },
+          "old_old": {
+            "counts": {
+              "higher": 29,
+              "lower": 3,
+              "overlapping": 10
+            },
+            "delta": -0.001270019674576902
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 11,
+              "lower": 31
+            },
+            "delta": -0.000620681640151251
+          },
+          "range_response": {
+            "counts": {
+              "higher": 16,
+              "lower": 25,
+              "overlapping": 1
+            },
+            "delta": 3.7051416458623393e-05
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.00698389892245043
+          },
+          "old_old": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": 0.0008130097036372647
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 13,
+              "lower": 29
+            },
+            "delta": 0.0014623477380629158
+          },
+          "range_response": {
+            "counts": {
+              "higher": 24,
+              "lower": 18
+            },
+            "delta": 0.00212008079467279
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 37,
+              "overlapping": 5
+            },
+            "delta": 0.006170889218813165
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 42
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": 0.0006493380344256511
+          },
+          "range_response": {
+            "counts": {
+              "higher": 13,
+              "lower": 28,
+              "overlapping": 1
+            },
+            "delta": 0.0013070710910355254
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 29,
+            "lower": 3,
+            "overlapping": 10
+          },
+          "delta": -0.0012700196745769011
+        },
+        "both": {
+          "counts": {
+            "higher": 34,
+            "lower": 8
+          },
+          "delta": -0.00045700997093963536
+        },
+        "caller": {
+          "counts": {
+            "higher": 33,
+            "lower": 9
+          },
+          "delta": 0.0008130097036372657
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0005374593646834851,
+        "new_new": 0.006251338612557014,
+        "new_old": 0.005438328908919749,
+        "old_new": 0.007521358287133915,
+        "old_old": 0.0067083485834966506,
+        "range_equity": 0.006059010549071,
+        "range_response": 0.005401277492461125
+      }
+    },
+    "1": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.0054764796733787185
+          },
+          "old_old": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": -0.0007470219108844115
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 21,
+              "lower": 21
+            },
+            "delta": 0.00011755501791606831
+          },
+          "range_response": {
+            "counts": {
+              "higher": 26,
+              "lower": 16
+            },
+            "delta": 0.0005887429258499538
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 41,
+              "overlapping": 1
+            },
+            "delta": 0.0049431258421857435
+          },
+          "old_old": {
+            "counts": {
+              "higher": 31,
+              "lower": 3,
+              "overlapping": 8
+            },
+            "delta": -0.0012803757420773866
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 11,
+              "lower": 31
+            },
+            "delta": -0.0004157988132769067
+          },
+          "range_response": {
+            "counts": {
+              "higher": 16,
+              "lower": 25,
+              "overlapping": 1
+            },
+            "delta": 5.538909465697889e-05
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.006756855415456104
+          },
+          "old_old": {
+            "counts": {
+              "higher": 31,
+              "lower": 11
+            },
+            "delta": 0.0005333538311929747
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 12,
+              "lower": 30
+            },
+            "delta": 0.0013979307599934544
+          },
+          "range_response": {
+            "counts": {
+              "higher": 20,
+              "lower": 22
+            },
+            "delta": 0.00186911866792734
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 39,
+              "overlapping": 3
+            },
+            "delta": 0.006223501584263129
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 42
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": 0.0008645769288004798
+          },
+          "range_response": {
+            "counts": {
+              "higher": 13,
+              "lower": 28,
+              "overlapping": 1
+            },
+            "delta": 0.0013357648367343653
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 31,
+            "lower": 3,
+            "overlapping": 8
+          },
+          "delta": -0.0012803757420773861
+        },
+        "both": {
+          "counts": {
+            "higher": 33,
+            "lower": 9
+          },
+          "delta": -0.0007470219108844111
+        },
+        "caller": {
+          "counts": {
+            "higher": 31,
+            "lower": 11
+          },
+          "delta": 0.000533353831192975
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0005369036983121787,
+        "new_new": 0.006013383371690897,
+        "new_old": 0.0054800295404979224,
+        "old_new": 0.007293759113768283,
+        "old_old": 0.006760405282575308,
+        "range_equity": 0.0058958283537748285,
+        "range_response": 0.005424640445840943
+      }
+    },
+    "2": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.005619384319402312
+          },
+          "old_old": {
+            "counts": {
+              "higher": 34,
+              "lower": 8
+            },
+            "delta": -0.0006787456073972856
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 19,
+              "lower": 23
+            },
+            "delta": 9.247919372318648e-06
+          },
+          "range_response": {
+            "counts": {
+              "higher": 26,
+              "lower": 16
+            },
+            "delta": 0.0005169550377252546
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.005042401131610124
+          },
+          "old_old": {
+            "counts": {
+              "higher": 32,
+              "lower": 3,
+              "overlapping": 7
+            },
+            "delta": -0.0012557287951894735
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 10,
+              "lower": 32
+            },
+            "delta": -0.0005677352684198692
+          },
+          "range_response": {
+            "counts": {
+              "higher": 14,
+              "lower": 27,
+              "overlapping": 1
+            },
+            "delta": -6.002815006693328e-05
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.006875113114591784
+          },
+          "old_old": {
+            "counts": {
+              "higher": 32,
+              "lower": 10
+            },
+            "delta": 0.0005769831877921873
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 10,
+              "lower": 32
+            },
+            "delta": 0.0012649767145617916
+          },
+          "range_response": {
+            "counts": {
+              "higher": 20,
+              "lower": 22
+            },
+            "delta": 0.0017726838329147276
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 40,
+              "overlapping": 2
+            },
+            "delta": 0.0062981299267995975
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 42
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": 0.0006879935267696042
+          },
+          "range_response": {
+            "counts": {
+              "higher": 12,
+              "lower": 29,
+              "overlapping": 1
+            },
+            "delta": 0.0011957006451225403
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 32,
+            "lower": 3,
+            "overlapping": 7
+          },
+          "delta": -0.0012557287951894729
+        },
+        "both": {
+          "counts": {
+            "higher": 34,
+            "lower": 8
+          },
+          "delta": -0.0006787456073972849
+        },
+        "caller": {
+          "counts": {
+            "higher": 32,
+            "lower": 10
+          },
+          "delta": 0.0005769831877921879
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0005374593646834862,
+        "new_new": 0.006156843684085798,
+        "new_old": 0.00557986049629361,
+        "old_new": 0.007412572479275271,
+        "old_old": 0.006835589291483084,
+        "range_equity": 0.00614759576471348,
+        "range_response": 0.005639888646360543
+      }
+    },
+    "3": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.005260901178044187
+          },
+          "old_old": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": -0.0009432268324559227
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 17,
+              "lower": 25
+            },
+            "delta": -0.00019360303484469582
+          },
+          "range_response": {
+            "counts": {
+              "higher": 25,
+              "lower": 17
+            },
+            "delta": 0.0003714287997136087
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 41,
+              "overlapping": 1
+            },
+            "delta": 0.004898264060638741
+          },
+          "old_old": {
+            "counts": {
+              "higher": 30,
+              "lower": 3,
+              "overlapping": 9
+            },
+            "delta": -0.001305863949861369
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 10,
+              "lower": 32
+            },
+            "delta": -0.0005562401522501422
+          },
+          "range_response": {
+            "counts": {
+              "higher": 16,
+              "lower": 26
+            },
+            "delta": 8.79168230816234e-06
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.0065667651279055555
+          },
+          "old_old": {
+            "counts": {
+              "higher": 31,
+              "lower": 11
+            },
+            "delta": 0.00036263711740544536
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 10,
+              "lower": 32
+            },
+            "delta": 0.0011122609150166724
+          },
+          "range_response": {
+            "counts": {
+              "higher": 20,
+              "lower": 22
+            },
+            "delta": 0.0016772927495749769
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 37,
+              "overlapping": 5
+            },
+            "delta": 0.00620412801050011
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 42
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": 0.0007496237976112269
+          },
+          "range_response": {
+            "counts": {
+              "higher": 13,
+              "lower": 29
+            },
+            "delta": 0.0013146556321695314
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 30,
+            "lower": 3,
+            "overlapping": 9
+          },
+          "delta": -0.0013058639498613682
+        },
+        "both": {
+          "counts": {
+            "higher": 33,
+            "lower": 9
+          },
+          "delta": -0.0009432268324559217
+        },
+        "caller": {
+          "counts": {
+            "higher": 31,
+            "lower": 11
+          },
+          "delta": 0.00036263711740544633
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0005366706869977385,
+        "new_new": 0.005797571865041926,
+        "new_old": 0.005434934747636479,
+        "old_new": 0.007103435814903294,
+        "old_old": 0.006740798697497849,
+        "range_equity": 0.005991174899886621,
+        "range_response": 0.005426143065328317
+      }
+    },
+    "4": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.005013562059830767
+          },
+          "old_old": {
+            "counts": {
+              "higher": 34,
+              "lower": 8
+            },
+            "delta": -0.0007285164849005226
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 21,
+              "lower": 21
+            },
+            "delta": 0.00020297131482063045
+          },
+          "range_response": {
+            "counts": {
+              "higher": 27,
+              "lower": 15
+            },
+            "delta": 0.0008341620478020084
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 41,
+              "overlapping": 1
+            },
+            "delta": 0.004332037527473808
+          },
+          "old_old": {
+            "counts": {
+              "higher": 29,
+              "lower": 3,
+              "overlapping": 10
+            },
+            "delta": -0.0014100410172574822
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 11,
+              "lower": 31
+            },
+            "delta": -0.0004785532175363291
+          },
+          "range_response": {
+            "counts": {
+              "higher": 16,
+              "lower": 25,
+              "overlapping": 1
+            },
+            "delta": 0.00015263751544504874
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.006423603077088248
+          },
+          "old_old": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": 0.0006815245323569586
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 13,
+              "lower": 29
+            },
+            "delta": 0.0016130123320781116
+          },
+          "range_response": {
+            "counts": {
+              "higher": 25,
+              "lower": 17
+            },
+            "delta": 0.0022442030650594896
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 37,
+              "overlapping": 5
+            },
+            "delta": 0.00574207854473129
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 42
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": 0.0009314877997211531
+          },
+          "range_response": {
+            "counts": {
+              "higher": 14,
+              "lower": 27,
+              "overlapping": 1
+            },
+            "delta": 0.001562678532702531
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 29,
+            "lower": 3,
+            "overlapping": 10
+          },
+          "delta": -0.0014100410172574811
+        },
+        "both": {
+          "counts": {
+            "higher": 34,
+            "lower": 8
+          },
+          "delta": -0.0007285164849005216
+        },
+        "caller": {
+          "counts": {
+            "higher": 33,
+            "lower": 9
+          },
+          "delta": 0.0006815245323569596
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0004094683223238585,
+        "new_new": 0.005423030382154626,
+        "new_old": 0.004741505849797666,
+        "old_new": 0.006833071399412107,
+        "old_old": 0.006151546867055148,
+        "range_equity": 0.005220059067333995,
+        "range_response": 0.004588868334352617
+      }
+    },
+    "5": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.005267534444015493
+          },
+          "old_old": {
+            "counts": {
+              "higher": 36,
+              "lower": 6
+            },
+            "delta": 7.238677042840648e-05
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 18,
+              "lower": 24
+            },
+            "delta": -9.040370538835583e-05
+          },
+          "range_response": {
+            "counts": {
+              "higher": 26,
+              "lower": 16
+            },
+            "delta": 0.0004259753433134905
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 41,
+              "overlapping": 1
+            },
+            "delta": 0.003644420704238745
+          },
+          "old_old": {
+            "counts": {
+              "higher": 28,
+              "lower": 3,
+              "overlapping": 11
+            },
+            "delta": -0.0015507269693483415
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": -0.001713517445165104
+          },
+          "range_response": {
+            "counts": {
+              "higher": 12,
+              "lower": 29,
+              "overlapping": 1
+            },
+            "delta": -0.0011971383964632576
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.0068182614133638336
+          },
+          "old_old": {
+            "counts": {
+              "higher": 34,
+              "lower": 8
+            },
+            "delta": 0.001623113739776747
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 11,
+              "lower": 31
+            },
+            "delta": 0.0014603232639599846
+          },
+          "range_response": {
+            "counts": {
+              "higher": 22,
+              "lower": 20
+            },
+            "delta": 0.001976702312661831
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 37,
+              "overlapping": 5
+            },
+            "delta": 0.005195147673587086
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 42
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.00016279047581676233
+          },
+          "range_response": {
+            "counts": {
+              "higher": 11,
+              "lower": 30,
+              "overlapping": 1
+            },
+            "delta": 0.00035358857288508405
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 28,
+            "lower": 3,
+            "overlapping": 11
+          },
+          "delta": -0.0015507269693483406
+        },
+        "both": {
+          "counts": {
+            "higher": 36,
+            "lower": 6
+          },
+          "delta": 7.238677042840748e-05
+        },
+        "caller": {
+          "counts": {
+            "higher": 34,
+            "lower": 8
+          },
+          "delta": 0.0016231137397767481
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.000513892537185401,
+        "new_new": 0.005781426981200894,
+        "new_old": 0.004158313241424146,
+        "old_new": 0.007332153950549235,
+        "old_old": 0.005709040210772487,
+        "range_equity": 0.00587183068658925,
+        "range_response": 0.005355451637887403
+      }
+    },
+    "6": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.004958741860788684
+          },
+          "old_old": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": -0.0007799936050565416
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 18,
+              "lower": 24
+            },
+            "delta": -8.892875685160134e-05
+          },
+          "range_response": {
+            "counts": {
+              "higher": 28,
+              "lower": 14
+            },
+            "delta": 0.0006686075578242421
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 41,
+              "overlapping": 1
+            },
+            "delta": 0.004146360523575791
+          },
+          "old_old": {
+            "counts": {
+              "higher": 28,
+              "lower": 3,
+              "overlapping": 11
+            },
+            "delta": -0.0015923749422694354
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 7,
+              "lower": 35
+            },
+            "delta": -0.0009013100940644949
+          },
+          "range_response": {
+            "counts": {
+              "higher": 14,
+              "lower": 27,
+              "overlapping": 1
+            },
+            "delta": -0.00014377377938865147
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.006551116803058119
+          },
+          "old_old": {
+            "counts": {
+              "higher": 32,
+              "lower": 10
+            },
+            "delta": 0.0008123813372128926
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 12,
+              "lower": 30
+            },
+            "delta": 0.0015034461854178329
+          },
+          "range_response": {
+            "counts": {
+              "higher": 22,
+              "lower": 20
+            },
+            "delta": 0.0022609825000936765
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 37,
+              "overlapping": 5
+            },
+            "delta": 0.005738735465845226
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 42
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 6,
+              "lower": 36
+            },
+            "delta": 0.0006910648482049403
+          },
+          "range_response": {
+            "counts": {
+              "higher": 11,
+              "lower": 30,
+              "overlapping": 1
+            },
+            "delta": 0.0014486011628807838
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 28,
+            "lower": 3,
+            "overlapping": 11
+          },
+          "delta": -0.0015923749422694343
+        },
+        "both": {
+          "counts": {
+            "higher": 33,
+            "lower": 9
+          },
+          "delta": -0.0007799936050565407
+        },
+        "caller": {
+          "counts": {
+            "higher": 32,
+            "lower": 10
+          },
+          "delta": 0.0008123813372128936
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0002960325640492584,
+        "new_new": 0.005254774424837943,
+        "new_old": 0.004442393087625049,
+        "old_new": 0.006847149367107377,
+        "old_old": 0.006034768029894485,
+        "range_equity": 0.0053437031816895445,
+        "range_response": 0.0045861668670137004
+      }
+    },
+    "7": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.005206665235105707
+          },
+          "old_old": {
+            "counts": {
+              "higher": 36,
+              "lower": 6
+            },
+            "delta": 0.0020715566414223046
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 19,
+              "lower": 23
+            },
+            "delta": 0.00023484796201300457
+          },
+          "range_response": {
+            "counts": {
+              "higher": 29,
+              "lower": 13
+            },
+            "delta": 0.0009727338341590079
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 41,
+              "overlapping": 1
+            },
+            "delta": 0.004373178200216159
+          },
+          "old_old": {
+            "counts": {
+              "higher": 31,
+              "overlapping": 11
+            },
+            "delta": 0.0012380696065327568
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 10,
+              "lower": 32
+            },
+            "delta": -0.0005986390728765433
+          },
+          "range_response": {
+            "counts": {
+              "higher": 15,
+              "lower": 26,
+              "overlapping": 1
+            },
+            "delta": 0.00013924679926945996
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 42
+            },
+            "delta": 0.003968595628572949
+          },
+          "old_old": {
+            "counts": {
+              "higher": 33,
+              "lower": 9
+            },
+            "delta": 0.0008334870348895469
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 10,
+              "lower": 32
+            },
+            "delta": -0.0010032216445197532
+          },
+          "range_response": {
+            "counts": {
+              "higher": 22,
+              "lower": 20
+            },
+            "delta": -0.00026533577237375003
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 37,
+              "overlapping": 5
+            },
+            "delta": 0.003135108593683402
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 42
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 4,
+              "lower": 38
+            },
+            "delta": -0.0018367086794093001
+          },
+          "range_response": {
+            "counts": {
+              "higher": 11,
+              "lower": 30,
+              "overlapping": 1
+            },
+            "delta": -0.001098822807263297
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 31,
+            "overlapping": 11
+          },
+          "delta": 0.0012380696065327579
+        },
+        "both": {
+          "counts": {
+            "higher": 36,
+            "lower": 6
+          },
+          "delta": 0.002071556641422306
+        },
+        "caller": {
+          "counts": {
+            "higher": 33,
+            "lower": 9
+          },
+          "delta": 0.0008334870348895479
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0003943290145490101,
+        "new_new": 0.005600994249654717,
+        "new_old": 0.004767507214765169,
+        "old_new": 0.004362924643121959,
+        "old_old": 0.003529437608232412,
+        "range_equity": 0.005366146287641712,
+        "range_response": 0.004628260415495709
+      }
+    }
+  },
+  "overall": {
+    "comparisons": {
+      "new_new": {
+        "clipped_oracle": {
+          "counts": {
+            "higher": 48
+          },
+          "delta": 0.005314643502304925
+        },
+        "old_old": {
+          "counts": {
+            "higher": 39,
+            "lower": 9
+          },
+          "delta": -0.0002738213749729511
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 22,
+            "lower": 26
+          },
+          "delta": 4.800184756542296e-05
+        },
+        "range_response": {
+          "counts": {
+            "higher": 31,
+            "lower": 17
+          },
+          "delta": 0.0006535833333104319
+        }
+      },
+      "new_old": {
+        "clipped_oracle": {
+          "counts": {
+            "higher": 47,
+            "overlapping": 1
+          },
+          "delta": 0.0045350821917719214
+        },
+        "old_old": {
+          "counts": {
+            "higher": 34,
+            "lower": 3,
+            "overlapping": 11
+          },
+          "delta": -0.0010533826855059541
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 11,
+            "lower": 37
+          },
+          "delta": -0.0007315594629675801
+        },
+        "range_response": {
+          "counts": {
+            "higher": 17,
+            "lower": 30,
+            "overlapping": 1
+          },
+          "delta": -0.0001259779772225711
+        }
+      },
+      "old_new": {
+        "clipped_oracle": {
+          "counts": {
+            "higher": 48
+          },
+          "delta": 0.006368026187810878
+        },
+        "old_old": {
+          "counts": {
+            "higher": 37,
+            "lower": 11
+          },
+          "delta": 0.0007795613105330021
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 13,
+            "lower": 35
+          },
+          "delta": 0.0011013845330713763
+        },
+        "range_response": {
+          "counts": {
+            "higher": 25,
+            "lower": 23
+          },
+          "delta": 0.0017069660188163852
+        }
+      },
+      "old_old": {
+        "clipped_oracle": {
+          "counts": {
+            "higher": 43,
+            "overlapping": 5
+          },
+          "delta": 0.005588464877277876
+        },
+        "old_old": {
+          "counts": {
+            "overlapping": 48
+          },
+          "delta": 0.0
+        },
+        "range_equity": {
+          "counts": {
+            "higher": 7,
+            "lower": 41
+          },
+          "delta": 0.0003218232225383741
+        },
+        "range_response": {
+          "counts": {
+            "higher": 14,
+            "lower": 33,
+            "overlapping": 1
+          },
+          "delta": 0.0009274047082833831
+        }
+      }
+    },
+    "effects": {
+      "bettor": {
+        "counts": {
+          "higher": 34,
+          "lower": 3,
+          "overlapping": 11
+        },
+        "delta": -0.0010533826855059533
+      },
+      "both": {
+        "counts": {
+          "higher": 39,
+          "lower": 9
+        },
+        "delta": -0.00027382137497295025
+      },
+      "caller": {
+        "counts": {
+          "higher": 37,
+          "lower": 11
+        },
+        "delta": 0.000779561310533003
+      }
+    },
+    "floors": {
+      "clipped_oracle": 0.00047027694409805206,
+      "new_new": 0.005784920446402977,
+      "new_old": 0.005005359135869974,
+      "old_new": 0.00683830313190893,
+      "old_old": 0.006058741821375928,
+      "range_equity": 0.005736918598837554,
+      "range_response": 0.005131337113092545
+    }
+  },
+  "paired_regime_effects": {
+    "bettor": {
+      "counts": {
+        "higher": 8,
+        "lower": 15,
+        "overlapping": 1
+      },
+      "delta": -0.004415994746492113
+    },
+    "both": {
+      "counts": {
+        "higher": 7,
+        "lower": 17
+      },
+      "delta": -0.006962710990566382
+    },
+    "caller": {
+      "counts": {
+        "higher": 6,
+        "lower": 18
+      },
+      "delta": -0.002546716244074269
+    }
+  },
+  "preidentified": {
+    "b07-p1-polarized": {
+      "effects": {
+        "bettor": -0.06176695676935945,
+        "both": -0.06188302879901818,
+        "caller": -0.00011607202965872981
+      },
+      "floors": {
+        "clipped_oracle": 0.0008815001006254618,
+        "new_new": 0.004689309998212472,
+        "new_old": 0.004805382027871201,
+        "old_new": 0.06645626676757192,
+        "old_old": 0.06657233879723065,
+        "range_equity": 0.007661914677772398,
+        "range_response": 0.010144316179575587
+      }
+    },
+    "b07-p2-polarized": {
+      "effects": {
+        "bettor": -0.044065992998420934,
+        "both": -0.0436340211986481,
+        "caller": 0.0004319717997728346
+      },
+      "floors": {
+        "clipped_oracle": 0.00019769148129537603,
+        "new_new": 0.004408449680046469,
+        "new_old": 0.003976477880273634,
+        "old_new": 0.04847444267846741,
+        "old_old": 0.04804247087869457,
+        "range_equity": 0.010612092786503761,
+        "range_response": 0.008609137372226296
+      }
+    }
+  },
+  "range_mass": {
+    "polarized": [
+      {
+        "conditioned_tail": 0.7052533711744111,
+        "prior_tail": 0.7115472223396684
+      },
+      {
+        "conditioned_tail": 0.7130072924778678,
+        "prior_tail": 0.7188234589072633
+      }
+    ],
+    "uniform": [
+      {
+        "conditioned_tail": 0.39684486839526834,
+        "prior_tail": 0.3971354166666667
+      },
+      {
+        "conditioned_tail": 0.40724504806616874,
+        "prior_tail": 0.4071180555555556
+      }
+    ]
+  },
+  "regimes": {
+    "polarized": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 24
+            },
+            "delta": 0.004937799077231405
+          },
+          "old_old": {
+            "counts": {
+              "higher": 17,
+              "lower": 7
+            },
+            "delta": -0.003755176870256142
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 9,
+              "lower": 15
+            },
+            "delta": -0.00041975811947138206
+          },
+          "range_response": {
+            "counts": {
+              "higher": 18,
+              "lower": 6
+            },
+            "delta": 0.0011184859969740864
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 23,
+              "overlapping": 1
+            },
+            "delta": 0.0054315958887355366
+          },
+          "old_old": {
+            "counts": {
+              "higher": 15,
+              "lower": 2,
+              "overlapping": 7
+            },
+            "delta": -0.0032613800587520106
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 5,
+              "lower": 19
+            },
+            "delta": 7.403869203274956e-05
+          },
+          "range_response": {
+            "counts": {
+              "higher": 11,
+              "lower": 12,
+              "overlapping": 1
+            },
+            "delta": 0.001612282808478218
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 24
+            },
+            "delta": 0.008199179135983415
+          },
+          "old_old": {
+            "counts": {
+              "higher": 16,
+              "lower": 8
+            },
+            "delta": -0.0004937968115041326
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 6,
+              "lower": 18
+            },
+            "delta": 0.0028416219392806276
+          },
+          "range_response": {
+            "counts": {
+              "higher": 17,
+              "lower": 7
+            },
+            "delta": 0.004379866055726096
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 22,
+              "overlapping": 2
+            },
+            "delta": 0.008692975947487547
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 24
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 5,
+              "lower": 19
+            },
+            "delta": 0.00333541875078476
+          },
+          "range_response": {
+            "counts": {
+              "higher": 12,
+              "lower": 11,
+              "overlapping": 1
+            },
+            "delta": 0.0048736628672302286
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 15,
+            "lower": 2,
+            "overlapping": 7
+          },
+          "delta": -0.0032613800587520097
+        },
+        "both": {
+          "counts": {
+            "higher": 17,
+            "lower": 7
+          },
+          "delta": -0.0037551768702561413
+        },
+        "caller": {
+          "counts": {
+            "higher": 16,
+            "lower": 8
+          },
+          "delta": -0.0004937968115041316
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.00024488918849940237,
+        "new_new": 0.0051826882657308075,
+        "new_old": 0.005676485077234939,
+        "old_new": 0.008444068324482816,
+        "old_old": 0.008937865135986949,
+        "range_equity": 0.005602446385202189,
+        "range_response": 0.004064202268756721
+      }
+    },
+    "uniform": {
+      "comparisons": {
+        "new_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 24
+            },
+            "delta": 0.005691487927378444
+          },
+          "old_old": {
+            "counts": {
+              "higher": 22,
+              "lower": 2
+            },
+            "delta": 0.00320753412031024
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 13,
+              "lower": 11
+            },
+            "delta": 0.000515761814602228
+          },
+          "range_response": {
+            "counts": {
+              "higher": 13,
+              "lower": 11
+            },
+            "delta": 0.00018868066964677742
+          }
+        },
+        "new_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 24
+            },
+            "delta": 0.0036385684948083068
+          },
+          "old_old": {
+            "counts": {
+              "higher": 19,
+              "lower": 1,
+              "overlapping": 4
+            },
+            "delta": 0.0011546146877401023
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 6,
+              "lower": 18
+            },
+            "delta": -0.0015371576179679096
+          },
+          "range_response": {
+            "counts": {
+              "higher": 6,
+              "lower": 18
+            },
+            "delta": -0.0018642387629233602
+          }
+        },
+        "old_new": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 24
+            },
+            "delta": 0.004536873239638342
+          },
+          "old_old": {
+            "counts": {
+              "higher": 21,
+              "lower": 3
+            },
+            "delta": 0.0020529194325701367
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 7,
+              "lower": 17
+            },
+            "delta": -0.0006388528731378751
+          },
+          "range_response": {
+            "counts": {
+              "higher": 8,
+              "lower": 16
+            },
+            "delta": -0.0009659340180933257
+          }
+        },
+        "old_old": {
+          "clipped_oracle": {
+            "counts": {
+              "higher": 21,
+              "overlapping": 3
+            },
+            "delta": 0.0024839538070682045
+          },
+          "old_old": {
+            "counts": {
+              "overlapping": 24
+            },
+            "delta": 0.0
+          },
+          "range_equity": {
+            "counts": {
+              "higher": 2,
+              "lower": 22
+            },
+            "delta": -0.002691772305708012
+          },
+          "range_response": {
+            "counts": {
+              "higher": 2,
+              "lower": 22
+            },
+            "delta": -0.0030188534506634624
+          }
+        }
+      },
+      "effects": {
+        "bettor": {
+          "counts": {
+            "higher": 19,
+            "lower": 1,
+            "overlapping": 4
+          },
+          "delta": 0.0011546146877401031
+        },
+        "both": {
+          "counts": {
+            "higher": 22,
+            "lower": 2
+          },
+          "delta": 0.0032075341203102407
+        },
+        "caller": {
+          "counts": {
+            "higher": 21,
+            "lower": 3
+          },
+          "delta": 0.0020529194325701375
+        }
+      },
+      "floors": {
+        "clipped_oracle": 0.0006956646996967018,
+        "new_new": 0.006387152627075146,
+        "new_old": 0.004334233194505008,
+        "old_new": 0.0052325379393350436,
+        "old_old": 0.0031796185067649065,
+        "range_equity": 0.005871390812472919,
+        "range_response": 0.006198471957428369
+      }
+    }
+  }
+}

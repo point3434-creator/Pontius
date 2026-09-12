@@ -1,0 +1,270 @@
+{
+  "10": {
+    "actual_board_counts": {
+      "blind": {
+        "higher": 3,
+        "lower": 5
+      },
+      "ordinary_preference": {
+        "higher": 5,
+        "lower": 3
+      },
+      "range_response": {
+        "higher": 4,
+        "lower": 4
+      }
+    },
+    "actual_omitted_board_counts": {
+      "blind": {
+        "lower": 8
+      },
+      "ordinary_preference": {
+        "higher": 4,
+        "lower": 4
+      },
+      "range_response": {
+        "lower": 8
+      }
+    },
+    "actual_reductions_percent": {
+      "blind": 9.745494654061753,
+      "ordinary_preference": -1.126082681270383,
+      "range_response": 12.29542612038582
+    },
+    "failed_robustness_panels": [
+      {
+        "actual_delta": 0.0002972772212049314,
+        "category": "textures",
+        "floor_delta": 0.00031076582119458505,
+        "label": "one-pair",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.00028906569235268714,
+        "category": "textures",
+        "floor_delta": 0.0003030807868549482,
+        "label": "one-pair",
+        "reference": "range_response"
+      },
+      {
+        "actual_delta": 0.0011483233893411424,
+        "category": "textures",
+        "floor_delta": 0.001150716136531308,
+        "label": "unpaired-flush-possible",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0007033847272061699,
+        "category": "textures",
+        "floor_delta": 0.000691208836585677,
+        "label": "unpaired-flush-possible",
+        "reference": "range_response"
+      },
+      {
+        "actual_delta": 0.0006303198687129825,
+        "category": "regimes",
+        "floor_delta": 0.0006274360736880193,
+        "label": "polarized",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.000507661527394925,
+        "category": "regimes",
+        "floor_delta": 0.0005376169481407184,
+        "label": "polarized",
+        "reference": "range_response"
+      },
+      {
+        "actual_delta": 5.5949264589452855e-05,
+        "category": "leave_one_board_out",
+        "floor_delta": 5.217858891764472e-05,
+        "label": "0",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.00022968683234190872,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.000227275932420098,
+        "label": "1",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 6.849396954470848e-05,
+        "category": "leave_one_board_out",
+        "floor_delta": 5.9869794773595256e-05,
+        "label": "5",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.00047133242283095393,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.00046900901412800264,
+        "label": "7",
+        "reference": "ordinary_preference"
+      }
+    ],
+    "floor_reductions_percent": {
+      "blind": 9.793699776943834,
+      "ordinary_preference": -1.067072963780298,
+      "range_response": 12.424037786868356
+    }
+  },
+  "5": {
+    "actual_board_counts": {
+      "blind": {
+        "higher": 2,
+        "lower": 6
+      },
+      "ordinary_preference": {
+        "higher": 6,
+        "lower": 2
+      },
+      "range_response": {
+        "higher": 3,
+        "lower": 5
+      }
+    },
+    "actual_omitted_board_counts": {
+      "blind": {
+        "lower": 8
+      },
+      "ordinary_preference": {
+        "higher": 8
+      },
+      "range_response": {
+        "lower": 8
+      }
+    },
+    "actual_reductions_percent": {
+      "blind": 7.599611541909202,
+      "ordinary_preference": -17.036083824151632,
+      "range_response": 6.42157187173687
+    },
+    "failed_robustness_panels": [
+      {
+        "actual_delta": 1.6857864997065625e-05,
+        "category": "textures",
+        "floor_delta": 1.2791794994027636e-05,
+        "label": "multiple-pairs-or-trips",
+        "reference": "blind"
+      },
+      {
+        "actual_delta": 0.0011200573162025336,
+        "category": "textures",
+        "floor_delta": 0.0011178987118779578,
+        "label": "multiple-pairs-or-trips",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.00020088500175623192,
+        "category": "textures",
+        "floor_delta": 0.00020656865350372297,
+        "label": "one-pair",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0007690732930646822,
+        "category": "textures",
+        "floor_delta": 0.0007658584230633264,
+        "label": "unpaired-flush-possible",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.00020104439292817876,
+        "category": "textures",
+        "floor_delta": 0.00021272774848717525,
+        "label": "unpaired-flush-possible",
+        "reference": "range_response"
+      },
+      {
+        "actual_delta": 0.00043297338604565,
+        "category": "textures",
+        "floor_delta": 0.00042831521525455357,
+        "label": "unpaired-no-flush",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0006852118572826271,
+        "category": "regimes",
+        "floor_delta": 0.000687672260552542,
+        "label": "polarized",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0003485206967037283,
+        "category": "regimes",
+        "floor_delta": 0.0003548037886743139,
+        "label": "polarized",
+        "reference": "range_response"
+      },
+      {
+        "actual_delta": 0.0005762826412519218,
+        "category": "regimes",
+        "floor_delta": 0.0005716482412972384,
+        "label": "uniform",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0005848679186219849,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0005844192156493832,
+        "label": "0",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0007331333979758853,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0007324284392490648,
+        "label": "1",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0006221317171562679,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0006214758847158862,
+        "label": "2",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0005998410545790216,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0005989308536657696,
+        "label": "3",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0008079446443354074,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0008061225736843838,
+        "label": "4",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0005763676392022965,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0005740812417143015,
+        "label": "5",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.0006347696887346431,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.0006355528600062847,
+        "label": "6",
+        "reference": "ordinary_preference"
+      },
+      {
+        "actual_delta": 0.00048692193353268895,
+        "category": "leave_one_board_out",
+        "floor_delta": 0.00048427093871404787,
+        "label": "7",
+        "reference": "ordinary_preference"
+      }
+    ],
+    "floor_reductions_percent": {
+      "blind": 7.726177365189101,
+      "ordinary_preference": -17.319223278806305,
+      "range_response": 6.371941800748289
+    }
+  }
+}

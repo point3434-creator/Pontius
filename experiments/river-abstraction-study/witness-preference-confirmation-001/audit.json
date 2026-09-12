@@ -1,0 +1,15 @@
+{
+  "aggregate_records": 1131,
+  "auditor_sha256": "7c1876c9c2ddb8f6a8de44e4179fa140619698e03417ba6696444abeccfddb18",
+  "excluded_boards": 20,
+  "floor_identities": 384,
+  "fresh_boards": 16,
+  "joint_cells_checked": 884736,
+  "maximum_certificate_gap": 2.4621013564547247e-15,
+  "model_fits": 0,
+  "new_audit_lp_calls": 0,
+  "passed": true,
+  "probabilities_checked": 73728,
+  "seat_effects": 576,
+  "signed_comparisons": 288
+}

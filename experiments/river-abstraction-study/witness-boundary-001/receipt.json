@@ -1,0 +1,5 @@
+{
+  "boundary": "Before worker launch through parent verification and results-manifest write; excludes preflight, output reservation and this final receipt write.",
+  "exit": 0,
+  "seconds": 77.7158700999862
+}

@@ -1,0 +1,10 @@
+test_caller_advantage_includes_bettor_reach (test_diagnostic.DiagnosticTests.test_caller_advantage_includes_bettor_reach) ... ok
+test_cost_changes_with_opponent (test_diagnostic.DiagnosticTests.test_cost_changes_with_opponent) ... ok
+test_gate_composition_has_additive_exploitability (test_diagnostic.DiagnosticTests.test_gate_composition_has_additive_exploitability) ... ok
+test_partition_can_destroy_an_old_policy (test_diagnostic.DiagnosticTests.test_partition_can_destroy_an_old_policy) ... ok
+test_security_on_one_deal (test_diagnostic.DiagnosticTests.test_security_on_one_deal) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK

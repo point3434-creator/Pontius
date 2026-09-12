@@ -1,0 +1,13 @@
+{
+  "commit_performed": false,
+  "milestone_directory": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\group-optimality-001",
+  "milestone_manifest_sha256": "9a3fa19f0f663aecd982ab8037267509693a81b6fb2e925f8292649f1fca93ea",
+  "milestone_members": 24,
+  "original_output_files": 15,
+  "original_output_unchanged": true,
+  "prior_packet_members_preserved": 89,
+  "push_performed": false,
+  "report_sha256": "0e1e5ed202d3fee5b6af80268cd1d7428be17c17aa94d01254a9b23e19530b22",
+  "total_bytes": 768786,
+  "total_files": 25
+}

@@ -1,0 +1,11 @@
+{
+  "cases": 32,
+  "hard_rss_cap": null,
+  "lp_calls": 64,
+  "pinned_files": 110,
+  "plan_sha256": "a59cc604a25b4dd399e7e578aae8f6b35f2dc0751c2f205223a41417c6d65287",
+  "retained_invoked": false,
+  "retained_output_exists": false,
+  "trajectories": 64,
+  "worker_and_verifier_timeout_seconds": 900
+}

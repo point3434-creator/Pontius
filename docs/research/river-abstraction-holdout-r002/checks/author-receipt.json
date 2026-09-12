@@ -1,0 +1,14 @@
+{
+  "python": "3.14.6",
+  "tests": 65,
+  "failures": 0,
+  "skips": 0,
+  "lint": "passed",
+  "holdout_evaluated": false,
+  "holdout_output_exists": false,
+  "checks": {
+    "algorithm-preservation.json": "6bed3c4c3673b6ff726846076ce1d928af8162bdaa83a592edf000da3ca6edd4",
+    "comparison-red.xml": "16732f634af7294564c2a48da95da06f86e92cede0c86683bc3a507763cde9b5",
+    "r002-tests.xml": "219f02dddaf1da43c57af4949e2aadf093681990f150ded45ef5fc8568046177"
+  }
+}

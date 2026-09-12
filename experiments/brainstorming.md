@@ -2,6 +2,21 @@
 
 Reviewed 2026-09-08. [Completed evidence](RESULTS.md) · [Priorities and evidence connections](research-roadmap.md)
 
+## Measured follow-up — 2026-09-12
+
+The [river research synthesis](solver-foundations.md#river-representation-and-solver-findings-through-2026-09-12)
+now distinguishes tested ideas from this earlier external agenda. Ordinary learned
+action preferences transferred within the tested game family; soft interpolation and
+more elaborate ordinal targets did not earn replacement. Guarded local repair helped,
+but actual stacks often erased the size distinction, and direct full-hand solving gave
+the better measured operating point on four restricted games. Two strict numerical
+misses prevent calling all four certified. These experiments are not reproductions of
+the cited papers and do not settle neural versus tabular six-max blueprinting.
+
+Pause additional repair variants in this family; keep those baselines for a larger-tree
+comparison. The [roadmap](research-roadmap.md) records the current proposed sequence.
+The source ideas and corrections below retain their historical scope.
+
 **The useful direction is a compact baseline policy plus selective search,
 supported by trustworthy terminal values and affordable reuse.** The notes offer
 several ways to build that system; they do not establish which combination wins.

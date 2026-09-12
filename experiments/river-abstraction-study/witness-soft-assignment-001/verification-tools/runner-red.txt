@@ -1,0 +1,35 @@
+test_full_synthetic_run_and_duplicate_refusal (__main__.RunnerTests.test_full_synthetic_run_and_duplicate_refusal) ... FAIL
+test_verifier_rejects_missing_case_and_tampered_policy_without_lp (__main__.RunnerTests.test_verifier_rejects_missing_case_and_tampered_policy_without_lp) ... FAIL
+test_wrong_plan_digest_and_input_pin_refuse_without_output (__main__.RunnerTests.test_wrong_plan_digest_and_input_pin_refuse_without_output) ... FAIL
+
+======================================================================
+FAIL: test_full_synthetic_run_and_duplicate_refusal (__main__.RunnerTests.test_full_synthetic_run_and_duplicate_refusal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-soft-assignment-author\test_runner.py", line 11, in setUp
+    self.assertTrue(callable(getattr(e, 'make_plan', None)), 'runner is absent')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : runner is absent
+
+======================================================================
+FAIL: test_verifier_rejects_missing_case_and_tampered_policy_without_lp (__main__.RunnerTests.test_verifier_rejects_missing_case_and_tampered_policy_without_lp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-soft-assignment-author\test_runner.py", line 11, in setUp
+    self.assertTrue(callable(getattr(e, 'make_plan', None)), 'runner is absent')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : runner is absent
+
+======================================================================
+FAIL: test_wrong_plan_digest_and_input_pin_refuse_without_output (__main__.RunnerTests.test_wrong_plan_digest_and_input_pin_refuse_without_output)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\witness-soft-assignment-author\test_runner.py", line 11, in setUp
+    self.assertTrue(callable(getattr(e, 'make_plan', None)), 'runner is absent')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : runner is absent
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=3)

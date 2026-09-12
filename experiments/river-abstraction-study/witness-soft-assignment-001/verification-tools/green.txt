@@ -1,0 +1,13 @@
+test_duplicate_centers_single_group_and_exact_center (__main__.SoftTests.test_duplicate_centers_single_group_and_exact_center) ... ok
+test_invalid_embeddings_refused_before_algebra (__main__.SoftTests.test_invalid_embeddings_refused_before_algebra) ... ok
+test_learner_reaches_restriction_floor_and_replays (__main__.SoftTests.test_learner_reaches_restriction_floor_and_replays) ... ok
+test_one_hot_floor_matches_old_certified_solver (__main__.SoftTests.test_one_hot_floor_matches_old_certified_solver) ... ok
+test_soft_certificates_match_enumerated_latent_corners (__main__.SoftTests.test_soft_certificates_match_enumerated_latent_corners) ... ok
+test_softening_can_destroy_an_exact_policy_class (__main__.SoftTests.test_softening_can_destroy_an_exact_policy_class) ... ok
+test_tampered_witness_and_suboptimal_lp_are_rejected (__main__.SoftTests.test_tampered_witness_and_suboptimal_lp_are_rejected) ... ok
+test_two_neighbour_weights_and_exact_row_mass (__main__.SoftTests.test_two_neighbour_weights_and_exact_row_mass) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.128s
+
+OK

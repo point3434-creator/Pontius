@@ -1,0 +1,16 @@
+{
+  "command": [
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe",
+    "-B",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\tools\\river_witness_groups.py",
+    "run",
+    "--plan",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\docs\\research\\river-witness-groups-r001\\plan.json",
+    "--sha256",
+    "9581a2a8e8d74d9d66e31abed59a61cff7625b769be4521a303b0c343f0ed855"
+  ],
+  "cwd": "D:\\Pontius-worktrees\\eval-runner-consolidation",
+  "delivery_manifest_sha256": "244cbe9ff8fff6fd828c04806908c000e53cc7a14ca2b2762377641420447867",
+  "preflight_verified": true,
+  "recorded_at_utc": "2026-09-11T06:16:06.408440+00:00"
+}

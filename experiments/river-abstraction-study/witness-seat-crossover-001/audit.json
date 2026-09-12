@@ -1,0 +1,13 @@
+{
+  "aggregate_records": 1222,
+  "auditor_sha256": "f15be0626e308b9b3e5d5179fc7ea6ffa1f82f26836d5f65c02412e4a52d58c3",
+  "cases": 48,
+  "crossed_floor_identities": 192,
+  "max_original_certificate_gap": 6.86528086071163e-16,
+  "new_lp_calls": 0,
+  "new_model_fits": 0,
+  "paired_regime_cases": 24,
+  "passed": true,
+  "range_mass_values": 576,
+  "signed_case_contrasts": 912
+}

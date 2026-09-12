@@ -1,0 +1,9 @@
+{
+  "bettor_unchanged": true,
+  "cells": 64,
+  "checkpoint_policies": 192,
+  "complete": true,
+  "fit_tasks": 0,
+  "lp_calls": 128,
+  "trajectories": 64
+}

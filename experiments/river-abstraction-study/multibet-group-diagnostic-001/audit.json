@@ -1,0 +1,9 @@
+{
+  "cases": 8,
+  "certificates": 72,
+  "legacy_profile_crosschecks": 32,
+  "new_verifier_lp_calls": 0,
+  "passed": true,
+  "profiles": 48,
+  "replayed_updates": 1200000
+}

@@ -1,0 +1,12 @@
+{
+  "census": 4,
+  "certificate_pairs": 3,
+  "evaluated": 1,
+  "exact_coefficients": 5842805,
+  "gates": 2,
+  "literal_settlement_checks": 60,
+  "new_lp_calls": 0,
+  "not_applicable": 3,
+  "passed": true,
+  "replayed_updates": 214500
+}

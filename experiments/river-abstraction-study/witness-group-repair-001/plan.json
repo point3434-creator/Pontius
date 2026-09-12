@@ -1,0 +1,745 @@
+{
+  "authority": "User explicitly requested selection, building and running of the next test.",
+  "control_checkpoints": [
+    10000,
+    50000
+  ],
+  "entries": [
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          8,
+          12,
+          17,
+          23,
+          26
+        ],
+        "board_index": 0,
+        "id": "b00-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-no-flush"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b00-p0-uniform-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-001.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          8,
+          12,
+          17,
+          23,
+          26
+        ],
+        "board_index": 0,
+        "id": "b00-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-no-flush"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b00-p0-uniform-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-004.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          8,
+          12,
+          17,
+          23,
+          26
+        ],
+        "board_index": 0,
+        "id": "b00-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b00-p0-polarized-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-007.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          8,
+          12,
+          17,
+          23,
+          26
+        ],
+        "board_index": 0,
+        "id": "b00-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b00-p0-polarized-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-010.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          7,
+          15,
+          26,
+          33,
+          42
+        ],
+        "board_index": 1,
+        "id": "b01-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-no-flush"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b01-p0-uniform-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-013.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          7,
+          15,
+          26,
+          33,
+          42
+        ],
+        "board_index": 1,
+        "id": "b01-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-no-flush"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b01-p0-uniform-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-016.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          7,
+          15,
+          26,
+          33,
+          42
+        ],
+        "board_index": 1,
+        "id": "b01-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b01-p0-polarized-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-019.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          7,
+          15,
+          26,
+          33,
+          42
+        ],
+        "board_index": 1,
+        "id": "b01-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-no-flush"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b01-p0-polarized-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-022.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          0,
+          12,
+          17,
+          26,
+          32
+        ],
+        "board_index": 2,
+        "id": "b02-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-flush-possible"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b02-p0-uniform-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-025.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          0,
+          12,
+          17,
+          26,
+          32
+        ],
+        "board_index": 2,
+        "id": "b02-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-flush-possible"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b02-p0-uniform-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-028.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          0,
+          12,
+          17,
+          26,
+          32
+        ],
+        "board_index": 2,
+        "id": "b02-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-flush-possible"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b02-p0-polarized-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-031.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          0,
+          12,
+          17,
+          26,
+          32
+        ],
+        "board_index": 2,
+        "id": "b02-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-flush-possible"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b02-p0-polarized-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-034.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          13,
+          23,
+          43,
+          45,
+          49
+        ],
+        "board_index": 3,
+        "id": "b03-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-flush-possible"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b03-p0-uniform-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-037.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          13,
+          23,
+          43,
+          45,
+          49
+        ],
+        "board_index": 3,
+        "id": "b03-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "unpaired-flush-possible"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b03-p0-uniform-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-040.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          13,
+          23,
+          43,
+          45,
+          49
+        ],
+        "board_index": 3,
+        "id": "b03-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-flush-possible"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b03-p0-polarized-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-043.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          13,
+          23,
+          43,
+          45,
+          49
+        ],
+        "board_index": 3,
+        "id": "b03-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "unpaired-flush-possible"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b03-p0-polarized-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-046.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          0,
+          2,
+          4,
+          14,
+          39
+        ],
+        "board_index": 4,
+        "id": "b04-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "one-pair"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b04-p0-uniform-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-049.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          0,
+          2,
+          4,
+          14,
+          39
+        ],
+        "board_index": 4,
+        "id": "b04-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "one-pair"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b04-p0-uniform-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-052.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          0,
+          2,
+          4,
+          14,
+          39
+        ],
+        "board_index": 4,
+        "id": "b04-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "one-pair"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b04-p0-polarized-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-055.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          0,
+          2,
+          4,
+          14,
+          39
+        ],
+        "board_index": 4,
+        "id": "b04-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "one-pair"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b04-p0-polarized-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-058.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          0,
+          15,
+          32,
+          40,
+          42
+        ],
+        "board_index": 5,
+        "id": "b05-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "one-pair"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b05-p0-uniform-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-061.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          0,
+          15,
+          32,
+          40,
+          42
+        ],
+        "board_index": 5,
+        "id": "b05-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "one-pair"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b05-p0-uniform-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-064.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          0,
+          15,
+          32,
+          40,
+          42
+        ],
+        "board_index": 5,
+        "id": "b05-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "one-pair"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b05-p0-polarized-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-067.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          0,
+          15,
+          32,
+          40,
+          42
+        ],
+        "board_index": 5,
+        "id": "b05-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "one-pair"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b05-p0-polarized-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-070.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          4,
+          21,
+          28,
+          30,
+          31
+        ],
+        "board_index": 6,
+        "id": "b06-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b06-p0-uniform-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-073.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          4,
+          21,
+          28,
+          30,
+          31
+        ],
+        "board_index": 6,
+        "id": "b06-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b06-p0-uniform-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-076.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          4,
+          21,
+          28,
+          30,
+          31
+        ],
+        "board_index": 6,
+        "id": "b06-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b06-p0-polarized-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-079.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          4,
+          21,
+          28,
+          30,
+          31
+        ],
+        "board_index": 6,
+        "id": "b06-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b06-p0-polarized-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-082.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          9,
+          11,
+          36,
+          40,
+          41
+        ],
+        "board_index": 7,
+        "id": "b07-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b07-p0-uniform-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-085.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          9,
+          11,
+          36,
+          40,
+          41
+        ],
+        "board_index": 7,
+        "id": "b07-p0-uniform",
+        "pool": 0,
+        "regime": "uniform",
+        "texture": "multiple-pairs-or-trips"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b07-p0-uniform-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-088.json"
+    },
+    {
+      "bet": 5,
+      "case": {
+        "board": [
+          9,
+          11,
+          36,
+          40,
+          41
+        ],
+        "board_index": 7,
+        "id": "b07-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b07-p0-polarized-bet-5.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-091.json"
+    },
+    {
+      "bet": 10,
+      "case": {
+        "board": [
+          9,
+          11,
+          36,
+          40,
+          41
+        ],
+        "board_index": 7,
+        "id": "b07-p0-polarized",
+        "pool": 0,
+        "regime": "polarized",
+        "texture": "multiple-pairs-or-trips"
+      },
+      "original": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b07-p0-polarized-bet-10.json",
+      "path": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-094.json"
+    }
+  ],
+  "fitting_tasks": 0,
+  "frozen_at_utc": "2026-09-11T22:43:02.737008+00:00",
+  "milestone": "witness-group-repair-001",
+  "numpy": "2.5.2",
+  "output": "D:\\Pontius-training\\river-abstraction-study\\witness-group-repair-001",
+  "phase_timeout_seconds": 900,
+  "pins": {
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b00-p0-polarized-bet-10.json": "a64b824077271185d57beec6a05cbdadc66227e4a6a20539f354aaed49d4208f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b00-p0-polarized-bet-5.json": "ea3ec55b9ad5bd88246c549359de1e39831eac09030b626e6138ec7f07bebbd8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b00-p0-uniform-bet-10.json": "0957ac37ceced13fb91702cdccf8b933564a977e5f737cab2ccfa5cfde5a0b19",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b00-p0-uniform-bet-5.json": "8ab675d5bb22e9555bfc571ebe783623991c13a434a50cfa0fbeb7d671f72439",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b01-p0-polarized-bet-10.json": "0925125f683c1e579e3b3f441a93c970c0bc8a2f00c09ae5b1f66401cffa3f9e",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b01-p0-polarized-bet-5.json": "115325df4e26422e75cfe8dfa01463d843b9a3e5716fef1c838856654c92d515",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b01-p0-uniform-bet-10.json": "10eb2f864ded5523ba47ca8e29e02f99bc83b9006ed082007ed68d923571bcdb",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b01-p0-uniform-bet-5.json": "64e9ac12016284b8f281eff3deea69d46a54fe055272484822eedbedb6e05de6",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b02-p0-polarized-bet-10.json": "bc93e0d17cb64dfe5ddae1d6722bd1e98aa3d65cc1f1f1c059582dd555235b90",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b02-p0-polarized-bet-5.json": "0654387d7d0d5c818ba73abbe96dce9b571aef3e749831a42bddef1056e34457",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b02-p0-uniform-bet-10.json": "ae5fcbbad6df028a72621fd89f172fec4d9eecaa32111e53e1abbd4f57874880",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b02-p0-uniform-bet-5.json": "fffee32796de87aff68853825f85df5ce689707263dfc41893ea38e56422e10d",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b03-p0-polarized-bet-10.json": "f5f83b20d3b2f0a2eb17e53c6e3caff8dbf4eb0ba5c5a892e96934e80db7d865",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b03-p0-polarized-bet-5.json": "695a5672e8f2c04dbb976ab1d5e4275f9a46b4e69565ade981cbde9b6fdd53d1",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b03-p0-uniform-bet-10.json": "3b4d6c2662af6d11986cdc098989dc68477218f46caa19113907d3ce1168beb8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b03-p0-uniform-bet-5.json": "0087edd73c96cb7cb44f90e97c7c7aba64e95f6e8a98e5b14fde16b414d756a8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b04-p0-polarized-bet-10.json": "b355c64c64681a0eff33a2dbe52757081cd9dd97baa80e9d87d7c09f3a5ec884",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b04-p0-polarized-bet-5.json": "3c922002222c980b8c8c41883f6340d0e09019ec94be984856ae31fbf59dec5a",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b04-p0-uniform-bet-10.json": "43a86bdc4dd10130db84655de660fab56ef73757603f81473f7321e92e91f8bd",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b04-p0-uniform-bet-5.json": "bdc5fda5cf99899cbe991b69c91c1a793f1d8784c8523cb1815a097100556635",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b05-p0-polarized-bet-10.json": "f697c54bd1126569ba69f4d32418ae9f8bcc22b9c0c6b7c674cccdd303daf43b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b05-p0-polarized-bet-5.json": "d7eb279fd309c7d6f2ec4c806c70cdfa57d9194ba6abe806cf7e1fc947c02e05",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b05-p0-uniform-bet-10.json": "fbb682ef1057288d33daabad3e9916a4dfa506a7ec509fc4e5c842ed593a1ffa",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b05-p0-uniform-bet-5.json": "4b6848185d53b3d70a0d034a9295ac52cc3d818e01bcd2a17ed277b6d977ac74",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b06-p0-polarized-bet-10.json": "457bbcd49d306be2089708a3a5f1137da2fb3874a7bc9492fc277cf6290789ed",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b06-p0-polarized-bet-5.json": "c5a663d3807fa404ca54415098142b19be6467d193867e071783ea1ad41b3188",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b06-p0-uniform-bet-10.json": "c4a20ce2e8f378e99a40985a5b76892733f21c1a821d60759594859ecfb0398c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b06-p0-uniform-bet-5.json": "481321919e6f2a12ee5b9ad449cd3bf17ac01334a9705449e0abc9eddffbe781",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b07-p0-polarized-bet-10.json": "af352e6210e5671ce66feb676ce923c001d895a4e84961c9111b1371afc6c0b3",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b07-p0-polarized-bet-5.json": "0593daa708cbdb5a4947bc42a8525741ecb876e378c554b2397e256eeccaa463",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b07-p0-uniform-bet-10.json": "ef01465acc5f2141bac6739f6b954ba7cf20e44ad69c6deb540f34ab3374ba35",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-ordinal-001\\eval-b07-p0-uniform-bet-5.json": "09517b04025bcdbf55e225f77b19b9aeae81791ac51a5fc95f1a39b4bac27b27",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-001.json": "f16ab3258aad04e6a26811eed5ac5040525dab44c099dda80c2cdb4fd4f376c0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-004.json": "b0ee5693391a02db4577371c53ccbc8d7362268571dbe01c86ace67a86253d09",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-007.json": "d1b322a7775a8c5cd588e2fb849f1ca1542d9b6a7403af576f02721794d8bd01",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-010.json": "7ea06f36d133d81b32ff9b620d1e8fac616f600002e946ad9e060eedbd6c0740",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-013.json": "ec5f074b62783287db8ace683fd1e73f27e91ad82a600914c82e31714cbced88",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-016.json": "e0d95ffb2995fbecf0f26766d9328372981a996c19ab4852200f71dab0df9d1f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-019.json": "738b3524826a861564e4ca008c5902b0a576036dcf8c9f71975a91f5595796ae",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-022.json": "873b68da2cfe9f55d5efafa9373a85c2850a8059e326cfcb56af1c8e233e3f37",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-025.json": "081acfc5ec2029444c672d0a491963d6f5dfaab563c3fbe6d7bcc1d6b274bc36",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-028.json": "912e260fc38c06517f573b836acf63d631f03ddb441b723f20da7aea363f3ef4",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-031.json": "7839cf25cfa743a9a1b9416137dc5dfe3faf4a30df24c98cdc4c87b28532817a",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-034.json": "4c0452ba42672f27ef0c8f0a7eab90d17ef1927da39f86b68270bdd521b52afb",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-037.json": "4e5e689c5537c67bb54110d849711bf05a0e6290da53969b9eef8221918b080c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-040.json": "9b1174d535084a10ef50360f9c228c01849f5d03ed2768c6413ebdaf8404c58b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-043.json": "5606de5ec4ba1da07d4d52789717ff6e2e60a65bf688b2400acb7c7a44d13b97",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-046.json": "a89e7134a5b2c9145f55c9a94b57e24fbb00a792bcc199eb4b3ed547f82a77d3",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-049.json": "1cf4d76a49088c9af74f35bc40c356f448c48faa48c46f26aebccdfe4c7951d5",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-052.json": "ee9c4f5a9f192cf18ee945330a8597a670d79500d96d7801f8a1cf7c922a829d",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-055.json": "0a03b685c8437f154024ce64119934a9c387b099a2895e12067c9bcfad1c17f1",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-058.json": "a087b4811d8e7f1b41371c6e6758113f1d72b5f34dcb8d64adc78e2e6783ce8d",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-061.json": "b033735ba2ca4299364604f27908e5fa2aac250fac7c990b485f91eb0e84764e",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-064.json": "93e60bd18913d148fdfd73cb78abc66d9476d41985f7e7bea62ce36a92d83e00",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-067.json": "9f83acab1b67f63aa50388e5155a5a782b65f4976b0eaeb9204941217a3caa3d",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-070.json": "d0aeb64c611db15d85f114704d2b001ac017c9611dbcaf8a48c4565215738ac8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-073.json": "82cc9af9f60c750c5228b3244c99ce9f986ea034daf6f7abed5b28fa61a7b4e3",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-076.json": "ead050c7174671939b5e8dcde6062073c462976e7e31cb12484d063db05e7a09",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-079.json": "8782df78318ff6acabb63752c9158ba936822539ba3d31efb2e6e1df4a6768d6",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-082.json": "07b14634f41c2f99ca600b09eced24004c33883f68fcbaa64763d33706436a7a",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-085.json": "3d6c4d3310c84236403c6ef7891928dbbceed91881439abe616f104a98bbde21",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-088.json": "493389ba37dfa13930e2dd58e5aa593ac35f6e3450d84d41d9b021a1de5f1541",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-091.json": "cee17cbbfe4c0140eaf94ce87ee0e2d72aa1c1a71411e367ba24a74281d27bce",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\cell-094.json": "f9eb75882bf7d7702442dd0fb8af6ed7286d5ccf6d728453ce50163f57f927b3",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\milestone-manifest.json": "d39ac27ca3fa2dc4d84b17791ba01d6b125d883184d293a059a677e24b8c8292",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\plan.json": "5fbecc5d02a4fa60e32f621efb052bd01e095b9e33fc1bd888562ab61cddc0e0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\verification-tools\\soft.py": "47c4aa718d383a4b6fb2b06b505809dada8f9c1cdcdf3a6b32526f7762e77b37",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\__init__.py": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\action_clock.py": "12e5f4ec46363a077e368e331fe2e0068b70209c73ed6e3b8fa43e6b21b29a23",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\cfr.py": "c46c1a98eceedb69a666916201a0cbfba6793eb139440afa95b729047384496f",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\coalition.py": "eb8cd737a8fba4fa87612cf4739309f3a65981c486e2195f06cf2604e7c99fe0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\cuda_dll_bootstrap.py": "5ad4dfea9b7fe84d2ff010b5812a9a86d7bf19682094489297a29c797b49eba7",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\dependency_tape.py": "2302e0a987cc0edc85e89d2829595f983e2c444435d3bdfde1bf5ef9463ed392",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\evaluation.py": "ff4d212735d597b4713480b2ce0192a957915469e3a872758e037ee25ea7ede7",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\factorized_belief.py": "d26b418d1d850e7a92ac5e4573ab2c050c0e0dfc1bf7cad1db72ffd0ac52d951",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\full_width_belief.py": "b9659090b5b0e5e570103d4f7693a400cd9acb18c28e9da92d402dce5fa26992",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\full_width_reference_policy.py": "ea9dd91c8b5f03bc616cbc8b6b31c40f33a1543a0fd2b03e32b8ce57b59bc1e6",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\game.py": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\holdem_cards.py": "714d3ed7a29af3a9205e53b097408c71b43040c0191fc763cae6c87dec887799",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\immutable_blueprint.py": "2ee8b75f94b3c11fd46ffd684391f1a02255f0e2d198f3f1c91c04b1d94d0d6c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\kuhn.py": "95220933193fed0b3052b769737420299506e3f93ce27597396b0c1299952ac8",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\legal_decision_spine.py": "6402eaff40b921b74ca4beb312430db19e20a123963c326ad46b4d5a33c321b4",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\legal_decision_spine_v2.py": "a0c20a29dc5da5af95f373b2617163bd53c24591256ef5342f30c20fb4bc08de",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\no_limit_betting.py": "66b398e7ebba535f9c25728fd8b57a599310434cd41610e9107e37762ed98cdf",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\preparation_bank.py": "8e2df920149ee7d2a4556c418680c9f4e214c525116c09cce79844888aa10210",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\reference_hand_replay.py": "069ae2e8241b4fc2e4bf2480ecb1dc4bbfbae1f690e885e8540708c2a5b768e0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river.py": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_abstraction_study.py": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_group_optimality.py": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_incremental.py": "567cca8d00a5a88fc8b6cab7e425d3020efc971f6d35003f804e08007a3a88e2",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_multi_size.py": "d1139b0d935a56ee3f56fad2b2e6e3807eba4443b2d0a3f6ff2ed231e03735a0",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_multiway.py": "b957ef89ec3a3371df99feeb3d871294de43620183b6b0e792bc6717d0d4c445",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\street_deadline.py": "7d00872c174b973df01d52b07e1a8a6f952c517b7254ee0e092083562b5e779c",
+    "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\updates.py": "c6aacfc70a6adcf52fdb8b5c452a8e37c0131e142ae99aa2c5651262e8fdd933",
+    "D:\\Pontius\\tmp\\group-opt-author\\venv\\Scripts\\python.exe": "199ce15a9f0d4f9522edba59338e4879d28cf61f88e377b8164bcb716275ed22",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\checks-stderr.txt": "f2b70f4d1ba936f15aa8fa9df0211df857b22f4142cd71beb0ef3a70331f327b",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\checks-stdout.txt": "2fd8e3c709cf1b9baab9336aa53fb11fd43a70be9aea6e73cbfb98d70e0a2f55",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\checks.txt": "c187ef8c2881415f73029a476483be261fe9a76438215149b25a01441ce419d8",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\design.md": "f6b72544f246617dfedde2fa939cb86789fa4559050d5011c2196091a3860380",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\environment.py": "e143e20e30da8c0af08511db1f54001ab7e2024b857b08fc08b36ee8b7864e1c",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\experiment.py": "66776826646f19d981840d2a0a4639e5f674932b642775aac005ae2385240268",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\green.txt": "09acba0d07c18033a41076ce5dbbca4b556d1f2d3b3675a2290cdfeb8696e46d",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\preflight.json": "9ed9a9721a31d1355d513c38499d0cb51af7a4754ad36b6815c1d0af33f8e451",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\prepare.py": "0c1e422b6fb828617f0e51523ea76493fe30f5c05c0e2723c61e8ecc4b0c2621",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\red.txt": "5f59624322e44bebe2524b2b9291f86800ad2095ef9ee47201f79ffef63379e6",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\repair.py": "30563d20f8e62b59f974f66ae3a3fa1f0c9963f467e6c1ffb50ed923f3ff36ca",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\runner-red.txt": "73d22aa8810d0151dc90a133d1d3dfdd0787b710c2a0308f84f672751faf3ee9",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\test_repair.py": "5cbe39a7b71fece93964076dbaa9069ec0e62fbb2e5f72fa705e1cc1ab55809a",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\test_runner.py": "1484bc04e9fba5bb17ac25c495dda305ff96b63d28232e871ca7714433df8252",
+    "D:\\Pontius\\tmp\\witness-group-repair-author\\worktree-before.json": "e678d7bd74edc170541a023f2735eb6301614129468033c08fd6f419df81ff01"
+  },
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "repaired_checkpoints": [
+    1000,
+    10000
+  ],
+  "schema": "witness-group-repair-v1",
+  "scipy": "1.18.0",
+  "source_head": "1b4d1a0e26cd4da90ff74678de2e48ef53ec5599",
+  "synthetic": false,
+  "user_words_verbatim": "sorry bad idea. what do you suggest next lets build it and ru it"
+}

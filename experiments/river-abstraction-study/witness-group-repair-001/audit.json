@@ -1,0 +1,9 @@
+{
+  "certificates": 128,
+  "fitting_tasks": 0,
+  "independently_enumerated_exchanges": 42840,
+  "passed": true,
+  "profiles": 128,
+  "replayed_updates": 1920000,
+  "verifier_lp_calls": 0
+}

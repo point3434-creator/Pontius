@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="10" time="1.035" timestamp="2026-09-11T01:55:48.978448-04:00" hostname="JeffPC"><testcase classname="tests.test_river_witness_groups.WitnessGroupsTests" name="test_bad_policy_zero_marginal_and_wrong_player_refused" time="0.627" /><testcase classname="tests.test_river_witness_groups.WitnessGroupsTests" name="test_hand_derived_action_advantages_and_reach_weighting" time="0.001" /><testcase classname="tests.test_river_witness_groups.WitnessGroupsTests" name="test_parent_refuses_modified_features_groups_and_score" time="0.029" /><testcase classname="tests.test_river_witness_groups.WitnessGroupsTests" name="test_proposal_is_deterministic_without_optimizer_and_refuses_corrupt_bank" time="0.016" /><testcase classname="tests.test_river_witness_groups.WitnessGroupsTests" name="test_regrouping_keeps_capacity_and_improves_known_synthetic_floor" time="0.021" /><testcase classname="tests.test_river_witness_groups.WitnessGroupsTests" name="test_tied_features_keep_all_groups_and_zero_reach_is_valid" time="0.012" /><testcase classname="tests.test_river_witness_groups.WitnessToolTests" name="test_genuine_producer_to_regrouping_subprocess_and_parent" time="0.001"><failure message="AssertionError: False is not true : bounded witness grouping runner has not been implemented">self = &lt;test_river_witness_groups.WitnessToolTests testMethod=test_genuine_producer_to_regrouping_subprocess_and_parent&gt;
+
+    def test_genuine_producer_to_regrouping_subprocess_and_parent(self):
+&gt;       tool = self.tool()
+               ^^^^^^^^^^^
+
+tests\test_river_witness_groups.py:163: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_groups.py:138: in tool
+    self.assertTrue(path.exists(), 'bounded witness grouping runner has not been implemented')
+E   AssertionError: False is not true : bounded witness grouping runner has not been implemented</failure></testcase><testcase classname="tests.test_river_witness_groups.WitnessToolTests" name="test_plan_admission_and_bank_drift_refuse_before_output" time="0.000"><failure message="AssertionError: False is not true : bounded witness grouping runner has not been implemented">self = &lt;test_river_witness_groups.WitnessToolTests testMethod=test_plan_admission_and_bank_drift_refuse_before_output&gt;
+
+    def test_plan_admission_and_bank_drift_refuse_before_output(self):
+&gt;       tool = self.tool()
+               ^^^^^^^^^^^
+
+tests\test_river_witness_groups.py:178: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_groups.py:138: in tool
+    self.assertTrue(path.exists(), 'bounded witness grouping runner has not been implemented')
+E   AssertionError: False is not true : bounded witness grouping runner has not been implemented</failure></testcase><testcase classname="tests.test_river_witness_groups.WitnessToolTests" name="test_summary_uses_all_cases_exact_signed_intervals_and_no_selected_winner" time="0.000"><failure message="AssertionError: False is not true : bounded witness grouping runner has not been implemented">self = &lt;test_river_witness_groups.WitnessToolTests testMethod=test_summary_uses_all_cases_exact_signed_intervals_and_no_selected_winner&gt;
+
+    def test_summary_uses_all_cases_exact_signed_intervals_and_no_selected_winner(self):
+&gt;       tool = self.tool()
+               ^^^^^^^^^^^
+
+tests\test_river_witness_groups.py:233: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_groups.py:138: in tool
+    self.assertTrue(path.exists(), 'bounded witness grouping runner has not been implemented')
+E   AssertionError: False is not true : bounded witness grouping runner has not been implemented</failure></testcase><testcase classname="tests.test_river_witness_groups.WitnessToolTests" name="test_worker_failure_timeout_missing_result_and_parent_rejection" time="0.000"><failure message="AssertionError: False is not true : bounded witness grouping runner has not been implemented">self = &lt;test_river_witness_groups.WitnessToolTests testMethod=test_worker_failure_timeout_missing_result_and_parent_rejection&gt;
+
+    def test_worker_failure_timeout_missing_result_and_parent_rejection(self):
+&gt;       tool = self.tool()
+               ^^^^^^^^^^^
+
+tests\test_river_witness_groups.py:200: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_river_witness_groups.py:138: in tool
+    self.assertTrue(path.exists(), 'bounded witness grouping runner has not been implemented')
+E   AssertionError: False is not true : bounded witness grouping runner has not been implemented</failure></testcase></testsuite></testsuites>

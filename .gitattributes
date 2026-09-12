@@ -60,3 +60,7 @@
 /docs/archive/root-helpers/** -text
 /experiments/results/20260908T*.json -text
 /experiments/results/runs/** -text
+
+# Linux runner files keep LF on every platform; a CRLF shebang breaks the
+# smoke-test script on the Ubuntu box.
+/ops/** text eol=lf

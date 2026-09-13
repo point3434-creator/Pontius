@@ -1,0 +1,18 @@
+{
+  "source_commit": "6518b9d3af252c93f8a9dbdb13fb28adc2859b4c",
+  "test_environment": "D:/Pontius/tmp/group-opt-author/venv",
+  "python_version": "3.14.6",
+  "command": "python -B -m pytest -q -p no:cacheprovider",
+  "PONTIUS_GIT": "C:/Program Files/Git/cmd/git.exe",
+  "final_pytest_passed": 57,
+  "final_unittest_cases": 734,
+  "final_skipped": 0,
+  "final_exit_code": 0,
+  "initial_failure": "Initial environment lacked SciPy and PONTIUS_GIT; corrected environment passed without source changes.",
+  "initial_result_sha256": "0249c5ba05bf3c73636913caedce1ca505fbb1ebec754f8a68c4a97d5a374a65",
+  "final_result_sha256": "37cb30e3f80c2d5a9672b12b1e3957d898f52a01c22814c6c6acc04c242f4910",
+  "completed_milestones": 45,
+  "staged_manifest_members_including_manifests": 4621,
+  "unique_verified_git_blobs": 3401,
+  "all_staged_research_bytes_match_frozen_manifests": true
+}

@@ -1,0 +1,86 @@
+{
+  "cases": [
+    {
+      "calls": [
+        {
+          "matrix_entries_verified": 7011366,
+          "min_scaled_nonzero": 2.0455256118344726e-08,
+          "original_coefficients_below_cutoff": 269858,
+          "scaled_coefficients_below_cutoff": 0,
+          "value_unit_roundtrip": true
+        },
+        {
+          "matrix_entries_verified": 4674244,
+          "min_scaled_nonzero": 3.109198929988398e-06,
+          "original_coefficients_below_cutoff": 78512,
+          "scaled_coefficients_below_cutoff": 0,
+          "value_unit_roundtrip": true
+        }
+      ],
+      "case": 0,
+      "passed": true
+    },
+    {
+      "calls": [
+        {
+          "matrix_entries_verified": 23371220,
+          "min_scaled_nonzero": 1.966978348604782e-07,
+          "original_coefficients_below_cutoff": 514102,
+          "scaled_coefficients_below_cutoff": 0,
+          "value_unit_roundtrip": true
+        },
+        {
+          "matrix_entries_verified": 10517049,
+          "min_scaled_nonzero": 5.507539376093389e-06,
+          "original_coefficients_below_cutoff": 237752,
+          "scaled_coefficients_below_cutoff": 0,
+          "value_unit_roundtrip": true
+        }
+      ],
+      "case": 1,
+      "passed": true
+    },
+    {
+      "calls": [
+        {
+          "matrix_entries_verified": 7011366,
+          "min_scaled_nonzero": 5.723756603332221e-06,
+          "original_coefficients_below_cutoff": 69265,
+          "scaled_coefficients_below_cutoff": 0,
+          "value_unit_roundtrip": true
+        },
+        {
+          "matrix_entries_verified": 4674244,
+          "min_scaled_nonzero": 1.368724405144661e-06,
+          "original_coefficients_below_cutoff": 49989,
+          "scaled_coefficients_below_cutoff": 0,
+          "value_unit_roundtrip": true
+        }
+      ],
+      "case": 2,
+      "passed": true
+    },
+    {
+      "calls": [
+        {
+          "matrix_entries_verified": 7011366,
+          "min_scaled_nonzero": 5.724719292436712e-06,
+          "original_coefficients_below_cutoff": 217512,
+          "scaled_coefficients_below_cutoff": 0,
+          "value_unit_roundtrip": true
+        },
+        {
+          "matrix_entries_verified": 4674244,
+          "min_scaled_nonzero": 1.6202035733311453e-06,
+          "original_coefficients_below_cutoff": 118839,
+          "scaled_coefficients_below_cutoff": 0,
+          "value_unit_roundtrip": true
+        }
+      ],
+      "case": 3,
+      "passed": true
+    }
+  ],
+  "new_lp_calls": 0,
+  "passed": true
+}

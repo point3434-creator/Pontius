@@ -1,6 +1,6 @@
 # Research and engineering results
 
-River research updated 2026-09-12; other families last consolidated 2026-09-08. Start here for the current conclusions; follow a category
+River research updated 2026-09-13; other families last consolidated 2026-09-08. Start here for the current conclusions; follow a category
 for methods, exceptions, and evidence. These are conclusions from Pontius's
 linked local records, not a literature review or a new experiment.
 
@@ -19,18 +19,81 @@ integration paths. The evidence reviewed here does **not** yet establish a
 strong full-game multiway policy or a complete full-width resolver that acts
 within the live clock.
 
-## Latest research consolidation — 2026-09-12
+## Current priority — 2026-09-13
+
+Build Pontius using the existing research. Further experiments and neural-network
+work are paused. The [playable-bot build plan](../docs/plans/pontius-playable-build-2026-09-13.md)
+sets the integration order, Python 3.14 requirement, and initial configurable
+33-second complete-decision ceiling. This is the implementation direction;
+existing runtime clock contracts have not yet changed.
+
+## Latest research consolidation — 2026-09-13
 
 The [solver family summary](solver-foundations.md#river-representation-and-solver-findings-through-2026-09-12)
-now consolidates all 35 retained river milestones through full-combo-direct-002.
+now links 45 retained river milestones through river-time-quality-001.
+
+The [time-budget quality campaign](../docs/research/river-time-quality-001.md)
+completed six trajectories and 24 exact audits. All tested iteration increases
+reduced error; repeat policies were identical. Under the declared accounting,
+10 seconds fits 19.06x lower checkback error, and 15 seconds fits 9.58x lower
+raise-tree error, relative to 2,048 iterations. Tight-budget misses remain
+visible; no strict equilibrium threshold passed. Fresh-board transfer is next.
+
+
+The [graph replay test](../docs/research/river-gpu-graph-001.md) completed
+36 solves across 18 fresh workers and six independent rational audits.
+Replay accelerated the fixed solve 8.48x / 6.09x versus eager GPU execution,
+with bitwise-identical final policies across all arms, repeats and resets.
+Preparation and audit costs reduce the gain but do not erase it.
+The subsequent time-budget campaign above measures that quality improvement.
+
+
+The [GPU execution assessment](../docs/research/river-gpu-execution-001.md)
+measured 1.31x / 1.56x faster fixed-work solves on the two expanded trees,
+with essentially unchanged independently audited error. Including fresh
+solve processes and separate exact audits reduces the gain to 1.11x / 1.31x.
+This was an exploratory continuation after a retained trajectory-parity
+refusal, not an original-plan pass. Host GPU-process memory also increased.
+
+
+The [expanded-tree comparison](../docs/research/river-cfr-expanded-001.md)
+completed 24 training runs and eight independent rational audits within the
+original sampled 3,072 MiB budget on both trees where LP stopped on memory.
+This establishes checked approximate-solution capacity; it does not establish
+strict equilibrium convergence or a live resolver. The report retains all
+four fixed configurations, their quality curves, and full cost boundaries.
+
+
+The [second-position confirmation](../docs/research/river-cfr-comparison-002.md)
+again favored DCFR+ at the frozen 2,048 iterations: paper DCFR+ reduced error
+6.56x against matched CFR+, with released-code DCFR+ lowest. Prediction under
+matched parameters helped about 11% here after hurting on the first case.
+Two previously studied positions support discounting but do not settle prediction
+or universal algorithm rankings. All runs and independent audits completed;
+none reached the strict LP gap threshold. Expanded-tree capacity is next.
+
+The [new CFR comparison](../docs/research/river-cfr-comparison-001.md) tested
+six configurations at 2,048 iterations on one retained full-range river. With
+averaging fixed, paper DCFR+ reduced error 8.10x versus CFR+; adding prediction
+under matched parameters increased error 5.99x. Released-code DCFR+ was the
+lowest-error arm. All 18 runs completed with repeat-identical policy bytes and
+six independent final rational checks. No arm reached the older strict LP
+threshold. Transfer and expanded-tree memory remain untested for this method.
 The [experiment index](../docs/research/README.md) links every milestone report.
 
 Learned action preferences transferred to new boards, and guarded size repair improved
 restricted-game strategies. The latest actual-stack tests narrow that opportunity:
 three of four states have only one distinct legal size in the tested menu. Direct
 full-hand LP then beat the existing compressed learner's measured error and solve time
-in all four games. Only two passed the strict exact gap threshold; the two misses remain
-open. This favors a direct reference and a larger-tree cost test over more repair tuning.
+in all four games. Two initially missed the strict exact gap threshold; the
+[fixed scaling diagnostic](../docs/research/river-lp-numerical-scaling-001.md) now
+supplies four passing original-matrix certificates without relaxing that threshold.
+The [larger-tree test](../docs/research/river-tree-expansion-001.md) then certified seven
+of nine distinct cells; both expanded deep-stack games hit the memory stop. The
+[memory diagnostic](../docs/research/river-lp-memory-001.md) locates both stops inside
+native HiGHS solving after conversion and model loading. The [presolve comparison](../docs/research/river-lp-presolve-001.md)
+then failed to recover either expanded game. The initial CFR comparison above now tests iterative solving on the
+baseline case; the two expanded memory-limited trees remain to be tested.
 The [assessment](river-abstraction-study/full-combo-direct-002/assessment.md) includes
 all four errors and per-hand tables. These are restricted heads-up river results,
 not full-hand betting-tree coverage, independent replications, or six-max strength.
@@ -71,8 +134,8 @@ not full-hand betting-tree coverage, independent replications, or six-max streng
    retained scientific payload supports a narrower, separately stated finding.
 
 The [research roadmap](research-roadmap.md) separates the current river follow-up from
-the broader earlier agenda. Direct-solve numerical closure and a larger actual-stack
-tree come first on this lane. Folded-card reuse, neural/tabular comparisons, and fresh
+the broader earlier agenda. Numerical closure is complete on this panel; the larger actual-stack
+tree has exposed a native-solver memory boundary that disabling presolve did not resolve. Folded-card reuse, neural/tabular comparisons, and fresh
 bot-strength evaluation remain valuable open questions, not completed findings.
 
 ## Keep this reference useful

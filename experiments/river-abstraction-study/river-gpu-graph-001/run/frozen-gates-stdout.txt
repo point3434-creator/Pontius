@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "case": "checkback",
+      "reference_max_abs": 0.0,
+      "replay_bitwise_equal": true,
+      "reset_identical": true,
+      "counter_and_horizon": true
+    },
+    {
+      "case": "raise",
+      "reference_max_abs": 0.0,
+      "replay_bitwise_equal": true,
+      "reset_identical": true,
+      "counter_and_horizon": true
+    }
+  ]
+}

@@ -2,7 +2,37 @@
 
 [Results index](RESULTS.md) · Updated 2026-09-08 · Local research and engineering evidence
 
-**Current conclusion:** exact structure and device residency made reduced river
+## Latest quality consequence
+
+The [time-budget quality campaign](../docs/research/river-time-quality-001.md)
+completed six trajectories and 24 exact audits. All tested iteration increases
+reduced error; repeat policies were identical. Under the declared accounting,
+10 seconds fits 19.06x lower checkback error, and 15 seconds fits 9.58x lower
+raise-tree error, relative to 2,048 iterations. Tight-budget misses remain
+visible; no strict equilibrium threshold passed. Fresh-board transfer is next.
+
+## Earlier graph replay test
+
+The [graph replay test](../docs/research/river-gpu-graph-001.md) completed
+36 solves across 18 fresh workers and six independent rational audits.
+Replay accelerated the fixed solve 8.48x / 6.09x versus eager GPU execution,
+with bitwise-identical final policies across all arms, repeats and resets.
+Preparation and audit costs reduce the gain but do not erase it.
+The subsequent time-budget campaign above measures that quality improvement.
+
+## Earlier fixed-game execution test
+
+The [GPU execution assessment](../docs/research/river-gpu-execution-001.md)
+measured 1.31x / 1.56x faster fixed-work solves on the two expanded trees,
+with essentially unchanged independently audited error. Including fresh
+solve processes and separate exact audits reduces the gain to 1.11x / 1.31x.
+This was an exploratory continuation after a retained trajectory-parity
+refusal, not an original-plan pass. Host GPU-process memory also increased.
+
+The direct eager port uses full 1,081-hand ranges in two restricted heads-up
+river trees. It does not implement GPU-CFR static compilation or graph replay.
+
+**Earlier consolidated conclusion:** exact structure and device residency made reduced river
 solving substantially cheaper. A different occupied-card representation also
 made one literal full-width contraction fit the workstation. Neither result
 establishes a complete full-width poker resolver. The later legal-context and

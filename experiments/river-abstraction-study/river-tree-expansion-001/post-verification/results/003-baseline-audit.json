@@ -1,0 +1,17 @@
+{
+  "baseline_interval_overlap": true,
+  "engine": {
+    "all_terminal_paths": true,
+    "checks": 9,
+    "win_tie_loss": true
+  },
+  "executing_pid": 21208,
+  "label": "003-baseline",
+  "literal_subgames": [
+    "0",
+    "17766550607897473/590295810358705651712",
+    "496829469559431/302231454903657293676544"
+  ],
+  "new_lp_calls": 0,
+  "passed": true
+}

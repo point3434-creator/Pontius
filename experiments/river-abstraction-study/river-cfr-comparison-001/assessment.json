@@ -1,0 +1,89 @@
+{
+  "code_vs_linear_improvement": 20.325437837610735,
+  "complete": true,
+  "decision": "Confirm DCFR+ on a different retained game and expanded tree next; no adoption",
+  "matched_dcfr_improvement": 8.096943256240012,
+  "matched_prediction_error_ratio": 5.994551199137137,
+  "rows": [
+    {
+      "certificate_peak_mib": 337.0,
+      "certificate_seconds": 0.8871389999985695,
+      "exploitability": 4.9331567056567507e-05,
+      "fraction_of_pot": 4.933156705656751e-06,
+      "name": "cfr_g4",
+      "strict_gap_pass": false,
+      "training_max": 3.444311300001573,
+      "training_median": 3.427343600022141,
+      "training_min": 3.4082657999824733,
+      "worker_peak_mib": 130.6640625,
+      "worker_wall_median": 3.888464300020132
+    },
+    {
+      "certificate_peak_mib": 336.3671875,
+      "certificate_seconds": 0.8871629000059329,
+      "exploitability": 6.0926161262831514e-06,
+      "fraction_of_pot": 6.092616126283152e-07,
+      "name": "dcfr_paper",
+      "strict_gap_pass": false,
+      "training_max": 3.4922740000183694,
+      "training_median": 3.452673700056039,
+      "training_min": 3.4162710999371484,
+      "worker_peak_mib": 130.15234375,
+      "worker_wall_median": 3.937566099979449
+    },
+    {
+      "certificate_peak_mib": 337.63671875,
+      "certificate_seconds": 0.9013420999981463,
+      "exploitability": 3.652249930569293e-05,
+      "fraction_of_pot": 3.652249930569293e-06,
+      "name": "pdcfr_matched",
+      "strict_gap_pass": false,
+      "training_max": 3.6124774999916553,
+      "training_median": 3.4710363000631332,
+      "training_min": 3.4490157999680378,
+      "worker_peak_mib": 130.44140625,
+      "worker_wall_median": 3.968689000001177
+    },
+    {
+      "certificate_peak_mib": 337.65625,
+      "certificate_seconds": 0.9304878000402823,
+      "exploitability": 7.121627721403695e-05,
+      "fraction_of_pot": 7.121627721403696e-06,
+      "name": "cfr_linear",
+      "strict_gap_pass": false,
+      "training_max": 3.4678702000528574,
+      "training_median": 3.4559009000076912,
+      "training_min": 3.3834101999527775,
+      "worker_peak_mib": 128.81640625,
+      "worker_wall_median": 3.949879699968733
+    },
+    {
+      "certificate_peak_mib": 336.90625,
+      "certificate_seconds": 0.8895641000126489,
+      "exploitability": 3.50380039943132e-06,
+      "fraction_of_pot": 3.50380039943132e-07,
+      "name": "dcfr_code",
+      "strict_gap_pass": false,
+      "training_max": 3.419045399990864,
+      "training_median": 3.3569759000092745,
+      "training_min": 3.341371800052002,
+      "worker_peak_mib": 130.3828125,
+      "worker_wall_median": 3.837036899989471
+    },
+    {
+      "certificate_peak_mib": 337.2421875,
+      "certificate_seconds": 0.8581324000260793,
+      "exploitability": 7.321750344184022e-05,
+      "fraction_of_pot": 7.3217503441840215e-06,
+      "name": "pdcfr_published",
+      "strict_gap_pass": false,
+      "training_max": 3.46891220001271,
+      "training_median": 3.4066702999407426,
+      "training_min": 3.385065500100609,
+      "worker_peak_mib": 128.97265625,
+      "worker_wall_median": 3.890330400026869
+    }
+  ],
+  "source_pins_verified": 76,
+  "tests_exit": 0
+}

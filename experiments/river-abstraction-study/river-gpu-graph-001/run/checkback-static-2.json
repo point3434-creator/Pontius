@@ -1,0 +1,44 @@
+{
+  "arm": "static",
+  "capture_seconds": 6.00004568696022e-07,
+  "case": "checkback",
+  "construction_seconds": 0.02898919995641336,
+  "executing_pid": 19996,
+  "initial_reset_seconds": 0.00019950000569224358,
+  "pool_reserved_bytes": 47970816,
+  "repeat": 2,
+  "solves": [
+    {
+      "average_transfer_seconds": 0.0004086000262759626,
+      "policy_sha256": "2e05ee70811897c1442fb38f6833de7da735ee98a073ba26d159a01c2b8ceb38",
+      "reset_seconds": 5.00003807246685e-07,
+      "score": {
+        "exploitability": 1.3479594298093645e-05,
+        "gap": 2.695918859618729e-05,
+        "lower": -1.348468570719874,
+        "upper": -1.3484416115312778,
+        "value": -1.348451727624429
+      },
+      "score_seconds": 0.006547700031660497,
+      "train_seconds": 5.509393399988767
+    },
+    {
+      "average_transfer_seconds": 0.0003480000304989517,
+      "policy_sha256": "2e05ee70811897c1442fb38f6833de7da735ee98a073ba26d159a01c2b8ceb38",
+      "reset_seconds": 0.0003197999903932214,
+      "score": {
+        "exploitability": 1.3479594298093645e-05,
+        "gap": 2.695918859618729e-05,
+        "lower": -1.348468570719874,
+        "upper": -1.3484416115312778,
+        "value": -1.348451727624429
+      },
+      "score_seconds": 0.005967999983113259,
+      "train_seconds": 5.63991690002149
+    }
+  ],
+  "teardown_seconds": 0.0004293000092729926,
+  "transfer_setup_seconds": 0.40045369998551905,
+  "warmup_seconds": 0.14182690001325682,
+  "worker_elapsed_seconds": 11.976226099999622
+}

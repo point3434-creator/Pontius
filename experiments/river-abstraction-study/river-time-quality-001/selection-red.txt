@@ -1,0 +1,77 @@
+.FFFFFFFF...
+======================================================================
+FAIL: test_duplicate_iteration_is_ambiguous (__main__.SelectionTests.test_duplicate_iteration_is_ambiguous)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\experiments\river-time-quality-001\test_selection.py", line 34, in test_duplicate_iteration_is_ambiguous
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_malformed_cost_or_iteration_fails_closed (__main__.SelectionTests.test_malformed_cost_or_iteration_fails_closed) (cost=-1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\experiments\river-time-quality-001\test_selection.py", line 27, in test_malformed_cost_or_iteration_fails_closed
+    with self.subTest(cost=cost), self.assertRaises(ValueError):
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_malformed_cost_or_iteration_fails_closed (__main__.SelectionTests.test_malformed_cost_or_iteration_fails_closed) (cost=nan)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\experiments\river-time-quality-001\test_selection.py", line 27, in test_malformed_cost_or_iteration_fails_closed
+    with self.subTest(cost=cost), self.assertRaises(ValueError):
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_malformed_cost_or_iteration_fails_closed (__main__.SelectionTests.test_malformed_cost_or_iteration_fails_closed) (cost=inf)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\experiments\river-time-quality-001\test_selection.py", line 27, in test_malformed_cost_or_iteration_fails_closed
+    with self.subTest(cost=cost), self.assertRaises(ValueError):
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_malformed_cost_or_iteration_fails_closed (__main__.SelectionTests.test_malformed_cost_or_iteration_fails_closed) (cost=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\experiments\river-time-quality-001\test_selection.py", line 27, in test_malformed_cost_or_iteration_fails_closed
+    with self.subTest(cost=cost), self.assertRaises(ValueError):
+                                  ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_malformed_cost_or_iteration_fails_closed (__main__.SelectionTests.test_malformed_cost_or_iteration_fails_closed) (iteration=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\experiments\river-time-quality-001\test_selection.py", line 30, in test_malformed_cost_or_iteration_fails_closed
+    with self.subTest(iteration=iteration), self.assertRaises(ValueError):
+                                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_malformed_cost_or_iteration_fails_closed (__main__.SelectionTests.test_malformed_cost_or_iteration_fails_closed) (iteration=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\experiments\river-time-quality-001\test_selection.py", line 30, in test_malformed_cost_or_iteration_fails_closed
+    with self.subTest(iteration=iteration), self.assertRaises(ValueError):
+                                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_malformed_cost_or_iteration_fails_closed (__main__.SelectionTests.test_malformed_cost_or_iteration_fails_closed) (iteration=2.5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\experiments\river-time-quality-001\test_selection.py", line 30, in test_malformed_cost_or_iteration_fails_closed
+    with self.subTest(iteration=iteration), self.assertRaises(ValueError):
+                                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+FAILED (failures=8)

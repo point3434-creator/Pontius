@@ -1,0 +1,126 @@
+{
+  "campaign_invoked": false,
+  "complete": true,
+  "mode": "preflight",
+  "plan_sha256": "6da2525fc78e836b6d7fd412ec08c415636ea1c21bf4074a87ea14657971bc5a",
+  "receipts": [
+    {
+      "command": [
+        "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+        "-I",
+        "-S",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "D:\\Pontius\\experiments\\river-time-quality-001\\launch.py",
+        "test_selection.py"
+      ],
+      "exit": 0,
+      "observed_pid": 31808,
+      "os_peak_commit_bytes": 13316096,
+      "sampled_peak_private_bytes": 9805824,
+      "sampled_peak_working_set_bytes": 16076800,
+      "samples": 3,
+      "seconds": 0.15850609994959086,
+      "stop_reason": null
+    },
+    {
+      "command": [
+        "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+        "-I",
+        "-S",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "D:\\Pontius\\experiments\\river-time-quality-001\\launch.py",
+        "campaign.py",
+        "worker",
+        "checkback",
+        "0",
+        "preflight"
+      ],
+      "exit": 0,
+      "observed_pid": 51852,
+      "os_peak_commit_bytes": 1216847872,
+      "sampled_peak_private_bytes": 1216831488,
+      "sampled_peak_working_set_bytes": 769167360,
+      "samples": 59,
+      "seconds": 2.9803439000388607,
+      "stop_reason": null
+    },
+    {
+      "command": [
+        "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+        "-I",
+        "-S",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "D:\\Pontius\\experiments\\river-time-quality-001\\launch.py",
+        "campaign.py",
+        "audit",
+        "checkback",
+        "0",
+        "2048",
+        "preflight"
+      ],
+      "exit": 0,
+      "observed_pid": 83764,
+      "os_peak_commit_bytes": 423354368,
+      "sampled_peak_private_bytes": 423292928,
+      "sampled_peak_working_set_bytes": 437698560,
+      "samples": 50,
+      "seconds": 2.5246103000245057,
+      "stop_reason": null
+    },
+    {
+      "command": [
+        "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+        "-I",
+        "-S",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "D:\\Pontius\\experiments\\river-time-quality-001\\launch.py",
+        "campaign.py",
+        "worker",
+        "raise",
+        "0",
+        "preflight"
+      ],
+      "exit": 0,
+      "observed_pid": 44328,
+      "os_peak_commit_bytes": 1317531648,
+      "sampled_peak_private_bytes": 1317527552,
+      "sampled_peak_working_set_bytes": 792166400,
+      "samples": 56,
+      "seconds": 2.825728599971626,
+      "stop_reason": null
+    },
+    {
+      "command": [
+        "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+        "-I",
+        "-S",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "D:\\Pontius\\experiments\\river-time-quality-001\\launch.py",
+        "campaign.py",
+        "audit",
+        "raise",
+        "0",
+        "2048",
+        "preflight"
+      ],
+      "exit": 0,
+      "observed_pid": 64828,
+      "os_peak_commit_bytes": 769437696,
+      "sampled_peak_private_bytes": 760000512,
+      "sampled_peak_working_set_bytes": 781582336,
+      "samples": 78,
+      "seconds": 3.9428310000221245,
+      "stop_reason": null
+    }
+  ]
+}

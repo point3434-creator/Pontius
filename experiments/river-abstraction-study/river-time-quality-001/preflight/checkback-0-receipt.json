@@ -1,0 +1,24 @@
+{
+  "command": [
+    "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\experiments\\river-time-quality-001\\launch.py",
+    "campaign.py",
+    "worker",
+    "checkback",
+    "0",
+    "preflight"
+  ],
+  "exit": 0,
+  "observed_pid": 51852,
+  "os_peak_commit_bytes": 1216847872,
+  "sampled_peak_private_bytes": 1216831488,
+  "sampled_peak_working_set_bytes": 769167360,
+  "samples": 59,
+  "seconds": 2.9803439000388607,
+  "stop_reason": null
+}

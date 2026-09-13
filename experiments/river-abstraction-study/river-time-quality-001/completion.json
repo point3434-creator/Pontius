@@ -1,0 +1,10 @@
+{
+  "audits": 24,
+  "authorization": "Let's launch it",
+  "campaign_invoked": true,
+  "plan_sha256": "6da2525fc78e836b6d7fd412ec08c415636ea1c21bf4074a87ea14657971bc5a",
+  "regressions": 0,
+  "status": "complete",
+  "strict_passes": 0,
+  "trajectories": 6
+}

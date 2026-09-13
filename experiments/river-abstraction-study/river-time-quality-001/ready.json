@@ -1,0 +1,9 @@
+{
+  "anchor_solves": 2,
+  "campaign_invoked": false,
+  "completed_research_milestones": 44,
+  "independent_audits": 2,
+  "plan_sha256": "6da2525fc78e836b6d7fd412ec08c415636ea1c21bf4074a87ea14657971bc5a",
+  "selector_test_methods": 6,
+  "status": "built_and_preflight_verified"
+}

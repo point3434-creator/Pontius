@@ -1,0 +1,34 @@
+{
+  "after": {
+    "peak_commit_bytes": 1751113728,
+    "pid": 60804,
+    "private_bytes": 1751056384,
+    "working_bytes": 221777920
+  },
+  "before": {
+    "peak_commit_bytes": 1616568320,
+    "pid": 60804,
+    "private_bytes": 1616568320,
+    "working_bytes": 87556096
+  },
+  "passed": true,
+  "sparse_bytes": 52,
+  "trace_boundary_control": {
+    "_clean_inputs": {
+      "file": "D:\\Pontius/tmp/group-opt-author/venv/Lib/site-packages\\scipy\\optimize\\_linprog_util.py",
+      "original_filter_matches": false
+    },
+    "_format_A_constraints": {
+      "file": "D:\\Pontius/tmp/group-opt-author/venv/Lib/site-packages\\scipy\\optimize\\_linprog_util.py",
+      "original_filter_matches": false
+    },
+    "_highs_wrapper": {
+      "file": "D:\\Pontius/tmp/group-opt-author/venv/Lib/site-packages\\scipy\\optimize\\_highspy\\_highs_wrapper.py",
+      "original_filter_matches": false
+    },
+    "_linprog_highs": {
+      "file": "D:\\Pontius/tmp/group-opt-author/venv/Lib/site-packages\\scipy\\optimize\\_linprog_highs.py",
+      "original_filter_matches": false
+    }
+  }
+}

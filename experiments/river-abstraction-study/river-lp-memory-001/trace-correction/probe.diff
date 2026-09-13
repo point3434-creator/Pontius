@@ -1,0 +1,88 @@
+--- original/probe.py
++++ trace-correction/probe.py
+@@ -58,13 +58,13 @@
+ 
+ 
+ def traced_worker(index):
+-    sources={str(p.resolve()):p.read_text().splitlines() for p in trace_sources()}
++    sources={os.path.normcase(str(p.resolve())):p.read_text().splitlines() for p in trace_sources()}
+     functions={'solve','_linprog_highs','_clean_inputs','_format_A_constraints','_highs_wrapper'}
+     started=perf_counter()
+     job=plan['prior_plan']['jobs'][index]
+     with (OUT/(job['label']+'-trace.jsonl')).open('x',encoding='utf-8',newline='\n') as stream:
+         def emit(frame,event):
+-            source=sources[frame.f_code.co_filename]
++            source=sources[os.path.normcase(frame.f_code.co_filename)]
+             row=dict(event=event,file=frame.f_code.co_filename,function=frame.f_code.co_name,
+                 line=frame.f_lineno,source_line=source[frame.f_lineno-1].strip(),
+                 elapsed=perf_counter()-started,memory=memory(),buffers=visible_buffers(frame))
+@@ -77,11 +77,11 @@
+             stream.write(json.dumps(row,separators=(',',':'))+'\n')
+             stream.flush()
+         def trace(frame,event,arg):
+-            if frame.f_code.co_filename not in sources or frame.f_code.co_name not in functions:
++            if os.path.normcase(frame.f_code.co_filename) not in sources or frame.f_code.co_name not in functions:
+                 return None
+             if event=='line':
+                 # Skip terminal/block iteration to avoid per-entry instrumentation.
+-                text=sources[frame.f_code.co_filename][frame.f_lineno-1].strip()
++                text=sources[os.path.normcase(frame.f_code.co_filename)][frame.f_lineno-1].strip()
+                 if frame.f_code.co_name=='solve' and ('block' in text or text.startswith(('for node','for i','for j','if node','i,j='))):
+                     return trace
+                 emit(frame,event)
+@@ -99,7 +99,9 @@
+     prior=e.d.read(PRIOR/'author/plan.json')
+     sources=trace_sources()
+     pins=dict(prior['pins'])
+-    for p in sources+[Path(__file__)]: pins[str(p)]=e.d.digest(p)
++    for p in sources+[Path(__file__),HERE/'monitor-check.json',HERE.parent/'probe.py',
++                       HERE.parent/'plan.json',HERE.parent/'run/receipt.json']:
++        pins[str(p)]=e.d.digest(p)
+     for p in HISTORY.glob('*/milestone-manifest.json'): pins[str(p)]=e.d.digest(p)
+     for j in (2,3,4):
+         assert prior['jobs'][j]['case']==1
+@@ -116,6 +118,27 @@
+ 
+ 
+ def selftest():
++    # Exact isolated-worker import spelling must exercise the original mismatch.
++    from scipy.optimize import linprog
++    sources={os.path.normcase(str(p.resolve())) for p in trace_sources()}
++    raw={str(p.resolve()) for p in trace_sources()}
++    functions={'_clean_inputs','_format_A_constraints','_linprog_highs','_highs_wrapper'}
++    seen={}
++    def observe(frame,event,arg):
++        if event=='call' and frame.f_code.co_name in functions:
++            key=frame.f_code.co_filename
++            if os.path.normcase(key) in sources:
++                seen[frame.f_code.co_name]=dict(file=key,original_filter_matches=key in raw)
++        return None
++    sys.settrace(observe)
++    try:
++        result=linprog([-1.],A_ub=sparse.csc_matrix([[1.]]),b_ub=[1.],
++                       bounds=[(0,1)],method='highs-ds')
++    finally:
++        sys.settrace(None)
++    assert result.success and result.x.tolist()==[1.]
++    assert set(seen)==functions,seen
++    assert not any(v['original_filter_matches'] for v in seen.values()),seen
+     before=memory()
+     allocation=bytearray(128*1024**2)
+     after=memory()
+@@ -126,7 +149,7 @@
+     buffers=visible_buffers(sys._getframe())
+     assert buffers['matrix']['bytes']==matrix.data.nbytes+matrix.indices.nbytes+matrix.indptr.nbytes
+     e.write(HERE/'monitor-check.json',dict(before=before,after=after,passed=True,
+-                                        sparse_bytes=buffers['matrix']['bytes']))
++                                        sparse_bytes=buffers['matrix']['bytes'],trace_boundary_control=seen))
+ 
+ 
+ def run():
+@@ -144,6 +167,7 @@
+         receipt=e.monitor.monitor(cmd,plan,OUT,job['label'])
+         events=[json.loads(line) for line in (OUT/(job['label']+'-trace.jsonl')).read_text().splitlines()]
+         assert events and all(v['memory']['pid']==receipt['observed_pid'] for v in events)
++        assert any(v['function']=='_highs_wrapper' for v in events), 'native boundary missing'
+         receipt.update(label=job['label'],events=len(events),last_source=events[-1]['source_line'])
+         if receipt['exit']==0:
+             row=e.d.read(OUT/(job['label']+'.json'))

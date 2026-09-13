@@ -1,0 +1,378 @@
+{
+  "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v13.3\\bin\\x64\\cublas64_13.dll": {
+    "external_runtime_not_redistributed": true,
+    "sha256": "8c6bac24474af29627ec96500025a5d410a1b7e8ffa00e1fe13b1781fc6b3ddc"
+  },
+  "D:\\Pontius-training\\six-max\\milestones\\baseline-000\\checkpoint\\meta.json": {
+    "retained": "dependencies/05929c9dfc4f474343a4872a696d4ce7691df4226ae02b84986e0032921e19ca.json",
+    "sha256": "05929c9dfc4f474343a4872a696d4ce7691df4226ae02b84986e0032921e19ca"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\blueprint-range-transfer-001\\input-001.json": {
+    "retained": "dependencies/ce96d40e2935041aaea11ebbcbfa6ecc780ff7faed4d522fbe7654a04ceea127.json",
+    "sha256": "ce96d40e2935041aaea11ebbcbfa6ecc780ff7faed4d522fbe7654a04ceea127"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\blueprint-range-transfer-001\\verification-tools\\exact_kernel.py": {
+    "retained": "dependencies/eacb8a1764af9e0af1e320eb8d22750c8d592776c08e87500b2c0bbece9d4331.py",
+    "sha256": "eacb8a1764af9e0af1e320eb8d22750c8d592776c08e87500b2c0bbece9d4331"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\blueprint-range-transfer-001\\verification-tools\\experiment.py": {
+    "retained": "dependencies/36ecf07114be89418a50b3ed5313fe218507cd104e97e06cc598fa7439754137.py",
+    "sha256": "36ecf07114be89418a50b3ed5313fe218507cd104e97e06cc598fa7439754137"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\blueprint-range-transfer-001\\verification-tools\\inputs.py": {
+    "retained": "dependencies/eac7d792e617110572894bac3d2d9538d64ab363b9cc3bf6ca847fdda96941ed.py",
+    "sha256": "eac7d792e617110572894bac3d2d9538d64ab363b9cc3bf6ca847fdda96941ed"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\blueprint-range-transfer-001\\verification-tools\\support.py": {
+    "retained": "dependencies/cc17d7869f80f9981b84b6ac7e0dbb6e39468c10a726fef2fcee6fe5dcd44497.py",
+    "sha256": "cc17d7869f80f9981b84b6ac7e0dbb6e39468c10a726fef2fcee6fe5dcd44497"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\full-combo-direct-002\\verification-tools\\direct.py": {
+    "retained": "dependencies/6454d108a78ece2169e7503576cd10ca7722c481a9c85e24c8cdd7debed9e2d1.py",
+    "sha256": "6454d108a78ece2169e7503576cd10ca7722c481a9c85e24c8cdd7debed9e2d1"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\full-combo-direct-002\\verification-tools\\experiment.py": {
+    "retained": "dependencies/b40cba2339cab273dc4f348692ed92b61ad883f84554337569603ca2df1b58d7.py",
+    "sha256": "b40cba2339cab273dc4f348692ed92b61ad883f84554337569603ca2df1b58d7"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\multibet-group-diagnostic-001\\verification-tools\\experiment.py": {
+    "retained": "dependencies/21d9932c648d3722fd3086c979edbf76a6dda933095452e6445c8dd435594eb2.py",
+    "sha256": "21d9932c648d3722fd3086c979edbf76a6dda933095452e6445c8dd435594eb2"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\multibet-group-diagnostic-001\\verification-tools\\multi.py": {
+    "retained": "dependencies/3039a94b86bac172053fa6ed1986d23c29b811315eb878890e41b2627b2b0a34.py",
+    "sha256": "3039a94b86bac172053fa6ed1986d23c29b811315eb878890e41b2627b2b0a34"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\multibet-size-confirmation-001\\verification-tools\\bridge.py": {
+    "retained": "dependencies/dd1232bb5d111dd737431cad156935bbd685adc896141d68e4e09921c0341033.py",
+    "sha256": "dd1232bb5d111dd737431cad156935bbd685adc896141d68e4e09921c0341033"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\multibet-size-confirmation-001\\verification-tools\\size_repair.py": {
+    "retained": "dependencies/7a61145eafdd7af4fbb0365d5878d8735cf35f38cd6b6085d16d4fba1f12a0b3.py",
+    "sha256": "7a61145eafdd7af4fbb0365d5878d8735cf35f38cd6b6085d16d4fba1f12a0b3"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\multibet-size-confirmation-001\\verification-tools\\support.py": {
+    "retained": "dependencies/38328c87ec4f668f3ac107b06ad099fc840fe466c0253a2a7ceca322f8eb05f2.py",
+    "sha256": "38328c87ec4f668f3ac107b06ad099fc840fe466c0253a2a7ceca322f8eb05f2"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\river-stack-transfer-001\\verification-tools\\stack_bridge.py": {
+    "retained": "dependencies/6990ff9a2385c8b9a5fc281749386aa985ac1fa29f0ed2088aa549e005fa4b3e.py",
+    "sha256": "6990ff9a2385c8b9a5fc281749386aa985ac1fa29f0ed2088aa549e005fa4b3e"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\river-tree-expansion-001\\author\\plan.json": {
+    "retained": "dependencies/e53d20923332e1a1ca93242580d9b4085228464b3de362376104534a31f6562b.json",
+    "sha256": "e53d20923332e1a1ca93242580d9b4085228464b3de362376104534a31f6562b"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\river-tree-expansion-001\\author\\tree.py": {
+    "retained": "dependencies/d6ea38083d11605db36562b2c7da10a45b23066144a5739862b7f5d2b7873d47.py",
+    "sha256": "d6ea38083d11605db36562b2c7da10a45b23066144a5739862b7f5d2b7873d47"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-compute-matched-continuation-001\\verification-tools\\experiment.py": {
+    "retained": "dependencies/cba92d2129c690f34cd94363cb1f37e14575cdfe49978c50532a5bd482f059b0.py",
+    "sha256": "cba92d2129c690f34cd94363cb1f37e14575cdfe49978c50532a5bd482f059b0"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\verification-tools\\environment.py": {
+    "retained": "dependencies/e143e20e30da8c0af08511db1f54001ab7e2024b857b08fc08b36ee8b7864e1c.py",
+    "sha256": "e143e20e30da8c0af08511db1f54001ab7e2024b857b08fc08b36ee8b7864e1c"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\verification-tools\\experiment.py": {
+    "retained": "dependencies/66776826646f19d981840d2a0a4639e5f674932b642775aac005ae2385240268.py",
+    "sha256": "66776826646f19d981840d2a0a4639e5f674932b642775aac005ae2385240268"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-001\\verification-tools\\repair.py": {
+    "retained": "dependencies/30563d20f8e62b59f974f66ae3a3fa1f0c9963f467e6c1ffb50ed923f3ff36ca.py",
+    "sha256": "30563d20f8e62b59f974f66ae3a3fa1f0c9963f467e6c1ffb50ed923f3ff36ca"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-group-repair-confirmation-001\\verification-tools\\confirmation.py": {
+    "retained": "dependencies/6dc72cb20cd29e91ad4aa539ec9824433a53c7cb63090d6d3a3bafb0a46af8bb.py",
+    "sha256": "6dc72cb20cd29e91ad4aa539ec9824433a53c7cb63090d6d3a3bafb0a46af8bb"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\verification-tools\\base.py": {
+    "retained": "dependencies/4a81a5f4ef051c367ceaf60542c3aa79266b7ecf963885ee15df3a16a211bb46.py",
+    "sha256": "4a81a5f4ef051c367ceaf60542c3aa79266b7ecf963885ee15df3a16a211bb46"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-guarded-repair-confirmation-001\\verification-tools\\gate.py": {
+    "retained": "dependencies/aff81869e8d927033351f9513c529848e6af7ad8bc03db4381e0f8dcb1115c88.py",
+    "sha256": "aff81869e8d927033351f9513c529848e6af7ad8bc03db4381e0f8dcb1115c88"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-next-board-002\\verification-tools\\experiment.py": {
+    "retained": "dependencies/6648de53cf2b54dcf56afedf8934710673939130cf7bcb81eff1efba11e3d3b3.py",
+    "sha256": "6648de53cf2b54dcf56afedf8934710673939130cf7bcb81eff1efba11e3d3b3"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-second-guarded-repair-001\\verification-tools\\support.py": {
+    "retained": "dependencies/b912db5bfcd0e26d4d9ea34950592eecb41ec301140282faf47cba1b9cbab407.py",
+    "sha256": "b912db5bfcd0e26d4d9ea34950592eecb41ec301140282faf47cba1b9cbab407"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\witness-soft-assignment-001\\verification-tools\\soft.py": {
+    "retained": "dependencies/47c4aa718d383a4b6fb2b06b505809dada8f9c1cdcdf3a6b32526f7762e77b37.py",
+    "sha256": "47c4aa718d383a4b6fb2b06b505809dada8f9c1cdcdf3a6b32526f7762e77b37"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\__init__.py": {
+    "retained": "dependencies/3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba.py",
+    "sha256": "3af85ef6f1e59abd4c04fe1dd97116cf58f735c8140a3cca694d4bf7f4e634ba"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\action_clock.py": {
+    "retained": "dependencies/12e5f4ec46363a077e368e331fe2e0068b70209c73ed6e3b8fa43e6b21b29a23.py",
+    "sha256": "12e5f4ec46363a077e368e331fe2e0068b70209c73ed6e3b8fa43e6b21b29a23"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\cfr.py": {
+    "retained": "dependencies/c46c1a98eceedb69a666916201a0cbfba6793eb139440afa95b729047384496f.py",
+    "sha256": "c46c1a98eceedb69a666916201a0cbfba6793eb139440afa95b729047384496f"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\coalition.py": {
+    "retained": "dependencies/eb8cd737a8fba4fa87612cf4739309f3a65981c486e2195f06cf2604e7c99fe0.py",
+    "sha256": "eb8cd737a8fba4fa87612cf4739309f3a65981c486e2195f06cf2604e7c99fe0"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\cuda_dll_bootstrap.py": {
+    "retained": "dependencies/5ad4dfea9b7fe84d2ff010b5812a9a86d7bf19682094489297a29c797b49eba7.py",
+    "sha256": "5ad4dfea9b7fe84d2ff010b5812a9a86d7bf19682094489297a29c797b49eba7"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\dependency_tape.py": {
+    "retained": "dependencies/2302e0a987cc0edc85e89d2829595f983e2c444435d3bdfde1bf5ef9463ed392.py",
+    "sha256": "2302e0a987cc0edc85e89d2829595f983e2c444435d3bdfde1bf5ef9463ed392"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\evaluation.py": {
+    "retained": "dependencies/ff4d212735d597b4713480b2ce0192a957915469e3a872758e037ee25ea7ede7.py",
+    "sha256": "ff4d212735d597b4713480b2ce0192a957915469e3a872758e037ee25ea7ede7"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\factorized_belief.py": {
+    "retained": "dependencies/d26b418d1d850e7a92ac5e4573ab2c050c0e0dfc1bf7cad1db72ffd0ac52d951.py",
+    "sha256": "d26b418d1d850e7a92ac5e4573ab2c050c0e0dfc1bf7cad1db72ffd0ac52d951"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\full_width_belief.py": {
+    "retained": "dependencies/b9659090b5b0e5e570103d4f7693a400cd9acb18c28e9da92d402dce5fa26992.py",
+    "sha256": "b9659090b5b0e5e570103d4f7693a400cd9acb18c28e9da92d402dce5fa26992"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\full_width_reference_policy.py": {
+    "retained": "dependencies/ea9dd91c8b5f03bc616cbc8b6b31c40f33a1543a0fd2b03e32b8ce57b59bc1e6.py",
+    "sha256": "ea9dd91c8b5f03bc616cbc8b6b31c40f33a1543a0fd2b03e32b8ce57b59bc1e6"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\game.py": {
+    "retained": "dependencies/e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2.py",
+    "sha256": "e659ae6ecb8156afc57f74d927ed5bd1decdb9d7457b5618d805884719895bc2"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\holdem_cards.py": {
+    "retained": "dependencies/714d3ed7a29af3a9205e53b097408c71b43040c0191fc763cae6c87dec887799.py",
+    "sha256": "714d3ed7a29af3a9205e53b097408c71b43040c0191fc763cae6c87dec887799"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\immutable_blueprint.py": {
+    "retained": "dependencies/2ee8b75f94b3c11fd46ffd684391f1a02255f0e2d198f3f1c91c04b1d94d0d6c.py",
+    "sha256": "2ee8b75f94b3c11fd46ffd684391f1a02255f0e2d198f3f1c91c04b1d94d0d6c"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\kuhn.py": {
+    "retained": "dependencies/95220933193fed0b3052b769737420299506e3f93ce27597396b0c1299952ac8.py",
+    "sha256": "95220933193fed0b3052b769737420299506e3f93ce27597396b0c1299952ac8"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\legal_decision_spine.py": {
+    "retained": "dependencies/6402eaff40b921b74ca4beb312430db19e20a123963c326ad46b4d5a33c321b4.py",
+    "sha256": "6402eaff40b921b74ca4beb312430db19e20a123963c326ad46b4d5a33c321b4"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\legal_decision_spine_v2.py": {
+    "retained": "dependencies/a0c20a29dc5da5af95f373b2617163bd53c24591256ef5342f30c20fb4bc08de.py",
+    "sha256": "a0c20a29dc5da5af95f373b2617163bd53c24591256ef5342f30c20fb4bc08de"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\no_limit_betting.py": {
+    "retained": "dependencies/66b398e7ebba535f9c25728fd8b57a599310434cd41610e9107e37762ed98cdf.py",
+    "sha256": "66b398e7ebba535f9c25728fd8b57a599310434cd41610e9107e37762ed98cdf"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\preparation_bank.py": {
+    "retained": "dependencies/8e2df920149ee7d2a4556c418680c9f4e214c525116c09cce79844888aa10210.py",
+    "sha256": "8e2df920149ee7d2a4556c418680c9f4e214c525116c09cce79844888aa10210"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\reference_hand_replay.py": {
+    "retained": "dependencies/069ae2e8241b4fc2e4bf2480ecb1dc4bbfbae1f690e885e8540708c2a5b768e0.py",
+    "sha256": "069ae2e8241b4fc2e4bf2480ecb1dc4bbfbae1f690e885e8540708c2a5b768e0"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river.py": {
+    "retained": "dependencies/e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7.py",
+    "sha256": "e45bbb55fd653149b57b9daea272883c356dd8d46f7afe496feac3671ce445c7"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_abstraction_study.py": {
+    "retained": "dependencies/9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b.py",
+    "sha256": "9e30fc0459deb76de6e8bb4b1112a87564e5277f8602191a3d3d9556c23a122b"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_group_optimality.py": {
+    "retained": "dependencies/16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47.py",
+    "sha256": "16f5d74b099ad79b6cc6994fe515ee4078d124b78d20a92ca538f816b7bb1d47"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_incremental.py": {
+    "retained": "dependencies/567cca8d00a5a88fc8b6cab7e425d3020efc971f6d35003f804e08007a3a88e2.py",
+    "sha256": "567cca8d00a5a88fc8b6cab7e425d3020efc971f6d35003f804e08007a3a88e2"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_multi_size.py": {
+    "retained": "dependencies/d1139b0d935a56ee3f56fad2b2e6e3807eba4443b2d0a3f6ff2ed231e03735a0.py",
+    "sha256": "d1139b0d935a56ee3f56fad2b2e6e3807eba4443b2d0a3f6ff2ed231e03735a0"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_multiway.py": {
+    "retained": "dependencies/b957ef89ec3a3371df99feeb3d871294de43620183b6b0e792bc6717d0d4c445.py",
+    "sha256": "b957ef89ec3a3371df99feeb3d871294de43620183b6b0e792bc6717d0d4c445"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_witness_distillation.py": {
+    "retained": "dependencies/ad33fbc2b0a569a7587bfc68a08c32dd9c7b38a288c39430093903d294e0eb30.py",
+    "sha256": "ad33fbc2b0a569a7587bfc68a08c32dd9c7b38a288c39430093903d294e0eb30"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_witness_groups.py": {
+    "retained": "dependencies/2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e.py",
+    "sha256": "2696b24a326323a56bdd73dbf738f3c1e4c582eeec3040ab4c7a094ddd26766e"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\river_witness_pilot.py": {
+    "retained": "dependencies/696aa6796f592f8d1faa02884a007a3cc431137119406d2bac665bf03cb0469d.py",
+    "sha256": "696aa6796f592f8d1faa02884a007a3cc431137119406d2bac665bf03cb0469d"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\street_deadline.py": {
+    "retained": "dependencies/7d00872c174b973df01d52b07e1a8a6f952c517b7254ee0e092083562b5e779c.py",
+    "sha256": "7d00872c174b973df01d52b07e1a8a6f952c517b7254ee0e092083562b5e779c"
+  },
+  "D:\\Pontius-worktrees\\eval-runner-consolidation\\src\\pontius\\updates.py": {
+    "retained": "dependencies/c6aacfc70a6adcf52fdb8b5c452a8e37c0131e142ae99aa2c5651262e8fdd933.py",
+    "sha256": "c6aacfc70a6adcf52fdb8b5c452a8e37c0131e142ae99aa2c5651262e8fdd933"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\checkback\\design.md": {
+    "retained": "dependencies/7d027b0e5b8def2cd0d343955563c856b555d3ef6c73b2c35c807f6f4481518f.md",
+    "sha256": "7d027b0e5b8def2cd0d343955563c856b555d3ef6c73b2c35c807f6f4481518f"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\checkback\\experiment.py": {
+    "retained": "dependencies/3b99ef66a1d8d15618d9138389339e4e332c52de749ec42d776b0f5a873c6cce.py",
+    "sha256": "3b99ef66a1d8d15618d9138389339e4e332c52de749ec42d776b0f5a873c6cce"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\checkback\\game.json": {
+    "retained": "dependencies/afee52f5dc34686b0e7e4fdc5dd644658b4c044c6a81e7fac08fec2af8f48954.json",
+    "sha256": "afee52f5dc34686b0e7e4fdc5dd644658b4c044c6a81e7fac08fec2af8f48954"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\checkback\\input.json": {
+    "retained": "dependencies/ce96d40e2935041aaea11ebbcbfa6ecc780ff7faed4d522fbe7654a04ceea127.json",
+    "sha256": "ce96d40e2935041aaea11ebbcbfa6ecc780ff7faed4d522fbe7654a04ceea127"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\checkback\\launch.py": {
+    "retained": "dependencies/fa5c0a2f7e88228c05a5df59345063b728cc5aa3d688e3863ce22d1f21514b42.py",
+    "sha256": "fa5c0a2f7e88228c05a5df59345063b728cc5aa3d688e3863ce22d1f21514b42"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\checkback\\payoffs.npz": {
+    "retained": "dependencies/231c8f8983b2d23d692104b7c82ce26da6fb00ab6415991e0f266aa0965fddfd.npz",
+    "sha256": "231c8f8983b2d23d692104b7c82ce26da6fb00ab6415991e0f266aa0965fddfd"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\checkback\\plan.json": {
+    "retained": "dependencies/a1f271c7705107c0b0a2a0111bed93158411f1d2716466b486205f634824c346.json",
+    "sha256": "a1f271c7705107c0b0a2a0111bed93158411f1d2716466b486205f634824c346"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\checkback\\reference.json": {
+    "retained": "dependencies/e53d20923332e1a1ca93242580d9b4085228464b3de362376104534a31f6562b.json",
+    "sha256": "e53d20923332e1a1ca93242580d9b4085228464b3de362376104534a31f6562b"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\checkback\\solver.py": {
+    "retained": "dependencies/a9d5dbd4f7e7bcae7d2ba4f96a10725e1c03c74557e7e1025601bcabe848f7b8.py",
+    "sha256": "a9d5dbd4f7e7bcae7d2ba4f96a10725e1c03c74557e7e1025601bcabe848f7b8"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\checkback\\test_solver.py": {
+    "retained": "dependencies/9ebd1173e1d6dc5115fd531b4a3acf5ed3c2734ab328b8df18494fadce2b3fc4.py",
+    "sha256": "9ebd1173e1d6dc5115fd531b4a3acf5ed3c2734ab328b8df18494fadce2b3fc4"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\raise\\design.md": {
+    "retained": "dependencies/7d027b0e5b8def2cd0d343955563c856b555d3ef6c73b2c35c807f6f4481518f.md",
+    "sha256": "7d027b0e5b8def2cd0d343955563c856b555d3ef6c73b2c35c807f6f4481518f"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\raise\\experiment.py": {
+    "retained": "dependencies/89ead1b94b9134ac0cc1f745af19a409e0ea3dc86e15d2b44467524d3a6a2576.py",
+    "sha256": "89ead1b94b9134ac0cc1f745af19a409e0ea3dc86e15d2b44467524d3a6a2576"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\raise\\game.json": {
+    "retained": "dependencies/ad54d20c0a2d2799efa42ca74de10d5551f7a3458cdf23e846571d66bb36a49b.json",
+    "sha256": "ad54d20c0a2d2799efa42ca74de10d5551f7a3458cdf23e846571d66bb36a49b"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\raise\\input.json": {
+    "retained": "dependencies/ce96d40e2935041aaea11ebbcbfa6ecc780ff7faed4d522fbe7654a04ceea127.json",
+    "sha256": "ce96d40e2935041aaea11ebbcbfa6ecc780ff7faed4d522fbe7654a04ceea127"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\raise\\launch.py": {
+    "retained": "dependencies/fa5c0a2f7e88228c05a5df59345063b728cc5aa3d688e3863ce22d1f21514b42.py",
+    "sha256": "fa5c0a2f7e88228c05a5df59345063b728cc5aa3d688e3863ce22d1f21514b42"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\raise\\payoffs.npz": {
+    "retained": "dependencies/1e5b5ac816b5c4edf0e03aaf9086d4e4964d898e36c8b0493f6c583a8fac764f.npz",
+    "sha256": "1e5b5ac816b5c4edf0e03aaf9086d4e4964d898e36c8b0493f6c583a8fac764f"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\raise\\plan.json": {
+    "retained": "dependencies/a6c981a83727d52a0aa1e247b48c139b3fcd6c4106908c8aeae01d77a49b7c99.json",
+    "sha256": "a6c981a83727d52a0aa1e247b48c139b3fcd6c4106908c8aeae01d77a49b7c99"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\raise\\reference.json": {
+    "retained": "dependencies/e53d20923332e1a1ca93242580d9b4085228464b3de362376104534a31f6562b.json",
+    "sha256": "e53d20923332e1a1ca93242580d9b4085228464b3de362376104534a31f6562b"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\raise\\solver.py": {
+    "retained": "dependencies/a9d5dbd4f7e7bcae7d2ba4f96a10725e1c03c74557e7e1025601bcabe848f7b8.py",
+    "sha256": "a9d5dbd4f7e7bcae7d2ba4f96a10725e1c03c74557e7e1025601bcabe848f7b8"
+  },
+  "D:\\Pontius\\experiments\\river-cfr-expanded-001\\raise\\test_solver.py": {
+    "retained": "dependencies/9ebd1173e1d6dc5115fd531b4a3acf5ed3c2734ab328b8df18494fadce2b3fc4.py",
+    "sha256": "9ebd1173e1d6dc5115fd531b4a3acf5ed3c2734ab328b8df18494fadce2b3fc4"
+  },
+  "D:\\Pontius\\experiments\\river-gpu-execution-001\\experiment.py": {
+    "retained": "dependencies/dd25ff1323cb67178a3660bc629bcb6f6deec4f74d2b981104d7f3ddbfb108ec.py",
+    "sha256": "dd25ff1323cb67178a3660bc629bcb6f6deec4f74d2b981104d7f3ddbfb108ec"
+  },
+  "D:\\Pontius\\experiments\\river-gpu-execution-001\\gpu_adapter.py": {
+    "retained": "dependencies/4c461f46d63861a69a13a5f2905f07962f3c4ba7eb791b32ff99e3a370e5c3b8.py",
+    "sha256": "4c461f46d63861a69a13a5f2905f07962f3c4ba7eb791b32ff99e3a370e5c3b8"
+  },
+  "D:\\Pontius\\experiments\\river-gpu-execution-001\\launch.py": {
+    "retained": "dependencies/e4cd899c4cda17ce18a021bbd4108a3f552d8b0d24bf2558111252b0c0dee063.py",
+    "sha256": "e4cd899c4cda17ce18a021bbd4108a3f552d8b0d24bf2558111252b0c0dee063"
+  },
+  "D:\\Pontius\\experiments\\river-gpu-execution-001\\plan.json": {
+    "retained": "dependencies/f98da640f302a1afe7f8ee60a85eaa99e8e4328050c0b5ef3b0e9f6b941384c8.json",
+    "sha256": "f98da640f302a1afe7f8ee60a85eaa99e8e4328050c0b5ef3b0e9f6b941384c8"
+  },
+  "D:\\Pontius\\experiments\\river-gpu-execution-001\\solver.py": {
+    "retained": "dependencies/a9d5dbd4f7e7bcae7d2ba4f96a10725e1c03c74557e7e1025601bcabe848f7b8.py",
+    "sha256": "a9d5dbd4f7e7bcae7d2ba4f96a10725e1c03c74557e7e1025601bcabe848f7b8"
+  },
+  "D:\\Projects\\pluribus-lite\\pluribus_lite\\__init__.py": {
+    "retained": "dependencies/e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "D:\\Projects\\pluribus-lite\\pluribus_lite\\abstraction.py": {
+    "retained": "dependencies/91ae39e94d8f1e2f908bcc3be2690d6e7a9114e4c1143330c290fe7c463a5518.py",
+    "sha256": "91ae39e94d8f1e2f908bcc3be2690d6e7a9114e4c1143330c290fe7c463a5518"
+  },
+  "D:\\Projects\\pluribus-lite\\pluribus_lite\\cards.py": {
+    "retained": "dependencies/dcb132b19ae50903a786447c95605825c966874c55489b0eab66e65cee380ea9.py",
+    "sha256": "dcb132b19ae50903a786447c95605825c966874c55489b0eab66e65cee380ea9"
+  },
+  "D:\\Projects\\pluribus-lite\\pluribus_lite\\engine.py": {
+    "retained": "dependencies/b7a6bea76236cc6fa83da24267d67954e18a14f6021e544b1db94f7ece8cc7f2.py",
+    "sha256": "b7a6bea76236cc6fa83da24267d67954e18a14f6021e544b1db94f7ece8cc7f2"
+  },
+  "D:\\Projects\\pluribus-lite\\pluribus_lite\\evaltable.py": {
+    "retained": "dependencies/ea03a4040560289dbd72560a910c701d4e2a8c43c2e76be5828943efc4dd07f3.py",
+    "sha256": "ea03a4040560289dbd72560a910c701d4e2a8c43c2e76be5828943efc4dd07f3"
+  },
+  "D:\\Projects\\pluribus-lite\\pluribus_lite\\evaluator.py": {
+    "retained": "dependencies/de8f618eca9d316320ca2d06fb16a7eb9b02b00e973644c3530fcbfd6c9ca0b6.py",
+    "sha256": "de8f618eca9d316320ca2d06fb16a7eb9b02b00e973644c3530fcbfd6c9ca0b6"
+  },
+  "D:\\Projects\\pluribus-lite\\pluribus_lite\\keyed.py": {
+    "retained": "dependencies/bba26ed0b13ff2b1e5fdfc14cc87b0fb93fe92117c7db2687dde8bf4bc429f9a.py",
+    "sha256": "bba26ed0b13ff2b1e5fdfc14cc87b0fb93fe92117c7db2687dde8bf4bc429f9a"
+  },
+  "D:\\Projects\\pluribus-lite\\pluribus_lite\\mccfr.py": {
+    "retained": "dependencies/a75b8f6d1279bc0daadc9cf887a27ea20ee87d1d9769f48f6793ad00b2045090.py",
+    "sha256": "a75b8f6d1279bc0daadc9cf887a27ea20ee87d1d9769f48f6793ad00b2045090"
+  },
+  "D:\\Projects\\pluribus-lite\\pluribus_lite\\public_range.py": {
+    "retained": "dependencies/123593d7b66612cec182025213681e86e89fe00844b80d4e901dec3620c7db55.py",
+    "sha256": "123593d7b66612cec182025213681e86e89fe00844b80d4e901dec3620c7db55"
+  },
+  "D:\\Projects\\pluribus-lite\\pluribus_lite\\river_capture.py": {
+    "retained": "dependencies/50049777f058afedb99748dcf305655121dc23911d8cac1d02ee6a92206112f7.py",
+    "sha256": "50049777f058afedb99748dcf305655121dc23911d8cac1d02ee6a92206112f7"
+  },
+  "D:\\Projects\\pluribus-lite\\pluribus_lite\\river_solver.py": {
+    "retained": "dependencies/bbd83aff291e07afe85ba5a3bcdcb1b96271b2f94e36b32b1dc49a361f56fa67.py",
+    "sha256": "bbd83aff291e07afe85ba5a3bcdcb1b96271b2f94e36b32b1dc49a361f56fa67"
+  },
+  "D:\\Projects\\pluribus-lite\\pluribus_lite\\table.py": {
+    "retained": "dependencies/fdb5393a2785e51ad6cf1b96d80b11b3c7053719a8262cb0d4d731c8ca71211b.py",
+    "sha256": "fdb5393a2785e51ad6cf1b96d80b11b3c7053719a8262cb0d4d731c8ca71211b"
+  }
+}

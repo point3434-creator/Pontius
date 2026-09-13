@@ -1,0 +1,6658 @@
+{
+  "001-baseline": {
+    "largest_jumps": [
+      {
+        "delta_mib": 1444.53125,
+        "next_function": "_highs_wrapper",
+        "next_source": "if run_status == _h.HighsStatus.kError:",
+        "previous_function": "_highs_wrapper",
+        "previous_index": 316,
+        "previous_source": "run_status = highs.run()"
+      },
+      {
+        "delta_mib": 82.046875,
+        "next_function": "_linprog_highs",
+        "next_source": "A = csc_array(A)",
+        "previous_function": "_linprog_highs",
+        "previous_index": 111,
+        "previous_source": "A = vstack((A_ub, A_eq))"
+      },
+      {
+        "delta_mib": 81.96875,
+        "next_function": "_format_A_constraints",
+        "next_source": "return sps.coo_array(",
+        "previous_function": "_format_A_constraints",
+        "previous_index": 43,
+        "previous_source": "return sps.coo_array("
+      },
+      {
+        "delta_mib": 62.1640625,
+        "next_function": "_highs_wrapper",
+        "next_source": "if init_status == _h.HighsStatus.kError:",
+        "previous_function": "_highs_wrapper",
+        "previous_index": 314,
+        "previous_source": "init_status = highs.passModel(lp)"
+      },
+      {
+        "delta_mib": 61.4765625,
+        "next_function": "solve",
+        "next_source": "equalities=sparse.hstack([own,sparse.csr_matrix((own.shape[0],other.shape[0]))],format='csc')",
+        "previous_function": "solve",
+        "previous_index": 17,
+        "previous_source": "inequalities=sparse.hstack([payoff,other_sign*other.T],format='csc')"
+      },
+      {
+        "delta_mib": 61.359375,
+        "next_function": "solve",
+        "next_source": "other_sign=1 if role==0 else -1",
+        "previous_function": "solve",
+        "previous_index": 15,
+        "previous_source": "payoff=-a.T if role==0 else a"
+      },
+      {
+        "delta_mib": 41.0234375,
+        "next_function": "_highs_wrapper",
+        "next_source": "if integrality.size > 0:",
+        "previous_function": "_highs_wrapper",
+        "previous_index": 177,
+        "previous_source": "lp.a_matrix_.value_ = data"
+      },
+      {
+        "delta_mib": 20.51171875,
+        "next_function": "_highs_wrapper",
+        "next_source": "lp.a_matrix_.value_ = data",
+        "previous_function": "_highs_wrapper",
+        "previous_index": 176,
+        "previous_source": "lp.a_matrix_.index_ = indices"
+      }
+    ],
+    "last_event": {
+      "buffers": {
+        "a": {
+          "bytes": 64228700,
+          "kind": "csr",
+          "nnz": 5350950,
+          "shape": [
+            4324,
+            6486
+          ]
+        },
+        "block": {
+          "bytes": 12846608,
+          "kind": "csr",
+          "nnz": 1070190,
+          "shape": [
+            1081,
+            1081
+          ]
+        },
+        "e": {
+          "bytes": 73512,
+          "kind": "csr",
+          "nnz": 5405,
+          "shape": [
+            2162,
+            4324
+          ]
+        },
+        "f": {
+          "bytes": 134048,
+          "kind": "csr",
+          "nnz": 9729,
+          "shape": [
+            4324,
+            6486
+          ]
+        },
+        "objective": {
+          "bytes": 69184,
+          "kind": "ndarray",
+          "shape": [
+            8648
+          ]
+        },
+        "other": {
+          "bytes": 73512,
+          "kind": "csr",
+          "nnz": 5405,
+          "shape": [
+            2162,
+            4324
+          ]
+        },
+        "own": {
+          "bytes": 134048,
+          "kind": "csr",
+          "nnz": 9729,
+          "shape": [
+            4324,
+            6486
+          ]
+        }
+      },
+      "elapsed": 8.008339099993464,
+      "event": "return",
+      "file": "D:\\Pontius-worktrees\\eval-runner-consolidation\\experiments\\river-abstraction-study\\river-tree-expansion-001\\author\\tree.py",
+      "function": "solve",
+      "line": 194,
+      "memory": {
+        "peak_commit_bytes": 2184167424,
+        "pid": 63460,
+        "private_bytes": 186597376,
+        "working_bytes": 203563008
+      },
+      "role": 1,
+      "source_line": "return dict(calls=calls,realizations=policies,assembly_seconds=assembly,"
+    },
+    "points": [
+      {
+        "buffers": {
+          "a": {
+            "bytes": 64228700,
+            "kind": "csr",
+            "nnz": 5350950,
+            "shape": [
+              4324,
+              6486
+            ]
+          },
+          "block": {
+            "bytes": 12846608,
+            "kind": "csr",
+            "nnz": 1070190,
+            "shape": [
+              1081,
+              1081
+            ]
+          },
+          "e": {
+            "bytes": 73512,
+            "kind": "csr",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              4324
+            ]
+          },
+          "equalities": {
+            "bytes": 99456,
+            "kind": "csc",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              8648
+            ]
+          },
+          "f": {
+            "bytes": 134048,
+            "kind": "csr",
+            "nnz": 9729,
+            "shape": [
+              4324,
+              6486
+            ]
+          },
+          "inequalities": {
+            "bytes": 64362744,
+            "kind": "csc",
+            "nnz": 5360679,
+            "shape": [
+              6486,
+              8648
+            ]
+          },
+          "objective": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "other": {
+            "bytes": 134048,
+            "kind": "csr",
+            "nnz": 9729,
+            "shape": [
+              4324,
+              6486
+            ]
+          },
+          "own": {
+            "bytes": 73512,
+            "kind": "csr",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              4324
+            ]
+          },
+          "payoff": {
+            "bytes": 64228700,
+            "kind": "csc",
+            "nnz": 5350950,
+            "shape": [
+              6486,
+              4324
+            ]
+          }
+        },
+        "event": "line",
+        "function": "solve",
+        "index": 21,
+        "line": 182,
+        "peak_mib": 289.484375,
+        "private_mib": 289.48046875,
+        "source": "result=linprog(objective,A_ub=inequalities,b_ub=np.zeros(inequalities.shape[0]),"
+      },
+      {
+        "buffers": {
+          "a": {
+            "bytes": 64228700,
+            "kind": "csr",
+            "nnz": 5350950,
+            "shape": [
+              4324,
+              6486
+            ]
+          },
+          "block": {
+            "bytes": 12846608,
+            "kind": "csr",
+            "nnz": 1070190,
+            "shape": [
+              1081,
+              1081
+            ]
+          },
+          "e": {
+            "bytes": 73512,
+            "kind": "csr",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              4324
+            ]
+          },
+          "equalities": {
+            "bytes": 99456,
+            "kind": "csc",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              8648
+            ]
+          },
+          "f": {
+            "bytes": 134048,
+            "kind": "csr",
+            "nnz": 9729,
+            "shape": [
+              4324,
+              6486
+            ]
+          },
+          "inequalities": {
+            "bytes": 64362744,
+            "kind": "csc",
+            "nnz": 5360679,
+            "shape": [
+              6486,
+              8648
+            ]
+          },
+          "objective": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "other": {
+            "bytes": 134048,
+            "kind": "csr",
+            "nnz": 9729,
+            "shape": [
+              4324,
+              6486
+            ]
+          },
+          "own": {
+            "bytes": 73512,
+            "kind": "csr",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              4324
+            ]
+          },
+          "payoff": {
+            "bytes": 64228700,
+            "kind": "csc",
+            "nnz": 5350950,
+            "shape": [
+              6486,
+              4324
+            ]
+          }
+        },
+        "event": "line",
+        "function": "solve",
+        "index": 26,
+        "line": 182,
+        "peak_mib": 289.484375,
+        "private_mib": 289.48046875,
+        "source": "result=linprog(objective,A_ub=inequalities,b_ub=np.zeros(inequalities.shape[0]),"
+      },
+      {
+        "buffers": {},
+        "event": "call",
+        "function": "_clean_inputs",
+        "index": 27,
+        "line": 213,
+        "peak_mib": 289.484375,
+        "private_mib": 289.48046875,
+        "source": "def _clean_inputs(lp):"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 64362744,
+            "kind": "csc",
+            "nnz": 5360679,
+            "shape": [
+              6486,
+              8648
+            ]
+          }
+        },
+        "event": "call",
+        "function": "_format_A_constraints",
+        "index": 39,
+        "line": 160,
+        "peak_mib": 289.484375,
+        "private_mib": 289.48046875,
+        "source": "def _format_A_constraints(A, n_x, sparse_lhs=False):"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 64362744,
+            "kind": "csc",
+            "nnz": 5360679,
+            "shape": [
+              6486,
+              8648
+            ]
+          }
+        },
+        "event": "return",
+        "function": "_format_A_constraints",
+        "index": 44,
+        "line": 182,
+        "peak_mib": 391.97265625,
+        "private_mib": 371.44921875,
+        "source": "return sps.coo_array("
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 99456,
+            "kind": "csc",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              8648
+            ]
+          }
+        },
+        "event": "call",
+        "function": "_format_A_constraints",
+        "index": 55,
+        "line": 160,
+        "peak_mib": 391.97265625,
+        "private_mib": 371.44921875,
+        "source": "def _format_A_constraints(A, n_x, sparse_lhs=False):"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 99456,
+            "kind": "csc",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              8648
+            ]
+          }
+        },
+        "event": "return",
+        "function": "_format_A_constraints",
+        "index": 60,
+        "line": 182,
+        "peak_mib": 391.97265625,
+        "private_mib": 371.4921875,
+        "source": "return sps.coo_array("
+      },
+      {
+        "buffers": {
+          "A_eq": {
+            "bytes": 86480,
+            "kind": "coo",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              8648
+            ]
+          },
+          "A_ub": {
+            "bytes": 85770864,
+            "kind": "coo",
+            "nnz": 5360679,
+            "shape": [
+              6486,
+              8648
+            ]
+          },
+          "b_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "b_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "bounds_clean": {
+            "bytes": 138368,
+            "kind": "ndarray",
+            "shape": [
+              8648,
+              2
+            ]
+          },
+          "bounds_conv": {
+            "bytes": 138368,
+            "kind": "ndarray",
+            "shape": [
+              8648,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "i_none": {
+            "bytes": 8648,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "return",
+        "function": "_clean_inputs",
+        "index": 83,
+        "line": 474,
+        "peak_mib": 391.97265625,
+        "private_mib": 372.7578125,
+        "source": "return _LPProblem(c, A_ub, b_ub, A_eq, b_eq, bounds_clean, x0, integrality)"
+      },
+      {
+        "buffers": {
+          "A_eq": {
+            "bytes": 86480,
+            "kind": "coo",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              8648
+            ]
+          },
+          "A_ub": {
+            "bytes": 85770864,
+            "kind": "coo",
+            "nnz": 5360679,
+            "shape": [
+              6486,
+              8648
+            ]
+          },
+          "b_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "b_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "bounds": {
+            "bytes": 138368,
+            "kind": "ndarray",
+            "shape": [
+              8648,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "lhs_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "rhs_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_linprog_highs",
+        "index": 111,
+        "line": 318,
+        "peak_mib": 391.97265625,
+        "private_mib": 373.05859375,
+        "source": "A = vstack((A_ub, A_eq))"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 85857344,
+            "kind": "coo",
+            "nnz": 5366084,
+            "shape": [
+              8648,
+              8648
+            ]
+          },
+          "A_eq": {
+            "bytes": 86480,
+            "kind": "coo",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              8648
+            ]
+          },
+          "A_ub": {
+            "bytes": 85770864,
+            "kind": "coo",
+            "nnz": 5360679,
+            "shape": [
+              6486,
+              8648
+            ]
+          },
+          "b_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "b_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "bounds": {
+            "bytes": 138368,
+            "kind": "ndarray",
+            "shape": [
+              8648,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "lhs_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "rhs_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_linprog_highs",
+        "index": 112,
+        "line": 321,
+        "peak_mib": 455.1328125,
+        "private_mib": 455.10546875,
+        "source": "A = csc_array(A)"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 64427604,
+            "kind": "csc",
+            "nnz": 5366084,
+            "shape": [
+              8648,
+              8648
+            ]
+          },
+          "A_eq": {
+            "bytes": 86480,
+            "kind": "coo",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              8648
+            ]
+          },
+          "A_ub": {
+            "bytes": 85770864,
+            "kind": "coo",
+            "nnz": 5360679,
+            "shape": [
+              6486,
+              8648
+            ]
+          },
+          "b_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "b_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "bounds": {
+            "bytes": 138368,
+            "kind": "ndarray",
+            "shape": [
+              8648,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "lhs_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "rhs_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_linprog_highs",
+        "index": 154,
+        "line": 355,
+        "peak_mib": 516.640625,
+        "private_mib": 434.59375,
+        "source": "res = _highs_wrapper(c, A.indptr, A.indices, A.data, lhs, rhs,"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 64427604,
+            "kind": "csc",
+            "nnz": 5366084,
+            "shape": [
+              8648,
+              8648
+            ]
+          },
+          "A_eq": {
+            "bytes": 86480,
+            "kind": "coo",
+            "nnz": 5405,
+            "shape": [
+              2162,
+              8648
+            ]
+          },
+          "A_ub": {
+            "bytes": 85770864,
+            "kind": "coo",
+            "nnz": 5360679,
+            "shape": [
+              6486,
+              8648
+            ]
+          },
+          "b_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "b_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "bounds": {
+            "bytes": 138368,
+            "kind": "ndarray",
+            "shape": [
+              8648,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "lhs_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs_eq": {
+            "bytes": 17296,
+            "kind": "ndarray",
+            "shape": [
+              2162
+            ]
+          },
+          "rhs_ub": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_linprog_highs",
+        "index": 156,
+        "line": 355,
+        "peak_mib": 516.640625,
+        "private_mib": 434.59375,
+        "source": "res = _highs_wrapper(c, A.indptr, A.indices, A.data, lhs, rhs,"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 164,
+        "line": 117,
+        "peak_mib": 516.640625,
+        "private_mib": 434.59375,
+        "source": "lp = _h.HighsLp()"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 167,
+        "line": 120,
+        "peak_mib": 516.640625,
+        "private_mib": 434.59375,
+        "source": "lp.a_matrix_.num_col_ = numcol"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 168,
+        "line": 121,
+        "peak_mib": 516.640625,
+        "private_mib": 434.59375,
+        "source": "lp.a_matrix_.num_row_ = numrow"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 169,
+        "line": 122,
+        "peak_mib": 516.640625,
+        "private_mib": 434.59375,
+        "source": "lp.a_matrix_.format_ = _h.MatrixFormat.kColwise"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 170,
+        "line": 123,
+        "peak_mib": 516.640625,
+        "private_mib": 434.59375,
+        "source": "lp.col_cost_ = c"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 171,
+        "line": 124,
+        "peak_mib": 516.640625,
+        "private_mib": 434.59375,
+        "source": "lp.col_lower_ = lb"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 172,
+        "line": 125,
+        "peak_mib": 516.640625,
+        "private_mib": 434.7265625,
+        "source": "lp.col_upper_ = ub"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 173,
+        "line": 126,
+        "peak_mib": 516.640625,
+        "private_mib": 434.79296875,
+        "source": "lp.row_lower_ = lhs"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 174,
+        "line": 127,
+        "peak_mib": 516.640625,
+        "private_mib": 434.86328125,
+        "source": "lp.row_upper_ = rhs"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 175,
+        "line": 128,
+        "peak_mib": 516.640625,
+        "private_mib": 434.9296875,
+        "source": "lp.a_matrix_.start_ = indptr"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 176,
+        "line": 129,
+        "peak_mib": 516.640625,
+        "private_mib": 434.96484375,
+        "source": "lp.a_matrix_.index_ = indices"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 177,
+        "line": 130,
+        "peak_mib": 516.640625,
+        "private_mib": 455.4765625,
+        "source": "lp.a_matrix_.value_ = data"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 178,
+        "line": 131,
+        "peak_mib": 537.55078125,
+        "private_mib": 496.5,
+        "source": "if integrality.size > 0:"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 179,
+        "line": 135,
+        "peak_mib": 537.55078125,
+        "private_mib": 496.5,
+        "source": "highs = _h._Highs()"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 314,
+        "line": 193,
+        "peak_mib": 537.55078125,
+        "private_mib": 496.75390625,
+        "source": "init_status = highs.passModel(lp)"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "data": {
+            "bytes": 42928672,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indices": {
+            "bytes": 21464336,
+            "kind": "ndarray",
+            "shape": [
+              5366084
+            ]
+          },
+          "indptr": {
+            "bytes": 34596,
+            "kind": "ndarray",
+            "shape": [
+              8649
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "lhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 316,
+        "line": 206,
+        "peak_mib": 558.91796875,
+        "private_mib": 558.91796875,
+        "source": "run_status = highs.run()"
+      }
+    ],
+    "receipt": {
+      "baseline_identity_verified": true,
+      "command": [
+        "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+        "-I",
+        "-S",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "-c",
+        "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-lp-memory-001\\\\trace-correction'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+        "D:\\Pontius\\tmp\\river-lp-memory-001\\trace-correction\\probe.py",
+        "worker",
+        "2"
+      ],
+      "events": 55898,
+      "exit": 0,
+      "label": "001-baseline",
+      "last_source": "return dict(calls=calls,realizations=policies,assembly_seconds=assembly,",
+      "observed_pid": 63460,
+      "os_peak_commit_bytes": 2184167424,
+      "sampled_peak_private_bytes": 2165092352,
+      "sampled_peak_working_set_bytes": 1146699776,
+      "samples": 210,
+      "seconds": 10.59129169996595,
+      "stop_reason": null
+    },
+    "trace_sha256": "fcab75eaca32171349354ef16f98bd7635e03ac501ad3adfd07adecc2d5112d4"
+  },
+  "001-checkback": {
+    "largest_jumps": [
+      {
+        "delta_mib": 147.62890625,
+        "next_function": "_linprog_highs",
+        "next_source": "A = csc_array(A)",
+        "previous_function": "_linprog_highs",
+        "previous_index": 111,
+        "previous_source": "A = vstack((A_ub, A_eq))"
+      },
+      {
+        "delta_mib": 147.4453125,
+        "next_function": "_format_A_constraints",
+        "next_source": "return sps.coo_array(",
+        "previous_function": "_format_A_constraints",
+        "previous_index": 43,
+        "previous_source": "return sps.coo_array("
+      },
+      {
+        "delta_mib": 111.6328125,
+        "next_function": "_highs_wrapper",
+        "next_source": "if init_status == _h.HighsStatus.kError:",
+        "previous_function": "_highs_wrapper",
+        "previous_index": 314,
+        "previous_source": "init_status = highs.passModel(lp)"
+      },
+      {
+        "delta_mib": 110.5859375,
+        "next_function": "solve",
+        "next_source": "equalities=sparse.hstack([own,sparse.csr_matrix((own.shape[0],other.shape[0]))],format='csc')",
+        "previous_function": "solve",
+        "previous_index": 17,
+        "previous_source": "inequalities=sparse.hstack([payoff,other_sign*other.T],format='csc')"
+      },
+      {
+        "delta_mib": 110.44140625,
+        "next_function": "solve",
+        "next_source": "other_sign=1 if role==0 else -1",
+        "previous_function": "solve",
+        "previous_index": 15,
+        "previous_source": "payoff=-a.T if role==0 else a"
+      },
+      {
+        "delta_mib": 73.8125,
+        "next_function": "_highs_wrapper",
+        "next_source": "if integrality.size > 0:",
+        "previous_function": "_highs_wrapper",
+        "previous_index": 177,
+        "previous_source": "lp.a_matrix_.value_ = data"
+      },
+      {
+        "delta_mib": 36.91015625,
+        "next_function": "_highs_wrapper",
+        "next_source": "lp.a_matrix_.value_ = data",
+        "previous_function": "_highs_wrapper",
+        "previous_index": 176,
+        "previous_source": "lp.a_matrix_.index_ = indices"
+      },
+      {
+        "delta_mib": 1.203125,
+        "next_function": "_clean_inputs",
+        "next_source": "try:",
+        "previous_function": "_clean_inputs",
+        "previous_index": 71,
+        "previous_source": "if bounds is None or np.array_equal(bounds, []) or np.array_equal(bounds, [[]]):"
+      }
+    ],
+    "last_event": {
+      "buffers": {
+        "c": {
+          "bytes": 103776,
+          "kind": "ndarray",
+          "shape": [
+            12972
+          ]
+        },
+        "data": {
+          "bytes": 77243936,
+          "kind": "ndarray",
+          "shape": [
+            9655492
+          ]
+        },
+        "indices": {
+          "bytes": 38621968,
+          "kind": "ndarray",
+          "shape": [
+            9655492
+          ]
+        },
+        "indptr": {
+          "bytes": 51892,
+          "kind": "ndarray",
+          "shape": [
+            12973
+          ]
+        },
+        "integrality": {
+          "bytes": 0,
+          "kind": "ndarray",
+          "shape": [
+            0
+          ]
+        },
+        "lb": {
+          "bytes": 103776,
+          "kind": "ndarray",
+          "shape": [
+            12972
+          ]
+        },
+        "lhs": {
+          "bytes": 103776,
+          "kind": "ndarray",
+          "shape": [
+            12972
+          ]
+        },
+        "rhs": {
+          "bytes": 103776,
+          "kind": "ndarray",
+          "shape": [
+            12972
+          ]
+        },
+        "ub": {
+          "bytes": 103776,
+          "kind": "ndarray",
+          "shape": [
+            12972
+          ]
+        }
+      },
+      "elapsed": 1.1534957999829203,
+      "event": "line",
+      "file": "D:\\Pontius/tmp/group-opt-author/venv/Lib/site-packages\\scipy\\optimize\\_highspy\\_highs_wrapper.py",
+      "function": "_highs_wrapper",
+      "line": 206,
+      "memory": {
+        "peak_commit_bytes": 974413824,
+        "pid": 82360,
+        "private_bytes": 974413824,
+        "working_bytes": 996573184
+      },
+      "role": 0,
+      "source_line": "run_status = highs.run()"
+    },
+    "points": [
+      {
+        "buffers": {
+          "a": {
+            "bytes": 115615116,
+            "kind": "csr",
+            "nnz": 9631710,
+            "shape": [
+              8648,
+              8648
+            ]
+          },
+          "block": {
+            "bytes": 12846608,
+            "kind": "csr",
+            "nnz": 1070190,
+            "shape": [
+              1081,
+              1081
+            ]
+          },
+          "e": {
+            "bytes": 159992,
+            "kind": "csr",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              8648
+            ]
+          },
+          "equalities": {
+            "bytes": 194584,
+            "kind": "csc",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              12972
+            ]
+          },
+          "f": {
+            "bytes": 159992,
+            "kind": "csr",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              8648
+            ]
+          },
+          "inequalities": {
+            "bytes": 115775104,
+            "kind": "csc",
+            "nnz": 9643601,
+            "shape": [
+              8648,
+              12972
+            ]
+          },
+          "objective": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "other": {
+            "bytes": 159992,
+            "kind": "csr",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              8648
+            ]
+          },
+          "own": {
+            "bytes": 159992,
+            "kind": "csr",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              8648
+            ]
+          },
+          "payoff": {
+            "bytes": 115615116,
+            "kind": "csc",
+            "nnz": 9631710,
+            "shape": [
+              8648,
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "solve",
+        "index": 21,
+        "line": 182,
+        "peak_mib": 446.203125,
+        "private_mib": 446.19921875,
+        "source": "result=linprog(objective,A_ub=inequalities,b_ub=np.zeros(inequalities.shape[0]),"
+      },
+      {
+        "buffers": {
+          "a": {
+            "bytes": 115615116,
+            "kind": "csr",
+            "nnz": 9631710,
+            "shape": [
+              8648,
+              8648
+            ]
+          },
+          "block": {
+            "bytes": 12846608,
+            "kind": "csr",
+            "nnz": 1070190,
+            "shape": [
+              1081,
+              1081
+            ]
+          },
+          "e": {
+            "bytes": 159992,
+            "kind": "csr",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              8648
+            ]
+          },
+          "equalities": {
+            "bytes": 194584,
+            "kind": "csc",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              12972
+            ]
+          },
+          "f": {
+            "bytes": 159992,
+            "kind": "csr",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              8648
+            ]
+          },
+          "inequalities": {
+            "bytes": 115775104,
+            "kind": "csc",
+            "nnz": 9643601,
+            "shape": [
+              8648,
+              12972
+            ]
+          },
+          "objective": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "other": {
+            "bytes": 159992,
+            "kind": "csr",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              8648
+            ]
+          },
+          "own": {
+            "bytes": 159992,
+            "kind": "csr",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              8648
+            ]
+          },
+          "payoff": {
+            "bytes": 115615116,
+            "kind": "csc",
+            "nnz": 9631710,
+            "shape": [
+              8648,
+              8648
+            ]
+          }
+        },
+        "event": "line",
+        "function": "solve",
+        "index": 26,
+        "line": 182,
+        "peak_mib": 446.203125,
+        "private_mib": 446.19921875,
+        "source": "result=linprog(objective,A_ub=inequalities,b_ub=np.zeros(inequalities.shape[0]),"
+      },
+      {
+        "buffers": {},
+        "event": "call",
+        "function": "_clean_inputs",
+        "index": 27,
+        "line": 213,
+        "peak_mib": 446.203125,
+        "private_mib": 446.19921875,
+        "source": "def _clean_inputs(lp):"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 115775104,
+            "kind": "csc",
+            "nnz": 9643601,
+            "shape": [
+              8648,
+              12972
+            ]
+          }
+        },
+        "event": "call",
+        "function": "_format_A_constraints",
+        "index": 39,
+        "line": 160,
+        "peak_mib": 446.203125,
+        "private_mib": 446.19921875,
+        "source": "def _format_A_constraints(A, n_x, sparse_lhs=False):"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 115775104,
+            "kind": "csc",
+            "nnz": 9643601,
+            "shape": [
+              8648,
+              12972
+            ]
+          }
+        },
+        "event": "return",
+        "function": "_format_A_constraints",
+        "index": 44,
+        "line": 182,
+        "peak_mib": 630.55078125,
+        "private_mib": 593.64453125,
+        "source": "return sps.coo_array("
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 194584,
+            "kind": "csc",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              12972
+            ]
+          }
+        },
+        "event": "call",
+        "function": "_format_A_constraints",
+        "index": 55,
+        "line": 160,
+        "peak_mib": 630.55078125,
+        "private_mib": 593.64453125,
+        "source": "def _format_A_constraints(A, n_x, sparse_lhs=False):"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 194584,
+            "kind": "csc",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              12972
+            ]
+          }
+        },
+        "event": "return",
+        "function": "_format_A_constraints",
+        "index": 60,
+        "line": 182,
+        "peak_mib": 630.55078125,
+        "private_mib": 593.64453125,
+        "source": "return sps.coo_array("
+      },
+      {
+        "buffers": {
+          "A_eq": {
+            "bytes": 190256,
+            "kind": "coo",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              12972
+            ]
+          },
+          "A_ub": {
+            "bytes": 154297616,
+            "kind": "coo",
+            "nnz": 9643601,
+            "shape": [
+              8648,
+              12972
+            ]
+          },
+          "b_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "b_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "bounds_clean": {
+            "bytes": 207552,
+            "kind": "ndarray",
+            "shape": [
+              12972,
+              2
+            ]
+          },
+          "bounds_conv": {
+            "bytes": 207552,
+            "kind": "ndarray",
+            "shape": [
+              12972,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "i_none": {
+            "bytes": 12972,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "return",
+        "function": "_clean_inputs",
+        "index": 83,
+        "line": 474,
+        "peak_mib": 630.55078125,
+        "private_mib": 595.046875,
+        "source": "return _LPProblem(c, A_ub, b_ub, A_eq, b_eq, bounds_clean, x0, integrality)"
+      },
+      {
+        "buffers": {
+          "A_eq": {
+            "bytes": 190256,
+            "kind": "coo",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              12972
+            ]
+          },
+          "A_ub": {
+            "bytes": 154297616,
+            "kind": "coo",
+            "nnz": 9643601,
+            "shape": [
+              8648,
+              12972
+            ]
+          },
+          "b_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "b_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "bounds": {
+            "bytes": 207552,
+            "kind": "ndarray",
+            "shape": [
+              12972,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "lhs_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "rhs_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_linprog_highs",
+        "index": 111,
+        "line": 318,
+        "peak_mib": 630.55078125,
+        "private_mib": 595.32421875,
+        "source": "A = vstack((A_ub, A_eq))"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 154487872,
+            "kind": "coo",
+            "nnz": 9655492,
+            "shape": [
+              12972,
+              12972
+            ]
+          },
+          "A_eq": {
+            "bytes": 190256,
+            "kind": "coo",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              12972
+            ]
+          },
+          "A_ub": {
+            "bytes": 154297616,
+            "kind": "coo",
+            "nnz": 9643601,
+            "shape": [
+              8648,
+              12972
+            ]
+          },
+          "b_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "b_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "bounds": {
+            "bytes": 207552,
+            "kind": "ndarray",
+            "shape": [
+              12972,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "lhs_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "rhs_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_linprog_highs",
+        "index": 112,
+        "line": 321,
+        "peak_mib": 742.95703125,
+        "private_mib": 742.953125,
+        "source": "A = csc_array(A)"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 115917796,
+            "kind": "csc",
+            "nnz": 9655492,
+            "shape": [
+              12972,
+              12972
+            ]
+          },
+          "A_eq": {
+            "bytes": 190256,
+            "kind": "coo",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              12972
+            ]
+          },
+          "A_ub": {
+            "bytes": 154297616,
+            "kind": "coo",
+            "nnz": 9643601,
+            "shape": [
+              8648,
+              12972
+            ]
+          },
+          "b_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "b_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "bounds": {
+            "bytes": 207552,
+            "kind": "ndarray",
+            "shape": [
+              12972,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "lhs_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "rhs_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_linprog_highs",
+        "index": 154,
+        "line": 355,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.30859375,
+        "source": "res = _highs_wrapper(c, A.indptr, A.indices, A.data, lhs, rhs,"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 115917796,
+            "kind": "csc",
+            "nnz": 9655492,
+            "shape": [
+              12972,
+              12972
+            ]
+          },
+          "A_eq": {
+            "bytes": 190256,
+            "kind": "coo",
+            "nnz": 11891,
+            "shape": [
+              4324,
+              12972
+            ]
+          },
+          "A_ub": {
+            "bytes": 154297616,
+            "kind": "coo",
+            "nnz": 9643601,
+            "shape": [
+              8648,
+              12972
+            ]
+          },
+          "b_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "b_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "bounds": {
+            "bytes": 207552,
+            "kind": "ndarray",
+            "shape": [
+              12972,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "lhs_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs_eq": {
+            "bytes": 34592,
+            "kind": "ndarray",
+            "shape": [
+              4324
+            ]
+          },
+          "rhs_ub": {
+            "bytes": 69184,
+            "kind": "ndarray",
+            "shape": [
+              8648
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_linprog_highs",
+        "index": 156,
+        "line": 355,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.30859375,
+        "source": "res = _highs_wrapper(c, A.indptr, A.indices, A.data, lhs, rhs,"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 164,
+        "line": 117,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.30859375,
+        "source": "lp = _h.HighsLp()"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 167,
+        "line": 120,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.30859375,
+        "source": "lp.a_matrix_.num_col_ = numcol"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 168,
+        "line": 121,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.30859375,
+        "source": "lp.a_matrix_.num_row_ = numrow"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 169,
+        "line": 122,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.30859375,
+        "source": "lp.a_matrix_.format_ = _h.MatrixFormat.kColwise"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 170,
+        "line": 123,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.30859375,
+        "source": "lp.col_cost_ = c"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 171,
+        "line": 124,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.41015625,
+        "source": "lp.col_lower_ = lb"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 172,
+        "line": 125,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.61328125,
+        "source": "lp.col_upper_ = ub"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 173,
+        "line": 126,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.71484375,
+        "source": "lp.row_lower_ = lhs"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 174,
+        "line": 127,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.81640625,
+        "source": "lp.row_upper_ = rhs"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 175,
+        "line": 128,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.91796875,
+        "source": "lp.a_matrix_.start_ = indptr"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 176,
+        "line": 129,
+        "peak_mib": 853.71484375,
+        "private_mib": 706.91796875,
+        "source": "lp.a_matrix_.index_ = indices"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 177,
+        "line": 130,
+        "peak_mib": 853.71484375,
+        "private_mib": 743.828125,
+        "source": "lp.a_matrix_.value_ = data"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 178,
+        "line": 131,
+        "peak_mib": 891.48046875,
+        "private_mib": 817.640625,
+        "source": "if integrality.size > 0:"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 179,
+        "line": 135,
+        "peak_mib": 891.48046875,
+        "private_mib": 817.640625,
+        "source": "highs = _h._Highs()"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 314,
+        "line": 193,
+        "peak_mib": 891.48046875,
+        "private_mib": 817.640625,
+        "source": "init_status = highs.passModel(lp)"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "data": {
+            "bytes": 77243936,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indices": {
+            "bytes": 38621968,
+            "kind": "ndarray",
+            "shape": [
+              9655492
+            ]
+          },
+          "indptr": {
+            "bytes": 51892,
+            "kind": "ndarray",
+            "shape": [
+              12973
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "lhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "rhs": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          },
+          "ub": {
+            "bytes": 103776,
+            "kind": "ndarray",
+            "shape": [
+              12972
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 316,
+        "line": 206,
+        "peak_mib": 929.2734375,
+        "private_mib": 929.2734375,
+        "source": "run_status = highs.run()"
+      }
+    ],
+    "receipt": {
+      "command": [
+        "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+        "-I",
+        "-S",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "-c",
+        "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-lp-memory-001\\\\trace-correction'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+        "D:\\Pontius\\tmp\\river-lp-memory-001\\trace-correction\\probe.py",
+        "worker",
+        "3"
+      ],
+      "events": 317,
+      "exit": 1,
+      "label": "001-checkback",
+      "last_source": "run_status = highs.run()",
+      "observed_pid": 82360,
+      "os_peak_commit_bytes": 3495575552,
+      "sampled_peak_private_bytes": 3495571456,
+      "sampled_peak_working_set_bytes": 1658937344,
+      "samples": 85,
+      "seconds": 4.322072700015269,
+      "stop_reason": "sampled_private_memory_limit"
+    },
+    "trace_sha256": "5fb048c01f2d53f25b82af2799ea2c0490b318af1b3ecbe116dcb5e3b814f822"
+  },
+  "001-raise": {
+    "largest_jumps": [
+      {
+        "delta_mib": 278.77734375,
+        "next_function": "_linprog_highs",
+        "next_source": "A = csc_array(A)",
+        "previous_function": "_linprog_highs",
+        "previous_index": 111,
+        "previous_source": "A = vstack((A_ub, A_eq))"
+      },
+      {
+        "delta_mib": 278.47265625,
+        "next_function": "_format_A_constraints",
+        "next_source": "return sps.coo_array(",
+        "previous_function": "_format_A_constraints",
+        "previous_index": 43,
+        "previous_source": "return sps.coo_array("
+      },
+      {
+        "delta_mib": 210.58984375,
+        "next_function": "_highs_wrapper",
+        "next_source": "if init_status == _h.HighsStatus.kError:",
+        "previous_function": "_highs_wrapper",
+        "previous_index": 314,
+        "previous_source": "init_status = highs.passModel(lp)"
+      },
+      {
+        "delta_mib": 208.96875,
+        "next_function": "solve",
+        "next_source": "equalities=sparse.hstack([own,sparse.csr_matrix((own.shape[0],other.shape[0]))],format='csc')",
+        "previous_function": "solve",
+        "previous_index": 17,
+        "previous_source": "inequalities=sparse.hstack([payoff,other_sign*other.T],format='csc')"
+      },
+      {
+        "delta_mib": 208.6171875,
+        "next_function": "solve",
+        "next_source": "other_sign=1 if role==0 else -1",
+        "previous_function": "solve",
+        "previous_index": 15,
+        "previous_source": "payoff=-a.T if role==0 else a"
+      },
+      {
+        "delta_mib": 139.38671875,
+        "next_function": "_highs_wrapper",
+        "next_source": "if integrality.size > 0:",
+        "previous_function": "_highs_wrapper",
+        "previous_index": 177,
+        "previous_source": "lp.a_matrix_.value_ = data"
+      },
+      {
+        "delta_mib": 69.69921875,
+        "next_function": "_highs_wrapper",
+        "next_source": "lp.a_matrix_.value_ = data",
+        "previous_function": "_highs_wrapper",
+        "previous_index": 176,
+        "previous_source": "lp.a_matrix_.index_ = indices"
+      },
+      {
+        "delta_mib": 1.33203125,
+        "next_function": "_clean_inputs",
+        "next_source": "try:",
+        "previous_function": "_clean_inputs",
+        "previous_index": 71,
+        "previous_source": "if bounds is None or np.array_equal(bounds, []) or np.array_equal(bounds, [[]]):"
+      }
+    ],
+    "last_event": {
+      "buffers": {
+        "c": {
+          "bytes": 172960,
+          "kind": "ndarray",
+          "shape": [
+            21620
+          ]
+        },
+        "data": {
+          "bytes": 145874464,
+          "kind": "ndarray",
+          "shape": [
+            18234308
+          ]
+        },
+        "indices": {
+          "bytes": 72937232,
+          "kind": "ndarray",
+          "shape": [
+            18234308
+          ]
+        },
+        "indptr": {
+          "bytes": 86484,
+          "kind": "ndarray",
+          "shape": [
+            21621
+          ]
+        },
+        "integrality": {
+          "bytes": 0,
+          "kind": "ndarray",
+          "shape": [
+            0
+          ]
+        },
+        "lb": {
+          "bytes": 172960,
+          "kind": "ndarray",
+          "shape": [
+            21620
+          ]
+        },
+        "lhs": {
+          "bytes": 172960,
+          "kind": "ndarray",
+          "shape": [
+            21620
+          ]
+        },
+        "rhs": {
+          "bytes": 172960,
+          "kind": "ndarray",
+          "shape": [
+            21620
+          ]
+        },
+        "ub": {
+          "bytes": 172960,
+          "kind": "ndarray",
+          "shape": [
+            21620
+          ]
+        }
+      },
+      "elapsed": 2.0007265000022016,
+      "event": "line",
+      "file": "D:\\Pontius/tmp/group-opt-author/venv/Lib/site-packages\\scipy\\optimize\\_highspy\\_highs_wrapper.py",
+      "function": "_highs_wrapper",
+      "line": 206,
+      "memory": {
+        "peak_commit_bytes": 1780305920,
+        "pid": 56892,
+        "private_bytes": 1780305920,
+        "working_bytes": 1800847360
+      },
+      "role": 0,
+      "source_line": "run_status = highs.run()"
+    },
+    "points": [
+      {
+        "buffers": {
+          "a": {
+            "bytes": 218379300,
+            "kind": "csr",
+            "nnz": 18193230,
+            "shape": [
+              15134,
+              15134
+            ]
+          },
+          "block": {
+            "bytes": 12846608,
+            "kind": "csr",
+            "nnz": 1070190,
+            "shape": [
+              1081,
+              1081
+            ]
+          },
+          "e": {
+            "bytes": 272416,
+            "kind": "csr",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              15134
+            ]
+          },
+          "equalities": {
+            "bytes": 332952,
+            "kind": "csc",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              21620
+            ]
+          },
+          "f": {
+            "bytes": 272416,
+            "kind": "csr",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              15134
+            ]
+          },
+          "inequalities": {
+            "bytes": 218651712,
+            "kind": "csc",
+            "nnz": 18213769,
+            "shape": [
+              15134,
+              21620
+            ]
+          },
+          "objective": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "other": {
+            "bytes": 272416,
+            "kind": "csr",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              15134
+            ]
+          },
+          "own": {
+            "bytes": 272416,
+            "kind": "csr",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              15134
+            ]
+          },
+          "payoff": {
+            "bytes": 218379300,
+            "kind": "csc",
+            "nnz": 18193230,
+            "shape": [
+              15134,
+              15134
+            ]
+          }
+        },
+        "event": "line",
+        "function": "solve",
+        "index": 21,
+        "line": 182,
+        "peak_mib": 786.44140625,
+        "private_mib": 786.44140625,
+        "source": "result=linprog(objective,A_ub=inequalities,b_ub=np.zeros(inequalities.shape[0]),"
+      },
+      {
+        "buffers": {
+          "a": {
+            "bytes": 218379300,
+            "kind": "csr",
+            "nnz": 18193230,
+            "shape": [
+              15134,
+              15134
+            ]
+          },
+          "block": {
+            "bytes": 12846608,
+            "kind": "csr",
+            "nnz": 1070190,
+            "shape": [
+              1081,
+              1081
+            ]
+          },
+          "e": {
+            "bytes": 272416,
+            "kind": "csr",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              15134
+            ]
+          },
+          "equalities": {
+            "bytes": 332952,
+            "kind": "csc",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              21620
+            ]
+          },
+          "f": {
+            "bytes": 272416,
+            "kind": "csr",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              15134
+            ]
+          },
+          "inequalities": {
+            "bytes": 218651712,
+            "kind": "csc",
+            "nnz": 18213769,
+            "shape": [
+              15134,
+              21620
+            ]
+          },
+          "objective": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "other": {
+            "bytes": 272416,
+            "kind": "csr",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              15134
+            ]
+          },
+          "own": {
+            "bytes": 272416,
+            "kind": "csr",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              15134
+            ]
+          },
+          "payoff": {
+            "bytes": 218379300,
+            "kind": "csc",
+            "nnz": 18193230,
+            "shape": [
+              15134,
+              15134
+            ]
+          }
+        },
+        "event": "line",
+        "function": "solve",
+        "index": 26,
+        "line": 182,
+        "peak_mib": 786.609375,
+        "private_mib": 786.609375,
+        "source": "result=linprog(objective,A_ub=inequalities,b_ub=np.zeros(inequalities.shape[0]),"
+      },
+      {
+        "buffers": {},
+        "event": "call",
+        "function": "_clean_inputs",
+        "index": 27,
+        "line": 213,
+        "peak_mib": 786.609375,
+        "private_mib": 786.609375,
+        "source": "def _clean_inputs(lp):"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 218651712,
+            "kind": "csc",
+            "nnz": 18213769,
+            "shape": [
+              15134,
+              21620
+            ]
+          }
+        },
+        "event": "call",
+        "function": "_format_A_constraints",
+        "index": 39,
+        "line": 160,
+        "peak_mib": 786.77734375,
+        "private_mib": 786.77734375,
+        "source": "def _format_A_constraints(A, n_x, sparse_lhs=False):"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 218651712,
+            "kind": "csc",
+            "nnz": 18213769,
+            "shape": [
+              15134,
+              21620
+            ]
+          }
+        },
+        "event": "return",
+        "function": "_format_A_constraints",
+        "index": 44,
+        "line": 182,
+        "peak_mib": 1134.890625,
+        "private_mib": 1065.25,
+        "source": "return sps.coo_array("
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 332952,
+            "kind": "csc",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              21620
+            ]
+          }
+        },
+        "event": "call",
+        "function": "_format_A_constraints",
+        "index": 55,
+        "line": 160,
+        "peak_mib": 1134.890625,
+        "private_mib": 1065.25,
+        "source": "def _format_A_constraints(A, n_x, sparse_lhs=False):"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 332952,
+            "kind": "csc",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              21620
+            ]
+          }
+        },
+        "event": "return",
+        "function": "_format_A_constraints",
+        "index": 60,
+        "line": 182,
+        "peak_mib": 1134.890625,
+        "private_mib": 1065.65625,
+        "source": "return sps.coo_array("
+      },
+      {
+        "buffers": {
+          "A_eq": {
+            "bytes": 328624,
+            "kind": "coo",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              21620
+            ]
+          },
+          "A_ub": {
+            "bytes": 291420304,
+            "kind": "coo",
+            "nnz": 18213769,
+            "shape": [
+              15134,
+              21620
+            ]
+          },
+          "b_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "b_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "bounds_clean": {
+            "bytes": 345920,
+            "kind": "ndarray",
+            "shape": [
+              21620,
+              2
+            ]
+          },
+          "bounds_conv": {
+            "bytes": 345920,
+            "kind": "ndarray",
+            "shape": [
+              21620,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "i_none": {
+            "bytes": 21620,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "return",
+        "function": "_clean_inputs",
+        "index": 83,
+        "line": 474,
+        "peak_mib": 1134.890625,
+        "private_mib": 1067.32421875,
+        "source": "return _LPProblem(c, A_ub, b_ub, A_eq, b_eq, bounds_clean, x0, integrality)"
+      },
+      {
+        "buffers": {
+          "A_eq": {
+            "bytes": 328624,
+            "kind": "coo",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              21620
+            ]
+          },
+          "A_ub": {
+            "bytes": 291420304,
+            "kind": "coo",
+            "nnz": 18213769,
+            "shape": [
+              15134,
+              21620
+            ]
+          },
+          "b_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "b_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "bounds": {
+            "bytes": 345920,
+            "kind": "ndarray",
+            "shape": [
+              21620,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "lhs_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "rhs_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_linprog_highs",
+        "index": 111,
+        "line": 318,
+        "peak_mib": 1134.890625,
+        "private_mib": 1067.9921875,
+        "source": "A = vstack((A_ub, A_eq))"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 291748928,
+            "kind": "coo",
+            "nnz": 18234308,
+            "shape": [
+              21620,
+              21620
+            ]
+          },
+          "A_eq": {
+            "bytes": 328624,
+            "kind": "coo",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              21620
+            ]
+          },
+          "A_ub": {
+            "bytes": 291420304,
+            "kind": "coo",
+            "nnz": 18213769,
+            "shape": [
+              15134,
+              21620
+            ]
+          },
+          "b_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "b_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "bounds": {
+            "bytes": 345920,
+            "kind": "ndarray",
+            "shape": [
+              21620,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "lhs_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "rhs_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_linprog_highs",
+        "index": 112,
+        "line": 321,
+        "peak_mib": 1346.8203125,
+        "private_mib": 1346.76953125,
+        "source": "A = csc_array(A)"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 218898180,
+            "kind": "csc",
+            "nnz": 18234308,
+            "shape": [
+              21620,
+              21620
+            ]
+          },
+          "A_eq": {
+            "bytes": 328624,
+            "kind": "coo",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              21620
+            ]
+          },
+          "A_ub": {
+            "bytes": 291420304,
+            "kind": "coo",
+            "nnz": 18213769,
+            "shape": [
+              15134,
+              21620
+            ]
+          },
+          "b_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "b_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "bounds": {
+            "bytes": 345920,
+            "kind": "ndarray",
+            "shape": [
+              21620,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "lhs_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "rhs_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_linprog_highs",
+        "index": 154,
+        "line": 355,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1277.31640625,
+        "source": "res = _highs_wrapper(c, A.indptr, A.indices, A.data, lhs, rhs,"
+      },
+      {
+        "buffers": {
+          "A": {
+            "bytes": 218898180,
+            "kind": "csc",
+            "nnz": 18234308,
+            "shape": [
+              21620,
+              21620
+            ]
+          },
+          "A_eq": {
+            "bytes": 328624,
+            "kind": "coo",
+            "nnz": 20539,
+            "shape": [
+              6486,
+              21620
+            ]
+          },
+          "A_ub": {
+            "bytes": 291420304,
+            "kind": "coo",
+            "nnz": 18213769,
+            "shape": [
+              15134,
+              21620
+            ]
+          },
+          "b_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "b_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "bounds": {
+            "bytes": 345920,
+            "kind": "ndarray",
+            "shape": [
+              21620,
+              2
+            ]
+          },
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "lhs_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs_eq": {
+            "bytes": 51888,
+            "kind": "ndarray",
+            "shape": [
+              6486
+            ]
+          },
+          "rhs_ub": {
+            "bytes": 121072,
+            "kind": "ndarray",
+            "shape": [
+              15134
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_linprog_highs",
+        "index": 156,
+        "line": 355,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1277.31640625,
+        "source": "res = _highs_wrapper(c, A.indptr, A.indices, A.data, lhs, rhs,"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 164,
+        "line": 117,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1277.31640625,
+        "source": "lp = _h.HighsLp()"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 167,
+        "line": 120,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1277.31640625,
+        "source": "lp.a_matrix_.num_col_ = numcol"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 168,
+        "line": 121,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1277.31640625,
+        "source": "lp.a_matrix_.num_row_ = numrow"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 169,
+        "line": 122,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1277.31640625,
+        "source": "lp.a_matrix_.format_ = _h.MatrixFormat.kColwise"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 170,
+        "line": 123,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1277.31640625,
+        "source": "lp.col_cost_ = c"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 171,
+        "line": 124,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1277.31640625,
+        "source": "lp.col_lower_ = lb"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 172,
+        "line": 125,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1277.65234375,
+        "source": "lp.col_upper_ = ub"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 173,
+        "line": 126,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1277.8203125,
+        "source": "lp.row_lower_ = lhs"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 174,
+        "line": 127,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1277.98828125,
+        "source": "lp.row_upper_ = rhs"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 175,
+        "line": 128,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1278.15625,
+        "source": "lp.a_matrix_.start_ = indptr"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 176,
+        "line": 129,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1278.15625,
+        "source": "lp.a_matrix_.index_ = indices"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 177,
+        "line": 130,
+        "peak_mib": 1555.86328125,
+        "private_mib": 1347.85546875,
+        "source": "lp.a_matrix_.value_ = data"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 178,
+        "line": 131,
+        "peak_mib": 1626.66015625,
+        "private_mib": 1487.2421875,
+        "source": "if integrality.size > 0:"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 179,
+        "line": 135,
+        "peak_mib": 1626.66015625,
+        "private_mib": 1487.2421875,
+        "source": "highs = _h._Highs()"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 314,
+        "line": 193,
+        "peak_mib": 1626.66015625,
+        "private_mib": 1487.2421875,
+        "source": "init_status = highs.passModel(lp)"
+      },
+      {
+        "buffers": {
+          "c": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "data": {
+            "bytes": 145874464,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indices": {
+            "bytes": 72937232,
+            "kind": "ndarray",
+            "shape": [
+              18234308
+            ]
+          },
+          "indptr": {
+            "bytes": 86484,
+            "kind": "ndarray",
+            "shape": [
+              21621
+            ]
+          },
+          "integrality": {
+            "bytes": 0,
+            "kind": "ndarray",
+            "shape": [
+              0
+            ]
+          },
+          "lb": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "lhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "rhs": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          },
+          "ub": {
+            "bytes": 172960,
+            "kind": "ndarray",
+            "shape": [
+              21620
+            ]
+          }
+        },
+        "event": "line",
+        "function": "_highs_wrapper",
+        "index": 316,
+        "line": 206,
+        "peak_mib": 1697.83203125,
+        "private_mib": 1697.83203125,
+        "source": "run_status = highs.run()"
+      }
+    ],
+    "receipt": {
+      "command": [
+        "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+        "-I",
+        "-S",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "-c",
+        "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-lp-memory-001\\\\trace-correction'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+        "D:\\Pontius\\tmp\\river-lp-memory-001\\trace-correction\\probe.py",
+        "worker",
+        "4"
+      ],
+      "events": 317,
+      "exit": 1,
+      "label": "001-raise",
+      "last_source": "run_status = highs.run()",
+      "observed_pid": 56892,
+      "os_peak_commit_bytes": 6540443648,
+      "sampled_peak_private_bytes": 6540435456,
+      "sampled_peak_working_set_bytes": 2979262464,
+      "samples": 153,
+      "seconds": 7.860452499997336,
+      "stop_reason": "sampled_private_memory_limit"
+    },
+    "trace_sha256": "0d8b8bbcef97e9a63910adbbaadd605e6cdab48d7a89854db4c787587694b48f"
+  }
+}

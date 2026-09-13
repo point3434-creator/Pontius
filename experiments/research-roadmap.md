@@ -2,18 +2,47 @@
 
 Current lane updated 2026-09-12; broader agenda reviewed 2026-09-08. [Completed evidence](RESULTS.md) · [Brainstorming and revisions](brainstorming.md)
 
-## Current river lane — updated 2026-09-12
+## Active priority — playable Pontius, 2026-09-13
 
-The [35-milestone synthesis](solver-foundations.md#river-representation-and-solver-findings-through-2026-09-12)
+The user has redirected work to building the bot from existing research. Pause
+fresh-board experiments and neural-network work. The first milestone is a local
+six-max complete-hand path using an identified trained policy, with legal-action
+and coverage checks; integrate the GPU river solver within its supported domain.
+Use Python 3.14 only. Relax the old 15-second development target, with an initial
+configurable 33-second complete-decision ceiling and a shorter table deadline
+when supplied. Reserve time for cancellation, validation and legal action delivery.
+These are implementation requirements; the existing runtime clock is unchanged.
+
+The [bot build plan](../docs/plans/pontius-playable-build-2026-09-13.md)
+records the current integration sequence. The research sequence below is paused
+and does not authorize the next experiment. Preserve all 45 completed milestones.
+
+## Paused river lane — prior sequence updated 2026-09-12
+
+The [39-milestone synthesis](solver-foundations.md#river-representation-and-solver-findings-through-2026-09-12)
 changes the immediate priority. On four actual-pot restricted river games, direct full-hand
 LP produced less error in less measured solve time than the existing compressed learner.
-Two strict certificate misses remain. Extra grouping repair is therefore paused here.
+A fixed value-unit rescaling closed both strict certificate misses on the original
+matrices. Extra grouping repair is therefore paused here.
 
-1. Diagnose those two numerical misses using the retained matrices/vectors and preserve
-   the original threshold; any new solver comparison needs a distinct bounded experiment.
-2. Test a larger river action tree with play after check and raise responses, actual stacks,
-   and a direct full-hand reference where affordable. Measure complete cost and memory.
-3. Revisit tabular, learned, or hybrid compression when the larger problem demonstrates a
+1. Completed: [numerical scaling](../docs/research/river-lp-numerical-scaling-001.md)
+   produces four strict certificates; original misses and threshold remain preserved.
+2. Completed: [tree expansion](../docs/research/river-tree-expansion-001.md) certified
+   seven distinct cells and stopped two expanded deep-stack cells on memory.
+3. Completed: [memory accounting](../docs/research/river-lp-memory-001.md) locates both
+   stops inside the native solve, after conversion and model loading.
+4. Completed: [presolve on/off](../docs/research/river-lp-presolve-001.md) did not recover
+   either expanded game. The [initial CFR comparison](../docs/research/river-cfr-comparison-001.md)
+   and [confirmation](../docs/research/river-cfr-comparison-002.md) favor DCFR+ on
+   two retained baseline rivers; prediction is mixed. The [expanded-tree test](../docs/research/river-cfr-expanded-001.md)
+   now completes both previously memory-limited cases with rational quality checks;
+   The [eager GPU test](../docs/research/river-gpu-execution-001.md) found modest
+   net speed gains with unchanged audited error. The [graph replay test](../docs/research/river-gpu-graph-001.md)
+   now establishes a larger execution gain with identical policy bytes.
+   The [time-budget quality study](../docs/research/river-time-quality-001.md) is complete:
+   added iterations improved audited error within useful accounted budgets.
+   Next proposed: fixed-settings transfer to a fresh board/range configuration.
+5. Revisit tabular, learned, or hybrid compression when the larger problem demonstrates a
    resource bottleneck. Hold game, evaluation, and timing boundaries fixed for that comparison.
 
 This is a proposed sequence, not launch authority. The bot machinery track remains on hold
@@ -148,6 +177,25 @@ mistaking a novel kernel for improved play, or delaying playable experiments
 until every ambitious research idea is solved.
 
 ## Deferred ideas and updates
+
+### Queued CFR follow-ups
+
+DCFR+ confirmation and expanded-tree capacity/quality tests are complete.
+The [GPU-CFR](https://arxiv.org/html/2609.11923v1)-motivated eager execution
+assessment is complete: see [retained result](../docs/research/river-gpu-execution-001.md).
+The [graph replay comparison](../docs/research/river-gpu-graph-001.md) is complete,
+including capture, reset and independent audits. Freeze this execution result.
+The [time-budget campaign](../docs/research/river-time-quality-001.md) is complete.
+Freeze its solver settings and cost definition. Next proposed: fresh-board/range
+transfer; the two present nested trees share one board and do not establish it.
+
+Further down the road: [Deep (Predictive) Discounted CFR](https://arxiv.org/html/2511.08174v1)
+for the tabular/neural/hybrid comparison. See the
+[deferred-paper note](brainstorming.md#deferred-paper-neural-discounted-cfr--added-2026-09-12)
+for mechanism, limits, and the proposed test. This is a future research candidate,
+not evidence of a Pontius improvement or authorization for neural training.
+Revisit once the preceding comparisons identify a capacity or generalization need.
+
 
 Defer large equivariant networks, learned solvers, broad backward-label
 generation, continuous bet-size gradients, and a full exploitation layer until

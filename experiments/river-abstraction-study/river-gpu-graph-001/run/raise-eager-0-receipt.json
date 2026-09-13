@@ -1,0 +1,24 @@
+{
+  "command": [
+    "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\experiments\\river-gpu-graph-001\\launch.py",
+    "run.py",
+    "worker",
+    "raise",
+    "eager",
+    "0"
+  ],
+  "exit": 0,
+  "observed_pid": 39368,
+  "os_peak_commit_bytes": 1317253120,
+  "sampled_peak_private_bytes": 1317240832,
+  "sampled_peak_working_set_bytes": 796864512,
+  "samples": 414,
+  "seconds": 20.883189300016966,
+  "stop_reason": null
+}

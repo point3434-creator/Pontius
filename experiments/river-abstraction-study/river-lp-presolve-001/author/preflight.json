@@ -1,0 +1,348 @@
+{
+  "lp_calls": 4,
+  "monitor_after": {
+    "peak_commit_bytes": 193941504,
+    "pid": 71276,
+    "private_bytes": 193896448
+  },
+  "monitor_before": {
+    "peak_commit_bytes": 59412480,
+    "pid": 71276,
+    "private_bytes": 59412480
+  },
+  "passed": true,
+  "tiny_game_arms": [
+    {
+      "certificate": {
+        "coefficient_roundtrips": 16,
+        "exploitability": 0.0,
+        "gap": "0",
+        "lower": "21/8",
+        "strict_pass": true,
+        "upper": "21/8",
+        "value": "21/8"
+      },
+      "events": [
+        {
+          "call": 0,
+          "event": "enter",
+          "matrix": {
+            "A_eq": {
+              "buffers": {
+                "data": "010785ee56650c12c3e12cd1304eb3a521b99e10abd984efefcd56dc73db9cb1",
+                "indices": "7036fe73d7f80e6ec56a2aa45bcc54460e1cc5f11a0b073065b093c7ddebc8b2",
+                "indptr": "9a2e47c47304230496dd36fa7253ab07d6e29bc333116a4a595dea4d94986e5e"
+              },
+              "format": "csc",
+              "nnz": 14,
+              "shape": [
+                6,
+                16
+              ]
+            },
+            "A_ub": {
+              "buffers": {
+                "data": "ce39a2e2ea325baed4083eae15c2c8f9f265ab3705211c6c6d11282ef03e8ff2",
+                "indices": "61bc15e213ca6d83e7dcc9ba715e11e2aaf52fffc0f3ebf8ed1444acd3742325",
+                "indptr": "9bc224011792cbb9c5b112f392edb29f5294a47e6971bc797f97cd5583f5dab8"
+              },
+              "format": "csc",
+              "nnz": 34,
+              "shape": [
+                10,
+                16
+              ]
+            },
+            "b_eq": {
+              "sha256": "f12c16e6dacfb29c8f5caaf43d77fbc6721cf8818de0670c30a4a1b8e0e9752a",
+              "shape": [
+                6
+              ]
+            },
+            "b_ub": {
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "bounds": "b64a3d4c211d86097d91c282fa3c91dbe2e21c7ea987cd4266d282cd8d92140d",
+            "c": {
+              "sha256": "bc7b5138fc4ec622b3c872c95f7c5f71e371894cc31b29b3d34ae09a08ac1097",
+              "shape": [
+                16
+              ]
+            }
+          },
+          "memory": {
+            "peak_commit_bytes": 193941504,
+            "pid": 71276,
+            "private_bytes": 59412480
+          },
+          "method": "highs-ds",
+          "options": {
+            "dual_feasibility_tolerance": 1e-09,
+            "maxiter": 20000,
+            "presolve": true,
+            "primal_feasibility_tolerance": 1e-09,
+            "time_limit": 10
+          }
+        },
+        {
+          "call": 0,
+          "event": "return",
+          "memory": {
+            "peak_commit_bytes": 193941504,
+            "pid": 71276,
+            "private_bytes": 66293760
+          },
+          "seconds": 0.002525000018067658,
+          "status": 0,
+          "success": true
+        },
+        {
+          "call": 1,
+          "event": "enter",
+          "matrix": {
+            "A_eq": {
+              "buffers": {
+                "data": "47fab7f934fbf5e553f5e2ec4a179a762cfb62aca90579b2078a92c881a6404f",
+                "indices": "387e01390463483027c1cd7df9cf83411a57b1b4a6bac5b053c176e9b7d88120",
+                "indptr": "403728b68c0aa03bf041bfdd43c31c7aef4214d96062cf949d42182ae7268b38"
+              },
+              "format": "csc",
+              "nnz": 14,
+              "shape": [
+                6,
+                16
+              ]
+            },
+            "A_ub": {
+              "buffers": {
+                "data": "5fb7a85044bea6253ed3c5aae52c26e8d080449da42de2db97bf80412763c3e9",
+                "indices": "3220792902e36c0611b66c20e47e5443a38f51cb96a8a96ef1cd183193221468",
+                "indptr": "9bc224011792cbb9c5b112f392edb29f5294a47e6971bc797f97cd5583f5dab8"
+              },
+              "format": "csc",
+              "nnz": 34,
+              "shape": [
+                10,
+                16
+              ]
+            },
+            "b_eq": {
+              "sha256": "f12c16e6dacfb29c8f5caaf43d77fbc6721cf8818de0670c30a4a1b8e0e9752a",
+              "shape": [
+                6
+              ]
+            },
+            "b_ub": {
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "bounds": "b64a3d4c211d86097d91c282fa3c91dbe2e21c7ea987cd4266d282cd8d92140d",
+            "c": {
+              "sha256": "8203c7082c73e0d112bb99a997433de1a3406b874b94b66435bc1599e86da566",
+              "shape": [
+                16
+              ]
+            }
+          },
+          "memory": {
+            "peak_commit_bytes": 193941504,
+            "pid": 71276,
+            "private_bytes": 66293760
+          },
+          "method": "highs-ds",
+          "options": {
+            "dual_feasibility_tolerance": 1e-09,
+            "maxiter": 20000,
+            "presolve": true,
+            "primal_feasibility_tolerance": 1e-09,
+            "time_limit": 10
+          }
+        },
+        {
+          "call": 1,
+          "event": "return",
+          "memory": {
+            "peak_commit_bytes": 193941504,
+            "pid": 71276,
+            "private_bytes": 66351104
+          },
+          "seconds": 0.0015631000278517604,
+          "status": 0,
+          "success": true
+        }
+      ],
+      "presolve": true
+    },
+    {
+      "certificate": {
+        "coefficient_roundtrips": 16,
+        "exploitability": 0.0,
+        "gap": "0",
+        "lower": "21/8",
+        "strict_pass": true,
+        "upper": "21/8",
+        "value": "21/8"
+      },
+      "events": [
+        {
+          "call": 0,
+          "event": "enter",
+          "matrix": {
+            "A_eq": {
+              "buffers": {
+                "data": "010785ee56650c12c3e12cd1304eb3a521b99e10abd984efefcd56dc73db9cb1",
+                "indices": "7036fe73d7f80e6ec56a2aa45bcc54460e1cc5f11a0b073065b093c7ddebc8b2",
+                "indptr": "9a2e47c47304230496dd36fa7253ab07d6e29bc333116a4a595dea4d94986e5e"
+              },
+              "format": "csc",
+              "nnz": 14,
+              "shape": [
+                6,
+                16
+              ]
+            },
+            "A_ub": {
+              "buffers": {
+                "data": "ce39a2e2ea325baed4083eae15c2c8f9f265ab3705211c6c6d11282ef03e8ff2",
+                "indices": "61bc15e213ca6d83e7dcc9ba715e11e2aaf52fffc0f3ebf8ed1444acd3742325",
+                "indptr": "9bc224011792cbb9c5b112f392edb29f5294a47e6971bc797f97cd5583f5dab8"
+              },
+              "format": "csc",
+              "nnz": 34,
+              "shape": [
+                10,
+                16
+              ]
+            },
+            "b_eq": {
+              "sha256": "f12c16e6dacfb29c8f5caaf43d77fbc6721cf8818de0670c30a4a1b8e0e9752a",
+              "shape": [
+                6
+              ]
+            },
+            "b_ub": {
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "bounds": "b64a3d4c211d86097d91c282fa3c91dbe2e21c7ea987cd4266d282cd8d92140d",
+            "c": {
+              "sha256": "bc7b5138fc4ec622b3c872c95f7c5f71e371894cc31b29b3d34ae09a08ac1097",
+              "shape": [
+                16
+              ]
+            }
+          },
+          "memory": {
+            "peak_commit_bytes": 193941504,
+            "pid": 71276,
+            "private_bytes": 66351104
+          },
+          "method": "highs-ds",
+          "options": {
+            "dual_feasibility_tolerance": 1e-09,
+            "maxiter": 20000,
+            "presolve": false,
+            "primal_feasibility_tolerance": 1e-09,
+            "time_limit": 10
+          }
+        },
+        {
+          "call": 0,
+          "event": "return",
+          "memory": {
+            "peak_commit_bytes": 193941504,
+            "pid": 71276,
+            "private_bytes": 66351104
+          },
+          "seconds": 0.0013368999934755266,
+          "status": 0,
+          "success": true
+        },
+        {
+          "call": 1,
+          "event": "enter",
+          "matrix": {
+            "A_eq": {
+              "buffers": {
+                "data": "47fab7f934fbf5e553f5e2ec4a179a762cfb62aca90579b2078a92c881a6404f",
+                "indices": "387e01390463483027c1cd7df9cf83411a57b1b4a6bac5b053c176e9b7d88120",
+                "indptr": "403728b68c0aa03bf041bfdd43c31c7aef4214d96062cf949d42182ae7268b38"
+              },
+              "format": "csc",
+              "nnz": 14,
+              "shape": [
+                6,
+                16
+              ]
+            },
+            "A_ub": {
+              "buffers": {
+                "data": "5fb7a85044bea6253ed3c5aae52c26e8d080449da42de2db97bf80412763c3e9",
+                "indices": "3220792902e36c0611b66c20e47e5443a38f51cb96a8a96ef1cd183193221468",
+                "indptr": "9bc224011792cbb9c5b112f392edb29f5294a47e6971bc797f97cd5583f5dab8"
+              },
+              "format": "csc",
+              "nnz": 34,
+              "shape": [
+                10,
+                16
+              ]
+            },
+            "b_eq": {
+              "sha256": "f12c16e6dacfb29c8f5caaf43d77fbc6721cf8818de0670c30a4a1b8e0e9752a",
+              "shape": [
+                6
+              ]
+            },
+            "b_ub": {
+              "sha256": "5b6fb58e61fa475939767d68a446f97f1bff02c0e5935a3ea8bb51e6515783d8",
+              "shape": [
+                10
+              ]
+            },
+            "bounds": "b64a3d4c211d86097d91c282fa3c91dbe2e21c7ea987cd4266d282cd8d92140d",
+            "c": {
+              "sha256": "8203c7082c73e0d112bb99a997433de1a3406b874b94b66435bc1599e86da566",
+              "shape": [
+                16
+              ]
+            }
+          },
+          "memory": {
+            "peak_commit_bytes": 193941504,
+            "pid": 71276,
+            "private_bytes": 66351104
+          },
+          "method": "highs-ds",
+          "options": {
+            "dual_feasibility_tolerance": 1e-09,
+            "maxiter": 20000,
+            "presolve": false,
+            "primal_feasibility_tolerance": 1e-09,
+            "time_limit": 10
+          }
+        },
+        {
+          "call": 1,
+          "event": "return",
+          "memory": {
+            "peak_commit_bytes": 193941504,
+            "pid": 71276,
+            "private_bytes": 66351104
+          },
+          "seconds": 0.0013371000532060862,
+          "status": 0,
+          "success": true
+        }
+      ],
+      "presolve": false
+    }
+  ]
+}

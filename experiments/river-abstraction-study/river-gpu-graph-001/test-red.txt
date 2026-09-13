@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "D:\Pontius\experiments\river-gpu-graph-001\launch.py", line 15, in <module>
+    runpy.run_path(sys.argv[0],run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\Pontius\experiments\river-gpu-graph-001\test_graph.py", line 8, in <module>
+    from static_solver import StaticSolver
+ModuleNotFoundError: No module named 'static_solver'

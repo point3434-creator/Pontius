@@ -1,0 +1,23 @@
+{
+  "command": [
+    "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "-c",
+    "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-tree-expansion-001'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+    "D:\\Pontius\\tmp\\river-tree-expansion-001\\experiment.py",
+    "verify",
+    "8"
+  ],
+  "exit": 1,
+  "observed_pid": 47144,
+  "os_peak_commit_bytes": 353632256,
+  "sampled_peak_private_bytes": 344199168,
+  "sampled_peak_working_set_bytes": 365735936,
+  "samples": 43,
+  "seconds": 2.1753886999795213,
+  "stop_reason": null
+}

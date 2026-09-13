@@ -1,0 +1,25 @@
+{
+  "cells": [
+    {
+      "configurations_fixed": true,
+      "nodes": 15,
+      "payoff_mib": 44.577064514160156,
+      "plan_sha256": "a1f271c7705107c0b0a2a0111bed93158411f1d2716466b486205f634824c346",
+      "terminals": 9,
+      "tree_identity": true,
+      "variant": "checkback"
+    },
+    {
+      "configurations_fixed": true,
+      "nodes": 27,
+      "payoff_mib": 89.15412902832031,
+      "plan_sha256": "a6c981a83727d52a0aa1e247b48c139b3fcd6c4106908c8aeae01d77a49b7c99",
+      "terminals": 17,
+      "tree_identity": true,
+      "variant": "raise"
+    }
+  ],
+  "clarification": "Legacy comparison prose says last three controls. The actual arms array and design specify four arms: three matched plus dcfr_code. No other arms will execute; all four use gamma=4.",
+  "maximum_audit_workers": 8,
+  "maximum_training_workers": 24
+}

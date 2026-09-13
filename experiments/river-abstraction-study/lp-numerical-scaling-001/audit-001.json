@@ -1,0 +1,9 @@
+{
+  "case": 1,
+  "coefficients": 5842805,
+  "executing_pid": 6016,
+  "literal_checks": 3,
+  "new_lp_calls": 0,
+  "passed": true,
+  "strict_pass": true
+}

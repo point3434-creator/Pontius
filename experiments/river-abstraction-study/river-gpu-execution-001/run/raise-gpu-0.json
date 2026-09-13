@@ -1,0 +1,23 @@
+{
+  "arm": "gpu",
+  "average_transfer_seconds": 0.0010673999786376953,
+  "case": "raise",
+  "executing_pid": 57840,
+  "gpu_setup_seconds": 0.38110279996180907,
+  "load_seconds": 0.038836400024592876,
+  "policy_sha256": "8ce7865ca3c784d033f02d360e62f77845aa1dfdccec0f2b3b4f39195b407c5a",
+  "pool_reserved_bytes": 94914048,
+  "repeat": 0,
+  "reset_seconds": 0.0003943000338040292,
+  "score": {
+    "exploitability": 0.00013207718032237636,
+    "gap": 0.00026415436064475273,
+    "lower": -1.3547508706159337,
+    "upper": -1.354486716255289,
+    "value": -1.3545781300687092
+  },
+  "score_seconds": 0.012454800016712397,
+  "train_seconds": 9.559930199990049,
+  "warmup_seconds": 0.521966100030113,
+  "worker_elapsed_seconds": 10.687952000007499
+}

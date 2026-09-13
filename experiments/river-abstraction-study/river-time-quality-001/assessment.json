@@ -1,0 +1,206 @@
+{
+  "aggregates": [
+    {
+      "case": "checkback",
+      "charged_max": 4.4511638000258245,
+      "charged_median": 4.434610399999656,
+      "charged_min": 4.396047700021882,
+      "error": 1.3479594297004177e-05,
+      "iterations": 2048,
+      "training_median": 0.6507788000162691
+    },
+    {
+      "case": "checkback",
+      "charged_max": 5.105514199938625,
+      "charged_median": 5.056633900036104,
+      "charged_min": 5.028553500014823,
+      "error": 4.7334624699842775e-06,
+      "iterations": 4096,
+      "training_median": 1.3143150000250898
+    },
+    {
+      "case": "checkback",
+      "charged_max": 6.402957699960098,
+      "charged_median": 6.346958999987692,
+      "charged_min": 6.316763199982233,
+      "error": 1.8497420496692742e-06,
+      "iterations": 8192,
+      "training_median": 2.6244092999841087
+    },
+    {
+      "case": "checkback",
+      "charged_max": 8.998353200033307,
+      "charged_median": 8.970129899971653,
+      "charged_min": 8.926352800044697,
+      "error": 7.072662143726957e-07,
+      "iterations": 16384,
+      "training_median": 5.25570829998469
+    },
+    {
+      "case": "raise",
+      "charged_max": 6.795118800015189,
+      "charged_median": 6.741310900019016,
+      "charged_min": 6.740868199965917,
+      "error": 0.00013207718032220707,
+      "iterations": 2048,
+      "training_median": 1.575444400019478
+    },
+    {
+      "case": "raise",
+      "charged_max": 8.39103400008753,
+      "charged_median": 8.349526299978606,
+      "charged_min": 8.302778599958401,
+      "error": 3.686555458496626e-05,
+      "iterations": 4096,
+      "training_median": 3.1385058000450954
+    },
+    {
+      "case": "raise",
+      "charged_max": 11.460193999984767,
+      "charged_median": 11.456607899919618,
+      "charged_min": 11.446558500058018,
+      "error": 1.3788246629102946e-05,
+      "iterations": 8192,
+      "training_median": 6.267406599945389
+    },
+    {
+      "case": "raise",
+      "charged_max": 17.673067399999127,
+      "charged_median": 17.65467170008924,
+      "charged_min": 17.556216800003313,
+      "error": 5.82085574155966e-06,
+      "iterations": 16384,
+      "training_median": 12.561304899922106
+    }
+  ],
+  "audits": 24,
+  "budgets": [
+    {
+      "budget": 3,
+      "case": "checkback",
+      "coverage": 0,
+      "improvement_factors": [
+        null,
+        null,
+        null
+      ],
+      "selected_iterations": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "budget": 5,
+      "case": "checkback",
+      "coverage": 3,
+      "improvement_factors": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "selected_iterations": [
+        2048,
+        2048,
+        2048
+      ]
+    },
+    {
+      "budget": 10,
+      "case": "checkback",
+      "coverage": 3,
+      "improvement_factors": [
+        19.05872784968217,
+        19.05872784968217,
+        19.05872784968217
+      ],
+      "selected_iterations": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "budget": 15,
+      "case": "checkback",
+      "coverage": 3,
+      "improvement_factors": [
+        19.05872784968217,
+        19.05872784968217,
+        19.05872784968217
+      ],
+      "selected_iterations": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "budget": 3,
+      "case": "raise",
+      "coverage": 0,
+      "improvement_factors": [
+        null,
+        null,
+        null
+      ],
+      "selected_iterations": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "budget": 5,
+      "case": "raise",
+      "coverage": 0,
+      "improvement_factors": [
+        null,
+        null,
+        null
+      ],
+      "selected_iterations": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "budget": 10,
+      "case": "raise",
+      "coverage": 3,
+      "improvement_factors": [
+        3.5826717327092106,
+        3.5826717327092106,
+        3.5826717327092106
+      ],
+      "selected_iterations": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    {
+      "budget": 15,
+      "case": "raise",
+      "coverage": 3,
+      "improvement_factors": [
+        9.578968513910308,
+        9.578968513910308,
+        9.578968513910308
+      ],
+      "selected_iterations": [
+        8192,
+        8192,
+        8192
+      ]
+    }
+  ],
+  "checkpoint_repeat_identity": true,
+  "complete": true,
+  "peak_private_mib": 1255.83984375,
+  "regressions": 0,
+  "strict_passes": 0,
+  "summed_child_wall_seconds": 138.4207736000535,
+  "trajectories": 6
+}

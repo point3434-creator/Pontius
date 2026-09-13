@@ -1,0 +1,66 @@
+{
+  "arm": {
+    "alpha": 1.5,
+    "denominator": 1.5,
+    "gamma": 4,
+    "name": "dcfr_code",
+    "predict": false
+  },
+  "checkpoints": [
+    {
+      "exploitability": 0.0003460484907459871,
+      "gap": 0.0006920969814919742,
+      "iterations": 16,
+      "lower": 0.9213172353044726,
+      "score_seconds": 0.0012585000367835164,
+      "training_seconds": 0.013325300009455532,
+      "upper": 0.9220093322859646,
+      "value": 0.9215140352887377
+    },
+    {
+      "exploitability": 7.686355246333543e-05,
+      "gap": 0.00015372710492667085,
+      "iterations": 64,
+      "lower": 0.9218213624796111,
+      "score_seconds": 0.0011510999756865203,
+      "training_seconds": 0.05311540002003312,
+      "upper": 0.9219750895845378,
+      "value": 0.9218699265656896
+    },
+    {
+      "exploitability": 1.5612636192763318e-06,
+      "gap": 3.1225272385526637e-06,
+      "iterations": 256,
+      "lower": 0.9219253524507309,
+      "score_seconds": 0.0018366000149399042,
+      "training_seconds": 0.201908299990464,
+      "upper": 0.9219284749779695,
+      "value": 0.921925777740985
+    },
+    {
+      "exploitability": 8.005183771420121e-08,
+      "gap": 1.6010367542840243e-07,
+      "iterations": 1024,
+      "lower": 0.9219276212953162,
+      "score_seconds": 0.0013404000201262534,
+      "training_seconds": 0.8527226999867707,
+      "upper": 0.9219277813989917,
+      "value": 0.921927743279683
+    },
+    {
+      "exploitability": 4.5111580693202313e-08,
+      "gap": 9.022316138640463e-08,
+      "iterations": 2048,
+      "lower": 0.9219276646465964,
+      "score_seconds": 0.0010290000354871154,
+      "training_seconds": 1.670023399987258,
+      "upper": 0.9219277548697578,
+      "value": 0.9219277468247176
+    }
+  ],
+  "executing_pid": 61272,
+  "numeric_bytes": 28175184,
+  "policy_sha256": "54a04c2c5726882498bfdab8a8da7c2cf5eeb7dd38e356292a4250cf9258e86b",
+  "repeat": 2,
+  "setup_seconds": 0.021758400020189583
+}

@@ -1,0 +1,23 @@
+{
+  "command": [
+    "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "-c",
+    "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-lp-memory-001'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+    "D:\\Pontius\\tmp\\river-lp-memory-001\\probe.py",
+    "worker",
+    "2"
+  ],
+  "exit": 0,
+  "observed_pid": 63448,
+  "os_peak_commit_bytes": 2185621504,
+  "sampled_peak_private_bytes": 2102837248,
+  "sampled_peak_working_set_bytes": 1084276736,
+  "samples": 154,
+  "seconds": 7.772017800016329,
+  "stop_reason": null
+}

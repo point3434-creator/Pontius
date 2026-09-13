@@ -1,0 +1,16 @@
+{
+  "acceptance": "Unchanged final quality rule and independent rational certificate. No adoption or claim of trajectory identity. Timing is exploratory.",
+  "evidence": "From identical CPU input states, 32 individual GPU updates agree within the original absolute tolerance. Free trajectories amplify reduction rounding through regret normalization. Preserve both observations.",
+  "interpretation": "Original free-running raise parity FAILED. Exploratory continuation authorized by the experiment request; not an original-plan pass. No tolerance changed.",
+  "matched_state_max_abs": {
+    "accumulator": 0.0,
+    "policy": 9.581224702515101e-14,
+    "regret": 2.1510571102112408e-16
+  },
+  "original_plan": "f98da640f302a1afe7f8ee60a85eaa99e8e4328050c0b5ef3b0e9f6b941384c8",
+  "pins": {
+    "D:\\Pontius\\experiments\\river-gpu-execution-001\\continue.py": "afb5f6fb0a0a48bd956a106e3021a12bf924d57242ac816a072dd01a1e37c0bc",
+    "D:\\Pontius\\experiments\\river-gpu-execution-001\\diagnose.py": "d756a349869be0a17d84351ffcc81468d86d39ad56a396e22f73f74857303ded",
+    "D:\\Pontius\\experiments\\river-gpu-execution-001\\diagnostic.json": "cba275cb109bc81c530cc6790edff0454df97ad3fcbc3e3e87b36b0f08a34adb"
+  }
+}

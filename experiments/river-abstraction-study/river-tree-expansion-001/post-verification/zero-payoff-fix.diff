@@ -1,0 +1,11 @@
+--- frozen/tree.py
++++ verification/tree.py
+@@ -237,7 +237,7 @@
+ def certificate(nodes,sizes,arrays,probs):
+     n=next(iter(arrays.values())).shape[0]
+     realization=realization_integers(nodes,sizes,probs,n)
+-    power=max(0,53-min(int(np.frexp(np.abs(a[a!=0]))[1].min()) for a in arrays.values() if np.any(a)))
++    power=max(0,53-min((int(np.frexp(np.abs(a[a!=0]))[1].min()) for a in arrays.values() if np.any(a)), default=53))
+     denominator=1<<power
+     cast=np.frompyfunc(int,1,1)
+     ints={k:cast(a*float(denominator)) for k,a in arrays.items()}

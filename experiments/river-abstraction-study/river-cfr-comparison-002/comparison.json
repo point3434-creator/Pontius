@@ -1,0 +1,8 @@
+{
+  "best_arm": "dcfr_code",
+  "fixed_config": true,
+  "headline": "Paper DCFR+ has 6.56x less error than matched CFR+. Matched prediction/DCFR+ error ratio is 0.891. Lowest-error arm: dcfr_code.",
+  "prior_assessment_sha256": "cf9f3f76c02ccf3823f9e7e29e458507ae5be412d2ed3792caacc587161c8efe",
+  "strict_passing_arms": [],
+  "unchanged_solver": true
+}

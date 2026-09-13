@@ -9,12 +9,16 @@ now distinguishes tested ideas from this earlier external agenda. Ordinary learn
 action preferences transferred within the tested game family; soft interpolation and
 more elaborate ordinal targets did not earn replacement. Guarded local repair helped,
 but actual stacks often erased the size distinction, and direct full-hand solving gave
-the better measured operating point on four restricted games. Two strict numerical
-misses prevent calling all four certified. These experiments are not reproductions of
+the better measured operating point on four restricted games. The subsequent
+[fixed scaling diagnostic](../docs/research/river-lp-numerical-scaling-001.md) closed
+two numerical misses and supplied four strict original-matrix certificates. These experiments are not reproductions of
 the cited papers and do not settle neural versus tabular six-max blueprinting.
 
-Pause additional repair variants in this family; keep those baselines for a larger-tree
-comparison. The [roadmap](research-roadmap.md) records the current proposed sequence.
+The [larger-tree comparison](../docs/research/river-tree-expansion-001.md) now has
+seven verified cells and two deep-stack memory stops. The [memory diagnostic](../docs/research/river-lp-memory-001.md)
+locates their dominant increase inside native solving. [Disabling presolve](../docs/research/river-lp-presolve-001.md)
+did not recover capacity. Next compare full-hand iterative payoff products with
+the LP reference before treating private-hand compression as necessary. Keep repair variants frozen. The [roadmap](research-roadmap.md) records the current proposed sequence.
 The source ideas and corrections below retain their historical scope.
 
 **The useful direction is a compact baseline policy plus selective search,
@@ -109,6 +113,31 @@ material for semantics and data lifetime, without establishing our proposed
 river compiler's speed or recommending a dependency migration.
 [Official documentation](https://b-inary.github.io/postflop_solver/postflop_solver/)
 and [bunching API](https://b-inary.github.io/postflop_solver/postflop_solver/struct.PostFlopGame.html#method.set_bunching_effect).
+
+## Deferred paper: neural discounted CFR — added 2026-09-12
+
+[Deep (Predictive) Discounted Counterfactual Regret Minimization, v1](https://arxiv.org/html/2511.08174v1)
+(Hang Xu et al., 2025). Status: user-requested future direction; not implemented or tested here.
+The paper proposes VR-DeepDCFR+ and VR-DeepPDCFR+: neural cumulative-advantage
+approximation with bootstrapping, discounting/clipping, and learned value baselines
+for variance reduction. Its setting is model-free, two-player zero-sum games.
+The paper lists [code](https://github.com/rpSebastian/DeepPDCFR); compatibility and
+implementation correctness have not been reviewed for Pontius.
+
+Why retain it: a concrete candidate for the later tabular-versus-neural-versus-hybrid
+research question. Our first tabular comparison favored DCFR+ on one river;
+that motivates testing the non-predictive neural arm too, rather than assuming the
+predictive extension will win. It does not establish transfer to neural training.
+
+Revisit after the current DCFR+ confirmation, expanded-tree capacity test, and the
+queued GPU-CFR assessment, when a measured problem justifies function approximation.
+Proposed first test: a small game with an independent tabular reference; compare
+sampled tabular and neural discounted arms with matched data budgets, then compare
+complete time and memory. Ablate prediction and the variance-reduction baseline.
+Measure exploitability, bootstrap-error accumulation, rare-action errors, multiple
+training seeds, and inference latency. Retain failed runs and immutable checkpoints.
+Do not infer six-max convergence or strength from two-player results, or compare
+model-free sampling cost with full-tree iterations as though they were equal work.
 
 ## Maintenance
 

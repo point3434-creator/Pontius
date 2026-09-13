@@ -1,0 +1,23 @@
+{
+  "command": [
+    "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "-c",
+    "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-lp-presolve-001'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+    "D:\\Pontius\\tmp\\river-lp-presolve-001\\experiment.py",
+    "worker",
+    "4"
+  ],
+  "exit": 1,
+  "observed_pid": 76264,
+  "os_peak_commit_bytes": 6539173888,
+  "sampled_peak_private_bytes": 6539128832,
+  "sampled_peak_working_set_bytes": 2932473856,
+  "samples": 139,
+  "seconds": 7.123619999969378,
+  "stop_reason": "sampled_private_memory_limit"
+}

@@ -1,0 +1,6 @@
+{
+  "old_sha256": "d6ea38083d11605db36562b2c7da10a45b23066144a5739862b7f5d2b7873d47",
+  "new_sha256": "40dfa089ef03c3b6f3e369a78709888126c75b045f1a2531a7dd0be9091eb88b",
+  "effect": "default exponent only when every payoff coefficient is zero; no changed full-case score",
+  "new_solver_calls": 0
+}

@@ -1,0 +1,17 @@
+{
+  "baseline_interval_overlap": null,
+  "engine": {
+    "all_terminal_paths": true,
+    "checks": 15,
+    "win_tie_loss": true
+  },
+  "executing_pid": 60840,
+  "label": "003-checkback",
+  "literal_subgames": [
+    "0",
+    "11671444489178208903/302231454903657293676544",
+    "0"
+  ],
+  "new_lp_calls": 0,
+  "passed": true
+}

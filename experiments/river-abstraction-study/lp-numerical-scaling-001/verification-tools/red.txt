@@ -1,0 +1,14 @@
+F
+======================================================================
+FAIL: test_tiny_real_constraint_is_not_discarded (__main__.Scaling.test_tiny_real_constraint_is_not_discarded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Pontius\tmp\river-lp-numerical-001\test_scaling.py", line 21, in test_tiny_real_constraint_is_not_discarded
+    self.assertEqual(result.x[0], 0., 'positive coefficient implies x <= 0')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: np.float64(1.0) != 0.0 : positive coefficient implies x <= 0
+
+----------------------------------------------------------------------
+Ran 1 test in 0.008s
+
+FAILED (failures=1)

@@ -1,0 +1,63 @@
+{
+  "case": "raise",
+  "checkpoints": [
+    {
+      "iterations": 2048,
+      "policy_sha256": "8ce7865ca3c784d033f02d360e62f77845aa1dfdccec0f2b3b4f39195b407c5a",
+      "prefix_seconds": 2.5019212999613956,
+      "score": {
+        "exploitability": 0.00013207718032237636,
+        "gap": 0.00026415436064475273,
+        "lower": -1.3547508706159337,
+        "upper": -1.354486716255289,
+        "value": -1.3545781300687092
+      },
+      "training_seconds": 1.564862999948673
+    },
+    {
+      "iterations": 4096,
+      "policy_sha256": "8393cbb48d42d91429b06174a14d795c55983b4c81471fda95b3fe1e57bec0f4",
+      "prefix_seconds": 4.077458799991291,
+      "score": {
+        "exploitability": 3.686555458481955e-05,
+        "gap": 7.37311091696391e-05,
+        "lower": -1.3546269067597339,
+        "upper": -1.3545531756505642,
+        "value": -1.354577038275209
+      },
+      "training_seconds": 3.125946199928876
+    },
+    {
+      "iterations": 8192,
+      "policy_sha256": "7bc14eeb46c32e2b62e33e8937b388cb564ba8a3eb25602c0a09f46e7a5ca426",
+      "prefix_seconds": 7.263381899974775,
+      "score": {
+        "exploitability": 1.3788246629231615e-05,
+        "gap": 2.757649325846323e-05,
+        "lower": -1.3545983020772623,
+        "upper": -1.3545707255840038,
+        "value": -1.3545789593993645
+      },
+      "training_seconds": 6.267406599945389
+    },
+    {
+      "iterations": 16384,
+      "policy_sha256": "d412aa24069d6adc8a22a07af5dfd463e589118487ea248c341bd9bf9cde81d5",
+      "prefix_seconds": 13.571602499985602,
+      "score": {
+        "exploitability": 5.8208557419670015e-06,
+        "gap": 1.1641711483934003e-05,
+        "lower": -1.3545859102776878,
+        "upper": -1.3545742685662039,
+        "value": -1.3545786333044885
+      },
+      "training_seconds": 12.561304899922106
+    }
+  ],
+  "elapsed_to_close_seconds": 13.572385099949315,
+  "executing_pid": 58972,
+  "mode": "run",
+  "pool_reserved_bytes": 95918080,
+  "repeat": 1,
+  "setup_seconds": 0.892840199987404
+}

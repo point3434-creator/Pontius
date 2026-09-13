@@ -1,0 +1,41 @@
+Traceback (most recent call last):
+  File "D:\Pontius\experiments\river-gpu-execution-001\launch.py", line 14, in <module>
+    runpy.run_path(sys.argv[0], run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\Pontius\experiments\river-gpu-execution-001\experiment.py", line 255, in <module>
+    globals()[mode](*args)
+    ~~~~~~~~~~~~~~~^^^^^^^
+  File "D:\Pontius\experiments\river-gpu-execution-001\experiment.py", line 98, in parity
+    np.testing.assert_allclose(actual, expected,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+        atol=plan['parity_atol'], rtol=plan['parity_rtol'])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Pontius/.venv/Lib/site-packages\numpy\testing\_private\utils.py", line 1780, in assert_allclose
+    assert_array_compare(compare, actual, desired, err_msg=str(err_msg),
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         verbose=verbose, header=header, equal_nan=equal_nan,
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                         strict=strict)
+                         ^^^^^^^^^^^^^^
+  File "D:\Pontius/.venv/Lib/site-packages\numpy\testing\_private\utils.py", line 988, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Not equal to tolerance rtol=1e-08, atol=1e-10
+
+Mismatched elements: 4 / 2162 (0.185%)
+Mismatch at indices:
+ [329, 1]: 0.002608896928488284 (ACTUAL), 0.0026088967430396106 (DESIRED)
+ [367, 1]: 0.004294328635055475 (ACTUAL), 0.004294328449171634 (DESIRED)
+ [404, 1]: 0.004294328635055465 (ACTUAL), 0.004294328449171632 (DESIRED)
+ [616, 1]: 0.0012005921692408927 (ACTUAL), 0.0012005919638795083 (DESIRED)
+Max absolute difference among violations: 2.05361384e-10
+Max relative difference among violations: 1.71050107e-07
+ ACTUAL: array([[0.43399 , 0.56601 ],
+       [0.43399 , 0.56601 ],
+       [0.      , 1.      ],...
+ DESIRED: array([[0.43399 , 0.56601 ],
+       [0.43399 , 0.56601 ],
+       [0.      , 1.      ],...

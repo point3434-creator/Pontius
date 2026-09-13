@@ -1,0 +1,52 @@
+{
+  "case": 3,
+  "new_lp_calls": 0,
+  "calls": [
+    {
+      "options": {
+        "dual_feasibility_tolerance": 1e-09,
+        "maxiter": 20000,
+        "primal_feasibility_tolerance": 1e-09,
+        "time_limit": 10
+      },
+      "objective": 0.9662435719734767,
+      "max_inequality_violation": 3.1520989319839053e-10,
+      "sum_inequality_violation": 2.1378238367634624e-08,
+      "violated_constraints": 329,
+      "max_equality_violation": 0.0,
+      "max_policy_bound_violation": 0.0,
+      "policy_variables": 2162,
+      "constraints": 2162,
+      "max_abs_policy_coefficient": 0.00017714604671945026,
+      "coefficients_at_or_below_solver_cutoff": 217512,
+      "smallest_nonzero_coefficient": 5.4595177578322526e-12,
+      "max_inequality_violation_after_cutoff": 1.1362438767648086e-16
+    },
+    {
+      "options": {
+        "dual_feasibility_tolerance": 1e-09,
+        "maxiter": 20000,
+        "primal_feasibility_tolerance": 1e-09,
+        "time_limit": 10
+      },
+      "objective": -0.9662456036493646,
+      "max_inequality_violation": 3.523563621150687e-07,
+      "sum_inequality_violation": 2.2737965458815146e-06,
+      "violated_constraints": 95,
+      "max_equality_violation": 0,
+      "max_policy_bound_violation": 0.0,
+      "policy_variables": 1081,
+      "constraints": 2162,
+      "max_abs_policy_coefficient": 0.00031521575960372767,
+      "coefficients_at_or_below_solver_cutoff": 118839,
+      "smallest_nonzero_coefficient": 1.5451465352355436e-12,
+      "max_inequality_violation_after_cutoff": 3.642919299551295e-17
+    }
+  ],
+  "strict_failure": "4.329862577715926e-08",
+  "exact_gap": "471857428829279246535077033355145243612481065339/10897746068379653498935148778067152481956176101273239552",
+  "gap_float": 4.329862577715926e-08,
+  "raw_objective_gap": -2.0316758879701524e-06,
+  "lower_epigraph_overclaim": -1.4915422985595228e-07,
+  "upper_epigraph_underclaim": 2.224128743621989e-06
+}

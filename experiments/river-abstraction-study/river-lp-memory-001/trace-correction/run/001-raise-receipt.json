@@ -1,0 +1,23 @@
+{
+  "command": [
+    "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "-c",
+    "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-lp-memory-001\\\\trace-correction'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+    "D:\\Pontius\\tmp\\river-lp-memory-001\\trace-correction\\probe.py",
+    "worker",
+    "4"
+  ],
+  "exit": 1,
+  "observed_pid": 56892,
+  "os_peak_commit_bytes": 6540443648,
+  "sampled_peak_private_bytes": 6540435456,
+  "sampled_peak_working_set_bytes": 2979262464,
+  "samples": 153,
+  "seconds": 7.860452499997336,
+  "stop_reason": "sampled_private_memory_limit"
+}

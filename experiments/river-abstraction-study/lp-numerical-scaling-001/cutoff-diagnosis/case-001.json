@@ -1,0 +1,52 @@
+{
+  "case": 1,
+  "new_lp_calls": 0,
+  "calls": [
+    {
+      "options": {
+        "dual_feasibility_tolerance": 1e-09,
+        "maxiter": 20000,
+        "primal_feasibility_tolerance": 1e-09,
+        "time_limit": 10
+      },
+      "objective": 0.5185946314493576,
+      "max_inequality_violation": 5.609027056023632e-09,
+      "sum_inequality_violation": 9.529641488641797e-07,
+      "violated_constraints": 665,
+      "max_equality_violation": 7.016609515630989e-14,
+      "max_policy_bound_violation": 7.016609515630989e-14,
+      "policy_variables": 3243,
+      "constraints": 4324,
+      "max_abs_policy_coefficient": 0.0008292549369339959,
+      "coefficients_at_or_below_solver_cutoff": 514102,
+      "smallest_nonzero_coefficient": 1.87585673199156e-13,
+      "max_inequality_violation_after_cutoff": 1.214306433183765e-17
+    },
+    {
+      "options": {
+        "dual_feasibility_tolerance": 1e-09,
+        "maxiter": 20000,
+        "primal_feasibility_tolerance": 1e-09,
+        "time_limit": 10
+      },
+      "objective": -0.5185926619106148,
+      "max_inequality_violation": 6.027855908657346e-08,
+      "sum_inequality_violation": 1.955022639583817e-07,
+      "violated_constraints": 183,
+      "max_equality_violation": 0,
+      "max_policy_bound_violation": 0.0,
+      "policy_variables": 2162,
+      "constraints": 3243,
+      "max_abs_policy_coefficient": 0.0010114169115498818,
+      "coefficients_at_or_below_solver_cutoff": 237752,
+      "smallest_nonzero_coefficient": 5.252398849576367e-12,
+      "max_inequality_violation_after_cutoff": 5.811323644522304e-17
+    }
+  ],
+  "strict_failure": "2.741753769816865e-07",
+  "exact_gap": "141294208104405609129504984385769524515328047163503724620717692447106475649182986307439307820007067508981724316162577484121950429954014358452332210923204622292593389/515342441250088373297601729768528272609592097759824945920376741313113125697255688780890906054878997253074462165726900482080285149311613473111438515805622536162752069632000",
+  "gap_float": 2.741753769816865e-07,
+  "raw_objective_gap": 1.969538742763177e-06,
+  "lower_epigraph_overclaim": -1.4488141421020728e-06,
+  "upper_epigraph_underclaim": -2.46549223703596e-07
+}

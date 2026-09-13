@@ -2,19 +2,19 @@
 
 Generated from execution_journal.jsonl.
 
-Recorded runs: 66. Most recent 12 below.
+Recorded runs: 80. Most recent 12 below.
 
 | Recorded (UTC) | Command | Outcome | Seconds | Finding |
 |---|---|---|---:|---|
-| 2026-09-12T22:10:47.090938+00:00 | pytest -q -p no:cacheprovider -k river_abstraction or river_group_optimality or river_witness or test_river or test_holdem_cards | passed | 35.110 | 115 unittest cases exercised; 0 skipped; pytest exit 0 |
-| 2026-09-10T23:04:53.468482+00:00 | pytest -q -p no:cacheprovider -k blueprint or decision_provider or v0a or eval_bridge or eval_agreement or eval_protocol | passed | 30.734 | 349 unittest cases exercised; 0 skipped; pytest exit 0 |
-| 2026-09-10T21:45:16.690390+00:00 | pytest -q -p no:cacheprovider -k retained_eval_run or eval_completion_tool or eval_protocol | passed | 59.210 | 44 unittest cases exercised; 0 skipped; pytest exit 0 |
-| 2026-09-10T21:16:27.196063+00:00 | pytest -q -p no:cacheprovider | passed | 256.838 | 665 unittest cases exercised; 10 skipped; pytest exit 0 |
-| 2026-09-10T21:10:38.154823+00:00 | pytest -q -p no:cacheprovider | failed | 255.157 | 634 unittest cases exercised; 0 skipped; pytest exit 1 |
-| 2026-09-10T20:41:54.444369+00:00 | pytest -q -p no:cacheprovider -k eval_panel_tool or eval_completion_tool | passed | 118.174 | 38 unittest cases exercised; 0 skipped; pytest exit 0 |
-| 2026-09-10T20:39:30.491131+00:00 | pytest -q -p no:cacheprovider -k eval_panel_tool or eval_completion_tool | failed | 34.887 | 38 unittest cases exercised; 0 skipped; pytest exit 1 |
-| 2026-09-08T18:08:38.690579+00:00 | work-folder archive creation and recovery verification | passed | 4.239 | 7,402 files recoverable: 7,309 archived and 93 exact Git duplicates; eight work folders and two handoff files removed; 228 maintained local links resolve; no production changes or experiments |
-| 2026-09-08T17:55:56.378222+00:00 | pytest -q -p no:cacheprovider | passed | 86.173 | 552 unittest cases exercised; 10 skipped; pytest exit 0 |
-| 2026-09-08T17:53:46.626180+00:00 | pytest -q -p no:cacheprovider | passed | 75.617 | 552 unittest cases exercised; 11 skipped; pytest exit 0 |
-| 2026-09-08T17:51:34.300521+00:00 | pytest -p no:cacheprovider -q -k test_legal_river_quotient_shared_direct_artifact_capacity | passed | 0.659 | 10 unittest cases exercised; 0 skipped; pytest exit 0 |
-| 2026-09-08T17:50:13.008845+00:00 | pytest -q -p no:cacheprovider -k blueprint_workload_session | passed | 5.984 | 15 unittest cases exercised; 0 skipped; pytest exit 0 |
+| 2026-09-13T06:11:42.783946+00:00 | pytest -q -p no:cacheprovider | failed | 204.528 | 725 unittest cases exercised; 40 skipped; pytest exit 1 |
+| 2026-09-13T06:11:10.901943+00:00 | pytest -q -p no:cacheprovider | passed | 425.468 | 734 unittest cases exercised; 0 skipped; pytest exit 0 |
+| 2026-09-13T06:01:01.932278+00:00 | pytest -q -p no:cacheprovider | failed | 191.640 | 725 unittest cases exercised; 40 skipped; pytest exit 1 |
+| 2026-09-13T04:22:03.396513+00:00 | river-time-quality-001 authorized frozen campaign | complete_approximate_quality_gain | — | Six trajectories and 24 exact audits; cost-qualified quality gains with budget misses retained |
+| 2026-09-13T04:07:50.551009+00:00 | river-time-quality-001 build and anchor validation | ready_not_campaign_executed | — | Six selector tests; two retained-policy matches; two independent audits |
+| 2026-09-13T03:55:11.791705+00:00 | river-gpu-graph-001 frozen three-arm execution and reset comparison | complete_policy_identical | — | 36 solves, six exact audits; see graph report |
+| 2026-09-13T03:39:55.647226+00:00 | river-gpu-execution-001 original gate refusal plus frozen exploratory continuation | complete_exploratory_not_original_plan_pass | — | 12 timing runs; 4 exact audits; unchanged quality; modest GPU speed gain; see report |
+| 2026-09-13T03:23:29.782957+00:00 | river-cfr-expanded-001 frozen two-tree four-arm CPU comparison | complete_approximate_solutions | — | 24 training workers and eight independent audits completed on both formerly LP-memory-limited trees; see report for residuals |
+| 2026-09-13T03:04:45.400007+00:00 | river-cfr-comparison-002 fixed-parameter second-position confirmation | complete_approximate_solutions | — | 18 workers and six rational audits; DCFR+ leads again; prediction mixed; no strict LP gap pass |
+| 2026-09-13T02:55:04.267359+00:00 | river-cfr-comparison-001 frozen six-arm alternating CPU comparison | complete_approximate_solutions | — | 18 workers; six independent rational audits; DCFR+ led one retained board; no arm meets strict LP gap threshold |
+| 2026-09-13T01:31:46.797791+00:00 | river-lp-presolve-001 frozen six-worker on/off comparison | capacity_non_improvement | 39.636 | Both expanded trees stopped on memory with presolve on and off; two baseline arms certified |
+| 2026-09-13T00:33:38.246552+00:00 | river-lp-memory-001 frozen three-cell diagnostic and trace-only correction | diagnostic_complete_capacity_unchanged | 43.701 | Both deep-stack stops inside native HiGHS run; exact control preserved; original trace-filter miss retained |

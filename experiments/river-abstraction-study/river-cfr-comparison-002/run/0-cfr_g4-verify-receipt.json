@@ -1,0 +1,22 @@
+{
+  "command": [
+    "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+    "-I",
+    "-S",
+    "-B",
+    "-W",
+    "error::ResourceWarning",
+    "D:\\Pontius\\experiments\\river-cfr-comparison-002\\launch.py",
+    "experiment.py",
+    "verify",
+    "0"
+  ],
+  "exit": 0,
+  "observed_pid": 15488,
+  "os_peak_commit_bytes": 289742848,
+  "sampled_peak_private_bytes": 280322048,
+  "sampled_peak_working_set_bytes": 303013888,
+  "samples": 35,
+  "seconds": 1.7869434999884106,
+  "stop_reason": null
+}

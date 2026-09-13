@@ -1,0 +1,9 @@
+{
+  "calls": 4352,
+  "executing_pid": 32524,
+  "instrumented_total_seconds": 0.9072468000231311,
+  "iterations": 128,
+  "matrix_product_seconds": 0.7850633988855407,
+  "matrix_share": 0.8653250679589333,
+  "warning": "Diagnostic attribution only; instrumented time excluded from comparison"
+}

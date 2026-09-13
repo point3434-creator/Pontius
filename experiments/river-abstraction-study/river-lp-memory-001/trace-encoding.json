@@ -1,0 +1,32 @@
+{
+  "run/001-baseline-trace.jsonl.gz": {
+    "codec": "gzip",
+    "uncompressed_bytes": 61961,
+    "uncompressed_sha256": "2de80ebbfc5b06e2f8ea1935008bb3b7299b44b628c4c5e6ed04f0f383d061b6"
+  },
+  "run/001-checkback-trace.jsonl.gz": {
+    "codec": "gzip",
+    "uncompressed_bytes": 21615,
+    "uncompressed_sha256": "d1bd20278be35b931f1b724f4d3a587199c30f20978cab118dd9f454d963bdd5"
+  },
+  "run/001-raise-trace.jsonl.gz": {
+    "codec": "gzip",
+    "uncompressed_bytes": 21771,
+    "uncompressed_sha256": "0c8b039b7ece4fe580c780ddc4f937d26d8f00a76b96edc8235eb8cff7802b8b"
+  },
+  "trace-correction/run/001-baseline-trace.jsonl.gz": {
+    "codec": "gzip",
+    "uncompressed_bytes": 53164074,
+    "uncompressed_sha256": "fcab75eaca32171349354ef16f98bd7635e03ac501ad3adfd07adecc2d5112d4"
+  },
+  "trace-correction/run/001-checkback-trace.jsonl.gz": {
+    "codec": "gzip",
+    "uncompressed_bytes": 273272,
+    "uncompressed_sha256": "5fb048c01f2d53f25b82af2799ea2c0490b318af1b3ecbe116dcb5e3b814f822"
+  },
+  "trace-correction/run/001-raise-trace.jsonl.gz": {
+    "codec": "gzip",
+    "uncompressed_bytes": 275425,
+    "uncompressed_sha256": "0d8b8bbcef97e9a63910adbbaadd605e6cdab48d7a89854db4c787587694b48f"
+  }
+}

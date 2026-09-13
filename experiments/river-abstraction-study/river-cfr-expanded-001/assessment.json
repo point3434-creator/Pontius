@@ -1,0 +1,135 @@
+{
+  "all_repeats_policy_identical": true,
+  "audit_workers": 8,
+  "complete": true,
+  "decision": "Capacity demonstrated for approximate solutions on both fixed trees; GPU-CFR execution assessment may follow, with full-cost and quality checks",
+  "equilibrium_interval_intersections": {
+    "checkback": {
+      "lower": "-66128706292032167560515355528510658185463233492149793549/49039857307708443467467104868809893875799651909875269632",
+      "upper": "-7517813198463769729541832420268249996945199/5575186299632655785383929568162090376495104",
+      "width": 2.695918859430621e-05
+    },
+    "raise": {
+      "lower": "-531494315059994639470878699373466119725294138505905187053/392318858461667547739736838950479151006397215279002157056",
+      "upper": "-132847670580691512355257004631912854064095783675252159417/98079714615416886934934209737619787751599303819750539264",
+      "width": 0.00026415436065181083
+    }
+  },
+  "rows": [
+    {
+      "arm": "cfr_g4",
+      "audit_peak_mib": 403.484375,
+      "audit_seconds": 1.4211562999989837,
+      "audit_wall_seconds": 2.687547299952712,
+      "exploitability": 9.238940611141807e-05,
+      "gap": 0.00018477881222283613,
+      "policy_sha256": "e970c250d238b3861a0d748f9c553365034e6c87ff8150d313e917bc09552a29",
+      "strict_pass": false,
+      "training_seconds": 7.332910600001924,
+      "variant": "checkback",
+      "worker_peak_mib": 147.3828125,
+      "worker_wall_seconds": 7.819915000000037
+    },
+    {
+      "arm": "dcfr_paper",
+      "audit_peak_mib": 404.484375,
+      "audit_seconds": 1.4531234999885783,
+      "audit_wall_seconds": 2.6756755000096746,
+      "exploitability": 1.604292968332976e-05,
+      "gap": 3.208585936665952e-05,
+      "policy_sha256": "231b2574e2692081dbd302d2259b4e7ede3fe5b21925213761e9ef58f5ceed56",
+      "strict_pass": false,
+      "training_seconds": 7.415521499991883,
+      "variant": "checkback",
+      "worker_peak_mib": 147.328125,
+      "worker_wall_seconds": 7.977834999968763
+    },
+    {
+      "arm": "pdcfr_matched",
+      "audit_peak_mib": 403.38671875,
+      "audit_seconds": 1.3927980000153184,
+      "audit_wall_seconds": 2.629632500000298,
+      "exploitability": 0.00011748785366034316,
+      "gap": 0.00023497570732068632,
+      "policy_sha256": "7d910db6d4c6495e642387e6b2701f234c435ba032c2f213bf45d8b1c7cdd4f0",
+      "strict_pass": false,
+      "training_seconds": 7.390695099951699,
+      "variant": "checkback",
+      "worker_peak_mib": 147.30859375,
+      "worker_wall_seconds": 7.919969899987336
+    },
+    {
+      "arm": "dcfr_code",
+      "audit_peak_mib": 403.62890625,
+      "audit_seconds": 1.3879078999743797,
+      "audit_wall_seconds": 2.627103300008457,
+      "exploitability": 1.3479594297153104e-05,
+      "gap": 2.695918859430621e-05,
+      "policy_sha256": "77ea3f576e28fa926d9c3fa9b95d73d78f9a28c642da592b94c6a9e1afb8713a",
+      "strict_pass": false,
+      "training_seconds": 7.270513599913102,
+      "variant": "checkback",
+      "worker_peak_mib": 147.06640625,
+      "worker_wall_seconds": 7.772815000033006
+    },
+    {
+      "arm": "cfr_g4",
+      "audit_peak_mib": 733.6796875,
+      "audit_seconds": 2.8273435999872163,
+      "audit_wall_seconds": 4.191679399984423,
+      "exploitability": 0.00048137618379194764,
+      "gap": 0.0009627523675838953,
+      "policy_sha256": "403700b50488b45952cefb84e763bc99bfce4db0b7a544e16e3513d8bb5be493",
+      "strict_pass": false,
+      "training_seconds": 15.035831800079904,
+      "variant": "raise",
+      "worker_peak_mib": 238.3984375,
+      "worker_wall_seconds": 15.636686499987263
+    },
+    {
+      "arm": "dcfr_paper",
+      "audit_peak_mib": 733.43359375,
+      "audit_seconds": 2.7903616999974474,
+      "audit_wall_seconds": 4.187854000017978,
+      "exploitability": 0.00019065588878747723,
+      "gap": 0.00038131177757495447,
+      "policy_sha256": "77b0758332a1c2493ebfe99a68d8e8652bc3dbe32e3cf94b24e801fc0e723225",
+      "strict_pass": false,
+      "training_seconds": 14.840309999941383,
+      "variant": "raise",
+      "worker_peak_mib": 238.32421875,
+      "worker_wall_seconds": 15.457820400013588
+    },
+    {
+      "arm": "pdcfr_matched",
+      "audit_peak_mib": 733.4609375,
+      "audit_seconds": 2.952698600012809,
+      "audit_wall_seconds": 4.296254499990027,
+      "exploitability": 0.0006482997487183954,
+      "gap": 0.0012965994974367908,
+      "policy_sha256": "2636b31344c4808fd5545c30e8bb8ffb3cfdee8b988f755576bf8506b8853872",
+      "strict_pass": false,
+      "training_seconds": 15.276995799969882,
+      "variant": "raise",
+      "worker_peak_mib": 238.21875,
+      "worker_wall_seconds": 15.90001119999215
+    },
+    {
+      "arm": "dcfr_code",
+      "audit_peak_mib": 733.0390625,
+      "audit_seconds": 2.753994600032456,
+      "audit_wall_seconds": 4.1121675000176765,
+      "exploitability": 0.00013207718032590542,
+      "gap": 0.00026415436065181083,
+      "policy_sha256": "24e77434e0f6187ea147ea99ceae9159202797a406b361c4f9cbb9953babb0bc",
+      "strict_pass": false,
+      "training_seconds": 14.962823999929242,
+      "variant": "raise",
+      "worker_peak_mib": 238.28515625,
+      "worker_wall_seconds": 15.54473570000846
+    }
+  ],
+  "solver_unchanged": true,
+  "strict_passes": 0,
+  "training_workers": 24
+}

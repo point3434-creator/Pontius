@@ -1,0 +1,46 @@
+{
+  "case": 2,
+  "new_lp_calls": 0,
+  "calls": [
+    {
+      "options": {
+        "dual_feasibility_tolerance": 1e-09,
+        "maxiter": 20000,
+        "primal_feasibility_tolerance": 1e-09,
+        "time_limit": 10
+      },
+      "objective": -0.22851460348784886,
+      "max_inequality_violation": 4.383630609189089e-09,
+      "sum_inequality_violation": 9.893576150508684e-08,
+      "violated_constraints": 713,
+      "max_equality_violation": 0.0,
+      "max_policy_bound_violation": 0.0,
+      "policy_variables": 2162,
+      "constraints": 2162,
+      "max_abs_policy_coefficient": 8.285970886589719e-05
+    },
+    {
+      "options": {
+        "dual_feasibility_tolerance": 1e-09,
+        "maxiter": 20000,
+        "primal_feasibility_tolerance": 1e-09,
+        "time_limit": 10
+      },
+      "objective": 0.22850954069385848,
+      "max_inequality_violation": 6.92216806760966e-08,
+      "sum_inequality_violation": 5.490384139900421e-06,
+      "violated_constraints": 272,
+      "max_equality_violation": 0,
+      "max_policy_bound_violation": 0.0,
+      "policy_variables": 1081,
+      "constraints": 2162,
+      "max_abs_policy_coefficient": 0.00014972894759977912
+    }
+  ],
+  "strict_failure": null,
+  "exact_gap": "98373802170451915993975271621395366517212367143741803398339241570818081462264087833566835159804076341076738731871/11017599479837476878548450066219959386639327277819033718249747783884549930586278039909406697639469680314062158390362112000",
+  "gap_float": 8.92878728714715e-09,
+  "raw_objective_gap": -5.062793990373571e-06,
+  "lower_epigraph_overclaim": -3.972475069446979e-07,
+  "upper_epigraph_underclaim": 5.46897028461113e-06
+}

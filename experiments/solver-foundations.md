@@ -24,15 +24,15 @@ unless an exact-control comparison is explicitly named; negative is better.
 
 ## River representation and solver findings through 2026-09-12
 
-The recent chain contains 35 retained milestones, from development-001 through
-full-combo-direct-002. The [complete experiment index](../docs/research/README.md)
+The recent chain contains 39 retained milestones, from development-001 through
+river-lp-presolve-001. The [complete experiment index](../docs/research/README.md)
 links the individual reports, frozen designs, and raw evidence. These results extend
 the older solver controls below; they do not replace their different populations.
 
 **Current conclusion:** learned hand groups can preserve strategically useful information,
 and exact acceptance checks can protect local repairs. However, direct full-hand LP solving
 is now the better reference operating point on the four tested restricted river games.
-Do not add more repair variants to that family before testing a larger action tree.
+The larger-tree follow-up below reaches a memory boundary in the deep-stack state.
 
 | Question | Finding and retained evidence | What it supports, and what it does not |
 |---|---|---|
@@ -46,7 +46,62 @@ Do not add more repair variants to that family before testing a larger action tr
 | Does the actual stack preserve the repair opportunity? | [Actual-stack transfer](../docs/research/river-stack-transfer-001.md) found that half-pot and pot-sized bets both collapse to all-in in three of four states. The sole distinct-size case improved about 2.10%. | Three cases are structurally inapplicable to size repair, not failed repairs or excluded inconvenient outcomes. Do not pool only the eligible case into a full-population claim. |
 | Is compression necessary in these river games? | [Direct full-hand comparison](../docs/research/river-full-combo-direct-002.md) gave lower measured error and shorter measured solve time in all four cases than the existing 50,000-update K=16 learner. | This compares particular LP and iterative implementations, changing solver and representation together. It does not establish an inherent speed advantage of full representation. |
 
-### Latest full-hand detail and numerical boundary
+### Presolve capacity non-improvement: river-lp-presolve-001
+
+The [six-worker comparison](../docs/research/river-lp-presolve-001.md) varied only
+presolve on/off on the same three deep-stack trees. Both expanded trees hit memory
+stops under both settings. The two baseline arms passed separate exact verification;
+turning presolve off reduced peak memory from 2082 to 1904 MiB but increased compute
+from 6.34 to 7.95 seconds in this single pair. Entered paired LP matrices were identical.
+
+Disabling presolve alone is insufficient. Censored stop times and peaks do not rank
+completed solves. Close the toggle here; next compare a full-hand iterative method
+using direct payoff products with the LP reference, measuring memory and original-game
+exploitability against compute. Keep private-hand detail, menus and strict acceptance
+claims fixed. No iterative implementation or capacity improvement is established yet.
+
+### Native memory boundary: river-lp-memory-001
+
+The [same-cell memory diagnostic](../docs/research/river-lp-memory-001.md) places both
+deep-stack stops inside the first native HiGHS run(), after model loading. Checkback
+entered at 929 MiB and peaked at 3334 MiB; raise entered at 1698 MiB and peaked at
+6237 MiB. Both controls reproduced the exact prior baseline policy and certificate.
+Copies are measurable, but the larger memory increase occurs inside native solving.
+The trace cannot yet distinguish presolve from later simplex or factorization work.
+
+The original path filter missed SciPy frames under isolated Windows imports. That
+incomplete attempt is preserved; a normalized filter, failing-original/passing-corrected
+boundary control and separately frozen rerun supply the actual phase diagnosis.
+The subsequent presolve comparison above follows this proposal and finds no capacity
+recovery. The remaining native allocation is not isolated by these measurements.
+
+### Larger action tree: river-tree-expansion-001
+
+The [nested-tree test](../docs/research/river-tree-expansion-001.md) now covers betting
+after a check and one all-in raise response. Seven of nine distinct full-range cells
+have independently verified strict certificates. The three shallow-stack expanded
+trees needed 8.18-10.05 seconds compute, versus 2.87-3.13 seconds for their controls.
+Both expanded deep-stack cells hit the sampled memory stop; no policy score is imputed.
+Three raise variants are identical all-in aliases, not additional replications.
+
+An all-zero payoff edge case initially broke separate verification. A one-line correction
+in a copied verifier and additional nonzero exhaustive-response controls verified the
+seven saved strategies without rerunning any solver. Original failed receipts remain.
+The subsequent memory diagnostic above locates the dominant increase inside native
+solving, leaving its internal stage as the next controlled question.
+
+### Numerical closure: lp-numerical-scaling-001
+
+The [fixed scaling diagnostic](../docs/research/river-lp-numerical-scaling-001.md)
+closed both earlier strict misses: all four corrected full-hand strategies pass the
+unchanged original-matrix threshold, with errors from 4.30e-16 to 2.99e-15 normalized
+chips and solve/certificate times of 1.49-4.58 seconds. HiGHS had dropped small
+probability-weighted coefficients; exact power-of-two value rescaling kept them above
+its cutoff. All original results remain preserved, and no production solver changed.
+Four preflight tests, separate original-matrix verification, and coefficient/vector
+round-trip checks passed. The subsequent larger-tree result above supplies that next capacity test.
+
+### Pre-correction full-hand detail and numerical boundary
 
 Each case represents all 1,081 holdings per player and 1,070,190 collision-free ordered
 deals. Check ends at showdown; a bet permits only fold or call. Three cases have one
@@ -80,20 +135,84 @@ and observed a 128 MiB allocation. Its 50 ms sampled memory stop is not a hard c
   gates, and matched continuation controls as reusable research tools.
 - Keep the successful learned grouping and size repair as frozen comparison baselines.
   Pause incremental target/repair tuning on this restricted family.
-- Resolve the two strict numerical misses before treating all four direct solves as
-  certified references. Preserve the failed thresholds and current raw vectors.
-- Then measure the smallest larger river tree that includes play after a check and
-  a raise response, using actual pots/stacks and complete setup/solve/scoring cost.
-  Establish where full solving becomes expensive before choosing compression or a network.
+- The fixed numerical scaling now supplies four certified references for these games.
+  Preserve the original two misses and their raw vectors as the diagnostic predecessor.
+- The native-memory diagnostic and presolve comparison did not recover the deep-stack
+  trees. Next compare full-hand iterative payoff-product solving against the LP
+  references on the same games, measuring quality, complete cost and memory.
 
-All 35 milestones remain separate records, including failures and corrections. They
-are not 35 independent replications: many diagnostics reuse observed panels. Finite-game
+All 39 milestones remain separate records, including failures and corrections. They
+are not 39 independent replications: many diagnostics reuse observed panels. Finite-game
 enumeration removes match-sampling variance within each declared game; it does not remove
 uncertainty from board selection, range modeling, or transfer to another betting tree.
 Reached ranges are factorized and fallback-heavy; folded-player cards are not jointly
 marginalized. No result here establishes six-max playing strength or a live-clock resolver.
 Python 3.14.6 was used for this research chain. No retained research was rerun for this
 consolidation, and publication does not authorize another invocation or policy adoption.
+
+## Time-budget quality: river-time-quality-001
+
+The [time-budget quality campaign](../docs/research/river-time-quality-001.md)
+completed six trajectories and 24 exact audits. All tested iteration increases
+reduced error; repeat policies were identical. Under the declared accounting,
+10 seconds fits 19.06x lower checkback error, and 15 seconds fits 9.58x lower
+raise-tree error, relative to 2,048 iterations. Tight-budget misses remain
+visible; no strict equilibrium threshold passed. Fresh-board transfer is next.
+
+## Graph replay: river-gpu-graph-001
+
+The [graph replay test](../docs/research/river-gpu-graph-001.md) completed
+36 solves across 18 fresh workers and six independent rational audits.
+Replay accelerated the fixed solve 8.48x / 6.09x versus eager GPU execution,
+with bitwise-identical final policies across all arms, repeats and resets.
+Preparation and audit costs reduce the gain but do not erase it.
+The subsequent time-budget campaign above measures that quality improvement.
+
+## GPU execution: river-gpu-execution-001
+
+The [GPU execution assessment](../docs/research/river-gpu-execution-001.md)
+measured 1.31x / 1.56x faster fixed-work solves on the two expanded trees,
+with essentially unchanged independently audited error. Including fresh
+solve processes and separate exact audits reduces the gain to 1.11x / 1.31x.
+This was an exploratory continuation after a retained trajectory-parity
+refusal, not an original-plan pass. Host GPU-process memory also increased.
+
+The subsequent graph replay result is recorded above, with setup and audit charged.
+
+## Expanded-tree capacity: river-cfr-expanded-001
+
+The [expanded-tree comparison](../docs/research/river-cfr-expanded-001.md)
+completed 24 training runs and eight independent rational audits within the
+original sampled 3,072 MiB budget on both trees where LP stopped on memory.
+This establishes checked approximate-solution capacity; it does not establish
+strict equilibrium convergence or a live resolver. The report retains all
+four fixed configurations, their quality curves, and full cost boundaries.
+
+The subsequent GPU execution assessment is recorded above. Neural approximation remains
+deferred; this experiment required no new private-hand compression.
+
+## CFR confirmation: river-cfr-comparison-002
+
+The [second position](../docs/research/river-cfr-comparison-002.md) adds milestone 41.
+Unchanged solver and six parameter sets: paper DCFR+ has 6.56x less error than
+matched CFR+; released-code DCFR+ again leads. Matched prediction improves
+error about 11%, versus a 5.99x increase on the first case. Its effect is mixed.
+All 18 repeats and six independent final rational audits completed. No strict
+LP-threshold pass. This shorter-stack case has one distinct opening bet and
+cannot establish capacity on the expanded trees. That test is now next.
+
+## New CFR comparison: river-cfr-comparison-001
+
+The [six-arm result](../docs/research/river-cfr-comparison-001.md) adds the 40th
+milestone. On one retained full-range baseline river, paper DCFR+ reduced final
+error 8.10x versus CFR+ with averaging held fixed. Matched prediction increased
+error 5.99x relative to DCFR+. Released-code DCFR+ was best, but its denominator
+differs from the paper and is separately labeled. Three repeats per arm matched
+policy bytes exactly; six rational audits confirm residuals, not strict convergence.
+Training took about 3.4 s per arm with roughly 129-131 MiB worker peak commit;
+independent audits needed about 337 MiB. Confirm another case and expanded-tree
+capacity before selecting a solver. The 39-milestone synthesis above remains
+the historical boundary; this addendum supplies the newly measured evidence.
 
 ## Which results support those conclusions?
 

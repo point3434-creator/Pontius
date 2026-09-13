@@ -1,0 +1,13 @@
+{
+  "corrected": {
+    "coefficient_roundtrips": 16,
+    "exploitability": 0.0,
+    "gap": "0",
+    "lower": "0",
+    "strict_pass": true,
+    "upper": "0",
+    "value": "0"
+  },
+  "new_lp_calls": 0,
+  "original_failure": "min() iterable argument is empty"
+}

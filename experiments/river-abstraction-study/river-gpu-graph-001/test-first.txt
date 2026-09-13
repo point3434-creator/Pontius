@@ -1,0 +1,33 @@
+Traceback (most recent call last):
+  File "D:\Pontius\experiments\river-gpu-graph-001\launch.py", line 15, in <module>
+    runpy.run_path(sys.argv[0],run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 294, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\Pontius\experiments\river-gpu-graph-001\test_graph.py", line 21, in <module>
+    graph.capture()
+    ~~~~~~~~~~~~~^^
+  File "D:\Pontius\experiments\river-gpu-graph-001\static_solver.py", line 102, in capture
+    self.operations()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\Pontius\experiments\river-gpu-graph-001\static_solver.py", line 62, in operations
+    cp.matmul(a,self.reach[i],out=self.values[i])
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Pontius/.venv/Lib/site-packages\cupy\_core\_gufuncs.py", line 685, in __call__
+    result = self._try_fastcall_func(
+        *args, out=out, axes=axes, axis=axis, keepdims=keepdims,
+        casting=casting, dtype=dtype, signature=signature, order=order)
+  File "D:\Pontius/.venv/Lib/site-packages\cupy\linalg\_product.py", line 47, in _try_fastcall_matmul
+    return _core.matmul(a, b, out=out)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "cupy/_core/_routines_linalg.pyx", line 821, in cupy._core._routines_linalg.matmul
+  File "cupy/_core/_routines_linalg.pyx", line 861, in cupy._core._routines_linalg.matmul
+  File "cupy/_core/_routines_linalg.pyx", line 538, in cupy._core._routines_linalg.dot
+  File "cupy/_core/_routines_linalg.pyx", line 630, in cupy._core._routines_linalg.tensordot_core
+  File "cupy/_core/_routines_linalg.pyx", line 775, in cupy._core._routines_linalg.tensordot_core_v11
+  File "cupy_backends/cuda/libs/cublas.pyx", line 1639, in cupy_backends.cuda.libs.cublas.gemmEx
+  File "cupy_backends/cuda/libs/cublas.pyx", line 1644, in cupy_backends.cuda.libs.cublas.gemmEx
+  File "cupy_backends/cuda/libs/cublas.pyx", line 668, in cupy_backends.cuda.libs.cublas._setStream
+  File "cupy_backends/cuda/libs/cublas.pyx", line 649, in cupy_backends.cuda.libs.cublas.setStream
+NotImplementedError: calling cuBLAS API during stream capture is currently unsupported

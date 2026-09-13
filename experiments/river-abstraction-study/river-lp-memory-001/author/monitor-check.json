@@ -1,0 +1,16 @@
+{
+  "after": {
+    "peak_commit_bytes": 194609152,
+    "pid": 68612,
+    "private_bytes": 194547712,
+    "working_bytes": 217821184
+  },
+  "before": {
+    "peak_commit_bytes": 60063744,
+    "pid": 68612,
+    "private_bytes": 60063744,
+    "working_bytes": 83599360
+  },
+  "passed": true,
+  "sparse_bytes": 52
+}

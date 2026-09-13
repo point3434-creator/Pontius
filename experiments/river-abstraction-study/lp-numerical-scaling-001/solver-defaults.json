@@ -1,0 +1,5 @@
+{
+  "small_matrix_value": 1e-09,
+  "primal_feasibility_tolerance": 1e-07,
+  "dual_feasibility_tolerance": 1e-07
+}

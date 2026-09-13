@@ -1,0 +1,204 @@
+{
+  "new_lp_calls": 0,
+  "records": [
+    {
+      "label": "000-baseline",
+      "receipt": {
+        "command": [
+          "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+          "-I",
+          "-S",
+          "-B",
+          "-W",
+          "error::ResourceWarning",
+          "-c",
+          "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-tree-expansion-001'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+          "D:\\Pontius\\tmp\\river-tree-expansion-001\\verify_saved.py",
+          "verify",
+          "0"
+        ],
+        "exit": 0,
+        "observed_pid": 80788,
+        "os_peak_commit_bytes": 291565568,
+        "sampled_peak_private_bytes": 291532800,
+        "sampled_peak_working_set_bytes": 307568640,
+        "samples": 46,
+        "seconds": 2.3254901999607682,
+        "stop_reason": null
+      },
+      "status": "verified"
+    },
+    {
+      "label": "000-checkback",
+      "receipt": {
+        "command": [
+          "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+          "-I",
+          "-S",
+          "-B",
+          "-W",
+          "error::ResourceWarning",
+          "-c",
+          "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-tree-expansion-001'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+          "D:\\Pontius\\tmp\\river-tree-expansion-001\\verify_saved.py",
+          "verify",
+          "1"
+        ],
+        "exit": 0,
+        "observed_pid": 70796,
+        "os_peak_commit_bytes": 362594304,
+        "sampled_peak_private_bytes": 353161216,
+        "sampled_peak_working_set_bytes": 373227520,
+        "samples": 52,
+        "seconds": 2.625570299976971,
+        "stop_reason": null
+      },
+      "status": "verified"
+    },
+    {
+      "label": "001-baseline",
+      "receipt": {
+        "command": [
+          "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+          "-I",
+          "-S",
+          "-B",
+          "-W",
+          "error::ResourceWarning",
+          "-c",
+          "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-tree-expansion-001'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+          "D:\\Pontius\\tmp\\river-tree-expansion-001\\verify_saved.py",
+          "verify",
+          "2"
+        ],
+        "exit": 0,
+        "observed_pid": 34668,
+        "os_peak_commit_bytes": 355360768,
+        "sampled_peak_private_bytes": 345939968,
+        "sampled_peak_working_set_bytes": 368844800,
+        "samples": 52,
+        "seconds": 2.627008299983572,
+        "stop_reason": null
+      },
+      "status": "verified"
+    },
+    {
+      "label": "001-checkback",
+      "status": "no saved policy; original resource refusal retained"
+    },
+    {
+      "label": "001-raise",
+      "status": "no saved policy; original resource refusal retained"
+    },
+    {
+      "label": "002-baseline",
+      "receipt": {
+        "command": [
+          "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+          "-I",
+          "-S",
+          "-B",
+          "-W",
+          "error::ResourceWarning",
+          "-c",
+          "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-tree-expansion-001'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+          "D:\\Pontius\\tmp\\river-tree-expansion-001\\verify_saved.py",
+          "verify",
+          "5"
+        ],
+        "exit": 0,
+        "observed_pid": 82896,
+        "os_peak_commit_bytes": 287424512,
+        "sampled_peak_private_bytes": 278032384,
+        "sampled_peak_working_set_bytes": 295542784,
+        "samples": 46,
+        "seconds": 2.32602079998469,
+        "stop_reason": null
+      },
+      "status": "verified"
+    },
+    {
+      "label": "002-checkback",
+      "receipt": {
+        "command": [
+          "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+          "-I",
+          "-S",
+          "-B",
+          "-W",
+          "error::ResourceWarning",
+          "-c",
+          "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-tree-expansion-001'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+          "D:\\Pontius\\tmp\\river-tree-expansion-001\\verify_saved.py",
+          "verify",
+          "6"
+        ],
+        "exit": 0,
+        "observed_pid": 52032,
+        "os_peak_commit_bytes": 356016128,
+        "sampled_peak_private_bytes": 346591232,
+        "sampled_peak_working_set_bytes": 367566848,
+        "samples": 51,
+        "seconds": 2.5766689999727532,
+        "stop_reason": null
+      },
+      "status": "verified"
+    },
+    {
+      "label": "003-baseline",
+      "receipt": {
+        "command": [
+          "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+          "-I",
+          "-S",
+          "-B",
+          "-W",
+          "error::ResourceWarning",
+          "-c",
+          "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-tree-expansion-001'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+          "D:\\Pontius\\tmp\\river-tree-expansion-001\\verify_saved.py",
+          "verify",
+          "7"
+        ],
+        "exit": 0,
+        "observed_pid": 21208,
+        "os_peak_commit_bytes": 284868608,
+        "sampled_peak_private_bytes": 275435520,
+        "sampled_peak_working_set_bytes": 296816640,
+        "samples": 46,
+        "seconds": 2.325732199999038,
+        "stop_reason": null
+      },
+      "status": "verified"
+    },
+    {
+      "label": "003-checkback",
+      "receipt": {
+        "command": [
+          "C:/Users/point/AppData/Local/Python/pythoncore-3.14-64/python.exe",
+          "-I",
+          "-S",
+          "-B",
+          "-W",
+          "error::ResourceWarning",
+          "-c",
+          "import sys,runpy;sys.path[:0]=['D:/Pontius/tmp/group-opt-author/venv/Lib/site-packages', 'D:\\\\Pontius\\\\tmp\\\\river-tree-expansion-001'];sys.argv=sys.argv[1:];runpy.run_path(sys.argv[0],run_name=\"__main__\")",
+          "D:\\Pontius\\tmp\\river-tree-expansion-001\\verify_saved.py",
+          "verify",
+          "8"
+        ],
+        "exit": 0,
+        "observed_pid": 60840,
+        "os_peak_commit_bytes": 354152448,
+        "sampled_peak_private_bytes": 344723456,
+        "sampled_peak_working_set_bytes": 367226880,
+        "samples": 52,
+        "seconds": 2.6260180000099353,
+        "stop_reason": null
+      },
+      "status": "verified"
+    }
+  ],
+  "seconds": 17.668565700005274,
+  "verified": 7
+}

@@ -1,0 +1,44 @@
+{
+  "iteration": 76400,
+  "discount_round": 7,
+  "num_players": 6,
+  "config": {
+    "num_players": 6,
+    "stack": 200,
+    "sb": 1,
+    "bb": 2,
+    "menu": [
+      [
+        [
+          1.0,
+          1.5,
+          2.5
+        ],
+        [
+          0.33,
+          0.66,
+          1.0,
+          2.0
+        ],
+        [
+          0.5,
+          1.0,
+          2.0
+        ],
+        [
+          0.5,
+          1.0,
+          2.0
+        ]
+      ],
+      3,
+      1.0
+    ],
+    "prune_threshold": -15000.0
+  },
+  "bucket_build_id": "a2cdd84d6d137bb5a21c7c46a1c0861eee6fad60",
+  "ckpt_format": 1,
+  "rows": 1475868,
+  "width": 7,
+  "seg_rows": 2097152
+}

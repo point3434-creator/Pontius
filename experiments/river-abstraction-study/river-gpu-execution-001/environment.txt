@@ -1,0 +1,30 @@
+OS                           : Windows-11-10.0.26200-SP0
+Python Version               : 3.14.6
+CuPy Version                 : 14.2.0
+CuPy Platform                : NVIDIA CUDA
+NumPy Version                : 2.5.2
+SciPy Version                : 1.18.0
+Cython Build Version         : 3.2.4
+Cython Runtime Version       : None
+CUDA Root                    : C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.3
+NVCC PATH                    : C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.3\bin\nvcc.exe
+CUDA Build Version           : 13020
+CUDA Driver Version          : 13030
+CUDA Runtime Version         : 13020 (linked to CuPy) / 13030 (locally installed)
+CUDA Extra Include Dirs      : ['C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v13.3\\include']
+cuBLAS Version               : (available)
+cuFFT Version                : 12300
+cuRAND Version               : 10403
+cuSOLVER Version             : (12, 2, 6)
+cuSPARSE Version             : (available)
+NVRTC Version                : (13, 3)
+Thrust Version               : 300102
+CUB Build Version            : 300102
+Jitify Build Version         : 1a0ca0e
+NCCL Build Version           : None
+NCCL Runtime Version         : None
+cuTENSOR Version             : None
+cuSPARSELt Build Version     : None
+Device 0 Name                : NVIDIA GeForce RTX 5080
+Device 0 Compute Capability  : 120
+Device 0 PCI Bus ID          : 0000:01:00.0

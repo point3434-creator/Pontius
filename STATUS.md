@@ -2,10 +2,11 @@
 
 Generated from execution_journal.jsonl.
 
-Recorded runs: 81. Most recent 12 below.
+Recorded runs: 82. Most recent 12 below.
 
 | Recorded (UTC) | Command | Outcome | Seconds | Finding |
 |---|---|---|---:|---|
+| 2026-09-13T06:22:26.614484+00:00 | pytest -q -p no:cacheprovider -k test_blueprint_workload_session or test_eval_completion_tool | passed | 36.184 | 26 unittest cases exercised; 0 skipped; pytest exit 0 |
 | 2026-09-13T06:20:17.498699+00:00 | pytest -q -p no:cacheprovider | failed | 429.085 | 734 unittest cases exercised; 0 skipped; pytest exit 1 |
 | 2026-09-13T06:11:42.783946+00:00 | pytest -q -p no:cacheprovider | failed | 204.528 | 725 unittest cases exercised; 40 skipped; pytest exit 1 |
 | 2026-09-13T06:11:10.901943+00:00 | pytest -q -p no:cacheprovider | passed | 425.468 | 734 unittest cases exercised; 0 skipped; pytest exit 0 |
@@ -17,4 +18,3 @@ Recorded runs: 81. Most recent 12 below.
 | 2026-09-13T03:23:29.782957+00:00 | river-cfr-expanded-001 frozen two-tree four-arm CPU comparison | complete_approximate_solutions | — | 24 training workers and eight independent audits completed on both formerly LP-memory-limited trees; see report for residuals |
 | 2026-09-13T03:04:45.400007+00:00 | river-cfr-comparison-002 fixed-parameter second-position confirmation | complete_approximate_solutions | — | 18 workers and six rational audits; DCFR+ leads again; prediction mixed; no strict LP gap pass |
 | 2026-09-13T02:55:04.267359+00:00 | river-cfr-comparison-001 frozen six-arm alternating CPU comparison | complete_approximate_solutions | — | 18 workers; six independent rational audits; DCFR+ led one retained board; no arm meets strict LP gap threshold |
-| 2026-09-13T01:31:46.797791+00:00 | river-lp-presolve-001 frozen six-worker on/off comparison | capacity_non_improvement | 39.636 | Both expanded trees stopped on memory with presolve on and off; two baseline arms certified |

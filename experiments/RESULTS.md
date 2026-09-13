@@ -563,4 +563,11 @@ hashes. The first archive test attempt exercised 734 unittest cases: 55 pytest
 suites passed and two failed after the archive HEAD and attributes changed during
 the run. The retained report is experiments/results/20260913T062017-7d527416.json.
 The failures were worker HEAD identity rejection and a dirty-versus-clean source
-verification mismatch; the affected suites will be rerun with the archive fixed.
+verification mismatch; the affected suites were rerun after committing the archive.
+
+The confirming run at 5b1f75b passed both affected suites: 26 unittest cases, zero
+skips, source verified, exit zero (36.47 seconds). Its retained result is
+experiments/results/20260913T062226-c8802483.json. No source-code fix was needed.
+The original 55 passing suites were not repeated. The prior research consolidation
+also retains its separate full 57-suite/734-case passing report in
+docs/research/publication-20260913/. Archive publication is not a new bot release.

@@ -91,3 +91,4 @@
 
 # Retained baseline bytes must survive checkout without newline conversion.
 /artifacts/six-max/baseline-000/** -text
+/experiments/results/20260913T*.json -text

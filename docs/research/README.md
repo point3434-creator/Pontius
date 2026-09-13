@@ -64,9 +64,9 @@ the strict exact gap threshold. Full private-hand detail does not mean a full be
 See the [report](river-full-combo-direct-002.md) and
 [assessment with four per-hand tables](../../experiments/river-abstraction-study/full-combo-direct-002/assessment.md).
 
-## All 39 retained milestones
+## All 45 retained milestones
 
-This is an alphabetical evidence index, not a claim of 39 independent replications.
+This is an evidence index, not a claim of 45 independent replications.
 Reports distinguish fresh-board confirmations from diagnostics on previously seen data.
 
 | Milestone | Report | Frozen evidence |

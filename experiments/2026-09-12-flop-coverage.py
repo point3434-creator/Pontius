@@ -20,6 +20,7 @@ import platform
 import random
 import shutil
 import signal
+import stat
 import statistics
 import subprocess
 import sys
@@ -95,7 +96,16 @@ def file_digest(path):
 
 
 def disk_used(root):
-    return sum(path.stat().st_size for path in Path(root).rglob("*") if path.is_file())
+    total = 0
+    for path in Path(root).rglob("*"):
+        try:
+            observed = path.stat()
+        except FileNotFoundError:
+            # A writer can publish its temporary name while this scan is in flight.
+            continue
+        if stat.S_ISREG(observed.st_mode):
+            total += observed.st_size
+    return total
 
 
 def reserve_disk(root, additional, limit):

@@ -25,6 +25,38 @@ def experiment_module():
 
 
 class FlopCoverageExperimentTests(unittest.TestCase):
+    def test_disk_monitor_tolerates_a_file_renamed_between_filesystem_checks(self):
+        experiment = experiment_module()
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            retained = root / "retained.json"
+            retained.write_bytes(b"retained")
+            staged = root / ".writing-progress.json-fixture"
+            staged.write_bytes(b"new")
+            original_is_file = Path.is_file
+
+            def disappear_after_file_check(path, *args, **kwargs):
+                result = original_is_file(path, *args, **kwargs)
+                if path == staged:
+                    staged.unlink()
+                return result
+
+            with patch.object(Path, "is_file", disappear_after_file_check):
+                measured = experiment.disk_used(root)
+            self.assertIn(measured, (8, 11))
+            self.assertEqual(retained.read_bytes(), b"retained")
+            staged.write_bytes(b"new")
+            original_stat = Path.stat
+
+            def disappear_before_size(path, *args, **kwargs):
+                if path == staged:
+                    staged.unlink()
+                return original_stat(path, *args, **kwargs)
+
+            with patch.object(Path, "stat", disappear_before_size):
+                self.assertEqual(experiment.disk_used(root), 8)
+            self.assertFalse(staged.exists())
+
     def test_calibration_repeats_real_save_when_an_earlier_reference_exists(self):
         experiment = experiment_module()
         with tempfile.TemporaryDirectory() as temporary:

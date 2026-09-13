@@ -159,3 +159,118 @@ reference material, not current commands.
 Related background: the [earlier bounded-read report](../docs/architecture/v0a-bounded-reads-r001/performance-report.md)
 measured the separate 12-trial evaluation wrapper. Its throughput results should
 not be combined with the per-cell or per-decision timings on this page.
+
+## Six-max blueprint work retained from September 8–9
+
+Publication update, September 13: this section preserves findings from the
+completed baseline-training conversation alongside the newer river research.
+The baseline checkpoint and its original run record survive outside the retired
+`fa55` worktree and are now included in this archive. Some later raw experiment
+folders were not available in that retired worktree during publication; those
+findings below are explicitly session-recorded, not freshly reproduced evidence.
+The current playable-bot plan takes precedence over historical proposed runs.
+
+### Baseline 0: primary checkpoint and run record retained
+
+[Baseline metadata](../artifacts/six-max/baseline-000/checkpoint/meta.json) and the
+[original run result](../artifacts/six-max/baseline-000/source-run-result.json)
+identify six players, equal 100 BB stacks (200 chips, blinds 1/2), the original
+seven-action-width menu and bucket build
+`a2cdd84d6d137bb5a21c7c46a1c0861eee6fad60`. The external Pluribus Lite source was
+`d9d6b45398849f684c323ce4bb87b8e73f435347`; Pontius source was `2dbbb873`.
+The preserved [experiment](../artifacts/six-max/baseline-000/experiment.py),
+[log](../artifacts/six-max/baseline-000/training.log), convergence history and
+matching bucket files accompany the checkpoint.
+
+| Measurement | Recorded result |
+|---|---:|
+| Two-worker training, including startup and saves | 604.274 s |
+| Iterations, six seat traversals per iteration | 76,400 |
+| Rows / capacity-related drops | 1,475,868 / 0 |
+| Overall throughput | 126.43 iterations/s |
+| Checkpoint bytes | 196,291,145 |
+| Complete preserved baseline package | 215,275,115 bytes |
+| Reload / save resumed trainer | 0.303 s / 0.618 s |
+| Resume diagnostic | 200 additional iterations |
+| Saved/live policy comparisons | 800 exact matches across 48 hands |
+
+The original report also records a separately profiled continuation: card
+bucketing consumed 5.310 of 6.844 instrumented seconds, with 2.870 seconds in
+Python shuffle and 0.348 in the C evaluator. These nested costs are not additive
+and profiling perturbs timings. This pointed to bucket-feature computation,
+not wholesale engine replacement. The selected policy diagnostic found 232
+non-uniform preflop rows, 58 uniform rows and 27 misses; postflop had one uniform
+row and 482 misses. It is not a representative coverage or playing-strength test.
+The report is retained; the later resumed checkpoint, raw policy samples and
+profile file are not part of the preserved baseline package.
+
+### Faster buckets and worker scaling: session-recorded findings
+
+The experimental candidate precomputed Fisher–Yates index/bit-width schedules
+and bound the random-bit method once per shuffle. It preserved rejection draws,
+sampling counts, feature definitions and bucket identity; no Rust was involved.
+The September 9 session recorded 2,120 shuffle/final-RNG-state matches, 384 exact
+feature/bucket cases and 256 nondefault sampling checks. Median uncached feature
+speedups were 1.144x flop and 1.231x turn. A separate 2,000-iteration serial check
+reported identical five-file checkpoints, each with 32,413 rows.
+
+Eight fresh 6,000-iteration runs compared original and candidate buckets with
+two/four workers, two seeds, reversed condition order, and 400 global iterations
+between table updates. The reported complete-process results were:
+
+| Buckets | Workers | Mean seconds | Iterations/s |
+|---|---:|---:|---:|
+| Original | 2 | 48.35 | 124.10 |
+| Candidate | 2 | 42.30 | 141.85 |
+| Original | 4 | 26.24 | 228.62 |
+| Candidate | 4 | 23.18 | 258.87 |
+
+This is a 13–14% candidate gain at fixed worker count and a 2.086x combined gain
+against original/two. Parallel rows varied: the shared admission sketch and
+arrival-order updates make training scheduling-sensitive. Equal iterations do
+not guarantee identical node visits or strategic progress. Two repeats do not
+establish long-run scaling, variance or playing strength. The candidate was not
+adopted into the original trainer by this work.
+
+Historical identifiers, for locating originals if recovered:
+`83038d66757a4fbd848727d9c2cad217` (scaling, report SHA-256
+`af08239d7272fd14f002e5146df5430d8903d553ff79977d892816d0427ec5af`) and
+`fe8bda28f9c1496b8dd10b01e52e32e8` (serial check, report SHA-256
+`32e3a6a6b9088aac2cee643e4c11f4b2ac43cc7b0dd29620bda64fb57ccd2919`).
+These hashes are historical identifiers, not proof of locally available files.
+The experimental candidate source and raw scaling results were not recovered
+for this archive; do not treat this narrative as a replacement for those bytes.
+
+### Earlier blueprint-reuse observations: session-recorded findings
+
+The old eight-player day-four compact blueprint had 160,147,115 rows. Its original
+memory-mapped reader loaded it in 3.673 seconds in the reference run, with 157
+queries and 314 probability conversions passing. The following six-seat replay
+check completed 54 hands/612 decisions, including buttons, off-menu actions,
+refunds and odd-chip settlements. Synthetic early folds preserved the tested
+public mechanics but did not establish six-max strategy transfer; bare six-seat
+keys changed 216 distributions. The mapped query sample still had 207 misses
+and two zero-mass rows. These support reusing the loader/engine machinery while
+keeping policy compatibility and coverage explicit. The original raw reference
+and replay runs were not recovered for this archive.
+
+### Milestone retention and memory planning
+
+Baseline 0 is the fixed 76,400-iteration reference. Preserve a named checkpoint
+for every significant training run, including non-improvements; choose
+intermediate milestone times before long runs. Keep matching bucket definitions,
+source/run identities and evaluation results. Resume from a separate working copy,
+never overwrite a milestone with rolling recovery saves. Baseline playing strength
+is still pending; compare future milestones with baseline 0, the previous milestone
+and a fixed opponent panel using matched deals, balanced seats and uncertainty.
+The rolling backup and 76,600-iteration resume diagnostic are not replacements
+for baseline 0. A future best-so-far checkpoint must not erase earlier results.
+
+The inspected seven-action trainer stores 113 row bytes for regrets, strategies
+and action counts, plus a shared power-of-two index. At natural capacities,
+33.6 million rows need about 5.28 GiB for the table/index/admission sketch and
+67.1 million about 10.31 GiB. These exclude caches, worker buffers, save/load
+scratch and OS memory; they are layout estimates, not measured whole-process
+bounds. Workers share the main table. The user's 64 GB host can support bounded
+continuation without waiting for the planned 128 GB server, subject to measured
+headroom. No new training run is authorized by this historical recommendation.

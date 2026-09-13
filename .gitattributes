@@ -88,3 +88,6 @@
 /src/pontius/river_witness_distillation.py -text
 /tools/river_witness_distillation.py -text
 /tests/test_river_witness_distillation.py -text
+
+# Retained baseline bytes must survive checkout without newline conversion.
+/artifacts/six-max/baseline-000/** -text

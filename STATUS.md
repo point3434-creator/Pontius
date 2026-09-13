@@ -2,10 +2,11 @@
 
 Generated from execution_journal.jsonl.
 
-Recorded runs: 80. Most recent 12 below.
+Recorded runs: 81. Most recent 12 below.
 
 | Recorded (UTC) | Command | Outcome | Seconds | Finding |
 |---|---|---|---:|---|
+| 2026-09-13T06:20:17.498699+00:00 | pytest -q -p no:cacheprovider | failed | 429.085 | 734 unittest cases exercised; 0 skipped; pytest exit 1 |
 | 2026-09-13T06:11:42.783946+00:00 | pytest -q -p no:cacheprovider | failed | 204.528 | 725 unittest cases exercised; 40 skipped; pytest exit 1 |
 | 2026-09-13T06:11:10.901943+00:00 | pytest -q -p no:cacheprovider | passed | 425.468 | 734 unittest cases exercised; 0 skipped; pytest exit 0 |
 | 2026-09-13T06:01:01.932278+00:00 | pytest -q -p no:cacheprovider | failed | 191.640 | 725 unittest cases exercised; 40 skipped; pytest exit 1 |
@@ -17,4 +18,3 @@ Recorded runs: 80. Most recent 12 below.
 | 2026-09-13T03:04:45.400007+00:00 | river-cfr-comparison-002 fixed-parameter second-position confirmation | complete_approximate_solutions | — | 18 workers and six rational audits; DCFR+ leads again; prediction mixed; no strict LP gap pass |
 | 2026-09-13T02:55:04.267359+00:00 | river-cfr-comparison-001 frozen six-arm alternating CPU comparison | complete_approximate_solutions | — | 18 workers; six independent rational audits; DCFR+ led one retained board; no arm meets strict LP gap threshold |
 | 2026-09-13T01:31:46.797791+00:00 | river-lp-presolve-001 frozen six-worker on/off comparison | capacity_non_improvement | 39.636 | Both expanded trees stopped on memory with presolve on and off; two baseline arms certified |
-| 2026-09-13T00:33:38.246552+00:00 | river-lp-memory-001 frozen three-cell diagnostic and trace-only correction | diagnostic_complete_capacity_unchanged | 43.701 | Both deep-stack stops inside native HiGHS run; exact control preserved; original trace-filter miss retained |

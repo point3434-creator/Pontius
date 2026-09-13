@@ -1,0 +1,84 @@
+blueprint training: 6-max, stack 200 chips at 1/2 = 100bb deep, 2 worker(s), buckets from C:\Users\point\.codex\worktrees\fa55\Pontius\experiments\results\runs\cb4f0f4fe23a4f91aa175bb768a734a4\buckets/, shared-table index sized for 8,000,000 infosets
+2 workers spawned on one shared table (0 segment(s) mapped)
+iter        1,000 |     14,485 infosets | 151 it/s
+iter        2,000 |     31,508 infosets | 126 it/s
+iter        3,000 |     49,401 infosets | 129 it/s
+iter        4,000 |     67,851 infosets | 126 it/s
+iter        5,000 |     85,985 infosets | 129 it/s
+iter        6,000 |    104,549 infosets | 124 it/s
+iter        7,000 |    122,984 infosets | 131 it/s
+iter        8,000 |    141,633 infosets | 128 it/s
+iter        9,000 |    160,105 infosets | 126 it/s
+iter       10,000 |    178,713 infosets | 127 it/s
+iter       11,000 |    197,023 infosets | 125 it/s
+iter       12,000 |    215,638 infosets | 128 it/s
+iter       13,000 |    234,056 infosets | 123 it/s
+iter       14,000 |    252,638 infosets | 125 it/s
+iter       15,000 |    271,178 infosets | 126 it/s
+iter       15,400 |    278,626 infosets | 99 it/s | <thresh 0.00e+00 | dropped 0 | saved
+iter       16,000 |    289,913 infosets | 149 it/s
+iter       17,000 |    308,402 infosets | 126 it/s
+iter       18,000 |    326,916 infosets | 125 it/s
+iter       19,000 |    345,457 infosets | 126 it/s
+iter       20,000 |    363,868 infosets | 130 it/s
+iter       21,000 |    382,248 infosets | 128 it/s
+iter       22,000 |    400,474 infosets | 128 it/s
+iter       23,000 |    419,042 infosets | 125 it/s
+iter       24,000 |    437,903 infosets | 127 it/s
+iter       25,000 |    456,432 infosets | 128 it/s
+iter       26,000 |    474,419 infosets | 129 it/s
+iter       27,000 |    492,888 infosets | 128 it/s
+iter       28,000 |    511,540 infosets | 127 it/s
+iter       29,000 |    530,236 infosets | 130 it/s
+iter       30,000 |    549,056 infosets | 129 it/s
+iter       30,800 |    564,467 infosets | 104 it/s | <thresh 0.00e+00 | dropped 0 | saved
+iter       31,000 |    568,366 infosets | 519 it/s
+iter       32,000 |    586,920 infosets | 130 it/s
+iter       33,000 |    605,845 infosets | 128 it/s
+iter       34,000 |    624,947 infosets | 124 it/s
+iter       35,000 |    643,852 infosets | 125 it/s
+iter       36,000 |    663,133 infosets | 128 it/s
+iter       37,000 |    682,648 infosets | 126 it/s
+iter       38,000 |    701,896 infosets | 129 it/s
+iter       39,000 |    721,604 infosets | 125 it/s
+iter       40,000 |    741,180 infosets | 125 it/s
+iter       41,000 |    760,556 infosets | 125 it/s
+iter       42,000 |    779,621 infosets | 128 it/s
+iter       43,000 |    799,312 infosets | 121 it/s
+iter       44,000 |    818,913 infosets | 125 it/s
+iter       45,000 |    838,653 infosets | 127 it/s
+iter       46,000 |    858,329 infosets | 126 it/s
+iter       46,200 |    862,110 infosets | 66 it/s | <thresh 3.34e-06 | dropped 0 | saved
+iter       47,000 |    877,651 infosets | 171 it/s
+iter       48,000 |    897,475 infosets | 127 it/s
+iter       49,000 |    917,009 infosets | 127 it/s
+iter       50,000 |    935,987 infosets | 129 it/s
+iter       51,000 |    955,717 infosets | 127 it/s
+iter       52,000 |    975,490 infosets | 128 it/s
+iter       53,000 |    995,398 infosets | 128 it/s
+iter       54,000 |  1,015,066 infosets | 128 it/s
+iter       55,000 |  1,035,351 infosets | 127 it/s
+iter       56,000 |  1,055,311 infosets | 129 it/s
+iter       57,000 |  1,075,593 infosets | 131 it/s
+iter       58,000 |  1,095,775 infosets | 124 it/s
+iter       59,000 |  1,116,167 infosets | 126 it/s
+iter       60,000 |  1,136,440 infosets | 129 it/s
+iter       61,000 |  1,156,706 infosets | 132 it/s
+iter       61,800 |  1,173,148 infosets | 100 it/s | <thresh 1.24e-06 | dropped 0 | saved
+iter       62,000 |  1,177,143 infosets | 2,153 it/s
+iter       63,000 |  1,197,419 infosets | 128 it/s
+iter       64,000 |  1,217,842 infosets | 130 it/s
+iter       65,000 |  1,238,098 infosets | 131 it/s
+iter       66,000 |  1,258,512 infosets | 126 it/s
+iter       67,000 |  1,279,458 infosets | 128 it/s
+iter       68,000 |  1,299,731 infosets | 129 it/s
+iter       69,000 |  1,320,450 infosets | 113 it/s
+iter       70,000 |  1,341,179 infosets | 123 it/s
+iter       71,000 |  1,362,164 infosets | 130 it/s
+iter       72,000 |  1,383,077 infosets | 130 it/s
+iter       73,000 |  1,404,109 infosets | 123 it/s
+iter       74,000 |  1,425,716 infosets | 123 it/s
+iter       75,000 |  1,446,824 infosets | 125 it/s
+iter       76,000 |  1,467,528 infosets | 131 it/s
+iter       76,400 |  1,475,868 infosets | 82 it/s | <thresh 8.62e-06 | dropped 0 | saved
+checkpoint saved: C:\Users\point\.codex\worktrees\fa55\Pontius\experiments\results\runs\cb4f0f4fe23a4f91aa175bb768a734a4\training\blueprint_ckpt at iteration 76,400 (1,475,868 infosets)

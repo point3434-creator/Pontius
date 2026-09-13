@@ -547,3 +547,20 @@ paths, byte counts, SHA-256s, and Git blob IDs where applicable. Every recovery
 entry was checked against the original bytes before removal. The 222,391,380-byte
 working set becomes one 28,019,285-byte archive. External raw-result directories
 are not included. No historical script, poker experiment, or GPU run was executed.
+
+## Preserved six-max baseline and earlier training findings
+
+The [six-max training record](blueprint-performance.md)
+now accompanies the river consolidation. Baseline 0's 76,400-iteration checkpoint,
+matching buckets, source/run record and training log are included under
+`artifacts/six-max/baseline-000/` (about 215 MB). Earlier bucket-speed and
+blueprint-reuse conclusions are preserved with their historical identifiers and
+explicitly marked where raw experiment outputs were not recovered. No playing
+strength, fresh speed measurement or production adoption is claimed by publication.
+
+Publication verification: all 14 baseline files matched their original recorded
+hashes. The first archive test attempt exercised 734 unittest cases: 55 pytest
+suites passed and two failed after the archive HEAD and attributes changed during
+the run. The retained report is experiments/results/20260913T062017-7d527416.json.
+The failures were worker HEAD identity rejection and a dirty-versus-clean source
+verification mismatch; the affected suites will be rerun with the archive fixed.

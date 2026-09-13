@@ -1,0 +1,25 @@
+{
+  "streets": {
+    "flop": {
+      "n_runouts": 48,
+      "n_opp": 22,
+      "bins": 20,
+      "samples": 150000,
+      "clusters": 200,
+      "seed": 1
+    },
+    "turn": {
+      "n_runouts": 48,
+      "n_opp": 22,
+      "bins": 20,
+      "samples": 150000,
+      "clusters": 200,
+      "seed": 1
+    }
+  },
+  "feature_version": 2,
+  "bins": 20,
+  "n_runouts": 48,
+  "n_opp": 22,
+  "river_bins": 200
+}

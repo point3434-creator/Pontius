@@ -73,6 +73,67 @@ class SampledCFRTests(unittest.TestCase):
         for row in sampled:
             self.assertEqual(row.strategy_sum[0], row.strategy_sum[1])
 
+    def test_extra_averaging_preserves_regret_trajectory(self):
+        one = self.trainer(players=3, averaging_trajectories=1)
+        eight = self.trainer(players=3, averaging_trajectories=8)
+        for _ in range(30):
+            one.step()
+            eight.step()
+            def regret_state(trainer):
+                return {key: (row.regrets, row.regret_visits)
+                        for key, row in trainer.rows.items() if row.regret_visits}
+            self.assertEqual(regret_state(one), regret_state(eight))
+            self.assertEqual(one.rng.getstate(), eight.rng.getstate())
+            self.assertEqual(one.total_regret_nodes, eight.total_regret_nodes)
+        self.assertGreater(eight.total_average_nodes, one.total_average_nodes)
+
+    def test_averaging_budget_resume_and_malformed_state(self):
+        for bad in (0, -1, True, 1.5):
+            with self.assertRaises(ValueError):
+                self.trainer(averaging_trajectories=bad)
+        trainer = self.trainer(averaging_trajectories=8)
+        for _ in range(3):
+            trainer.step()
+        saved = trainer.state_dict()
+        restored = ExternalSamplingCFR.from_state(saved, trainer.root_sampler, "kuhn-2")
+        trainer.step()
+        restored.step()
+        self.assertEqual(trainer.state_dict(), restored.state_dict())
+        mutations = [
+            ("format", "pontius-sampled-cfr-v1"),
+            ("averaging_trajectories", 1), ("average_rngs", []),
+            ("average_rngs", [None, None]), ("rng", None),
+            ("total_average_nodes", -1), ("total_regret_nodes", True),
+        ]
+        for name, value in mutations:
+            bad = json.loads(json.dumps(saved))
+            bad[name] = value
+            with self.subTest(name=name), self.assertRaises(ValueError):
+                ExternalSamplingCFR.from_state(bad, trainer.root_sampler, "kuhn-2")
+        for name in ("average_samples", "average_regret_samples", "regret_visits"):
+            bad = json.loads(json.dumps(saved))
+            bad["rows"][0][name] = -1
+            with self.subTest(name=name), self.assertRaises(ValueError):
+                ExternalSamplingCFR.from_state(bad, trainer.root_sampler, "kuhn-2")
+
+    def test_restore_rejects_impossible_samples_and_malformed_rng_words(self):
+        trainer = self.trainer(averaging_trajectories=8)
+        trainer.step()
+        saved = trainer.state_dict()
+        for stream in ("rng", "average_rngs"):
+            for value in (True, -1, 2 ** 32):
+                bad = json.loads(json.dumps(saved))
+                rng_state = bad[stream] if stream == "rng" else bad[stream][0]
+                rng_state[1][0] = value
+                with self.subTest(stream=stream, value=value), self.assertRaises(ValueError):
+                    ExternalSamplingCFR.from_state(bad, trainer.root_sampler, "kuhn-2")
+        for name, value in (("average_samples", 1000), ("average_regret_samples", 1000),
+                            ("regret_visits", 2)):
+            bad = json.loads(json.dumps(saved))
+            bad["rows"][0][name] = value
+            with self.subTest(name=name), self.assertRaises(ValueError):
+                ExternalSamplingCFR.from_state(bad, trainer.root_sampler, "kuhn-2")
+
     def test_resume_reproduces_the_entire_serial_trajectory_including_rng(self):
         for variant in ("cfr", "linear"):
             with self.subTest(variant=variant):

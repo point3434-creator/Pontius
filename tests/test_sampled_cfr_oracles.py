@@ -87,6 +87,46 @@ def oracle_trainer(variant="cfr"):
 
 
 class SampledCFROracleTests(unittest.TestCase):
+    def test_eight_samples_have_unit_weight_and_one_distinct_iteration(self):
+        @dataclass(frozen=True)
+        class OneDecision:
+            action: str = ""
+
+            @property
+            def current_player(self):
+                return TERMINAL_PLAYER if self.action else 0
+
+            def legal_actions(self):
+                return ("A", "B")
+
+            def information_state_key(self, player):
+                return "root"
+
+            def apply_action(self, action):
+                return OneDecision(action)
+
+            def returns(self):
+                return (1.0, -1.0) if self.action == "A" else (-1.0, 1.0)
+
+        trainer = ExternalSamplingCFR(2, lambda rng: OneDecision(), "one-decision-v1",
+                                      averaging_trajectories=8)
+        trainer.step()
+        row = trainer.rows["root"]
+        self.assertEqual(row.strategy_sum, [0.5, 0.5])
+        self.assertEqual((row.average_samples, row.average_visits,
+                          row.average_regret_samples, row.regret_visits), (8, 1, 0, 1))
+        trainer.step()
+        self.assertEqual(row.strategy_sum, [1.5, 0.5])
+        self.assertEqual((row.average_samples, row.average_visits,
+                          row.average_regret_samples, row.regret_visits), (16, 2, 8, 2))
+        self.assertEqual(trainer.total_nodes,
+                         trainer.total_regret_nodes + trainer.total_average_nodes)
+        trainer.max_nodes = 36  # 5 regret nodes plus 32 average nodes are required.
+        before = trainer.state_dict()
+        with self.assertRaises(SamplingLimit):
+            trainer.step()
+        self.assertEqual(trainer.state_dict(), before)
+
     def test_exact_three_player_counterfactual_regrets_exclude_own_reach(self):
         # E[A | external reach] = (3/4)*[(1/4)*(8/4+3*4/4)
         #                                     +(3/4)*(-4/4+3*12/4)] = 87/16.

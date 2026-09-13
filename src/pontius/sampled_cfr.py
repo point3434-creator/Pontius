@@ -1,7 +1,8 @@
 """Serial external-sampling CFR reference with multiplayer-safe averaging.
 
 One iteration freezes the joint policy, samples one external traversal per
-player, and then takes one averaging trajectory per player. For averaging,
+player, and then takes R independently sampled averaging trajectories per player.
+Each trajectory contributes 1/R of the iteration weight. For averaging,
 opponents ALWAYS use uniform legal actions; only the target uses its current
 policy. Under perfect recall, the expected row contribution is own reach times
 policy times an iteration-independent chance/opponent factor, which cancels on
@@ -30,11 +31,19 @@ class SamplingLimit(RuntimeError):
 
 @dataclass(slots=True)
 class RegretRow:
+    """Visits count committed iterations; samples count averaging trajectories.
+
+    average_regret_samples includes only policies read after a prior iteration
+    committed a target regret update, including a numerically zero update.
+    """
     player: int
     actions: tuple[str, ...]
     regrets: list[float]
     strategy_sum: list[float]
     average_visits: int = 0
+    average_samples: int = 0
+    average_regret_samples: int = 0
+    regret_visits: int = 0
 
 
 @dataclass(frozen=True)
@@ -136,6 +145,7 @@ class ExternalSamplingCFR:
         seed: int = 0,
         max_rows: int = 100_000,
         max_nodes: int = 200_000,
+        averaging_trajectories: int = 1,
     ):
         if type(num_players) is not int or num_players < 2:
             raise ValueError("at least two players are required")
@@ -145,22 +155,37 @@ class ExternalSamplingCFR:
             raise ValueError("a versioned game identity is required")
         if any(type(limit) is not int or limit < 1 for limit in (max_rows, max_nodes)):
             raise ValueError("capacity bounds must be positive integers")
+        if type(averaging_trajectories) is not int or averaging_trajectories < 1:
+            raise ValueError("averaging_trajectories must be a positive integer")
+        if type(seed) is not int:
+            raise ValueError("seed must be an integer")
         self.num_players = num_players
         self.root_sampler = root_sampler
         self.game_id = game_id
         self.variant = variant
         self.max_rows = max_rows
         self.max_nodes = max_nodes
-        self.rng = random.Random(seed)
+        self.averaging_trajectories = averaging_trajectories
+        # Stable domains deliberately exclude R, variant, and game identity.
+        # Paired arms therefore share regret draws and each average stream's prefix.
+        def stream(domain):
+            payload = f"pontius-sampled-cfr-rng-v2:{seed}:{domain}".encode("ascii")
+            return random.Random(int.from_bytes(hashlib.sha256(payload).digest(), "big"))
+        self.rng = stream("regret")
+        self.average_rngs = [stream(f"average:{player}") for player in range(num_players)]
         self.iterations = 0
         self.total_nodes = 0
+        self.total_regret_nodes = 0
+        self.total_average_nodes = 0
         self.rows: dict[str, RegretRow] = {}
 
     @property
     def identity(self):
         description = {
-            "algorithm": "external-sampling-frozen-v1",
-            "average": "fixed-uniform-opponents-v1",
+            "algorithm": "external-sampling-frozen-v2",
+            "average": "fixed-uniform-opponents-independent-v2",
+            "rng": "sha256-pontius-sampled-cfr-rng-v2",
+            "averaging_trajectories": self.averaging_trajectories,
             "game": self.game_id,
             "players": self.num_players,
             "variant": self.variant,
@@ -170,10 +195,12 @@ class ExternalSamplingCFR:
     def step(self):
         """Commit one full round, or leave state/RNG unchanged on a detected error."""
         rng_before = self.rng.getstate()
+        average_rngs_before = [rng.getstate() for rng in self.average_rngs]
         pending_rows = {}
         strategies = {}
         regret_updates = {}
         average_updates = {}
+        average_samples = {}
         nodes = 0
         weight = float(self.iterations + 1) if self.variant == "linear" else 1.0
 
@@ -234,16 +261,21 @@ class ExternalSamplingCFR:
         try:
             for player in range(self.num_players):
                 traverse(self.root_sampler(self.rng), player)
+            regret_nodes = nodes
             for player in range(self.num_players):
-                sample = average_trajectory(
-                    self.root_sampler(self.rng), player, strategy, self.rng,
-                    weight=weight, node_limit=self.max_nodes - nodes,
-                )
-                nodes += sample.visited_nodes
-                for key, update in sample.updates.items():
-                    if key in average_updates:
-                        raise ValueError("players must have distinct infoset identities")
-                    average_updates[key] = update
+                rng = self.average_rngs[player]
+                for _ in range(self.averaging_trajectories):
+                    sample = average_trajectory(
+                        self.root_sampler(rng), player, strategy, rng,
+                        weight=weight / self.averaging_trajectories,
+                        node_limit=self.max_nodes - nodes,
+                    )
+                    nodes += sample.visited_nodes
+                    for key, update in sample.updates.items():
+                        destination = average_updates.setdefault(key, [0.0] * len(update))
+                        for index, change in enumerate(update):
+                            destination[index] += change
+                        average_samples[key] = average_samples.get(key, 0) + 1
             # Validate every prospective numeric update before mutating persistent rows.
             for updates, attribute in ((regret_updates, "regrets"),
                                        (average_updates, "strategy_sum")):
@@ -254,6 +286,8 @@ class ExternalSamplingCFR:
                         raise ValueError("non-finite accumulator update")
         except Exception:
             self.rng.setstate(rng_before)
+            for rng, before in zip(self.average_rngs, average_rngs_before, strict=True):
+                rng.setstate(before)
             raise
 
         self.rows.update(pending_rows)
@@ -264,9 +298,17 @@ class ExternalSamplingCFR:
                 for index, change in enumerate(update):
                     destination[index] += change
         for key in average_updates:
-            self.rows[key].average_visits += 1
+            row = self.rows[key]
+            row.average_visits += 1
+            row.average_samples += average_samples[key]
+            if row.regret_visits:
+                row.average_regret_samples += average_samples[key]
+        for key in regret_updates:
+            self.rows[key].regret_visits += 1
         self.iterations += 1
         self.total_nodes += nodes
+        self.total_regret_nodes += regret_nodes
+        self.total_average_nodes += nodes - regret_nodes
         return nodes
 
     def average_policy(self):
@@ -281,33 +323,43 @@ class ExternalSamplingCFR:
         # Convert tuples in Random's state to JSON-native lists without changing numbers.
         rng_state = json.loads(json.dumps(self.rng.getstate()))
         return {
-            "format": "pontius-sampled-cfr-v1", "identity": self.identity,
+            "format": "pontius-sampled-cfr-v2", "identity": self.identity,
             "game_id": self.game_id, "num_players": self.num_players,
             "variant": self.variant, "max_rows": self.max_rows, "max_nodes": self.max_nodes,
             "iterations": self.iterations, "total_nodes": self.total_nodes, "rng": rng_state,
+            "averaging_trajectories": self.averaging_trajectories,
+            "average_rngs": json.loads(json.dumps([rng.getstate() for rng in self.average_rngs])),
+            "total_regret_nodes": self.total_regret_nodes,
+            "total_average_nodes": self.total_average_nodes,
             "rows": [
                 {"key": key, "player": row.player, "actions": list(row.actions),
                  "regrets": list(row.regrets), "strategy_sum": list(row.strategy_sum),
-                 "average_visits": row.average_visits}
+                 "average_visits": row.average_visits,
+                 "average_samples": row.average_samples,
+                 "average_regret_samples": row.average_regret_samples,
+                 "regret_visits": row.regret_visits}
                 for key, row in sorted(self.rows.items())
             ],
         }
 
     @classmethod
     def from_state(cls, state, root_sampler, expected_game_id):
-        if state.get("format") != "pontius-sampled-cfr-v1":
-            raise ValueError("unsupported trainer state")
+        if state.get("format") != "pontius-sampled-cfr-v2":
+            raise ValueError("unsupported trainer state; v1 resumes require the original trainer")
         if state.get("game_id") != expected_game_id:
             raise ValueError("checkpoint game identity mismatch")
         result = cls(state["num_players"], root_sampler, state["game_id"],
                      variant=state["variant"], max_rows=state["max_rows"],
-                     max_nodes=state["max_nodes"])
+                     max_nodes=state["max_nodes"],
+                     averaging_trajectories=state.get("averaging_trajectories"))
         if result.identity != state.get("identity"):
             raise ValueError("checkpoint algorithm identity mismatch")
-        for name in ("iterations", "total_nodes"):
+        for name in ("iterations", "total_nodes", "total_regret_nodes", "total_average_nodes"):
             if type(state.get(name)) is not int or state[name] < 0:
                 raise ValueError("invalid trainer counters")
             setattr(result, name, state[name])
+        if result.total_nodes != result.total_regret_nodes + result.total_average_nodes:
+            raise ValueError("inconsistent trainer node counters")
         for record in state["rows"]:
             key, player, actions = record["key"], record["player"], tuple(record["actions"])
             if (type(key) is not str or key in result.rows or not actions or
@@ -318,20 +370,44 @@ class ExternalSamplingCFR:
             regrets = [float(value) for value in record["regrets"]]
             strategy_sum = [float(value) for value in record["strategy_sum"]]
             visits = record["average_visits"]
+            samples = record.get("average_samples")
+            regret_samples = record.get("average_regret_samples")
+            regret_visits = record.get("regret_visits")
             if (len(regrets) != len(actions) or len(strategy_sum) != len(actions) or
                     any(not math.isfinite(value) for value in regrets + strategy_sum) or
                     any(value < 0 for value in strategy_sum) or
-                    type(visits) is not int or not 0 <= visits <= result.iterations):
+                    type(visits) is not int or not 0 <= visits <= result.iterations or
+                    type(samples) is not int or
+                    not visits <= samples <= visits * result.averaging_trajectories or
+                    type(regret_samples) is not int or not 0 <= regret_samples <= samples or
+                    type(regret_visits) is not int or not 0 <= regret_visits <= result.iterations or
+                    (regret_samples > 0 and regret_visits == 0)):
                 raise ValueError("invalid regret or average accumulators")
-            result.rows[key] = RegretRow(player, actions, regrets, strategy_sum, visits)
+            result.rows[key] = RegretRow(player, actions, regrets, strategy_sum, visits,
+                                        samples, regret_samples, regret_visits)
         if len(result.rows) > result.max_rows:
             raise ValueError("checkpoint exceeds configured row capacity")
 
-        def tuples(value):
-            return tuple(tuples(item) for item in value) if isinstance(value, list) else value
+        def restore_rng(rng, value):
+            if not isinstance(value, (list, tuple)) or len(value) != 3:
+                raise ValueError("invalid RNG state shape")
+            version, words, gaussian = value
+            if (type(version) is not int or version != 3 or
+                    not isinstance(words, (list, tuple)) or len(words) != 625 or
+                    any(type(word) is not int or not 0 <= word < 2 ** 32 for word in words[:-1]) or
+                    type(words[-1]) is not int or not 0 <= words[-1] <= 624 or
+                    (gaussian is not None and
+                     (type(gaussian) not in (int, float) or not math.isfinite(gaussian)))):
+                raise ValueError("invalid RNG state contents")
+            rng.setstate((version, tuple(words), gaussian))
 
         try:
-            result.rng.setstate(tuples(state["rng"]))
-        except (TypeError, ValueError, IndexError) as error:
+            restore_rng(result.rng, state["rng"])
+            average_states = state["average_rngs"]
+            if not isinstance(average_states, list) or len(average_states) != result.num_players:
+                raise ValueError("wrong number of averaging streams")
+            for rng, rng_state in zip(result.average_rngs, average_states, strict=True):
+                restore_rng(rng, rng_state)
+        except (TypeError, ValueError, IndexError, KeyError, OverflowError) as error:
             raise ValueError("invalid RNG restart state") from error
         return result

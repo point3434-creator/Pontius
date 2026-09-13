@@ -61,6 +61,32 @@ def canonical_flop(hole: HoleCards, board: tuple[int, ...]) -> tuple[int, ...]:
     )
 
 
+def structural_flop(hole: HoleCards, board: tuple[int, ...]) -> tuple[int, int, int]:
+    """Diagnostic v1 label of the five observed cards, independent of suit names.
+
+    Components are made category (0..8), maximum suit multiplicity (0 for <=2,
+    then 1/2/3 for 3/4/5), and straight potential (0/1/2 for zero/one/at least
+    two distinct unseen completion ranks; 3 for an existing straight). The
+    ace-low window is included. This deliberately merges strategically distinct
+    boards and is not a production abstraction or an equity estimate.
+    """
+    hole = make_hole(*hole)
+    if len(board) != 3 or any(type(card) is not int or card not in range(52) for card in board):
+        raise ValueError("structural flop requires three valid public cards")
+    cards = (*hole, *board)
+    if len(set(cards)) != 5:
+        raise ValueError("structural flop requires five distinct private/public cards")
+    made = evaluate_five(cards)[0]
+    flush = max(0, max(sum(card % 4 == suit for card in cards) for suit in range(4)) - 2)
+    ranks = {card // 4 for card in cards}
+    windows = [set(range(low, low + 5)) for low in range(9)]
+    windows.append({12, 0, 1, 2, 3})
+    missing = [window - ranks for window in windows]
+    straight = (3 if any(not gap for gap in missing) else
+                min(2, len({next(iter(gap)) for gap in missing if len(gap) == 1})))
+    return made, flush, straight
+
+
 def _raise_count(betting: NoLimitBettingState) -> int:
     return sum(
         record.street == betting.street and record.action.kind == BettingActionKind.RAISE
@@ -140,6 +166,7 @@ class EarlyHoldemGame:
     stack_bb: int = 20
     max_raises: int = 1
     continuation: str = "check_call"
+    flop_representation: str = "exact"
     game_id: str = field(init=False)
     num_players: int = field(default=6, init=False)
 
@@ -158,8 +185,10 @@ class EarlyHoldemGame:
             raise ValueError("max_raises must be a nonnegative integer")
         if self.continuation not in ("check_call", "showdown_betting"):
             raise ValueError("unknown diagnostic continuation")
+        if self.flop_representation not in ("exact", "structural"):
+            raise ValueError("flop_representation must be exact or structural")
         identity = {
-            "schema": "early-holdem-v1",
+            "schema": "early-holdem-v2",
             "stack_bb": self.stack_bb,
             "max_raises": self.max_raises,
             "continuation": self.continuation,
@@ -167,7 +196,9 @@ class EarlyHoldemGame:
             "players": 6,
             "button": 0,
             "menu": "2.5bb-pot-preflop-halfpot-pot-flop-allin-v1",
-            "cards": "169-preflop-exact-suit-canonical-flop-v1",
+            "cards": ("169-preflop-exact-suit-canonical-flop-v1"
+                      if self.flop_representation == "exact" else
+                      "169-preflop-structural-made-flush-straight-flop-v1"),
             "continuation_version": 1,
         }
         object.__setattr__(
@@ -239,7 +270,10 @@ class EarlyHoldemState:
         hole = self.deal.hand(player)
         private = {"preflop": preflop_class(hole)}
         if self.betting.street == BettingStreet.FLOP:
-            private["flop"] = canonical_flop(hole, self.deal.public_cards(BettingStreet.FLOP))
+            encoder = (
+                canonical_flop if self.game.flop_representation == "exact" else structural_flop
+            )
+            private["flop"] = encoder(hole, self.deal.public_cards(BettingStreet.FLOP))
         # Every ledger field is public, including full ordered action history,
         # action reopening rights, starting stacks, contributions and position.
         return json.dumps(

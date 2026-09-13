@@ -117,6 +117,92 @@ not establish poker strength or useful general flop coverage. Larger runs need
 an abstraction/continuation decision and measured memory limits first. This
 command does not install an automatic restart service or start a weeks-long job.
 
+## Next test: supervised four-arm flop coverage
+
+The [next experiment design](flop-coverage-design.md) crosses exact versus
+diagnostic structural flop keys with one versus eight averaging trajectories per
+player. All arms use ordinary sampled CFR, equal 100bb stacks and a frozen
+check/call continuation. Three independent training seeds give 12 sequential
+cells. These coarse groups are diagnostic controls, not production buckets.
+
+This uses a new trainer/game identity and independent RNG streams. The older
+v1 pilot remains historical evidence. Its checkpoints require the original
+trainer at commit `de513a4bd10a1553e023d9ceb492bd213c7ca837` for continuation;
+the new experiment starts fresh and explicitly rejects incompatible resumes.
+
+After the reviewed source is installed and its CI is green, verify the affected
+suites with the existing environment (no environment rebuild is needed):
+
+```bash
+.venv/bin/python -m pytest -p no:cacheprovider -q -k 'sampled_cfr or early_holdem or training_checkpoint or flop_coverage'
+```
+
+The short rehearsal uses the same controller with reduced counts. Give every
+new run a different directory:
+
+```bash
+PYTHONPATH=src .venv/bin/python experiments/2026-09-12-flop-coverage.py run --profile smoke --run-directory experiments/results/runs/coverage-smoke-001
+```
+
+The full run needs root, Linux cgroup v2, systemd, at least 100 GiB free disk,
+and the intended CPython 3.14 virtual environment. From the verified checkout,
+the launcher below creates a new persistent service. Choose a unique run name.
+The SHA supplied is the exact reviewed checkout, which the launcher verifies:
+
+```bash
+.venv/bin/python tools/run_flop_coverage_server.py --run-name coverage-001 --reviewed-commit "$(git rev-parse HEAD)"
+```
+
+Add `--print-unit` to inspect the unit without installing or starting it. The
+actual install validates the unit with systemd before enabling it. It refuses
+existing run/service names, unreviewed source edits and a competing active job.
+
+For the example name above, these commands show progress and the retained result:
+
+```bash
+systemctl status pontius-flop-coverage-coverage-001.service --no-pager
+journalctl -u pontius-flop-coverage-coverage-001.service -n 30 --no-pager
+cat experiments/results/runs/coverage-001/progress.json
+cat experiments/results/runs/coverage-001/result.json
+```
+
+`result.json` appears when the controller finishes; `progress.json` appears
+after completed cells. Earlier work is visible in the service log and in
+`jobs/calibrate.log` or `cells/<arm>-<seed>/progress.json` inside the run directory.
+An SSH disconnect does not stop the service. Its installed unit starts again
+after reboot; the controller retains the original deadline and resumes its
+checkpoints. A terminal run exits without retraining. Bounded restart attempts
+can leave the service failed after repeated abnormal exits; inspect its logs.
+
+The limits are 5,000 iterations and 500,000 rows per cell, 20 minutes per cell
+including checkpoint work, a 12 GiB graceful memory stop and 16 GiB hard memory
+ceiling for the service, no swap, a 50 GiB experiment file budget, and six hours
+overall with time reserved for evaluation. Shutdown has a 30-second grace
+period. Timing after an unexpected process restart is marked incomplete where
+lost CPU measurements cannot be reconstructed; wall time still includes downtime.
+
+Milestones at 0, 100, 1,000, 5,000 and a capacity stopping point are immutable.
+The run also retains fixed panel hashes, policy exports, resource logs, paired
+deal-block returns and software interruption checks. Status `capped` is a
+resource or incomplete-evaluation result. Status `failed` requires inspection.
+Even status `passed` means the declared experiment completed; it does not
+establish general poker strength, a six-player equilibrium or physical SSD
+power-cut durability. Keep the entire run directory; Git does not copy it.
+
+To stop this job deliberately:
+
+```bash
+systemctl stop pontius-flop-coverage-coverage-001.service
+```
+
+The controller attempts to close its current worker and retain a result. This
+is a terminal stop, rather than a pause intended to obtain a fresh time budget.
+To prevent this service from being invoked on subsequent boots, disable it:
+
+```bash
+systemctl disable pontius-flop-coverage-coverage-001.service
+```
+
 ## Code updates and training data
 
 Large checkpoints and policy tables remain in each machine's run directory;

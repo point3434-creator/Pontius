@@ -5,6 +5,8 @@
   "test_sampled_cfr_oracles",
   "test_training_checkpoint",
   "test_early_holdem",
+  "test_flop_coverage_experiment",
+  "test_flop_coverage_server",
   "test_updates",
   "test_evaluation",
   "test_depth_limited",

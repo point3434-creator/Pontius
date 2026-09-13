@@ -4,7 +4,9 @@ from itertools import combinations, permutations
 import random
 import unittest
 
+import pontius.early_holdem as early_holdem
 from pontius.early_holdem import EarlyHoldemGame, canonical_flop, preflop_class
+from pontius.sampled_cfr import ExternalSamplingCFR
 from pontius.game import TERMINAL_PLAYER
 from pontius.holdem_cards import SixSeatHoldemDeal
 from pontius.no_limit_betting import (
@@ -40,6 +42,60 @@ def deal_with_visible(hole, board, seed=0, actor=1):
 
 
 class EarlyHoldemTests(unittest.TestCase):
+    def test_structural_flop_categories_and_draws_have_literal_labels(self):
+        # Catches rank/suit-based accidental refinement and missed ace-low draws.
+        cases = (
+            ("As Kh", "Qd 8c 2s", (0, 0, 0)),
+            ("As Ah", "Qd 8c 2s", (1, 0, 0)),
+            ("As Ah", "Qd Qc 2s", (2, 0, 0)),
+            ("As Ah", "Ad 8c 2s", (3, 0, 0)),
+            ("As Kh", "Qd Jc Ts", (4, 0, 3)),
+            ("As Ks", "Qs 8s 2s", (5, 3, 0)),
+            ("As Ah", "Ad 2c 2s", (6, 0, 0)),
+            ("As Ah", "Ad Ac 2s", (7, 0, 0)),
+            ("As 2s", "3s 4s 5s", (8, 3, 3)),
+            ("As 2h", "3d 4c Ks", (0, 0, 1)),
+            ("5s 6h", "7d 8c Ks", (0, 0, 2)),
+            ("As Ks", "Qs 8h 2d", (0, 1, 0)),
+            ("As Ks", "Qs 8s 2d", (0, 2, 0)),
+        )
+        self.assertTrue(callable(getattr(early_holdem, "structural_flop", None)))
+        for hole, board, expected in cases:
+            with self.subTest(hole=hole, board=board):
+                self.assertEqual(early_holdem.structural_flop(
+                    make_hole(*hole.split()), parse_cards(*board.split())), expected)
+
+    def test_structural_keys_merge_top_and_bottom_pair_but_preserve_context(self):
+        game = EarlyHoldemGame(flop_representation="structural")
+        betting = flop_betting()
+        def key(hole, board, ledger=betting):
+            state = game.state_for(deal_with_visible(make_hole(*hole.split()),
+                                   parse_cards(*board.split())), ledger)
+            return state.information_state_key(1)
+        self.assertEqual(key("8s 7h", "8d 4c 2s"), key("8s 7h", "Kd Qc 8d"))
+        self.assertNotEqual(key("8s 7h", "8d 4c 2s"), key("8s 6h", "8d 4c 2s"))
+        self.assertNotEqual(key("8s 7h", "8d 4c 2s"),
+                            key("8s 7h", "8d 4c 2s", flop_betting((200,) * 6)))
+        self.assertNotEqual(game.game_id, EarlyHoldemGame().game_id)
+        with self.assertRaises(ValueError):
+            EarlyHoldemGame(flop_representation="equity")
+
+    def test_both_representations_preserve_paired_regret_paths(self):
+        for representation in ("exact", "structural"):
+            game = EarlyHoldemGame(stack_bb=2, max_raises=0,
+                                   flop_representation=representation)
+            trainers = [ExternalSamplingCFR(6, game.sample_root, game.game_id, seed=1001,
+                        averaging_trajectories=count) for count in (1, 8)]
+            for _ in range(3):
+                for trainer in trainers:
+                    trainer.step()
+                one, eight = trainers
+                def regrets(trainer):
+                    return {key: (row.regrets, row.regret_visits)
+                            for key, row in trainer.rows.items() if row.regret_visits}
+                self.assertEqual(regrets(one), regrets(eight))
+                self.assertEqual(one.rng.getstate(), eight.rng.getstate())
+
     def test_preflop_partition_has_exactly_169_classes(self):
         classes = {preflop_class(hand) for hand in combinations(range(52), 2)}
         self.assertEqual(len(classes), 169)
@@ -48,7 +104,10 @@ class EarlyHoldemTests(unittest.TestCase):
         self.assertEqual(preflop_class(make_hole("As", "Kh")), "AKo")
 
     def test_flop_key_is_invariant_under_all_suit_permutations(self):
-        game = EarlyHoldemGame()
+        for representation in ("exact", "structural"):
+            self.check_suit_permutations(EarlyHoldemGame(flop_representation=representation))
+
+    def check_suit_permutations(self, game):
         betting = flop_betting()
         deal = deal_with_visible(make_hole("As", "Ks"), parse_cards("Qs", "Jh", "2c"))
         expected = game.state_for(deal, betting).information_state_key(1)
@@ -68,7 +127,10 @@ class EarlyHoldemTests(unittest.TestCase):
         )
 
     def test_unseen_hands_and_future_cards_do_not_change_early_policy_inputs(self):
-        game = EarlyHoldemGame()
+        for representation in ("exact", "structural"):
+            self.check_unseen_cards(EarlyHoldemGame(flop_representation=representation))
+
+    def check_unseen_cards(self, game):
         for betting in (flop_betting(), game.sample_root(random.Random(0)).betting):
             actor = betting.acting_seat
             board = parse_cards("Qs", "Jh", "2c") if betting.street == BettingStreet.FLOP else ()
@@ -167,7 +229,10 @@ class EarlyHoldemTests(unittest.TestCase):
         )
 
     def test_identical_current_ledgers_preserve_different_preflop_histories(self):
-        game = EarlyHoldemGame()
+        for representation in ("exact", "structural"):
+            self.check_preflop_history(EarlyHoldemGame(flop_representation=representation))
+
+    def check_preflop_history(self, game):
         root = game.sample_root(random.Random(7))
         early_raise = root.betting.apply_action(raise_to(5))
         late_raise = root.betting.apply_action(CALL).apply_action(raise_to(5))

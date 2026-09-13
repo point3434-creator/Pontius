@@ -36,6 +36,20 @@ provider preparation, and the harness that measures them. Solver quality and GPU
 experiments belong to other families. Detailed reports and raw runs remain
 available through the evidence links below.
 
+**Next coverage experiment, implementation prepared 2026-09-12:**
+[`2026-09-12-flop-coverage.py`](2026-09-12-flop-coverage.py) crosses exact versus
+fixed structural flop representations with R=1 versus R=8 independent averaging
+trajectories. The new sampler/game identities mean the v1 timings and coverage
+above remain historical; they are not results for the changed trajectory.
+The driver retains fixed observation panels, distinct sample/iteration counters,
+paired six-seat deal blocks, and named immutable milestones. A Linux service
+provides bounded execution and recovery under the original deadline. Local
+rehearsal and unit checks exercise the machinery; target-server main-run
+measurements and poker-strength conclusions are pending. The coarse structural
+groups are diagnostic controls, with no production adoption. See the
+[design](../docs/flop-coverage-design.md) and
+[Ubuntu instructions](../docs/early-blueprint-linux.md). Review date: 2026-09-12.
+
 **Reading the numbers:** an artifact is the serialized blueprint table;
 preparation builds the provider used for decisions; a cell is one configured
 benchmark case. A warm call uses an already prepared provider. Milliseconds

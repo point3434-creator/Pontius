@@ -49,6 +49,7 @@ class FlopCoverageServerTests(unittest.TestCase):
             config = configparser.ConfigParser(interpolation=None)
             config.read_string(result.stdout)
             service = config["Service"]
+            self.assertEqual(service["WorkingDirectory"], str(repo))
             arguments = shlex.split(service["ExecStart"])
             probe = subprocess.run(
                 [

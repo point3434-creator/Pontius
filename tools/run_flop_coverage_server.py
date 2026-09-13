@@ -69,6 +69,8 @@ def unit_text(repo, name, reviewed_commit):
             repo / "execution_journal.jsonl",
         )
     )
+    # WorkingDirectory is a scalar path; systemd does not remove word quotes here.
+    working_directory = str(repo).replace("%", "%%")
     return f"""[Unit]
 Description=Pontius reviewed flop coverage {name}
 After=local-fs.target
@@ -77,7 +79,7 @@ StartLimitBurst=3
 
 [Service]
 Type=exec
-WorkingDirectory={quoted(repo)}
+WorkingDirectory={working_directory}
 Environment={environment}
 ExecStart={invocation}
 MemoryAccounting=yes

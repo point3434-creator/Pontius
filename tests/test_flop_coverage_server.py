@@ -27,14 +27,14 @@ def launcher():
 class FlopCoverageServerTests(unittest.TestCase):
     def test_print_unit_is_nonmutating_and_round_trips_controller_arguments(self):
         with tempfile.TemporaryDirectory() as temporary:
-            repo = Path(temporary) / "repo with spaces"
+            repo = (Path(temporary) / "repo with spaces").resolve()
             repo.mkdir()
             result = subprocess.run(
                 [
                     sys.executable,
                     str(SCRIPT),
                     "--repo-root",
-                    str(repo),
+                    str(repo / ".." / repo.name),
                     "--run-name",
                     "coverage-1101",
                     "--reviewed-commit",

@@ -31,5 +31,5 @@ select = ["E4", "E7", "E9", "F", "W291", "W292", "W293", "E501"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_pontius.py"]
-pythonpath = ["src", "tests"]
+pythonpath = [".","src", "tests"]
 addopts = "-ra"

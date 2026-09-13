@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 import tempfile
 import unittest
@@ -1221,8 +1222,9 @@ class EventConstructorAdmissionTests(unittest.TestCase):
 
 
 class StableTraceWriterTests(unittest.TestCase):
+    @unittest.skipUnless(os.name == "nt",
+                         "NTFS junction replacement has no POSIX equivalent")
     def test_checked_parent_cannot_be_replaced_before_creation(self):
-        import os
         import subprocess
         import pontius.v0a.trace as trace_module
         with tempfile.TemporaryDirectory() as temporary:
@@ -1303,8 +1305,9 @@ class StableTraceWriterTests(unittest.TestCase):
             self.assertEqual((root / "moved" / "trace.jsonl").read_bytes(),
                              b"header\nterminal\n")
 
+    @unittest.skipUnless(os.name == "nt",
+                         "NTFS junction roots have no POSIX equivalent")
     def test_junction_root_is_refused_without_outside_publication(self):
-        import os
         import subprocess
         with tempfile.TemporaryDirectory() as temporary:
             outer = Path(temporary)

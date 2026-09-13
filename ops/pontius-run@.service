@@ -1,0 +1,45 @@
+# One long Pontius job per instance name. The instance name is the run
+# identifier and the results directory name.
+#
+#   cp pontius-run@.service ~/.config/systemd/user/
+#   loginctl enable-linger "$USER"          # runs survive logout and reboot
+#   systemctl --user daemon-reload
+#   systemctl --user start pontius-run@blueprint-001
+#   journalctl --user -u pontius-run@blueprint-001 -f
+
+[Unit]
+Description=Pontius run %i
+After=network-online.target
+
+[Service]
+Type=exec
+WorkingDirectory=%h/Pontius
+Environment=PYTHONPATH=%h/Pontius/src
+Environment=PONTIUS_RUN_ID=%i
+Environment=PONTIUS_RUN_ROOT=%h/pontius-runs/%i
+ExecStartPre=/bin/mkdir -p %h/pontius-runs/%i
+
+# Placeholder command: the existing workload benchmark. Replace the ExecStart
+# line when a trainer exists. The shape stays the same either way - one command,
+# appending progress.jsonl under PONTIUS_RUN_ROOT.
+ExecStart=%h/.local/bin/uv run --no-sync python -B -P tools/v0a_blueprint_workload.py run \
+    --development --population-root %h/pontius-corpus \
+    --kinds construction --sizes 883 --cells 3 --seconds 3600
+
+# cgroup v2 replaces the Windows job object the harness uses for memory limits.
+# Set MemoryMax below total RAM so a runaway run is killed instead of swapping
+# the box to a standstill.
+MemoryMax=96G
+MemoryHigh=80G
+CPUWeight=100
+Nice=5
+
+Restart=on-failure
+RestartSec=30s
+TimeoutStopSec=120
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
